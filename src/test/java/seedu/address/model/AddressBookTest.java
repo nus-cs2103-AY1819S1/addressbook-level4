@@ -3,6 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TIME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
@@ -22,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventClashException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -83,6 +86,24 @@ public class AddressBookTest {
     }
 
     @Test
+    public void resetData_withClashingEvents_throwsDuplicateEventException() {
+
+        List<Person> newPersons = Arrays.asList(ALICE);
+
+        // Two events with the same identity fields
+        Event clashingEvent =
+                new ScheduledEventBuilder(DOCTORAPPT)
+                        .withEventStartTime(CLASHING_EVENT_START_TIME_DOCTORAPPT)
+                        .withEventEndTime(CLASHING_EVENT_END_TIME_DOCTORAPPT)
+                        .build();
+        List<Event> newEvents = Arrays.asList(DOCTORAPPT, clashingEvent);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+
+        thrown.expect(EventClashException.class);
+        addressBook.resetData(newData);
+    }
+
+    @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.hasPerson(null);
@@ -105,6 +126,11 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasClashingEvent_clashingEventNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasClashingEvent(DOCTORAPPT));
+    }
+
+    @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
@@ -114,6 +140,16 @@ public class AddressBookTest {
     public void hasEvent_eventInAddressBook_returnsTrue() {
         addressBook.addEvent(DOCTORAPPT);
         assertTrue(addressBook.hasEvent(DOCTORAPPT));
+    }
+
+    @Test
+    public void hasClashingEvent_clashingEventInAddressBook_returnsTrue() {
+        addressBook.addEvent(DOCTORAPPT);
+        Event clashingEvent = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventStartTime(CLASHING_EVENT_START_TIME_DOCTORAPPT)
+                .withEventEndTime(CLASHING_EVENT_END_TIME_DOCTORAPPT)
+                .build();
+        assertTrue(addressBook.hasClashingEvent(clashingEvent));
     }
 
     @Test
