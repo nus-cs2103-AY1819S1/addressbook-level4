@@ -2,13 +2,11 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
 
 /**

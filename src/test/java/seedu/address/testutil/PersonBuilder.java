@@ -105,7 +105,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code ProfilePicture of the {@code Person} that we are building.
+     * Sets the {@code ProfilePicture} of the {@code Person} that we are building.
      */
     public PersonBuilder withProfilePicture(String profilePicture) {
         this.profilePicture = new ProfilePicture(profilePicture);

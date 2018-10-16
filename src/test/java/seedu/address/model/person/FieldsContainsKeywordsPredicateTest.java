@@ -20,13 +20,15 @@ public class FieldsContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         FieldsContainsKeywordsPredicate firstPredicate = new FieldsContainsKeywordsPredicate(firstPredicateKeywordList);
-        FieldsContainsKeywordsPredicate secondPredicate = new FieldsContainsKeywordsPredicate(secondPredicateKeywordList);
+        FieldsContainsKeywordsPredicate secondPredicate =
+                new FieldsContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same value -> returns true
-        FieldsContainsKeywordsPredicate firstPredicateCopy = new FieldsContainsKeywordsPredicate(firstPredicateKeywordList);
+        FieldsContainsKeywordsPredicate firstPredicateCopy =
+                new FieldsContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
