@@ -25,7 +25,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Parameterized constructor that takes in a UniqueId argument
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -60,6 +60,7 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -70,6 +71,7 @@ public class Person {
         }
 
         return otherPerson != null
+                //&& otherPerson.getUniqueId().equals(getUniqueId())
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
@@ -105,7 +107,8 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" Name: ")
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
@@ -117,4 +120,7 @@ public class Person {
         return builder.toString();
     }
 
+    public Person copyPerson() {
+        return new Person(name, phone, email, address, tags);
+    }
 }
