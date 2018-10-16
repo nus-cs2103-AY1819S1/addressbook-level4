@@ -25,10 +25,10 @@ public class DateFormatUtil {
     public static Date parseDate(String date) {
         Date result = null;
         try {
-            if (isValidDateMinimalFormat(date)) {
-                result = FORMAT_MINIMAL.parse(date);
-            } else if (isValidDateStandardFormat(date)) {
+            if (isValidDateStandardFormat(date)) {
                 result = FORMAT_STANDARD.parse(date);
+            } else if (isValidDateMinimalFormat(date)) {
+                result = FORMAT_MINIMAL.parse(date);
             }
         } catch (Exception e) {
             result = null;
