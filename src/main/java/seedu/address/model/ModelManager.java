@@ -149,9 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteEvent(Event target) {
+    public void deleteEvent(Event target) throws NotEventOrganiserException {
         if (target.equals(currentEvent)) {
             currentEvent = null;
+        }
+        if (!target.getOrganiser().equals(currentUser)) {
+            throw new NotEventOrganiserException();
         }
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
