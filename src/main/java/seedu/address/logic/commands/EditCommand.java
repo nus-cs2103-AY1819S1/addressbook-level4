@@ -49,11 +49,15 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_NO_EDIT_IDENTIFIER = "No identifier specified! Please provide either an "
+            + "INDEX parameter or a name parameter.\n" + MESSAGE_USAGE;
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+    public static final int NO_INDEX = 1000000000;
+
+    protected final EditPersonDescriptor editPersonDescriptor;
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -93,23 +97,20 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    protected static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         //@@author zioul123
-        Optional<Phone> updatedPhone = editPersonDescriptor.getPhone()
-                .isPresent()
-                ? editPersonDescriptor.getPhone()
-                : personToEdit.getPhone();
-        Optional<Email> updatedEmail = editPersonDescriptor.getEmail()
-                .isPresent()
-                ? editPersonDescriptor.getEmail()
-                : personToEdit.getEmail();
-        Optional<Address> updatedAddress = editPersonDescriptor.getAddress()
-                .isPresent()
-                ? editPersonDescriptor.getAddress()
-                : personToEdit.getAddress();
+        // Check if the editPersonDescriptor has these fields.
+        boolean hasPhone = editPersonDescriptor.getPhone().isPresent();
+        boolean hasEmail = editPersonDescriptor.getEmail().isPresent();
+        boolean hasAddress = editPersonDescriptor.getAddress().isPresent();
+
+        // Take the value of the editPersonDescriptor's field if it exists, otherwise take the original value.
+        Optional<Phone> updatedPhone = hasPhone ? editPersonDescriptor.getPhone() : personToEdit.getPhone();
+        Optional<Email> updatedEmail = hasEmail ? editPersonDescriptor.getEmail() : personToEdit.getEmail();
+        Optional<Address> updatedAddress = hasAddress ? editPersonDescriptor.getAddress() : personToEdit.getAddress();
         //@@author
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         // Edit command does not change meeting. Use schedule to change meeting.

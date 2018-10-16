@@ -16,6 +16,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -148,7 +149,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code fileLocation} is invalid.
      */
-    public static Path parseFileLocation(String fileLocation) throws ParseException {
+    public static Picture parseFileLocation(String fileLocation) throws ParseException {
+        requireNonNull(fileLocation);
+        String trimmedFileLocation = fileLocation.trim();
+        if (!Picture.isValidPicture(trimmedFileLocation)) {
+            throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
+        }
+        return new Picture(trimmedFileLocation);
+    }
+
+    /**
+     * Parses a {@code String csvFileLocation} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
+    public static Path parseCsv(String fileLocation) throws ParseException {
         requireNonNull(fileLocation);
         String trimmedFileLocation = fileLocation.trim();
         Path path = Paths.get(trimmedFileLocation);

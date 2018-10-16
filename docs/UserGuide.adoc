@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= InsuRen - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W13-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+InsuRen is for insurance salesman who *prefer to use a desktop app for managing contacts*. It can help to *manage one’s network of clients in an organized, efficient and intuitive manner.* More importantly, InsuRen is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsuRen can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `insuren.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for InsuRen.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -84,15 +84,17 @@ Shorthand: `l`
 
 === Editing a person : `edit`
 
-==== Editing by index
-
-Edits an existing person in the address book by the list's index. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing person in the address book by the displayed list's index or by an existing name. +
+Format: `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `e`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
-The index *must be a positive integer* 1, 2, 3, ...
+* You can edit a person by *index* or by *name*.
+** For editing the person at the specified `INDEX`, the index refers to the index number shown in the displayed person list.
+*** The index *must be a positive integer* 1, 2, 3, ...
+** For editing the person with a name matching the EXISTING_NAME, the name *​must uniquely identify a person.*
+*** If nobody matches the EXISTING_NAME, or there are multiple contacts matching it, InsuRen will notify you and not carry out changes.
+*** You can be less specific or more specific in the existing name to identify a person, but in the case that two people have exactly the same name, you have to use the edit by index command.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -105,35 +107,9 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-==== Editing by name
-
-Edits an existing person in the address book by the person's name. +
-Format: `edit n/NAME [p/phone] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person with the specified NAME. The index *​must be the full name.*
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
-* You can remove all the person’s tags by typing ​*t/*​ without specifying any tags after it.
-* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
-phone or other tags) to identify the contact, after which it will ask for the fields to update.
-****
-
-Examples:
-
 * `edit John Doe p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of John Doe to be ​91234567​ and
 johndoe@example.com​ respectively.
-* When there are two `John Doe` s on the list, and command provided is:
-** `edit John Doe` +
-Address book prompts for a unique field.
-** `p/98765432` +
-You provides a unique field. In this example the `John Doe` contact you will be editing should have phone number
-`98765432`.
-** `p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of John Doe to be ​`91234567​` and `johndoe@example.com​` respectively.
 
 === Locating persons by name: `find`
 
@@ -280,13 +256,16 @@ Shorthand: `q`
 
 === Mass import contacts: `import`
 
-Import contacts from a csv file. A file browser will open for users to navigate to their desired file (.txt and .csv only) +
+Import contacts from a csv file.
+If no file path is given, a file browser will open for users to navigate to their desired file (.txt and .csv only)
+If a file path is given, InsuRen will attempt to obtain and read the file specified by the given file path.
 Format: `import`
 
 Shorthand: `i`
 ****
-* Address book will fetch the file from the given path.
-* Address book will NOT throw an error message if the formatting of the file is incorrect.
+* InsuRen will fetch the file from the given path.
+* InsuRen will throw an error message if the file cannot be found from the given (typed) file path
+* InsuRen will NOT throw an error message if the formatting of the file is incorrect.
 * Improperly formatted contacts and/or duplicate contacts will be ignored.
 * Examples of properly formatted csv files are shown below.
 ****
@@ -297,8 +276,11 @@ Example:
 * A file browser will pop up as shown below:
 +
 image::import.png[width="790"]
-+
-* Address book will load contacts from the given csv file
+
+Example (user gives a file path):
+
+* `import` l/D:/AddressbookCorrect.csv
+* Regardless which method is used, InsuRen will load contacts from the given csv file
 * Each contact in these files must have the name, phone number, email and address fields filled up in that order.
 * Any invalid entries will be ignored.
 +
@@ -446,7 +428,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InsuRen folder.
 
 == Command Summary
 
@@ -466,7 +448,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import contacts* : `import`
+* *Import contacts* : `import` or `import` l/FILE_PATH
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
 * *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
