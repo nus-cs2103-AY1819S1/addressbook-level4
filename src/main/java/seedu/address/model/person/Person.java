@@ -2,12 +2,16 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.subject.Subject;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tuitionTiming.TuitionTiming;
 
 /**
  * Represents a Person in the address book.
@@ -22,18 +26,33 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Set<Subject> subjects = new HashSet<>();
+    private final TuitionTiming tuitionTiming;
     private final Set<Tag> tags = new HashSet<>();
+    private final List<Payment> payments = new ArrayList<>();
+
+    /**
+     * Alternate constructor for person with payment being optional.
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Subject> subjects, TuitionTiming tuitionTiming, Set<Tag> tags) {
+        this(name, phone, email, address, subjects, tuitionTiming, tags, new ArrayList<>());
+    }
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Subject> subjects, TuitionTiming tuitionTiming, Set<Tag> tags, List<Payment> paymentList) {
+        requireAllNonNull(name, phone, email, address, tags, paymentList);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.subjects.addAll(subjects);
+        this.tuitionTiming = tuitionTiming;
         this.tags.addAll(tags);
+        this.payments.addAll(paymentList);
     }
 
     public Name getName() {
@@ -52,6 +71,22 @@ public class Person {
         return address;
     }
 
+    public TuitionTiming getTuitionTiming() {
+        return tuitionTiming;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Subject> getSubjects() {
+        return Collections.unmodifiableSet(subjects);
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -65,13 +100,21 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
+
         if (otherPerson == this) {
             return true;
         }
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getSubjects().equals(getSubjects())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getTuitionTiming().equals(getTuitionTiming())
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getPayments().equals(getPayments());
+
     }
 
     /**
@@ -93,13 +136,16 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getSubjects().equals(getSubjects())
+                && otherPerson.getTuitionTiming().equals(getTuitionTiming())
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getPayments().equals(getPayments());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, subjects, tuitionTiming, tags, payments);
     }
 
     @Override
@@ -112,9 +158,19 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append("\nSubjects: ");
+
+        getSubjects().forEach(builder::append);
+
+        builder.append("\nTuition Timing: ")
+                .append(getTuitionTiming())
+                .append("\nTags: ");
+
         getTags().forEach(builder::append);
+
+        builder.append("\nPayments: ");
+        getPayments().forEach(builder::append);
+
         return builder.toString();
     }
-
 }
