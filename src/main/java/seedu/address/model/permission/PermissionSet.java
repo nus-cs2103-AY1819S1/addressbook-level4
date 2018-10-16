@@ -27,27 +27,60 @@ public class PermissionSet {
     }
 
     /**
-     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
-     *
-     * @param p permission to add
-     * @return true if success, otherwise false.
+     * Constructor to build a permission set with a preset permission list.
+     * @param p the preset to use.
      */
-    public boolean addPermission(Permission p) {
-        if (p == null) {
-            return false;
-        }
-
-        return permissionSet.add(p);
+    public PermissionSet(PresetPermission p) {
+        assignPresetPermission(p);
     }
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * No permissions modified if operation fails.
      *
-     * @param p permission to remove
+     * @param pList list of permission to add
      * @return true if success, otherwise false.
      */
-    public boolean removePermission(Permission p) {
-        return permissionSet.remove(p);
+    public boolean addPermissions(Permission... pList) {
+        if (pList == null) {
+            return false;
+        }
+
+        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        for (Permission p : pList) {
+            if (p == null) {
+                return false;
+            }
+
+            //If adding fails
+            if (!duplicate.add(p)) {
+                return false;
+            }
+        }
+        permissionSet = duplicate;
+        return true;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * No permissions modified if operation fails.
+     *
+     * @param pList list of permission to remove
+     * @return true if success, otherwise false.
+     */
+    public boolean removePermissions(Permission... pList) {
+        if (pList == null) {
+            return false;
+        }
+
+        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        for (Permission p : pList) {
+            if (!duplicate.remove(p)) {
+                return false;
+            }
+        }
+        permissionSet = duplicate;
+        return true;
     }
 
     /**
@@ -94,11 +127,16 @@ public class PermissionSet {
     /**
      * Check if permission set contains a specific permission
      *
-     * @param p the permission to check
+     * @param pList the list of permission to check
      * @return true if permission found, otherwise false.
      */
-    public boolean contains(Permission p) {
-        return permissionSet.contains(p);
+    public boolean containsAll(Permission... pList) {
+        for (Permission p : pList) {
+            if (!permissionSet.contains(p)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
