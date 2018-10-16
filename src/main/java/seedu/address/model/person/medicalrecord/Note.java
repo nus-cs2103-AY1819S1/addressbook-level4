@@ -38,11 +38,11 @@ public class Note {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Note: ")
-                .append(" Message: ")
+        builder.append("[Message: ")
                 .append(getMessage())
-                .append(" Dispensed Medicines: ")
-                .append(getDispensedMedicines());
+                .append(", Dispensed Medicines: ")
+                .append(convertDispensedMedicinesToPrettyString())
+                .append("]");
         return builder.toString();
     }
 
@@ -50,5 +50,17 @@ public class Note {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(message, dispensedMedicines);
+    }
+
+    private String convertDispensedMedicinesToPrettyString() {
+        String result = "";
+        for (Map.Entry<SerialNumber, Quantity> entry: dispensedMedicines.entrySet()) {
+            result += "<";
+            result += entry.getKey();
+            result += ", ";
+            result += entry.getValue();
+            result += ">, ";
+        }
+        return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
     }
 }

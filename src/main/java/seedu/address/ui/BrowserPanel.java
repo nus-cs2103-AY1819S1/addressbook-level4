@@ -29,7 +29,6 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
-
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -46,12 +45,16 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // loadDefaultPage();
+         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
     private void loadPersonPage(Patient patient) {
-        loadPage(SEARCH_PAGE_URL + patient.getName().fullName);
+//        loadPage(SEARCH_PAGE_URL + patient.getName().fullName);
+        String filePath = "/docs/PatientView.html";
+        String url = MainApp.class.getResource(filePath).toExternalForm();
+        url = addPatientDetailsAsArgs(patient, url);
+        loadPage(url);
     }
 
     public void loadPage(String url) {
@@ -76,64 +79,47 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        // loadPersonPage(event.getNewSelection());
-
-        System.out.println("clicked: " + event.getNewSelection());
-
-
-        Patient patientClicked = event.getNewSelection();
-
-
-        TreeItem<String> root = new TreeItem<>();
-        root.setExpanded(true);
-
-        makeBranch("Name: " + patientClicked.getName().fullName, root);
-        makeBranch("IC: " + patientClicked.getIcNumber().value, root);
-        makeBranch("Address: " + patientClicked.getAddress().value, root);
-        makeBranch("Phone: " + patientClicked.getPhone().value, root);
-        makeBranch("Email: " + patientClicked.getEmail().value, root);
-
-        TreeItem<String> medicalRecords;
-        medicalRecords = makeBranch("Medical Records", root);
-        makeBranch("Blood Type: " + patientClicked.getMedicalRecord().getBloodType().value, medicalRecords);
-
-        TreeItem<String> drugAllergies;
-        drugAllergies = makeBranch("Drug Allergies", medicalRecords);
-        List<DrugAllergy> drugAllergyList = patientClicked.getMedicalRecord().getDrugAllergies();
-        for (DrugAllergy drugAllergy: drugAllergyList) {
-            makeBranch(drugAllergy.value, drugAllergies);
-        }
-
-        TreeItem<String> diseaseHistory;
-        diseaseHistory = makeBranch("Disease History", medicalRecords);
-        List<Disease> diseaseList = patientClicked.getMedicalRecord().getDiseaseHistory();
-        for (Disease disease: diseaseList) {
-            makeBranch(disease.value, diseaseHistory);
-        }
-
-        TreeItem<String> notes;
-        notes = makeBranch("Notes", medicalRecords);
-        List<Note> noteList = patientClicked.getMedicalRecord().getNotes();
-        for (Note note: noteList) {
-            System.out.println(note);
-            makeBranch(note.getMessage().value, notes);
-        }
-
-        treeView.setRoot(root);
-        treeView.setShowRoot(false);
-
+        loadPersonPage(event.getNewSelection());
     }
 
-    /**
-     * Creates a branch in the tree item, returning the child item.
-     * @param title
-     * @param parent
-     * @return the child TreeItem after branching out.
-     */
-    private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
-        TreeItem<String> child = new TreeItem<>(title);
-        child.setExpanded(true);
-        parent.getChildren().add(child);
-        return child;
+    private String addPatientDetailsAsArgs(Patient patient, String url) {
+
+        url += "?name=";
+        url += patient.getName().fullName;
+
+        url += "&ic=";
+        url += patient.getIcNumber().value;
+
+        url += "&address=";
+        url += patient.getAddress().value;
+
+        url += "&phone=";
+        url += patient.getPhone().value;
+
+        url += "&email=";
+        url += patient.getEmail().value;
+
+        url += "&blood=";
+        url += patient.getMedicalRecord().getBloodType().value;
+
+        url += "&diseases=";
+        url += convertListToString(patient.getMedicalRecord().getDiseaseHistory());
+
+        url += "&drugs=";
+        url += convertListToString(patient.getMedicalRecord().getDrugAllergies());
+
+        url += "&notes=";
+        url += convertListToString(patient.getMedicalRecord().getNotes());
+
+        return url;
+    }
+
+    private <T> String convertListToString(List<T> list) {
+        String result = "";
+        for (T item: list) {
+            result += item.toString();
+            result += ", ";
+        }
+        return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
     }
 }
