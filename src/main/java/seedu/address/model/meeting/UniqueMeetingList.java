@@ -55,6 +55,20 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
+     * Replaces the contents of this list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        requireAllNonNull(meetings);
+        if (!meetingsAreUnique(meetings)) {
+            throw new DuplicateMeetingException();
+        }
+
+        allMeetings.setAll(meetings);
+    }
+
+
+    /**
      * Removes the equivalent value from the list.
      * The value must exist in the list.
      */
