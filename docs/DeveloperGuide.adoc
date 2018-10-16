@@ -1,4 +1,4 @@
-= ClinicIO - Developer Guide
+﻿= ClinicIO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -318,6 +318,62 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::medicineinventory[]
+=== MedicineInventory feature
+==== Current Implementation
+
+The `MedicineInventory` extends `ClinicIO` with a medicine inventory.
+It implements the following operations:
+
+* `MedicineInventory#hasMedicine(MedicineName medicineName)` -- Checks if the `MedicineInventory` contains the `Medicine` with name `medicineName`.
+* `MedicineInventory#addMedicine(MedicineName medicineName, Medicine newMedicine)` -- Adds `newMedicine` to the `MedicineInventory` with its `medicineName`.
+* `MedicineInventory#updateMedicineQuantity(MedicineName medicineName, MedicineQuantity newQuantity)` -- Updates the `MedicineQuantity` of the `Medicine` with name `medicineName` with the `newQuantity` in the `MedicineInventory`.
+* `MedicineInventory#removeMedicine(MedicineName medicineName)` -- Removes the `Medicine` with name `medicineName` from the `MedicineInventory`.
+
+These operations are exposed in the `Model` interface as `Model#hasMedicine(MedicineName medicine)`, `Model#addMedicine(MedicineName medicineName, Medicine medicine)`, `Model#updateMedicine(MedicineName target, MedicineQuantity newQuantity)`, and `Model#deleteMedicine(MedicineName medicine)` respectively.
+
+Given below is an example usage scenario and how the `MedicineInventory` behaves at each step.
+
+Step 1. The user launches the ClinicIO application. The empty `MedicineInventory` will be initialized at the same time as the `AddressBook`.
+
+Step 2. The user executes `add medicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours` command to add a new `Medicine` with `MedicineName` `Paracetamol` to the `MedicineInventory`. The `add medicine` command creates a new `Medicine` `newMedicine` with the fields specified by the command and calls `Model#addMedicine(Paracetamol, newMedicine)`. This adds a new entry into `MedicineInventory`.
+
+Step 3. The user executes `increase medicine m/Paracetamol q/500` command to increase the current `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` by `500` units in the `MedicineInventory`. The `increase medicine` command first calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, the `increase medicine` command adds `500` to the current `MedicineQuantity`, and calls `Model#updateMedicine(Paracetamol, increasedQuantity)`. This updates the `MedicineQuantity` data attribute of the `Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `increasedQuantity`. 
+
+[NOTE]
+In the example outlined in Step 3, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call `Model#updateMedicine(Paracetamol, increasedQuantity)`. This prevents the user from adding extra quantity to a `Medicine` that does not exist in the `MedicineInventory`.
+
+Step 4. The user executes `decrease medicine m/Paracetamol q/20` command to decrease the current `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` by `20` units in the `MedicineInventory`. The `decrease medicine` command first calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, the `decrease medicine` command subtracts `20` from the current `MedicineQuantity`, and calls `Model#updateMedicine(Paracetamol, decreasedQuantity)`. This updates the `MedicineQuantity` data attribute of the `Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `decreasedQuantity`. 
+
+[NOTE]
+In the example outlined in Step 4, if the current value of the `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` is less than `20`, the `MedicineInventory` does not contain enough quantity of `Medicine` with `MedicineName` `Paracetamol` to prescribe to the `Patient`, and will not call `Model#updateMedicine(Paracetamol, decreasedQuantity)`. This prevents the user from getting a negative value for `MedicineQuantity` of a `Medicine` in the `MedicineInventory`. 
+
+Step 5. The user executes `remove medicine Paracetamol` command to remove the  `Medicine` with `MedicineName` `Paracetamol` from the `MedicineInventory`. The `remove medicine` command calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, it calls `Model#deleteMedicine(Paracetamol)` to remove the `Medicine` with `MedicineName` `Paracetamol` from the `MedicineInventory`. Now the `MedicineInventory` is empty.
+
+[NOTE]
+In the example outlined in Step 5, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call `Model#deleteMedicine(Paracetamol, increasedQuantity)`. This prevents the user from removing a `Medicine` that does not exist in the `MedicineInventory`.
+
+==== Design Considerations
+
+===== Aspect: How to implement different protocols for `Medicine` with different `MedicineType` when managing the `MedicineInventory`
+
+* **Alternative 1 (current choice):** Use one `MedicineInventory` and implement different protocols for each `MedicineType`.
+** Pros: Use less memory.
+** Cons: More complicated to implement.
+* **Alternative 2:** Use different `MedicineInventory` for each `MedicineType`.
+** Pros: Use more memory.
+** Cons: Easier to implement logic for commands.
+
+==== Aspect: How to ensure that the `MedicineInventory` has sufficient `MedicineQuantity` of each `Medicine` at all times
+
+* **Alternative 1 (current choice):** Design a predictive algorithm using data from `Analytics`.
+** Pros: `MedicineInventory` will not have too large a surplus of un-prescribed `Medicine`.
+** Cons: Logic difficult to implement, will be complicated to incorporate data from `Analytics`.
+* **Alternative 2:** Maintain a fixed amount of `MedicineQuantity` for each `Medicine` in the `MedicineInventory`.
+** Pros: Easier and more straightforward to implement logic.
+** Cons: Might end up with too large a surplus of un-prescribed `Medicine`.
+// end::medicineinventory[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
