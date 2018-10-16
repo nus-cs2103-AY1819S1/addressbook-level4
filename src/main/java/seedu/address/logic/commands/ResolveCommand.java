@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
 
 import java.util.List;
 
@@ -15,7 +16,6 @@ import seedu.address.model.article.Article;
  * Resolves an article identified using it's displayed index from the address book.
  */
 public class ResolveCommand extends Command {
-
     public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -23,7 +23,8 @@ public class ResolveCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    private static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    private static final boolean SET_ISRESOLVED = true;
 
     private final Index targetIndex;
 
@@ -40,10 +41,16 @@ public class ResolveCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
         }
 
-        Article articleToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteArticle(articleToDelete);
+        Article articleToEdit = lastShownList.get(targetIndex.getZeroBased());
+
+        Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
+                articleToEdit.getEmail(), articleToEdit.getAddress(), SET_ISRESOLVED, articleToEdit.getTags());
+
+        model.updateArticle(articleToEdit, editedArticle);
+        model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_RESOLVED_ARTICLE_SUCCESS, articleToDelete));
+
+        return new CommandResult(String.format(MESSAGE_RESOLVED_ARTICLE_SUCCESS, editedArticle));
     }
 
     @Override

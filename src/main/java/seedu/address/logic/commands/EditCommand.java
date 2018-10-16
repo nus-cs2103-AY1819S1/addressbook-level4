@@ -101,7 +101,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editArticleDescriptor.getAddress().orElse(articleToEdit.getAddress());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override
