@@ -17,7 +17,7 @@ public class Education {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String EDUCATION_VALIDATION_REGEX = "[\\S+]{2,3}[\\s][1-6]";
+    public static final String EDUCATION_VALIDATION_REGEX = "[\\S*]{2,10}[\\s][1-6]";
 
     /**
      * Represents the educational levels which are allowed.
@@ -86,11 +86,11 @@ public class Education {
         String[] splitTest = test.split("\\s+");
         int grade = Integer.valueOf(splitTest[1]);
 
-        if (splitTest[0].equals("pri")) {
+        if (splitTest[0].equals("Primary")) {
             return grade <= 6;
-        } else if (splitTest[0].equals("sec")) {
+        } else if (splitTest[0].equals("Secondary")) {
             return grade <= 5;
-        } else if (splitTest[0].equals("jc")) {
+        } else if (splitTest[0].equals("JC")) {
             return grade <= 2;
         } else {
             return false;
