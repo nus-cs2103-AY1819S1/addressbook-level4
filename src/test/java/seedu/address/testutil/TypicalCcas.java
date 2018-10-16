@@ -24,7 +24,7 @@ public class TypicalCcas {
     public static final Cca BADMINTON =
         new CcaBuilder().withCcaName("badminton").withHead(BENSON.getName()).withViceHead(CARL.getName())
             .withBudget(500).withSpent(300).withOutstanding(100).withTransaction("Spent on equipments/$200\nSpent on "
-            + "welfar/$100\n").build();
+            + "welfare/$100\n").build();
 
     private TypicalCcas() {} // prevents instantiation
 
