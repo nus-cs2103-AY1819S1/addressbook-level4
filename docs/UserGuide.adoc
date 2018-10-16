@@ -264,16 +264,16 @@ Adds activity from 8am to 12pm every Tuesday.
 
 ==== Create a new event : `addEvent`
 Adds a new event to the event organiser. +
-Format: `addEvent n/NAME`
+Format: `addEvent n/NAME a/LOCATION t/TAGS`
 
 Examples:
 
-* `addEvent NUS Tennis Welcome Session`
-* `addEvent CS1101S Meet-up`
+* `addEvent n/NUS Tennis Welcome Session, a/SOC Canteen t/NIL`
+* `addEvent n/CS1101S Meet-up a/UTown t/By invite`
 
 ==== Delete an event : `deleteEvent`
 Deletes the specified event from the event organiser. +
-Format: `deleteUser INDEX`
+Format: `deleteEvent INDEX`
 
 ****
 * Deletes the event at the specified `INDEX`.
@@ -290,7 +290,7 @@ Deletes the 2nd event in the event organiser.
 
 ==== Set the event date : `setDate`
 Sets the event date. +
-Format: `setDate DAY-MONTH-YEAR`
+Format: `setDate d/DAY-MONTH-YEAR`
 
 ****
 * Day, month and year are specified as numbers.
@@ -298,12 +298,12 @@ Format: `setDate DAY-MONTH-YEAR`
 
 Examples:
 
-* `setDate 08-09-2018`
-* `setDate 11-12-2019`
+* `setDate d/08-09-2018`
+* `setDate d/11-12-2019`
 
 ==== Set the event time : `setTime`
 Sets the event time. +
-Format: `setTime HOUR:MINUTE`
+Format: `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE`
 
 ****
 * Time is specified in 24 hour format
@@ -311,8 +311,8 @@ Format: `setTime HOUR:MINUTE`
 
 Examples:
 
-* `setTime 23:00`
-* `setTime 13:30`
+* `setTime t1/23:00 t2/23:30`
+* `setTime t1/13:30 t2/14:00`
 
 ==== Set the event location : `setPlace`
 Sets the location of the event. +
@@ -323,17 +323,16 @@ Examples:
 * `setPlace Central Library`
 * `setPlace Clementi Mall`
 
-==== Setup poll for date : `poll`
-Sets up a poll for the event date. +
-Format: `pollDate`
+==== Create a new poll for an event : `addPoll n/NAME`
+Sets up a new poll for the event with the specified name. +
+Format: `addPoll n/Location`
 
 ==== Setup poll for location : `addOption`
 Add new poll option in the specified poll. +
-Format: `addOption POLL_ID OPTION`
+Format: `addOption i/POLL_ID o/OPTION`
 
 Examples:
-
-* `addOption 1 11:00 `
+* `addOption i/1 o/SoC canteen`
 
 ==== Set poll deadline : `setPollDeadline`
 Sets a deadline for the poll. +
@@ -344,13 +343,13 @@ Examples:
 * `setPollDeadline 08/09/2018 23:59`
 * `setPollDeadline 10/11/2019 13:00`
 
-==== Get poll result : `getPollResult`
+==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
-Format: `getPollResult POLL_RESULT`
+Format: `displayPoll i/POLL_INDEX`
 
 Examples:
 
-* `getPollResult 1`
+* `displayPoll i/1`
 
 ==== Confirm all event details : `confirmEvent`
 ==== Get recommendation for time : `recDayTime`
@@ -372,15 +371,15 @@ Format: `recPlace`
 
 === Join event commands
 
-==== Find event by the name of the event : `findEventByName`
-Finds events based on name.+
-Format: `findEvent n/NAME`
+==== Find event by the name of the event : `findEvent`
+Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants.+
+Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 
 
 Examples:
 
-* `findEvent FaceBook Recruitment Talk` +
-Finds all event with the name "FaceBook Recruitment Talk".
+* `findEvent e/FaceBook Recruitment Talk on/John Doe` +
+Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
 
 ==== Find event by a date range : `findEventByDate`
 Finds events based start and end date. +
@@ -395,10 +394,9 @@ Examples:
 * `findEvent d1/23/08/2018 d2/25/08/2018` +
 Finds all events held between 23 August and 25 August in 2018.
 
-
 ==== Find event by a time interval: `findEventByTime`
 Finds events based start and end time. +
-Format: `findEvent t1/FROMTIME t2/TOTIME`
+Format: `findEvent d/DATE t1/FROMTIME t2/TOTIME`
 
 ****
 * Times are specfied in 24 hour, HOUR:MINUTE format.
@@ -406,8 +404,8 @@ Format: `findEvent t1/FROMTIME t2/TOTIME`
 
 Examples:
 
-* `findEvent t1/12:00 t2/18:00` +
-Finds all events held between 12pm and 6pm on any day.
+* `findEvent d/12-12-2018 t1/12:00 t2/18:00` +
+Finds all events held between 12pm and 6pm on 12 December 2018.
 
 ==== Find event by a time interval: `findEventByMRTStation`
 Finds events based MRT Station. +
@@ -429,11 +427,11 @@ Examples:
 
 ==== Vote for date : `voteOption`
 Vote for a option specified in a specified poll, if there is one.
-Format: `voteDate POLL_ID OPTION_ID`
+Format: `voteDate i/POLL_ID o/OPTION_ID`
 
 Examples:
 
-* `voteDate 3 1`
+* `voteDate i/3 o/12 August`
 
 ==== List joined events : `listJoinedEvents`
 Lists all the events joined by the current user.

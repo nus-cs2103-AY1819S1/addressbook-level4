@@ -25,21 +25,21 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
-    @Test
-    public void delete() {
-        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+        @Test
+        public void delete() {
+            /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
-        Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
-        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+            /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+            Model expectedModel = getModel();
+            String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
+            Person deletedPerson = removePerson(expectedModel, INDEX_FIRST);
+            String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+            assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: delete the last person in the list -> deleted */
-        Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+            /* Case: delete the last person in the list -> deleted */
+            Model modelBeforeDeletingLast = getModel();
+            Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
+            assertCommandSuccess(lastPersonIndex);
 
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
