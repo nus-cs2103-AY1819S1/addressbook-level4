@@ -31,6 +31,8 @@ public class AddCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TITLE + "CS2103 Final Exam "
         + PREFIX_DESCRIPTION + "Bring calculator "
+        + PREFIX_START + "2018-12-05 17:00 "
+        + PREFIX_END + "2018-12-05 19:00 "
         + PREFIX_VENUE + "MPSH4 "
         + PREFIX_TAG + "CS2103 "
         + PREFIX_TAG + "Final";
