@@ -17,7 +17,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_TUTORIAL;
@@ -82,12 +83,13 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
                 + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except description
-         * -> failed to add since the 2 events are deemed to be the same
+        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except
+         * start and end date/time -> added
          */
-        toAdd = new CalendarEventBuilder(AMY).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        toAdd = new CalendarEventBuilder(AMY).withStart(VALID_START_DATETIME_TUTORIAL)
+                        .withEnd(VALID_END_DATETIME_TUTORIAL).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, toAdd);
+        assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();

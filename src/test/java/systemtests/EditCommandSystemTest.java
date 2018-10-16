@@ -15,7 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
@@ -91,15 +91,16 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, index, editedCalendarEvent);
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different
-        description
-         * -> failed to edit since the 2 events are deemed to be the same
+        start and end date/time
+         * -> edited
          */
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_LECTURE
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCalendarEvent =
-            new CalendarEventBuilder(TUTORIAL).withDescription(VALID_DESCRIPTION_LECTURE).build();
-        assertCommandFailure(command, index, editedCalendarEvent);
+            new CalendarEventBuilder(TUTORIAL).withStart(VALID_START_DATETIME_LECTURE)
+                    .withEnd(VALID_START_DATETIME_LECTURE).build();
+        assertCommandSuccess(command, index, editedCalendarEvent);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
