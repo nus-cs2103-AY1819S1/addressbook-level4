@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import seedu.souschef.model.planner.Day;
 
 /**
- * An UI component that displays information of a {@code Recipe}.
+ * An UI component that displays information of a {@code Day}.
  */
 public class MealPlanCard extends GenericCard<Day> {
 
