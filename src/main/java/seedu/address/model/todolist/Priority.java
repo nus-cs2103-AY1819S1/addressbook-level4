@@ -14,13 +14,15 @@ public class Priority {
     public static final String DEFAULT_PRIORITY = "1"; // default field name
     public static final String MESSAGE_CONSTRAINTS =
             "The valid user input for priority is p/[priority]."
-                    + "While [priority] is a integer from 1 to 3,"
-                    + "and 1 for high priority, 2 for medium priority, 3 for low priority";
+                    + "While [priority] is H/M/L,"
+                    + "and H for high priority, M for medium priority, L for low priority";
 
     /*
      * There should be only one integer, and the integer should be 1, 2 or 3.
      */
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX_HIGH = "H";
+    public static final String VALIDATION_REGEX_MEDIUM = "M";
+    public static final String VALIDATION_REGEX_LOW = "L";
 
     public final String value;
 
@@ -39,13 +41,9 @@ public class Priority {
      * Returns true if a given string is a valid priority.
      */
     public static boolean isValid(String priority) {
-        if (priority.matches(VALIDATION_REGEX)) {
-            int i = Integer.parseInt(priority);
-            if (i == 1 || i == 2 || i == 3) {
-                return true;
-            }
-        }
-        return false;
+        return  (priority.matches(VALIDATION_REGEX_HIGH)
+                ||priority.matches(VALIDATION_REGEX_MEDIUM)
+                ||priority.matches(VALIDATION_REGEX_LOW));
     }
 
     @Override
@@ -56,8 +54,8 @@ public class Priority {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.todolist.Priority // instanceof handles nulls
-                && value.equals(((seedu.address.model.todolist.Priority) other).value)); // state check
+                || (other instanceof Priority // instanceof handles nulls
+                && value.equals(((Priority) other).value)); // state check
     }
 
     @Override

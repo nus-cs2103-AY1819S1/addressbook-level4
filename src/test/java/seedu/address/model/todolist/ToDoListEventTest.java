@@ -12,47 +12,47 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.TodoListEventBuilder;
+import seedu.address.testutil.ToDoListEventBuilder;
 
-public class TodoListEventTest {
+public class ToDoListEventTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void isSameTodoListEvent() {
         // same object -> returns true
-        assertTrue(MIDTERM.isSameTodoListEvent(MIDTERM));
+        assertTrue(MIDTERM.isSameToDoListEvent(MIDTERM));
 
         // null -> returns false
-        assertFalse(MIDTERM.isSameTodoListEvent(null));
+        assertFalse(MIDTERM.isSameToDoListEvent(null));
 
         // different description -> returns false
-        TodoListEvent editedMidterm =
-                new TodoListEventBuilder(MIDTERM).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
-        assertFalse(MIDTERM.isSameTodoListEvent(editedMidterm));
+        ToDoListEvent editedMidterm =
+                new ToDoListEventBuilder(MIDTERM).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        assertFalse(MIDTERM.isSameToDoListEvent(editedMidterm));
 
         // different title -> returns false
-        editedMidterm = new TodoListEventBuilder(MIDTERM).withTitle(VALID_TITLE_TUTORIAL).build();
-        assertFalse(MIDTERM.isSameTodoListEvent(editedMidterm));
+        editedMidterm = new ToDoListEventBuilder(MIDTERM).withTitle(VALID_TITLE_TUTORIAL).build();
+        assertFalse(MIDTERM.isSameToDoListEvent(editedMidterm));
 
         // same title, different description, different priority -> returns false
         editedMidterm =
-                new TodoListEventBuilder(MIDTERM)
+                new ToDoListEventBuilder(MIDTERM)
                         .withDescription(VALID_DESCRIPTION_TUTORIAL)
                         .withPriority(VALID_PRIORITY_TUTORIAL)
                         .build();
-        assertFalse(MIDTERM.isSameTodoListEvent(editedMidterm));
+        assertFalse(MIDTERM.isSameToDoListEvent(editedMidterm));
 
         // same title, same description, different priority -> returns true
         editedMidterm =
-                new TodoListEventBuilder(MIDTERM).withPriority(VALID_PRIORITY_TUTORIAL).build();
-        assertTrue(MIDTERM.isSameTodoListEvent(editedMidterm));
+                new ToDoListEventBuilder(MIDTERM).withPriority(VALID_PRIORITY_TUTORIAL).build();
+        assertTrue(MIDTERM.isSameToDoListEvent(editedMidterm));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        TodoListEvent midtermCopy = new TodoListEventBuilder(MIDTERM).build();
+        ToDoListEvent midtermCopy = new ToDoListEventBuilder(MIDTERM).build();
         assertTrue(MIDTERM.equals(midtermCopy));
 
         // same object -> returns true
@@ -68,15 +68,15 @@ public class TodoListEventTest {
         assertFalse(MIDTERM.equals(TUTORIAL));
 
         // different title -> returns false
-        TodoListEvent editedMidterm = new TodoListEventBuilder(MIDTERM).withTitle(VALID_TITLE_TUTORIAL).build();
+        ToDoListEvent editedMidterm = new ToDoListEventBuilder(MIDTERM).withTitle(VALID_TITLE_TUTORIAL).build();
         assertFalse(MIDTERM.equals(editedMidterm));
 
         // different description -> returns false
-        editedMidterm = new TodoListEventBuilder(MIDTERM).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        editedMidterm = new ToDoListEventBuilder(MIDTERM).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
         assertFalse(MIDTERM.equals(editedMidterm));
 
         // different priority -> returns false
-        editedMidterm = new TodoListEventBuilder(MIDTERM).withPriority(VALID_PRIORITY_TUTORIAL).build();
+        editedMidterm = new ToDoListEventBuilder(MIDTERM).withPriority(VALID_PRIORITY_TUTORIAL).build();
         assertFalse(MIDTERM.equals(editedMidterm));
 
     }

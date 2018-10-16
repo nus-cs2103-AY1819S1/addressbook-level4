@@ -27,15 +27,13 @@ public class PriorityTest {
 
         // invalid priority
         assertFalse(Priority.isValid("")); // empty string
-        assertFalse(Priority.isValid("abcde")); // include alphabets
+        assertFalse(Priority.isValid("abcde")); // invalid string
         assertFalse(Priority.isValid("#$%")); //include symbols
-        assertFalse(Priority.isValid("4")); // number larger than 3
-        assertFalse(Priority.isValid("20")); // number larger than 3
-        assertFalse(Priority.isValid("0")); // number smaller than 0
+        assertFalse(Priority.isValid("45678")); // include numbers
 
         // valid priority
-        assertTrue(Priority.isValid("1")); // high priority
-        assertTrue(Priority.isValid("2")); // medium priority
-        assertTrue(Priority.isValid("3")); // low priority
+        assertTrue(Priority.isValid("H")); // high priority
+        assertTrue(Priority.isValid("M")); // medium priority
+        assertTrue(Priority.isValid("L")); // low priority
     }
 }

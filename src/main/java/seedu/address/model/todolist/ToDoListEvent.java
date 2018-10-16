@@ -10,7 +10,7 @@ import seedu.address.model.calendarevent.Title;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 
-public class TodoListEvent {
+public class ToDoListEvent {
 
     // Identity fields
     private final Title title;
@@ -22,7 +22,7 @@ public class TodoListEvent {
     /**
      * Every field must be present and not null.
      */
-    public TodoListEvent(Title title, Description description, Priority priority) {
+    public ToDoListEvent(Title title, Description description, Priority priority) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -44,14 +44,14 @@ public class TodoListEvent {
      * Returns true if both todoList events of the same title have one other identity field that is the same.
      * This defines a weaker notion of equality between two calendar events.
      */
-    public boolean isSameTodoListEvent(TodoListEvent otherTodoListEvent) {
-        if (otherTodoListEvent == this) {
+    public boolean isSameToDoListEvent(ToDoListEvent otherToDoListEvent) {
+        if (otherToDoListEvent == this) {
             return true;
         }
 
-        return otherTodoListEvent != null
-                && otherTodoListEvent.getTitle().equals(getTitle())
-                && otherTodoListEvent.getDescription().equals(getDescription());
+        return otherToDoListEvent != null
+                && otherToDoListEvent.getTitle().equals(getTitle())
+                && otherToDoListEvent.getDescription().equals(getDescription());
     }
 
     /**
@@ -64,14 +64,14 @@ public class TodoListEvent {
             return true;
         }
 
-        if (!(other instanceof TodoListEvent)) {
+        if (!(other instanceof ToDoListEvent)) {
             return false;
         }
 
-        TodoListEvent otherTodoListEvent = (TodoListEvent) other;
-        return otherTodoListEvent.getTitle().equals(getTitle())
-                && otherTodoListEvent.getDescription().equals(getDescription())
-                && otherTodoListEvent.getPriority().equals(getPriority());
+        ToDoListEvent otherToDoListEvent = (ToDoListEvent) other;
+        return otherToDoListEvent.getTitle().equals(getTitle())
+                && otherToDoListEvent.getDescription().equals(getDescription())
+                && otherToDoListEvent.getPriority().equals(getPriority());
     }
 
     @Override
