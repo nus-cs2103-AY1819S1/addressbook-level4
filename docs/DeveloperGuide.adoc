@@ -187,7 +187,7 @@ For the `UI`, `Logic`, `Model` and `Storage` components they:
 * Define their _API_ in an `interface` with the same name as the Component.
 * Expose their functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the figure given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class diagram of the Logic component
 image::LogicClassDiagram.png[width="800"]
@@ -250,7 +250,7 @@ The flow for the `Logic` component is as follows:
 . The result of the command execution from the previous step is encapsulated as a `CommandResult` object.
 . The `CommandResult` object is passed back to the `UI` component.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+The figure below shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions inside the Logic component for the `delete 1` command
 image::DeletePersonSdForLogic.png[width="800"]
@@ -275,9 +275,11 @@ The `Model` component does the following:
 Note that the `Model` component does not depend on any of the other components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `SocialCare`, which `Volunteer` can reference. This would allow `SocialCare` to only require one `Tag` object per unique `Tag`, instead of each `Volunteer` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+As a more OOP model, we can store a `Tag` list in `SocialCare`, which `Volunteer` can reference. This would allow `SocialCare` to only require one `Tag` object per unique `Tag`, instead of each `Volunteer` needing their own `Tag` object. +
+An example of how such a model may look like is given in the figure below.
+
+.Example of a more OOP Model
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 ==== Storage component
@@ -371,7 +373,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 +
 [cols="1,10"]
 |===
-|*Pros*| Implementation is easy
+|*Pros*| Implementation is easy.
 |*Cons*| May have performance issues in terms of memory usage.
 |===
 +
@@ -472,7 +474,7 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 +
 [cols="1,10"]
 |===
-|*Pros*| Implementation is easy
+|*Pros*| Implementation is easy.
 |*Cons*| Maintained highest ID may be susceptible to overwrite and become desynchronised.
 |===
 +
