@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,9 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.medicalrecord.Disease;
+import seedu.address.model.person.medicalrecord.DrugAllergy;
+import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -62,6 +66,33 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a drug allergy list containing the list of strings given.
+     */
+    public static List<DrugAllergy> getDrugAllergyList(String... strings) {
+        return Arrays.stream(strings)
+                .map(DrugAllergy::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a disease history list containing the list of strings given.
+     */
+    public static List<Disease> getDiseaseList(String... strings) {
+        return Arrays.stream(strings)
+                .map(Disease::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a note list containing the list of strings given.
+     */
+    public static List<Note> getNoteList(String... strings) {
+        return Arrays.stream(strings)
+                .map(Note::new)
+                .collect(Collectors.toList());
     }
 
 }
