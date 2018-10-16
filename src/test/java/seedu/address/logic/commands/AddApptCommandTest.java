@@ -9,19 +9,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.testutil.AppointmentBuilder;
 
 public class AddApptCommandTest {
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private CommandHistory commandHistory = new CommandHistory();
-    private Analytics analytics = new Analytics();
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
