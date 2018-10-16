@@ -3,7 +3,6 @@ package seedu.souschef.logic;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.logic.commands.Command;
@@ -13,6 +12,7 @@ import seedu.souschef.logic.parser.AppContentParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.Storage;
@@ -69,6 +69,10 @@ public class LogicManager extends ComponentManager implements Logic {
         return modelSet.getRecipeModel().getFilteredList();
     }
 
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        return modelSet.getIngredientModel().getFilteredList();
+    }
 
     @Override
     public ObservableList<HealthPlan> getFilteredHealthPlanList() {

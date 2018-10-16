@@ -6,6 +6,7 @@ import seedu.souschef.logic.commands.CommandResult;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.ui.Ui;
@@ -25,6 +26,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
+
+    /** Returns an unmodifiable view of the filtered list of recipes */
+    ObservableList<Ingredient> getFilteredIngredientList();
 
     /**
      * returns unmodifiable view of filtered lists of healthplans
