@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.Model;
 
 /**
@@ -32,14 +33,14 @@ public class ImportContactsCommand extends Command {
     public static final String MESSAGE_EMPTY_FILE_EXCEPTION = "File is empty";
     public static final String MESSAGE_TEST_EXCEPTION = "Exception for testing";
 
-    private final String toImport;
+    private final FileReader toImport;
     private int nameIndex = -1;
     private int phoneIndex = -1;
 
     /**
      * Creates an ImportContactsCommand to add the specified {@code String}
      */
-    public ImportContactsCommand(String filePath) {
+    public ImportContactsCommand(FileReader filePath) {
         requireNonNull(filePath);
         toImport = filePath;
     }
@@ -47,7 +48,7 @@ public class ImportContactsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        File csvFile = new File(toImport);
+        File csvFile = new File(toImport.toString());
 
         try {
             Scanner sc = new Scanner(csvFile);

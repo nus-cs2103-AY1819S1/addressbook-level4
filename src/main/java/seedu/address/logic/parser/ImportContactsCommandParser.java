@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.filereader.FilePath;
+import seedu.address.model.filereader.FileReader;
 
 /**
  * Parses input arguments and creates a new ImportContactsCommand object
@@ -26,9 +28,10 @@ public class ImportContactsCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ImportContactsCommand.MESSAGE_USAGE));
         }
-        String filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
+        FilePath filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
+        FileReader fileReader = new FileReader(filePath);
 
-        return new ImportContactsCommand(filePath);
+        return new ImportContactsCommand(fileReader);
     }
 
     /**
