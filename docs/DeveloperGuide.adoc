@@ -244,6 +244,69 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag:editbyname[]
+=== Edit By Name feature
+==== Current Implementation
+
+The edit by name mechanism is facilitated by the new `Command`, `EditByNameCommand`.
+It extends `EditCommand` with a "Person Identifier" String that is used in place of the Index (of a displayed list) used in the normal `EditCommand`.
+Additionally, it implements the following operations:
+
+* `EditByNameCommand#findPerson(Model model)` -- Finds and returns the person that is uniquely identified by the `personIdentifier` in the `Model` provided.
+* `EditByNameCommand#execute()` -- Executes the command encapsulated by this `EditByNameCommand`.
+
+The `findPerson` method makes use of the `NameContainsAllKeywordsPredicate`, which is in contrast to the `NameContainsKeywordsPredicate` used in the `FindCommand`.
+This is because when editing by name, we need a more specific filter, rather than a general one.
+So instead of finding a Person that contains at least one identifier term in their name, the Person found must contain *all* identifier terms in their name.
+
+Given below is an example usage scenario and how the EditByName mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::EditByNameCommand1StateDiagram.png[width="800"]
+
+Step 2. The user executes `edit Alice p/91232233` to edit Alice's phone number. However, there are more than two people with a name that matches Alice, so InsuRen notifies the user.
+
+image::EditByNameCommand2StateDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution due to multiple or no people matching the identifier, it will not edit any contact details.
+
+Step 3. The user uses a much more specific name identifier, `edit Alice Tay Ren Ying p/91232233`, but this does not match any contact, so InsuRen notifies the user.
+
+image::EditByNameCommand3StateDiagram.png[width="800"]
+
+Step 4. The user uses a name identifier that uniquely identifies one person, `edit Alice Tay p/91232233`. The edit command is carried out, and the contact details of the identified person are changed accordingly.
+
+image::EditByNameCommand4StateDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the `EditByNameCommand`:
+
+image::EditByNameCommandActivityDiagram.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: Whether `EditByNameCommand` should Extend `EditCommand`
+* **Alternative 1 (current choice):** It extends `EditCommand`.
+** Pros: Due to polymorphism, `EditByNameCommand` can replace instances of `EditCommand` seamlessly in the code without having to
+change many parts to add this additional feature. It also makes sense, because an `EditByNameCommand` "is an" `EditCommand`.
+** Cons: There is an unused field in `EditCommand` (`index`).
+* **Alternative 2:** Create a new `Command`, standalone from `EditCommand`
+** Pros: Can save a bit of memory space on execution, since parts of `EditCommand` that are not used do not provide extra baggage to `EditByNameCommand`.
+** Cons: There is a need to modify many parts of the Logic component in the code base to accommodate a new command.
+
+===== Aspect: When the Person is Searched/Matched
+
+* **Alternative 1 (current choice):** During the execution of `execute`
+** Additioanl details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
+** Pros: Execute takes in the model as an argument, making searching for a Person convenient.
+** Cons: The same `EditByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but a identifier to find a name.
+* **Alternative 2:** Before creation of the command
+** Additional details: The command will have a `Person`
+** Pros: The command is deterministic, since it targets a unique Person.
+** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
+// end::editByName[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
