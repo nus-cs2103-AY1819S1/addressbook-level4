@@ -17,7 +17,6 @@ import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
 import seedu.souschef.ui.Ui;
 
-
 /**
  * Parses user input.
  */
@@ -46,7 +45,7 @@ public class AppContentParser {
         }
 
         if (userInput.charAt(0) == '-') {
-            return new UniversalParser().parseCommand(history, userInput);
+            return new UniversalParser().parseCommand(history, userInput, ui);
             //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
         } else if (context.equals("Meal Planner")) {
             return new MealPlannerParser()
@@ -55,6 +54,7 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
+
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Ingredient")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
@@ -65,6 +65,7 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
+
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

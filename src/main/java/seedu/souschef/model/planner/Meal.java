@@ -9,15 +9,23 @@ import seedu.souschef.model.recipe.Recipe;
  * Represents a meal slot (breakfast, lunch, dinner) of a day.
  * Contains a recipe for the meal, as well as a predefined integer index value.
  */
-public enum Meal {
+public class Meal {
 
-    BREAKFAST, LUNCH, DINNER;
+    public static final int BREAKFAST = 0;
+    public static final int LUNCH = 1;
+    public static final int DINNER = 2;
 
     // Attributes
+    private final int slot;
     private Optional<Recipe> recipe;
 
-    Meal() {
+    public Meal(int slot) {
+        this.slot = slot;
         this.recipe = Optional.empty();
+    }
+
+    public int getSlot() {
+        return this.slot;
     }
 
     public Recipe getRecipe() {
@@ -26,10 +34,6 @@ public enum Meal {
         } else {
             throw new MealRecipeNotFoundException("No recipe at selected meal slot.");
         }
-    }
-
-    public Optional<Recipe> getOptRecipe() {
-        return this.recipe;
     }
 
     public void setRecipe(Recipe recipe) {
@@ -51,7 +55,7 @@ public enum Meal {
      * @param s Command string token
      * @return Meal
      */
-    public static Meal stringToMealEnum(String s) throws IllegalArgumentException {
+    public static int stringToIntSlot(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
             return BREAKFAST;
         } else if (s.equalsIgnoreCase("lunch")) {
