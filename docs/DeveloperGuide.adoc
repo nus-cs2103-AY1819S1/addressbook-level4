@@ -376,6 +376,19 @@ image::UndoRedoActivityDiagramZijin.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::autocomplete[]
+=== [Proposed] Autocomplete
+
+The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's command line inputs.
+
+The parser will enable the autocomplete to check the user's input against a list of commands which are final and known by the address book.
+
+The autocomplete parser will be checking after every input in the command line, making it a real time feature.
+
+While checking, the feature will try to give a regex match of the command and also provide suggestions on correct arguments based on current entities stored in TheTracker's address book.
+
+// end::autocomplete[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
