@@ -19,10 +19,11 @@ public class PatientQueueManager implements PatientQueue {
     public String displayQueue() {
         AtomicInteger position = new AtomicInteger(1);
         StringBuilder sb = new StringBuilder();
-        sb.append(getQueueLength() + " Patient(s) in queue: ");
-        patientQueue.stream()
-                    .forEach(x -> sb.append((position.getAndIncrement()) + ".)" + x.toNameAndIc() + ", "));
-        return sb.substring(0, sb.length() - 2);
+        AtomicInteger num = new AtomicInteger(0);
+        sb.append(getQueueLength()).append(" Patient(s) in queue: ");
+        patientQueue.forEach(x -> sb.append("\n").append(num.incrementAndGet())
+                                    .append(". ").append(x.toNameAndIc()));
+        return sb.toString();
     }
 
     @Override

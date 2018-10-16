@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -8,7 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Displays the current list of served patients to the user.
+ * Represents the current list of served patients during runtime.
  */
 public class ServedPatientListManager implements ServedPatientList {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
@@ -17,10 +18,11 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public String displayServedPatientList() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Served Patient: ");
-        servedPatientList.stream()
-                .forEach(x -> sb.append(x.toNameAndIc() + ", "));
-        return sb.substring(0, sb.length() - 2);
+        AtomicInteger num = new AtomicInteger(0);
+        sb.append("Served Patients:");
+        servedPatientList.forEach(x -> sb.append("\n").append(num.incrementAndGet())
+                                         .append(". ").append(x.toNameAndIc()));
+        return sb.toString();
     }
 
     @Override
