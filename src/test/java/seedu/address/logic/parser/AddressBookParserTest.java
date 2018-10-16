@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.time.LocalDate;
@@ -26,6 +28,9 @@ import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommandTest;
 import seedu.address.logic.commands.eventcommands.JoinEventCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
@@ -36,12 +41,15 @@ import seedu.address.logic.commands.personcommands.ClearCommand;
 import seedu.address.logic.commands.personcommands.DeleteCommand;
 import seedu.address.logic.commands.personcommands.EditCommand;
 import seedu.address.logic.commands.personcommands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindCommand;
 import seedu.address.logic.commands.personcommands.ListCommand;
 import seedu.address.logic.commands.personcommands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -125,6 +133,24 @@ public class AddressBookParserTest {
         assertEquals(new DisplayPollCommand(INDEX_FIRST), command);
     }
 
+    @Test
+    public void parseCommand_findEventByTime() throws Exception {
+        FindEventByTimeCommand command = (FindEventByTimeCommand) parser.parseCommand(
+                FindEventByTimeCommand.COMMAND_WORD + " " + "d/12-12-2018 t1/12:30 t2/13:30");
+        LocalDate date = LocalDate.of(2018, 12, 12);
+        LocalTime startTime = LocalTime.of(12, 30);
+        LocalTime endTime = LocalTime.of(13, 30);
+        assertEquals(new FindEventByTimeCommand(date, startTime, endTime), command);
+    }
+
+    @Test
+    public void parseCommand_findEvent() throws Exception {
+        String userInput = FindEventCommand.COMMAND_WORD + " " + NAME_DESC_MEETING + ADDRESS_DESC_BOB;
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+                userInput);
+        EventAttributesPredicate predicate = FindEventCommandTest.makeEventsAttributesPredicate(userInput);
+        assertEquals(new FindEventCommand(predicate), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -167,6 +193,14 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findByPhone() throws Exception {
+        List<String> keywords = Arrays.asList("98765432", "54321");
+        FindByPhoneCommand command = (FindByPhoneCommand) parser.parseCommand(
+                FindByPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindByPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

@@ -55,6 +55,13 @@ public class TypicalEvents {
     }
 
     /**
+     * Retuns an empty address book.
+     */
+    public static AddressBook getEmptyAddressBook() {
+        return new AddressBook();
+    }
+
+    /**
      * Returns an {@code AddressBook} with all the typical events with one participant.
      */
     public static AddressBook getAddressBookWithParticipant() {

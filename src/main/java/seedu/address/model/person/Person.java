@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class Person {
     private Schedule schedule;
     private Set<Interest> interests = new HashSet<>();
     private Set<Tag> tags = new HashSet<>();
+    private ArrayList<Person> friends = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -54,6 +56,19 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
+    }
+
+    /**
+     * Make a duplicate of a person
+     */
+    public Person(Person other) {
+        this.name = other.getName();
+        this.phone = other.getPhone();
+        this.email = other.getEmail();
+        this.address = other.getAddress();
+        this.interests = other.getInterests();
+        this.tags = other.getTags();
+        this.schedule = other.getSchedule();
     }
 
     public Name getName() {
@@ -97,6 +112,13 @@ public class Person {
     }
 
     /**
+     * Returns an ArrayList of Person, which represent the friends of the current person.
+     */
+    public ArrayList<Person> getFriends() {
+        return friends;
+    }
+
+    /**
      * Populates all attributes with that of the new person.
      */
     public void editPerson(Person newPerson) {
@@ -121,6 +143,19 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    /**
+     * Represents the user's friends list as a string
+     */
+    public String friendsToString() {
+        String friendshipString = " Friends: ";
+        ArrayList<String> friendsList = new ArrayList<>();
+        for (Person friend : friends) {
+            friendsList.add(friend.getName().toString());
+        }
+        friendshipString += friendsList;
+        return friendshipString;
     }
 
     /**
@@ -168,6 +203,7 @@ public class Person {
         getInterests().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(friendsToString());
         return builder.toString();
     }
 }

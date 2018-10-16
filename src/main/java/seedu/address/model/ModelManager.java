@@ -16,6 +16,9 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Poll;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
+import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,10 +71,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.currentEvent = currentEvent;
     }
 
-    public void removeSelectedEvent() {
-        this.currentEvent = null;
-    }
-
     public Event getSelectedEvent() throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
@@ -103,6 +102,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+        if (target.equals(currentUser)) {
+            currentUser = null;
+        }
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -118,14 +120,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.updatePerson(target, editedPerson);
         for (Event event : filteredEvents) {
             boolean changed = event.updatePerson(target, editedPerson);
-            if (changed || event.containsPerson(target)) {
+            if (changed) {
                 versionedAddressBook.updateEvent(event, event);
             }
         }
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
+        requireAllNonNull(target1, editedPerson1, target2, editedPerson2);
+        versionedAddressBook.updatePerson(target1, editedPerson1, target2, editedPerson2);
         indicateAddressBookChanged();
     }
 
@@ -135,14 +143,25 @@ public class ModelManager extends ComponentManager implements Model {
 
     //===========Events ======================================================================================
     @Override
-    public void addEvent(Event event) {
+    public void addEvent(Event event) throws NoUserLoggedInException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        event.setOrganiser(currentUser);
+        event.addPerson(currentUser);
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteEvent(Event target) {
+    public void deleteEvent(Event target) throws NotEventOrganiserException {
+        if (target.equals(currentEvent)) {
+            currentEvent = null;
+        }
+        if (!target.getOrganiser().equals(currentUser)) {
+            throw new NotEventOrganiserException();
+        }
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
     }
@@ -159,6 +178,47 @@ public class ModelManager extends ComponentManager implements Model {
 
     public Event getEvent(Index targetIndex) {
         return filteredEvents.get(targetIndex.getZeroBased());
+    }
+
+    @Override
+    public Poll addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
+            NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        Poll poll = currentEvent.addPoll(pollName);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    @Override
+    public Poll addPollOption(Index index, String option) throws NoEventSelectedException {
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        Poll poll = currentEvent.addOptionToPoll(index, option);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    @Override
+    public Poll voteOption(Index index, String optionName) throws NoEventSelectedException, NoUserLoggedInException,
+            UserNotJoinedEventException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        Poll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
     }
 
     @Override

@@ -105,10 +105,5 @@ public class LoginCommandTest {
         public void setCurrentUser(Person currentUser) {
             this.currentUser = currentUser;
         }
-
-        @Override
-        public void removeSelectedEvent() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 }

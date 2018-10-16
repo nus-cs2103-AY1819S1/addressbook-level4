@@ -50,6 +50,20 @@ public class StringUtilTest {
         // EP: valid numbers, should return true
         assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
+
+        // EP: 2 valid numbers with comma in between, should return true
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("1,2"));
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("10,20"));
+
+        // EP: 2 valid numbers with comma in between, should return true
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("1,2"));
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("10,20"));
+
+        // EP: 2 numbers(1 invalid) with comma in between, should return false
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("0,2"));
+
+        // EP: 2 numbers with comma in between and white space, should return false
+        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 0,2 "));
     }
 
 

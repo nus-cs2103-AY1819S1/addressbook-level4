@@ -20,6 +20,7 @@ import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
 import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
 import seedu.address.logic.commands.eventcommands.JoinEventCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.ClearCommand;
 import seedu.address.logic.commands.personcommands.DeleteCommand;
 import seedu.address.logic.commands.personcommands.EditCommand;
+import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindCommand;
 import seedu.address.logic.commands.personcommands.ListCommand;
 import seedu.address.logic.commands.personcommands.SelectCommand;
@@ -38,6 +40,7 @@ import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
 import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
 import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
+import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
 import seedu.address.logic.parser.eventparsers.JoinEventCommandParser;
 import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
 import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
@@ -108,6 +111,9 @@ public class AddressBookParser {
         case VoteCommand.COMMAND_WORD:
             return new VoteCommandParser().parse(arguments);
 
+        case FindEventCommand.COMMAND_WORD:
+            return new FindEventCommandParser().parse(arguments);
+
         case FindEventByTimeCommand.COMMAND_WORD:
             return new FindEventByTimeCommandParser().parse(arguments);
 
@@ -125,6 +131,10 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindByPhoneCommand.COMMAND_WORD_ALIAS:
+        case FindByPhoneCommand.COMMAND_WORD:
+            return new FindByPhoneCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

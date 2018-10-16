@@ -22,6 +22,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 
 public class DeleteEventCommandTest {
 
@@ -31,15 +33,30 @@ public class DeleteEventCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        Person user = new PersonBuilder().build();
+        eventToDelete.setOrganiser(user);
+        model.setCurrentUser(user);
         DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
-
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setCurrentUser(user);
         expectedModel.deleteEvent(eventToDelete);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_notEventOrganiser_throwsCommandException() {
+        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
+
+        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        assertCommandFailure(deleteCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
@@ -55,11 +72,15 @@ public class DeleteEventCommandTest {
         showEventAtIndex(model, INDEX_FIRST);
 
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        Person user = new PersonBuilder().build();
+        eventToDelete.setOrganiser(user);
+        model.setCurrentUser(user);
         DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setCurrentUser(user);
         expectedModel.deleteEvent(eventToDelete);
         expectedModel.commitAddressBook();
         showNoEvent(expectedModel);
@@ -83,8 +104,12 @@ public class DeleteEventCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        Person user = new PersonBuilder().build();
+        eventToDelete.setOrganiser(user);
+        model.setCurrentUser(user);
         DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setCurrentUser(user);
         expectedModel.deleteEvent(eventToDelete);
         expectedModel.commitAddressBook();
 
@@ -127,6 +152,10 @@ public class DeleteEventCommandTest {
 
         showEventAtIndex(model, INDEX_SECOND);
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        Person user = new PersonBuilder().build();
+        eventToDelete.setOrganiser(user);
+        model.setCurrentUser(user);
+        expectedModel.setCurrentUser(user);
         expectedModel.deleteEvent(eventToDelete);
         expectedModel.commitAddressBook();
 

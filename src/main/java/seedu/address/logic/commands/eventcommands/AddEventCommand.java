@@ -13,7 +13,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * Adds an event to the event organiser.
@@ -48,9 +47,6 @@ public class AddEventCommand extends Command {
             if (model.hasEvent(toAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_EVENT);
             }
-            Person user = model.getCurrentUser();
-            toAdd.setOrganiser(user);
-            toAdd.addPerson(user);
             model.addEvent(toAdd);
             model.commitAddressBook();
             model.setSelectedEvent(toAdd);

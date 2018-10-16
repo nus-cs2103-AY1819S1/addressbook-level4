@@ -3,7 +3,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -14,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Poll;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * JAXB-friendly version of the Poll.
@@ -68,7 +68,7 @@ public class XmlAdaptedPoll {
      */
     public Poll toModelType(ObservableList<Person> personList) throws IllegalValueException {
         //need to check for illegal arguments
-        HashMap<String, LinkedList<Person>> pollData = new HashMap<>();
+        HashMap<String, UniquePersonList> pollData = new HashMap<>();
         for (XmlAdaptedPollEntry entry : options) {
             try {
                 pollData.put(entry.getOptionName(), entry.getPersonList(personList));
