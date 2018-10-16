@@ -33,8 +33,8 @@ import seedu.address.model.logging.CommandEntry;
  * Class for generating command history report formatted as a Html page.
  */
 public class HtmlReportGenerator {
+    public static final String DEFAULT_REPORT_NAME = "report.html";
     private static final String COMMAND_ENTRY_REPORT_TITLE = "Command History Report";
-    private static final String DEFAULT_REPORT_NAME = "report.html";
     private static final String MESSAGE_TIME_GENERATED = "report generated at: %1$s";
 
     private static final DateTimeFormatter formatter =

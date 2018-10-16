@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.HtmlReportGenerator;
+import seedu.address.commons.events.ui.ShowHistoryRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -58,6 +60,7 @@ public class HistoryCommand extends Command {
         if (!isSummarized) {
             try {
                 HtmlReportGenerator.generateCommandEntryReport(history.getCommandEntryList());
+                EventsCenter.getInstance().post(new ShowHistoryRequestEvent(HtmlReportGenerator.DEFAULT_REPORT_NAME));
                 return new CommandResult(MESSAGE_HISTORY_WINDOW);
             } catch (IOException e) {
                 e.printStackTrace();
