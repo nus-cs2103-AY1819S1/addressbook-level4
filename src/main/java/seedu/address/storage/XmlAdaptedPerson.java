@@ -58,7 +58,7 @@ public class XmlAdaptedPerson {
         this.email = email;
         this.room = room;
         this.school = school;
-        this.profilePicture = "-";
+        this.profilePicture = "-.jpg";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }

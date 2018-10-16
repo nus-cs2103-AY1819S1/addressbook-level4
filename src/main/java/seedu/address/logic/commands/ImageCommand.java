@@ -34,6 +34,7 @@ public class ImageCommand extends Command {
             + "Parameters: ROOM "
             + "Example: " + COMMAND_WORD + " A123";
 
+    public static final String CANCEL = "Cancel option chosen.";
     public static final String MESSAGE_SUCCESS = "Profile picture uploaded for %1$s";
     public static final String MESSAGE_CANCEL = "No picture was uploaded.";
     public static final String MESSAGE_NO_SUCH_PERSON = "There is no resident occupying that room.";
@@ -43,10 +44,7 @@ public class ImageCommand extends Command {
     private final Room number;
 
     private List<Person> fullList;
-    private String toUpload;
     private List<String> roomNumber;
-    private Person resident;
-    private EditPersonProfilePicture editPersonProfilePicture;
 
     /**
      * Creates an ImageCommand to add to the specified {@code Person}
@@ -62,7 +60,7 @@ public class ImageCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         fullList = model.getAddressBook().getPersonList();
-        resident = null;
+        Person resident = null;
 
         for (Person p : fullList) {
             if (new FieldsContainsKeywordsPredicate(roomNumber).test(p)) {
@@ -75,12 +73,12 @@ public class ImageCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_PERSON);
         }
 
-        toUpload = FileChooser.showDialog();
-        if (toUpload == "Cancel option chosen.") {
+        String toUpload = FileChooser.showDialog();
+        if (toUpload.equals(CANCEL)) {
             return new CommandResult(MESSAGE_CANCEL);
         }
 
-        editPersonProfilePicture = new EditPersonProfilePicture();
+        EditPersonProfilePicture editPersonProfilePicture = new EditPersonProfilePicture();
         editPersonProfilePicture.setProfilePicture(new ProfilePicture(toUpload));
 
         Person editedPerson = createEditedProfilePicturePerson(resident, editPersonProfilePicture);
@@ -126,9 +124,6 @@ public class ImageCommand extends Command {
      */
     public static class EditPersonProfilePicture {
         private ProfilePicture profilePicture;
-
-        public EditPersonProfilePicture() {
-        }
 
         public void setProfilePicture(ProfilePicture profilePicture) {
             this.profilePicture = profilePicture;

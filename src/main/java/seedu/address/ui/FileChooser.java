@@ -10,11 +10,7 @@ import javax.swing.JFileChooser;
 //@@author
 public class FileChooser {
 
-    private static JFileChooser jfc;
     private static String outcome;
-
-    public FileChooser() {
-    }
 
     /**
      * Opens a dialog page to allow user to choose image to upload.
