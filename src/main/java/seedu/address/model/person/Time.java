@@ -40,13 +40,13 @@ public class Time {
 
     /**
      * Constructs an {@code Time}.
-     *
-     * @param time A valid time.
      */
     public Time(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
         setTime(time);
+
+
     }
 
     /**
@@ -88,6 +88,7 @@ public class Time {
     public static boolean isValidTime(String test) {
         return test.matches(TIME_VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {
