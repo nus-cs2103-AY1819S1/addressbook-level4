@@ -419,6 +419,43 @@ This section describes the details on how the volunteer management features are 
 
 This section describes the details on how the event management features are implemented.
 
+==== Auto-incremented event ID
+
+The auto-incremented event ID field is used by the `Record` class to identify unique events. An integer ID field is used because
+identifying unique events based on multiple String fields would be computationally inefficient.
+
+===== Current implementation
+
+The auto-incremented event ID field is facilitated by the `Event` class. The `Event` class
+keeps track of the highest ID in the system. Additionally, it implements two different constructors for different situations:
+
+* `Event(Name name, Location location, Date startDate, Date endDate,
+                    Time startTime, Time endTime, Description description, Set<Tag> tags)`
++
+This constructor is used when an event, being initialised with a new `Event` class, does not yet exist in the system (e.g. adding a new event).
++
+It increments the current highest ID in the system and assigns that value to the new event that is created.
+
+* `Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
+                    Time startTime, Time endTime, Description description, Set<Tag> tags)`
++
+This constructor is used when an event, being initialised with a new `Event` class, already exists in the system (e.g. loading data from XML file or editing an existing event).
++
+It checks whether the ID of the event being initialised is greater than the current highest ID in the system. If it is, replace the value of
+the highest ID with the event ID and creates the event. If it isn't, skip to the creation of the event.
+
+===== Design considerations
+====== Aspect: How event ID is generated
+* *Alternative 1 (current choice):* Increment from highest ID
+- Pros: Implementation is easy.
+- Cons: Maintained highest ID may be susceptible to overwrite become desynchronised.
+
+* *Alternative 2:* Randomly generated unique ID
+- Pros: Not dependent on a maintained highest ID variable (single point of failure).
+- Cons: Requires keeping track of all existing event IDs to ensure uniqueness.
+
+==== Delete event
+
 === Record management
 
 This section describes the details on how the record management features are implemented.
