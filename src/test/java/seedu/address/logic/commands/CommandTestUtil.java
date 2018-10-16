@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.RideContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.UpdateRideDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -62,10 +62,10 @@ public class CommandTestUtil {
     public static final UpdateCommand.UpdateRideDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withMaintenance(VALID_MAINTENANCE_AMY).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new UpdateRideDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
