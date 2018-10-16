@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a car park's free parking in the address book.
+ * Represents a car park's free parking.
  * Guarantees: immutable; is valid as declared in {@link #isValidFreePark(String)}
  */
 public class FreeParking {

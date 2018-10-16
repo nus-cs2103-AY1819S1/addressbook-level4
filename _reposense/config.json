@@ -1,0 +1,29 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "Alvinnyk",
+      "displayName": "Alvin",
+      "authorNames": ["AeroSpectr3"]
+    },
+    {
+      "githubId": "dlworldpeace",
+      "displayName": "Delong"
+    },
+    {
+      "githubId": "Lexzt",
+      "displayName": "Keith",
+      "authorNames": ["Keith Fong"]
+    },
+    {
+      "githubId": "YurouTang",
+      "displayName": "Yurou",
+      "authorNames": ["Tang Yurou"]
+    },
+    {
+      "githubId": "ZhuanYu",
+      "displayName": "Zhuan Yu",
+      "authorNames": ["Zhuan Yu", "ZhuanYu", "Yeo Zhuan Yu"]
+    }
+  ]
+}

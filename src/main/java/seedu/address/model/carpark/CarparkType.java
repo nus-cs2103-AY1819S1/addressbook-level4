@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Carpark's type in the address book.
+ * Represents a car park's type.
  * Guarantees: immutable; is valid as declared in {@link #isValidCarType(String)}
  */
 public class CarparkType {
 
     public static final String MESSAGE_CAR_TYPE_CONSTRAINTS =
-            "Carpark type can take any values, and it should not be blank";
+            "Car park type can take any values, and it should not be blank";
 
     /*
      * The first character must not be a whitespace,

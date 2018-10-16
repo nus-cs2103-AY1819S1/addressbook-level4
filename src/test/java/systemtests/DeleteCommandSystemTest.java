@@ -1,22 +1,22 @@
 package systemtests;
 
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+//import static org.junit.Assert.assertTrue;
+//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX;
+//import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CARPARK_SUCCESS;
 import static seedu.address.testutil.TestUtil.getCarpark;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
+//import static seedu.address.testutil.TestUtil.getLastIndex;
+//import static seedu.address.testutil.TestUtil.getMidIndex;
+//import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_SENGKANG;
+//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
+//import seedu.address.logic.commands.RedoCommand;
+//import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
 
@@ -27,93 +27,93 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
-        /* ----------------- Performing delete operation while an unfiltered list is being shown ------------------- */
-
-        /* Case: delete the first carpark in the list, command with leading spaces and trailing spaces -> deleted */
-        Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARPARK.getOneBased() + "      ";
-        Carpark deletedPerson = removeCarpark(expectedModel, INDEX_FIRST_CARPARK);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
-
-        /* Case: delete the last carpark in the list -> deleted */
-        Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
-
-        /* Case: undo deleting the last carpark in the list -> last carpark restored */
-        command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
-
-        /* Case: redo deleting the last carpark in the list -> last carpark deleted again */
-        command = RedoCommand.COMMAND_WORD;
-        removeCarpark(modelBeforeDeletingLast, lastPersonIndex);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
-
-        /* Case: delete the middle carpark in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
-
-        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
-
-        /* Case: filtered carpark list, delete index within bounds of address book and carpark list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_CARPARK;
-        assertTrue(index.getZeroBased() < getModel().getFilteredCarparkList().size());
-        assertCommandSuccess(index);
-
-        /* Case: filtered carpark list, delete index within bounds of address book but out of bounds of carpark list
-         * -> rejected
-         */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCarparkList().size();
-        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-
-        /* --------------------- Performing delete operation while a carpark card is selected ---------------------- */
-
-        /* Case: delete the selected carpark -> carpark list panel selects the carpark before the deleted carpark */
-        showAllPersons();
-        expectedModel = getModel();
-        Index selectedIndex = getLastIndex(expectedModel);
-        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
-        command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removeCarpark(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
-
-        /* --------------------------------- Performing invalid delete operation ----------------------------------- */
-
-        /* Case: invalid index (0) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " 0";
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
-
-        /* Case: invalid index (-1) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " -1";
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
-
-        /* Case: invalid index (size + 1) -> rejected */
-        Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getCarparkList().size() + 1);
-        command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-
-        /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
-
-        /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
-
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+    ///* ----------------- Performing delete operation while an unfiltered list is being shown ------------------- */
+    //
+    ///* Case: delete the first car park in the list, command with leading spaces and trailing spaces -> deleted */
+    //Model expectedModel = getModel();
+    //String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARPARK.getOneBased() + "      ";
+    //Carpark deletedPerson = removeCarpark(expectedModel, INDEX_FIRST_CARPARK);
+    //String expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
+    //assertCommandSuccess(command, expectedModel, expectedResultMessage);
+    //
+    ///* Case: delete the last car park in the list -> deleted */
+    //Model modelBeforeDeletingLast = getModel();
+    //Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
+    //assertCommandSuccess(lastPersonIndex);
+    //
+    ///* Case: undo deleting the last car park in the list -> last car park restored */
+    //command = UndoCommand.COMMAND_WORD;
+    //expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+    //assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+    //
+    ///* Case: redo deleting the last car park in the list -> last car park deleted again */
+    //command = RedoCommand.COMMAND_WORD;
+    //removeCarpark(modelBeforeDeletingLast, lastPersonIndex);
+    //expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+    //assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+    //
+    ///* Case: delete the middle car park in the list -> deleted */
+    //Index middlePersonIndex = getMidIndex(getModel());
+    //assertCommandSuccess(middlePersonIndex);
+    //
+    ///* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+    //
+    ///* Case: filtered car park list, delete index within bounds of address book and car park list -> deleted */
+    //showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
+    //Index index = INDEX_FIRST_CARPARK;
+    //assertTrue(index.getZeroBased() < getModel().getFilteredCarparkList().size());
+    //assertCommandSuccess(index);
+    //
+    ///* Case: filtered car park list, delete index within bounds of address book but out of bounds of car park list
+    // * -> rejected
+    // */
+    //showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
+    //int invalidIndex = getModel().getAddressBook().getCarparkList().size();
+    //command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+    //assertCommandFailure(command, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
+    //
+    ///* --------------------- Performing delete operation while a car park card is selected ---------------------- */
+    //
+    ///* Case: delete the selected car park -> car park list panel selects the car park before the deleted car park */
+    //showAllCarparks();
+    //expectedModel = getModel();
+    //Index selectedIndex = getLastIndex(expectedModel);
+    //Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
+    //selectCarpark(selectedIndex);
+    //command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+    //deletedPerson = removeCarpark(expectedModel, selectedIndex);
+    //expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
+    //assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+    //
+    ///* --------------------------------- Performing invalid delete operation ----------------------------------- */
+    //
+    ///* Case: invalid index (0) -> rejected */
+    //command = DeleteCommand.COMMAND_WORD + " 0";
+    //assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+    //
+    ///* Case: invalid index (-1) -> rejected */
+    //command = DeleteCommand.COMMAND_WORD + " -1";
+    //assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+    //
+    ///* Case: invalid index (size + 1) -> rejected */
+    //Index outOfBoundsIndex = Index.fromOneBased(
+    //        getModel().getAddressBook().getCarparkList().size() + 1);
+    //command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+    //assertCommandFailure(command, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
+    //
+    ///* Case: invalid arguments (alphabets) -> rejected */
+    //assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+    //
+    ///* Case: invalid arguments (extra argument) -> rejected */
+    //assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+    //
+    ///* Case: mixed case command word -> rejected */
+    //assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
-     * @return the removed carpark
+     * Removes the {@code Carpark} at the specified {@code index} in {@code model}'s address book.
+     * @return the removed car park
      */
     private Carpark removeCarpark(Model model, Index index) {
         Carpark targetCarpark = getCarpark(model, index);
@@ -122,7 +122,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Deletes the carpark at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * Deletes the car park at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
