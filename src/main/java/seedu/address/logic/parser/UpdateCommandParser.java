@@ -61,7 +61,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }
 
         return new UpdateCommand(index, editPersonDescriptor);
