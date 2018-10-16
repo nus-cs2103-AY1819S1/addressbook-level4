@@ -21,7 +21,7 @@ public class Article {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     // Others
@@ -30,12 +30,12 @@ public class Article {
     /**
      * Every field must be present and not null.
      */
-    public Article(Name name, Phone phone, Email email, Address address, boolean isResolved, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Article(Name name, Phone phone, Email email, Description description, boolean isResolved, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, description, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.description = description;
         this.isResolved = isResolved;
         this.tags.addAll(tags);
     }
@@ -52,8 +52,8 @@ public class Article {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     public boolean getIsResolved() {
@@ -100,7 +100,7 @@ public class Article {
         return otherArticle.getName().equals(getName())
                 && otherArticle.getPhone().equals(getPhone())
                 && otherArticle.getEmail().equals(getEmail())
-                && otherArticle.getAddress().equals(getAddress())
+                && otherArticle.getDescription().equals(getDescription())
                 && otherArticle.getTags().equals(getTags())
                 && otherArticle.getIsResolved() == getIsResolved();
     }
@@ -108,7 +108,7 @@ public class Article {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, isResolved, tags);
+        return Objects.hash(name, phone, email, description, isResolved, tags);
     }
 
     @Override
@@ -119,8 +119,8 @@ public class Article {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" isResolved: ")
                 .append(getIsResolved())
                 .append(" Tags: ");
