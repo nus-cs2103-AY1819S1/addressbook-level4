@@ -54,4 +54,11 @@
         <cooktime>PT20M</cooktime>
         <tagged>Western</tagged>
     </recipes>
+    <recipes>
+        <name>Chicken Rice</name>
+        <difficulty>2</difficulty>
+        <cooktime>PT40M</cooktime>
+        <tagged>Staple</tagged>
+        <tagged>Asian</tagged>
+    </recipes>
 </souschef>
