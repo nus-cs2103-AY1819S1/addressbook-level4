@@ -117,6 +117,17 @@ public class ModelManager extends ComponentManager implements Model {
         //TODO
     }
 
+    // @@author NyxF4ll
+    @Override
+    public boolean hasGroup(Group group) {
+        return versionedAddressBook.getGroupList().stream().anyMatch(group::isSameGroup);
+    }
+
+    @Override
+    public ObservableList<Group> getGroupList() {
+        return versionedAddressBook.getGroupList();
+    }
+    // @@author
 
     //=========== Filtered Person List Accessors =============================================================
 
