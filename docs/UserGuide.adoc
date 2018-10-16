@@ -247,6 +247,7 @@ Format: `find <attraction>`
 
 === Added
 * *Update*: `update <attraction> <tag> <value>`
+* *Open*: `open <attraction>`
 * *Shutdown*: `shutdown <attraction>`
 * *View*: `view <name>`
 * *Quickview*: `quickview`
