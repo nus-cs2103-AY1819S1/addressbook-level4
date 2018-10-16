@@ -326,6 +326,33 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Statistics
+
+Given below is an example usage scenario and of how the statistics mechanism behaves at each step.
+
+. User enters command `stats n/7 m/d`. The command is received by `AddressBookParser`, which calls `StatsCommandParser#parse()`
+to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
+
+. `LogicManager` then calls `StatsCommand#execute()`, which updates the `Predicate` and `StatsMode` in `ModelManager`, which
+are used as filters for the expense list. The `Predicate` is used to filter out expenses which have dates within the last 7 days.
+`StatsMode` is set to DAY, representing the day mode.
+`StatsCommand#execute()` also posts a `ShowStatsRequestEvent` event to the `EventsCenter`.
+
+. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which creates a new `StatsWindow` object after getting the
+expense data and mode by calling `Logic#getExpenseStats()` and `Logic#getStatsMode()`.
+
+. `Logic#getExpenseStats()` gets the filtered expense list by calling `ModelManager#getExpenseStats()`, which returns
+an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per the `Predicate`, and sorted by date.
+`Logic#getExpenseStats()` then puts the data into a `LinkedHashMap<String, Double>`, where the key represents the days and the value represents
+the total cost for that day
+
+. `Logic#getStatsMode()` gets the current StatsMode by calling `Model#getStatsMode()`
+
+. The `StatsWindow` object gets created and calls `StatsWindow#setData()`, which creates a `BarChart` with the expense data received, which is then added to the `ChartArea` pane.
+
+. This results in a new window showing a bar chart of expenses over the last 7 days.
+
+
 // tag::budget[]
 
 === Budget

@@ -11,6 +11,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_COST = new Prefix("$/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_NUMBER_OF_DAYS_OR_MONTHS = new Prefix("n/");
+    public static final Prefix PREFIX_MODE = new Prefix("m/");
     public static final Prefix PREFIX_HOURS = new Prefix("hrs/");
     public static final Prefix PREFIX_MINUTES = new Prefix("min/");
     public static final Prefix PREFIX_SECONDS = new Prefix("sec/");

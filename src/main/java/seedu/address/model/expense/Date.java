@@ -124,4 +124,19 @@ public class Date {
                 && fullDate.get(Calendar.MONTH) == otherDate.fullDate.get(Calendar.MONTH)
                 && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
     }
+
+    /**
+     *
+     * @param a - First Date to compare
+     * @param b - Second Date to compare
+     * @return 1 if b is after a, -1 if b is before a and 0 if they are equal
+     */
+    public static int compare(Date a, Date b) {
+        if (a.equals(b)) {
+            return 0;
+        } else if (b.fullDate.after(a.fullDate)) {
+            return 1;
+        }
+        return -1;
+    }
 }

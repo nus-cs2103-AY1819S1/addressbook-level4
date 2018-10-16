@@ -114,7 +114,7 @@ public class AddressBookParser {
 
         case StatsCommand.COMMAND_WORD:
         case StatsCommand.COMMAND_ALIAS:
-            return new StatsCommand();
+            return new StatsCommandParser().parse(arguments);
 
         case SetRecurringBudgetCommand.COMMAND_WORD:
         case SetRecurringBudgetCommand.COMMAND_ALIAS:
