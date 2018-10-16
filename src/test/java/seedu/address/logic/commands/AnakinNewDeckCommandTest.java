@@ -21,9 +21,10 @@ import seedu.address.model.AnakinModel;
 import seedu.address.model.AnakinReadOnlyAnakin;
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
-import seedu.address.testutil.AnakinDeckBuilder;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.testutil.AnakinDeckBuilder;
 
 
 public class AnakinNewDeckCommandTest {
