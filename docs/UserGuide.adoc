@@ -257,46 +257,45 @@ Finds the details of the medicine tagged with the serial number 1001.
 
 === Check the stocks of all medicine that are low in supply : `checkStock`
 
-List all medicines that are low in stock. +
+Lists all medicines that are low in stock. +
 Alias: `cS` +
 Format: `checkStock`
+
+=== Lists all Patients in Patient Queue : `queue`
+
+Lists all patients in queue waiting to see the doctor.
+Format: `queue`
 
 === Register Patient to Queue : `register`
 
 Register a new patient that comes to the clinic. +
 Alias: `reg` +
-Format: `register <INDEX>`
+Format: `register <INDEX>` or `register <IC Number> [coming soon]`
 
 Example:
 
 * `register 3` +
 Register the patient into the 3rd index.
 
-=== Serve the first patient in the queue : `serve`
-
-Serve the patient first in queue. +
-Alias: `ser` +
-Format: `serve`
-
 === Remove a patient from queue : `remove`
 
 Remove someone from the queue if he/she leaves before being served. +
 Alias: `rem` +
-Format: `remove <INDEX>` or `remove <IC Number>`
+Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
 
 
 Examples:
 
 * `remove 5` +
 Removes the 5th patient in the queue.
-* `remove S9786585D` +
-Removes the patient with that IC Number.
+* `remove S9382839X` +
+Removes patient with IC Number S9382839X from the queue.
 
 === Insert a patient to queue : `insert`
 
 Insert a patient at specified position in the queue. +
-Alias: `i` +
-Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION>`
+Alias: `ins` +
+Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION> [coming soon]`
 
 Examples:
 
@@ -305,6 +304,17 @@ Inserts the 4th person of the address book into the 5th index of the queue.
 * `insert S9123456A 5` +
 Inserts the patient with that IC number to the 5th index of the queue.
 
+
+=== Serve the first patient in the queue : `serve`
+
+Serve the patient first in queue. +
+Alias: `ser` +
+Format: `serve`
+
+=== Finish serving the Current Patient : `finish`
+
+Transfers the current patient to the Served Patient Queue. +
+Format: `finish`
 
 === Listing entered commands : `history`
 

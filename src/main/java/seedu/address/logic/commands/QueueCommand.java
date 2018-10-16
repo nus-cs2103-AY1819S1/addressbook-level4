@@ -4,9 +4,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-//import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientList;
-import seedu.address.model.person.ServedPatient;
+import seedu.address.model.person.CurrentPatient;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -34,7 +33,7 @@ public abstract class QueueCommand extends Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution
      */
-    public abstract CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+    public abstract CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                             ServedPatientList servedPatientList, CommandHistory history) throws CommandException;
 
 }
