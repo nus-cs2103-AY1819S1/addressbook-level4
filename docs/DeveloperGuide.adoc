@@ -324,7 +324,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ==== Current Implementation
 
 The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
-It allows `.ics` files to be saved onto the computer. Calendars in Hallper are created as monthly calendars.
+It allows `.ics` files to be saved onto the computer. Calendars in Hallper are created as monthly calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
 It implements the following command:
 
 * `create_calendar` -- Creates a monthly calendar and store it in local memory.
@@ -333,13 +333,32 @@ It implements the following command:
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
 It implements the following operations:
 
-* `CalendarModel#createCalendar(Year year, Month month)` -- Initializes the calendar object in the `CalendarModel`.
+* `CalendarModel#createCalendar(Year year, Month month)` -- Initializes a calendar object in the `CalendarModel`.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
 * `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the computer.
 
-These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
+These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
 
 Given below is an example usage scenario and how the create_calendar command behaves at each step:
 
+. The user executes the `create_calendar` command by specifying the `Month` and `Year`.
+The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the calendar already exists. Else the command will then call `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
+
+. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`, to indicate that a calendar object has been initialized in the `CalendarModel`.
+
+. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the calendar to a specified local directory.
+
+==== Design Considerations
+
+===== Aspect: File format
+
+The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened and viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
+
+===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
+
+https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
+The library is widely used and easy to understand so any new develeper can easily extend the current features.
 // end::calendar[]
 
 // tag::dataencryption[]
