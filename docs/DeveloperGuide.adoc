@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= ResuMaker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W17-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-W-17-1`      Since: `August 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -244,85 +244,99 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
+// tag::tags[]
+=== Tags and Categories
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+Tags and categories are single-word keywords tied to individual entries. Each `ResumeEntry` be can classified under one `Category`, but can be associated with multiple `Tag`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Categories
+Category related functions are mainly contained in the `seedu.address.model.category` package, which includes the `Category` class and its relevant `CategoryManager`. `CategoryManager` is used by the `ModelManager` (`seedu.address.model.ModelManager`) to filter the list of entries by categories.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Filtering can be done by passing the relevant `Predicate<Entry>` into `CategoryManager` through `CategoryManger.setFilter()`. The relevant filtered list can be obtained by subsequently calling `CategoryManager.getList()`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+===== CategoryManager
+To use `CategoryManager` to filter out relevant entries, there are 2 main functions to keep in mind:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* `setFilter(Predicate<ResumeEntry>)`: sets the filtering criteria for the list of entries
+* `getList()`: returns `unmodifiableObservableList<ResumeEntry>` of relevant entries
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+If there comes a need to set a new source list for the `CategoryManager`, create a new instance with the corresponding `List<ResumeEntry>`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+===== Predicates
+Availble predicates (`Predicate<ResumeEntry>`) for use:
+- `ContainsCategoryPredicate(String categoryName)`
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+// end::tags[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+// tag:: contextualAwareness[]
+=== Contextual Awareness
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+==== Key Terms
+Here are some terms that are used often when discussing Contexual Awareness. +
+Please review their definitions in the Glossary before reading further. +
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+* <<event, Events>>
+* <<slang, Slang>>
+* <<partial-phrase, Partial phrases>>
+* <<full-phrase, Full phrases>>
+* <<expression, Expression>>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Overview
+Contextual Awareness enables ResuMaker to: +
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+* Create pre-filled ResumeEntries for standard <<event, Events>>.
+* Understand slang and partial phrases in the user's input.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The flowchart below illustrates the overall flow taken by an end-user when working with the Contextual Awareness feature. +
 
-The following sequence diagram shows how the undo operation works:
+image::AwarenessFlow.png[width="800"]
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+The flowchart highlights the 4 separate steps involved in the Contextual Awareness feature:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+1. Providing feedback to the user, as he types in an `<expression>`.
+2. Guessing an Event name, based on the user provided `<expression>`.
+3. Matching the guessed Event name, with an actual Event, as defined in the user provided data.
+4. Creating a ResumeEntry for the matched Event.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+In this guide, we will discuss Steps 2, and 3.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+==== Guessing an Event name, based on user provided `<expression>`
+To guess the Event name, we parse the `slang`, `partial phrases` and `full phrases` in the `expression` to get a `possibleEventName`.
+This parsing is done by the `Awareness` class.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+As shown <<Design-Storage, earlier>>, an instance of the Awareness class is initialised from user provided XML data, upon startup.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The following Figure shows the structure of the Awareness class.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+image::awarenessStructure.png[width="600"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+Parsing the `slang`, `partial phrases` and `full phrases` is a 2-step process:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+First, use the `dictionary` (see Figure) to replace each `slang` with its corresponding `full phrase`. +
+After this step, the `expression` will only contain `partial phrases` and `full phrases`. +
+Now, replace each `partial phrase` with its corresponding `full phrase`.
 
-==== Design Considerations
+This gives us a string of `full phrases`, which is our `possibleEventName`.
 
-===== Aspect: How undo & redo executes
+As an example, suppose our initial `expression` was: `ug research assist`.
+In this `expression`, we have:
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* A slang (`ug` - slang for `undegraduate`)
+* A partial phrase (`assist` - short for `assistant`)
+* A full phrase (`research`)
 
-===== Aspect: Data structure to support the undo/redo commands
+After the first step, our expression will be `undergraduate research assist`. +
+After the second step, our expression will be `undergraduate research assistant` +
+Thus, our `possibleEventName` will be `undergraduate research assistant`.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+==== Matching the guessed Event Name, with an actual Event [Work In Progress]
+
+Work in Progress
+
+
+==== Design Choices
+
+Work in Progress
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -820,13 +834,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* SoC students with work/project experience/CS skills who are applying for programmes/ internships/jobs/etc
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Easy to use: CLI makes things fast and simple
+* Flexible: Able to customise resume for specific job requirements
+* SOC-aware: Save time with built in support for School of Computing programmes
+
 
 [appendix]
 == User Stories
@@ -836,17 +851,42 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Student |Save pieces of information about my relevant experience |Generate resumes without having to type the same things every time
 
-|`* * *` |user |add a new person |
+|`* * *` |Student |Generate a resume with only information relevant to a particular field of CS | Conveniently customise my resume for different applications.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Student |Have my Work Experiences and Projects sorted by relevance to job requirements, on my resume |Ensure my resume is relevant to the employer
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Student |Search for entries using filters |Check my saved entries conveniently
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Student |Generate resumes in common file formats like PDF |My resumes are accepted by everyone
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Student |Update or delete my personal information conveniently |Ensure that the resumes the tool generates are up to date
+
+|`* * *` |Student |Have my contact information and other “standard” information automatically added to my resumes | Focus on crafting the more valuable information in my resume
+
+|`* *` |Student |Save custom combinations of tags |Filter the exact entries I want to be put in my resume
+
+|`* *` |Student |Receive feedback from my CLI commands |Be sure of the results of my commands
+
+|`* *` |SoC Student |My resume to automatically contain descriptions of common SOC programmes (Orbital, NOC, etc) |Save time instead of having to input standard information manually
+|`* *` |SoC Student |Pick standard SOC awards (Honour Roll, etc) from a list rather than type them out manually |Save time instead of having to input standard information manually
+
+|`* *` |Student |Have common NUS acronyms auto-translated into their full forms|So that I may type information using acronyms conveniently
+
+|`* *` |Student with existing work|Import my existing projects from Github |Save time typing them out manually
+
+|`*` |Student with multiple computers |Export my saved information and import it on another computer |Generate resumes wherever I go
+
+|`*` |Student |Undo commands and revert any changes made |Quickly recover from making a typo
+
+|`*` |Student |Easily learn how to use the tool from a built-in tutorial |Get started and work more efficiently
+
+|`*` |Student |Auto-fill information about special SoC programs | Saves the effect to input it by myself
+
+|`*` |Student |Conveniently contact people I have worked with in the past | Request testimonials or keep in touch for networking purposes
+
+
 |=======================================================================
 
 _{More to be added}_
@@ -854,44 +894,271 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `ResuMaker` and the *Actor* is the `Student`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Add Personal Information of the user
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enters command to set his contact details
+2. System prompts user for his mobile number, email address and GitHub username
+3. User enters in his contact information
+4. System prompts user for a confirmation
+5. User confirms his data
+6. System saves contact information
+
 +
 Use case ends.
 
 *Extensions*
 
+* 3a. User enters invalid personal information
+
++
 [none]
-* 2a. The list is empty.
+** 3a1. System prompts user to enter valid contact information
++
+Step 3 repeats as many times as necessary
+
+[discrete]
+
+=== Add a generic entry or major entry in the resuMaker
+
+*MSS*
+
+1. User enters command to create a genric entry ( Skills / Awards), or major entry (Experience / Education)
+2. System saves the Entry to the disk
+
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+
+=== Delete an Entry under a specific category
+
+*MSS*
+
+1. User filter the entries using specific tags,
+returning an indexed list of entries (UC04)
+2. User delete the corresponding entries in the list by indicating associated index for each entry to be deleted
+3. System saves the Entry to the disk
++
+Use case ends.
+
+*Extensions*
+
+* *a. User input command using the wrong syntax
+** *a1. System prompts the user to re-enter the command
+** *a2. User re-enters the command
+* 3a. User inputs an index out of range
+** 3a.1 System prompts for invalid input and asks user to re-enter the command
+** 3a.2 return to step 4 for the user to re-enter the command
+
+
+[discrete]
+
+=== edit an Entry under a specific index
+
+*MSS*
+
+1. User searches for a set of Entries, using some tags (UC04)
+2. System displays an indexed list of Entries matching the search tags (UC04)
+3. User enters command to edit Entries, and specifies an index and also the updated information
+4. System displays the updated Entry for reference
+5. System saves the Entry to the disk
+
++
+Use case ends.
+
+*Extensions*
+
+* *a. User input command using the wrong syntax
+** *a1. System prompts the user to re-enter the command
+** *a2. User re-enters the command
+* 3a. User inputs an index out of range
+** 3a.1 System prompts for invalid input and asks user to re-enter the command
+** 3a.2 return to step 4 for the user to re-enter the command
+
+
+[discrete]
+=== Add information about a SoC / NUS Event (e.g. Hack N Roll, Student Exchange, Independent Work module)
+
+*MSS*
+
+1. User enters command to create new project, together with the “nus” keyword and the name of his Event
+2. System recognises the name of the Event, as well as its type (Project, Work Experience, Skill, etc)
+3. System prompts user to fill in further details of his Event, but also pre-fills some fields (such as duration, nature of Event)
+4. User finalises the Event details
+5. System prompts user to tag the Event, but  also pre-selects some tags
+6. User finalises the tags applicable to the Event
+7. System saves the Event as an Entry
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters slang or an acronym instead of the full name of his Event (e.g. "ug research opps" instead of Undergraduate Research Opportunites Programme)
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System matches the slang / acronym to the full Event name in the database, if possible.
 +
-Use case resumes at step 2.
+Use case continues from Step 2.
 
-_{More to be added}_
+* 2a. System does not recognises the Project as a SOC project
++
+[none]
+** 2a1. System informs the User that no default information is available, and all information must be entered manually (UC09)
++
+Use case ends.
+
+[discrete]
+=== Add an SoC Award entry
+
+*MSS*
+
+1. User enters command to view list of SOC Awards
+2. System displays an indexed list of SOC Awards
+3. User selects a particular SOC Award by specifying its index.
+4. System prompts user to enter further details about the SOC Award (e.g. year)
+5. User completes data entry
+6. System saves the Award entry
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User does not find his award in the list
++
+[none]
+** 3a1. User enters command to manually create an Award entry.
++
+Use case ends.
+
+[discrete]
+=== View a template
+
+*MSS*
+
+1. User enters command to view desired template using its filename
+2. System displays contents of the config
+3. User continues using the system
++
+Use case ends.
+
+*Extensions*
+* 2a. Entered config name does not match any existing config.
++
+[none]
+** 2a1. System displays a warning.
++
+Use case returns to Step 1.
+
+[discrete]
+=== Adding tag to an entry
+
+*MSS*
+
+1. User enters command to list entries
+2. User enters command to add tag to entry
+3. System displays the entry with updated tags.
+
+*Extensions*
+
+* 1a. User wants to check existing tags first to ensure new tag is not duplicate
+** 1a1. User enters commands to view list of tags and its corresponding entries
+* 3a. User decides not to create new tag
+** 3a1. User enters command to remove tag from entry
+** 3a2. System display entry with updated tags.
+Use case ends.
+* 4a. New tag is a duplicate of an existing tag
+** 4a1. System ignores duplicated tag
+** 4a2. System displays entry with updated tags
++
+Use case ends.
+
+[discrete]
+=== Viewing all active tags in resume generation
+
+*MSS*
+
+1. User enters command to list all tags
+2. System displays all active tags and their entries' placement in the resume.
+
+[discrete]
+=== Filtering out entries of a specific tag
+
+*MSS*
+
+1. User enters command to list all entries containing a specific tag.
+2. System displays all selected tags and their corresponding entries.
+
+*Extensions*
+
+* 1a. No entries found for tag specified by user
+** 1a1. System outputs an empty list
+
+[discrete]
+=== Retagging tags of a specific entry.
+
+*MSS*
+
+1. User enters command to retag a specific entry.
+2. System displays all selected tags and their corresponding entries.
+
+*Extensions*
+
+* 1a. No entries with the specified index
+** 1a1. System displays an error message to alert user erroneous input.
+
+[discrete]
+=== Removing tags from a specific entry.
+
+*MSS*
+
+1. User enters command to remove all tags from specific entry.
+2. System displays selected entry void of tags.
+
+*Extensions*
+
+* 1a. No entries with the specified index
+** 1a1. System displays an error message to alert user erroneous input.
+
+[discrete]
+=== Generate a resume
+
+*MSS*
+
+1. Student enters command to create resume and specifies a template file, by providing the file path to the template file
+2. System saves a markdown file containing a resume based on the template and the entries specified by the template
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User does not specify a template file
++
+[none]
+** 1a1. System uses a pre-defined default template file instead
++
+Use case resumes from Step 2.
+* 1b. User specifies a template file using an alias instead of a filepath
++
+[none]
+** 1b1. System reads application settings to match the file’s alias with its filepath
++
+Use case resumes from Step 2.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster  using commands than using the mouse.
+. The primary mode of input should be a Command Line Interface.
+. All application data must be stored locally, and in a human editable file
+. There should be no installer for the application.
+. Resume generation should be fast (within 2 minutes).
 
 [appendix]
 == Glossary
@@ -899,8 +1166,59 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[entries]] Entry::
+Contact, Education, Work Experience, Project, Skill or Award
+
+[[event]] Event::
+Work Experience, Project, or Award
+
+[[work-experience]] Work Experience::
+Any professional work (internship, freelance, job)
+
+[[project]] Project::
+Any work done by student outside school/work requirements
+
+[[skill]] Skill::
+Proficiency in any language / framework / tool relevant to Computer Science professionals
+
+[[award]] Award::
+Any award / recognition
+
+[[contact]] Contact::
+Student’s email address, mobile phone number and GitHub Profile
+
+[[education]] Education::
+University name, degree programme name, Year of Study
+
+[[standard-information]] Standard Information::
+Student’s Contact and Education Details
+
+[[template]] Template::
+Sets of tags for each Section of a resume - to be used to custom generate a resume
+
+[[template-file]] Template File::
+A plaintext file containing a Template
+
+[[category]] Category::
+A single-word keyword starting with `~` (e.g. `~work`, `~project`)
+
+[[tag]] Tag::
+A single-word keyword starting with `#`
+
+[[slang]] Slang::
+A single word that is an alias for a <<full-phrase, full phrase>>. (e.g. `cs` is slang for `computer science`)
+
+[[partial-phrase]] Partial phrase::
+An incomplete word. (e.g. `comp`)
+
+[[full-phrase]] Full phrase::
+Single or multiple complete words. (e.g. `computer`, `computer science`)
+
+[[expression]] Expression::
+A combination of slang, partial phrases or full phrases.
+(e.g. 'computer sci ug research proj') +
+In Backus-Naur form, an Expression is defined: +
+`<expression> ::= <slang> | <partial-phrase> | <full-phrase> | <expression>`
 
 [appendix]
 == Product Survey

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= ResuMaker - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-W-17-1`      Since: `August 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Do you find the need to maintain multiple versions of your resume? +
+Perhaps you find youself reorganising your resumes before making a job application?
+
+If so - welcome to ResuMaker: a *fast and flexible resume generator aimed at computer science students*
+
+Unlike most resume generation webapps, ResuMaker tailors your resume to fit the specific requirements of a job. +
+It can also pick up contextual awareness about your world - with out-of-the-box support for the National University of Singapore's School of Computing. +
+Interested? Jump to the <<Quick Start>> to get started. +
+
+With ResuMaker, let your skills document themselves.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `resumaker.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -31,14 +40,14 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Try out the following examples:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listEntry* ~work #java`: Lists all the Work related Entries tagged with `java`
+* **`addEntry`**`~work` `#java t/The Source Enterprise s/Data Science Intern d/ May 2010 - Aug 2010`: Adds a new Entry classified under Work Experiences, with the given title, subheader and duration
+* **`deleteEntry`**`3` : deletes the 3rd Entry shown in the current Entry list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for the full details of all commands.
 
 [[Features]]
 == Features
@@ -46,41 +55,75 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addEntry ~SECTION #TAGNAME t/TITLE, [s/SUBHEADER]`, `SECTION`, `TAGNAME`, `TITLE`  are parameters which can be used as `addEntry t/The Source Enterprise`.
+* Items in square brackets are optional e.g `t/TITLE [s/SUBHEADER]` can be used as `t/The Source Enterprise` or as `t/The Source Enterprise s/Java programmer`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `t/TITLE s/SUBHEADER`, `s/SUBHEADER T/TITLE` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an entry: `addEntry`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `addEntry ~SECTION [#TAG]... t/TITLE [s/SUBHEADER] d/DURATION`
 
 [TIP]
-A person can have any number of tags (including 0)
+An entry can have any number of tags (including 0)
+An entry contains description, which can be added using addDescription as a separate command
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addEntry ~experience #java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`
+* `addEntry ~awards #java`
 
-=== Listing all persons : `list`
+=== Adding a bullet point: `addBullet`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds a bullet point under the description of an entry in the ResuMaker +
+Format: `addBullet CONTENTTOADD`
 
-=== Editing a person : `edit`
+Examples:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* `addBullet implement scalable application for data visualization using java`
+
+=== Editing a bullet point: `editBullet`
+
+edits a bullet point under the description of an entry in the ResuMaker +
+Format: `editBullet INDEX EDITTEDCONTENT`
+
+Examples:
+
+* `editBullet 0  implement scalable application for data visualization using java`
+
+
+=== Listing entries : `listEntry`
+
+list particular entries in the ResuMaker. Both section and tags are optional - running with no arguments will display all entries. +
+Format: `listEntry [~SECTION] [#TAG]...`
+
+
+Examples:
+
+* `listEntry ~education java`
+
+=== Viewing a particular entry : `viewEntry`
+
+views a particular entry in the ResuMaker.+
+Format: `vieWEntry INDEX`
+
+Examples:
+
+* `viewEntry 2`
+
+=== Editing an entry : `editEntry`
+
+Edits an existing entry in the ResuMaker. +
+Format: `editEntry INDEX [t/TITLE ] [s/SUBHEADER] [d/DURATION] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed entry list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -89,35 +132,15 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editEntry 1 t/ R company t/ C++` +
+edits the entry at index 1 by replacing its title as R company and replace all its tags by C++
 
-=== Locating persons by name: `find`
+
+
+=== Deleting an entry: `deleteEntry`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `deleteEntry INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -129,90 +152,121 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd entry in the address book.
+* `list ~education` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st entry displayed under education section
 
-=== Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+=== Creating a SoC / NUS Event (Project / Work Experience / Skill): `nus`
+Auto-populates a resume Entry based on a matching SoC / NUS Event.
+Format: `nus EVENT_NAME`
+
+[TIP]
+The `EVENT_NAME` can be an Event's full name (Mathematics and Computer Science Double Degree Programme), its acronym (math - cs ddp), or even a
+partially matching phrase (math - comp sci double deg prog)
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `nus orb` +
+Creates a Project Entry for `Orbital`
+* `nus hack n roll` +
+Creates a Project Entry for `Hack n Roll`
+* `nus ta cs2040` +
+Creates a Work Experience entry for `Teaching Assistant CS2040`
+
+[NOTE]
+Slang and acronyms must be correctly configured in application data. ResuMaker ships with correct data for commonly used slang and acronyms.
+
+=== Viewing SoC awards: `fetch-awards`
+
+Lists all awards at SoC in a numbered list.
+Format: `fetch-awards` or `fetch-awards INDEX`
+
+The latter format adds the specified award as a resume Entry.
+
+[[tags]]
+=== Tag related functions: `tag`
+These are functions to help you manage your tags; namely to view and edit the relevant tags and entries.
+
+==== Viewing currently active tags: `tag status`
+
+Lists all tags currently active, and will be generated in the resume.
+Format: `tag status` lists all the corresponding tags and categories that will appear in the resume.
+
+==== Listing entries under specific tags: `tag list` or `tag ls`
+
+List all entries under specific tags (space separated).
+
+By default, if a tag is not given, all the tags will be displayed.
+Format: `tag ls` list all the tags and the relevant entries for each tag.
+
+Format: `tag ls ~work ~projects #java` list all the `~work` and `~project` entries tagged with `#java`
+
+Entries displayed will be accompanied with their relevant entry id.
+
+==== Add particular tag to entry: `tag add`
+
+Add tags (space separated) to particular entry (identified by index).
+
+Duplicated tags will be ignored
+
+Format: `tag add 10 ~work #java` add tag `#java` and category `~work` to entry 10.
+
+==== Remove particular tag from entry: `tag remove` or `tag rm`
+
+Remove tags (space separated) from a particular entry (identified by index).
+
+By default, if no tags given, all tags will be removed from the entry.
+
+Format: `tag rm 1 ~work #java` remove category `~work` and tag `#java` from entry 1.
+
+Format: `tag rm 10` remove all tags and categories from entry 10.
+
+==== Retagging a particular entry: `tag retag` or `tag rt`
+
+Remove all current tags and replace it with current tags (space separated).
+
+Format: `tag rt 1 ~work #java` remove all tags and categories from entry 1, adding tag `#java` and category `~work` to entry 1.
 
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+=== Viewing template : `viewtemplate`
+
+Gives a preview of the template. +
+Format: `viewtemplate FILEPATH`
+
+Examples:
+
+* `viewtemplate google.txt` +
+Previews the template specified in `google.txt`
+
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Generating Resume : `make`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Generates a Resume in Markdown format, using either the _template_ with the given file name or a default format. +
+Format: `make` or `make TEMPLATE_FILENAME`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+The user can supply the name of a _template file_ they created themselves or a SoC-focused preset _template_ supplied by the program.
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `make` +
+Generates a Resume based on the default format using saved entries.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+* `make SEP.txt` +
+Generates a Resume based on the 'SEP.txt' _template file_ (which could be user created or a preset) using saved entries.
 
 === Clearing all entries : `clear`
 
@@ -256,5 +310,11 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Tag Status*: `tag status`
+* *Tag List*: `tag ls TAG [MORE_TAGS]` +
+e.g. `tag ls ~work #java`
+* *Tag Remove*: `tag rm INDEX TAG [MORE_TAGS]` +
+e.g. `tag rm 10 ~work #python`
+* *Tag Retag*: `tag tg INDEX TAG [MORE_TAGS]` +
+e.g. `tag rt 10 ~project #web`
+* *Generate Resume* : `make`

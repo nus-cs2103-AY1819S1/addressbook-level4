@@ -35,7 +35,12 @@ targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     mavenCentral()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    maven {
+        url  'http://dl.bintray.com/steppschuh/Markdown-Generator'
+    }
 }
 
 checkstyle {
@@ -66,6 +71,7 @@ dependencies {
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+    implementation group: 'net.steppschuh.markdowngenerator', name: 'markdowngenerator', version: '1.3.1.1'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
@@ -207,9 +213,11 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+
+        // removes SE-EDU navbar
+        // Anubhav learnt about this from this group: https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/18
+        'site-name': 'ResuMaker',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W17-1/main',
     ]
 
     options['template_dirs'].each {

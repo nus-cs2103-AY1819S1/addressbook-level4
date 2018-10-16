@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -11,6 +13,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<ResumeEntry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -24,6 +27,13 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     *
+     * @param entry to be searched
+     * @return true if an entry with the same identity as {@code entry} exists in the ResuMaker.
+     */
+    boolean hasEntry(ResumeEntry entry);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -34,6 +44,13 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given person.
+     * {@code entry} must not already exist in the address book.
+     */
+    void addEntry(ResumeEntry entry);
+
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -51,6 +68,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Loads a template from the specified filepath.
+     */
+    void loadTemplate(String filepath);
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -75,4 +96,11 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Returns the name of an Event that possibly matches a given expression.
+     * This may not be part of the Model API in V1.4.
+     * I have added it here to ensure a user testable feature for V1.2 submission.
+     */
+    String getPossibleEventName(String expression);
 }

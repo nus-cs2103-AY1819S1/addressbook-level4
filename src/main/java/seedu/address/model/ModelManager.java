@@ -9,10 +9,14 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TemplateLoadRequestedEvent;
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final Awareness awareness;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        awareness = SampleDataUtil.getSampleAwareness();
     }
 
     public ModelManager() {
@@ -62,6 +68,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+    @Override
+    // to be modified
+    public boolean hasEntry(ResumeEntry entry) {
+        return false;
+    }
+
+    @Override
+    public void addEntry(ResumeEntry entry) {
+        // TO Be implemented
+    }
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -100,6 +116,13 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Template ==================================================================================
+
+    @Override
+    public void loadTemplate(String filepath) {
+        raise(new TemplateLoadRequestedEvent(filepath));
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -127,6 +150,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    //=========== Awareness accessors =======================================================================
+    @Override
+    public String getPossibleEventName(String expression) {
+        return awareness.getPossibleEventName(expression);
     }
 
     @Override

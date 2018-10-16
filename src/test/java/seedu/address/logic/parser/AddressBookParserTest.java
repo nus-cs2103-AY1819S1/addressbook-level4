@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ContextCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -81,6 +82,15 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+
+    @Test
+    public void parseCommand_context() throws Exception {
+        String expression = "   nussu exco member    ";
+        ContextCommand command = (ContextCommand) parser.parseCommand(
+            ContextCommand.COMMAND_WORD + expression);
+        assertEquals(new ContextCommand(expression.trim()), command);
     }
 
     @Test

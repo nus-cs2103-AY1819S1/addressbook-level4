@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TemplateLoadRequestedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -23,12 +24,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TemplateStorage templateStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.templateStorage = new TemplateStorage();
     }
 
     // ================ UserPrefs methods ==============================
@@ -78,6 +81,15 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ Template methods ==============================
+    /**
+     * Loads a Template from a text file
+     */
+    public void loadTemplate(String filePath) throws IOException {
+        logger.fine("Attempting to load template from: " + filePath);
+        templateStorage.readTemplateFromFile(filePath);
+        //TODO: modify Model
+    }
 
     @Override
     @Subscribe
@@ -87,6 +99,17 @@ public class StorageManager extends ComponentManager implements Storage {
             saveAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Subscribe
+    public void handleTemplateLoadRequestedEvent(TemplateLoadRequestedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Template load requested, attempting to load"));
+        try {
+            loadTemplate(event.filepath);
+        } catch (IOException e) {
+            //TODO: create file not found event
+            //raise(new DataSavingExceptionEvent(e));
         }
     }
 

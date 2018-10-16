@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -94,6 +95,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addEntry(ResumeEntry entry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -105,6 +111,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEntry(ResumeEntry entry) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -125,6 +136,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void loadTemplate(String filepath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,6 +168,11 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String getPossibleEventName(String expression) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -170,6 +191,7 @@ public class AddCommandTest {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
+
     }
 
     /**
