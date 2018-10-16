@@ -32,11 +32,14 @@ public class Time {
     public static final String TIME_VALIDATION_REGEX = DAY_PART_REGEX + " "
             + START_TIME_REGEX + " " + END_TIME_REGEX;
 
+    /**
+     * Represents the day of the tutorial.
+     */
     enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
-    public Day day;
-    public int startTime;
-    public int endTime;
+    private Day day;
+    private int startTime;
+    private int endTime;
 
     /**
      * Constructs an {@code Time}.
@@ -45,8 +48,27 @@ public class Time {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
         setTime(time);
+    }
 
+    /**
+     * Returns the day of the tutorial.
+     */
+    public Day getDay() {
+        return day;
+    }
 
+    /**
+     * Returns the start time of the tutorial.
+     */
+    public int getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Returns the end time of the tutorial.
+     */
+    public int getEndTime() {
+        return endTime;
     }
 
     /**
@@ -76,7 +98,7 @@ public class Time {
         case "fri":
             day = Day.Friday;
             break;
-        case "sat":
+        default:
             day = Day.Saturday;
             break;
         }
