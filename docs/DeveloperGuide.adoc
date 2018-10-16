@@ -452,7 +452,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Import feature
 ==== Current Implementation
 The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file
-to`AddressBook`. The rules pertaining to accepted formatting of csv files can be found in the user guide. Additionally, it
+to `AddressBook`. The rules pertaining to accepted formatting of csv files can be found in the user guide. Additionally, it
 implements the following operations:
 
 * `getFileFromUserInput(String)` -- gets a File from the path indicated by a user's text input.
