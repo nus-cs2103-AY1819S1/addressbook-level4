@@ -83,8 +83,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setOccasions(newData.getOccasionList());
     }
 
-    //// person-level operations
-
+    //// person-level operation
+    // TODO: Refactor it to Entity-level
     /**
      * Returns true if an entity with the same identity as {@code person} exists in the address book.
      */
@@ -163,8 +163,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode()
-                + modules.hashCode()
-                + occasions.hashCode();
+        return persons.hashCode();
+        // TODO: proper design of getting the hashcode of this addressBook
     }
 }
