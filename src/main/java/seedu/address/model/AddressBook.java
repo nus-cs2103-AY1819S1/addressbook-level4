@@ -56,12 +56,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
+    }
+    
+    /**
+     * Replaces the contents of the occasion list with {@code occasions}.
+     * {@code occasions} must not contain duplicate occasions.
+     */
+    public void setOccasions(List<Occasion> occasions) {
+        this.occasions.setOccasions(occasions);
+    }
+    
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setModules(newData.getModuleList());
+        setOccasions(newData.getOccasionList());
     }
 
     //// person-level operations
@@ -100,7 +118,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-
+    
     //// util methods
 
     @Override
