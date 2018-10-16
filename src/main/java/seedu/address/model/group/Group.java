@@ -180,7 +180,8 @@ public class Group {
 
     /**
      * This method is reserved to be called only from
-     * {@link seedu.address.model.person.Person#removeGroup(Group)} method.
+     * {@link seedu.address.model.person.Person#removeGroup(Group)}
+     * and {@link Person#clearMembership()} methods.
      */
     public void removeMemberHelper(Person person) {
         this.members.remove(person);

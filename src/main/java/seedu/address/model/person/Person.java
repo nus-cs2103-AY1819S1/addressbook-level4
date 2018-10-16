@@ -158,6 +158,7 @@ public class Person {
     /**
      * This method is reserved to be called only from
      * {@link seedu.address.model.group.Group#removeMember(Person)}}
+     * and {@link Group#clearMembers()} methods.
      */
     public void removeGroupHelper(Group group) {
         this.groups.remove(group);
