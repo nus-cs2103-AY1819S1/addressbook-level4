@@ -23,7 +23,7 @@ public class CcaBuilder {
     public static final int DEFAULT_BUDGET = 500;
     public static final int DEFAULT_SPENT = 100;
     public static final int DEFAULT_OUTSTANDING = 400;
-    public static final String DEFAULT_TRANSACTION = "Bought equipments/-$150\n + Team Fund/$50\n";
+    public static final String DEFAULT_TRANSACTION = "Bought equipments/-$150\nTeam Fund/$50\n";
 
     private CcaName ccaName;
     private Name head;
@@ -68,6 +68,14 @@ public class CcaBuilder {
     }
 
     /**
+     * Sets the {@code Budget} of the {@code Cca} we are building.
+     */
+    public CcaBuilder withBudget(int budget) {
+        this.budget = new Budget(budget);
+        return this;
+    }
+
+    /**
      * Sets the {@code Spent} of the {@code Cca} we are building.
      */
     public CcaBuilder withSpent(int spent) {
@@ -94,4 +102,5 @@ public class CcaBuilder {
     public Cca build() {
         return new Cca(ccaName, head, viceHead, budget, spent, outstanding, transaction);
     }
+
 }
