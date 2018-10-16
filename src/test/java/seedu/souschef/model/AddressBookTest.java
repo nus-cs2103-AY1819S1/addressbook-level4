@@ -1,7 +1,6 @@
 package seedu.souschef.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.souschef.testutil.TypicalRecipes.ALICE;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
@@ -17,8 +16,13 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.souschef.model.exceptions.DuplicateException;
+import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.tag.Tag;
 import seedu.souschef.testutil.RecipeBuilder;
 
 public class AddressBookTest {
@@ -49,7 +53,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
         AppContentStub newData = new AppContentStub(newRecipes);
@@ -94,6 +98,10 @@ public class AddressBookTest {
      */
     private static class AppContentStub implements ReadOnlyAppContent {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
+        private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+        private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
+        private final ObservableList<HealthPlan> plans = FXCollections.observableArrayList();
+        private final ObservableList<Day> mealPlanner = FXCollections.observableArrayList();
 
         AppContentStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
@@ -103,6 +111,24 @@ public class AddressBookTest {
         public ObservableList<Recipe> getObservableRecipeList() {
             return recipes;
         }
-    }
 
+        @Override
+        public ObservableList<Tag> getObservableTagList() {
+            return tags;
+        }
+
+        @Override
+        public ObservableList<Ingredient> getObservableIngredientList() {
+            return ingredients;
+        }
+
+        @Override
+        public ObservableList<HealthPlan> getObservableHealthPlanList () {
+            return plans;
+        }
+        @Override
+        public ObservableList<Day> getObservableMealPlanner() {
+            return mealPlanner;
+        }
+    }
 }

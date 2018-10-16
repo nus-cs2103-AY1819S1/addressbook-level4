@@ -1,13 +1,16 @@
 package seedu.souschef.model.ingredient;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+
+import seedu.souschef.model.UniqueType;
 
 /**
  * Represents an ingredient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Ingredient {
+public class Ingredient extends UniqueType {
     // Identity fields
     private String name;
 
@@ -16,8 +19,8 @@ public class Ingredient {
     private ServingUnit unit;
     private Date date;
 
-    public Ingredient(UniqueIngredient uniqueIngredient, double amount, ServingUnit unit, Date date) {
-        this.name = uniqueIngredient.getName();
+    public Ingredient(String name, double amount, ServingUnit unit, Date date) {
+        this.name = name;
         this.amount = amount;
         this.unit = unit;
         this.date = date;
@@ -43,14 +46,19 @@ public class Ingredient {
      * Returns true if both ingredients of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two recipes.
      */
-    public boolean isSameIngredient(Ingredient otherIngredient) {
-        if (otherIngredient == this) {
+    public boolean isSame(UniqueType other) {
+        if (other == this) {
             return true;
         }
 
+        if (!(other instanceof Ingredient)) {
+            return false;
+        }
+
+        Ingredient otherIngredient = (Ingredient) other;
+
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName())
-                && (otherIngredient.getAmount() == getAmount()) || otherIngredient.getUnit().equals(getUnit());
+                && otherIngredient.getName().equals(getName());
     }
 
     /**
@@ -86,10 +94,10 @@ public class Ingredient {
         builder.append(getName())
                 .append(" Amount: ")
                 .append(getAmount())
-                .append(" Unit: ")
+                .append(" ")
                 .append(getUnit())
                 .append(" Date: ")
-                .append(getDate());
+                .append(new SimpleDateFormat("MM-dd-yyyy").format(getDate()));
         return builder.toString();
     }
 }

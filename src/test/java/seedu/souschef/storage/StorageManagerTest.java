@@ -19,6 +19,7 @@ import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.storage.recipe.XmlRecipeStorage;
 import seedu.souschef.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
@@ -32,7 +33,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlFeatureStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -64,37 +65,38 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
         AppContent original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAppContent retrieved = storageManager.readAddressBook().get();
+        storageManager.saveFeature(original);
+        ReadOnlyAppContent retrieved = storageManager.readFeature().get();
         assertEquals(original, new AppContent(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getFeatureFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
+        // Create a StorageManager while injecting a stub that  throws an exception when the
+        // saveAppContent method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AppContentChangedEvent(new AppContent()));
+        storage.handleAppContentChangedEvent(new AppContentChangedEvent(new AppContent()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
 
     /**
-     * A Stub class to throw an exception when the save method is called
+     * A Stub class to throw an exception when the saveAppContent method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlRecipeStorage {
 
         public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
+        public void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

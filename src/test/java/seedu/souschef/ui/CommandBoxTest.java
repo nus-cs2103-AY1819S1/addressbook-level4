@@ -12,9 +12,8 @@ import javafx.scene.input.KeyCode;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.logic.LogicManager;
 import seedu.souschef.logic.commands.ListCommand;
-import seedu.souschef.model.Model;
+import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.ModelSetCoordinator;
-import seedu.souschef.model.recipe.Recipe;
 
 public class CommandBoxTest extends GuiUnitTest {
 
@@ -28,8 +27,8 @@ public class CommandBoxTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
-        Logic logic = new LogicManager(model);
+        ModelSet modelSet = new ModelSetCoordinator();
+        Logic logic = new LogicManager(modelSet);
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
@@ -80,6 +79,7 @@ public class CommandBoxTest extends GuiUnitTest {
         commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, "");
+
 
         // two commands (latest command is failure)
         commandBoxHandle.run(COMMAND_THAT_FAILS);

@@ -4,12 +4,22 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import seedu.souschef.model.healthplan.HealthPlan;
+
+import seedu.souschef.model.recipe.Recipe;
+
+
 /**
  * The API of the Model component.
  */
 public interface Model<T extends UniqueType> {
     /** {@code Predicate} that always evaluate to true */
+
+    Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    Predicate<HealthPlan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
+
     Predicate<UniqueType> PREDICATE_SHOW_ALL = unused -> true;
+
 
     /** Clears existing backing recipeModel and replaces with the provided new data. */
     void resetData(ReadOnlyAppContent newData);
@@ -42,6 +52,12 @@ public interface Model<T extends UniqueType> {
      */
     void update(T target, T edited);
 
+    /**
+     * Returns full unfiltered list.
+     * @return Full unique list.
+     */
+    ObservableList<T> getFullList();
+
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<T> getFilteredList();
 
@@ -50,6 +66,8 @@ public interface Model<T extends UniqueType> {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredList(Predicate<? extends UniqueType> predicate);
+
+
 
     /**
      * Returns true if the recipeModel has previous application content states to restore.

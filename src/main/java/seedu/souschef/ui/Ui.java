@@ -13,4 +13,17 @@ public interface Ui {
     /** Stops the UI. */
     void stop();
 
+    /** Switches to RecipeListPanel */
+    void switchToRecipeListPanel();
+
+    /** Switches to MealPlanListPanel */
+    void switchToMealPlanListPanel();
+
+    // To be implemented:
+
+
+    /** void switchToIngredientListPanel() */
+
+    void switchToHealthPlanListPanel();
+
 }
