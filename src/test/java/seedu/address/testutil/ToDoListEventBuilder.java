@@ -13,7 +13,7 @@ public class ToDoListEventBuilder {
 
     public static final String DEFAULT_TITLE = "CS2103 Lecture";
     public static final String DEFAULT_DESCRIPTION = "Abstraction, IntelliJ, Gradle";
-    public static final String DEFAULT_PRIORITY = "1";
+    public static final String DEFAULT_PRIORITY = "H";
 
     private Title title;
     private Description description;
