@@ -1045,8 +1045,8 @@ Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
 
 *MSS*
 
-1. Actor requests to ClinicIO analytics.
-2. System computes values for statistics.
+1. Actor requests to view ClinicIO analytics.
+2. System retrieves values and computes all statistics.
 3. System displays numerical summary and visualizations.
 +
 Use case ends.
