@@ -31,7 +31,7 @@ public class ReferralLetter extends Document {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: " + name + "\n");
         sb.append("NRIC: " + icNumber + "\n");
-        sb.append(referralContent);
+        sb.append(referralContent + "\n");
         return sb.substring(0, sb.length() - 1);
     }
 }

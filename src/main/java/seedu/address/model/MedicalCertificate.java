@@ -31,7 +31,7 @@ public class MedicalCertificate extends Document {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: " + name + "\n");
         sb.append("NRIC: " + icNumber + "\n");
-        sb.append(mcContent);
+        sb.append(mcContent + "\n");
         return sb.substring(0, sb.length() - 1);
     }
 }

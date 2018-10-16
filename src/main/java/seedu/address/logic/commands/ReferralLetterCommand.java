@@ -25,7 +25,7 @@ public class ReferralLetterCommand extends QueueCommand {
             + " index. Includes information like name and NRIC of patient, and information written by the issuing doctor. \n"
             + "Example: " + COMMAND_WORD + "<person's index>";
 
-    public static final String MESSAGE_SUCCESS = "Referral letter generated for patient!";
+    public static final String MESSAGE_SUCCESS = "Referral letter generated for patient! \n";
 
     private final Index index;
     private String generatedResult;
