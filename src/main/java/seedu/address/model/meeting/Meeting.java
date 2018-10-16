@@ -3,6 +3,10 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 //@@author AyushChatto
 /**
  * Represents a value that the user has scheduled with the client.
@@ -11,7 +15,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Meeting {
 
     public static final String MESSAGE_MEETING_CONSTRAINTS =
-            "Meeting should only contain a date and time in DDMMYYHHMM format";
+            "Meeting should only contain a date and time in DD/MM/YY HHMM format";
 
     public static final String MEETING_VALIDATION_REGEX = "\\d{10}";
     public static final String NO_MEETING = "0000000000";
@@ -31,10 +35,37 @@ public class Meeting {
     }
 
     /**
+     * Formats meetings to meet the standard entry format by removing special characters
+     */
+    public static String formatMeeting(String uneditedMeeting) {
+        String editedMeeting = "";
+        for (int i = 0; i < uneditedMeeting.length(); i++) {
+            if (Character.isDigit(uneditedMeeting.charAt(i))) {
+                editedMeeting += uneditedMeeting.charAt(i);
+            }
+        }
+        return editedMeeting;
+    }
+
+    /**
      * Returns true if a given string is a valid value.
      */
     public static boolean isValidMeeting(String test) {
-        return test.matches(MEETING_VALIDATION_REGEX);
+        if (test.equals(NO_MEETING)) {
+            return true;
+        }
+        String formattedTest = formatMeeting(test);
+        if (formattedTest.matches(MEETING_VALIDATION_REGEX)) {
+            try {
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyy");
+                LocalDate.parse(formattedTest.substring(0, 6), df);
+                return true;
+            } catch (DateTimeException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 
@@ -44,11 +75,11 @@ public class Meeting {
             return NO_MEETING_MSG;
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(" " + value.charAt(0) + value.charAt(1) + "/"
-                + value.charAt(2) + value.charAt(3) + "/"
-                + value.charAt(4) + value.charAt(5) + " at "
-                + value.charAt(6) + value.charAt(7)
-                + value.charAt(8) + value.charAt(9));
+        sb.append(" " + value.substring(0, 2) + "/"
+                + value.substring(2, 4) + "/"
+                + value.substring(4, 6) + " at "
+                + value.substring(6, 8)
+                + value.substring(8, 10));
         return sb.toString();
     }
 
