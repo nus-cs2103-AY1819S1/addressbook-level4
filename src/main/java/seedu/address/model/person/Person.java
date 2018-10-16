@@ -95,8 +95,8 @@ public class Person {
     /**
      * Returns true if this person possess specified permission. Otherwise false.
      */
-    public boolean havePermission(Permission p) {
-        return permissionSet.contains(p);
+    public boolean havePermissions(Permission... pList) {
+        return permissionSet.containsAll(pList);
     }
 
     /**
