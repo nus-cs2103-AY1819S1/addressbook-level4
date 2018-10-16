@@ -328,6 +328,80 @@ image::AddmedsSequenceDiagram.png[width="800"]
 ** Pros: Easier to handle.
 ** Cons: Reduces the cohesion of the `Prescription` class as it now handles multiple different items e.g. dosage-related information and duration-related information.
 
+// tag::addappt[]
+=== Addappt
+==== Current implementation
+The `addappt` command provides functionality for users to add an appointment for a given patient.
+This is done by adding appointment-related information to a given person, represented by a `Person` object.
+This allows for users to track the upcoming appointments for every patient.
+
+The adding of appointment-related information is facilitated by the following classes:
+* `AppointmentsList`, a list of
+** `Appointment`, each of which have a
+*** `Type`
+
+A more detailed description of the classes follows below:
+* `AppointmentsList`
+** Every `Person` has an `AppointmentsList`, the purpose of which is to store all `Appointment` belonging to a `Person`.
+** A wrapper class around the internal representation of a list of appointments that exposes only a few select methods in the `List` API.
+*** The methods relevant to the `addappt` command from the API are: `add`.
+
+* `Appointment`
+** Class encapsulating all the information about a particular appointment.
+*** These information include the type of appointment (enum Type), name of the procedure, date and time of the appointment and the name of the doctor-in-charge of the appointment
+
+* `Type`
+** An enumeration that covers all the different types of medical procedures. The four types are:
+*** `PROPAEDEUTIC`, with `PROP` as abbreviation
+*** `DIAGNOSTIC`, with `DIAG` as abbreviation
+*** `THERAPEUTIC`, with `THP` as abbreviation
+*** `SURGICAL`, with `SRG` as abbreviation
+
+Given below is an example usage scenario and how the relevant classes behave at each step.
+At the end of the explanation is a link:{repoURL}/src/main/docs/images/AddApptSequenceDiagram.png[sequence diagram] of a typical addappt command execution.
+
+The user executes `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`.
+This command has the following intent: Record the following appointment to a patient with NRIC = S1234567A:
+
+[cols="1,2a,1", options="header"]
+|===
+|Appointment type |Procedure name |Date and time |Doctor-in-charge
+
+|`SRG`
+|Heart Bypass
+|27-04-2019 1030
+|Dr. Pepper
+|===
+
+The command is passed to an instance of the `LogicManager` class, which in turn executes `AddressBookParser::parse`.
+The `AddressBookParser` parses the command word (`addappt`) and executes `AddApptCommandParser::parse`.
+
+The `AddApptCommandParser::parse` method returns an `AddApptCommand` object which encapsulates the necessary information to update the Person 's appointments(s).
+Control then passes back to the `LogicManager`, which calls `AddApptCommand::execute`.
+
+[NOTE]
+If no/multiple patient(s) with that `NRIC` exist(s), then the `AddApptCommand::execute` method will throw a `CommandException` with the appropriate error message and the usage case will end.
+
+The `AddApptCommand::execute` method constructs a new `Person` object using all the details of the old `Person`, with the sole difference being the `AppointmentsList` used being a deep copy of the original `Person`'s `AppointmentsList` with the new `Appointment` added.
+This updated `Person` object is used to update the existing `Person` object using the `Model::updatePerson` method (or an overridden version) of the backing model.
+Finally, the `AddApptCommand::execute` method terminates, returning a `CommandResult` with a success message. The `LogicManager` then returns the same `CommandResult` as the return value of the `LogicManager::execute` method.
+The command execution then ends.
+
+[#img-addapptsequencediagram]
+The following sequence diagram shows the execution of the `addappt` command:
+
+image::AddApptSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Representation of types of medical procedures
+* **Alternative 1 (Current implementation):** Use an `Enum` for `Type`
+** Pros: Allows for easier handling of incorrect values
+** Cons: More effort needed to filter and retrieve the different types
+* **Alternative 2:** Have a switch case to handle the different types
+** Pros: Easier to handle.
+** Cons: Less clean
+
 === Addmh/Viewmh
 ==== Current Implementation
 
@@ -376,10 +450,6 @@ The command execution then *ends*.
 NOTE: If multiple patients with the entered `NRIC` exist, then the `AddmhCommand::execute` will throw a `CommandException`
 with an appropriate error message before the use case ends.
 ****
-
-
-
-
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

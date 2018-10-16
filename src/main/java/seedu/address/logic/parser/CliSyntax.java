@@ -15,6 +15,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DRUG_ALLERGY = new Prefix("da/");
 
+    /** Ordered prefixes for the addappt command. */
+    public static final Prefix PREFIX_TYPE = new Prefix("type/");
+    public static final Prefix PREFIX_PROCEDURE = new Prefix("pn/");
+    public static final Prefix PREFIX_DATE_TIME = new Prefix("dt/");
+    public static final Prefix PREFIX_DOCTOR = new Prefix("doc/");
+
     /** Ordered prefixes for the addmh command. */
     public static final Prefix PREFIX_MED_HISTORY = new Prefix("mh/");
 
