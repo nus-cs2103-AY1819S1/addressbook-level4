@@ -21,17 +21,25 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.BudgetBookStorage;
+import seedu.address.storage.CalendarStorage;
+import seedu.address.storage.EmailDirStorage;
+import seedu.address.storage.EmailStorage;
+import seedu.address.storage.IcsCalendarStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlBudgetBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -63,7 +71,11 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BudgetBookStorage budgetBookStorage = new XmlBudgetBookStorage(userPrefs.getBudgetBookFilePath());
+        EmailStorage emailStorage = new EmailDirStorage(userPrefs.getEmailPath());
+        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
+        storage = new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
+            emailStorage);
 
         initLogging(config);
 
@@ -77,28 +89,41 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code
+     * userPrefs}.
+     * <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyBudgetBook> budgetBookOptional;
+        ReadOnlyAddressBook initialAddressData;
+        ReadOnlyBudgetBook initialBudgetData;
         try {
             addressBookOptional = storage.readAddressBook();
+            budgetBookOptional = storage.readBudgetBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            if (!budgetBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample BudgetBook");
+            }
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialBudgetData = budgetBookOptional.orElseGet(SampleDataUtil::getSampleBudgetBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty BudgetBook");
+            initialAddressData = new AddressBook();
+            initialBudgetData = new BudgetBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty BudgetBook");
+            initialAddressData = new AddressBook();
+            initialBudgetData = new BudgetBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialAddressData, initialBudgetData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -128,7 +153,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -156,7 +181,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
