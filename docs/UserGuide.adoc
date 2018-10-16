@@ -201,7 +201,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Analyzing grades commands : `grades``[coming in v2.0]`
+=== Analyzing grades commands `[coming in v2.0]`
 
 Analyze the grades of students +
 Format: `grades ACTION [parameters]`
@@ -220,7 +220,7 @@ Regard the mark of the student who doesn't have a grade as 0.
 
 
 
-=== Retrieving earnings : `earnings``[coming in v2.0]`
+=== Retrieving earnings `[coming in v2.0]`
 
 Retrieve the total earnings within a range of date in the current year. +
 Format: `from/DDMM to/DDMM`
