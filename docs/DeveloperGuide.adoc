@@ -851,11 +851,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |medical clinic receptionist |assign a patient to a queue for any room |consultation can take place systematically and fairly
 
-|`* * *` |medical clinic receptionist |assign a queue number for each patient |patient can be called for consultatoin using his/her queue number
+|`* * *` |medical clinic receptionist |assign a queue number for each patient |patient can be called for consultation using his/her queue number
 
-|`* * *` |medical clinic receptionist |assign a patient to a queue based on his/her nric|i do not have to scroll through the displayed patient list to look for the patient's index
+|`* * *` |medical clinic receptionist |assign a patient to a queue based on his/her nric|I can quickly assign him/her
 
-|`* * *` |medical clinic receptionist |view the length of the queue|respond to quickly and accurately to patients asking for the number of patients in the queue
+|`* * *` |medical clinic receptionist |view the length of the queue|the logistic department can be informed to accomodate visitors
 
 |`* * *` |medical clinic receptionist |assign a patient with specific request to an individual queue for a room |patients can begin consultation quickly
 
