@@ -420,6 +420,20 @@ classes for each of the behaviours.
 ** Pros: Clear separation of concern.
 ** Cons: Harder to design properly.
 
+###  Model Rollback feature
+#### Current Implementation
+
+Allows for any uncommitted changes to be discarded.
+
+* `Model` -- Extends with a `rollback()` method
+* `ModelManager` -- Extends with a `rollback()` method
+* `VersionedTaskManager` -- Implements a `rollback()` method
+
+When `VersionedTaskManager#Rollback()` is called, the current data is reset to the state of the
+latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to reset the data to
+the latest commit, also the `currentStatePointer` is set to point at the index of the latest
+commit in `taskManagerStateList`.
+
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
