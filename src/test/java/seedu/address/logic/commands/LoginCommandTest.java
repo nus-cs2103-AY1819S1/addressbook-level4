@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BEN;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Password;
+import seedu.address.model.person.Person;
 
 //@@author jjlee050
 public class LoginCommandTest {
@@ -124,19 +127,37 @@ public class LoginCommandTest {
         assertNull(command.searchDoctor(emptyList, ADAM));
         assertNull(command.searchDoctor(emptyList, BEN));
     }
-    
+
+    @Test
+    public void searchDoctor_invalidDoctorList_throwsClassCastException() {
+        LoginCommand command = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+        List<Doctor> doctorsList = model.getFilteredDoctorList();
+
+        thrown.expect(ClassCastException.class);
+
+        // The doctor to found is not a doctor.
+        command.searchDoctor(doctorsList, (Doctor) ALICE);
+        command.searchDoctor(doctorsList, (Doctor) CARL);
+    }
+
     @Test
     public void searchDoctor_noDoctorsFound_returnNull() {
         LoginCommand command = new LoginCommand(
                 new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
         List<Doctor> doctorsList = Arrays.asList(BEN);
-        
-        assertNull(command.searchDoctor(doctorsList, ADAM));
-        assertNull(command.searchDoctor(doctorsList, (Doctor) ALICE));
-    }
 
+        // Cannot find ADAM in the doctorsList
+        assertNull(command.searchDoctor(doctorsList, ADAM));
+    }
+    
     @Test
-    public void searchDoctor_validDoctorListWithNoDoctorFound_returnNull() {
+    public void searchDoctor_doctorFound_returnDoctor() {
+        LoginCommand command = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+        List<Doctor> doctorsList = model.getFilteredDoctorList();
+        
+        assertNotNull(command.searchDoctor(doctorsList, BEN));
 
     }
 
