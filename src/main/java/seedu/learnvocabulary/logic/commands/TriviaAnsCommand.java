@@ -14,7 +14,9 @@ public class TriviaAnsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Correct! Type trivia to answer another question!";
 
-    public static final String MESSAGE_FAILURE = "Wrong! Try again or type trivia to get another question.";
+    public static final String MESSAGE_WRONG = "Wrong! Try again or type trivia to get another question.";
+
+    public static final String MESSAGE_FAILURE = "Please use the trivia command to get a question.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "your answer";
 
@@ -29,9 +31,13 @@ public class TriviaAnsCommand extends Command {
         requireNonNull(model);
         Word triviaQ = model.getTrivia();
 
+        if (triviaQ == null) {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+
         if (triviaQ.getName().toString().equals(answer)) {
             return new CommandResult(MESSAGE_SUCCESS);
         }
-        return new CommandResult(MESSAGE_FAILURE);
+        return new CommandResult(MESSAGE_WRONG);
     }
 }

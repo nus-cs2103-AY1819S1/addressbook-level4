@@ -18,7 +18,7 @@ import seedu.learnvocabulary.model.word.Word;
 public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
-    private Word triviaQ;
+    private Word triviaQ = null;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -109,7 +109,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     }
     public Word getTrivia() {
-        requireNonNull(triviaQ);
         return triviaQ;
     }
 
