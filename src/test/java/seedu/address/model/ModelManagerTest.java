@@ -50,7 +50,6 @@ public class ModelManagerTest {
 
     @Test
     public void checkBudgetRestart_frequency_resetSpendingIfNextRecurrence() throws NoUserSelectedException {
-        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.setRecurrenceFrequency(0);
         try {
 
