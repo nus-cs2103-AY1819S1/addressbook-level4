@@ -46,7 +46,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
-        patientQueue = new PatientQueue();
       
         //@@author iamjackslayer
         mainQueue = new MainQueue();
@@ -89,8 +88,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasPatientInMainQueue() {
+        return mainQueue.hasPatient();
+    }
+
+    @Override
+    public boolean hasPatientInPreferenceQueue() {
+        return preferenceQueue.hasPatient();
+    }
+
+    @Override
     public boolean hasPatientInPatientQueue() {
-        return patientQueue.hasPatient();
+        boolean hasPatient = hasPatientInPreferenceQueue() || hasPatientInMainQueue();
+        return hasPatient;
     }
 
     //@@author gingivitiss
@@ -181,33 +191,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    @Override
-    public boolean hasPatientInMainQueue() {
-        return mainQueue.hasPatient();
-    }
-
-    @Override
-    public boolean hasPatientInPreferenceQueue() {
-        return preferenceQueue.hasPatient();
-    }
-
-    @Override
-    public boolean hasPatientInPatientQueue() {
-        boolean hasPatient = hasPatientInPreferenceQueue() || hasPatientInMainQueue();
-        return hasPatient;
-    }
-
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
         versionedAddressBook.updateDoctor(target, editedDoctor);
         indicateAddressBookChanged();
-    }
-
-    @Override
-    public void enqueue(Person target) {
-        patientQueue.add(target);
     }
 
     //@@author gingivitiss
