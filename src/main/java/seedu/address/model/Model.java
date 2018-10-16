@@ -52,6 +52,14 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces 2 given persons {@code target1}, {@code target2} with {@code editedPerson1}, {@code editedPerson2}.
+     * {@code target1} and {@code target2} must exist in the address book.
+     * The persons identity of {@code editedPerson1} and {@code editedPerson2} must not be the same as
+     * another existing person in the address book.
+     */
+    void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2);
+
     void updateEvent(Event target, Event editedEvent);
 
     void updateEvent(int index, Event event);

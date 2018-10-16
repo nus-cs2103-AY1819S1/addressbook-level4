@@ -2,12 +2,9 @@ package seedu.address.commons.util;
 
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.text.ParseException;
-
 import org.junit.Test;
 
-
-
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class TimeTableUtilTest {
 

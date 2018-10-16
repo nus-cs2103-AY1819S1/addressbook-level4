@@ -120,7 +120,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.updatePerson(target, editedPerson);
         for (Event event : filteredEvents) {
             boolean changed = event.updatePerson(target, editedPerson);
@@ -128,6 +127,13 @@ public class ModelManager extends ComponentManager implements Model {
                 versionedAddressBook.updateEvent(event, event);
             }
         }
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
+        requireAllNonNull(target1, editedPerson1, target2, editedPerson2);
+        versionedAddressBook.updatePerson(target1, editedPerson1, target2, editedPerson2);
         indicateAddressBookChanged();
     }
 

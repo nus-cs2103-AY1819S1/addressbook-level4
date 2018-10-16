@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * @author adjscent
  */
@@ -41,7 +43,7 @@ public class TimeTable {
     /**
      * @return
      */
-    public Schedule convertToSchedule() {
+    public Schedule convertToSchedule() throws ParseException {
         Schedule schedule = new Schedule();
 
         for (Lesson lesson : lessonList) {
