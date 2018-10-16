@@ -27,4 +27,15 @@ public class Appointment {
     public void completeAppointment() {
         status = Status.COMPLETED;
     }
+
+    /**
+     * Checks if target appointment is later than appointment argument by date.
+     * Return true if target appointment is later than other appointment. Else, return false.
+     */
+    public boolean isLaterThan(Appointment appointmentToCheck) {
+        if (startDateTime.compareTo(appointmentToCheck.startDateTime) > 0) {
+            return true;
+        }
+        return false;
+    }
 }
