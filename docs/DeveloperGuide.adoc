@@ -351,18 +351,18 @@ This saves the email to a specified local directory.
 
 ==== Design Considerations
 
-Aspect: File format
+===== Aspect: File format
 
 The `.eml` file format is compliant with the RFC-822 format, which is industry recognised, and can be opened and viewed using many applications.
 `.eml` files can also contain attachments.
 
-Aspect: Using http://www.simplejavamail.org/#/about[Simple Java Mail]
+===== Aspect: Using http://www.simplejavamail.org/#/about[Simple Java Mail]
 
 http://www.simplejavamail.org/#/about[Simple Java Mail] contains various methods to conveniently create emails.
 It can also be used to send emails if Hallper is extended to include online capabilities.
 The library is easy to understand so any new developer can easily extend the current features.
 
-Aspect: HTML Text
+===== Aspect: HTML Text
 
 User input for email content is saved as HTML Text so that users with HTML Text Formatting knowledge can easily format the body of the email.
 //end::compose[]
