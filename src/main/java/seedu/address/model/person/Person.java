@@ -38,7 +38,7 @@ public class Person {
         this.email = email;
         this.room = room;
         this.school = school;
-        this.profilePicture = new ProfilePicture(".jpg");
+        this.profilePicture = new ProfilePicture("-.jpg");
         this.tags.addAll(tags);
     }
 
@@ -63,7 +63,7 @@ public class Person {
         this.email = null;
         this.room = null;
         this.school = null;
-        this.profilePicture = null;
+        this.profilePicture = new ProfilePicture("-.jpg");
     }
 
     public Name getName() {
