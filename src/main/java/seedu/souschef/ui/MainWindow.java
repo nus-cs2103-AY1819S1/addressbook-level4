@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getRecipeFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -147,6 +147,20 @@ public class MainWindow extends UiPart<Stage> {
 
     protected void switchToRecipeListPanel() {
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
+    protected void switchToIngredientListPanel() {
+        generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
+    /**
+     *  method to switch to healthplan list for the healthplan context
+     */
+    protected void switchToHealthPlanListPanel() {
+        generalListPanel = new HealthPlanListPanel(logic.getFilteredHealthPlanList());
+        logger.info(String.valueOf(logic.getFilteredHealthPlanList().size()));
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 

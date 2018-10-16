@@ -52,6 +52,7 @@ public class UiManager extends ComponentManager implements Ui {
         this.prefs = prefs;
     }
 
+
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
@@ -80,6 +81,16 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void switchToRecipeListPanel() {
         this.mainWindow.switchToRecipeListPanel();
+    }
+
+    @Override
+    public void switchToIngredientListPanel() {
+        this.mainWindow.switchToIngredientListPanel();
+    }
+
+    @Override
+    public void switchToHealthPlanListPanel () {
+        this.mainWindow.switchToHealthPlanListPanel();
     }
 
     @Override
