@@ -112,7 +112,7 @@ public class ModelManagerTest {
 
 
     @Test
-    public void getExpenseStats_returnsCorrectStatsMode() {
+    public void getExpenseStatsReturnsCorrectStatsMode() {
         modelManager.updateStatsMode(StatsMode.DAY);
         assertTrue(modelManager.getStatsMode() == StatsMode.DAY);
         modelManager.updateStatsMode(StatsMode.MONTH);

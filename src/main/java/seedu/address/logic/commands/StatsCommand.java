@@ -56,7 +56,7 @@ public class StatsCommand extends Command {
         checkArgument(isValidMode(mode), MESSAGE_PARAMETERS_FORMAT);
         checkArgument(isValidNumber(numberOfDaysOrMonths), MESSAGE_PARAMETERS_FORMAT);
         this.numberOfDaysOrMonths = numberOfDaysOrMonths;
-        if (mode.equals("d")) {
+        if ("d".equals(mode)) {
             this.mode = StatsMode.DAY;
         } else {
             this.mode = StatsMode.MONTH;
@@ -91,7 +91,7 @@ public class StatsCommand extends Command {
     }
 
     private boolean isValidMode(String mode) {
-        return mode.equals("d") || mode.equals("m");
+        return "d".equals(mode) || "m".equals(mode);
     }
 
     private boolean isValidNumber(int num) {

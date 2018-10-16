@@ -24,9 +24,7 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StatsCommandTest {
     @Rule
-    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
-    private ExpectedException thrown = ExpectedException.none();
-
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule(
 
     private Model model = ModelUtil.modelWithTestUser();
     private Model expectedModel = ModelUtil.modelWithTestUser();
@@ -36,7 +34,7 @@ public class StatsCommandTest {
     }
 
     @Test
-    public void constructor_valid_parameters() {
+    public void constructorValidParameters() {
         StatsCommand statsCommand = new StatsCommand(6, "d");
         assertTrue(statsCommand.equals(new StatsCommand(6, "d")));
 
@@ -48,14 +46,14 @@ public class StatsCommandTest {
     }
 
     @Test
-    public void constructor_invalid_parameters() {
+    public void constructorInvalidParameters() {
         Assert.assertThrows(NullPointerException.class, () -> new StatsCommand(1, null));
         Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(1, "asd"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(0, "d"));
     }
 
     @Test
-    public void execute_stats_success() throws NoUserSelectedException {
+    public void executeStatsSuccess() throws NoUserSelectedException {
         StatsCommand statsCommand = new StatsCommand();
         statsCommand.execute(model, commandHistory);
         assertTrue(model.getStatsMode() == StatsMode.DAY);

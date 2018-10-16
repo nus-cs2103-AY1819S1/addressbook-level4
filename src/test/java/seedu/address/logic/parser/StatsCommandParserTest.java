@@ -12,18 +12,18 @@ public class StatsCommandParserTest {
     private StatsCommandParser parser = new StatsCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parseAllFieldsPresentSuccess() {
         assertParseSuccess(parser, " n/7 m/m", new StatsCommand(7, "m"));
         assertParseSuccess(parser, " n/6 m/d", new StatsCommand(6, "d"));
     }
 
     @Test
-    public void parse_noParams_success() {
+    public void parseNoParamsSuccess() {
         assertParseSuccess(parser, "", new StatsCommand(7, "d"));
     }
 
     @Test
-    public void parse_fieldMissing_failure() {
+    public void parseFieldMissingFailure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE);
 
         // missing mode prefix
@@ -34,7 +34,7 @@ public class StatsCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parseInvalidValueFailure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE);
 
         // number less than 0

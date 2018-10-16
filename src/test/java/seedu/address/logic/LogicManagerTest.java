@@ -72,7 +72,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getExpenseStats_returnsMapWithCorrectEntries() throws NoUserSelectedException {
+    public void getExpenseStatsReturnsMapWithCorrectEntries() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().build();
         model.addExpense(validExpense);
         model.updateStatsMode(StatsMode.DAY);
@@ -92,7 +92,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getExpenseStats_returnsCorrectStatsMode() throws NoUserSelectedException {
+    public void getExpenseStatsReturnsCorrectStatsMode() throws NoUserSelectedException {
         model.updateStatsMode(StatsMode.DAY);
         assertTrue(logic.getStatsMode() == StatsMode.DAY);
         model.updateStatsMode(StatsMode.MONTH);
