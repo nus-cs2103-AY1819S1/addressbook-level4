@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import java.util.function.Predicate;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
 import seedu.address.model.task.Task;
 
 /**
@@ -28,10 +29,10 @@ public class ListCommand extends Command {
     public ListCommand(ListFilter listFilter) {
         switch (listFilter) {
             case DUE_TODAY:
-                this.predicate = PREDICATE_SHOW_ALL_TASKS;
+                this.predicate = new DueDateIsBeforeTodayPredicate();
                 break;
             default:
-                this.predicate = null;
+                this.predicate = PREDICATE_SHOW_ALL_TASKS;
                 break;
         }
     }
