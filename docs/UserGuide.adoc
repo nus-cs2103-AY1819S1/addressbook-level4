@@ -34,7 +34,7 @@ Here are several quick tips to get the application running.
 .Home page
 image::Ui2.png[width="790"]
 +
-. Type the command in the command box and press Enter to execute it.
+. Type the command in the command box and press kbd:[Enter] to execute it.
 
 Some example commands you can try are:
 
@@ -168,6 +168,7 @@ Examples:
 
 Shows your favorites list, with all the car park details. +
 Format: `list`
+
 .After using list command
 image::listafter.png[width="790"]
 
