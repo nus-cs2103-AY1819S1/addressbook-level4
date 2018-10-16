@@ -22,6 +22,7 @@ public class ServeCommand extends QueueCommand {
 
     public static final String MESSAGE_SUCCESS = "Serving patient: ";
     public static final String MESSAGE_EMPTY_QUEUE = "Patient Queue is empty!";
+    public static final String MESSAGE_CURRENT_PATIENT_EXISTS = "There is a current patient: ";
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
@@ -30,6 +31,10 @@ public class ServeCommand extends QueueCommand {
 
         if (patientQueue.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_QUEUE);
+        }
+
+        if (currentPatient.hasCurrentPatient()) {
+            throw new CommandException(MESSAGE_CURRENT_PATIENT_EXISTS + currentPatient.toNameAndIc());
         }
 
         Patient patient = patientQueue.dequeue();

@@ -17,6 +17,7 @@ import seedu.address.model.person.Patient;
  */
 public class RemoveCommand extends QueueCommand {
     public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_ALIAS = "rem";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a patient from the queue at the specified"
             + "index.";
