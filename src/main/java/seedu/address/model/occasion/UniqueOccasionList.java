@@ -80,7 +80,7 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     public void remove(Entity toRemove) {
         requireNonNull(toRemove);
         if (!(toRemove instanceof Occasion)) {
-            throw new NotAnOccasionException();
+            return;
         }
 
         Occasion occasionToRemove = (Occasion) toRemove;
