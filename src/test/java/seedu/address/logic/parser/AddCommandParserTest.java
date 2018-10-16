@@ -93,9 +93,8 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         CalendarEvent expectedCalendarEvent = new CalendarEventBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE
-                        + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE,
-            new AddCommand(expectedCalendarEvent));
+        assertParseSuccess(parser, TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE
+                        + END_DESC_LECTURE + VENUE_DESC_LECTURE, new AddCommand(expectedCalendarEvent));
     }
 
     @Test
@@ -103,34 +102,29 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing title prefix
-        assertParseFailure(parser, VALID_TITLE_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
-                        + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL,
-            expectedMessage);
+        assertParseFailure(parser, VALID_TITLE_TUTORIAL + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL
+                        + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL, expectedMessage);
 
         // missing description prefix
         assertParseFailure(parser, TITLE_DESC_TUTORIAL + VALID_DESCRIPTION_TUTORIAL
-                        + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL,
-            expectedMessage);
+                        + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL, expectedMessage);
 
         // missing start prefix
         assertParseFailure(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
-                        + VALID_START_DATETIME_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL,
-                expectedMessage);
+                        + VALID_START_DATETIME_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL, expectedMessage);
 
         // missing end prefix
         assertParseFailure(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
-                        + START_DESC_TUTORIAL + VALID_END_DATETIME_TUTORIAL + VENUE_DESC_TUTORIAL,
-                expectedMessage);
+                        + START_DESC_TUTORIAL + VALID_END_DATETIME_TUTORIAL + VENUE_DESC_TUTORIAL, expectedMessage);
 
         // missing venue prefix
         assertParseFailure(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
-                        + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VALID_VENUE_TUTORIAL,
-            expectedMessage);
+                        + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VALID_VENUE_TUTORIAL, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_TITLE_TUTORIAL + VALID_DESCRIPTION_TUTORIAL
-                        + VALID_START_DATETIME_TUTORIAL + VALID_END_DATETIME_TUTORIAL + VALID_VENUE_TUTORIAL,
-            expectedMessage);
+                + VALID_START_DATETIME_TUTORIAL + VALID_END_DATETIME_TUTORIAL
+                + VALID_VENUE_TUTORIAL, expectedMessage);
     }
 
     @Test

@@ -82,39 +82,15 @@ public class DateTime {
     public static boolean isValidDateTime(int year, int month, int day, int hour, int minute) {
         if (year <= 0) {
             return false;
-        } else if (month <= 0 || month > 12) {
-            return false;
-        } else if (day <= 0 || day > 31) {
-            return false;
-        } else if (month == 2) {
-            if (!isLeapYear(year) && day > 28) {
-                return false;
-            } else if (day > 29) {
-                return false;
-            }
-        } else if (day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)) {
-            return false;
-        } else if (hour < 0 || hour > 23) {
-            return false;
-        } else if (minute < 0 || minute > 59) {
-            return false;
         }
-        return true;
-    }
 
-    /**
-     * Returns true input year is a leap year.
-     */
-    public static boolean isLeapYear(int year) {
-        if (year % 4 != 0) {
+        try {
+            LocalDateTime.of(year, month, day, hour, minute);
+        } catch (DateTimeException E) {
             return false;
-        } else if (year % 400 == 0) {
-            return true;
-        } else if (year % 100 == 0) {
-            return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     public boolean isAfter(DateTime other) {
