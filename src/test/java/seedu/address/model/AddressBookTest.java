@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -93,9 +94,9 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personIsRemoved_returnsFalse() {
-        addressBook.addPerson(ALICE);
-        addressBook.removePerson(ALICE);
-        assertFalse(addressBook.hasPerson(ALICE));
+        addressBook.addPerson(BOB);
+        addressBook.removePerson(BOB);
+        assertFalse(addressBook.hasPerson(BOB));
     }
 
     @Test

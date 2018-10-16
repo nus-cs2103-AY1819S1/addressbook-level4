@@ -150,13 +150,17 @@ public class Person {
     public void removeGroup(Group group) {
         requireNonNull(group);
 
-        if (groups.contains(group)) {
-            this.groups.remove(group);
-        }
+        this.groups.remove(group);
 
-        if (group.hasMember(this)) {
-            group.removeMember(this);
-        }
+        group.removeMemberHelper(this);
+    }
+
+    /**
+     * This method is reserved to be called only from
+     * {@link seedu.address.model.group.Group#removeMember(Person)}}
+     */
+    public void removeGroupHelper(Group group) {
+        this.groups.remove(group);
     }
 
     /**
@@ -164,7 +168,11 @@ public class Person {
      */
     public void clearMembership() {
         // enhanced for loop to remove the person from each group
-        //TODO
+        for (Group group : this.groups) {
+            if (group.hasMember(this)) {
+                group.removeMember(this);
+            }
+        }
         this.groups.clear();
     }
 

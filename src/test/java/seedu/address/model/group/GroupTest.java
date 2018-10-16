@@ -47,6 +47,7 @@ public class GroupTest {
     @Test
     public void removeMember_personNotInGroup_returnsFalse() {
         Group group = new GroupBuilder().withNewPerson(BENSON).build();
+        BENSON.addGroup(group);
         group.removeMember(BENSON);
         assertFalse(group.hasMember(BENSON));
     }
