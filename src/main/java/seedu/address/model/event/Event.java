@@ -226,8 +226,8 @@ public class Event {
                 .append(" Location: ").append(getLocation())
                 .append(" Start Date: ").append(getStartDate())
                 .append(" End Date: ").append(getEndDate())
-                .append(" Start Time.java: ").append(getStartTime())
-                .append(" End Time.java: ").append(getEndTime())
+                .append(" Start Time: ").append(getStartTime())
+                .append(" End Time: ").append(getEndTime())
                 .append(" Description: ").append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
