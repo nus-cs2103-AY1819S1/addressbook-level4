@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRide;
 
-import guitests.guihandles.RideCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.RideCardHandle;
 import seedu.address.model.ride.Ride;
 import seedu.address.testutil.RideBuilder;
 

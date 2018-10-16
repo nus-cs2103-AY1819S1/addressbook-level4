@@ -12,9 +12,9 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.guihandles.RideCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.RideCardHandle;
 import guitests.guihandles.RideListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
