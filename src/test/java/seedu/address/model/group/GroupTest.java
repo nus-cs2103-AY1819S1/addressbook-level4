@@ -68,9 +68,9 @@ public class GroupTest {
         Group editedProject = new GroupBuilder(PROJECT_2103T).withTitle("CS2113").build();
         assertFalse(editedProject.isSameGroup(PROJECT_2103T));
 
-        // different description -> returns false
+        // different description -> returns true
         editedProject = new GroupBuilder(PROJECT_2103T).withDescription("Discussion group for CS2103T").build();
-        assertFalse(editedProject.isSameGroup(PROJECT_2103T));
+        assertTrue(editedProject.isSameGroup(PROJECT_2103T));
 
         // same title, same description, different meeting -> returns true
         editedProject = new GroupBuilder(PROJECT_2103T).withMeeting(URGENT).build();

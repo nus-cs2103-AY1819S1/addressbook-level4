@@ -53,6 +53,7 @@ public class UserPrefs {
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(guiSettings, addressBookFilePath);

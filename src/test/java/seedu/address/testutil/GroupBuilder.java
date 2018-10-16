@@ -2,6 +2,8 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
+import java.util.Optional;
+
 import seedu.address.model.group.Description;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.Meeting;
@@ -94,13 +96,13 @@ public class GroupBuilder {
         Group group;
 
         if (meeting == null && !isMemberModified) {
-            group = new Group(title, description);
+            group = new Group(title);
         } else if (meeting == null) {
             group = new Group(title, description, members);
         } else if (!isMemberModified) {
             group = new Group(title, description, meeting);
         } else {
-            group = new Group(title, description, meeting, members);
+            group = new Group(title, Optional.of(description), Optional.of(meeting), members);
         }
 
         return group;
