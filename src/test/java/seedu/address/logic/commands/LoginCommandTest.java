@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,13 +18,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.NoEventSelectedException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
@@ -110,11 +104,6 @@ public class LoginCommandTest {
         @Override
         public void setCurrentUser(Person currentUser) {
             this.currentUser = currentUser;
-        }
-
-        @Override
-        public void removeSelectedEvent() {
-            throw new AssertionError("This method should not be called.");
         }
     }
 }

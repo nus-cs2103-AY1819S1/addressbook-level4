@@ -48,6 +48,8 @@ public class AddPollCommandTest {
 
     @Test
     public void execute_noEventAddPoll() {
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
         AddPollCommand command = new AddPollCommand(POLLNAME);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
 
 /**
  * Deletes an event identified using its displayed index from the event organiser.
@@ -44,8 +45,11 @@ public class DeleteEventCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.removeSelectedEvent();
-        model.deleteEvent(eventToDelete);
+        try {
+            model.deleteEvent(eventToDelete);
+        } catch (NotEventOrganiserException e) {
+            throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        }
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }

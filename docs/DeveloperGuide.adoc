@@ -206,16 +206,20 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramUpdated.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the EventOrganiser data.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+The Event class contains attributes which depend on the Person and UniquePersonList classes.
+These are the event organiser (Person), the list of participants (a UniquePersonList).
+Each event also contains a list of polls, which contains a voter list for each option, which is a UniquePersonList.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -233,7 +237,11 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Event Organiser data in xml format and read it back.
+
+Each event contains references to persons in the list of persons in the event organiser.
+The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in the event organiser.
+When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the event organiser person list.
 
 [[Design-Commons]]
 === Common classes
@@ -323,6 +331,78 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+//tag::poll[]
+=== Poll feature
+
+==== Current implementation
+This section explains the implementation of the features associated with the Poll class of each Event while detailing some implementation details of the Event class.
+The relevant commands which are callable by the user to be discussed are:
+
+* `AddPollCommand` - adds a new poll to the event given the name of the poll to be created.
+* `AddPollOptionCommand` - adds a new poll option to the poll given the poll index and the name of the option to be added.
+* `VoteCommand` - adds the current user as a voter to the given option.
+* `AddDayTimePollCommand` - creates a new poll automatically populated with options based on the schedules of the event participants.
+
+For all the above commands, the event must first be selected using the `selectEvent` command, which will set the `currentEvent` through the `Model#setSelectedEvent()` method.
+This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
+This is on top of the `currentUser` in the Model which was already selected through the `LoginCommand`.
+
+Each Poll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
+each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
+Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects, which serve as pointers to the actual Person objects stored in the event organiser.
+
+As an example, the following sequence diagram illustrates the workings of the `VoteCommand`.
+
+image::VoteSequenceDiagram.png[width="800"]
+
+As stated above, since Model already stores the current user and the selected event from prior user commands,
+the Model can call the correct Event e and Person object in the `addVoteToPoll` method. If there is no logged-in user,
+a `NoUserLoggedInException` is thrown, and if there is no selected event, a `NoEventSelectedException` is thrown.
+
+In addition, four other possible exceptions might be thrown by the VoteCommand:
+* A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.
+* A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.
+* A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.
+* The given option must exist in the selected poll, else, an IllegalArgumentException is thrown.
+
+The other commands `AddPollCommand` and `AddPollOptionCommand` follow a very similar structure.
+The sequence diagram within the model for the `AddPollCommand` is illustrated here:
+
+image::AddPollSequenceDiagram.png[width="800"]
+
+In all cases, the Poll object is returned to the calling Command object,
+so that the contents of the poll can be retrieved as a String through the `Poll#displayPoll()` method.
+The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
+A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
+
+//to be implemented in v1.3 or v1.4
+The `DayTimePoll` class extends from the abstract `Poll` class which is constructed by calling the `AddDayTimePollCommand`.
+This command automatically generates a list of times based on the schedules of the persons on the event invite list.
+
+==== Design considerations
+
+===== Aspect: The relationship between `GenericPoll` and `DayTimePoll`
+
+* **Alternative 1:**: Design them as separate classes which both inherit from an abstract `Poll` class.
+** Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
+ and include additional features to recommend the best option eg most convenient location by distance for participants.
+
+* **Alternative 2:**: Allow `DayTimePoll` to extend from the `GenericPoll` class.
+** Pros: The two classes differ only in that `DayTimePoll` has the augmented feature of generating options from the schedule of event participants.
+** Cons: Unable to constrain the input and prevent users from adding the wrong format for options into `DayTimePoll`, since this would violate the Liskov Substitution Principle.
+
+===== Aspect: Storage of voters in Poll
+
+* **Alternative 1:**: Store the voters as Persons.
+** Pros: All information about the voters are stored.
+** Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
+The voter list must also be manually updated every time the person details are updated.
+
+* **Alternative 2:**: Store only the names of voters.
+** Pros: No need for complete reference to the actual person via the XmlPersonIndex class in storage.
+** Cons: Some persons might share the same name. It is also not extendable for future versions where the data/attributes of the voters might be relevant to computing the best option.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

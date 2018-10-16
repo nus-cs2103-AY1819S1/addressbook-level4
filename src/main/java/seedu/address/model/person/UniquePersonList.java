@@ -175,4 +175,11 @@ public class UniquePersonList implements Iterable<Person> {
                 .collect(Collectors.toList());
         return names.toString();
     }
+
+    /**
+     * Returns the size of the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
 }
