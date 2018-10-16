@@ -12,9 +12,9 @@ import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.Receipt;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
 
-//integrate select command
 /**
  * Generates a receipt for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
@@ -40,7 +40,7 @@ public class ReceiptCommand extends QueueCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(model);
 

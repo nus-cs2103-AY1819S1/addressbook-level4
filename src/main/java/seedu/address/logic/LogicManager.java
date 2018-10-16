@@ -16,8 +16,8 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.ServedPatient;
 
 /**
  * The main LogicManager of the app.
@@ -30,7 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final PatientQueue patientQueue;
     private final ServedPatientList servedPatientList;
-    private ServedPatient currentPatient;
+    private CurrentPatient currentPatient;
 
     public LogicManager(Model model) {
         this.model = model;
@@ -38,6 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         addressBookParser = new AddressBookParser();
         patientQueue = new PatientQueueManager();
         servedPatientList = new ServedPatientListManager();
+        currentPatient = new CurrentPatient();
     }
 
     @Override

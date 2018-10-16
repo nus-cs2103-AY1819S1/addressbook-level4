@@ -18,22 +18,27 @@ import seedu.address.model.person.Patient;
 /**
  * Registers a patient to the end of the current queue.
  */
-public class RegisterCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "register";
-    public static final String COMMAND_ALIAS = "reg";
+public class InsertCommand extends QueueCommand {
+    public static final String COMMAND_WORD = "insert";
+    public static final String COMMAND_ALIAS = "ins";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueue a patient into the queue. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a patient into the queue. "
             + "Parameters: "
-            + "Index ";
+            + "Index "
+            + "Position ";
 
-    public static final String MESSAGE_SUCCESS = "Added ";
+    public static final String MESSAGE_SUCCESS = "Inserted ";
+    public static final String MESSAGE_INVALID_POSITION = "Invalid position!";
     public static final String MESSAGE_DUPLICATE_PERSON = "Person is already in queue!";
 
     private final Index targetIndex;
+    private final Index targetPosition;
 
-    public RegisterCommand(Index index) {
+    public InsertCommand(Index index, Index position) {
         requireNonNull(index);
+        requireNonNull(position);
         targetIndex = index;
+        targetPosition = position;
     }
 
     @Override
@@ -48,13 +53,23 @@ public class RegisterCommand extends QueueCommand {
         }
 
         Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
+
         if (patientQueue.contains(patientToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        int position = patientQueue.enqueue(patientToRegister);
+        int actualPosition;
+
+        //If the position is greater than the queue length, then we just append the patient to the back of the queue.
+        if (targetPosition.getZeroBased() > patientQueue.getQueueLength()) {
+            actualPosition = patientQueue.enqueue(patientToRegister);
+        } else {
+            patientQueue.addAtIndex(patientToRegister, targetPosition.getZeroBased());
+            actualPosition = targetPosition.getOneBased();
+        }
+
         return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
-                + " with Queue Number: " + position + "\n" + patientQueue.displayQueue());
+                + " with Queue Number: " + actualPosition + "\n" + patientQueue.displayQueue());
     }
 }
 

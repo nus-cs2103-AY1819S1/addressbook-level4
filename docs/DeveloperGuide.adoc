@@ -341,21 +341,17 @@ Users can add more information to a specified `Patient` 's `MedicalRecord` by in
 
 Given below is an example usage scenario and explanation for the inner workings of the `AddMedicalRecordCommand`.
 
-Step 1:
-
-* The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
+Step 1. The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
 
 .Adding a new Patient.
 image::addmedicalrecord-addingnewpatient-example.png[width="700"]
 
-Step 2:
-
-* The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
+Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
 
 .Adding a new MedicalRecord with only BloodType specified.
 image::addmedicalrecord-addingbloodtype-example.png[width="700"]
 
-* When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
+When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
 
 ```java
 /**
@@ -415,6 +411,26 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 
 // end::medicalrecord[]
 
+// tag::medicine[]
+=== Medicine records
+The medicine records is used to manage all medicines stored in the clinic. The AddMedicine Command helps users to
+key in a new medicine in the clinic. EditMedicine Command helps users to update the stock. In addition, whenever the
+Receipt Command is called, the records will update the stock automatically when the receptionist generates the receipt and
+issues the medicine.
+
+Given below is an example of how the medicine class is used:
+
+Step 1. A new medicine arrived. The receptionist uses the `addMedicine` command to add the stock into the records.
+
+Step 2. A new stock of medicine that ia available in the clinic has arrived. The receptionist uses `editMedicine` command
+to update the new stock.
+
+Step 3. When a patient pays for the bill, the `generateReceipt` calls upon the medicine records to determine the price.
+At this stage, the number of medicine issued will decrease in the records.
+
+Step 4. At the end of the day, the receptionist needs to keep track of which stock supply is low. She enters 'checkStock`
+which will list out all medicien that are low in supply.
+//end::medicine[]
 
 // tag::pqms[]
 === Patient Queue Management System
@@ -444,8 +460,67 @@ image::PQMSServedPatientQueue.png[650, 250]
 Step 5. The user executes various commands to generate necessary documents for the served patient.
 
 Step 6. The user finally executes `payment` command to generate the receipt and end the patient's visit to the clinic, removing
-him from the `ServedPatientQueue`.
+him from the `ServedPatientQueue` and adding him into the `ServedPatientList`.
 //end::pqms[]
+
+// tag::document[]
+=== Document
+==== Current Implementation
+The `Document` `abstract class` covers all the documents that are issued by the clinic. Hence, the `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
+It specifies what general information these documents should have and how they should be formatted. It can be thought of as a template for all its inheriting classes.
+
+===== Implementation of `Receipt`
+The `Receipt` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains all the `Medicine` and their associated `MedicineQuantity`.
+** These are the medicines and their quantities respectively, prescribed by the doctor to the patient during his consultation.
+
+Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `ReceiptCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`. +
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `receipt 1` command to generate a `Receipt` with the relevant object. Up till this milestone v1.2, the contents of the `Receipt` will be reflected in the `ResultDisplay` as shown below.
+
+.Contents of the `Receipt` generated for the `Patient` Bryan Lew. +
+image::ReceiptExamplePrintOut.png[width="650"]
+
+[WARNING]
+Executing `receipt` with an invalid index will **not** result in the generation of a `Receipt`.
+
+.Result of executing `receipt` with an invalid index.
+image::ServedPatientListEmptyReceipt.png[width="650"]
+
+===== Implementation of `MedicalCertificate`
+Will be implemented in future milestones.
+
+===== Implementation of `ReferralLetter`
+Will be implemented in future milestones.
+
+==== Design Considerations
+===== Aspect: Implementation of the Document
+* **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
+** Pros:
+*** Allows all classes inheriting from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
+** Cons:
+*** `Java` does not support multiple inheritance; therefore, it prevents the classes that are inheriting from `Document` from inheriting from other useful classes or becoming an `enum`.
+*** Comparatively, `abstract classes` are more computationally expensive to use than `interfaces` due to overhead incurred looking up methods and various class members.
+* **Alternative 2**: Using an `interface` to implement `Document`.
+** Pros:
+*** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
+**** For example, a person should not be issued a `Medical Certificate` excusing him from work/school for **1,000,000 days**!
+** Cons:
+*** Unable to standardise the way the implementing classes implement the `generate` method.
+**** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+**** Even if all the information are present, they might be formatted differently.
+//end::document[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
