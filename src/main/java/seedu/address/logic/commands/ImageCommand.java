@@ -39,7 +39,6 @@ public class ImageCommand extends Command {
     public static final String MESSAGE_CANCEL = "No picture was uploaded.";
     public static final String MESSAGE_NO_SUCH_PERSON = "There is no resident occupying that room.";
     public static final String MESSAGE_DUPLICATE_UPLOAD = "This resident already has that profile picture.";
-    public static final String MESSAGE_NO_FILE = "Image uploaded cannot be read.";
 
     private final Room number;
 
