@@ -67,7 +67,7 @@ public class LoginCommand extends Command {
      */
     public boolean checkDoctorCred(List<Doctor> doctorsList) {
         requireNonNull(doctorsList);
-        
+
         Doctor anotherDoctor = (Doctor) toAuthenticate;
         Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
 
@@ -88,7 +88,7 @@ public class LoginCommand extends Command {
     public Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
         requireNonNull(doctorsList);
         requireNonNull(doctorToSearch);
-        
+
         Doctor doctorFound = null;
         try {
             for (Doctor d : doctorsList) {
@@ -100,7 +100,7 @@ public class LoginCommand extends Command {
         } catch (ClassCastException ex) {
             throw new ClassCastException();
         }
-        
+
         return doctorFound;
     }
 
