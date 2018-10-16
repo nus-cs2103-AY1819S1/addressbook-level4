@@ -319,12 +319,87 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::addEvents[]
+=== Add Events feature
+==== Current Implementation
+The adding of events is mainly carried out from `Model`. In the `Model` component, an `Event` class, as well as classes for `Event` attributes were created.
+Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` were created to represent their respective information in an `Event`,
+as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values. +
 
-_{Explain here how the data encryption feature will be implemented}_
+By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
+On top of facilitating checking of bugs within the individual attributes,
+doing will also allow the developer to alter the definition of the different attribute classes, as well as to add more attributes into the
+`Event` class easily.
 
-// end::dataencryption[]
+image::Event.png[Event class]
+
+Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
+In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
+which is `UniqueEventList`. `ModelManager` stores an unmodifiable copy of the list, and `AddressBook` the reference to the internal list.
+
+An example usage scenario of the adding of events is as shown in the sequence diagram below.
+
+image::add-event-component.png[Interactions between components]
+
+When the events are triggered from the `Model` component, they are handled by the UI, which updates the displayed information, and the
+`Storage` component, which saves the information to XML format. The event triggers are handled as follows.
+
+image::add-event-event-trigger.png[Handling of events triggered]
+
+To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
+Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
+we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
+`ModelManager#getFilteredEventListByDate`.
+
+==== Design Considerations
+===== Aspect: Data Structure to Support the UI Events Display
+
+* **Alternative 1 (current choice):** Store a list of type `ObservableList<List<Event>>` in the `ListView` object in the `EventPanelList`.
+This list is re-computed in `ModelManager` each time a change in the internal list of events is detected, and passed to the UI class `MainWindow`.
+This facilitates a regeneration of the `TabPanel` stored in `MainWindow`, updating the display of events to the user.
+
++
+
+Here, we only need to maintain one list of `Event` objects.
+Since this is the case, there is no change to the `ObservableList<List<Event>>` object passed into the `UI` classes. For the UI
+to be updated with new information whenever events are added into the underlying `Event` list, we make use of a listener on the list `filteredEvents`.
+
+** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
+** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
+
++
+
+While this means that there is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs,
+this overhead is still acceptable given the current scale of the `AddressBook`.
+
+* **Alternative 2:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
+as well as in `ModelManager`, and update this alongside the `filteredEvent` list in `ModelManager`.
+By doing so, we will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list.
+
++
+
+To do so, we can add a listener to `filteredEvents` such that each time the internal list of events changes, the corresponding change is done to a list of type `ObservableList<List<Event>>`.
+
++
+
+However, this will mean that if more actions are carried out on the internal event list, more updates will have be made to the way the listener is set up,
+as it will have to listen to more types of changes and perform more actions accordingly. Though reducing overhead incurred
+(as there is no need to regenerate the list each time a change occurs),
+this could potentially create more bugs in the code, which is not desirable in the long run.
+
+* **Alternative 3:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
+as well as in `Model`, and create another internal list `UniqueEventListByDate` for this list of lists. Update this alongside `UniqueEventList`.
+By doing so, we also will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list, and no such listener
+as in Alternative 2 is required.
+
++
+
+However, this means that we have to maintain two lists, both storing `Event` objects.
+The task of maintaining two lists may lead to inconsistencies between the two lists and more complex code in future,
+should future developers decide to include more actions to mutate the underlying list of `Event` objects.
+Hence, this is not preferred in our implementation.
+
+// end::addEvents[]
 
 === Logging
 
