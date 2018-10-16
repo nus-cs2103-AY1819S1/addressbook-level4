@@ -380,8 +380,6 @@ doing so will also allow the developer to alter the definition of the different 
 
 image::Event.png[Event class]
 
-+
-
 Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
 which is `UniqueEventList`. `ModelManager` stores an unmodifiable copy of the list, and `AddressBook` the reference to the internal list.
