@@ -116,26 +116,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate ride -> rejected */
         command = PersonUtil.getAddCommand(HAUNTED);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different phone -> rejected */
         toAdd = new RideBuilder(HAUNTED).withMaintenance(VALID_MAINTENANCE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different email -> rejected */
         toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different address -> rejected */
         toAdd = new RideBuilder(HAUNTED).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HAUNTED) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
