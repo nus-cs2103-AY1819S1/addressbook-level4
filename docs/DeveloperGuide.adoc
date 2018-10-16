@@ -253,6 +253,8 @@ interface and classes.
 
 image::ClassInheritanceZijin.png[width="800"]
 
+We would be using polymorphism to realise support for Person, Module and
+Occasion.
 // end::supportforocassionandmodule[]
 
 
