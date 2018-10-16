@@ -2,9 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -58,9 +60,9 @@ public class TagCommand extends Command {
         if (this.action == Action.DELETE) {
             message = Messages.MESSAGE_TAG_DELETED_OVERVIEW;
             model.updateFilteredPersonList(predicate);
-            List<Person> currentList = model.getFilteredPersonList();
-            System.out.print("test " + currentList + "\n");
-            currentList.stream().forEach(person -> {
+            List<Person> currentList = new ArrayList<>(model.getFilteredPersonList());
+            List<Person> updatedList = new ArrayList<>();
+            currentList.forEach(person -> {
                 Set<Tag> personTags = new HashSet<>(person.getTags());
                 for (String tag: tags) {
                     Tag tagToBeDeleted = new Tag(tag);
@@ -70,16 +72,15 @@ public class TagCommand extends Command {
                 }
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
                         person.getAddress(), personTags, person.getMeeting());
-                System.out.print(person + "\n" + editedPerson + "\n");
+                updatedList.add(editedPerson);
                 model.updatePerson(person, editedPerson);
             });
-            model.getFilteredPersonList();
+            model.updateFilteredPersonList(new PersonIsUntaggedPredicate(updatedList));
             model.commitAddressBook();
         } else {
             message = Messages.MESSAGE_TAGGED_PERSONS_LISTED_OVERVIEW;
             model.updateFilteredPersonList(predicate);
         }
-        System.out.print(message + "\n");
         return new CommandResult(String.format(message, model.getFilteredPersonList().size()));
     }
 
@@ -88,5 +89,29 @@ public class TagCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof TagCommand // instanceof handles nulls
                 && predicate.equals(((TagCommand) other).predicate)); // state check
+    }
+
+    /**
+     * Tests that a {@code Person} has just been untagged.
+     */
+    private class PersonIsUntaggedPredicate implements Predicate<Person> {
+        private final List<Person> persons;
+
+        private PersonIsUntaggedPredicate(List<Person> persons) {
+            this.persons = persons;
+        }
+
+        @Override
+        public boolean test(Person person) {
+            return persons.stream()
+                    .anyMatch(p -> p.equals(person));
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof PersonIsUntaggedPredicate // instanceof handles nulls
+                    && persons.equals(((PersonIsUntaggedPredicate) other).persons)); // state check
+        }
     }
 }
