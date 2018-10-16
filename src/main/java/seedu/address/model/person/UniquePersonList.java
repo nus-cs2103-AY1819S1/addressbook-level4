@@ -44,7 +44,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void add(Entity toAdd) {
         requireNonNull(toAdd);
-        if (!(toAdd instanceof Person)){
+        if (!(toAdd instanceof Person)) {
             throw new NotAPersonException();
         } else if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -76,7 +76,9 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
-        if (!(target instanceof Person && editedEntity instanceof Person)) return;
+        if (!(target instanceof Person && editedEntity instanceof Person)) {
+            return;
+        }
         setPerson((Person) target, (Person) editedEntity);
     }
 

@@ -68,7 +68,9 @@ public class UniqueOccasionList implements Iterable<Occasion> {
 
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
-        if (!(target instanceof Occasion) || !(editedEntity instanceof Occasion)) return;
+        if (!(target instanceof Occasion) || !(editedEntity instanceof Occasion)) {
+            return;
+        }
         setOccasion((Occasion) target, (Occasion) editedEntity);
     }
 

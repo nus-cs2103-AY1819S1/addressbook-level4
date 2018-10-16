@@ -9,7 +9,6 @@ import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.entity.Entity;
-import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -88,7 +87,6 @@ public class Module extends Entity {
 
 
     public boolean isSameEntity(Entity other) {
-        // TODO: More precise definition of sameness
         return this.equals(other);
     }
 

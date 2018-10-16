@@ -73,9 +73,9 @@ public class Person extends Entity {
 
         return otherEntity != null
                 && otherEntity instanceof Person
-                && ((Person)otherEntity).getName().equals(getName())
-                && (((Person)otherEntity).getPhone().equals(getPhone())
-                || ((Person)otherEntity).getEmail().equals(getEmail()));
+                && ((Person) otherEntity).getName().equals(getName())
+                && (((Person) otherEntity).getPhone().equals(getPhone())
+                || ((Person) otherEntity).getEmail().equals(getEmail()));
     }
 
     /**

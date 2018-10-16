@@ -3,7 +3,6 @@ package seedu.address.model.entity;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**

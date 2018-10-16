@@ -88,7 +88,6 @@ public class Occasion extends Inanimate {
     }
 
     public boolean isSameEntity(Entity other) {
-        // TODO: More precise definition of sameness
         return this.equals(other);
     }
 

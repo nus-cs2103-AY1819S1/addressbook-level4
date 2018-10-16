@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
-import seedu.address.model.module.exceptions.NotAModuleException;
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -69,7 +68,9 @@ public class UniqueModuleList implements Iterable<Module> {
 
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
-        if (!(target instanceof Module) || !(editedEntity instanceof Module)) return;
+        if (!(target instanceof Module) || !(editedEntity instanceof Module)) {
+            return;
+        }
         setModule((Module) target, (Module) editedEntity);
     }
 
