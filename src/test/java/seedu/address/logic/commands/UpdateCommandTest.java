@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -109,7 +109,7 @@ public class UpdateCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() {
         Ride firstRide = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(firstRide).build();
-        UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
+        UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_RIDE, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
     }
@@ -119,7 +119,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit ride in filtered list into a duplicate in address book
-        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new UpdateRideDescriptorBuilder(rideInList).build());
 
@@ -142,7 +142,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
 
@@ -202,7 +202,7 @@ public class UpdateCommandTest {
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+        showPersonAtIndex(model, INDEX_SECOND_RIDE);
         Ride rideToEdit = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.updatePerson(rideToEdit, editedRide);
         expectedModel.commitAddressBook();
@@ -239,7 +239,7 @@ public class UpdateCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_RIDE, DESC_AMY)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new UpdateCommand(INDEX_FIRST_PERSON, DESC_BOB)));

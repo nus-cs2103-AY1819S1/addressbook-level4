@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 
@@ -63,7 +63,7 @@ public class ViewCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
-        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundsIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getRideList().size());
 
@@ -73,7 +73,7 @@ public class ViewCommandTest {
     @Test
     public void equals() {
         ViewCommand selectFirstCommand = new ViewCommand(INDEX_FIRST_PERSON);
-        ViewCommand selectSecondCommand = new ViewCommand(INDEX_SECOND_PERSON);
+        ViewCommand selectSecondCommand = new ViewCommand(INDEX_SECOND_RIDE);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
