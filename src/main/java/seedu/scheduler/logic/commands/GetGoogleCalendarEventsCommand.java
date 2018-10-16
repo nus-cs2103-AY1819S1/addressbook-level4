@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -24,7 +26,14 @@ import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
+import seedu.scheduler.logic.parser.ParserUtil;
+import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.Model;
+import seedu.scheduler.model.event.Description;
+import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.RepeatType;
+import seedu.scheduler.model.event.Venue;
+import seedu.scheduler.model.tag.Tag;
 
 /**
  * Get events from google calendar.
@@ -50,6 +59,54 @@ public class GetGoogleCalendarEventsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+    }
+
+    /**
+     * Parser the Google Event format to local Format.
+     *
+     * @param model The current scheduler model.
+     * @param newEventname The Google event name.
+     * @param newEventStartDate The Google event start date.
+     * @param newEventStartTime The Google event start timing.
+     * @param newEventEndDate The Google event end date.
+     * @param newEventEndTime The Google event end timing.
+     */
+    private void addGcEventToLocal(Model model, String newEventname, String newEventStartDate, String newEventStartTime,
+                                   String newEventEndDate, String newEventEndTime) {
+        EventName eventName = null;
+        try {
+            eventName = ParserUtil.parseEventName(newEventname);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        seedu.scheduler.model.event.DateTime startDateTime = null;
+        try {
+            startDateTime = ParserUtil.parseDateTime(newEventStartDate + " " + newEventStartTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        seedu.scheduler.model.event.DateTime endDateTime = null;
+        try {
+            endDateTime = ParserUtil.parseDateTime(newEventEndDate + " " + newEventEndTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Description description = ParserUtil.parseDescription("test description");
+
+        Venue venue = ParserUtil.parseVenue("test venue");
+        RepeatType repeatType = RepeatType.NONE;
+        seedu.scheduler.model.event.DateTime
+                repeatUntilDateTime = endDateTime;
+        Set<Tag> tags = Collections.emptySet();
+        seedu.scheduler.model.event.Event
+                event =
+                new seedu.scheduler.model.event.Event(UUID.randomUUID(), eventName, startDateTime, endDateTime,
+                        description,
+                        venue, repeatType, repeatUntilDateTime, tags);
+
+        model.addEvents(seedu.scheduler.model.event.Event.generateAllRepeatedEvents(event));
+        model.commitScheduler();
     }
 
     private Events getEvents(Calendar service) {
