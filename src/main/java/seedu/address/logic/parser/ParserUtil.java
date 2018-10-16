@@ -117,6 +117,15 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /*public static Set parseSet(String set) throws ParseException {
+        requireNonNull(set);
+        String trimmedSet = set.trim();
+        if (!Set.isValidSet(trimmedSet)) {
+            throw new ParseException(Tag.MESSAGE_SET_CONSTRAINTS);
+        }
+        return new Set(trimmedSet);
+    }*/
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

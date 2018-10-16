@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -27,6 +28,8 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    public static final String NOTIFICATION_WELCOME_TITLE = "Welcome";
+    public static final String NOTIFICATION_WELCOME_TEXT = "Welcome to Addressbook Level 4";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -70,11 +73,17 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        setNotification(prefs);
 
         setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setNotification(UserPrefs prefs) {
+        if (prefs.getGuiSettings().getNotificationIsEnabled())
+            NotificationWindow.display(NOTIFICATION_WELCOME_TITLE, NOTIFICATION_WELCOME_TEXT);
     }
 
     public Stage getPrimaryStage() {
@@ -160,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), ModelManager.getNotificationPref());
     }
 
     /**

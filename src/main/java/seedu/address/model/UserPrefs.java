@@ -16,6 +16,7 @@ public class UserPrefs {
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
+        ModelManager.updateNotificationPref(guiSettings.getNotificationIsEnabled());
     }
 
     public GuiSettings getGuiSettings() {
@@ -27,7 +28,7 @@ public class UserPrefs {
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {
-        guiSettings = new GuiSettings(width, height, x, y);
+        guiSettings = new GuiSettings(width, height, x, y, ModelManager.getNotificationPref());
     }
 
     public Path getAddressBookFilePath() {

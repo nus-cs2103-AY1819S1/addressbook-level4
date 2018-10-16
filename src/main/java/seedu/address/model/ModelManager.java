@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private static boolean notificationPref ;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +40,10 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
+    public static boolean getNotificationPref() { return notificationPref; }
+
+    public static void updateNotificationPref(boolean set) { notificationPref = set; }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
