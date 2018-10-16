@@ -26,7 +26,7 @@ work with a *Command Line Interface (CLI)* to display a list of car parks with t
 == Quick Start
 Here are several quick tips to get the application running.
 
-. Check that you have Java version 9 or later installed in your Computer.
+. Check that you have https://www.oracle.com/technetwork/java/javase/downloads/index.html[Java version 9] or later installed in your Computer.
 . Download the latest carparkbook.jar here.
 . Copy the file to the folder you want to use as the home folder for your Car park book.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
@@ -63,7 +63,7 @@ parameter which can be used as `query p/760397`.
 Shows the list of available commands and how to use them
 Format: `help`
 
-=== Find : `find`
+=== Finding car parks : `find`
 
 Finds a list of available car parks +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -94,6 +94,9 @@ Format: `select CARPARK_NO`
 
 [TIP]
 alias - s
+
+.After using list command
+image::select.png[width="790"]
 
 Examples:
 
@@ -165,7 +168,8 @@ Examples:
 
 Shows your favorites list, with all the car park details. +
 Format: `list`
-
+.After using list command
+image::listafter.png[width="790"]
 
 === Remove from favorites list : `remove` `[coming in v2.0]`
 
