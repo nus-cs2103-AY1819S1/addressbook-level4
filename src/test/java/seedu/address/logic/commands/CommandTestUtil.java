@@ -36,8 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_EDUCATION_AMY = "Secondary 4";
-    public static final String VALID_EDUCATION_BOB = "Secondary 4";
+    public static final String VALID_EDUCATION_AMY = "sec 4";
+    public static final String VALID_EDUCATION_BOB = "sec 3";
     public static final String VALID_GRADES_AMY = "99";
     public static final String VALID_GRADES_BOB = "98";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -73,9 +73,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withEducation(VALID_EDUCATION_AMY).withGrades(VALID_GRADES_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withEducation(VALID_EDUCATION_BOB).withGrades(VALID_GRADES_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
