@@ -2,17 +2,25 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
+import seedu.address.model.email.Content;
+import seedu.address.model.email.Subject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Room;
+import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +29,14 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "Date must be a non-negative integer and not greater than 31.";
+    public static final String MESSAGE_HOUR_CONSTRAINTS =
+            "Hour must be a non-negative integer and not greater than 23.";
+    public static final String MESSAGE_MINUTE_CONSTRAINTS =
+            "Minute must be a non-negative integer and not greater than 59";
+    public static final String MESSAGE_TITLE_CONSTRAINTS =
+            "Title must not be empty";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -81,6 +97,37 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String room} into a {@code Room}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code room} is invalid.
+     */
+    //@@author javenseow
+    public static Room parseRoom(String room) throws ParseException {
+        requireNonNull(room);
+        String trimmedRoom = room.trim();
+        if (!Room.isValidRoom(trimmedRoom)) {
+            throw new ParseException(Room.MESSAGE_ROOM_CONSTRAINTS);
+        }
+        return new Room(trimmedRoom);
+    }
+
+    /**
+     * Parses a {@code String school} into a {@code School}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code school} is invalid.
+     */
+    public static School parseSchool(String school) throws ParseException {
+        requireNonNull(school);
+        String trimmedSchool = school.trim();
+        if (!School.isValidSchool(trimmedSchool)) {
+            throw new ParseException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+        }
+        return new School(trimmedSchool);
+    }
+    //@@author
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -121,4 +168,148 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    //@@author kengwoon
+    /**
+     * Parses a {@code String file} into a {@code File}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static File parseFile(String file) throws ParseException {
+        requireNonNull(file);
+        String trimmedFile = file.trim();
+        if (!trimmedFile.contains(".xml")) {
+            throw new ParseException(ImportCommand.MESSAGE_USAGE);
+        }
+        return new File(trimmedFile);
+    }
+
+    //@@author EatOrBeEaten
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Content.MESSAGE_CONTENT_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
+    }
+
+    /**
+     * Parses a {@code String subject} into an {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code subject} is invalid.
+     */
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+        }
+        return new Subject(trimmedSubject);
+    }
+
+    //@@author GilgameshTC
+    /**
+     * Parses a {@code String month} into a {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+        // Transform month to upper case
+        trimmedMonth = trimmedMonth.toUpperCase();
+        if (!Month.isValidMonthRegex(trimmedMonth) || !Month.isValidMonth(trimmedMonth)) {
+            throw new ParseException(Month.MESSAGE_MONTH_CONSTRAINTS);
+        }
+        return new Month(trimmedMonth);
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static int parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        int dateInt = Integer.parseInt(trimmedDate);
+        if (dateInt < 0 || dateInt > 31) {
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
+        }
+        return dateInt;
+    }
+
+    /**
+     * Parses a {@code String hour} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code hour} is invalid.
+     */
+    public static int parseHour(String hour) throws ParseException {
+        requireNonNull(hour);
+        String trimmedHour = hour.trim();
+        int hourInt = Integer.parseInt(trimmedHour);
+        if (hourInt < 0 || hourInt > 23) {
+            throw new ParseException(MESSAGE_HOUR_CONSTRAINTS);
+        }
+        return hourInt;
+    }
+
+    /**
+     * Parses a {@code String minute} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code minute} is invalid.
+     */
+    public static int parseMinute(String minute) throws ParseException {
+        requireNonNull(minute);
+        String trimmedMinute = minute.trim();
+        int minuteInt = Integer.parseInt(trimmedMinute);
+        if (minuteInt < 0 || minuteInt > 59) {
+            throw new ParseException(MESSAGE_MINUTE_CONSTRAINTS);
+        }
+        return minuteInt;
+    }
+
+    /**
+     * Parses a {@code String title} making sure it's not empty.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static String parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (trimmedTitle.isEmpty()) {
+            throw new ParseException(MESSAGE_TITLE_CONSTRAINTS);
+        }
+        return trimmedTitle;
+    }
+
 }
