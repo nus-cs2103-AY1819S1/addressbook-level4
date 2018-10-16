@@ -58,27 +58,27 @@ public class Time {
         endTime = Integer.valueOf(splittedTime[2]);
 
         switch (splittedTime[0]) {
-            case "sun":
-                day = Day.Sunday;
-                break;
-            case "mon":
-                day = Day.Monday;
-                break;
-            case "tue":
-                day = Day.Tuesday;
-                break;
-            case "wed":
-                day = Day.Wednesday;
-                break;
-            case "thu":
-                day = Day.Thursday;
-                break;
-            case "fri":
-                day = Day.Friday;
-                break;
-            case "sat":
-                day = Day.Saturday;
-                break;
+        case "sun":
+            day = Day.Sunday;
+            break;
+        case "mon":
+            day = Day.Monday;
+            break;
+        case "tue":
+            day = Day.Tuesday;
+            break;
+        case "wed":
+            day = Day.Wednesday;
+            break;
+        case "thu":
+            day = Day.Thursday;
+            break;
+        case "fri":
+            day = Day.Friday;
+            break;
+        case "sat":
+            day = Day.Saturday;
+            break;
         }
     }
 

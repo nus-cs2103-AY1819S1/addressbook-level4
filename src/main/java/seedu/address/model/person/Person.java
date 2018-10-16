@@ -114,7 +114,7 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
-                && otherPerson.getFees() == getFees();
+                && otherPerson.getFees() == getFees()
                 && otherPerson.getTags().equals(getTags());
     }
 
