@@ -201,7 +201,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::updatedModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -209,13 +209,64 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` and an unmodifiable `ObservableList<Group>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
+This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+
+*New enhancements for `v1.2`:*
+
+.The new Group class
+image::groupClassDiagram.png[width="300"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/group/Group.java[`Group.java`]
+
+The `Group`,
+
+* is identified by `Title` and `Description`.
+* contains the `Meeting` details for this particular group. This is an optional field.
+* keeps track of its members in a `UniquePersonList`. The method `hasMember(Person person)` can check the enrollment of a particular `Person`.
+* supports add and remove member using methods `addMember(Person toAdd)` and `removeMember(Person toRemove)`.
+* exposes an unmodifiable `List<Person>` for observation of member enrollment status by `getMembersView()`.
+
+.The UniqueGroupList class
+image::uniqueGroupListClassDiagram.png[width="500"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/group/UniqueGroupList.java[`UniqueGroupList.java`]
+
+The `UniqueGroupList`,
+
+* ensures a list of `Group` objects without duplicates.
+* supports `add`, `remove` and `replace` operations on groups in the list.
+* exposes an unmodifiable `ObservableList<Group>` for observation of the list.
+
+[NOTE]
+Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
+
+
+.The enhanced Person class
+image::personClassDiagram.png[width="300"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person.java`]
+
+* `Person` now supports group identification. Every person will keep a list of groups that he/she has enrolled in.
+* Every `Person` in address book can be added or removed from an existing group. Use the methods `addGroup()` and `removeGroup`.
+* `Person` can check whether he/she is in a particular group by `hasGroup(Group group)` method.
+
+
+*The enhanced `AddressBook`*,
+
+* `versionedAddressBook` now also contains group list, which supports categorisation of persons in address book.
+* `Group` can be created or removed from the address book.
+* When a `Group` is removed from the address book, all members will be removed from this group.
+* When a `Person` is removed from the address book, all groups containing this person as member will remove this person from the group.
+
+[NOTE]
+The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
+
+
 
 [[Design-Storage]]
 === Storage component
