@@ -33,6 +33,8 @@ public class CommandTestUtil {
     public static final String VALID_VENUE_TUTORIAL = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_PRIORITY_TUTORIAL = "3";
+    public static final String VALID_PRIORITY_LECTURE = "1";
 
     public static final String TITLE_DESC_LECTURE = " " + PREFIX_TITLE + VALID_TITLE_LECTURE;
     public static final String TITLE_DESC_TUTORIAL = " " + PREFIX_TITLE + VALID_TITLE_TUTORIAL;
