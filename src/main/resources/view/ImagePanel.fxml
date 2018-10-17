@@ -4,5 +4,5 @@
 
 <?import javafx.scene.image.ImageView?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
-    <ImageView fx:id="imageView" fitHeight="340" fitWidth="340" preserveRatio="true"/>
+    <ImageView fx:id="imageView" fitHeight="300" fitWidth="400" preserveRatio="true"/>
 </StackPane>
