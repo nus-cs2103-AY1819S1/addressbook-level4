@@ -110,12 +110,14 @@ Format: `filter [f/] [n/] [ct/CARPARK_TYPE]` or `fi [f/] [n/] [ct/CARPARK_TYPE]`
 
 Flags:
 
-* f - FREE_PARKING
-* n - NIGHT_PARKING
-* ct - CARPARK_TYPE
+* f/ - FREE_PARKING
+* n/ - NIGHT_PARKING
+* ct/ - CARPARK_TYPE
 - SURFACE
 - MUITISTORY
 - BASEMENT
+- COVERED
+- MECHANISED
 
 Example:
 
