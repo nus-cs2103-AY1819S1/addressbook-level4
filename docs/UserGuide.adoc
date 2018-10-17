@@ -35,7 +35,7 @@ e.g. typing help and pressing Enter will open the help window.
 
 * *`login`* : login into the manager account. The default username and password is admin/admin.
 * *`employees`* : lists all employees.
-* **`add`**`-n John Doe Marketing -s Sales` : adds an employee named John Doe into the marketing sector.
+* **`add`**`-n John Doe Marketing` : adds an employee named John Doe into the department of the employee adding John.
 * **`find`**`J*` : finds all employees that start with J.
 * *`exit`* : exits the app
 
@@ -47,7 +47,7 @@ e.g. typing help and pressing Enter will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -n NAME -s SECTOR`, `NAME`, `SECTOR` is a parameter which can be used as `add -n John -s Sales `.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -n NAME`, `NAME`, `SECTOR` is a parameter which can be used as `add -n John -s Sales `.
 * Items in square brackets are optional e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `-t TAG...` can be used as `{nbsp}` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
 * Parameters can be in any order e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
@@ -61,7 +61,7 @@ Format: `help`
 
 === Login into the system : `login`
 
-Login into the system using the username given
+Login into the system using the username given.
 
 Format: `login -u USERNAME`
 
@@ -81,27 +81,30 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Adding an employee : `add`
+=== Adding an employee to a department: `add`
 
 Adds an employee into the system.
 
-Format: `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
+Format: `add -n NAME [-e EMAIL] [-n NUMBER][-s SALARY]`
 
-To use this command, you must be logged in as a manager
-
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+* New employee will automatically be assigned to the department of the employee adding him/her.
+****
 Examples:
 
-* `add -n John Doe -s Sales -p 15000`
-* `add -n Raynard -s Investment -m Self motivated -p 2000`
+* `add -n Joshua -s 15000`
+* `add -n Raynard -s 10000`
 
-=== Removing an employee : `remove`
+=== Removing an employee from my department: `remove`
 
 Removes an employee from the system.
 
 Format: `remove -id ID [-n NAME]`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
+* All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archve.
 ****
 
 Examples:
@@ -115,34 +118,25 @@ Lists all the sectors, sorted by more profitable sector first.
 Format: `sector`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
-=== List effectiveness of employees : `employees`
+=== Sort employee display list : `sort`
 
-Lists all employees, sorted by most profitable employees first.
+Lists all employees, using a given criteria.
 
-Format: `employees -s SORTBY`
+Format: `sort -n NAME [-d DEPARTMENT]`
 
-To use this command, you must be logged in as a manager.
-By default, this sorts by their profitability, but it can also sort by details like name by specifying it in the -s parameter.
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+There are many different criteries like name, department, etc.
 
 === List details of employee : `detail`
 
-Lists the detailed information of an employee, including their merits/demerits and leave details.
+Lists the detailed information of an employee.
 
 Format: `detail -id ID [-n NAME]`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
 === Apply for leave : `leave`
@@ -156,22 +150,31 @@ Format: `leave DATE to DATE`
 * To use this command, you must be logged in as an employee.
 ****
 
-=== Find employees by name : `find`
+=== Search employees by name : `search`
 
-Find all employees that have their name fir within an applied filter.
+Search and display all employees that match the given name criteria.
 
-Format: `find FILTER`
+Format: `search NAME`
 
 ****
-* filter can be any name or parts of name. You can substitute * for any number of characters and _ for a single character.
-* To use this command, you must be logged in as a manager.
+* NAME can be any name or parts of name.
+****
+
+=== Filter employees by criteria : `filter`
+
+Search all employees that have their name fir within an applied filter.
+
+Format: `filter -n NAME [-d DEPARTMENT]`
+
+****
+* NAME can be any name or parts of name.
 ****
 
 === Edit details : `edit`
 
 Changes the users details (such as contact information).
 
-Format: `edit [-p PHONE] [-e EMAIL] [-s SALARY] [-d DEPARTMENT]`
+Format: `edit [-n NUMBER] [-e EMAIL]`
 
 ****
 * At least one of the parameters must be provided
@@ -197,7 +200,7 @@ Views the summary of off days current employees take for the month.
 Format: `leavesummary`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
 === View income summary : `summary`
@@ -206,9 +209,17 @@ View income summary for the month.
 
 Format: `summary`
 
+=== View deleted employee archive : `archive`
+
+Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+
+Format: `archive`
+
 ****
-* To use this command, you must be logged in as an employee
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
+
+
 
 === Exiting the program : `exit`
 
@@ -233,27 +244,30 @@ Format: `exit [-f]`
 === Employee Commands
 
 * *Help* : `help`
-* *Login* : `login -u USERNAME [-p]` +
+* *Login* : `login -u USERNAME` +
 e.g. login -u Kok
-* *History* : `history`
+* *History* : `history` +
+* *Sort employee display list* : `sort -n NAME [-d DEPARTMENT]` +
 * *Apply for leave* : `leave DATE to DATE` +
 e.g. leave 1/1/2019 to 30/1/2019
-* *Edit details* : `edit [-p PHONE][-e EMAIL][-a ADDRESS]` +
-e.g. edit -p 12312312
-* *Change password* : `passwd`
+* *Search employees by name* : `search NAME` +
+e.g. search Joshua
+* *Filter employees by criteria* : `filter -n NAME [-d DEPARTMENT]` +
+e.g. filter -n Jeremy Choo -d Development
+* *Edit details* : `edit [-n NUMBER] [-e EMAIL]` +
+e.g. edit -n 12312312
+* *Change password* : `password`
 * *View income summary* : `summary`
 * *Exit* : `exit [-f]`
 
-=== Manager Commands
-* *Adding an employee* : `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]` +
-e.g. add -n Elliot -s Sales -g 1 -f Procrastinator
-* *Removing an employee* : `remove -n [NAME] -id [ID]` +
-e.g. remove id E01312
+=== Employee with "Department Manager" permissions
+* *Adding an employee to a department* : `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]` +
+e.g. add -n Elliot -e Elliot@gmail.com
+* *Removing an employee* : `remove -id ID [-n NAME]` +
+e.g. remove -id E01312
 * *List effectiveness of sector by profit* : `sector`
-* *List effectiveness of employees* : `employees [-s SORTBY]` +
-e.g. employees -s name
-* *List employees* : `detail [-n NAME][-id ID]` +
+* *List employees* : `detail -id ID [-n NAME]` +
 e.g. detail -n Elliot
-* *Find employees by name* : `find FILTER` +
-e.g. find Choo
-* *View employee leave summary* : `leavesummary`
+* *View employee leave summary* : `leavesummary` +
+* *View deleted employee archive* : `archive`
+

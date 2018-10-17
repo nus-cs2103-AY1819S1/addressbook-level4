@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.permission.PermissionSet;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.project.Project;
 
 /**
  * Represents a Person in the address book.
@@ -23,35 +23,38 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Salary salary;
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
     private final PermissionSet permissionSet = new PermissionSet();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
+        requireAllNonNull(name, phone, email, address, salary, projects);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        this.tags.addAll(tags);
+        this.projects.addAll(projects);
         this.profilePic = Optional.empty();
     }
 
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, address, salary, projects);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        this.tags.addAll(tags);
+        this.projects.addAll(projects);
         this.profilePic = profilePic;
     }
 
@@ -71,6 +74,10 @@ public class Person {
         return address;
     }
 
+    public Salary getSalary() {
+        return salary;
+    }
+
     public Optional<ProfilePic> getProfilePic() {
         return profilePic;
     }
@@ -79,9 +86,10 @@ public class Person {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Project> getProjects() {
+        return Collections.unmodifiableSet(projects);
     }
+
 
     /**
      * Returns a PermissionSet, which contains all permissions possessed by this person.
@@ -124,14 +132,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getSalary().equals(getSalary())
+                && otherPerson.getProjects().equals(getProjects())
                 && otherPerson.getProfilePic().equals(getProfilePic());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, profilePic);
+        return Objects.hash(name, phone, email, address, salary, projects, profilePic);
     }
 
     @Override
@@ -144,10 +153,12 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Salary: ")
+                .append(getSalary())
                 .append(" Profile Pic: ")
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Projects: ");
+        getProjects().forEach(builder::append);
         return builder.toString();
     }
 
