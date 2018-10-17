@@ -51,7 +51,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FOOD = "Lunch";
     public static final String VALID_DATE_1990 = "01-01-1990";
     public static final String VALID_DATE_2018 = "02-10-2018";
-    
+
     public static final String VALID_TIME_ONE = "1";
     public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
     public static final String VALID_TIME_ONE_MINUTE = " " + PREFIX_MINUTES + VALID_TIME_ONE;
