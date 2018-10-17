@@ -50,8 +50,8 @@ Refer to <<Features>> for details of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `query p/POSTAL_CODE`, `POSTAL_CODE` is a
-parameter which can be used as `query p/760397`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find LOCATION`, `LOCATION` is a
+parameter which can be used as `find serangoon`.
 * Items in square brackets are optional e.g `filter [f/] [n/] [ct/CARPARK_TYPE]` can be used as `filter f/ n/ ct/SURFACE
 ` or as `filter f/`.
 * Parameters can be in any order e.g. if the command specifies `filter [f/] [n/] [ct/CARPARK_TYPE]`,
@@ -60,12 +60,12 @@ parameter which can be used as `query p/760397`.
 
 === Viewing help : `help`
 
-Shows the list of available commands and how to use them
+Show the list of available commands and how to use them. +
 Format: `help`
 
 === Finding car parks : `find`
 
-Finds a list of available car parks +
+Find a list of available car parks. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [TIP]
@@ -89,7 +89,7 @@ Examples:
 
 === Select car park : `select`
 
-Select the car park you wish to go to. +
+Select the car park of your choice. +
 Format: `select CARPARK_NO`
 
 [TIP]
@@ -105,8 +105,13 @@ Examples:
 
 === Filter car parks : `filter`
 
-Filters the list of car parks by free parking and night parking, must query beforehand. +
+Filter the list of car parks by free parking and night parking. +
 Format: `filter [f/] [n/] [ct/CARPARK_TYPE]`
+
+[NOTE]
+====
+Must have car parks beforehand.
+====
 
 Flags:
 
@@ -124,8 +129,13 @@ Example:
 
 === Sort car parks : `sort`
 
-Sort the list of car parks by distance or name, must query beforehand. +
+Sort the list of car parks by distance or name. +
 Format: `sort FILTER_TYPE`
+
+[NOTE]
+====
+Must have car parks beforehand.
+====
 
 Flags:
 
@@ -141,7 +151,7 @@ Example:
 
 === Add favourite car parks or location: `add` `[coming in v2.0]`
 
-Add your favorite car park into your favorites list +
+Add your favourite car park into your favorites list +
 Format: `add c/CARPARK_NO`
 
 [TIP]
@@ -152,7 +162,7 @@ Examples:
 * `a c/SE12`
 * `add c/SE12`
 
-Add your favorite location into your favorites list +
+Add your favourite location into your favorites list +
 Format: `add p/POSTAL_CODE`
 
 [TIP]
@@ -166,7 +176,7 @@ Examples:
 
 === Show favorites list : `list`
 
-Shows your favorites list, with all the car park details. +
+Show your favorites list with all the car park details. +
 Format: `list`
 
 .After using list command
@@ -174,7 +184,7 @@ image::listafter.png[width="790"]
 
 === Remove from favorites list : `remove` `[coming in v2.0]`
 
-Removes the specified carpark from your favorites list +
+Remove the specified car park from your favorites list +
 Format: `remove c/CARPARK_NO`
 
 [TIP]
@@ -185,19 +195,48 @@ Examples:
 * `remove c/SE12`
 * `r c/SE12`
 
-=== Data update : `notify`
+=== Data query : `query`
 
-Sets the interval in seconds to query from data.gov.sg +
+Get car park information from data.gov.sg by querying it. +
+
+[NOTE]
+====
+You need to run this command to get the latest information on all the car parks.
+====
+
+Examples:
+
+* `query`
+
+=== Notification : `notify` [coming in v2.0]
+
+Set the interval to give updates in real time for all the car parks. +
 Format: `notify TIME_SECONDS`
+
+[NOTE]
+====
+The default value is 60 seconds. You can set within a range of 10 seconds to 1 hour.
+====
 
 Examples:
 
 * `notify 60`
 
+=== Weather update : `weather` [coming in v2.0]
+
+Include weather updates in the notifications by indicating on or off. +
+Format: `weather TOGGLE`
+
+Examples:
+
+* `weather on`
+
+* `weather off`
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous car park book folder.
+*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Car Park Finder folder.
 
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.

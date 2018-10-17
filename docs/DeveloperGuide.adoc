@@ -95,6 +95,12 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+2.1 Query feature
+
 [appendix]
 == Product Scope
 
@@ -641,7 +647,7 @@ to search for locations of car parks.
 . This application is not suppose to be used by drivers on the road.
 . The system should be easy and scalable in adding on features for future versions.
 . The car park data should be updated frequently while running to send notifications in real time.
-. Privacy details in the user profile should not be seen or shared easily by others.
+. Privacy details in the favourites list should not be seen or shared easily by others.
 
 [appendix]
 == Glossary
@@ -659,7 +665,7 @@ A value that acts as a signal for a function or process.
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Favourites::
-A custom list of car parks that is meant to be viewed easily
+A custom list of car parks that is meant to be viewed easily.
 
 [appendix]
 == Product Survey
