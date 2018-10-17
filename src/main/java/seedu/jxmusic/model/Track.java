@@ -1,6 +1,8 @@
 package seedu.jxmusic.model;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
@@ -25,7 +27,7 @@ public class Track {
     /**
      * Constructs a {@code Track}.
      * By using a Name to restrict null or empty string
-     * @param trackFileName mp3 file name of the track, ".mp3" suffix is optional
+     * @param trackFileName mp3 file name of the track, does not accept ".mp3" suffix
      */
     public Track(Name trackFileName) {
         CollectionUtil.requireAllNonNull(trackFileName);
@@ -65,22 +67,71 @@ public class Track {
     }
 
     /**
-     * Checks for javafx media support
+     * Checks for javafx media support and header bytes
      * @param file the file to check
-     * @return true if file is supported by javafx media, false otherwise
+     * @return true if file is supported by javafx media and has valid header bytes, false otherwise
      */
     private static boolean isSupported(File file) {
         // todo check by using PlayableTrack constructor in try block
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
         try {
             Media media = new Media(file.toURI().toString());
+            if (!hasMp3Header(file)) {
+                // System.out.println("is not mp3");
+                return false;
+            }
         } catch (MediaException e) {
             // if (e.getType() == MediaException.Type.MEDIA_UNSUPPORTED) {
             //     return false;
             // }
+            System.out.println("mediaexception");
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks whether a file is truly mp3 file by looking at header bytes
+     * @param file the file to check
+     * @return true if file has id3v2 or mp3 header bytes
+     */
+    private static boolean hasMp3Header(File file) {
+        final int[] ID3V2_HEADER = new int[] {0x49, 0x44, 0x33};
+        final int[] MP3_HEADER = new int[] {0xff, 0xfb}; // for mp3 files without id3v2 header
+        byte[] first3Bytes = new byte[3];
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            fis.readNBytes(first3Bytes, 0, 3);
+            for (byte b : first3Bytes) {
+                System.out.println(b);
+            }
+        } catch (IOException e) {
+            System.out.println("fail to read");
+            return false;
+        }
+        boolean hasId3V2 = true;
+        for (int i = 0; i < ID3V2_HEADER.length; i++) {
+            if (first3Bytes[i] != (byte) ID3V2_HEADER[i]) {
+                hasId3V2 = false;
+                break;
+            }
+        }
+        if (hasId3V2) {
+            System.out.println("has id3v2");
+            return true;
+        }
+        boolean isMp3WithoutId3V2 = true;
+        for (int i = 0; i < MP3_HEADER.length; i++) {
+            if (first3Bytes[i] != (byte) MP3_HEADER[i]) {
+                isMp3WithoutId3V2 = false;
+                break;
+            }
+        }
+        if (isMp3WithoutId3V2) {
+            System.out.println("no id3v2 but is mp3");
+            return true;
+        }
+        return false;
     }
 
     private String removeMp3Extension(String fileNameDotMp3) {

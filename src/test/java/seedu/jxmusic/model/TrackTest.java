@@ -1,5 +1,6 @@
 package seedu.jxmusic.model;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.jxmusic.testutil.Assert;
@@ -28,9 +29,15 @@ public class TrackTest {
 
     @Test
     public void constructor_trackFileNotSupported_throwsIllegalArgumentException() {
-        File unsupportedFile = Paths.get(Library.LIBRARYDIR, "unsupported.txt").toFile();
+        File unsupportedFile = Paths.get(Library.LIBRARYDIR, "unsupported.mp3").toFile();
         Assert.assertThrows(IllegalArgumentException.class, Track.MESSAGE_FILE_NOT_SUPPORTED,
                 () -> new Track(unsupportedFile));
+    }
+
+    @Test
+    public void constructor_validTrackFile() {
+        File validFile = Paths.get(Library.LIBRARYDIR, "Service Bell Help.mp3").toFile();
+        assertEquals(new Track(validFile), new Track(new Name("Service Bell Help")));
     }
 
 }
