@@ -343,11 +343,11 @@ e.g.`select 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 === `MedicineInventory` Commands
-* *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` + 
+* *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
 e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
-* *Delete Medicine* : `deletemedicine MEDICINE_NAME` + 
+* *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
 e.g. `deletemedicine Paracetamol`
-* *Find Medicine* : `findmedicine MEDICINE_NAME` + 
+* *Find Medicine* : `findmedicine MEDICINE_NAME` +
 e.g. `findmedicine Paracetamol`
 * *Increase Medicine Quantity* : `increasemedicine m/MEDICINE_NAME q/QUANTITY` +
 e.g. `increasemedicine m/Paracetamol q/500`
