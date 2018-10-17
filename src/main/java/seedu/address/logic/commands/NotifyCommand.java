@@ -27,6 +27,7 @@ import seedu.address.model.carpark.TypeOfParking;
 public class NotifyCommand extends Command {
 
     public static final String COMMAND_WORD = "notify";
+    public static final String COMMAND_ALIAS = "n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets when to update the car park information.\n"

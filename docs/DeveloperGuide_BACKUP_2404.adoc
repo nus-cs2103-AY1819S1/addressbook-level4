@@ -95,6 +95,7 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+<<<<<<< HEAD
 == Implementation
 
 === Find feature
@@ -122,7 +123,7 @@ If a command fails its execution, it will not call `FindCommand#execute()`, so t
 Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
 
 Step 4. The filtered list of car park is returned to the GUI.
-
+=======
 
 == Implementation
 
@@ -165,6 +166,7 @@ in each Command file.
 ** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
 & `filter`, it does not work.
 
+>>>>>>> ca8d9a715a7105b5385a4686e07cbb744ebc0116
 
 [appendix]
 == Product Scope
