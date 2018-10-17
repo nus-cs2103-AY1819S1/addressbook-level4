@@ -51,6 +51,8 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <meeting>0000000000</meeting>
+        <tagged>owesMoney</tagged>
+        <tagged>DBS</tagged>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
@@ -127,7 +129,7 @@
     </persons>
     <persons>
         <name>Openheimer Ang</name>
-        <phone>83242542</phone>
+        <phone>93424521</phone>
         <email>openheimer@example.com</email>
         <address>5th Avenue</address>
         <tagged>Singaporean</tagged>

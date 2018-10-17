@@ -80,7 +80,7 @@ public class TypicalPersons {
             .withTags("Rich", "Client")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person OPENHEIMER = new PersonBuilder().withName("Openheimer Ang").withPhone("93424521")
-            .withEmail("openheimer@example.com").withAddress("5th Address")
+            .withEmail("openheimer@example.com").withAddress("5th Avenue")
             .withTags("Singaporean", "OCBC")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person PERCY = new PersonBuilder().withName("Percy Jackson").withPhone("83242542")
@@ -112,7 +112,7 @@ public class TypicalPersons {
     // Untagged persons
     public static final Person OPENHEIMER_UNTAGGED = new PersonBuilder().withName("Openheimer Ang")
             .withPhone("93424521")
-            .withEmail("openheimer@example.com").withAddress("5th Address")
+            .withEmail("openheimer@example.com").withAddress("5th Avenue")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person PERCY_UNTAGGED = new PersonBuilder().withName("Percy Jackson").withPhone("83242542")
             .withEmail("percy@example.com").withAddress("6th Avenue")
