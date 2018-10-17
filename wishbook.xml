@@ -63,18 +63,10 @@
         <remark></remark>
     </wishes>
     <wishes>
-        <name>test</name>
+        <name>asdf</name>
         <price>123.00</price>
         <savedAmount>0.00</savedAmount>
-        <date>11/12/2018</date>
-        <url>www.amazon.com</url>
-        <remark></remark>
-    </wishes>
-    <wishes>
-        <name>banana republic shirt</name>
-        <price>1000.00</price>
-        <savedAmount>0.00</savedAmount>
-        <date>10/12/2018 shirt</date>
+        <date>1/1/2019</date>
         <url>www.amazon.com</url>
         <remark></remark>
     </wishes>

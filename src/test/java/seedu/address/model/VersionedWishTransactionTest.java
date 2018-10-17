@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -30,7 +31,7 @@ public class VersionedWishTransactionTest {
         tagSet.add(new Tag("wish1"));
         this.wish = new Wish(new Name("wish1"),
                 new Price("81320902"),
-                new Email("wish1@gmail.com"),
+                new Date("wish1@gmail.com"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),

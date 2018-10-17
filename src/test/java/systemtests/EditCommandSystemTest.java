@@ -40,6 +40,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -96,7 +97,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         index = INDEX_SECOND_WISH;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + DATE_DESC_1
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedWish = new WishBuilder(BOB).withPrice(VALID_PRICE_AMY).withEmail(VALID_DATE_1).build();
+        editedWish = new WishBuilder(BOB).withPrice(VALID_PRICE_AMY).withDate(VALID_DATE_1).build();
         assertCommandSuccess(command, index, editedWish);
 
         /* Case: clear tags -> cleared */
@@ -172,7 +173,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_DATE_DESC,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
+                Date.MESSAGE_DATE_CONSTRAINTS);
 
         /* Case: invalid wish -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_URL_DESC,

@@ -18,7 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -94,7 +95,7 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + VALID_NAME_2 + URL_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + VALID_DATE_2 + URL_DESC_BOB,
                 expectedMessage);
 
         // missing url prefix
@@ -102,7 +103,7 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PRICE_BOB + VALID_NAME_2 + VALID_URL_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PRICE_BOB + VALID_DATE_2 + VALID_URL_BOB,
                 expectedMessage);
     }
 
@@ -118,7 +119,7 @@ public class AddCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + INVALID_DATE_DESC + URL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_EMAIL_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Date.MESSAGE_DATE_CONSTRAINTS);
 
         // invalid url
         assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2 + INVALID_URL_DESC

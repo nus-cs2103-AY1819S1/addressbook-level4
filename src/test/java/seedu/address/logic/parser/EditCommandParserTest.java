@@ -16,7 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
@@ -37,6 +37,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -82,7 +83,7 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_DATE_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_DATE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_URL_CONSTRAINTS); // invalid url
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
@@ -172,7 +173,7 @@ public class EditCommandParserTest {
                 + PRICE_DESC_BOB + URL_DESC_BOB + DATE_DESC_2 + TAG_DESC_HUSBAND;
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withPrice(VALID_PRICE_BOB)
-                .withDate(VALID_NAME_2).withAddress(VALID_URL_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withDate(VALID_DATE_2).withAddress(VALID_URL_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -191,7 +192,7 @@ public class EditCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + DATE_DESC_2 + INVALID_PRICE_DESC + URL_DESC_BOB
                 + PRICE_DESC_BOB;
-        descriptor = new EditWishDescriptorBuilder().withPrice(VALID_PRICE_BOB).withDate(VALID_NAME_2)
+        descriptor = new EditWishDescriptorBuilder().withPrice(VALID_PRICE_BOB).withDate(VALID_DATE_2)
                 .withAddress(VALID_URL_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

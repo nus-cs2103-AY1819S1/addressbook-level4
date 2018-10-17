@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
@@ -23,51 +23,55 @@ import seedu.address.model.wish.Wish;
  * A utility class containing a list of {@code Wish} objects to be used in tests.
  */
 public class TypicalWishes {
-
+    /* Following wishes must have unique names and must be in ascending dates. Or else the
+     * following tests will fail:
+     * EditCommandTest#execute_duplicateWishFilteredList_failure
+     * CommandTestUtil#showWishAtIndex
+     */
     public static final Wish ALICE = new WishBuilder().withName("Alice Pauline")
             .withUrl("https://www.lazada.sg/products/"
                     + "ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html")
-            .withEmail("alice@example.com")
+            .withDate("28/01/2019")
             .withPrice("94.35")
             .withTags("friends")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish BENSON = new WishBuilder().withName("Benson Meier")
             .withUrl("https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7")
-            .withEmail("johnd@example.com")
+            .withDate("28/02/2019")
             .withPrice("98.76")
             .withTags("owesMoney", "friends")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish CARL = new WishBuilder().withName("Carl Kurz")
             .withPrice("98.76")
-            .withEmail("heinz@example.com")
+            .withDate("15/03/2019")
             .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish DANIEL = new WishBuilder().withName("Daniel Meier")
             .withPrice("87.65")
-            .withEmail("cornelia@example.com")
+            .withDate("01/04/2019")
             .withUrl("https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62")
             .withTags("friends")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish ELLE = new WishBuilder().withName("Elle Meyer")
             .withPrice("94.82")
-            .withEmail("werner@example.com")
+            .withDate("28/05/2019")
             .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish FIONA = new WishBuilder().withName("Fiona Kunz")
             .withPrice("94.82")
-            .withEmail("lydia@example.com")
+            .withDate("28/06/2019")
             .withUrl("https://www.lazada.sg/products/"
                     + "nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish GEORGE = new WishBuilder().withName("George Best")
             .withPrice("94.82")
-            .withEmail("anna@example.com")
+            .withDate("30/07/2019")
             .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
             .withSavedAmountIncrement("0.00")
             .build();
@@ -75,23 +79,23 @@ public class TypicalWishes {
     // Manually added
     public static final Wish HOON = new WishBuilder().withName("Hoon Meier")
             .withPrice("84.82")
-            .withEmail("stefan@example.com")
+            .withDate("28/08/2019")
             .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
             .withSavedAmountIncrement("0.00")
             .build();
     public static final Wish IDA = new WishBuilder().withName("Ida Mueller")
             .withPrice("84.82")
-            .withEmail("hans@example.com")
+            .withDate("02/09/2019")
             .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
             .withSavedAmountIncrement("0.00")
             .build();
 
     // Manually added - Wish's details found in {@code CommandTestUtil}
     public static final Wish AMY = new WishBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withEmail(VALID_DATE_1).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
+            .withDate(VALID_DATE_1).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
             .withSavedAmountIncrement("0.00").build();
     public static final Wish BOB = new WishBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withEmail(VALID_NAME_2).withUrl(VALID_URL_BOB)
+            .withDate(VALID_DATE_2).withUrl(VALID_URL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withSavedAmountIncrement("0.00")
             .build();
 

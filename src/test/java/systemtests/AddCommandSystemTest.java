@@ -16,7 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
@@ -38,6 +38,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -82,7 +83,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         /* Case: add a wish with all fields same as another wish in the wish book except phone and email
          * -> added
          */
-        toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withEmail(VALID_NAME_2).build();
+        toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withDate(VALID_DATE_2).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -123,7 +124,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: add a duplicate wish except with different email -> rejected */
-        toAdd = new WishBuilder(HOON).withEmail(VALID_NAME_2).build();
+        toAdd = new WishBuilder(HOON).withDate(VALID_DATE_2).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
@@ -166,7 +167,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + INVALID_DATE_DESC + URL_DESC_AMY;
-        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure(command, Date.MESSAGE_DATE_CONSTRAINTS);
 
         /* Case: invalid wish -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + DATE_DESC_1 + INVALID_URL_DESC;

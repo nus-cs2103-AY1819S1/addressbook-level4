@@ -170,11 +170,11 @@ public class Wish {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(" Price: ")
                 .append(getPrice())
                 .append(" Date: ")
                 .append(getDate())
-                .append(" Address: ")
+                .append(" Url: ")
                 .append(getUrl())
                 .append(" Remark: ")
                 .append(getRemark())

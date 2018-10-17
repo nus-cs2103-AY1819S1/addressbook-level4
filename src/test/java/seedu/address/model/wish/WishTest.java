@@ -2,7 +2,8 @@ package seedu.address.model.wish;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -36,7 +37,7 @@ public class WishTest {
         assertFalse(ALICE.isSameWish(null));
 
         // different phone and email -> returns false
-        Wish editedAlice = new WishBuilder(ALICE).withPrice(VALID_PRICE_BOB).withEmail(VALID_NAME_2).build();
+        Wish editedAlice = new WishBuilder(ALICE).withPrice(VALID_PRICE_BOB).withDate(VALID_DATE_1).build();
         assertFalse(ALICE.isSameWish(editedAlice));
 
         // different name -> returns false
@@ -44,7 +45,7 @@ public class WishTest {
         assertFalse(ALICE.isSameWish(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new WishBuilder(ALICE).withEmail(VALID_NAME_2).withUrl(VALID_URL_BOB)
+        editedAlice = new WishBuilder(ALICE).withDate(VALID_DATE_2).withUrl(VALID_URL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameWish(editedAlice));
 
@@ -85,7 +86,7 @@ public class WishTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new WishBuilder(ALICE).withEmail(VALID_NAME_2).build();
+        editedAlice = new WishBuilder(ALICE).withDate(VALID_DATE_2).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
