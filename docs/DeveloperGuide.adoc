@@ -275,8 +275,7 @@ image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
-
+.How the undo operation works
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
@@ -422,6 +421,11 @@ to see if there are any car parks with no data on its parking lots. The value 0 
 
 Step 7. An ArrayList<ArrayList<String>> is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
 to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
+
+The following sequence diagram shows how the query operation works:
+
+.How the query operation works
+image::zy_seq.png[width="800", align="left"]
 
 ==== Design Considerations
 
