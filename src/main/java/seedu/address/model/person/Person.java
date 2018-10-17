@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.permission.Permission;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.tag.Tag;
 
@@ -119,13 +118,6 @@ public class Person {
      */
     public PermissionSet getPermissionSet() {
         return permissionSet;
-    }
-
-    /**
-     * Returns true if this person possess specified permission. Otherwise false.
-     */
-    public boolean havePermissions(Permission... pList) {
-        return permissionSet.containsAll(pList);
     }
 
     /**
