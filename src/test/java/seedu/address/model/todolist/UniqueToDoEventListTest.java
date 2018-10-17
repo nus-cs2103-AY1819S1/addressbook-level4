@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MIDTERM;
+import static seedu.address.testutil.TypicalTodoListEvents.MIDTERM;
+import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,10 +19,6 @@ import java.util.List;
 import seedu.address.model.todolist.exceptions.DuplicateToDoListEventException;
 import seedu.address.model.todolist.exceptions.ToDoListEventNotFoundException;
 import seedu.address.testutil.ToDoListEventBuilder;
-
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MIDTERM;
-import static seedu.address.testutil.TypicalTodoListEvents.MIDTERM;
-import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
 
 public class UniqueToDoEventListTest {
     @Rule
