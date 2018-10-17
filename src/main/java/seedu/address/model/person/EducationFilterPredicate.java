@@ -13,7 +13,7 @@ public class EducationFilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        String a = person.getEducation().educationalLevel.toString();
+        String a = person.getEducation().getEducationalLevel().toString();
         return a.equalsIgnoreCase(education);
 
     }
