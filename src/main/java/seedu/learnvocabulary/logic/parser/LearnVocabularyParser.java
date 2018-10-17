@@ -101,16 +101,15 @@ public class LearnVocabularyParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
-        
+
         case GroupdeleteCommand.COMMAND_WORD:
             return new GroupDeleteCommandParser().parse(arguments);
-        
+
         case GroupaddCommand.COMMAND_WORD:
             return new GroupAddCommandParser().parse(arguments);
-            
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
