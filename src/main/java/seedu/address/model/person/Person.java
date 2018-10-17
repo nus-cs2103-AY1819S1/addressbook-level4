@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.project.Project;
+import seedu.address.model.permission.PermissionSet;
 
 /**
  * Represents a Person in the address book.
@@ -26,6 +27,7 @@ public class Person {
     private final Address address;
     private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
+    private final PermissionSet permissionSet = new PermissionSet();
 
     /**
      * Every field must be present and not null.
@@ -88,6 +90,14 @@ public class Person {
         return Collections.unmodifiableSet(projects);
     }
 
+
+    /**
+     * Returns a PermissionSet, which contains all permissions possessed by this person.
+     * @see PermissionSet
+     */
+    public PermissionSet getPermissionSet() {
+        return permissionSet;
+    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
