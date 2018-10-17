@@ -110,6 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedWishBook.addWish(wish);
         versionedWishTransaction.addWish(wish);
         updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+        versionedWishBook.synchronizeWishTransactions(versionedWishTransaction.getWishMap());
         indicateWishBookChanged();
     }
 
