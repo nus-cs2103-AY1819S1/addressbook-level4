@@ -326,10 +326,10 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::savingshistory[]
-=== Savings History feature 
+=== Savings History feature
 ==== Capturing the state of `WishTransaction`
 
-The current state of the savings history of the `WishBook` is captured by `VersionedWishTransaction`. 
+The current state of the savings history of the `WishBook` is captured by `VersionedWishTransaction`.
 `VersionedWishTransaction` extends `WishTransaction` and has an undo/redo history, similar to the implementation of the Undo/Redo feature, and is stored internally as a `wishStateList` and `currentStatePointer`. Additionally, it implements `VersionedModel` and so contains the implementation of the following operations:
 
 * `VersionedWishTransaction#commit()` -- Saves the current wish transaction state in its history.
@@ -340,7 +340,7 @@ These operations are exposed in the `Model` interface as `Model#commitWishBook()
 
 ==== Capturing the state of each `Wish`
 
-`WishTransaction` keeps track of the state of all wishes in `WishBook` via a `wishMap` which maps the unique ID of a `Wish` to a list of `Wish` states. `WishTransaction` implements `ActionCommandListener` such that any state changing command performed to a `Wish` or the `WishBook` such as `AddCommand()`, `EditCommand()`, `SaveCommand()`, etc will result in the `WishMap` being updated accordingly in `WishTransaction`. 
+`WishTransaction` keeps track of the state of all wishes in `WishBook` via a `wishMap` which maps the unique ID of a `Wish` to a list of `Wish` states. `WishTransaction` implements `ActionCommandListener` such that any state changing command performed to a `Wish` or the `WishBook` such as `AddCommand()`, `EditCommand()`, `SaveCommand()`, etc will result in the `WishMap` being updated accordingly in `WishTransaction`.
 
 ==== Persistent storage
 
@@ -353,7 +353,7 @@ Step 1. The user launches the application. The default file path storing the pre
 [NOTE]
 The `wishStateList` starts off with the initial state of the `WishTransaction` as the first item in the list.
 
-Step 2. The user executes `add n/iPhone ...` to add a new wish. The `add` command calls `Model#commitWishBook()`, causing the current state of the modified wish transaction state to be saved into `wishStateList`. As this is a command that changes the state of the `WishBook`, `Model#addWish()` will call `VersionedWishTransaction#addWish()` to add a new wish to the `WishMap`. 
+Step 2. The user executes `add n/iPhone ...` to add a new wish. The `add` command calls `Model#commitWishBook()`, causing the current state of the modified wish transaction state to be saved into `wishStateList`. As this is a command that changes the state of the `WishBook`, `Model#addWish()` will call `VersionedWishTransaction#addWish()` to add a new wish to the `WishMap`.
 
 [NOTE]
 * If a command fails its execution, it will not call `Model#commitWishBook()`, so the wish transaction state will not be saved into the `wishStateList`.
