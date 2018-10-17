@@ -18,7 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TutorPal is for private tutors who *prefer to use a desktop app for managing students information*. More importantly, TutorPal is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). TutorPal is a great tool to track students' academic performance and schedule. Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -233,7 +233,7 @@ DDMM is the format of date to be entered
 Example:
 
 * `earnings from/0204 to/2504` +
-This input returns the total amount of tuition fees earned from 2 February 2018 to 25 April 2018 inclusive.
+This input returns the total amount of tuition fees earned from 2 April 2018 to 25 April 2018 inclusive.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`

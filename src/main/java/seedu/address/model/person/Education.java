@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a Person's educational level in the address book.
@@ -17,14 +17,18 @@ public class Education {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String EDUCATION_VALIDATION_REGEX = "[\\S+]{2,3}[\\s][1-6]";
+    public static final String EDUCATION_VALIDATION_REGEX = "[\\S*]{2,10}[\\s][1-6]";
 
+    /**
+     * Represents the educational levels which are allowed.
+     * Also represents the list of educational levels which the tutor is able to teach.
+     */
     enum EducationalLevel {
         PRIMARY, SECONDARY, JC
     }
 
-    public EducationalLevel educationalLevel;
-    public int educationalGrade;
+    private EducationalLevel educationalLevel;
+    private int educationalGrade;
 
     /**
      * Constructs an {@code Education}.
@@ -35,6 +39,20 @@ public class Education {
         requireNonNull(education);
         checkArgument(isValidEducation(education), MESSAGE_EDUCATION_CONSTRAINTS);
         setEducationalLevelAndGrade(education);
+    }
+
+    /**
+     * Returns the educational level of the person.
+     */
+    public EducationalLevel getEducationalLevel() {
+        return educationalLevel;
+    }
+
+    /**
+     * Returns the educational grade of the person.
+     */
+    public int getEducationalGrade() {
+        return educationalGrade;
     }
 
     /**
@@ -51,7 +69,7 @@ public class Education {
         case "sec":
             educationalLevel = EducationalLevel.SECONDARY;
             break;
-        case "jc":
+        default:
             educationalLevel = EducationalLevel.JC;
             break;
         }
@@ -68,11 +86,11 @@ public class Education {
         String[] splitTest = test.split("\\s+");
         int grade = Integer.valueOf(splitTest[1]);
 
-        if (splitTest[0].equals("pri")) {
+        if (splitTest[0].equals("Primary")) {
             return grade <= 6;
-        } else if(splitTest[0].equals("sec")) {
+        } else if (splitTest[0].equals("Secondary")) {
             return grade <= 5;
-        } else if (splitTest[0].equals("jc")){
+        } else if (splitTest[0].equals("JC")) {
             return grade <= 2;
         } else {
             return false;
