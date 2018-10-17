@@ -2,10 +2,10 @@ package seedu.learnvocabulary.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_FLY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_LEVITATE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_LEVITATE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
 
 import org.junit.Test;
 
@@ -17,28 +17,28 @@ public class EditWordDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditWordDescriptor descriptorWithSameValues = new EditWordDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditCommand.EditWordDescriptor descriptorWithSameValues = new EditWordDescriptor(DESC_FLY);
+        assertTrue(DESC_FLY.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_FLY.equals(DESC_FLY));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_FLY.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_FLY.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_FLY.equals(DESC_LEVITATE));
 
         // different name -> returns false
-        EditCommand.EditWordDescriptor editedAmy = new EditWordDescriptorBuilder(DESC_AMY)
-                .withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditCommand.EditWordDescriptor editedFly = new EditWordDescriptorBuilder(DESC_FLY)
+                .withName(VALID_NAME_LEVITATE).build();
+        assertFalse(DESC_FLY.equals(editedFly));
 
         // different tags -> returns false
-        editedAmy = new EditWordDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedFly = new EditWordDescriptorBuilder(DESC_FLY).withTags(VALID_TAG_ABILITY).build();
+        assertFalse(DESC_FLY.equals(editedFly));
     }
 }

@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showWordAtIndex(model, INDEX_FIRST_WORD);
 
         Index outOfBoundIndex = INDEX_SECOND_WORD;
-        // ensures that outOfBoundIndex is still in bounds of learnvocabulary book list
+        // ensures that outOfBoundIndex is still in bounds of LearnVocabulary.
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLearnVocabulary().getWordList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first word deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts learnvocabulary back to previous state and filtered word list to show all words
+        // undo -> reverts LearnVocabulary back to previous state and filtered word list to show all words
         expectedModel.undoLearnVocabulary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWordList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> learnvocabulary book state not added into model
+        // execution failed -> LearnVocabulary state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
 
-        // single learnvocabulary book state in model -> undoCommand and redoCommand fail
+        // single LearnVocabulary state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second word in unfiltered word list / first word in filtered word list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts learnvocabulary back to previous state and filtered word list to show all words
+        // undo -> reverts LearnVocabulary back to previous state and filtered word list to show all words
         expectedModel.undoLearnVocabulary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

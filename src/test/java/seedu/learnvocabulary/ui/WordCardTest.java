@@ -47,7 +47,7 @@ public class WordCardTest extends GuiUnitTest {
         assertFalse(wordCard.equals(0));
 
         // different word, same index -> returns false
-        Word differentWord = new WordBuilder().withName("differentName").build();
+        Word differentWord = new WordBuilder().withName("differentWord").build();
         assertFalse(wordCard.equals(new WordCard(differentWord, 0)));
 
         // same word, different index -> returns false

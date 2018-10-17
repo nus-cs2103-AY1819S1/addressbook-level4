@@ -24,32 +24,32 @@ import seedu.learnvocabulary.testutil.EditWordDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_FLY = "fly";
+    public static final String VALID_NAME_LEVITATE = "levitate";
+    public static final String VALID_TAG_ABILITY = "ability";
+    public static final String VALID_TAG_FLOATING = "floating";
     public static final String VALID_MEANING = "Test";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_FLY = " " + PREFIX_NAME + VALID_NAME_FLY;
+    public static final String NAME_DESC_LEVITATE = " " + PREFIX_NAME + VALID_NAME_LEVITATE;
+    public static final String TAG_DESC_FLOATING = " " + PREFIX_TAG + VALID_TAG_FLOATING;
+    public static final String TAG_DESC_ABILITY = " " + PREFIX_TAG + VALID_TAG_ABILITY;
     public static final String MEANING_DESC = " " + PREFIX_MEANING + VALID_MEANING;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Fl&"; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "float*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditWordDescriptor DESC_AMY;
-    public static final EditCommand.EditWordDescriptor DESC_BOB;
+    public static final EditCommand.EditWordDescriptor DESC_FLY;
+    public static final EditCommand.EditWordDescriptor DESC_LEVITATE;
 
     static {
-        DESC_AMY = new EditWordDescriptorBuilder().withName(VALID_NAME_AMY).withMeaning(VALID_MEANING)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditWordDescriptorBuilder().withName(VALID_NAME_BOB).withMeaning(VALID_MEANING)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_FLY = new EditWordDescriptorBuilder().withName(VALID_NAME_FLY).withMeaning(VALID_MEANING)
+                .withTags(VALID_TAG_FLOATING).build();
+        DESC_LEVITATE = new EditWordDescriptorBuilder().withName(VALID_NAME_LEVITATE).withMeaning(VALID_MEANING)
+                .withTags(VALID_TAG_ABILITY, VALID_TAG_FLOATING).build();
     }
 
     /**
@@ -75,7 +75,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the learnvocabulary book and the filtered word list in the {@code actualModel} remain unchanged <br>
+     * - LearnVocabulary and the filtered word list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -100,7 +100,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the word at the given {@code targetIndex} in the
-     * {@code model}'s learnvocabulary book.
+     * {@code model}'s LearnVocabulary.
      */
     public static void showWordAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredWordList().size());
@@ -113,7 +113,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first word in {@code model}'s filtered list from {@code model}'s learnvocabulary book.
+     * Deletes the first word in {@code model}'s filtered list from {@code model}'s LearnVocabulary.
      */
     public static void deleteFirstWord(Model model) {
         Word firstWord = model.getFilteredWordList().get(0);

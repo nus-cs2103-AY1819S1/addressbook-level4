@@ -41,34 +41,34 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new WordBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("girl"));
+        assertTrue(predicate.test(new WordBuilder().withName("girl fire").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new WordBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("girl", "fire"));
+        assertTrue(predicate.test(new WordBuilder().withName("girl fire").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new WordBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("girl", "boy"));
+        assertTrue(predicate.test(new WordBuilder().withName("girl boy").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new WordBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("gIRl", "fiRe"));
+        assertTrue(predicate.test(new WordBuilder().withName("girl fire").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new WordBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new WordBuilder().withName("girl").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new WordBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("boy"));
+        assertFalse(predicate.test(new WordBuilder().withName("girl fire").build()));
 
-        // Keywords match learnvocabulary, but does not match name
+        // Keywords match LearnVocabulary, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
-        assertFalse(predicate.test(new WordBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new WordBuilder().withName("girl").build()));
     }
 }

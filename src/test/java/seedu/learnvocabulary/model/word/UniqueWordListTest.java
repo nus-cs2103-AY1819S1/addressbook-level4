@@ -3,9 +3,9 @@ package seedu.learnvocabulary.model.word;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
-import static seedu.learnvocabulary.testutil.TypicalWords.BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
+import static seedu.learnvocabulary.testutil.TypicalWords.LEVITATE;
+import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,21 +33,21 @@ public class UniqueWordListTest {
 
     @Test
     public void contains_wordNotInList_returnsFalse() {
-        assertFalse(uniqueWordList.contains(ALICE));
+        assertFalse(uniqueWordList.contains(SUMO));
     }
 
     @Test
     public void contains_wordInList_returnsTrue() {
-        uniqueWordList.add(ALICE);
-        assertTrue(uniqueWordList.contains(ALICE));
+        uniqueWordList.add(SUMO);
+        assertTrue(uniqueWordList.contains(SUMO));
     }
 
     @Test
     public void contains_wordWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueWordList.add(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueWordList.add(SUMO);
+        Word editedSumo = new WordBuilder(SUMO).withTags(VALID_TAG_ABILITY)
                 .build();
-        assertTrue(uniqueWordList.contains(editedAlice));
+        assertTrue(uniqueWordList.contains(editedSumo));
     }
 
     @Test
@@ -58,64 +58,64 @@ public class UniqueWordListTest {
 
     @Test
     public void add_duplicateWord_throwsDuplicateWordException() {
-        uniqueWordList.add(ALICE);
+        uniqueWordList.add(SUMO);
         thrown.expect(DuplicateWordException.class);
-        uniqueWordList.add(ALICE);
+        uniqueWordList.add(SUMO);
     }
 
     @Test
     public void setWord_nullTargetWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueWordList.setWord(null, ALICE);
+        uniqueWordList.setWord(null, SUMO);
     }
 
     @Test
     public void setWord_nullEditedWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueWordList.setWord(ALICE, null);
+        uniqueWordList.setWord(SUMO, null);
     }
 
     @Test
     public void setWord_targetWordNotInList_throwsWordNotFoundException() {
         thrown.expect(WordNotFoundException.class);
-        uniqueWordList.setWord(ALICE, ALICE);
+        uniqueWordList.setWord(SUMO, SUMO);
     }
 
     @Test
     public void setWord_editedWordIsSameWord_success() {
-        uniqueWordList.add(ALICE);
-        uniqueWordList.setWord(ALICE, ALICE);
+        uniqueWordList.add(SUMO);
+        uniqueWordList.setWord(SUMO, SUMO);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
-        expectedUniqueWordList.add(ALICE);
+        expectedUniqueWordList.add(SUMO);
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
 
     @Test
     public void setWord_editedWordHasSameIdentity_success() {
-        uniqueWordList.add(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueWordList.add(SUMO);
+        Word editedSumo = new WordBuilder(SUMO).withTags(VALID_TAG_ABILITY)
                 .build();
-        uniqueWordList.setWord(ALICE, editedAlice);
+        uniqueWordList.setWord(SUMO, editedSumo);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
-        expectedUniqueWordList.add(editedAlice);
+        expectedUniqueWordList.add(editedSumo);
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
 
     @Test
     public void setWord_editedWordHasDifferentIdentity_success() {
-        uniqueWordList.add(ALICE);
-        uniqueWordList.setWord(ALICE, BOB);
+        uniqueWordList.add(SUMO);
+        uniqueWordList.setWord(SUMO, LEVITATE);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
-        expectedUniqueWordList.add(BOB);
+        expectedUniqueWordList.add(LEVITATE);
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
 
     @Test
     public void setWord_editedWordHasNonUniqueIdentity_throwsDuplicateWordException() {
-        uniqueWordList.add(ALICE);
-        uniqueWordList.add(BOB);
+        uniqueWordList.add(SUMO);
+        uniqueWordList.add(LEVITATE);
         thrown.expect(DuplicateWordException.class);
-        uniqueWordList.setWord(ALICE, BOB);
+        uniqueWordList.setWord(SUMO, LEVITATE);
     }
 
     @Test
@@ -127,13 +127,13 @@ public class UniqueWordListTest {
     @Test
     public void remove_wordDoesNotExist_throwsWordNotFoundException() {
         thrown.expect(WordNotFoundException.class);
-        uniqueWordList.remove(ALICE);
+        uniqueWordList.remove(SUMO);
     }
 
     @Test
     public void remove_existingWord_removesWord() {
-        uniqueWordList.add(ALICE);
-        uniqueWordList.remove(ALICE);
+        uniqueWordList.add(SUMO);
+        uniqueWordList.remove(SUMO);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
@@ -146,9 +146,9 @@ public class UniqueWordListTest {
 
     @Test
     public void setWords_uniqueWordList_replacesOwnListWithProvidedUniqueWordList() {
-        uniqueWordList.add(ALICE);
+        uniqueWordList.add(SUMO);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
-        expectedUniqueWordList.add(BOB);
+        expectedUniqueWordList.add(LEVITATE);
         uniqueWordList.setWords(expectedUniqueWordList);
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
@@ -161,17 +161,17 @@ public class UniqueWordListTest {
 
     @Test
     public void setWords_list_replacesOwnListWithProvidedList() {
-        uniqueWordList.add(ALICE);
-        List<Word> wordList = Collections.singletonList(BOB);
+        uniqueWordList.add(SUMO);
+        List<Word> wordList = Collections.singletonList(LEVITATE);
         uniqueWordList.setWords(wordList);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();
-        expectedUniqueWordList.add(BOB);
+        expectedUniqueWordList.add(LEVITATE);
         assertEquals(expectedUniqueWordList, uniqueWordList);
     }
 
     @Test
     public void setWords_listWithDuplicateWords_throwsDuplicateWordException() {
-        List<Word> listWithDuplicateWords = Arrays.asList(ALICE, ALICE);
+        List<Word> listWithDuplicateWords = Arrays.asList(SUMO, SUMO);
         thrown.expect(DuplicateWordException.class);
         uniqueWordList.setWords(listWithDuplicateWords);
     }

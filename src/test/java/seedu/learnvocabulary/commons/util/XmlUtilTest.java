@@ -31,14 +31,14 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validLearnVocabulary.xml");
-    private static final Path MISSING_WORD_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingWordField.xml");
+    private static final Path MISSING_WORD_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingNameField.xml");
     private static final Path INVALID_WORD_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidWordField.xml");
     private static final Path VALID_WORD_FILE = TEST_DATA_FOLDER.resolve("validWord.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempLearnVocabulary.xml");
 
-    private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_MEANING = "Test";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_NAME = "fly";
+    private static final String VALID_MEANING = "to move through the air using wings.";
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("birds"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -87,8 +87,7 @@ public class XmlUtilTest {
     public void xmlAdaptedWordFromFile_fileWithInvalidWordField_validResult() throws Exception {
         XmlAdaptedWord actualWord = XmlUtil.getDataFromFile(
                 INVALID_WORD_FIELD_FILE, XmlAdaptedWordWithRootElement.class);
-        XmlAdaptedWord expectedWord = new XmlAdaptedWord(
-                VALID_NAME, VALID_MEANING, VALID_TAGS);
+        XmlAdaptedWord expectedWord = new XmlAdaptedWord("", VALID_MEANING, VALID_TAGS);
         assertEquals(expectedWord, actualWord);
     }
 

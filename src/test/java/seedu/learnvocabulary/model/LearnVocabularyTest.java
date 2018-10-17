@@ -3,8 +3,8 @@ package seedu.learnvocabulary.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
+import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
 
 import java.util.Arrays;
@@ -50,9 +50,9 @@ public class LearnVocabularyTest {
     @Test
     public void resetData_withDuplicateWords_throwsDuplicateWordException() {
         // Two words with the same identity fields
-        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Word editedSumo = new WordBuilder(SUMO).withTags(VALID_TAG_ABILITY)
                 .build();
-        List<Word> newWords = Arrays.asList(ALICE, editedAlice);
+        List<Word> newWords = Arrays.asList(SUMO, editedSumo);
         LearnVocabularyStub newData = new LearnVocabularyStub(newWords);
 
         thrown.expect(DuplicateWordException.class);
@@ -67,21 +67,21 @@ public class LearnVocabularyTest {
 
     @Test
     public void hasWord_wordNotInLearnVocabulary_returnsFalse() {
-        assertFalse(learnVocabulary.hasWord(ALICE));
+        assertFalse(learnVocabulary.hasWord(SUMO));
     }
 
     @Test
     public void hasWord_wordInLearnVocabulary_returnsTrue() {
-        learnVocabulary.addWord(ALICE);
-        assertTrue(learnVocabulary.hasWord(ALICE));
+        learnVocabulary.addWord(SUMO);
+        assertTrue(learnVocabulary.hasWord(SUMO));
     }
 
     @Test
     public void hasWord_wordWithSameIdentityFieldsInLearnVocabulary_returnsTrue() {
-        learnVocabulary.addWord(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        learnVocabulary.addWord(SUMO);
+        Word editedSumo = new WordBuilder(SUMO).withTags(VALID_TAG_ABILITY)
                 .build();
-        assertTrue(learnVocabulary.hasWord(editedAlice));
+        assertTrue(learnVocabulary.hasWord(editedSumo));
     }
 
     @Test

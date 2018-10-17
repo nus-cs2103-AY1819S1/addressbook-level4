@@ -64,7 +64,7 @@ public class SelectCommandTest {
         showWordAtIndex(expectedModel, INDEX_FIRST_WORD);
 
         Index outOfBoundsIndex = INDEX_SECOND_WORD;
-        // ensures that outOfBoundIndex is still in bounds of learnvocabulary book list
+        // ensures that outOfBoundIndex is still in bounds of LearnVocabulary
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getLearnVocabulary().getWordList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);

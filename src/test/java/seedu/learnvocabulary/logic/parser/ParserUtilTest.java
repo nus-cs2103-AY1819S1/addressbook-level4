@@ -22,12 +22,12 @@ import seedu.learnvocabulary.model.word.Name;
 import seedu.learnvocabulary.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NAME = "w@rd";
+    private static final String INVALID_TAG = "#soCool";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_NAME = "word";
+    private static final String VALID_TAG_1 = "toLearn";
+    private static final String VALID_TAG_2 = "mustMemorize";
 
     private static final String WHITESPACE = " \t\r\n";
 

@@ -3,8 +3,8 @@ package seedu.learnvocabulary.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.model.Model.PREDICATE_SHOW_ALL_WORDS;
-import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
-import static seedu.learnvocabulary.testutil.TypicalWords.BENSON;
+import static seedu.learnvocabulary.testutil.TypicalWords.DELIBERATE;
+import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,13 +30,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasWord_wordNotInLearnVocabulary_returnsFalse() {
-        assertFalse(modelManager.hasWord(ALICE));
+        assertFalse(modelManager.hasWord(SUMO));
     }
 
     @Test
     public void hasWord_wordInLearnVocabulary_returnsTrue() {
-        modelManager.addWord(ALICE);
-        assertTrue(modelManager.hasWord(ALICE));
+        modelManager.addWord(SUMO);
+        assertTrue(modelManager.hasWord(SUMO));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        LearnVocabulary learnVocabulary = new LearnVocabularyBuilder().withWord(ALICE).withWord(BENSON).build();
+        LearnVocabulary learnVocabulary = new LearnVocabularyBuilder().withWord(SUMO).withWord(DELIBERATE).build();
         LearnVocabulary differentLearnVocabulary = new LearnVocabulary();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -69,7 +69,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentLearnVocabulary, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = SUMO.getName().fullName.split("\\s+");
         modelManager.updateFilteredWordList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(learnVocabulary, userPrefs)));
 

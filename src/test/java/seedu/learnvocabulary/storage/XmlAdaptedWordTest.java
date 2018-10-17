@@ -2,7 +2,7 @@ package seedu.learnvocabulary.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.learnvocabulary.storage.XmlAdaptedWord.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.learnvocabulary.testutil.TypicalWords.BENSON;
+import static seedu.learnvocabulary.testutil.TypicalWords.DELIBERATE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +15,19 @@ import seedu.learnvocabulary.model.word.Name;
 import seedu.learnvocabulary.testutil.Assert;
 
 public class XmlAdaptedWordTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NAME = "w@rd";
+    private static final String INVALID_TAG = "#socool";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
+    private static final String VALID_NAME = DELIBERATE.getName().toString();
     private static final String VALID_MEANING = "Test";
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final List<XmlAdaptedTag> VALID_TAGS = DELIBERATE.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validWordDetails_returnsWord() throws Exception {
-        XmlAdaptedWord word = new XmlAdaptedWord(BENSON);
-        assertEquals(BENSON, word.toModelType());
+        XmlAdaptedWord word = new XmlAdaptedWord(DELIBERATE);
+        assertEquals(DELIBERATE, word.toModelType());
     }
 
     @Test

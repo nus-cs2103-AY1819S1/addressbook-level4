@@ -9,11 +9,12 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.learnvocabulary.logic.commands.FindCommand;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
 
-public class FindCommandParserTest {
+public class ShowCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private ShowCommandParser parser = new ShowCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -21,14 +22,14 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsShowCommand() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("fire", "fly")));
-        assertParseSuccess(parser, "fire fly", expectedFindCommand);
+        ShowCommand expectedShowCommand =
+                new ShowCommand(new NameContainsKeywordsPredicate(Arrays.asList("fire", "fly")));
+        assertParseSuccess(parser, "fire fly", expectedShowCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n fire \n \t fly  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n fire \n \t fly  \t", expectedShowCommand);
     }
 
 }

@@ -2,9 +2,9 @@ package seedu.learnvocabulary.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
-import static seedu.learnvocabulary.testutil.TypicalWords.HOON;
-import static seedu.learnvocabulary.testutil.TypicalWords.IDA;
+import static seedu.learnvocabulary.testutil.TypicalWords.HI;
+import static seedu.learnvocabulary.testutil.TypicalWords.SANE;
+import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
 
 import java.io.IOException;
@@ -86,14 +86,14 @@ public class XmlLearnVocabularyStorageTest {
         assertEquals(original, new LearnVocabulary(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addWord(HOON);
-        original.removeWord(ALICE);
+        original.addWord(HI);
+        original.removeWord(SUMO);
         xmlLearnVocabularyStorage.saveLearnVocabulary(original, filePath);
         readBack = xmlLearnVocabularyStorage.readLearnVocabulary(filePath).get();
         assertEquals(original, new LearnVocabulary(readBack));
 
         //Save and read without specifying file path
-        original.addWord(IDA);
+        original.addWord(SANE);
         xmlLearnVocabularyStorage.saveLearnVocabulary(original); //file path not specified
         readBack = xmlLearnVocabularyStorage.readLearnVocabulary().get(); //file path not specified
         assertEquals(original, new LearnVocabulary(readBack));
