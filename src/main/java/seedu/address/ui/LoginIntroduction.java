@@ -15,15 +15,15 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class LoginIntroduction extends UiPart<Region> {
-	
+
 	public static final String TEXT = "Please log in";
-	
+
 	private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
 	private static final String FXML = "LoginIntroduction.fxml";
-	
+
 	@FXML
 	private Label introductionDisplay;
-	
+
 	public LoginIntroduction() {
 		super(FXML);
 		introductionDisplay.setText(TEXT);

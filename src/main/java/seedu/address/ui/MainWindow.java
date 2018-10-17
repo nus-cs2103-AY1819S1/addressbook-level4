@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    
+
     // Independent UI parts for login.
     private LoginIntroduction loginIntroduction;
     private LoginForm loginForm;
@@ -65,7 +65,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
-        
+
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -139,25 +139,29 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
-    
+
     /**
      * Fills up the window with a login screen
      */
     void fillLoginParts() {
         loginIntroduction = new LoginIntroduction();
         commandBoxPlaceholder.getChildren().add(loginIntroduction.getRoot());
-        
+
         loginForm = new LoginForm();
         personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
     }
-    
+
+    /**
+     * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
+     * @param loginEvent The login information
+     */
     @Subscribe
     void processLogin(LoginEvent loginEvent) {
         removeLoginWindow();
         fillInnerParts();
     }
-    
-    void removeLoginWindow() {
+
+    private void removeLoginWindow() {
         commandBoxPlaceholder.getChildren().remove(loginIntroduction);
         
         personListPanelPlaceholder.getChildren().remove(loginForm);
