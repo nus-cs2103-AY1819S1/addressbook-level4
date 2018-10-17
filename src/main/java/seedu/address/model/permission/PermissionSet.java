@@ -123,8 +123,9 @@ public class PermissionSet {
      * @return true if permission found, otherwise false.
      */
     public boolean containsAll(Permission... pList) {
-        if(pList == null)
+        if (pList == null) {
             return false;
+        }
 
         for (Permission p : pList) {
             if (!permissionSet.contains(p)) {
