@@ -67,6 +67,10 @@ public class EventUtil {
                 .append(repeatType.name()).append(" "));
         descriptor.getRepeatUntilDateTime().ifPresent(repeatUntilDateTime -> sb.append(PREFIX_REPEAT_UNTIL_DATE_TIME)
                 .append(repeatUntilDateTime.getPrettyString()).append(" "));
+        sb.append(descriptor.getReminderDurationList().get().getPrettyString()).append(" ");
+        /*System.out.println(descriptor.getReminderDurationList().get().get());
+        descriptor.getReminderDurationList().ifPresent(reminderDurationList ->
+                sb.append(reminderDurationList.getPrettyString()).append(" "));*/
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

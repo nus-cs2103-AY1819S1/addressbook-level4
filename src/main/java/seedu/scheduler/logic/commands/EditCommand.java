@@ -98,8 +98,8 @@ public class EditCommand extends Command {
         DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
                 .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        ReminderDurationList updatedReminderDurationList = editEventDescriptor.getReminderDurationList() != null?
-                editEventDescriptor.getReminderDurationList(): eventToEdit.getReminderDurationList();
+        ReminderDurationList updatedReminderDurationList =
+                editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
         return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
                 updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags, updatedReminderDurationList);
     }
@@ -156,7 +156,7 @@ public class EditCommand extends Command {
             setRepeatType(toCopy.repeatType);
             setRepeatUntilDateTime(toCopy.repeatUntilDateTime);
             setTags(toCopy.tags);
-            setReminderDurationList(toCopy.getReminderDurationList());
+            setReminderDurationList(toCopy.reminderDurationList);
         }
 
         /**
@@ -247,8 +247,8 @@ public class EditCommand extends Command {
             this.reminderDurationList = reminderDurationList;
         }
 
-        public ReminderDurationList getReminderDurationList() {
-            return this.reminderDurationList;
+        public Optional<ReminderDurationList> getReminderDurationList() {
+            return Optional.ofNullable(reminderDurationList);
         }
 
         /**

@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +37,17 @@ public class ReminderDurationList {
         requireNonNull(reminderDurations);
         for (Duration duration: reminderDurations) {
             values.put(duration, FALSE);
+        }
+    }
+
+    public ReminderDurationList(String durationList) {
+        if (!durationList.equals(ReminderDurationList.EMPTY_VALUE)) {
+            List<String> keyValuePairs = Arrays.asList(durationList.split(","));
+            for (String keyValueString: keyValuePairs) {
+                ArrayList<String> durationValue = new ArrayList<>(Arrays.asList(keyValueString.split(":")));
+                values.put(Duration.parse(durationValue.get(0).trim()),
+                        Boolean.parseBoolean(durationValue.get(1).trim()));
+            }
         }
     }
 
@@ -66,6 +80,10 @@ public class ReminderDurationList {
      * @return string input
      */
     public String getPrettyString() {
+        if (values.isEmpty()) {
+            return PREFIX_EVENT_REMINDER_DURATION.toString();
+        }
+
         String output = "";
         for (Duration duration: values.keySet()) {
             output += PREFIX_EVENT_REMINDER_DURATION + duration.toString().replace("PT", "");
@@ -115,7 +133,5 @@ public class ReminderDurationList {
     public int hashCode() {
         return values.hashCode();
     }
-
-
 
 }

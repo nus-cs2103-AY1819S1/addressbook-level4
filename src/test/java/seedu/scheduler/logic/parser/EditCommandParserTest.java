@@ -15,6 +15,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_SCHOOL;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
@@ -117,14 +119,14 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101
                 + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
-                + TAG_DESC_PLAY + TAG_DESC_SCHOOL;
+                + TAG_DESC_PLAY + TAG_DESC_SCHOOL + REMINDER_DURATION_LIST_1H;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
                 .withStartDateTime(VALID_START_DATETIME_MA2101).withEndDateTime(VALID_END_DATETIME_MA2101)
                 .withDescription(VALID_DESCRIPTION_MA2101)
                 .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
                 .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101)
-                .withTags(VALID_TAG_PLAY, VALID_TAG_SCHOOL).build();
+                .withTags(VALID_TAG_PLAY, VALID_TAG_SCHOOL).withReminderDurationList(VALID_DURATION_LIST_1H).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
