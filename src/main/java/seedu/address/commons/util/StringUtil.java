@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -66,5 +68,68 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Checks if sentence contains {@code word}, or words similar to {@code word}
+     *
+     * @param tolerance higher tolerance means only very similar words will match, value between 0 to 100
+     * @param sentence sentence to be checked
+     * @param word that is being searched for, does not need to be single word
+     * @return whether words are similar within the tolerance
+     */
+    public static boolean containsWordFuzzy(String sentence, String word, int tolerance) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        preppedWord = preppedWord.toLowerCase();
+
+        String preppedSentence = sentence.toLowerCase();
+
+        return partialRatioTest(preppedSentence, preppedWord, tolerance) || tokenSetRatioTest(sentence, word, tolerance);
+    }
+
+    /**
+     * Tests 2 strings if they are similar within the specified tolerance
+     * Uses partial ratio test to check similarity
+     * @param tolerance strings of higher similarity will return True
+     *
+     * @return boolean of whether the strings are similar enough
+     */
+    private static boolean partialRatioTest(String s1, String s2, int tolerance) {
+        return computePartialRatio(s1, s2) >= tolerance;
+    }
+
+    /**
+     * Tests 2 strings if they are similar within the specified tolerance
+     * Uses token set ratio test to check similarity
+     * @param tolerance strings of higher similarity will return True
+     *
+     * @return boolean of whether the strings are similar enough
+     */
+    private static boolean tokenSetRatioTest(String s1, String s2, int tolerance) {
+        return computeTokenSetRatio(s1, s2) >= tolerance;
+    }
+
+    /**
+     * Computes the partial ratio test between 2 strings.
+     * Similar strings return a higher number
+     *
+     * @return int between 0 and 100
+     */
+    public static int computePartialRatio(String string1, String string2) {
+        return FuzzySearch.partialRatio(string1, string2);
+    }
+
+    /**
+     * Computes the token set ratio test between 2 strings.
+     * Similar strings return a higher number
+     *
+     * @return int between 0 and 100
+     */
+    public static int computeTokenSetRatio(String string1, String string2) {
+        return FuzzySearch.tokenSetRatio(string1, string2);
     }
 }
