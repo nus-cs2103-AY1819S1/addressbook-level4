@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -23,17 +24,17 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a wish to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PRICE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_URL + "ADDRESS "
+            + PREFIX_PRICE + "PRICE "
+            + PREFIX_DATE + "DATE "
+            + "[" + PREFIX_URL + "URL] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PRICE + "60.50 "
-            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_NAME + "iPad 10 "
+            + PREFIX_PRICE + "6080.50 "
+            + PREFIX_DATE + "20/11/2021 "
             + PREFIX_URL + "https://www.amazon.com/gp/product/B07D998212 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "electronics "
+            + PREFIX_TAG + "personal ";
 
     public static final String MESSAGE_SUCCESS = "New wish added: %1$s";
     public static final String MESSAGE_DUPLICATE_WISH = "This wish already exists in the address book";
