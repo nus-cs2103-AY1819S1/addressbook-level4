@@ -345,3 +345,7 @@ e.g. `dequeue 4`
 
 * *Averages* : `averages`
 * *Totals* : `totals`
+
+=== Medicine Inventory Commands
+
+=== Appointment Commands
