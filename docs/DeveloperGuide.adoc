@@ -463,6 +463,9 @@ This means that it will only notify the current selected car park only, and not 
 
 _This feature is coming in v2.0._
 
+.When a user executes a notify command
+image::zy_act.png[width="800", align="left"]
+
 ==== Design Considerations
 
 ===== Aspect: How notify executes
