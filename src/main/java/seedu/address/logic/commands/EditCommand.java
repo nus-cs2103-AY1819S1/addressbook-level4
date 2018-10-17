@@ -10,6 +10,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -106,8 +107,9 @@ public class EditCommand extends Command {
         SavedAmount savedAmount = wishToEdit.getSavedAmount(); // edit command does not allow editing remarks
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
+        LinkedList<Wish> transactions = wishToEdit.getTransactions(); // no editing of transactions
 
-        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark, updatedTags);
+        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark, updatedTags, transactions);
     }
 
     @Override
