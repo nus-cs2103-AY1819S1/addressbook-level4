@@ -318,7 +318,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of scheduler states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Versionedscheduler`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedScheduler`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -533,7 +533,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, scheduler depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Scheduler depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -565,12 +565,12 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/scheduler/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/scheduler/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/schedulerParser.java[`schedulerParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/SchedulerParser.java[`SchedulerParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/schedulerParser.java[`schedulerParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/address-level4/pull/785[PR] for the full solution.
+** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
 ****
 
 [discrete]
@@ -585,14 +585,14 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/scheduler/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`scheduler`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/scheduler/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/scheduler/model/Scheduler.java[`Scheduler`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`scheduler`] and link:{repoURL}/src/main/java/seedu/scheduler/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`scheduler`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/scheduler/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`Scheduler`] and link:{repoURL}/src/main/java/seedu/scheduler/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`scheduler`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/scheduler/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
 ** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/scheduler/model/scheduler.java[`scheduler`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`] should call `scheduler#removeTag(Tag)`.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`] should call `Scheduler#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/address-level4/pull/790[PR] for the full solution.
+** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
 
 [discrete]
@@ -624,7 +624,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/schedulercommons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/src/main/java/seedu/scheduler/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -636,10 +636,10 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/schedulercommons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/scheduler/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** link:{repoURL}/src/main/java/seedu/scheduler/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/scheduler/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
 ** Refer to link:{repoURL}/src/main/java/seedu/scheduler/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/schedulercommons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/src/main/java/seedu/scheduler/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
 ** Modify link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
@@ -666,8 +666,8 @@ image::getting-started-ui-status-after.png[width="500"]
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/scheduler/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/scheduler/ui/StatusBarFooter.java[`StatusBarFooter#handleschedulerChangedEvent(schedulerChangedEvent)`] to update the number of persons whenever there are new changes to the scheduler.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/schedulerSystemTest.java[`schedulerSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/address-level4/pull/803[PR] for the full solution.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/SchedulerSystemTest.java[`SchedulerSystemTest`] to also verify the new total number of persons status bar.
+** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
@@ -678,14 +678,14 @@ image::getting-started-ui-status-after.png[width="500"]
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupScheduler(ReadOnlyscheduler)`, so that the scheduler can be saved in a fixed temporary location.
+. Add a new method `backupScheduler(ReadOnlyScheduler)`, so that the scheduler can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/scheduler/storage/schedulerStorage.java[`schedulerStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/scheduler/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/schedulerstorage/XmlSchedulerStorage.java[`XmlSchedulerStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/scheduler/storage/SchedulerStorage.java[`SchedulerStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/scheduler/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/scheduler/storage/XmlSchedulerStorage.java[`XmlSchedulerStorage`] class.
 * Solution
-** See this https://github.com/se-edu/address-level4/pull/594[PR] for the full solution.
+** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
 
 [[GetStartedProgramming-RemarkCommand]]
@@ -714,12 +714,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/scheduler/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/schedulerParser.java[`schedulerParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/schedulerParser.java[`SchedulerParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/scheduler/logic/parser/schedulerParserTest.java[`schedulerParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/scheduler/logic/parser/SchedulerParserTest.java[`SchedulerParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -728,14 +728,14 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/schedulerParser.java[`schedulerParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/SchedulerParser.java[`SchedulerParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/scheduler/logic/parser/schedulerParserTest.java[`schedulerParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/scheduler/logic/parser/SchedulerParserTest.java[`SchedulerParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/scheduler/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
@@ -771,7 +771,7 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 . Modify link:{repoURL}/src/main/java/seedu/scheduler/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `scheduler.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/schedulerstorage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/scheduler/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -813,7 +813,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 ==== Full Solution
 
-See this https://github.com/se-edu/address-level4/pull/599[PR] for the step-by-step solution.
+See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
