@@ -40,7 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     
+    // Independent UI parts for login.
     private LoginIntroduction loginIntroduction;
+    private LoginForm loginForm;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -143,6 +145,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillLoginParts() {
         loginIntroduction = new LoginIntroduction();
         commandBoxPlaceholder.getChildren().add(loginIntroduction.getRoot());
+        
+        loginForm = new LoginForm();
+        personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
         /*
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
