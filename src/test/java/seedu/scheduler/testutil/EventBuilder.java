@@ -9,6 +9,7 @@ import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -18,7 +19,7 @@ import seedu.scheduler.model.util.SampleSchedulerDataUtil;
  * A utility class to help with building Event objects.
  */
 public class EventBuilder {
-
+    public static final UUID DEFAULT_UID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a624");
     public static final UUID DEFAULT_UUID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a625");
     public static final String DEFAULT_EVENT_NAME = "CS2103 Lecture";
     public static final LocalDateTime DEFAULT_START_DATE_TIME =
@@ -31,6 +32,7 @@ public class EventBuilder {
     public static final LocalDateTime DEFAULT_REPEAT_UNTIL_DATE_TIME =
             LocalDateTime.of(2018, 9, 21, 18, 0);
 
+    private UUID uid;
     private UUID uuid;
     private EventName eventName;
     private DateTime startDateTime;
@@ -40,8 +42,10 @@ public class EventBuilder {
     private RepeatType repeatType;
     private DateTime repeatUntilDateTime;
     private Set<Tag> tags;
+    private ReminderDurationList reminderDurationList;
 
     public EventBuilder() {
+        uid = DEFAULT_UID;
         uuid = DEFAULT_UUID;
         eventName = new EventName(DEFAULT_EVENT_NAME);
         startDateTime = new DateTime(DEFAULT_START_DATE_TIME);
@@ -51,12 +55,14 @@ public class EventBuilder {
         repeatType = DEFAULT_REPEAT_TYPE;
         repeatUntilDateTime = new DateTime(DEFAULT_REPEAT_UNTIL_DATE_TIME);
         tags = new HashSet<>();
+        reminderDurationList = new ReminderDurationList();
     }
 
     /**
      * Initializes the EventBuilder with the data of {@code eventToCopy}.
      */
     public EventBuilder(Event eventToCopy) {
+        uid = eventToCopy.getUid();
         uuid = eventToCopy.getUuid();
         eventName = eventToCopy.getEventName();
         startDateTime = eventToCopy.getStartDateTime();
@@ -66,6 +72,15 @@ public class EventBuilder {
         repeatType = eventToCopy.getRepeatType();
         repeatUntilDateTime = eventToCopy.getRepeatUntilDateTime();
         tags = new HashSet<>(eventToCopy.getTags());
+        reminderDurationList = eventToCopy.getReminderDurationList();
+    }
+
+    /**
+     * Sets the {@code uid} of the {@code Event} that we are building.
+     */
+    public EventBuilder withUid(UUID uid) {
+        this.uid = uid;
+        return this;
     }
 
     /**
@@ -140,12 +155,17 @@ public class EventBuilder {
         return this;
     }
 
+    public EventBuilder withReminderDurationList(ReminderDurationList reminderDurationList) {
+        this.reminderDurationList = reminderDurationList;
+        return this;
+    }
+
     /**
      * Initialise a new {@code Event} instance
      */
     public Event build() {
-        return new Event(uuid, eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags);
+        return new Event(uid, uuid, eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 
 }

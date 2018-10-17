@@ -2,6 +2,7 @@ package seedu.scheduler.model.event;
 
 import static java.lang.Boolean.FALSE;
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -60,6 +61,18 @@ public class ReminderDurationList {
         values.put(duration, status);
     }
 
+    /**
+     * Get string input for the event
+     * @return string input
+     */
+    public String getPrettyString() {
+        String output = "";
+        for (Duration duration: values.keySet()) {
+            output += PREFIX_EVENT_REMINDER_DURATION + duration.toString().replace("PT", "");
+        }
+        return output;
+
+    }
 
     @Override
     public String toString() {

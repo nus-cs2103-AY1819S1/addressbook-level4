@@ -5,6 +5,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA
 import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
@@ -44,7 +45,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         String command = "   " + AddCommand.COMMAND_WORD + "  " + EVENT_NAME_DESC_MA3220 + "  "
                 + START_DATETIME_DESC_MA3220 + "   " + END_DATETIME_DESC_MA3220 + "   " + DESCRIPTION_DESC_MA3220
                 + "   " + VENUE_DESC_MA3220 + "   " + REPEAT_TYPE_DESC_MA3220 + "   "
-                + REPEAT_UNTIL_DATETIME_DESC_MA3220 + " " + TAG_DESC_PLAY;
+                + REPEAT_UNTIL_DATETIME_DESC_MA3220 + " " + TAG_DESC_PLAY + " " + REMINDER_DURATION_LIST_1H;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding MA2101 to the list -> MA2101 deleted */
@@ -62,7 +63,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         toAdd = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).build();
         command = AddCommand.COMMAND_WORD + EVENT_NAME_DESC_MA3220 + START_DATETIME_DESC_MA3220
                 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220 + VENUE_DESC_MA3220
-                + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY;
+                + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY + REMINDER_DURATION_LIST_1H;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty scheduler -> added */
@@ -73,7 +74,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         toAdd = MA3220_JANUARY_1_2019_SINGLE;
         command = AddCommand.COMMAND_WORD + REPEAT_UNTIL_DATETIME_DESC_MA3220 + START_DATETIME_DESC_MA3220
                 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + END_DATETIME_DESC_MA3220
-                + DESCRIPTION_DESC_MA3220 + EVENT_NAME_DESC_MA3220 + TAG_DESC_PLAY;
+                + DESCRIPTION_DESC_MA3220 + EVENT_NAME_DESC_MA3220 + TAG_DESC_PLAY + REMINDER_DURATION_LIST_1H;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add an event, missing tags -> added */

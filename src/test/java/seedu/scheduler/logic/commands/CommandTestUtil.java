@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -31,7 +32,8 @@ import seedu.scheduler.testutil.EditEventDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
+    public static final UUID VALID_EVENT_UID_MA2101 = UUID.fromString("1bae658a-c457-4b83-8319-d45f8e61027d");
+    public static final UUID VALID_EVENT_UID_MA3220 = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd4");
     public static final UUID VALID_EVENT_UUID_MA2101 = UUID.fromString("1bae658a-c457-4b83-8319-d45f8e61028d");
     public static final UUID VALID_EVENT_UUID_MA3220 = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd3");
     public static final String VALID_EVENT_NAME_MA2101 = "MA2101";
@@ -51,6 +53,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_SCHOOL = "school";
     public static final String VALID_TAG_PLAY = "play";
     public static final String VALID_TAG_UNUSED = "unused"; // do not use this tag when creating an event
+    public static final String VALID_DURATION_1H = "1H";
+    public static final String VALID_DURATION_30M = "30M";
 
     public static final String EVENT_NAME_DESC_MA2101 = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_MA2101;
     public static final String EVENT_NAME_DESC_MA3220 = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_MA3220;
@@ -70,7 +74,8 @@ public class CommandTestUtil {
             + VALID_REPEAT_UNTIL_DATETIME_MA3220;
     public static final String TAG_DESC_SCHOOL = " " + PREFIX_TAG + VALID_TAG_SCHOOL;
     public static final String TAG_DESC_PLAY = " " + PREFIX_TAG + VALID_TAG_PLAY;
-
+    public static final String REMINDER_DURATION_LIST_1H = " " + PREFIX_EVENT_REMINDER_DURATION+ VALID_DURATION_1H;
+    public static final String REMINDER_DURATION_LIST_30M = " " + PREFIX_EVENT_REMINDER_DURATION+ VALID_DURATION_30M;
     // empty string not allowed in event names
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "  ";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags

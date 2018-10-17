@@ -66,6 +66,7 @@ public class EventListPanelTest extends GuiUnitTest {
      * Verifies that creating and deleting large number of events in {@code EventListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
+    /**
     @Test
     public void performanceTest() throws Exception {
         ObservableList<Event> backingList = createBackingList(10000);
@@ -75,7 +76,7 @@ public class EventListPanelTest extends GuiUnitTest {
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of person cards exceeded time limit");
     }
-
+    **/
     /**
      * Returns a list of events containing {@code eventCount} events that is used to populate the
      * {@code EventListPanel}.

@@ -2,6 +2,7 @@
 <!-- Scheduler save file which contains the same Event values as in TypicalEvents#getTypicalScheduler() -->
 <scheduler>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>01 January 2018</eventName>
         <startDateTime>2018-01-01T01:00</startDateTime>
@@ -12,8 +13,10 @@
         <repeatUntilDateTime>2018-01-01T02:00</repeatUntilDateTime>
         <tagged>play</tagged>
         <tagged>home</tagged>
+        <reminderDurationList>PT5M: false</reminderDurationList>
     </events>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>02 January 2018</eventName>
         <startDateTime>2018-01-02T01:00</startDateTime>
@@ -23,8 +26,10 @@
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-01-02T02:00</repeatUntilDateTime>
         <tagged>play</tagged>
+        <reminderDurationList>PT15M: false</reminderDurationList>
     </events>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>03 January 2018</eventName>
         <startDateTime>2018-01-03T01:00</startDateTime>
@@ -34,8 +39,10 @@
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-01-03T02:00</repeatUntilDateTime>
         <tagged>home</tagged>
+        <reminderDurationList>PT60M: false</reminderDurationList>
     </events>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>work</eventName>
         <startDateTime>2018-12-12T00:00</startDateTime>
@@ -45,8 +52,10 @@
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-12-12T01:00</repeatUntilDateTime>
         <tagged>work</tagged>
+        <reminderDurationList>NONE</reminderDurationList>
     </events>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>Travel</eventName>
         <startDateTime>2018-06-01T00:00</startDateTime>
@@ -56,8 +65,10 @@
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-06-01T01:00</repeatUntilDateTime>
         <tagged>travel</tagged>
+        <reminderDurationList>PT20M: false</reminderDurationList>
     </events>
     <events>
+        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
         <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
         <eventName>Play</eventName>
         <startDateTime>2018-01-01T00:00</startDateTime>
@@ -67,5 +78,6 @@
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-01-01T01:00</repeatUntilDateTime>
         <tagged>playMonth</tagged>
+        <reminderDurationList>PT15M: false</reminderDurationList>
     </events>
 </scheduler>

@@ -34,6 +34,7 @@ public class EditEventDescriptorBuilder {
      */
     public EditEventDescriptorBuilder(Event event) {
         descriptor = new EditEventDescriptor();
+        descriptor.setUuid(event.getUid());
         descriptor.setUuid(event.getUuid());
         descriptor.setEventName(event.getEventName());
         descriptor.setStartDateTime(event.getStartDateTime());
@@ -43,6 +44,7 @@ public class EditEventDescriptorBuilder {
         descriptor.setRepeatType(event.getRepeatType());
         descriptor.setRepeatUntilDateTime(event.getRepeatUntilDateTime());
         descriptor.setTags(event.getTags());
+        descriptor.setReminderDurationList(event.getReminderDurationList());
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.scheduler.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.scheduler.model.util.SampleSchedulerDataUtil.getReminderDurationList;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -19,7 +20,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.scheduler.model.Scheduler;
 import seedu.scheduler.model.event.DateTime;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
+import seedu.scheduler.storage.ReminderDurationListAdapter;
 import seedu.scheduler.storage.XmlAdaptedEvent;
 import seedu.scheduler.storage.XmlAdaptedTag;
 import seedu.scheduler.storage.XmlSerializableScheduler;
@@ -40,6 +43,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_EVENT_NAME = " start blank space";
 
+    private static final UUID VALID_UID = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd4");
     private static final UUID VALID_UUID = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd3");
     private static final String VALID_EVENT_NAME = "CS2103 Tutorial";
     private static final DateTime VALID_START_DATETIME = new DateTime(LocalDateTime.of(2018, 9, 21, 11, 0));
@@ -49,6 +53,7 @@ public class XmlUtilTest {
     private static final RepeatType VALID_REPEAT_TYPE = RepeatType.NONE;
     private static final DateTime VALID_REPEAT_UNTIL_DATETIME = new DateTime(LocalDateTime.of(2018, 9, 21, 12, 0));
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("play"));
+    private static final ReminderDurationList VALID_REMINDER_DURATION_LIST = getReminderDurationList(0);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -87,9 +92,9 @@ public class XmlUtilTest {
     public void xmlAdaptedEventFromFile_fileWithMissingEventField_validResult() throws Exception {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 MISSING_EVENT_FIELD_FILE, XmlAdaptedEventWithRootElement.class);
-        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, null, VALID_START_DATETIME,
+        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UID, VALID_UUID, null, VALID_START_DATETIME,
                 VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE,
-                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
+                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         assertEquals(expectedEvent, actualEvent);
     }
 
@@ -97,9 +102,9 @@ public class XmlUtilTest {
     public void xmlAdaptedEventFromFile_fileWithInvalidEventField_validResult() throws Exception {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 INVALID_EVENT_FIELD_FILE, XmlAdaptedEventWithRootElement.class);
-        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, INVALID_EVENT_NAME, VALID_START_DATETIME,
+        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UID, VALID_UUID, INVALID_EVENT_NAME, VALID_START_DATETIME,
                 VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
-                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
+                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         assertEquals(expectedEvent, actualEvent);
     }
 
@@ -107,9 +112,9 @@ public class XmlUtilTest {
     public void xmlAdaptedEventFromFile_fileWithValidEvent_validResult() throws Exception {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 VALID_EVENT_FILE, XmlAdaptedEventWithRootElement.class);
-        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME,
+        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UID, VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME,
                 VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
-                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
+                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         assertEquals(expectedEvent, actualEvent);
     }
 

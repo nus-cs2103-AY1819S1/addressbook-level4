@@ -3,6 +3,7 @@ package seedu.scheduler.testutil;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -40,6 +41,7 @@ public class EventUtil {
         sb.append(PREFIX_VENUE + event.getVenue().value + " ");
         sb.append(PREFIX_REPEAT_TYPE + event.getRepeatType().name() + " ");
         sb.append(PREFIX_REPEAT_UNTIL_DATE_TIME + event.getRepeatUntilDateTime().getPrettyString() + " ");
+        sb.append(event.getReminderDurationList().getPrettyString() + " ");
         event.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

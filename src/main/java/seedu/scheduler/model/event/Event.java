@@ -40,34 +40,9 @@ public class Event {
     private final DateTime repeatUntilDateTime;
     private final Set<Tag> tags = new HashSet<>();
     private ReminderDurationList reminderDurationList;
-    private ReminderTimeList reminderTimeList;
-
     /**
-     * Every field must be present and not null.
-     * only take in uuid, will auto generate uid
-     */
-    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
-                 Description description, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
-                 ReminderDurationList reminderDurationList) {
-        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
-                venue, repeatType, tags, repeatUntilDateTime, reminderDurationList);
-        this.uid = UUID.randomUUID();
-        this.uuid = uuid;
-        this.eventName = eventName;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.description = description;
-        this.venue = venue;
-        this.repeatType = repeatType;
-        this.repeatUntilDateTime = repeatUntilDateTime;
-        this.tags.addAll(tags);
-        this.reminderDurationList = reminderDurationList;
-    }
-
-    /**
-     * Every field must be present and not null.
-     * takes in both uuid and uid
+     * Original Constructor
+     * Every field must be present and not null
      */
     public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -87,6 +62,41 @@ public class Event {
         this.tags.addAll(tags);
         this.reminderDurationList = reminderDurationList;
     }
+
+    /**
+     * Does not take in uid. Will generate a random uid
+     * Used every time a new event is created
+     */
+    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
+                 ReminderDurationList reminderDurationList) {
+        this(UUID.randomUUID(), uuid, eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
+    }
+
+
+    /**
+     * Does not take in reminderDurationList, which is set to an Empty ReminderDurationList
+     */
+    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
+        this(uid, uuid, eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
+    }
+
+    /**
+     * Does not take in reminderDurationList and uid
+     */
+    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
+        this(UUID.randomUUID(), uuid, eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
+    }
+
+
 
 
     public UUID getUid() {
@@ -343,7 +353,7 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing our own
         return Objects.hash(eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags, reminderTimeList);
+                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 
     @Override

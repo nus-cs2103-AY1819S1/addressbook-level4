@@ -165,7 +165,8 @@ public class ParserUtil {
         requireNonNull(reminderDuration);
         String parseDuration = reminderDuration;
         parseDuration.replace(" ", "");
-        parseDuration = "P".concat(parseDuration.replace("d", "DT"));
+        parseDuration = "PT".concat(parseDuration.replace("d", "D"));
+        parseDuration = parseDuration.replace("h", "H");
         parseDuration = parseDuration.replace("min", "m").toUpperCase();
         return Duration.parse(parseDuration);
     }
