@@ -234,7 +234,6 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Wish Book data in xml format and read it back.
-* can save the Wish Transaction data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -251,11 +250,11 @@ This section describes some noteworthy details on how certain features are imple
 
 The undo/redo mechanism is facilitated by `VersionedWishBook`.
 It extends `WishBook` with an undo/redo history, stored internally as an `wishBookStateList` and `currentStatePointer`.
-Additionally, it implements `VersionedModel` and so contains the implementations of the following operations:
+Additionally, it implements the following operations:
 
-* `VersionedWishBook#commit()` -- Saves the current wish book state in its history.
-* `VersionedWishBook#undo()` -- Restores the previous wish book state from its history.
-* `VersionedWishBook#redo()` -- Restores a previously undone wish book state from its history.
+* `VersionedWishBook#commit()` -- Saves the current url book state in its history.
+* `VersionedWishBook#undo()` -- Restores the previous url book state from its history.
+* `VersionedWishBook#redo()` -- Restores a previously undone url book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitWishBook()`, `Model#undoWishBook()` and `Model#redoWishBook()` respectively.
 
@@ -269,7 +268,7 @@ Step 2. The user executes `delete 5` command to delete the 5th wish in the url b
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new wish. The `add` command also calls `Model#commitWishBook()`, causing another modified wish book state to be saved into the `wishBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new wish. The `add` command also calls `Model#commitWishBook()`, causing another modified url book state to be saved into the `wishBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
@@ -1208,24 +1207,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
-=== Use case: View savings history
-*MSS*
-
-1. *Actor* requests to view savings history.
-2. *System* shows a list of all wishes along with their saved amount.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. *System* has no recorded wishes.
-+
-[none]
-** 1a1. User is prompted to add a wish.
-+
-Use case ends.
 
 _{More to be added}_
 
