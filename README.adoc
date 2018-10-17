@@ -1,10 +1,10 @@
-= Picconso: The Console-based Image Editor
+= Piconso: The Console-based Image Editor
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-Picconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price! +
+Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price! +
 
-Unlike them, Picconso offers the same features, in a much more simplified manner. With Picconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by
+Unlike them, Piconso offers the same features, in a much more simplified manner. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by
 photographers, designers, developers and more, and is very easy to pick up.
 
 == Product
