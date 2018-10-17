@@ -92,13 +92,13 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
-    public StatsMode getStatsMode() {
-        return model.getStatsMode();
-    }
 
     //@@author
-    @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    public StatsMode getStatsMode() {
+        return model.getStatsMode();
     }
 }
