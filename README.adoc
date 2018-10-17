@@ -11,10 +11,18 @@ ifdef::env-github[]
 image::docs/images/logo.png[width="900"]
 endif::[]
 
+ifndef::env-github[]
+image::images/logo.png[width="900"]
+endif::[]
+
 == Showcase
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="600"]
 endif::[]
 
 == Overview
