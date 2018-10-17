@@ -2,8 +2,6 @@ package seedu.jxmusic.testutil;
 
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 
-import java.util.Set;
-
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.model.Playlist;
 

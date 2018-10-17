@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 
 public class NameContainsKeywordsPredicateTest {

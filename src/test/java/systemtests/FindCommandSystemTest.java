@@ -39,7 +39,8 @@
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
-//        /* Case: find playlist where playlist list is not displaying the playlist we are finding -> 1 playlist found */
+//        /* Case: find playlist where playlist list is not displaying the playlist we are finding -> 1 playlist found
+//  */
 //        command = FindCommand.COMMAND_WORD + " Carl";
 //        ModelHelper.setFilteredList(expectedModel, SFX);
 //        assertCommandSuccess(command, expectedModel);

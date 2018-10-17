@@ -6,24 +6,18 @@ import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
-import seedu.jxmusic.logic.commands.FindCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
-import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 import seedu.jxmusic.testutil.PlaylistUtil;
@@ -38,7 +32,8 @@ public class LibraryParserTest {
     public void parseCommand_add() throws Exception {
         Playlist playlist = new PlaylistBuilder().build();
         System.out.println(PlaylistUtil.getPlaylistNewCommand(playlist));
-        PlaylistNewCommand command = (PlaylistNewCommand) parser.parseCommand(PlaylistUtil.getPlaylistNewCommand(playlist));
+        PlaylistNewCommand command = (PlaylistNewCommand) parser.parseCommand(
+                PlaylistUtil.getPlaylistNewCommand(playlist));
         assertEquals(new PlaylistNewCommand(playlist), command);
     }
 

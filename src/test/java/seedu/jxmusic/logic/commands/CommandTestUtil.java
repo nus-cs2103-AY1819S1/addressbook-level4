@@ -47,10 +47,14 @@ public class CommandTestUtil {
     public static final String TRACK_NAME_ARG_BELL = " " + PREFIX_TRACK + VALID_TRACK_NAME_BELL;
     public static final String TRACK_NAME_ARG_MARBLES = " " + PREFIX_TRACK + VALID_TRACK_NAME_MARBLES;
 
-    public static final String INVALID_PLAYLIST_NAME_ARG = " " + PREFIX_PLAYLIST + "Rock&Roll"; // '&' not allowed in playlist name
-    public static final String INVALID_TRACK_NAME_ARG = " " + PREFIX_TRACK + "Don't Stop Believin'"; // `'` not allowed in track name
-    public static final String INVALID_TRACK_FILE_NOT_EXIST_ARG = " " + PREFIX_TRACK + "no track file"; // name is valid but file does not exist
-    public static final String INVALID_TRACK_FILE_NOT_SUPPORTED_ARG = " " + PREFIX_TRACK + "unsupported"; // name is valid, file exists but file not supported
+    // '&' not allowed in playlist name
+    public static final String INVALID_PLAYLIST_NAME_ARG = " " + PREFIX_PLAYLIST + "Rock&Roll";
+    // `'` not allowed in track name
+    public static final String INVALID_TRACK_NAME_ARG = " " + PREFIX_TRACK + "Don't Stop Believin'";
+    // name is valid but file does not exist
+    public static final String INVALID_TRACK_FILE_NOT_EXIST_ARG = " " + PREFIX_TRACK + "no track file";
+    // name is valid, file exists but file not supported
+    public static final String INVALID_TRACK_FILE_NOT_SUPPORTED_ARG = " " + PREFIX_TRACK + "unsupported";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

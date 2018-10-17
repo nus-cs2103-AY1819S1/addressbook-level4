@@ -28,7 +28,8 @@ public class PlaylistListPanelTest extends GuiUnitTest {
     private static final ObservableList<Playlist> TYPICAL_PLAYLISTS =
             FXCollections.observableList(getTypicalPlaylists());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PLAYLIST);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_PLAYLIST);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -56,7 +57,8 @@ public class PlaylistListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PlaylistCardHandle expectedPlaylist = playlistListPanelHandle.getPlaylistCardHandle(INDEX_SECOND_PLAYLIST.getZeroBased());
+        PlaylistCardHandle expectedPlaylist = playlistListPanelHandle.getPlaylistCardHandle(
+                INDEX_SECOND_PLAYLIST.getZeroBased());
         PlaylistCardHandle selectedPlaylist = playlistListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPlaylist, selectedPlaylist);
     }
@@ -86,7 +88,8 @@ public class PlaylistListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .json file containing {@code playlistCount} playlists. This file will be deleted when the JVM terminates.
+     * Returns a .json file containing {@code playlistCount} playlists.
+     * This file will be deleted when the JVM terminates.
      */
     private Path createJsonFileWithPlaylists(int playlistCount) throws Exception {
         StringBuilder builder = new StringBuilder();

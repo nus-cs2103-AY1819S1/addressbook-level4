@@ -47,9 +47,11 @@
 //    public void add() {
 //        Model model = getModel();
 //
-//        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+//        /* ------------------------ Perform add operations on the shown unfiltered list -----------------------------
+// */
 //
-//        /* Case: add a playlist without tags to a non-empty jxmusic book, command with leading spaces and trailing spaces
+//        /* Case: add a playlist without tags to a non-empty jxmusic book, command with leading spaces and trailing
+// spaces
 //         * -> added
 //         */
 //        Person toAdd = AMY;
@@ -94,19 +96,22 @@
 //        /* Case: add a playlist, missing tags -> added */
 //        assertCommandSuccess(HOON);
 //
-//        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
+//        /* -------------------------- Perform add operation on the shown filtered list ------------------------------
+// */
 //
 //        /* Case: filters the playlist list before adding -> added */
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
 //        assertCommandSuccess(IDA);
 //
-//        /* ------------------------ Perform add operation while a playlist card is selected --------------------------- */
+//        /* ------------------------ Perform add operation while a playlist card is selected -------------------------
+// -- */
 //
 //        /* Case: selects first card in the playlist list, add a playlist -> added, card selection remains unchanged */
 //        selectPerson(Index.fromOneBased(1));
 //        assertCommandSuccess(SFX);
 //
-//        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
+//        /* ----------------------------------- Perform invalid add operations ---------------------------------------
+// */
 //
 //        /* Case: add a duplicate playlist -> rejected */
 //        command = PlaylistUtil.getPlaylistNewCommand(HOON);

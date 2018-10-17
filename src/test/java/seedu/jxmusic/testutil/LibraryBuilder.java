@@ -10,25 +10,25 @@ import seedu.jxmusic.model.Playlist;
  */
 public class LibraryBuilder {
 
-    private Library Library;
+    private Library library;
 
     public LibraryBuilder() {
-        Library = new Library();
+        library = new Library();
     }
 
-    public LibraryBuilder(Library Library) {
-        this.Library = Library;
+    public LibraryBuilder(Library library) {
+        this.library = library;
     }
 
     /**
      * Adds a new {@code Playlist} to the {@code Library} that we are building.
      */
     public LibraryBuilder withPlaylist(Playlist playlist) {
-        Library.addPlaylist(playlist);
+        library.addPlaylist(playlist);
         return this;
     }
 
     public Library build() {
-        return Library;
+        return library;
     }
 }

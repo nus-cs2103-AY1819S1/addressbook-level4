@@ -13,23 +13,23 @@ import seedu.jxmusic.model.UserPrefs;
 
 public class ClearCommandTest {
 
-   private CommandHistory commandHistory = new CommandHistory();
+    private CommandHistory commandHistory = new CommandHistory();
 
-   @Test
-   public void execute_emptyLibrary_success() {
-       Model model = new ModelManager();
-       Model expectedModel = new ModelManager();
+    @Test
+    public void execute_emptyLibrary_success() {
+        Model model = new ModelManager();
+        Model expectedModel = new ModelManager();
 
-       assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
-   }
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 
-   @Test
-   public void execute_nonEmptyLibrary_success() {
-       Model model = new ModelManager(getTypicalLibrary(), new UserPrefs());
-       Model expectedModel = new ModelManager(getTypicalLibrary(), new UserPrefs());
-       expectedModel.resetData(new Library());
+    @Test
+    public void execute_nonEmptyLibrary_success() {
+        Model model = new ModelManager(getTypicalLibrary(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalLibrary(), new UserPrefs());
+        expectedModel.resetData(new Library());
 
-       assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
-   }
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 
 }

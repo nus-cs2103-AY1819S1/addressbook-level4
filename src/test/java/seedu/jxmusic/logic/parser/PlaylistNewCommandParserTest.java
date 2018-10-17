@@ -5,18 +5,16 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PLAYLIST_NAME
 import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TRACK_FILE_NOT_EXIST_ARG;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TRACK_FILE_NOT_SUPPORTED_ARG;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TRACK_NAME_ARG;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_SFX;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_BELL;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_IHOJIN;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_SFX;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_ANIME;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_HAIKEI;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_SFX;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -38,13 +36,16 @@ public class PlaylistNewCommandParserTest {
         Playlist expectedPlaylist = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_MARBLES).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES, new PlaylistNewCommand(expectedPlaylist));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES,
+                new PlaylistNewCommand(expectedPlaylist));
 
         // multiple playlist names - last name accepted
-        assertParseSuccess(parser, PLAYLIST_NAME_ARG_ANIME + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES, new PlaylistNewCommand(expectedPlaylist));
+        assertParseSuccess(parser, PLAYLIST_NAME_ARG_ANIME + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES,
+                new PlaylistNewCommand(expectedPlaylist));
 
         // multiple tracks - all accepted
-        Playlist expectedPlaylistMultipleTracks = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_MARBLES, VALID_TRACK_NAME_BELL)
+        Playlist expectedPlaylistMultipleTracks = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_MARBLES,
+                VALID_TRACK_NAME_BELL)
                 .build();
         assertParseSuccess(parser, PLAYLIST_NAME_ARG_SFX
                 + TRACK_NAME_ARG_MARBLES + TRACK_NAME_ARG_BELL, new PlaylistNewCommand(expectedPlaylistMultipleTracks));

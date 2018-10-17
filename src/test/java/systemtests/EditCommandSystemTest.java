@@ -1,54 +1,55 @@
-//package systemtests;
+// package systemtests;
 //
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertNotEquals;
-//import static org.junit.Assert.assertTrue;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_METAL;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-//import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-//import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-//import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+// import static org.junit.Assert.assertFalse;
+// import static org.junit.Assert.assertNotEquals;
+// import static org.junit.Assert.assertTrue;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_METAL;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+// import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+// import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+// import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+// import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+// import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+// import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
+// import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
+// import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 //
-//import org.junit.Test;
+// import org.junit.Test;
 //
-//import seedu.jxmusic.commons.core.Messages;
-//import seedu.jxmusic.commons.core.index.Index;
-//import seedu.jxmusic.logic.commands.EditCommand;
-//import seedu.jxmusic.model.Model;
-//import seedu.jxmusic.model.Name;
-//import seedu.jxmusic.model.tag.Tag;
-//import seedu.jxmusic.testutil.PlaylistBuilder;
-//import seedu.jxmusic.testutil.PlaylistUtil;
+// import seedu.jxmusic.commons.core.Messages;
+// import seedu.jxmusic.commons.core.index.Index;
+// import seedu.jxmusic.logic.commands.EditCommand;
+// import seedu.jxmusic.model.Model;
+// import seedu.jxmusic.model.Name;
+// import seedu.jxmusic.model.tag.Tag;
+// import seedu.jxmusic.testutil.PlaylistBuilder;
+// import seedu.jxmusic.testutil.PlaylistUtil;
 //
-//public class EditCommandSystemTest extends LibrarySystemTest {
+// public class EditCommandSystemTest extends LibrarySystemTest {
 //
 //    @Test
 //    public void edit() {
 //        Model model = getModel();
 //
-//        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+//        /* ----------------- Performing edit operation while an unfiltered list is being shown ----------------------
+// */
 //
 //        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
 //         * -> edited
@@ -72,15 +73,18 @@
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
 //        /* Case: edit a playlist with new values same as existing values -> edited */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC
+// _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandSuccess(command, index, BOB);
 //
-//        /* Case: edit a playlist with new values same as another playlist's values but with different name -> edited */
+//        /* Case: edit a playlist with new values same as another playlist's values but with different name -> edited
+// */
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_SECOND_PERSON;
 //        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC
+// _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
 //        assertCommandSuccess(command, index, editedPerson);
@@ -89,7 +93,8 @@
 //         * -> edited
 //         */
 //        index = INDEX_SECOND_PERSON;
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_AMY
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC
+// _AMY
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
 //        assertCommandSuccess(command, index, editedPerson);
@@ -101,7 +106,8 @@
 //        editedPerson = new PlaylistBuilder(personToEdit).withTags().build();
 //        assertCommandSuccess(command, index, editedPerson);
 //
-//        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+//        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------
+// */
 //
 //        /* Case: filtered playlist list, edit index within bounds of jxmusic book and playlist list -> edited */
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
@@ -120,21 +126,25 @@
 //        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
 //                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing edit operation while a playlist card is selected -------------------------- */
+//        /* --------------------- Performing edit operation while a playlist card is selected ------------------------
+// -- */
 //
-//        /* Case: selects first card in the playlist list, edit a playlist -> edited, card selection remains unchanged but
+//        /* Case: selects first card in the playlist list, edit a playlist -> edited, card selection remains unchanged
+// but
 //         * browser url changes
 //         */
 //        showAllPersons();
 //        index = INDEX_FIRST_PERSON;
 //        selectPerson(index);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC
+// _AMY
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ;
 //        // this can be misleading: card selection actually remains unchanged but the
 //        // browser's url is updated to reflect the new playlist's name
 //        assertCommandSuccess(command, index, AMY, index);
 //
-//        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+//        /* --------------------------------- Performing invalid edit operation --------------------------------------
+// */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_METAL,
@@ -182,27 +192,36 @@
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_FIRST_PERSON;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
+// C_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        /* Case: edit a playlist with new values same as another playlist's values but with different tags -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        /* Case: edit a playlist with new values same as another playlist's values but with different tags -> rejecte
+// d */
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
+// C_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        /* Case: edit a playlist with new values same as another playlist's values but with different jxmusic -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        /* Case: edit a playlist with new values same as another playlist's values but with different jxmusic -> reje
+// cted */
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
+// C_BOB
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        /* Case: edit a playlist with new values same as another playlist's values but with different phone -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_BOB
+//        /* Case: edit a playlist with new values same as another playlist's values but with different phone -> reject
+// ed */
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DES
+// C_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        /* Case: edit a playlist with new values same as another playlist's values but with different email -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_AMY
+//        /* Case: edit a playlist with new values same as another playlist's values but with different email -> rejec
+// ted */
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_D
+// ESC_AMY
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //    }
@@ -218,7 +237,8 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
+//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,
+// <br>
 //     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
 //     * 2. Asserts that the model related components are updated to reflect the playlist at index {@code toEdit} being
 //     * updated to values specified {@code editedPerson}.<br>
@@ -290,4 +310,4 @@
 //        assertCommandBoxShowsErrorStyle();
 //        assertStatusBarUnchanged();
 //    }
-//}
+// }

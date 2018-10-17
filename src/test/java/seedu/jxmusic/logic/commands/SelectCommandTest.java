@@ -101,7 +101,8 @@
 //
 //        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 //
-//        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+//        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector
+// .getMostRecent();
 //        assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
 //    }
 //

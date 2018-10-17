@@ -9,9 +9,7 @@ import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,8 +64,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, Name.MESSAGE_NAME_CONSTRAINTS,
-                () -> ParserUtil.parseName(INVALID_PLAYLIST_NAME));
+        Assert.assertThrows(ParseException.class, Name.MESSAGE_NAME_CONSTRAINTS, () ->
+                ParserUtil.parseName(INVALID_PLAYLIST_NAME));
     }
 
     @Test

@@ -3,9 +3,9 @@ package seedu.jxmusic.testutil;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.util.SampleDataUtil;
 
 /**
@@ -47,6 +47,9 @@ public class PlaylistBuilder {
         return this;
     }
 
+    /**
+     * Builds the Playlist
+     */
     public Playlist build() {
         Playlist playlist = new Playlist(name);
         tracks.forEach(playlist::addTrack);

@@ -10,7 +10,6 @@ import seedu.jxmusic.commons.core.Config;
 import seedu.jxmusic.commons.core.GuiSettings;
 import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.commons.util.FileUtil;
-import seedu.jxmusic.commons.util.JsonUtil;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;

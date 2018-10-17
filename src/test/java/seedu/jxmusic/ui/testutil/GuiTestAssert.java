@@ -28,8 +28,8 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPlaylist(Playlist expectedPlaylist, PlaylistCardHandle actualCard) {
         assertEquals(expectedPlaylist.getName().nameString, actualCard.getName());
-        assertEquals(expectedPlaylist.getTracks().stream().map(track -> track.getFileNameWithoutExtension()).collect(Collectors.toList()),
-                actualCard.getTracks());
+        assertEquals(expectedPlaylist.getTracks().stream().map(track -> track.getFileNameWithoutExtension())
+                        .collect(Collectors.toList()), actualCard.getTracks());
     }
 
     /**

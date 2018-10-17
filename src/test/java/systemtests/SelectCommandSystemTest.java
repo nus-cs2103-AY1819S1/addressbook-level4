@@ -8,7 +8,6 @@ import static seedu.jxmusic.logic.commands.SelectCommand.MESSAGE_SELECT_PLAYLIST
 import static seedu.jxmusic.testutil.TestUtil.getLastIndex;
 import static seedu.jxmusic.testutil.TestUtil.getMidIndex;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
-import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
@@ -48,7 +47,8 @@ public class SelectCommandSystemTest extends LibrarySystemTest {
          */
         // showPlaylistsWithName(KEYWORD_MATCHING_SONG); // todo failing test
         int invalidIndex = getModel().getLibrary().getPlaylistList().size();
-        // assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
+        // assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+        // MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
 
         /* Case: filtered playlist list, select index within bounds of library and playlist list -> selected */
         Index validIndex = Index.fromOneBased(1);

@@ -167,8 +167,8 @@ public abstract class LibrarySystemTest {
      * Deletes all playlists in the library.
      */
     protected void deleteAllPlaylists() {
-      executeCommand(ClearCommand.COMMAND_PHRASE);
-      assertEquals(0, getModel().getLibrary().getPlaylistList().size());
+        executeCommand(ClearCommand.COMMAND_PHRASE);
+        assertEquals(0, getModel().getLibrary().getPlaylistList().size());
     }
 
     /**
@@ -177,7 +177,7 @@ public abstract class LibrarySystemTest {
      * and the playlist list panel displays the playlists in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Library(expectedModel.getLibrary()), testApp.readStorageLibrary());
@@ -199,6 +199,7 @@ public abstract class LibrarySystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected playlist.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -209,6 +210,7 @@ public abstract class LibrarySystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the playlist in the playlist list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
@@ -228,6 +230,7 @@ public abstract class LibrarySystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the playlist list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */

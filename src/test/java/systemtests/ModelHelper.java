@@ -2,8 +2,6 @@ package systemtests;
 
 import java.util.Arrays;
 import java.util.List;
-
-import seedu.jxmusic.model.Playlist;
 import java.util.Optional;
 import java.util.function.Predicate;
 

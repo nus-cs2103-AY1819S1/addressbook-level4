@@ -72,7 +72,8 @@ public class PlaylistTest {
         assertFalse(SFX.equals(editedAlice));
 
         // same name, same tracks -> returns true
-        editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
+        editedAlice = new PlaylistBuilder(SFX)
+                .withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
         assertTrue(SFX.equals(editedAlice));
     }
 }

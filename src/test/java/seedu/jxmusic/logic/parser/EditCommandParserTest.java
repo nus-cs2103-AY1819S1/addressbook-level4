@@ -81,7 +81,7 @@
 //         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
 //         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
 //         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-//         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid jxmusic
+//         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid addr
 //         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 //
 //         // invalid phone followed by valid email
@@ -93,12 +93,16 @@
 //
 //         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
 //         // parsing it together with a valid tag results in error
-//         assertParseFailure(parser, "1" + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
-//         assertParseFailure(parser, "1" + TRACK_DESC_ALIEZ + TAG_EMPTY + TRACK_DESC_EXISTENCE, Tag.MESSAGE_TAG_CONSTRAINTS);
-//         assertParseFailure(parser, "1" + TAG_EMPTY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE, Tag.MESSAGE_TAG_CONSTRAINTS);
+//         assertParseFailure(parser, "1" + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTR
+// AINTS);
+//         assertParseFailure(parser, "1" + TRACK_DESC_ALIEZ + TAG_EMPTY + TRACK_DESC_EXISTENCE, Tag.MESSAGE_TAG_CONSTRA
+// INTS);
+//         assertParseFailure(parser, "1" + TAG_EMPTY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE, Tag.MESSAGE_TAG_CONSTRA
+// INTS);
 //
 //         // multiple invalid values, but only the first invalid value is captured
-//         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+//         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AM
+// Y,
 //                 Name.MESSAGE_NAME_CONSTRAINTS);
 //     }
 //
@@ -170,7 +174,8 @@
 //                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TRACK_DESC_EXISTENCE;
 //
 //         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-//                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TRACK_EXISTENCE, VALID_TRACK_NAME_IHOJIN)
+//                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TRACK_EXISTENCE, VALID_TR
+// ACK_NAME_IHOJIN)
 //                 .build();
 //         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 //

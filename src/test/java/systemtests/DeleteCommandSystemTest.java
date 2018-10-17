@@ -24,11 +24,12 @@
 //
 //    @Test
 //    public void delete() {
-//        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+//        /* ----------------- Performing delete operation while an unfiltered list is being shown --------------------
+// */
 //
 //        /* Case: delete the first playlist in the list, command with leading spaces and trailing spaces -> deleted */
 //        Model expectedModel = getModel();
-//        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+//        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "     ";
 //        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -53,7 +54,8 @@
 //        Index middlePersonIndex = getMidIndex(getModel());
 //        assertCommandSuccess(middlePersonIndex);
 //
-//        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+//        /* ------------------ Performing delete operation while a filtered list is being shown ----------------------
+// */
 //
 //        /* Case: filtered playlist list, delete index within bounds of jxmusic book and playlist list -> deleted */
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
@@ -69,9 +71,11 @@
 //        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
 //        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing delete operation while a playlist card is selected ------------------------ */
+//        /* --------------------- Performing delete operation while a playlist card is selected ----------------------
+// -- */
 //
-//        /* Case: delete the selected playlist -> playlist list panel selects the playlist before the deleted playlist */
+//        /* Case: delete the selected playlist -> playlist list panel selects the playlist before the deleted
+// playlist */
 //        showAllPersons();
 //        expectedModel = getModel();
 //        Index selectedIndex = getLastIndex(expectedModel);
@@ -82,7 +86,8 @@
 //        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 //
-//        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+//        /* --------------------------------- Performing invalid delete operation ------------------------------------
+// */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        command = DeleteCommand.COMMAND_WORD + " 0";
@@ -148,8 +153,10 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-//     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser
+// url
+//     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex
+// }.
 //     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
 //     * @see LibrarySystemTest#assertSelectedCardChanged(Index)
 //     */
