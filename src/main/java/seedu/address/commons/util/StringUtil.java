@@ -67,7 +67,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code sentence} contains any word in {@code string}
+     * Returns true if {@code sentence} contains all the words in {@code string}
      * @param sentence
      * @param string
      * @return whether sentence contains any word in string
@@ -83,9 +83,9 @@ public class StringUtil {
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(word -> {
-                    for (String keyWord : wordsInPreppedString) {
+        return Arrays.stream(wordsInPreppedString)
+                .allMatch(word -> {
+                    for (String keyWord : wordsInPreppedSentence) {
                         if (word.equalsIgnoreCase(keyWord)) {
                             return true;
                         }

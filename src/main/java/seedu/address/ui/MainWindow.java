@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowHistoryRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.exceptions.AccessibilityException;
@@ -36,10 +38,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private RideListPanel rideListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private HistoryWindow historyWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -76,6 +79,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        historyWindow = new HistoryWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -122,9 +126,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        rideListPanel = new RideListPanel(logic.getFilteredRideList());
+        personListPanelPlaceholder.getChildren().add(rideListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,14 +171,14 @@ public class MainWindow extends UiPart<Stage> {
      * Handle request for help with level of detail specified by {@param event}
      */
     public void handleHelp(ShowHelpRequestEvent event) throws AccessibilityException {
-        if (event.isSummarized) {
+        if (event.isSummarized()) {
             String userGuideUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH).toString();
             browserPanel.loadPage(userGuideUrl);
         } else {
             showHelpWindow();
         }
-        if (!event.commandWord.isEmpty()) {
-            helpWindow.scrollToCommandWord(event.commandWord);
+        if (!event.getCommandWord().isEmpty()) {
+            helpWindow.scrollToCommandWord(event.getCommandWord());
         }
     }
 
@@ -203,8 +206,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public RideListPanel getRideListPanel() {
+        return rideListPanel;
     }
 
     void releaseResources() {
@@ -218,6 +221,16 @@ public class MainWindow extends UiPart<Stage> {
             handleHelp(event);
         } catch (AccessibilityException ae) {
             logger.warning(ae.getMessage());
+        }
+    }
+
+    @Subscribe
+    private void handleShowHistoryEvent(ShowHistoryRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        try {
+            historyWindow.show(event.getReportName());
+        } catch (IOException ie) {
+            logger.warning(ie.getMessage());
         }
     }
 }

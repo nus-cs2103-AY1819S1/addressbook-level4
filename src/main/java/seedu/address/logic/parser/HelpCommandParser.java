@@ -12,10 +12,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class HelpCommandParser implements Parser<HelpCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the HelpCommand
+     * and returns an HelpCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public HelpCommand parse(String args) throws ParseException {
         String[] options = args.trim().split(" ");
 
@@ -31,7 +32,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
      */
     private static boolean matchesExpectedFormat(String[] options) {
         return options.length == 1 && options[0].isEmpty()
-                || options.length == 1 && options[0].equals(HelpCommand.MORE_HELP_FLAG)
+                || options.length == 1 && options[0].equals(HelpCommand.MORE_INFO_FLAG)
                 || options.length == 1 && AllCommandWords.isCommandWord(options[0]);
     }
 

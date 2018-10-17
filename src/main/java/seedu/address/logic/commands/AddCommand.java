@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "indoor";
 
     public static final String MESSAGE_SUCCESS = "New ride added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This ride already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_RIDE = "This ride already exists in the address book";
 
     private final Ride toAdd;
 
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
         model.addPerson(toAdd);

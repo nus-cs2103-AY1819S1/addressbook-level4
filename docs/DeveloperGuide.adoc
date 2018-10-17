@@ -351,6 +351,78 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Filter Feature
+==== Current Implementation
+The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
+`ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
+parse the arguments from the user input.
+
+It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
+an `AttributePredicate` is created with the operator (‘<’ or ‘>’) and the attribute they are checking for (ie
+`Maintenance` or `WaitTime`). The AttributePredicates are added to a list. The user can add any amount of predicates that
+they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3 predicates and if the user
+decides to input only one predicate, the list will only contain one.
+
+A new `RideContainsConditionPredicate` is instantiated with the list of AttributePredicates. The `FilterCommandParser` will
+return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
+
+The LogicManager execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
+the list of rides and it will check if the ride fulfils the required predicate(s). After that a list of filtered rides
+would be returned after each ride is tested with the predicate.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support filter commands
+* **Alternative 1:** Gives the entire string condition to the RideContainsConditionPredicate to test.
+** Pros: Easier to implement as classes no need to abstracted
+** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
+
+* **Alternative 2(Current Choice):** Abstracting attributes that contain numeric values into a separate class and creating a
+AttributePredicate to test the attriute
+** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
+** Cons: Need to implement more classes to handle
+
+
+=======
+=== Autocomplete/Suggest feature
+==== Current Implementation
+
+The autocomplete/suggest mechanism is facilitated by `SuggestCommand`.
+It extends `Command` and serves as a special kind of Command that cannot be directly invoked by users.
+A new instance of `SuggestCommand` is created whenever `AddressBookParser` fails to find a matching CommandWord,
+or when {tab} is pressed inside the CommandBox.
+
+When an incomplete command is entered, the `AddressBookParser` will parse the output using a `SuggestCommandParser`.
+
+The `AddressBookParser` then checks that
+
+Given below are some example usage scenarios and how the undo/redo mechanism behaves at each step.
+
+image::AutocompleteSuggestActivityDiagram.png[width="650"]
+Figure 3.5.1 Activity Diagram of user executing command
+
+==== Design Considerations
+
+===== Aspect: Handle tab through events and SuggestCommand
+
+* **Alternative 1 (current choice):** Handle tab through events and SuggestCommand.
+** Pros: Flexible.
+** Cons: Difficult to implement.
+* **Alternative 2:** Handle everything in CommandWindow.
+** Pros: Easy to implement.
+** Cons: Difficult to extend.
+
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+
 == Documentation
 
 We use asciidoc for writing documentation.

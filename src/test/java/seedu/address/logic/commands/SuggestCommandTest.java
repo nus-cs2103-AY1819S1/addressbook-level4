@@ -15,10 +15,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Contains unit tests for {@code SuggestCommand}
+ */
 public class SuggestCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
     private final ThaneParkParser parser = new ThaneParkParser();
 
     @Test
@@ -32,13 +36,13 @@ public class SuggestCommandTest {
         assertSuggestCommandSuccessBehavior("a", "add");
         assertSuggestCommandSuccessBehavior("c", "clear");
         assertSuggestCommandSuccessBehavior("d", "delete");
-        assertSuggestCommandSuccessBehavior("e", "edit", "exit");
+        assertSuggestCommandSuccessBehavior("e", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
+        assertSuggestCommandSuccessBehavior("q", "quickView");
         assertSuggestCommandSuccessBehavior("r", "redo");
-        assertSuggestCommandSuccessBehavior("s", "select");
-        assertSuggestCommandSuccessBehavior("u", "undo");
-        assertSuggestCommandSuccessBehavior("v", "viewAll");
+        assertSuggestCommandSuccessBehavior("u", "update", "undo");
+        assertSuggestCommandSuccessBehavior("v", "viewAll", "view");
 
         assertSuggestCommandSuccessBehavior("a j\\km bu/ni i?@w 359h", "add");
     }

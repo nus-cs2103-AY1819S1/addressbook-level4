@@ -14,6 +14,7 @@ import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.Status;
 import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
@@ -24,6 +25,9 @@ public class XmlAdaptedRide {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Ride's %s field is missing!";
 
+    private static final Status DEFAULT_STATUS = Status.OPEN;
+    private static final String DEFAULT_STATUS_STRING = DEFAULT_STATUS.name();
+
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -32,6 +36,8 @@ public class XmlAdaptedRide {
     private String waitingTimeString;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String statusString;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -47,6 +53,14 @@ public class XmlAdaptedRide {
      */
     public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
                           List<XmlAdaptedTag> tagged) {
+        this(name, daysSinceMaintenanceString, waitingTimeString, address, tagged, DEFAULT_STATUS_STRING);
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedRide} with the given ride details.
+     */
+    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
+                          List<XmlAdaptedTag> tagged, String statusString) {
         this.name = name;
         this.daysSinceMaintenanceString = daysSinceMaintenanceString;
         this.waitingTimeString = waitingTimeString;
@@ -54,6 +68,7 @@ public class XmlAdaptedRide {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.statusString = statusString;
     }
 
     /**
@@ -69,6 +84,7 @@ public class XmlAdaptedRide {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        statusString = source.getStatus().name();
     }
 
     /**
@@ -117,7 +133,14 @@ public class XmlAdaptedRide {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Ride(modelName, modelMaintenance, modelWaitTime, modelAddress, modelTags);
+
+        if (statusString == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+        }
+
+        Status status = Status.valueOf(statusString);
+
+        return new Ride(modelName, modelMaintenance, modelWaitTime, modelAddress, modelTags, status);
     }
 
     @Override
@@ -130,11 +153,12 @@ public class XmlAdaptedRide {
             return false;
         }
 
-        XmlAdaptedRide otherPerson = (XmlAdaptedRide) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(daysSinceMaintenanceString, otherPerson.daysSinceMaintenanceString)
-                && Objects.equals(waitingTimeString, otherPerson.waitingTimeString)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedRide otherRide = (XmlAdaptedRide) other;
+        return Objects.equals(name, otherRide.name)
+                && Objects.equals(daysSinceMaintenanceString, otherRide.daysSinceMaintenanceString)
+                && Objects.equals(waitingTimeString, otherRide.waitingTimeString)
+                && Objects.equals(address, otherRide.address)
+                && tagged.equals(otherRide.tagged)
+                && Objects.equals(statusString, otherRide.statusString);
     }
 }

@@ -31,6 +31,7 @@
       <Label fx:id="daysSinceMaintenanceString" styleClass="cell_small_label" text="\$daysSinceMaintenanceString" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="waitingTimeString" styleClass="cell_small_label" text="\$waitingTimeString" />
+      <Label fx:id="statusString" styleClass="cell_status_label" text="\$statusString" />
     </VBox>
   </GridPane>
 </HBox>
