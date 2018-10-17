@@ -111,14 +111,17 @@ Format: `list`
 === Editing a patient : `editPatient`
 
 Edits an existing patient in the clinic record. +
-Format: `editPatient INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `editPatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 ****
 * Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e adding of tags is not cumulative.
-* You can remove all the patient's tags by typing `t/` without specifying any tags after it.
+* When editing medical problems/medications/allergies/preferred doctor, the existing medical problems/medications/allergies/preferred doctor of the patient will be removed i.e adding of medical problems/medications/allergies/preferred doctor is not cumulative.
+* You can remove all the patient's medical problems by typing `medProb/` without specifying any medical problems after it.
+* You can remove all the patient's medications by typing `medList/` without specifying any medications after it.
+* You can remove all the patient's allergies by typing `allergies/` without specifying any allergies after it.
+* You can remove all the patient's preferred doctor by typing `preferredDoc/` without specifying any preferred doctor after it.
 ****
 
 Examples:
