@@ -1,3 +1,8 @@
+/* style sheet for the application
+ * styles are organized by their locations
+ * /
+
+/* base style */
 .root {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12;
@@ -5,6 +10,13 @@
     -fx-background-color: #383838;
 }
 
+.split-pane-divider {
+    -fx-padding: 0;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: transparent transparent transparent #4d4d4d;
+}
+
+/* task list styles */
 #taskListHeader {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12;
@@ -36,7 +48,27 @@
     -fx-border-radius: 10;
 }
 
-#CalendarPanel {
+#dayMonthPanelPlaceholder {
+    -fx-background-color: #282828;
+}
+
+#monthPanel {
+    -fx-background-color: #282828;
+}
+
+#monthLabel {
+    -fx-font-size: 24;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #CCCCCC;
+}
+
+.separator .line { /* separator between month and calendar below */
+    -fx-background: #666666;
+    -fx-width: 3;
+}
+
+/* calendar styles */
+#calendarPanelPlaceHolder {
     -fx-background-color: #282828;
 }
 
@@ -53,12 +85,6 @@
     -fx-background-color: #282828;
 }
 
-.split-pane-divider {
-    -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
-}
-
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -68,6 +94,7 @@
     -fx-background-color: #273445;
 }
 
+/* command box styles */
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -91,6 +118,10 @@
     -fx-border-radius: 0;
 }
 
+#resultDisplayPlaceholder {
+    -fx-background-color: #1B1B1B;
+}
+
 #resultDisplay .content {
     -fx-background-color: #1B1B1B #1B1B1B;
     -fx-background-radius: 0;
@@ -111,6 +142,7 @@
     -fx-text-fill: black !important;
 }
 
+/* tags styles */
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -124,3 +156,31 @@
     -fx-text-fill: white;
     -fx-font-size: 11;
 }
+
+/* alert box */
+.dialog-pane {
+    -fx-background-color: #1d1d1d;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: #1d1d1d;
+}
+
+.dialog-pane > *.label.content {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: derive(#1d1d1d, 25%);
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: white;
+    -fx-text-fill: white;
+}
+
+
