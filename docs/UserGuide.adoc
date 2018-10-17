@@ -311,7 +311,7 @@ This is a comprehensive list of commands for ClinicIO.
 * *Redo* : `redo`
 * *Undo* : `undo`
 
-=== User Management Commands
+=== User Authentication Commands
 
 * *Login* : `login r/ROLE n/NAME pass/PASSWORD` +
 e.g. `login r/doctor n/Adam Bell pass/-------`
