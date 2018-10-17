@@ -106,7 +106,8 @@ Examples:
 === Filter car parks : `filter`
 
 Filters the list of car parks by free parking and night parking, must query beforehand. +
-Format: `filter [f/] [n/] [ct/CARPARK_TYPE]` or `fi [f/] [n/] [ct/CARPARK_TYPE]`
+Format: `filter [f/ DAY START_TIME END_TIME] [n/] [ct/ CARPARK_TYPE]` +
+or `fi [f/ DAY START_TIME END_TIME] [n/] [ct/ CARPARK_TYPE]`
 
 Flags:
 
@@ -114,15 +115,23 @@ Flags:
 * n/ - NIGHT_PARKING
 * ct/ - CARPARK_TYPE
 - SURFACE
-- MUITISTORY
+- MUITISTOREY
 - BASEMENT
 - COVERED
 - MECHANISED
 
+.Filtering covered car parks
+image::filter.png[width="790"]
+
+[NOTE]
+====
+Upper and lower case characters do not matter.
+====
+
 Example:
 
-* `filter f/ n/ ct/SURFACE`
-* `fi ct/BASEMENT`
+* `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
+* `fi ct/ BASEMENT`
 
 === Sort car parks : `sort`
 
