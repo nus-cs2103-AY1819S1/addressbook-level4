@@ -85,4 +85,8 @@ public class ServedPatient {
     public String toNameAndIc() {
         return patient.toNameAndIc();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 31b39626c3e2195f679ece8448e10a5c040b6192
 }

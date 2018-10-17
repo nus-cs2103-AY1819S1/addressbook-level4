@@ -25,5 +25,8 @@ public class ReferralLetterCommandParser implements Parser<ReferralLetterCommand
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferralLetterCommand.MESSAGE_USAGE), pe);
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31b39626c3e2195f679ece8448e10a5c040b6192
 }
