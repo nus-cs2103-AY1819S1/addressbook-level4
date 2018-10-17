@@ -286,11 +286,18 @@ Displays view of calendar for the month of `Feb`.
 ==== Adding event into calendar : `add_event`
 
 Adds an event into the calendar. +
-Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT`
+Format: `add_event month/MONTH year/YEAR sdate/START DATE shour/START HOUR smin/START MIN
+edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT`
+
+****
+* `MONTH` has format MMM.
+* `YEAR` has format YYYY.
+* `DATE`, `HOUR`, `MINUTE` has format XX.
+****
 
 Example:
 
-* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral` +
+* `add_event month/Feb year/2018 sdate/01 shour/12 smin/00 edate/01 ehour/15 emin/00 title/Enthral` +
 Adds an event titled `Enthral` with date `2` nd `Feb` which lasts from `1800` hours
 to `2100` hours to the calendar.
 
