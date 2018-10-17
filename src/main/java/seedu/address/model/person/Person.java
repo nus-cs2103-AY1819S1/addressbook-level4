@@ -8,8 +8,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.project.Project;
 import seedu.address.model.permission.PermissionSet;
+import seedu.address.model.project.Project;
 
 /**
  * Represents a Person in the address book.
