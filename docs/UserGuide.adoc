@@ -73,6 +73,23 @@ Format:
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
+#### Completing a Task: `complete`
+[%hardbreaks]
+Completes task(s) in the task manager
+Format: `complete INDEX` or `complete t/LABEL`
++Example:
+`complete 1`
+`complete l/urgent`
+-Example:
+`complete 1 l/urgent` (Behavior is not clear)
+
+_Note that completion via label is case-sensitive_
+
+* You can complete multiple tasks at once through the use of the format complete `l/LABEL`
+* Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
+condition:
+** Has at least one task which is labelled `x` and status is not "COMPLETED"
+
 #### Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
@@ -106,6 +123,8 @@ Format: `find KEYWORD`
 ** `delete INDEX`
 
 ** `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
+
+** `complete INDEX` or `complete l/LABEL`
 
 ** `list`
 
