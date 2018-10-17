@@ -300,12 +300,12 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 *Things to Note*
 
-1) Not all commands can undo or redo. Some commands, such as `list`, do not modify the address book and
+* Not all commands can undo or redo. Some commands, such as `list`, do not modify the address book and
 will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-2) Some commands such as `clear`, will calls `Model#commitAddressBook()`. In this case, the `currentStatePointer` is
+* Some commands such as `clear`, will calls `Model#commitAddressBook()`. In this case, the `currentStatePointer` is
 not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
@@ -351,17 +351,17 @@ These operations are exposed in the `Model` interface as `Model#saveEmail(Email 
 
 Given below is an example usage scenario and how the Compose feature behaves at each step:
 
-1) The user executes the `Compose` command, which creates an email.
+. The user executes the `Compose` command, which creates an email.
 The `Compose` command calls `Model#saveEmail(Email email)`, saving the email to `EmailModel`.
 
-2) Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
+. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
  email is saved to the `EmailModel`.
 
-3) The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent
+. The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent
 (EmailSavedEvent event)`, which then calls `EmailDirStorage#saveEmail(EmailModel email)`.
 This saves the email to a specified local directory.
 
-4) A preview of the email is displayed on the main window.
+. A preview of the email is displayed on the main window.
 
 ==== Design Considerations
 
@@ -405,15 +405,15 @@ These operations are exposed in the 'Model` interface as `Model#createCalendar(Y
 
 Given below is an example usage scenario and how the create_calendar command behaves at each step:
 
-1) The user executes the `create_calendar` command by specifying the `Month` and `Year`.
+. The user executes the `create_calendar` command by specifying the `Month` and `Year`.
 The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
 calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
 calendar already exists. Else, the command will then call `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
 
-2) Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
+. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
  to indicate that a calendar object has been initialized in the `CalendarModel`.
 
-3) The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
+. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
 `StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the calendar to a specified local directory.
 
@@ -432,6 +432,49 @@ Hallper.
 https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
 The library is widely used and easy to understand so any new develeper can easily extend the current features.
 // end::calendar[]
+
+// tag::createcca[]
+=== Create CCA feature
+==== Current Implementation
+
+The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
+directory. It implements the following command:
+
+* `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+
+These operations are exposed in the `Model` interface as `Model#addCca(Cca cca)`, `Model#hasCca(CcaName name)`,
+`Model#hasCca(Cca cca)` and `Model#commitBudgetBook()`.
+
+Given below is an example usage scenario and how the create cca mechanism behaves at each step.
+
+. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
+
+. `create` command will check for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+name exists, the CCA will not be created. Otherwise, it will be added into the `BudgetBook` in the `Model`.
+
+. `BudgetBook#addCca(Cca cca)` will invoke `ModelManger#indicateBudgetBookChange()` to raise a
+`BudgetBookChangedEvent`, which is handled by `EventsCenter`.
+
+. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
+`ccabook.xml` file with the new CCA.
+
+==== Design Considerations
+
+===== Aspect: Choice of local storage format
+
+* **Alternative 1 (current choice):** Saves in `.xml` format.
+** Pros: Easy to create, understand, move and translate into other environments. International data standard for
+storing information.
+** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
+ of parsing large XML files.
+* **Alternative 2:** Save in `.json` format.
+** Pros: Faster in parsing information.
+** Cons: Limited in terms of what objects can be modeled.
+
+// end::undoredo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
