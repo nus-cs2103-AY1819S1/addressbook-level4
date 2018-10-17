@@ -3,46 +3,64 @@
     <calendarEvents>
         <title>Hans Muster</title>
         <description isPrivate="false">9482424</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">4th street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Ruth Mueller</title>
         <description isPrivate="false">87249245</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">81th street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Heinz Kurz</title>
         <description isPrivate="false">95352563</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">wall street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Cornelia Meier</title>
         <description isPrivate="false">87652533</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">10th street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Werner Meyer</title>
         <description isPrivate="false">9482224</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">michegan ave</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Lydia Kunz</title>
         <description isPrivate="false">9482427</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">little tokyo</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Anna Best</title>
         <description isPrivate="false">9482442</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">4th street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Stefan Meier</title>
         <description isPrivate="false">8482424</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">little india</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Martin Mueller</title>
         <description isPrivate="false">8482131</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue isPrivate="false">chicago ave</venue>
     </calendarEvents>
 </scheduler>

@@ -3,6 +3,8 @@ package seedu.address.model.calendarevent;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_TUTORIAL;
@@ -34,29 +36,40 @@ public class CalendarEventTest {
         // null -> returns false
         assertFalse(LECTURE.isSameCalendarEvent(null));
 
-        // different description -> returns false
+        // different start date/time -> returns false
         CalendarEvent editedLecture =
-            new CalendarEventBuilder(LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+            new CalendarEventBuilder(LECTURE).withStart(VALID_START_DATETIME_TUTORIAL).build();
         assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
-        // different title -> returns false
-        editedLecture = new CalendarEventBuilder(LECTURE).withTitle(VALID_TITLE_TUTORIAL).build();
+        // different end date/time -> returns false
+        editedLecture = new CalendarEventBuilder(LECTURE).withEnd(VALID_END_DATETIME_TUTORIAL).build();
         assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
-        // same title, different description, different venue, different attributes -> returns false
+        // same title, same start date/time,same end date/time,
+        // different venue, different description, different attributes -> returns true
         editedLecture =
             new CalendarEventBuilder(LECTURE)
                 .withDescription(VALID_DESCRIPTION_TUTORIAL)
                 .withVenue(VALID_VENUE_TUTORIAL)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
+        assertTrue(LECTURE.isSameCalendarEvent(editedLecture));
+
+        // same title, same description, same venue, same attributes
+        // different start date/time, different end date/time -> returns false
+        editedLecture =
+            new CalendarEventBuilder(LECTURE)
+                .withStart(VALID_START_DATETIME_TUTORIAL)
+                .withEnd(VALID_END_DATETIME_TUTORIAL)
+                .build();
         assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
         // TODO redefine what is considered sameEvent or decide whether this test is necessary
-        // same title, same description, different venue, different attributes -> returns false
+        // same title, same description, same start date/time, same end date/time,
+        // different venue, different attributes                               -> returns true
         editedLecture =
             new CalendarEventBuilder(LECTURE).withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
+        assertTrue(LECTURE.isSameCalendarEvent(editedLecture));
     }
 
     @Test
