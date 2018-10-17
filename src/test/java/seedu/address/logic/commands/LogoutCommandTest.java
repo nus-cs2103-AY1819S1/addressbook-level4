@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.address.commons.events.ui.LogoutEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
