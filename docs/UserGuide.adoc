@@ -273,7 +273,7 @@ Format: `exit`
 ClinicIO data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Logout of the program : `logout` `[coming in v2.0]`
+=== Log out of the program : `logout` `[coming in v2.0]`
 
 // tag::loginUser[]
 [WARNING]
@@ -299,7 +299,7 @@ _{explain how the user can enable/disable data encryption}_
 This is a comprehensive list of commands for ClinicIO.
 
 * *Add* `addPatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]` +
-e.g. `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
+e.g. `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John's Lane, block 123, #01-01 allergies/Dairy Products`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
