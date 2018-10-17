@@ -33,7 +33,8 @@ public class Wish {
     /**
      * Every field must be present and not null.
      */
-    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags, LinkedList<Wish> transactions) {
+    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags,
+                LinkedList<Wish> transactions) {
         requireAllNonNull(name, price, email, url, tags);
         if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
