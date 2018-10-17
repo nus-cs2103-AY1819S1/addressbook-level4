@@ -319,16 +319,42 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-//tag::cancelappt[]
-=== CancelAppt feature
+//tag::apptfeature[]
+=== Appointment feature
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
 
 ==== Current Implementation
-The `cancelAppt` command functions similarly to the `delete` command.
-It updates the STATUS field of the target Appointment object to 'CANCELLED'.
-The object is removed from the UniqueAppointmentList and added to the Patient's consultation history.
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The implemented operations include: +
 
-image::CancelApptSequenceDiagram.png[width='700']
-//end::cancelappt[]
+* `addappt` Command - Adds appointments to the appointment schedule.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
+* `listappday` Command - Lists the appointment schedule of the date specified.
+
+Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
+
+==== `addappt` Command
+
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in a `Patient` id. +
+The image below illustrates this process.
+
+image::ApptConstructorSequenceDiagram.png[width="0"]
+.Appointment construction process. +
+
+Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
+
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+
+`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to the it's latest state. i.e. The addition of a new `Appointment` object. This means that this command can be undone or redone.
+
+==== `cancelappt` Command
+
+Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+
+
+==== Design Considerations
+
+//end::apptfeature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
