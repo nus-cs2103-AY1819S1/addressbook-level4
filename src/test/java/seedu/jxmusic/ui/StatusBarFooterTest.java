@@ -19,14 +19,14 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.jxmusic.commons.events.model.LibraryChangedEvent;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final LibraryChangedEvent EVENT_STUB = new LibraryChangedEvent(new AddressBook());
+    private static final LibraryChangedEvent EVENT_STUB = new LibraryChangedEvent(new Library());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());

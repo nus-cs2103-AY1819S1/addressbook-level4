@@ -21,7 +21,7 @@ import seedu.jxmusic.storage.jsonserdes.PlaylistDeserializer;
 import seedu.jxmusic.storage.jsonserdes.PlaylistSerializer;
 
 /**
- * Stores library data in an XML file
+ * Stores library data in an Json file
  */
 public class JsonFileStorage {
     /**

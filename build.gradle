@@ -83,7 +83,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'jxmusic.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

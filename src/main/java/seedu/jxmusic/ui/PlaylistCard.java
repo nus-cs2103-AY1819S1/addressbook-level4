@@ -39,11 +39,7 @@ public class PlaylistCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(playlist.getName().nameString);
         playlist.getTracks().forEach(track ->
-                tracks.getChildren().add(new Label(track.getFileName())));
-        //phone.setText(playlist.getPhone().value);
-        //address.setText(person.getAddress().value);
-        //email.setText(person.getEmail().value);
-        //person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                tracks.getChildren().add(new Label(track.getFileNameWithoutExtension())));
     }
 
     @Override
@@ -59,8 +55,8 @@ public class PlaylistCard extends UiPart<Region> {
         }
 
         //name check
-        Playlist playlist1 = (Playlist) other;
-        return name.getText().equals(playlist1.getName());
+        Playlist playlist1 = ((PlaylistCard) other).playlist;
+        return name.getText().equals(playlist1.getName().nameString);
 
         // state check
         /*

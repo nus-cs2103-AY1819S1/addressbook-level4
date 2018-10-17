@@ -3,7 +3,7 @@ package seedu.jxmusic.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.jxmusic.testutil.EventsUtil.postNow;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 import static seedu.jxmusic.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.jxmusic.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -24,7 +24,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new PlaylistPanelSelectionChangedEvent(ANIME);
+        selectionChangedEventStub = new PlaylistPanelSelectionChangedEvent(SFX);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a playlist
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ANIME.getName().nameString.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + SFX.getName().nameString.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

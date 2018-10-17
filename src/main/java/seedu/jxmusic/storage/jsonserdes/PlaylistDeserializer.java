@@ -1,5 +1,6 @@
 package seedu.jxmusic.storage.jsonserdes;
 
+import java.io.File;
 import java.lang.reflect.Type;
 
 import com.google.gson.JsonArray;
@@ -9,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
@@ -30,8 +32,9 @@ public class PlaylistDeserializer implements JsonDeserializer {
         for (int i = 0; i < tracks.length; i++) {
             final JsonElement jsonTrack = jsonTracksArray.get(i);
             try {
-                Name trackname = new Name(jsonTrack.getAsString());
-                Track track = new Track(trackname);
+                // Name trackname = new Name(jsonTrack.getAsString());
+                // Track track = new Track(trackname);
+                Track track = new Track(new File(Library.LIBRARYDIR + jsonTrack.getAsString()));
                 playlist.addTrack(track);
             } catch (Exception e) {
                 e.printStackTrace();

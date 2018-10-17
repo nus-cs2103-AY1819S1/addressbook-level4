@@ -3,9 +3,8 @@ package seedu.jxmusic.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jxmusic.model.exceptions.DuplicatePlaylistException;
 import seedu.jxmusic.testutil.PlaylistBuilder;
+import seedu.jxmusic.testutil.TypicalPlaylists;
 
 public class LibraryTest {
 
@@ -41,7 +41,7 @@ public class LibraryTest {
 
     @Test
     public void resetData_withValidReadOnlyLibrary_replacesData() {
-        Library newData = getTypicalLibrary();
+        Library newData = TypicalPlaylists.getTypicalLibrary();
         library.resetData(newData);
         assertEquals(newData, library);
     }
@@ -49,9 +49,9 @@ public class LibraryTest {
     @Test
     public void resetData_withDuplicatePlaylists_throwsDuplicatePlaylistException() {
         // Two playlists with the same identity fields
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TRACK_ALIEZ)
+        Playlist editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_IHOJIN)
                 .build();
-        List<Playlist> newPlaylists = Arrays.asList(ANIME, editedAlice);
+        List<Playlist> newPlaylists = Arrays.asList(SFX, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPlaylists);
 
         thrown.expect(DuplicatePlaylistException.class);
@@ -66,19 +66,19 @@ public class LibraryTest {
 
     @Test
     public void hasPlaylist_playlistNotInAddressBook_returnsFalse() {
-        assertFalse(library.hasPlaylist(ANIME));
+        assertFalse(library.hasPlaylist(SFX));
     }
 
     @Test
     public void hasPlaylist_playlistInAddressBook_returnsTrue() {
-        library.addPlaylist(ANIME);
-        assertTrue(library.hasPlaylist(ANIME));
+        library.addPlaylist(SFX);
+        assertTrue(library.hasPlaylist(SFX));
     }
 
     @Test
     public void hasPlaylist_playlistWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        library.addPlaylist(ANIME);
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TRACK_ALIEZ)
+        library.addPlaylist(SFX);
+        Playlist editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_IHOJIN)
                 .build();
         assertTrue(library.hasPlaylist(editedAlice));
     }
@@ -100,7 +100,7 @@ public class LibraryTest {
         }
 
         @Override
-        public ObservableList<Playlist1> getPlaylistList() {
+        public ObservableList<Playlist> getPlaylistList() {
             return playlists;
         }
     }

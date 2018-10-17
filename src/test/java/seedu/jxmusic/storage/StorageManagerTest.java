@@ -3,7 +3,7 @@ package seedu.jxmusic.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,7 +16,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.jxmusic.commons.events.model.LibraryChangedEvent;
 import seedu.jxmusic.commons.events.storage.DataSavingExceptionEvent;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 import seedu.jxmusic.ui.testutil.EventsCollectorRule;
@@ -32,9 +32,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonLibraryStorage addressBookStorage = new JsonLibraryStorage(getTempFilePath("ab"));
+        JsonLibraryStorage libraryStorage = new JsonLibraryStorage(getTempFilePath("lb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(libraryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -57,29 +57,29 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void libraryReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonLibraryStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonLibraryStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
+        Library original = getTypicalLibrary();
         storageManager.saveLibrary(original);
         ReadOnlyLibrary retrieved = storageManager.readLibrary().get();
-        assertEquals(original, new AddressBook(retrieved));
+        assertEquals(original, new Library(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getLibraryFilePath() {
         assertNotNull(storageManager.getLibraryFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleLibraryChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new JsonLibraryStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new LibraryChangedEvent(new AddressBook()));
+        storage.handleLibraryChangedEvent(new LibraryChangedEvent(new Library()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveLibrary(ReadOnlyLibrary addressBook, Path filePath) throws IOException {
+        public void saveLibrary(ReadOnlyLibrary library, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

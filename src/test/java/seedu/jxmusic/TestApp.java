@@ -10,14 +10,14 @@ import seedu.jxmusic.commons.core.Config;
 import seedu.jxmusic.commons.core.GuiSettings;
 import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.commons.util.FileUtil;
-import seedu.jxmusic.commons.util.XmlUtil;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.commons.util.JsonUtil;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.storage.JsonFileStorage;
 import seedu.jxmusic.storage.UserPrefsStorage;
-import seedu.jxmusic.storage.JsonSerializableLibrary;
 import seedu.jxmusic.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -27,7 +27,7 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new JsonSerializableLibrary(this.initialDataSupplier.get()),
+            createDataFileWithData(new Library(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -64,18 +64,18 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setLibraryFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the jxmusic book data stored inside the storage file.
+     * Returns a defensive copy of the jxmusic player data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public Library readStorageLibrary() {
         try {
-            return new AddressBook(storage.readLibrary().get());
+            return new Library(storage.readLibrary().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the Library format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -92,8 +92,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getLibrary()), new UserPrefs());
+        ModelHelper.setFilteredList(copy, model.getFilteredPlaylistList());
         return copy;
     }
 
@@ -107,12 +107,12 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Creates an XML file at the {@code filePath} with the {@code data}.
+     * Creates a Json file at the {@code filePath} with the {@code data}.
      */
-    private <T> void createDataFileWithData(T data, Path filePath) {
+    private <T> void createDataFileWithData(Library data, Path filePath) {
         try {
             FileUtil.createIfMissing(filePath);
-            XmlUtil.saveDataToFile(filePath, data);
+            JsonFileStorage.saveDataToFile(filePath, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
