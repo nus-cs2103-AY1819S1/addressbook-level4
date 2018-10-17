@@ -93,13 +93,6 @@ public class Person {
     }
 
     /**
-     * Returns true if this person possess specified permission. Otherwise false.
-     */
-    public boolean havePermissions(Permission... pList) {
-        return permissionSet.containsAll(pList);
-    }
-
-    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
