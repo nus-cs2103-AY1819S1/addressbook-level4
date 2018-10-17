@@ -373,6 +373,78 @@ _{TO-DO}_
 
 // end::wish[]
 
+=== Save Amount feature
+
+==== Current Implementation
+
+The Save Amount feature is executed through an `SaveCommand` by the user, which after parsing,
+is facilitated mainly by the `ModelManager` which implements `Model`.
+Wish stores the `price` and `savedAmount` of `Wish`, helping to track the progress of the savings towards the `price`.
+Meanwhile, WishBook stores the `spareFunds`, which is an excess pool of funds that can be used in the future.
+After adding a saving, the FilteredWishList is also updated to reflect the latest WishBook.
+
+Given below is an example usage scenario and how the SaveCommand behaves at each step:
+
+Step 1. The user launches the application for the first time.
+WishBook will be initialised in `ModelManager` with the initial WishBook state, where `SavedAmount spareFunds` = 0.0 .
+
+Step 2. The user executes `save 1 s/10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. In the SaveCommand#execute method,
+a new editedWish is created to reflect the new savedAmount. It then calls Model#updateWish to update this wish with the old one in `WishBook`.
+
+The resultant wish will have the following properties:
+
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 10.00
+* Price: 15.00
+* DueDate: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Transactions: `empty LinkedList`
+* Fulfilled: `false`
+
+[NOTE]
+If the `Index` is invalid, or the saving entered causes `savedAmount` to become negative, it will not call Model#updateWish.
+
+Step 3. The user decides to execute save 1 s/10 again. However, SaveCommand checks that `savedAmount` > `price`.
+SaveCommand#execute creates a new `editedWish` with `savedAmount = wish.getPrice()`.
+
+The resultant wish will have the following properties:
+
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 15.00
+* Price: 15.00
+* DueDate: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Transactions: `empty LinkedList`
+* Fulfilled: `true`
+
+Step 4. The excess amount of $5 is stored in a new `SavedAmount` variable `excessAmount`.
+SaveCommand#execute then calls Model#addToSpareFunds(excess) to update the `spareFunds` in WishBook.
+
+In WishBook, the result would be:
+
+* spareFunds: 5.00
+
+Step 5. The user tries to execute `save 1 s/10` again. However, since the value for `fulfilled` is true,
+
+_{TO-DO: Sequence Diagram here}_
+
+==== Design Considerations
+===== Aspect: Data structure to support the spareFunds feature
+
+* **Alternative 1 (current choice):** Store it in a `SavedAmount` variable in `WishBook`.
+** Pros: Easy to implement.
+** Cons: More methods needed when needing to move funds from `spareFunds` to other wishes.
+* **Alternative 2:** Store it as a pseudo wish with index 0.
+** Pros: It can be treated as another `wish`, hence existing methods can be used without needing to create much more new ones.
+** Cons: Requires dealing with an extra wish that has to be hidden on the `WishListPanel` and displayed separately on the UI.
+We must remember to skip this wish in methods that involve displaying the WishList.
+
+
+// end::wish[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
