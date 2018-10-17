@@ -374,7 +374,7 @@ Step 4. The user then decides to execute the command `list`. Commands that do no
 Step 5. The user finally exits the app by clicking on the close button. The most recent state of the `WishTransaction` will be converted into xml format via the the `XmlWishTransactions` object and be saved into the same file path it was first retrieved from.
 
 [NOTE]
-If there was some error saving the current state of the `WishTransaction` to the specified file path in hard disk, an exception will be thrown and a warning will be shown to the user. The current state of the `WishTransaction` object will not be saved.
+If there was some error saving the current state of the `WishTransaction` to the specified file path in hard disk, an exception will be thrown and a warning will be shown to the user. The current state of the `WishTransaction` object will not be saved to hard disk.
 // end::savingshistory[]
 
 // tag::dataencryption[]
