@@ -1,10 +1,10 @@
-= Address Book (Level 4)
+= TutorPal
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/CS2103-AY1819S1-T13-1/main[image:https://travis-ci.com/CS2103-AY1819S1-T13-1/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/chenlu-chua/main/branch/master[image:https://ci.appveyor.com/api/projects/status/2xd9spc31800oyf9/branch/master?svg=true[Build status]]
 https://coveralls.io/github/CS2103-AY1819S1-T13-1/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T13-1/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+image:https://api.codacy.com/project/badge/Grade/d3e0052076014d05b17685f5d61307bf["Codacy code quality", link="https://www.codacy.com/app/hrxiong/TutorPal-T13-1?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-T13-1/main&utm_campaign=Badge_Grade"]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
@@ -28,7 +28,6 @@ endif::[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -36,5 +35,6 @@ endif::[]
 
 * The original source of code: AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* Done by team CS2103-AY1819S1-T13-1
 
 == Licence : link:LICENSE[MIT]
