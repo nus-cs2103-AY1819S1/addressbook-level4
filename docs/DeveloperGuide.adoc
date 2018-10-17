@@ -382,6 +382,30 @@ destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::viewarangeoftasks[]
+=== View a range of tasks
+
+In order to enable users to better manage their tasks in *Student Schedule Planner*, we added two more variations of
+ the `list` command. The `listday` command supports viewing tasks due the current date whereas `listweek` command
+ supports viewing tasks from the current date until the nearest Sunday.
+
+==== Implementation
+
+The details of the implementation are broken down into several sections below.
+
+==== Date computation
+
+When the `listday` command was used, the current system date will be retrieved. Whereas for the `listweek` command,
+the range of date from current system date until Sunday will be computed and retrieved.
+
+==== Data retrieval
+
+Based on the range of date given, the *Student Schedule Planner* will retrieve all the tasks that matches the date
+that was computed and display to the screen.
+
+{more to be added}
+// end::viewarangeoftasks[]
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -869,26 +893,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |student |add exam dates for each modules |easily check the exam dates for each modules, and how much time is there left
-
-|`* * *` |student |access my exam date list |know when I should turned up for exam
-
-|`* * *` |student |modify exam dates if the school changed the actual date |update my own schedule of exam dates
-
-|`* * *` |student |delete exam dates if the school cancelled the exam |update my own schedule of exam dates
-
-|`* * *` |student |search exam dates |find if there is an exam on a particular date
-
-|`* * *` |student |add deadlines module-wise |keep track of upcoming deadlines for each modules
-
-|`* * *` |student |view deadlines module-wise |keep track of upcoming deadlines for each module
-
-|`* * *` |student |update deadlines module-wise |keep track of updated deadlines for each module
-
-|`* * *` |student |delete deadlines module-wise |keep track of updated deadlines for each module
-
-|`* * *` |student |search deadlines module-wise |find if there is any deadlines for each module on a particular date
-
 |`* * *` |student |add task to to-do list |keep track of tasks to do
 
 |`* * *` |student |view tasks in to-do list |know when the deadlines of my tasks are
