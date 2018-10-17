@@ -102,9 +102,7 @@ public class PersonBuilder {
      * Build the person object.
      */
     public Person build() {
-        Person toReturn = new Person(name, phone, email, address, tags);
-        toReturn.getPermissionSet().addAll(pSet);
-        return toReturn;
+        return new Person(name, phone, email, address, tags, pSet);
     }
 
 }
