@@ -37,7 +37,7 @@ Responsibilities: TBD +
 '''
 
 === Jefferson Sie
-image::jeffypie369.png[width="150", align="left"]
+image::jeffypie369.jpg[width="150", align="left"]
 {empty}[http://github.com/jeffypie369[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
