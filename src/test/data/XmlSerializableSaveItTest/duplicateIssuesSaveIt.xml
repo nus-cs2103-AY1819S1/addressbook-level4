@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<saveit>
+    <issues>
+        <statement>Alice Pauline</statement>
+        <description>94351253</description>
+        <tagged>friends</tagged>
+    </issues>
+
+    <!-- Issue with same identity as Alice Pauline -->
+    <issues>
+        <statement>Alice Pauline</statement>
+        <description>94351253</description>
+    </issues>
+</saveit>

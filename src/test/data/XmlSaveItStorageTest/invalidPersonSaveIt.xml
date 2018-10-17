@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<saveit>
+    <!-- Issue with invalid statement field -->
+    <issues>
+        <statement>Ha!ns Mu@ster</statement>
+        <description isPrivate="false">9482424</description>
+    </issues>
+</saveit>

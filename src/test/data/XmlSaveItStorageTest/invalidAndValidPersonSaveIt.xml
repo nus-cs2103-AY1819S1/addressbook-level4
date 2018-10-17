@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<saveit>
+    <!-- Valid Issue -->
+    <issues>
+        <statement>Hans Muster</statement>
+        <description isPrivate="false">9482424</description>
+    </issues>
+    <!-- Issue with invalid description field -->
+    <issues>
+        <statement>Hans Muster</statement>
+        <description isPrivate="false"> </description>
+    </issues>
+</saveit>

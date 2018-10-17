@@ -3,76 +3,87 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.commons.core.index.Index;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Issue> PREDICATE_SHOW_ALL_ISSUES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlySaveIt newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Reset the current directory. */
+    void resetDirectory(Index targetIndex, boolean rootDirectory);
+
+    /** Return the current directory. */
+    int getCurrentDirectory();
+
+    /** Returns the SaveIt */
+    ReadOnlySaveIt getSaveIt();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an issue with the same identity as {@code issue} exists in the saveIt.
      */
-    boolean hasPerson(Person person);
+    boolean hasIssue(Issue issue);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given issue.
+     * The issue must exist in the saveIt.
      */
-    void deletePerson(Person target);
+    void deleteIssue(Issue target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given issue.
+     * {@code issue} must not already exist in the saveIt.
      */
-    void addPerson(Person person);
+    void addIssue(Issue issue);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given issue {@code target} with {@code editedIssue}.
+     * {@code target} must exist in the saveIt.
+     * The issue identity of {@code editedIssue} must not be the same as another existing issue in the saveIt.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateIssue(Issue target, Issue editedIssue);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered issue list */
+    ObservableList<Issue> getFilteredIssueList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Filters the issues given the predicate and sorts them based on the search frequency
+     */
+    void filterIssues(Predicate<Issue> predicate);
+
+    /**
+     * Updates the filter of the filtered issue list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredIssueList(Predicate<Issue> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous saveIt states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoSaveIt();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone saveIt states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoSaveIt();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's saveIt to its previous state.
      */
-    void undoAddressBook();
+    void undoSaveIt();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's saveIt to its previously undone state.
      */
-    void redoAddressBook();
+    void redoSaveIt();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current saveIt state for undo/redo.
      */
-    void commitAddressBook();
+    void commitSaveIt();
 }
