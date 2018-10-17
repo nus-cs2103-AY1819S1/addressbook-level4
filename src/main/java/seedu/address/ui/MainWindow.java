@@ -224,7 +224,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        if(browserPanel != null) {
+        if (browserPanel != null) {
             browserPanel.freeResources();
         }
     }
