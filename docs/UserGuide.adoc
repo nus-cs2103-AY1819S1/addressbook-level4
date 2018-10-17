@@ -404,39 +404,40 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *List* : `list`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Add a medical record* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
+e.g. `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
+* *Add a medicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
+e.g. `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
+* *List medicine stock* : `listStock`
+* *Find medicine stock* : `findStock <SERIAL NUMBER>` +
+e.g. `findStock 1001`
+* *Check medicine stock* : `checkStock`
+* *Display queue* : `queue`
+* *Register patient to queue* : `register <INDEX>` +
+e.g. `register 3`
+* *Remove patient from queue* : `remove <INDEX>` +
+e.g. `remove 2`
+* *Insert patient to queue* : `insert <INDEX> <POSITION>` +
+e.g. `insert 4 5`
+* *Serve patient* : `serve`
+* *Finish serving patient* : `finish`
 * *Generate MC* : `mc <INDEX> d/<DATE>-<DATE>` +
 e.g. `mc 1 d/02-09-2018-04-09-2018`
 * *Generate receipt* : `receipt INDEX` +
 e.g. `receipt 5`
 * *Generate referral letter* : `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>` +
 e.g. `refer 3 h/NUH d/Surgery r/Internal bleeding n/Patient complains heart is in pain`
-* *AddMedicalRecord* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
-e.g. `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
-* *AddNoteToMedicalRecord* : `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` +
-e.g. `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.`
-* *AddMedicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
-e.g. `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
-* *ListStock* : `listStock`
-* *FindStock* : `findStock <SERIAL NUMBER>` +
-e.g. `findStock 1001`
-* *CheckStock* : `checkStock`
-* *Register* : `register <INDEX>` +
-e.g. `register 3`
-* *Serve* : `serve`
-* *Dequeue* : `dequeue <INDEX>` +
-e.g. `dequeue 5`
-* *Insert* : `insert <INDEX> <POSITION>` +
-e.g. `insert 4 5`
+* *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Exit* : `exit`
