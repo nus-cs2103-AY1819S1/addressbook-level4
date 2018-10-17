@@ -1,5 +1,49 @@
 = Developer Guide
 
+== Implemention
+**Trivia:**
+
+The trivia function is facilitated by `LearnVocabulary`.
+Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion`.
+
+Additionally, it also implements the following operations:
+
+* `setTrivia` -- sets the trivia question based on the current vocabulary list
+* `getTrivia` -- outputs the current trivia question.
+
+These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
+
+
+Outlined below is how the trivia function operates at each step:
+
+Step 1. The user inputs trivia in the CLI.
+
+Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
+
+[NOTE]
+If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
+
+Step 3. `TriviaCommand.execute()` now calls `Model.setTrivia()` to set the trivia question within `LearnVocabulary`.
+
+Step 4. `TriviaCommand.execute()` calls `Model.getTrivia` and outputs to the user.
+
+**Answer**
+
+The answer command is indicated as `TriviaAnsCommand` in `commands`. It will take in arguments passed in by the user and checks whether it is the correct/wrong answer to the current trivia question.
+
+Outlined below is how the answer function operates:
+
+Step 1: User calls `answer` with his/her argument.
+
+[NOTE]
+Attempting to call the `answer` command without first calling `trivia` will result in an error.
+
+Step 2: `TriviaAnsCommandParser` processes the argument and parses it to `TriviaAnsCommand`.
+
+Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word as `triviaQuestion` in `LearnVocabulary`.
+
+Step 4: Outputs a correct or wrong message based on the result in step 3.
+
 == Target user profile
 
 People who would like to learn new words they see in their daily life more efficiently and use computer a lot. These people can be for example non-native english speakers and schools who want to use the program in language courses. In the future, target users will be extended to also other languages than english.
