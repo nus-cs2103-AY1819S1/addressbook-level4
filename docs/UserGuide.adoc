@@ -68,7 +68,7 @@ Opens a new window which shows the user guide.
 
 Format: `help`
 
-Examples:
+Example(s):
 
 * `help` +
 A new window appears which displays the user guide.
@@ -97,7 +97,7 @@ Format: `undo`
 Undoable commands: those commands that modify the system's content (`add`, `edit`, and `delete`).
 ====
 
-Examples:
+Example(s):
 
 * `delete 1` +
 `list` +
@@ -119,7 +119,7 @@ Reverses the most recent `undo` command. +
 
 Format: `redo`
 
-Examples:
+Example(s):
 
 * `delete 1` +
 `undo` (reverses the `delete 1` command) +
@@ -143,7 +143,7 @@ Clears all entries from the volunteers or events, depending on context. +
 
 Format: `clear`
 
-Examples:
+Example(s):
 
 * `clear` +
 Resets the application to a clean state.
@@ -167,7 +167,7 @@ Exits the program. +
 
 Format: `exit`
 
-Examples:
+Example(s):
 
 * `exit` +
 Exists from the program and return to the user desktop.
@@ -186,7 +186,7 @@ Format: `switch -CONTEXT_ID`
 * CONTEXT_ID for volunteers is 'v'.
 ****
 
-Examples:
+Example(s):
 
 * `switch -e` +
 Switch to the 'event' context when in 'volunteer' context.
@@ -216,7 +216,7 @@ Format: `add n/NAME b/BIRTHDAY g/GENDER a/ADDRESS e/EMAIL p/PHONE_NUMBER [t/TAG]
 * A volunteer can have any number of tags (including 0).
 ****
 
-Examples:
+Example(s):
 
 * `add n/John Doe b/05-08-1995 g/M a/Yishun Block 62 p/87183749 e/John@gmail.com`
 * `add n/Betty Sue b/31-12-1995 g/M a/Ang Mo Kio Block 62 p/81749272 e/Betty@gmail.com t/Longtime t/Helpful`
@@ -239,7 +239,7 @@ Format: `edit VOLUNTEER_INDEX [n/NAME] [b/BIRTHDAY] [g/GENDER] [a/ADDRESS] [e/EM
 * You can remove all the volunteer's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+Example(s):
 
 * `edit 1 n/John Doe` +
 Edits the name of the volunteer at index 1
@@ -249,7 +249,7 @@ Edits the name of the volunteer at index 1
 Deletes details of an existing volunteer in the system when in the volunteer context. +
 Format: `delete VOLUNTEER_INDEX`
 
-Examples:
+Example(s):
 
 * `delete 1` +
 Deletes the details of the volunteer specified at index 1
@@ -268,7 +268,7 @@ Format: `exportcert VOLUNTEER_INDEX`
 * Exports PDF certificate for the volunteer at specified `VOLUNTEER INDEX`
 * `VOLUNTEER INDEX` **must be a positive integer** 1, 2, 3, ...
 
-Examples:
+Example(s):
 
 * `exportcert 2` +
 Exports PDF certificate of volunteer at specified index 2 to local folder 'certs'
@@ -289,7 +289,7 @@ Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TI
 * An event can have any number of tags (including 0).
 ****
 
-Examples:
+Example(s):
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
 +
@@ -355,7 +355,7 @@ Format: `edit EVENT_INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [s
 * You can remove all the event's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+Example(s):
 
 * `edit 1 n/Charity Fun Run t/` +
 Edits the name of event at index 1 and removes all tags.
@@ -376,7 +376,7 @@ Deletes details of an existing event in the system when in the 'event' context. 
 
 Format: `delete EVENT_INDEX`
 
-Examples:
+Example(s):
 
 * `delete 2` +
 Deletes the details of the event specified at index 2.
@@ -407,7 +407,7 @@ Switches to the 'manage' context and display volunteers at the left panel. +
 
 Format: `manage EVENT_INDEX`
 
-Examples:
+Example(s):
 
 * `manage 1` +
 View the list of volunteers assigned to event at index 1.
@@ -441,7 +441,7 @@ image::command_record_add.png[add record, 800]
 
 The circled numbers from the figure above indicate the VOLUNTEER_INDEX.
 
-Examples:
+Example(s):
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
@@ -467,7 +467,7 @@ image::command_record_edit.png[edit record, 800]
 
 The highlighted column from the figure above indicate the VOLUNTEER_INDEX for each volunteer.
 
-Examples:
+Example(s):
 
 * `edit -a h/5` +
 Updates amount of hours volunteered for all existing volunteers in the event to 5 hours.
@@ -488,14 +488,14 @@ Format: `delete VOLUNTEER_INDEX`
 image::command_record_edit.png[delete record, 800]
 
 
-Examples:
+Example(s):
 
 * `delete 1` +
 Deletes the volunteer record of the volunteer at index 1.
 
 === Miscellaneous
 
-==== Saving the data
+==== Saving data
 
 SocialCare data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
