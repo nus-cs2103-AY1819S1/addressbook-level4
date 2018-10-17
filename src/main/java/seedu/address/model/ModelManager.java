@@ -250,7 +250,8 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
-        } else if (!addressBooks.get(username).isMatchPassword(password)) {
+        }
+        if (!addressBooks.get(username).isMatchPassword(password)) {
             return false;
         }
         if (hasSelectedUser()) {
