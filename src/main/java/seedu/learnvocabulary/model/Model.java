@@ -98,4 +98,10 @@ public interface Model {
      * @return whether the tag has existed in the list
      */
     boolean hasTag(Set<Tag> tags);
+
+    /**
+     *
+     * @return whether the user is connected to the Internet
+     */
+    boolean isConnectedToInternet();
 }

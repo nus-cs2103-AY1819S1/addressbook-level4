@@ -76,9 +76,7 @@ public class Word {
         }
 
         Word otherWord = (Word) other;
-        return otherWord.getName().equals(getName())
-                && (otherWord.getMeaning().equals(getMeaning())
-                || otherWord.getTags().equals(getTags()));
+        return otherWord.getName().equals(getName());
     }
 
     @Override
@@ -90,10 +88,10 @@ public class Word {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Meaning: ")
-                .append(getMeaning())
-                .append(" Tags: ");
+        builder.append(getName() + "\n")
+                .append("Meaning: ")
+                .append(getMeaning() + "\n")
+                .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

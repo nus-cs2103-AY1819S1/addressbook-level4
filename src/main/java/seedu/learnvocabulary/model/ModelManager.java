@@ -15,6 +15,7 @@ import seedu.learnvocabulary.commons.core.LogsCenter;
 import seedu.learnvocabulary.commons.events.model.LearnVocabularyChangedEvent;
 import seedu.learnvocabulary.model.tag.Tag;
 
+import seedu.learnvocabulary.model.word.Dictionary;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -63,6 +64,11 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasWord(Word word) {
         requireNonNull(word);
         return versionedLearnVocabulary.hasWord(word);
+    }
+
+    @Override
+    public boolean isConnectedToInternet(){
+        return Dictionary.isConnectedToInternet();
     }
 
     @Override

@@ -6,12 +6,13 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import seedu.learnvocabulary.model.word.exceptions.WordNotFoundException;
+import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 
 /**
  * Self-created Dictionary.com "API"
  */
 public class Dictionary {
+    public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet to learn about words.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
     //private ArrayList<Tag> tagArrayList;
@@ -34,21 +35,49 @@ public class Dictionary {
     /**
      * Invoke the use of "learn", to parse definition and put it into a meaning object.
      */
-    public Dictionary invoke() {
+    public Dictionary invoke() throws ParseException {
         wordToLearn = args;
-        try {
-            Document doc = Jsoup.connect("https://www.dictionary.com/browse/" + wordToLearn).get();
-            //Get description from document object.
-            definition = doc.select("meta[name=description]").get(0)
-                    .attr("content");
-            definition = definition.replace("definition, ", "");
-            definition = definition.replace("(", "");
-            definition = definition.replace(")", "");
-            definition = definition.replace(" See more.", "");
-        } catch (IOException e) {
-            throw new WordNotFoundException(WORD_NOT_EXIST);
+        if (!isConnectedToInternet()) {
+            throw new ParseException(MESSAGE_NO_INTERNET);
         }
+
+        Document doc;
+        if ((doc = isWordInOnlineDictionary(wordToLearn)) == null) {
+            throw new ParseException(WORD_NOT_EXIST);
+        }
+        //Get description from document object.
+        definition = doc.select("meta[name=description]").get(0)
+                .attr("content");
+        definition = definition.substring(definition.indexOf(" ") + 1);
+        definition = definition.replace("definition, ", "");
+        definition = definition.replace("(", "");
+        definition = definition.replace(")", "");
+        definition = definition.replace(" See more.", "");
+        System.out.println(definition);
         return this;
+    }
+
+    /**
+     * Checks for Internet Connection, if its available.
+     */
+    public static boolean isConnectedToInternet() {
+        try {
+            Jsoup.connect("https://www.dictionary.com/").get();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks for Internet Connection, if its available.
+     */
+    public static Document isWordInOnlineDictionary(String wordToLearn) {
+        try {
+            return Jsoup.connect("https://www.dictionary.com/browse/" + wordToLearn).get();
+        } catch (IOException e) {
+            return null;
+        }
     }
     //
     //public ArrayList<Tag> getTagList() {
