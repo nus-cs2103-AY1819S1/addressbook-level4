@@ -44,6 +44,19 @@ Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word
 
 Step 4: Outputs a correct or wrong message based on the result in step 3.
 
+**Select**
+
+The select command is indicated as `SelectCommand` in `commands`, and inherits the `Command` class. It selects a word identified by a user using its index from the review list.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “select + [index]” where `index` is the index of the word that the user wants to select.
+
+Step 2: `SelectCommand` checks passed arguments.
+
+Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
+
+
 == Target user profile
 
 People who would like to learn new words they see in their daily life more efficiently and use computer a lot. These people can be for example non-native english speakers and schools who want to use the program in language courses. In the future, target users will be extended to also other languages than english.
@@ -187,5 +200,3 @@ High (Need to have) - PPP, Medium (Nice to have) - PP, Low (Not very needed) - P
 |English speaker
 |Play a game
 |Improve my English further
-
-
