@@ -37,7 +37,7 @@ public interface Model {
     /**
      * Replaces the given playlist {@code target} with {@code editedPlaylist}.
      * {@code target} must exist in the jxmusic book.
-     * The playlist identity of {@code editedPlaylist} must not be the same as another existing playlist in the jxmusic book.
+     * The playlist identity of {@code editedPlaylist} must not be the same as another existing playlist in the library.
      */
     void updatePlaylist(Playlist target, Playlist editedPlaylist);
 

@@ -11,7 +11,6 @@ import seedu.jxmusic.logic.commands.Command;
 import seedu.jxmusic.logic.commands.DeleteCommand;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
 import seedu.jxmusic.logic.commands.ExitCommand;
-import seedu.jxmusic.logic.commands.FindCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
@@ -30,7 +29,8 @@ public class LibraryParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandPhrase>(?:\\p{Alpha}+\\s+)+|\\p{Alpha}+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT =
+            Pattern.compile("(?<commandPhrase>(?:\\p{Alpha}+\\s+)+|\\p{Alpha}+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -65,8 +65,8 @@ public class LibraryParser {
         case PlaylistNewCommand.COMMAND_PHRASE:
             return new PlaylistNewCommandParser().parse(arguments);
 
-//        case EditCommand.COMMAND_PHRASE:
-//            return new EditCommandParser().parse(arguments);
+        // case EditCommand.COMMAND_PHRASE:
+        //     return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);

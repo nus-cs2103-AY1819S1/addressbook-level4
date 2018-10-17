@@ -13,9 +13,10 @@ import seedu.jxmusic.model.exceptions.PlaylistNotFoundException;
 
 /**
  * A list of playlists that enforces uniqueness between its elements and does not allow nulls.
- * A playlist is considered unique by comparing using {@code Playlist#isSamePlaylist(Playlist)}. As such, adding and updating of
- * playlists uses Playlist#isSamePlaylist(Playlist) for equality so as to ensure that the playlist being added or updated is
- * unique in terms of identity in the UniquePlaylistList. However, the removal of a playlist uses Playlist#equals(Object) so
+ * A playlist is considered unique by comparing using {@code Playlist#isSamePlaylist(Playlist)}.
+ * As such, adding and updating of playlists uses Playlist#isSamePlaylist(Playlist) for equality so
+ * as to ensure that the playlist being added or updated is unique in terms of identity in the UniquePlaylistList.
+ * However, the removal of a playlist uses Playlist#equals(Object) so
  * as to ensure that the playlist with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

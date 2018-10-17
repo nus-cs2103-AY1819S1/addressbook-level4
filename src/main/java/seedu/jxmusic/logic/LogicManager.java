@@ -10,7 +10,6 @@ import seedu.jxmusic.logic.commands.CommandResult;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.logic.parser.LibraryParser;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
-import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
 
@@ -42,8 +41,8 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPlaylistList();
     }
 
-   @Override
-   public ListElementPointer getHistorySnapshot() {
-       return new ListElementPointer(history.getHistory());
-   }
+    @Override
+    public ListElementPointer getHistorySnapshot() {
+        return new ListElementPointer(history.getHistory());
+    }
 }

@@ -20,6 +20,8 @@ public class Track {
     public static final String MESSAGE_FILE_NOT_SUPPORTED =
             "Track file not supported by javafx media";
     public static final String MP3_EXTENSION = ".mp3";
+    private static final int[] ID3V2_HEADER = new int[]{0x49, 0x44, 0x33};
+    private static final int[] MP3_HEADER = new int[]{0xff, 0xfb}; // for mp3 files without id3v2 header
     private final File file;
     // fileNameWithoutExtension not appended with MP3_EXTENSION
     private final String fileNameWithoutExtension;
@@ -27,6 +29,7 @@ public class Track {
     /**
      * Constructs a {@code Track}.
      * By using a Name to restrict null or empty string
+     *
      * @param trackFileName mp3 file name of the track, does not accept ".mp3" suffix
      */
     public Track(Name trackFileName) {
@@ -69,6 +72,7 @@ public class Track {
 
     /**
      * Checks for javafx media support and header bytes
+     *
      * @param file the file to check
      * @return true if file is supported by javafx media and has valid header bytes, false otherwise
      */
@@ -93,18 +97,17 @@ public class Track {
 
     /**
      * Checks whether a file is truly mp3 file by looking at header bytes
+     *
      * @param file the file to check
      * @return true if file has id3v2 or mp3 header bytes
      */
     private static boolean hasMp3Header(File file) {
-        final int[] ID3V2_HEADER = new int[] {0x49, 0x44, 0x33};
-        final int[] MP3_HEADER = new int[] {0xff, 0xfb}; // for mp3 files without id3v2 header
         byte[] first3Bytes = new byte[3];
         try {
             FileInputStream fis = new FileInputStream(file);
             fis.readNBytes(first3Bytes, 0, 3);
             // for (byte b : first3Bytes) {
-                // System.out.println(b);
+            // System.out.println(b);
             // }
         } catch (IOException e) {
             // System.out.println("fail to read");

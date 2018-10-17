@@ -9,7 +9,7 @@ import seedu.jxmusic.player.JxMusicPlayer;
  * Seeks the player to a new playback time.
  */
 
-public class SeekCommand extends Command{
+public class SeekCommand extends Command {
 
     public static final String COMMAND_WORD = "seek";
     //should we change it to ake this can display the time? but if yes, we need to abort the static while i am not sure

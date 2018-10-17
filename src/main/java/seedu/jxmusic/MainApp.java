@@ -1,10 +1,12 @@
 package seedu.jxmusic;
 
-import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -24,12 +26,12 @@ import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 import seedu.jxmusic.model.util.SampleDataUtil;
-import seedu.jxmusic.storage.LibraryStorage;
+import seedu.jxmusic.storage.JsonLibraryStorage;
 import seedu.jxmusic.storage.JsonUserPrefsStorage;
+import seedu.jxmusic.storage.LibraryStorage;
 import seedu.jxmusic.storage.Storage;
 import seedu.jxmusic.storage.StorageManager;
 import seedu.jxmusic.storage.UserPrefsStorage;
-import seedu.jxmusic.storage.JsonLibraryStorage;
 import seedu.jxmusic.ui.Ui;
 import seedu.jxmusic.ui.UiManager;
 
