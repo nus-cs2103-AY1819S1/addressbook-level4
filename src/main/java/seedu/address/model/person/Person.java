@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.permission.Permission;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.tag.Tag;
 
