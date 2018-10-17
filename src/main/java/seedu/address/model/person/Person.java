@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,6 +25,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Optional<Doctor> preferredDoctor = Optional.empty();
 
     /**
      * Every field must be present and not null.
@@ -53,6 +56,14 @@ public class Person {
     }
 
     /**
+     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
+     * @return an Optional {@link Doctor}.
+     */
+    public Optional<Doctor> getPrefferedDoctor() {
+        return preferredDoctor;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -60,6 +71,12 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Checks if the patient has preferred doctor.
+     */
+    public boolean hasPrefferedDoctor() {
+        return preferredDoctor.isPresent();
+    }
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
