@@ -117,12 +117,17 @@ public interface Model {
     void removeImageFromList(int idx);
 
     /**
-     * Retrieves the current displayed image.
+     * Retrieves the current displayed original image.
      */
-    BufferedImage getDisplayedImage();
+    BufferedImage getCurrentOriginalImage();
 
     /**
-     * Update the current displayed image.
+     * Retrieves the current displayed preview image.
      */
-    void updateCurrDisplayedImage(Image img);
+    BufferedImage getCurrentPreivewImage();
+
+    /**
+     * Update the current displayed original image.
+     */
+    void updateCurrentOriginalImage(Image img);
 }
