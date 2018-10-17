@@ -431,7 +431,7 @@ which then creates a `FindCommandParser` Object and call `FindCommandParser#pars
 an ArgumentMultimap Object.
 
 . `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
-of the keywords doesn't comfort to the correct format, `ParseException` will be thrown. If no exception is thrown, a
+of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
 `ExpenseContainsKeywordsPredicate` Object is created. It implements Predicate<Expense> interface and is used to filter
 out all the expenses which matches the keywords entered by the user.
 
