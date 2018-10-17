@@ -259,7 +259,7 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-===== Command: Undo
+===== Command: undo
 
 1) The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
 initial address book state, and the `currentStatePointer` pointing to that single address book state.
@@ -291,7 +291,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-===== Command: Redo
+===== Command: redo
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -477,7 +477,7 @@ storing information.
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Data encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
@@ -514,16 +514,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -538,7 +538,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation dettings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -568,7 +568,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -596,7 +596,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -614,7 +614,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -655,7 +655,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -663,22 +663,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -687,7 +687,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
@@ -1550,7 +1550,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
@@ -1564,7 +1564,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
