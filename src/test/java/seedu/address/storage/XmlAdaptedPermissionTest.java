@@ -8,6 +8,7 @@ import org.junit.Test;
 public class XmlAdaptedPermissionTest {
     private static final String FIRST_VALID_PERMISSION = "ASSIGN_PERMISSION";
     private static final String SECOND_VALID_PERMISSION = "ADD_EMPLOYEE";
+
     @Test
     public void equals() {
         XmlAdaptedPermission validXmlPermission = new XmlAdaptedPermission(FIRST_VALID_PERMISSION);
