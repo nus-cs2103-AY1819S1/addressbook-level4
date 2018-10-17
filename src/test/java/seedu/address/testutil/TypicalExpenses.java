@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.budget.Budget;
@@ -108,7 +109,7 @@ public class TypicalExpenses {
      */
     public static AddressBook getTypicalAddressBook() {
         double expense = 0;
-        AddressBook ab = new AddressBook(SAMPLE_USERNAME);
+        AddressBook ab = new AddressBook(SAMPLE_USERNAME, Optional.empty());
         for (Expense e : getTypicalExpenses()) {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();

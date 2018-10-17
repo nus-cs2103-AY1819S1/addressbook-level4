@@ -20,6 +20,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetBudgetCommand;
+import seedu.address.logic.commands.SetPasswordCommand;
 import seedu.address.logic.commands.SetRecurringBudgetCommand;
 import seedu.address.logic.commands.SignUpCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -119,6 +120,9 @@ public class AddressBookParser {
         case SetRecurringBudgetCommand.COMMAND_WORD:
         case SetRecurringBudgetCommand.COMMAND_ALIAS:
             return new SetRecurringBudgetCommandParser().parse(arguments);
+        case SetPasswordCommand.COMMAND_WORD:
+        case SetPasswordCommand.COMMAND_ALIAS:
+            return new SetPasswordCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

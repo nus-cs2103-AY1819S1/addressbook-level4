@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 /**
@@ -66,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.versionedAddressBook = null;
         this.filteredExpenses = null;
         try {
-            loadUserData(addressBook.getUsername());
+            loadUserData(addressBook.getUsername(), addressBook.getPassword().orElse(null));
         } catch (NonExistentUserException e) {
             throw new IllegalStateException();
         }
@@ -248,19 +250,24 @@ public class ModelManager extends ComponentManager implements Model {
         return this.statsMode;
     }
 
-    //@@author
+    //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public void loadUserData(Username username) throws NonExistentUserException {
+    public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
         }
-
+        if (!addressBooks.get(username).isMatchPassword(password)) {
+            return false;
+        }
+        if (hasSelectedUser()) {
+            addressBooks.replace(this.username, this.versionedAddressBook);
+        }
         this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
 
         this.filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         this.username = username;
-        addressBooks.replace(this.username, this.versionedAddressBook);
+
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
@@ -268,6 +275,7 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
+        return true;
     }
 
     @Override
@@ -309,7 +317,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername)) != null) {
+        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername, Optional.empty())) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }
@@ -318,6 +326,16 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasSelectedUser() {
         return versionedAddressBook != null && filteredExpenses != null && username != null;
     }
+
+    @Override
+    public void setPassword(Password password) throws NoUserSelectedException {
+        if (this.versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
+        versionedAddressBook.password = Optional.ofNullable(password);
+        addressBooks.replace(this.username, this.versionedAddressBook);
+    }
+    //@@author
 
     @Override
     public boolean equals(Object obj) {
