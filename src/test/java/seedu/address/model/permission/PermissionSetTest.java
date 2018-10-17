@@ -1,19 +1,20 @@
 package seedu.address.model.permission;
 
-import org.junit.Test;
-import seedu.address.testutil.Assert;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import seedu.address.testutil.Assert;
 
 public class PermissionSetTest {
     @Test
     public void addPermission() {
         PermissionSet permissionSet = new PermissionSet();
         //null -> false
-        assertFalse(permissionSet.addPermissions(null));
+        assertFalse(permissionSet.addPermissions((Permission[]) null));
 
         //null mixed with value from permission enum -> false
         assertFalse(permissionSet.addPermissions(
@@ -48,7 +49,7 @@ public class PermissionSetTest {
         );
 
         //null -> false
-        assertFalse(permissionSet.removePermissions(null));
+        assertFalse(permissionSet.removePermissions((Permission[]) null));
 
         //null mixed with value from permission enum -> false
         assertFalse(permissionSet.removePermissions(
@@ -131,9 +132,8 @@ public class PermissionSetTest {
         assertTrue(readOnlyPermissionSet.contains(Permission.ADD_EMPLOYEE));
         assertTrue(readOnlyPermissionSet.contains(Permission.REMOVE_EMPLOYEE));
 
-        Assert.assertThrows(UnsupportedOperationException.class,
-                () -> readOnlyPermissionSet.add(Permission.EDIT_EMPLOYEE)
-        );
+        Assert.assertThrows(UnsupportedOperationException.class, () ->
+            readOnlyPermissionSet.add(Permission.EDIT_EMPLOYEE));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PermissionSetTest {
         testPermissionSet.addPermissions(Permission.ADD_EMPLOYEE, Permission.REMOVE_EMPLOYEE);
 
         //null -> false
-        assertFalse(testPermissionSet.containsAll(null));
+        assertFalse(testPermissionSet.containsAll((Permission[]) null));
         //null with an existing permission -> false
         assertFalse(testPermissionSet.containsAll(null, Permission.ADD_EMPLOYEE));
         //list of not allocated permission -> false
