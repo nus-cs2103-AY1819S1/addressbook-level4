@@ -20,33 +20,33 @@ public class Salary {
     * @param salary A valid salary number.
     */
     public Salary(String salary) {
-      requireNonNull(salary);
-      checkArgument(isValidSalary(salary), SALARY_CONSTRAINTS);
-      value = salary;
+        requireNonNull(salary);
+        checkArgument(isValidSalary(salary), SALARY_CONSTRAINTS);
+        value = salary;
     }
 
     /**
      * Returns true if a given string is a valid number.
      */
     public static boolean isValidSalary(String test) {
-    return test.matches(SALARY_VALIDATION_REGEX);
-  }
+        return test.matches(SALARY_VALIDATION_REGEX);
+    }
 
     @Override
     public String toString() {
-    return value;
-  }
+        return value;
+    }
 
     @Override
     public boolean equals(Object other) {
-      return other == this // short circuit if same object
+        return other == this // short circuit if same object
               || (other instanceof Salary // instanceof handles nulls
               && value.equals(((Salary) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-    return value.hashCode();
-  }
+        return value.hashCode();
+    }
 
 }

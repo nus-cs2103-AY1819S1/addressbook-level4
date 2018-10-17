@@ -52,7 +52,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, String salary, List<XmlAdaptedProject> project) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String salary, List<XmlAdaptedProject> project) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -66,8 +67,8 @@ public class XmlAdaptedPerson {
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, String salary, List<XmlAdaptedProject> project,
-                            String profilePic) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String salary, List<XmlAdaptedProject> project, String profilePic) {
         this.name = name;
         this.phone = phone;
         this.email = email;

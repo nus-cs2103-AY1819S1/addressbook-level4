@@ -23,8 +23,8 @@ public class XmlAdaptedProject {
      * Constructs a {@code XmlAdaptedProject} with the given {@code projectName}.
      */
     public XmlAdaptedProject(String projectName) {
-    this.projectName = projectName;
-  }
+        this.projectName = projectName;
+    }
 
     /**
      * Converts a given Project into this class for JAXB use.
@@ -32,8 +32,8 @@ public class XmlAdaptedProject {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedProject(Project source) {
-    projectName = source.projectName;
-  }
+        projectName = source.projectName;
+    }
 
     /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.
@@ -41,22 +41,22 @@ public class XmlAdaptedProject {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Project toModelType() throws IllegalValueException {
-      if (!Project.isValidProjectName(projectName)) {
-        throw new IllegalValueException(Project.MESSAGE_PROJECT_CONSTRAINTS);
-      }
-      return new Project(projectName);
+        if (!Project.isValidProjectName(projectName)) {
+            throw new IllegalValueException(Project.MESSAGE_PROJECT_CONSTRAINTS);
+        }
+        return new Project(projectName);
     }
 
     @Override
     public boolean equals(Object other) {
-      if (other == this) {
-        return true;
-      }
+        if (other == this) {
+            return true;
+        }
 
-      if (!(other instanceof XmlAdaptedProject)) {
-        return false;
-      }
+        if (!(other instanceof XmlAdaptedProject)) {
+            return false;
+        }
 
-      return projectName.equals(((XmlAdaptedProject) other).projectName);
-  }
+        return projectName.equals(((XmlAdaptedProject) other).projectName);
+    }
 }
