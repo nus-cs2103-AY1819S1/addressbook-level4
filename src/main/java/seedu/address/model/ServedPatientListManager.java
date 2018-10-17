@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -52,5 +53,10 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public boolean contains(ServedPatient patient) {
         return servedPatientList.contains(patient);
+    }
+
+    @Override
+    public ArrayList<ServedPatient> getPatientsAsList() {
+        return servedPatientList;
     }
 }

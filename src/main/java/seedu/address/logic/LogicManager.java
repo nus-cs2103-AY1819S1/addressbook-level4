@@ -56,7 +56,7 @@ public class LogicManager extends ComponentManager implements Logic {
         } finally {
             history.add(commandText);
             if (command instanceof QueueCommand) {
-                EventsCenter.getInstance().post(new QueueUpdatedEvent(patientQueue));
+                EventsCenter.getInstance().post(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
             }
         }
     }

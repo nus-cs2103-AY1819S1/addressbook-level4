@@ -15,6 +15,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.model.PatientQueue;
+import seedu.address.model.ServedPatientList;
+import seedu.address.model.person.CurrentPatient;
+import seedu.address.model.person.Patient;
+import seedu.address.model.person.ServedPatient;
 
 public class QueueDisplay extends UiPart<Region> {
 
@@ -33,7 +37,7 @@ public class QueueDisplay extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        loadQueueDisplay(null);
+        loadQueueDisplay(null, null, null);
         registerAsAnEventHandler(this);
     }
 
@@ -44,11 +48,21 @@ public class QueueDisplay extends UiPart<Region> {
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
-    private void loadQueueDisplay(PatientQueue patientQueue) {
-        String queueDisplayString = patientQueue != null ? patientQueue.displayQueue() : "QUEUE IS EMPTY";
+    private void loadQueueDisplay(PatientQueue patientQueue, ServedPatientList servedPatientList,
+                                  CurrentPatient currentPatient) {
+        String patientQueueString = generatePatientQueuePrettyString(patientQueue);
+        String servedPatientListString = generateServedPatientListPrettyString(servedPatientList);
+
+        String currentPatientString = currentPatient != null ?
+                currentPatient.toNameAndIc() : "No current patient!";
+
         String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
         queueDisplayPage += "?queue=";
-        queueDisplayPage += queueDisplayString;
+        queueDisplayPage += patientQueueString;
+        queueDisplayPage += "&served=";
+        queueDisplayPage += servedPatientListString;
+        queueDisplayPage += "&current=";
+        queueDisplayPage += currentPatientString;
         loadPage(queueDisplayPage);
     }
 
@@ -62,6 +76,34 @@ public class QueueDisplay extends UiPart<Region> {
     @Subscribe
     private void handleQueueUpdatedEvent(QueueUpdatedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadQueueDisplay(event.getPatientQueue());
+        loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
     }
+
+    private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
+        if (patientQueue == null) {
+            return "(none)";
+        }
+
+        String result = "";
+        for (Patient patient: patientQueue.getPatientsAsList()) {
+            result += patient.toNameAndIc();
+            result += "<br>";
+        }
+        return result == "" ? "(none)" : result.substring(0, result.length() - 4);
+    }
+
+    private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
+        if (servedPatientList == null) {
+            return "(none)";
+        }
+
+        String result = "";
+        for (ServedPatient patient: servedPatientList.getPatientsAsList()) {
+            result += patient.toNameAndIc();
+            result += "<br>";
+        }
+        return result == "" ? "(none)" : result.substring(0, result.length() - 4);
+    }
+
+
 }

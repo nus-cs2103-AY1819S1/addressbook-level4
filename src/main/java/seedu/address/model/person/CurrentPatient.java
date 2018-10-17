@@ -87,7 +87,7 @@ public class CurrentPatient {
      * Returns a console-friendly representation of the patient.
      */
     public String toNameAndIc() {
-        return patient.toNameAndIc();
+        return patient != null ? patient.toNameAndIc() : "No current patient!";
     }
 
 }
