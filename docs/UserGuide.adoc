@@ -13,7 +13,7 @@ Double-click the file to start the app. The GUI should appear in a few seconds.
 == Features
 **Adding words**
 
-A command for adding words to the user’s review list
+A command for adding words to the user’s vocabulary list
 Command syntax: add [word]
 Format: add [word] [word] [word]
 
@@ -37,13 +37,18 @@ Format: delete 3
 
 *Trivia game*
 
-Starts a trivia of 10 questions based on the words saved in the user’s review list
+Presents a question based on words in the vocabulary list
 Command syntax: trivia
 Format: trivia
 
-*Clears all words from the review list*
+*Trivia Answer*
+Answer the trivia question presented when using the trivia command
+Command syntax: answer
+Format: answer [word]
 
-Clears all of the words on the review list.
+*Clears all words from the vocabulary list*
+
+Clears all of the words on the vocabulary list.
 Command syntax: clear
 Format: clear
 
@@ -89,6 +94,8 @@ Clear: clear
 Multilingual: multi
 
 Trivia: trivia
+
+Answer: answer [word]
 
 Help: help
 
