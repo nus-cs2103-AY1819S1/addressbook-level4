@@ -53,6 +53,9 @@ public class AnakinCdCommand extends AnakinCommand {
         List<AnakinDeck> lastShownList = anakinModel.getFilteredDeckList();
 
         if (this.noIndex) {
+            if (!anakinModel.isInsideDeck()){
+                throw new CommandException(Messages.MESSAGE_NOT_INSIDE_DECK);
+            }
             //Exit the deck
             anakinModel.getOutOfDeck();
             anakinModel.commitAnakin();
