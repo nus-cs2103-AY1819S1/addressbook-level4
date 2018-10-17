@@ -408,7 +408,7 @@ are used as filters for the expense list. The `Predicate` is used to filter out 
 `StatsMode` is set to DAY, representing the day mode.
 `StatsCommand#execute()` also posts a `ShowStatsRequestEvent` event to the `EventsCenter`.
 
-. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which creates a new `StatsWindow` object after getting the
+. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which updates the 'StatisticsPanel' object after getting the
 expense data and mode by calling `Logic#getExpenseStats()` and `Logic#getStatsMode()`.
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `ModelManager#getExpenseStats()`, which returns
@@ -418,10 +418,68 @@ the total cost for that day
 
 . `Logic#getStatsMode()` gets the current StatsMode by calling `Model#getStatsMode()`
 
-. The `StatsWindow` object gets created and calls `StatsWindow#setData()`, which creates a `BarChart` with the expense data received, which is then added to the `ChartArea` pane.
+. `StatisticsPanel` UI element updates the bar chart in `chartArea` to show the expenses over the last 7 days.
 
-. This results in a new window showing a bar chart of expenses over the last 7 days.
+// tag::UserInterfaceRedesign[]
+=== User Interface Redesign
 
+The UI has been redesigned to implement the following UI elements required for the Expense Tracker:
+
+* Budget Panel
+* Statistics Panel
+* Notifications Panel
+* Categories Panel
+
+Animations will also be incorporated into the UI elements for a better user experience.
+
+==== Budget Panel
+The budget panel consists of 3 UI elements:
+
+*	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
+*	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
+*	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current budget cap that has been used.
+
+Given below is an example scenario of how `BudgetPanel` is updated:
+
+. The user launches the application and signs up for a new account. The `MainWindow` creates a new `BudgetPanel`, which elements are initialized as follows:
+* `BudgetPanel#expenseDisplay` is green and set to "$0.00".
+* `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default budget.
+* `BudgetPanel#budgetBar` is green and at 0% progress.
+
+. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies the budget and expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
+[NOTE]
+If a command fails its execution, the `UpdateBudgetPanelEvent` will not be posted.
+
+. The `UpdateBudgetPanelEvent` event is handled by `BudgetPanel#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
+
+. `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
+
+. Two `KeyFrame` objects are added to the Timeline that smooths the transition of the `BudgetPanel#budgetBar` progress percentage from 0% to the updated percentage.
+[NOTE]
+If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+
+. A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects. With this information, the amount to increment `BudgetPanel#expenseDisplay` by each `KeyFrame` can be calculated.
+ `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
+[NOTE]
+`BudgetPanel#incrementKeyFrames()` handles the animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+
+. `Timeline#playFromStart()` is called to execute the animation.
+
+. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()``. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+[NOTE]
+Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+
+===== Design Considerations
+====== Aspect: Which library to implement animation
+
+* **Alternative 1 (current choice):** Use the `Timeline` and `KeyFrame` class
+** Pros: More flexible; Able to create the animation frame by frame.
+** Cons: Animations tricks and effects will require manual tweaking for the intented effect.
+* **Alternative 2:** Use the `Transition` class
+** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
+** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the `Text` elements of the `BudgetPanel`.
+
+// end::userInterfaceRedesign[]
 
 === Logging
 

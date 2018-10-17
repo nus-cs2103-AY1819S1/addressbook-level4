@@ -341,7 +341,7 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 
 === Show expense statistics: `stats`
 
-Opens up a new window showing a bar chart of the expenditure over a specified time period, in a given `MODE`. +
+Shows the user the bar chart of the expenditure over a specified time period, in a given `MODE`. +
 
 The available modes are `d` and `m`, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
 and MODE is 'd', the statistics will include data from the past 7 days, current day included.
