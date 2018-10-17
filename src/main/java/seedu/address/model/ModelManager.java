@@ -151,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public BufferedImage getCurrentPreivewImage() {
+    public BufferedImage getCurrentPreviewImage() {
         return this.currentPreviewImage.getImage();
     }
 

@@ -187,12 +187,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public BufferedImage getDisplayedImage() {
+        public BufferedImage getCurrentOriginalImage() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public void updateCurrDisplayedImage(Image img) {
+        public BufferedImage getCurrentPreviewImage() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateCurrentOriginalImage(Image img) {
             throw new AssertionError("This method should not be called");
         }
 
