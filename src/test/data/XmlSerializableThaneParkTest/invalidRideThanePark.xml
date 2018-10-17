@@ -6,5 +6,6 @@
         <daysSinceMaintenanceString isPrivate="false">9482424</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">hans@exam!32ple</waitingTimeString>
         <address isPrivate="false">4th street</address>
+        <statusString>OPEN</statusString>
     </rides>
 </thanepark>

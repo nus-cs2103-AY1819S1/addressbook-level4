@@ -154,4 +154,5 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(keycode);
         assertEquals(expectedCommand, commandBoxHandle.getInput());
     }
+
 }

@@ -15,6 +15,7 @@ import seedu.address.commons.events.ui.SuggestCommandEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -30,6 +31,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private ListElementPointer historySnapshot;
     private String pendingText = "";
+    private int caretPosition = 0;
 
     @FXML
     private TextField commandTextField;
@@ -39,6 +41,7 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.caretPositionProperty().addListener((unused1) -> updateCaretPosition());
         historySnapshot = logic.getHistorySnapshot();
 
         registerAsAnEventHandler(this);
@@ -60,6 +63,11 @@ public class CommandBox extends UiPart<Region> {
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
+            break;
+        case TAB:
+            keyEvent.consume();
+            preventTabNavigation();
+            suggestCommand();
             break;
         default:
             // let JavaFx handle the keypress
@@ -90,6 +98,40 @@ public class CommandBox extends UiPart<Region> {
         }
 
         replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Keeps track of any change in caret position while the commandTextField is focused.
+     */
+    private void updateCaretPosition() {
+        if (!commandTextField.isFocused()) {
+            return;
+        }
+        caretPosition = commandTextField.getCaretPosition();
+    }
+
+    /**
+     * Negates the effect of tab navigation
+     */
+    private void preventTabNavigation() {
+        commandTextField.requestFocus();
+        commandTextField.positionCaret(caretPosition);
+    }
+
+    /**
+     * Suggests commands with the text in the box as arguments. Does not behave like an actual command.
+     */
+    private void suggestCommand() {
+        SuggestCommand suggestCommand = new SuggestCommand(commandTextField.getText().split(" ")[0]);
+        if (!suggestCommand.isPrefixValid()) {
+            return;
+        }
+        CommandResult commandResult = suggestCommand.execute(null, null);
+        if (!pendingText.isEmpty()) {
+            replaceText(pendingText);
+            pendingText = "";
+        }
+        raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
     }
 
     /**

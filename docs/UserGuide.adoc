@@ -261,6 +261,7 @@ Finds and displays the list of attractions with addresses that contain the word 
 
 === Added
 * *Update*: `update <attraction> <tag> <value>`
+* *Open*: `open <attraction>`
 * *Shutdown*: `shutdown <attraction>`
 * *View*: `view <name>`
 * *Quickview*: `quickview`
