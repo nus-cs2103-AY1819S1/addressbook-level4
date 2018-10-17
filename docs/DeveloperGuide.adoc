@@ -18,11 +18,13 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop application aimed at serving JCRCs of the Halls of NUS.
-Hallper follows an event-driven architecture, and is designed to work on Mac, Linux, and Windows.
+Hallper is a desktop application aimed at serving <<jcrc,JCRCs>> of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream OS>>.
 This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
 
 == Setting up
+
+This section tells you how to set up your computer before you can start working on Hallper.
 
 === Prerequisites
 
@@ -563,6 +565,9 @@ The SE-EDU team does not provide support for modified template files.
 
 [[Testing]]
 == Testing
+
+Testing is a crucial part of developing your application.
+Testing allows you to verify the correctness and usability of your app, before releasing it to users.
 
 === Running Tests
 
@@ -1444,9 +1449,9 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -1454,10 +1459,16 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+[[cca]] CCA::
+Co-Curricular Activity that residents can join within their respective halls.
+
+[[jcrc]] JCRC::
+Junior Common Room Committee in charge of administrative duties within their respective halls.
 
 [appendix]
 == Product Survey
