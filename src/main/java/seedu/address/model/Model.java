@@ -142,6 +142,12 @@ public interface Model {
     Budget getMaximumBudget();
 
     /**
+     * Sets the budget to reset and store spending data after a certain amount of time
+     * @param seconds The recurrence frequency
+     */
+    void setRecurrenceFrequency(long seconds) throws NoUserSelectedException;
+
+    /**
      * Returns a copy of this model.
      */
     Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException;

@@ -36,6 +36,36 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void checkBudgetRestart_noFrequency_doesNotResetSpending() throws NoUserSelectedException {
+        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+    }
+
+    @Test
+    public void checkBudgetRestart_frequency_doesNotResetSpendingIfNotNextRecurrence() throws NoUserSelectedException {
+        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
+        modelManager.setRecurrenceFrequency(Integer.MAX_VALUE);
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+    }
+
+    @Test
+    public void checkBudgetRestart_frequency_resetSpendingIfNextRecurrence() throws NoUserSelectedException {
+        modelManager.setRecurrenceFrequency(0);
+        try {
+
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted. Skipping test.");
+            return;
+        }
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == 0);
+    }
+
+
+    @Test
     public void hasExpense_nullExpense_throwsNullPointerException() throws NoUserSelectedException {
         thrown.expect(NullPointerException.class);
         modelManager.hasExpense(null);

@@ -199,6 +199,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void setRecurrenceFrequency(long seconds) throws NoUserSelectedException {
+        this.versionedAddressBook.setRecurrenceFrequency(seconds);
+        indicateAddressBookChanged();
+    }
+
 
     @Override
     public Budget getMaximumBudget() {
@@ -265,6 +271,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
+            checkBudgetRestart();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
@@ -290,6 +297,14 @@ public class ModelManager extends ComponentManager implements Model {
         }
         raise(new UserLoggedInEvent(this.username));
     }
+
+    /**
+     * Checks if budget is required to restart due to recurrence
+     */
+    protected void checkBudgetRestart() {
+        this.versionedAddressBook.getMaximumBudget().checkBudgetRestart();
+    }
+
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
