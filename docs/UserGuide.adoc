@@ -49,7 +49,7 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-This section contains all the commands used for ThanePark.
+This section contains all commands used for ThanePark.
 
 ====
 *Command Format*
@@ -59,30 +59,26 @@ Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
 * Items in square brackets `[]` denotes optional field. +
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
-Example `{tab}` is the TAB keystroke.
+Example: `{tab}` is the TAB keystroke.
 * Items ending with ellipses `...` denotes variable arguments. +
 Example: `history [findargs...]`
 * Parameters can be in any order +
-  e.g. if the command specifies
+Example: if the command specifies
   n/name p/address, p/address n/name is also acceptable.
-  
-* Items in square brackets are optional +
-  e.g n/name [t/tag] can be used as
-  n/Battlestar Galactica t/4D or n/Battlestar Galactica.
-* Items with …​ after them can be used multiple times including
-  zero times +
-  e.g. [t/tag]…​ can be used as (i.e. 0 times), t/4D, t/3D t/indoor etc.
 
 ====
 
 === Manage attractions
 
+This section contains all commands related to managing attractions.
+
 ==== Add attractions: `add`
 
 Add an attraction by name with the information. +
-Format: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]`
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
 
-A ride can have any number of tags (including 0).
+A ride can have any number of tags (including 0). +
+
 Examples:
 
 * add n/Transformers m/1 w/30 a/John street, block 123, #01-01
@@ -90,12 +86,12 @@ Examples:
 
 ==== Delete attractions: `delete`
 
-Deletes the specified attraction from the address book.
+Deletes the specified attraction from the ThanePark. +
 Format: `delete <index>`
 
-* Deletes the attraction at the specified index.
+* Deletes the ride at the specified index.
 
-* The index refers to the index number shown in the displayed attraction list.
+* The index refers to the index number shown in the list of displayed rides.
 
 * The index must be a positive integer 1, 2, 3, …​
 
@@ -103,28 +99,30 @@ Examples:
 
 * `viewall` +
   `delete 2` +
-  Deletes the 2nd attraction in the address book.
+  Deletes the 2nd ride in ThanePark.
 
 * `find Puss in Boots' Giant Journey` +
    `delete 1` +
-   Deletes the 1st attraction in the results of the find command.
+   Deletes the 1st ride in the results of the find command.
 
 ==== Update information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the attraction with `<name>`. +
+Updates the information `<tag>` with `<value>` about the ride with `<name>`. +
 Format: `update <attraction> <tag> <value>`
 
 ==== Shutdown attraction: `shutdown`
 
-Close the attraction for the day. Display statistics for the ride on that day. +
+Close the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <attraction>`
 
 ==== Open attraction: `open`
 
-Open the attraction for the day. Display statistics for the ride on that day. +
+Open the ride for the day. Display statistics for the ride on that day. +
 Format: `open <attraction>`
 
-=== User help and accessbility
+=== User help and accessibility
+
+This section contains all commands related to managing commands.
 
 ==== Viewing help: `help`
 
@@ -133,14 +131,11 @@ with a more detailed description if more is supplied as an `option`. If a specif
 greater detail of the specified command. If invalid `option` is specified, will show default help message. +
 Format: `help [option]`
 
-==== History of previously inputted commands: `history`
+==== History of previous commands: `history`
 
-Display previously inputted commands during this session. Inputted
-commands from the past are logged into the system. To view/start a
-query on commands, specify the `find` flag with the appropriate find
-arguments. If invalid arguments are passed, the error handling will be
-done by `find`. +
-Format: `history |find| [findargs...]`
+Display previous commands during this session. Inputted
+commands from the past are logged into the system. +
+Format: `history`
 
 // tag::undoredo[]
 ==== Undoing commands: `undo`
@@ -201,24 +196,26 @@ Format: `clear`
 
 ==== Exit: `exit`
 
+Exits the ThanePark application. +
 Format: `exit`
 
 === View the information of a ride
+
+This section contains all commands related to viewing specific information on rides.
 
 ==== Viewing all available attractions: `viewall`
 
 Display all available attractions in a list according to the number of
 people that have taken the ride for the day in alphanumeric order if
 optional fields are not specified. `status` field specifies whether the user
-want to view opened or closed rides. `Order` field specifies whether the
-user want to view the rides in ascending or descending alphanumeric
-order. +
-Format: `viewall [status] [order]`
+want to view opened or closed rides. +
+Format: `viewall [status]`
 
 ==== View detailed information of a specific ride: `view`
 
-Display all available information about a single ride. +
-Format: `view <name>`
+Display all available information about a single ride on the list of displayed rides.
+`index` field specifies the index of the ride that the user wants to view. +
+Format: `view <index>`
 
 ==== Quick view information of top five most frequented rides: `quickview`
 
@@ -227,9 +224,11 @@ Format: `quickview`
 
 === Storage/data management
 
+This section contains all commands related to filtering and finding rides.
+
 ==== Filter: `filter`
 
-Display all attractions that fits the condition in a table. +
+Display all rides that fits the condition in a table. +
 Can only filter conditions that have numeric values i.e. Maintenance and WaitTime +
 Format: `filter <tag> <condition> [[tag] [condition]...]` +
 Example:
@@ -240,7 +239,7 @@ Filters attractions with waiting time less than 500 and more than 50 minutes.
 
 ==== Find a particular attraction: `find`
 
-Find the attractions that the user needs to check on. Case insensitive. +
+Find the rides that the user needs to check on. Case insensitive. +
 Can only find the name, the address, and the tags of the attractions. +
 Format: `find <name> [[tag][keyword]...]` +
 Examples:
