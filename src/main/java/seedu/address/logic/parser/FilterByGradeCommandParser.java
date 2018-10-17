@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.FilterByGradeCommand;
+import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * FilterByGradeCommandParser
@@ -17,8 +20,7 @@ public class FilterByGradeCommandParser {
 
         String[] stringCommand = args.trim().split(" ");
         if (stringCommand[0].isEmpty()) {
-            throw new ParseException(
-                    String.format("Enter error message here"));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByGradeCommand.MESSAGE_USAGE));
         }
 
         return new FilterByGradeCommand(Double.parseDouble(stringCommand[0]), Double.parseDouble(stringCommand[1]));

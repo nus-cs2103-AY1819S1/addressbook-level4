@@ -69,6 +69,8 @@ public class Education {
         case "Secondary":
             educationalLevel = EducationalLevel.Secondary;
             break;
+
+        case "jc":
         default:
             educationalLevel = EducationalLevel.JC;
             break;
@@ -102,6 +104,8 @@ public class Education {
     public String toString() {
         return educationalLevel.toString() + " " + educationalGrade;
     }
+
+
 
     @Override
     public boolean equals(Object other) {

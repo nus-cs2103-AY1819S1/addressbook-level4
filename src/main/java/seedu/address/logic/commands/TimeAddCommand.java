@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
@@ -29,6 +30,7 @@ public class TimeAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Time slot successfully added";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
+    public static final String MESSAGE_TIME_IS_NOT_AVAILABLE = "The time has already been taken";
 
     private String[] personToFind;
 
@@ -46,13 +48,24 @@ public class TimeAddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        ArrayList<Time> allTimeSlot = new ArrayList();
+
+        for(Person ppl: model.getFilteredPersonList()){
+            allTimeSlot.addAll(ppl.getTime());
+        }
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(personToFind)));
 
         Person targetPerson = model.getFilteredPersonList().get(0);
 
+        if(allTimeSlot.contains(toAdd)) {
+            throw new CommandException(MESSAGE_TIME_IS_NOT_AVAILABLE);
+        }
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
+
+
         targetPerson.addTime(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
