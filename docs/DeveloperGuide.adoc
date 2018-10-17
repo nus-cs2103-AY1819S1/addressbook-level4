@@ -234,6 +234,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Wish Book data in xml format and read it back.
+* can save the Wish Transaction data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -1155,6 +1156,24 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: View savings history
+*MSS*
+
+1. *Actor* requests to view savings history.
+2. *System* shows a list of all wishes along with their saved amount.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. User is prompted to add a wish.
++
+Use case ends.
 
 _{More to be added}_
 
