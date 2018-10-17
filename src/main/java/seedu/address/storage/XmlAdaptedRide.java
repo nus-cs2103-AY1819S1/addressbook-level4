@@ -1,5 +1,13 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Maintenance;
@@ -8,14 +16,6 @@ import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.Status;
 import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
-
-import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * JAXB-friendly version of the Ride.
