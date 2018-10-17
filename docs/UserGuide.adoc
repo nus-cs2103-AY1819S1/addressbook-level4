@@ -108,10 +108,10 @@ Examples:
 Shows a list of all patients in the clinic record. +
 Format: `list`
 
-=== Editing a patient : `edit`
+=== Editing a patient : `editPatient`
 
 Edits an existing patient in the clinic record. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `editPatient INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* 1, 2, 3, ...
@@ -123,9 +123,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `editPatient 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `editPatient 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
 === Locating patients by name: `findPatient`
@@ -148,10 +148,10 @@ Returns `john` and `John Doe`
 * `findPatient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a patient : `delete`
+=== Deleting a patient : `deletePatient`
 
 Deletes the specified patient from the clinic record. +
-Format: `delete INDEX`
+Format: `deletePatient INDEX`
 
 ****
 * Deletes the patient at the specified `INDEX`.
@@ -162,10 +162,10 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
+`deletePatient 2` +
 Deletes the 2nd patient in the clinic record.
 * `find Betsy` +
-`delete 1` +
+`deletePatient 1` +
 Deletes the 1st patient in the results of the `find` command.
 
 === Selecting a patient : `selectPatient`
@@ -301,9 +301,9 @@ This is a comprehensive list of commands for ClinicIO.
 * *Add* `addPatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]` +
 e.g. `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John's Lane, block 123, #01-01 allergies/Dairy Products`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Delete* : `deletePatient INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `editPatient INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `findPatient KEYWORD [MORE_KEYWORDS]` +
 e.g. `findPatient James Jake`
