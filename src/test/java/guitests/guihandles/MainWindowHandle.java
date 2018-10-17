@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -13,10 +14,14 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
+    private final StackPane browserPlaceholder;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
+        attemptLogIn();
+
+        browserPlaceholder = getChildNode("#browserPlaceholder");
         personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
@@ -47,5 +52,9 @@ public class MainWindowHandle extends StageHandle {
 
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
+    }
+
+    public StackPane getBrowserPlaceholder() {
+        return browserPlaceholder;
     }
 }
