@@ -8,14 +8,14 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.inanimate.Inanimate;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Module within the address book.
  * @author waytan
  */
-public class Module extends Inanimate {
+public class Module extends Entity {
 
     // Identity fields
     private final ModuleCode moduleCode;
@@ -83,6 +83,11 @@ public class Module extends Inanimate {
                 && otherModule.getModuleTitle().equals(getModuleTitle())
                 && otherModule.getAcademicYear().equals(getAcademicYear())
                 && otherModule.getSemester().equals(getSemester());
+    }
+
+
+    public boolean isSameEntity(Entity other) {
+        return this.equals(other);
     }
 
     @Override

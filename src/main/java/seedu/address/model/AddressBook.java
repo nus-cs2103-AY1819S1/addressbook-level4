@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
@@ -85,46 +86,54 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operation
     // TODO: Refactor it to Entity-level
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an entity with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasEntity(Entity entity) {
+        requireNonNull(entity);
+        return persons.contains(entity) || modules.contains(entity) || occasions.contains(entity);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addEntity(Entity entity) {
+        persons.add(entity);
+        modules.add(entity);
+        occasions.add(entity);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given entity {@code target} in the list with {@code editedEntity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing
-     * person in the address book.
+     * The identity of {@code editedEntity} must not be the same as another existing entity in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+    public void updateEntity(Entity target, Entity editedEntity) {
+        requireNonNull(editedEntity);
+
+        persons.setEntity(target, editedEntity);
+        modules.setEntity(target, editedEntity);
+        occasions.setEntity(target, editedEntity);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code entity} from this {@code AddressBook}.
+     * {@code entity} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeEntity (Entity entity) {
+        persons.remove(entity);
+        modules.remove(entity);
+        occasions.remove(entity);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + modules.asUnmodifiableObservableList().size() + " modules"
+                + occasions.asUnmodifiableObservableList().size() + " occasions";
         // TODO: refine later
     }
 
@@ -145,17 +154,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-
-        if (other == this) { // short circuit if same object
-            return true;
-        } else if (!(other instanceof AddressBook)) {
-            return false;
-        }
-
-        AddressBook otherBook = (AddressBook) other;
-        return persons.equals(otherBook.persons)
-            && modules.equals(otherBook.modules)
-            && occasions.equals(otherBook.occasions);
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && persons.equals(((AddressBook) other).persons)
+                && modules.equals(((AddressBook) other).modules)
+                && occasions.equals(((AddressBook) other).occasions));
     }
 
     @Override
