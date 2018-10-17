@@ -357,7 +357,7 @@ with `NRIC` S9123124A and displays in the command prompt box.
 
 The sequence diagram below shows the execution of the given scenario:
 
-image::AddmhViewmh SequenceDiagram.png[width="1050"]
+image::AddmhViewmhSequenceDiagram.png[width="1050"]
 
 With reference to the diagram above, a technical explanation of the sequential interactions between the
 relevant instances of various classes may be given.
