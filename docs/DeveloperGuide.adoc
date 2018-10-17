@@ -551,7 +551,7 @@ against the specified predicate.
 The following activity diagram summarizes what happens when a user executes a
 `filter ct/ covered` command (this command filters all car parks that are covered):
 
-image::Flowchart.png[width="700", align="left"]
+image::flowchart.png[width="800", align="left"]
 
 ==== Possible Improvement to current implementation
 
