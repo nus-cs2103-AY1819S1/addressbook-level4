@@ -59,62 +59,11 @@ public class Person {
     }
 
     /**
-     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
-     * @return an Optional {@link Doctor}.
-     */
-    public Optional<Doctor> getPreferredDoctor() {
-        return preferredDoctor;
-    }
-
-    /**
-     * Returns patient's appointment. The patient may not have one.
-     * @return an Optional {@link Appointment}
-     */
-    public Optional<Appointment> getAppointment() {
-        return appointment;
-    }
-
-    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-
-    /**
-     * Assigns a specific doctor for the patient.
-     * @param doctor
-     */
-    public void setPreferredDoctor(Doctor doctor) {
-        requireNonNull(doctor);
-
-        preferredDoctor = Optional.of(doctor);
-    }
-
-    /**
-     * Sets an appointment for the patient.
-     * @param appointment
-     */
-    public void setAppointment(Appointment appointment) {
-        requireNonNull(appointment);
-
-        this.appointment = Optional.of(appointment);
-    }
-
-    /**
-     * Checks if the patient has preferred doctor.
-     */
-    public boolean hasPreferredDoctor() {
-        return preferredDoctor.isPresent();
-    }
-
-    /**
-     * Checks if patient has an appointment.
-     */
-    public boolean hasAppointment() {
-        return appointment.isPresent();
     }
 
     /**
@@ -128,9 +77,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()))
-                && otherPerson.getPreferredDoctor().equals(getPreferredDoctor())
-                && otherPerson.getAppointment().equals(getAppointment());
+                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
@@ -152,16 +99,12 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getPreferredDoctor().equals(getPreferredDoctor())
-                && otherPerson.getAppointment().equals(getAppointment());
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        Optional<Doctor> preferredDoctor = getPreferredDoctor();
-        Optional<Appointment> appointment = getAppointment();
         return Objects.hash(name, phone, email, address, tags, preferredDoctor, appointment);
     }
 
