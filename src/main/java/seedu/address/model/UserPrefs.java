@@ -1,8 +1,14 @@
 package seedu.address.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.GuiSettings;
 
@@ -14,6 +20,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path currDirectory = Paths.get(System.getProperty("user.home"));
+    private ArrayList<String> imageList = new ArrayList<>();
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -43,8 +50,39 @@ public class UserPrefs {
         return currDirectory;
     }
 
+    /**
+     * Update the current directory {@code currDirectory} with the new directory
+     * {@code newCurrDirectory}
+     */
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
+    }
+
+    /**
+     * Update the list of images {@code imageList} with the images found in current directory
+     * {@code currDirectory}
+     */
+    public void updateImageList() {
+        File currFileDir = new File(currDirectory.toString());
+        File[] currFiles = currFileDir.listFiles();
+        ArrayList<String> dirImageList = new ArrayList<>();
+        for (File file : currFiles) {
+            if (file.isFile()) {
+                try {
+                    if (ImageIO.read(file) != null) {
+                        dirImageList.add(file.toString());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Collections.sort(dirImageList);
+        imageList = dirImageList;
+    }
+
+    public ArrayList<String> getAllImages() {
+        return imageList;
     }
 
     @Override
