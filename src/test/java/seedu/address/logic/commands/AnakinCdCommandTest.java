@@ -19,7 +19,6 @@ import seedu.address.model.AnakinModel;
 import seedu.address.model.AnakinModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.anakindeck.AnakinDeck;
-import seedu.address.model.anakindeck.anakinexceptions.DeckNotFoundException;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
