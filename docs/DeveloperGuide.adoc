@@ -80,9 +80,12 @@ Step 2: `GroupDeleteCommand` checks passed arguments.
 
 Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
 
-**Show**
+**Show implementation**
 
-The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page.
+The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
+As for `find`, perhaps the team and I can find another purpose for it.
+As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
 
 Below is a description on how the select function operates:
 
@@ -94,7 +97,14 @@ Step 3: The result is the list of filtered words, together with their definition
 
 **Learn**
 
-The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web. This command is delicate in the sense that it requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception. There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
+However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
+
+Functions added:
+
+* `Dictionary#invoke()` -- calls the main function of Dictionary which links it to LearnVocabulary
+* `Dictionary#isConnectedToInternet()` -- checks to see if there is an Internet connection established.
+* `Dictionary#isWordInOnlineDictionary()` -- checks to see if it is a valid word and if it exists in Dictionary.com
 
 Below is a description on how the select function operates:
 
