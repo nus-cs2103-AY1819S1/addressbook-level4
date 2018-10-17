@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     private Salary salary;
     private Address address;
     private Set<Project> projects;
+    private PermissionSet pSet;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -37,6 +39,7 @@ public class PersonBuilder {
         salary = new Salary(DEFAULT_SALARY);
         address = new Address(DEFAULT_ADDRESS);
         projects = new HashSet<>();
+        pSet = new PermissionSet();
     }
 
     /**
@@ -49,6 +52,7 @@ public class PersonBuilder {
         salary = personToCopy.getSalary();
         address = personToCopy.getAddress();
         projects = new HashSet<>(personToCopy.getProjects());
+        pSet = personToCopy.getPermissionSet();
     }
 
     /**
@@ -100,8 +104,21 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code PermissionSet} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPermissionSet(PermissionSet pSet) {
+        this.pSet = pSet;
+        return this;
+    }
+
+    /**
+     * Build the person object.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, salary, projects);
+        Person toReturn = new Person(name, phone, email, address, salary, projects);
+        toReturn.getPermissionSet().addAll(pSet);
+        return toReturn;
     }
 
 }
