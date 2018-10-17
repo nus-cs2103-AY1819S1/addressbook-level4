@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedExpense.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalExpenses.BENSON;
+import static seedu.address.testutil.TypicalExpenses.ICECREAM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,17 @@ public class XmlAdaptedExpenseTest {
     private static final String INVALID_DATE = "0-0-0";
 
     private static final String VALID_DATE = "01-10-2018";
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_CATEGORY = BENSON.getCategory().toString();
-    private static final String VALID_ADDRESS = BENSON.getCost().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = ICECREAM.getName().toString();
+    private static final String VALID_CATEGORY = ICECREAM.getCategory().toString();
+    private static final String VALID_ADDRESS = ICECREAM.getCost().toString();
+    private static final List<XmlAdaptedTag> VALID_TAGS = ICECREAM.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(BENSON);
-        assertEquals(BENSON, expense.toModelType());
+        XmlAdaptedExpense expense = new XmlAdaptedExpense(ICECREAM);
+        assertEquals(ICECREAM, expense.toModelType());
     }
 
     @Test

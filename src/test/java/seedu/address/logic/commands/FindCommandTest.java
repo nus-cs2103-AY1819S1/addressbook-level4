@@ -10,13 +10,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalExpenses.ALICE;
-import static seedu.address.testutil.TypicalExpenses.BENSON;
-import static seedu.address.testutil.TypicalExpenses.CARL;
-import static seedu.address.testutil.TypicalExpenses.DANIEL;
-import static seedu.address.testutil.TypicalExpenses.ELLE;
-import static seedu.address.testutil.TypicalExpenses.FIONA;
-import static seedu.address.testutil.TypicalExpenses.GEORGE;
+import static seedu.address.testutil.TypicalExpenses.BOOKS;
+import static seedu.address.testutil.TypicalExpenses.CLOTHES;
+import static seedu.address.testutil.TypicalExpenses.ICECREAM;
+import static seedu.address.testutil.TypicalExpenses.LUNCH;
+import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
+import static seedu.address.testutil.TypicalExpenses.TAX;
+import static seedu.address.testutil.TypicalExpenses.TOY;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -84,11 +84,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleNameKeywords_multipleExpensesFound() throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/Kurz Elle Kunz", PREFIX_NAME);
+        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/toy tax books", PREFIX_NAME);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(TOY, TAX, BOOKS), model.getFilteredExpenseList());
     }
 
     @Test
@@ -98,7 +98,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON, GEORGE), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(ICECREAM, LUNCH), model.getFilteredExpenseList());
     }
 
     @Test
@@ -108,7 +108,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), model.getFilteredExpenseList());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(TOY), model.getFilteredExpenseList());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, GEORGE), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES, LUNCH), model.getFilteredExpenseList());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(TOY), model.getFilteredExpenseList());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES), model.getFilteredExpenseList());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(SCHOOLFEE), model.getFilteredExpenseList());
     }
 
     @Test
@@ -172,7 +172,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), model.getFilteredExpenseList());
     }
 
     /**

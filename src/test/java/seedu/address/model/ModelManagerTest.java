@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
-import static seedu.address.testutil.TypicalExpenses.ALICE;
-import static seedu.address.testutil.TypicalExpenses.BENSON;
+import static seedu.address.testutil.TypicalExpenses.ICECREAM;
+import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import java.nio.file.Paths;
 
@@ -43,13 +43,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasExpense_expenseNotInAddressBook_returnsFalse() throws NoUserSelectedException {
-        assertFalse(modelManager.hasExpense(ALICE));
+        assertFalse(modelManager.hasExpense(SCHOOLFEE));
     }
 
     @Test
     public void hasExpense_expenseInAddressBook_returnsTrue() throws NoUserSelectedException {
-        modelManager.addExpense(ALICE);
-        assertTrue(modelManager.hasExpense(ALICE));
+        modelManager.addExpense(SCHOOLFEE);
+        assertTrue(modelManager.hasExpense(SCHOOLFEE));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ModelManagerTest {
     @Test
     public void hasExpense_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.hasExpense(ALICE);
+        modelManagerLoggedOut.hasExpense(SCHOOLFEE);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws NoUserSelectedException {
-        AddressBook addressBook = new AddressBookBuilder().withExpense(ALICE).withExpense(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withExpense(SCHOOLFEE).withExpense(ICECREAM).build();
         AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty());
         UserPrefs userPrefs = new UserPrefs();
 
@@ -152,7 +152,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
-                + ALICE.getName().expenseName, PREFIX_NAME);
+                + SCHOOLFEE.getName().expenseName, PREFIX_NAME);
         modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
