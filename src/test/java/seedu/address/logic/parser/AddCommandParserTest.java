@@ -30,8 +30,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalExpenses.AMY;
-import static seedu.address.testutil.TypicalExpenses.BOB;
+import static seedu.address.testutil.TypicalExpenses.GAME;
+import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
@@ -50,8 +50,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Expense expectedExpense = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
-        Expense expectedExpenseWithDate = new ExpenseBuilder(BOB)
+        Expense expectedExpense = new ExpenseBuilder(IPHONE).withTags(VALID_TAG_FRIEND).build();
+        Expense expectedExpenseWithDate = new ExpenseBuilder(IPHONE)
                 .withTags(VALID_TAG_FRIEND)
                 .withDate(VALID_DATE_1990).build();
 
@@ -76,7 +76,7 @@ public class AddCommandParserTest {
                 + COST_DESC_BOB + TAG_DESC_FRIEND + DATE_DESC_1990, new AddCommand(expectedExpenseWithDate));
 
         // multiple tags - all accepted
-        Expense expectedExpenseMultipleTags = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Expense expectedExpenseMultipleTags = new ExpenseBuilder(IPHONE).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + COST_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + DATE_DESC_2018, new AddCommand(expectedExpenseMultipleTags));
@@ -85,7 +85,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Expense expectedExpense = new ExpenseBuilder(AMY).withTags().build();
+        Expense expectedExpense = new ExpenseBuilder(GAME).withTags().build();
 
         assertParseSuccess(parser, NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990,
                 new AddCommand(expectedExpense));
