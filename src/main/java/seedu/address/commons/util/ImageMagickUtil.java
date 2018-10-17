@@ -56,7 +56,7 @@ public class ImageMagickUtil {
         String urlString = getImageMagicUrl();
         try {
             final String fileLocation =
-                    getImageMagicPackgaePath();
+                    getImageMagicPackagePath();
             URL url = new URL(urlString);
             Path path = Paths.get(fileLocation);
             InputStream stream = url.openStream();
@@ -73,7 +73,7 @@ public class ImageMagickUtil {
      * @return
      * @throws NoSuchElementException
      */
-    private static String getImageMagicPackgaePath() throws NoSuchElementException {
+    private static String getImageMagicPackagePath() throws NoSuchElementException {
         /*
         if (PlatformUtil.isMac()) {
             return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
@@ -85,7 +85,7 @@ public class ImageMagickUtil {
             throw new NoSuchElementException("unrecongnized OS");
         }
         */
-        return "";
+        return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
     }
 
     /**
@@ -113,7 +113,7 @@ public class ImageMagickUtil {
      */
     public static boolean hasPackage() {
         try {
-            String path = getImageMagicPackgaePath();
+            String path = getImageMagicPackagePath();
             File file = new File(path);
             return file.isDirectory() && file.list().length > 0;
         } catch (NoSuchElementException e) {
@@ -129,7 +129,7 @@ public class ImageMagickUtil {
      */
     private static boolean hasExecutable() {
         try {
-            String path = getImageMagicPackgaePath();
+            String path = getImageMagicPackagePath();
             File file = new File(path);
             File[] fileList = file.listFiles();
             for (File current : fileList) {
@@ -150,7 +150,7 @@ public class ImageMagickUtil {
      * the method is to unzip the package
      */
     public static void unzipPacakge() throws IOException, InterruptedException {
-        File folder = new File(getImageMagicPackgaePath());
+        File folder = new File(getImageMagicPackagePath());
         File[] listOfFiles = folder.listFiles();
         File zipfile = listOfFiles[0];
         for (File file : listOfFiles) {
@@ -180,7 +180,7 @@ public class ImageMagickUtil {
     }
 
     public static String getExecuteImagicMagic() throws NoSuchElementException {
-        File folder = new File(getImageMagicPackgaePath());
+        File folder = new File(getImageMagicPackagePath());
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
             if (file.isDirectory()) {
