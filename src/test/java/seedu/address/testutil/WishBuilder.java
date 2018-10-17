@@ -45,6 +45,7 @@ public class WishBuilder {
         url = new Url(DEFAULT_URL);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
+        transactions = new LinkedList<>();
     }
 
     /**
