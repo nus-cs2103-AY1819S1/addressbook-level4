@@ -16,6 +16,12 @@ endif::[]
 
 By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+Hallper is a desktop application aimed at serving JCRCs of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on Mac, Linux, and Windows.
+This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
+
 == Setting up
 
 === Prerequisites
