@@ -1,12 +1,8 @@
 package seedu.address.model.task;
 
-import java.time.Instant;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.function.Predicate;
-import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Task}'s {@code DueDate} is before the end of today.

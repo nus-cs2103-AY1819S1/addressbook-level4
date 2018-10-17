@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalTasks.K_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 

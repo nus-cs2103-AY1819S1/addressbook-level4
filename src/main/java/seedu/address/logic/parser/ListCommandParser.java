@@ -1,41 +1,37 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
-import java.lang.management.OperatingSystemMXBean;
+
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Stream;
-import javax.swing.text.html.Option;
-import seedu.address.logic.commands.AddCommand;
+
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Label;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.DueDate;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.PriorityValue;
-import seedu.address.model.task.Task;
+
 
 /**
  * Parses input arguments and creates a new ListCommand object
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    public static Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
+    /** Used to get the "due before" filter option */
+    public static final Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
 
+    /**
+     * Parses a string that represents a list filter option.
+     *
+     * @param s the optional string the denotes the list filter type
+     * @return an Optional ListFilter, which is not present if there is no string parameter
+     * @throws ParseException if a list filter is present but the filter type is invalid
+     */
     private Optional<ListCommand.ListFilter> parseListFilter(Optional<String> s)throws ParseException {
         if (s.isPresent()) {
             String val = s.get();
             switch (val) {
-                case "today":
-                    return Optional.of(ListCommand.ListFilter.DUE_TODAY);
-                default:
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            case "today":
+                return Optional.of(ListCommand.ListFilter.DUE_TODAY);
+
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
         } else {
             return Optional.empty();
