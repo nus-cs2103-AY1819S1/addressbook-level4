@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 
-import com.sun.javafx.PlatformUtil;
+//import com.sun.javafx.PlatformUtil;
 
 //import seedu.address.model.VersionedAddressBook;
 
@@ -25,6 +25,9 @@ import com.sun.javafx.PlatformUtil;
 public class ImageMagickUtil {
     public static final String TMPPATH =
             "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/";
+    private static final int LINUX = 1;
+    private static final int WINDOWS = 2;
+    private static final int MAC = 3;
     /**
      * @return path an string to the location of the ImageMagick executable for a supported platform.
      */
@@ -32,7 +35,6 @@ public class ImageMagickUtil {
         /*if(PlatformUtil.isLinux()){
             return "convert";
         }else
-        */
         if (PlatformUtil.isMac()) {
             return "convert";
         } else if (PlatformUtil.isWindows()) {
@@ -42,6 +44,8 @@ public class ImageMagickUtil {
             //*throw new UnsupportedPlatformException();*//*
             return "cry deeply";
         }
+        */
+        return "";
     }
 
     /**
@@ -70,6 +74,7 @@ public class ImageMagickUtil {
      * @throws NoSuchElementException
      */
     private static String getImageMagicPackgaePath() throws NoSuchElementException {
+        /*
         if (PlatformUtil.isMac()) {
             return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
         } else if (PlatformUtil.isWindows()) {
@@ -79,6 +84,8 @@ public class ImageMagickUtil {
         } else {
             throw new NoSuchElementException("unrecongnized OS");
         }
+        */
+        return "";
     }
 
     /**
@@ -87,13 +94,14 @@ public class ImageMagickUtil {
      * @return
      */
     private static String getImageMagicUrl() {
-        if (PlatformUtil.isLinux()) {
+        switch(getPlatform()) {
+        case LINUX:
             return "convert";
-        } else if (PlatformUtil.isMac()) {
-            return "https://www.imagemagick.org/download/binaries/ImageMagick-x86_64-apple-darwin17.7.0.tar.gz";
-        } else if (PlatformUtil.isWindows()) {
+        case WINDOWS:
             return "https://imagemagick.org/download/binaries/ImageMagick-7.0.8-12-Q16-x64-dll.exe";
-        } else {
+        case MAC:
+            return "https://www.imagemagick.org/download/binaries/ImageMagick-x86_64-apple-darwin17.7.0.tar.gz";
+        default:
             return "";
         }
     }
@@ -180,5 +188,24 @@ public class ImageMagickUtil {
             }
         }
         throw new NoSuchElementException("cannot find the file");
+    }
+
+    /**
+     * get the platform;
+     * @return
+     */
+    public static int getPlatform() {
+        /*
+        if (PlatformUtil.isLinux()) {
+            return LINUX;
+        } else if (PlatformUtil.isMac()) {
+            return MAX;
+        } else if (PlatformUtil.isWindows()) {
+            return WINDOWS;
+        } else {
+            return -1;
+        }
+        */
+        return 0;
     }
 }

@@ -53,6 +53,7 @@ public class ExampleCommand extends Command {
             FileInputStream inputstream = new FileInputStream(
                     "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/test.png");
             Image exampleImage = new Image(inputstream);
+            //Image exampleImage = new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full");
             //post the image to the scene
             EventsCenter.getInstance().post(new ChangeImageEvent(exampleImage, "original"));
             File outputfile = new File(tmp + "/origin.png");
@@ -61,8 +62,24 @@ public class ExampleCommand extends Command {
             ImageIO.write(image, "png", outputfile);
             File modifiedFile = new File(tmp + "/modified.png");
             //create a processbuilder to blur the image
-            ProcessBuilder pb = new ProcessBuilder(ImageMagickUtil.getExecuteImagicMagic(),
-                    outputfile.getAbsolutePath(), "-blur", "0x8", modifiedFile.getAbsolutePath());
+            ProcessBuilder pb;
+            switch(targetIndex.getOneBased()) {
+            case 1:
+                pb = new ProcessBuilder(ImageMagickUtil.getExecuteImagicMagic(),
+                            outputfile.getAbsolutePath(), "-blur", "0x8", modifiedFile.getAbsolutePath());
+                break;
+            case 2:
+                pb = new ProcessBuilder(ImageMagickUtil.getExecuteImagicMagic(),
+                        outputfile.getAbsolutePath(), "-resize", "30%", modifiedFile.getAbsolutePath());
+                break;
+            case 3:
+                pb = new ProcessBuilder(ImageMagickUtil.getExecuteImagicMagic(),
+                        outputfile.getAbsolutePath(), "-contrast", modifiedFile.getAbsolutePath());
+                break;
+            default:
+                pb = new ProcessBuilder(ImageMagickUtil.getExecuteImagicMagic(),
+                        outputfile.getAbsolutePath(), "-resize", "100%", modifiedFile.getAbsolutePath());
+            }
             //set the environment of the processbuilder
             Map<String, String> mp = pb.environment();
             mp.put("DYLD_LIBRARY_PATH", "/Users/Lancelot/Desktop/CS2103T"
@@ -74,6 +91,7 @@ public class ExampleCommand extends Command {
                     + "main/src/main/java/seedu/address/storage/tmp/modified.png");
             Image modifiedImage = new Image(inputstream);
             EventsCenter.getInstance().post(new ChangeImageEvent(modifiedImage, "preview"));
+            outputfile.delete();
             return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
         } catch (IOException | InterruptedException e) {
             throw new CommandException(e.toString());
