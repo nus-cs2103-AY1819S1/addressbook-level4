@@ -1,14 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.google.PhotosLibraryClientFactory;
-
-
-
-//TODO: add for parser
 
 /**
  * Logs in user
@@ -21,8 +18,6 @@ public class LoginCommand extends Command {
 
     private static final String MESSAGE_SUCCESS = "Successfully logged in as %s";
     private static final String MESSAGE_LOGGED_IN = "Already logged in as %s.";
-    private static final String MESSAGE_FAILURE = "Login unsuccessful";
-
 
     /**
      * Creates a LoginCommand to allow user to login to Google Account
@@ -36,17 +31,17 @@ public class LoginCommand extends Command {
         requireNonNull(model);
 
         try {
-            if (model.getGoogleClientInstance() == null) {
-                model.setGoogleClientInstance(PhotosLibraryClientFactory.createClient());
+            if (model.getPhotoHandler() == null) {
+                model.setPhotoHandler(PhotosLibraryClientFactory.createClient());
                 return new CommandResult(String.format
-                        (MESSAGE_SUCCESS, model.getGoogleClientInstance().identifyUser()));
+                        (MESSAGE_SUCCESS, model.getPhotoHandler().identifyUser()));
             } else {
                 return new CommandResult(String.format
-                        (MESSAGE_LOGGED_IN, model.getGoogleClientInstance().identifyUser()));
+                        (MESSAGE_LOGGED_IN, model.getPhotoHandler().identifyUser()));
             }
 
         } catch (Exception ex) {
-            return new CommandResult(String.format(MESSAGE_FAILURE));
+            return new CommandResult(String.format(MESSAGE_LOGIN_FAILURE));
         }
     }
 }

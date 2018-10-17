@@ -55,12 +55,12 @@ public class PhotosLibraryClientFactory {
     }
 
     /**
-     * Creates and returns a new GoogleClientInstance
-     * @return GoogleClientInstance
+     * Creates and returns a new PhotoHandler
+     * @return PhotoHandler
      * @throws IOException when files cannot be read
      * @throws GeneralSecurityException when there is an error with authentication
      */
-    public static GoogleClientInstance createClient() throws IOException, GeneralSecurityException {
+    public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
 
         DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
 
@@ -90,7 +90,7 @@ public class PhotosLibraryClientFactory {
                 .setRefreshToken(credential.getRefreshToken())
                 .build();
 
-        return new GoogleClientInstance(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
+        return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
     }
 
     /**
@@ -121,7 +121,6 @@ public class PhotosLibraryClientFactory {
 
         return emails.get(0).getValue();
     }
-
 }
 
 
