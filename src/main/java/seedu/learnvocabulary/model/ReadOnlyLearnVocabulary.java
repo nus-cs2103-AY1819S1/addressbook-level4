@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Unmodifiable view of an learnvocabulary book
+ * Unmodifiable view of LearnVocabulary.
  */
 public interface ReadOnlyLearnVocabulary {
 

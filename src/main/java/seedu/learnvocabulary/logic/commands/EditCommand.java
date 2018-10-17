@@ -24,7 +24,7 @@ import seedu.learnvocabulary.model.word.Name;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Edits the details of an existing word in the learnvocabulary book.
+ * Edits the details of an existing word in LearnVocabulary.
  */
 public class EditCommand extends Command {
 
@@ -189,6 +189,7 @@ public class EditCommand extends Command {
             EditWordDescriptor e = (EditWordDescriptor) other;
 
             return getName().equals(e.getName())
+                    //Russell review
                     && getMeaning().equals(e.getMeaning())
                     && getTags().equals(e.getTags());
         }

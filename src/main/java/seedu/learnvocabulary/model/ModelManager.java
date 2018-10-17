@@ -18,7 +18,7 @@ import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Represents the in-memory model of the learnvocabulary book data.
+ * Represents the in-memory model of LearnVocabulary data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -27,13 +27,13 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Word> filteredWords;
 
     /**
-     * Initializes a ModelManager with the given learnVocabulary and userPrefs.
+     * Initializes a ModelManager with the given LearnVocabulary and userPrefs.
      */
     public ModelManager(ReadOnlyLearnVocabulary learnVocabulary, UserPrefs userPrefs) {
         super();
         requireAllNonNull(learnVocabulary, userPrefs);
 
-        logger.fine("Initializing with learnvocabulary book: " + learnVocabulary + " and user prefs " + userPrefs);
+        logger.fine("Initializing with LearnVocabulary book: " + learnVocabulary + " and user prefs " + userPrefs);
 
         versionedLearnVocabulary = new VersionedLearnVocabulary(learnVocabulary);
         filteredWords = new FilteredList<>(versionedLearnVocabulary.getWordList());

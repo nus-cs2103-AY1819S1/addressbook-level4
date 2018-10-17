@@ -99,8 +99,6 @@ public class XmlAdaptedWord {
         }
 
         XmlAdaptedWord otherWord = (XmlAdaptedWord) other;
-        return Objects.equals(name, otherWord.name)
-                && Objects.equals(meaning, otherWord.meaning)
-                && tagged.equals(otherWord.tagged);
+        return Objects.equals(name, otherWord.name);
     }
 }

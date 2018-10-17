@@ -79,9 +79,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s learnvocabulary and {@code userPrefs}. <br>
-     * The data from the sample learnvocabulary will be used instead if {@code storage}'s learnvocabulary not found,
-     * or an empty learnvocabulary will be used instead if errors occur when reading {@code storage}'s learnvocabulary.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s LearnVocabulary and {@code userPrefs}. <br>
+     * The data from the sample LearnVocabulary will be used instead if {@code storage}'s LearnVocabulary not found,
+     * or an empty LearnVocabulary will be used instead if errors occur when reading {@code storage}'s LearnVocabulary.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyLearnVocabulary> learnVocabularyOptional;

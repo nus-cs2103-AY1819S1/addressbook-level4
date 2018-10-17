@@ -19,7 +19,7 @@ import seedu.learnvocabulary.model.word.Word;
  * The Browser Panel of the App.
  */
 public class BrowserPanel extends UiPart<Region> {
-
+    //Review russell
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";

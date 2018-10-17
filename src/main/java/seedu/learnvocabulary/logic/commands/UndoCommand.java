@@ -8,7 +8,7 @@ import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 
 /**
- * Reverts the {@code model}'s learnvocabulary book to its previous state.
+ * Reverts the {@code model}'s LearnVocabulary to its previous state.
  */
 public class UndoCommand extends Command {
 
