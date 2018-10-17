@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import javafx.scene.image.Image;
 import seedu.address.commons.events.BaseEvent;
 
-
 //@author j-lum
 /**
  * A simple event that notifies a target ImagePanel to change its image.

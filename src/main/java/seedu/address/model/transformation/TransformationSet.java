@@ -32,6 +32,7 @@ public class TransformationSet {
     }
 
     /**
+     * @param t
      * Adds transformations to transformation set
      */
     public void addTransformations(Transformation t) {
@@ -40,6 +41,7 @@ public class TransformationSet {
     }
 
     /**
+     * @param steps
      * Removes transformations from transformation set
      */
     public void removeTransformations(int steps) {
