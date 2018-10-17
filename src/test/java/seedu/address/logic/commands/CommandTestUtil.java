@@ -39,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_END_DATETIME_LECTURE = "2018-10-16 16:00";
     public static final String VALID_START_DATETIME_TUTORIAL = "2018-10-18 10:00";
     public static final String VALID_END_DATETIME_TUTORIAL = "2018-10-18 11:00";
+    public static final String VALID_PRIORITY_TUTORIAL = "L";
+    public static final String VALID_PRIORITY_LECTURE = "H";
 
     public static final String TITLE_DESC_LECTURE = " " + PREFIX_TITLE + VALID_TITLE_LECTURE;
     public static final String TITLE_DESC_TUTORIAL = " " + PREFIX_TITLE + VALID_TITLE_TUTORIAL;
