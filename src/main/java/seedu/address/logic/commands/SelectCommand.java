@@ -50,7 +50,6 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
         }
 
-        // TODO: Ivan - model.resetPreviewImageManager(initialImage);
         try {
             FileInputStream fis = new FileInputStream(dirImageList.get(targetIndex.getZeroBased()));
             img = new Image(fis);

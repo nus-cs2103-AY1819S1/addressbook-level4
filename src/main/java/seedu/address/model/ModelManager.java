@@ -149,9 +149,14 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currDisplayedPic;
     }
 
+    /**
+     * Update the current displayed original image and
+     * reinitialize the previewImageManager with the new image
+     */
     @Override
     public void updateCurrDisplayedImage(Image img) {
         currDisplayedPic = SwingFXUtils.fromFXImage(img, null);
+        previewImageManager.initialiseWithImage(new PreviewImage(currDisplayedPic));
     }
 
     //=========== GoogleClient Accessors =============================================================

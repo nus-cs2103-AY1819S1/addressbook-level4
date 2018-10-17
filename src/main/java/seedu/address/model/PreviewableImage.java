@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
 import seedu.address.model.transformation.TransformationSet;
 
 //@author Ivan
@@ -13,7 +13,7 @@ public interface PreviewableImage {
     /**
      * Returns an unmodifiable image.
      */
-    Image getImage();
+    BufferedImage getImage();
 
     /**
      * Returns an unmodifiable transformation set.
