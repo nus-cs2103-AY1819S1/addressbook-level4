@@ -95,16 +95,16 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     public void deleteGroup(Tag toDelete) {
         requireNonNull(toDelete);
-        final UniqueWordList persons_temp = new UniqueWordList();
+        final UniqueWordList wordsTemp = new UniqueWordList();
         for (Word word:words) {
             if (word.getTags().contains(toDelete)) {
                 word.deleteTags(toDelete);
             }
             if (word.getTags().isEmpty()) {
-                persons_temp.add(word);
+                wordsTemp.add(word);
             }
         }
-        for (Word person:persons_temp) {
+        for (Word person: wordsTemp) {
             words.remove(person);
         }
     }
