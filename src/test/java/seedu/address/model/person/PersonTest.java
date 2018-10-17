@@ -2,7 +2,12 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -137,5 +142,15 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different preffered doctor -> returns false
+        Person editedAliceWithPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(ADAM).build();
+        Person editedAliceWithAnotherPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(BEN).build();
+        assertFalse(editedAliceWithPreferredDoctor.equals(editedAliceWithAnotherPreferredDoctor));
+
+        // different appointment -> returns false
+        Person editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
+        Person editedAmyWithAnotherAppointment = new PersonBuilder(AMY).withAppointment(BENSON_APPT).build();
+        assertFalse(editedAmyWithAppointment.equals(editedAmyWithAnotherAppointment));
     }
 }
