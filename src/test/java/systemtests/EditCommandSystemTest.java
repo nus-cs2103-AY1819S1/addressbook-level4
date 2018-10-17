@@ -73,7 +73,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updateWish(
-                getModel().getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased()), editedWish);
+                getModel().getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased()), editedWish);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a wish with new values same as existing values -> edited */
@@ -84,7 +84,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         /* Case: edit a wish with new values same as another wish's values but with different name -> edited */
         assertTrue(getModel().getWishBook().getWishList().contains(BOB));
         index = INDEX_SECOND_WISH;
-        assertNotEquals(getModel().getFilteredWishList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredSortedWishList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWish = new WishBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -102,7 +102,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_WISH;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Wish wishToEdit = getModel().getFilteredWishList().get(index.getZeroBased());
+        Wish wishToEdit = getModel().getFilteredSortedWishList().get(index.getZeroBased());
         editedWish = new WishBuilder(wishToEdit).withTags().build();
         assertCommandSuccess(command, index, editedWish);
 
@@ -111,9 +111,9 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         /* Case: filtered wish list, edit index within bounds of wish book and wish list -> edited */
         showWishesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_WISH;
-        assertTrue(index.getZeroBased() < getModel().getFilteredWishList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredSortedWishList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        wishToEdit = getModel().getFilteredWishList().get(index.getZeroBased());
+        wishToEdit = getModel().getFilteredSortedWishList().get(index.getZeroBased());
         editedWish = new WishBuilder(wishToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedWish);
 
@@ -150,7 +150,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredWishList().size() + 1;
+        invalidIndex = getModel().getFilteredSortedWishList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
 
@@ -186,7 +186,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         executeCommand(WishUtil.getAddCommand(BOB));
         assertTrue(getModel().getWishBook().getWishList().contains(BOB));
         index = INDEX_FIRST_WISH;
-        assertFalse(getModel().getFilteredWishList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredSortedWishList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
@@ -233,7 +233,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Wish editedWish,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateWish(expectedModel.getFilteredWishList().get(toEdit.getZeroBased()), editedWish);
+        expectedModel.updateWish(expectedModel.getFilteredSortedWishList().get(toEdit.getZeroBased()), editedWish);
         expectedModel.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
 
         assertCommandSuccess(command, expectedModel,

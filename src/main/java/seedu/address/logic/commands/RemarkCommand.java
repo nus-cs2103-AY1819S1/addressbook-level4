@@ -41,7 +41,7 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Wish> lastShownList = model.getFilteredWishList();
+        List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);

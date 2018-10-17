@@ -117,7 +117,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getWishBook()), model.getWishTransaction(), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredWishList());
+        ModelHelper.setFilteredList(copy, model.getFilteredSortedWishList());
         return copy;
     }
 

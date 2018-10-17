@@ -116,7 +116,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         WishBook expectedWishBook = new WishBook(actualModel.getWishBook());
-        List<Wish> expectedFilteredList = new ArrayList<>(actualModel.getFilteredWishList());
+        List<Wish> expectedFilteredList = new ArrayList<>(actualModel.getFilteredSortedWishList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -126,7 +126,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedWishBook, actualModel.getWishBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredWishList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredSortedWishList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -136,20 +136,20 @@ public class CommandTestUtil {
      * {@code model}'s wish book.
      */
     public static void showWishAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredWishList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredSortedWishList().size());
 
-        Wish wish = model.getFilteredWishList().get(targetIndex.getZeroBased());
+        Wish wish = model.getFilteredSortedWishList().get(targetIndex.getZeroBased());
         final String[] splitName = wish.getName().fullName.split("\\s+");
         model.updateFilteredWishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredWishList().size());
+        assertEquals(1, model.getFilteredSortedWishList().size());
     }
 
     /**
      * Deletes the first wish in {@code model}'s filtered list from {@code model}'s wish book.
      */
     public static void deleteFirstWish(Model model) {
-        Wish firstWish = model.getFilteredWishList().get(0);
+        Wish firstWish = model.getFilteredSortedWishList().get(0);
         model.deleteWish(firstWish);
         model.commitWishBook();
     }

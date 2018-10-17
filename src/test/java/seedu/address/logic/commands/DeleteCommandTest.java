@@ -32,7 +32,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Wish wishToDelete = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete);
@@ -46,7 +46,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showWishAtIndex(model, INDEX_FIRST_WISH);
 
-        Wish wishToDelete = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete);
@@ -84,7 +84,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Wish wishToDelete = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
         Model expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
         expectedModel.deleteWish(wishToDelete);
@@ -104,7 +104,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> wish book state not added into model
@@ -128,7 +128,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
 
         showWishAtIndex(model, INDEX_SECOND_WISH);
-        Wish wishToDelete = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         expectedModel.deleteWish(wishToDelete);
         expectedModel.commitWishBook();
 
@@ -139,7 +139,7 @@ public class DeleteCommandTest {
         expectedModel.undoWishBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(wishToDelete, model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased()));
+        assertNotEquals(wishToDelete, model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased()));
         // redo -> deletes same second wish in unfiltered wish list
         expectedModel.redoWishBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -173,6 +173,6 @@ public class DeleteCommandTest {
     private void showNoWish(Model model) {
         model.updateFilteredWishList(p -> false);
 
-        assertTrue(model.getFilteredWishList().isEmpty());
+        assertTrue(model.getFilteredSortedWishList().isEmpty());
     }
 }

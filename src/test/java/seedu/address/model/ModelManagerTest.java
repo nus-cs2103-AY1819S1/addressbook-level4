@@ -42,7 +42,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredWishList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredWishList().remove(0);
+        modelManager.getFilteredSortedWishList().remove(0);
     }
 
     @Test
