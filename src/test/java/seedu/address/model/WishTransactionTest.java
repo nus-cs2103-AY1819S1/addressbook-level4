@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,14 +43,16 @@ public class WishTransactionTest {
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),
-                tagSet);
+                tagSet,
+                new LinkedList<>());
         this.wish2 = new Wish(new Name("wish1"),
                 new Price("81320902"),
                 new Email("wish1@gmail.com"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("f"),
-                tagSet);
+                tagSet,
+                new LinkedList<>());
     }
 
     @Test

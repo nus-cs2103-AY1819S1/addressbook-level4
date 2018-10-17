@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import seedu.address.commons.core.amount.Amount;
@@ -34,6 +35,7 @@ public class WishBuilder {
     private Url url;
     private Remark remark;
     private Set<Tag> tags;
+    private LinkedList<Wish> transactions;
 
     public WishBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -56,6 +58,7 @@ public class WishBuilder {
         url = wishToCopy.getUrl();
         remark = wishToCopy.getRemark();
         tags = new HashSet<>(wishToCopy.getTags());
+        transactions = wishToCopy.getTransactions();
     }
 
     /**
@@ -116,7 +119,7 @@ public class WishBuilder {
     }
 
     public Wish build() {
-        return new Wish(name, price, email, url, savedAmount, remark, tags);
+        return new Wish(name, price, email, url, savedAmount, remark, tags, transactions);
     }
 
 }
