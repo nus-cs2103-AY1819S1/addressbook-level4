@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.function.Predicate;
@@ -19,6 +20,12 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     private final Predicate<Task> predicate;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists tasks. "
+            + "Parameters: "
+            + "[" + PREFIX_DUE_BEFORE + "DUE BEFORE " + "]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DUE_BEFORE + "today";
 
     public enum ListFilter {
             DUE_TODAY;
