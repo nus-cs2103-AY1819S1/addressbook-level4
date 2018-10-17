@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import org.controlsfx.control.StatusBar;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
@@ -183,6 +181,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
     }
 
+    /**
+     * Removes the elements built in fillInnerParts() to reset to a blank screen.
+     */
     private void removeInnerElements() {
         browserPlaceholder.getChildren().remove(browserPanel.getRoot());
         personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
