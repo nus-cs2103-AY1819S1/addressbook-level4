@@ -52,6 +52,20 @@ public class TypicalPersons {
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
+            .withEmail("stefan@example.com").withAddress("little india").build();
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
+            .withEmail("hans@example.com").withAddress("chicago ave").build();
+
+    // Manually added - Person's details found in {@code CommandTestUtil}
+    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .build();
+
+    // Manually added (Patient)
     public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
             .build();
     public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
@@ -66,21 +80,10 @@ public class TypicalPersons {
             .build();
     public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
             .build();
-
-    // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
-
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
             .build();
 
+    // Manually added (Doctor)
     public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
     public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)

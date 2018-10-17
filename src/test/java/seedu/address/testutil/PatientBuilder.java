@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class to build {@link Patient} objects.
  */
-public class PatientBuilder {
+public class PatientBuilder extends PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -87,6 +87,7 @@ public class PatientBuilder {
      * Contructs a Patient based on the PatientBuilder.
      * @return a patient.
      */
+    @Override
     public Patient build() {
         Patient patient = new Patient(name, phone, email, address, tags);
 
