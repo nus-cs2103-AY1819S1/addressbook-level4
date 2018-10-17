@@ -19,6 +19,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path budgetBookFilePath = Paths.get("data", "ccabook.xml");
+    private Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
     private Path emailPath = Paths.get("email");
     private Path calendarPath = Paths.get("calendar");
     private Map<Year, Set<Month>> existingCalendar;
@@ -47,6 +48,11 @@ public class UserPrefs {
     public Path getBudgetBookFilePath() {
         return budgetBookFilePath;
     }
+
+    public Path getCcaXslFilePath() {
+        return ccaXslFilePath;
+    }
+
 
     public void setBudgetBookFilePath(Path budgetBookFilePath) {
         this.budgetBookFilePath = budgetBookFilePath;
