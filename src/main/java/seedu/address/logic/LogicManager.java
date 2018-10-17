@@ -54,6 +54,12 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredExpenseList();
     }
 
+    //@@author winsonhys
+    @Override
+    public Budget getMaximumBudget() {
+        return model.getMaximumBudget();
+    }
+
     //@@author jonathantjm
 
     /**
@@ -86,11 +92,6 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
-
-    //@@author Snookerballs
-    public Budget getMaximumBudget() {
-        return model.getMaximumBudget();
-    }
 
     //@@author
     public ListElementPointer getHistorySnapshot() {
