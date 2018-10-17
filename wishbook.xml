@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wishbook>
+    <wishes>
+        <name>Apple iPhone X</name>
+        <price>700.00</price>
+        <savedAmount>700.00</savedAmount>
+        <email>alexyeoh@example.com</email>
+        <url>https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
+        <remark></remark>
+        <tagged>friends</tagged>
+    </wishes>
+    <wishes>
+        <name>Logitech K840 Mechanical Keyboard</name>
+        <price>450.00</price>
+        <savedAmount>32.00</savedAmount>
+        <email>berniceyu@example.com</email>
+        <url>https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
+        <remark></remark>
+        <tagged>colleagues</tagged>
+        <tagged>friends</tagged>
+    </wishes>
+    <wishes>
+        <name>Nintendo Switch</name>
+        <price>540.00</price>
+        <savedAmount>20.00</savedAmount>
+        <email>charlotte@example.com</email>
+        <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
+        <remark></remark>
+        <tagged>neighbours</tagged>
+    </wishes>
+    <wishes>
+        <name>PS4 Pro</name>
+        <price>1200.00</price>
+        <savedAmount>170.00</savedAmount>
+        <email>lidavid@example.com</email>
+        <url>https://www.lazada.sg/products/sony-playstation-4-pro-1tb-console-local-stock-with-sony-warranty-i100009437-s100011973.html</url>
+        <remark></remark>
+        <tagged>family</tagged>
+    </wishes>
+    <wishes>
+        <name>EVGA 1080 Ti Graphics Card</name>
+        <price>70.00</price>
+        <savedAmount>4.50</savedAmount>
+        <email>irfan@example.com</email>
+        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+        <remark></remark>
+        <tagged>classmates</tagged>
+    </wishes>
+    <wishes>
+        <name>1TB SSD</name>
+        <price>55.00</price>
+        <savedAmount>45.00</savedAmount>
+        <email>royb@example.com</email>
+        <url>https://www.amazon.com/gp/product/B07D998212</url>
+        <remark></remark>
+        <tagged>colleagues</tagged>
+    </wishes>
+</wishbook>
