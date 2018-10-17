@@ -106,6 +106,7 @@ public class Patient extends Person {
         if (!(otherPerson instanceof Patient)) {
             return false;
         }
+
         if (otherPerson == this) {
             return true;
         }

@@ -1,11 +1,8 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,8 +26,6 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
-    private Optional<Doctor> preferredDoctor;
-    private Optional<Appointment> appointment;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -38,8 +33,6 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        preferredDoctor = Optional.empty();
-        appointment = Optional.empty();
     }
 
     /**
@@ -51,8 +44,6 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        preferredDoctor = personToCopy.getPreferredDoctor();
-        appointment = personToCopy.getAppointment();
     }
 
     /**
@@ -96,37 +87,11 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the doctor as preferred by the patient.
-     * @return a PersonBuilder
-     */
-    public PersonBuilder withPreferredDoctor(Doctor doctor) {
-        preferredDoctor = Optional.of(doctor);
-        return this;
-    }
-
-    /**
-     * Sets the appointment for the patient.
-     * @return a PersonBuilder
-     */
-    public PersonBuilder withAppointment(Appointment appointment) {
-        this.appointment = Optional.of(appointment);
-        return this;
-    }
-
-    /**
      * Contructs a Person based on the PersonBuilder.
      * @return a person.
      */
     public Person build() {
         Person person = new Person(name, phone, email, address, tags);
-
-        preferredDoctor.ifPresent(doctor -> {
-            person.setPreferredDoctor(doctor);
-        });
-
-        appointment.ifPresent(appointment -> {
-            person.setAppointment(appointment);
-        });
 
         return person;
     }
