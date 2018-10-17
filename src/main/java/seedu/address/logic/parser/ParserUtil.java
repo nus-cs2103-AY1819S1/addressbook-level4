@@ -1,9 +1,16 @@
 package seedu.address.logic.parser;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +21,7 @@ import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -69,16 +77,40 @@ public class ParserUtil {
     /**
      * Parses a {@code String dateTimeInput} into a {@code DateTime}.
      * Leading and trailing whitespaces will be trimmed.
+     * If multiple dates are supplied, only the first will be parsed
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static DateTime parseDateTime(String dateTimeInput) throws ParseException {
-        requireNonNull(dateTimeInput);
-        String trimmedDateTimeInput = dateTimeInput.trim();
-        if (!DateTime.isValidDateTimeInput(trimmedDateTimeInput)) {
+    public static DateTime parseDateTime(String dateAndTime) throws ParseException {
+        requireNonNull(dateAndTime);
+        Parser parser = new Parser();
+        List<DateGroup> groups = parser.parse(dateAndTime);
+
+        // If 0 groups found, date is invalid
+        if (groups.size() == 0) {
             throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
+            // TODO: Change the message to something less specific
+        } else {
+            List<Date> dates = groups.get(0).getDates();
+            //List<LocalDateTime> datetimes = dates.stream().map(date -> dateToLocalDateTime(date)).collect(Collectors.toList());
+            return new DateTime(dateToLocalDateTime(dates.get(0)));
         }
-        return new DateTime(trimmedDateTimeInput);
+
+//        String trimmedDateTimeInput = dateAndTime.trim();
+//        if (!DateTime.isValidDateTimeInput(trimmedDateTimeInput)) {
+//            throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
+//        }
+//        return new DateTime(trimmedDateTimeInput);
+    }
+
+    /**
+     * Converts a Date to a LocalDateTime
+     *
+     * @param date a Date Object
+     * @return A LocalDateTime with TImezone set to system Timezone
+     */
+    public static LocalDateTime dateToLocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     /**

@@ -8,6 +8,7 @@ import java.time.DateTimeException;
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
+import seedu.address.model.calendarevent.DateTime;
 
 public class DateTimeTest {
 
@@ -24,7 +25,7 @@ public class DateTimeTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new DateTime(null));
+        Assert.assertThrows(NullPointerException.class, () -> new DateTime((String) null));
     }
 
 
