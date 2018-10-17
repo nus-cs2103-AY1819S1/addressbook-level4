@@ -356,13 +356,16 @@ the total cost for that day
 // tag::budget[]
 
 === Budget
-==== Keeping spendings within budget
+==== Current Implementation
+The current implementation for budget tracking is described as below.
+
+===== Keeping spendings within budget
 The budget mechanism is facilitated by `VersionedAddressBook` and `AddCommand`. Whenever a user adds an expense via
 `AddCommand`m if they do not have a budget set, the application will prompt them to do so. After they do so,
 application proceeds normally. If adding another expense will result in them exceeding the budget, they can still do
 so, but a warning will be given to the user.
 
-==== Recurring budget
+===== Recurring budget
 Every time a user log in and `Model#loadUserData()`, the application will check if the user has set a time where the
 budget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
 expense tracker will track the set recurrence time against the time now. If it exceeds, budget will be reset. Else,
@@ -372,6 +375,24 @@ nothing will be done.
 be set to `currentTime` + `recurrenceFrequency`.
 * If it has already been set, the timing will be updated on the next occurence time
 
+===== Notification center (Proposed)
+There is an area for the app to display notifications and additional information to the users beside the usual
+area below the command box. This is particularly useful to the *Budget* feature as budgets should not obstruct the
+usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his budget after
+ adding an expense, a warning would be displayed in the *Notification center* instead of the area below the command
+ box, replacing the success message of adding an expense and confusing the user.
+
+===== Budget by Category (Proposed)
+Users can now allocate their budgets by categories. This means that within a fixed budget, they can decide how big of
+ a proportion a certain category of expense takes. Every `Category` will now have a `Budget` and the total budget in
+ `ModelManager` will never exceed the sum of all budgets in `Category`.
+
+==== Alternatives considered
+Recurrence check was initially implemented via events. Every time `ModelManager#loadUserData()` is called, an event
+will be sent to the `EventBus` to be dispatched to an event handler implemented in `Budget`. However, after heavy
+consideration, the recurrence check should only be called whenever `loadUserData()` is called, and never anywhere
+else. Therefore, it should be more closely coupled with `loadUserData()` instead of being an event that can be posted
+ from anywhere inside the application.
 
 // end::budget[]
 
