@@ -1,19 +1,26 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.google.GoogleClientInstance;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.google.PhotoHandler;
+import seedu.address.model.google.PhotosLibraryClientFactory;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,7 +32,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private GoogleClientInstance photoLibrary = null;
+    private ArrayList<String> dirImageList;
+    private BufferedImage currentOriginalImage;
+    private PreviewImage currentPreviewImage;
+    private PhotoHandler photoLibrary = null;
 
     private final UserPrefs userPrefs;
 
@@ -41,7 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
         previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
         this.userPrefs = userPrefs;
+        dirImageList = new ArrayList<>();
     }
 
     public ModelManager() {
@@ -108,15 +120,71 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Directory Image List Accessors =============================================================
+
+    /**
+     * Returns an array list of the images from the current directory {@code dirImageList}
+     * backed by the list of {@code userPrefs}
+     */
+    @Override
+    public ArrayList<String> getDirectoryImageList() {
+        this.dirImageList = userPrefs.getAllImages();
+        return this.dirImageList;
+    }
+
+    /**
+     * Returns an array list of the images from the current directory {@code dirImageList}
+     * backed by the list of {@code userPrefs}
+     */
+    @Override
+    public void updateImageList() {
+        userPrefs.updateImageList();
+    }
+
+    /**
+     * Remove image from {@code dirImageList} at the given {@code idx}
+     */
+    @Override
+    public void removeImageFromList(int idx) {
+        this.dirImageList.remove(idx);
+    }
+
+    @Override
+    public BufferedImage getCurrentOriginalImage() {
+        return this.currentOriginalImage;
+    }
+
+    @Override
+    public BufferedImage getCurrentPreviewImage() {
+        return this.currentPreviewImage.getImage();
+    }
+
+    /**
+     * Update the current displayed original image and
+     * reinitialize the previewImageManager with the new image
+     */
+    @Override
+    public void updateCurrentOriginalImage(Image img) {
+        currentOriginalImage = SwingFXUtils.fromFXImage(img, null);
+        previewImageManager.initialiseWithImage(new PreviewImage(currentOriginalImage));
+    }
+
     //=========== GoogleClient Accessors =============================================================
 
     @Override
-    public void setGoogleClientInstance(GoogleClientInstance instance) {
+    public void setPhotoHandler(PhotoHandler instance) {
         photoLibrary = instance;
     }
 
     @Override
-    public GoogleClientInstance getGoogleClientInstance() {
+    public PhotoHandler getPhotoHandler() throws CommandException {
+        if (photoLibrary == null) {
+            try {
+                photoLibrary = PhotosLibraryClientFactory.createClient();
+            } catch (Exception e) {
+                throw new CommandException(MESSAGE_LOGIN_FAILURE);
+            }
+        }
         return photoLibrary;
     }
 
@@ -135,17 +203,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImageManager() {
         previewImageManager.undo();
-        // indicateAddressBookChanged();
+        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
     }
 
     @Override
     public void redoPreviewImageManager() {
         previewImageManager.redo();
-        // indicateAddressBookChanged();
+        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
     }
 
     @Override
     public void commitPreviewImageManager() {
+        // TODO: update currentPreviewImage
         // TODO: previewImageManager.commit(editedImage);
     }
 
