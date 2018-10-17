@@ -7,7 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Rule;
@@ -56,6 +58,13 @@ public class PersonTest {
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
+
+        // same name, different preferred doctor -> returns false
+        Person editedAliceWithPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(ADAM).build();
+        Person editedAliceWithAnotherPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(BEN).build();
+        assertFalse(editedAliceWithPreferredDoctor.isSamePerson(editedAliceWithAnotherPreferredDoctor));
+
+        // same name, different appointment -> returns false
     }
 
     @Test
