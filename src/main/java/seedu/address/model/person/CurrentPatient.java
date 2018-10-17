@@ -40,17 +40,17 @@ public class CurrentPatient {
     /**
      * Add referral letter content to the ServedPatient.
      */
-    public String addReferralContent(String notes, String todayDate, String doctorName) {
+    public String addReferralContent(String content) {
         requireNonNull(patient);
-        return patient.addReferralContent(notes, todayDate, doctorName);
+        return patient.addReferralContent(content);
     }
 
     /**
      * Add Mc content to the ServedPatient.
      */
-    public String addMcContent(int dayNumber, String startDate, String endDate, String todayDate, String doctorName) {
+    public String addMcContent(String content) {
         requireNonNull(patient);
-        return patient.addMcContent(dayNumber, startDate, endDate, todayDate, doctorName);
+        return patient.addMcContent(content);
     }
 
     /**
@@ -81,6 +81,20 @@ public class CurrentPatient {
      */
     public boolean hasCurrentPatient() {
         return patient != null;
+    }
+
+    /**
+     * Returns a console-friendly representation of the patient's documents.
+     */
+    public String toDocumentInformation() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nNotes: ")
+                .append(getNoteContent())
+                .append("\nMC Content: ")
+                .append(getMcContent())
+                .append("\nReferral Content: ")
+                .append(getReferralContent());
+        return sb.toString();
     }
 
     /**

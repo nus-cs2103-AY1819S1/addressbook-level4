@@ -24,6 +24,9 @@ public class ServedPatient {
     public ServedPatient(Patient patient) {
         requireNonNull(patient);
         this.patient = patient;
+        this.noteContent = "";
+        this.referralContent = "";
+        this.mcContent = "";
     }
 
     public Name getName() {
@@ -58,34 +61,21 @@ public class ServedPatient {
      * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
-        noteContent += " filler" + content;
-        return noteContent;
+        return noteContent = content;
     }
 
     /**
      * Skeleton to add referral content.
      */
-    public String addReferralContent(String notes, String todayDate, String doctorName) {
-        referralContent += "Dear Specialist, please assist the patient named above in the following matter:\n";
-        referralContent += notes + "\n";
-        referralContent += "Kindly do accept him under your care. Thank you very much.\n";
-        referralContent += "Date: " + todayDate + "\n";
-        referralContent += "Issuing Doctor: " + doctorName + "\n";
-        referralContent += "CLInic Pte Ltd\n";
-        return referralContent;
+    public String addReferralContent(String content) {
+        return referralContent = content;
     }
 
     /**
      * Skeleton to add Mc Content.
      */
-    public String addMcContent(int dayNumber, String startDate, String endDate, String todayDate, String doctorName) {
-        mcContent += "The above named is unfit for duty for a period of " + dayNumber
-                + " days from " + startDate + " to " + endDate + ".\n";
-        mcContent += "This certificate is not valid for absence from court attendance.\n";
-        mcContent += "Date: " + todayDate + "\n";
-        mcContent += "Issuing Doctor: " + doctorName + "\n";
-        mcContent += "CLInic Pte Ltd\n";
-        return mcContent;
+    public String addMcContent(String content) {
+        return mcContent = content;
     }
 
     /**
@@ -95,5 +85,4 @@ public class ServedPatient {
     public String toNameAndIc() {
         return patient.toNameAndIc();
     }
-
 }
