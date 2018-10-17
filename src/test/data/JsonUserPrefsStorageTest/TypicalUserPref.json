@@ -8,5 +8,5 @@
     }
   },
   "wishTransactionFilePath" : "data\\wishtransaction.xml",
-  "wishBookFilePath" : "wishbook.xml"
+  "wishBookFilePath" : "data\\wishbook.xml"
 }
