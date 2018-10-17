@@ -67,10 +67,20 @@ public class PersonTest {
         Person editedAliceWithAnotherPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(BEN).build();
         assertFalse(editedAliceWithPreferredDoctor.isSamePerson(editedAliceWithAnotherPreferredDoctor));
 
+        // same name, one with preferred doctor, one without -> returns false
+        editedAliceWithPreferredDoctor = new PersonBuilder(ALICE).withPreferredDoctor(ADAM).build();
+        Person editedAliceWithoutPreferredDoctor = new PersonBuilder(ALICE).build();
+        assertFalse(editedAliceWithPreferredDoctor.isSamePerson(editedAliceWithoutPreferredDoctor));
+
         // same name, different appointment -> returns false
         Person editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
         Person editedAmyWithAnotherAppointment = new PersonBuilder(AMY).withAppointment(BENSON_APPT).build();
         assertFalse(editedAmyWithAppointment.isSamePerson(editedAmyWithAnotherAppointment));
+
+        // same name, one with appointment, one without -> returns false
+        editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
+        Person editedAmyWithoutAppointment = new PersonBuilder(AMY).build();
+        assertFalse(editedAmyWithAppointment.isSamePerson(editedAmyWithoutAppointment));
     }
 
     @Test
