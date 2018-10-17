@@ -36,4 +36,10 @@ public class XmlAdaptedPasswordTest {
         assertEquals(new XmlAdaptedPassword(PasswordTest.VALID_PASSWORD_STRING).toModelType().toString(),
                 PasswordTest.VALID_PASSWORD_STRING);
     }
+
+    @Test
+    public void testConstructor_withSource() {
+        assertEquals(new XmlAdaptedPassword(PasswordTest.VALID_PASSWORD).toModelType(),
+                PasswordTest.VALID_PASSWORD);
+    }
 }
