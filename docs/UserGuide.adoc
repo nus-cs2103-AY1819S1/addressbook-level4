@@ -191,6 +191,67 @@ Format: `filterByFee [minimal fee to be filtered]`
 If no one is qualified then shows cannot find.
 ====
 
+
+=== Making list by limit fee command: `filterByEducation`
+
+Making list of students who are in the given education +
+Format: `filterByEducation [education level]`
+
+****
+* filter result: list the person's name whose education level is the same as input.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
+=== Making list by limit fee command: `filterByGrade`
+
+Making list of of students whose grades between minimal limit grade and maximal limit grade +
+Format: `filterByGrade [minimal] [maximal]`
+
+****
+* filter result: list the person's name whose grade is between the given range.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
+=== Making list by limit fee command: `filterByTime`
+
+Show the student name who taking class ar the given time +
+Format: `filterByTime [given TimeSlot]`
+
+****
+* filter result: list the person's name who takes class at given time.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
+
+=== Edit certain class time of certain student: `EditTime`
+
+Edit certain class time of certain student +
+Format: `EditTime [student name] [ole time] [new time]`
+
+****
+* filter result: list the person's name who takes class at given time.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
+
+
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +

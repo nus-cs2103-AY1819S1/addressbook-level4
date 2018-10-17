@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.EducationFilterPredicate;
-import seedu.address.model.person.GradeFilterPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeFilterPredicate;
+import seedu.address.model.person.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,29 +15,24 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 
-/**
- * Finds and lists the list of person whose grade is between A to B.
- */
+public class FilterByTimeCommand extends FilterCommand{
+    public static final String COMMAND_WORD = "filterByTime";
 
-public class FilterByEducationCommand extends FilterCommand {
+    public static final String MESSAGE_SUCCESS = "Already filtered by Time!";
 
-    public static final String COMMAND_WORD = "filterByEducation";
-
-    public static final String MESSAGE_SUCCESS = "Already filtered by Education!";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit a tutorial time slot of a person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": filter by tutorial time slot. "
             + "Parameters: "
-            + "Education Level";
+            + "TIME ";
 
-    private String education;
+    private Time time;
 
     /**
      * filter by grade command
      *
-     * @param education
+     * @param time
      */
-    public FilterByEducationCommand(String education) {
-        this.education = education;
+    public FilterByTimeCommand(Time time) {
+        this.time = time;
     }
 
     @Override
@@ -46,12 +41,12 @@ public class FilterByEducationCommand extends FilterCommand {
         // Execute the display of student's grades here
         requireNonNull(model);
         model.updateFilteredPersonList(new
-                EducationFilterPredicate(education));
+                TimeFilterPredicate(time));
 
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find " + education +" education within the students list!");
+            return new CommandResult("Cannot find " + time.toString() +" education within the students list!");
         }
 
 
@@ -61,6 +56,6 @@ public class FilterByEducationCommand extends FilterCommand {
             personNameList.add(ppl.getName().fullName);
         }
 
-        return new CommandResult("The person whose education is " + education + " : " + personNameList.toString());
+        return new CommandResult("The person whose education is " + time.toString() + " : " + personNameList.toString());
     }
 }
