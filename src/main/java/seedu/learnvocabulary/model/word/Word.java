@@ -58,10 +58,7 @@ public class Word {
         }
 
         return otherWord != null
-                && otherWord.getName().equals(getName())
-                //Review russell
-                && (otherWord.getMeaning().equals(getMeaning())
-                || otherWord.getTags().equals(getTags()));
+                && otherWord.getName().equals(getName());
     }
 
     /**

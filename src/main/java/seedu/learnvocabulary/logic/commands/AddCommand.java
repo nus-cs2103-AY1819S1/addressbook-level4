@@ -20,6 +20,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a word to LearnVocabulary. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_MEANING + "MEANING"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Rainstorm "

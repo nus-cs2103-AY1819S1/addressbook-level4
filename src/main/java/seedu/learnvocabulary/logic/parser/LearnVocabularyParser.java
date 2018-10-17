@@ -3,6 +3,7 @@ package seedu.learnvocabulary.logic.parser;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +16,7 @@ import seedu.learnvocabulary.logic.commands.ExitCommand;
 import seedu.learnvocabulary.logic.commands.FindCommand;
 import seedu.learnvocabulary.logic.commands.HelpCommand;
 import seedu.learnvocabulary.logic.commands.HistoryCommand;
+import seedu.learnvocabulary.logic.commands.LearnCommand;
 import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
@@ -40,7 +42,7 @@ public class LearnVocabularyParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException, IOException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -49,6 +51,9 @@ public class LearnVocabularyParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case LearnCommand.COMMAND_WORD:
+            return new LearnCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
