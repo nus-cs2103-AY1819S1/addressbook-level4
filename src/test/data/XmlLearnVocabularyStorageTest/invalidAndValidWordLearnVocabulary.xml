@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<learnvocabulary>
+    <!-- Valid Word -->
+    <words>
+        <name>Hans Muster</name>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <!-- Word with invalid phone field -->
+    <words>
+        <name>Hans Muster</name>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+</learnvocabulary>

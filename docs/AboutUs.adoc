@@ -4,53 +4,36 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+LearnVocabulary was developed by the T10-3 team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Haoxuan
+image::harryqu123.png[width="150", align="left"]
+{empty}[https://github.com/Harryqu123[github]]
 
-Role: Project Advisor
-
+In charge of: Deliverables and deadlines
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Alexander Ehrs
+image::alexehrs.png[width="150", align="left"]
+{empty}[http://github.com/alexehrs[github]]
 
-Role: Team Lead +
-Responsibilities: UI
-
+In charge of: Documentation
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Russell Ong
+image::russellong95.png[width="150", align="left"]
+{empty}[https://github.com/russellong95[github]]
 
-Role: Developer +
-Responsibilities: Data
-
+In charge of: Team Lead and Testing
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Daniel Koh
+image::danielkoh94.png[width="160", align="left"]
+{empty}[https://github.com/danielkoh94[github]]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
-
+In charge of: Coding Quality
 '''

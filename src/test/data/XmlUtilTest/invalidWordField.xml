@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Word with an invalid phone field -->
+<word>
+    <name>Hans Muster</name>
+    <meaning>Test</meaning>
+    <tagged>friends</tagged>
+</word>

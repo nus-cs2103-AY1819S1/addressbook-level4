@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<learnvocabulary>
+    <words>
+        <name>Hans Muster</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+    </words>
+    <words>
+        <name>Ruth Mueller</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Heinz Kurz</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Cornelia Meier</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Werner Meyer</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Lydia Kunz</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Anna Best</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Stefan Meier</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+    <words>
+        <name>Martin Mueller</name>
+        <meaning>Test</meaning>
+        <meaning isPrivate="false">4th street</meaning>
+
+    </words>
+</learnvocabulary>

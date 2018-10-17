@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- LearnVocabulary save file which contains the same Word values as in TypicalWords#getTypicalLearnVocabulary() -->
+<learnvocabulary>
+    <words>
+        <name>Alice Pauline</name>
+        <tagged>friends</tagged>
+        <meaning>test</meaning>
+
+    </words>
+    <words>
+        <name>Benson Meier</name>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+        <meaning>test</meaning>
+
+    </words>
+    <words>
+        <name>Carl Kurz</name>
+        <meaning>test</meaning>
+
+    </words>
+    <words>
+        <name>Daniel Meier</name>
+        <tagged>friends</tagged>
+        <meaning>test</meaning>
+
+    </words>
+    <words>
+        <name>Elle Meyer</name>
+        <meaning>test</meaning>
+
+    </words>
+    <words>
+        <name>Fiona Kunz</name>
+        <meaning>test</meaning>
+    </words>
+    <words>
+        <name>George Best</name>
+        <meaning>test</meaning>
+    </words>
+</learnvocabulary>

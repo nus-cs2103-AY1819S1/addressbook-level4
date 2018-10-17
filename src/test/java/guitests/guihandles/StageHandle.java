@@ -10,7 +10,7 @@ import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
+import seedu.learnvocabulary.commons.core.LogsCenter;
 
 /**
  * Provides access to a stage in a JavaFx application for GUI testing purposes.
@@ -54,7 +54,7 @@ public abstract class StageHandle {
      * Retrieves the {@code query} node owned by the {@code stage}.
      *
      * @param query name of the CSS selector for the node to retrieve.
-     * @throws NodeNotFoundException if no such node exists.
+     * NodeNotFoundException if no such node exists.
      */
     protected <T extends Node> T getChildNode(String query) {
         Optional<T> node = guiRobot.from(stage.getScene().getRoot()).lookup(query).tryQuery();

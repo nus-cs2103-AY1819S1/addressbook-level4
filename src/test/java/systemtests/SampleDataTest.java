@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.learnvocabulary.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,17 +8,18 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.learnvocabulary.model.LearnVocabulary;
+import seedu.learnvocabulary.model.util.SampleDataUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+import seedu.learnvocabulary.model.word.Word;
+import seedu.learnvocabulary.testutil.TestUtil;
+
+public class SampleDataTest extends LearnVocabularySystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected LearnVocabulary getInitialData() {
         return null;
     }
 
@@ -44,8 +45,8 @@ public class SampleDataTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+    public void learnVocabulary_dataFileDoesNotExist_loadSampleData() {
+        Word[] expectedList = SampleDataUtil.getSampleWords();
+        assertListMatching(getWordListPanel(), expectedList);
     }
 }

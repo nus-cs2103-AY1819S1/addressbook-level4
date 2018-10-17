@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<learnvocabulary>
+    <!-- Word with invalid name field -->
+    <words>
+        <name>Han!s Muster</name>
+        <meaning isPrivate="false">testing</meaning>
+
+    </words>
+</learnvocabulary>
