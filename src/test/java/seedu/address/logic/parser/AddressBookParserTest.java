@@ -173,10 +173,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_setPassword() throws Exception {
-        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_WORD + " o/dsdfsdf7 n/sdfsdf") instanceof
-                SetPasswordCommand);
-        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_ALIAS + " o/dsdfsdf7 n/sdfsdf") instanceof
-                SetPasswordCommand);
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_WORD + " o/dsdfsdf7 n/sdfsdf")
+                instanceof SetPasswordCommand);
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_ALIAS + " o/dsdfsdf7 n/sdfsdf")
+                instanceof SetPasswordCommand);
     }
 
     @Test
