@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,6 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.QueueUpdatedEvent;
+import seedu.address.model.PatientQueue;
 
 public class QueueDisplay extends UiPart<Region> {
 
@@ -28,7 +33,7 @@ public class QueueDisplay extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        loadQueueDisplay();
+        loadQueueDisplay(null);
         registerAsAnEventHandler(this);
     }
 
@@ -39,9 +44,12 @@ public class QueueDisplay extends UiPart<Region> {
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
-    private void loadQueueDisplay() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+    private void loadQueueDisplay(PatientQueue patientQueue) {
+        String queueDisplayString = patientQueue != null ? patientQueue.displayQueue() : "QUEUE IS EMPTY";
+        String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
+        queueDisplayPage += "?queue=";
+        queueDisplayPage += queueDisplayString;
+        loadPage(queueDisplayPage);
     }
 
     /**
@@ -51,9 +59,9 @@ public class QueueDisplay extends UiPart<Region> {
         display = null;
     }
 
-//    @Subscribe
-//    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        loadPersonPage(event.getNewSelection());
-//    }
+    @Subscribe
+    private void handleQueueUpdatedEvent(QueueUpdatedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadQueueDisplay(event.getPatientQueue());
+    }
 }

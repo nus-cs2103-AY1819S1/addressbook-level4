@@ -2,8 +2,23 @@
 <html>
 <head>
     <link rel="stylesheet" href="DarkTheme.css">
+    <script type="text/javascript">
+        function getJsonFromUrl() {
+            var query = location.search.substr(1);
+            var result = {};
+            query.split("&").forEach(function(part) {
+                var item = part.split("=");
+                result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return result;
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            document.getElementById("queue").innerHTML=getJsonFromUrl().queue;
+        });
+    </script>
 </head>
 <body>
-    <h4>QUEUE DISPLAY HERE WOOHOO</h4>
+    <h4><span id="queue"></span></h4>
 </body>
 </html>
