@@ -1,3 +1,4 @@
+//@author benedictcss
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +16,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-//@author benedictcss
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CdCommand}.

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -172,6 +174,31 @@ public class AddCommandTest {
         @Override
         public Path getCurrDirectory() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<String> getDirectoryImageList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void removeImageFromList(int idx) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public BufferedImage getDisplayedImage() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateCurrDisplayedImage(Image img) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateImageList() {
+            throw new AssertionError("This method should not be called");
         }
     }
 

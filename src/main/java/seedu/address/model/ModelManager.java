@@ -3,13 +3,17 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -26,6 +30,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private GoogleClientInstance photoLibrary = null;
+    private ArrayList<String> dirImageList;
+    private BufferedImage currDisplayedPic;
 
     private final UserPrefs userPrefs;
 
@@ -42,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
+        dirImageList = new ArrayList<>();
     }
 
     public ModelManager() {
@@ -106,6 +113,45 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Directory Image List Accessors =============================================================
+
+    /**
+     * Returns an array list of the images from the current directory {@code dirImageList}
+     * backed by the list of {@code userPrefs}
+     */
+    @Override
+    public ArrayList<String> getDirectoryImageList() {
+        this.dirImageList = userPrefs.getAllImages();
+        return this.dirImageList;
+    }
+
+    /**
+     * Returns an array list of the images from the current directory {@code dirImageList}
+     * backed by the list of {@code userPrefs}
+     */
+    @Override
+    public void updateImageList() {
+        userPrefs.updateImageList();
+    }
+
+    /**
+     * Remove image from {@code dirImageList} at the given {@code idx}
+     */
+    @Override
+    public void removeImageFromList(int idx) {
+        this.dirImageList.remove(idx);
+    }
+
+    @Override
+    public BufferedImage getDisplayedImage() {
+        return this.currDisplayedPic;
+    }
+
+    @Override
+    public void updateCurrDisplayedImage(Image img) {
+        currDisplayedPic = SwingFXUtils.fromFXImage(img, null);
     }
 
     //=========== GoogleClient Accessors =============================================================
