@@ -68,6 +68,14 @@ public class TabPanel extends UiPart<Region> {
         return eventsTab;
     }
 
+    /**
+     * Frees resources allocated to the browser.
+     */
+    public void freeResources() {
+        webpageTab = null;
+        eventsTab = null;
+    }
+
     @Subscribe
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
