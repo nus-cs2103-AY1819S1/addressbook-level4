@@ -48,8 +48,8 @@ public class Track {
     public Track(File file) {
         CollectionUtil.requireAllNonNull(file);
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
-        // AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
-        AppUtil.checkArgument(isSupported(file), file.getName() + MESSAGE_FILE_NOT_SUPPORTED);
+        AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
+        // AppUtil.checkArgument(isSupported(file), file.getName() + MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);

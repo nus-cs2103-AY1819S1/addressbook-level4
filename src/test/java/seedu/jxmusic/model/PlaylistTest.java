@@ -8,6 +8,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIK
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_SOS;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
 import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import org.junit.Rule;
@@ -60,7 +61,7 @@ public class PlaylistTest {
         assertFalse(SFX.equals(5));
 
         // different playlist -> returns false
-        assertFalse(SFX.equals(SFX));
+        assertFalse(SFX.equals(ANIME));
 
         // different name -> returns false
         Playlist editedAlice = new PlaylistBuilder(SFX).withName(VALID_PLAYLIST_NAME_ANIME).build();

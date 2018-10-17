@@ -16,6 +16,7 @@ import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.storage.JsonFileStorage;
 import seedu.jxmusic.storage.UserPrefsStorage;
 import seedu.jxmusic.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -43,10 +44,10 @@ public class TestApp extends MainApp {
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
-        // if (initialDataSupplier.get() != null) {
-        //     createDataFileWithData(new JsonSerializableLibrary(this.initialDataSupplier.get()),
-        //             this.saveFileLocation);
-        // }
+        if (initialDataSupplier.get() != null) {
+            createDataFileWithData(new Library(this.initialDataSupplier.get()),
+                    this.saveFileLocation);
+        }
     }
 
     @Override
@@ -106,12 +107,12 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Creates an XML file at the {@code filePath} with the {@code data}.
+     * Creates a Json file at the {@code filePath} with the {@code data}.
      */
-    private <T> void createDataFileWithData(T data, Path filePath) {
+    private <T> void createDataFileWithData(Library data, Path filePath) {
         try {
             FileUtil.createIfMissing(filePath);
-            JsonUtil.saveJsonFile(data, filePath);
+            JsonFileStorage.saveDataToFile(filePath, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
