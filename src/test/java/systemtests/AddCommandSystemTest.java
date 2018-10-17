@@ -1,6 +1,7 @@
 package systemtests;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_MEANING_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
@@ -27,6 +28,7 @@ import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
+import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Name;
 import seedu.learnvocabulary.model.word.Word;
 import seedu.learnvocabulary.testutil.WordBuilder;
@@ -111,6 +113,10 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + MEANING_DESC;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+
+        /* Case: invalid meaning -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + INVALID_MEANING_DESC;
+        assertCommandFailure(command, Meaning.MESSAGE_MEANING_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + INVALID_TAG_DESC;
