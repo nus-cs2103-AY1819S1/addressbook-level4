@@ -5,8 +5,8 @@
 //import static org.junit.Assert.assertTrue;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.CHINESE;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.CLASSICS;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 //
@@ -72,7 +72,7 @@
 //        FindCommand command = new FindCommand(predicate);
 //        expectedModel.updateFilteredPersonList(predicate);
 //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(POP, CHINESE, CLASSICS), model.getFilteredPersonList());
+//        assertEquals(Arrays.asList(SFX, SFX, CLASSICS), model.getFilteredPersonList());
 //    }
 //
 //    /**

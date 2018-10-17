@@ -3,9 +3,9 @@
 //import static org.junit.Assert.assertFalse;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.METAL;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 //
 //import java.util.ArrayList;
@@ -28,7 +28,7 @@
 //         */
 //        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG + "   ";
 //        Model expectedModel = getModel();
-//        ModelHelper.setFilteredList(expectedModel, METAL, ROCK); // first names of Benson and Daniel are "Meier"
+//        ModelHelper.setFilteredList(expectedModel, ANIME, SFX); // first names of Benson and Daniel are "Meier"
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
@@ -41,13 +41,13 @@
 //
 //        /* Case: find playlist where playlist list is not displaying the playlist we are finding -> 1 playlist found */
 //        command = FindCommand.COMMAND_WORD + " Carl";
-//        ModelHelper.setFilteredList(expectedModel, POP);
+//        ModelHelper.setFilteredList(expectedModel, SFX);
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: find multiple persons in jxmusic book, 2 keywords -> 2 persons found */
 //        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-//        ModelHelper.setFilteredList(expectedModel, METAL, ROCK);
+//        ModelHelper.setFilteredList(expectedModel, ANIME, SFX);
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
@@ -80,10 +80,10 @@
 //
 //        /* Case: find same persons in jxmusic book after deleting 1 of them -> 1 playlist found */
 //        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-//        assertFalse(getModel().getAddressBook().getPlaylistList().contains(METAL));
+//        assertFalse(getModel().getAddressBook().getPlaylistList().contains(ANIME));
 //        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
 //        expectedModel = getModel();
-//        ModelHelper.setFilteredList(expectedModel, ROCK);
+//        ModelHelper.setFilteredList(expectedModel, SFX);
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
@@ -110,22 +110,22 @@
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: find phone number of playlist in jxmusic book -> 0 persons found */
-//        command = FindCommand.COMMAND_WORD + " " + ROCK.getPhone().value;
+//        command = FindCommand.COMMAND_WORD + " " + SFX.getPhone().value;
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: find jxmusic of playlist in jxmusic book -> 0 persons found */
-//        command = FindCommand.COMMAND_WORD + " " + ROCK.getAddress().value;
+//        command = FindCommand.COMMAND_WORD + " " + SFX.getAddress().value;
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: find email of playlist in jxmusic book -> 0 persons found */
-//        command = FindCommand.COMMAND_WORD + " " + ROCK.getEmail().value;
+//        command = FindCommand.COMMAND_WORD + " " + SFX.getEmail().value;
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: find tags of playlist in jxmusic book -> 0 persons found */
-//        List<Tag> tags = new ArrayList<>(ROCK.getTags());
+//        List<Tag> tags = new ArrayList<>(SFX.getTags());
 //        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
@@ -133,9 +133,9 @@
 //        /* Case: find while a playlist is selected -> selected card deselected */
 //        showAllPersons();
 //        selectPerson(Index.fromOneBased(1));
-//        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(ROCK.getName().nameString));
+//        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(SFX.getName().nameString));
 //        command = FindCommand.COMMAND_WORD + " Daniel";
-//        ModelHelper.setFilteredList(expectedModel, ROCK);
+//        ModelHelper.setFilteredList(expectedModel, SFX);
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardDeselected();
 //
@@ -143,7 +143,7 @@
 //        deleteAllPersons();
 //        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
 //        expectedModel = getModel();
-//        ModelHelper.setFilteredList(expectedModel, ROCK);
+//        ModelHelper.setFilteredList(expectedModel, SFX);
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //

@@ -2,19 +2,18 @@ package seedu.jxmusic.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_METAL;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_EXISTENCE;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_FURELISE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_SOS;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 
 public class PlaylistTest {
@@ -31,48 +30,48 @@ public class PlaylistTest {
     @Test
     public void isSamePlaylist() {
         // same object -> returns true
-        assertTrue(ANIME.isSamePlaylist(ANIME));
+        assertTrue(SFX.isSamePlaylist(SFX));
 
         // null -> returns false
-        assertFalse(ANIME.isSamePlaylist(null));
+        assertFalse(SFX.isSamePlaylist(null));
 
         // different name -> returns false
-        Playlist editedAnime = new PlaylistBuilder(ANIME).withName(VALID_PLAYLIST_NAME_METAL).build();
-        assertFalse(ANIME.isSamePlaylist(editedAnime));
+        Playlist editedSfx = new PlaylistBuilder(SFX).withName(VALID_PLAYLIST_NAME_ANIME).build();
+        assertFalse(SFX.isSamePlaylist(editedSfx));
 
         // same name, different tracks -> returns true
-        editedAnime = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_FURELISE).build();
-        assertTrue(ANIME.isSamePlaylist(editedAnime));
+        editedSfx = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_HAIKEI).build();
+        assertTrue(SFX.isSamePlaylist(editedSfx));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Playlist aliceCopy = new PlaylistBuilder(ANIME).build();
-        assertTrue(ANIME.equals(aliceCopy));
+        Playlist aliceCopy = new PlaylistBuilder(SFX).build();
+        assertTrue(SFX.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ANIME.equals(ANIME));
+        assertTrue(SFX.equals(SFX));
 
         // null -> returns false
-        assertFalse(ANIME.equals(null));
+        assertFalse(SFX.equals(null));
 
         // different type -> returns false
-        assertFalse(ANIME.equals(5));
+        assertFalse(SFX.equals(5));
 
         // different playlist -> returns false
-        assertFalse(ANIME.equals(ROCK));
+        assertFalse(SFX.equals(SFX));
 
         // different name -> returns false
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withName(VALID_PLAYLIST_NAME_METAL).build();
-        assertFalse(ANIME.equals(editedAlice));
+        Playlist editedAlice = new PlaylistBuilder(SFX).withName(VALID_PLAYLIST_NAME_ANIME).build();
+        assertFalse(SFX.equals(editedAlice));
 
         // same name, different tracks -> returns false
-        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_EXISTENCE).build();
-        assertFalse(ANIME.equals(editedAlice));
+        editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_IHOJIN).build();
+        assertFalse(SFX.equals(editedAlice));
 
         // same name, same tracks -> returns true
-        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
-        assertTrue(ANIME.equals(editedAlice));
+        editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
+        assertTrue(SFX.equals(editedAlice));
     }
 }

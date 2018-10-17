@@ -7,17 +7,20 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TRACK_FILE_NO
 import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TRACK_NAME_ARG;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_BELL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_IHOJIN;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_SFX;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_ANIME;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.PLAYLIST_NAME_ARG_METAL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_HAIKEI;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_MARBLES;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_SFX;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import org.junit.Test;
 
@@ -32,26 +35,26 @@ public class PlaylistNewCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Playlist expectedPlaylist = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_HAIKEI).build();
+        Playlist expectedPlaylist = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_MARBLES).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PLAYLIST_NAME_ARG_ANIME + TRACK_NAME_ARG_HAIKEI, new PlaylistNewCommand(expectedPlaylist));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES, new PlaylistNewCommand(expectedPlaylist));
 
         // multiple playlist names - last name accepted
-        assertParseSuccess(parser, PLAYLIST_NAME_ARG_METAL + PLAYLIST_NAME_ARG_ANIME + TRACK_NAME_ARG_HAIKEI, new PlaylistNewCommand(expectedPlaylist));
+        assertParseSuccess(parser, PLAYLIST_NAME_ARG_ANIME + PLAYLIST_NAME_ARG_SFX + TRACK_NAME_ARG_MARBLES, new PlaylistNewCommand(expectedPlaylist));
 
         // multiple tracks - all accepted
-        Playlist expectedPlaylistMultipleTracks = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN)
+        Playlist expectedPlaylistMultipleTracks = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_MARBLES, VALID_TRACK_NAME_BELL)
                 .build();
-        assertParseSuccess(parser, PLAYLIST_NAME_ARG_ANIME
-                + TRACK_NAME_ARG_HAIKEI + TRACK_NAME_ARG_IHOJIN, new PlaylistNewCommand(expectedPlaylistMultipleTracks));
+        assertParseSuccess(parser, PLAYLIST_NAME_ARG_SFX
+                + TRACK_NAME_ARG_MARBLES + TRACK_NAME_ARG_BELL, new PlaylistNewCommand(expectedPlaylistMultipleTracks));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tracks
-        Playlist expectedPlaylist = new PlaylistBuilder(ANIME).withTracks().build();
-        assertParseSuccess(parser, PLAYLIST_NAME_ARG_ANIME,
+        Playlist expectedPlaylist = new PlaylistBuilder(SFX).withTracks().build();
+        assertParseSuccess(parser, PLAYLIST_NAME_ARG_SFX,
                 new PlaylistNewCommand(expectedPlaylist));
     }
 
@@ -60,7 +63,7 @@ public class PlaylistNewCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlaylistNewCommand.MESSAGE_USAGE);
 
         // missing playlist prefix
-        assertParseFailure(parser, VALID_PLAYLIST_NAME_ANIME,
+        assertParseFailure(parser, VALID_PLAYLIST_NAME_SFX,
                 expectedMessage);
     }
 
@@ -71,23 +74,23 @@ public class PlaylistNewCommandParserTest {
                 + TRACK_NAME_ARG_HAIKEI + TRACK_NAME_ARG_IHOJIN, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid track name
-        assertParseFailure(parser, PLAYLIST_NAME_ARG_METAL
-                + INVALID_TRACK_NAME_ARG + TRACK_NAME_ARG_EXISTENCE, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, PLAYLIST_NAME_ARG_ANIME
+                + INVALID_TRACK_NAME_ARG + TRACK_NAME_ARG_BELL, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // track file not exist
-        assertParseFailure(parser, PLAYLIST_NAME_ARG_METAL
-                + INVALID_TRACK_FILE_NOT_EXIST_ARG + TRACK_NAME_ARG_EXISTENCE, Track.MESSAGE_FILE_NOT_EXIST);
+        assertParseFailure(parser, PLAYLIST_NAME_ARG_ANIME
+                + INVALID_TRACK_FILE_NOT_EXIST_ARG + TRACK_NAME_ARG_BELL, Track.MESSAGE_FILE_NOT_EXIST);
 
         // track file not supported
-        assertParseFailure(parser, PLAYLIST_NAME_ARG_METAL
-                + INVALID_TRACK_FILE_NOT_SUPPORTED_ARG + TRACK_NAME_ARG_EXISTENCE, Track.MESSAGE_FILE_NOT_SUPPORTED);
+        assertParseFailure(parser, PLAYLIST_NAME_ARG_ANIME
+                + INVALID_TRACK_FILE_NOT_SUPPORTED_ARG + TRACK_NAME_ARG_BELL, Track.MESSAGE_FILE_NOT_SUPPORTED);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_PLAYLIST_NAME_ARG + INVALID_TRACK_FILE_NOT_EXIST_ARG,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + PLAYLIST_NAME_ARG_METAL + TRACK_NAME_ARG_EXISTENCE,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + PLAYLIST_NAME_ARG_ANIME + TRACK_NAME_ARG_BELL,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlaylistNewCommand.MESSAGE_USAGE));
     }
 }

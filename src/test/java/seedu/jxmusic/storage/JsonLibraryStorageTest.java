@@ -2,9 +2,8 @@ package seedu.jxmusic.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.jxmusic.testutil.TypicalPlaylists.METAL;
-import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
 
@@ -86,14 +85,14 @@ public class JsonLibraryStorageTest {
         assertEquals(original, new Library(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPlaylist(METAL);
-        original.removePlaylist(POP);
+        original.addPlaylist(ANIME);
+        original.removePlaylist(SFX);
         jsonLibraryStorage.saveLibrary(original, filePath);
         readBack = jsonLibraryStorage.readLibrary(filePath).get();
         assertEquals(original, new Library(readBack));
 
         //Save and read without specifying file path
-        original.addPlaylist(ROCK);
+        original.addPlaylist(SFX);
         jsonLibraryStorage.saveLibrary(original); //file path not specified
         readBack = jsonLibraryStorage.readLibrary().get(); //file path not specified
         assertEquals(original, new Library(readBack));

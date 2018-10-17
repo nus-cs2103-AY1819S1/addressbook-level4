@@ -17,7 +17,7 @@ public class SampleDataUtil {
     public static Playlist[] getSamplePlaylists() {
         return new Playlist[] {
             new Playlist(new Name("Aldnoah Zero"), getTrackList("aliez", "acyort")),
-            new Playlist(new Name("Favourites"), getTrackList("scarborough fair", "ihojin no yaiba"))
+            new Playlist(new Name("Favourites"), getTrackList("scarborough fair", "Ihojin no Yaiba"))
         };
     }
 

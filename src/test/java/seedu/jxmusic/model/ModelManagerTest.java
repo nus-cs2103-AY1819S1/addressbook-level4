@@ -3,8 +3,7 @@ package seedu.jxmusic.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PLAYLISTS;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
-import static seedu.jxmusic.testutil.TypicalPlaylists.METAL;
+import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -29,13 +28,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPlaylist_playlistNotInLibrary_returnsFalse() {
-        assertFalse(modelManager.hasPlaylist(ANIME));
+        assertFalse(modelManager.hasPlaylist(SFX));
     }
 
     @Test
     public void hasPlaylist_playlistInLibrary_returnsTrue() {
-        modelManager.addPlaylist(ANIME);
-        assertTrue(modelManager.hasPlaylist(ANIME));
+        modelManager.addPlaylist(SFX);
+        assertTrue(modelManager.hasPlaylist(SFX));
     }
 
     @Test
@@ -46,7 +45,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Library library = new LibraryBuilder().withPlaylist(ANIME).withPlaylist(METAL).build();
+        Library library = new LibraryBuilder().withPlaylist(SFX).build();
         Library differentLibrary = new Library();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -68,7 +67,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentLibrary, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ANIME.getName().nameString.split("\\s+");
+        String[] keywords = SFX.getName().nameString.split("\\s+");
         modelManager.updateFilteredPlaylistList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(library, userPrefs)));
 

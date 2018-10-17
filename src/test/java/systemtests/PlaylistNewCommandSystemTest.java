@@ -21,10 +21,10 @@
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
+//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.HOON;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.IDA;
 //import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
@@ -83,7 +83,7 @@
 //
 //        /* Case: add to empty jxmusic book -> added */
 //        deleteAllPersons();
-//        assertCommandSuccess(ANIME);
+//        assertCommandSuccess(SFX);
 //
 //        /* Case: add a playlist with tags, command with parameters in random order -> added */
 //        toAdd = BOB;
@@ -104,7 +104,7 @@
 //
 //        /* Case: selects first card in the playlist list, add a playlist -> added, card selection remains unchanged */
 //        selectPerson(Index.fromOneBased(1));
-//        assertCommandSuccess(POP);
+//        assertCommandSuccess(SFX);
 //
 //        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 //
