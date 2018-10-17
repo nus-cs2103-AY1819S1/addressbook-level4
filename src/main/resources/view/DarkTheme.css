@@ -31,32 +31,11 @@
      -fx-padding: 0 0 30 0;
 }
 
-.detail_sub_title_label {
-    -fx-font-family: "Segoe UI Semibold";
-     -fx-font-size: 22px;
-     -fx-text-fill: #ffffff;
-     -fx-padding: 15 0 15 0;
-}
-
 .detail_label {
      -fx-font-family: "Segoe UI Semibold";
      -fx-font-size: 16px;
      -fx-text-fill: #ffffff;
      -fx-padding: 15 0 15 0;
-}
-
-.saving_amount_label {
-     -fx-font-family: "Segoe UI Bold";
-     -fx-font-size: 50px;
-     -fx-text-fill: #2EE298;
-     -fx-padding: 15 0 15 0;
-}
-
-.price_label {
-     -fx-font-family: "Segoe UI Semibold";
-     -fx-font-size: 20px;
-     -fx-text-fill: #ffffff;
-     -fx-padding: 33 0 15 0;
 }
 
 .text-field {
