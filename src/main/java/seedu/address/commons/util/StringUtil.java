@@ -1,13 +1,13 @@
 package seedu.address.commons.util;
 
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
  * Helper functions for handling strings.
@@ -88,7 +88,8 @@ public class StringUtil {
 
         String preppedSentence = sentence.toLowerCase();
 
-        return partialRatioTest(preppedSentence, preppedWord, tolerance) || tokenSetRatioTest(sentence, word, tolerance);
+        return partialRatioTest(preppedSentence, preppedWord, tolerance)
+                || tokenSetRatioTest(sentence, word, tolerance);
     }
 
     /**

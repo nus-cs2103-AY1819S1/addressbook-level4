@@ -1,19 +1,17 @@
 package seedu.address.logic.parser;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
-
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -97,18 +95,13 @@ public class ParserUtil {
             // TODO: Stronger condition to detect invalid date
         } else {
             List<Date> dates = groups.get(0).getDates();
-            //List<LocalDateTime> datetimes = dates.stream().map(date -> dateToLocalDateTime(date)).collect(Collectors.toList());
+            //List<LocalDateTime> datetimes = dates.stream()
+            // .map(date -> dateToLocalDateTime(date)).collect(Collectors.toList());
             LocalDateTime firstDate = dateToLocalDateTime(dates.get(0));
             LocalDateTime rounded = firstDate.withMinute(
                     roundToNearestMultiple(firstDate.getMinute(), ROUND_MINUTES_TO));
             return new DateTime(rounded);
         }
-
-//        String trimmedDateTimeInput = dateAndTime.trim();
-//        if (!DateTime.isValidDateTimeInput(trimmedDateTimeInput)) {
-//            throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
-//        }
-//        return new DateTime(trimmedDateTimeInput);
     }
 
     /**
