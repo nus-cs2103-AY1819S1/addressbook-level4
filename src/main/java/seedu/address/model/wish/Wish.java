@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,12 +27,13 @@ public class Wish {
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
     private final SavedAmount savedAmount;
+    private final LinkedList<Wish> transactions;
     private final boolean fulfilled;
 
     /**
      * Every field must be present and not null.
      */
-    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags, LinkedList<Wish> transactions) {
         requireAllNonNull(name, price, email, url, tags);
         if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
@@ -45,6 +47,7 @@ public class Wish {
         this.tags.addAll(tags);
         this.remark = remark;
         this.savedAmount = savedAmount;
+        this.transactions = transactions;
     }
 
     /**
@@ -80,6 +83,10 @@ public class Wish {
 
     public boolean isFulfilled() {
         return fulfilled;
+    }
+
+    public LinkedList<Wish> getTransactions() {
+        return transactions;
     }
 
     /**
