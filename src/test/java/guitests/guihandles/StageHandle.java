@@ -62,6 +62,9 @@ public abstract class StageHandle {
         return node.orElseThrow(NodeNotFoundException::new);
     }
 
+    /**
+     * Attempts to log in to the application, allowing tests to start after logging in have been successful.
+     */
     protected void attemptLogIn() {
         Optional<? extends Node> loginNode = guiRobot.from(stage.getScene().getRoot())
                                                     .lookup(LoginHandle.LOGIN_BUTTON_ID).tryQuery();
