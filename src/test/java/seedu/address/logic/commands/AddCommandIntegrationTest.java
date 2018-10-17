@@ -43,7 +43,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         CalendarEvent calendarEventInList = model.getScheduler().getCalendarEventList().get(0);
         assertCommandFailure(new AddCommand(calendarEventInList), model, commandHistory,
-            AddCommand.MESSAGE_DUPLICATE_PERSON);
+            AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
     }
 
 }

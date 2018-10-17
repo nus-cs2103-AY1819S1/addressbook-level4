@@ -4,6 +4,8 @@
     <calendarEvents>
         <title>Alice Pauline</title>
         <description>94351253</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>4th street</venue>
         <tagged>friends</tagged>
     </calendarEvents>
@@ -12,6 +14,8 @@
     <calendarEvents>
         <title>Alice Pauline</title>
         <description>94351253</description>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>4th street</venue>
     </calendarEvents>
 

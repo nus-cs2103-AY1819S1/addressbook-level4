@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -22,17 +24,21 @@ public class AddCommand extends Command {
         + "Parameters: "
         + PREFIX_TITLE + "TITLE "
         + PREFIX_DESCRIPTION + "DESCRIPTION "
+        + PREFIX_START + "START DATE & TIME "
+        + PREFIX_END + "END DATE & TIME "
         + PREFIX_VENUE + "VENUE "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_TITLE + "John Doe "
-        + PREFIX_DESCRIPTION + "98765432 "
-        + PREFIX_VENUE + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_TAG + "friends "
-        + PREFIX_TAG + "owesMoney";
+        + PREFIX_TITLE + "CS2103 Final Exam "
+        + PREFIX_DESCRIPTION + "Bring calculator "
+        + PREFIX_START + "2018-12-05 17:00 "
+        + PREFIX_END + "2018-12-05 19:00 "
+        + PREFIX_VENUE + "MPSH4 "
+        + PREFIX_TAG + "CS2103 "
+        + PREFIX_TAG + "Final";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This event already exists in the scheduler";
+    public static final String MESSAGE_DUPLICATE_CALENDAR_EVENT = "This event already exists in the scheduler";
 
     private final CalendarEvent toAdd;
 
@@ -49,7 +55,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasCalendarEvent(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CALENDAR_EVENT);
         }
 
         model.addCalendarEvent(toAdd);

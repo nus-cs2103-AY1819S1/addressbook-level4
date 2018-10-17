@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
@@ -33,6 +34,8 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditCalendarEventDescriptor();
         descriptor.setTitle(calendarEvent.getTitle());
         descriptor.setDescription(calendarEvent.getDescription());
+        descriptor.setStart(calendarEvent.getStart());
+        descriptor.setEnd(calendarEvent.getEnd());
         descriptor.setVenue(calendarEvent.getVenue());
         descriptor.setTags(calendarEvent.getTags());
     }
@@ -50,6 +53,22 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
+        return this;
+    }
+
+    /**
+     * Sets the start {@code DateTime} of the {@code EditCalendarEventDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withStart(String start) {
+        descriptor.setStart(new DateTime(start));
+        return this;
+    }
+
+    /**
+     * Sets the end {@code DateTime} of the {@code EditCalendarEventDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withEnd(String end) {
+        descriptor.setEnd(new DateTime(end));
         return this;
     }
 
