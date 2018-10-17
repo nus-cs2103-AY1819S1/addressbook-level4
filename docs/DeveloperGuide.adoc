@@ -135,8 +135,99 @@ _{To be updated}_
 _{To be updated}_
 
 == Implementation
-_{To be updated}_
-[[Implementation-Configuration]]
+_{In Progress}_ +
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Change Directory (Cd) feature
+==== Current Implementation
+The Cd mechanism is facilitated by the `UserPrefs`. It contains the current directory the user's in, stored internally as
+`currDirectory`. It implements the following operations:
+
+* `UserPrefs#getCurrDirectory()` - Returns the user's current directory.
+* `UserPrefs#updateCurrDirectory(Path)` - Updates the user's current directory with the updated Path.
+
+These operations are exposed to the Model interface as `Model#getCurrDirectory` and `Model#updateUserPrefs(Path)`
+respectively.
+
+Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
+function to auto-complete the directory name if it exists.
+
+Given below is an example usage scenario and how the cd mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+`Model#getCurrDirectory()` and appends `Desktop` to the end of the current directory. It then checks if the new Path is
+a directory and calls `Model#updateUserPrefs(Path)` and update the new Path in `UserPrefs` if the check returns true.
+
+The following sequence diagram shows how the cd command works:
+
+image::CdSequenceDiagram.png[width=800]
+
+[NOTE]
+If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false, then there is no change in
+`currDirectory` state in `UserPrefs`. If so, it will return a failure message to the user rather than attempting to update
+`currDirectory`.
+
+==== Design Considerations
+===== Aspect: How cd executes
+
+* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
+** Pros: Easy to implement and every command can access the current directory.
+** Cons: Appends and checks if path exists after every cd command entered.
+
+* *Alternative 2* : Stores path that exists in a HashSet.
+** Pros: Do not need to append and check, and just check if it exists in HashSet.
+** Cons: Does not update existing path if user deletes a directory.
+
+=== Undo/Redo feature
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `PreviewImageManager`.
+It is a single instance containing a list of `PreviewImage` and a `currentStatePointer`. Each `PreviewImage` stores a `BufferedImage` and a `TransformationSet`.
+Additionally, it implements the following operations:
+
+* `PreviewImageManager#commit()` -- Saves the newly transformed `PreviewImage` state in the history list.
+* `PreviewImageManager#undo()` -- Restores the previous `PreviewImage` state from its history.
+* `PreviewImageManager#redo()` -- Restores a previously undone `PreviewImage` state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitPreviewImageManager()`, `Model#undoPreviewImageManager()` and `Model#redoPreviewImageManager()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user selects an image with the `select` command. The `PreviewImageManager` is initialized with the selected image, with the `currentStatePointer` pointing to that `PreviewImage` state.
+
+image::undoRedo1.png[width="800"]
+
+Step 2. The user execute a series of transformations. Each time, the newly transformend image is stored as a `PreviewImage` and added to the `previewImageStateList`. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitPreviewImageManager()`, so nothing will be saved into the `previewImageStateList`.
+
+image::undoRedo2.png[width="800"]
+
+Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImageManager()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state, and restores the model's `previewImage` to that image.
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous `PreviewImage` states to restore. The `undo` command uses `Model#canUndoPreviewImageManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+image::undoRedo3.png[width="800"]
+
+
+Step 4. The user executes another transformation, which calls `Model#commitPreviewImageManager`. Since the `currentStatePointer` is not pointing at the end of the `previewImageStateList`, and the states after the `currentStatePointer` will not make sense, all `PreviewImage` states after the pointer will be purged.
+
+image::undoRedo4.png[width="800"]
+
+Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
+
+image::undoRedo5.png[width="800"]
+
+==== Design Considerations
+
+ - An alternative to this implementation will be to store the transformations, and actually reverse the execution of each transformation. However, it could be time consuming and complicated especially for complex transformations. As such, Piconso stores the list of modified images. In order to regulate memory usage, Piconso limits the number of actions to undo to 10.
+
+ - During mass editing of images, only the first image will be previewed and have its states stored. Undo/redo will work as if 1 image is being edited. When the user has finalised his transformations, only then will the transformations be applied to the whole set.
 
 == Documentation
 
