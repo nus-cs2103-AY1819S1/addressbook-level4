@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,17 +17,17 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
  */
 public class LoginIntroduction extends UiPart<Region> {
 
-	public static final String TEXT = "Please log in";
+    public static final String TEXT = "Please log in";
 
-	private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
-	private static final String FXML = "LoginIntroduction.fxml";
+    private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
+    private static final String FXML = "LoginIntroduction.fxml";
 
-	@FXML
-	private Label introductionDisplay;
+    @FXML
+    private Label introductionDisplay;
 
-	public LoginIntroduction() {
-		super(FXML);
-		introductionDisplay.setText(TEXT);
-		registerAsAnEventHandler(this);
-	}
+    public LoginIntroduction() {
+        super(FXML);
+        introductionDisplay.setText(TEXT);
+        registerAsAnEventHandler(this);
+    }
 }
