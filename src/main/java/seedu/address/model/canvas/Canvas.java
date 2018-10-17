@@ -2,7 +2,6 @@ package seedu.address.model.canvas;
 
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
 import seedu.address.model.PreviewImage;
 
 
