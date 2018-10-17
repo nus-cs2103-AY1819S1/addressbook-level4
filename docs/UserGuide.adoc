@@ -27,6 +27,8 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
+image::UI.jpg[width:800]
+
 [[Features]]
 == Features
 
@@ -171,18 +173,18 @@ Format: `login`: allows the user to login to their Google Photos
 
 === Traversing Google Photos: `google`
 
-Format: `google cd [DIRECTORY_NAME]`: applies the cd command, but within Google Photos +
-Format: `google ls`: applies the ls command, but within Google Photos
+Format: `google ls`: lists all images in Google Photos +
+Format: `google ls -albums`: lists all albums in Google Photos +
+Format: `google ls [IMAGE_NAME]`: lists all images in specified album from Google Photos
 
-=== Downloading photo from Google Photos: `download`
+=== Downloading photo from Google Photos: `dl`
 
-Format: `download [IMAGE_NAME]`: downloads the selected photo to current local directory +
-Format: `download all`: downloads all photos in current google directory to current local directory
+Format: `google dl [IMAGE_NAME]`: downloads the selected photo to current local directory
 
 === Uploading photo from Google Photos: `upload`
 
-Format: `upload [IMAGE_NAME]`: downloads the selected photo to current google directory +
-Format: `upload all`: downloads all photos in current local directory to current google directory
+Format: `google upload [IMAGE_NAME]`: downloads the selected photo to current google directory +
+Format: `google upload all`: downloads all photos in current local directory to current google directory
 
 == FAQ
 
@@ -208,6 +210,6 @@ e.g. `save exampleImage.jpg`
 * *Select* : `select [IMAGE_NAME]/select -all`
 e.g. `select exampleImage.jpg`
 * *Login* : `login`
-* *Google* : `google cd [DIRECTORY_NAME]`, `google ls`
+* *Google* : `google ls/google ls -albums/google ls [ALBUM_NAME]`
 * *Download* : `download [IMAGE_NAME]/all`
 * *Undo* : `undo [IMAGE_NAME]/all`

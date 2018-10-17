@@ -327,6 +327,44 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 
+
+=== Google (google) features
+==== Overall Introduction
+The Google commands allow for access to Google Photos through a logged-in instance of the user, and are held up by two main components.
+
+* `PhotosLibraryClientFactory` - Initiates and carries out the login process, and produces a `PhotosLibraryClient` instance, which handles all calls to Google Photos.
+* `PhotoHandler` - Mainly consists of a `PhotoLibraryClient` instance and user's logged in state. Performs all explicit calls to Google Photos through the `PhotoLibraryClient` instance.
+** An instance of `PhotoHandler` is accessed through `Model#getPhotoHandler()` and `Model#setPhotoHandler().
+
+There are 4 main google-related commands, with the first being a command to login a user, and the latter 3 being overloaded command types, with `GoogleCommand` as the main class.
+
+* `LoginCommand` - Logins in user to their Google Account.
+* `GoogleLsCommand` - Returns the user's current directory.
+* `GoogleDlCommand` - Downloads the specified image <to be implemented and updated in 1.3>.
+* `GoogleUploadCommand` - Uploads the specified image <to be implemented and updated in 1.3>.
+
+===== Login (login) Command
+
+The login command can be called either explictly by the user through `login` or will execute implicitly whenever a user calls a google-related command without first logging in
+
+Given below is an example usage scenario and how the google login behaves at each step upon explicit call.
+
+Step 1. The user executes a `login` command.
+
+Step 2. The login command calls `Model#getPhotoHandler()` and checks if a PhotoHandler instance already exists, if false, it calls `PhotoLibraryClientFactory#createClient()` to set up the requirements for log in and redirects the user to the browser. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]
+
+Step 3. PhotoLibraryClientFactory instance then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail() to instantiate a `PhotoHandler` instance
+
+Step 4. The `PhotoHandler` instance is then set via Model#setPhotoHandler() as Model#photoLibrary(), and confirmation of login is sent to user.
+
+The following sequence diagram shows how the cd command works:
+{Diagram to be added}
+
+===== Other google commands
+
+{To be updated}
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
