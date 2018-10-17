@@ -2,11 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -72,6 +68,16 @@ public class PersonTest {
         Person editedAliceWithoutPreferredDoctor = new PersonBuilder(ALICE).build();
         assertFalse(editedAliceWithPreferredDoctor.isSamePerson(editedAliceWithoutPreferredDoctor));
 
+        // same name, same preferred doctor, different attributes -> returns true
+        Person editedAliceWithPreferredDoctorAndBobAddress = new PersonBuilder(ALICE)
+                .withPreferredDoctor(ADAM)
+                .withAddress(VALID_ADDRESS_BOB)
+                .build();
+        Person editedAliceWithPreferredDoctorAndAliceAddress = new PersonBuilder(ALICE)
+                .withPreferredDoctor(ADAM).build();
+        assertTrue(editedAliceWithPreferredDoctorAndBobAddress
+                .isSamePerson(editedAliceWithPreferredDoctorAndAliceAddress));
+
         // same name, different appointment -> returns false
         Person editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
         Person editedAmyWithAnotherAppointment = new PersonBuilder(AMY).withAppointment(BENSON_APPT).build();
@@ -81,6 +87,17 @@ public class PersonTest {
         editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
         Person editedAmyWithoutAppointment = new PersonBuilder(AMY).build();
         assertFalse(editedAmyWithAppointment.isSamePerson(editedAmyWithoutAppointment));
+
+        // same name, same appointment, different attributes -> returns true
+        Person editedAmyWithAppointmentAndAmyAddress = new PersonBuilder(AMY)
+                .withAppointment(AMY_APPT)
+                .withAddress(VALID_ADDRESS_AMY)
+                .build();
+        Person editedAmyWithAppointmentAndBobAddress = new PersonBuilder(AMY)
+                .withAppointment(AMY_APPT)
+                .withAddress(VALID_ADDRESS_BOB)
+                .build();
+        assertTrue(editedAmyWithAppointmentAndAmyAddress.isSamePerson(editedAmyWithAppointmentAndBobAddress));
     }
 
     @Test
