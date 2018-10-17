@@ -10,7 +10,7 @@ import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.model.todolist.UniqueToDoEventList;
 
 /**
- * Wraps all data at the scheduler level
+ * Wraps all data at the toDoList level
  * Duplicates are not allowed (by .isSameCalendarEvent comparison)
  */
 public class ToDoList implements ReadOnlyToDoList {
