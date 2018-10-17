@@ -5,12 +5,14 @@ import com.joestelmach.natty.Parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -29,6 +31,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final int ROUND_MINUTES_TO = 15;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -76,24 +79,29 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String dateTimeInput} into a {@code DateTime}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed
      * If multiple dates are supplied, only the first will be parsed
+     * Rounds to the nearest 15 minutes
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
     public static DateTime parseDateTime(String dateAndTime) throws ParseException {
         requireNonNull(dateAndTime);
         Parser parser = new Parser();
-        List<DateGroup> groups = parser.parse(dateAndTime);
+        List<DateGroup> groups = parser.parse(dateAndTime.trim());
 
         // If 0 groups found, date is invalid
         if (groups.size() == 0) {
             throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
             // TODO: Change the message to something less specific
+            // TODO: Stronger condition to detect invalid date
         } else {
             List<Date> dates = groups.get(0).getDates();
             //List<LocalDateTime> datetimes = dates.stream().map(date -> dateToLocalDateTime(date)).collect(Collectors.toList());
-            return new DateTime(dateToLocalDateTime(dates.get(0)));
+            LocalDateTime firstDate = dateToLocalDateTime(dates.get(0));
+            LocalDateTime rounded = firstDate.withMinute(
+                    roundToNearestMultiple(firstDate.getMinute(), ROUND_MINUTES_TO));
+            return new DateTime(rounded);
         }
 
 //        String trimmedDateTimeInput = dateAndTime.trim();
@@ -101,6 +109,18 @@ public class ParserUtil {
 //            throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
 //        }
 //        return new DateTime(trimmedDateTimeInput);
+    }
+
+    /**
+     * Rounds {@code number} to the nearest multiple of {@code multiple}
+     *
+     * @param number the number to be rounded
+     * @param multiple the multiple to round to
+     * @return a rounded number
+     */
+    public static int roundToNearestMultiple(int number, int multiple) {
+        int epsilon = (number % multiple) / ((multiple + 1) / 2);
+        return (number / multiple + epsilon) * multiple;
     }
 
     /**
