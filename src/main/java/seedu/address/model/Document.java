@@ -1,13 +1,13 @@
 package seedu.address.model;
 
-import seedu.address.MainApp;
-import seedu.address.model.person.IcNumber;
-import seedu.address.model.person.Name;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import seedu.address.MainApp;
+import seedu.address.model.person.IcNumber;
+import seedu.address.model.person.Name;
 
 /**
  * This interface bounds all classes implementing it to provide an implementation for generating a document,
