@@ -103,10 +103,10 @@ Examples:
 * `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
 * `addPatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
 
-=== Listing all patients : `list`
+=== Listing all patients : `listPatient`
 
 Shows a list of all patients in the clinic record. +
-Format: `list`
+Format: `listPatient`
 
 === Editing a patient : `editPatient`
 
@@ -312,7 +312,7 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `findPatient James Jake`
 * *Help* : `help`
 * *History* : `history`
-* *List* : `list`
+* *List* : `listPatient`
 * *Login* : `login r/ROLE n/NAME pass/PASSWORD` +
 e.g. `login r/doctor n/Adam Bell pass/-------`
 * *Logout* : `logout`
