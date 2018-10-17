@@ -340,8 +340,26 @@ email by using the command "find/e EMAIL".
 phone number and address.
 
 === Design Considerations[ongoing]
-
 // end::findfeature[]
+
+// tag::gradesfeature[]
+
+=== Grades Feature
+
+==== Current Implementation
+
+* The grades attribute have been added into the person attributions.
+
+* A simple grade command have been added, which has the same behavior with command list.
+
+==== Future Implementation
+
+* Modify the grades from a single value into a list so that grades attribution can be more useful.
+
+* Add more function for grade command such as sorting students by grades, analysing the grades fluctuation of a students, listing all grades of a student and even using Gui to layout the grades.
+
+==== Design Considerations[ongoing]
+// end::gradesfeature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -988,6 +1006,125 @@ Use case ends
 +
 [none]
 ** 2a1. System displays command cancelled message.
+
+
+
+
+
+
+=== Use case: Filter by grade
+
+*MSS*
+
+1. User requests to get the list of students whose grade in certain given range
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid range of grade.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
+=== Use case: Filter by fee
+
+*MSS*
+
+1. User requests to get the list of students whose fee is over the given number.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
+
+
+=== Use case: Find students list of the given Education
+
+*MSS*
+
+1. User requests to get the list of students whose is in the given education level
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid education level.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
+=== Use case: Filter by Timeslot
+
+*MSS*
+
+1. User requests to get the name of the student who takes class at given timeslot
+2. System find out the student and show his or her name
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid time slot.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
+
+=== Use case: Edit time
+
+*MSS*
+
+1. User requests to change a student class time into new time slot
+2. System change the student previous time slot into new time slot
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid time slot.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
 
 === Use case: Calculate total earnings
 
