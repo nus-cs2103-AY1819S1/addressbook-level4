@@ -264,8 +264,8 @@ Format: `create_calendar month/MONTH year/YEAR`
 
 ****
 * Creates a calendar as a *`.ics`* file.
-* The month *must be specified as MMM*
-* The year *musst be specified as YYYY*
+* The MONTH *must be specified as MMM*.
+* The YEAR *must be specified as YYYY*.
 ****
 Example:
 
@@ -290,9 +290,9 @@ Format: `add_event month/MONTH year/YEAR sdate/START DATE shour/START HOUR smin/
 edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT`
 
 ****
-* `MONTH` has format MMM.
-* `YEAR` has format YYYY.
-* `DATE`, `HOUR`, `MINUTE` has format XX.
+* The *MONTH must be specified as MMM*.
+* The *YEAR must be specified as YYYY*.
+* *DATE, HOUR, MINUTE must be specified as XX*.
 ****
 
 Example:
