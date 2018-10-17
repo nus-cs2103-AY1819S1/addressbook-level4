@@ -71,6 +71,7 @@ Format: `add t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags
 [TIP]
 A calendar event can have any number of tags. (including 0)
 
+
 Examples:
 
 * `add t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture`
