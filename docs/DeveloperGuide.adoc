@@ -463,11 +463,11 @@ If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress per
 [NOTE]
 `BudgetPanel#incrementKeyFrames()` handles the animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
 
- image::BudgetPanelTextKeyFrameDiagram.png[width="800"]
-
 . `Timeline#playFromStart()` is called to execute the animation.
 
 . `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()``. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+[NOTE]
+Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
 
 ===== Design Considerations
 ====== Aspect: Which library to implement animation
