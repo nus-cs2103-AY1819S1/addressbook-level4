@@ -17,6 +17,16 @@ endif::[]
 
 By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+CLInic is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+If this is your first time on this application, proceed to <<Setting up>> to get started with setting up your development environment. Following which, you can proceed to *Appendix A* to get start on your first task!
+
+If you are already familiar with the basic development environment for this application and wish to understand the inner workings of this application at a higher level, proceed to <<Design>> and <<Implementation>>.
+
+For more information on documentation, testing and dev ops for this application, refer to <<Documentation>>, <<Testing>> and <<Dev Ops>> respectively.
+
 == Setting up
 
 === Prerequisites
@@ -262,14 +272,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
+.Initial state
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
+.State after new command
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
+.State after another new command
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
@@ -277,6 +290,7 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
+.Performing an undo
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
@@ -284,6 +298,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo/Redo sequence diagram
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
@@ -293,21 +308,24 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
+.Non-modifying command state
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+.Discard old commits after state pointer
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Undo/Redo activity diagram
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Save the entire address book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -442,11 +460,13 @@ Given below is an example usage scenario and how the Patient Queue Management Sy
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
+.Registering 3 patients
 image::PQMSPatientQueue.png[650, 250]
 
 Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
+.Serve patient
 image::PQMSCurrentPatient.png[650, 250]
 
 Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
@@ -455,6 +475,7 @@ processing later on.
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
 the `ServedPatientQueue`. Afterwards, the user execute `serve` to get the next patient.
 
+.Complete serving a patient
 image::PQMSServedPatientQueue.png[650, 250]
 
 Step 5. The user executes various commands to generate necessary documents for the served patient.
