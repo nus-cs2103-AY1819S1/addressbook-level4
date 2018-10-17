@@ -21,18 +21,19 @@ public class AcademicYear {
      *
      * @param number The semester number.
      */
-    public AcademicYear(Integer number) {
+    public AcademicYear(String number) {
         requireNonNull(number);
         checkArgument(isValidYear(number), MESSAGE_ACADEMICYEAR_CONSTRAINTS);
-        yearNumber = number;
+        yearNumber = Integer.getInteger(number);
     }
 
     /**
      * Returns true if a given Integer is a valid AcademicYear number
      */
-    public static boolean isValidYear(Integer number) {
-        Integer firstYear = number / 100;
-        Integer secondYear = number % 100;
+    public static boolean isValidYear(String number) {
+        Integer combinedYear = Integer.getInteger(number);
+        Integer firstYear = combinedYear / 100;
+        Integer secondYear = combinedYear % 100;
         return (firstYear + 1) % 100 == secondYear;
     }
 
@@ -47,6 +48,10 @@ public class AcademicYear {
     @Override
     public String toString() {
         return "AY" + firstYear() + "/" + secondYear();
+    }
+
+    public String toStringOnlyNumbers() {
+        return firstYear() + "" + secondYear();
     }
 
     @Override
