@@ -8,16 +8,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MID
 import static seedu.address.testutil.TypicalTodoListEvents.MIDTERM;
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import seedu.address.model.todolist.exceptions.DuplicateToDoListEventException;
 import seedu.address.model.todolist.exceptions.ToDoListEventNotFoundException;
+
 import seedu.address.testutil.ToDoListEventBuilder;
 
 public class UniqueToDoEventListTest {
