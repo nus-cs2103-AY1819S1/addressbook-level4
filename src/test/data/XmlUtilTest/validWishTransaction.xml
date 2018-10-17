@@ -9,7 +9,7 @@
                         <name>George Best</name>
                         <price>94.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>anna@example.com</email>
+                        <date>24/09/2020</date>
                         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
                     </xmlAdaptedWishes>
@@ -24,7 +24,7 @@
                         <name>Ida Mueller</name>
                         <price>84.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>hans@example.com</email>
+                        <date>21/09/2020</date>
                         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
                     </xmlAdaptedWishes>
@@ -39,7 +39,7 @@
                         <name>Fiona Kunz</name>
                         <price>94.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>lydia@example.com</email>
+                        <date>21/09/2020</date>
                         <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
                         <remark></remark>
                     </xmlAdaptedWishes>
@@ -54,7 +54,7 @@
                         <name>Elle Meyer</name>
                         <price>94.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>werner@example.com</email>
+                        <date>21/11/2023</date>
                         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
                     </xmlAdaptedWishes>
@@ -69,7 +69,7 @@
                         <name>Carl Kurz</name>
                         <price>98.76</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>heinz@example.com</email>
+                        <date>19/07/2020</date>
                         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
                     </xmlAdaptedWishes>
@@ -84,7 +84,7 @@
                         <name>Daniel Meier</name>
                         <price>87.65</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>cornelia@example.com</email>
+                        <date>24/09/2010</date>
                         <url>https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
                         <remark></remark>
                         <tagged>friends</tagged>
@@ -100,7 +100,7 @@
                         <name>Benson Meier</name>
                         <price>98.76</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>johnd@example.com</email>
+                        <date>24/09/2019</date>
                         <url>https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
                         <remark></remark>
                         <tagged>owesMoney</tagged>
@@ -117,7 +117,7 @@
                         <name>Hoon Meier</name>
                         <price>84.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>stefan@example.com</email>
+                        <date>24/06/2020</date>
                         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
                     </xmlAdaptedWishes>

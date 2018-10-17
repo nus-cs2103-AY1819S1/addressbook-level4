@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
@@ -88,10 +88,10 @@ public class TypicalWishes {
 
     // Manually added - Wish's details found in {@code CommandTestUtil}
     public static final Wish AMY = new WishBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
+            .withEmail(VALID_DATE_1).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
             .withSavedAmountIncrement("0.00").build();
     public static final Wish BOB = new WishBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withUrl(VALID_URL_BOB)
+            .withEmail(VALID_NAME_2).withUrl(VALID_URL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withSavedAmountIncrement("0.00")
             .build();
 

@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -38,14 +38,14 @@ public class WishTransactionTest {
         tagSet.add(new Tag("wish1"));
         this.wish1 = new Wish(new Name("wish1"),
                 new Price("81320902"),
-                new Email("wish1@gmail.com"),
+                new Date("20/9/2018"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),
                 tagSet);
         this.wish2 = new Wish(new Name("wish1"),
                 new Price("81320902"),
-                new Email("wish1@gmail.com"),
+                new Date("29/11/2019"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("f"),

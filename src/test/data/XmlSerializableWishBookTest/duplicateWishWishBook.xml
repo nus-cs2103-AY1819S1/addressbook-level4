@@ -5,6 +5,7 @@
         <name>Alice Pauline</name>
         <price>94351253</price>
         <savedAmount>0.00</savedAmount>
+        <date>24/09/2020</date>
         <email>alice@example.com</email>
         <url>https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
@@ -16,6 +17,7 @@
         <name>Alice Pauline</name>
         <price>94351253</price>
         <savedAmount>0.00</savedAmount>
+        <date>24/09/2020</date>
         <email>pauline@example.com</email>
         <remark></remark>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>

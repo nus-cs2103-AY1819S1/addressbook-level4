@@ -10,7 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -81,21 +81,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -120,5 +105,14 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if(!Date.isValidDate(date)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new Date(date);
     }
 }

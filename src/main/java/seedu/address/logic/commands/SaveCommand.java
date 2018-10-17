@@ -59,7 +59,7 @@ public class SaveCommand extends Command {
         String differenceString = "";
 
         try {
-            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
+            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
                     wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
                     wishToEdit.getRemark(), wishToEdit.getTags());
 

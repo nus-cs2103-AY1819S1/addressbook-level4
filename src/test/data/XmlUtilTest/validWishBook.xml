@@ -4,7 +4,7 @@
         <name>Hans Muster</name>
         <price isPrivate="false">9482424</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">hans@example.com</email>
+        <date>24/09/2020</date>
         <url isPrivate="false">https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
         <remark></remark>
     </wishes>
@@ -12,7 +12,7 @@
         <name>Ruth Mueller</name>
         <price isPrivate="false">87249245</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">ruth@example.com</email>
+        <date>21/09/2020</date>
         <url isPrivate="false">https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
         <remark></remark>
     </wishes>
@@ -20,7 +20,7 @@
         <name>Heinz Kurz</name>
         <price isPrivate="false">95352563</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">heinz@example.com</email>
+        <date>21/09/2020</date>
         <url isPrivate="false">https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
         <remark></remark>
     </wishes>
@@ -28,7 +28,7 @@
         <name>Cornelia Meier</name>
         <price isPrivate="false">87652533</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">cornelia@example.com</email>
+        <date>21/11/2023</date>
         <url isPrivate="false">https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
         <remark></remark>
     </wishes>
@@ -36,7 +36,7 @@
         <name>Werner Meyer</name>
         <price isPrivate="false">9482224</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">werner@example.com</email>
+        <date>19/07/2020</date>
         <url isPrivate="false">https://www.lazada.sg/products/sony-playstation-4-pro-1tb-console-local-stock-with-sony-warranty-i100009437-s100011973.html</url>
         <remark></remark>
     </wishes>
@@ -44,7 +44,7 @@
         <name>Lydia Kunz</name>
         <price isPrivate="false">9482427</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">lydia@example.com</email>
+        <date>24/09/2010</date>
         <url isPrivate="false">https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark></remark>
     </wishes>
@@ -52,7 +52,7 @@
         <name>Anna Best</name>
         <price isPrivate="false">9482442</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">anna@example.com</email>
+        <date>24/09/2019</date>
         <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
     </wishes>
@@ -60,7 +60,7 @@
         <name>Stefan Meier</name>
         <price isPrivate="false">8482424</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">stefan@example.com</email>
+        <date>24/06/2020</date>
         <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
     </wishes>
@@ -68,7 +68,7 @@
         <name>Martin Mueller</name>
         <price isPrivate="false">8482131</price>
         <savedAmount>0.00</savedAmount>
-        <email isPrivate="false">hans@example.com</email>
+        <date>24/09/2021</date>
         <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
     </wishes>

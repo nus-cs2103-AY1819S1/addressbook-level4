@@ -33,7 +33,7 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
         try {

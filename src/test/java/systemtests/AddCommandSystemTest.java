@@ -1,9 +1,9 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -16,7 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
@@ -38,7 +38,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Url;
@@ -59,7 +58,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
          */
         Wish toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PRICE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + URL_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + DATE_DESC_1 + "   " + URL_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
 
         assertCommandSuccess(command, toAdd);
 
@@ -76,14 +75,14 @@ public class AddCommandSystemTest extends WishBookSystemTest {
 
         /* Case: add a wish with all fields same as another wish in the wish book except name -> added */
         toAdd = new WishBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PRICE_DESC_AMY + EMAIL_DESC_AMY + URL_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PRICE_DESC_AMY + DATE_DESC_1 + URL_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a wish with all fields same as another wish in the wish book except phone and email
          * -> added
          */
-        toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withEmail(VALID_NAME_2).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -94,7 +93,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         /* Case: add a wish with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PRICE_DESC_BOB + URL_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + TAG_DESC_HUSBAND + DATE_DESC_2;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a wish, missing tags -> added */
@@ -124,7 +123,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: add a duplicate wish except with different email -> rejected */
-        toAdd = new WishBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new WishBuilder(HOON).withEmail(VALID_NAME_2).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
@@ -138,11 +137,11 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PRICE_DESC_AMY + EMAIL_DESC_AMY + URL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PRICE_DESC_AMY + DATE_DESC_1 + URL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + URL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_1 + URL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
@@ -150,7 +149,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing wish -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + DATE_DESC_1;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -158,23 +157,23 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PRICE_DESC_AMY + EMAIL_DESC_AMY + URL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PRICE_DESC_AMY + DATE_DESC_1 + URL_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PRICE_DESC + EMAIL_DESC_AMY + URL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PRICE_DESC + DATE_DESC_1 + URL_DESC_AMY;
         assertCommandFailure(command, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + INVALID_EMAIL_DESC + URL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + INVALID_DATE_DESC + URL_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid wish -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY + INVALID_URL_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + DATE_DESC_1 + INVALID_URL_DESC;
         assertCommandFailure(command, Url.MESSAGE_URL_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY + URL_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + DATE_DESC_1 + URL_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }

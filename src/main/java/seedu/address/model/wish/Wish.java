@@ -19,7 +19,7 @@ public class Wish {
     // Identity fields
     private final Name name;
     private final Price price;
-    private final Email email;
+    private final Date date;
 
     // Data fields
     private final Url url;
@@ -31,8 +31,8 @@ public class Wish {
     /**
      * Every field must be present and not null.
      */
-    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, price, email, url, tags);
+    public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, price, date, url, tags);
         if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
         } else {
@@ -40,7 +40,7 @@ public class Wish {
         }
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.date = date;
         this.url = url;
         this.tags.addAll(tags);
         this.remark = remark;
@@ -62,8 +62,8 @@ public class Wish {
         return price;
     }
 
-    public Email getEmail() {
-        return email;
+    public Date getDate() {
+        return date;
     }
 
     public SavedAmount getSavedAmount() {
@@ -101,7 +101,7 @@ public class Wish {
 
         return otherWish != null
                 && otherWish.getName().equals(getName())
-                && (otherWish.getPrice().equals(getPrice()) || otherWish.getEmail().equals(getEmail()));
+                && (otherWish.getPrice().equals(getPrice()) || otherWish.getDate().equals(getDate()));
     }
 
     /**
@@ -135,7 +135,7 @@ public class Wish {
         Wish otherWish = (Wish) other;
         return otherWish.getName().equals(getName())
                 && otherWish.getPrice().equals(getPrice())
-                && otherWish.getEmail().equals(getEmail())
+                && otherWish.getDate().equals(getDate())
                 && otherWish.getUrl().equals(getUrl())
                 && otherWish.getTags().equals(getTags());
     }
@@ -143,7 +143,7 @@ public class Wish {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, email, url, tags);
+        return Objects.hash(name, price, date, url, tags);
     }
 
     @Override
@@ -152,8 +152,8 @@ public class Wish {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPrice())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Address: ")
                 .append(getUrl())
                 .append(" Remark: ")

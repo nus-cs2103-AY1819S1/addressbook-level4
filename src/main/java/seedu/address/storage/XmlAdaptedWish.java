@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -33,7 +33,7 @@ public class XmlAdaptedWish {
     @XmlElement(required = true)
     private String savedAmount;
     @XmlElement(required = true)
-    private String email;
+    private String date;
     @XmlElement(required = true)
     private String url;
     @XmlElement(required = true)
@@ -51,10 +51,10 @@ public class XmlAdaptedWish {
     /**
      * Constructs an {@code XmlAdaptedWish} with the given wish details.
      */
-    public XmlAdaptedWish(String name, String price, String email, String url, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedWish(String name, String price, String date, String url, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.date = date;
         this.url = url;
         this.savedAmount = "0.00";
         this.remark = "";
@@ -71,7 +71,7 @@ public class XmlAdaptedWish {
     public XmlAdaptedWish(Wish source) {
         name = source.getName().fullName;
         price = source.getPrice().toString();
-        email = source.getEmail().value;
+        date = source.getDate().date;
         url = source.getUrl().value;
         savedAmount = source.getSavedAmount().toString();
         remark = source.getRemark().value;
@@ -107,13 +107,13 @@ public class XmlAdaptedWish {
         }
         final Price modelPrice = new Price(price);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Date modelDate = new Date(date);
 
         if (url == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
@@ -135,7 +135,7 @@ public class XmlAdaptedWish {
         final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
 
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelSavedAmount, modelRemark, modelTags);
+        return new Wish(modelName, modelPrice, modelDate, modelUrl, modelSavedAmount, modelRemark, modelTags);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class XmlAdaptedWish {
         XmlAdaptedWish otherWish = (XmlAdaptedWish) other;
         return Objects.equals(name, otherWish.name)
                 && Objects.equals(price, otherWish.price)
-                && Objects.equals(email, otherWish.email)
+                && Objects.equals(date, otherWish.date)
                 && Objects.equals(url, otherWish.url)
                 && Objects.equals(remark, otherWish.remark)
                 && tagged.equals(otherWish.tagged);
