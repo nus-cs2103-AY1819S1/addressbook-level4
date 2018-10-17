@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Document.makeDocument;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -52,6 +53,7 @@ public class ReceiptCommand extends QueueCommand {
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
         generatedResult = receipt.generate();
+        makeDocument(receipt);
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
         return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
