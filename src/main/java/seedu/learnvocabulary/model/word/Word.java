@@ -48,6 +48,9 @@ public class Word {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void deleteTags(Tag toDelete) {
+        tags.remove(toDelete);
+    }
     /**
      * Returns true if both words of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two words.
