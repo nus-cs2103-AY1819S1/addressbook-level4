@@ -39,6 +39,8 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    
+    private LoginIntroduction loginIntroduction;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -60,7 +62,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
-
+        
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -134,6 +136,29 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
+    
+    /**
+     * Fills up the window with a login screen
+     */
+    void fillLoginParts() {
+        loginIntroduction = new LoginIntroduction();
+        commandBoxPlaceholder.getChildren().add(loginIntroduction.getRoot());
+        /*
+        browserPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+    
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());*/
+    }
 
     void hide() {
         primaryStage.hide();
@@ -192,7 +217,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        if(browserPanel != null) {
+            browserPanel.freeResources();
+        }
     }
 
     @Subscribe
