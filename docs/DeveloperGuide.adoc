@@ -95,11 +95,381 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+[discrete]
+==== Events-Driven nature of the design
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command (part 1)
+image::SDforDeletePerson.png[width="800"]
+
+[NOTE]
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+.Component interactions for `delete 1` command (part 2)
+image::SDforDeletePersonEventHandling.png[width="800"]
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+
+The sections below give more details of each component.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeletePersonSdForLogic.png[width="800"]
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:ModelClassBetterOopDiagram.png[width="800"]
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in xml format and read it back.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-2.1 Query feature
+// tag::undoredo[]
+=== Undo/Redo feature
+
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+=== Command alias feature
+
+==== Overview
+
+The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
+when shorter command words are parsed through `parseCommand`.
+
+==== Example
+
+Given below is an example usage scenario and how the alias mechanism behaves at
+each step.
+
+Step 1. The user launches the application for the first time. The `LogicManager`
+will be initialized with an `AddressBookParser`.
+
+Step 2. The user executes `l` command instead of `list`. The `Matcher` object in
+`AddressBookParser` splits the command text into **command word ** section and
+*arguments,* section of which the **command word **is parsed using a _<switch>_
+statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
+`ListCommand`, which holds the final value of 'l'. The program finds a match and
+proceeds as if a `list` command is given.
+
+The following activity diagram summarizes what happens when a user executes a `l`
+command:
+
+image::AliasActivityDiagram.jpg[width="700", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How alias executes
+
+* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
+in each Command file.
+** *Pros:* Easy to implement
+** *Cons:* Have to decide the alias subjectively which brings down performance
+if there are alot of commands
+
+* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
+in each Command file.
+** *Pros*: Better performance as alias will be assigned systematically.
+** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
+& `filter`, it does not work.
+
+=== Query feature
+
+==== Overview
+
+The query mechanism does an API call to the website `data.gov.sg` to pull the car park information in `JSON` format.
+The external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
+
+Some notable methods that `GsonUtil` implements are:
+
+* `GsonUtil#getCarparkData()` — Get the basic car park information from the API.
+* `GsonUtil#getCarparkAvailability()` — Get the total parking lots as well as availability from another API.
+* `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
+
+Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
+
+==== Example
+
+Given below is an example usage scenario and how the query mechanism behaves at each step.
+
+Step 1. The user launches the application. The initial car park finder state might not have been updated
+to the latest according to `data.gov.sg`.
+
+Step 2. The user executes the `query` command to fetch the latest data from the API. The `query` command calls
+`GsonUtil#fetchCarparkInfo()` which runs the two methods `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.
+
+Step 3. The user waits for data to be updated. Inside `GsonUtil#getCarparkData()`, a connection is established with the API
+to read the `JSON` data for the basic car park information.
+
+[NOTE]
+If the reading from the API fails, IOException is thrown.
+
+Step 4. The `JSON` data is parsed using `Gson` library and stored inside `CarparkJson` class. A `HashSet` is used to consolidate
+all the car parks and prevent duplicate entries.
+
+Step 5. Once `GsonUtil#getCarparkData()` is done getting all the basic car park information, next is getting the parking lot
+details with `GsonUtil#getCarparkAvailability()`. The process is similar to how `GsonUtil#getCarparkData()` gets the data from the API.
+
+Step 6. When `GsonUtil#getCarparkAvailability()` is done adding in the parking lot details using `CarparkJson#addOn()`, a final check
+to see if there are any car parks with no data on its parking lots. The value 0 is added if there is no data.
+
+Step 7. An ArrayList<ArrayList<String>> is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
+to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
+
+==== Design Considerations
+
+===== Aspect: How query executes
+
+* **Alternative 1 (current choice):** Wait for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Performance issues as the application hangs.
+
+* **Alternative 2 :** Data is queried using a separate thread.
+** Pros: Application can be used as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects.
+
+===== Aspect: Data structure to support query command
+
+* **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
+** Pros: Easy to maintain an array list of list and iterate through to get a specific car park.
+** Cons: `ArrayList<ArrayList<String>>` can be confusing and not intuitive. Accessing elements is also not that efficient.
+
+* **Alternative 2 :** Use a `HashMap` to store data.
+** Pros: Much more efficient in accessing elements by using a key and better code readability
+with `HashMap<String,Carpark>`.
+** Cons: `HashMap` does not provide an ordered collection.
+
+=== [Propose] Notify feature
+
+==== Overview
+
+The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds or minutes
+and is used in conjunction with the `select` command.
+
+This means that it will only notify the current selected car park only, and not all the car parks.
+
+==== Example
+
+_This feature is coming in v2.0._
+
+==== Design Considerations
+
+===== Aspect: How notify executes
+
+* **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Performance issues as the application hangs.
+
+* **Alternative 2 :** Data is queried using a separate thread every interval.
+** Pros: Application can be used as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects.
 
 [appendix]
 == Product Scope
