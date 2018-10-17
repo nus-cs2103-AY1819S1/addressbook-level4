@@ -23,7 +23,11 @@ public class TracksScanner {
         File[] trackFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(Track.MP3_EXTENSION));
         Set<Track> trackSet = new HashSet<>();
         for (File trackFile : trackFiles) {
-            trackSet.add(new Track(trackFile));
+            try {
+                trackSet.add(new Track(trackFile));
+            } catch (IllegalArgumentException e) {
+                // do nothing, skip invalid track
+            }
         }
         return trackSet;
     }
