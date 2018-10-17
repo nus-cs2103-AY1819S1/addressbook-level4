@@ -20,6 +20,7 @@ import seedu.learnvocabulary.logic.commands.LearnCommand;
 import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.commands.TriviaAnsCommand;
 import seedu.learnvocabulary.logic.commands.TriviaCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
@@ -97,6 +98,8 @@ public class LearnVocabularyParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case ShowCommand.COMMAND_WORD:
+            return new ShowCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
