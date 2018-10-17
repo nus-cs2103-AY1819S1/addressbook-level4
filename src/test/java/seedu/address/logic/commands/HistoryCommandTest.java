@@ -15,7 +15,8 @@ public class HistoryCommandTest {
 
     @Test
     public void execute() {
-        assertCommandSuccess(new HistoryCommand(HistoryCommand.HistoryType.SHOW_COMMANDS), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
+        assertCommandSuccess(new HistoryCommand(HistoryCommand.HistoryType.SHOW_COMMANDS), model,
+                history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
 
         String command1 = "clear";
         history.add(command1);
@@ -29,7 +30,8 @@ public class HistoryCommandTest {
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
-        assertCommandSuccess(new HistoryCommand(HistoryCommand.HistoryType.SHOW_COMMANDS), model, history, expectedMessage, expectedModel);
+        assertCommandSuccess(new HistoryCommand(HistoryCommand.HistoryType.SHOW_COMMANDS), model,
+                history, expectedMessage, expectedModel);
     }
 
 }

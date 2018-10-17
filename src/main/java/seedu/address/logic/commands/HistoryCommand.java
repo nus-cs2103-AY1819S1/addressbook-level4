@@ -33,7 +33,9 @@ public class HistoryCommand extends Command {
 
     private final HistoryType historyType;
 
-    public HistoryCommand(HistoryType historyType) { this.historyType = historyType; }
+    public HistoryCommand(HistoryType historyType) {
+        this.historyType = historyType;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

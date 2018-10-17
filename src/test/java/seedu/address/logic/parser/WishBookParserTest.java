@@ -138,8 +138,10 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_history() throws Exception {
-        HistoryCommand commandHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_WORD + " " + HistoryCommand.HISTORY_ALL_COMMANDS);
-        HistoryCommand savingsHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_WORD + " " + HistoryCommand.HISTORY_ALL_SAVINGS);
+        HistoryCommand commandHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_WORD
+                + " " + HistoryCommand.HISTORY_ALL_COMMANDS);
+        HistoryCommand savingsHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_WORD
+                + " " + HistoryCommand.HISTORY_ALL_SAVINGS);
         assertTrue(commandHistoryCommand instanceof HistoryCommand);
         assertTrue(savingsHistoryCommand instanceof HistoryCommand);
 
@@ -153,8 +155,10 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_historyAlias() throws Exception {
-        HistoryCommand commandHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_ALIAS + " " + HistoryCommand.HISTORY_ALL_COMMANDS);
-        HistoryCommand savingsHistoryCommand = (HistoryCommand) parser.parseCommand(HistoryCommand.COMMAND_ALIAS + " " + HistoryCommand.HISTORY_ALL_SAVINGS);
+        HistoryCommand commandHistoryCommand = (HistoryCommand) parser.parseCommand(
+                HistoryCommand.COMMAND_ALIAS + " " + HistoryCommand.HISTORY_ALL_COMMANDS);
+        HistoryCommand savingsHistoryCommand = (HistoryCommand) parser.parseCommand(
+                HistoryCommand.COMMAND_ALIAS + " " + HistoryCommand.HISTORY_ALL_SAVINGS);
 
         assertTrue(commandHistoryCommand instanceof HistoryCommand);
         assertTrue(savingsHistoryCommand instanceof HistoryCommand);
