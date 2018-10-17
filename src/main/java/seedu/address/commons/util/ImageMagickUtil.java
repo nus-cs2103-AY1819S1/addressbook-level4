@@ -179,7 +179,7 @@ public class ImageMagickUtil {
         //process.waitFor();
     }
 
-    public static String getExecuteImagicMagic() throws NoSuchElementException {
+    public static String getExecuteImageMagic() throws NoSuchElementException {
         File folder = new File(getImageMagicPackagePath());
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
