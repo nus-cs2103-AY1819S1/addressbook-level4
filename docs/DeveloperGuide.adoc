@@ -440,6 +440,30 @@ the total cost for that day
 
 . `StatisticsPanel` UI element updates the bar chart in `chartArea` to show the expenses over the last 7 days.
 
+=== Find
+
+Given below is an example usage scenario and of how the find mechanism behaves at each step.
+
+. User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `AddressBookParser`,
+which then creates a `FindCommandParser` Object and call `FindCommandParser#parse()` method.
+
+. `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+an ArgumentMultimap Object.
+
+. `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
+of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
+`ExpenseContainsKeywordsPredicate` Object is created. It implements Predicate<Expense> interface and is used to filter
+out all the expenses which matches the keywords entered by the user.
+
+. A `FindCommand` Object with the `ExpenseContainsKeywordsPredicate` Object as parameter is created and returned to
+`LogicManager`.
+
+. `LogicManager` then calls `StatsCommand#execute()`,which calls `ModelManager#updateFilteredExpenseList()`
+method to update the predicate of FilterList<Expense>. FilterList now contains new set of expenses which filtered by the
+new predicate.
+
+. Then the expense list panel will show a new set of expenses according to the keywords.
+
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign
 
