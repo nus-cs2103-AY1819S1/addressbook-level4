@@ -7,7 +7,7 @@ import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.model.Model;
 
 /**
- * Lists all words in the learnvocabulary book to the user.
+ * Lists all words in LearnVocabulary to the user.
  */
 public class ListCommand extends Command {
 

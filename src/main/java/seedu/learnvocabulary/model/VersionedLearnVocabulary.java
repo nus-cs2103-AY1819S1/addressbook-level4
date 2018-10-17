@@ -34,7 +34,7 @@ public class VersionedLearnVocabulary extends LearnVocabulary {
     }
 
     /**
-     * Restores the learnvocabulary book to its previous state.
+     * Restores LearnVocabulary to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -45,7 +45,7 @@ public class VersionedLearnVocabulary extends LearnVocabulary {
     }
 
     /**
-     * Restores the learnvocabulary book to its previously undone state.
+     * Restores LearnVocabulary to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -56,14 +56,14 @@ public class VersionedLearnVocabulary extends LearnVocabulary {
     }
 
     /**
-     * Returns true if {@code undo()} has learnvocabulary book states to undo.
+     * Returns true if {@code undo()} has LearnVocabulary states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has learnvocabulary book states to redo.
+     * Returns true if {@code redo()} has LearnVocabulary states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < learnVocabularyStateList.size() - 1;

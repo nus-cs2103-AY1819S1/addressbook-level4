@@ -20,30 +20,30 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyLearnVocabulary newData);
 
-    /** Returns the LearnVocabulary */
+    /** Returns LearnVocabulary */
     ReadOnlyLearnVocabulary getLearnVocabulary();
 
     /**
-     * Returns true if a word with the same identity as {@code word} exists in the learnvocabulary book.
+     * Returns true if a word with the same identity as {@code word} exists in LearnVocabulary.
      */
     boolean hasWord(Word word);
 
     /**
      * Deletes the given word.
-     * The word must exist in the learnvocabulary book.
+     * The word must exist in LearnVocabulary.
      */
     void deleteWord(Word target);
 
     /**
      * Adds the given word.
-     * {@code word} must not already exist in the learnvocabulary book.
+     * {@code word} must not already exist in LearnVocabulary.
      */
     void addWord(Word word);
 
     /**
      * Replaces the given word {@code target} with {@code editedWord}.
-     * {@code target} must exist in the learnvocabulary book.
-     * The word identity of {@code editedWord} must not be the same as another existing word in learnvocabulary book.
+     * {@code target} must exist in LearnVocabulary.
+     * The word identity of {@code editedWord} must not be the same as another existing word in LearnVocabulary.
      */
     void updateWord(Word target, Word editedWord);
 
@@ -68,27 +68,27 @@ public interface Model {
     void updateFilteredWordList(Predicate<Word> predicate);
 
     /**
-     * Returns true if the model has previous learnvocabulary book states to restore.
+     * Returns true if the model has previous LearnVocabulary states to restore.
      */
     boolean canUndoLearnVocabulary();
 
     /**
-     * Returns true if the model has undone learnvocabulary book states to restore.
+     * Returns true if the model has undone LearnVocabulary states to restore.
      */
     boolean canRedoLearnVocabulary();
 
     /**
-     * Restores the model's learnvocabulary book to its previous state.
+     * Restores the model's LearnVocabulary to its previous state.
      */
     void undoLearnVocabulary();
 
     /**
-     * Restores the model's learnvocabulary book to its previously undone state.
+     * Restores the model's LearnVocabulary to its previously undone state.
      */
     void redoLearnVocabulary();
 
     /**
-     * Saves the current learnvocabulary book state for undo/redo.
+     * Saves the current LearnVocabulary state for undo/redo.
      */
     void commitLearnVocabulary();
 

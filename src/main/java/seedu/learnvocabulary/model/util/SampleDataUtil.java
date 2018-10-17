@@ -18,12 +18,17 @@ import seedu.learnvocabulary.model.word.Word;
 public class SampleDataUtil {
     public static Word[] getSampleWords() {
         return new Word[] {
-            new Word(new Name("Alex Yeoh"), new Meaning("Test"), getTagSet("friends")),
-            new Word(new Name("Bernice Yu"), new Meaning("Test"), getTagSet("colleagues", "friends")),
-            new Word(new Name("Charlotte Oliveiro"), new Meaning("Test"), getTagSet("neighbours")),
-            new Word(new Name("David Li"), new Meaning("Test"), getTagSet("family")),
-            new Word(new Name("Irfan Ibrahim"), new Meaning("Test"), getTagSet("classmates")),
-            new Word(new Name("Roy Balakrishnan"), new Meaning("Test"), getTagSet("colleagues"))
+            new Word(new Name("Rainstorm"), new Meaning("a storm with heavy rain."), getTagSet("toLearn")),
+            new Word(new Name("Hurricane"), new Meaning("a storm with a violent wind, in particular a tropical"
+                    + "cyclone in the Caribbean.\n"), getTagSet("weather", "toLearn")),
+            new Word(new Name("Tsunami"), new Meaning("a long, high sea wave caused"
+                    + "by an earthquake or other disturbance.\n"), getTagSet("disasters")),
+            new Word(new Name("Malpractice"), new Meaning("improper, illegal, or "
+                    + "negligent professional behaviour.\n"), getTagSet("toLearn")),
+            new Word(new Name("Sovereignty"), new Meaning("supreme power or authority."),
+                    getTagSet("toLearn")),
+            new Word(new Name("Funny"), new Meaning("causing laughter or amusement; humorous."),
+                    getTagSet("toLearn"))
         };
     }
 

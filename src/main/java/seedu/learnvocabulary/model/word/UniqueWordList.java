@@ -23,6 +23,8 @@ import seedu.learnvocabulary.model.word.exceptions.WordNotFoundException;
  * @see Word#isSameWord(Word)
  */
 public class UniqueWordList implements Iterable<Word> {
+    public static final String WORD_NOT_SET = "Word has not been set.";
+    public static final String WORD_NOT_REMOVED = "Word has not been removed.";
 
     private final ObservableList<Word> internalList = FXCollections.observableArrayList();
 
@@ -56,7 +58,7 @@ public class UniqueWordList implements Iterable<Word> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new WordNotFoundException();
+            throw new WordNotFoundException(WORD_NOT_SET);
         }
 
         if (!target.isSameWord(editedWord) && contains(editedWord)) {
@@ -73,7 +75,7 @@ public class UniqueWordList implements Iterable<Word> {
     public void remove(Word toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new WordNotFoundException();
+            throw new WordNotFoundException(WORD_NOT_REMOVED);
         }
     }
 

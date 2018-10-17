@@ -14,7 +14,7 @@ import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Selects a word identified using it's displayed index from the learnvocabulary book.
+ * Selects a word identified using it's displayed index from LearnVocabulary.
  */
 public class SelectCommand extends Command {
 

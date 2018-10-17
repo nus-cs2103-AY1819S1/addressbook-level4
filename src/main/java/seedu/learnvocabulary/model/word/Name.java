@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.learnvocabulary.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Word's name in the learnvocabulary book.
+ * Represents a Word's name in LearnVocabulary.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -13,7 +13,7 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the learnvocabulary must not be a whitespace,
+     * The first character of LearnVocabulary must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
@@ -38,6 +38,9 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    public String getFullName() {
+        return fullName;
+    }
 
     @Override
     public String toString() {

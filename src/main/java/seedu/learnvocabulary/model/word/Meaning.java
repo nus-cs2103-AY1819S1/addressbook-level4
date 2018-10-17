@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.learnvocabulary.commons.util.AppUtil.checkArgument;
 
 /**
- * represents a Word's meaning in learnvocabulary
+ * Represents a Word's meaning in LearnVocabulary
  */
 public class Meaning {
 
@@ -24,7 +24,6 @@ public class Meaning {
         return test.matches(MEANING_VALIDATION_REGEX);
     }
 
-
     @Override
     public String toString() {
         return fullMeaning;
@@ -41,4 +40,5 @@ public class Meaning {
     public int hashCode() {
         return fullMeaning.hashCode();
     }
+
 }

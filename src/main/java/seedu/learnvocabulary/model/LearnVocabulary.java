@@ -12,7 +12,7 @@ import seedu.learnvocabulary.model.word.Word;
 
 
 /**
- * Wraps all data at the learnvocabulary-book level
+ * Wraps all data at LearnVocabulary
  * Duplicates are not allowed (by .isSameWord comparison)
  */
 public class LearnVocabulary implements ReadOnlyLearnVocabulary {
@@ -33,7 +33,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     public LearnVocabulary() {}
 
     /**
-     * Creates an LearnVocabulary using the Words in the {@code toBeCopied}
+     * Creates LearnVocabulary using the Words in the {@code toBeCopied}
      */
     public LearnVocabulary(ReadOnlyLearnVocabulary toBeCopied) {
         this();
@@ -62,7 +62,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     //// word-level operations
 
     /**
-     * Returns true if a word with the same identity as {@code word} exists in the learnvocabulary book.
+     * Returns true if a word with the same identity as {@code word} exists in LearnVocabulary.
      */
     public boolean hasWord(Word word) {
         requireNonNull(word);
@@ -70,7 +70,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     }
 
     /**
-     * Returns true if a tag with the same identity as {@code tag} exists in the learnvocabulary book.
+     * Returns true if a tag with the same identity as {@code tag} exists in LearnVocabulary.
      */
     public boolean hasTag(Tag tag) {
         requireNonNull(tag);
@@ -82,8 +82,8 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         return false;
     }
     /**
-     * Adds a word to the learnvocabulary book.
-     * The word must not already exist in the learnvocabulary book.
+     * Adds a word to LearnVocabulary.
+     * The word must not already exist in LearnVocabulary.
      */
     public void addWord(Word p) {
         words.add(p);
@@ -91,9 +91,9 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     /**
      * Replaces the given word {@code target} in the list with {@code editedWord}.
-     * {@code target} must exist in the learnvocabulary book.
+     * {@code target} must exist in LearnVocabulary.
      * The word identity of {@code editedWord} must not be
-     * the same as another existing word in the learnvocabulary book.
+     * the same as another existing word in LearnVocabulary.
      */
     public void updateWord(Word target, Word editedWord) {
         requireNonNull(editedWord);
@@ -124,7 +124,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     /**
      * Removes {@code key} from this {@code LearnVocabulary}.
-     * {@code key} must exist in the learnvocabulary book.
+     * {@code key} must exist in LearnVocabulary.
      */
     public void removeWord(Word key) {
         words.remove(key);

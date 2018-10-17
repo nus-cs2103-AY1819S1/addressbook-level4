@@ -8,7 +8,7 @@ import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all words in learnvocabulary book whose name contains any of the argument keywords.
+ * Finds and lists all words in LearnVocabulary whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all words whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " rainstorm hurricane tsunami";
 
     private final NameContainsKeywordsPredicate predicate;
 

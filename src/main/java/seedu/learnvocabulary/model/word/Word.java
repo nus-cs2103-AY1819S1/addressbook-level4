@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.learnvocabulary.model.tag.Tag;
 
 /**
- * Represents a Word in the learnvocabulary book.
+ * Represents a Word in LearnVocabulary.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Word {
@@ -58,9 +58,7 @@ public class Word {
         }
 
         return otherWord != null
-                && otherWord.getName().equals(getName())
-                && (otherWord.getMeaning().equals(getMeaning())
-                || otherWord.getTags().equals(getTags()));
+                && otherWord.getName().equals(getName());
     }
 
     /**

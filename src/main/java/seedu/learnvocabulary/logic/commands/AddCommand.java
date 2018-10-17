@@ -1,6 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -10,23 +11,25 @@ import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Adds a word to the learnvocabulary book.
+ * Adds a word to LearnVocabulary.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a word to the learnvocabulary book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a word to LearnVocabulary. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_MEANING + "MEANING"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Rainstorm "
+            + PREFIX_MEANING + "a storm with heavy rain. "
+            + PREFIX_TAG + "weather "
+            + PREFIX_TAG + "mustLearn";
 
     public static final String MESSAGE_SUCCESS = "New word added: %1$s";
-    public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in the learnvocabulary book";
+    public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in LearnVocabulary";
 
 
     public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
