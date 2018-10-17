@@ -324,12 +324,54 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::wish[]
+=== Add Wish feature
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
 
-// end::dataencryption[]
+The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
+is facilitated mainly by the `ModelManager` which implements `Model`.
+It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their respective data structures.
+After adding a `Wish`, the `FilteredWishList` is also updated to reflect the latest WishBook.
+The UI is also prompted to refresh through a `WishBookChangedEvent`.
+
+Given below is an example usage scenario and how an AddCommand is carried out.
+
+Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200`, and the current date is 2nd October 2017 (2/10/2017).
+The user's command is successfully parsed to create a `Wish` with the following properties:
+
+* Name: _1TB Toshiba SSD_
+* Price: $158.00
+* DueDate: `200d` ays from 2/10/2017
+* URL: `not stated`
+
+Step 2. During the computation of DueDate is handled internally in the `DueDate` class,
+which is able to take days, months, and years as input to generate a proper DueDate with the current time the user executes the command.
+Internally, DueDate converts the input time into number of days, and adds it to the current date to get the desired DueDate.
+
+The resultant wish will have the following properties:
+
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 0
+* Price: 158.00
+* DueDate: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Transactions: `empty LinkedList`
+
+Step 3. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
+which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
+as `filteredWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
+
+_{TO-DO: Sequence Diagram here}_
+
+==== Design Considerations
+
+
+_{TO-DO}_
+
+// end::wish[]
 
 === Logging
 
