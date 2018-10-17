@@ -390,8 +390,10 @@ It extends `Command` and serves as a special kind of Command that cannot be dire
 A new instance of `SuggestCommand` is created whenever `AddressBookParser` fails to find a matching CommandWord,
 or when {tab} is pressed inside the CommandBox.
 
-When an incomplete command is entered, the `AddressBookParser` will parse the output using a `SuggestCommandParser`.
-The `AddressBookParser` then checks that the SuggestCommand is valid.
+When an incomplete command is entered, the `AddressBookParser` will instantiate a `SuggestCommand`.
+The `AddressBookParser` then checks that the SuggestCommand is valid, if not throw `ParseException`.
+The application will then proceed with executing the `SuggestCommand`, which will return a list of matching commands.
+This list is reflected in both `CommandResult` and
 
 Given below are some example usage scenarios and how the undo/redo mechanism behaves at each step.
 
