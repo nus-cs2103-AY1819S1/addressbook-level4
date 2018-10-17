@@ -93,11 +93,6 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
 
-    //@@author Snookerballs
-    public Budget getMaximumBudget() {
-        return model.getMaximumBudget();
-    }
-
     //@@author
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
