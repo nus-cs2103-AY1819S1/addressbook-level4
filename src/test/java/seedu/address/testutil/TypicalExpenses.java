@@ -18,6 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.expense.Expense;
@@ -28,6 +29,8 @@ import seedu.address.model.user.Username;
  */
 public class TypicalExpenses {
     public static final Username SAMPLE_USERNAME = new Username("sampleData");
+    public static final double INTIIAL_EXPENSES = 26.00;
+    public static final double INTIIAL_BUDGET = 28.00;
 
     public static final Expense ALICE = new ExpenseBuilder().withName("Alice Pauline")
             .withCost("3.00")
@@ -37,31 +40,31 @@ public class TypicalExpenses {
     public static final Expense BENSON = new ExpenseBuilder().withName("Benson Meier")
             .withCost("2.00")
             .withCategory("Food")
-            .withDate(VALID_DATE_2018)
+            .withDate("02-10-2018")
             .withTags("owesMoney", "friends").build();
     public static final Expense CARL = new ExpenseBuilder().withName("Carl Kurz")
             .withCategory("Entertainment")
-            .withDate(VALID_DATE_2018)
+            .withDate("03-10-2018")
             .withCost("1.00").build();
     public static final Expense DANIEL = new ExpenseBuilder()
             .withName("Daniel Meier")
             .withCategory("Shopping")
             .withCost("2.00")
-            .withDate(VALID_DATE_2018)
+            .withDate("04-10-2018")
             .withTags("friends").build();
     public static final Expense ELLE = new ExpenseBuilder()
             .withName("Elle Meyer")
-            .withDate(VALID_DATE_2018)
+            .withDate("05-10-2018")
             .withCategory("Tax")
             .withCost("5.00").build();
     public static final Expense FIONA = new ExpenseBuilder()
             .withName("Fiona Kunz")
-            .withDate(VALID_DATE_2018)
+            .withDate("06-10-2018")
             .withCategory("Book")
             .withCost("6.00").build();
     public static final Expense GEORGE = new ExpenseBuilder()
             .withName("George Best")
-            .withCategory("Fine")
+            .withCategory("Food")
             .withDate(VALID_DATE_2018)
             .withCost("7.00").build();
 
@@ -92,7 +95,8 @@ public class TypicalExpenses {
             .withCategory(VALID_CATEGORY_KFC)
             .withTags(VALID_TAG_FOOD).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_FOOD = "c/Food"; //A keyword that matches Food category
 
     private TypicalExpenses() {
     } // prevents instantiation
@@ -103,7 +107,7 @@ public class TypicalExpenses {
      */
     public static AddressBook getTypicalAddressBook() {
         double expense = 0;
-        AddressBook ab = new AddressBook(SAMPLE_USERNAME);
+        AddressBook ab = new AddressBook(SAMPLE_USERNAME, Optional.empty());
         for (Expense e : getTypicalExpenses()) {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();

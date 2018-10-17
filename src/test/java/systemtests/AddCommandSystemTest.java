@@ -51,9 +51,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() throws NoUserSelectedException {
-        Model model = testApp.getActualModel();
+        Model model = getModel();
         //Set budget such that it never exceeds
+        model.commitAddressBook();
+        testApp.getActualModel().modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
+        testApp.getActualModel().commitAddressBook();
+
         model.modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
+        showAllExpenses();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
@@ -160,7 +165,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + INVALID_ADDRESS_DESC + DATE_DESC_1990;
-        assertCommandFailure(command, Cost.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Cost.MESSAGE_COST_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990
