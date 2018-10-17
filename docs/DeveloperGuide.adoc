@@ -80,6 +80,31 @@ Step 2: `GroupDeleteCommand` checks passed arguments.
 
 Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
 
+**Show**
+
+The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page.
+
+Below is a description on how the select function operates:
+
+Step 1: User wants to query a bunch of words and find out their meanings, tags altogether.
+
+Step 2: `ShowCommand` checks through the entire xml file and filters out the ones being typed.
+
+Step 3: The result is the list of filtered words, together with their definition and tags being displated.
+
+**Learn**
+
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+
+Below is a description on how the select function operates:
+
+Step 1: User wants to learn this new word he just heard of, eg: Happiness
+
+Step 2: User would type the word followed by the command learn, eg: learn happiness
+
+Step 3: The word will be searched online, should it be successful, the word and meaning will be displayed on screen.
+
+Step 4: The word is then stored within the storage file.
 
 == Target user profile
 
@@ -166,17 +191,15 @@ System would pull up the data from storage
 
 Use case ends
 
-*Multilingual Support:*
+*Learning Support:*
 
-User inputs command (multi)
+User inputs command (learn)
 
-A helper text will appear (multi chi (chinese), multi fr (french, multi…)
+User types in learn [word], the word will be queried online.
 
-User enters “multi chi”
+The definition of the entered word will be displayed and the user will learn it.
 
-System prompts for chinese words
-
-Chinese words will be translated into the English meaning
+The word is then saved within the storage, where it can be edited in the future if need be.
 
 Use case ends
 

@@ -13,13 +13,25 @@ Double-click the file to start the app. The GUI should appear in a few seconds.
 == Features
 **Adding words**
 
-A command for adding words to the user’s vocabulary list
+A command for adding words to LearnVocabulary
 Command syntax: add [word]
 Format: add [word] [word] [word]
 
+**Learning words**
+
+A command for learning words to LearnVocabulary, pulled from online.
+Command syntax: learn [word]
+Format: add [word]
+
+*Showing words*
+
+Shows and displays the words from LearnVocabulary
+Command syntax: show [word]
+Format: show [word] [word] [word]
+
 *Finding words*
 
-Searches for a specific word from the review list and dictionary
+Searches for a specific word from LearnVocabulary
 Command syntax: find [word]
 Format: find [word] [word] [word]
 
@@ -37,7 +49,7 @@ Format: delete 3
 
 *Trivia game*
 
-Presents a question based on words in the vocabulary list
+Presents a question based on words in LearnVocabulary
 Command syntax: trivia
 Format: trivia
 
@@ -48,16 +60,9 @@ Format: answer [word]
 
 *Clears all words from the vocabulary list*
 
-Clears all of the words on the vocabulary list.
+Clears all of the words on LearnVocabulary.
 Command syntax: clear
 Format: clear
-
-*Multilingual support*
-
-Allow users to download dictionaries of other languages
-Allows for user to enter their native language and learn English from there.
-Command syntax: multi [language]
-Format: multi chi
 
 *Help view*
 
@@ -91,7 +96,9 @@ Delete: delete [index]
 
 Clear: clear
 
-Multilingual: multi
+Learn: learn [word]
+
+Show: show [word]
 
 Trivia: trivia
 
