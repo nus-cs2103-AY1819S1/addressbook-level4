@@ -56,6 +56,30 @@ Step 2: `SelectCommand` checks passed arguments.
 
 Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
 
+**groupadd**
+
+The select command is indicated as `GroupAddCommand` in `commands`, and inherits the `Command` class. It create a new group in which the uesr can put words.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
+
+Step 2: `GroupAddCommand` checks passed arguments.
+
+Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
+
+**groupdelete**
+
+The select command is indicated as `GroupDeleteCommand` in `commands`, and inherits the `Command` class. It delete a group and all words in it.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
+
+Step 2: `GroupDeleteCommand` checks passed arguments.
+
+Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+
 
 == Target user profile
 
