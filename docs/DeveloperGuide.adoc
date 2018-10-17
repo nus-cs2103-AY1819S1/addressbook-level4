@@ -517,6 +517,12 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
+=== User Interface Previews
+When a pull request has visual changes to the user interface (UI), you can use `git fetch upstream
+pull/ID/head:NEW_BRANCH_NAME` to obtain the changes locally in a new branch and see what the UI will look like when the
+pull request is merged. See https://help.github.com/articles/checking-out-pull-requests-locally/[local pull requests]
+for more details.
+
 === Making a Release
 
 Here are the steps to create a new release.
@@ -825,6 +831,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*:
 
+* Allow users to view data that serves as feedback on the functioning of a clinic.
 * Allow users to focus on attending to patients and providing a better experience.
 * Avoid critical errors stemming from inaccurate or incomplete paper records.
 * Improve visibility of a clinic's patient record and patient management process.
@@ -1031,8 +1038,18 @@ Use case ends.
 	** 1a.5 Repeat MSS
 +
 Use case ends.
+
+=== Use case: View ClinicIO analytics
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+
+*MSS*
+
+1. Actor requests to view ClinicIO analytics.
+2. System retrieves values and computes all statistics.
+3. System displays numerical summary and visualizations.
 +
-* 2a. All queues are full.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1062,23 +1079,6 @@ A person that is in charge of the front desk receptionist in a medical clinic.
 
 [[doctor]] Doctor::
 A person who is qualified to treat people who are ill.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

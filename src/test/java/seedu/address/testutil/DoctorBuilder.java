@@ -22,7 +22,7 @@ public class DoctorBuilder {
     public DoctorBuilder() {
         id = new Id(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
-        password = new Password(DEFAULT_PASSWORD);
+        password = new Password(DEFAULT_PASSWORD, false);
     }
 
     /**
@@ -52,9 +52,12 @@ public class DoctorBuilder {
 
     /**
      * Sets the {@code Password} of the {@code Doctor} that we are building.
+     *
+     * @param isHashed Check if the password is hashed password.
+     *
      */
-    public DoctorBuilder withPassword(String password) {
-        this.password = new Password(password);
+    public DoctorBuilder withPassword(String password, boolean isHashed) {
+        this.password = new Password(password, isHashed);
         return this;
     }
 

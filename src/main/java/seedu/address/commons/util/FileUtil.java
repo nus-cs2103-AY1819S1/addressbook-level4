@@ -1,5 +1,8 @@
 package seedu.address.commons.util;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -80,4 +83,42 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Checks if two files are identical.
+     * @@author arsalanc-v2
+     * @param file1
+     * @param file2
+     * @return true if {@code file1} and {@code file2} are identical in content. false otherwise.
+     * @throws IOException
+     */
+    public static boolean areFilesIdentical(File file1, File file2) throws IOException {
+        FileInputStream inputStream1 = new FileInputStream(file1);
+        FileInputStream inputStream2 = new FileInputStream(file2);
+
+        BufferedInputStream bufferedStream1 = new BufferedInputStream(inputStream1);
+        BufferedInputStream bufferedStream2 = new BufferedInputStream(inputStream2);
+
+        int fileChar1 = bufferedStream1.read();
+        while (fileChar1 != -1) {
+            int fileChar2 = bufferedStream2.read();
+            if (fileChar1 != fileChar2) {
+                inputStream1.close();
+                inputStream2.close();
+                return false;
+            }
+
+            fileChar1 = bufferedStream1.read();
+        }
+
+        // check if file1 is a subset of file2 in terms of content AND file 2 is longer
+        if (bufferedStream2.read() != -1) {
+            inputStream1.close();
+            inputStream2.close();
+            return false;
+        }
+
+        inputStream1.close();
+        inputStream2.close();
+        return true;
+    }
 }
