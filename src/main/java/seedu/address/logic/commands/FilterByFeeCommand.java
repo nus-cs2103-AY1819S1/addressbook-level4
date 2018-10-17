@@ -22,6 +22,10 @@ public class FilterByFeeCommand extends FilterCommand {
 
     public static final String MESSAGE_SUCCESS = "Already filtered by fee!";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": show the person list of whose fee is over given number "
+            + "Parameters: "
+            + "Limit Fee";
+
     private double limit;
 
     /**

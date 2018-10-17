@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,11 @@ public class FilterByGradeCommand extends FilterCommand {
     public static final String COMMAND_WORD = "filterByGrade";
 
     public static final String MESSAGE_SUCCESS = "Already filtered by grade!";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": filter by the given range as. "
+            + "Parameters: "
+            + "minLimit"
+            + "maxLimit";
 
     private double minLimit;
 
