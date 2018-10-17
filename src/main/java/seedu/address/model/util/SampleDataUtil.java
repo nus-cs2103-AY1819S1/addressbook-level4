@@ -59,7 +59,7 @@ public class SampleDataUtil {
                 new Budget(500),
                 new Spent(300),
                 new Outstanding(200),
-                new Transaction("transaction_log_1")),
+                new Transaction("transaction log 1")),
             new Cca(
                 new CcaName("Floorball"),
                 new Name("XiaoBitch"),
@@ -67,7 +67,7 @@ public class SampleDataUtil {
                 new Budget(600),
                 new Spent(500),
                 new Outstanding(100),
-                new Transaction("transaction_log_2")),
+                new Transaction("transaction log 2")),
             new Cca(
                 new CcaName("Handball"),
                 new Name("Steven Lim"),
@@ -75,7 +75,7 @@ public class SampleDataUtil {
                 new Budget(100),
                 new Spent(100),
                 new Outstanding(0),
-                new Transaction("transaction_log_2")),
+                new Transaction("transaction log 2")),
         };
     }
 
