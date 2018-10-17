@@ -11,17 +11,17 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
-    private static Boolean notificationIsEnabled;
 
     private Double windowWidth;
     private Double windowHeight;
     private Point windowCoordinates;
+    private Boolean notificationIsEnabled;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
-        notificationIsEnabled = true;
+        notificationIsEnabled = getNotificationIsEnabled(); // true is the default setting
     }
 
     public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition, boolean notificationIsEnabled) {
@@ -43,7 +43,7 @@ public class GuiSettings implements Serializable {
         return windowCoordinates;
     }
 
-    public static Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
+    public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
 
     @Override
     public boolean equals(Object other) {
@@ -73,7 +73,7 @@ public class GuiSettings implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Width : " + windowWidth + "\n");
         sb.append("Height : " + windowHeight + "\n");
-        sb.append("Position : " + windowCoordinates);
+        sb.append("Position : " + windowCoordinates + "\n");
         sb.append("Notification : " + notificationIsEnabled);
         return sb.toString();
     }
