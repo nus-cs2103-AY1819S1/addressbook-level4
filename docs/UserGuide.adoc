@@ -59,7 +59,7 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -130,7 +130,7 @@ Examples:
 
 * `find/e John@example.com` +
 Returns `John Doe` whose email address is `John@example.com`
-* `find/e TIM@EXAmple.Com` +
+* `find/e tim@exmple.Com` +
 Returns `Tim` whose email address is `tim@example.com`
 
 === Deleting a person : `delete`
@@ -201,7 +201,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Analyzing grades commands : `grades`
+=== Analyzing grades commands `[coming in v2.0]`
 
 Analyze the grades of students +
 Format: `grades ACTION [parameters]`
@@ -220,7 +220,7 @@ Regard the mark of the student who doesn't have a grade as 0.
 
 
 
-=== Retrieving earnings : `earnings`
+=== Retrieving earnings `[coming in v2.0]`
 
 Retrieve the total earnings within a range of date in the current year. +
 Format: `from/DDMM to/DDMM`
@@ -313,8 +313,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 el/JC 1 g/85`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -322,11 +322,13 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Find by e-mail* : `find/e EMAIL` +
+e.g `find tim@example.com`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *filterByFee* : `filterByFee FEE`
 * *History* : `history`
-* *Earnings* : `earnings from/DDMM to/DDMM`
 * *Undo* : `undo`
 * *Redo* : `redo`
