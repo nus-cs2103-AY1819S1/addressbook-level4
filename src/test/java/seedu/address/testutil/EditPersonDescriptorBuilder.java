@@ -11,7 +11,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.project.Project;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -37,6 +37,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setSalary(person.getSalary());
+        descriptor.setAddress(person.getAddress());
+        descriptor.setProjects(person.getProjects());
     }
 
     /**
@@ -47,6 +49,19 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    public EditPersonDescriptorBuilder withAddress(String address) {
+        descriptor.setAddress(new Address(address));
+        return this;
+    }
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withProjects(String... projects) {
+        Set<Project> projectSet = Stream.of(projects).map(Project::new).collect(Collectors.toSet());
+        descriptor.setProjects(projectSet);
+        return this;
+    }
     /**
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      */

@@ -14,7 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.project.Project;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -117,24 +117,24 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+    public static Project parseProject(String project) throws ParseException {
+        requireNonNull(project);
+        String trimmedProject = project.trim();
+        if (!Project.isValidProjectName(trimmedProject)) {
+            throw new ParseException(Project.MESSAGE_PROJECT_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Project(trimmedProject);
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Project> parseProjects(Collection<String> projects) throws ParseException {
+        requireNonNull(projects);
+        final Set<Project> projectSet = new HashSet<>();
+        for (String tagName : projects) {
+            projectSet.add(parseProject(tagName));
         }
-        return tagSet;
+        return projectSet;
     }
 }

@@ -1,16 +1,18 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT;
 
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.project.Project;
 
 /**
  * A utility class for Person.
@@ -32,7 +34,11 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_SALARY + person.getSalary().value + " ");
+        person.getProjects().stream().forEach(
+                s -> sb.append(PREFIX_PROJECT + s.projectName + " ")
+        );
         return sb.toString();
     }
 
@@ -44,7 +50,16 @@ public class PersonUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getSalary().ifPresent(address -> sb.append(PREFIX_SALARY).append(address.value).append(" "));
+        if (descriptor.getProjects().isPresent()) {
+            Set<Project> projects = descriptor.getProjects().get();
+            if (projects.isEmpty()) {
+                sb.append(PREFIX_PROJECT);
+            } else {
+                projects.forEach(s -> sb.append(PREFIX_PROJECT).append(s.projectName).append(" "));
+            }
+        }
         return sb.toString();
     }
 }

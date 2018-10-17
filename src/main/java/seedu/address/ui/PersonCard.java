@@ -36,6 +36,10 @@ public class PersonCard extends UiPart<Region> {
     private Label salary;
     @FXML
     private Label email;
+    @FXML
+    private Label address;
+    @FXML
+    private FlowPane project;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -45,6 +49,8 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         salary.setText(person.getSalary().value);
         email.setText(person.getEmail().value);
+        address.setText(person.getAddress().value);
+        person.getProjects().forEach(proj -> project.getChildren().add(new Label(proj.projectName)));
     }
 
     @Override
