@@ -1,22 +1,23 @@
 package seedu.address.model.todolist;
 
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.todolist.exceptions.DuplicateToDoListEventException;
-import seedu.address.model.todolist.exceptions.ToDoListEventNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import seedu.address.model.todolist.exceptions.DuplicateToDoListEventException;
+import seedu.address.model.todolist.exceptions.ToDoListEventNotFoundException;
 
 /**
  * A list of todoEvents that enforces uniqueness between its elements and does not allow nulls.
  * A todoListEvent is considered unique by comparing using {@code ToDoListEvent#isSameToDoListEvent(ToDoListEvent)}.
- * As such, adding and updating of todoListEvents uses ToDoListEvent#isSameToDoListEvent(ToDoListEvent) for equality so as to
- * ensure that the todolist event being added or updated is unique in terms of identity in the UniqueToDoEventList.
+ * As such, adding and updating of todoListEvents uses ToDoListEvent#isSameToDoListEvent(ToDoListEvent)
+ * for equality so as to ensure that the todolist event being added or updated is unique
+ * in terms of identity in the UniqueToDoEventList.
  * However, the removal of a todolist event uses ToDoListEvent#equals(Object) so
  * as to ensure that the todolist event with exactly the same fields will be removed.
  * <p>
