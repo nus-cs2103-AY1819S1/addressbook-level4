@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.LoginEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 
 /**
@@ -47,7 +49,7 @@ public class LoginForm extends UiPart<Region> {
 		usernameLabel.setText(USERNAME);
 		passwordLabel.setText(PASSWORD);
 		
-		loginButton.setOnAction(e -> System.out.println("FIRE" + e));
+		loginButton.setOnAction(e -> raise(new LoginEvent(usernameField.getText(), passwordField.getText())));
 		registerAsAnEventHandler(this);
 	}
 }
