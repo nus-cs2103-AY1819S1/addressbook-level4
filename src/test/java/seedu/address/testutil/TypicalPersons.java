@@ -24,6 +24,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -49,6 +50,22 @@ public class TypicalPersons {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
+
+    // Manually added
+    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+            .build();
+    public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
+            .build();
+    public static final Patient CARL_AS_PATIENT = PatientBuilder.buildFromPerson(CARL)
+            .build();
+    public static final Patient DANIEL_AS_PATIENT = PatientBuilder.buildFromPerson(DANIEL)
+            .build();
+    public static final Patient ELLE_AS_PATIENT = PatientBuilder.buildFromPerson(ELLE)
+            .build();
+    public static final Patient FIONA_AS_PATIENT = PatientBuilder.buildFromPerson(FIONA)
+            .build();
+    public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
+            .build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
