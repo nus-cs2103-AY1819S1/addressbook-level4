@@ -55,13 +55,6 @@ public class MainWindowCloseTest extends GuiUnitTest {
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
-    @Test
-    public void close_event_exitAppRequestEventPosted() {
-        mainWindowHandle.closeMainWindoeEvent();
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
-    }
-
     /**
      * A handle for an empty {@code MainWindow}. The components in {@code MainWindow} are not initialized.
      */
@@ -85,13 +78,6 @@ public class MainWindowCloseTest extends GuiUnitTest {
          */
         private void closeMainWindowExternally() {
             guiRobot.interact(() -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
-        }
-
-        /**
-         * Closes the {@code MainWindow} through sending an ExitAppRequestEvent to the app.
-         */
-        private void closeMainWindoeEvent() {
-            guiRobot.interact(() -> mainWindow.raise(new ExitAppRequestEvent()));
         }
     }
 }
