@@ -134,7 +134,7 @@ public class WishBook implements ReadOnlyWishBook {
 
         for (Wish wish : wishes.asUnmodifiableObservableList()) {
 
-            LinkedList<Wish> transactions = wishMap.get(wish.getName());
+            LinkedList<Wish> transactions = wishMap.get(wish.getName().toString());
 
             if (transactions == null) {
                 transactions = new LinkedList<>();
