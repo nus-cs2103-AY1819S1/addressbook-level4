@@ -31,7 +31,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private GoogleClientInstance photoLibrary = null;
     private ArrayList<String> dirImageList;
-    private BufferedImage currDisplayedPic;
+    private BufferedImage currentOriginalImage;
+    private PreviewImage currentPreviewImage;
 
     private final UserPrefs userPrefs;
 
@@ -145,8 +146,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public BufferedImage getDisplayedImage() {
-        return this.currDisplayedPic;
+    public BufferedImage getCurrentOriginalImage() {
+        return this.currentOriginalImage;
+    }
+
+    @Override
+    public BufferedImage getCurrentPreivewImage() {
+        return this.currentPreviewImage.getImage();
     }
 
     /**
@@ -154,9 +160,9 @@ public class ModelManager extends ComponentManager implements Model {
      * reinitialize the previewImageManager with the new image
      */
     @Override
-    public void updateCurrDisplayedImage(Image img) {
-        currDisplayedPic = SwingFXUtils.fromFXImage(img, null);
-        previewImageManager.initialiseWithImage(new PreviewImage(currDisplayedPic));
+    public void updateCurrentOriginalImage(Image img) {
+        currentOriginalImage = SwingFXUtils.fromFXImage(img, null);
+        previewImageManager.initialiseWithImage(new PreviewImage(currentOriginalImage));
     }
 
     //=========== GoogleClient Accessors =============================================================
@@ -186,17 +192,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImageManager() {
         previewImageManager.undo();
-        // indicateAddressBookChanged();
+        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
     }
 
     @Override
     public void redoPreviewImageManager() {
         previewImageManager.redo();
-        // indicateAddressBookChanged();
+        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
     }
 
     @Override
     public void commitPreviewImageManager() {
+        // TODO: update currentPreviewImage
         // TODO: previewImageManager.commit(editedImage);
     }
 

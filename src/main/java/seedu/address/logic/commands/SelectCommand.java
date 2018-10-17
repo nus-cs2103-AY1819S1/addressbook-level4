@@ -61,7 +61,7 @@ public class SelectCommand extends Command {
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 
-        model.updateCurrDisplayedImage(img);
+        model.updateCurrentOriginalImage(img);
 
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
