@@ -64,26 +64,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Word alice = new WordBuilder().withName("Alice").build();
-        Word bob = new WordBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Word fly = new WordBuilder().withName("Fly").build();
+        Word levitate = new WordBuilder().withName("Levitate").build();
+        AddCommand addFlyCommand = new AddCommand(fly);
+        AddCommand addLevitateCommand = new AddCommand(levitate);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addFlyCommand.equals(addFlyCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addFlyCommandCopy = new AddCommand(fly);
+        assertTrue(addFlyCommand.equals(addFlyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addFlyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addFlyCommand.equals(null));
 
         // different word -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addFlyCommand.equals(addLevitateCommand));
     }
 
     /**

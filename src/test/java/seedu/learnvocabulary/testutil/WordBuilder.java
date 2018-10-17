@@ -15,8 +15,8 @@ import seedu.learnvocabulary.model.word.Word;
  */
 public class WordBuilder {
 
-    public static final String DEFAULT_NAME = "Angel";
-    public static final String DEFAULT_MEANING = "A flying kinda thing";
+    public static final String DEFAULT_NAME = "fly";
+    public static final String DEFAULT_MEANING = "to move through the air using wings.";
 
     private Name name;
     private Meaning meaning;

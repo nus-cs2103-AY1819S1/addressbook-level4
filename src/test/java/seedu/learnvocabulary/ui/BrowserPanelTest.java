@@ -3,7 +3,7 @@ package seedu.learnvocabulary.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.learnvocabulary.testutil.EventsUtil.postNow;
-import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
+import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 import static seedu.learnvocabulary.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.learnvocabulary.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -24,7 +24,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new WordPanelSelectionChangedEvent(ALICE);
+        selectionChangedEventStub = new WordPanelSelectionChangedEvent(SUMO);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a word
         postNow(selectionChangedEventStub);
-        URL expectedWordUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedWordUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + SUMO.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedWordUrl, browserPanelHandle.getLoadedUrl());

@@ -59,7 +59,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
-        // after learnvocabulary book is updated
+        // after LearnVocabulary is updated
         postNow(EVENT_STUB);
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));

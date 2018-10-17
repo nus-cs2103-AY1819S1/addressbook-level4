@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.learnvocabulary.testutil.TypicalWords.AMY;
-import static seedu.learnvocabulary.testutil.TypicalWords.BOB;
-import static seedu.learnvocabulary.testutil.TypicalWords.CARL;
+import static seedu.learnvocabulary.testutil.TypicalWords.FIRE;
+import static seedu.learnvocabulary.testutil.TypicalWords.FLY;
+import static seedu.learnvocabulary.testutil.TypicalWords.LEVITATE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,10 @@ import seedu.learnvocabulary.testutil.LearnVocabularyBuilder;
 
 public class VersionedLearnVocabularyTest {
 
-    private final ReadOnlyLearnVocabulary learnVocabularyWithAmy = new LearnVocabularyBuilder().withWord(AMY).build();
-    private final ReadOnlyLearnVocabulary learnVocabularyWithBob = new LearnVocabularyBuilder().withWord(BOB).build();
-    private final ReadOnlyLearnVocabulary learnVocabularyWithCarl = new LearnVocabularyBuilder().withWord(CARL).build();
+    private final ReadOnlyLearnVocabulary learnVocabularyWithFly = new LearnVocabularyBuilder().withWord(FLY).build();
+    private final ReadOnlyLearnVocabulary learnVocabularyWithLevitate =
+            new LearnVocabularyBuilder().withWord(LEVITATE).build();
+    private final ReadOnlyLearnVocabulary learnVocabularyWithFire = new LearnVocabularyBuilder().withWord(FIRE).build();
     private final ReadOnlyLearnVocabulary emptyLearnVocabulary = new LearnVocabularyBuilder().build();
 
     @Test
@@ -37,19 +38,19 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void commit_multipleLearnVocabularyPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         versionedLearnVocabulary.commit();
         assertLearnVocabularyListStatus(versionedLearnVocabulary,
-                Arrays.asList(emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob),
-                learnVocabularyWithBob,
+                Arrays.asList(emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate),
+                learnVocabularyWithLevitate,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleLearnVocabularyPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 2);
 
         versionedLearnVocabulary.commit();
@@ -62,7 +63,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canUndo_multipleLearnVocabularyPointerAtEndOfStateList_returnsTrue() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         assertTrue(versionedLearnVocabulary.canUndo());
     }
@@ -70,7 +71,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canUndo_multipleLearnVocabularyPointerAtStartOfStateList_returnsTrue() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 1);
 
         assertTrue(versionedLearnVocabulary.canUndo());
@@ -86,7 +87,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canUndo_multipleLearnVocabularyPointerAtStartOfStateList_returnsFalse() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 2);
 
         assertFalse(versionedLearnVocabulary.canUndo());
@@ -95,7 +96,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canRedo_multipleLearnVocabularyPointerNotAtEndOfStateList_returnsTrue() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 1);
 
         assertTrue(versionedLearnVocabulary.canRedo());
@@ -104,7 +105,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canRedo_multipleLearnVocabularyPointerAtStartOfStateList_returnsTrue() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 2);
 
         assertTrue(versionedLearnVocabulary.canRedo());
@@ -120,7 +121,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void canRedo_multipleLearnVocabularyPointerAtEndOfStateList_returnsFalse() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         assertFalse(versionedLearnVocabulary.canRedo());
     }
@@ -128,26 +129,26 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void undo_multipleLearnVocabularyPointerAtEndOfStateList_success() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         versionedLearnVocabulary.undo();
         assertLearnVocabularyListStatus(versionedLearnVocabulary,
                 Collections.singletonList(emptyLearnVocabulary),
-                learnVocabularyWithAmy,
-                Collections.singletonList(learnVocabularyWithBob));
+                learnVocabularyWithFly,
+                Collections.singletonList(learnVocabularyWithLevitate));
     }
 
     @Test
     public void undo_multipleLearnVocabularyPointerNotAtStartOfStateList_success() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 1);
 
         versionedLearnVocabulary.undo();
         assertLearnVocabularyListStatus(versionedLearnVocabulary,
                 Collections.emptyList(),
                 emptyLearnVocabulary,
-                Arrays.asList(learnVocabularyWithAmy, learnVocabularyWithBob));
+                Arrays.asList(learnVocabularyWithFly, learnVocabularyWithLevitate));
     }
 
     @Test
@@ -160,7 +161,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void undo_multipleLearnVocabularyPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 2);
 
         assertThrows(VersionedLearnVocabulary.NoUndoableStateException.class, versionedLearnVocabulary::undo);
@@ -169,27 +170,27 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void redo_multipleLearnVocabularyPointerNotAtEndOfStateList_success() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 1);
 
         versionedLearnVocabulary.redo();
         assertLearnVocabularyListStatus(versionedLearnVocabulary,
-                Arrays.asList(emptyLearnVocabulary, learnVocabularyWithAmy),
-                learnVocabularyWithBob,
+                Arrays.asList(emptyLearnVocabulary, learnVocabularyWithFly),
+                learnVocabularyWithLevitate,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_multipleLearnVocabularyPointerAtStartOfStateList_success() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 2);
 
         versionedLearnVocabulary.redo();
         assertLearnVocabularyListStatus(versionedLearnVocabulary,
                 Collections.singletonList(emptyLearnVocabulary),
-                learnVocabularyWithAmy,
-                Collections.singletonList(learnVocabularyWithBob));
+                learnVocabularyWithFly,
+                Collections.singletonList(learnVocabularyWithLevitate));
     }
 
     @Test
@@ -202,7 +203,7 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void redo_multipleLearnVocabularyPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedLearnVocabulary versionedLearnVocabulary = prepareLearnVocabularyList(
-                emptyLearnVocabulary, learnVocabularyWithAmy, learnVocabularyWithBob);
+                emptyLearnVocabulary, learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         assertThrows(VersionedLearnVocabulary.NoRedoableStateException.class, versionedLearnVocabulary::redo);
     }
@@ -210,10 +211,10 @@ public class VersionedLearnVocabularyTest {
     @Test
     public void equals() {
         VersionedLearnVocabulary versionedLearnVocabulary =
-                prepareLearnVocabularyList(learnVocabularyWithAmy, learnVocabularyWithBob);
+                prepareLearnVocabularyList(learnVocabularyWithFly, learnVocabularyWithLevitate);
 
         // same values -> returns true
-        VersionedLearnVocabulary copy = prepareLearnVocabularyList(learnVocabularyWithAmy, learnVocabularyWithBob);
+        VersionedLearnVocabulary copy = prepareLearnVocabularyList(learnVocabularyWithFly, learnVocabularyWithLevitate);
         assertTrue(versionedLearnVocabulary.equals(copy));
 
         // same object -> returns true
@@ -227,12 +228,12 @@ public class VersionedLearnVocabularyTest {
 
         // different state list -> returns false
         VersionedLearnVocabulary differentLearnVocabularyList =
-                prepareLearnVocabularyList(learnVocabularyWithBob, learnVocabularyWithCarl);
+                prepareLearnVocabularyList(learnVocabularyWithLevitate, learnVocabularyWithFire);
         assertFalse(versionedLearnVocabulary.equals(differentLearnVocabularyList));
 
         // different current pointer index -> returns false
         VersionedLearnVocabulary differentCurrentStatePointer = prepareLearnVocabularyList(
-                learnVocabularyWithAmy, learnVocabularyWithBob);
+                learnVocabularyWithFly, learnVocabularyWithLevitate);
         shiftCurrentStatePointerLeftwards(versionedLearnVocabulary, 1);
         assertFalse(versionedLearnVocabulary.equals(differentCurrentStatePointer));
     }

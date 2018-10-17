@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_WORDS_LISTED_OVERVIEW;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.learnvocabulary.testutil.TypicalWords.CARL;
-import static seedu.learnvocabulary.testutil.TypicalWords.ELLE;
-import static seedu.learnvocabulary.testutil.TypicalWords.FIONA;
+import static seedu.learnvocabulary.testutil.TypicalWords.FIRE;
+import static seedu.learnvocabulary.testutil.TypicalWords.GLIDE;
+import static seedu.learnvocabulary.testutil.TypicalWords.HURRICANE;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
 
 import java.util.Arrays;
@@ -69,11 +69,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleWordsFound() {
         String expectedMessage = String.format(MESSAGE_WORDS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("fire glide hurricane");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredWordList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredWordList());
+        assertEquals(Arrays.asList(FIRE, HURRICANE, GLIDE), model.getFilteredWordList());
     }
 
     /**

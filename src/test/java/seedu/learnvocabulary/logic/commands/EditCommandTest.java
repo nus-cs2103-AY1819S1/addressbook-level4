@@ -3,10 +3,10 @@ package seedu.learnvocabulary.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_FLY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_LEVITATE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_LEVITATE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.showWordAtIndex;
@@ -57,11 +57,11 @@ public class EditCommandTest {
         Word lastWord = model.getFilteredWordList().get(indexLastWord.getZeroBased());
 
         WordBuilder wordInList = new WordBuilder(lastWord);
-        Word editedWord = wordInList.withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Word editedWord = wordInList.withName(VALID_NAME_LEVITATE)
+                .withTags(VALID_TAG_ABILITY).build();
 
-        EditWordDescriptor descriptor = new EditWordDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        EditWordDescriptor descriptor = new EditWordDescriptorBuilder().withName(VALID_NAME_LEVITATE)
+                .withTags(VALID_TAG_ABILITY).build();
         EditCommand editCommand = new EditCommand(indexLastWord, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WORD_SUCCESS, editedWord);
@@ -91,9 +91,9 @@ public class EditCommandTest {
         showWordAtIndex(model, INDEX_FIRST_WORD);
 
         Word wordInFilteredList = model.getFilteredWordList().get(INDEX_FIRST_WORD.getZeroBased());
-        Word editedWord = new WordBuilder(wordInFilteredList).withName(VALID_NAME_BOB).build();
+        Word editedWord = new WordBuilder(wordInFilteredList).withName(VALID_NAME_LEVITATE).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WORD,
-                new EditWordDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditWordDescriptorBuilder().withName(VALID_NAME_LEVITATE).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WORD_SUCCESS, editedWord);
 
@@ -117,7 +117,7 @@ public class EditCommandTest {
     public void execute_duplicateWordFilteredList_failure() {
         showWordAtIndex(model, INDEX_FIRST_WORD);
 
-        // edit word in filtered list into a duplicate in learnvocabulary book
+        // edit word in filtered list into a duplicate in LearnVocabulary.
         Word wordInList = model.getLearnVocabulary().getWordList().get(INDEX_SECOND_WORD.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WORD,
                 new EditWordDescriptorBuilder(wordInList).build());
@@ -128,7 +128,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidWordIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWordList().size() + 1);
-        EditCommand.EditWordDescriptor descriptor = new EditWordDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditWordDescriptor descriptor = new EditWordDescriptorBuilder()
+                .withName(VALID_NAME_LEVITATE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
@@ -136,17 +137,17 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of learnvocabulary book
+     * but smaller than size of LearnVocabulary
      */
     @Test
     public void execute_invalidWordIndexFilteredList_failure() {
         showWordAtIndex(model, INDEX_FIRST_WORD);
         Index outOfBoundIndex = INDEX_SECOND_WORD;
-        // ensures that outOfBoundIndex is still in bounds of learnvocabulary book list
+        // ensures that outOfBoundIndex is still in bounds of LearnVocabulary.
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLearnVocabulary().getWordList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditWordDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditWordDescriptorBuilder().withName(VALID_NAME_LEVITATE).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
     }
@@ -164,7 +165,7 @@ public class EditCommandTest {
         // edit -> first word edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts learnvocabulary back to previous state and filtered word list to show all words
+        // undo -> reverts LearnVocabulary back to previous state and filtered word list to show all words
         expectedModel.undoLearnVocabulary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -176,13 +177,13 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWordList().size() + 1);
-        EditWordDescriptor descriptor = new EditWordDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditWordDescriptor descriptor = new EditWordDescriptorBuilder().withName(VALID_NAME_LEVITATE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> learnvocabulary book state not added into model
+        // execution failed -> LearnVocabulary state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
 
-        // single learnvocabulary book state in model -> undoCommand and redoCommand fail
+        // single LearnVocabulary state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -224,10 +225,10 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_WORD, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_WORD, DESC_FLY);
 
         // same values -> returns true
-        EditWordDescriptor copyDescriptor = new EditCommand.EditWordDescriptor(DESC_AMY);
+        EditWordDescriptor copyDescriptor = new EditCommand.EditWordDescriptor(DESC_FLY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_WORD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -241,10 +242,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_WORD, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_WORD, DESC_FLY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_WORD, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_WORD, DESC_LEVITATE)));
     }
 
 }

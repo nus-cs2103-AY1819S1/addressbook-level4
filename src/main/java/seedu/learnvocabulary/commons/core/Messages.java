@@ -9,5 +9,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_WORDS_DISPLAYED_INDEX = "The word index provided is invalid";
     public static final String MESSAGE_WORDS_LISTED_OVERVIEW = "%1$d words listed!";
+    public static final String MESSAGE_OVERALL_ERROR = "There seems to be an issue with the program.";
+
 
 }

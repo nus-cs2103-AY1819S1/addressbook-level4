@@ -1,7 +1,6 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
@@ -15,12 +14,11 @@ public class LearnCommand extends Command {
 
     public static final String COMMAND_WORD = "learn";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches Dictionary.com for given word and"
-            + " store it in an offline text-file for LearnVocabulary. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches Dictionary.com for given word. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + "WORD "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Rainstorm ";
+            + "Rainstorm ";
 
     public static final String MESSAGE_SUCCESS = "New word learnt: %1$s\n";
     public static final String MESSAGE_DUPLICATE_WORD = "You have already listed this word inside LearnVocabulary!";

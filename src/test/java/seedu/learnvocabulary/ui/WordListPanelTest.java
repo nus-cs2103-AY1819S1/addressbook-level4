@@ -39,7 +39,7 @@ public class WordListPanelTest extends GuiUnitTest {
     @Test
     public void display() {
         initUi(TYPICAL_WORDS);
-
+        //russell review add colored tags back to typical words
         for (int i = 0; i < TYPICAL_WORDS.size(); i++) {
             wordListPanelHandle.navigateToCard(TYPICAL_WORDS.get(i));
             Word expectedWord = TYPICAL_WORDS.get(i);

@@ -3,7 +3,6 @@ package seedu.learnvocabulary.logic.parser;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +21,7 @@ import seedu.learnvocabulary.logic.commands.LearnCommand;
 import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.commands.TriviaAnsCommand;
 import seedu.learnvocabulary.logic.commands.TriviaCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
@@ -44,7 +44,7 @@ public class LearnVocabularyParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException, IOException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -99,15 +99,17 @@ public class LearnVocabularyParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-            case GroupdeleteCommand.COMMAND_WORD:
-                return new GroupDeleteCommandParser().parse(arguments);
+        case ShowCommand.COMMAND_WORD:
+            return new ShowCommandParser().parse(arguments);
 
-            case GroupaddCommand.COMMAND_WORD:
-                return new GroupAddCommandParser().parse(arguments);
+        case GroupdeleteCommand.COMMAND_WORD:
+            return new GroupDeleteCommandParser().parse(arguments);
 
-            default:
+        case GroupaddCommand.COMMAND_WORD:
+            return new GroupAddCommandParser().parse(arguments);
+
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

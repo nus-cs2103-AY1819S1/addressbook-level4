@@ -4,20 +4,20 @@ import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAN
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_FLY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_LEVITATE;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_ABILITY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FLOATING;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_MEANING;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_LEVITATE;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_FLOATING;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.learnvocabulary.testutil.TypicalWords.AMY;
-import static seedu.learnvocabulary.testutil.TypicalWords.BOB;
+import static seedu.learnvocabulary.testutil.TypicalWords.FLY;
+import static seedu.learnvocabulary.testutil.TypicalWords.LEVITATE;
 
 import org.junit.Test;
 
@@ -32,28 +32,28 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Word expectedWord = new WordBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Word expectedWord = new WordBuilder(LEVITATE).withTags(VALID_TAG_FLOATING).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + MEANING_DESC
-                + TAG_DESC_FRIEND, new AddCommand(expectedWord));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_LEVITATE + MEANING_DESC
+                + TAG_DESC_FLOATING, new AddCommand(expectedWord));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + MEANING_DESC
-                + TAG_DESC_FRIEND, new AddCommand(expectedWord));
+        assertParseSuccess(parser, NAME_DESC_FLY + NAME_DESC_LEVITATE + MEANING_DESC
+                + TAG_DESC_FLOATING, new AddCommand(expectedWord));
 
         // multiple tags - all accepted
-        Word expectedWordMultipleTags = new WordBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Word expectedWordMultipleTags = new WordBuilder(LEVITATE).withTags(VALID_TAG_FLOATING, VALID_TAG_ABILITY)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + MEANING_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedWordMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_LEVITATE + MEANING_DESC
+                + TAG_DESC_ABILITY + TAG_DESC_FLOATING, new AddCommand(expectedWordMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Word expectedWord = new WordBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + MEANING_DESC,
+        Word expectedWord = new WordBuilder(FLY).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_FLY + MEANING_DESC,
                 new AddCommand(expectedWord));
     }
 
@@ -62,11 +62,11 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_MEANING,
+        assertParseFailure(parser, VALID_NAME_LEVITATE + VALID_MEANING,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_MEANING,
+        assertParseFailure(parser, VALID_NAME_LEVITATE + VALID_MEANING,
                 expectedMessage);
     }
 
@@ -74,19 +74,19 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + MEANING_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
+                + TAG_DESC_ABILITY + TAG_DESC_FLOATING, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + MEANING_DESC
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_LEVITATE + MEANING_DESC
+                + INVALID_TAG_DESC + VALID_TAG_FLOATING, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + MEANING_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                        + MEANING_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_LEVITATE
+                        + MEANING_DESC + TAG_DESC_ABILITY + TAG_DESC_FLOATING,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

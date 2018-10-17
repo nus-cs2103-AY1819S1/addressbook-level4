@@ -18,16 +18,16 @@ import seedu.learnvocabulary.model.word.Word;
 public class SampleDataUtil {
     public static Word[] getSampleWords() {
         return new Word[] {
-            new Word(new Name("Rainstorm"), new Meaning("a storm with heavy rain."), getTagSet("toLearn")),
-            new Word(new Name("Hurricane"), new Meaning("a storm with a violent wind, in particular a tropical"
+            new Word(new Name("rainstorm"), new Meaning("a storm with heavy rain."), getTagSet("toLearn")),
+            new Word(new Name("hurricane"), new Meaning("a storm with a violent wind, in particular a tropical"
                     + "cyclone in the Caribbean.\n"), getTagSet("weather", "toLearn")),
-            new Word(new Name("Tsunami"), new Meaning("a long, high sea wave caused"
+            new Word(new Name("tsunami"), new Meaning("a long, high sea wave caused"
                     + "by an earthquake or other disturbance.\n"), getTagSet("disasters")),
-            new Word(new Name("Malpractice"), new Meaning("improper, illegal, or "
+            new Word(new Name("malpractice"), new Meaning("improper, illegal, or "
                     + "negligent professional behaviour.\n"), getTagSet("toLearn")),
-            new Word(new Name("Sovereignty"), new Meaning("supreme power or authority."),
+            new Word(new Name("sovereignty"), new Meaning("supreme power or authority."),
                     getTagSet("toLearn")),
-            new Word(new Name("Funny"), new Meaning("causing laughter or amusement; humorous."),
+            new Word(new Name("funny"), new Meaning("causing laughter or amusement; humorous."),
                     getTagSet("toLearn"))
         };
     }
