@@ -8,6 +8,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_M
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA2101;
@@ -15,10 +16,9 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_SCHOOL;
-import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;

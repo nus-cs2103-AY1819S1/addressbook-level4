@@ -1,8 +1,6 @@
 package seedu.scheduler.ui;
 
-import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.scheduler.testutil.EventsUtil.postNow;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalEvents;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
@@ -69,7 +67,7 @@ public class EventListPanelTest extends GuiUnitTest {
     /**
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Event> backingList = createBackingList(10000);
+        ObservableList Event backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);

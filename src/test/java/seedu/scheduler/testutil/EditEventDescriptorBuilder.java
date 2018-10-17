@@ -105,7 +105,7 @@ public class EditEventDescriptorBuilder {
     /**
      * Sets the {@code ReminderDurationList} of the {@code EditEventDescriptor} that we are building.
      */
-    public EditEventDescriptorBuilder withReminderDurationList(ReminderDurationList reminderDurationList ) {
+    public EditEventDescriptorBuilder withReminderDurationList(ReminderDurationList reminderDurationList) {
         descriptor.setReminderDurationList(reminderDurationList);
         return this;
     }

@@ -1,11 +1,11 @@
 package seedu.scheduler.logic.parser;
 
-import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_VALUES;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;

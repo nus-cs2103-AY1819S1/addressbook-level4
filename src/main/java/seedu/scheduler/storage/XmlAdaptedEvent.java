@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.management.modelmbean.RequiredModelMBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -205,7 +204,7 @@ public class XmlAdaptedEvent {
         }
 
         XmlAdaptedEvent otherEvent = (XmlAdaptedEvent) other;
-        return  Objects.equals(uid, otherEvent.uid)
+        return Objects.equals(uid, otherEvent.uid)
                 && Objects.equals(uuid, otherEvent.uuid)
                 && Objects.equals(eventName, otherEvent.eventName)
                 && Objects.equals(startDateTime, otherEvent.startDateTime)

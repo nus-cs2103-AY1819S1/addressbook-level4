@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,10 +20,11 @@ import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
-import seedu.scheduler.model.event.ReminderDurationList;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -175,7 +175,8 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> reminderTimes} into a {@code Set<DateTime>}.
      */
-    public static ReminderDurationList parseReminderDurations(Collection<String> reminderDurations) throws ParseException {
+    public static ReminderDurationList parseReminderDurations(Collection<String> reminderDurations)
+            throws ParseException {
         requireNonNull(reminderDurations);
         ReminderDurationList reminderDurationList = new ReminderDurationList();
         for (String reminderDuration : reminderDurations) {

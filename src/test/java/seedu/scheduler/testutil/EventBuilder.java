@@ -155,6 +155,10 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code reminderDurationList} into a {@code ReminderDurationList}
+     * and set it to the {@code Event} that we are building.
+     */
     public EventBuilder withReminderDurationList(ReminderDurationList reminderDurationList) {
         this.reminderDurationList = reminderDurationList;
         return this;

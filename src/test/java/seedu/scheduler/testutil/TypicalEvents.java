@@ -45,7 +45,8 @@ public class TypicalEvents {
             .withStartDateTime(LocalDateTime.of(2018, 1, 1, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 1, 1, 2, 0))
             .withDescription("01 January 2018").withVenue("Computing")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 1, 2, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018,
+                    1, 1, 2, 0))
             .withTags("play", "home")
             .withReminderDurationList(getReminderDurationList(3)).build();
     public static final Event JANUARY_2_2018_SINGLE = new EventBuilder()
@@ -55,7 +56,8 @@ public class TypicalEvents {
             .withStartDateTime(LocalDateTime.of(2018, 1, 2, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 1, 2, 2, 0))
             .withDescription("02 January 2018").withVenue("Science")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 2, 2, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1,
+                    2, 2, 0))
             .withTags("play")
             .withReminderDurationList(getReminderDurationList(3)).build();
     public static final Event JANUARY_3_2018_SINGLE = new EventBuilder()
@@ -65,7 +67,8 @@ public class TypicalEvents {
             .withStartDateTime(LocalDateTime.of(2018, 1, 3, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 1, 3, 2, 0))
             .withDescription("03 January 2018").withVenue("Arts")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 3, 2, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1,
+                    3, 2, 0))
             .withTags("home")
             .withReminderDurationList(getReminderDurationList(3)).build();
 
@@ -235,38 +238,51 @@ public class TypicalEvents {
             FEBRUARY_29_2020_YEARLY);
 
     // Manually added
-    public static final Event WORK_DECEMBER_12_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID).withUuid(CONSTANT_UUID)
-            .withEventName("work").withStartDateTime(LocalDateTime.of(2018, 12, 12, 0, 0))
+    public static final Event WORK_DECEMBER_12_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID)
+            .withUuid(CONSTANT_UUID)
+            .withEventName("work").withStartDateTime(LocalDateTime.of(2018, 12, 12,
+                    0, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 12, 1, 0))
             .withDescription("workAndWork").withVenue("Work")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 12, 1, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 12,
+                    12, 1, 0))
             .withTags("work").withReminderDurationList(getReminderDurationList(3)).build();
-    public static final Event TRAVEL_JUNE_1_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID).withUuid(CONSTANT_UUID)
-            .withEventName("Travel").withStartDateTime(LocalDateTime.of(2018, 6, 1, 0, 0))
+    public static final Event TRAVEL_JUNE_1_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID)
+            .withUuid(CONSTANT_UUID)
+            .withEventName("Travel").withStartDateTime(LocalDateTime.of(2018, 6, 1, 0,
+                    0))
             .withEndDateTime(LocalDateTime.of(2018, 6, 1, 1, 0))
             .withDescription("travelOrTravel").withVenue("USA")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 6, 1, 1, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 6,
+                    1, 1, 0))
             .withTags("travel").withReminderDurationList(getReminderDurationList(3)).build();
 
-    public static final Event PLAY_JANUARY_1_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID).withUuid(CONSTANT_UUID)
-            .withEventName("Play").withStartDateTime(LocalDateTime.of(2018, 1, 1, 0, 0))
+    public static final Event PLAY_JANUARY_1_2018_SINGLE = new EventBuilder().withUid(CONSTANT_UID)
+            .withUuid(CONSTANT_UUID)
+            .withEventName("Play").withStartDateTime(LocalDateTime.of(2018, 1, 1, 0,
+                    0))
             .withEndDateTime(LocalDateTime.of(2018, 1, 1, 1, 0))
             .withDescription("doAndPlay").withVenue("Home")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 1, 1, 0))
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1,
+                    1, 1, 0))
             .withTags("playMonth").withReminderDurationList(getReminderDurationList(3)).build();
 
     // Manually added - Event's details found in {@code CommandTestUtil}
-    public static final Event MA2101_JANUARY_1_2018_YEARLY = new EventBuilder().withUid(CONSTANT_UID).withUuid(CONSTANT_UUID)
+    public static final Event MA2101_JANUARY_1_2018_YEARLY = new EventBuilder().withUid(CONSTANT_UID)
+            .withUuid(CONSTANT_UUID)
             .withEventName(VALID_EVENT_NAME_MA2101).withStartDateTime(VALID_START_DATETIME_MA2101)
             .withEndDateTime(VALID_END_DATETIME_MA2101).withDescription(VALID_DESCRIPTION_MA2101)
             .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
-            .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).withTags(VALID_TAG_SCHOOL).withReminderDurationList(getReminderDurationList(3)).build();
+            .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).withTags(VALID_TAG_SCHOOL)
+            .withReminderDurationList(getReminderDurationList(3)).build();
 
-    public static final Event MA3220_JANUARY_1_2019_SINGLE = new EventBuilder().withUid(CONSTANT_UID).withUuid(CONSTANT_UUID)
+    public static final Event MA3220_JANUARY_1_2019_SINGLE = new EventBuilder().withUid(CONSTANT_UID)
+            .withUuid(CONSTANT_UUID)
             .withEventName(VALID_EVENT_NAME_MA3220).withStartDateTime(VALID_START_DATETIME_MA3220)
             .withEndDateTime(VALID_END_DATETIME_MA3220).withDescription(VALID_DESCRIPTION_MA3220)
             .withVenue(VALID_VENUE_MA3220).withRepeatType(VALID_REPEAT_TYPE_MA3220)
-            .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_PLAY).withReminderDurationList(getReminderDurationList(3)).build();
+            .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_PLAY)
+            .withReminderDurationList(getReminderDurationList(3)).build();
 
     private TypicalEvents() {} // prevents instantiation
 

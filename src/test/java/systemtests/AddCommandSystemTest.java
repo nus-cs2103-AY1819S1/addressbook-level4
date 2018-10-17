@@ -63,7 +63,8 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         toAdd = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).build();
         command = AddCommand.COMMAND_WORD + EVENT_NAME_DESC_MA3220 + START_DATETIME_DESC_MA3220
                 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220 + VENUE_DESC_MA3220
-                + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY + REMINDER_DURATION_LIST_1H;
+                + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY
+                + REMINDER_DURATION_LIST_1H;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty scheduler -> added */

@@ -4,18 +4,16 @@ import static java.lang.Boolean.FALSE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
- * Represents a hashmap of <reminder time, hasPoppedUp> in the scheduler.
+ * Represents a HashMap of reminder time, hasPoppedUp in the scheduler.
  * Guarantees: uniqueness
  */
 public class ReminderTimeList {
 
-    public Map<DateTime, Boolean> values = new HashMap<>();
+    private Map<DateTime, Boolean> values = new HashMap<>();
 
     /**
      * Default constructor
@@ -53,9 +51,9 @@ public class ReminderTimeList {
     public String toString() {
         String output = "";
         for (DateTime reminderTime: values.keySet()) {
-            output += reminderTime.toString() + ": " + values.get(reminderTime).toString() + ", " ;
+            output += reminderTime.toString() + ": " + values.get(reminderTime).toString() + ", ";
         }
-        if(values.size() > 0) {
+        if (values.size() > 0) {
             output = output.substring(0, output.length() - 2);
         }
         return output;

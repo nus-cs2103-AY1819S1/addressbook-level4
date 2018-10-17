@@ -137,7 +137,7 @@ public class SampleSchedulerDataUtil {
                 Duration.parse("PT30M"),
                 Duration.parse("PT1H30M"),
                 Duration.parse("PT1H")));
-        for(Integer i: index){
+        for (Integer i: index) {
             list.add(durations.get(i));
         }
         return list;

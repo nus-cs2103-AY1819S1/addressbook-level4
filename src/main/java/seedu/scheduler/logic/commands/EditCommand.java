@@ -100,8 +100,9 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
         ReminderDurationList updatedReminderDurationList =
                 editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
-        return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
-                updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags, updatedReminderDurationList);
+        return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
+                updatedDescription, updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags,
+                updatedReminderDurationList);
     }
 
     @Override
@@ -171,13 +172,17 @@ public class EditCommand extends Command {
             this.uid = uid;
         }
 
-        public Optional<UUID> getUid() { return Optional.ofNullable(uid); }
+        public Optional<UUID> getUid() {
+            return Optional.ofNullable(uid);
+        }
 
         public void setUuid(UUID uuid) {
             this.uuid = uuid;
         }
 
-        public Optional<UUID> getUuid() { return Optional.ofNullable(uuid); }
+        public Optional<UUID> getUuid() {
+            return Optional.ofNullable(uuid);
+        }
 
         public void setEventName(EventName eventName) {
             this.eventName = eventName;

@@ -17,9 +17,8 @@ import java.util.Map;
  */
 public class ReminderDurationList {
 
-    public Map<Duration, Boolean> values = new HashMap<>();
     public static final String EMPTY_VALUE = "NONE";
-
+    private Map<Duration, Boolean> values = new HashMap<>();
 
     /**
      * Default constructor for ReminderDurationList
@@ -95,12 +94,11 @@ public class ReminderDurationList {
     @Override
     public String toString() {
         String output = "";
-        if (values.size() == 0){
+        if (values.size() == 0) {
             output = EMPTY_VALUE;
-        }
-        else{
+        } else {
             for (Duration duration: values.keySet()) {
-                output += duration.toString() + ": " + values.get(duration).toString() + ", " ;
+                output += duration.toString() + ": " + values.get(duration).toString() + ", ";
             }
             output = output.substring(0, output.length() - 2);
         }
@@ -110,23 +108,8 @@ public class ReminderDurationList {
     @Override
     public boolean equals(Object other) {
         return ((this == other) || (
-                other instanceof ReminderDurationList &&
-                        values.equals(((ReminderDurationList)other).get())));
-    }
-
-    /**
-     * @param duration
-     * @return formatted string output for toString method
-     */
-    private static String formatDuration(Duration duration) {
-        long seconds = duration.getSeconds();
-        long absSeconds = Math.abs(seconds);
-        String positive = String.format(
-                "%d:%02d:%02d",
-                absSeconds / 3600,
-                (absSeconds % 3600) / 60,
-                absSeconds % 60);
-        return seconds < 0 ? "-" + positive : positive;
+                other instanceof ReminderDurationList
+                        && values.equals(((ReminderDurationList) other).get())));
     }
 
     @Override

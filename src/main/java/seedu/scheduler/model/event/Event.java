@@ -27,7 +27,7 @@ public class Event {
             "Event's start date and time should be before event's end date and time";
 
     // Identity fields
-    private final UUID uid;  //distinct for recurring events
+    private final UUID uid; //distinct for recurring events
     private final UUID uuid; //same for recurring events
     private final EventName eventName;
     private final DateTime startDateTime;

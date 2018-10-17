@@ -33,7 +33,8 @@ public class XmlAdaptedEventTest {
     private static final DateTime VALID_REPEAT_UNTIL_DATETIME = JANUARY_1_2018_SINGLE.getRepeatUntilDateTime();
     private static final List<XmlAdaptedTag> VALID_TAGS = JANUARY_1_2018_SINGLE.getTags().stream()
             .map(XmlAdaptedTag::new).collect(Collectors.toList());
-    private static final ReminderDurationList VALID_REMINDER_DURATION_LIST = JANUARY_1_2018_SINGLE.getReminderDurationList();
+    private static final ReminderDurationList VALID_REMINDER_DURATION_LIST = JANUARY_1_2018_SINGLE
+            .getReminderDurationList();
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
         XmlAdaptedEvent event = new XmlAdaptedEvent(JANUARY_1_2018_SINGLE);
@@ -42,32 +43,32 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullUid_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(null, VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME, VALID_END_DATETIME,
-                VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(null, VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME,
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
                 VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         Assert.assertThrows(IllegalValueException.class, event::toModelType);
     }
     @Test
     public void toModelType_nullUuid_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, null, VALID_EVENT_NAME, VALID_START_DATETIME, VALID_END_DATETIME,
-                VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, null, VALID_EVENT_NAME, VALID_START_DATETIME,
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
                 VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         Assert.assertThrows(IllegalValueException.class, event::toModelType);
     }
 
     @Test
     public void toModelType_invalidEventName_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, INVALID_EVENT_NAME, VALID_START_DATETIME, VALID_END_DATETIME,
-                        VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
-                        VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, INVALID_EVENT_NAME, VALID_START_DATETIME,
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         String expectedMessage = EventName.MESSAGE_EVENT_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
     @Test
     public void toModelType_nullEventName_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, null, VALID_START_DATETIME, VALID_END_DATETIME,
-                VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, null, VALID_START_DATETIME,
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
                 VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -75,16 +76,16 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullStartDateTime_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, VALID_EVENT_NAME, null, VALID_END_DATETIME,
-                VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, VALID_EVENT_NAME, null,
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
                 VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         Assert.assertThrows(IllegalValueException.class, event::toModelType);
     }
 
     @Test
     public void toModelType_nullEndDateTime_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME, null,
-                VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_UID, VALID_UUID, VALID_EVENT_NAME,
+                VALID_START_DATETIME, null, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
                 VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
         Assert.assertThrows(IllegalValueException.class, event::toModelType);
     }
