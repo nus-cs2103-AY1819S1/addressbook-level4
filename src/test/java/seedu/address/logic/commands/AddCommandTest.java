@@ -22,7 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.google.GoogleClientInstance;
+import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -133,12 +133,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public GoogleClientInstance getGoogleClientInstance() {
+        public PhotoHandler getPhotoHandler() {
             return null;
         }
 
         @Override
-        public void setGoogleClientInstance(GoogleClientInstance instance) {
+        public void setPhotoHandler(PhotoHandler instance) {
 
         }
 
