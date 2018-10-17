@@ -34,7 +34,7 @@ public class VisitorInCommand extends Command {
             + PREFIX_NAME + "PATIENT_NAME "
             + PREFIX_VISITOR + "VISITOR_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Jack "
+            + PREFIX_NAME + "Alex Yeoh "
             + PREFIX_VISITOR + "Jane";
 
     public static final String MESSAGE_SUCCESS = "New visitor checked in: %1$s";
