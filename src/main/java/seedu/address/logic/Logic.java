@@ -52,4 +52,6 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    Budget getMaximumBudget() throws NoUserSelectedException;
 }
