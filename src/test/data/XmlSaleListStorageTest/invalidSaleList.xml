@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sales>
+    <!-- Sale with invalid sale ID -->
+    <sale>
+        <saleId>ABC</saleId>
+        <saleSku>apple-iphone-xr</saleSku>
+        <saleQuantity>1</saleQuantity>
+        <saleDate>2018-08-01</saleDate>
+    </sale>
+</sales>

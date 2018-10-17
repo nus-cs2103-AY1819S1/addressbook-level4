@@ -1,0 +1,67 @@
+= Yao TengXiong  - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Inventory Manager
+
+---
+
+== Overview
+
+Inventory Manager is a desktop inventory management application designed specially for Small to Medium Enterprises (SMEs). The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Inventory Management of the Inventory Manager App
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+
+** Minor Enhancements:
+*** Add/Delete/Edit items in inventory
+*** Export/Import of Inventories through .csv
+*** Image support for items
+*** Develop inventory management API
+
+** Project Management:
+*** In charge of transforming and modifying the Address Book into the current Inventory Manager
+
+** Others:
+*** Storage
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+***
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+** Tools:
+*** Created an organization for team on Github
+*** Integrated a Github plugin (TravisCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+---
+

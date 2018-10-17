@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<staffList>
+    <!-- Staff with invalid username -->
+    <staffs>
+        <username>d@rren96</username>
+        <password>singlenus</password>
+        <staffName>Darren Ong Yun Kai</staffName>
+        <role>manager</role>
+    </staffs>
+</staffList>

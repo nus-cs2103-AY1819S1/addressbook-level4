@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Inventory save file which contains the same Item values as in TypicalPersons#getTypicalAddressBook() -->
+<inventory>
+    <items>
+        <name>iPhone XR</name>
+        <price>1500.00</price>
+        <quantity>30</quantity>
+        <sku>apple-iphone-xr</sku>
+        <image>docs/images/iphone.jpg</image>
+        <tagged>apple</tagged>
+    </items>
+    <items>
+        <name>Google Pixel XL</name>
+        <price>1459.99</price>
+        <quantity>3</quantity>
+        <sku>google-pixel-xl</sku>
+        <image>docs/images/google.jpg</image>
+    </items>
+    <items>
+        <name>LG G7</name>
+        <price>1099.00</price>
+        <quantity>20</quantity>
+        <sku>lg-g7</sku>
+        <image>docs/images/lg.jpg</image>
+        <tagged>smartphone</tagged>
+    </items>
+    <items>
+        <name>Samsung Note 9</name>
+        <price>1590.00</price>
+        <quantity>1000</quantity>
+        <sku>samsung-note-9</sku>
+        <image>docs/images/huawei.jpg</image>
+    </items>
+    <items>
+        <name>OnePlus 6</name>
+        <price>1234.56</price>
+        <quantity>10</quantity>
+        <sku>oneplus-6</sku>
+        <image>docs/images/oneplus.jpg</image>
+    </items>
+    <items>
+        <name>HTC U6</name>
+        <price>980.00</price>
+        <quantity>75</quantity>
+        <sku>htc-u6</sku>
+        <image>docs/images/htc.jpg</image>
+    </items>
+    <items>
+        <name>Samsung S9</name>
+        <price>1299.99</price>
+        <quantity>100</quantity>
+        <sku>samsung-s9</sku>
+        <image>docs/images/samsung.jpg</image>
+        <tagged>samsung</tagged>
+        <tagged>smartphone</tagged>
+    </items>
+</inventory>

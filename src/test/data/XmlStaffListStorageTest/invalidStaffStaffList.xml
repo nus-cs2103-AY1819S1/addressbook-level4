@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<staffList>
+    <!-- Item with invalid staffName field -->
+    <staffs>
+        <username>y@0-tx</username>
+        <password isPrivate="false">81232aaa</password>
+        <staffName isPrivate="false">Yao TengXiong</staffName>
+        <staff.role isPrivate="false">Staff.Role.user</staff.role>
+    </staffs>
+</staffList>

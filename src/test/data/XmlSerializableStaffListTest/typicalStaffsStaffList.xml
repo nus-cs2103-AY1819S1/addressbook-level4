@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Inventory save file which contains the same Item values as in TypicalPersons#getTypicalAddressBook() -->
+<staffList>
+    <staffs>
+        <username>zulq9</username>
+        <password>zulq9999</password>
+        <name>Muhammad Zulqarnain</name>
+        <role>admin</role>
+    </staffs>
+    <staffs>
+        <username>esmondTan</username>
+        <password>esmondtt</password>
+        <name>Esmond Tan</name>
+        <role>admin</role>
+    </staffs>
+    <staffs>
+        <username>yaotx</username>
+        <password>pcyaotxcfanboi</password>
+        <name>Yao TengXiong</name>
+        <role>manager</role>
+    </staffs>
+    <staffs>
+        <username>darren96</username>
+        <password>darrenSinglenus</password>
+        <name>Darren Ong</name>
+        <role>manager</role>
+    </staffs>
+    <staffs>
+        <username>fzdy1914</username>
+        <password>fengzhidaoying</password>
+        <name>Wang Chao</name>
+        <role>user</role>
+    </staffs>
+</staffList>

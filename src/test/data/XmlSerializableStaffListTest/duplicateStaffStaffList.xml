@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<staffList>
+
+    <staffs>
+        <username>darren96</username>
+        <password>singlenus</password>
+        <name>Darren Ong Yun Kai</name>
+        <role>manager</role>
+    </staffs>
+
+    <!-- Staff with same identity as Darren -->
+    <staffs>
+        <username>darren96</username>
+        <password>singlenus</password>
+        <name>Darren Ong Yun Kai</name>
+        <role>user</role>
+    </staffs>
+
+</staffList>

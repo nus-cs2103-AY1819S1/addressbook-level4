@@ -1,0 +1,68 @@
+= Muhd Zulqarnain  - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Inventory Manager
+
+---
+
+== Overview
+
+Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+desktop app to manage their shop inventory. More importantly, it is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of
+a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
+management tasks such as creating sales, generating reports, creating purchase orders
+and more. The user interacts with it using a CLI, and it has a GUI created
+with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** =
+** Enhancements to existing features:
+***
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+** Tools:
+*** Created an organization for team on Github
+*** Integrated a Github plugin (TravisCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=purchaseOrderManagement]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=useCasePurchaseOrder]
+
+
+== PROJECT: SynchroNUS
+
+|==
+|_This project is the project I did during the summer holiday for SOC Orbital Programme.
+|==
+
+include::https://github.com/zulq9/Orbital2018_SynchroNUS
+
+---

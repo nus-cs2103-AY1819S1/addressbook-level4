@@ -1,0 +1,69 @@
+= Darren Ong Yun Kai  - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 4
+
+---
+
+== Overview
+
+Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+desktop app to manage their shop inventory. More importantly, it is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of
+a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
+management tasks such as creating sales, generating reports, creating purchase orders
+and more. The user interacts with it using a CLI, and it has a GUI created
+with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+***
+** Enhancements to existing features:
+***
+** Documentation:
+*** Update the user guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+*** Update the developer guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+*** Update my personal portfolio https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+** Community:
+** Tools:
+*** Created an organization for team on Github
+*** Integrated a Github plugin (TravisCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=users-management]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=usecaseDeleteStaff]
+
+include::../DeveloperGuide.adoc[tag=testcaseDeleteStaff]
+
+
+== PROJECT: PeerNUS
+
+|===
+|_This project is the project I did during the summer holiday for SOC Orbital Programme._
+|===
+
+include::https://github.com/darren96/PeerNUS
+
+---

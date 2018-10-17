@@ -4,53 +4,49 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Inventory Manager was developed by the https://github.com/orgs/CS2103-AY1819S1-W14-4/teams/developers/members[CS2103T-W14-4] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Darren Ong Yun Kai
+image::darren96.png[width="150", align="left"]
+{empty} [https://github.com/darren96[github]] [<<darren96#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer
 
-'''
+Responsibilities: Integration, Scheduling and Tracking
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Wang Chao
+image::fzdy1914.png[width="150", align="left"]
+{empty} [https://github.com/fzdy1914[github]] [<<fzdy1914#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer
 
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
 Responsibilities: Data
 
-'''
+=== Esmond Tan
+image::esmondtan.png[width="150", align="left"]
+{empty} [https://github.com/esmondtan[github]] [<<esmondtan#, portfolio>>]
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+Role: Developer
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Testing, Code Quality
 
-'''
+=== Yao TengXiong
+image::yao-tx.png[width="150", align="left"]
+{empty} [https://github.com/yao-tx[github]] [<<yao-tx#, portfolio>>]
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+Role: Developer
 
-Role: Developer +
-Responsibilities: UI
+Responsibilities: Deliverables and Inventory Management
 
-'''
+=== Muhd Zulqarnain Bin Ramlan
+image::zulq9.png[width="150", align="left"]
+{empty} [https://github.com/zulq9[github]] [<<zulq9#, portfolio>>]
+
+Role: Developer
+
+Responsibilities: Deliverable and deadlines
+
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Item with invalid name field -->
+    <items>
+        <name>iPho!ne 8 Plus</name>
+        <price>1500.00</price>
+        <quantity isPrivate="false">9482424</quantity>
+        <sku isPrivate="false">iphone-8-plus</sku>
+        <image isPrivate="false">docs/images/iphone.jpg</image>
+    </items>
+</addressbook>

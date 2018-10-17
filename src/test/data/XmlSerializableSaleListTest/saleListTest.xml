@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sales>
+	<!-- Sale List save file which contains the same sale values as in the default test -->
+    <sale>
+        <saleId>1</saleId>
+        <saleSku>apple-iphone-xr</saleSku>
+        <saleQuantity>1</saleQuantity>
+        <saleDate>2018-08-01</saleDate>
+    </sale>
+</sales>

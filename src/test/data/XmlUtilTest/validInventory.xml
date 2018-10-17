@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<inventory>
+    <items>
+        <name>iPhone XR</name>
+        <price>1500.00</price>
+        <quantity isPrivate="false">9482424</quantity>
+        <sku isPrivate="false">iphone-xr</sku>
+        <image isPrivate="false">docs/images/iphone.jpg</image>
+    </items>
+    <items>
+        <name>Samsung S8</name>
+        <price>1399.99</price>
+        <quantity isPrivate="false">87249245</quantity>
+        <sku isPrivate="false">samsung-s8</sku>
+        <image isPrivate="false">docs/images/samsung.jpg</image>
+    </items>
+    <items>
+        <name>Google Pixel XL</name>
+        <price>1234.56</price>
+        <quantity isPrivate="false">95352563</quantity>
+        <sku isPrivate="false">google-pixel-xl</sku>
+        <image isPrivate="false">docs/images/google.jpg</image>
+    </items>
+    <items>
+        <name>Samsung Note 9</name>
+        <price>1580.00</price>
+        <quantity isPrivate="false">87652533</quantity>
+        <sku isPrivate="false">samsung-note-9</sku>
+        <image isPrivate="false">docs/images/samsung.jpg</image>
+    </items>
+    <items>
+        <name>LG G7</name>
+        <price>1210.00</price>
+        <quantity isPrivate="false">9482224</quantity>
+        <sku isPrivate="false">lg-g7</sku>
+        <image isPrivate="false">docs/images/lg.jpg</image>
+    </items>
+    <items>
+        <name>HuaWei U9</name>
+        <price>759.90</price>
+        <quantity isPrivate="false">9482427</quantity>
+        <sku isPrivate="false">huawei-u9</sku>
+        <image isPrivate="false">docs/images/huawei.jpg</image>
+    </items>
+    <items>
+        <name>OnePlus 6</name>
+        <price>999.99</price>
+        <quantity isPrivate="false">9482442</quantity>
+        <sku isPrivate="false">oneplus-6</sku>
+        <image isPrivate="false">docs/images/oneplus.jpg</image>
+    </items>
+    <items>
+        <name>Oppo R8</name>
+        <price>649.99</price>
+        <quantity isPrivate="false">8482424</quantity>
+        <sku isPrivate="false">oppo-r8</sku>
+        <image isPrivate="false">docs/images/oppo.jpg</image>
+    </items>
+    <items>
+        <name>XiaoMi Mi 10</name>
+        <price>120.00</price>
+        <quantity isPrivate="false">8482131</quantity>
+        <sku isPrivate="false">xiaomi-mi-10</sku>
+        <image isPrivate="false">docs/images/xiaomi.jpg</image>
+    </items>
+</inventory>

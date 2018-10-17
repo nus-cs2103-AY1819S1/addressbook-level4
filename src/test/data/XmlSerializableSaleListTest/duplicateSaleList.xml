@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Sale List with duplicate sale -->
+<sales>
+    <sale>
+        <saleId>1</saleId>
+        <saleSku>apple-iphone-xr</saleSku>
+        <saleQuantity>1</saleQuantity>
+        <saleDate>2018-08-01</saleDate>
+    </sale>
+    <sale>
+        <saleId>1</saleId>
+        <saleSku>apple-iphone-xr</saleSku>
+        <saleQuantity>1</saleQuantity>
+        <saleDate>2018-08-01</saleDate>
+    </sale>
+</sales>

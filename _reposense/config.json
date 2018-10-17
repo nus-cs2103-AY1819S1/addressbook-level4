@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "darren96",
+      "displayName": "DARRE...N KAI",
+      "authorNames": ["darren96", "Darren", "Darren Ong"]
+    },
+    {
+      "githubId": "EsmondTan",
+      "displayName": "ESMON...D TAN",
+      "authorNames": ["EsmondTan", "Esmond"]
+    },
+    {
+      "githubId": "zulq9",
+      "displayName": "MUHAM...AMLAN",
+      "authorNames": ["zulq9", "Zulqarnain"]
+    },
+    {
+      "githubId": "fzdy1914",
+      "displayName": "WAN...HAO",
+      "authorNames": ["fzdy1914", "WANG CHAO"]
+    },
+    {
+      "githubId": "yao-tx",
+      "displayName": "YAO T...XIONG",
+      "authorNames": ["yao-tx", "TengXiong"]
+    }
+  ]
+}

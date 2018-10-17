@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<inventory>
+
+    <items>
+        <name>iPhone 8 Plus</name>
+        <price>1500.00</price>
+        <quantity>94351253</quantity>
+        <sku>iphone-8-plus</sku>
+        <image>docs/images/iphone.jpg</image>
+        <tagged>friends</tagged>
+    </items>
+
+    <!-- Item with same identity as iPhone 8 Plus (Same SKU) -->
+    <items>
+        <name>iPhone 8 Plus</name>
+        <price>1500.00</price>
+        <quantity>94351253</quantity>
+        <sku>iphone-8-plus</sku>
+        <image>docs/images/iphone.jpg</image>
+    </items>
+
+</inventory>
