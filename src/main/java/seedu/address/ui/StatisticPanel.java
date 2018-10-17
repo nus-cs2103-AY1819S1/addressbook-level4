@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 
 //@@author jonathantjm
 /**
@@ -21,12 +22,12 @@ public class StatisticPanel extends UiPart<Region> {
     @FXML
     private StackPane chartArea;
 
-    public StatisticPanel (LinkedHashMap<String, Double> statsData) {
+    public StatisticPanel (LinkedHashMap<String, Double> statsData, StatsMode statsMode) {
         super(FXML);
-        setData(statsData);
+        setData(statsData, statsMode);
     }
 
-    public void setData(LinkedHashMap<String, Double> statsData) {
+    public void setData(LinkedHashMap<String, Double> statsData, StatsMode statsMode) {
         chartArea.getChildren().clear();
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -34,7 +35,11 @@ public class StatisticPanel extends UiPart<Region> {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount");
         BarChart stats = new BarChart(xAxis, yAxis);
-        stats.setTitle("Daily Expenditure");
+        if (statsMode == StatsMode.DAY) {
+            stats.setTitle("Expenditure by Day");
+        } else {
+            stats.setTitle("Expenditure by Month");
+        }
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Day Amounts");
@@ -46,9 +51,5 @@ public class StatisticPanel extends UiPart<Region> {
         stats.getData().add(series);
 
         chartArea.getChildren().add(stats);
-    }
-
-    public StackPane getChartArea() {
-        return chartArea;
     }
 }

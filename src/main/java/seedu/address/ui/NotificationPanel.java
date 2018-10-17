@@ -1,15 +1,15 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
+//import javafx.application.Platform;
+//import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
+//import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.expense.Expense;
+//import seedu.address.commons.core.LogsCenter;
+//import seedu.address.model.expense.Expense;
 
 //@@author snookerballs
 /**
@@ -17,7 +17,7 @@ import seedu.address.model.expense.Expense;
  */
 public class NotificationPanel extends UiPart<Region> {
     private static final String FXML = "NotificationPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
+    //private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
 
     @FXML
     private ListView<Object> notificationListView;
@@ -26,13 +26,13 @@ public class NotificationPanel extends UiPart<Region> {
         super(FXML);
     }
 
-    public NotificationPanel(ObservableList<Object> notificationList) {
+    /*public NotificationPanel(ObservableList<Object> notificationList) {
         super(FXML);
-        setConnections(notificationList);
+        //setConnections(notificationList);
         registerAsAnEventHandler(this);
-    }
+    }*/
 
-    private void setConnections(ObservableList<Object> notificationList) {
+    /*private void setConnections(ObservableList<Object> notificationList) {
         notificationListView.setItems(notificationList);
         //notificationListView.setCellFactory(listView -> new ExpenseListPanel.ExpenseListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -51,7 +51,7 @@ public class NotificationPanel extends UiPart<Region> {
     /**
      * Scrolls to the {@code ExpenseCard} at the {@code index} and selects it.
      */
-    private void scrollTo(int index) {
+    /* private void scrollTo(int index) {
         Platform.runLater(() -> {
             notificationListView.scrollTo(index);
             notificationListView.getSelectionModel().clearAndSelect(index);
@@ -61,7 +61,7 @@ public class NotificationPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
      */
-    class ExpenseListViewCell extends ListCell<Expense> {
+    /*class ExpenseListViewCell extends ListCell<Expense> {
         @Override
         protected void updateItem(Expense expense, boolean empty) {
             super.updateItem(expense, empty);
@@ -74,4 +74,5 @@ public class NotificationPanel extends UiPart<Region> {
             }
         }
     }
+    */
 }

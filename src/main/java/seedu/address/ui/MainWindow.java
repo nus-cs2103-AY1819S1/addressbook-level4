@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        statisticPanel = new StatisticPanel(logic.getExpenseStats());
+        statisticPanel = new StatisticPanel(logic.getExpenseStats(), logic.getStatsMode());
         CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsSplitPane = new AnchorPane();
@@ -292,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowStatsEvent(ShowStatsRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            statisticPanel.setData(logic.getExpenseStats());
+            statisticPanel.setData(logic.getExpenseStats(), logic.getStatsMode());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }

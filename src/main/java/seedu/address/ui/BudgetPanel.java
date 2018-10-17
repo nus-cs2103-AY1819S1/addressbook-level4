@@ -184,20 +184,4 @@ public class BudgetPanel extends UiPart<Region> {
         update(event.budget);
     }
 
-    public Timeline getTimeline() {
-        return timeline;
-    }
-
-    public ProgressBar getBudgetBar() {
-        return budgetBar;
-    }
-
-    public Text getBudgetDisplay() {
-        return budgetDisplay;
-    }
-
-    public Text getExpenseDisplay() {
-        return expenseDisplay;
-    }
-
 }
