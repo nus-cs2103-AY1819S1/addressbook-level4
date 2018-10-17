@@ -108,7 +108,7 @@ Examples:
 Shows a list of all patients in the clinic record. +
 Format: `listPatient`
 
-=== Editing a patient : `editPatient`
+=== Editing a patient : `editPatient` `[coming in v2.0]`
 
 Edits an existing patient in the clinic record. +
 Format: `editPatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
