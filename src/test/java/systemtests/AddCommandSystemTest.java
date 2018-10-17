@@ -160,7 +160,8 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_TITLE_DESC + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE;
+        command = AddCommand.COMMAND_WORD + INVALID_TITLE_DESC + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+                + START_DESC_LECTURE + END_DESC_LECTURE;
         assertCommandFailure(command, Title.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
@@ -185,7 +186,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
-            + INVALID_TAG_DESC;
+                + START_DESC_LECTURE + END_DESC_LECTURE + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
