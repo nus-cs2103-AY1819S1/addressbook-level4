@@ -18,6 +18,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
+'''
+Follow the guide in this section below to start development on ExpenseTracker
+
+'''
+
 === Prerequisites
 
 . *https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[JDK `9`]* or later
@@ -35,6 +40,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 
 === Setting up the project in your computer
+*To set up the project:*
 
 . Fork this repo and clone the fork to your computer
 . Open IntelliJ (if you are not in the https://i.stack.imgur.com/cQnLl.png[welcome screen], click `File` > `Close
@@ -52,11 +58,14 @@ existing project dialog first)
 This will generate all resources required by the application and tests.
 
 === Verifying the setup
+*To verify that you have successfully set up the project:*
 
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> and ensure that they all pass.
 
-=== Configurations to do before writing code
+=== Configurations to apply before writing code
+
+*The following lists configurations that should be applied before writing code:*
 
 ==== Configuring the coding style
 
@@ -99,9 +108,9 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Before coding
+=== Before coding
 
-Before you start coding,
+*Before you start coding,*
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
@@ -209,11 +218,11 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::UpdatedModelComponentClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `ModelManager` which implements the interface `Model`,
+The `ModelManager` which implements the interface `Model` (Figure 8):
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the a list of expenses.
@@ -226,7 +235,7 @@ reference. This
 would allow `Expense
 Tracker` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+image:BetterOopModelComponentClassDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
