@@ -51,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane panelPlaceHolder;
+    private StackPane panelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -125,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Initalises the members of the MainWindow and the HashMap of swappable panels.
+     */
     void init() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
 
@@ -162,8 +165,13 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        if (currentPanel != null) {
+            panelPlaceholder.getChildren().remove(((UiPart<Region>) currentPanel).getRoot());
+        }
+
+        panelPlaceholder.getChildren().add(((UiPart<Region>) panel).getRoot());
+
         currentPanel = panel;
-        panelPlaceHolder.getChildren().add(((UiPart<Region>) currentPanel).getRoot());
         currentPanel.refreshView();
     }
 

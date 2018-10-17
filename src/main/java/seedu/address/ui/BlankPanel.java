@@ -10,7 +10,7 @@ import seedu.address.commons.core.LogsCenter;
  * A blank panel. The default view to show when the app starts up.
  */
 public class BlankPanel extends UiPart<Region> implements Swappable {
-    private static final String FXML = "";
+    private static final String FXML = "BlankPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
 

@@ -2,10 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.SwappablePanelName;
+
 
 /**
  * Changes the UI view.
@@ -32,7 +35,13 @@ public class ViewCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        String formattedPanelName = panelName.toString().substring(0, 1).toUpperCase() + panelName.toString().substring(1);
+        EventsCenter.getInstance().post(new SwapPanelViewEvent(panelName));
+
+        String formattedPanelName = panelName.toString()
+                                             .substring(0, 1)
+                                             .toUpperCase()
+            + panelName.toString()
+                       .substring(1);
         return new CommandResult(String.format(MESSAGE_VIEW_CHANGED_SUCCESS, formattedPanelName));
     }
 

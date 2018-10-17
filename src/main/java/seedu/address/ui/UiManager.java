@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -73,7 +74,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.releaseResources();
     }
 
-    public void changePanelView(SwappablePanelName panelName) {
+    private void changePanelView(SwappablePanelName panelName) {
         Objects.requireNonNull(panelName);
         mainWindow.setCurrentPanel(panelName);
     }
@@ -125,5 +126,11 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
             event.exception);
+    }
+
+    @Subscribe
+    private void handleSwapPanelViewEvent(SwapPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        changePanelView(event.getSwappablePanelName());
     }
 }
