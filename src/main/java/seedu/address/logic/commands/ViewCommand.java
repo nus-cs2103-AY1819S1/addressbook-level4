@@ -21,7 +21,7 @@ public class ViewCommand extends Command {
         + ": Changes the view.\n"
         + "Parameters: VIEW_NAME (must be one of the views enabled in the app).\n"
         + "See the User Guide for more information on the views enabled.\n"
-        + "Example: " + COMMAND_WORD + " blank";
+        + "Example: " + COMMAND_WORD + " " + SwappablePanelName.BLANK;
 
     public static final String MESSAGE_VIEW_CHANGED_SUCCESS = "Changed view to: %1$s";
 
@@ -41,6 +41,7 @@ public class ViewCommand extends Command {
                                              .substring(0, 1)
                                              .toUpperCase()
             + panelName.toString()
+                       .toLowerCase()
                        .substring(1);
         return new CommandResult(String.format(MESSAGE_VIEW_CHANGED_SUCCESS, formattedPanelName));
     }
