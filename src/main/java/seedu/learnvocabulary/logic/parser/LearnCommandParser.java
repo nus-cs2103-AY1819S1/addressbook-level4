@@ -3,7 +3,6 @@ package seedu.learnvocabulary.logic.parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.learnvocabulary.logic.commands.LearnCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
