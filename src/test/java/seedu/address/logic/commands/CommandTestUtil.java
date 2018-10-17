@@ -6,11 +6,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -18,13 +20,15 @@ import org.junit.Assert;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -46,8 +50,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_FOOD = "Lunch";
     public static final String VALID_DATE_1990 = "01-01-1990";
-    public static final String VALID_DATE_2018 = "01-10-2018";
+    public static final String VALID_DATE_2018 = "02-10-2018";
 
+    public static final String VALID_TIME_ONE = "1";
+    public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
+    public static final String VALID_TIME_ONE_MINUTE = " " + PREFIX_MINUTES + VALID_TIME_ONE;
+    public static final String VALID_TIME_ONE_HOUR = " " + PREFIX_HOURS + VALID_TIME_ONE;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_KFC = " " + PREFIX_NAME + VALID_NAME_KFC;
@@ -91,7 +99,9 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
+        System.out.println("Creating expectedCommandHistory");
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        System.out.println("Created expectedCommandHistory");
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
@@ -142,8 +152,10 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());
 
         Expense expense = model.getFilteredExpenseList().get(targetIndex.getZeroBased());
-        final String[] splitName = expense.getName().expenseName.split("\\s+");
-        model.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        String[] splitName = expense.getName().expenseName.split("\\s+");
+        final ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
+                + splitName[0], PREFIX_NAME);
+        model.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
 
         assertEquals(1, model.getFilteredExpenseList().size());
     }

@@ -52,6 +52,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void edit() throws NoUserSelectedException {
         Model model = getModel();
+        showAllExpenses();
         /* -------------- Performing edit operation while an unfiltered list is being shown ------------------- */
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each
          * field -> edited
@@ -152,7 +153,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
-                + INVALID_ADDRESS_DESC, Cost.MESSAGE_ADDRESS_CONSTRAINTS);
+                + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
