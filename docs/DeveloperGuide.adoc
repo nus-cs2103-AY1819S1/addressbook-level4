@@ -99,6 +99,11 @@ As a user, I want to test and challenge myself to improve my English.
 
 As a user, I want to check the meaning of words.
 
+As a non-native english speaker, I would like to classify words in different groups to manage them and learn them better.
+
+As a non-native english speaker, I would like to lookup the definition of words.
+
+As a non-native English speaker, I would like to learn words to improve my English.
 
 == Use cases
 
