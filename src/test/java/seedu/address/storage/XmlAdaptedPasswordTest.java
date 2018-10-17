@@ -33,8 +33,7 @@ public class XmlAdaptedPasswordTest {
 
     @Test
     public void testToModelType() {
-        thrown.expect(NullPointerException.class);
-        assertEquals(new XmlAdaptedPassword(PasswordTest.VALID_PASSWORD_STRING).toString(),
+        assertEquals(new XmlAdaptedPassword(PasswordTest.VALID_PASSWORD_STRING).toModelType().toString(),
                 PasswordTest.VALID_PASSWORD_STRING);
     }
 }
