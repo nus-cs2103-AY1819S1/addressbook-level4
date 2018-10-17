@@ -100,7 +100,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find car park in address book, keyword is substring of name -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " Sen";
-        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
