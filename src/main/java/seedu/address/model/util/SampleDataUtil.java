@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,4 +58,11 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a date set containing the list of dates given.
+     */
+    public static Set<Date> getDateSet(Date... dates) {
+        return Arrays.stream(dates)
+                .collect(Collectors.toSet());
+    }
 }
