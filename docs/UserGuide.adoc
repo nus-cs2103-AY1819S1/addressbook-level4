@@ -23,7 +23,7 @@ SocialCare morphs the given AB4 application into a volunteer management system t
 
 SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers.* More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps.
 
-Interested? Jump to the <<Quick Start>> to get started.
+Interested? Jump to <<Quick Start>> to get started.
 
 Enjoy!
 
