@@ -353,6 +353,8 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 === Filter Feature
 ==== Current Implementation
+.Activity Diagram for the Filter Feature
+image::FilterActivityDiagram.png[width="800"]
 The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
 `ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
 parse the arguments from the user input.
@@ -383,7 +385,7 @@ AttributePredicate to test the attriute
 ** Cons: Need to implement more classes to handle
 
 
-=======
+
 === Autocomplete/Suggest feature
 ==== Current Implementation
 
