@@ -1,8 +1,6 @@
 package seedu.address.model;
 
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.person.IcNumber;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -33,7 +31,7 @@ public class Receipt extends Document {
         StringBuilder sb = new StringBuilder();
         sb.append(super.generateHeaders());
         sb.append(super.tabFormat("Name: " + super.getName() + "\n"));
-        sb.append(super.tabFormat("NRIC: " + super.getIcNumber()+ "\n"));
+        sb.append(super.tabFormat("NRIC: " + super.getIcNumber() + "\n"));
         sb.append(super.tabFormat("Medicine dispensed: \n"));
         return sb.toString();
     }
