@@ -20,7 +20,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException {
         final Model defaultModel = getModel();
-
+        showAllExpenses();
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */

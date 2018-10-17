@@ -58,6 +58,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         testApp.getActualModel().commitAddressBook();
 
         model.modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
+        showAllExpenses();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

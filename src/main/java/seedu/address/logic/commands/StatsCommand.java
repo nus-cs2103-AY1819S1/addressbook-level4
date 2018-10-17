@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -24,7 +25,9 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String COMMAND_ALIAS = "st";
 
-    public static final String MESSAGE_SUCCESS = "Opened the stats window";
+
+    public static final String MESSAGE_SUCCESS = "swapped to stats window";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens stats window. "
             + "Parameters: "
             + PREFIX_NUMBER_OF_DAYS_OR_MONTHS + "NUMBER_OF_DAYS_OR_MONTHS "
@@ -70,9 +73,10 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
+        EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         model.updateExpenseStats(getStatsPredicate());
         model.updateStatsMode(this.mode);
-        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

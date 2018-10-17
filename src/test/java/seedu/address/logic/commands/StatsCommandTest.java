@@ -58,6 +58,7 @@ public class StatsCommandTest {
 
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
-        assertEquals(8, eventsCollectorRule.eventsCollector.getSize());
+        assertEquals(10, eventsCollectorRule.eventsCollector.getSize());
+
     }
 }
