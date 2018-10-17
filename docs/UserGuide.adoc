@@ -236,7 +236,34 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 === Get Events From Google Canlendar : `getGCEvents`
+Pull events from your Google Calendar (login required) and merge them into the local canlendar. +
+Format: `getGCEvents`
 
+[NOTE]
+====
+This command will have to access your Googlec Calendar data, Google authentication is required.
+====
+
+****
+Step 1: If you have never login in our application before, a prompt up login window will appear.
+
+Step 2: You are required to log in your google account, just as when you are using any other google service.
+
+After successful authorization, the message +
+`Received verification code. You may now close the window.` +
+will appear. 
+
+Step 3: The application proceeds automatically after successful authorization. +
+As instructed, you do not have to do anything else, please feel free to close the browser tab.
+
+Step 4: The application then proceeds with extraction of google calendar events, +
+and trying to add them to local database. +
+A success message appears after the completion of addition of events.
+****
+
+=== Post Events to Google Canlendar : `postGCEvents` `[coming in v1.3]`
+Post events from your local scheduler and merge your local events with Google Calendar (login required) events. +
+Format: `postGCEvents`
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
