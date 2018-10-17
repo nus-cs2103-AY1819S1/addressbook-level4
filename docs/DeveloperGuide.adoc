@@ -487,6 +487,7 @@ The `exportcert` command enables the volunteer manager to export a PDF document 
 
 This is a sample of the exported PDF certificate:
 
+[.thumb]
 image::VolunteerCert.png[width="600"]
 
 ===== Intended Implementation
