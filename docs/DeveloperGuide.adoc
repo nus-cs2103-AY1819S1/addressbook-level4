@@ -20,7 +20,8 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[JDK `9`]* or later
+
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
@@ -35,11 +36,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
+. Fork this repo and clone the fork to your computer
+. Open IntelliJ (if you are not in the https://i.stack.imgur.com/cQnLl.png[welcome screen], click `File` > `Close
+Project` to close
+ the
+existing project dialog first)
+
+. Click `Configure` > `Project Defaults` > `Project Structure`
+. Click `New...` and find the directory of the JDK
 . Click `Import Project`
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
@@ -50,13 +54,14 @@ This will generate all resources required by the application and tests.
 === Verifying the setup
 
 . Run the `seedu.address.MainApp` and try a few commands
-. <<Testing,Run the tests>> to ensure they all pass.
+. <<Testing,Run the tests>> and ensure that they all pass.
 
 === Configurations to do before writing code
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding
+standards]. IntelliJ's default style is mostly compliant but it uses a different import order from ours. To rectify:
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -69,9 +74,11 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding, referencing the
+`se-edu/addressbook-level4`
+repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -81,7 +88,8 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+After setting up Travis, you can optionally set up coverage reporting for your team's fork (see <<UsingCoveralls#,
+UsingCoveralls.adoc>>).
 
 [NOTE]
 Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
@@ -91,9 +99,9 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
+==== Before coding
 
-When you are ready to start coding,
+Before you start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
@@ -205,15 +213,18 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `ModelManager` which implements the interface `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Expense Tracker data.
+* stores the a list of expenses.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Expense Tracker`, which `Expense` can reference. This would allow `Expense Tracker` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
+To better adhere to the paradigms of OOP, we can store a `Tag` list in `Expense Tracker`, which `Expense` can
+reference. This
+would allow `Expense
+Tracker` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
