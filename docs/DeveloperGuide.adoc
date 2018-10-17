@@ -95,15 +95,255 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+[discrete]
+==== Events-Driven nature of the design
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command (part 1)
+image::SDforDeletePerson.png[width="800"]
+
+[NOTE]
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+.Component interactions for `delete 1` command (part 2)
+image::SDforDeletePersonEventHandling.png[width="800"]
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+
+The sections below give more details of each component.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeletePersonSdForLogic.png[width="800"]
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Car Park Finder data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Car Park Finder`, which `Carpark` can reference. This would allow `Car Park Finder` to only require one `Tag` object per unique `Tag`, instead of each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:ModelClassBetterOopDiagram.png[width="800"]
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Car Park Finder data in xml format and read it back.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
-=== Command alias feature
+This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== Undo/Redo feature
 
 ==== Current Implementation
 
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current car park finder book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous car park finder book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone car park finder state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the car park finder. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the car park finder after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified car park finder state to be saved into the `addressBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the car park finder state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+.How the undo operation works
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest car park finder state, then there are no undone car park finder states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire car park finder.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of car park finder states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+=== Command alias feature
+
+==== Overview
+
 The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
 when shorter command words are parsed through `parseCommand`.
+
+==== Example
 
 Given below is an example usage scenario and how the alias mechanism behaves at
 each step.
@@ -123,7 +363,9 @@ command:
 
 image::AliasActivityDiagram.jpg[width="700", align="left"]
 
-==== Designer Considerations
+==== Design Considerations
+
+===== Aspect: How alias executes
 
 * *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
 in each Command file.
@@ -137,6 +379,287 @@ in each Command file.
 ** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
 & `filter`, it does not work.
 
+=== Query feature
+
+==== Overview
+
+The query mechanism does an API call to the website `data.gov.sg` to pull the car park information in `JSON` format.
+The external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
+
+Some notable methods that `GsonUtil` implements are:
+
+* `GsonUtil#getCarparkData()` — Get the basic car park information from the API.
+* `GsonUtil#getCarparkAvailability()` — Get the total parking lots as well as availability from another API.
+* `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
+
+Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
+
+==== Example
+
+Given below is an example usage scenario and how the query mechanism behaves at each step.
+
+Step 1. The user launches the application. The initial car park finder state might not have been updated
+to the latest according to `data.gov.sg`.
+
+Step 2. The user executes the `query` command to fetch the latest data from the API. The `query` command calls
+`GsonUtil#fetchCarparkInfo()` which runs the two methods `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.
+
+Step 3. The user waits for data to be updated. Inside `GsonUtil#getCarparkData()`, a connection is established with the API
+to read the `JSON` data for the basic car park information.
+
+[NOTE]
+If the reading from the API fails, IOException is thrown.
+
+Step 4. The `JSON` data is parsed using `Gson` library and stored inside `CarparkJson` class. A `HashSet` is used to consolidate
+all the car parks and prevent duplicate entries.
+
+Step 5. Once `GsonUtil#getCarparkData()` is done getting all the basic car park information, next is getting the parking lot
+details with `GsonUtil#getCarparkAvailability()`. The process is similar to how `GsonUtil#getCarparkData()` gets the data from the API.
+
+Step 6. When `GsonUtil#getCarparkAvailability()` is done adding in the parking lot details using `CarparkJson#addOn()`, a final check
+to see if there are any car parks with no data on its parking lots. The value 0 is added if there is no data.
+
+Step 7. An ArrayList<ArrayList<String>> is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
+to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
+
+The following sequence diagram shows how the query operation works:
+
+.How the query operation works
+image::zy_seq.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How query executes
+
+* **Alternative 1 (current choice):** Wait for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Performance issues as the application hangs.
+
+* **Alternative 2 :** Data is queried using a separate thread.
+** Pros: Application can be used as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects.
+
+===== Aspect: Data structure to support query command
+
+* **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
+** Pros: Easy to maintain an array list of list and iterate through to get a specific car park.
+** Cons: `ArrayList<ArrayList<String>>` can be confusing and not intuitive. Accessing elements is also not that efficient.
+
+* **Alternative 2 :** Use a `HashMap` to store data.
+** Pros: Much more efficient in accessing elements by using a key and better code readability
+with `HashMap<String,Carpark>`.
+** Cons: `HashMap` does not provide an ordered collection.
+
+=== [Propose] Notify feature
+
+==== Overview
+
+The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds or minutes
+and is used in conjunction with the `select` command.
+
+This means that it will only notify the current selected car park only, and not all the car parks.
+
+==== Example
+
+_This feature is coming in v2.0._
+
+==== Design Considerations
+
+===== Aspect: How notify executes
+
+* **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Performance issues as the application hangs.
+
+* **Alternative 2 :** Data is queried using a separate thread every interval.
+** Pros: Application can be used as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects.
+
+== Documentation
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+
+_{asterisk} Official SE-EDU projects only_
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some properties of the site's design.
+
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+The SE-EDU team does not provide support for modified template files.
+====
+
+[[Testing]]
+== Testing
+
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.  *GUI Tests* - These are tests involving the GUI. They include,
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.address.commons.StringUtilTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.address.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.address.logic.LogicManagerTest`
+
+
+=== Troubleshooting Testing
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+* Solution: Execute Gradle task `processResources`.
+
+== Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, Car Park Finder depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+a. Include those libraries in the repo (this bloats the repo size) +
+b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
@@ -684,7 +1207,7 @@ to search for locations of car parks.
 . This application is not suppose to be used by drivers on the road.
 . The system should be easy and scalable in adding on features for future versions.
 . The car park data should be updated frequently while running to send notifications in real time.
-. Privacy details in the user profile should not be seen or shared easily by others.
+. Privacy details in the favourites list should not be seen or shared easily by others.
 
 [appendix]
 == Glossary
@@ -702,7 +1225,7 @@ A value that acts as a signal for a function or process.
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Favourites::
-A custom list of car parks that is meant to be viewed easily
+A custom list of car parks that is meant to be viewed easily.
 
 [appendix]
 == Product Survey
