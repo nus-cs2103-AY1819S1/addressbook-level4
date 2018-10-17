@@ -34,7 +34,7 @@ public class ParserUtilTest {
     private static final String VALID_PRICE = "12.23";
     private static final String VALID_URL = "https://www.lazada.sg/products"
             + "/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
-    private static final String VALID_DATE = "28/10/1996";
+    private static final String VALID_DATE = "28/10/2021";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 

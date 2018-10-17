@@ -101,7 +101,8 @@ public class Wish {
 
         return otherWish != null
                 && otherWish.getName().equals(getName())
-                && (otherWish.getPrice().equals(getPrice()) || otherWish.getDate().equals(getDate()));
+                && (otherWish.getPrice().equals(getPrice())
+                && otherWish.getDate().equals(getDate()));
     }
 
     /**

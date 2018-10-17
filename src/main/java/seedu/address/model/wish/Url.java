@@ -20,6 +20,8 @@ public class Url {
 
     public final String value;
 
+    public static final String DEFAULT_URL = "www.amazon.com";
+
     /**
      * Constructs an {@code Url}.
      *
@@ -37,6 +39,7 @@ public class Url {
     public static boolean isValidUrl(String test) {
         return test.matches(URL_VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

@@ -251,7 +251,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @return a new updated wish.
      */
     private Wish getUpdatedWish(Set<Tag> updatedTags, Wish target) {
-        return new Wish(target.getName(), target.getPrice(), target.getEmail(),
+        return new Wish(target.getName(), target.getPrice(), target.getDate(),
                 target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags);
     }
 

@@ -47,12 +47,52 @@
         <tagged>classmates</tagged>
     </wishes>
     <wishes>
-        <name>1TB SSD</name>
-        <price>55.00</price>
+        <name>hooper</name>
+        <price>123.00</price>
         <savedAmount>45.00</savedAmount>
-        <date>24/09/2010</date>
+        <date>10/10/2021</date>
         <url>https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
         <tagged>colleagues</tagged>
+    </wishes>
+    <wishes>
+        <name>hoopers</name>
+        <price>123.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>10/10/2021</date>
+        <url>123</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>hoop</name>
+        <price>123.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>10/10/2021</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>hoop</name>
+        <price>123.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>10/09/2021</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>hoop</name>
+        <price>123.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>13/09/2021</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>test</name>
+        <price>123.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>11/12/2018</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
     </wishes>
 </wishbook>

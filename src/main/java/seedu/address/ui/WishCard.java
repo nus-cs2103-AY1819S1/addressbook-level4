@@ -37,6 +37,9 @@ public class WishCard extends UiPart<Region> {
     private Label progress;
 
     @FXML
+    private Label date;
+
+    @FXML
     private ProgressBar progressBar;
 
     @FXML
@@ -51,6 +54,7 @@ public class WishCard extends UiPart<Region> {
         this.id = displayedIndex + ". ";
 
         name.setText(wish.getName().fullName);
+        date.setText(wish.getDate().date);
         progress.setText(getProgressInString(wish));
         progressBar.setProgress(wish.getProgress());
 

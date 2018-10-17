@@ -15,6 +15,8 @@ public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date should be of the format: dd/mm/yyyy";
 
+    public static final String MESSAGE_DATE_OUTDATED = "Wish expiry date should be after current date";
+
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     private static final SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
@@ -37,13 +39,25 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            format.parse(test);
+            format.setLenient(false);
+            java.util.Date date = format.parse(test);
         } catch (ParseException pe) {
+            System.out.println("Cannot parse date");
             return false;
         }
         return true;
     }
 
+    /*
+     * Returns true if date is greater than current date.
+     */
+    public static boolean isFutureDate(String test) throws ParseException {
+        java.util.Date date = format.parse(test);
+        if (date.after(new java.util.Date())) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

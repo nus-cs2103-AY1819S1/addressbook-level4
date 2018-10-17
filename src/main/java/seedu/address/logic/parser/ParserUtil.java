@@ -113,6 +113,13 @@ public class ParserUtil {
         if(!Date.isValidDate(date)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
+        try {
+            if (!Date.isFutureDate(date)) {
+                throw new ParseException(Date.MESSAGE_DATE_OUTDATED);
+            }
+        } catch (java.text.ParseException pe) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
         return new Date(date);
     }
 }
