@@ -19,7 +19,9 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-CLInic is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast and are in need of a clinic management application, CLInic can get your clinic management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+*CLInic* is a desktop application that is created for clinics and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+If you have average to high typing speed and are in need of a clinic management application, CLInic can get your clinic management tasks more efficiently than traditional GUI apps.
+You will have *all the tools* needed to manage your patient and medicine data, completed with an efficient queue management system. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
