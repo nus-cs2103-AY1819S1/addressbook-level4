@@ -546,7 +546,6 @@ This section contains a summary of the available commands.
 | *Delete* | `delete EVENT_INDEX`  | `delete 3`
 |=======================================================================
 
-
 === Record Management
 
 [width="100%",cols="10%,45%, 45%",options="header",]
