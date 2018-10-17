@@ -31,16 +31,12 @@ public class LoginCommandParser implements Parser<LoginCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
         }
-        try {
-            Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
-            Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
-            if (plainPassword.isPresent()) {
-                return new LoginCommand(username, ParserUtil.parsePassword(plainPassword.get()));
-            } else {
-                return new LoginCommand(username, null);
-            }
-        } catch (IllegalArgumentException iae) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
+        Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
+        Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
+        if (plainPassword.isPresent()) {
+            return new LoginCommand(username, ParserUtil.parsePassword(plainPassword.get()));
+        } else {
+            return new LoginCommand(username, null);
         }
     }
 }
