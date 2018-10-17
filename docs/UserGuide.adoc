@@ -180,23 +180,23 @@ image::listafter.png[width="790"]
 === Add favourite car parks or location : `add` `[coming in v2.0]`
 
 Add a car park into your favorites list +
-Format: `add c/CARPARK_NO` or `a c/CARPARK_NO`
+Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
 
 Examples:
 
 * `add c/SE12`
 * `a c/SE12`
 
-=== Remove from favorites list : `remove` `[coming in v2.0]`
+=== Remove from favorites list : `delete` `[coming in v2.0]`
 
 
 Remove the specified car park from your favorites list +
-Format: `remove c/CARPARK_NO` or `r c/CARPARK_NO`
+Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
 
 Examples:
 
-* `remove c/SE12`
-* `r c/SE12`
+* `delete c/SE12`
+* `d c/SE12`
 
 === Data query : `query`
 

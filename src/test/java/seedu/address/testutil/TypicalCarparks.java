@@ -64,7 +64,7 @@ public class TypicalCarparks {
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("NO").withShortTerm("7AM-10.30PM")
             .withTypeOfParking("ELECTRONIC PARKING").build();
     public static final Carpark GOLF = new CarparkBuilder().withCarparkNumber("W676")
-            .withAddress("BLK 676 WOODLANDS DRIVE 71").withCarparkType("SURFACE CAR PARK")
+            .withAddress("BLK 676 WOODLANDS DRIVE 71").withCarparkType("BASEMENT CAR PARK")
             .withCoordinate("24373.6740, 46827.1390").withLotsAvailable("186").withTotalLots("230")
             .withFreeParking("NO").withNightParking("YES").withShortTerm("WHOLE DAY")
             .withTypeOfParking("ELECTRONIC PARKING").build();
