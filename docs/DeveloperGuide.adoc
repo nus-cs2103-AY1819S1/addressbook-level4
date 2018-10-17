@@ -95,7 +95,6 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=======
 == Design
 
 [[Design-Architecture]]
@@ -351,6 +350,11 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` t
 
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of car park names or address, and returns the car park if so.
 
+.How the find operation works
+image::seqdiagram-find.png[width="800", align="left"]
+
+==== Example
+
 Given below is an example usage scenario and how the Find mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
@@ -364,7 +368,6 @@ If a command fails its execution, it will not call `FindCommand#execute()`, so t
 Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
 
 Step 4. The filtered list of car park is returned to the GUI.
-
 
 === Filter Command
 
@@ -412,6 +415,20 @@ image::sequenceDiagram.png[width="700", align="left"]
 
 * Determine whether a specific day is a public holiday, when filtering for free parking
 
+.Flow chart of the find operation.
+image::actdiagram-find.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How predicate works
+
+* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
+** Pros: Easy to implement, user friendly.
+** Cons: More complicated predicate, sub strings not easily taken care of.
+
+* **Alternative 2:** Filter the data when it is taken in.
+** Pros: Less complicated predicate.
+** Cons: Manipulates the data, editing it for every other case.
 
 
 === Command alias feature
@@ -541,6 +558,9 @@ This means that it will only notify the current selected car park only, and not 
 
 _This feature is coming in v2.0._
 
+.When a user executes a notify command
+image::zy_act.png[width="800", align="left"]
+
 ==== Design Considerations
 
 ===== Aspect: How notify executes
@@ -552,6 +572,46 @@ _This feature is coming in v2.0._
 * **Alternative 2 :** Data is queried using a separate thread every interval.
 ** Pros: Application can be used as the data is being fetched in the background.
 ** Cons: Reading the car park list while querying might cause unintended side effects.
+
+=== Filter feature
+
+==== Overview
+
+The `parseCommand` function in `AddressBookParser` is extended to take in an additional
+command word: `filter`.
+
+After `filter`is being detected as the command word, a
+`FilterCommandParser` is created to parse the arguments supplied to the command.
+
+The `FilterCommandParser` parses the arguments into an array of flags, which is then
+passed into a newly created `FilterCommand`.
+
+`FilterCommand` then checks which flags are passed in and creates predicates to
+filter the car parks accordingly. The various predicates include
+`CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and
+`CarparkIsOfTypePredicate`.
+
+Next, `model` updates a filtered list of car parks by checking each car park
+against the specified predicate.
+
+
+The following activity diagram summarizes what happens when a user executes a
+`filter ct/ covered` command (this command filters all car parks that are covered):
+
+image::flowchart.png[width="800", align="left"]
+
+==== Possible Improvement to current implementation
+
+The current implementation is only the basic implementation. The following needs to be
+implemented in the following weeks to make the feature more holistic.
+
+* Connect to `find` command
+
+* Filter through multiple flags at the same time
+
+* Check for invalid parameters
+
+* Determine whether a specific day is a public holiday, when filtering for free parking
 
 == Documentation
 
@@ -738,7 +798,6 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Car Park Finder depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
 
 [appendix]
 == Product Scope

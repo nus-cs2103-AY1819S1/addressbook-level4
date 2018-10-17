@@ -28,27 +28,26 @@ public class XmlUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
-    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validCarparkFinder.xml");
+    private static final Path MISSING_CARPARK_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingCarparkField.xml");
+    private static final Path INVALID_CARPARK_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidCarparkField.xml");
+    private static final Path VALID_CARPARK_FILE = TEST_DATA_FOLDER.resolve("validCarpark.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempCarparkFinder.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
+    private static final String INVALID_COORDINATE = "9482asf424";
 
-    private static final String VALID_ADDRESS_1 = "BLK 508-517,520-533 HOUGANG AVENUE 10";
-    private static final String VALID_CARPARK_NUMBER_1 = "HG38";
-    private static final String VALID_CARPARK_TYPE_1 = "SURFACE CAR PARK";
-    private static final String VALID_COORDINATE_1 = "34274.4064, 39391.9731";
-    private static final String VALID_FREE_PARKING_1 = "SUN & PH FR 7AM-10.30PM";
-    private static final String VALID_LOTS_AVAILABLE_1 = "529";
-    private static final String VALID_NIGHT_PARKING_1 = "YES";
-    private static final String VALID_SHORT_TERM_1 = "WHOLE DAY";
-    private static final String VALID_TOTAL_LOTS_1 = "900";
-    private static final String VALID_TYPE_OF_PARKING_1 = "ELECTRONIC PARKING";
-    private static final String VALID_TAG_HUSBAND = "husband";
+    private static final String VALID_ADDRESS = "BLK 508-517,520-533 HOUGANG AVENUE 10";
+    private static final String VALID_CARPARK_NUMBER = "HG38";
+    private static final String VALID_CARPARK_TYPE = "SURFACE CAR PARK";
+    private static final String VALID_COORDINATE = "34274.4064, 39391.9731";
+    private static final String VALID_FREE_PARKING = "SUN & PH FR 7AM-10.30PM";
+    private static final String VALID_LOTS_AVAILABLE = "809";
+    private static final String VALID_NIGHT_PARKING = "YES";
+    private static final String VALID_SHORT_TERM = "WHOLE DAY";
+    private static final String VALID_TOTAL_LOTS = "1279";
+    private static final String VALID_TYPE_OF_PARKING = "ELECTRONIC PARKING";
 
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("Home"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -77,47 +76,43 @@ public class XmlUtilTest {
         XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
     }
 
-    // TO FIX, TEST INVALID
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        //assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(9, dataFromFile.getCarparkList().size());
     }
 
-    // TO FIX, TEST INVALID
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
-                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
-                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+    public void xmlAdaptedCarparkFromFile_fileWithMissingCarparkField_validResult() throws Exception {
+        XmlAdaptedCarpark actualCarpark = XmlUtil.getDataFromFile(
+                MISSING_CARPARK_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, null,
+                VALID_CARPARK_TYPE, VALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
                 VALID_TAGS);
-        assertEquals(expectedCarpark, actualPerson);
+        assertEquals(expectedCarpark, actualCarpark);
     }
 
-    // TO FIX, TEST INVALID
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
-                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
-                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+    public void xmlAdaptedCarparkFromFile_fileWithInvalidCarparkField_validResult() throws Exception {
+        XmlAdaptedCarpark actualCarpark = XmlUtil.getDataFromFile(
+                INVALID_CARPARK_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, VALID_CARPARK_NUMBER,
+                VALID_CARPARK_TYPE, INVALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
                 VALID_TAGS);
-        assertEquals(expectedCarpark, actualPerson);
+        assertEquals(expectedCarpark, actualCarpark);
     }
 
-    // TO FIX, TEST INVALID
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
-                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
-                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+    public void xmlAdaptedCarparkFromFile_fileWithValidCarpark_validResult() throws Exception {
+        XmlAdaptedCarpark actualCarpark = XmlUtil.getDataFromFile(
+                VALID_CARPARK_FILE, XmlAdaptedCarparkWithRootElement.class);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, VALID_CARPARK_NUMBER,
+                VALID_CARPARK_TYPE, VALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
                 VALID_TAGS);
-        assertEquals(expectedCarpark, actualPerson);
+        assertEquals(expectedCarpark, actualCarpark);
     }
 
     @Test
@@ -159,6 +154,6 @@ public class XmlUtilTest {
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedCarpark}
      * objects.
      */
-    @XmlRootElement(name = "carpark")
+    @XmlRootElement(name = "carparks")
     private static class XmlAdaptedCarparkWithRootElement extends XmlAdaptedCarpark {}
 }
