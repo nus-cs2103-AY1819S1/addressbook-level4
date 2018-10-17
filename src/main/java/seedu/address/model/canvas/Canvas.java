@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 
+
 //@author Jeffry
 /**
  * Represents a working canvas.
