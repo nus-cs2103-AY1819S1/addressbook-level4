@@ -26,7 +26,7 @@ public class AnakinCdCommandParser implements AnakinParserInterface<AnakinCdComm
 
 
         try {
-            if (args.length() == 2 && args == "..") {
+            if (args.equals(AnakinCdCommand.EXIT_DECK_ARGS)) {
                 return new AnakinCdCommand();
             } else {
                 Index index = AnakinParserUtil.parseIndex(args);
