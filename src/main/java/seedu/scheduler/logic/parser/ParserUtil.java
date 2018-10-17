@@ -36,6 +36,7 @@ public class ParserUtil {
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
     public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
     public static final String MESSAGE_FAILED_PRIORITY_PARSE = "Priority is not valid";
+    public static final String EMPTY_STRING = "";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -178,6 +179,9 @@ public class ParserUtil {
         requireNonNull(reminderDurations);
         ReminderDurationList reminderDurationList = new ReminderDurationList();
         for (String reminderDuration : reminderDurations) {
+            if (reminderDuration.equals(EMPTY_STRING)) {
+                return reminderDurationList;
+            }
             reminderDurationList.add(parseReminderDuration(reminderDuration));
         }
         return reminderDurationList;

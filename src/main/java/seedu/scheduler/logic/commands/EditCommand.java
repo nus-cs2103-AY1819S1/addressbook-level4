@@ -164,7 +164,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(eventName, startDateTime, endDateTime, description,
-                    venue, repeatType, repeatUntilDateTime, tags);
+                    venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
         }
 
         public void setUid(UUID uid) {
@@ -282,7 +282,8 @@ public class EditCommand extends Command {
                     && getVenue().equals(e.getVenue())
                     && getRepeatType().equals(e.getRepeatType())
                     && getRepeatUntilDateTime().equals(e.getRepeatUntilDateTime())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getReminderDurationList().equals(e.getReminderDurationList());
         }
     }
 }
