@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ROOM + "C420 "
-            + PREFIX_SCHOOL + "FacultyOfScience "
+            + PREFIX_SCHOOL + "FoS "
             + PREFIX_TAG + "soccer "
             + PREFIX_TAG + "track";
 
