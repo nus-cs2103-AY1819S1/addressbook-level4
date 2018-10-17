@@ -398,7 +398,7 @@ other the ending date.
 // end::earningfeature[]
 
 // tag::timefeature[]
-==== Time Feature
+=== Time Feature
 
 ==== Current Implementation
 
@@ -429,7 +429,7 @@ other the ending date.
 // end::timefeature[]
 
 // tag::timeaddcommand[]
-==== Addition of Tuition Timings feature
+=== Addition of Tuition Timings feature
 
 ==== Current Implementation
 
