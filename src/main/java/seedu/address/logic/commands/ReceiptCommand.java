@@ -52,6 +52,7 @@ public class ReceiptCommand extends QueueCommand {
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
         generatedResult = receipt.generate();
+        receipt.makeDocument();
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
         return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
