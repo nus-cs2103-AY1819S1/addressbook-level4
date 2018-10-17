@@ -59,6 +59,11 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
+        //check whether the package is in the app
+        //if (!ImageMagickUtil.hasPackage()) {
+        //    ImageMagickUtil.storePackage();
+        //}
+        //ImageMagickUtil.unzipPacakge();
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 

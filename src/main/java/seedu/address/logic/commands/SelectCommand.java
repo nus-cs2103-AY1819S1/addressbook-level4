@@ -49,7 +49,6 @@ public class SelectCommand extends Command {
         } else if (targetIndex.getZeroBased() >= BATCH_SIZE) {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
         }
-
         try {
             FileInputStream fis = new FileInputStream(dirImageList.get(targetIndex.getZeroBased()));
             img = new Image(fis);
