@@ -1,27 +1,24 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Parser;
-import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Time;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.TimeAddCommand.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.logic.commands.TimeAddCommand.MESSAGE_TIME_IS_NOT_AVAILABLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-public class EditTimeCommand extends Command{
+import java.util.ArrayList;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
+
+/**
+ * Edits the time of an existing person in the address book.
+ */
+public class EditTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "editTime";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit a tutorial time slot of a person. "
@@ -32,9 +29,9 @@ public class EditTimeCommand extends Command{
 
     public static final String MANAGE_SUCCESS = "edit successfully";
 
-    String name;
-    Time oldTime;
-    Time newTime;
+    private String name;
+    private Time oldTime;
+    private Time newTime;
 
     /**
      * @param oldTime of the person in the filtered person list to edit
@@ -56,18 +53,18 @@ public class EditTimeCommand extends Command{
 
         ArrayList<Time> allTimeSlot = new ArrayList();
 
-        for(Person ppl: model.getFilteredPersonList()){
+        for (Person ppl : model.getFilteredPersonList()) {
             allTimeSlot.addAll(ppl.getTime());
         }
 
-        ArrayList<String> pplList= new ArrayList<>();
+        ArrayList<String> pplList = new ArrayList<>();
         pplList.add(name);
 
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList));
 
         Person targetPerson = model.getFilteredPersonList().get(0);
 
-        if(allTimeSlot.contains(newTime)) {
+        if (allTimeSlot.contains(newTime)) {
             throw new CommandException(MESSAGE_TIME_IS_NOT_AVAILABLE);
         }
         if (!model.hasPerson(targetPerson)) {
