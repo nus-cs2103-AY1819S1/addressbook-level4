@@ -51,6 +51,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        preferredDoctor = personToCopy.getPrefferedDoctor();
+        appointment = personToCopy.getAppointment();
     }
 
     /**
@@ -111,8 +113,21 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Contructs a Person based on the PersonBuilder.
+     * @return a person.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
-    }
+        Person person = new Person(name, phone, email, address, tags);
 
+        preferredDoctor.ifPresent(doctor -> {
+            person.setPreferredDoctor(doctor);
+        });
+
+        appointment.ifPresent(appointment -> {
+            person.setAppointment(appointment);
+        });
+
+        return person;
+    }
 }

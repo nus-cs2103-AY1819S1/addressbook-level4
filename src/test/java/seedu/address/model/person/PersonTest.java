@@ -9,7 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.AMY_APPT;
 import static seedu.address.testutil.TypicalPersons.BEN;
+import static seedu.address.testutil.TypicalPersons.BENSON_APPT;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Rule;
@@ -65,6 +68,9 @@ public class PersonTest {
         assertFalse(editedAliceWithPreferredDoctor.isSamePerson(editedAliceWithAnotherPreferredDoctor));
 
         // same name, different appointment -> returns false
+        Person editedAmyWithAppointment = new PersonBuilder(AMY).withAppointment(AMY_APPT).build();
+        Person editedAmyWithAnotherAppointment = new PersonBuilder(AMY).withAppointment(BENSON_APPT).build();
+        assertFalse(editedAmyWithAppointment.isSamePerson(editedAmyWithAnotherAppointment));
     }
 
     @Test
