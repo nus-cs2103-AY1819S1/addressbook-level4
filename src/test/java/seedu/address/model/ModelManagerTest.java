@@ -37,7 +37,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.hasCarpark(ALFA);
+        modelManager.addCarpark(ALFA);
         assertTrue(modelManager.hasCarpark(ALFA));
     }
 

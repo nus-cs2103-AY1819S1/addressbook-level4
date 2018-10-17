@@ -38,7 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_CARPARK_NUMBER_KILO = "PR13";
 
     public static final String VALID_CARPARK_TYPE_JULIETT = "SURFACE CAR PARK";
-    public static final String VALID_CARPARK_TYPE_KILO = "SURFACE CAR PARK";
+    public static final String VALID_CARPARK_TYPE_KILO = "MULTI-STOREY CAR PARK";
 
     public static final String VALID_COORDINATE_JULIETT = "34274.4064, 39391.9731";
     public static final String VALID_COORDINATE_KILO = "40942.8203, 39055.5703";

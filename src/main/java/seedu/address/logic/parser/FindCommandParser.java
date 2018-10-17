@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] keywords = trimmedArgs.split("\\s+");
         for (int i = 0; i < keywords.length; i++) {
-            keywords[i] = keywords[i].toUpperCase();
+            keywords[i] = keywords[i].toLowerCase();
         }
 
         List nameKeywords = new ArrayList<>(Arrays.asList(keywords));
