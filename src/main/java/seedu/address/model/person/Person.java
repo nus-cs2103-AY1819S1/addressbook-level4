@@ -62,7 +62,7 @@ public class Person {
      * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
      * @return an Optional {@link Doctor}.
      */
-    public Optional<Doctor> getPrefferedDoctor() {
+    public Optional<Doctor> getPreferredDoctor() {
         return preferredDoctor;
     }
 
@@ -106,7 +106,7 @@ public class Person {
     /**
      * Checks if the patient has preferred doctor.
      */
-    public boolean hasPrefferedDoctor() {
+    public boolean hasPreferredDoctor() {
         return preferredDoctor.isPresent();
     }
 
@@ -129,7 +129,7 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()))
-                && otherPerson.getPrefferedDoctor().equals(getPrefferedDoctor())
+                && otherPerson.getPreferredDoctor().equals(getPreferredDoctor())
                 && otherPerson.getAppointment().equals(getAppointment());
     }
 
@@ -153,14 +153,14 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getPrefferedDoctor().equals(getPrefferedDoctor())
+                && otherPerson.getPreferredDoctor().equals(getPreferredDoctor())
                 && otherPerson.getAppointment().equals(getAppointment());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, getPrefferedDoctor(), getAppointment());
+        return Objects.hash(name, phone, email, address, tags, getPreferredDoctor(), getAppointment());
     }
 
     @Override

@@ -51,7 +51,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        preferredDoctor = personToCopy.getPrefferedDoctor();
+        preferredDoctor = personToCopy.getPreferredDoctor();
         appointment = personToCopy.getAppointment();
     }
 
