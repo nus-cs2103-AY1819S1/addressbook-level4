@@ -26,7 +26,7 @@ import seedu.address.model.task.Task;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    private static Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
+    public static Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
 
     private Optional<ListCommand.ListFilter> parseListFilter(Optional<String> s)throws ParseException {
         if (s.isPresent()) {
@@ -35,7 +35,7 @@ public class ListCommandParser implements Parser<ListCommand> {
                 case "today":
                     return Optional.of(ListCommand.ListFilter.DUE_TODAY);
                 default:
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Walk it like I talk it"));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
         } else {
             return Optional.empty();
