@@ -166,15 +166,17 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_SignUpCommand() throws Exception {
+    public void parseCommand_signUpCommand() throws Exception {
         assertTrue(parser.parseCommand(SignUpCommand.COMMAND_WORD + " ssssss") instanceof SignUpCommand);
         assertTrue(parser.parseCommand(SignUpCommand.COMMAND_ALIAS + " ssssss") instanceof SignUpCommand);
     }
 
     @Test
     public void parseCommand_setPassword() throws Exception {
-        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_WORD + " o/dsdfsdf7 n/sdfsdf") instanceof SetPasswordCommand);
-        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_ALIAS + " o/dsdfsdf7 n/sdfsdf") instanceof SetPasswordCommand);
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_WORD + " o/dsdfsdf7 n/sdfsdf") instanceof
+                SetPasswordCommand);
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_ALIAS + " o/dsdfsdf7 n/sdfsdf") instanceof
+                SetPasswordCommand);
     }
 
     @Test
