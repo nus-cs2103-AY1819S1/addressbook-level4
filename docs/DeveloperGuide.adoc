@@ -259,7 +259,6 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-// tag::undo[]
 ===== Command: Undo
 
 1) The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
@@ -292,7 +291,6 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-// tag::redo[]
 ===== Command: Redo
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
@@ -369,8 +367,9 @@ This saves the email to a specified local directory.
 
 ===== Aspect: File format
 
-The `.eml` file format is compliant with the RFC-822 format, which is industry recognised, and can be opened and viewed using many applications.
-`.eml` files can also contain attachments.
+* **Pros:** The `.eml` file format is compliant with the RFC-822 format, which is industry recognised, and can be
+opened and viewed using many applications.`.eml` files can also contain attachments.
+* **Cons:** `.eml` file alone is not useful alone. More implementations are required to make `.eml` useful in Hallper.
 
 ===== Aspect: Using http://www.simplejavamail.org/#/about[Simple Java Mail]
 
@@ -417,7 +416,8 @@ This saves the calendar to a specified local directory.
 
 ===== Aspect: File format
 
-The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened and viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
+The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened and
+viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
 
 ===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
 
