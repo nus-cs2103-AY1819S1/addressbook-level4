@@ -58,6 +58,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane calendarPanelPlaceholder;
 
+
     @FXML
     private VBox dayMonthPanelPlaceholder;
 
