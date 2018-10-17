@@ -353,6 +353,61 @@ the total cost for that day
 . This results in a new window showing a bar chart of expenses over the last 7 days.
 
 
+=== User Interface Redesign
+The UI has been redesigned to implement the following UI elements required for the Expense Tracker:
+*	Budget Panel
+*	Statistics Panel
+*	Notifications Panel
+*	Categories Panel
+
+Animations will also be incorporated into the UI elements for a better user experience.
+==== Current Implementations
+=== Budget Panel
+The budget panel consists of 3 UI elements:
+*	BudgetPanel#expenseDisplay– A Text element that displays the user’s current expenses.
+*	BudgetPanel#budgetDisplay – A Text element that displays the user’s monthly budget cap.
+*	BudgetPanel#budgetBar – A progress bar element that visually presents the percentage of the current budget cap that has been used.
+
+Given below is an example usage scenario and how the budget panel behaves at each step:
+
+Initial State. The user launches the application and signs up for a new account. The MainWindow creates a new 'BudgetPanel', which elements are initialized as follows:
+* 'BudgetPanel#expenseDisplay' is green and set to "$0.00".
+* 'BudgetPanel#budgetDisplay' is set to "/ $28.00", with $28.00 being the default budget.
+* 'BudgetPanel#budgetBar' is green and at 0% progress.
+
+Step 1: The user executes the command add n/Lunch $/30.00 c/Food. As the 'add' command modifies the budget and expenses, 'AddCommand#execute()'' will post a 'UpdateBudgetPanelEvent' event to the EventsCenter.
+
+[Note]
+If a command fails its execution, the 'UpdateBudgetPanelEvent' will not be posted.
+
+*Step 2*
+The 'UpdateBudgetPanelEvent' event is handled by 'BudgetPanel#handleBudgetPanelEvent()', which calls 'BudgetPanel#update()'.
+
+*Step 3*
+'BudgetPanel#update()' calls 'BudgetPanel#animateBudgetPanel()', which creates a new 'Timeline' object.
+
+*Step 4*
+Two 'KeyFrame' objects are added to the Timeline that smooths the transition of the 'BudgetPanel#budgetBar' progress percentage from 0% to (4.0/28.0)%
+[Note]
+If the updated percentage is more than 1.0, 'BudgetPanel#budgetBar' progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+
+*Step 5*
+A call to 'BudgetPanel#incrementKeyFrames()' is made to create the incrementing animation for 'BudgetPanel#expenseDisplay'. The total time for this animation is 0.5 seconds, and consists of 10 'KeyFrame's.
+With this information, both the amount of time between 'KeyFrame's and the amount to increment 'BudgetPanel#expenseDisplay' by each 'KeyFrame' can be calculated. 'BudgetPanel#updateExpenseDisplay()' is called to
+increment the 'BudgetPanel#expenseDisplay'.
+[Note]
+'BudgetPanel#incrementKeyFrames()' handles the animation for both the 'BudgetPanel#budgetDisplay' and 'BudgetPanel#expenseDisplay' at the same time.
+
+*Step 4*
+'Timeline#playFromStart()' is called to execute the animation.
+
+*Step 5*
+BudgetPanel#update()also calls BudgetPanel#BudgetPanel#setBudgetUiColors(). The method detects that the user has gone over budget, and changes the color of 'BudgetPanel#expenseDisplay' and 'BudgetPanel#budgetBar' from green to red.
+
+
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
