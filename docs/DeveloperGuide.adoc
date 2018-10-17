@@ -138,6 +138,47 @@ in each Command file.
 & `filter`, it does not work.
 
 
+=== Filter Command
+
+==== Current Implementation
+
+The `parseCommand` function in `AddressBookParser` is extended to take in an additional
+command word: `filter`.
+
+After `filter`is being detected as the command word, a
+`FilterCommandParser` is created to parse the arguments supplied to the command.
+
+The `FilterCommandParser` parses the arguments into an array of flags, which is then
+passed into a newly created `FilterCommand`.
+
+`FilterCommand` then checks which flags are passed in and creates predicates to
+filter the car parks accordingly. The various predicates include
+`CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and
+`CarparkIsOfTypePredicate`.
+
+Next, `model` updates a filtered list of car parks by checking each car park
+against the specified predicate.
+
+
+The following activity diagram summarizes what happens when a user executes a
+`filter ct/ covered` command (this command filters all car parks that are covered):
+
+image::Flowchart.png[width="700", align="left"]
+
+==== Possible Improvement to current implementation
+
+The current implementation is only the basic implementation. The following needs to be
+implemented in the following weeks to make the feature more holistic.
+
+* Connect to `find` command
+
+* Filter through multiple flags at the same time
+
+* Check for invalid parameters
+
+* Determine whether a specific day is a public holiday, when filtering for free parking
+
+
 [appendix]
 == Product Scope
 
