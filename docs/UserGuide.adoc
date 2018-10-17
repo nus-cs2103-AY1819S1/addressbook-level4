@@ -298,8 +298,8 @@ edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT`
 Example:
 
 * `add_event month/Feb year/2018 sdate/01 shour/12 smin/00 edate/01 ehour/15 emin/00 title/Enthral` +
-Adds an event titled `Enthral` with date `2` nd `Feb` which lasts from `1800` hours
-to `2100` hours to the calendar.
+Adds an event titled `Enthral` into calendar for `Feb 2018` which starts on the `1` st at `1200` and ends on
+the `1` st at `1500`.
 
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
