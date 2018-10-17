@@ -42,14 +42,14 @@ public class SelectCommandSystemTest extends LibrarySystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered playlist list, select index within bounds of jxmusic book but out of bounds of playlist list
+        /* Case: filtered playlist list, select index within bounds of library but out of bounds of playlist list
          * -> rejected
          */
         showPlaylistsWithName(KEYWORD_MATCHING_SONG);
         int invalidIndex = getModel().getLibrary().getPlaylistList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
 
-        /* Case: filtered playlist list, select index within bounds of jxmusic book and playlist list -> selected */
+        /* Case: filtered playlist list, select index within bounds of library and playlist list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPlaylistList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();

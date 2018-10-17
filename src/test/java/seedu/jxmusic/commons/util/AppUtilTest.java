@@ -15,7 +15,7 @@ public class AppUtilTest {
 
     @Test
     public void getImage_exitingImage() {
-        assertNotNull(AppUtil.getImage("/images/jxmusic_32.png"));
+        assertNotNull(AppUtil.getImage("/images/JxMusic.png"));
     }
 
 

@@ -24,7 +24,7 @@ public class PlaylistUtil {
      */
     public static String getPlaylistDetails(Playlist playlist) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_PLAYLIST + playlist.getName().nameString + " ");
+        sb.append(PREFIX_PLAYLIST + playlist.getName().nameString);
         return sb.toString();
     }
 }

@@ -85,7 +85,6 @@ public class JsonLibraryStorageTest {
         assertEquals(original, new Library(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPlaylist(ANIME);
         original.removePlaylist(SFX);
         jsonLibraryStorage.saveLibrary(original, filePath);
         readBack = jsonLibraryStorage.readLibrary(filePath).get();

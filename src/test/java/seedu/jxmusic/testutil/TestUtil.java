@@ -36,7 +36,7 @@ public class TestUtil {
      * Returns the middle index of the playlist in the {@code model}'s playlist list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPlaylistList().size() / 2);
+        return Index.fromZeroBased(model.getFilteredPlaylistList().size() / 2);
     }
 
     /**

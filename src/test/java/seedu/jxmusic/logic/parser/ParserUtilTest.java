@@ -26,7 +26,7 @@ public class ParserUtilTest {
     private static final String INVALID_PLAYLIST_NAME = "Rock&Roll";
     private static final String INVALID_TRACK_NAME = "Don't Stop Believin'";
     private static final String INVALID_TRACK_FILE_NOT_EXIST = "no track file";
-    private static final String INVALID_TRACK_FILE_NOT_SUPPORTED = "unsupported track";
+    private static final String INVALID_TRACK_FILE_NOT_SUPPORTED = "unsupported";
 
     private static final String VALID_PLAYLIST_NAME = "Favourites";
     private static final String VALID_TRACK_1 = "haikei goodbye sayonara";

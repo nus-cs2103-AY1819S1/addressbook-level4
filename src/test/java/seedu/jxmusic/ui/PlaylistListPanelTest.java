@@ -67,7 +67,7 @@ public class PlaylistListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Playlist> backingList = createBackingList(10000);
+        ObservableList<Playlist> backingList = createBackingList(1000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
@@ -94,9 +94,10 @@ public class PlaylistListPanelTest extends GuiUnitTest {
         for (int i = 0; i < playlistCount; i++) {
             builder.append("{\n");
             builder.append("\"name\": \"playlist").append(i).append(" name\",\n");
-            builder.append("\"tracks\": [\n" + "\"1.mp3\",\n" + "\"2.mp3\"\n" + "]\n");
+            builder.append("\"tracks\": [\n" + "\"Marbles.mp3\",\n" + "\"SOS Morse Code.mp3\"\n" + "]\n");
             builder.append("},\n");
         }
+        builder.deleteCharAt(builder.length() - 2); // delete last comma
         builder.append("]\n}\n");
 
         // to-do: change the test data file

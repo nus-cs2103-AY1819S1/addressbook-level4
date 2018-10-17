@@ -57,7 +57,7 @@ public class PlaylistCardHandle extends NodeHandle<Node> {
     public boolean equals(Playlist playlist) {
         return getName().equals(playlist.getName().nameString)
                 && ImmutableMultiset.copyOf(getTracks()).equals(ImmutableMultiset.copyOf(playlist.getTracks().stream()
-                        .map(track -> track.hashCode())
+                        .map(track -> track.getFileNameWithoutExtension())
                         .collect(Collectors.toList())));
     }
 }

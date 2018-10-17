@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<Playlist> lastShownList = model.getFilteredPlaylistList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            //throw new CommandException(Messages.MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX); //todo
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
         }
 
         Playlist playlistToDelete = lastShownList.get(targetIndex.getZeroBased());
