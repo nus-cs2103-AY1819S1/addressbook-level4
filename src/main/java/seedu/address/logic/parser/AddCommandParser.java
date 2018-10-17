@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -12,6 +14,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DateTime;
+import seedu.address.model.calendarevent.DateTimeInfo;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
@@ -30,19 +34,27 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION, PREFIX_VENUE, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION,
+                                        PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_VENUE, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_DESCRIPTION)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        DateTime start = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START).get());
+        DateTime end = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END).get());
+        if (!DateTimeInfo.isValidStartAndEnd(start, end)) {
+            throw new ParseException(DateTimeInfo.MESSAGE_STARTEND_CONSTRAINTS);
+        }
+
         Title name = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        DateTimeInfo dateTimeInfo = new DateTimeInfo(start, end);
         Venue venue = ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        CalendarEvent calendarEvent = new CalendarEvent(name, description, venue, tagList);
+        CalendarEvent calendarEvent = new CalendarEvent(name, description, dateTimeInfo, venue, tagList);
 
         return new AddCommand(calendarEvent);
     }
