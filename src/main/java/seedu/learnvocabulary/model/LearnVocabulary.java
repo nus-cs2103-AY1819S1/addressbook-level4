@@ -2,8 +2,10 @@ package seedu.learnvocabulary.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.learnvocabulary.model.tag.Tag;
@@ -29,6 +31,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     {
         words = new UniqueWordList();
     }
+    private final Set<Tag> addedTag = new HashSet<>();
 
     public LearnVocabulary() {}
 
@@ -70,17 +73,46 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     }
 
     /**
-     * Returns true if a tag with the same identity as {@code tag} exists in LearnVocabulary.
+     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
      */
     public boolean hasTag(Tag tag) {
         requireNonNull(tag);
-        for (Word word: words) {
+        for (Word word:words) {
             if (word.getTags().contains(tag)) {
+                return true;
+            }
+        }
+        for (Tag temptag: addedTag) {
+            if (temptag.equals(tag)) {
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * @param toDelete delete the word group from each word
+     */
+    public void deleteGroup(Tag toDelete) {
+        requireNonNull(toDelete);
+        final UniqueWordList persons_temp = new UniqueWordList();
+        for (Word word:words) {
+            if (word.getTags().contains(toDelete)) {
+                word.deleteTags(toDelete);
+            }
+            if (word.getTags().isEmpty()) {
+                persons_temp.add(word);
+            }
+        }
+        for (Word person:persons_temp) {
+            words.remove(person);
+        }
+    }
+
+    public void addGroup(Tag toAdd) {
+        addedTag.add(toAdd);
+    }
+
     /**
      * Adds a word to LearnVocabulary.
      * The word must not already exist in LearnVocabulary.
