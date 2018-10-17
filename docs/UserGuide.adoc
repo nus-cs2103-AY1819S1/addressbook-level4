@@ -27,7 +27,9 @@ to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+Steps to set up ThanePark:
+
+.  Check that you have Java version `9` or later installed in your Computer.
 .  Download the latest `thanepark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -36,30 +38,40 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Type some of these commands to try out ThanePark:
 
-* *`exit`* : exits the app
+* *`viewall`* : lists all rides in your theme park.
 
-.  Refer to <<Features>> for details of each command.
+* *`exit`* : exits the app.
+
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+This section contains all the commands used for ThanePark.
+
 ====
 *Command Format*
 
-* Items in square brackets are optional e.g n/name [t/tag] can be used as
-  n/Battlestar Galactica t/4D or as n/Battlestar Galactica.
-* Items with …​ after them can be used multiple times including
-  zero times e.g. [t/tag]…​ can be used as
-  (i.e. 0 times), t/4D, t/3D t/indoor etc.
-* Parameters can be in any order e.g. if the command specifies
+* Items in chevrons `<>` denotes compulsory field. +
+Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
+* Items in square brackets `[]` denotes optional field. +
+Example: `help [more]`
+* Items in curly brackets `{}` denotes keystroke. +
+Example `{tab}` is the TAB keystroke.
+* Items ending with ellipses `...` denotes variable arguments. +
+Example: `history [findargs...]`
+* Parameters can be in any order +
+  e.g. if the command specifies
   n/name p/address, p/address n/name is also acceptable.
-* `<>` denotes compulsory field. Example: `add <attraction>``<maintenance>` `<waitTime>` `<address>`
-* `[]` denotes optional field. Example: `help [more]`
-* `||` denotes flag. Example: `history |find| [findargs...]`
-* `{}` denotes keystroke. Example `{tab}` is the TAB keystroke.
-* `...` denotes variable arguments. Example: `history |find| [findargs...]`
+  
+* Items in square brackets are optional +
+  e.g n/name [t/tag] can be used as
+  n/Battlestar Galactica t/4D or n/Battlestar Galactica.
+* Items with …​ after them can be used multiple times including
+  zero times +
+  e.g. [t/tag]…​ can be used as (i.e. 0 times), t/4D, t/3D t/indoor etc.
 
 ====
 
@@ -210,9 +222,8 @@ Format: `view <name>`
 
 ==== Quick view information of top five most frequented rides: `quickview`
 
-Quick view information of the top 5 most frequented rides in the park if
-optional field is empty. +
-Format: `quickview [order]`
+Quick view information of the top 5 most frequented rides in the park. +
+Format: `quickview`
 
 === Storage/data management
 
