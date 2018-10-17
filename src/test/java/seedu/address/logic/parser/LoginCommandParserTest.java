@@ -23,6 +23,14 @@ public class LoginCommandParserTest {
     }
 
     @Test
+    public void parse_validUsernamePassword() {
+        assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING
+                + " " + CliSyntax.PREFIX_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
+                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING),
+                        new Password(PasswordTest.VALID_PASSWORD_STRING, true)));
+    }
+
+    @Test
     public void parse_invalidSyntax() {
         assertParseFailure(parser, UsernameTest.INVALID_USERNAME_STRING,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
