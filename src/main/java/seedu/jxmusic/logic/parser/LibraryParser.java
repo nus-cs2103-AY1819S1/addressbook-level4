@@ -30,7 +30,7 @@ public class LibraryParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandPhrase>(?:\\p{Alpha}+\\s+)+|\\p{Alpha}+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -45,8 +45,8 @@ public class LibraryParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String commandWord = matcher.group("commandPhrase").trim();
+        final String arguments = " " + matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
         switch (commandWord) {
 
         case PlayPlaylistCommand.COMMAND_WORD:
@@ -77,8 +77,8 @@ public class LibraryParser {
         case ClearCommand.COMMAND_PHRASE:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        // case FindCommand.COMMAND_WORD:
+        //     return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

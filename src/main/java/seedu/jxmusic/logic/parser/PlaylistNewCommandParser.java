@@ -25,7 +25,7 @@ public class PlaylistNewCommandParser implements Parser<PlaylistNewCommand> {
      */
     public PlaylistNewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST);
+                ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_TRACK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST)
                 || !argMultimap.getPreamble().isEmpty()) {
