@@ -22,11 +22,10 @@ public interface Ui {
     /** Switches to MealPlanListPanel */
     void switchToMealPlanListPanel();
 
-    // To be implemented:
-
+    /** Switches to FavouritesListPanel */
+    void switchToFavouritesListPanel();
 
     /** void switchToIngredientListPanel() */
-
     void switchToHealthPlanListPanel();
 
 }

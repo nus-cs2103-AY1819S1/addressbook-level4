@@ -50,6 +50,10 @@ public class UniversalParser {
         case "mealplanner":
             return new ContextCommand("Meal Planner");
 
+        case "favourite":
+            ui.switchToFavouritesListPanel();
+            return new ContextCommand("Favourites");
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
