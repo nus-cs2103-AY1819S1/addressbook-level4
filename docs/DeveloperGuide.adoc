@@ -1021,7 +1021,7 @@ Use case resumes from step 2.
 
 
 
-=== Use case: Filter by Education
+=== Use case: Find students list of the given Education
 
 *MSS*
 
