@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -127,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         TaskListPanel taskListPanel = new TaskListPanel();
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        DayMonthPanel dayMonthPanel = new DayMonthPanel();
+        DayMonthPanel dayMonthPanel = new DayMonthPanel(logic.getFilteredCalendarEventList());
         dayMonthPanelPlaceholder.getChildren().add(dayMonthPanel.getRoot());
 
         CalendarPanel calendarPanel =

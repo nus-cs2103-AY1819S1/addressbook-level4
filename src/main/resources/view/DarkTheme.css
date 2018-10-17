@@ -62,6 +62,12 @@
     -fx-text-fill: #CCCCCC;
 }
 
+#dayLabel {
+    -fx-font-size: 20;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #CCCCCC;
+}
+
 .separator .line { /* separator between month and calendar below */
     -fx-background: #666666;
     -fx-width: 3;
