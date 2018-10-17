@@ -27,6 +27,7 @@ public class Wish {
     private final Set<Tag> tags = new HashSet<>();
     private final SavedAmount savedAmount;
     private final boolean fulfilled;
+    private final boolean expired;
 
     /**
      * Every field must be present and not null.
@@ -38,6 +39,13 @@ public class Wish {
         } else {
             fulfilled = false;
         }
+
+        if (isCurrDateGreaterThanOrEqualToDate(date)) {
+            expired = true;
+        } else {
+            expired = false;
+        }
+
         this.name = name;
         this.price = price;
         this.date = date;
@@ -52,6 +60,13 @@ public class Wish {
      */
     private boolean isSavedAmountGreaterThanOrEqualToPrice(SavedAmount savedAmount, Price price) {
         return savedAmount.value > price.value;
+    }
+
+    /*
+     * Returns true if CurrDate exceeds Date of wish.
+     */
+    private boolean isCurrDateGreaterThanOrEqualToDate(Date date) {
+        return new java.util.Date().after(date.getDateObject());
     }
 
     public Name getName() {
@@ -80,6 +95,10 @@ public class Wish {
 
     public boolean isFulfilled() {
         return fulfilled;
+    }
+
+    public boolean isExpired() {
+        return expired;
     }
 
     /**

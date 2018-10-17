@@ -16,6 +16,7 @@ public class WishCard extends UiPart<Region> {
 
     private static final String FXML = "WishCard.fxml";
     private static final String[] TAG_COLORS = { "red", "yel", "blue", "navy", "ora", "green", "pink", "hot", "pur" };
+    private static final String EXPIRED_WARNING = "[EXPIRED] ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -61,6 +62,11 @@ public class WishCard extends UiPart<Region> {
         if (wish.isFulfilled()) {
             cardPane.setOpacity(0.5);
         }
+
+        if(wish.isExpired()) {
+            name.setText(EXPIRED_WARNING + wish.getName().fullName);
+        }
+
         initTags(wish);
     }
 

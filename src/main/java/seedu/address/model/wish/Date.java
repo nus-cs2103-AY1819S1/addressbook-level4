@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 /**
  * Represents a the expiry date of a wish.
@@ -19,7 +20,7 @@ public class Date {
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
-    private static final SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+    public static final SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
 
     public final String date;
 
@@ -30,8 +31,11 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        boolean isDateValid = isValidDate(date);
+        checkArgument(isDateValid, MESSAGE_DATE_CONSTRAINTS);
         this.date = date;
+
+        assert(isDateValid);
     }
 
     /**
@@ -42,7 +46,6 @@ public class Date {
             format.setLenient(false);
             java.util.Date date = format.parse(test);
         } catch (ParseException pe) {
-            System.out.println("Cannot parse date");
             return false;
         }
         return true;
@@ -57,6 +60,21 @@ public class Date {
             return true;
         }
         return false;
+    }
+
+    public java.util.Date getDateObject() {
+        assert(isValidDate(date));
+
+        java.util.Date dateObj;
+        try {
+            dateObj = format.parse(date);
+        } catch (ParseException e) {
+            dateObj = null;
+        }
+
+        assert(dateObj != null);
+
+        return dateObj;
     }
 
     @Override
