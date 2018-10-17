@@ -477,7 +477,7 @@ This section describes the details on how the volunteer management features are 
 
 // tag::exportcert[]
 ==== Export Volunteer Certificate [Coming in V1.3]
-The `exportcert` command enables the volunteer manager to export a PDF document (certificate) detailing a volunteer's involvement with the organisation. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
+The `exportcert` command enables the volunteer manager to export a PDF document detailing a volunteer's involvement with the organisation, to his/her Desktop. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
 
 * Organisation's logo
 * Volunteer Name and NRIC
@@ -499,7 +499,7 @@ The following is a high level overview of this feature's implementation:
 * Creation of supported `exportcert` command.
 * Retrieval of the specified volunteer's details.
 * Creation of a new PDF document using Apache PDFBox.
-* Export of the PDF document to a 'certs' folder.
+* Export of the PDF document to the user's Desktop.
 
 ===== Design Considerations
 
