@@ -327,19 +327,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::findfeature[]
 === Find Feature
 
-=== Current Implementation
+==== Current Implementation
 
 * Tutor Pal is able to find a student through his/her name by using the command "find NAME".
 
 * A Find by Email command has been added, which allows a tutor to find a student through his/her
 email by using the command "find/e EMAIL".
 
-=== Future Implementation
+==== Future Implementation
 
 * Further enhance the find command so that a tutor is able to find a student through his/her
 phone number and address.
 
-=== Design Considerations[ongoing]
+==== Design Considerations[ongoing]
 // end::findfeature[]
 
 // tag::gradesfeature[]
