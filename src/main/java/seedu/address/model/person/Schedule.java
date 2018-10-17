@@ -235,14 +235,18 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public ArrayList<Slot> getFreeTime() throws ParseException {
+    public ArrayList<Slot> getFreeSlots() {
         ArrayList<Slot> slots = new ArrayList<Slot>();
 
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
                 if (this.value[i][j] == 0) {
                     Slot slot = new Slot();
-                    slot.setDay(getNumDay(i));
+                    try {
+                        slot.setDay(getNumDay(i));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     if (j / 2 > 9) {
                         slot.setTime("" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     } else {
@@ -260,9 +264,63 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public String freeTimeToString() throws ParseException {
+    public ArrayList<Slot> getFreeSlotsByDay(String day) {
+        ArrayList<Slot> slots = getFreeSlots();
+        slots.removeIf(s -> !s.getDay().equalsIgnoreCase(day));
+        return slots;
+    }
+
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public String freeTimeToString() {
         StringBuilder sb = new StringBuilder();
-        getFreeTime().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + ";"));
+        getFreeSlots().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + ";"));
         return sb.toString().trim();
+    }
+
+    /**
+     * Pretty printing into table format
+     *
+     * @return
+     */
+    public String prettyPrint() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<tr>");
+        sb.append("<th></th>");
+        for (int i = 0; i < 7; i++) {
+            try {
+                sb.append("<th>" + getNumDay(i).substring(0, 3) + "</th>");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        sb.append("</tr>");
+        int oddatinator = 0;
+        int hourcounter = 0;
+        for (int i = 0; i < value[0].length; i++) {
+            sb.append("<tr>");
+            if (oddatinator % 2 == 0) {
+                sb.append("<td>" + String.format("%02d", hourcounter) + "00</td>");
+                oddatinator++;
+            } else {
+                sb.append("<td>" + String.format("%02d", hourcounter) + "30</td>");
+                hourcounter++;
+                oddatinator++;
+            }
+
+
+            for (int j = 0; j < value.length; j++) {
+
+                if (this.value[j][i] == 1) {
+                    sb.append("<td class='table-danger'> </td>");
+                } else {
+                    sb.append("<td> </td>");
+                }
+            }
+            sb.append("</tr>");
+        }
+        return sb.toString();
     }
 }
