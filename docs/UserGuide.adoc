@@ -103,7 +103,7 @@ Examples:
 * `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
 * `addPatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
 
-=== Listing all patients : `listPatient`
+=== Listing all patients : `listPatient` `[coming in v2.0]`
 
 Shows a list of all patients in the clinic record. +
 Format: `listPatient`
@@ -131,7 +131,7 @@ Edits the phone number and email address of the 1st patient to be `91234567` and
 * `editPatient 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-=== Locating patients by name: `findPatient`
+=== Locating patients by name: `findPatient` `[coming in v2.0]`
 
 Finds patients whose names contain any of the given keywords. +
 Format: `findPatient KEYWORD [MORE_KEYWORDS]`
@@ -151,7 +151,7 @@ Returns `john` and `John Doe`
 * `findPatient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a patient : `deletePatient`
+=== Deleting a patient : `deletePatient` `[coming in v2.0]`
 
 Deletes the specified patient from the clinic record. +
 Format: `deletePatient INDEX`
@@ -171,7 +171,7 @@ Deletes the 2nd patient in the clinic record.
 `deletePatient 1` +
 Deletes the 1st patient in the results of the `find` command.
 
-=== Selecting a patient : `selectPatient`
+=== Selecting a patient : `selectPatient` `[coming in v2.0]`
 
 Selects the patient identified by the index number used in the displayed patient list. +
 Format: `selectPatient INDEX`
