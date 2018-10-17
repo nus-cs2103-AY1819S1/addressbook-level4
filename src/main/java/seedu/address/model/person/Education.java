@@ -24,7 +24,7 @@ public class Education {
      * Also represents the list of educational levels which the tutor is able to teach.
      */
     enum EducationalLevel {
-        PRIMARY, SECONDARY, JC
+        Primary, Secondary, JC
     }
 
     private EducationalLevel educationalLevel;
@@ -63,11 +63,11 @@ public class Education {
         educationalGrade = Integer.valueOf(splittedEducation[1]);
 
         switch (splittedEducation[0]) {
-        case "pri":
-            educationalLevel = EducationalLevel.PRIMARY;
+        case "Primary":
+            educationalLevel = EducationalLevel.Primary;
             break;
-        case "sec":
-            educationalLevel = EducationalLevel.SECONDARY;
+        case "Secondary":
+            educationalLevel = EducationalLevel.Secondary;
             break;
         default:
             educationalLevel = EducationalLevel.JC;

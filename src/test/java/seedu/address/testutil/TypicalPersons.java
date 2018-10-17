@@ -33,21 +33,21 @@ public class TypicalPersons {
             .withGrades("100")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25").withEducation("Secondary 4")
+            .withAddress("311, Clementi Ave 2, #02-25").withEducation("Secondary 3")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withGrades("99")
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withGrades("99")
-            .withEmail("heinz@example.com").withAddress("wall street").withEducation("Secondary 4").build();
+            .withEmail("heinz@example.com").withAddress("wall street").withEducation("Secondary 2").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withGrades("99").withEmail("cornelia@example.com").withAddress("10th street").withEducation("Secondary 4")
+            .withGrades("99").withEmail("cornelia@example.com").withAddress("10th street").withEducation("Primary 6")
             .withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withGrades("99")
             .withEmail("werner@example.com").withAddress("michegan ave").withEducation("Secondary 4").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withGrades("99")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withEducation("Secondary 4").build();
+            .withEmail("lydia@example.com").withAddress("little tokyo").withEducation("Primary 3").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withGrades("99").withEmail("anna@example.com").withAddress("4th street").withEducation("Secondary 4")
+            .withGrades("99").withEmail("anna@example.com").withAddress("4th street").withEducation("Primary 1")
             .build();
 
     // Manually added

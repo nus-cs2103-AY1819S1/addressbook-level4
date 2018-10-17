@@ -129,8 +129,7 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getFees() == getFees();
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
