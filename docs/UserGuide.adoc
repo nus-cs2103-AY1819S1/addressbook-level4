@@ -33,8 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+* **`add`**`add n/Interview at Jane Street` : adds an Event named `Interview at Jane Street` to the Event Scheduler.
 * *`list`* : lists all events
-* **`add`**`add n/CompanyAInterview s/22 September 2018 9am p/high` : adds an Event named `CompanyAInterview` to the Event Scheduler.
 * **`delete`**`3` : deletes the 3rd event shown in the current event
 * *`exit`* : exits the app
 
@@ -45,89 +45,166 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-* Some commands have an alias, which you can also use to execute the command e.g. to add a person to the address book, you can type either `add n/John Doe` or `a n/John Doe`.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Some commands have an alias, which you can also use to execute the command e.g. to add an event to the scheduler, you can type either `add n/Interview at Jane Street` or `a n/Interview at Jane Street`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/EVENT_NAME`, `EVENT_NAME` is a parameter which can be used as `add n/Interview at Jane Street`.
+* Items in square brackets are optional e.g `n/EVENT_NAME [t/TAG]` can be used as `n/Interview at Jane Street t/serious` or as `n/Interview at Jane Street`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/priority.low`, `t/fun t/serious` etc.
+* Parameters can be in any order e.g. if the command specifies `n/EVENT_NAME v/VENUE`, `v/VENUE n/EVENT_NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding an event
+=== Adding an event : `add`
 
-Adds an event to the scheduler +
-Alias: `a` +
-Format: `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​`
-
+Adds an event to the scheduler. +
+Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
+Alias: `a`
 [TIP]
 An event can have any number of tags (including 0)
 
-* `DATE_TIME` expressions should be expressed in ENGLISH
-* `PRIORIY` should be chosen from the list of priority. Priority can be expressed as an integer(index) or in English
+* `DATETIME` is the natural language of date and time in English.
+* `REPEAT_TYPE` should be chosen from either daily, weekly or monthly.
 * `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in English
-* `EVENT_RECURRING_STATUS` should be chosen from either DAILY, WEEKLY OR MONTHlY.
 
 Examples:
 
-* `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high rs/MONTHLY ru/ next friday 3pm tag/ad-hoc`
-* `add n/CS2103 Lecture s/23 September 2018 6pm e/ 24 September 2018 p/low rs/WEEKLY ru/ next monday tag/timetable`
+* `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/MONTHLY ru/next friday 3pm t/ad-hoc`
+* `add n/CS2103 Lecture s/23 September 2018 6pm e/24 September 2018 rt/WEEKLY ru/next monday t/timetable`
 
-=== Listing all persons : `list`
+Below are the supported formats of date and time:
 
-Shows a list of all persons in the address book. +
+==== Explicit dates
+Formal dates::
+Formal dates are expressed in integer values month, day and year separated by / or -.
+
+Format:::
+
+* `MM-DD-YYYY`
+* `MM/DD/YYYY`
+* `YYYY-MM-DD`
+* `YYYY/MM/DD`
+
+Examples:::
+|===
+| *Input*    | *Output*
+| 10-15-2018 | October 15 2018
+| 10/15/2018 | October 15 2018
+| 2018-10-15 | October 15 2018
+| 2018/10/15 | October 15 2018
+|===
+
+Relaxed dates::
+Relaxed dates are month, day and year expressed in a loose manner such as a combination of English and integers.
+
+Examples:::
+|===
+| *Input*    | *Output*
+| The 15th of October in the year 2018 | October 15 2018
+| Mon, 15 Oct 2018 | October 15 2018
+| Oct 15, 2018 | October 15 2018
+| Oct 15th | October 15 of the current year
+| October fifteen | October 15 of the current year
+|===
+
+==== Relative dates
+Relative date are dates relative to the current date.
+
+Examples::
+|===
+| *Input*          | *Output*
+| next thursday    | The Thursday after command execution date
+| last wednesday   | The Wednesday before command execution date
+| today            | The day of command execution
+| tomorrow         | The day after command execution date
+| yesterday        | The day before command execution date
+| 3 days from now  | 3 days after command execution date
+| three weeks ago  | 3 weeks before command execution date
+|===
+
+==== Explicit times
+Explicit times are expressed in integer values hours, minutes and seconds. If meridian is compulsory in 12-hour clock.
+
+Format:::
+* `HH`[`MM`][`SS`][`MERIDIAN`]
+
+Example:::
+|===
+| *Input*    | *Output*
+| 10         | 10:00:00am
+| 191215     | 17:12:15pm
+| 201311 pm  | 8:13:11pm
+| 1900       | 7:00:00pm
+| 7am        | 7:00:00am
+| 10:30 am   | 10:30:00am
+|===
+
+==== Relative times
+
+Examples::
+|===
+| *Input*             | *Output*
+| 10 seconds ago      | 10 seconds before command execution time
+| in 5 minutes        | 5 minutes after command execution time
+| 4 minutes from now  | 4 minutes after command execution time
+| 3 hours later       | 3 hours after command execution time
+| 6 seconds from 1030 | 6 seconds after 1030
+|===
+
+=== Listing all events : `list`
+
+Shows a list of all events in the scheduler. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing an event : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing event in the scheduler. +
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.
+* You can remove all the event's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/Do not study again d/will not study ever again` +
+Edits the event name and description of the 1st event to be `Do not study again` and `will not study ever again` respectively.
+* `edit 2 n/Play t/` +
+Edits the event name of the 2nd event to be `Play` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating events by event name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds events whose event names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g `work` will match `Work`
+* The order of the keywords does not matter. e.g. `Work Hard` will match `Hard Work`
+* Only the event name is searched.
+* Only full words will be matched e.g. `Work` will not match `Works`
+* Events matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hard Work` will return `Work Smart`, `Play Hard`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Study` +
+Returns `study` and `Study Hard`
+* `find Study Hard` +
+Returns any event having event names `Study` or `Hard`
 
-=== Deleting a person : `delete`
+=== Deleting an event : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified event from the scheduler. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the event at the specified `INDEX`.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -135,19 +212,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd event in the scheduler.
+* `find Study` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st event in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting an event : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the event identified by the index number used in the displayed event list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the event and loads the Google search page the event at the specified `INDEX`.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -155,10 +232,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd event in the scheduler.
+* `find Study` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st event in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -173,12 +250,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the scheduler to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the scheduler's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -232,7 +309,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Scheduler data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -248,15 +325,15 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​` +
-e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high r/MONTHLY tag/ad-hoc`
+* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
+e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/monthly tag/ad-hoc`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/EVENT_NAME] [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]...` +
+e.g. `edit 2 n/Play d/Play with James`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `find Study Hard`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
