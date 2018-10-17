@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -59,5 +60,10 @@ public abstract class StageHandle {
     protected <T extends Node> T getChildNode(String query) {
         Optional<T> node = guiRobot.from(stage.getScene().getRoot()).lookup(query).tryQuery();
         return node.orElseThrow(NodeNotFoundException::new);
+    }
+
+    protected void attemptLogIn() {
+        Optional<? extends Node> loginButton = guiRobot.from(stage.getScene().getRoot()).lookup(LoginHandle.LOGIN_BUTTON_ID).tryQuery();
+        ((Button) loginButton.orElseThrow(NodeNotFoundException::new)).fire();
     }
 }
