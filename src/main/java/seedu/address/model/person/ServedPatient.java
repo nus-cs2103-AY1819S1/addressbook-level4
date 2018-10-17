@@ -24,6 +24,9 @@ public class ServedPatient {
     public ServedPatient(Patient patient) {
         requireNonNull(patient);
         this.patient = patient;
+        this.noteContent = "";
+        this.referralContent = "";
+        this.mcContent = "";
     }
 
     public Name getName() {
@@ -58,24 +61,21 @@ public class ServedPatient {
      * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
-        noteContent += " filler" + content;
-        return noteContent;
+        return noteContent = content;
     }
 
     /**
      * Skeleton to add referral content.
      */
     public String addReferralContent(String content) {
-        referralContent += " filler" + content;
-        return referralContent;
+        return referralContent = content;
     }
 
     /**
      * Skeleton to add Mc Content.
      */
     public String addMcContent(String content) {
-        mcContent += " filler" + content;
-        return mcContent;
+        return mcContent = content;
     }
 
     /**

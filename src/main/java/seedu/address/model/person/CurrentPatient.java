@@ -84,6 +84,20 @@ public class CurrentPatient {
     }
 
     /**
+     * Returns a console-friendly representation of the patient's documents.
+     */
+    public String toDocumentInformation() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nNotes: ")
+                .append(getNoteContent())
+                .append("\nMC Content: ")
+                .append(getMcContent())
+                .append("\nReferral Content: ")
+                .append(getReferralContent());
+        return sb.toString();
+    }
+
+    /**
      * Returns a console-friendly representation of the patient.
      */
     public String toNameAndIc() {

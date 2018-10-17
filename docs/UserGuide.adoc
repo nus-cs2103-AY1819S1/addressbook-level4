@@ -257,11 +257,11 @@ Finds the details of the medicine tagged with the serial number 1001.
 
 === Check the stocks of all medicine that are low in supply : `checkStock`
 
-Lists all medicines that are low in stock. +
+List all medicines that are low in stock. +
 Alias: `cS` +
 Format: `checkStock`
 
-=== Lists all Patients in Patient Queue : `queue`
+=== List all Patients in Patient Queue : `queue`
 
 Lists all patients in queue waiting to see the doctor.
 Format: `queue`
