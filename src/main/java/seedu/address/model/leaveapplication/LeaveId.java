@@ -15,6 +15,7 @@ public class LeaveId {
 
     /**
      * Constructs a {@code LeaveId}.
+     *
      * @param leaveId A valid leave ID.
      */
     public LeaveId(Integer leaveId) {
@@ -26,7 +27,9 @@ public class LeaveId {
     /**
      * Returns true if a given integer is a valid leave ID.
      */
-    public static boolean isValidLeaveId(Integer test) { return test >= 0; }
+    public static boolean isValidLeaveId(Integer test) {
+        return test >= 0;
+    }
 
     @Override
     public String toString() {

@@ -63,6 +63,7 @@ public class XmlAdaptedPerson {
         }
         this.profilePic = null;
     }
+
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
                             List<XmlAdaptedPermission> permission) {
         this.name = name;
@@ -172,7 +173,7 @@ public class XmlAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final PermissionSet pSet = new PermissionSet();
-        for(XmlAdaptedPermission p : permission) {
+        for (XmlAdaptedPermission p : permission) {
             pSet.addPermissions(p.toModelType());
         }
 
