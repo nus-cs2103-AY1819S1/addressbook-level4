@@ -4,10 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_BOB;
 
 import org.junit.Test;
 
@@ -27,9 +27,8 @@ public class EditPersonDescriptorTest {
 
 
         // null -> returns false
-        assertFalse(DESC_AMY.
-
-                equals(null));
+        assertFalse(DESC_AMY
+                .equals(null));
 
         // different types -> returns false
         assertFalse(DESC_AMY.equals(5));

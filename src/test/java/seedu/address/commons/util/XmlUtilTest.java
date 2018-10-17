@@ -41,7 +41,8 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_SALARY = "10000";
-    private static final List<XmlAdaptedProject> VALID_PROJECTS = Collections.singletonList(new XmlAdaptedProject("friends"));
+    private static final List<XmlAdaptedProject> VALID_PROJECTS =
+            Collections.singletonList(new XmlAdaptedProject("friends"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

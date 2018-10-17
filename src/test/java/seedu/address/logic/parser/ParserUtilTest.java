@@ -201,7 +201,8 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Project> actualTagSet = ParserUtil.parseProjects(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Project> expectedTagSet = new HashSet<Project>(Arrays.asList(new Project(VALID_TAG_1), new Project(VALID_TAG_2)));
+        Set<Project> expectedTagSet = new HashSet<Project>(Arrays.asList(new Project(VALID_TAG_1),
+                new Project(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
