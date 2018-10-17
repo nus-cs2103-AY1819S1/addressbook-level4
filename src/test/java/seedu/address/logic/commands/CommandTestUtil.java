@@ -58,8 +58,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " q"; // start with whitespace not allowed
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // empty string not allowed
-    public static final String INVALID_START_DESC = " " + PREFIX_START + "2018-10-16 2.00pm"; // wrong format for time
-    public static final String INVALID_END_DESC = " " + PREFIX_END + "10/16/2018 16:00"; // wrong format for date
+    public static final String INVALID_START_DESC = " " + PREFIX_START + "asdf"; // not a readable time
+    public static final String INVALID_END_DESC = " " + PREFIX_END + "asdf"; // wrong format for date
     public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE; // empty string not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
