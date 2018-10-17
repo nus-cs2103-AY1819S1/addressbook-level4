@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.tag.Tag;
 
@@ -26,6 +28,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private Optional<Doctor> preferredDoctor = Optional.empty();
+    private Optional<Appointment> appointment = Optional.empty();
 
     /**
      * Every field must be present and not null.
@@ -64,11 +67,40 @@ public class Person {
     }
 
     /**
+     * Returns patient's appointment. The patient may not have one.
+     * @return an Optional {@link Appointment}
+     */
+    public Optional<Appointment> getAppointment() {
+        return appointment;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+
+    /**
+     * Assigns a specific doctor for the patient.
+     * @param doctor
+     */
+    public void setPreferredDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+
+        preferredDoctor = Optional.of(doctor);
+    }
+
+    /**
+     * Sets an appointment for the patient.
+     * @param appointment
+     */
+    public void setAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+
+        this.appointment = Optional.of(appointment);
     }
 
     /**
@@ -77,6 +109,14 @@ public class Person {
     public boolean hasPrefferedDoctor() {
         return preferredDoctor.isPresent();
     }
+
+    /**
+     * Checks if patient has an appointment.
+     */
+    public boolean hasAppointment() {
+        return appointment.isPresent();
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
