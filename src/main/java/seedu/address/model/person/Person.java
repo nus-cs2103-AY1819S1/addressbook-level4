@@ -13,6 +13,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.tag.Tag;
 
+import javax.swing.text.html.Option;
+
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -160,7 +162,9 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, getPreferredDoctor(), getAppointment());
+        Optional<Doctor> preferredDoctor = getPreferredDoctor();
+        Optional<Appointment> appointment = getAppointment();
+        return Objects.hash(name, phone, email, address, tags, preferredDoctor, appointment);
     }
 
     @Override
