@@ -34,6 +34,8 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int MIN_WIDTH = 900;
+    private static final int MIN_HEIGHT = 800;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -221,7 +223,8 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setManaged(true);
         splitPane.setVisible(true);
         getPrimaryStage().setMaxHeight(Integer.MAX_VALUE);
-        getPrimaryStage().setMinHeight(800);
+        getPrimaryStage().setMinHeight(MIN_HEIGHT);
+        getPrimaryStage().setMinWidth(MIN_WIDTH);
         setWindowDefaultSize(prefs);
         statusbarPlaceholder.setManaged(true);
     }
@@ -238,8 +241,8 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on user preferences.
      */
     private void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        primaryStage.setHeight(Math.max(MIN_HEIGHT, prefs.getGuiSettings().getWindowHeight()));
+        primaryStage.setWidth(Math.max(MIN_WIDTH, prefs.getGuiSettings().getWindowWidth()));
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
