@@ -25,8 +25,11 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetPasswordCommand;
+import seedu.address.logic.commands.SignUpCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -93,7 +96,6 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/foo bar baz", PREFIX_NAME);
-        ArgumentMultimap keywordsMap2 = ArgumentTokenizer.tokenize(" n/foo bar baz", PREFIX_NAME);
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap)), command);
@@ -155,6 +157,24 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS + " 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_login() throws Exception {
+        assertTrue(parser.parseCommand(LoginCommand.COMMAND_WORD + " u/userna p/assadd") instanceof LoginCommand);
+        assertTrue(parser.parseCommand(LoginCommand.COMMAND_ALIAS + " u/userna p/assadd") instanceof LoginCommand);
+    }
+
+    @Test
+    public void parseCommand_SignUpCommand() throws Exception {
+        assertTrue(parser.parseCommand(SignUpCommand.COMMAND_WORD + " ssssss") instanceof SignUpCommand);
+        assertTrue(parser.parseCommand(SignUpCommand.COMMAND_ALIAS + " ssssss") instanceof SignUpCommand);
+    }
+
+    @Test
+    public void parseCommand_setPassword() throws Exception {
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_WORD + " o/dsdfsdf7 n/sdfsdf") instanceof SetPasswordCommand);
+        assertTrue(parser.parseCommand(SetPasswordCommand.COMMAND_ALIAS + " o/dsdfsdf7 n/sdfsdf") instanceof SetPasswordCommand);
     }
 
     @Test
