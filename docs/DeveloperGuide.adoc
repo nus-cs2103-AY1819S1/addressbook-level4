@@ -390,9 +390,10 @@ If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress per
 
 . A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects. With this information, the amount to increment `BudgetPanel#expenseDisplay` by each `KeyFrame` can be calculated.
  `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
- image::BudgetPanelTextKeyFrameDiagram.png[width="800"]
 [NOTE]
 `BudgetPanel#incrementKeyFrames()` handles the animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+
+ image::BudgetPanelTextKeyFrameDiagram.png[width="800"]
 
 . `Timeline#playFromStart()` is called to execute the animation.
 
