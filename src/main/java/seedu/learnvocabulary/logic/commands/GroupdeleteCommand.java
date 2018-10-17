@@ -1,13 +1,15 @@
 package seedu.learnvocabulary.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
 
-import static java.util.Objects.requireNonNull;
-
-
+/**
+ * Creates an GroupdeleteCommand to delete the specified {@code Word}
+ */
 public class GroupdeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "groupdelete";
