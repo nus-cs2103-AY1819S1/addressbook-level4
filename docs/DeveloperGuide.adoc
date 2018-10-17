@@ -350,6 +350,11 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` t
 
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of car park names or address, and returns the car park if so.
 
+.How the find operation works
+image::seqdiagram-find.png[width="800", align="left"]
+
+==== Example
+
 Given below is an example usage scenario and how the Find mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
@@ -363,6 +368,21 @@ If a command fails its execution, it will not call `FindCommand#execute()`, so t
 Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
 
 Step 4. The filtered list of car park is returned to the GUI.
+
+.Flow chart of the find operation.
+image::actdiagram-find.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How predicate works
+
+* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
+** Pros: Easy to implement, user friendly.
+** Cons: More complicated predicate, sub strings not easily taken care of.
+
+* **Alternative 2:** Filter the data when it is taken in.
+** Pros: Less complicated predicate.
+** Cons: Manipulates the data, editing it for every other case.
 
 === Command alias feature
 
@@ -407,6 +427,7 @@ in each Command file.
 ** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
 & `filter`, it does not work.
 
+=== Query feature
 
 ==== Overview
 
