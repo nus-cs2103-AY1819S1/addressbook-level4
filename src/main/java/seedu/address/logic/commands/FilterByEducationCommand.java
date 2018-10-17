@@ -1,18 +1,15 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.person.EducationFilterPredicate;
-import seedu.address.model.person.GradeFilterPredicate;
-import seedu.address.model.person.Person;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import javafx.collections.ObservableList;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.person.EducationFilterPredicate;
+import seedu.address.model.person.Person;
 
 
 /**
@@ -51,7 +48,7 @@ public class FilterByEducationCommand extends FilterCommand {
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find " + education +" education within the students list!");
+            return new CommandResult("Cannot find " + education + " education within the students list!");
         }
 
 

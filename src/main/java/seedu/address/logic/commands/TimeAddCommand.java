@@ -51,14 +51,14 @@ public class TimeAddCommand extends Command {
 
         ArrayList<Time> allTimeSlot = new ArrayList();
 
-        for(Person ppl: model.getFilteredPersonList()){
+        for (Person ppl : model.getFilteredPersonList()) {
             allTimeSlot.addAll(ppl.getTime());
         }
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(personToFind)));
 
         Person targetPerson = model.getFilteredPersonList().get(0);
 
-        if(allTimeSlot.contains(toAdd)) {
+        if (allTimeSlot.contains(toAdd)) {
             throw new CommandException(MESSAGE_TIME_IS_NOT_AVAILABLE);
         }
         if (!model.hasPerson(targetPerson)) {
