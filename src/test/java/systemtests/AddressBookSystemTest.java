@@ -264,7 +264,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
 
-        /*assertTrue(getBudgetPanel().isExpenseCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_EXPENSES)));
+        /* assertTrue(getBudgetPanel().isExpenseCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_EXPENSES)));
         assertTrue(getBudgetPanel().isBudgetCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_BUDGET)));
         assertTrue(getBudgetPanel().isBudgetBarProgressAccurate(TypicalExpenses.INTIIAL_EXPENSES
                 / TypicalExpenses.INTIIAL_BUDGET));*/
