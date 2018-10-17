@@ -109,7 +109,9 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
         LinkedList<Wish> transactions = wishToEdit.getTransactions(); // no editing of transactions
 
-        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark, updatedTags, transactions);
+        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark,
+                updatedTags,
+                transactions);
     }
 
     @Override
