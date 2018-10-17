@@ -338,7 +338,7 @@ are used as filters for the expense list. The `Predicate` is used to filter out 
 `StatsMode` is set to DAY, representing the day mode.
 `StatsCommand#execute()` also posts a `ShowStatsRequestEvent` event to the `EventsCenter`.
 
-. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which creates a new `StatsWindow` object after getting the
+. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which updates the 'StatisticsPanel' object after getting the
 expense data and mode by calling `Logic#getExpenseStats()` and `Logic#getStatsMode()`.
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `ModelManager#getExpenseStats()`, which returns
@@ -348,9 +348,7 @@ the total cost for that day
 
 . `Logic#getStatsMode()` gets the current StatsMode by calling `Model#getStatsMode()`
 
-. The `StatsWindow` object gets created and calls `StatsWindow#setData()`, which creates a `BarChart` with the expense data received, which is then added to the `ChartArea` pane.
-
-. This results in a new window showing a bar chart of expenses over the last 7 days.
+. `StatisticsPanel` UI element updates the bar chart in `chartArea` to show the expenses over the last 7 days.
 
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign
@@ -423,7 +421,7 @@ image::BudgetPanelTextKeyFrameDiagram.png[width="800"]
 
 *Step 7*
 
-`BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()``. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+`BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()`. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
 
 ==== Design Considerations
 ===== Aspect: Which library to implement animation
