@@ -61,8 +61,16 @@ Format: `help`
 Adds a calendar event to the calendar +
 Format: `add t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags/TAG]...`
 
+****
+* Adds the specified event to the Scheduler
+* Since it is difficult to type a rigidly formatted date and time, a natural language date parser will try to parse the input.
+* The Start and End times can be word descriptions, such as 'the day after tomorrow', or '1 week from now'.
+* If only a time is specified, Scheduler will assume you mean today.
+****
+
 [TIP]
-A calendar event can have any number of tags (including 0)
+A calendar event can have any number of tags. (including 0)
+
 
 Examples:
 
@@ -101,8 +109,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case insensitive. e.g `lecture` will match `Lecture`
 * The order of the keywords does not matter. e.g. `CS2103 Lecture` will match `Lecture CS2103`
 * Only the name is searched.
-* Only full words will be matched e.g. `lecture` will not match `lectures`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `CS2103 Lecture` will return `CS2103 Lecture`, `CS2103 Tutorial`
+* The search does not look for only exact matches; slight differences and typos will attempt to be matched
+* `CS2103 Lecture` will match 'CS210X Lectures', or 'Lecture CS'
 ****
 
 Examples:
