@@ -130,15 +130,11 @@ Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 ****
 * The user can search using the following search predicates:
     * `NAME`
-    * `DATE`
-    * `PRICE`
     * `TAG`
 * `NAME`is the default search predicate.
 * The search is case insensitive. e.g. watch will match Watch.
 * Only full words will be matched. e.g. wat will not match watch.
 * Wishes matching at least one keyword will be returned. e.g. watch will return apple watch, pebble watch.
-* `DATE` is the creation date of the wish.
-* `PRICE` is the sale price of the item. It should be a positive number corrected to the smallest denomination of the currency.
 ****
 
 Examples:
@@ -324,7 +320,7 @@ e.g. `find d/22`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Save* : `save INDEX s/AMOUNT` +
+* *Save* : `save [INDEX] s/AMOUNT` +
 e.g. `save 1 s/1000`
 * *Command History* : `history -c`
 * *Savings History* : `history -s`
