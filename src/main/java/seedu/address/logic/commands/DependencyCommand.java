@@ -54,7 +54,6 @@ public class DependencyCommand extends Command {
         }
         //Checking if introducing dependency will create a cyclic dependency
         Task updatedTask = createDependantTask(taskDependant, taskDependee);
-
         DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
         if (dg.checkCyclicDependency(updatedTask)) {
             throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);

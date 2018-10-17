@@ -51,6 +51,7 @@ public class DependencyGraphTest {
         cyclicTasks = new ArrayList<>(preCyclicTasks);
         cyclicTasks.add(cyclicTask);
     }
+
     @Test
     public void constructor_invalid_throwsGraphCycleException() {
         assertThrows(GraphCycleException.class, () -> new DependencyGraph(cyclicTasks));

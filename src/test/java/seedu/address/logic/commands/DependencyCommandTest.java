@@ -53,8 +53,6 @@ public class DependencyCommandTest {
     public void execute_cyclicDependencyUnfilteredList_throwsCommandException() {
         Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-
-
         Task newDependeeTask = DependencyCommand.createDependantTask(dependeeTask, dependantTask);
 
         model.updateTask(dependeeTask, newDependeeTask);
