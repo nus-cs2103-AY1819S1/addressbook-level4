@@ -7,6 +7,7 @@
         <waitingTimeString>1</waitingTimeString>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
+        <statusString>OPEN</statusString>
     </rides>
 
     <!-- Ride with same identity as Alice Pauline -->
@@ -15,6 +16,7 @@
         <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <waitingTimeString>19</waitingTimeString>
         <address>4th street</address>
+        <statusString>OPEN</statusString>
     </rides>
 
 </thanepark>

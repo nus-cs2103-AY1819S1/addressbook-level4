@@ -15,6 +15,7 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Ride {
+    private static final Status DEFAULT_STATUS = Status.OPEN;
 
     // Identity fields
     private final Name name;
@@ -29,17 +30,24 @@ public class Ride {
     private Status status;
 
     /**
-     * Every field must be present and not null. Default value of status is SHUTDOWN
+     * Every field except status must be present and not null. Default value of status is OPEN.
      */
     public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
+        this(name, daysSinceMaintenance, waitingTime, address, tags, DEFAULT_STATUS);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags,
+            Status status) {
+        requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags, status);
         this.name = name;
         this.daysSinceMaintenance = daysSinceMaintenance;
         this.waitingTime = waitingTime;
         this.address = address;
         this.tags.addAll(tags);
-
-        this.status = Status.SHUTDOWN;
+        this.status = status;
     }
 
     public Name getName() {
