@@ -46,6 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+ClinicIO has a list of features that are implemented/work in progress to help users in the day-to-day operations at the clinic.
+
 ====
 *Command Format*
 
