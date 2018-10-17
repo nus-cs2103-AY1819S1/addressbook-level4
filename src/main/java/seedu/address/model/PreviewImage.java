@@ -1,6 +1,7 @@
 package seedu.address.model;
 
-import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
+
 import seedu.address.model.transformation.TransformationSet;
 
 //@author Ivan
@@ -9,15 +10,11 @@ import seedu.address.model.transformation.TransformationSet;
  * Wraps the image and transformation set for preview.
  */
 public class PreviewImage implements PreviewableImage {
-    private final Image image;
+    private final BufferedImage image;
     private final TransformationSet transformationSet;
 
-    public PreviewImage(Image image, TransformationSet transformationSet) {
-        this.image = image;
-        this.transformationSet = transformationSet;
-    }
 
-    public PreviewImage(Image image) {
+    public PreviewImage(BufferedImage image) {
         this.image = image;
         this.transformationSet = new TransformationSet();
     }
@@ -27,12 +24,12 @@ public class PreviewImage implements PreviewableImage {
         this.transformationSet = previewableImage.getTransformationSet();
     }
 
-    public PreviewImage() {
-        this.image = new Image("https://via.placeholder.com/500x500");
-        this.transformationSet = new TransformationSet();
+    public PreviewImage(BufferedImage image, TransformationSet transformationSet) {
+        this.image = image;
+        this.transformationSet = transformationSet;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 
