@@ -76,6 +76,29 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return check;
     }
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        boolean check = true;
+        if (!versionedLearnVocabulary.hasTag(tag)) {
+            check = false;
+        }
+        return check;
+    }
+
+    @Override
+    public void deleteGroup(Tag toDelete) {
+        requireNonNull(toDelete);
+        versionedLearnVocabulary.deleteGroup(toDelete);
+    }
+
+    @Override
+    public void addGroup(Tag toAdd) {
+        requireNonNull(toAdd);
+        if (!versionedLearnVocabulary.hasTag(toAdd)) {
+            versionedLearnVocabulary.addGroup(toAdd);
+        }
+    }
 
     @Override
     public void deleteWord(Word target) {

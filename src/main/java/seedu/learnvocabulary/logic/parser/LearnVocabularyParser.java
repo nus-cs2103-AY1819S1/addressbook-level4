@@ -13,6 +13,8 @@ import seedu.learnvocabulary.logic.commands.DeleteCommand;
 import seedu.learnvocabulary.logic.commands.EditCommand;
 import seedu.learnvocabulary.logic.commands.ExitCommand;
 import seedu.learnvocabulary.logic.commands.FindCommand;
+import seedu.learnvocabulary.logic.commands.GroupaddCommand;
+import seedu.learnvocabulary.logic.commands.GroupdeleteCommand;
 import seedu.learnvocabulary.logic.commands.HelpCommand;
 import seedu.learnvocabulary.logic.commands.HistoryCommand;
 import seedu.learnvocabulary.logic.commands.LearnCommand;
@@ -99,6 +101,13 @@ public class LearnVocabularyParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
+        
+        case GroupdeleteCommand.COMMAND_WORD:
+            return new GroupDeleteCommandParser().parse(arguments);
+        
+        case GroupaddCommand.COMMAND_WORD:
+            return new GroupAddCommandParser().parse(arguments);
+            
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
