@@ -63,7 +63,9 @@ public abstract class StageHandle {
     }
 
     protected void attemptLogIn() {
-        Optional<? extends Node> loginButton = guiRobot.from(stage.getScene().getRoot()).lookup(LoginHandle.LOGIN_BUTTON_ID).tryQuery();
-        ((Button) loginButton.orElseThrow(NodeNotFoundException::new)).fire();
+        Optional<? extends Node> loginNode = guiRobot.from(stage.getScene().getRoot())
+                                                    .lookup(LoginHandle.LOGIN_BUTTON_ID).tryQuery();
+        Button loginButton = (Button) loginNode.orElseThrow(NodeNotFoundException::new);
+        loginButton.fire();
     }
 }
