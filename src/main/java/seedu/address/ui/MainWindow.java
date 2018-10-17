@@ -163,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void removeLoginWindow() {
         commandBoxPlaceholder.getChildren().remove(loginIntroduction);
-        
+
         personListPanelPlaceholder.getChildren().remove(loginForm);
     }
 
