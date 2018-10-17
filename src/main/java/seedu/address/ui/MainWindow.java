@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -173,6 +174,25 @@ public class MainWindow extends UiPart<Stage> {
 
         currentPanel = panel;
         currentPanel.refreshView();
+    }
+
+    /**
+     * Sorts the current panel given a sorting order.
+     */
+    void sortCurrentPanel(int[] colIdx) {
+        Objects.requireNonNull(colIdx);
+
+        if (currentPanel == null) {
+            return;
+        }
+
+        if (!(currentPanel instanceof Sortable)) {
+            // TODO: Make it fail non-silently?
+            return;
+        }
+
+        Sortable sortablePanel = (Sortable) currentPanel;
+        sortablePanel.sortView(colIdx);
     }
 
     void hide() {

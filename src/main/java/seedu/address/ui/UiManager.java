@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.SortPanelViewEvent;
 import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -79,6 +80,11 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.setCurrentPanel(panelName);
     }
 
+    private void sortPanelView(int[] colIdx) {
+        Objects.requireNonNull(colIdx);
+        mainWindow.sortCurrentPanel(colIdx);
+    }
+
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
         showAlertDialogAndWait(AlertType.ERROR, FILE_OPS_ERROR_DIALOG_STAGE_TITLE, description, content);
@@ -132,5 +138,11 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleSwapPanelViewEvent(SwapPanelViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         changePanelView(event.getSwappablePanelName());
+    }
+
+    @Subscribe
+    private void handleSortPanelViewEvent(SortPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        sortPanelView(event.getColIdx());
     }
 }

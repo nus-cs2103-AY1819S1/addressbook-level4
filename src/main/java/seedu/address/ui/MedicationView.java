@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -25,7 +27,7 @@ import seedu.address.model.person.Person;
 /**
  * The Medication Panel (maybe more in the future?) of the App.
  */
-public class MedicationView extends UiPart<Region> implements Swappable {
+public class MedicationView extends UiPart<Region> implements Swappable, Sortable {
     private static final String FXML = "BrowserPanel.fxml";
     private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt "
         + "to set the current selection, but it is not null.";
@@ -62,6 +64,7 @@ public class MedicationView extends UiPart<Region> implements Swappable {
 
     private Person currentSelection;
     private ObservableList<Person> persons;
+    private ObservableList<TableColumn<Prescription, ?>> sortOrder;
 
     /**
      * C'tor for the Medication View.
@@ -71,6 +74,7 @@ public class MedicationView extends UiPart<Region> implements Swappable {
     public MedicationView(ObservableList<Person> persons) {
         super(FXML);
         this.persons = persons;
+        this.sortOrder = FXCollections.observableArrayList(new ArrayList<>());
         registerAsAnEventHandler(this);
     }
 
@@ -98,6 +102,16 @@ public class MedicationView extends UiPart<Region> implements Swappable {
 
         currentSelection = getNewReferenceToPerson(currentSelection);
         refreshTableView(currentSelection);
+        sortTableView();
+    }
+
+    /**
+     * Sorts the table view according to the defined sorting order of the table view,
+     * defined in sortOrder
+     */
+    private void sortTableView() {
+        prescriptionTableView.getSortOrder().setAll(sortOrder);
+        prescriptionTableView.sort();
     }
 
     /**
@@ -114,6 +128,7 @@ public class MedicationView extends UiPart<Region> implements Swappable {
     private void refreshTableView(PrescriptionList prescriptionList) {
         setDataSourceForTable(prescriptionList.getObservableCopyOfPrescriptionList());
         setDataSourcesForTableColumns();
+        setSortTypeForTableColumns();
     }
 
     /**
@@ -147,6 +162,16 @@ public class MedicationView extends UiPart<Region> implements Swappable {
         activePrescriptionCol.setCellValueFactory(param -> getActiveStatusAsSimpleStringProperty(param));
     }
 
+    private void setSortTypeForTableColumns() {
+        drugNameCol.setSortType(TableColumn.SortType.ASCENDING);
+        dosageCol.setSortType(TableColumn.SortType.ASCENDING);
+        dosageUnitCol.setSortType(TableColumn.SortType.ASCENDING);
+        dosesPerDayCol.setSortType(TableColumn.SortType.ASCENDING);
+        startDateCol.setSortType(TableColumn.SortType.ASCENDING);
+        endDateCol.setSortType(TableColumn.SortType.ASCENDING);
+        durationCol.setSortType(TableColumn.SortType.ASCENDING);
+        activePrescriptionCol.setSortType(TableColumn.SortType.ASCENDING);
+    }
     /**
      * Setter method to fix the currently selected person.
      * Should only be used for testing purposes.
@@ -258,5 +283,49 @@ public class MedicationView extends UiPart<Region> implements Swappable {
         }
 
         refreshTableView(currentSelection);
+    }
+
+    @Override
+    public void sortView(int... colIdx) {
+        sortOrder.clear();
+
+        for (int i = 0; i < colIdx.length; i++) {
+            switch (colIdx[i]) {
+            case 1:
+                sortOrder.add(drugNameCol);
+                break;
+            case 2:
+                sortOrder.add(dosageCol);
+                break;
+            case 3:
+                sortOrder.add(dosageUnitCol);
+                break;
+            case 4:
+                sortOrder.add(dosesPerDayCol);
+                break;
+            case 5:
+                sortOrder.add(startDateCol);
+                break;
+            case 6:
+                sortOrder.add(endDateCol);
+                break;
+            case 7:
+                sortOrder.add(durationCol);
+                break;
+            case 8:
+                sortOrder.add(activePrescriptionCol);
+                break;
+            default:
+                break;
+            }
+        }
+
+        prescriptionTableView.getSortOrder().setAll(sortOrder);
+
+        // We store the sort order because it disappears after
+        // we reset the cell value factories for a 'new' Person
+        // and we need to re-set our table view's sort order to the
+        // 'old' sort order to preserve sorting.
+        prescriptionTableView.sort();
     }
 }
