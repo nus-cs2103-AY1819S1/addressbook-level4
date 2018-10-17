@@ -15,6 +15,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 
 public class SaveCommandTest {
-    private Model model = new ModelManager(getTypicalWishBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,14 +46,15 @@ public class SaveCommandTest {
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value < 0) {
+        if (wishSavedDifference.value > 0) {
             differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
@@ -78,14 +80,15 @@ public class SaveCommandTest {
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value < 0) {
+        if (wishSavedDifference.value > 0) {
             differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
@@ -144,14 +147,15 @@ public class SaveCommandTest {
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value < 0) {
+        if (wishSavedDifference.value > 0) {
             differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
