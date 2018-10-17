@@ -124,7 +124,7 @@ public interface Model {
     /**
      * Retrieves the current displayed preview image.
      */
-    BufferedImage getCurrentPreivewImage();
+    BufferedImage getCurrentPreviewImage();
 
     /**
      * Update the current displayed original image.
