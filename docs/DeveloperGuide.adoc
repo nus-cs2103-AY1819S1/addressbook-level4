@@ -362,8 +362,7 @@ The UI has been redesigned to implement the following UI elements required for t
 
 Animations will also be incorporated into the UI elements for a better user experience.
 
-==== Current Implementations
-===== Budget Panel
+==== BudgetPanel
 The budget panel consists of 3 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
