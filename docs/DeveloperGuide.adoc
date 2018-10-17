@@ -329,7 +329,7 @@ The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
 * `cancelappt` Command - Cancels appointments found within the appointment schedule.
-* `listappday` Command - Lists the appointment schedule of the date specified.
+* `listapptday` Command - Lists the appointment schedule of the date specified.
 
 Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
 
@@ -338,14 +338,18 @@ Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
 The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in a `Patient` id. +
 The image below illustrates this process.
 
+.Appointment construction process.
 image::ApptConstructorSequenceDiagram.png[width="0"]
-.Appointment construction process. +
 
 Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
 
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
 
 `ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to the it's latest state. i.e. The addition of a new `Appointment` object. This means that this command can be undone or redone.
+
+==== `listapptday` Command
+
+The `listapptday` command searches for appointments in the `UniqueAppointmentList` that land on the date that was entered by the user. For example, `listapptday 03032018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed. 
 
 ==== `cancelappt` Command
 
