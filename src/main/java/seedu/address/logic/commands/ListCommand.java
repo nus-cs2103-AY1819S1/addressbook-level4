@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.function.Predicate;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
@@ -49,6 +50,9 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTaskList(this.predicate);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return model.getFilteredTaskList().size() == model.getTaskManager().getTaskList().size()
+                ? new CommandResult(MESSAGE_SUCCESS)
+                : new CommandResult(String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW,
+                    model.getFilteredTaskList().size()));
     }
 }
