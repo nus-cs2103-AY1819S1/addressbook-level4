@@ -112,6 +112,8 @@ When you are ready to start coding:
 
 == Design
 
+This section describes the architecture and components of the application.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -561,7 +563,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide documentation dettings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -688,6 +690,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+This section describes the tools used for building, testing, and releasing the application.
 
 === Build automation
 
