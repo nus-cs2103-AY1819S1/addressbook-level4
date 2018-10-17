@@ -244,6 +244,23 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::toDoList
+=== ToDoList  feature
+====Current implementation
+
+The ToDoList mechanism is facilatated by 'ToDoList', which is a differrent but similar class form 'Schedule'.
+Inside the 'ToDoList', there are UnDuplicated 'ToDoListEvent' which include 'Title', 'Description' and 'Priority'.
+User can add events to ToDoList with 'Title', 'Description' and 'Priority'.
+The toDoList will display events in priority-decreassing order.
+Also, if click the completed event, it will be deleted from toDoList.
+
+Model for toDoList feature:
+*`Priority` -- Represents the priority of a todoList event.
+* `ToDoListEvent` -- The structure of single event in toDoList.
+* `TodoList` -- Wraps all data at the toDoList level. uplicates are not allowed.
+* `UniqueToDoEventList` -- A list of todoEvents that enforces uniqueness between its elements and does not allow nulls.
+* `ReadOnlyToDoList` -- Unmodifiable view of a ToDoList.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
