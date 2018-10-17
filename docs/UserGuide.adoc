@@ -510,7 +510,7 @@ There is no need to save manually.
 
 == Commands Summary
 
-This section contains a summary of the available commands.
+This section contains a summary of the commands available.
 
 === General Commands
 
