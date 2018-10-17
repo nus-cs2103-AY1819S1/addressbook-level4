@@ -33,14 +33,16 @@ image::Ui_1.2.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
-.  Some example commands you can try:
+
+== Commands Example:
+Here are some commands that you can try out with.
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com b/A r/110 s/FoS t/basketball` : adds a contact named `John Doe` to Hallper.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com r/A110 s/FoS t/basketball` : adds a contact named `John Doe` to Hallper.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -498,5 +500,5 @@ e.g. `view 2`
 * *Exit* : `exit`
 
 == Glossary
-
+* `CCA`: Co-Curricular Activity that residents can join within their respective halls.
 * `JCRC`: Junior Common Room Committee in charge of administrative duties within their respective halls.
