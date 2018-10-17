@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook(new Username("sample"));
+        AddressBook sampleAb = new AddressBook(new Username("sample"), Optional.empty());
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }

@@ -24,7 +24,7 @@ public class ModelUtil {
         NoUserSelectedException {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
-        model.loadUserData(TEST_USERNAME);
+        model.loadUserData(TEST_USERNAME, null);
         model.modifyMaximumBudget(new Budget(28.00, 0.00));
         return model;
     }
