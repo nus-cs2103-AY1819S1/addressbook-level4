@@ -173,7 +173,7 @@ Format: `exit`
 Example(s):
 
 * `exit` +
-Exists from the program and return to the user desktop.
+Exists from the program and return to the user's desktop.
 
 [[command-switch]]
 ==== Switching context : `switch`
