@@ -3,8 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-//import javafx.scene.image.Image;
-
 //@author Ivan
 
 /**
@@ -17,14 +15,14 @@ public class PreviewImageManager {
     private List<PreviewImage> previewImageStateList;
     private int currentStatePointer;
 
-    // private constructor
     private PreviewImageManager() {
         previewImageStateList = new ArrayList<>();
-        //previewImageStateList.add(new PreviewImage());
         currentStatePointer = 0;
     }
 
-    // static method to create instance of PreviewImageManager class
+    /**
+     * Static method to ensure a single instance of the PreviewImageManager.
+     */
     public static PreviewImageManager getInstance() {
         // To ensure only one instance is created
         if (singleInstance == null) {
@@ -34,7 +32,7 @@ public class PreviewImageManager {
     }
 
     /**
-     * Initialise a copy of the latest {@code PreviewImage} state with image.
+     * Initialise the PreviewImageManager with a new {@code PreviewImage}.
      */
     public void initialiseWithImage(PreviewImage initialImage) {
         previewImageStateList = new ArrayList<>();
@@ -42,6 +40,9 @@ public class PreviewImageManager {
         currentStatePointer = 0;
     }
 
+    /**
+     * Get index of the current state.
+     */
     public PreviewImage getCurrentPreviewImageState() {
         return previewImageStateList.get(currentStatePointer);
     }

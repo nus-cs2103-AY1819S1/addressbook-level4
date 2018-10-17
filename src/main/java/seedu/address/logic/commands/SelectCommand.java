@@ -50,7 +50,6 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
         }
 
-        // TODO: Ivan - model.resetPreviewImageManager(initialImage);
         try {
             FileInputStream fis = new FileInputStream(dirImageList.get(targetIndex.getZeroBased()));
             img = new Image(fis);
@@ -62,7 +61,7 @@ public class SelectCommand extends Command {
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 
-        model.updateCurrDisplayedImage(img);
+        model.updateCurrentOriginalImage(img);
 
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
