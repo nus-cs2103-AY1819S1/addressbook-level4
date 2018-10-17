@@ -1,10 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -135,7 +131,7 @@ public class XmlAdaptedWish {
         final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
 
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelSavedAmount, modelRemark, modelTags);
+        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelSavedAmount, modelRemark, modelTags, new LinkedList<>());
     }
 
     @Override
