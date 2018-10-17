@@ -15,6 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Password;
+import seedu.address.model.user.PasswordTest;
 import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;
 import seedu.address.testutil.TypicalExpenses;
@@ -55,5 +56,13 @@ public class LoginCommandTest {
         assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
         thrown.expect(NonExistentUserException.class);
         new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null).execute(model, commandHistory);
+    }
+
+    @Test
+    public void execute_incorrectPassword_loginFailed() throws Exception {
+        model.setPassword(PasswordTest.VALID_PASSWORD);
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null).execute(model,
+                commandHistory);
+        assertEquals(LoginCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
     }
 }
