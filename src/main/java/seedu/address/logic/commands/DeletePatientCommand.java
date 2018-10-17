@@ -22,6 +22,9 @@ public class DeletePatientCommand extends DeleteCommand {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 ";
 
+    /**
+     * Creates an DeletePatientCommand to add the specified {@code Patient}
+     */
     public DeletePatientCommand(Name name, Phone phone) {
         super(name, phone);
     }

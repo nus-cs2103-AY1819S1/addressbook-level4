@@ -1,6 +1,6 @@
 package seedu.address.model.appointment;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -8,19 +8,22 @@ import java.util.List;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Appointment {
+    private static int appointmentCounter;
+
     private int appointmentId;
-    private Date startDateTime;
+    private LocalDateTime startDateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(int appointmentId, Date startDateTime, Status status) {
-        this.appointmentId = appointmentId;
+    public Appointment(LocalDateTime startDateTime) {
+        this.appointmentId = appointmentCounter;
+        appointmentCounter++;
         this.startDateTime = startDateTime;
-        this.status = status;
+        this.status = Status.UPCOMING;
     }
 
-    public void addPrescription (Prescription prescription) {
+    public void addPrescription(Prescription prescription) {
         prescriptions.add(prescription);
     }
 
@@ -29,7 +32,7 @@ public class Appointment {
     }
 
     /**
-     * Checks if target appointment is later than appointment argument by date.
+     * Checks if target appointment is later than appointment argument by LocalDateTime.
      * Return true if target appointment is later than other appointment. Else, return false.
      */
     public boolean isLaterThan(Appointment appointmentToCheck) {
