@@ -20,7 +20,7 @@ public class XmlAdaptedPermission {
     public XmlAdaptedPermission() {}
 
     /**
-     * Constructs a {@code XmlAdaptedPermission} with the given {@code tagName}.
+     * Constructs a {@code XmlAdaptedPermission} with the given {@code permissionName}.
      */
     public XmlAdaptedPermission(String permissionName) {
         this.permissionName = permissionName;
