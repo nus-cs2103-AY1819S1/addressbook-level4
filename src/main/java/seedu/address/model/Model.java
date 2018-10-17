@@ -65,11 +65,24 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Adds the given persons in list.
+     * {@code personList} must not contain persons already exist in the address book.
+     */
+    void addMultiplePersons(List<Person> personList);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the given persons {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void updateMultiplePersons(List<Person> target, List<Person> editedPerson);
 
     /**
      * Returns an unmodifiable view of the filtered person list
