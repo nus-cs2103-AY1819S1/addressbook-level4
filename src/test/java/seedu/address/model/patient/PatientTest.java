@@ -136,4 +136,26 @@ public class PatientTest {
                 .withAppointment(BENSON_APPT).build();
         assertFalse(editedAmyAsPatientWithAppointment.equals(editedAmyAsPatientWithAnotherAppointment));
     }
+
+    @Test
+    public void hasPreferredDoctor() {
+        // patient without preferred doctor -> returns false
+        assertFalse(ALICE_AS_PATIENT.hasPreferredDoctor());
+
+        // patient with a preferred doctor -> returns true
+        Patient aliceAsPatientWithPreferredDoctor = ALICE_AS_PATIENT;
+        aliceAsPatientWithPreferredDoctor.setPreferredDoctor(BEN);
+        assertTrue(aliceAsPatientWithPreferredDoctor.hasPreferredDoctor());
+    }
+
+    @Test
+    public void hasAppointment() {
+        // patient without an appointment -> returns false
+        assertFalse(ALICE_AS_PATIENT.hasAppointment());
+
+        // patient with an appointment -> returns true
+        Patient amyAsPatientWithAppointment = AMY_AS_PATIENT;
+        amyAsPatientWithAppointment.setAppointment(AMY_APPT);
+        assertTrue(amyAsPatientWithAppointment.hasAppointment());
+    }
 }
