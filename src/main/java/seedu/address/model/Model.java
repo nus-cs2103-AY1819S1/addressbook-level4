@@ -1,10 +1,14 @@
 package seedu.address.model;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.google.GoogleClientInstance;
+import javafx.scene.image.Image;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.person.Person;
 
 /**
@@ -54,14 +58,14 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Get GoogleClientInstance.
+     * Get PhotoHandler, directs user to login if yet to be logged in.
      */
-    GoogleClientInstance getGoogleClientInstance();
+    PhotoHandler getPhotoHandler() throws CommandException;
 
     /**
-     * Set GoogleClientInstance.
+     * Set PhotoHandler.
      */
-    void setGoogleClientInstance(GoogleClientInstance instance);
+    void setPhotoHandler(PhotoHandler instance);
 
     /**
      * Returns true if the model has previous PreviewImage states to restore.
@@ -97,4 +101,34 @@ public interface Model {
      * Retrieves the userPrefs current directory.
      */
     Path getCurrDirectory();
+
+    /**
+     * Retrieves the list of images in current directory.
+     */
+    ArrayList<String> getDirectoryImageList();
+
+    /**
+     * Updates the list of images in current directory.
+     */
+    void updateImageList();
+
+    /**
+     * Removes the image of the given index in the list.
+     */
+    void removeImageFromList(int idx);
+
+    /**
+     * Retrieves the current displayed original image.
+     */
+    BufferedImage getCurrentOriginalImage();
+
+    /**
+     * Retrieves the current displayed preview image.
+     */
+    BufferedImage getCurrentPreviewImage();
+
+    /**
+     * Update the current displayed original image.
+     */
+    void updateCurrentOriginalImage(Image img);
 }
