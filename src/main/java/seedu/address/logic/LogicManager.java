@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -85,13 +86,18 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
-    public StatsMode getStatsMode() {
-        return model.getStatsMode();
+
+    //@@author Snookerballs
+    public Budget getMaximumBudget() {
+        return model.getMaximumBudget();
     }
 
     //@@author
-    @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    public StatsMode getStatsMode() {
+        return model.getStatsMode();
     }
 }

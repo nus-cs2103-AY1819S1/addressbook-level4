@@ -134,6 +134,9 @@ public interface Model {
      */
     void modifyMaximumBudget(Budget budget) throws NoUserSelectedException;
 
+    /**
+     * Returns the existing maximum budget for the current user
+     */
     Budget getMaximumBudget();
 
     /**

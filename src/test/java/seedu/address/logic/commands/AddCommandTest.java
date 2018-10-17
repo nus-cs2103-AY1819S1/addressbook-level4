@@ -255,6 +255,12 @@ public class AddCommandTest {
             requireNonNull(expense);
             return this.expense.isSameExpense(expense);
         }
+
+        @Override
+        public Budget getMaximumBudget() {
+            // called by {@param UpdateBudgetDisplayEvent}
+            return new Budget(0, 0);
+        }
     }
 
     /**
@@ -286,6 +292,12 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook(new Username("aa"));
         }
+
+        @Override
+        public Budget getMaximumBudget() {
+            // called by {@param UpdateBudgetDisplayEvent}
+            return new Budget(0, 0);
+        }
     }
 
     /**
@@ -312,6 +324,12 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook(new Username("aa"));
+        }
+
+        @Override
+        public Budget getMaximumBudget() {
+            // called by {@param UpdateBudgetDisplayEvent}
+            return new Budget(0, 0);
         }
     }
 

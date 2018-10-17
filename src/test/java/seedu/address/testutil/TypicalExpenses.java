@@ -28,6 +28,8 @@ import seedu.address.model.user.Username;
  */
 public class TypicalExpenses {
     public static final Username SAMPLE_USERNAME = new Username("sampleData");
+    public static final double INTIIAL_EXPENSES = 26.00;
+    public static final double INTIIAL_BUDGET = 28.00;
 
     public static final Expense ALICE = new ExpenseBuilder().withName("Alice Pauline")
             .withCost("3.00")
