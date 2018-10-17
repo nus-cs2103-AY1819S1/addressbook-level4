@@ -73,6 +73,15 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_BLOOD_TYPE_AMY = "A+";
+    public static final String VALID_BLOOD_TYPE_BOB = "B+";
+    public static final String VALID_DRUG_ALLERGY_AMY = "Panadol";
+    public static final String VALID_DISEASE_AMY = "Fever";
+    public static final String VALID_NOTE_AMY = "Amy is very sick, send help.";
+    public static final String VALID_DRUG_ALLERGY_BOB = "Zyrtec";
+    public static final String VALID_DISEASE_BOB = "Cough";
+    public static final String VALID_NOTE_BOB = "Bob is very sick, send help.";
+
     public static final String VALID_MEDICINE_NAME_PANADOL = "Panadol";
     public static final String VALID_MEDICINE_NAME_ZYRTEC = "Zyrtec";
     public static final String VALID_MINIMUM_STOCK_QUANTITY_PANADOL = "100";

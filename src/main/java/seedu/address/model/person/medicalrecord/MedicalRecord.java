@@ -77,6 +77,42 @@ public class MedicalRecord {
     }
 
     /**
+     * Returns true if both medicalrecords have same data.
+     */
+    public boolean isSameMedicalRecord(MedicalRecord otherMedicalRecord) {
+        if (otherMedicalRecord == this) {
+            return true;
+        }
+        return otherMedicalRecord != null
+                && otherMedicalRecord.getBloodType().equals(getBloodType())
+                && otherMedicalRecord.getDiseaseHistory().equals(getDiseaseHistory())
+                && otherMedicalRecord.getDrugAllergies().equals(getDrugAllergies())
+                && otherMedicalRecord.getNotes().equals(getNotes());
+    }
+
+    /**
+     * Returns true if both medicalrecords have same data.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MedicalRecord)) {
+            return false;
+        }
+
+        MedicalRecord otherMedicalRecord = (MedicalRecord) other;
+        return otherMedicalRecord != null
+                && otherMedicalRecord.getBloodType().equals(getBloodType())
+                && otherMedicalRecord.getDiseaseHistory().equals(getDiseaseHistory())
+                && otherMedicalRecord.getDrugAllergies().equals(getDrugAllergies())
+                && otherMedicalRecord.getNotes().equals(getNotes());
+    }
+
+
+    /**
      * Combines 2 medical records into one.
      * @param record1
      * @param record2

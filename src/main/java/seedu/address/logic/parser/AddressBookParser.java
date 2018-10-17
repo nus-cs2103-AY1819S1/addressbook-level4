@@ -26,8 +26,10 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListStockCommand;
+import seedu.address.logic.commands.MedicalCertificateCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReferralLetterCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -124,6 +126,12 @@ public class AddressBookParser {
         case ReceiptCommand.COMMAND_WORD:
         case ReceiptCommand.COMMAND_ALIAS:
             return new ReceiptCommandParser().parse(arguments);
+
+        case MedicalCertificateCommand.COMMAND_WORD:
+            return new MedicalCertificateCommandParser().parse(arguments);
+
+        case ReferralLetterCommand.COMMAND_WORD:
+            return new ReferralLetterCommandParser().parse(arguments);
 
         case DisplayQueueCommand.COMMAND_WORD:
             return new DisplayQueueCommand();
