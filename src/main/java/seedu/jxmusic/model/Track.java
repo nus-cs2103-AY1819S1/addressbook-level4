@@ -25,7 +25,7 @@ public class Track {
     /**
      * Constructs a {@code Track}.
      * By using a Name to restrict null or empty string
-     * @param trackFileName mp3 file name of the track, does not work with ".mp3" suffix
+     * @param trackFileName mp3 file name of the track, ".mp3" suffix is optional
      */
     public Track(Name trackFileName) {
         CollectionUtil.requireAllNonNull(trackFileName);
@@ -99,10 +99,8 @@ public class Track {
         return fileNameWithoutExtension.hashCode();
     }
 
-    /**
-     * Format state as text for viewing.
-     */
+    @Override
     public String toString() {
-        return '[' + fileNameWithoutExtension + ']';
+        return fileNameWithoutExtension;
     }
 }
