@@ -16,7 +16,15 @@ endif::[]
 
 By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+Hallper is a desktop application aimed at serving <<jcrc,JCRCs>> of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream OS>>.
+This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
+
 == Setting up
+
+This section tells you how to set up your computer before you can start working on Hallper.
 
 === Prerequisites
 
@@ -120,19 +128,20 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * At app launch: Initialising the components in the correct sequence, and connecting them up with each other.
 * At shut down: Shutting down the components and invoking cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Ui,*`UI`*>>: Controls the UI of the App.
+* <<Design-Logic,*`Logic`*>>: Executes commands.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -173,9 +182,11 @@ image::UiClassDiagram.png[width="800"]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -191,10 +202,15 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+The `Logic` component consists of all the `Command` and `Parser` classes.
+It makes use of `AddressBookParser` to parse all user commands.
+
+A typical flow in the `Logic` component is given below:
+
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -209,12 +225,14 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component consists of classes that model objects e.g. `Person`, `Calender`, `Email`, etc.
+It does not depend on any of the other three components.
+
+The `Model` component:
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -229,15 +247,20 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component consists of classes which are responsible for saving and reading files.
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component:
+
+* saves `UserPref` objects in json format and reads it back.
+* saves the Address Book data in xml format and reads it back.
+* saves emails in eml format and reads it back.
+* saves calendars in ics format and reads it back.
+* saves the Budget Book data in xml format and reads it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Commons
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+`Commons` consists of classes used by multiple components and are located in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -613,6 +636,9 @@ The SE-EDU team does not provide support for modified template files.
 
 [[Testing]]
 == Testing
+
+Testing is a crucial part of developing your application.
+Testing allows you to verify the correctness and usability of your app, before releasing it to users.
 
 === Running tests
 
@@ -1494,9 +1520,9 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -1504,10 +1530,16 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+[[cca]] CCA::
+Co-Curricular Activity that residents can join within their respective halls.
+
+[[jcrc]] JCRC::
+Junior Common Room Committee in charge of administrative duties within their respective halls.
 
 [appendix]
 == Product Survey
