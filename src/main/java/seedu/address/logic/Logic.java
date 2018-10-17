@@ -28,6 +28,8 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
             UserAlreadyExistsException, NonExistentUserException;
 
+    Budget getMaximumBudget();
+
     /**
      * @return an unmodifiable view of the filtered list of expenses
      * @throws NoUserSelectedException
@@ -51,5 +53,4 @@ public interface Logic {
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 
-    Budget getMaximumBudget() throws NoUserSelectedException;
 }

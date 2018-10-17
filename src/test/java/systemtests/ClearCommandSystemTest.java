@@ -15,6 +15,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.testutil.ModelUtil;
 
+
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
