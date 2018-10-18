@@ -1,5 +1,6 @@
 package seedu.address.model.leaveapplication;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -33,5 +34,13 @@ public class LeaveStatusTest {
         assertTrue(LeaveStatus.isValidStatus(StatusEnum.Status.valueOf("APPROVED"))); // valid leave status values
         assertTrue(LeaveStatus.isValidStatus(StatusEnum.Status.valueOf("REJECTED"))); // valid leave status values
         assertTrue(LeaveStatus.isValidStatus(StatusEnum.Status.valueOf("CANCELLED"))); // valid leave status values
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new LeaveStatus(StatusEnum.Status.APPROVED).toString(), "APPROVED");
+        assertEquals(new LeaveStatus(StatusEnum.Status.CANCELLED).toString(), "CANCELLED");
+        assertEquals(new LeaveStatus(StatusEnum.Status.PENDING).toString(), "PENDING");
+        assertEquals(new LeaveStatus(StatusEnum.Status.REJECTED).toString(), "REJECTED");
     }
 }

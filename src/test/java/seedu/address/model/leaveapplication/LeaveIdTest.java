@@ -1,7 +1,9 @@
 package seedu.address.model.leaveapplication;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVEID_BOB_LEAVE;
 
 import org.junit.Test;
 
@@ -34,5 +36,13 @@ public class LeaveIdTest {
         assertTrue(LeaveId.isValidLeaveId(1)); // positive number
         assertTrue(LeaveId.isValidLeaveId(20)); // positive number
         assertTrue(LeaveId.isValidLeaveId(100000)); // large positive number
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new LeaveId(VALID_LEAVEID_BOB_LEAVE).toString(), VALID_LEAVEID_BOB_LEAVE.toString());
+        assertEquals(new LeaveId(0).toString(), "0");
+        assertEquals(new LeaveId(50).toString(), "50");
+        assertEquals(new LeaveId(1000).toString(), "1000");
     }
 }

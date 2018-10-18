@@ -37,19 +37,29 @@ public class LeaveApplication {
         this.dates.addAll(dates);
     }
 
-    public LeaveId getId() { return id; }
+    public LeaveId getId() {
+        return id;
+    }
 
-    public Description getDescription() { return description; }
+    public Description getDescription() {
+        return description;
+    }
 
-    public LeaveStatus getLeaveStatus() { return leaveStatus; }
+    public LeaveStatus getLeaveStatus() {
+        return leaveStatus;
+    }
 
-    public Person getEmployee() { return employee; }
+    public Person getEmployee() {
+        return employee;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Date> getDates() { return Collections.unmodifiableSet(dates); }
+    public Set<Date> getDates() {
+        return Collections.unmodifiableSet(dates);
+    }
 
     /**
      * Returns true if both leave applications have the same identity and data fields.
