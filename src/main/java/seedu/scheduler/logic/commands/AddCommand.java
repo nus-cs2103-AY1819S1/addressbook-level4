@@ -18,6 +18,8 @@ import seedu.scheduler.model.event.Event;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_ALIAS_ONE = "ad";
+    public static final String COMMAND_ALIAS_TWO = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the scheduler. "
             + "Parameters: "
