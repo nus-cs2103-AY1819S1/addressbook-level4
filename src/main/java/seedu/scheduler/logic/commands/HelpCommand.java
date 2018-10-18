@@ -11,6 +11,9 @@ import seedu.scheduler.model.Model;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String COMMAND_ALIAS_ONE = "hel";
+    public static final String COMMAND_ALIAS_TWO = "he";
+    public static final String COMMAND_ALIAS_THREE = "h";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;

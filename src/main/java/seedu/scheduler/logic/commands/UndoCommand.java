@@ -13,6 +13,9 @@ import seedu.scheduler.model.Model;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_ALIAS_ONE = "und";
+    public static final String COMMAND_ALIAS_TWO = "un";
+    public static final String COMMAND_ALIAS_THREE = "u";
     public static final String MESSAGE_SUCCESS = "Undo success!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
