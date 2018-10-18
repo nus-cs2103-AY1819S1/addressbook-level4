@@ -450,6 +450,62 @@ image::uiStructure.PNG[width="350]
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive
 
+// tag::login[]
+=== Login/Logout feature
+==== Current Implementation
+
+The Login/Logout feature is facilitated through the use of creating a login screen before the application begins, ensuring that the user starts by logging into his account.
+
+These operations are exposed in the MainWindow class through `fillLoginParts()`, `removeLoginWindow()`, `removeInnerElements()`, `processLogin(LoginEvent)` and `processLogout(LogoutEvent)`
+
+[NOTE]
+While the login screen is displayed, other usual UI elements, such as the `browserPanel`, `PersonListPanel`, `ResultDisplay`, `StatusBarFooter`, `CommandBox` are not initialized at all, so they cannot be accessed.
+
+[NOTE]
+To ensure that most tests still work with a login system, the `MainWindowHandle`, used by all GUI tests, automatically logs the user in right after the UI element loads.
+
+The following steps show how the program works as the user login:
+
+1. When the program is started, UIManager creates the MainWindow and tells it to `fillLoginParts()`.
+
+2. The user enters his details, and clicks login.
+
+3. This causes the `LoginForm` to fire a `LoginEvent` onto the central EventBus, with the username and password saved into the `LoginEvent`.
+
+4. The `mainWindow` class catches the `LoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
+
+When the user wishes to logout, he enters logout, which triggers the following:
+
+1. The `LogoutEvent` is fired by the `LogoutCommand`.
+
+2. The `mainWindow` class catches the `LogoutCommand` and processes it, removing the main UI elements and replacing it with the `fillLoginParts()`
+
+==== Design Considerations
+
+===== Aspect: How the login screen is displayed
+
+* **Alternative 1 (current choice):** Create a login screen before initializing other UI elements on the fly.
+** Pros: One single window. Clear to the user which window to focus on. Most applications work this way, so it should be familiar to the majority of our users.
+** Cons: Harder to implement. Need to take into account other possible UI elements, preload only those that are required, and ensure that tests stay supported.
+* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup up. Once the user has logged in, the login window will close and the main window will pop up.
+** Pros: Far easier to implement. Login system abstracted away from other functionality.
+** Cons: It will be hard to maintain the same window size as the login window, if the user resizes it. More coupling would be required to maintain the same window size. Very odd and unfamiliar to most users. No application today opens a login window, then on successful login, closes that login window and opens a new one, meant for the user to use. This can cause a lot of user confusion. They may think that:
+*** The new window is representing error message, it should not have opened.
+*** The application had an error and unexpectedly shutdown.
+*** The new window is from another application that the user has running on his computer.
+*** They did something wrong (perhaps they pressed the button to close the window instead?)
+*** The developers are idiots.
+
+===== Aspect: UI Elements to build the login system
+
+* **Alternative 1 (current choice):** Using the same placeholders already available, place the appropriate UI elements on the screen.
+** Pros: Easy to implement. Utilizes the same placeholders currently in the system, so will adapt the same way to window re-sizing.
+** Cons: Looks uglier than if the window was created solely to enter login data
+* **Alternative 2:** Build the window from scratch to show login UI elements.
+** Pros: Nicer, the UI elements are built for login
+** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might asa well go with Alternative 1.
+// end::undoredo[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
