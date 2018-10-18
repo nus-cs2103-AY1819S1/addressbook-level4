@@ -10,6 +10,7 @@ import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -34,7 +35,6 @@ public class EditEventDescriptorBuilder {
      */
     public EditEventDescriptorBuilder(Event event) {
         descriptor = new EditEventDescriptor();
-        descriptor.setUuid(event.getUuid());
         descriptor.setEventName(event.getEventName());
         descriptor.setStartDateTime(event.getStartDateTime());
         descriptor.setEndDateTime(event.getEndDateTime());
@@ -43,6 +43,7 @@ public class EditEventDescriptorBuilder {
         descriptor.setRepeatType(event.getRepeatType());
         descriptor.setRepeatUntilDateTime(event.getRepeatUntilDateTime());
         descriptor.setTags(event.getTags());
+        descriptor.setReminderDurationList(event.getReminderDurationList());
     }
 
     /**
@@ -102,6 +103,14 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code ReminderDurationList} of the {@code EditEventDescriptor} that we are building.
+     */
+    public EditEventDescriptorBuilder withReminderDurationList(ReminderDurationList reminderDurationList) {
+        descriptor.setReminderDurationList(reminderDurationList);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditEventDescriptor}
      * that we are building.
      */
@@ -114,4 +123,5 @@ public class EditEventDescriptorBuilder {
     public EditEventDescriptor build() {
         return descriptor;
     }
+
 }

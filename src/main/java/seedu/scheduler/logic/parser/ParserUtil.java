@@ -2,6 +2,7 @@ package seedu.scheduler.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
@@ -19,9 +20,11 @@ import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -32,6 +35,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
     public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
+    public static final String MESSAGE_FAILED_PRIORITY_PARSE = "Priority is not valid";
+    public static final String EMPTY_STRING = "";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -150,4 +155,37 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_FAILED_REPEAT_TYPE_PARSE, repeatType));
         }
     }
+
+    /**
+     *
+     * @param reminderDuration a string representing a duration
+     * @return a duration object
+     * @throws ParseException
+     */
+    public static Duration parseReminderDuration(String reminderDuration) throws ParseException {
+        requireNonNull(reminderDuration);
+        String parseDuration = reminderDuration;
+        parseDuration.replace(" ", "");
+        parseDuration = "PT".concat(parseDuration.replace("d", "D"));
+        parseDuration = parseDuration.replace("h", "H");
+        parseDuration = parseDuration.replace("min", "m").toUpperCase();
+        return Duration.parse(parseDuration);
+    }
+
+    /**
+     * Parses {@code Collection<String> reminderTimes} into a {@code Set<DateTime>}.
+     */
+    public static ReminderDurationList parseReminderDurations(Collection<String> reminderDurations)
+            throws ParseException {
+        requireNonNull(reminderDurations);
+        ReminderDurationList reminderDurationList = new ReminderDurationList();
+        for (String reminderDuration : reminderDurations) {
+            if (reminderDuration.equals(EMPTY_STRING)) {
+                return reminderDurationList;
+            }
+            reminderDurationList.add(parseReminderDuration(reminderDuration));
+        }
+        return reminderDurationList;
+    }
+
 }

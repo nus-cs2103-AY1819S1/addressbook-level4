@@ -22,6 +22,7 @@ import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -86,7 +87,7 @@ public class EditCommand extends Command {
      */
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
-
+        UUID eventUid = editEventDescriptor.getUid().orElse(eventToEdit.getUid());
         UUID eventUuid = editEventDescriptor.getUuid().orElse(eventToEdit.getUuid());
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
         DateTime updatedStartDateTime = editEventDescriptor.getStartDateTime().orElse(eventToEdit.getStartDateTime());
@@ -97,8 +98,11 @@ public class EditCommand extends Command {
         DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
                 .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        return new Event(eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
-                updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags);
+        ReminderDurationList updatedReminderDurationList =
+                editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
+        return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
+                updatedDescription, updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags,
+                updatedReminderDurationList);
     }
 
     @Override
@@ -124,6 +128,7 @@ public class EditCommand extends Command {
      * corresponding field value of the event.
      */
     public static class EditEventDescriptor {
+        private UUID uid;
         private UUID uuid;
         private EventName eventName;
         private DateTime startDateTime;
@@ -133,6 +138,7 @@ public class EditCommand extends Command {
         private RepeatType repeatType;
         private DateTime repeatUntilDateTime;
         private Set<Tag> tags;
+        private ReminderDurationList reminderDurationList;
 
         public EditEventDescriptor() {}
 
@@ -141,6 +147,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditEventDescriptor(EditEventDescriptor toCopy) {
+            setUid(toCopy.uid);
             setUuid(toCopy.uuid);
             setEventName(toCopy.eventName);
             setStartDateTime(toCopy.startDateTime);
@@ -150,6 +157,7 @@ public class EditCommand extends Command {
             setRepeatType(toCopy.repeatType);
             setRepeatUntilDateTime(toCopy.repeatUntilDateTime);
             setTags(toCopy.tags);
+            setReminderDurationList(toCopy.reminderDurationList);
         }
 
         /**
@@ -157,7 +165,15 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(eventName, startDateTime, endDateTime, description,
-                    venue, repeatType, repeatUntilDateTime, tags);
+                    venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
+        }
+
+        public void setUid(UUID uid) {
+            this.uid = uid;
+        }
+
+        public Optional<UUID> getUid() {
+            return Optional.ofNullable(uid);
         }
 
         public void setUuid(UUID uuid) {
@@ -232,6 +248,14 @@ public class EditCommand extends Command {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
+        public void setReminderDurationList(ReminderDurationList reminderDurationList) {
+            this.reminderDurationList = reminderDurationList;
+        }
+
+        public Optional<ReminderDurationList> getReminderDurationList() {
+            return Optional.ofNullable(reminderDurationList);
+        }
+
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
@@ -263,7 +287,8 @@ public class EditCommand extends Command {
                     && getVenue().equals(e.getVenue())
                     && getRepeatType().equals(e.getRepeatType())
                     && getRepeatUntilDateTime().equals(e.getRepeatUntilDateTime())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getReminderDurationList().equals(e.getReminderDurationList());
         }
     }
 }
