@@ -3,6 +3,10 @@ package seedu.address.model.project;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Project's name in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class ProjectName {
 
     public static final String MESSAGE_PROJECT_NAME_CONSTRAINTS = "Project names should not be blank";
