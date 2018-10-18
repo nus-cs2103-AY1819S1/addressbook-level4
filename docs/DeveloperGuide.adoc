@@ -162,6 +162,7 @@ Read <<Design-Storage,*`Storage`*>> for more details.
 [discrete]
 ==== Events-Driven nature of the design
 
+The Expense Tracker's architecture style is events-driven style. Here is an illustration of how this architecture works.
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
@@ -777,7 +778,7 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-We use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request has changes to asciidoc files.See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+We use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request has changes to asciidoc files. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
@@ -792,9 +793,9 @@ for more details.
 === Managing Dependencies
 
 Expense Tracker depends on many third-party libraries. e.g. We use http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing in Expense Tracker.
-Below are different methods to manage these _dependencies_:
+Below are different ways to manage these _dependencies_:
 
-a. Automate managing these _dependencies_ using Gradle. Gradle can download the dependencies automatically. (this is better than other alternatives) +
+a. Use Gradle to manage these _dependencies_. Gradle can download the dependencies automatically. (this is better than other alternatives) +
 b. Include those libraries in the repo (this bloats the repo size) +
 c. Require developers to download those libraries manually (this creates extra work for developers)
 
