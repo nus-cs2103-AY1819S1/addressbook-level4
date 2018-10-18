@@ -29,8 +29,8 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-
 Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is *optimised for those who prefer to work with a Command Line Interface* (CLI) while retaining the benefits of a Graphical User Interface (GUI). If you can type fast, SSP can get your schedule management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 == Quick Start
 .  Install Java `9` if you do not have, download it from link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
@@ -51,187 +51,202 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-====
+****
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, `NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
 * Items in square brackets are optional e.g [blue]`n/NAME [c/CATEGORY]` can be used as [blue]`n/do CS2100 tutorial c/CS2100` or as [blue]`n/do CS2100 tutorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [blue]`c/tutorial`, [blue]`c/tutorial c/CS2100` etc.
 * Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
-====
+****
 
 === Viewing Help :
 
 View complete list of all commands. +
 ====
-Format: [blue]`help` +
+[blue]`help` +
 ====
+
 
 
 === Adding a Task:
 
-Adds a task to the schedule planner +
+Adds a task to the schedule planner. +
 ====
-Format: +
 [blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
-
-Example:
-[#src-listing]
-[source, java]
-add n/tutorial3 p/3 t/CS3241 d/101018 v/home
 ====
+Example: +
+====
+Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 
+Outcome: Adds a task named "exam" with priority level "3",
+tag "CS3241" and deadline of 10th October 2018, venue at mpsh1.
+====
+The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
 [CAUTION]
-Ensure that you have included the name, priority level, deadline and venue.
+Ensure that you have included the name, priority level and deadline for tasks except exam.
 
 [TIP]
 Tags are optional, you do not need to add them.
 
-* The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
-
-Example:
-
-* `add n/Buy Apples p/1 t/Groceries d/270319 v/market` +
-Adds a task named "Buy Apples" with priority level "1", tag "Groceries" and deadline of 27th March 2019.
 
 
-=== Listing all tasks : `list task`
+
+=== Listing All Tasks :
 
 Shows a list of all tasks in the schedule planner. +
-Format: `list task`
+====
+[blue]`list task`
+====
 
-=== Editing a task : `edit`
+=== Editing a Task :
 
 Edits an existing task in the schedule planner. +
-Format: `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]`
+====
+[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]`
+====
+Example:
 
-****
-* Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing categories, the existing categories of the task will be removed i.e adding of categories is not cumulative.
-* You can remove all the task's categories by typing `c/` without specifying any categories after it.
-****
+====
+input: [blue]`edit 3 p/1 d/121019` +
+output: Priority of existing task with index 3 to 1, and its deadline is changed to 12th October 2019 .
+====
 
+
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
+
+
+At least one of the optional fields must be provided. Existing values of provided field
+will be updated to the input values.
+
+[CAUTION]
+The existing tags of the task will be removed when tag is edited. If input is
+[blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
+
+[TIP]
+To remove all tags of a existing task, you can just type [blue]`c/`.
+If input is [blue]`task 3 c/`, all the tags of task 3 will be removed.
+
+
+
+[TIP]
+Use the [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified.
+For example, you can use [blue]`listday` to list out tasks due today, and userefer to the tasks according to index used
+in current list.
+
+
+=== Finding Tasks by Name:
+
+Find tasks whoes names match with given keyword. +
+====
+[blue]`find KEYWORD`
+====
+Example:
+====
+input: [blue]`find tutorial` +
+output: All tasks that has "tutorial" in their names are listed out.
+====
+
+The search is case insensitive. For example, [blue]`apples` will match [blue]`Apples`.
+
+The order of the keywords does not matter. For example,  [blue]`apples buy` will match [blue]`buy apples`. +
+
+[TIP]
+You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
+[blue]`CS3230` or [blue]`CS5229`.
+
+
+
+
+=== Filter Tasks by Tag: (Coming in v1.3)
+Find tasks that has tag match with given keyword tags
+====
+[blue]`filter KEYWORD`
+====
+Example:
+====
+input: [blue]`filter tutorial` +
+output: All tasks that has tag matching with [blue]`tutorial` are listed out.
+====
+
+The search is case insensitive. e.g `apples` will match `Apples`.
+
+
+[TIP]
+You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial quiz project`
+will return all tasks with tag matching with at least one of the provided tags in input.
+
+
+=== Deleting a Task :
+
+Delete the specified task from the schedule planner. +
+
+====
+[blue]`delete task INDEX`
+====
+
+Example:
+====
+input: [blue]`delete task 3` +
+output: Task with index 3 delete from schedule planner.
+====
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
 Use the `list task` command to find out the index of the task to be modified.
 
-Examples:
 
-* `edit task 1 n/CS2103T Milestone 2 p/3 t/School Work d/270398` +
-Edits the name, priority level, tag and deadline of the 1st task to be CS2103 Milestone 2, 3, School Work and 270398
-respectively.
-
-* `edit 2 t/ d/` +
-Edits the tag and deadline of the 2nd task to be blank.
-
-=== Searching tasks by name: `search task`
-
-Finds tasks whose names contain any of the given keywords. +
-Format: `search task KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `apples` will match `Apples`
-* The order of the keywords does not matter. e.g. `apples buy` will match `buy apples`
-* Only the name is searched.
-* Only full words will be matched e.g. `apple` will not match `apples`
-* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `buy apples` will return `buy grapes`, `apples expire`
-****
-
-Examples:
-
-* `search task John` +
-Returns `meet john` and `email John`
-* `search task CS2103 group meeting` +
-Returns any task containing words `CS2103`, `group`, or `meeting`
-
-=== Searching tasks by category: `search tag`
-
-Finds tasks whose tags contain any of the given keywords. +
-Format: `search tag KEYWORD`
-
-****
-* The search is case insensitive. e.g `apples` will match `Apples`.
-* Only the category is searched.
-* Only full words will be matched e.g. `apple` will not match `apples`.
-****
-
-[TIP]
-You can include multiple tags to improve to make your searches more specific.
-
-Examples:
-
-* `search tag tutorial` +
-Returns any task which has the tag "tutorial"
-
-=== Deleting a task : `delete task`
-
-Deletes the specified task from the schedule planner when you complete the task. +
-Format: `delete task INDEX`
-
-****
-* Deletes the task at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-[TIP]
-Use the `list task` command to find out the index of the task to be modified.
-
-
-Examples:
-
-* `list task` +
-`delete task 2` +
-Deletes the 2nd task in the schedule planner.
-* `search task tutorial` +
-`delete task 1` +
-Deletes the 1st task in the results of the `search task` command.
-
-=== Viewing tasks due today : `listday`
+=== Viewing Tasks Due Today :
 
 View tasks that are due today. +
-Format: `listday`
+====
+[blue]`listday`
+====
 
-=== Viewing tasks due till Sunday : `listweek`
+=== Viewing Tasks Due This Termweek:
 
 View tasks that are due from current date till the closest Sunday. +
-Format: `listweek`
+====
+[blue]`listweek`
+====
 
-=== Listing overdue tasks: `list overdue`
+=== Listing Overdue Tasks: (Coming in v1.3)
 
 Lists all the overdue tasks. +
-Format: `list overdue`
+====
+[blue]`list overdue`
+====
 
-=== Sorting task by priority level : `sort priority`
+=== Listing All tags :
 
-Sorts the list of tasks by priority. Highest priority tasks (level 3) will be shown first. +
-Format: `sort priority`
+Shows a list of all existing tags. +
+====
+[blue]`list tag`
+====
 
-=== Listing categories : `list category`
+The categories will be listed in alphabetical order.
 
-Shows a list of existing categories. +
-Format: `list category`
 
-****
-* The categories will be listed in alphabetical order.
-****
-
-=== Listing entered commands : `history`
+=== Listing Used Commands :
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+====
+[blue]`history`
+====
 
-[NOTE]
+[TIP]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
-
+=== Undoing previous command :
 Restores the schedule planner to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+
+====
+[blue]`undo`
+====
 
 [NOTE]
 ====
@@ -242,56 +257,40 @@ Undoable commands: those commands that modify the schedule planner's content (`a
 Use the `history` command to decide if you want to undo the previous _undoable_ command.
 
 
-Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
+=== Redoing the Previous Undo Command :
 
 Reverses the most recent `undo` command. +
-Format: `redo`
-
+====
+`redo`
+====
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+====
+[blue]`delete1` +
+[blue]`clear` +
+[blue]`undo` (reverses the `clear` command) +
+[blue]`undo` (reverses the `delete 1` command) +
+[blue]`redo` (reapplies the `delete 1` command) +
+[blue]`redo` (reapplies the `clear` command) +
+====
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
+=== Clearing All Entries :
 
 Clears all entries from the schedule planner. +
-Format: `clear`
+====
+[blue]`clear`
+====
 
-=== Exiting the program : `exit`
+=== Exiting the App :
 
-Exits the program. +
-Format: `exit`
+Exits the application. +
+====
+`exit`
+====
 
-=== Saving the data
+=== Saving the Data
 
 Data in the Student Schedule Planner is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
