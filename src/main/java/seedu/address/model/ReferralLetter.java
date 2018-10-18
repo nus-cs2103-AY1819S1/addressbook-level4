@@ -29,9 +29,8 @@ public class ReferralLetter extends Document {
     @Override
     public String generate() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.generateHeaders());
-        sb.append(super.tabFormat("Name: " + name + "\n"));
-        sb.append(super.tabFormat("NRIC: " + icNumber + "\n"));
+        sb.append("Name: " + name + "\n");
+        sb.append("NRIC: " + icNumber + "\n");
         return sb.toString();
     }
 }
