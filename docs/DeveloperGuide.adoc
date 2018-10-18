@@ -136,12 +136,17 @@ Use case ends.
 
 #### Extensions
 * 1a. The additional task dependency creates a cyclic dependency
-** 1a1. Application rejects the additional task dependency
+** 1a1. Application shows an error message, rejects the additional task dependency
 
 Use case resumes at step 1 in MSS.
 
 * 1b. The user enters the add dependency command in a wrong format.
 ** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+* 1c. The dependency already exists in the model
+** 1c1. Application shows an error message, rejects the additional task dependency
 
 Use case resumes at step 1 in MSS.
 
@@ -230,6 +235,7 @@ Use case ends.
 #### Extensions
 * 2a. User loses enough points that it level down.
     * 2a1. Application displays a warning message, current points, and points lost to user.
+
 Use case ends.
 
 ## Non-functional requirements
