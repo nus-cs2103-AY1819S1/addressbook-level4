@@ -522,6 +522,42 @@ The 8PM pop-up is still in the Pop-up queue.
 
 // end::Pop-up Alert[]
 
+
+// tag::addDeleteListTag[]
+=== Add/Delete/List Tags
+
+==== Current Implementation
+Current tag is implemented as a feature of event instead of an independent object stored in local storage.
+
+Similar to add event command, all tags are stored in local storage.
+
+The `addtag` command allows user to add new tags to the scheduler. Add Tag Command is facilitated by the `AddTagCommand` class.
+The format of this command is `add [TAG_NAME]`.
+
+`AddTagCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `AddTagCommandParser`.
+The `AddTagCommandParser` parses the user input and generates tag. The `Model` component is responsible for updating the internal tag list.
+
+Given below is the execution flow of `Add Tag Command`.
+
+1. When user inputs a command, `LogicManager` will call the `parseCommand` method in `SchedulerParser` with the user input as arguments.
+2. If the user input is valid and contains the keyword `addtag`, `AddTagCommandParser` will be instantiated.
+3. `SchedulerParser` will then call the `parse` method of `AddTagCommandParser`.
+4. `AddTagCommandParser` parses the user input with the respective parsing methods.
+5. `AddTagCommand` will be instantiated with the list of tags.
+7. `LogicManager` will the proceed to call the `execute` command of `AddTagCommand`.
+8. `Model` Component will then add the list of tags to an internal list of tags using the `addTags` method.
+
+==== Delete Tag Command
+
+To be updated.
+
+==== List Tag Command
+
+To be updated.
+
+{more to be updated}
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -1188,3 +1224,38 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+[appendix]
+== Release Plan
+
+*He Xinyi*
+
+v1.1 Implementation on Pop-up function based on Event start time only
+v1.2 Create input data field to enable customisable pop-up time
+v1.3 Full implementation: Allow pop-up function to update accordingly whenever events are changed
+
+
+*Zhang Yezhong*
+
+v1.1
+v1.2
+v1.3
+
+*Goh Cheng Yu*
+
+v1.1
+v1.2
+v1.3
+
+*Wu Jiacheng*
+
+v1.1 Partial implementation on tag book storage
+v1.2 Partial implementation on tag functions
+v1.3 Full implementation of tag functions
+
+*Daniel*
+
+v1.1
+v1.2
+v1.3
