@@ -44,17 +44,34 @@ public class Person {
     }
 
     /**
-     * Overriden constructor that allows specification of a profile picture
+     * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, salary, projects);
+                  PermissionSet permissionSet) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.salary = salary;
         this.address = address;
         this.projects.addAll(projects);
+        this.permissionSet.addAll(permissionSet);
+        this.profilePic = Optional.empty();
+    }
+
+    /**
+     * Overriden constructor that allows specification of a profile picture
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
+                  PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.salary = salary;
+        this.address = address;
+        this.projects.addAll(projects);
+        this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
     }
 

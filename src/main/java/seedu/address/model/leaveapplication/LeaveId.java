@@ -15,6 +15,7 @@ public class LeaveId {
 
     /**
      * Constructs a {@code LeaveId}.
+     *
      * @param leaveId A valid leave ID.
      */
     public LeaveId(Integer leaveId) {
