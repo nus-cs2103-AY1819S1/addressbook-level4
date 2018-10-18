@@ -173,7 +173,7 @@ Format: `list`
 === Editing an event : `edit`
 
 Edits an existing event in the scheduler. +
-Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG] [re/REMINDER_TIMES]... `
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG] [re/REMINDER_TIMES]...`
 
 ****
 * Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ...
@@ -193,6 +193,7 @@ Edits the event name and description of the 1st event to be `Do not study again`
 Edits the event name of the 2nd event to be `Play` and clears all existing tags.
 * `edit 2 re/` +
 Clear all the event's reminder times.
+
 === Locating events by event name: `find`
 
 Finds events whose event names contain any of the given keywords. +
