@@ -476,8 +476,8 @@ Certain properties of the application can be controlled (e.g App name, logging l
 This section describes the details on how the volunteer management features are implemented.
 
 // tag::exportcert[]
-==== Export Volunteer Certificate
-The `exportcert` command enables the volunteer manager to export a PDF document (certificate) detailing a volunteer's involvement with the organisation. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
+==== Export Volunteer Certificate [Coming in V1.3]
+The `exportcert` command enables the volunteer manager to export a PDF document detailing a volunteer's involvement with the organisation, to his/her Desktop. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
 
 * Organisation's logo
 * Volunteer Name and NRIC
@@ -487,31 +487,34 @@ The `exportcert` command enables the volunteer manager to export a PDF document 
 
 This is a sample of the exported PDF certificate:
 
+.Sample exported volunteer certificate
+[.thumb]
 image::VolunteerCert.png[width="600"]
+
 
 ===== Intended Implementation
 
 The following is a high level overview of this feature's implementation:
 
-* Inclusion of supported `exportcert` command.
+* Creation of supported `exportcert` command.
 * Retrieval of the specified volunteer's details.
 * Creation of a new PDF document using Apache PDFBox.
-* Export of the PDF document to a certs folder.
+* Export of the PDF document to the user's Desktop.
 
 ===== Design Considerations
 
-====== Aspect: Medium of Presentation
+====== Aspect: Medium of presentation
 
-* **Alternative 1 (current choice):** Export as PDF.
+* *Alternative 1 (current choice):* Export as PDF
 +
 [cols="1,10"]
 |===
 |*Pros*| Exports volunteer details in a convenient format for immediate use and distribution.
-|*Cons*| PDF template has to be set within the application.
+|*Cons*| PDF template has to be preset within the application.
 |===
 +
 
-* **Alternative 2:** Display volunteer data in a window within the application.
+* *Alternative 2:* Display volunteer data in a window within the application
 +
 [cols="1,10"]
 |===
@@ -520,19 +523,18 @@ The following is a high level overview of this feature's implementation:
 |===
 +
 
+====== Aspect: Choice of PDF creation tool
 
-====== Aspect: Choice of PDF Creation Tool
-
-* **Alternative 1 (current choice):** Apache PDFBox
+* *Alternative 1 (current choice):* Apache PDFBox
 +
 [cols="1,10"]
 |===
-|*Pros*| Open source, offers more specific functionality for PDFs than Apache FOP, covers all of the pdf creation and manipulation functionality required for this feature.
+|*Pros*| Open source, offers more specific functionality for PDFs than Apache FOP, and covers all of the pdf creation and manipulation functionality required for this feature.
 |*Cons*| Not the most efficient for creating PDFs (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
 |===
 +
 
-* **Alternative 2:** Apache FOP
+* *Alternative 2:* Apache FOP
 +
 [cols="1,10"]
 |===
@@ -541,17 +543,16 @@ The following is a high level overview of this feature's implementation:
 |===
 +
 
-* **Alternative 3:** iText
+* *Alternative 3:* iText
 +
 [cols="1,10"]
 |===
 |*Pros*| Fastest of the lot for PDF generation (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
-|*Cons*| Now only available as a free trial, requires a license.
+|*Cons*| Now only available as a free trial, and requires a license for extended use.
 |===
 +
 
-
-====== Aspect: Identifying Volunteer from Certificate
+====== Aspect: Choice of additional details for identifying volunteer from certificate
 
 * **Alternative 1 (current choice):** Use Volunteer's NRIC
 +
