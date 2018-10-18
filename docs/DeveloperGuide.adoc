@@ -393,14 +393,14 @@ Model of the project has been created. `Project` will store information such as 
 
 The following diagram shows the class added to reflect the model `Project`:
 
-image::ProjectModel.png[width="450"]
+image::ProjectModel.PNG[width="450"]
 
 ===== Aspect: Storage
 Add `XmlSerializableProjectList` and `XmlAdaptProject` class to Storage component. `XmlAdaptProject` will then have the element for project name, project author and project description.
 
 The following diagram shows the class `XmlSerializableProjectList` added to reflect the changes in storage component:
 
-image::XmlSerializableProjectList.png[width="450"]
+image::XmlSerializableProjectList.PNG[width="450"]
 
 ==== Aspect: Logic
 When user enter the commands related to project, the commands will be parser to correct execution. Below are the examples scenarios:
