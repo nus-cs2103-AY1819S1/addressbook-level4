@@ -449,13 +449,8 @@ to update the new stock levels of exiting medicine.
 Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
 for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
 
-<<<<<<< HEAD
-Step 4: At the end of the day, the receptionist needs to keep track of which stock supply is low. She enters 'checkStock`
-which will list out all medicine that are low in supply.
-=======
 Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
->>>>>>> 0815a1add574e6bb61a1ab5098328f3c73497e9d
 //end::medicine[]
 
 // tag::pqms[]
