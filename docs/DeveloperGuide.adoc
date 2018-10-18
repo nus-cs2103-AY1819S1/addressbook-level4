@@ -352,8 +352,8 @@ This section describes some noteworthy details on how certain features are imple
 Look at https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation
 Its really good
 
-###  Batch Completion via Label feature
-#### Current Implementation
+### 3.2. Batch Completion via Label feature
+#### 3.2.1. Current Implementation
 
 The batch completion mechanism is facilitated by `CompleteCommand`.
 It extends `Command` and encapsulates the internal logic of finding task and completing multiple
@@ -413,9 +413,9 @@ Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
 Step 2. The user sees all tasks previously displayed on the screen which matches the label change
 it's status to `COMPLETED`
 
-#### Design Considerations
+#### 3.2.2. Design Considerations
 
-##### Aspect: Implementation of atomicity
+##### 3.2.2.1. Aspect: Implementation of atomicity
 
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
@@ -428,7 +428,7 @@ commit if deemed that all tasks can be completed successfully else throw an exce
 ** Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
 batch operation.
 
-##### Aspect: Handling different CompleteCommand behaviour
+##### 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
 
 * **Alternative 1 (current choice):** Overloading the constructors and implement the logic for
 both behaviours within.
@@ -441,7 +441,7 @@ classes for each of the behaviours.
 ** Pros: Clear separation of concern.
 ** Cons: Harder to design properly.
 
-##### Aspect: Representation of predicate to be stored by CompleteCommand
+##### 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
 `LabelMatchesKeywordPredicate`.
@@ -454,8 +454,8 @@ quirks as opposed to commonly recognised _Alternative 2_
  Abstract Methods.
 ** Cons: Inability to properly check for equality.
 
-###  Model Rollback feature
-#### Current Implementation
+### 3.3. Model Rollback feature
+#### 3.3.1. Current Implementation
 
 Allows for any uncommitted changes to be discarded.
 
@@ -468,7 +468,7 @@ latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to re
 the latest commit, also the `currentStatePointer` is set to point at the index of the latest
 commit in `taskManagerStateList`.
 
-### 3.3. Logging
+### 3.4. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -487,7 +487,7 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### 3.4. Configuration
+### 3.5. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
 ## 4. Documentation
