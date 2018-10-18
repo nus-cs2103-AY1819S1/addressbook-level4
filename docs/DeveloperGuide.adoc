@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main
+:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
@@ -157,16 +157,20 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== User Interface
+
+The _User Interface_ (UI) consists of a `MainWindow` that is made up of different components.
+Please refer to _Figure 5_ below for more details on how they are connected.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+All of these components, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework. The layout of these _UI_ components are defined in matching `.fxml` files
+that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component,
 
