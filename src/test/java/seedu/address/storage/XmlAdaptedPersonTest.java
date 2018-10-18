@@ -1,9 +1,13 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +27,7 @@ public class XmlAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_PROJECT = "#friend";
-
+    private static final String INVALID_PERMISSION = "INVALID_PERMISSION";
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
@@ -31,6 +35,10 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final List<XmlAdaptedProject> VALID_PROJECTS = BENSON.getProjects().stream()
             .map(XmlAdaptedProject::new)
+            .collect(Collectors.toList());
+    private static final List<XmlAdaptedPermission> VALID_PERMISSION = BENSON.getPermissionSet()
+            .getGrantedPermission().stream()
+            .map(XmlAdaptedPermission::new)
             .collect(Collectors.toList());
 
     @Test
@@ -107,5 +115,36 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
+
+    @Test
+    public void toModelType_invalidPermission_throwsIllegalValueException() {
+        List<XmlAdaptedPermission> invalidPermission = new ArrayList<>(VALID_PERMISSION);
+        invalidPermission.add(new XmlAdaptedPermission(INVALID_PERMISSION));
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_PROJECTS,
+                        invalidPermission);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
+    }
+
+    @Test
+    public void equals() {
+        XmlAdaptedPerson person = new XmlAdaptedPerson(BENSON);
+        // same object -> returns true
+        assertTrue(person.equals(person));
+
+        // same values -> returns true
+        XmlAdaptedPerson duplicatePerson = new XmlAdaptedPerson(BENSON);
+        assertTrue(person.equals(duplicatePerson));
+
+        // different types -> returns false
+        assertFalse(person.equals(1));
+
+        // null -> returns false
+        assertFalse(person.equals(null));
+
+        // different person -> returns false
+        XmlAdaptedPerson newPerson = new XmlAdaptedPerson(ALICE);
+        assertFalse(person.equals(newPerson));
+    }
 
 }

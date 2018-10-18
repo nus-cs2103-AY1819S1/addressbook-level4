@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Person;
 
 /**
@@ -29,7 +30,8 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .build();
+            .withPermissionSet(new PermissionSet(PermissionSet.PresetPermission.ADMIN)).build();
+
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
