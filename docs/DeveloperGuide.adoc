@@ -403,28 +403,28 @@ Step 3a.1 The selected Person object in the `UniqueArchiveList` will be transfer
 
 The following activity diagram summarizes what happens when a user executes remove and restore command:
 
-image::archiveActivityDiagram.png[width="350]
+image::archiveActivityDiagram.PNG[width="350]
 
 ===== Aspect: Model
 Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueArchiveList` will store 0 or more `Person` objects.
 
 The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
 
-image::modelStructure.png[width="350]
+image::modelStructure.PNG[width="350]
 
 ===== Aspect: Storage
 Added a `XmlSerializableArchiveList` object to Storage component.
 
 The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
 
-image::storageStructure.png[width="350]
+image::storageStructure.PNG[width="350]
 
 ===== Aspect: UI
 Added a `ArchiveDisplay` object to `MainWindow` of UI component.
 
 The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
 
-image::uiStructure.png[width="350]
+image::uiStructure.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
