@@ -383,6 +383,77 @@ The commands executable by the user will depend on their class.
 // tag::project
 === Project Management
 Project management is an important feature in company mangement system. As such there are four critical features of project management. These feature are `addproject`, `listproject`, `deleteproject` and `assignproject`.
+
+These commands could only be executed by user with the "Department manager" permission.
+
+==== Proposed Implementation
+
+===== Aspect: Model
+Model of the project has been created. `Project` will store information such as the `projectName`, `projectAuthor` and `projectDescription`.
+
+The following diagram shows the class added to reflect the model `Project`:
+
+===== Aspect: Storage
+Add `XmlSerializableProjectList` and `XmlAdaptProject` class to Storage component. `XmlAdaptProject` will then have the element for project name, project author and project description.
+
+The following diagram shows the class `XmlSerializableProjectList` added to reflect the changes in storage component:
+
+==== Aspect: Logic
+When user enter the commands related to project, the commands will be parser to correct execution. Below are the examples scenarios:
+
+===== Add Project
+Step 1. The user enters a command `addproject` into the CLI.
+
+Step 2. The system parse the command to execute `AddProjectCommand`.
+
+Step 3. The system parse the project information to the respective fields.
+
+Step 4. The System checks if there exist the same project.
+* Two differnt cases:
+** If no existing project, stores the project.
+** If there is existing project, inform the user and do not store the project.
+
+Step 5. The system shows the result of the command.
+
+===== Delete Project
+Step 1. The user enters a command `deleteproject 1` into the CLI.
+
+Step 2. The system parse the command to execute `DeleteProjectCommand`.
+
+Step 3. The system locate the index and delete the project and its information.
+
+===== Assign Project
+Step 1. The user enters a command `assigproject 1 -n Alex` into the CLI.
+
+Step 2. The system parse the command to execute `AssignProjectCommand`.
+
+Step 3. The system parse the information.
+
+Step 4. Check if selected name is available.
+
+Step 4. The system assign the selected project into the `Project` attribute of user.
+
+===== List Project
+Step 1. The user enters a command `listproject` into the CLI.
+
+Step 2. The system parse the command to execute `ListProjectCommand`.
+
+Step 3. The system retrieves all projects.
+
+Step 4. The system list the projects.
+
+==== Design Consideration
+===== Aspect: Storage
+* Alternative 1 (Current Choice): store project information in Xml file.
+
+** Pros: Xml file has extensibility, as it has no fixed set of tags. Allowing future developers to enhance the information of the project.
+** Cons: Inefficient retrival of information of the project when the storage size gets too big.
+
+* Alternative 2: store the project information using database system.
+
+** Pros: Fast and efficient retrival of information, even when the amount of data is massive.
+** Cons: Saparated system needs to be set up to store infomation. Additional cost.
+
 // end::project
 
 // tag::archive
