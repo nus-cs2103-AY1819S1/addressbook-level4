@@ -414,9 +414,12 @@ User input for email content is saved as HTML Text so that users with HTML Text 
 The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
 It creates `.ics` files and saves them onto the local computer. Calendars in Hallper are created as monthly
 calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
-It implements the following command:
+It implements the following commands:
 
 * `create_calendar` -- Creates a monthly calendar and store it in local memory.
+* `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
+* `add_event` -- Adds an event of a specified time frame into the monthly calendar.
+* `delete_event` -- Deletes an existing event in the monthly calendar.
 
 ===== Create_Calendar Command
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
