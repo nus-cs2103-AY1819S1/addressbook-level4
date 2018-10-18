@@ -83,11 +83,11 @@ public class TypicalExpenses {
             .withCost("2.00").build();
 
     // Manually added - Expense's details found in {@code CommandTestUtil}
-    public static final Expense AMY = new ExpenseBuilder().withName(VALID_NAME_GAME).withCategory(VALID_CATEGORY_GAME)
+    public static final Expense GAME = new ExpenseBuilder().withName(VALID_NAME_GAME).withCategory(VALID_CATEGORY_GAME)
             .withCost(VALID_COST_GAME)
             .withDate(VALID_DATE_1990)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Expense BOB =
+    public static final Expense IPHONE =
             new ExpenseBuilder().withName(VALID_NAME_IPHONE).withCategory(VALID_CATEGORY_IPHONE)
             .withCost(VALID_COST_IPHONE)
             .withDate(VALID_DATE_2018)

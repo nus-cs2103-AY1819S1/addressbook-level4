@@ -24,8 +24,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
-import static seedu.address.testutil.TypicalExpenses.AMY;
-import static seedu.address.testutil.TypicalExpenses.BOB;
+import static seedu.address.testutil.TypicalExpenses.GAME;
+import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
@@ -60,7 +60,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_EXPENSE;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + CATEGORY_DESC_BOB + " " + COST_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Expense editedExpense = new ExpenseBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Expense editedExpense = new ExpenseBuilder(IPHONE).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedExpense);
         /* Case: undo editing the last expense in the list -> last expense restored */
         command = UndoCommand.COMMAND_WORD;
@@ -75,14 +75,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a expense with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        assertCommandSuccess(command, index, IPHONE);
         /* Case: edit a expense with new values same as another expense's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getExpenseList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getExpenseList().contains(IPHONE));
         index = INDEX_SECOND_EXPENSE;
-        assertNotEquals(getModel().getFilteredExpenseList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredExpenseList().get(index.getZeroBased()), IPHONE);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + CATEGORY_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedExpense = new ExpenseBuilder(BOB).withName(VALID_NAME_GAME).build();
+        editedExpense = new ExpenseBuilder(IPHONE).withName(VALID_NAME_GAME).build();
         assertCommandSuccess(command, index, editedExpense);
 
         /* Case: edit a expense with new values same as another expense's values but with different category and cost
@@ -91,7 +91,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_EXPENSE;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_AMY
                 + COST_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedExpense = new ExpenseBuilder(BOB).withCategory(VALID_CATEGORY_GAME).withCost(VALID_COST_GAME).build();
+        editedExpense = new ExpenseBuilder(IPHONE).withCategory(VALID_CATEGORY_GAME).withCost(VALID_COST_GAME).build();
         assertCommandSuccess(command, index, editedExpense);
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_EXPENSE;
@@ -126,7 +126,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + COST_DESC_AMY + TAG_DESC_FRIEND + DATE_DESC_1990;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new expense's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, GAME, index);
         /* ------------------------------ Performing invalid edit operation ----------------------------------- */
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
@@ -158,10 +158,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
         /* Case: edit a expense with new values same as another expense's values -> rejected */
-        executeCommand(ExpenseUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getExpenseList().contains(BOB));
+        executeCommand(ExpenseUtil.getAddCommand(IPHONE));
+        assertTrue(getModel().getAddressBook().getExpenseList().contains(IPHONE));
         index = INDEX_FIRST_EXPENSE;
-        assertFalse(getModel().getFilteredExpenseList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredExpenseList().get(index.getZeroBased()).equals(IPHONE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSE);

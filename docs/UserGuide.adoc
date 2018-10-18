@@ -52,7 +52,9 @@ image::userguide/ui.png[width="790"]
 
 There are six main components to the user interface, each highlighted by the coloured box as per the diagram above.
 
-=== Expense List / Statistics Panel (Red)
+=== Expense List / Statistics Panel
+
+This is the portion highlighted in the red box.
 
 ==== Expense List
 The Expense List shows the list of expenses. By default, the list will show all expenses in the Expense Tracker.
@@ -67,22 +69,31 @@ Each expense has an index number next to the expense name. These are relevant to
 When the `stats` command is used, the Expense List changes to the Statistics Panel, where statistics about expenses
 will be displayed.
 
-=== Budget Tracker (Blue)
+=== Budget Tracker
+
+This is the portion highlighted in the blue box.
 
 This is a feature which is work in progress.
 
-=== Notifications Panel (Green)
+=== Notifications Panel
+
+This is the portion highlighted in the green box.
 
 This is a feature which is work in progress.
 
-=== Command Box and Console (Yellow)
+=== Command Box and Console
+
+This is the portion highlighted in the yellow box.
 
 The Command Box is where the "Enter command here..." is located. To enter a command in the Command Box, user your mouse
 and click anywhere within the box, then proceed to type a command. +
 
-The Console is where any success and error messages may appear which are relevant to the most recent command entered.
+The Console is where any success and error messages, relevant to the most recent command entered, will appear .
 
-=== Menu Bar (Orange)
+=== Menu Bar
+
+This is the portion highlighted in the orange box.
+
 The menu bar contains two submenus, which allow the user to either exit the application or to open the help window.
 These have the same effect as using the commands `exit` and `help` respectively.
 
@@ -315,7 +326,7 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Sets recurring frequency for budget: `setRecurringFrequency`
+=== Setting a recurring frequency for budget: `setRecurringFrequency`
 Sets the recurrence frequency for the budget of the expense tracker.
 
 The expense tracker will reset your budget after every `FREQUENCY`
