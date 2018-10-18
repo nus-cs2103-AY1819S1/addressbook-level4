@@ -471,7 +471,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::leaveapplication[]
-=== Leave Application feature
+=== Leave Application
 ==== Current Implementation
 
 A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
