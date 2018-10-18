@@ -5,6 +5,7 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_VALU
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -24,6 +25,7 @@ import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -42,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATE_TIME,
                         PREFIX_END_DATE_TIME, PREFIX_DESCRIPTION, PREFIX_VENUE,
-                        PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME, PREFIX_TAG);
+                        PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME, PREFIX_TAG, PREFIX_EVENT_REMINDER_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -71,13 +73,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tags = argMultimap.getValue(PREFIX_TAG).isPresent()
                 ? ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG))
                 : Collections.emptySet();
+        ReminderDurationList reminderDurationList = ParserUtil.parseReminderDurations(
+                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
         }
 
         Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags);
+                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
 
         return new AddCommand(event);
     }

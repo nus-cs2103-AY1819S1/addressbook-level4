@@ -56,7 +56,7 @@ Responsibilities: Storage
 '''
 
 === He Xinyi
-image::hexinyiyi.jpg[width="150", align="left"]
+image::hexinyiyi.png[width="150", align="left"]
 {empty}[https://github.com/hexinyiyi[github]] [<<hexinyiyi#, portfolio>>]
 
 Role: Developer + Testing +

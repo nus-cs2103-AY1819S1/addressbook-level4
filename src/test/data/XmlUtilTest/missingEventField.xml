@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Event with missing eventName field -->
 <event>
+    <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
     <uuid>aef6b77e-20a7-4de4-8402-343fbd475fd3</uuid>
     <startDateTime>2018-09-21T11:00</startDateTime>
     <endDateTime>2018-09-21T12:00</endDateTime>
@@ -9,4 +10,5 @@
     <repeatType>NONE</repeatType>
     <repeatUntilDateTime>2018-09-21T12:00</repeatUntilDateTime>
     <tagged>play</tagged>
+    <reminderDurationList>PT15M: false</reminderDurationList>
 </event>

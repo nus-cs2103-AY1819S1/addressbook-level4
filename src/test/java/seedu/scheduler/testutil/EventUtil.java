@@ -40,6 +40,7 @@ public class EventUtil {
         sb.append(PREFIX_VENUE + event.getVenue().value + " ");
         sb.append(PREFIX_REPEAT_TYPE + event.getRepeatType().name() + " ");
         sb.append(PREFIX_REPEAT_UNTIL_DATE_TIME + event.getRepeatUntilDateTime().getPrettyString() + " ");
+        sb.append(event.getReminderDurationList().getPrettyString() + " ");
         event.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -65,6 +66,10 @@ public class EventUtil {
                 .append(repeatType.name()).append(" "));
         descriptor.getRepeatUntilDateTime().ifPresent(repeatUntilDateTime -> sb.append(PREFIX_REPEAT_UNTIL_DATE_TIME)
                 .append(repeatUntilDateTime.getPrettyString()).append(" "));
+        sb.append(descriptor.getReminderDurationList().get().getPrettyString()).append(" ");
+        /*System.out.println(descriptor.getReminderDurationList().get().get());
+        descriptor.getReminderDurationList().ifPresent(reminderDurationList ->
+                sb.append(reminderDurationList.getPrettyString()).append(" "));*/
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

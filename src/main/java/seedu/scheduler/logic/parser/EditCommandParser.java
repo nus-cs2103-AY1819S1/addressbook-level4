@@ -5,6 +5,7 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -37,7 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATE_TIME, PREFIX_END_DATE_TIME,
                         PREFIX_DESCRIPTION, PREFIX_VENUE, PREFIX_REPEAT_TYPE,
-                        PREFIX_REPEAT_UNTIL_DATE_TIME, PREFIX_TAG);
+                        PREFIX_REPEAT_UNTIL_DATE_TIME, PREFIX_TAG, PREFIX_EVENT_REMINDER_DURATION);
 
         Index index;
 
@@ -74,8 +75,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             editEventDescriptor.setRepeatUntilDateTime(
                     ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get()));
         }
+        if (!argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).isEmpty()) {
+            editEventDescriptor.setReminderDurationList(
+                    ParserUtil.parseReminderDurations(argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION)));
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
-
         if (!editEventDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

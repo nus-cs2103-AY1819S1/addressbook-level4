@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <event>
+    <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
+    <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
     <uuid>aef6b77e-20a7-4de4-8402-343fbd475fd3</uuid>
     <eventName>CS2103 Tutorial</eventName>
     <startDateTime>2018-09-21T11:00</startDateTime>
@@ -9,4 +11,5 @@
     <repeatType>NONE</repeatType>
     <repeatUntilDateTime>2018-09-21T12:00</repeatUntilDateTime>
     <tagged>play</tagged>
+    <reminderDurationList>PT15M: false</reminderDurationList>
 </event>

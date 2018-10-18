@@ -14,5 +14,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPEAT_TYPE = new Prefix("rt/");
     public static final Prefix PREFIX_REPEAT_UNTIL_DATE_TIME = new Prefix("ru/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
+    public static final Prefix PREFIX_EVENT_REMINDER_DURATION = new Prefix("re/");
 }
