@@ -9,10 +9,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DependencyGraph;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
+
 /**
- * Initiates a depedency between a dependant task and a dependee task.
+ * Initiates a dependency between a dependant task and a dependee task.
  * The dependent task is dependent on dependee task.
  */
 public class DependencyCommand extends Command {
@@ -21,33 +23,42 @@ public class DependencyCommand extends Command {
     public static final String MESSAGE_ALREADY_DEPENDANT =
             "The dependee task is already dependent on the dependant task";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Dependency identified by hashcode of the task.\n"
-            + "Parameters: Index of task dependee, Index of task dependant\n"
+            + ": Dependency of dependant on dependee.\n"
+            + "Parameters: Index of task dependant, Index of task dependee\n"
             + "Example: " + COMMAND_WORD + " 1 2";
+    public static final String MESSAGE_CYCLIC_DEPENDENCY = "New dependency will introduce a cyclic dependency";
     private final Index dependantIndex;
     private final Index dependeeIndex;
+
     public DependencyCommand(Index dependantIndex, Index dependeeIndex) {
         requireNonNull(dependantIndex);
         requireNonNull(dependeeIndex);
         this.dependantIndex = dependantIndex;
         this.dependeeIndex = dependeeIndex;
     }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
+        //Checking if indexes are out of bounds
         if (dependantIndex.getZeroBased() >= lastShownList.size()
                 || dependeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
+        //Checking if dependant or dependee already contains dependency
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
         if (taskDependee.getDependency().containsDependency(taskDependee)) {
             throw new CommandException(MESSAGE_ALREADY_DEPENDANT);
         }
-
+        //Checking if introducing dependency will create a cyclic dependency
         Task updatedTask = createDependantTask(taskDependant, taskDependee);
+        DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
+        if (dg.checkCyclicDependency(updatedTask)) {
+            throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);
+        }
+        //Passes all checks
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
