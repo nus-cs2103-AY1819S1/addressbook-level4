@@ -112,7 +112,7 @@ public class ParserUtil {
         requireNonNull(visitor);
         String trimmedVisitor = visitor.trim();
         if (!Visitor.isValidVisitor(trimmedVisitor)) {
-            throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
+            throw new ParseException((Visitor.MESSAGE_NAME_CONSTRAINTS));
         }
         return new Visitor(trimmedVisitor);
     }
