@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -47,10 +48,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
         SavedAmount savedAmount = new SavedAmount("0.0");
         Remark remark = new Remark(""); // remark cannot be added manually by add command
+        LinkedList<Wish> transactions = new LinkedList<>();
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Wish wish = new Wish(name, price, email, url, savedAmount, remark, tagList);
+        Wish wish = new Wish(name, price, email, url, savedAmount, remark, tagList, transactions);
 
         return new AddCommand(wish);
     }

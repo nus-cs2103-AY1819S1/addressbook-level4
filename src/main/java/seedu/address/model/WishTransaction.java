@@ -76,6 +76,14 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     }
 
     /**
+     * Getter for wishMap.
+     * @return
+     */
+    public HashMap<String, LinkedList<Wish>> getWishTransactionMap() {
+        return wishMap;
+    }
+
+    /**
      * Adds a wish to {@code wishMap} using {@code wish} full name as key.
      * @param wish
      */
@@ -252,7 +260,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     private Wish getUpdatedWish(Set<Tag> updatedTags, Wish target) {
         return new Wish(target.getName(), target.getPrice(), target.getEmail(),
-                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags);
+                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags,
+                target.getTransactions());
     }
 
     /**
