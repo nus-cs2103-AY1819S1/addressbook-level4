@@ -88,7 +88,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Adds an employee into the system.
 
-Format: `add -n NAME [-e EMAIL] [-n NUMBER][-s SALARY]`
+Format: `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
@@ -97,17 +97,17 @@ Format: `add -n NAME [-e EMAIL] [-n NUMBER][-s SALARY]`
 Examples:
 
 * `add -n Joshua -s 15000`
-* `add -n Raynard -s 10000`
+* `add -n Raynard -e rnardha@gmail.com -n 91235678`
 
 === Removing an employee from my department: `remove`
 
 Removes an employee from the system.
 
-Format: `remove -id ID [-n NAME]`
+Format: `remove -id ID`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
-* All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archve.
+* All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
 Examples:
@@ -130,7 +130,7 @@ Lists all employees, using a given criteria.
 
 Format: `sort -CRITERIA`
 
-There are many different criteries like name, department, etc.
+There are many different criteria like name, department, etc.
 
 * To sort by name, replace CRITERIA with n
 * To sort by department, replace CRITERIA with d
@@ -154,24 +154,22 @@ Examples:
 
 * `detail -id S12301`
 
-=== Apply for leave : `leave`
+=== Apply for leave : `leave add`
 
-Apply for leave during a specific date.
+Apply for leave on specific dates.
 
-Format: `leave DATE to DATE`
-
-* Format of date: DD/MM/YYYY
-
-* First DATE must be before second DATE
+Format: `leave add -de DESCRIPTION -da DATE [-da DATE]`
 
 ****
-* The program will attempt to parse your time. If it cannot do so, you will be guided through an interactive prompt to set your leave dates.
+* Format of date: YYYYMMDD
+* The user must specify at least 1 `DATE`.
+* If the `DATE` is of an illegal format, the command will be accepted.
 * To use this command, you must be logged in as an employee.
 ****
 
 Examples:
 
-* `leave 01/01/2018 to 02/02/2018`
+* `leave add -de Family holiday -da 20181018 20181019 `
 
 === Search employees by name : `search`
 
@@ -185,30 +183,33 @@ Format: `search NAME`
 
 Examples:
 
-* `search John Doe`
+* `search jian yu`
 
 * `search doe`
 
 === Filter employees by criteria : `filter`
 
-Search all employees that have their name for within an applied filter.
+Displays employees with details that match certain criteria specified.
 
-Format: `filter -n NAME [-d DEPARTMENT]`
+Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
 
 ****
-* NAME can be any name or parts of name.
+* Replace `CRITERIA` with `n` to filter by name.
+* Replace `CRITERIA` with `d` to filter by department.
+* Replace `FILTER_CRITERIA` with the name or department you want to filter.
 ****
+Examples:
+* `filter -n Tan`
+* `filter -n Albert -d Marketing`
 
 === Edit details : `edit`
 
 Changes the users details (such as contact information).
 
-Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY][-t PROJECT]`
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY]`
 
 * Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
-
 * At least one of the optional fields must be provided.
-
 * Existing values will be updated to the input values.
 
 ****
@@ -216,13 +217,11 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY][-t 
 * Existing values will be updated to the input values
 * More fields could be added based on any details stored on employees.
 ****
-
 Examples:
-
-* `edit 1 -p91234567 -ejohndoe@example.com`
-
-* `edit 2 -nJames`
-
+****
+* `edit 1 -p 91234567 -e johndoe@example.com`
+* `edit 2 -n James`
+****
 
 === Change password : `password`
 
@@ -289,15 +288,16 @@ Format: `exit [-f]`
 * *Login* : `login -u USERNAME` +
 e.g. login -u Kok
 * *History* : `history` +
-* *Sort employee display list* : `sort -n NAME [-d DEPARTMENT]` +
-* *Apply for leave* : `leave DATE to DATE` +
-e.g. leave 1/1/2019 to 30/1/2019
+* *Sort employee display list* : `sort -CRITERIA` +
+e.g. sort -d
+* *Apply for leave* : `leave add -de DESCRIPTION -da DATE [-da DATE]` +
+e.g. leave add -de Family holiday -da 20181018 20181019
 * *Search employees by name* : `search NAME` +
 e.g. search Joshua
-* *Filter employees by criteria* : `filter -n NAME [-d DEPARTMENT]` +
+* *Filter employees by criteria* : `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]` +
 e.g. filter -n Jeremy Choo -d Development
-* *Edit details* : `edit [-n NUMBER] [-e EMAIL]` +
-e.g. edit -n 12312312
+* *Edit details* : `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY]` +
+e.g. edit 1 -p 91234567 -e johndoe@example.com
 * *Change password* : `password`
 * *View income summary* : `summary`
 * *Exit* : `exit [-f]`
@@ -305,11 +305,11 @@ e.g. edit -n 12312312
 === Employee with "Department Manager" permissions
 * *Adding an employee to a department* : `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]` +
 e.g. add -n Elliot -e Elliot@gmail.com
-* *Removing an employee* : `remove -id ID [-n NAME]` +
+* *Removing an employee* : `remove -id ID` +
 e.g. remove -id E01312
 * *List effectiveness of sector by profit* : `sector`
-* *List employees* : `detail -id ID [-n NAME]` +
-e.g. detail -n Elliot
-* *View employee leave summary* : `leavesummary` +
+* *View details of an employee* : `detail -id ID` +
+e.g. detail -id E01312
+* *View employee leave summary* : `leavesummary`
 * *View deleted employee archive* : `archive`
 
