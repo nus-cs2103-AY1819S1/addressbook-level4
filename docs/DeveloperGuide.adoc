@@ -354,10 +354,30 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-### 3.1. Undo/Redo feature
+### 3.1. Dependency Feature
 #### 3.1.1. Current Implementation
-Look at https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation
-Its really good
+The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+a hashset that contains the hashcode of the object that the task is dependent upon.
+
+#### 3.1.2 Design Considerations
+Aspect: Modelling of the embedded dependency object
+Alternative 1(current choice): Add a new string of the hashcode into the hashset.
+Pros: Simple to implement. When a task dependency is added, there is no task creation propogation. (refer to alternative 2).
+Easy to reform the dependency graph.
+Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+finding details of the dependee task given its hashcode.
+
+Alternative 2: Add a reference to the dependant Task object into the hashset.
+Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced to rather than recreated every
+time a topological sort or a cyclical check is needed.
+Cons: Introduces unnecessary complications.
+1) When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.
+2) Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated. i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
+other tasks that depends on A has to be recreated.
+
+
+
 
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
