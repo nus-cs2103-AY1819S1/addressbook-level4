@@ -470,6 +470,39 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::leaveapplication[]
+=== Leave Application feature
+==== Current Implementation
+
+A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
+
+image::LeaveApplicationSequenceDiagram.png[width="800"]
+
+Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
+
+1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE...]` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
+
+image::LeaveApplicationModelDiagram.png[width="800"]
+
+2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. 
+
+3. The `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` and finally saved into a file by the <<25-storage-component, Storage>> component.
+
+==== Design Considerations
+
+===== Aspect: How a `LeaveApplication` is stored
+
+* **Alternative 1 (current choice):** Saves it only as a part of `Person`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system.
+* **Alternative 2:** Stores it only as a part of `AddressBook`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
+* **Alternative 3:** Stores it as a part `Person` as well as `AddressBook`.
+** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
+** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+// end::leaveapplication[]
+
 == Documentation
 
 We use asciidoc for writing documentation.
