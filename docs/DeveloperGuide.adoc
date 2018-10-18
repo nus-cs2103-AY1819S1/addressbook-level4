@@ -123,6 +123,9 @@ Before you start coding, get a sense of the overall design by reading <<Design-A
 [[Design-Architecture]]
 === Architecture
 
+[discrete]
+==== Overview of Architecture
+
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
@@ -141,26 +144,25 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+`Logic` is the command executor. It defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+Read <<Design-Logic,*`Logic`*>> for more details. Its class diagram is given below:
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
+`UI` is responsible for the UI of the App. It defines its API in the `Ui.java` interface and exposes its functionality using the `UiManager.java` class.
+Read <<Design-Ui,*`UI`*>> for more details.
+
+`Model` holds the data of the App in-memory. It defines its API in the `Model.java` interface and exposes its functionality using the `ModelManager.java` class.
+Read <<Design-Model,*`Model`*>> for more details.
+
+`Storage` reads data from, and writes data to, the hard disk.It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
+Read <<Design-Storage,*`Storage`*>> for more details.
+
 [discrete]
 ==== Events-Driven nature of the design
 
+The Expense Tracker's architecture style is events-driven style. Here is an illustration of how this architecture works.
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
@@ -765,7 +767,7 @@ This section includes common issues that arise during testing.
 
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+We use Gradle for build automation. See <<UsingGradle#, UsingGradle.adoc>> for more details.
 
 === Continuous Integration
 
@@ -776,22 +778,26 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+We use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request has changes to asciidoc files. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
-Here are the steps to create a new release.
+Follow the steps below to create a new release:
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+.  Create a new release using GitHub and upload the JAR file you created. See https://help.github.com/articles/creating-releases/
+for more details.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Expense Tracker depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
+Expense Tracker depends on many third-party libraries. e.g. We use http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing in Expense Tracker.
+Below are different ways to manage these _dependencies_:
+
+a. Use Gradle to manage these _dependencies_. Gradle can download the dependencies automatically. (this is better than other alternatives) +
+b. Include those libraries in the repo (this bloats the repo size) +
+c. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
