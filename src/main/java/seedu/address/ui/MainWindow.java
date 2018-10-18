@@ -20,6 +20,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SortPanelViewEvent;
+import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -167,6 +169,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         if (currentPanel != null) {
+            // Reminder that all Swappable* implementations should extend UiPart<Region>
             panelPlaceholder.getChildren().remove(((UiPart<Region>) currentPanel).getRoot());
         }
 
@@ -254,9 +257,24 @@ public class MainWindow extends UiPart<Stage> {
     void releaseResources() {
     }
 
+    //==================== Event Handling Code ===============================================================
+
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    private void handleSwapPanelViewEvent(SwapPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setCurrentPanel(event.getSwappablePanelName());
+    }
+
+    @Subscribe
+    private void handleSortPanelViewEvent(SortPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        sortCurrentPanel(event.getColIdx());
     }
 }

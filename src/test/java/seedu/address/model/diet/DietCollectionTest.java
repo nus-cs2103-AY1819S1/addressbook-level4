@@ -55,8 +55,8 @@ public class DietCollectionTest {
     @Test
     public void getAllergies() {
         List<Diet> expectedAllergies = new LinkedList<>();
-        expectedAllergies.add(milkAllergy);
         expectedAllergies.add(eggAllergy);
+        expectedAllergies.add(milkAllergy);
 
         assertEquals(new DietCollection(dietSetOne).getAllergies(), expectedAllergies);
     }

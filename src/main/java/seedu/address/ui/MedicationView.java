@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -74,33 +74,6 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         this.persons = persons;
         this.sortOrder = FXCollections.observableArrayList(new ArrayList<>());
         registerAsAnEventHandler(this);
-    }
-
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
-        currentSelection = event.getNewSelection();
-        refreshTableView(currentSelection);
-    }
-
-    /**
-     * Current strategy is to refresh the medication panel every time a new result is available.
-     * This might potentially burden the app for every new result available.
-     * Might want to consider creating a new type of event for submitting medication and subscribing only to that.
-     * TODO?
-     */
-    @Subscribe
-    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
-
-        // If we're not looking at anything, there's no need to update.
-        if (currentSelection == null) {
-            return;
-        }
-
-        currentSelection = getNewReferenceToPerson(currentSelection);
-        refreshView();
-        sortTableView();
     }
 
     /**
@@ -236,8 +209,8 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
     private SimpleStringProperty getActiveStatusAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
         LocalDate today = LocalDate.now();
         LocalDate endDate = LocalDate.parse(param.getValue()
-                                                         .getDuration()
-                                                         .getEndDateAsString(),
+            .getDuration()
+            .getEndDateAsString(),
             Duration.DATE_FORMAT);
 
         boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) < 0;
@@ -296,5 +269,34 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         // and we need to re-set our table view's sort order to the
         // 'old' sort order to preserve sorting.
         prescriptionTableView.sort();
+    }
+
+    /* ====================== Event handling ====================== */
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
+        currentSelection = event.getNewSelection();
+        refreshTableView(currentSelection);
+    }
+
+    /**
+     * Current strategy is to refresh the medication panel every time a new result is available.
+     * This might potentially burden the app for every new result available.
+     * Might want to consider creating a new type of event for submitting medication and subscribing only to that.
+     * TODO?
+     */
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
+
+        // If we're not looking at anything, there's no need to update.
+        if (currentSelection == null) {
+            return;
+        }
+
+        currentSelection = getNewReferenceToPerson(currentSelection);
+        refreshView();
+        sortTableView();
     }
 }
