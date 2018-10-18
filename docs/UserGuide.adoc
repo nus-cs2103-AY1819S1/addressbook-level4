@@ -60,16 +60,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
 ****
 
-=== Viewing Help :
+=== Viewing Help
 
-View complete list of all commands. +
+Open user guide page. +
 ====
 [blue]`help` +
 ====
 
 
 
-=== Adding a Task:
+=== Adding a Task
 
 Adds a task to the schedule planner. +
 ====
@@ -83,7 +83,7 @@ Outcome: Adds a task named "exam" with priority level "3",
 tag "CS3241" and deadline of 10th October 2018, venue at mpsh1.
 ====
 The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
-[CAUTION]
+[WARNING]
 Ensure that you have included the name, priority level and deadline for tasks except exam.
 
 [TIP]
@@ -92,14 +92,14 @@ Tags are optional, you do not need to add them.
 
 
 
-=== Listing All Tasks :
+=== Listing All Tasks
 
 Shows a list of all tasks in the schedule planner. +
 ====
 [blue]`list task`
 ====
 
-=== Editing a Task :
+=== Editing a Task
 
 Edits an existing task in the schedule planner. +
 ====
@@ -120,7 +120,7 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
 
-[CAUTION]
+[WARNING]
 The existing tags of the task will be removed when tag is edited. If input is
 [blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
 
@@ -136,7 +136,7 @@ For example, you can use [blue]`listday` to list out tasks due today, and useref
 in current list.
 
 
-=== Finding Tasks by Name:
+=== Finding Tasks by Name
 
 Find tasks whoes names match with given keyword. +
 ====
@@ -159,7 +159,7 @@ You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS
 
 
 
-=== Filter Tasks by Tag: (Coming in v1.3)
+=== Filter Tasks by Tag (Coming in v1.3)
 Find tasks that has tag match with given keyword tags
 ====
 [blue]`filter KEYWORD`
@@ -178,7 +178,7 @@ You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial 
 will return all tasks with tag matching with at least one of the provided tags in input.
 
 
-=== Deleting a Task :
+=== Deleting a Task
 
 Delete the specified task from the schedule planner. +
 
@@ -197,28 +197,28 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 Use the `list task` command to find out the index of the task to be modified.
 
 
-=== Viewing Tasks Due Today :
+=== Viewing Tasks Due Today
 
 View tasks that are due today. +
 ====
 [blue]`listday`
 ====
 
-=== Viewing Tasks Due This Termweek:
+=== Viewing Tasks Due This Termweek
 
 View tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
 
-=== Listing Overdue Tasks: (Coming in v1.3)
+=== Listing Overdue Tasks (Coming in v1.3)
 
 Lists all the overdue tasks. +
 ====
 [blue]`list overdue`
 ====
 
-=== Listing All tags :
+=== Listing All tags
 
 Shows a list of all existing tags. +
 ====
@@ -228,7 +228,7 @@ Shows a list of all existing tags. +
 The categories will be listed in alphabetical order.
 
 
-=== Listing Used Commands :
+=== Listing Used Commands
 
 Lists all the commands that you have entered in reverse chronological order. +
 ====
@@ -241,7 +241,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command :
+=== Undoing previous command
 Restores the schedule planner to the state before the previous _undoable_ command was executed. +
 
 ====
@@ -258,7 +258,7 @@ Use the `history` command to decide if you want to undo the previous _undoable_ 
 
 
 
-=== Redoing the Previous Undo Command :
+=== Redoing the Previous Undo Command
 
 Reverses the most recent `undo` command. +
 ====
@@ -276,14 +276,14 @@ Examples:
 ====
 
 
-=== Clearing All Entries :
+=== Clearing Schedule Planner
 
 Clears all entries from the schedule planner. +
 ====
 [blue]`clear`
 ====
 
-=== Exiting the App :
+=== Exiting the App
 
 Exits the application. +
 ====
@@ -301,28 +301,105 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-== FAQ
+
+== Command Summary
+* *Viewing Help* :
+====
+[blue]`help` +
+====
+* *Adding task* :
+====
+[blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+
+Example: +
+[blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
+====
+
+* **Listing All Tasks** :
+====
+[blue]`list task`
+====
+* *Clear* : `clear`
+* *Delete task* : `delete task INDEX` +
+e.g. `delete task 3`
+* **Editing a Task** :
+
+====
+[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]` +
+
+Example: +
+[blue]`edit 3 p/1 d/121019` +
+====
+* **Finding Tasks by Name** :
+
+====
+[blue]`find KEYWORD` +
+
+Example: +
+[blue]`find tutorial` +
+====
+* **Filter Tasks by Tag** : (Coming in v1.3)
+====
+[blue]`filter KEYWORD` +
+
+Example:
+[blue]`filter tutorial`
+====
+* **Viewing Tasks Due Today** :
+====
+[blue]`listday`
+====
+
+** *Viewing Tasks Due This Termweek** :
+=
+====
+[blue]`listweek`
+====
+
+* **Listing Overdue Tasks** : (Coming in v1.3)
+====
+[blue]`list overdue`
+====
+
+* **Listing All tags** :
+
+====
+[blue]`list tag`
+====
+
+
+
+* **Listing Used Commands** :
+====
+[blue]`history`
+====
+
+* **Undoing previous command** :
+====
+[blue]`undo`
+====
+
+* **Redoing the Previous Undo Command** :
+
+====
+`redo`
+====
+
+* **Clearing Schedule Planner** :
+
+====
+[blue]`clear`
+====
+
+* **Exiting the App** :
+
+====
+`exit`
+====
+
+
+== Possible Questions
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Schedule planner folder.
 
-== Command Summary
-
-* *Add task* `add task n/NAME p/PRIORITYLEVEL [d/DEADLINE] [v/VENUE] [t/TAG]...` +
-e.g. `add task n/buy apples p/1 d/111118 v/market t/groceries`
-* *Clear* : `clear`
-* *Delete task* : `delete task INDEX` +
-e.g. `delete task 3`
-* *Edit task* : `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [d/DEADLINE] [v/VENUE] [t/TAGS]...` +
-e.g. `edit 2 n/buy bread d/211118`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find Tutorial`
-* *List tasks due today* : `listday`
-* *List tasks due till Sunday* : `listweek`
-* *List overdue tasks* : `list overdue`
-* *Sort tasks by priority* : `sort priority`
-* *List tags* : `list tags`
-* *Help* : `help`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
