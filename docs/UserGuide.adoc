@@ -68,7 +68,7 @@ If you want multiple tags and reminders, we need to use `[t/]` and [`re`] for mu
 * `DATETIME` is the natural language of date and time in English. (see 3.2.1 - 3.2.4)
 * `REPEAT_TYPE` should be chosen from either daily, weekly or monthly.
 * `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in alphabets.
-* `REMINDER_TIME` is in the format of XX`H`XX`M`XX`S` (case-insensitive), which represents the duration before the "START_DATETIME" that we want to have a pop-up alert. (see 3.2.5)
+* `REMINDER_TIME` is in the format of XX `H` XX `M` XX `S` (case-insensitive), which represents the duration before the `START_DATETIME` that we want to have a pop-up alert. (see 3.2.5)
 
 Examples:
 
@@ -158,11 +158,11 @@ Examples::
 
 Examples::
 |===
-| *Input*      | *Output*
-| 30m/ 30min   | 30 minutes before 'START_DATETIME'
-| 3h           | 3 hours before 'START_DATETIME'
-| 1h30m30s     | 1 hour 30 minutes 30 seconds before 'START_DATETIME'
-| 48h          | 2 days before 'START_DATETIME'
+| *Input*        | *Output*
+| 30m or 30min   | 30 minutes before `START_DATETIME`
+| 3h             | 3 hours before `START_DATETIME`
+| 1h30m30s       | 1 hour 30 minutes 30 seconds before `START_DATETIME`
+| 48h            | 2 days before `START_DATETIME`
 |===
 
 === Listing all events : `list`
