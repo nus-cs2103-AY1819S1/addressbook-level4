@@ -1,4 +1,4 @@
-package seedu.address.model.event;
+package seedu.address.model.event.polls;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,10 +11,25 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+/**
+ * An abstract poll class.
+ */
 public class AbstractPoll {
-    private int id;
-    private String pollName;
-    private HashMap<String, UniquePersonList> pollData;
+    protected int id;
+    protected String pollName;
+    protected HashMap<String, UniquePersonList> pollData;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPollName() {
+        return pollName;
+    }
+
+    public HashMap<String, UniquePersonList> getPollData() {
+        return pollData;
+    }
 
     /**
      * Adds the vote of a user into an option

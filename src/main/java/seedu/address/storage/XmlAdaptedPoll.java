@@ -11,7 +11,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -51,7 +52,7 @@ public class XmlAdaptedPoll {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPoll(Poll source) {
+    public XmlAdaptedPoll(AbstractPoll source) {
         id = Integer.toString(source.getId());
         name = source.getPollName();
         options = source.getPollData()

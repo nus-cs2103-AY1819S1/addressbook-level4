@@ -15,7 +15,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.exceptions.TimePollAddOptionException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
+import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -42,7 +46,7 @@ public class Event {
     private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
-    private final ArrayList<Poll> polls;
+    private final ArrayList<AbstractPoll> polls;
     private final UniquePersonList personList;
 
     /**
@@ -189,9 +193,19 @@ public class Event {
     }
 
     /**
+     * Adds a new TimePoll object to based on the given start and end dates.
+     */
+    public TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) {
+        int id = polls.size() + 1;
+        TimePoll poll = new TimePoll(id, personList, startDate, endDate);
+        polls.add(poll);
+        return poll;
+    }
+
+    /**
      * Gets a poll at the specified index
      */
-    public Poll getPoll(Index index) throws IndexOutOfBoundsException {
+    public AbstractPoll getPoll(Index index) throws IndexOutOfBoundsException {
         try {
             return polls.get(index.getZeroBased());
         } catch (IndexOutOfBoundsException e) {
@@ -199,15 +213,15 @@ public class Event {
         }
     }
 
-    public ArrayList<Poll> getPolls() {
+    public ArrayList<AbstractPoll> getPolls() {
         return polls;
     }
 
     /**
      * Adds polls into the poll list.
      */
-    public void setPolls(ArrayList<Poll> polls) {
-        for (Poll poll : polls) {
+    public void setPolls(ArrayList<AbstractPoll> polls) {
+        for (AbstractPoll poll : polls) {
             this.polls.add(poll);
         }
     }
@@ -215,22 +229,27 @@ public class Event {
     /**
      * Adds an option to the poll at the given index.
      */
-    public Poll addOptionToPoll(Index index, String option) {
-        Poll poll = polls.get(index.getZeroBased());
-        poll.addOption(option);
-        return poll;
+    public Poll addOptionToPoll(Index index, String option) throws TimePollAddOptionException {
+        AbstractPoll poll = polls.get(index.getZeroBased());
+        if (poll instanceof TimePoll) {
+            throw new TimePollAddOptionException();
+        } else {
+            Poll normalPoll = (Poll) poll;
+            normalPoll.addOption(option);
+            return normalPoll;
+        }
     }
 
     /**
      * Adds a person to an option of the poll at the specified index, only if person has joined the event.
      */
-    public Poll addVoteToPoll(Index pollIndex, Person person, String option)
+    public AbstractPoll addVoteToPoll(Index pollIndex, Person person, String option)
             throws UserNotJoinedEventException, DuplicatePersonException {
         if (!personList.contains(person)) {
             throw new UserNotJoinedEventException();
         }
         int index = pollIndex.getZeroBased();
-        Poll poll = polls.get(index);
+        AbstractPoll poll = polls.get(index);
         poll.addVote(option, person);
         return poll;
     }
@@ -255,7 +274,7 @@ public class Event {
             personList.setPerson(target, editedPerson);
             changed = true;
         }
-        for (Poll poll : polls) {
+        for (AbstractPoll poll : polls) {
             poll.updatePerson(target, editedPerson);
         }
         return changed;

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -7,9 +8,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Poll;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
+import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Person;
 
 /**
@@ -134,12 +137,21 @@ public interface Model {
     Poll addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException, NotEventOrganiserException;
 
     /**
+     * Creates a time poll to the pre-selected event with the given name.
+     * @throws NoEventSelectedException
+     * @throws NoUserLoggedInException
+     * @throws NotEventOrganiserException
+     */
+    TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) throws NoEventSelectedException,
+            NoUserLoggedInException, NotEventOrganiserException;
+
+    /**
      * Adds a poll option to the poll at the given index of the pre-selected event.
      * @param index the index of the poll in the list of polls.
      * @param optionName the name of the option.
      * @throws NoEventSelectedException
      */
-    Poll addPollOption(Index index, String optionName) throws NoEventSelectedException;
+    AbstractPoll addPollOption(Index index, String optionName) throws NoEventSelectedException;
 
     /**
      * Adds the current user as a voter for a given option.
@@ -149,8 +161,8 @@ public interface Model {
      * @throws NoEventSelectedException
      * @throws UserNotJoinedEventException
      */
-    Poll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException, NoEventSelectedException,
-            UserNotJoinedEventException;
+    AbstractPoll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException,
+            NoEventSelectedException, UserNotJoinedEventException;
 
     /**
      * Sets the current user of the address book.

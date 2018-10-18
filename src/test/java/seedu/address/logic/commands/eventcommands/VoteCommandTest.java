@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -37,7 +38,8 @@ public class VoteCommandTest {
         model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
-        event.getPoll(index).addOption(OPTION_NAME);
+        Poll poll = (Poll) event.getPoll(index);
+        poll.addOption(OPTION_NAME);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.commitAddressBook();
@@ -99,7 +101,8 @@ public class VoteCommandTest {
         model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
-        event.getPoll(index).addOption(OPTION_NAME);
+        Poll poll = (Poll) event.getPoll(index);
+        poll.addOption(OPTION_NAME);
         event.setPersonList(new ArrayList<>());
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_HAVE_NOT_JOINED);
@@ -114,7 +117,8 @@ public class VoteCommandTest {
         model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
-        event.getPoll(index).addOption(OPTION_NAME);
+        Poll poll = (Poll) event.getPoll(index);
+        poll.addOption(OPTION_NAME);
         event.getPoll(index).addVote(OPTION_NAME, user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_HAVE_ALREADY_VOTED);

@@ -15,7 +15,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.AbstractPoll;
 
 /**
  * Command to adds an option to the specified poll
@@ -45,7 +45,7 @@ public class AddPollOptionCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            Poll poll = model.addPollOption(targetIndex, pollOption);
+            AbstractPoll poll = model.addPollOption(targetIndex, pollOption);
             model.commitAddressBook();
             String result = String.format(MESSAGE_SUCCESS, pollOption, targetIndex.getOneBased());
             String pollDisplayResult = poll.displayPoll();

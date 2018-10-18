@@ -18,6 +18,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
+import seedu.address.logic.commands.eventcommands.AddTimePollCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
 import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
@@ -38,6 +39,7 @@ import seedu.address.logic.commands.personcommands.SelectCommand;
 import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
+import seedu.address.logic.parser.eventparsers.AddTimePollCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
 import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
 import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
@@ -105,6 +107,9 @@ public class AddressBookParser {
 
         case AddPollCommand.COMMAND_WORD:
             return new AddPollCommandParser().parse(arguments);
+
+        case AddTimePollCommand.COMMAND_WORD:
+            return new AddTimePollCommandParser().parse(arguments);
 
         case AddPollOptionCommand.COMMAND_WORD:
             return new AddPollOptionCommandParser().parse(arguments);

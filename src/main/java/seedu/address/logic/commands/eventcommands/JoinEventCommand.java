@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DisplayPollEvent;
 import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -62,6 +63,7 @@ public class JoinEventCommand extends Command {
         model.updateEvent(event, event);
         model.commitAddressBook();
 
+        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo())); //need tests
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         String result = String.format(MESSAGE_SUCCESS, event);
         result += "\n" + "People attending: " + event.getNameList();
