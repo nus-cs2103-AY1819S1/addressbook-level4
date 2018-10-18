@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -11,122 +10,154 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.model.SaveItChangedEvent;
+import seedu.address.commons.util.CollectionUtil;
+
+//import javafx.collections.transformation.SortedList;
+//import seedu.address.model.issue.IssueSort;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the saveIt data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private static final Index ROOT_DIRECTORY = Index.fromZeroBased(0);
+    private final VersionedSaveIt versionedSaveIt;
+    private FilteredList<Issue> filteredIssues;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given saveIt and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlySaveIt saveIt, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        CollectionUtil.requireAllNonNull(saveIt, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with SaveIt: " + saveIt + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedSaveIt = new VersionedSaveIt(saveIt);
+        filteredIssues = new FilteredList<>(versionedSaveIt.getIssueList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new SaveIt(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlySaveIt newData) {
+        versionedSaveIt.resetData(newData);
+        indicateSaveItChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void resetDirectory(Index targetIndex, boolean rootDirectory) {
+        if (rootDirectory) {
+            versionedSaveIt.setCurrentDirectory(targetIndex.getZeroBased());
+        } else {
+            versionedSaveIt.setCurrentDirectory(targetIndex.getOneBased());
+        }
+        indicateSaveItChanged();
+    }
+
+    @Override
+    public int getCurrentDirectory() {
+        return versionedSaveIt.getCurrentDirectory();
+    }
+
+    @Override
+    public ReadOnlySaveIt getSaveIt() {
+        return versionedSaveIt;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateSaveItChanged() {
+        raise(new SaveItChangedEvent(versionedSaveIt));
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasIssue(Issue issue) {
+        requireNonNull(issue);
+        return versionedSaveIt.hasIssue(issue);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public void deleteIssue(Issue target) {
+        versionedSaveIt.removeIssue(target);
+        indicateSaveItChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+    public void addIssue(Issue issue) {
+        versionedSaveIt.addIssue(issue);
+        updateFilteredIssueList(PREDICATE_SHOW_ALL_ISSUES);
+        indicateSaveItChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateIssue(Issue target, Issue editedIssue) {
+        CollectionUtil.requireAllNonNull(target, editedIssue);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        versionedSaveIt.updateIssue(target, editedIssue);
+        indicateSaveItChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void filterIssues(Predicate<Issue> predicate) {
+        updateFilteredIssueList(predicate);
+        // Update the search frequencies after filtering
+        for (Issue issue : filteredIssues) {
+            issue.updateFrequency();
+        }
+
+        // Sorts properly but the UI is not listing properly
+        // SortedList sortedFilteredList = new SortedList<>(filteredIssues, new IssueSort());
+    }
+
+    //=========== Filtered Issue List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Issue} backed by the internal list of
+     * {@code versionedSaveIt}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Issue> getFilteredIssueList() {
+        return FXCollections.unmodifiableObservableList(filteredIssues);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredIssueList(Predicate<Issue> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredIssues.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoSaveIt() {
+        return versionedSaveIt.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoSaveIt() {
+        return versionedSaveIt.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoSaveIt() {
+        versionedSaveIt.undo();
+        indicateSaveItChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoSaveIt() {
+        versionedSaveIt.redo();
+        indicateSaveItChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitSaveIt() {
+        versionedSaveIt.commit();
     }
 
     @Override
@@ -143,8 +174,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedSaveIt.equals(other.versionedSaveIt)
+                && filteredIssues.equals(other.filteredIssues);
     }
 
 }

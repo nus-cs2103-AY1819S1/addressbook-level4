@@ -5,25 +5,28 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
+import java.util.stream.Stream;
+
+import seedu.address.logic.parser.Prefix;
 
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
 
+    private static final String PARTIAL_MATCH_REGEX = "(.*)";
+
     /**
-     * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
-     *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
-     *       </pre>
+     * Returns true if the {@code sentence} is partially matched with the {@code word}
+     *   Ignores cases and full word is not required.
+     *   Examples:
+     *      partialMatchIgnoreCase("hello there", "ello") == true
+     *      partialMatchIgnoreCase("hello there", "heLLO") == true
      * @param sentence cannot be null
-     * @param word cannot be null, cannot be empty, must be a single word
+     * @param word cannot be null or empty, must be a single word
+     * @return
      */
-    public static boolean containsWordIgnoreCase(String sentence, String word) {
+    public static boolean partialMatchIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
 
@@ -31,11 +34,7 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
-
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+        return sentence.toLowerCase().matches(PARTIAL_MATCH_REGEX + preppedWord.toLowerCase() + PARTIAL_MATCH_REGEX);
     }
 
     /**
@@ -64,5 +63,21 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+     * ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(String args, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> args.contains(prefix.getPrefix()));
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+     * ArgumentMultimap}.
+     */
+    public static boolean arePrefixesNotPresent(String args, Prefix... prefixes) {
+        return Stream.of(prefixes).noneMatch(prefix -> args.contains(prefix.getPrefix()));
     }
 }

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= SaveIt - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,11 +13,26 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T12-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-4`      Since: `Sep 2018`      Licence: `MIT`
+
+== Introduction
+
+This Developer Guide is written by the SaveIt team for the benefits of future developers and maintainers of the application.
+
+* *Setup*: The steps you need in order to set up your development environment for the application, as well as any prerequisites required by your system.
+* *Design*: Information on the underlying structure of the code, and how the logic of each model / component interact with each other through Unified Model Diagrams (UMLs).
+* *Implementation*: Contains a detailed explanation on how our core features implemented, and any considerations made behind the implementation.
+* *Documentation*: A general guide of the documentation process of the application.
+* *Testing*: Documentation for the coverage tests of the application and how to set up your testing environment.
+* *Dev Ops*: The general processes used during development phase, and documentation on how to set it up.
+
+**SaveIt** is an open-source project, should any developers be interested, see Contact Us page for more information.
 
 == Setting up
+
+This section provides the prerequisites and steps to set up development environment. The way to verify the set up and essential configurations are also included.
 
 === Prerequisites
 
@@ -59,24 +74,26 @@ This will generate all resources required by the application and tests.
 
 === Configurations to do before writing code
 
+This section provides suggested configurations to check before start coding, including coding style set up, documentation update, as well as Continuous Integration set up.
+
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
 . Click on the `Imports` tab to set the order
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.* `, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `CS2103-AY1819S1-T12-4/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-T12-4/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -105,6 +122,9 @@ When you are ready to start coding,
 
 == Design
 
+This section provides the overview of this application, including the design of architecture, UI, logic, model, storage and common classes.
+Diagrams are also provided for the better understanding.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -116,51 +136,50 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+* At shut down: Shutting down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by other classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components:
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Model,*`Model`*>>: The model holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: The storage reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-[discrete]
-==== Events-Driven nature of the design
+Events-Driven nature of the design.
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteIssue.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how `Model` simply raises a `SaveItChangedEvent` when the SaveIt data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteIssueEventHandling.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
@@ -169,6 +188,8 @@ The sections below give more details of each component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+
+The figure above shows the breakdown of the smaller components involved in the `UI` Component. The `UI` Component is the interface (abstraction barrier) between the user and the underlying components - `Model` and `Logic`.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -189,12 +210,14 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
+The `Logic` Component encapsulates the execution of all commands. Each command is represented its own class (e.g. `FindCommand.java`, `AddCommand.java`) which all inherit from an abstract `Command.java` class.
+
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SaveItParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a statement) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -206,100 +229,141 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponentClassDiagram.png[width="900"]
+
+The `Model` Component contains the classes which are representations of the data stored by the application, and how each data objects are linked with each other.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
-
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the SaveIt data.
+* exposes an unmodifiable `ObservableList<Issue>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+====
+* As a more OOP model, we can store a `Tag` list in `SaveIt`, which `Issue` can reference. This would allow `SaveIt` to only require one `Tag` object per unique `Tag`, instead of each `Issue` needing their own `Tag` object.
+
+* The current model implements a `currentDirectory` to difference edition of issue and edition of solution with the same edit command. Besides, `AddCommand`, `ClearCommand` may also work differently for issues and solutions.
+====
 
 [[Design-Storage]]
 === Storage component
+
+The `Storage` Component is the interface that involves reading and storing the data objects in XML files, which allows data to persist across multiple sessions.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
-
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the SaveIt data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented. Note that this section does not fully encompass all the features, but the more core features of the application.
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+
+The current list mechanism inherits the same implementation from AddressBook.
+
+* `ModelManager#updateFilteredIssueList()` -- Predicate is set to be unused. Indicate no change is required.
+* `FXCollections.unmodifiableObservableList()` -- Return a ObservableList of all issues.
+
+==== Design Considerations
+
+===== List by a specific order
+
+This mechanism relies most on the logic component. ListCommandParser.java need to be implemented to identify if there is a sorting requirement.
+
+Since list should not modify the sorting inside storage, IndicateSaveItChanged should not be raised and this command should not change Model.
+
+There will only be 3 kinds of order that the list can be shown in, as proposed in the following paragraph.
+
+* List by chronological order **(default)** +
+  **Command:** `list chr` +
+  This order follows how the data is stored in Model, reflecting the user's learning journey. +
+  There is no need to implement new Comparator for that.
+
+* List by Tag +
+  **Command:** `list tag` +
+  Tag is mainly used as a way to distinguish different kind of problems, such as Java problems and C problems. This order can help users to identify the issues quickly. +
+  This order requires the tag attribute of every issue to be tracked. A simple idea is to get the TagList and sort all issues according to the tags. +
+  Those issues without a tag should be put at the end of the lists.
+
+* List by search frequency +
+  **Command** `list freq` +
+  Search frequency can reflect the importance of different issues. This order can help users to review important issues more easily.
+  Search frequency tracker is needed for this list order. It can be considered as an attribute just like tags, thus a Comparator which is similar to that used in List by Tag can be used here. +
+
+The following sequence diagram illustrates how the mechanism works:
+
+image::ListByOrderCommandSequenceDiagram.png[width="800"]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSaveIt`.
+It extends `saveit` with an undo/redo history, stored internally as an `saveItStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSaveIt#commit()` -- Saves the current SaveIt state in its history.
+* `VersionedSaveIt#undo()` -- Restores the previous SaveIt state from its history.
+* `VersionedSaveIt#redo()` -- Restores a previously undone SaveIt state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSaveIt()`, `Model#undoSaveIt()` and `Model#redoSaveIt()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSaveIt` will be initialized with the initial SaveIt state, and the `currentStatePointer` pointing to that single SaveIt state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th statement in the SaveIt. The `delete` command calls `Model#commitSaveIt()`, causing the modified state of the SaveIt after the `delete 5` command executes to be saved in the `saveItStateList`, and the `currentStatePointer` is shifted to the newly inserted SaveIt state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new statement. The `add` command also calls `Model#commitSaveIt()`, causing another modified SaveIt state to be saved into the `saveItStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSaveIt()`, so the SaveIt state will not be saved into the `saveItStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the statement was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSaveIt()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous SaveIt state, and restores the SaveIt to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial SaveIt state, then there are no previous SaveIt states to restore. The `undo` command uses `Model#canUndoSaveIt()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+.The above sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSaveIt()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the SaveIt to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `saveItStateList.size() - 1`, pointing to the latest SaveIt state, then there are no undone SaveIt states to restore. The `redo` command uses `Model#canRedoSaveIt()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the SaveIt, such as `list`, will usually not call `Model#commitSaveIt()`, `Model#undoSaveIt()` or `Model#redoSaveIt()`. Thus, the `saveItStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSaveIt()`. Since the `currentStatePointer` is not pointing at the end of the `saveItStateList`, all SaveIt states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+.The above activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
@@ -307,29 +371,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Save the entire SaveIt.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+* **Alternative 2:** Implement redo/undo individually for each of the commands.
+** Pros: Will use less memory (e.g. for `delete`, just save the statement being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of SaveIt states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSaveIt`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -351,9 +408,37 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== New Command: Home
+
+A new command--`home` is implemented to allow users to return to the root directory after editing a certain issue.
+
+=== GUI Enhancement[Coming in v1.3]
+The  figure below shows the expected GUI for SaveIt v1.3.
+
+.GUI Draft 1
+image::UI_Design.png[width="800"]
+
+In the above figure, it is shown the left column displays the list of all issues,
+ The column in the middle displays solutions of the selected issue. The blank part
+  at bottom right displays the web page of the url as in the solution link.
+
+  *The web page should be able to be accessed via the Internet as well as loaded locally.
+
+For SaveIt v1.4, The list of issues and list of solutions can be displayed in the same
+ column, as shown below, Besides, the display panel will be used to display the website
+ or the content of issue remark.
+
+.GUI Draft 2, scenario 1
+image::UI_Design1.png[width="800"]
+
+.GUI Draft 2, scenario 2
+image::UI_Design2.png[width="800"]
+
+
+
 == Documentation
 
-We use asciidoc for writing documentation.
+We use asciidoc for writing documentation. The following sections will provide common knowledge about how to use asciidoc for documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -458,6 +543,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+This section provides information related to testing, including three ways of testing, types of tests as well as troubleshooting testing.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -507,6 +594,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
+This section provides a summary of useful development operations and brief information about them.
+
 === Build Automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
@@ -533,7 +622,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, SaveIt depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -560,50 +649,50 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all issues in the list.
 +
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
+** See this https://github.com/se-edu/saveit-level4/pull/785[PR] for the full email.
 ****
 
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the SaveIt, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the SaveIt.
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/saveit.java[`saveit`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/Saveit.java[`Saveit`] and link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/Saveit.java[`Saveit`] allows you to update an issue, and link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/saveit.java[`saveit`]. Loop through each statement, and remove the `tag` from each statement.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `saveit#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
+** See this https://github.com/se-edu/saveit-level4/pull/790[PR] for the full email.
 ****
 
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your SaveIt application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last statement in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside statement cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -615,12 +704,12 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[the `IssueCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
+** You can modify the existing test methods for `IssueCard` 's to include testing the tag's color as well.
+** See this https://github.com/se-edu/saveit-level4/pull/798[PR] for the full email.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
@@ -643,12 +732,12 @@ image::getting-started-ui-result-after.png[width="200"]
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
+*** The system tests link:{repoURL}/src/test/java/systemtests/SaveItSystemTest.java[`SaveItSystemTest#assertCommandBoxShowsDefaultStyle() and SaveItSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+** See this https://github.com/se-edu/saveit-level4/pull/799[PR] for the full email.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of issues in the SaveIt.
 +
 **Before**
 +
@@ -661,31 +750,31 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the SaveIt is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of issues when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleSaveItChangedEvent(SaveItChangedEvent)`] to update the number of issues whenever there are new changes to the saveit.
+** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of issues status, just like what we did for save location and sync status.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/SaveItSystemTest.java[`SaveItSystemTest`] to also verify the new total number of issues status bar.
+** See this https://github.com/se-edu/saveit-level4/pull/803[PR] for the full email.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the SaveIt to the cloud. However, the current implementation of the application constantly saves the SaveIt after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the SaveIt storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupSaveIt(ReadOnlySaveIt)`, so that the SaveIt can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/SaveItStorage.java[`SaveItStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlSaveItStorage.java[`XmlSaveItStorage`] class.
 * Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
+** See this https://github.com/se-edu/saveit-level4/pull/594[PR] for the full email.
 ****
 
 [[GetStartedProgramming-RemarkCommand]]
@@ -693,18 +782,17 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `saveit`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
+Edits the remark for an issue specified in the `INDEX`. +
+Format: `edit Index r/[REMARK] s/[SOLUTION]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first statement to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first statement.
 
 ==== Step-by-step Instructions
 
@@ -714,12 +802,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/SaveItParserTest.java[`SaveItParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -728,50 +816,50 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/SaveItParserTest.java[`SaveItParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+===== [Step 3] Ui: Add a placeholder for remark in `IssueCard`
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] s to display a remark for each statement later.
 
 **Main:**
 
 . Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/src/test/java/guitests/guihandles/IssueCardHandle.java[`IssueCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/statement/Remark.java[`Remark`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 5] Model: Modify `Issue` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the statement will be created without a remark).
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `saveit.xml` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedIssue` class
+We now have `Remark` s for `Issue` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedIssue.java[`XmlAdaptedIssue`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -779,33 +867,33 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidIssueSaveIt.xml`, `typicalIssuesSaveIt.xml`, `validSaveIt.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `IssueBuilder`
+Since `Issue` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/IssueBuilder.java[`IssueBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/IssueBuilder.java[`IssueBuilder`]. This method will create a new `Remark` for the statement that it is currently building.
+. Try and use the method on any sample `Issue` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `IssueCard`
+Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`]'s constructor to bind the `Remark` field to the `Issue` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysIssue(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of an issue.
 
 **Tests:**
 
@@ -813,20 +901,20 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 ==== Full Solution
 
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+See this https://github.com/se-edu/saveit-level4/pull/599[PR] for the step-by-step email.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage previous technical issues
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage the technical issues for future reference
 
 [appendix]
 == User Stories
@@ -836,17 +924,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |programmer |record the statement and email |review it when I encounter it again
 
-|`* * *` |user |add a new person |
+|`* * *` |programmer using multiple programming languages |search issues of different language easily |fix my code easily
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |learner of programming |record the technical details |refer to it in the future
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |CS Professor |record the common mistakes that students tend to make |reinforce or spend more time covering those areas
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |team member of a SWE team |share solutions which I have found previously for each bug I encountered with my team |help my team by reducing their time spent on debugging
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |programmer |add remark for the issues |have better understanding of the statement
+
+|`* *` |a CS student |note common mistakes among my classmates |learn from their mistakes and avoid the those mistakes
+
+|`* *` |a programmer dealing with many programs at the same time |search the issue based on the tag or key words |So that i can find the issue easily
+
+|`* *` |a programmer encounter various issues while coding |add the tag for each statement |collect same tag
+
+|`* *` |a CS student who aims to improve technical skills |store the way I solved certain technical issue |review it and see if there is a better solution in the future
+
+|`*` |a busy programmer dealing with a big project |highlight the certain part of the page |See the most important part of the solution
+
+|`* *` |a CS student who are learning new techniques |delete the statement after I got familiar with that statement |pay more attention to those I am not familiar with
+
+|`* *` |a CS student |collect all the mistakes i have made during daily coding practice|revise them before exam
+
+|`* *` |developer maintaining an open source project |allow external developers who might be working on PRs of the project to have access to the mistakes or bugs encountered during development |help them with any bugs that they encountered
+
+|`* *` |normal user |have a autocomplete command |type faster and do not needd to memorise command format
+
+|`* *` |normal user |have a autosuggestion tag |type faster
+
+|`* *` |normal user |have different color for different parameters in each command |distinguish different fields I entered easily
 |=======================================================================
 
 _{More to be added}_
@@ -854,17 +964,41 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `SaveIt` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add issue
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a new issue
+2. SaveIt adds the issue to its storage
+3. The ‘Success’ message is shown on the screen.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The command entered is invalid.
++
+[none]
+** 1a1. The 'Invalid Command' message shown on the screen.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add solution
+
+*MSS*
+
+1. User requests to list issues
+2. SaveIt shows a list of issues
+3. User selects a specific issue in the list
+4. SaveIt shows the solution lists of the selected issue
+5. User requests to add a new solution to this issue
+6. SaveIt adds the solution
+7. The 'Success' message is shown on the screen.
 +
 Use case ends.
 
@@ -878,7 +1012,148 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. The 'Invalid Index' message shown on the screen.
++
+Use case resumes at step 2.
+
+* 5a. The command entered is invalid.
++
+[none]
+** 5a1. The 'Invalid Command' message shown on the screen.
++
+Use case resumes at step 4.
+* 5b. None of the optional field is provided
++
+[none]
+** 5b1. SaveIt shows an error message
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Select issue
+
+*MSS*
+
+1. User requests to list issues
+2. SaveIt shows a list of issues
+3. User requests to select a specific issue in the list
+4. SaveIt selects the issue
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. The 'Invalid Index' message shown on the screen.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit statement and description
+
+*MSS*
+
+1. User requests to list issues
+2. SaveIt shows a list of issues
+3. User requests to edit the issue statement and description of a issue
+4. SaveIt updates the statement and description
+5. The ‘Success’ message is shown on the screen.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. The 'Invalid Index' message shown on the screen.
++
+Use case resumes at step 2.
+
+* 3b. None of the optional fields is provided.
++
+[none]
+** 3b1. SaveIt shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit solution
+
+*MSS*
+
+1. User requests to list issues
+2. SaveIt shows a list of issues
+3. User selects a specific issue in the list
+4. SaveIt shows the solution lists of the selected issue
+5. User requests to edit a specific solution in the selected issue
+6. SaveIt updates the solution
+7. The ‘Success’ message is shown on the screen
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. The 'Invalid Index' message shown on the screen.
++
+Use case resumes at step 2.
+
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. The 'Invalid Index' message shown on the screen.
++
+Use case resumes at step 4.
+* 5b. None of the optional fields is provided
++
+[none]
+** 5b1. SaveIt shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Delete issue
+
+*MSS*
+
+1.  User requests to list issues
+2.  SaveIt shows a list of issues
+3.  User requests to delete a specific issue in the list
+4.  SaveIt deletes the issue
+5.  The "Success" message is shown on the screen.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. The 'Invalid Index' message shown on the screen.
 +
 Use case resumes at step 2.
 
@@ -888,8 +1163,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 issues without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work with or without internet connection.
+.  The data used should be stored locally.
 
 _{More to be added}_
 
@@ -941,17 +1218,53 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an issue
+
+. Adding an issue in root directory
+
+.. Prerequisites: User is in root directory
+.. Test case: `add i/problem d/description t/UI`
+   Expected: A new issue with statement and description is added, tagged with UI.
+.. Test case: `add t/UI d/description d/newdescription i/problem`
+   Expected: A new issue with statement and newdescription is added, tagged with UI.
+.. Test case: `add i/proπblem d/description`
+   Expected: No issue is added. Error details shown in the status message. Status bar remains the same.
+.. Test case: `add s/www.example.com r/remark`
+   Expected: No issue is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add i/problem`, `add i/problem s/link` _{give more}_ +
+   Expected: Similar to previous.
+
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Editing an issue
 
-. Deleting a person while all persons are listed
+. Editing an issue in root directory
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: User is in root directory
+.. Test case: `edit 1 i/problem`
+   Expected: First issue is edited. Its new issue statement is problem.
+.. Test case: `edit 1 d/description d/newdescription`
+   Expected: First issue is edited. Its new description is newdescription.
+.. Test case: `edit 1 i/proπblem`
+   Expected: No issue is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit 1 s/www.example.com r/remark`
+   Expected: No issue is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `edit i/problem s/link`, `edit x i/problem` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Deleting an issue
+
+. Deleting an issue while all issues are listed
+
+.. Prerequisites: List all issues using the `list` command. Multiple issues in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No statement is deleted. Error details shown in the status message. Status bar remains the same.
+.. Test case: `delete a` +
+   Expected: No statement is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

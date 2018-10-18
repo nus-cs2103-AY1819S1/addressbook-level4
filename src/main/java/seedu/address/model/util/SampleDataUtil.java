@@ -1,51 +1,72 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.Issue;
+import seedu.address.model.ReadOnlySaveIt;
+import seedu.address.model.SaveIt;
+import seedu.address.model.issue.Description;
+import seedu.address.model.issue.IssueStatement;
+import seedu.address.model.issue.Solution;
+import seedu.address.model.issue.Tag;
+import seedu.address.model.issue.solution.SolutionLink;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code SaveIt} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+
+    public static Issue[] getSampleIssues() {
+        return new Issue[]{
+            new Issue(new IssueStatement("Java NullPointer"), new Description("cannot find object"),
+                    getSolutionSet("StackOverflow newSolution"), getTagSet("solved")),
+            new Issue(new IssueStatement("StackOverflow"), new Description("Cannot run"),
+                    getSolutionSet("IVLE newBug", "Wikipedia remark1"), getTagSet("newBug", "notSolved")),
+            new Issue(new IssueStatement("ArrayIndexOutOfBounds"), new Description("invalid input"),
+                    getSolutionSet("ZhiHu newSolution"), getTagSet("notSolved")),
+            new Issue(new IssueStatement("ClassNotFoundException"), new Description("WrongPackage"),
+                    getSolutionSet("StackOverflow new"), getTagSet("urgent")),
+            new Issue(new IssueStatement("ExceptionNotHandled"), new Description("Mistake"),
+                    getSolutionSet("Forum solution", "Oracle remark1"), getTagSet("solved")),
+            new Issue(new IssueStatement("UnknownBug"), new Description("Unknown"),
+                    getSolutionSet("NoSolution NoRemark"), getTagSet("Dead"))
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static ReadOnlySaveIt getSampleSaveIt() {
+        SaveIt sampleAb = new SaveIt();
+        for (Issue sampleIssue : getSampleIssues()) {
+            sampleAb.addIssue(sampleIssue);
         }
         return sampleAb;
+    }
+
+    /**
+     * Returns a solution set containing the list of strings given.
+     */
+    public static List<Solution> getSolutionSet(String... strings) {
+        List<Solution> solutionList = new ArrayList<>();
+        for (String solutions : strings) {
+            int index = solutions.indexOf(' ');
+            String link = "";
+            String remark = "";
+            if (index != -1) {
+                link = solutions.substring(0, solutions.indexOf(' '));
+                remark = solutions.substring(solutions.indexOf(' ') + 1);
+            } else {
+                if (SolutionLink.isValidLink(solutions)) {
+                    link = solutions;
+                } else {
+                    remark = solutions;
+                }
+            }
+            solutionList.add(new Solution(link, remark));
+        }
+        return solutionList;
     }
 
     /**

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- SaveIt save file which contains the same Issue values as in TypicalPersons#getTypicalSaveIt() -->
+<saveit>
+    <issues>
+        <statement>Alice Pauline</statement>
+        <description>94351253</description>
+        <tagged>syntax</tagged>
+    </issues>
+    <issues>
+        <statement>Benson Meier</statement>
+        <description>98765432</description>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </issues>
+    <issues>
+        <statement>Carl Kurz</statement>
+        <description>95352563</description>
+        <solutions>wall street</solutions>
+    </issues>
+    <issues>
+        <statement>Daniel Meier</statement>
+        <description>87652533</description>
+        <solutions>StackOverflow newSolution</solutions>
+        <solutions>ZhiHu newSol</solutions>
+        <tagged>friends</tagged>
+    </issues>
+    <issues>
+        <statement>Elle Meyer</statement>
+        <description>9482224</description>
+        <solutions>michegan ave</solutions>
+    </issues>
+    <issues>
+        <statement>Fiona Kunz</statement>
+        <description>9482427</description>
+        <solutions>little tokyo</solutions>
+    </issues>
+    <issues>
+        <statement>George Best</statement>
+        <description>9482442</description>
+        <solutions>4th street</solutions>
+    </issues>
+</saveit>
