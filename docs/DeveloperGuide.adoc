@@ -357,6 +357,12 @@ FINE : Details that is not usually noteworthy but may be useful in debugging e.g
 ### 3.4. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
+### 3.5 Handling Date
+Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
+`Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
+date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
+accurate to the minute.
+
 ### 3.5 List
 
 The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
