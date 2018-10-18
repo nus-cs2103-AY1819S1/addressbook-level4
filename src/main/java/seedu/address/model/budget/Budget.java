@@ -84,15 +84,12 @@ public class Budget {
         return test.matches(BUDGET_VALIDATION_REGEX);
     }
 
-
     /**
-     * Modifies the current (@code Budget) to have a new value
+     * Modifies the current (@code Budget) to have a new value for its current expenses
      *
-     * @param budget a valid double
+     * @param expenses a valid double
      */
-    public void modifyBudget(double budget) {
-        this.budgetCap = budget;
-    }
+    public void modifyExpenses(double expenses) { this.currentExpenses = expenses; }
 
     /**
      * Returns the current date in which the budget is created
