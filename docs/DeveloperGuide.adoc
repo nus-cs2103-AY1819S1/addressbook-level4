@@ -488,9 +488,9 @@ The generated  `EventPopUpInfo` objects will be pushed to the `PopUp Queue` main
 and key of the Reminder Time. When the App is opened, `PopUpManager` runs on a parallel thread to constantly check the queue to determine when to pop-up what alert.
 Once the reminder has popped up, `PopUpManager` will use `uid` stored in the `PopUpInfo` object to find the `Event` and set True corresponding to the `Duration` that has popped up.
 
-The overall workflow can be represented by the below activity diagram.
+The overall workflow can be represented by the below activity diagram:
 
-
+image::PopUpActivityDiagram.png[width="500"]
 
 Below is an example usage scenario and explanation on the pop-up Alert mechanism behavior behind each step.
 
@@ -503,16 +503,17 @@ At the same time, the `PopUpManager` will keep checking the Queue concurrently w
 The user add a new event "Assignment Due" and he wants to have two pop-up reminders before the deadline. He keys in `add n/Assignment Due s/today 10PM /re 4H /re 2H`. +
 The `AddCommandParser` will parse the input to a ReminderDurationList: `4H: False, 2H: False`
 The `AddCommand` will also trigger `PopUpManager` to update the Popup Queue. Two 'EventPopUpInfo' objects with 'PopUpTime' 6PM and 8pm separately will be initiated and added in to the PopUp Queue.
-The user can close the Schedular or use other functions of the Scheduler.
+The user can close the Scheduler or use other functions of the Scheduler.
 
-**Step 3**
-At 6PM on that day, if the Scheduler is open, a pop-up alert will appear. The 'PopUpManager' pop out the corresponding `EventPopUpInfo`. Meanwhile, it will use the uid stored in `EventPopUpInfo` to find the `Event` object and set '4H: True'. +
+**Step 3** +
+At 6PM on that day, if the Scheduler is open, a pop-up alert will appear. The `PopUpManager` pop out the corresponding `EventPopUpInfo`.
+Meanwhile, it will use the uid stored in `EventPopUpInfo` to find the `Event` object and set `4H: True`. +
 The 8PM pop-up is still in the Pop-up queue.
 
 ==== Design Considerations
 * **Use HashMap to store ReminderDurationList** (current choice)
-** Pro: More difficult implementation
-** Con: Faster searching when deleting
+** Pro: Faster searching when deleting. User can also view the reminder times he has set as part of the event info since it will not be deleted when it popped up.
+** Con: More complex implementation
 
 * **Use ArrayList to store ReminderDurationList** (alternative)
 ** Store the `Durations` in an ArrayList, every time the `EventPopUpInfo` is popped out, delete the corresponding `Duration`
