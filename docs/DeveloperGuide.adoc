@@ -209,7 +209,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the ClinicIO data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<E>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -318,6 +318,47 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+
+//tag::apptfeature[]
+=== Appointment feature
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
+
+==== Current Implementation
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The implemented operations include: +
+
+* `addappt` Command - Adds appointments to the appointment schedule.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
+* `listapptday` Command - Lists the appointment schedule of the date specified.
+
+Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
+
+==== `addappt` Command
+
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in a `Patient` id. +
+The image below illustrates this process.
+
+.Appointment construction process.
+image::ApptConstructorSequenceDiagram.png[width="0"]
+
+Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
+
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+
+`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to the it's latest state. i.e. The addition of a new `Appointment` object. This means that this command can be undone or redone.
+
+==== `listapptday` Command
+
+The `listapptday` command searches for appointments in the `UniqueAppointmentList` that land on the date that was entered by the user. For example, `listapptday 03032018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed.
+
+==== `cancelappt` Command
+
+Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+
+==== Design Considerations
+
+//end::apptfeature[]
 
 // tag::medicineinventory[]
 === MedicineInventory
@@ -959,8 +1000,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |medical clinic receptionist |patient medical information to the respective doctor |inform a doctor of their patient's medical history
 
-|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
-
 |`*` |medical clinic receptionist |prioritize doctors based on patient preference |enable patients to feel comfortable
 
 |`* * *` |medical clinic receptionist |update the drug inventory |ensure it is updated
@@ -972,6 +1011,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |careless user |undo any command |revert any mistakes
 
 |`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
+
+|`* * *` |medical clinic receptionist |cancel an appointment |cancel appointments if a patient cannot make the date
+
+|`* * *` |medical clinic receptionist |view a list of appointments |enable receptionists to find free appointment slots
+
+|`* * *` |medical clinic receptionist |reschedule appointments |change appointment bookings in case of an error
+
+|`* *` |medical clinic receptionist |have a calendar view of appointments |provide easier viewing of the appointment schedule
+
 |=======================================================================
 
 [appendix]
