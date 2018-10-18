@@ -337,9 +337,13 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 Step 2. The user executes delete 3 command to delete the 3rd person in the address book. The Person object from the `UniquePersonList` will be transferred to the `UniqueArchiveList` and now the `UniqueArchiveList` will store all the deleted persons details.
 
-Step 3.1 The user views `UniqueArchiveList` and executes delete 1 command to delete the 1st person in the archive list.
+Step 3a.1 The user views `UniqueArchiveList` and executes delete 1 command to delete the 1st person in the archive list.
 
-Step 3.2 The user views `UniqueArchiveList` and execute restore 1 command to restored 1st person in the archive list to the address book.
+Step 3a.2 The selected Person object in the `UniqueArchiveList` will be permanently deleted from the storage.
+
+Step 3b.1 The user views `UniqueArchiveList` and execute restore 1 command to restored 1st person in the archive list to the address book.
+
+Step 3a.1 The selected Person object in the `UniqueArchiveList` will be transferred back to `UniquePersonList`.
 
 The following activity diagram summarizes what happens when a user executes remove and restore command:
 
