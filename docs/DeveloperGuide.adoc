@@ -486,7 +486,7 @@ details with `GsonUtil#getCarparkAvailability()`. The process is similar to how 
 Step 6. When `GsonUtil#getCarparkAvailability()` is done adding in the parking lot details using `CarparkJson#addOn()`, a final check
 to see if there are any car parks with no data on its parking lots. The value 0 is added if there is no data.
 
-Step 7. An ArrayList<ArrayList<String>> is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
+Step 7. An `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
 to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
 
 Please refer to the Sequence Diagram below for the `query` operation.
@@ -1323,19 +1323,25 @@ to search for locations of car parks.
 == Glossary
 
 [[api]] API (Application Programming Interface)::
-A set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service.
+Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
 
 [[autocomplete]]  Autocomplete::
-Provides suggestions while you type into the field
+Provides suggestions while you type into the field.
 
 [[flag]] Flag::
 A value that acts as a signal for a function or process.
+
+[[JSON]] JSON (JavaScript Object Notation)::
+A file format that allows humans to easily read and write data for machines to process.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Favourites::
 A custom list of car parks that is meant to be viewed easily.
+
+[[ui]] UI (User Interface)::
+Allows the user to interact with the application through inputs and outputs of data.
 
 [appendix]
 == Product Survey
