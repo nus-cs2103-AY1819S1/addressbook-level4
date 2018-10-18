@@ -6,6 +6,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
+/**
+ * Manages the gamification aspects of the task manager.
+ *
+ * Varies the amount of XP awarded to the player based on the task and on game settings.
+ */
 public class GameManager {
 
     /**
