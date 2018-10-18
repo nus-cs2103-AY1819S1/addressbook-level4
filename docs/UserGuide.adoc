@@ -34,8 +34,8 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
 
-== Commands Example:
-Here are some commands that you can try out with.
+== Commands Example
+Here are some commands that you can try out with:
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com r/A110 s/FoS t/basketball` : adds a contact named `John Doe` to Hallper.
