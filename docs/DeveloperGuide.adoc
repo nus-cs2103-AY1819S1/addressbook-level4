@@ -363,7 +363,7 @@ Time is of key importance when dealing with the `TaskManager`. We implement and 
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
 
-### 3.5 List
+### 3.6 List
 
 The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
 The date filters are dependent on the due date of the task, and the current date.
