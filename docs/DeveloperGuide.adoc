@@ -255,7 +255,7 @@ The toDoList will display events in priority-decreassing order.
 Also, if click the completed event, it will be deleted from toDoList.
 
 Model for toDoList feature:
-*`Priority` -- Represents the priority of a todoList event.
+* `Priority` -- Represents the priority of a todoList event.
 * `ToDoListEvent` -- The structure of single event in toDoList.
 * `TodoList` -- Wraps all data at the toDoList level. uplicates are not allowed.
 * `UniqueToDoEventList` -- A list of todoEvents that enforces uniqueness between its elements and does not allow nulls.
