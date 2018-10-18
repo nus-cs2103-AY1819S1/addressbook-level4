@@ -1,7 +1,7 @@
 = Expense Tracker - User Guide
 :site-section: UserGuide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,13 +12,15 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T12-1/main
 
-By: `Team T12-1`      Since: `Sept 2018`      Licence: `MIT`
+By: `Team T12-1`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-The Expense Tracker application is a desktop application which enables users to track their expenses. The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.
+The Expense Tracker application is a desktop application which enables users to track their expenses.
+The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users
+with the efficiency of the CLI while still having the benefits of a GUI.
 
 Interested? Jump to <<Quick Start>> to get started!
 
@@ -26,12 +28,13 @@ Interested? Jump to <<Quick Start>> to get started!
 
 Follow these steps to start using the Expense Tracker:
 
-.  Install Java version `9` (or later) on your computer.
-.  Download the latest `expensetracker.jar` file from https://github.com/CS2103-AY1819S1-T12-1/main[here]
+.  Install Java (version 9 or later) on your computer.
+.  Download the latest `expensetracker.jar` file from https://github.com/CS2103-AY1819S1-T12-1/main/releases[here]
 .  Copy the file to the folder which you want to use as the home folder for your Expense Tracker.
 .  Double-click the `expensetracker.jar` file to start the app. The GUI should appear in a few seconds and look like this:
 +
-image::Ui.png[width="790"]
+.User interface on application launch
+image::userguide/uiOnLaunch.png[width="790"]
 +
 .  Type the command `singup USERNAME` in the command box (the box where it says "Enter command here...") and press kbd:[Enter] to execute it, where USERNAME is the username of your choice. E.g. `signup username123`
 .  Type the command `login USERNAME` in the command box and press kbd:[Enter] to execute it, where USERNAME is the username you signed up with in the previous step. e.g. `login username123` +
@@ -40,6 +43,60 @@ You are now able to use all the commands of the app. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of all available commands.
+
+== User Interface
+After logging in, the interface looks something like this:
+
+.User interface
+image::userguide/ui.png[width="790"]
+
+There are six main components to the user interface, each highlighted by the coloured box as per the diagram above.
+
+=== Expense List / Statistics Panel
+
+This is the portion highlighted in the red box.
+
+==== Expense List
+The Expense List shows the list of expenses. By default, the list will show all expenses in the Expense Tracker.
+When commands such as `find` and `list` are used, they change which expenses will be shown in the Expense List.
+
+[NOTE]
+====
+Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
+====
+
+==== Statistics Panel
+When the `stats` command is used, the Expense List changes to the Statistics Panel, where statistics about expenses
+will be displayed.
+
+=== Budget Tracker
+
+This is the portion highlighted in the blue box.
+
+This is a feature which is work in progress.
+
+=== Notifications Panel
+
+This is the portion highlighted in the green box.
+
+This is a feature which is work in progress.
+
+=== Command Box and Console
+
+This is the portion highlighted in the yellow box.
+
+The Command Box is where the "Enter command here..." is located. To enter a command in the Command Box, user your mouse
+and click anywhere within the box, then proceed to type a command. +
+
+The Console is where any success and error messages, relevant to the most recent command entered, will appear .
+
+=== Menu Bar
+
+This is the portion highlighted in the orange box.
+
+The menu bar contains two submenus, which allow the user to either exit the application or to open the help window.
+These have the same effect as using the commands `exit` and `help` respectively.
+
 
 [[Features]]
 == Features
@@ -269,7 +326,7 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Sets recurring frequency for budget: `setRecurringFrequency`
+=== Setting a recurring frequency for budget: `setRecurringFrequency`
 Sets the recurrence frequency for the budget of the expense tracker.
 
 The expense tracker will reset your budget after every `FREQUENCY`
@@ -365,7 +422,8 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 
 === Show expense statistics: `stats`
 
-Shows the user the bar chart of the expenditure over a specified time period, in a given `MODE`. +
+Changes the expense list to show the statistics panel if the expense list is currently showing, then
+displays a bar chart of the expenditure over a specified time period, in a given `MODE`. +
 
 The available modes are `d` and `m`, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
 and MODE is 'd', the statistics will include data from the past 7 days, current day included.

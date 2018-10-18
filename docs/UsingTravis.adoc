@@ -1,9 +1,15 @@
 = Travis CI
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:sectnums:
 :site-section: DeveloperGuide
 :imagesDir: images
 :stylesDir: stylesheets
 
 https://travis-ci.org/[Travis CI] is a _Continuous Integration_ platform for GitHub projects.
+
+== How does Travis CI work?
 
 Travis CI can run the projects' tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken by the changes.
 
