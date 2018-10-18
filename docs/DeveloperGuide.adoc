@@ -759,7 +759,7 @@ This section includes common issues that arise during testing.
 
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+We use Gradle for build automation. See <<UsingGradle#, UsingGradle.adoc>> for more details.
 
 === Continuous Integration
 
@@ -770,22 +770,26 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+We use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request has changes to asciidoc files.See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
-Here are the steps to create a new release.
+Follow the steps below to create a new release:
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+.  Create a new release using GitHub and upload the JAR file you created. See https://help.github.com/articles/creating-releases/
+for more details.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Expense Tracker depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
+Expense Tracker depends on many third-party libraries. e.g. We use http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing in Expense Tracker.
+Below are different methods to manage these _dependencies_:
+
+a. Automate managing these _dependencies_ using Gradle. Gradle can download the dependencies automatically. (this is better than other alternatives) +
+b. Include those libraries in the repo (this bloats the repo size) +
+c. Require developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
 [appendix]
