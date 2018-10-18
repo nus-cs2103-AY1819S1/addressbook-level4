@@ -3,9 +3,9 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalExpenses.ALICE;
+import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -58,9 +58,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+        Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Expense> newExpenses = Arrays.asList(ALICE, editedAlice);
+        List<Expense> newExpenses = Arrays.asList(SCHOOLFEE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newExpenses);
 
         thrown.expect(DuplicateExpenseException.class);
@@ -75,19 +75,19 @@ public class AddressBookTest {
 
     @Test
     public void hasExpense_expenseNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasExpense(ALICE));
+        assertFalse(addressBook.hasExpense(SCHOOLFEE));
     }
 
     @Test
     public void hasExpense_expenseInAddressBook_returnsTrue() {
-        addressBook.addExpense(ALICE);
-        assertTrue(addressBook.hasExpense(ALICE));
+        addressBook.addExpense(SCHOOLFEE);
+        assertTrue(addressBook.hasExpense(SCHOOLFEE));
     }
 
     @Test
     public void hasExpense_expenseWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addExpense(ALICE);
-        Expense editedAlice = new ExpenseBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addExpense(SCHOOLFEE);
+        Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasExpense(editedAlice));
     }
