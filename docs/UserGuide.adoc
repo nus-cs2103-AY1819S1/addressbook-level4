@@ -34,7 +34,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
 
-== Commands Example
+== Command Examples
 Here are some commands that you can try out with:
 
 * *`list`* : lists all contacts
