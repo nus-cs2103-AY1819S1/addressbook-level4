@@ -19,14 +19,12 @@ public class DueDateIsBeforeTodayPredicate implements Predicate<Task> {
         date.set(Calendar.MILLISECOND, 0);
 
         return person.getDueDate().valueDate.before(date.getTime());
-
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DueDateIsBeforeTodayPredicate); // instanceof handles nulls
-
     }
 
 }
