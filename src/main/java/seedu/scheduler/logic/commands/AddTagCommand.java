@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.scheduler.logic.CommandHistory;
-import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 
 import seedu.scheduler.model.tag.Tag;
 
+
+/**
+ * Adds an tag to the scheduler.
+ */
 public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
