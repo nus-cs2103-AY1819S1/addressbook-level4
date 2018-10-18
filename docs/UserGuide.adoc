@@ -54,17 +54,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [Blue]`add n/NAME`, `NAME` is a parameter which can be used as [Blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [Blue]`n/NAME [c/CATEGORY]` can be used as [Blue]`n/do CS2100 tutorial c/CS2100` or as [Blue]`n/do CS2100 tutorial`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. [Blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [Blue]`c/tutorial`, [Blue]`c/tutorial c/CS2100` etc.
-* Parameters can be in any order e.g. if the command specifies [Blue]`n/NAME d/DEADLINE`, [Blue]`d/DEADLINE n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, `NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
+* Items in square brackets are optional e.g [blue]`n/NAME [c/CATEGORY]` can be used as [blue]`n/do CS2100 tutorial c/CS2100` or as [blue]`n/do CS2100 tutorial`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [blue]`c/tutorial`, [blue]`c/tutorial c/CS2100` etc.
+* Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
 ====
 
 === Viewing Help :
 
 View complete list of all commands. +
 ====
-Format: [Blue]`help` +
+Format: [blue]`help` +
 ====
 
 
