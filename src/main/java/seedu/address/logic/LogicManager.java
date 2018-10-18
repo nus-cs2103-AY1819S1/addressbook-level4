@@ -18,6 +18,7 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
@@ -64,6 +65,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Patient> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return model.getFilteredMedicineList();
     }
 
     @Override

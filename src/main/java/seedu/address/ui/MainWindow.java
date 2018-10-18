@@ -16,6 +16,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private QueueDisplay queueDisplay;
     private PersonListPanel personListPanel;
+    private MedicineListPanel medicineListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -51,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane queueDisplayPlaceholder;
@@ -129,8 +131,10 @@ public class MainWindow extends UiPart<Stage> {
         queueDisplay = new QueueDisplay();
         queueDisplayPlaceholder.getChildren().add(queueDisplay.getRoot());
 
+        // Initialise both person and medicine list panels, but set to person view first.
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -198,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public MedicineListPanel getMedicineListPanel() {
+        return medicineListPanel;
+    }
+
     void releaseResources() {
         browserPanel.freeResources();
         queueDisplay.freeResources();
@@ -208,4 +216,12 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    @Subscribe
+    private void handleQueueCommandEvent(QueueUpdatedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+    }
+
 }
