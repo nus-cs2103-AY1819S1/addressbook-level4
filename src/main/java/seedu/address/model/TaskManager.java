@@ -8,6 +8,7 @@ import java.util.Objects;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.game.GameManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -19,6 +20,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final AchievementRecord achievements;
+    private final GameManager gameManager;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +32,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     {
         tasks = new UniqueTaskList();
         achievements = new AchievementRecord();
+        gameManager = new GameManager();
     }
 
     public TaskManager() {
@@ -118,6 +121,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         requireNonNull(xp);
 
         achievements.updateXp(xp);
+    }
+
+    public int appraiseTaskXp(Task task) {
+        return gameManager.appraiseTaskXp(task);
     }
 
     //// util methods
