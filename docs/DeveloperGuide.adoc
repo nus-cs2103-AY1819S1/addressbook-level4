@@ -1075,7 +1075,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |university student |monitor and track deadlines |keep track of my upcoming deadlines
 
-|`* *` |popular university student |know my friends' contact |can contac them whenever I want
+|`* *` |popular university student |know my friends' contact |can contact them whenever I want
 
 |`* *` |organised university student |send event details to my friends |plan events with together with my friends
 
