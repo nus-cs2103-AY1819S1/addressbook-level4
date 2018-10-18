@@ -7,6 +7,7 @@ import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMA
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -120,7 +121,7 @@ public class XmlAdaptedPersonTest {
         List<XmlAdaptedPermission> invalidPermission = new ArrayList<>(VALID_PERMISSION);
         invalidPermission.add(new XmlAdaptedPermission(INVALID_PERMISSION));
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_PROJECTS,
                         invalidPermission);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }

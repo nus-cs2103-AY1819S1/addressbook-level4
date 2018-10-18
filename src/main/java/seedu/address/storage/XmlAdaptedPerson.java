@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,8 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.permission.PermissionSet;
@@ -69,14 +68,18 @@ public class XmlAdaptedPerson {
         this.profilePic = null;
     }
 
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            List<XmlAdaptedPermission> permission) {
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String salary, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
+        if (project != null) {
+            this.project = new ArrayList<>(project);
         }
         if (permission != null) {
             this.permission = new ArrayList<>(permission);
@@ -88,7 +91,7 @@ public class XmlAdaptedPerson {
      * Overriden constructor that allows specification of a profile picture
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project, String profilePic, 
+                            String salary, List<XmlAdaptedProject> project, String profilePic,
                             List<XmlAdaptedPermission> permission) {
         this.name = name;
         this.phone = phone;
@@ -185,13 +188,12 @@ public class XmlAdaptedPerson {
         }
 
         final Set<Project> modelProjects = new HashSet<>(personProjects);
-      
-        Person toReturn = new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelProjects, modelProfilePic);
-        final PermissionSet pSet = toReturn.getPermissionSet();
+        final PermissionSet pSet = new PermissionSet();
         for (XmlAdaptedPermission p : permission) {
             pSet.addPermissions(p.toModelType());
         }
-        return toReturn;
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelProjects, pSet,
+                modelProfilePic);
     }
 
     @Override

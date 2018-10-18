@@ -44,15 +44,17 @@ public class Person {
     }
 
     /**
-     * Overriden constructor that allows specification of a PermissionSet
+     * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, PermissionSet permissionSet) {
-        requireAllNonNull(name, phone, email, address, tags, permissionSet);
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
+                  PermissionSet permissionSet) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        this.tags.addAll(tags);
+        this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = Optional.empty();
     }
@@ -61,30 +63,16 @@ public class Person {
      * Overriden constructor that allows specification of a profile picture
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, salary, projects);
+                  PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.salary = salary;
         this.address = address;
         this.projects.addAll(projects);
-        this.profilePic = profilePic;
-    }
-
-    /**
-     * Overriden constructor that allows specification of both a profile picture, and a PermissionSet
-     */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Optional<ProfilePic> profilePic, PermissionSet permissionSet) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.profilePic = profilePic;
         this.permissionSet.addAll(permissionSet);
+        this.profilePic = profilePic;
     }
 
     public Name getName() {
