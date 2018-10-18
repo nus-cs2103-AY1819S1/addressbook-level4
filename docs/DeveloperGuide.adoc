@@ -371,6 +371,72 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
+### 3.1. Achievement mechanism
+
+#### 3.1.1. Structural Overview
+The achievement mechanism is facilitated by `AchievementRecord`. TaskManager is now composed of a `UniqueTaskList` as
+well as an `AchievementRecord`. It stores the achievement information of the user internally with an `Xp` field and a
+`Level` field. +
+ +
+When the task manager application runs for the first time, it is initialized at 0 xp and level 1, xp and level
+information in `AchievementRecord` are updated subsequently when tasks are completed. +
+ +
+The storage of the `AchievementRecord` is facilitated by `XmlAdaptedAchievementRecord` which is saved together with
+the list of `XmlAdaptedTask` in the `SerializableTaskManager`. +
+ +
+Integration of AchievementRecord in Model component:
+
+image::AchievementModel.png[width="1200"]
+
+
+#### 3.1.2. Basic Mechanism
+An `updateTaskStatus` method is implemented in `ModelManager` and exposed in the `Model` interface, this method is
+called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
+along with that, the `AchievementRecord` is also updated with higher Xp. `AchievementRecord` implements the operations
+`updateXp`, `getMatchingLevel` and `updateLevelWithXp` to update xp, recalculate the level corresponding to the
+new Xp value and update level information. +
+ +
+Sequence diagram of the achievement mechanism:
+
+image::AchievementSequence1.png[width="1200"]
+
+image::AchievementSequence2.png[width="1200"]
+
+Activity diagram of updating of xp and level:
+
+image::AchievementActivity.png[width="1200"]
+
+
+#### 3.1.3. Event-driven Interaction with other components
+
+The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
+When a task is marked as complete, both the `UniqueTaskList` and the `AchievementRecord` of the task manager is updated
+to reflect the new status of the task and the new xp and level information. A `TaskManagerChangedEvent` is then posted
+to `EventsCenter` and handled by both Storage and UI components to save the changes and feedback to user. +
+ +
+On top of the `TaskManagerChangedEvent`, an `AchievementLevelChangedEvent` would be posted by the Model component as
+well, if the user levels up with the newly added xp. This event will be handled by UI component to display a
+congratulatory message to user. (to be implemented in v1.3)
+
+#### 3.1.4. Design Considerations
+
+Aspect: Associations Among `TaskManager`,`UniqueTaskList` and `AchievementRecord` +
+
+* Alternative 1 (current choice): Integrate `AchievementRecord` into `TaskManager` as an additional field besides the
+existing `UniqueTaskList`.
+    ** Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+    we can update both the `UniqueTaskList` and `AchievementRecord` then save the `TaskManager` only once. Undo/redo
+    commands that revert the status tasks would revert the xp and level as well, matching between task status and
+    corresponding achievements is guaranteed.
+    ** Cons: `TaskManager` now has another reason of change, breaks Single Responsibility Principle.
+
+* Alternative 2: Implement `AchievementRecord` as another component outside of `TaskManager` and let them communicate
+with events.
+    ** Pros: Follows Single Responsibility Principle. `TaskManager` handles only task operations, achievement
+     information is handled by `AchievementRecord` independently.
+     ** Cons: Logic is duplicated twice. For example, we would need to implement a `VersionedAchievementRecord` besides
+     the current `VersionedTaskManager` to support undo/redo. A lot of overhead will result from the communication
+     between `TaskManager` and `AchievementRecord` as well.
 
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
@@ -540,8 +606,22 @@ A topological sort can also be performed on the graph to order tasks by the numb
 ** Cons: nil
 
 
+### 3.6 Handling Date
+Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
+`Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
+date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
+accurate to the minute.
 
-### 3.4. Logging
+### 3.7 List
+
+The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
+The date filters are dependent on the due date of the task, and the current date.
+
+The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
+depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
+This predicate is passed as an argument to update filtered Tasks.
+
+### 3.8. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -560,23 +640,8 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### 3.5. Configuration
+### 3.9. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
-
-### 3.5 Handling Date
-Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
-`Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
-date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
-accurate to the minute.
-
-### 3.6 List
-
-The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
-The date filters are dependent on the due date of the task, and the current date.
-
-The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
-depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
-This predicate is passed as an argument to update filtered Tasks.
 
 ## 4. Documentation
 We use asciidoc for writing documentation.
