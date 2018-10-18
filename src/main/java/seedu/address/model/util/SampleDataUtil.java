@@ -21,22 +21,22 @@ import seedu.address.model.user.Username;
 public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
-            new Expense(new Name("Alex Yeoh"), new Category("School"),
+            new Expense(new Name("School Fee"), new Category("School"),
                 new Cost("1.00"),
                 getTagSet("friends")),
-            new Expense(new Name("Bernice Yu"), new Category("Food"),
+            new Expense(new Name("Have lunch"), new Category("Food"),
                 new Cost("2.00"),
                 getTagSet("colleagues", "friends")),
-            new Expense(new Name("Charlotte Oliveiro"), new Category("Entertainment"),
+            new Expense(new Name("Toy"), new Category("Entertainment"),
                 new Cost("3.50"), new Date("01-09-2018"),
                 getTagSet("neighbours")),
-            new Expense(new Name("David Li"), new Category("Shopping"),
+            new Expense(new Name("New clothes"), new Category("Shopping"),
                 new Cost("4.00"), new Date("01-08-2018"),
                 getTagSet("family")),
-            new Expense(new Name("Irfan Ibrahim"), new Category("Tax"),
+            new Expense(new Name("Pay tax"), new Category("Tax"),
                 new Cost("9.00"), new Date("5-08-2018"),
                 getTagSet("classmates")),
-            new Expense(new Name("Roy Balakrishnan"), new Category("Book"),
+            new Expense(new Name("Buy books"), new Category("Book"),
                 new Cost("10.00"), new Date("4-07-2018"),
                 getTagSet("colleagues"))
         };
