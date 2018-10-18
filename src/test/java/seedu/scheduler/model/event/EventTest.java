@@ -12,17 +12,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_M
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
-import static seedu.scheduler.testutil.TypicalEvents.DAY2018_THREE_DAY_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.FEBRUARY_29_2016_YEARLY;
-import static seedu.scheduler.testutil.TypicalEvents.FEBRUARY_29_FOUR_YEAR_LIST;
 import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_MONTHLY;
 import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_YEARLY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_THREE_YEAR_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_30_2018_DAILY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_31_2018_MONTHLY;
-import static seedu.scheduler.testutil.TypicalEvents.MONTH2018_1_THREE_MONTH_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.MONTH2018_31_THREE_MONTH_LIST;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -39,8 +30,9 @@ public class EventTest {
 
     @Test
     public void unmodifiableList_modifyList_throwsUnsupportedOperationException() {
+        Event event = new EventBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
-        Event.generateAllRepeatedEvents(JANUARY_1_2018_SINGLE).remove(0);
+        event.getTags().remove(0);
     }
 
     @Test
@@ -52,42 +44,6 @@ public class EventTest {
         assertTrue(Event.isValidEventDateTime(startDateTime, firstValidEndDateTime));
         assertTrue(Event.isValidEventDateTime(startDateTime, secondValidEndDateTime));
         assertFalse(Event.isValidEventDateTime(startDateTime, invalidEndDateTime));
-    }
-
-    @Test
-    public void generateAllRepeatedEvents() {
-        // daily event
-        assertEquals(DAY2018_THREE_DAY_LIST, Event.generateAllRepeatedEvents(JANUARY_30_2018_DAILY));
-
-        // monthly event
-        assertEquals(MONTH2018_1_THREE_MONTH_LIST, Event.generateAllRepeatedEvents(JANUARY_1_2018_MONTHLY));
-        assertEquals(MONTH2018_31_THREE_MONTH_LIST, Event.generateAllRepeatedEvents(JANUARY_31_2018_MONTHLY));
-
-        // yearly event
-        assertEquals(JANUARY_1_THREE_YEAR_LIST, Event.generateAllRepeatedEvents(JANUARY_1_2018_YEARLY));
-        assertEquals(FEBRUARY_29_FOUR_YEAR_LIST, Event.generateAllRepeatedEvents(FEBRUARY_29_2016_YEARLY));
-    }
-
-    @Test
-    public void generateDailyRepeatEvents() {
-        // standard day of a year
-        assertEquals(DAY2018_THREE_DAY_LIST, Event.generateDailyRepeatEvents(JANUARY_30_2018_DAILY));
-    }
-
-    @Test
-    public void generateMonthlyRepeatEvents() {
-        // standard day of a year
-        assertEquals(MONTH2018_1_THREE_MONTH_LIST, Event.generateMonthlyRepeatEvents(JANUARY_1_2018_MONTHLY));
-        // days that do not appear every month
-        assertEquals(MONTH2018_31_THREE_MONTH_LIST, Event.generateMonthlyRepeatEvents(JANUARY_31_2018_MONTHLY));
-    }
-
-    @Test
-    public void generateYearlyRepeatEvents() {
-        // standard day of year
-        assertEquals(JANUARY_1_THREE_YEAR_LIST, Event.generateYearlyRepeatEvents(JANUARY_1_2018_YEARLY));
-        // day of leap year
-        assertEquals(FEBRUARY_29_FOUR_YEAR_LIST, Event.generateYearlyRepeatEvents(FEBRUARY_29_2016_YEARLY));
     }
 
     @Test
