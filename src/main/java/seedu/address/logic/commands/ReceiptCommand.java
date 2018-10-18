@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Document.makeDocument;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -27,7 +26,7 @@ public class ReceiptCommand extends QueueCommand {
             + " index. Includes information like the date of visit, consultation fee, medicine dispensed, cost, etc. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "Receipt generated for patient! Contents can be found below:";
+    public static final String MESSAGE_SUCCESS = "Receipt generated for patient!";
 
     private final Index index;
     private String generatedResult;
@@ -53,10 +52,10 @@ public class ReceiptCommand extends QueueCommand {
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
         generatedResult = receipt.generate();
-        makeDocument(receipt);
+        receipt.writeContentsIntoDocument();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
+        //EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
     @Override

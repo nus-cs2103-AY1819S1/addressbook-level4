@@ -7,7 +7,7 @@ import seedu.address.model.person.ServedPatient;
  * Represents the receipt for the served patients.
  */
 public class Receipt extends Document {
-    private final String noteContent;
+    private String noteContent;
     private final Medicine medicine = null; //should be extractable from noteContent
     private final int medicineQuantity = 0; //should be extractable from noteContent
 
@@ -23,16 +23,14 @@ public class Receipt extends Document {
 
     /**
      * Generates the content of the receipt object generated for the specified servedPatient.
-     *
      */
     @Override
     public String generate() {
         //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
-        sb.append(super.generateHeaders());
-        sb.append(super.tabFormat("Name: " + super.getName() + "\n"));
-        sb.append(super.tabFormat("NRIC: " + super.getIcNumber() + "\n"));
-        sb.append(super.tabFormat("Medicine dispensed: \n"));
+        sb.append("Name: " + super.getName() + "<br>");
+        sb.append("NRIC: " + super.getIcNumber() + "<br>");
+        sb.append("Medicine dispensed: <br>");
         return sb.toString();
     }
 }
