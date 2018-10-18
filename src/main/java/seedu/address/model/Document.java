@@ -28,9 +28,9 @@ public abstract class Document {
     private static final String DIRECTORY_PATH = COMPLETE_TEMPLATE_NAME
             .substring(0, COMPLETE_TEMPLATE_NAME.length() - FILENAME_END_SLICING);
 
-    private final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE =
+    private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE =
             "Unable to find DocumentTemplate.html to use as template!";
-    private final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
+    private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
             "Unable to write contents into ";
 
     private Name name;
@@ -61,7 +61,7 @@ public abstract class Document {
     private String makeDocument() {
         //Creation of the file name using string slicing
         typeOfFile = this.getClass().getName().substring(FILENAME_CLASS_SLICING);
-        String fileName =  typeOfFile + "_For_" + this.getName().toString().replaceAll("\\s", "")
+        String fileName = typeOfFile + "_For_" + this.getName().toString().replaceAll("\\s", "")
                             + "_" + this.getIcNumber().toString();
         completeFilePath = DIRECTORY_PATH + File.separator + fileName + ".html";
         return completeFilePath;
