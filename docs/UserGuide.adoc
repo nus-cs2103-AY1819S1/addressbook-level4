@@ -59,9 +59,6 @@ Format: `help`
 === Checking in a patient: `checkin`
 Adds a person to the patient queue.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `checkin NRIC`
 
@@ -76,9 +73,7 @@ Examples:
 === Checking out a patient: `checkout`
 Remove a patient from the patient queue after this patient checks out of the hospital.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
+
 
 Format: `checkout NRIC`
 
@@ -100,54 +95,45 @@ Examples:
 * `viewqueue`
 
 === View patient’s medical history: `viewmh`
-View a patient’s medical history.
+View an existing patient’s recorded medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 Format: `viewmh ic/NRIC`​
+****
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
+****
 
 Examples:
 
 * `viewmh ic/S1234567A`
 
 === Add to patient’s medical history: `addmh`
-Add a diagnosis entry to a patient’s medical history.
+Add a diagnosis entry to an existing patient’s medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
-Format: `addmh ic/NRIC mh/diagnosis​`
+Format: `addmh ic/NRIC mh/DIAGNOSIS​`
 ****
 * This will prompt the user for more input, to which the user will write an entry.
-* Pressing ‘Enter’ again will submit the entry.
 ****
 
 Examples:
 
-* `addmh ic/S1234567A mh/ Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to
+* `addmh ic/S1234567A mh/ Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
 rest and rehydrate.`
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewdiet NRIC`
 
 ​Examples:
 
-* `viewdiet S1234567A`
+* `viewdiet ic/S1234567A`
 
 === Add patient’s dietary needs: `adddiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PHYSICAL_DIFFICULTY`
 ****
@@ -161,9 +147,6 @@ Examples:
 === View patient’s medication: UI functionality
 View a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this functionality.
-****
 
 Simply click on the person's card and the panel on the right will display his prescribed medication. +
 You can click on a column heading to sort the medication view by that column's key. +
