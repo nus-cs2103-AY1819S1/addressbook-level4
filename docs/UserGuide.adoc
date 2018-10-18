@@ -214,7 +214,7 @@ Format: `viewappt ic/NRIC`
 
 Examples:
 
-* `viewappt ic/S1234567A'
+* `viewappt ic/S1234567A`
 
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
