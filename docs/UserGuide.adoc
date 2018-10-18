@@ -265,7 +265,7 @@ Finds and displays the list of attractions with addresses that contain the word 
 * *Exit*: `exit`
 * *Find*: `find <attraction>`
 * *Help*: `help [option]`
-* *History*: `history |find| [findargs...]`
+* *History*: `history`
 * *Undo*: `undo`
 * *Redo*: `redo`
 
