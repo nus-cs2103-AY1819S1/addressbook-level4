@@ -72,7 +72,7 @@ public class CommandBox extends UiPart<Region> {
             // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
             keyEvent.consume();
             if (keyEvent.isControlDown()) {
-                replaceText("Find ");
+                replaceText("find ");
             }
             break;
 
