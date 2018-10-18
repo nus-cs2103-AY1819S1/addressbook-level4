@@ -431,9 +431,9 @@ It implements the following operations:
 
 These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
 
-Given below is an example usage scenario and how the create_calendar command behaves at each step:
+Given below is an example usage scenario and how the `create_calendar` command behaves at each step:
 
-. The user executes the `create_calendar` command by specifying the `Month` and `Year`.
+. The user executes the `create_calendar` command by specifying the month and year.
 The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
 calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
 calendar already exists. Else, the command calls `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
@@ -446,12 +446,70 @@ calendar already exists. Else, the command calls `Model#createCalendar(Year year
 This saves the calendar to a specified local directory.
 
 ===== Add Event Commands
-The `add_all_day_event` and `add_event` command have many similarities. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
-Both command is facilitated by `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
+The `add_all_day_event` and `add_event` command have many similarities, they differ only by their parameters and the number of checks called to verify the validity of the event to be added. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
+Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
 
-* `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates a calendar object in the `CalendarModel`.
+* `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates an all day event object and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)` -- Creates an event object with the specified time frame and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
 * `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
-* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the computer.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isValidTime(int hour, int min)` -- Checks if the hour and minutes are valid in accordance to the 24 hour format.
+* `CalendarModel#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` -- Checks that the end date and time doesn't occur before the start date and time.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the 'Model` interface as
+`Model#createAllDayEvent(Year year, Month month, int date, String title)`,
+`Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`,
+`Model#loadCalendar(Year year, Month month)`,
+`Model#isExistingCalendar(Year year, Month month)`,
+`Model#isValidDate(Year year, Month month, int date)`,
+`Model#isValidTime(int hour, int min)`,
+`Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
+and in the `Storage` interface as
+`Storage#loadCalendar(String calendarName)` and
+`Storage#createCalendar(Calendar calendar, String calendarName)`.
+
+====== Add_All_Day_Event Command
+Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
+
+. The user executes the `add_all_day_event` command by specifying the month, year, date and title.
+The `add_all_day_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`, to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
+
+. The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleAllDayEventAddedEvent(AllDayEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+====== Add_Event Command
+Given below is an example usage scenario and how the `add_event` command behaves at each step:
+
+. The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
+The `add_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`,
+`Model#isValidTime(int hour, int min)` and `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#loadCalendar(Year year, Month month)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
+
+. The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+===== Delete_Event Command
+This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
 
 ==== Design Considerations
 
