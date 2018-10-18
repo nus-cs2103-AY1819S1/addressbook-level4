@@ -141,7 +141,7 @@ public class PersonBuilder {
         this.visitorList = vl;
         return this;
     }
-  
+
     /**
      * Sets the {@code AppointmentsList} of the {@code Person} that we are building.
      */
@@ -150,8 +150,12 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * construct person class
+     */
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList,visitorList);
+        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList,
+                visitorList);
     }
 
 }

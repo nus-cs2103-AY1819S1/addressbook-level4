@@ -137,10 +137,13 @@ public class Person {
         this.tags.addAll(tags);
         this.visitorList.addAll(visitorList);
         this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
+        this.dietCollection = new DietCollection();
     }
 
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, VisitorList visitorList) {
+                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, AppointmentsList appointmentsList,
+                  VisitorList visitorList) {
         requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, visitorList);
         this.nric = nric;
         this.name = name;
@@ -150,6 +153,8 @@ public class Person {
         this.tags.addAll(tags);
         this.medicalHistory.addAll(medicalHistory);
         this.prescriptionList = prescriptionList;
+        this.appointmentsList = appointmentsList;
+        this.dietCollection = new DietCollection();
         this.visitorList.addAll(visitorList);
     }
 
@@ -184,6 +189,7 @@ public class Person {
 
     public VisitorList getVisitorList() {
         return visitorList;
+    }
 
     public AppointmentsList getAppointmentsList() {
         return appointmentsList;
