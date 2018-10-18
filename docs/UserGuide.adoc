@@ -59,9 +59,6 @@ Format: `help`
 === Checking in a patient: `checkin`
 Adds a person to the patient queue.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 
@@ -74,9 +71,7 @@ Examples:
 === Checking out a patient: `checkout`
 Remove a patient from the patient queue after this patient checks out of the hospital.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
+
 
 Format: `checkout NRIC`
 
@@ -98,54 +93,46 @@ Examples:
 * `viewqueue`
 
 === View patient’s medical history: `viewmh`
-View a patient’s medical history.
+View an existing patient’s recorded medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 Format: `viewmh ic/NRIC`​
+****
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
+****
 
 Examples:
 
 * `viewmh ic/S1234567A`
 
 === Add to patient’s medical history: `addmh`
-Add a diagnosis entry to a patient’s medical history.
+Add a diagnosis entry to an existing patient’s medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
-Format: `addmh ic/NRIC mh/diagnosis​`
+Format: `addmh ic/NRIC mh/DIAGNOSIS​`
 ****
 * This will prompt the user for more input, to which the user will write an entry.
-* Pressing ‘Enter’ again will submit the entry.
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
 ****
 
 Examples:
 
-* `addmh ic/S1234567A mh/ Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to
+* `addmh ic/S1234567A mh/ Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
 rest and rehydrate.`
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewdiet NRIC`
 
 ​Examples:
 
-* `viewdiet S1234567A`
+* `viewdiet ic/S1234567A`
 
 === Add patient’s dietary needs: `adddiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PHYSICAL_DIFFICULTY`
 ****
@@ -159,9 +146,6 @@ Examples:
 === View patient’s medication: UI functionality
 View a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this functionality.
-****
 
 Simply click on the person's card and the panel on the right will display his prescribed medication. +
 You can click on a column heading to sort the medication view by that column's key. +
@@ -177,10 +161,6 @@ image::ViewmedsTable.png[width="790"]
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
 Format: `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
 
 Examples:
@@ -189,10 +169,6 @@ Examples:
 
 === Add appointment for patient: `addappt`
 Adds a scheduled appointment for a patient.
-
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
 
@@ -206,9 +182,6 @@ The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THER
 === Views all appointments for a patient: `viewappt`
 Views all scheduled appointments for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewappt ic/NRIC`
 
@@ -219,9 +192,6 @@ Examples:
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `xappt INDEX`
 
