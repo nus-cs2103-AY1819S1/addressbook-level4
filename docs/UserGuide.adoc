@@ -251,7 +251,7 @@ Step 2: You are required to log in your google account, just as when you are usi
 
 After successful authorization, the message +
 `Received verification code. You may now close the window.` +
-will appear. 
+will appear.
 
 Step 3: The application proceeds automatically after successful authorization. +
 As instructed, you do not have to do anything else, please feel free to close the browser tab.
