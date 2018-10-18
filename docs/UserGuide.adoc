@@ -73,6 +73,17 @@ Format:
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
+#### Adding a dependency to a Task: `dependency`
+[%hardbreaks]
+Adds a dependency to a task dependant to the task dependee
+Format:
+`edit INDEX_DEPENDANT INDEX_DEPENDEE`
++Example:
+`dependency 1 2`
+-Example:
+`dependency 1`
+`dependency a b`
+
 #### Completing a Task: `complete`
 [%hardbreaks]
 Completes task(s) in the task manager
