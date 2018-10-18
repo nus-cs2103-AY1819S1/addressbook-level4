@@ -1,6 +1,11 @@
 package seedu.address.model;
 
-import java.io.*;
+//import java.io.;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,9 +28,9 @@ public abstract class Document {
     private static final String DIRECTORY_PATH = COMPLETE_TEMPLATE_NAME
             .substring(0, COMPLETE_TEMPLATE_NAME.length() - FILENAME_END_SLICING);
 
-    private final String FAILURE_TO_LOCATE_TEMPLATE_ERROR_MESSAGE =
+    private final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE =
             "Unable to find DocumentTemplate.html to use as template!";
-    private final String FAILURE_TO_WRITE_INTO_FILE_ERROR_MESSAGE =
+    private final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
             "Unable to write contents into ";
 
     private Name name;
@@ -63,7 +68,7 @@ public abstract class Document {
     }
 
     /**
-     * Writing contents into a document
+     * Writing contents of the document into the HTML file.
      * */
     public void writeContentsIntoDocument() {
         String filePath = this.makeDocument();
@@ -81,10 +86,15 @@ public abstract class Document {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(FAILURE_TO_WRITE_INTO_FILE_ERROR_MESSAGE + filePath +"!");
+            System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + filePath + "!");
         }
     }
 
+    /**
+     * Converting the template HTML into a string for modifications.
+     * @return a string containing the template HTML code into a string for population of
+     *          necessary fields required by the type of Document.
+     * */
     private String convertHtmlIntoString() {
         StringBuilder contentBuilder = new StringBuilder();
         try {
@@ -95,7 +105,7 @@ public abstract class Document {
             }
             in.close();
         } catch (IOException e) {
-            System.out.println(FAILURE_TO_LOCATE_TEMPLATE_ERROR_MESSAGE);
+            System.out.println(TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE);
         }
         return contentBuilder.toString();
     }
