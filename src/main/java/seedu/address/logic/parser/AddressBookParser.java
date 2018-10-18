@@ -14,6 +14,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DisplayQueueCommand;
 import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.DocumentContentAddCommand;
+import seedu.address.logic.commands.DocumentContentDisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditMedicineCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -24,8 +26,10 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListStockCommand;
+import seedu.address.logic.commands.MedicalCertificateCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReferralLetterCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -123,6 +127,12 @@ public class AddressBookParser {
         case ReceiptCommand.COMMAND_ALIAS:
             return new ReceiptCommandParser().parse(arguments);
 
+        case MedicalCertificateCommand.COMMAND_WORD:
+            return new MedicalCertificateCommandParser().parse(arguments);
+
+        case ReferralLetterCommand.COMMAND_WORD:
+            return new ReferralLetterCommandParser().parse(arguments);
+
         case DisplayQueueCommand.COMMAND_WORD:
             return new DisplayQueueCommand();
 
@@ -138,12 +148,20 @@ public class AddressBookParser {
         case InsertCommand.COMMAND_ALIAS:
             return new InsertCommandParser().parse(arguments);
 
-        case ServeCommand.COMMAND_WORD:
-            return new ServeCommand();
-
         case RemoveCommand.COMMAND_WORD:
         case RemoveCommand.COMMAND_ALIAS:
             return new RemoveCommandParser().parse(arguments);
+
+        case ServeCommand.COMMAND_WORD:
+            return new ServeCommand();
+
+        case DocumentContentAddCommand.COMMAND_WORD:
+        case DocumentContentAddCommand.COMMAND_ALIAS:
+            return new DocumentContentAddCommandParser().parse(arguments);
+
+        case DocumentContentDisplayCommand.COMMAND_WORD:
+        case DocumentContentDisplayCommand.COMMAND_ALIAS:
+            return new DocumentContentDisplayCommand();
 
         case FinishCommand.COMMAND_WORD:
             return new FinishCommand();
