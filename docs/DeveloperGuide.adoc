@@ -324,6 +324,58 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::permission
+=== Permission System
+There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees. 
+Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS. 
+
+==== Current implementation
+
+===== Aspect: Model
+Model of a person have been changed to reflect the permission that each user possesses. 
+
+The following diagram highlights the class added to reflect the changes to the model for `Person`.
+
+image::permissionPersonModel.png[width="350"]
+
+===== Aspect: Storage
+Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file. 
+
+image::permissionStorage.png[width="350]
+
+===== Aspect: Logic
+Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command. 
+
+Given below is an example scenario of how the every commands will be executed.
+
+Step 1. The user enters a command `Delete 1` into the CLI. 
+
+Step 2. The system retrieves current user's `PermissionSet`
+
+Step 3. The system compares user's `PermissionSet` with `Delete` command's `requiredPermission`. 
+
+* Two different cases
+
+** User have required permissions, execute command.
+
+** User don't have required permissions, show error message. 
+
+==== Design Considerations
+
+* Alternative 1 (Current Implementation): Assign permission to each individual user, and restrict commands executable by user based on permission assigned. 
+
+** Pros: Easy to control the commands a user can access.
+
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. 
+
+* Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class. 
+The commands executable by the user will depend on their class. 
+
+** Pros: Easy to implement. Only require small modification in existing classes.
+
+** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`. 
+// end::permission
+
 === View deleted employee archive feature
 The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
 
