@@ -98,34 +98,52 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 == Design
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture overview
 
-.Architecture Diagram
-image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+This section explains the design architecture used by the entire system.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+.Architecture Diagram
+image::Architecture.png[width="600"]
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+The *_Architecture Diagram_* given above explains the high-level design of the App,
+ which contains 6 <<Architecture-Components,*`architecture components`*>> and
+ adopts an <<Architecture-design,*`events-driven nature`*>>.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+[[Architecture-Components]]
+=== Architecture components
 
-The rest of the App consists of four components.
+This section will briefly introduce the function of each architecture components
+as well as common behaviours.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+.Architecture Components
+|===
+|Component |Main Function
 
-Each of the four components
+|<<Design-Main,*`Main`*>>
+|the starting point of the system, which encapsulates the other components.
+
+|<<Design-Commons,*`Commons`*>>
+|represents a collection of classes used by multiple components.
+
+|<<Design-Ui,*`User Interface`*>>
+|contains the user interface classes used by the application.
+
+|<<Design-Logic,*`Logic`*>>
+|execute user commands, also known as the command executor.
+
+|<<Design-Model,*`Model`*>>
+|holds the data of the application in-memory.
+
+|<<Design-Storage,*`Storage`*>>
+|which allows reading and writing of data to the hard disk.
+|===
+
+[NOTE]
+Each of the User Interface, Logic, Model, Storage Components also:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -135,8 +153,10 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-[discrete]
-==== Events-Driven nature of the design
+[[Architecture-design]]
+=== Events-driven nature of the design
+
+This section will explain the main nature of design adopted by the system.
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
@@ -146,7 +166,7 @@ image::SDforDeletePerson.png[width="800"]
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The _Sequence Diagram_ below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
@@ -156,10 +176,29 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
-=== User Interface Component
+[[Design-Main]]
+=== Main component
 
-The _User Interface_ (UI) component consists of a `MainWindow` that is made up of different parts, with the base class
+The __``Main`` component__ consists of only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+[[Design-Commons]]
+=== Commons component
+
+The __``Commons`` component__ consists of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+[NOTE]
+Classes used by multiple components are in the seedu.addressbook.commons package.
+
+[[Design-Ui]]
+=== User interface component
+
+The _User Interface_ (`UI`) component consists of a `MainWindow` that is made up of different parts, with the base class
 link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] using _JavaFx UI_ framework.
 
 Please refer to the Class Diagram below for more details on how they are connected.
@@ -207,6 +246,8 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The `Model` component consist of a `ModelManager` that manages all the models.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
@@ -227,6 +268,8 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
+The `Storage` component consist of a `StorageManager` that takes care of all the Input/Output actions.
+
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
@@ -236,11 +279,6 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Car Park Finder data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -425,10 +463,11 @@ statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
 `ListCommand`, which holds the final value of 'l'. The program finds a match and
 proceeds as if a `list` command is given.
 
-The following activity diagram summarizes what happens when a user executes a `l`
-command:
-
+.Flow chart of command alias usage.
 image::AliasActivityDiagram.jpg[width="700", align="left"]
+
+The **Activity Diagram** given above explains what happens when a user executes a `l`
+command.
 
 ==== Design Considerations
 
