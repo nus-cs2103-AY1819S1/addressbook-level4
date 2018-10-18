@@ -474,6 +474,10 @@ The following steps show how the program works as the user login:
 
 4. The `mainWindow` class catches the `LoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
 
+The following sequence diagram fully shows the steps involved:
+
+image::LoginSequenceDiagram.png[]
+
 When the user wishes to logout, he enters logout, which triggers the following:
 
 1. The `LogoutEvent` is fired by the `LogoutCommand`.
