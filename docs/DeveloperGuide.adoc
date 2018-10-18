@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main
+:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
@@ -157,41 +157,51 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== User Interface Component
 
-.Structure of the UI Component
+The _User Interface_ (UI) component consists of a `MainWindow` that is made up of different parts, with the base class
+link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] using _JavaFx UI_ framework.
+
+Please refer to the Class Diagram below for more details on how they are connected.
+
+.Structure of the User Interface component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+In general, this is the workflow of the _UI_ component:
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+. Execute user commands using the `Logic` component.
+. Bind itself to some data in the `Model` so that the _UI_ components can auto-update when data in the `Model` change.
+. Respond to events raised from various parts of the App and updates the _UI_ components accordingly.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+All of these _UI_ parts, including the `MainWindow`, inherit from the abstract `UiPart` class. The layout for each
+component is defined in matching `.fxml` file and can be found in the `src/main/resources/view` folder.
 
-The `UI` component,
-
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+In short, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`] etc.
 
 [[Design-Logic]]
 === Logic component
+
+The `Logic` component consist of a `LogicManager` that takes care of all the parse and exexcution of commands.
+It inherits the base class link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`].
+
+Please refer to the Class Diagram below for more details on how they are connected.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+In general, this is the workflow of the _Logic_ component:
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  Get the `AddressBookParser` class to parse the user command.
+.  Create a `Command` object which is executed by the `LogicManager`.
+.  Pass the result of the command execution over to `Model`, which can affect it (e.g. adding a person) and/or raise events.
+.  Return the command execution by encapsulating as a `CommandResult` object which is passed back to the `UI`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Please refer to the Sequence Diagram below for an example of interactions within the `Logic` component
+using the `execute("delete 1")` _API_ call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions for execute operation
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -255,14 +265,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
 
+.Step 1 of undo/redo usage scenario
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the car park finder. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the car park finder after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
 
+.Step 2 of undo/redo usage scenario
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified car park finder state to be saved into the `addressBookStateList`.
 
+.Step 3 of undo/redo usage scenario
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
@@ -270,12 +283,15 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
 
+.Step 4 of undo/redo usage scenario
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-.How the undo operation works
+Please refer to the Sequence Diagram below for the `undo` operation.
+
+.Interactions for undo operation
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
@@ -285,14 +301,17 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
+.Step 5 of undo/redo usage scenario
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+.Step 6 of undo/redo usage scenario
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Summary for executing a new command
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
@@ -467,12 +486,12 @@ details with `GsonUtil#getCarparkAvailability()`. The process is similar to how 
 Step 6. When `GsonUtil#getCarparkAvailability()` is done adding in the parking lot details using `CarparkJson#addOn()`, a final check
 to see if there are any car parks with no data on its parking lots. The value 0 is added if there is no data.
 
-Step 7. An ArrayList<ArrayList<String>> is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
+Step 7. An `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
 to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
 
-The following sequence diagram shows how the query operation works:
+Please refer to the Sequence Diagram below for the `query` operation.
 
-.How the query operation works
+.Interactions for query operation
 image::zy_seq.png[width="800", align="left"]
 
 ==== Design Considerations
@@ -485,7 +504,7 @@ image::zy_seq.png[width="800", align="left"]
 
 * **Alternative 2 :** Data is queried using a separate thread.
 ** Pros: Application can be used as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects.
+** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 ===== Aspect: Data structure to support query command
 
@@ -502,7 +521,7 @@ with `HashMap<String,Carpark>`.
 
 ==== Overview
 
-The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds or minutes
+The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds/minutes
 and is used in conjunction with the `select` command.
 
 This means that it will only notify the current selected car park only, and not all the car parks.
@@ -511,7 +530,7 @@ This means that it will only notify the current selected car park only, and not 
 
 _This feature is coming in v2.0._
 
-.When a user executes a notify command
+.Summary for executing a notify command
 image::zy_act.png[width="800", align="left"]
 
 ==== Design Considerations
@@ -520,11 +539,11 @@ image::zy_act.png[width="800", align="left"]
 
 * **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
 ** Pros: Easy to implement.
-** Cons: Performance issues as the application hangs.
+** Cons: Performance issues as the application might stall.
 
 * **Alternative 2 :** Data is queried using a separate thread every interval.
 ** Pros: Application can be used as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects.
+** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 === Filter feature
 
@@ -1304,19 +1323,25 @@ to search for locations of car parks.
 == Glossary
 
 [[api]] API (Application Programming Interface)::
-A set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service.
+Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
 
 [[autocomplete]]  Autocomplete::
-Provides suggestions while you type into the field
+Provides suggestions while you type into the field.
 
 [[flag]] Flag::
 A value that acts as a signal for a function or process.
+
+[[JSON]] JSON (JavaScript Object Notation)::
+A file format that allows humans to easily read and write data for machines to process.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Favourites::
 A custom list of car parks that is meant to be viewed easily.
+
+[[ui]] UI (User Interface)::
+Allows the user to interact with the application through inputs and outputs of data.
 
 [appendix]
 == Product Survey
