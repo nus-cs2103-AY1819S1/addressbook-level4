@@ -427,23 +427,32 @@ The purpose of the keyed `addmh` command line is to register and record a diagno
 the `NRIC` S9123124A. Subsequently, the `viewmh` command line accesses the `MedicalHistory` stored within the `Person`
 with `NRIC` S9123124A and displays in the command prompt box.
 
-*Explanation*
+==== Command Execution
 
 The sequence diagram below shows the execution of the given scenario:
 
-image::AddmhViewmhSequenceDiagram.png[width="1050"]
+image::AddmhViewmhSequenceDiagram.png[width="800"]
 
-With reference to the diagram above, a technical explanation of the sequential interactions between the
-relevant instances of various classes may be given.
+* `addmh ic/S9123124A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol`
+** When the user-executed `addmh` line is passed into an instance of the LogicManager class, the method `AddressBookParser::parse` is executed.
+`AddressBookParser` then parses the command word `addmh` and subsequently executes `AddmhCommandParser::parse`.
 
-When the user-executed `addmh` line is passed into an instance of the LogicManager class, `AddressBookParser::parse` is executed.
-`AddressBookParse` then parses the leading command word `addmh` and subsequently executes `AddmhCommandParser::parse`.
+** Next, arguments prefixed by `ic/` and `mh/` are parsed into `NRIC` and `Diagnosis` objects to be used in the `AddmhCommand` constructor.
 
-The arguments by `ic/` and `mh/` are then parse into `NRIC` and `Diagnosis` objects to be used in the `AddmhCommand` constructor.
+** The instantiated `AddmhCommand` will be the medium through which the `Person` with the `NRIC` S9123124A is updated.
 
-The instantiated `AddmhCommand` will the medium through which the `Person` with the `NRIC` S9123124A is then updated.
+*** In the `AddmhCommand#execute` method, a new `MedicalHistory` object is added to a new copy of the `Person` object.
+*** The new `Person` object is updated by the model by the `Model::updatePerson` method.
+*** A new `CommandResult` object is returned and the execution ends.
 
-The command execution then *ends*.
+* `viewmh ic/S9123124A`
+** Similarly, the `viewmh` line is passed to and parsed by the same `LogicManager` instance.
+With the supplied arguments in the command, the `AddressBookParser` object creates a `ViewmhParser`, which subsequently
+instantiates a new `ViewmhCommand` object.
+** The `ViewmhCommand#execute` method when executed, retrieves the `Person` with the matching `NRIC` and displays his
+`MedicalHistory`, and the execution ends.
+
+* Command execution ends.
 
 
 ****

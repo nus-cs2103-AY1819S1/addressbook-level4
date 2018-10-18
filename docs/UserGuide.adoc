@@ -112,6 +112,7 @@ Patient must be registered within the system.
 Format: `addmh ic/NRIC mh/DIAGNOSIS​`
 ****
 * This will prompt the user for more input, to which the user will write an entry.
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
 ****
 
 Examples:
@@ -160,10 +161,6 @@ image::ViewmedsTable.png[width="790"]
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
 Format: `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
 
 Examples:
@@ -172,10 +169,6 @@ Examples:
 
 === Add appointment for patient: `addappt`
 Adds a scheduled appointment for a patient.
-
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
 
@@ -189,9 +182,6 @@ The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THER
 === Views all appointments for a patient: `viewappt`
 Views all scheduled appointments for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewappt ic/NRIC`
 
@@ -202,9 +192,6 @@ Examples:
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `xappt INDEX`
 
