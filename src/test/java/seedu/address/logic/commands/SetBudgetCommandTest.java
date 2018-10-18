@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 //author winsonhys
 
+import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
@@ -37,8 +38,9 @@ public class SetBudgetCommandTest {
         expectedModel.commitAddressBook();
         SetBudgetCommand setBudgetCommand = new SetBudgetCommand(toSet);
         String expectedMessage = String.format(SetBudgetCommand.MESSAGE_SUCCESS, toSet);
-
         assertCommandSuccess(setBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(expectedModel.getMaximumBudget().getCurrentExpenses(),
+            model.getMaximumBudget().getCurrentExpenses());
     }
 
 }
