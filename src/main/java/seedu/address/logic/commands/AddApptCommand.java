@@ -45,6 +45,7 @@ public class AddApptCommand extends Command {
     private final Appointment toAdd;
 
     public AddApptCommand(Appointment toAdd) {
+        requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 
@@ -61,12 +62,8 @@ public class AddApptCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-        if (other instanceof AddApptCommand) {
-            return false;
-        }
-        return toAdd.equals(((AddApptCommand) other).toAdd);
+        return other == this // short circuit if same object
+                || (other instanceof AddApptCommand // instanceof handles nulls
+                && toAdd.equals(((AddApptCommand) other).toAdd));
     }
 }
