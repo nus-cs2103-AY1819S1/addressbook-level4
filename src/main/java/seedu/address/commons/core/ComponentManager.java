@@ -23,6 +23,8 @@ public abstract class ComponentManager {
     }
 
     protected void raise(BaseEvent event) {
-        eventsCenter.post(event);
+        if (event != null) {
+            eventsCenter.post(event);
+        }
     }
 }

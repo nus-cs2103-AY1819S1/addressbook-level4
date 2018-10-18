@@ -32,8 +32,6 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    @FXML
-    private TreeView treeView;
 
     public BrowserPanel() {
         super(FXML);

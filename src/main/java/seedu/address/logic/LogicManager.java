@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.QueueCommand;
@@ -16,6 +17,7 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
@@ -44,8 +46,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+        Command command = addressBookParser.parseCommand(commandText);
         try {
-            Command command = addressBookParser.parseCommand(commandText);
             if (command instanceof QueueCommand) {
                 return ((QueueCommand) command).execute(model, patientQueue, currentPatient,
                         servedPatientList, history);
@@ -53,12 +55,20 @@ public class LogicManager extends ComponentManager implements Logic {
             return command.execute(model, history);
         } finally {
             history.add(commandText);
+            if (command instanceof QueueCommand) {
+                raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
+            }
         }
     }
 
     @Override
     public ObservableList<Patient> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return model.getFilteredMedicineList();
     }
 
     @Override

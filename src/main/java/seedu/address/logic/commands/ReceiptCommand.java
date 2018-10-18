@@ -6,6 +6,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -53,7 +54,10 @@ public class ReceiptCommand extends QueueCommand {
         receipt = new Receipt(servedPatient);
         generatedResult = receipt.generate();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index)); // TODO: What's this for ah?
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+
         return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
     }
 
