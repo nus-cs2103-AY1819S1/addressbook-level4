@@ -174,6 +174,50 @@ Selects the 2nd patient in the clinic record.
 `select 1` +
 Selects the 1st patient in the results of the `find` command.
 
+=== Adding a medicine: `add medicine`
+
+Adds a medicine to the medicine inventory +
+Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
+
+[TIP]
+A medicine can have any number of tags (including 0)
+
+Example:
+
+* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
+
+=== Finding a medicine by name: `find medicine`
+
+Find a medicine in the medicine inventory +
+Format: `find medicine MEDICINE_NAME`
+
+****
+* The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
+* Only the name is searched.
+* Only full words will be matched. e.g. `Ibu` will not match `Ibuprofen`
+* Medicine with the matching name will be returned.
+****
+
+Example:
+
+* `find ibuprofen` +
+Returns `Ibuprofen`
+
+=== Removing a medicine by name : `remove medicine`
+
+Removes the specified medicine from the medicine inventory. +
+Format: `remove medicine MEDICINE_NAME`
+
+****
+* The medicine name is case insensitive.
+* Medicine with the matching name will be removed.
+****
+
+Example:
+
+* `remove medicine Paracetemol` +
+Removes the Paracetemol entry from the medicine inventory.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -272,7 +316,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+=== `ClinicIO` Commands
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Averages* : `averages`
 * *Totals* : `totals`
@@ -297,3 +342,15 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+
+=== `MedicineInventory` Commands
+* *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
+e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
+* *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
+e.g. `deletemedicine Paracetamol`
+* *Find Medicine* : `findmedicine MEDICINE_NAME` +
+e.g. `findmedicine Paracetamol`
+* *Increase Medicine Quantity* : `increasemedicine m/MEDICINE_NAME q/QUANTITY` +
+e.g. `increasemedicine m/Paracetamol q/500`
+* *Decrease Medicine Quantity* : `decreasemedicine m/MEDICINE_NAME q/QUANTITY` +
+e.g. `decreasemedicine m/Paracetamol q/20`
