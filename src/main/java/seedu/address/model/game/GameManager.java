@@ -34,10 +34,13 @@ public class GameManager {
      * @return Returns the XP the supplied task is worth at present
      */
     public int forecastTaskXp(Task task) {
+
+        // If task is completed or overdue, then there is no XP to be earned.
         if (task.isCompleted() || task.isOverdue()) {
             return 0;
         }
 
+        // Make a copy of the task with COMPLETED status.
         Task copy = new Task(task.getName(), task.getDueDate(), task.getPriorityValue(), task.getDescription(),
                 task.getLabels(), Status.COMPLETED, task.getDependency());
 
