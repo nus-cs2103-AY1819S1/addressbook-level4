@@ -149,7 +149,9 @@ public class Person {
         return medicalHistory;
     }
 
-    public VisitorList getVisitorList() {return visitorList;}
+    public VisitorList getVisitorList() {
+        return visitorList;
+    }
 
     /**
      * Returns an immutable tag set, which throws

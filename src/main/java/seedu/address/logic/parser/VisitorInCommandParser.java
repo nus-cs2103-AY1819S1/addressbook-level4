@@ -1,15 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.VisitorInCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.visitor.Visitor;
 import seedu.address.model.person.Name;
+import seedu.address.model.visitor.Visitor;
+
 
 //@@ gao jiaxin
 /**

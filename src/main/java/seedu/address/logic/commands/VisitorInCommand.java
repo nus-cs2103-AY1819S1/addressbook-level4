@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
+import java.util.Set;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,9 +22,11 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.model.visitor.VisitorList;
 
-import java.util.Set;
+
+
 
 /**
+ * @@ GAO JIAXIN
  * Checks in a visitor into patient's visitor list.
  */
 public class VisitorInCommand extends Command {
@@ -45,7 +49,9 @@ public class VisitorInCommand extends Command {
     private final Name patientName;
     private final Visitor visitorName;
 
-
+    /**
+     * Creates an VisitorInCommand to add visitors to patient's visitor's list
+     */
     public VisitorInCommand(Name patientName, Visitor visitorName) {
         requireNonNull(patientName);
         requireNonNull(visitorName);
@@ -66,11 +72,11 @@ public class VisitorInCommand extends Command {
 
         Person patientToUpdate = filteredByName.get(0);
 
-        if(patientToUpdate.getVisitorList().size() >= 5){
+        if (patientToUpdate.getVisitorList().size() >= 5) {
             throw new CommandException(MESSAGE_FULL);
         }
 
-        if(patientToUpdate.getVisitorList().contains(visitorName)){
+        if (patientToUpdate.getVisitorList().contains(visitorName)) {
             throw new CommandException(MESSAGE_DUPLICATE_VISITOR);
         }
 
@@ -89,6 +95,13 @@ public class VisitorInCommand extends Command {
                 && visitorName.equals(((VisitorInCommand) other).visitorName));
     }
 
+    /**
+     * Updates a patient with new visitor and construct a the person class
+     *
+     * @param patientToEdit The patient to update.
+     * @param newVisitor The newly added visitor
+     * @return An updated patient with an updated visitorList.
+     */
     private static Person addVisitorForPatient(Person patientToEdit, Visitor newVisitor) {
         requireAllNonNull(patientToEdit, newVisitor);
 

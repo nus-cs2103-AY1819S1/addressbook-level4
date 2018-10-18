@@ -3,6 +3,9 @@ package seedu.address.model.visitor;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The visitor list to store all the visitors for patient.
+ */
 public class VisitorList extends ArrayList<Visitor> {
     private ArrayList<Visitor> visitorArrayList;
 

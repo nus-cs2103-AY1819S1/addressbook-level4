@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.medicalhistory.MedicalHistory;
-import seedu.address.model.visitor.VisitorList;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
@@ -16,6 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.visitor.VisitorList;
 
 /**
  * A utility class to help with building Person objects.

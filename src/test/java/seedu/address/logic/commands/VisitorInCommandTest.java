@@ -20,10 +20,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.visitor.Visitor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.visitor.Visitor;
 import seedu.address.testutil.PersonBuilder;
 
 //@@ GAO JIAXIN
@@ -86,8 +86,8 @@ public class VisitorInCommandTest {
         Person daniel = new PersonBuilder().withName("daniel").build();
         Visitor jackVisitor = new Visitor("GAO JIAXIN");
         Visitor danielVisitor = new Visitor("ENOCH");
-        VisitorInCommand addJackVisitorCommand= new VisitorInCommand(jack.getName(), jackVisitor);
-        VisitorInCommand addDanielVisitorCommand= new VisitorInCommand(jack.getName(), danielVisitor);
+        VisitorInCommand addJackVisitorCommand = new VisitorInCommand(jack.getName(), jackVisitor);
+        VisitorInCommand addDanielVisitorCommand = new VisitorInCommand(jack.getName(), danielVisitor);
 
         // same object -> returns true
         assertTrue(addJackVisitorCommand.equals(addJackVisitorCommand));

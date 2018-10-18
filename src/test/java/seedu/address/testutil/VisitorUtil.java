@@ -1,12 +1,15 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import seedu.address.logic.commands.VisitorInCommand;
-import seedu.address.model.visitor.Visitor;
 import seedu.address.model.person.Name;
+import seedu.address.model.visitor.Visitor;
 
+/**
+ * utility class for {@code visitor}.
+ */
 public class VisitorUtil {
     public static String getVisitorInCommand(Name name, Visitor visitor) {
         StringBuilder sb = new StringBuilder();

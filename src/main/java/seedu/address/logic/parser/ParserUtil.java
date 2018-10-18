@@ -79,6 +79,13 @@ public class ParserUtil {
         return new Diagnosis(trimmedDiagnosis);
     }
     // @@ GAO JIAXIN
+    /**
+     * Parses a {@code String visitor} into a {@code visitor}. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     *              if the given {@code visitor} is invalid.
+     */
     public static Visitor parseVisitor(String visitor) throws ParseException {
         requireNonNull(visitor);
         String trimmedVisitor = visitor.trim();
