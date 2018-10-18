@@ -28,10 +28,11 @@ Interested? Jump to <<Quick Start>> to get started!
 
 Follow these steps to start using the Expense Tracker:
 
-.  Install Java (version 9 or later) on your computer.
+.  Install Java (version 9 or later) on your computer by going https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
+and downloading the Java SE Runtime Environment for your operating system.
 .  Download the latest `expensetracker.jar` file from https://github.com/CS2103-AY1819S1-T12-1/main/releases[here]
 .  Copy the file to the folder which you want to use as the home folder for your Expense Tracker.
-.  Double-click the `expensetracker.jar` file to start the app. The GUI will appear in a few seconds and will look like this:
+.  Double-click the `expensetracker.jar` file to start the app. The GUI will appear and look like this:
 +
 .User interface on application launch
 image::userguide/uiOnLaunch.png[width="790"]
