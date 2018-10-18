@@ -246,7 +246,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::toDoList
 === ToDoList  feature
-====Current implementation
+==== Current implementation
 
 The ToDoList mechanism is facilatated by 'ToDoList', which is a differrent but similar class form 'Schedule'.
 Inside the 'ToDoList', there are UnDuplicated 'ToDoListEvent' which include 'Title', 'Description' and 'Priority'.
