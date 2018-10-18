@@ -59,26 +59,19 @@ Format: `help`
 === Checking in a patient: `checkin`
 Adds a person to the patient queue.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
-Format: `checkin NRIC`
+Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 
-* If the patient is a new patient, then the AddressBook will request for additional information in the following format: +
-`n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+* If the patient is already checked in, the command will not be allowed.
 
 Examples:
 
-* `checkin S1234567A`
-** `n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 
 === Checking out a patient: `checkout`
 Remove a patient from the patient queue after this patient checks out of the hospital.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
+
 
 Format: `checkout NRIC`
 
@@ -100,54 +93,46 @@ Examples:
 * `viewqueue`
 
 === View patient’s medical history: `viewmh`
-View a patient’s medical history.
+View an existing patient’s recorded medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 Format: `viewmh ic/NRIC`​
+****
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
+****
 
 Examples:
 
 * `viewmh ic/S1234567A`
 
 === Add to patient’s medical history: `addmh`
-Add a diagnosis entry to a patient’s medical history.
+Add a diagnosis entry to an existing patient’s medical history.
+Patient must be registered within the system.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
-Format: `addmh ic/NRIC mh/diagnosis​`
+Format: `addmh ic/NRIC mh/DIAGNOSIS​`
 ****
 * This will prompt the user for more input, to which the user will write an entry.
-* Pressing ‘Enter’ again will submit the entry.
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
 ****
 
 Examples:
 
-* `addmh ic/S1234567A mh/ Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to
+* `addmh ic/S1234567A mh/ Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
 rest and rehydrate.`
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewdiet NRIC`
 
 ​Examples:
 
-* `viewdiet S1234567A`
+* `viewdiet ic/S1234567A`
 
 === Add patient’s dietary needs: `adddiet`
 View a patient’s dietary needs.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PHYSICAL_DIFFICULTY`
 ****
@@ -161,9 +146,6 @@ Examples:
 === View patient’s medication: UI functionality
 View a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this functionality.
-****
 
 Simply click on the person's card and the panel on the right will display his prescribed medication. +
 You can click on a column heading to sort the medication view by that column's key. +
@@ -179,10 +161,6 @@ image::ViewmedsTable.png[width="790"]
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
 Format: `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
 
 Examples:
@@ -192,41 +170,34 @@ Examples:
 === Add appointment for patient: `addappt`
 Adds a scheduled appointment for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
-
 Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
 
 Examples:
 
-* `addappt ic/S1234567A type/SURGERY pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+
+The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
+*Other inputs will not be allowed.*
 
 === Views all appointments for a patient: `viewappt`
 Views all scheduled appointments for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `viewappt ic/NRIC`
 
 Examples:
 
-* `viewappt ic/S1234567A'
+* `viewappt ic/S1234567A`
 
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
 
-****
-WARNING: You must have the appropriate permissions to invoke this command.
-****
 
 Format: `xappt INDEX`
 
 Examples:
 
-* `view S1234567A` +
+* `viewappt S1234567A` +
 `xappt 2` +
 Deletes the second appointment belonging to patient with NRIC S1234567A
 
@@ -276,16 +247,22 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Help* `help.`
-* *Check-in* : `checkin NRIC`; `n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES` +
-e.g. `checkin S1234567A`; `n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* *Check-in* : `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES` +
+e.g. `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 * *Check-out* : `checkout NRIC` +
 e.g. `checkout S1234567A`
 * *View patient queue* : `viewqueue` +
 e.g. `viewqueue`
 * *View medical history* : `viewmh NRIC` +
 e.g. `viewmh S1234567A`
-* *Add medical history* : `addmh NRIC`; `[MEDICAL_ENTRY]` +
-e.g. `addmh S1234567A`;  `Saw patient at 2pm today...`
+* *Add medical history* : `addmh ic/NRIC mh/[MEDICAL_ENTRY]` +
+e.g. `addmh ic/S1234567A mh/Saw patient at 2pm today...`
+* *Add appointment for patient* : `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DATE_TIME doc/DOCTOR_IN_CHARGE` +
+e.g. `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+* *View appointments of patient* : `viewappt ic/NRIC` +
+e.g. `viewappt S1234567A`
+* *Cancel appointment for patient* : `viewappt NRIC` `xappt INDEX` +
+e.g. `viewappt S1234567A` `xappt 2`
 * *View patient's dietary needs* : `viewdiet NRIC` +
 e.g. `viewdiet S1234567A`
 * *Add patient's dietary needs* : `adddiet NRIC` +
