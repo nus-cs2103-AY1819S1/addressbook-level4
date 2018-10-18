@@ -17,9 +17,60 @@ public class PermissionSet {
      * Enum class to represent the preset permission available.
      */
     public enum PresetPermission {
-        ADMIN,
-        MANAGER,
-        EMPLOYEE
+        ADMIN {
+
+            /**
+             * @return a set of permission that represent the permission an admin should have.
+             */
+            public Set<Permission> getPreset() {
+                Set<Permission> preset = new HashSet<>();
+                preset.add(Permission.ADD_EMPLOYEE);
+                preset.add(Permission.REMOVE_EMPLOYEE);
+                preset.add(Permission.EDIT_EMPLOYEE);
+                preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
+                preset.add(Permission.APPROVE_LEAVE);
+                preset.add(Permission.CREATE_PROJECT);
+                preset.add(Permission.VIEW_PROJECT);
+                preset.add(Permission.ASSIGN_PROJECT);
+                preset.add(Permission.CREATE_DEPARTMENT);
+                preset.add(Permission.ASSIGN_DEPARTMENT);
+                preset.add(Permission.ASSIGN_PERMISSION);
+                return preset;
+            }
+        },
+        MANAGER {
+
+            /**
+             * @return a set of permission that represent the permission a manager should have.
+             */
+            public Set<Permission> getPreset() {
+                Set<Permission> preset = new HashSet<>();
+                preset.add(Permission.ADD_EMPLOYEE);
+                preset.add(Permission.REMOVE_EMPLOYEE);
+                preset.add(Permission.EDIT_EMPLOYEE);
+                preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
+                preset.add(Permission.APPROVE_LEAVE);
+                preset.add(Permission.CREATE_PROJECT);
+                preset.add(Permission.VIEW_PROJECT);
+                preset.add(Permission.ASSIGN_PROJECT);
+                preset.add(Permission.CREATE_DEPARTMENT);
+                preset.add(Permission.ASSIGN_DEPARTMENT);
+                return preset;
+            }
+        },
+        EMPLOYEE {
+
+            /**
+             * @return a set of permission that represent the permission an employee should have.
+             */
+            public Set<Permission> getPreset() {
+                Set<Permission> preset = new HashSet<>();
+                preset.add(Permission.VIEW_PROJECT);
+                return preset;
+            }
+        };
+
+        abstract Set<Permission> getPreset();
     }
 
     public PermissionSet() {
@@ -28,6 +79,7 @@ public class PermissionSet {
 
     /**
      * Constructor to build a permission set with a preset permission list.
+     *
      * @param p the preset to use.
      */
     public PermissionSet(PresetPermission p) {
@@ -95,24 +147,7 @@ public class PermissionSet {
             return false;
         }
 
-        switch (p) {
-
-        case ADMIN:
-            permissionSet = getAdminPreset();
-            break;
-
-        case MANAGER:
-            permissionSet = getManagerPreset();
-            break;
-
-        case EMPLOYEE:
-            permissionSet = getEmployeePreset();
-            break;
-
-        default:
-            //Should not be able to get here.
-            return false;
-        }
+        permissionSet = p.getPreset();
         return true;
     }
 
@@ -151,52 +186,6 @@ public class PermissionSet {
      */
     public boolean addAll(PermissionSet pSet) {
         return this.permissionSet.addAll(pSet.permissionSet);
-    }
-
-    /**
-     * @return a set of permission that represent the permission an admin should have.
-     */
-    private Set<Permission> getAdminPreset() {
-        Set<Permission> preset = new HashSet<>();
-        preset.add(Permission.ADD_EMPLOYEE);
-        preset.add(Permission.REMOVE_EMPLOYEE);
-        preset.add(Permission.EDIT_EMPLOYEE);
-        preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
-        preset.add(Permission.APPROVE_LEAVE);
-        preset.add(Permission.CREATE_PROJECT);
-        preset.add(Permission.VIEW_PROJECT);
-        preset.add(Permission.ASSIGN_PROJECT);
-        preset.add(Permission.CREATE_DEPARTMENT);
-        preset.add(Permission.ASSIGN_DEPARTMENT);
-        preset.add(Permission.ASSIGN_PERMISSION);
-        return preset;
-    }
-
-    /**
-     * @return a set of permission that represent the permission a manager should have.
-     */
-    private Set<Permission> getManagerPreset() {
-        Set<Permission> preset = new HashSet<>();
-        preset.add(Permission.ADD_EMPLOYEE);
-        preset.add(Permission.REMOVE_EMPLOYEE);
-        preset.add(Permission.EDIT_EMPLOYEE);
-        preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
-        preset.add(Permission.APPROVE_LEAVE);
-        preset.add(Permission.CREATE_PROJECT);
-        preset.add(Permission.VIEW_PROJECT);
-        preset.add(Permission.ASSIGN_PROJECT);
-        preset.add(Permission.CREATE_DEPARTMENT);
-        preset.add(Permission.ASSIGN_DEPARTMENT);
-        return preset;
-    }
-
-    /**
-     * @return a set of permission that represent the permission an employee should have.
-     */
-    private Set<Permission> getEmployeePreset() {
-        Set<Permission> preset = new HashSet<>();
-        preset.add(Permission.VIEW_PROJECT);
-        return preset;
     }
 
 }
