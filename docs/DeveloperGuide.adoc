@@ -2,6 +2,7 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:imagesDir: images
 :repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
 
 ## Disclaimer
@@ -399,13 +400,17 @@ Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute
 created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
 called which handles the logic for updating all valid completable tasks matching the predicate.
 
+image::CompleteViaLabelOnFail.png[width="1200"]
+
 [NOTE]
 If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
 all current changes will be reset to the latest commit / state in `taskManagerStateList`.
 
+image::CompleteViaLabelOnSuccess.png[width="1200"]
+
 Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
 
-Step 2. The user sees all tasks previously diplayed on the screen which matches the label change
+Step 2. The user sees all tasks previously displayed on the screen which matches the label change
 it's status to `COMPLETED`
 
 #### Design Considerations
