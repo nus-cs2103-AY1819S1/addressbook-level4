@@ -68,14 +68,14 @@ existing project dialog first)
 This will generate all resources required by the application and tests.
 
 === Verifying the setup
-*To verify that you have successfully set up the project:*
+*To verify that you have successfully set the project up:*
 
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> and ensure that they all pass.
 
 === Configurations to apply before writing code
 
-*The following lists configurations that should be applied before writing code:*
+The following lists configurations that should be applied before writing code:
 
 ==== Configuring the coding style
 
@@ -93,11 +93,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding, referencing the
-`se-edu/addressbook-level4`
-repo.
-
-If you plan to develop this fork as a separate product (instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (instead of contributing to expense tracker), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -453,7 +449,7 @@ the total cost for that day
 Given below is an example usage scenario and of how the find mechanism behaves at each step.
 
 . User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `AddressBookParser`,
-which then creates a `FindCommandParser` Object and call `FindCommandParser#parse()` method.
+which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
 . `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
 an ArgumentMultimap Object.
@@ -1067,30 +1063,30 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+//[appendix]
+//== Product Survey
+//
+//*Product Name*
+//
+//Author: ...
+//
+//Pros:
+//
+//* ...
+//* ...
+//
+//Cons:
+//
+//* ...
+//* ...
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+//[appendix]
+//== Instructions for Manual Testing
+//
+//Given below are instructions to test the app manually.
+//
+//[NOTE]
+//These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
