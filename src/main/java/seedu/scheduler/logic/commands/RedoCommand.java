@@ -13,6 +13,9 @@ import seedu.scheduler.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_ALIAS_ONE = "red";
+    public static final String COMMAND_ALIAS_TWO = "re";
+    public static final String COMMAND_ALIAS_THREE = "r";
     public static final String MESSAGE_SUCCESS = "Redo success!";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 

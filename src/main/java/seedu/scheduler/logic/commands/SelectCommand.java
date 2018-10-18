@@ -19,6 +19,11 @@ import seedu.scheduler.model.event.Event;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_ALIAS_ONE = "selec";
+    public static final String COMMAND_ALIAS_TWO = "sele";
+    public static final String COMMAND_ALIAS_THREE = "sel";
+    public static final String COMMAND_ALIAS_FOUR = "se";
+    public static final String COMMAND_ALIAS_FIVE = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the event identified by the index number used in the displayed event list.\n"

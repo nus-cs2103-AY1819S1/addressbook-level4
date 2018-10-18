@@ -17,6 +17,11 @@ import seedu.scheduler.model.event.Event;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_ALIAS_ONE = "delet";
+    public static final String COMMAND_ALIAS_TWO = "dele";
+    public static final String COMMAND_ALIAS_THREE = "del";
+    public static final String COMMAND_ALIAS_FOUR = "de";
+    public static final String COMMAND_ALIAS_FIVE = "d";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed event list.\n"

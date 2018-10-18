@@ -50,42 +50,83 @@ public class SchedulerParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_ALIAS_ONE:
+        case AddCommand.COMMAND_ALIAS_TWO:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_ALIAS_ONE:
+        case EditCommand.COMMAND_ALIAS_TWO:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ALIAS_ONE:
+        case SelectCommand.COMMAND_ALIAS_TWO:
+        case SelectCommand.COMMAND_ALIAS_THREE:
+        case SelectCommand.COMMAND_ALIAS_FOUR:
+        case SelectCommand.COMMAND_ALIAS_FIVE:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_ALIAS_ONE:
+        case DeleteCommand.COMMAND_ALIAS_TWO:
+        case DeleteCommand.COMMAND_ALIAS_THREE:
+        case DeleteCommand.COMMAND_ALIAS_FOUR:
+        case DeleteCommand.COMMAND_ALIAS_FIVE:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_ALIAS_ONE:
+        case ClearCommand.COMMAND_ALIAS_TWO:
+        case ClearCommand.COMMAND_ALIAS_THREE:
+        case ClearCommand.COMMAND_ALIAS_FOUR:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_ALIAS_ONE:
+        case FindCommand.COMMAND_ALIAS_TWO:
+        case FindCommand.COMMAND_ALIAS_THREE:
             return new FindCommandParser().parse(arguments);
 
         case GetGoogleCalendarEventsCommand.COMMAND_WORD:
             return new GetGoogleCalendarEventsCommand();
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS_ONE:
+        case ListCommand.COMMAND_ALIAS_TWO:
+        case ListCommand.COMMAND_ALIAS_THREE:
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
+        case HistoryCommand.COMMAND_ALIAS_ONE:
+        case HistoryCommand.COMMAND_ALIAS_TWO:
+        case HistoryCommand.COMMAND_ALIAS_THREE:
+        case HistoryCommand.COMMAND_ALIAS_FOUR:
+        case HistoryCommand.COMMAND_ALIAS_FIVE:
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_ALIAS_ONE:
+        case ExitCommand.COMMAND_ALIAS_TWO:
+        case ExitCommand.COMMAND_ALIAS_THREE:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_ALIAS_ONE:
+        case HelpCommand.COMMAND_ALIAS_TWO:
+        case HelpCommand.COMMAND_ALIAS_THREE:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_ALIAS_ONE:
+        case UndoCommand.COMMAND_ALIAS_TWO:
+        case UndoCommand.COMMAND_ALIAS_THREE:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_ALIAS_ONE:
+        case RedoCommand.COMMAND_ALIAS_TWO:
+        case RedoCommand.COMMAND_ALIAS_THREE:
             return new RedoCommand();
 
         default:
