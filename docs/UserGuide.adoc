@@ -285,8 +285,8 @@ e.g. `checkout S1234567A`
 e.g. `viewqueue`
 * *View medical history* : `viewmh NRIC` +
 e.g. `viewmh S1234567A`
-* *Add medical history* : `addmh NRIC`; `[MEDICAL_ENTRY]` +
-e.g. `addmh S1234567A`;  `Saw patient at 2pm today...`
+* *Add medical history* : `addmh ic/NRIC mh/[MEDICAL_ENTRY]` +
+e.g. `addmh ic/S1234567A mh/Saw patient at 2pm today...`
 * *Add appointment for patient* : `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DATE_TIME doc/DOCTOR_IN_CHARGE` +
 e.g. `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 doc/Dr. Pepper`
 * *View appointments of patient* : `viewappt ic/NRIC` +
