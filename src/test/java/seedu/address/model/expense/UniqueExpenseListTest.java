@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalExpenses.BOB;
+import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import java.util.Arrays;
@@ -105,18 +105,18 @@ public class UniqueExpenseListTest {
     @Test
     public void setExpense_editedExpenseHasDifferentIdentity_success() {
         uniqueExpenseList.add(SCHOOLFEE);
-        uniqueExpenseList.setExpense(SCHOOLFEE, BOB);
+        uniqueExpenseList.setExpense(SCHOOLFEE, IPHONE);
         UniqueExpenseList expectedUniqueExpenseList = new UniqueExpenseList();
-        expectedUniqueExpenseList.add(BOB);
+        expectedUniqueExpenseList.add(IPHONE);
         assertEquals(expectedUniqueExpenseList, uniqueExpenseList);
     }
 
     @Test
     public void setExpense_editedExpenseHasNonUniqueIdentity_throwsDuplicateExpenseException() {
         uniqueExpenseList.add(SCHOOLFEE);
-        uniqueExpenseList.add(BOB);
+        uniqueExpenseList.add(IPHONE);
         thrown.expect(DuplicateExpenseException.class);
-        uniqueExpenseList.setExpense(SCHOOLFEE, BOB);
+        uniqueExpenseList.setExpense(SCHOOLFEE, IPHONE);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class UniqueExpenseListTest {
     public void setExpenses_uniqueExpenseList_replacesOwnListWithProvidedUniqueExpenseList() {
         uniqueExpenseList.add(SCHOOLFEE);
         UniqueExpenseList expectedUniqueExpenseList = new UniqueExpenseList();
-        expectedUniqueExpenseList.add(BOB);
+        expectedUniqueExpenseList.add(IPHONE);
         uniqueExpenseList.setExpenses(expectedUniqueExpenseList);
         assertEquals(expectedUniqueExpenseList, uniqueExpenseList);
     }
@@ -163,10 +163,10 @@ public class UniqueExpenseListTest {
     @Test
     public void setExpenses_list_replacesOwnListWithProvidedList() {
         uniqueExpenseList.add(SCHOOLFEE);
-        List<Expense> expenseList = Collections.singletonList(BOB);
+        List<Expense> expenseList = Collections.singletonList(IPHONE);
         uniqueExpenseList.setExpenses(expenseList);
         UniqueExpenseList expectedUniqueExpenseList = new UniqueExpenseList();
-        expectedUniqueExpenseList.add(BOB);
+        expectedUniqueExpenseList.add(IPHONE);
         assertEquals(expectedUniqueExpenseList, uniqueExpenseList);
     }
 

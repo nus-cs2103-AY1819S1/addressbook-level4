@@ -79,14 +79,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_AMY;
-    public static final EditCommand.EditExpenseDescriptor DESC_BOB;
+    public static final EditCommand.EditExpenseDescriptor DESC_GAME;
+    public static final EditCommand.EditExpenseDescriptor DESC_IPHONE;
 
     static {
-        DESC_AMY = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
+        DESC_GAME = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
                 .withCategory(VALID_CATEGORY_GAME).withCost(VALID_COST_GAME)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE)
+        DESC_IPHONE = new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE)
                 .withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_IPHONE)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
