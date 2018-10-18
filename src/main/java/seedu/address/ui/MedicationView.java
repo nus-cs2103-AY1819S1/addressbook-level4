@@ -101,7 +101,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         }
 
         currentSelection = getNewReferenceToPerson(currentSelection);
-        refreshTableView(currentSelection);
+        refreshView();
         sortTableView();
     }
 
@@ -128,7 +128,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
     private void refreshTableView(PrescriptionList prescriptionList) {
         setDataSourceForTable(prescriptionList.getObservableCopyOfPrescriptionList());
         setDataSourcesForTableColumns();
-        setSortTypeForTableColumns();
+        // TODO: Set option to choose ascending or descending sort?
     }
 
     /**
@@ -162,16 +162,6 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         activePrescriptionCol.setCellValueFactory(param -> getActiveStatusAsSimpleStringProperty(param));
     }
 
-    private void setSortTypeForTableColumns() {
-        drugNameCol.setSortType(TableColumn.SortType.ASCENDING);
-        dosageCol.setSortType(TableColumn.SortType.ASCENDING);
-        dosageUnitCol.setSortType(TableColumn.SortType.ASCENDING);
-        dosesPerDayCol.setSortType(TableColumn.SortType.ASCENDING);
-        startDateCol.setSortType(TableColumn.SortType.ASCENDING);
-        endDateCol.setSortType(TableColumn.SortType.ASCENDING);
-        durationCol.setSortType(TableColumn.SortType.ASCENDING);
-        activePrescriptionCol.setSortType(TableColumn.SortType.ASCENDING);
-    }
     /**
      * Setter method to fix the currently selected person.
      * Should only be used for testing purposes.
