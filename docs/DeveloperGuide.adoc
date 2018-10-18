@@ -523,6 +523,7 @@ The following is a high level overview of this feature's implementation:
 |===
 +
 
+
 ====== Aspect: Choice of PDF creation tool
 
 * *Alternative 1 (current choice):* Apache PDFBox
@@ -551,6 +552,7 @@ The following is a high level overview of this feature's implementation:
 |*Cons*| Now only available as a free trial, and requires a license for extended use.
 |===
 +
+
 
 ====== Aspect: Choice of additional details for identifying volunteer from certificate
 
