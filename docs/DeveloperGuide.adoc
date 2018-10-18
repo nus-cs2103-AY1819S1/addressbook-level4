@@ -335,6 +335,61 @@ This section describes some noteworthy details on how certain features are imple
 Look at https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation
 Its really good
 
+### 3.4. Achievement mechanism
+
+#### 3.4.1. Structural Overview
+UML
+The achievement mechanism is facilitated by `AchievementRecord`. TaskManager is now composed of a `UniqueTaskList` as
+well as an `AchievementRecord`. It stores the achievement information of the user internally with an `Xp` field and a
+`Level` field. +
+ +
+When the task manager application runs for the first time, it is initialized at 0 xp and level 1, xp and level
+information in `AchievementRecord` are updated subsequently when tasks are completed. +
+ +
+The storage of the `AchievementRecord` is facilitated by `XmlAdaptedAchievementRecord` which is saved together with
+the list of `XmlAdaptedTask` in the `SerializableTaskManager`.
+     
+#### 3.4.2. Basic Mechanism
+An `updateTaskStatus` method is implemented in `ModelManager` and exposed in the `Model` interface, this method is
+called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
+along with that, the `AchievementRecord` is also updated with higher Xp. `AchievementRecord` implements the operations
+`updateXp`, `getMatchingLevel` and `updateLevelWithXp` to update xp, recalculate the level corresponding to the
+new Xp value and update level information. 
+sequence diagram
+activity diagram
+
+#### 3.4.3. Event-driven Interaction with other components
+
+The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
+When a task is marked as complete, both the `UniqueTaskList` and the `AchievementRecord` of the task manager is updated
+to reflect the new status of the task and the new xp and level information. A `TaskManagerChangedEvent` is then posted
+to `EventsCenter` and handled by both Storage and UI components to save the changes and feedback to user. +
+ +
+On top of the `TaskManagerChangedEvent`, an `AchievementLevelChangedEvent` would be posted by the Model component as
+well, if the user levels up with the newly added xp. This event will be handled by UI component to display a
+congratulatory message to user. (to be implemented in v1.3)
+      
+#### 3.4.4. Design Considerations
+
+Aspect: Associations Among `TaskManager`,`UniqueTaskList` and `AchievementRecord` +
+
+* Alternative 1 (current choice): Integrate `AchievementRecord` into `TaskManager` as an additional field besides the
+existing `UniqueTaskList`.
+    ** Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+    we can update both the `UniqueTaskList` and `AchievementRecord` then save the `TaskManager` only once. Undo/redo
+    commands that revert the status tasks would revert the xp and level as well, matching between task status and
+    corresponding achievements is guaranteed.
+    ** Cons: `TaskManager` now has another reason of change, breaks Single Responsibility Principle.
+    
+* Alternative 2: Implement `AchievementRecord` as another component outside of `TaskManager` and let them communicate
+with events.
+    ** Pros: Follows Single Responsibility Principle. `TaskManager` handles only task operations, achievement
+     information is handled by `AchievementRecord` independently.
+     ** Cons: Logic is duplicated twice. For example, we would need to implement a `VersionedAchievementRecord` besides
+     the current `VersionedTaskManager` to support undo/redo. A lot of overhead will result from the communication
+     between `TaskManager` and `AchievementRecord` as well.
+
+
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
