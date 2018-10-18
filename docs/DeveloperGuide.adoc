@@ -411,6 +411,58 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::add[]
+=== Add Command
+==== Current Implementation
+
+The `add` command allows user to add new events to the scheduler. Add Command is facilitated by the `AddCommand` class.
+The format of this command is `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/RECURRING_TYPE] [ru/RECURRING_UNTIL_DATETIME] [t/TAG]…​`.
+
+The command uses Natty, a natural language date parser written in Java to parse datetime given by user. When given a user inputted string, natty will parse the string into a `LocalDateTime` class.
+
+`AddCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `AddCommandParser` and `RepeatEventGenerator`.
+The `AddCommandParser` parses the user input and `RepeatEventGenerator` generates repeating events (if any). The `Model` component is responsible for updating the internal event list.
+
+Given below is the execution flow of `Add Command`.
+
+1. When user inputs a command, `LogicManager` will call the `parseCommand` method in `SchedulerParser` with the user input as arguments.
+2. If the user input is valid and contains the keyword `add`, `AddCommandParser` will be instantiated.
+3. `SchedulerParser` will then call the `parse` method of `AddCommandParser`.
+4. `AddCommandParser` parses the user input with the respective parsing methods.
+5. `generateAllRepeatedEvents` method in `RepeatEventGenerator` is invoked to generate a list of repeating events according to the repeat type of event specified by the user input.
+6. `AddCommand` will be instantiated with the list of events.
+7. `LogicManager` will the proceed to call the `execute` command of `AddCommand`.
+8. `Model` Component will then add the list of events to an internal list of events using the `addEvents` method.
+
+The following sequence diagram demonstrates how the add operation works:
+
+image::AddCommandSequenceDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new `Add Command`:
+
+image::AddCommandActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: Generation of repeating events
+
+* **Alternative 1 (current choice):** Use `RepeatEventGenerator` to generate repeating events.
+** Pros: Singleton pattern. Easy to generate repeating events anywhere in the code base. Reduce `RepeatEventGenerator` object creations in testing. Uses Single Responsibility principle.
+** Cons: May increase coupling across code base. May increase the difficulty of testing due to singleton object.
+* **Alternative 2:** Event model knows how to generate its repeating events by itself.
+** Pros: Will use less memory (e.g. generating events do not need to depend on another class to generate the repeating events).
+** Cons: Increase coupling.
+
+===== Aspect: Datetime Parser
+
+* **Alternative 1 (current choice):** Use Natty, a natural language date parser.
+** Pros: Users do not need to conform to a standard format and able to enter datetime in a more natural way. User can also specify relative datetime, which provides flexibility in datetime input.
+** Cons: Parser may not be able to parse all natural language format due to ambiguity in language formats. There may also be a chance of parsing an invalid datetime.
+* **Alternative 2:** Use standard `DDMMYY` `HHMMSS` format for all datetime inputs.
+** Pros: Users will always be assured of correct datetime being parsed if they provide the correct input.
+** Cons: Reduce the flexibility as users have to conform to a standard format.
+// end::add[]
+
 == Documentation
 
 We use asciidoc for writing documentation.
