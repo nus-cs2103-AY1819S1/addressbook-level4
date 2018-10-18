@@ -346,7 +346,7 @@ image::permissionStorage.png[width="350]
 ===== Aspect: Logic
 Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command. 
 
-Given below is an example scenario of how the every commands will be executed.
+Given below is an example scenario of how commands will be executed.
 
 Step 1. The user enters a command `Delete 1` into the CLI. 
 
@@ -359,6 +359,10 @@ Step 3. The system compares user's `PermissionSet` with `Delete` command's `requ
 ** User have required permissions, execute command.
 
 ** User don't have required permissions, show error message. 
+
+The following activity diagram summarizes what happens when a user excutes a command.
+
+image::permissionCommandActivityDiagram.png[width="450"]
 
 ==== Design Considerations
 
