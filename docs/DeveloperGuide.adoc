@@ -354,7 +354,7 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-### 3.1. Dependency Feature
+### 3.1. Dependency Feature Modelling
 #### 3.1.1. Current Implementation
 The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.
@@ -362,14 +362,14 @@ a hashset that contains the hashcode of the object that the task is dependent up
 #### 3.1.2 Design Considerations
 Aspect: Modelling of the embedded dependency object
 Alternative 1(current choice): Add a new string of the hashcode into the hashset.
-Pros: Simple to implement. When a task dependency is added, there is no task creation propogation. (refer to alternative 2).
+Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
 Easy to reform the dependency graph.
 Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
 finding details of the dependee task given its hashcode.
 
-Alternative 2: Add a reference to the dependant Task object into the hashset.
-Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced to rather than recreated every
-time a topological sort or a cyclical check is needed.
+Alternative 2: Add (a reference to) the dependant Task object into the hashset.
+Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+to rather than recreated every time a topological sort or a cyclical check is needed.
 Cons: Introduces unnecessary complications.
 1) When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
 as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.
@@ -377,8 +377,7 @@ as a set of hashcodes, and can only perform the tasks reference once all tasks a
 other tasks that depends on A has to be recreated.
 
 
-
-### 3.2. Dependency Validity
+### 3.2. Modelling Dependency Validity
 #### 3.1.1 Current Implementation
 The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic and topological sort.
@@ -393,7 +392,13 @@ Alternative 2: Graph created on start-up and maintained during run-time.
 Pros: Slightly faster speed for dependency related commands.
 Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time
 
-### 3.3
+Aspect: Task dependency modelled as a graph
+Alternative 1(current choice): Using a graph.
+Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
+depend on each other.
+A topological sort can also be performed on the graph to order tasks by the number of dependencies.
+Cons: nil
 
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
