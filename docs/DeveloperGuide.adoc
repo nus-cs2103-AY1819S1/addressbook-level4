@@ -127,6 +127,24 @@ Use case resumes at step 1 in MSS.
 
 Use case resumes at step 1 in MSS.
 
+### Use case: Add dependency for task
+#### MSS
+. User requests to add a dependency between tasks
+. Application adds the task dependency
+
+Use case ends.
+
+#### Extensions
+* 1a. The additional task dependency creates a cyclic dependency
+** 1a1. Application rejects the additional task dependency
+
+Use case resumes at step 1 in MSS.
+
+* 1b. The user enters the add dependency command in a wrong format.
+** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
 ### Use case: Delete task
 #### MSS
 . User requests to delete a task with a particular index
