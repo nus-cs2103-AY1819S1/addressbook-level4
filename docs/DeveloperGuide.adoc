@@ -324,8 +324,131 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::permission
+=== Permission System
+There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees.
+Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS.
+
+==== Current implementation
+
+===== Aspect: Model
+Model of a person have been changed to reflect the permission that each user possesses.
+
+The following diagram highlights the class added to reflect the changes to the model for `Person`.
+
+image::permissionPersonModel.png[width="350"]
+
+===== Aspect: Storage
+Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
+
+image::permissionStorage.png[width="350]
+
+===== Aspect: Logic
+Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command.
+
+Given below is an example scenario of how commands will be executed.
+
+Step 1. The user enters a command `Delete 1` into the CLI.
+
+Step 2. The system retrieves current user's `PermissionSet`
+
+Step 3. The system compares user's `PermissionSet` with `Delete` command's `requiredPermission`.
+
+* Two different cases
+
+** User have required permissions, execute command.
+
+** User don't have required permissions, show error message.
+
+The following activity diagram summarizes what happens when a user excutes a command.
+
+image::permissionCommandActivityDiagram.png[width="450"]
+
+==== Design Considerations
+
+* Alternative 1 (Current Implementation): Assign permission to each individual user, and restrict commands executable by user based on permission assigned.
+
+** Pros: Easy to control the commands a user can access.
+
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users.
+
+* Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
+The commands executable by the user will depend on their class.
+
+** Pros: Easy to implement. Only require small modification in existing classes.
+
+** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+// end::permission
+
+// tag::project
+=== Project Management
+Project management is an important feature in company mangement system. As such there are four critical features of project management. These feature are `addproject`, `listproject`, `deleteproject` and `assignproject`.
+// end::project
+
+// tag::archive
 === View deleted employee archive feature
+Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
+
+==== Proposed implementation
 The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
+
+Given below is an example usage scenario and how the UniqueArchiveList behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state and an empty `UniqueArchiveList` is maintained.
+
+Step 2. The user executes delete 3 command to delete the 3rd person in the address book. The Person object from the `UniquePersonList` will be transferred to the `UniqueArchiveList` and now the `UniqueArchiveList` will store all the deleted persons details.
+
+Step 3a.1 The user views `UniqueArchiveList` and executes delete 1 command to delete the 1st person in the archive list.
+
+Step 3a.2 The selected Person object in the `UniqueArchiveList` will be permanently deleted from the storage.
+
+Step 3b.1 The user views `UniqueArchiveList` and execute restore 1 command to restored 1st person in the archive list to the address book.
+
+Step 3a.1 The selected Person object in the `UniqueArchiveList` will be transferred back to `UniquePersonList`.
+
+The following activity diagram summarizes what happens when a user executes remove and restore command:
+
+image::archiveActivityDiagram.PNG[width="350]
+
+===== Aspect: Model
+Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueArchiveList` will store 0 or more `Person` objects.
+
+The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
+
+image::modelStructure.PNG[width="350]
+
+===== Aspect: Storage
+Added a `XmlSerializableArchiveList` object to Storage component.
+
+The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
+
+image::storageStructure.PNG[width="350]
+
+===== Aspect: UI
+Added a `ArchiveDisplay` object to `MainWindow` of UI component.
+
+The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
+
+image::uiStructure.PNG[width="350]
+
+==== Design considerations
+===== Aspect: Lifetime of objects in Archive list
+* **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
+** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
+** Cons: May have performance issues in terms of memory usage as employee records stored a few years back could still be stored.
+* **Alternative 2:** Deleted after a certain number of time has passed.
+** Pros: More efficient memory usage wont store old employee records which could cause high memory usage.
+** Cons: Loss of data possible if an employee is accidentally deleted and not restored right away.
+
+===== Aspect: Data structure to support the archive commands
+
+* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
+** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
+** Cons: We must maintain a separate list for archived objects.
+* **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+** Pros: Only need to change 1 attribute when an employee is deleted.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+// end::archive
 
 === Logging
 
@@ -848,7 +971,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |View my own profile and personal information |Check if it is up-to-date
 
-|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most contact information
+|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most recent contact information
 
 |`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
 
