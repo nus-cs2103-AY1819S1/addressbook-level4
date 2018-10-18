@@ -324,8 +324,53 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::archive
 === View deleted employee archive feature
+Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
+
+==== Proposed implementation
 The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
+
+Given below is an example usage scenario and how the UniqueArchiveList behaves at each step.
+
+Step 1. The user launches the application for the first time. The VersionedAddressBook will be initialized with the initial address book state and an empty UniqueArchiveList is maintained.
+
+Step 2. The user executes delete 3 command to delete the 3rd person in the address book. The Person object from the UniquePersonList will be transferred to the UniqueArchiveList and now the UniqueArchiveList will store all the deleted persons details.
+
+===== Aspect: Model
+Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueArchiveList` will store 0 or more `Person` objects.
+
+The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
+
+image::modelStructure.png[width="350]
+
+===== Aspect: Storage
+
+image::storageStructure.png[width="350]
+
+===== Aspect: UI
+
+image::uiStructure.png[width="350]
+
+==== Design considerations
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Easy to implement. Only require small modification in existing classes.
+** Cons: We must maintain a separate list for archived objects.
+
+===== Aspect: Data structure to support the archive commands
+
+* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
+** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
+** Cons: We must maintain a separate list for archived objects.
+* **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+** Pros: Only need to change 1 attribute when an employee is deleted.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+// end::archive
 
 === Logging
 
