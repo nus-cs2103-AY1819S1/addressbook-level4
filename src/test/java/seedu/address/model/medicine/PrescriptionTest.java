@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,16 +24,15 @@ public class PrescriptionTest {
     private String name;
     private Dose dose;
     private Duration duration;
-    private Calendar fiveDaysFromNow;
+    private LocalDate fiveDaysFromNow;
 
     @Before
     public void setUp() throws IllegalValueException {
         name = "Paracetamol";
         dose = new Dose(2, "tablets", 4);
-        duration = new Duration(Duration.MILLISECONDS_IN_A_DAY * Duration.DAYS_PER_WEEK * 2);
+        duration = new Duration(Duration.DAYS_PER_WEEK * 2);
 
-        fiveDaysFromNow = Calendar.getInstance();
-        fiveDaysFromNow.add(Calendar.DAY_OF_MONTH, 5);
+        fiveDaysFromNow = LocalDate.now().plus(5, ChronoUnit.DAYS);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class PrescriptionTest {
     }
 
     @Test
-    public void equals_differentStartDate_false() {
+    public void equals_differentStartDate_false() throws IllegalValueException {
         Prescription p1 = new Prescription(name, dose, duration);
 
         Duration durationShiftedFiveDays = new Duration(duration);
