@@ -406,10 +406,11 @@ statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
 `ListCommand`, which holds the final value of 'l'. The program finds a match and
 proceeds as if a `list` command is given.
 
-The following activity diagram summarizes what happens when a user executes a `l`
-command:
-
+.Flow chart of command alias usage.
 image::AliasActivityDiagram.jpg[width="700", align="left"]
+
+The **Activity Diagram** given above explains what happens when a user executes a `l`
+command.
 
 ==== Design Considerations
 
