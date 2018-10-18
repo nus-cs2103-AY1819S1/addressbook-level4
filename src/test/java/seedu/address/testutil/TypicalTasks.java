@@ -52,6 +52,10 @@ public class TypicalTasks {
             .withPriorityValue("8").withDescription("Step 2) ??? Step 3) PROFIT!!!").build();
     public static final Task I_TASK = new TaskBuilder().withName("Investigate Murder").withDueDate("09-12-18")
             .withPriorityValue("9").withDescription("Destroy all evidence pointing to myself").build();
+    public static final Task J_TASK = new TaskBuilder().withName("Do O Levels").withDueDate("10-10-12")
+            .withPriorityValue("8").withDescription("Don't play MapleStory").build();
+    public static final Task K_TASK = new TaskBuilder().withName("Finish my 5th PhD").withDueDate("10-10-2050")
+            .withPriorityValue("9").withDescription("Don't play MapleStory 8").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
     public static final Task Y_TASK = new TaskBuilder().withName(VALID_NAME_AMY).withDueDate(VALID_DUEDATE_AMY)
