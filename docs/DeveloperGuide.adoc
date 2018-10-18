@@ -354,6 +354,11 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` t
 
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of car park names or address, and returns the car park if so.
 
+.How the find operation works
+image::seqdiagram-find.png[width="800", align="left"]
+
+==== Example
+
 Given below is an example usage scenario and how the Find mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
@@ -367,6 +372,21 @@ If a command fails its execution, it will not call `FindCommand#execute()`, so t
 Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
 
 Step 4. The filtered list of car park is returned to the GUI.
+
+.Flow chart of the find operation.
+image::actdiagram-find.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How predicate works
+
+* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
+** Pros: Easy to implement, user friendly.
+** Cons: More complicated predicate, sub strings not easily taken care of.
+
+* **Alternative 2:** Filter the data when it is taken in.
+** Pros: Less complicated predicate.
+** Cons: Manipulates the data, editing it for every other case.
 
 === Command alias feature
 
@@ -513,41 +533,41 @@ image::zy_act.png[width="800", align="left"]
 === Filter feature
 
 ==== Overview
+The filter mechanism is facilitated by `AddressBookParser`, `FilterCommandParser` and `FilterCommand`. It extends
+`Command` and implements `FilterCommand#execute()`.
 
-The `parseCommand` function in `AddressBookParser` is extended to take in an additional
+==== Current Implementation
+
+Step 1. The `parseCommand` function in `AddressBookParser` is extended to take in an additional
 command word: `filter`.
 
-After `filter`is being detected as the command word, a
+Step 2. After `filter`is being detected as the command word, a
 `FilterCommandParser` is created to parse the arguments supplied to the command.
 
-The `FilterCommandParser` parses the arguments into an array of flags, which is then
+Step 3. The `FilterCommandParser` parses the arguments into an array of flags, which is then
 passed into a newly created `FilterCommand`.
 
-`FilterCommand` then checks which flags are passed in and creates predicates to
+Step 4. `FilterCommand` then checks which flags are passed in and creates predicates to
 filter the car parks accordingly. The various predicates include
 `CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and
 `CarparkIsOfTypePredicate`.
 
-Next, `model` updates a filtered list of car parks by checking each car park
+Step 5. Next, `model` updates a filtered list of car parks by checking each car park
 against the specified predicate.
 
+Step 6. The following activity diagram summarizes what happens when a user executes a
+filter command.
 
-The following activity diagram summarizes what happens when a user executes a
-`filter ct/ covered` command (this command filters all car parks that are covered):
+.Activity Diagram
+image::ActivityDiagram-filter.png[width="700", align="left"]
 
-image::Flowchart.png[width="700", align="left"]
+.How the filter operation works
+image::SequenceDiagram-filter.png[width="700", align="left"]
 
 ==== Possible Improvement to current implementation
-
-The current implementation is only the basic implementation. The following needs to be
-implemented in the following weeks to make the feature more holistic.
-
 * Connect to `find` command
-
 * Filter through multiple flags at the same time
-
 * Check for invalid parameters
-
 * Determine whether a specific day is a public holiday, when filtering for free parking
 
 == Documentation
