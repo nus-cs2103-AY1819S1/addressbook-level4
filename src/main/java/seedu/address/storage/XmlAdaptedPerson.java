@@ -17,7 +17,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePic;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Salary;
+import seedu.address.model.project.Project;
 
 /**
  * JAXB-friendly version of the Person.
@@ -33,12 +34,14 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
+    private String salary;
+    @XmlElement(required = true)
     private String address;
 
     @XmlElement
     private String profilePic;
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private List<XmlAdaptedProject> project = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -49,27 +52,30 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String salary, List<XmlAdaptedProject> project) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
+        if (project != null) {
+            this.project = new ArrayList<>(project);
         }
         this.profilePic = null;
     }
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            String profilePic) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String salary, List<XmlAdaptedProject> project, String profilePic) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.salary = salary;
         this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
+        if (project != null) {
+            this.project = new ArrayList<>(project);
         }
         this.profilePic = profilePic;
     }
@@ -83,9 +89,10 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        salary = source.getSalary().value;
         address = source.getAddress().value;
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
+        project = source.getProjects().stream()
+                .map(XmlAdaptedProject::new)
                 .collect(Collectors.toList());
         profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value : null;
     }
@@ -96,9 +103,9 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+        final List<Project> personProjects = new ArrayList<>();
+        for (XmlAdaptedProject pro : project) {
+            personProjects.add(pro.toModelType());
         }
 
         if (name == null) {
@@ -124,7 +131,6 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         final Email modelEmail = new Email(email);
-
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -132,6 +138,13 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
+        if (salary == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Salary.class.getSimpleName()));
+        }
+        if (!Salary.isValidSalary(salary)) {
+            throw new IllegalValueException(Salary.SALARY_CONSTRAINTS);
+        }
+        final Salary modelSalary = new Salary(salary);
 
         Optional<ProfilePic> modelProfilePic = Optional.empty();
         if (profilePic != null) {
@@ -141,8 +154,9 @@ public class XmlAdaptedPerson {
             modelProfilePic = Optional.of(new ProfilePic(profilePic));
         }
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProfilePic);
+        final Set<Project> modelProjects = new HashSet<>(personProjects);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelProjects, modelProfilePic);
     }
 
     @Override
@@ -159,8 +173,9 @@ public class XmlAdaptedPerson {
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
+                && Objects.equals(salary, otherPerson.salary)
                 && Objects.equals(address, otherPerson.address)
-                && Objects.equals(profilePic, otherPerson.profilePic)
-                && tagged.equals(otherPerson.tagged);
+                && project.equals(otherPerson.project)
+                && Objects.equals(profilePic, otherPerson.profilePic);
     }
 }

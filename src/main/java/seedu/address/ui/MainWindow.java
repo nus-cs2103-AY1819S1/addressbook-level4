@@ -16,6 +16,8 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LoginEvent;
+import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -36,9 +38,16 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
+    private CommandBox commandBox;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+
+    // Independent UI parts for login.
+    private LoginIntroduction loginIntroduction;
+    private LoginForm loginForm;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -125,14 +134,63 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
+        commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up the window with a login screen
+     */
+    void fillLoginParts() {
+        loginIntroduction = new LoginIntroduction();
+        commandBoxPlaceholder.getChildren().add(loginIntroduction.getRoot());
+
+        loginForm = new LoginForm();
+        personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
+    }
+
+    /**
+     * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
+     * @param loginEvent The login information
+     */
+    @Subscribe
+    void processLogin(LoginEvent loginEvent) {
+        removeLoginWindow();
+        fillInnerParts();
+    }
+
+    /**
+     * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
+     * @param logoutEvent The login information
+     */
+    @Subscribe
+    void processLogout(LogoutEvent logoutEvent) {
+        removeInnerElements();
+        fillLoginParts();
+    }
+
+    private void removeLoginWindow() {
+        commandBoxPlaceholder.getChildren().remove(loginIntroduction.getRoot());
+
+        personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
+    }
+
+    /**
+     * Removes the elements built in fillInnerParts() to reset to a blank screen.
+     */
+    private void removeInnerElements() {
+        this.releaseResources();
+        browserPlaceholder.getChildren().remove(browserPanel.getRoot());
+        personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
+        statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
+        commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
     }
 
     void hide() {
@@ -192,7 +250,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        if (browserPanel != null) {
+            browserPanel.freeResources();
+        }
     }
 
     @Subscribe
