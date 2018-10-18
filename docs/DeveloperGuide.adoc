@@ -380,6 +380,11 @@ The commands executable by the user will depend on their class.
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
 // end::permission
 
+// tag::project
+=== Project Management
+Project management is an important feature in company mangement system. As such there are four critical features of project management. These feature are `addproject`, `listproject`, `deleteproject` and `assignproject`.
+// end::project
+
 // tag::archive
 === View deleted employee archive feature
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
