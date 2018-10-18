@@ -324,12 +324,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+=== View deleted employee archive feature
+The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
 
 === Logging
 
@@ -888,9 +884,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |Search for employees by a certain criteria (e.g. name, department, etc.) |Find a particular employee easily
 
-|`* *` |Employee |Sort any display list of employees by a certain criteria (e.g. name, department, etc.) |Locate a particular employee easily
+|`* *` |Employee |Sort employees in the display list by a certain criteria (e.g. name, department, etc.) |View the employees sequentially and increasing clarity
 
-|`* *` |Employee |Filter any list of employees by a certain criteria (e.g. name, department, etc.) |Locate employees quickly
+|`* *` |Employee |Filter employees in the display list by a certain criteria |Find details of a specific employee without going through every employee in the system
 
 |`* *` |Employee with "Department Manager" permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
 
@@ -898,7 +894,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |See income summary |Know my monthly income.
 
-|`* *` |Employee with "Administrative" permissions |Modify the access permissions of an employee |Give the employee higher or lower access to features of the system, possibly in line with promotions or demotions
+|`* *` |Employee with "Administrative" permissions |Modify the access permissions of an employee |Accommodate to the tasks that an employee is allowed to do, possibly in line with promotions or demotions
 
 |`* *` |Employee with "Administrative" permissions |Change the department of an employee |Have the system reflect the change of an employee moving to another department
 

@@ -1,7 +1,9 @@
 package seedu.address.model.leaveapplication;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB_LEAVE;
 
 import org.junit.Test;
 
@@ -36,5 +38,11 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("Daughter's 21st birthday")); // alphanumeric characters
         assertTrue(Description.isValidDescription("Family holiday to Maldives. Looking forward to "
                 + "some much needed family time!")); // long descriptions
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new Description(VALID_DESCRIPTION_BOB_LEAVE).toString(), VALID_DESCRIPTION_BOB_LEAVE);
+        assertEquals(new Description("Test description").toString(), "Test description");
     }
 }
