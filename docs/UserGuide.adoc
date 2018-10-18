@@ -71,6 +71,9 @@ Format: `login -u USERNAME`
 * Login must be done to enable the usage of some commands.
 ****
 
+Examples:
+* `login -u User1`
+
 === View history : `history`
 
 Prints all commands entered before as a history of commands. +
@@ -125,19 +128,31 @@ Format: `sector`
 
 Lists all employees, using a given criteria.
 
-Format: `sort -n NAME [-d DEPARTMENT]`
+Format: `sort -CRITERIA`
 
 There are many different criteries like name, department, etc.
+
+* To sort by name, replace CRITERIA with n
+* To sort by department, replace CRITERIA with d
+
+Examples: 
+
+* `sort -d`
+* `sort -n`
 
 === List details of employee : `detail`
 
 Lists the detailed information of an employee.
 
-Format: `detail -id ID [-n NAME]`
+Format: `detail -id ID`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
 ****
+
+Examples: 
+
+* `detail -id S12301`
 
 === Apply for leave : `leave`
 
@@ -145,10 +160,18 @@ Apply for leave during a specific date.
 
 Format: `leave DATE to DATE`
 
+* Format of date: DD/MM/YYYY
+
+* First DATE must be before second DATE
+
 ****
 * The program will attempt to parse your time. If it cannot do so, you will be guided through an interactive prompt to set your leave dates.
 * To use this command, you must be logged in as an employee.
 ****
+
+Examples:
+
+* `leave 01/01/2018 to 02/02/2018`
 
 === Search employees by name : `search`
 
@@ -160,9 +183,15 @@ Format: `search NAME`
 * NAME can be any name or parts of name.
 ****
 
+Examples: 
+
+* `search John Doe`
+
+* `search doe`
+
 === Filter employees by criteria : `filter`
 
-Search all employees that have their name fir within an applied filter.
+Search all employees that have their name for within an applied filter.
 
 Format: `filter -n NAME [-d DEPARTMENT]`
 
@@ -174,13 +203,26 @@ Format: `filter -n NAME [-d DEPARTMENT]`
 
 Changes the users details (such as contact information).
 
-Format: `edit [-n NUMBER] [-e EMAIL]`
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY][-t PROJECT]`
+
+* Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+
+* At least one of the optional fields must be provided.
+
+* Existing values will be updated to the input values.
 
 ****
 * At least one of the parameters must be provided
 * Existing values will be updated to the input values
 * More fields could be added based on any details stored on employees.
 ****
+
+Examples: 
+
+* `edit 1 -p91234567 -ejohndoe@example.com`
+
+* `edit 2 -nJames`
+
 
 === Change password : `password`
 
