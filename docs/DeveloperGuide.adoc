@@ -336,11 +336,13 @@ This is done by adding appointment-related information to a given person, repres
 This allows for users to track the upcoming appointments for every patient.
 
 The adding of appointment-related information is facilitated by the following classes:
+
 * `AppointmentsList`, a list of
 ** `Appointment`, each of which have a
 *** `Type`
 
 A more detailed description of the classes follows below:
+
 * `AppointmentsList`
 ** Every `Person` has an `AppointmentsList`, the purpose of which is to store all `Appointment` belonging to a `Person`.
 ** A wrapper class around the internal representation of a list of appointments that exposes only a few select methods in the `List` API.
