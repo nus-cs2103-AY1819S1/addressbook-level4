@@ -805,7 +805,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your scheduler application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your scheduler application. You realize that one of the users occasionally tries to delete non-existent tags from an event, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
@@ -900,7 +900,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `scheduler`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `scheduler`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular event, by providing a flexible `remark` field for each event, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -1027,13 +1027,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of events
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage events faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -1075,7 +1075,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |university student |monitor and track deadlines |keep track of my upcoming deadlines
 
-|`* *` |popular university student |know my friends' contact |can contact them whenever I want
+|`* *` |popular university student |know my friends' contact |can contac them whenever I want
 
 |`* *` |organised university student |send event details to my friends |plan events with together with my friends
 
@@ -1193,7 +1193,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample events. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1209,7 +1209,7 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First event is deleted from the list. Details of the deleted event shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
