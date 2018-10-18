@@ -24,6 +24,9 @@ public class ServedPatient {
     public ServedPatient(Patient patient) {
         requireNonNull(patient);
         this.patient = patient;
+        this.noteContent = "";
+        this.referralContent = "";
+        this.mcContent = "";
     }
 
     public Name getName() {
@@ -32,30 +35,6 @@ public class ServedPatient {
 
     public IcNumber getIcNumber() {
         return patient.getIcNumber();
-    }
-
-    /**
-     * Skeleton to add note content.
-     */
-    public String addNoteContent(String content) {
-        noteContent += " filler" + content;
-        return noteContent;
-    }
-
-    /**
-     * Skeleton to add referral content.
-     */
-    public String addReferralContent(String content) {
-        referralContent += " filler" + content;
-        return referralContent;
-    }
-
-    /**
-     * Skeleton to add Mc Content.
-     */
-    public String addMcContent(String content) {
-        mcContent += " filler" + content;
-        return mcContent;
     }
 
     /**
@@ -78,15 +57,32 @@ public class ServedPatient {
         return this.referralContent;
     }
 
+    /**
+     * Skeleton to add note content.
+     */
+    public String addNoteContent(String content) {
+        return noteContent = content;
+    }
+
+    /**
+     * Skeleton to add referral content.
+     */
+    public String addReferralContent(String content) {
+        return referralContent = content;
+    }
+
+    /**
+     * Skeleton to add Mc Content.
+     */
+    public String addMcContent(String content) {
+        return mcContent = content;
+    }
 
     /**
      * Console view of a served patient.
      * @return String representation of patient with Name and IcNumber.
      */
     public String toNameAndIc() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + " [")
-                .append(getIcNumber() + "]");
-        return builder.toString();
+        return patient.toNameAndIc();
     }
 }

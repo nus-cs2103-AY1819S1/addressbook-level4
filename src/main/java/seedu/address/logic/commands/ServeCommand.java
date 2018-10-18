@@ -7,8 +7,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.ServedPatient;
 
 
 /**
@@ -22,9 +22,10 @@ public class ServeCommand extends QueueCommand {
 
     public static final String MESSAGE_SUCCESS = "Serving patient: ";
     public static final String MESSAGE_EMPTY_QUEUE = "Patient Queue is empty!";
+    public static final String MESSAGE_CURRENT_PATIENT_EXISTS = "There is a current patient: ";
 
     @Override
-    public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
@@ -32,9 +33,12 @@ public class ServeCommand extends QueueCommand {
             throw new CommandException(MESSAGE_EMPTY_QUEUE);
         }
 
+        if (currentPatient.hasCurrentPatient()) {
+            throw new CommandException(MESSAGE_CURRENT_PATIENT_EXISTS + currentPatient.toNameAndIc());
+        }
+
         Patient patient = patientQueue.dequeue();
-        currentPatient = new ServedPatient(patient);
-        servedPatientList.addServedPatient(currentPatient);
+        currentPatient.assignPatient(patient);
 
         return new CommandResult(MESSAGE_SUCCESS + patient.toNameAndIc());
     }

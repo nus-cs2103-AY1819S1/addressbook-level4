@@ -17,6 +17,7 @@ public class PatientQueueManager implements PatientQueue {
 
     @Override
     public String displayQueue() {
+        AtomicInteger position = new AtomicInteger(1);
         StringBuilder sb = new StringBuilder();
         AtomicInteger num = new AtomicInteger(0);
         sb.append(getQueueLength()).append(" Patient(s) in queue: ");

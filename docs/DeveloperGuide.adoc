@@ -17,7 +17,19 @@ endif::[]
 
 By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+CLInic is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+If this is your first time on this application, proceed to <<Setting up>> to get started with setting up your development environment. Following which, you can proceed to *Appendix A* to get started on your first task!
+
+If you are already familiar with the basic development environment for this application and wish to understand the inner workings of this application at a higher level, proceed to <<Design>> and <<Implementation>>.
+
+For more information on documentation, testing and dev ops for this application, refer to <<Documentation>>, <<Testing>> and <<Dev Ops>> respectively.
+
 == Setting up
+
+ This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
 
 === Prerequisites
 
@@ -105,6 +117,8 @@ When you are ready to start coding,
 
 == Design
 
+ This section contains information about the main architecture and design of various components in CLInic.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -126,14 +140,14 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four similarly designed components:
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -238,11 +252,11 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+For ease of use, classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+ This section contains some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -262,14 +276,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
+.Initial state
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
+.State after new command
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
+.State after another new command
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
@@ -277,6 +294,7 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
+.Performing an undo
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
@@ -284,6 +302,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo/Redo sequence diagram
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
@@ -293,21 +312,24 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
+.Non-modifying command state
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+.Discard old commits after state pointer
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Undo/Redo activity diagram
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Save the entire address book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -328,7 +350,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Adding a MedicalRecord to a Patient
 ==== Current Implementation
 
-The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class structure is as follows:
+The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class:
 
 * has an attribute `BloodType` which stores the blood type of the `Patient`. This attribute is marked as `final` and cannot be changed.
 * contains a `List<DrugAllergy>` which stores the list of drug allergies that the `Patient` has.
@@ -337,25 +359,21 @@ The `MedicalRecord` class is an attribute of the `Patient` class, and it contain
 
 When a new `Patient` is created with the `AddCommand`, it is created with a default `MedicalRecord` object that contains an empty `BloodType` object, an empty `List<DrugAllergy>`, an empty `List<Disease>` and and empty `List<Note>`.
 
-Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments.
+Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments, however at least one must be present.
 
 Given below is an example usage scenario and explanation for the inner workings of the `AddMedicalRecordCommand`.
 
-Step 1:
-
-* The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
+Step 1. The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
 
 .Adding a new Patient.
 image::addmedicalrecord-addingnewpatient-example.png[width="700"]
 
-Step 2:
-
-* The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
+Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
 
 .Adding a new MedicalRecord with only BloodType specified.
 image::addmedicalrecord-addingbloodtype-example.png[width="700"]
 
-* When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
+When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
 
 ```java
 /**
@@ -406,9 +424,9 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 
 ===== Aspect: Execution of the command
 
-* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the two.
+* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the old `MedicalRecord` with it.
 ** Pros: Easy to implement and better abstraction.
-** Cons: Redundant creation of new object only to discard it immediately
+** Cons: Redundant creation of new object only to discard it immediately.
 * **Alternative 2:** Add specified arguments of the command directly to the current `MedicalRecord`
 ** Pros: No redundant creation of extra objects.
 ** Cons: Require access to the existing `MedicalRecord` from outside the object, which breaks the abstraction barrier.
@@ -416,56 +434,161 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 // end::medicalrecord[]
 
 // tag::medicine[]
-=== Medicine records
-The medicine records is used to manage all medicines stored in the clinic. The AddMedicine Command helps users to
-key in a new medicine in the clinic. EditMedicine Command helps users to update the stock. In addition, whenever the
-Receipt Command is called, the records will update the stock automatically when the receptionist generates the receipt and
-issues the medicine.
+=== Medicine Records System
+The medicine records system is used to manage the medicine inventory in the clinic. The `addMedicine` Command
+creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
+`receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
 
-Given below is an example of how the medicine class is used:
+Given below is are examples of how the medicine class is used:
 
-Step 1: A new medicine arrived. The receptionist uses the `addMedicine` command to add the stock into the records.
+Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
-Step 2: A new stock of medicine that ia available in the clinic has arrived. The receptionist uses `editMedicine` command
-to update the new stock.
+Scenario 2. A new shipment of medicine has arrived. The user uses `editMedicine` command
+to update the new stock levels of exiting medicine.
 
-Step 3: When a patient pays for the bill, the `generateReceipt` calls upon the medicine records to determine the price.
-At this stage, the number of medicine issued will decrease in the records.
+Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
+for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
 
+<<<<<<< HEAD
 Step 4: At the end of the day, the receptionist needs to keep track of which stock supply is low. She enters 'checkStock`
 which will list out all medicine that are low in supply.
+=======
+Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
+which lists the medicine that are below their Minimum Stock Quantity.
+>>>>>>> 0815a1add574e6bb61a1ab5098328f3c73497e9d
 //end::medicine[]
 
 // tag::pqms[]
 === Patient Queue Management System
 The Patient Queue Management System consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
-registers to see the doctor is put into the `PatientQueue`, when it is his turn to see the doctor he will be the `CurrentPatient`. After
-he is done with seeing the doctor he will be put into the `ServedPatientQueue` to await payment and document processing.
+registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
+he is done with seeing the doctor, he will be put into the `ServedPatientQueue` to await payment and document processing.
 
 Given below is an example usage scenario and how the Patient Queue Management System is used in each step.
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
+.Registering 3 patients
 image::PQMSPatientQueue.png[650, 250]
 
 Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
+.Serve patient
 image::PQMSCurrentPatient.png[650, 250]
 
 Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
-the `ServedPatientQueue`. Afterwards, the user execute `serve` to get the next patient.
+the `ServedPatientQueue`. Afterwards, the user executes `serve` to get the next patient.
 
+.Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
 
 Step 5. The user executes various commands to generate necessary documents for the served patient.
 
-Step 6. The user finally executes `payment` command to generate the receipt and end the patient's visit to the clinic, removing
+Step 6. The user finally executes `payment` command to generate the receipt and ends the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
 //end::pqms[]
+
+// tag::document[]
+=== Document
+==== Current Implementation
+The `Document` `abstract class` represents all documents that can be issued by the clinic. The `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
+It specifies what general information these documents should have and how they should be formatted. It can be thought of as a template for all its inheriting classes.
+
+===== Implementation of `Receipt`
+The `Receipt` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains all the `Medicine` and their associated `MedicineQuantity`.
+** These are the medicines and their quantities respectively, prescribed by the doctor to the patient during his consultation.
+
+Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `ReceiptCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`. +
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `receipt 1` command to generate a `Receipt` with the relevant object. Up till this milestone v1.2, the contents of the `Receipt` will be reflected in the `ResultDisplay` as shown below.
+
+.Contents of the `Receipt` generated for the `Patient` Bryan Lew. +
+image::ReceiptExamplePrintOut.png[width="650"]
+
+[WARNING]
+Executing `receipt` with an invalid index will **not** result in the generation of a `Receipt`.
+
+.Result of executing `receipt` with an invalid index.
+image::ServedPatientListEmptyReceipt.png[width="650"]
+
+===== Implementation of `MedicalCertificate`
+The `MedicalCertificate` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains additional information like the `startDate` and `startDate` of their medical leave
+as well as the name of the issuing doctor `doctorName`.
+
+Users can generate a `MedicalCertificate` for a specific `ServedPatient` by invoking the `MedicalCertificateCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `MedicalCertificateCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `mc 1` command to generate a `MedicalCertificate` with the relevant object. Up till this milestone v1.2, the contents of the `MedicalCertificate` will be reflected in the `ResultDisplay` as shown below.
+
+[WARNING]
+Executing `mc` with an invalid index will **not** result in the generation of a `MedicalCertificate`.
+
+===== Implementation of `ReferralLetter`
+The `ReferralLetter` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains additional information like the issuing doctor's `notes`.
+
+Users can generate a `ReferralLetter` for a specific `ServedPatient` by invoking the `ReferralLetterCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `ReferralLetterCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with the relevant object. Up till this milestone v1.2, the contents of the `ReferralLetter` will be reflected in the `ResultDisplay` as shown below.
+
+[WARNING]
+Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
+
+==== Design Considerations
+===== Aspect: Implementation of the Document
+* **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
+** Pros:
+*** Allows all classes inheriting from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
+** Cons:
+*** `Java` does not support multiple inheritance; therefore, it prevents the classes that are inheriting from `Document` from inheriting from other useful classes or becoming an `enum`.
+*** Comparatively, `abstract classes` are more computationally expensive to use than `interfaces` due to overhead incurred looking up methods and various class members.
+* **Alternative 2**: Using an `interface` to implement `Document`.
+** Pros:
+*** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
+**** For example, a person should not be issued a `Medical Certificate` excusing him from work/school for **1,000,000 days**!
+** Cons:
+*** Unable to standardise the way the implementing classes implement the `generate` method.
+**** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+**** Even if all the information are present, they might be formatted differently.
+//end::document[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -484,10 +607,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -496,7 +619,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 == Documentation
 
-We use asciidoc for writing documentation.
+ This section contains information on how we manage the documentation for CLInic. We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -601,6 +724,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+ This section contains information on how to run tests and the different kind of tests in CLInic.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -649,6 +774,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+This section contains more information on future developments and the tools we use for different aspects of development.
 
 === Build Automation
 
@@ -1007,7 +1134,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `CLInic` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Patient arrives in the clinic
@@ -1018,18 +1145,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [discrete]
 === Use case: Patient’s turn to see doctor
 1. Serve patient. Patient will be automatically removed from the head of the queue.
-2. Doctor (User) will add notes to the patient’s medical records
+2. Doctor (User) will add notes, comments and referral details as necessary.
 
 [discrete]
 === Use case: Patient done seeing doctor
-1. Doctor (User) will indicate that he is done seeing the patient, and patient will be added to a done set.
+1. Doctor (User) will indicate that he is done seeing the patient, and patient will be added to a served patients list.
 2. Receptionist (User) will generate MC for patient (if needed)
 3. Receptionist (User) will generate receipt for patient’s visit
 4. Receptionist (User) will make referral for patient (if needed)
-5. Receptionist (User) will remove patient from done set when finished.
+5. Receptionist (User) will remove patient from served patients list when finished.
 
 [discrete]
-== Use Case: Receptionist wants to check medicine stock levels
+=== Use case: Receptionist wants to add new medicine to stock
+1. Receptionist (User) views complete list of medicine.
+2. If medicine already in stock, user will edit the stock numbers of the medicine.
+3. If it is a new medicine, user will add medicine to the database.
+
+[discrete]
+=== Use case: Receptionist wants to check medicine stock levels
 1. Receptionist (User) views complete list of medicine.
 2. Receptionist (User) filters list for medicine that are low on stock levels.
 
