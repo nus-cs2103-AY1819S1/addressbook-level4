@@ -135,7 +135,7 @@ There are many different criteries like name, department, etc.
 * To sort by name, replace CRITERIA with n
 * To sort by department, replace CRITERIA with d
 
-Examples: 
+Examples:
 
 * `sort -d`
 * `sort -n`
@@ -150,7 +150,7 @@ Format: `detail -id ID`
 * To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
-Examples: 
+Examples:
 
 * `detail -id S12301`
 
@@ -183,7 +183,7 @@ Format: `search NAME`
 * NAME can be any name or parts of name.
 ****
 
-Examples: 
+Examples:
 
 * `search John Doe`
 
@@ -217,7 +217,7 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY][-t 
 * More fields could be added based on any details stored on employees.
 ****
 
-Examples: 
+Examples:
 
 * `edit 1 -p91234567 -ejohndoe@example.com`
 
