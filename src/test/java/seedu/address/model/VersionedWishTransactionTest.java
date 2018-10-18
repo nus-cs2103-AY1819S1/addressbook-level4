@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.junit.Before;
@@ -35,7 +36,8 @@ public class VersionedWishTransactionTest {
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),
-                tagSet);
+                tagSet,
+                new LinkedList<>());
     }
 
     @Test
