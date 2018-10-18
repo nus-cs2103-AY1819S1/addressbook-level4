@@ -123,17 +123,19 @@ Format: `sector`
 
 === Sort employee display list : `sort`
 
-Lists all employees, using a given criteria.
+Lists all employees, and sorts them according to a specified criteria.
 
-Format: `sort -n NAME [-d DEPARTMENT]`
+Format: `sort -c FIELD_NAME -o ORDER`
 
-There are many different criteries like name, department, etc.
-
+****
+* Specify criteria to sort by (`FIELD_NAME`) after `-c`.
+* Specify ascending (`ASC`) or descending (`DES`) order after `-o`.
+****
 === List details of employee : `detail`
 
 Lists the detailed information of an employee.
 
-Format: `detail -id ID [-n NAME]`
+Format: `detail -id ID`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
