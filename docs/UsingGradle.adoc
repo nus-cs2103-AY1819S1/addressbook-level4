@@ -1,5 +1,9 @@
 = Using Gradle
 :site-section: DeveloperGuide
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :experimental:
