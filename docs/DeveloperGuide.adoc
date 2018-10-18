@@ -848,7 +848,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |View my own profile and personal information |Check if it is up-to-date
 
-|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most contact information
+|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most recent contact information
 
 |`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
 
