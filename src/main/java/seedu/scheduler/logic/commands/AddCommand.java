@@ -8,6 +8,7 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
@@ -57,7 +58,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvents(Event.generateAllRepeatedEvents(toAdd));
+        model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

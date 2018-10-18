@@ -45,9 +45,6 @@ public interface Model {
      */
     void updateEvent(Event target, Event editedEvent);
 
-    /** Removes the given {@code tag} from all {@code Event}s. */
-    void deleteTag(Tag tag);
-
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
 
@@ -81,5 +78,23 @@ public interface Model {
      * Saves the current scheduler state for undo/redo.
      */
     void commitScheduler();
+
+    /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the scheduler.
+     */
+    //boolean hasTag(Tag tag);
+
+    /**
+     * Adds all the given tags.
+     */
+    //void addTags(List<Tag> tags);
+
+    /** Removes the given {@code tag} from all {@code Event}s. */
+    void deleteTag(Tag tag);
+
+    /**
+     * Saves the current tag book state for undo/redo.
+     */
+    //void commitTagRecord();
 
 }
