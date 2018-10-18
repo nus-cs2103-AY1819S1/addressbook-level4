@@ -357,6 +357,15 @@ FINE : Details that is not usually noteworthy but may be useful in debugging e.g
 ### 3.4. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
+### 3.5 List
+
+The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
+The date filters are dependent on the due date of the task, and the current date.
+
+The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
+depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
+This predicate is passed as an argument to update filtered Tasks.
+
 ## 4. Documentation
 We use asciidoc for writing documentation.
 
