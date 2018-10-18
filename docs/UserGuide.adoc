@@ -288,7 +288,7 @@ e.g. `viewmh S1234567A`
 * *Add medical history* : `addmh ic/NRIC mh/[MEDICAL_ENTRY]` +
 e.g. `addmh ic/S1234567A mh/Saw patient at 2pm today...`
 * *Add appointment for patient* : `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DATE_TIME doc/DOCTOR_IN_CHARGE` +
-e.g. `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 doc/Dr. Pepper`
+e.g. `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
 * *View appointments of patient* : `viewappt ic/NRIC` +
 e.g. `viewappt S1234567A`
 * *Cancel appointment for patient* : `viewappt NRIC` `xappt INDEX` +
