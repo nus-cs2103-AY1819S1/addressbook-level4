@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.GroupCardHandle;
+import guitests.guihandles.GroupListPanelHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
@@ -72,6 +73,27 @@ public class GuiTestAssert {
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
         assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code groupListPanelHandle} displays the details of {@code group} correctly and
+     * in the correct order
+     */
+    @Deprecated
+    public static void assertGroupTagListMatching(GroupListPanelHandle groupListPanelHandle, Tag... groupTags) {
+        for (int i = 0; i < groupTags.length; i++) {
+            groupListPanelHandle.navigateToCard(i);
+            assertCardDisplaysGroup(groupTags[i], groupListPanelHandle.getGroupCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code groupListPanelHandle} displays the details of {@code group} correctly and
+     * in the correct order
+     */
+    @Deprecated
+    public static void assertGroupTagListMatching(GroupListPanelHandle groupListPanelHandle, List<Tag> groupTags) {
+        assertGroupTagListMatching(groupListPanelHandle, groupTags.toArray(new Tag[0]));
     }
 
     /**
