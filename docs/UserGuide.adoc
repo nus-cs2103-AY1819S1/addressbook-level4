@@ -94,7 +94,23 @@ condition:
 [%hardbreaks]
 Shows a list of all tasks.
 
-+Example: `list`
+Format:
+`list [b/DUE_BEFORE]`, where DUE_BEFORE must be any of the following:
+
+ * `today`
+
+ * `week`
+
+ * `month`
+
++Example:
+`list`
+
++Example:
+`list b/today`
+
+-Example:
+`list b/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
 2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
