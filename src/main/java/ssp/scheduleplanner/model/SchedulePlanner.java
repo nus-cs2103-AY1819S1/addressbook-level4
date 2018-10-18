@@ -9,7 +9,7 @@ import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.model.task.UniqueTaskList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the schedule-planner level
  * Duplicates are not allowed (by .isSameTask comparison)
  */
 public class SchedulePlanner implements ReadOnlySchedulePlanner {
