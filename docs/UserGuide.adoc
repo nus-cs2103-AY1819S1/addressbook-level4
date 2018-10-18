@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Concierge v1.1 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F11-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Concierge is created for *hotel managers and receptionists* of small hotels looking for a simple application to *assist
+the user in hotel management*. More importantly, Concierge is *optimized for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Concierge can get your
+hotel management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `concierge.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Concierge.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +36,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all rooms types and cost of room
+* **`checkout`**`S9465789B` : checks out guest with NRIC no. S9465789B from his/her room
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -52,53 +54,82 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
-
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a guest to the guest list for the purpose of assigning a room +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] -r ROOM_NUMBER
+from/START_DATE to/END_DATE`
 
 [TIP]
-A person can have any number of tags (including 0)
+A guest can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Smith p/98765432 e/johnsmith@gmail.com a/17 River Road t/VIP r/85
+from/09/12/18 to/10/12/18`
+Adds a guest "John Smith" to room 85 for a period of stay from 09/12/18 to
+10/12/18.
 
-=== Listing all persons : `list`
+=== Listing all guests or rooms : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Displays a list of all rooms or guests (using flags -r/-g).
+Format: `list -r`, `list -g`
 
-=== Editing a person : `edit`
+=== Checkout room: `checkout`
 
-Edits an existing person in the address book. +
+Checks out the room and the guest staying in it. The guest is deleted from the guest list and the room is then marked
+for housekeeping. +
+Format: `checkout ROOM_NUMBER`
+
+Examples:
+
+* `checkout 85` +
+Checks out room 85 and the guest staying in it.
+
+=== Deleting a guest : `delete`
+
+Deletes the specified guest from the archived guest list. +
+Format: `delete INDEX`
+
+****
+* Deletes the guest at the specified `INDEX`.
+* The index refers to the index number shown in the displayed guest list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list -g` +
+`delete 2` +
+Deletes the 2nd guest in the displayed guest list.
+* `find -g Betsy` +
+`delete 1` +
+Deletes the 1st guest in the results of the `find` command.
+
+=== Editing a guest : `edit`
+
+Edits an existing guest in the guest list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the guest at the specified `INDEX`. The index refers to the index number shown in the displayed guest list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the guest will be removed i.e adding of tags is not cumulative.
+* You can remove all the guest's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+Edits the phone number and email address of the 1st guest to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd guest to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating guests by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
+Finds guests or rooms, depending on the input flag and the keywords. +
+Format: `find [flag] KEYWORD`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -109,50 +140,70 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -g n/John Smith` +
+Find guest(s) with "John" or "Smith" or both in their names.
+* `find -g r/85` +
+Find guest currently staying in room 85
+* `find -r 85` +
+Find room 85
+* `find -r g/John Smith` +
+Find room in which guest John Smith is currently staying
 
-=== Deleting a person : `delete`
+=== Listing all guests : `list`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Shows a list of rooms or guests, depending on the input flag +
+Format: `list [flag]`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list -r` +
+List all rooms (default)
+* `list -g` +
+List all guests
+* `list -r -d` +
+List all double rooms
+* `list -r -a` +
+List all available rooms today
+* `list -r -a 09/12/18 10/12/18` +
+Lists rooms that are available from 091218 101218. Input dates must be in DD/MM/YY format.
 
-=== Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+=== Selecting a guest : `select`
+
+Selects the guest/room identified by the index number used in the displayed list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the guest/room and loads the information of the guest/room at the specified `INDEX`.
+* The index refers to the index number shown in the displayed list.
 * The index *must be a positive integer* `1, 2, 3, ...`
+
 ****
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd room in the displayed list.
+* `find -g Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st guest in the results of the `find` command.
+
+=== Provide Room Service: `service`
+
+Provides the given room service for the room and charges are tagged to the room  +
+Format: `service rm/709 st/bath supplies`
+
+st refers to the type of room service required. Could be bath supplies, mini bar, replacing sheets,
+vacuuming, general, etc.
+
+=== Mark Room as faulty: `fault`
+
+Marks the given room for maintenance +
+Format: `service rm/709 mt/wiring`
+
+mt refers to the type of maintenance required.
+Room will not be available for booking whilst in this state.
 
 === Listing entered commands : `history`
 
@@ -167,7 +218,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the concierge application to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -216,8 +267,17 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the application. +
 Format: `clear`
+
+=== Export log: `export`
+
+Exports a log of all history of commands into a text file +
+Format: `export`
+
+=== Viewing help : `help`
+
+Format: `help`
 
 === Exiting the program : `exit`
 
@@ -242,19 +302,19 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Add a Guest and assign a Room* : `add`
+* *Checkout* : `checkout`
+* *Delete* : `delete INDEX`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]`
 * *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+* *Select* : `select INDEX`
+* *Room Service* : `service`
+* *Mark Room as faulty* : `fault`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Clear* : `clear`
+* *Export log* : `export`
+* *Help* : `help`
+* *Exit* : `exit`

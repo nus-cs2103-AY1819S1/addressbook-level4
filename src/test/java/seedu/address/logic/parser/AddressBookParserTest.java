@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalBookingPeriods.TODAY_NEXTWEEK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalRoomNumbers.ROOM_NUMBER_002;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +30,12 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Guest;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.room.RoomNumber;
+import seedu.address.model.room.booking.BookingPeriod;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.GuestBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -42,9 +46,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Guest guest = new GuestBuilder().build();
+        RoomNumber roomNumber = ROOM_NUMBER_002;
+        BookingPeriod bookingPeriod = TODAY_NEXTWEEK;
+
+        AddCommand command = (AddCommand) parser.parseCommand(
+                PersonUtil.getAddCommand(guest, roomNumber, bookingPeriod));
+        assertEquals(new AddCommand(guest, roomNumber, bookingPeriod),
+                command);
     }
 
     @Test
@@ -62,8 +71,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Guest guest = new GuestBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(guest).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -104,8 +113,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " -r") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " -g") instanceof ListCommand);
     }
 
     @Test

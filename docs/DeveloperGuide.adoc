@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F11-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -194,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a guest) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -264,18 +264,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th guest in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new guest. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the guest was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -311,7 +311,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the guest being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -323,6 +323,60 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Command Archive feature
+Given below is the UML diagram for the `CommandArchive` Class:
+
+image::CommandArchive_class.png[width="280"]
+
+Given below is the UML diagram for the `CommandHistory` Class:
+
+image::CommandHistory_class.png[width="345"]
+
+==== Current Implementation
+
+The Command Archive mechanism is facilitated by `CommandArchive`.
+It utilises the `userInputHistory` to extract the latest command that the user has input and passes the `inputString`
+to `stringToFile` method in `CommandArchive` class. The `inputString` is then appended to the `CommandFile.txt` file. Additionally, it
+implements the following operations:
+
+* `StringBuilder()` -- The main operations of the `StringBuilder` are the `append` and `insert` methods which can
+be overloaded to accept data of any type. The `append` method always adds these characters at the end of the builder.
+This operation can be found in `CommandHistory`.
+* `toString()` -- Converts the StringBuilder object into a string named `inputString` so it can be passed to the
+`CommandArchive` class. This operation can be found in `CommandHistory`.
+* `getLogger()` -- Creates `LOGGER` so that it can log any `IOExceptions` that are caught in the catch blocks of the
+methods found in `stringToFile` method of `CommandArchive`.
+* `substring()` -- Extracts the latest command from the `userInputHistory`. This is required because the
+`userInputHistory` appends all the older commands into the LinkedList as well. This is done by looking for the first
+ newLine character occurrence of the `inputString`. The substring is then extracted as `latestUserCommand`.
+This operation can be found in `CommandArchive`.
+ * `simpleDateFormat()` -- Creates a `timeStamp` in DD/MM/YYY format that can later be appended to
+`latestUserCommand`. This operation can be found in `CommandArchive`.
+ * `fileWriter` -- Writes the stream of characters (which is `latestUserCommand`) to `commandHistory` file. This will
+eventually be the output that is written into `commandFile.txt` via `PrintWriter`. The `PrintWriter` also appends
+`timeStamp` to the latest entry (which is eventually `timeStamp` + `latestUserCommand`). This operation can be found
+in CommandArchive`.
+
+==== Design Considerations
+
+===== Aspect: How to extract userInputHistory
+
+* **Alternative 1 (current choice):** `userInputHistory` is first put into a `stringBuilder` and then converted to
+string to then pass to `CommandArchive`.
+** Pros:
+1. Easy to implement because `StringBuilder` can utilise `append` and `insert` methods, which can be overloaded
+to accept any data.
+2. Faster than `StringBuffer` under most implementations.
+3. StringBuilder is mutable while String is immutable.
+** Cons: String is more optimised especially if you don't need the extra features of `StringBuilder`
+* **Alternative 2:** Create a KeyLogger class that implements KeyListener to capture userInput.
+** Pros: It is more secure and can only be accessed for audits and other administrative access purposes and is hidden
+from the user.
+** Cons:
+1. If implemented wrongly, it will become a global KeyLogger that captures userInput outside of application.
+2. Does not utilise the existing infrastructure and data found in the base level program class `CommandHistory` and
+hence would require more effort to implement.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -350,6 +404,53 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+=== AddCommand
+
+We current accept a `Guest`, `RoomNumber` and `BookingPeriod` as parameters
+for the AddCommand constructor.
+
+The Guest is added to the AddressBook, which was already the case in
+AddressBook4.
+
+We then create a new `Booking` object with the `Guest` and `BookingPeriod`.
+This `Booking` is then added to the `Room` with the `RoomNumber` specified.
+
+We do not record the `Room` details in the `Guest` to minimise coupling.
+
+// tag::expenses[]
+=== Expense, Expenses and ExpenseType
+In Concierge, users will be given the feature of tracking the expenditure of each individual
+guest, in order to facilitate checkout charges. Hence, the three classes, `Expenses`, `Expense`
+and `ExpenseType` have been created for this purpose. In addition, the hotel also has a menu of
+goods and services available.
+
+==== Current Implementation
+`ExpenseType` objects are essentially immutable objects that represent a single item or service
+being sold at the hotel. An `ExpenseType` object contains information about its menu number,
+usual price, and description. The main purpose of this class is for convenience; users may
+charge a customer by simply providing the menu number of the item and the cost and description
+of the item will be able to be referenced. `ExpenseType` information is stored in a `Menu`
+object, which is then stored on the hard disk, since users should have the ability to modify
+the menu at any time. The `Menu` object is internally represented with a `HashMap<String, ExpenseType>`,
+with the menu number as keys and the `ExpenseType` objects as values. This allows for the
+serialisation of the `Menu` into XML, since `HashMap` is supported by JAXB.
+* **Alternative 1: Use a List<ExpenseType> to store the menu.** While there may be negligible
+differences for a small menu, searching for an `ExpenseType` object still takes linear time
+and there may be significant performance drops for a large menu.
+
+An `Expense` object contains information about one individual expenditure by a guest. An
+`Expense` object encapsulates the cost, `ExpenseType` of the item bought, and the date and time
+of expenditure.
+
+The `Expenses` object is essentially a `List<Expense>`. Every room contains an `Expenses`
+object, to represent the collection of all the expenses of the guests in the room.
+* **Alternative 1: Use a `List<Expense>` object**: Defining the `Expenses` class allows us
+to restrict access to the collection, and only allow certain methods such as adding an
+`Expense` or displaying on screen.
+* **Alternative 2: Use a `Set<Expense>` object**: Having the expenses ordered (e.g.
+chronologically) will be useful for generating a nice view of all the expenses incurred.
+// end::dataencryption[]
 
 == Documentation
 
@@ -560,7 +661,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all guests in the list.
 +
 ****
 * Hints
@@ -587,9 +688,9 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a guest, and link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each guest, and remove the `tag` from each guest.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
@@ -598,12 +699,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last guest in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside guest cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -663,10 +764,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of guests when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of guests whenever there are new changes to the addressbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of guests status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -696,15 +797,15 @@ By creating this command, you will get a chance to learn how to implement a feat
 *Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a guest specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first guest to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first guest.
 
 ==== Step-by-step Instructions
 
@@ -738,7 +839,7 @@ for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each guest later.
 
 **Main:**
 
@@ -750,11 +851,11 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/guest/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -762,12 +863,12 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the guest will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
@@ -782,11 +883,11 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Guest.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the guest that it is currently building.
 . Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
@@ -805,7 +906,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a guest.
 
 **Tests:**
 
@@ -836,51 +937,200 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |receptionist |retrieve the room number of a guest |provide any kind of services to the guest in his/her room
 
-|`* * *` |user |add a new person |
+|`* * *` |receptionist |view the prices of different room types |inform the guests of the prices of different rooms
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |receptionist |mark rooms in need of maintenance or cleaning |prevent guests from staying in those rooms
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |hotel manager |know which rooms' guests are checking out on a certain day |assign cleaning staff to those rooms
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |receptionist |look at the available rooms of a certain type in a certain time |designate rooms for guests
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |receptionist / hotel manager |know the room services called by a guest |charge the guest accordingly
+
+|`* * *` |receptionist |keep track of the particulars of guests such as home address, phone number, room number |contact them in the event of emergencies before, during or after their stay
+
+|`* * *` |receptionist |be informed of the guests that checked out late |charge them with a late check-out fee
+
+|`* * *` |receptionist |swap rooms for guests |allow guests to change rooms if they report any damages
+
+|`* * *` |receptionist |manually reduce / extend the stay of a guest (including late check-out requests) |allow guests to change their check-out timing
+
+|`* * *` |receptionist |modify a guest's particulars |correct errors without rewriting the entry
+
+|`* * *` |receptionist / hotel manager |remove a guest's entry |facilitate the check-out procedure
+
+|`* * *` |receptionist |reserve rooms for guests |allow guests to place bookings
+
+|`* * *` |receptionist |cancel bookings on request |let other guests occupy the room
+
+|`* * *` |hotel manager |export the guests' profiles |keep an archive
+
+|`* * *` |hotel manager |look at all financial transactions made between guests and the hotel |facilitate the monthly audit
+
+|`* * *` |receptionist / hotel manager |red flag problematic guests and write descriptions on them |warn the staff of problematic guests
+
+|`* * *` |receptionist |filter rooms by type, occupancy status, number of guests, etc. |understand the current state of occupancy
+
+|`* *` |hotel manager |know the usage statistics of facilities |plan for budget and staff allocation
+
+|`* *` |hotel manager |adjust the room rates |take advantage of seasonal pricing
+
+|`* *` |hotel manager |send my guests a "Thank You" note upon check-out |maintain good relations with them
+
+|`* *` |hotel manager |backup my data |prepare for data corruption accidents
+
+|`* *` |receptionists |convert room rates to common global currencies |help guests better understand the pricing
+
+|`*` |hotel manager |know the average amount spent by guests who checked out in the current month |evaluate the effectiveness of short-term events
+
+|`*` |hotel manager |look at which receptionist last edited a reservation or stay |hold the receptionists accountable if mistakes were made
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
-=== Use case: Delete person
+=== UC1.1: Check-in a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.	Receptionist checks the room rates for all room types
+2. 	Receptionist checks available rooms (not occupied or reserved) of the type guest wants
+3.	Receptionist ensures that room has all necessary maintenance completed
+4. 	Receptionist assigns room to Guest
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. System indicates that there are no rooms available
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. There are multiple Guests to be checked-in
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 4a1. Receptionist adds all Guests to System
 +
-Use case resumes at step 2.
+Use case resumes at step 4.
+
+[discrete]
+=== UC1.2: Retrieve room number of a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist searches room number using Guest’s particulars (e.g. Name, ID, Phone Number, etc.)
+2. 	System returns room number
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System indicates that the Guest is not staying in the hotel.
++
+Use case ends.
+
+[discrete]
+=== UC1.3: Send room service to a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist retrieves room number of Guest (UC1.2)
+2. 	Receptionist specifies what type of room service to send to Guest
+3. 	System confirms room service sent to guest, with an ETA
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. System indicates that there are no available hotel attendants at the moment
++
+[none]
+** 3a1. Receptionist puts Guest on a waiting queue
++
+Use case ends.
+
+[discrete]
+=== UC1.4: Swap Guest's room
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist views listing of available rooms (UC1.2)
+2. 	Receptionist swaps guest’s room
+3. 	System prompts to mark the vacated room for housekeeping
+4. 	Receptionist sends for housekeeping service in vacated room
++
+Use case ends.
+
+[discrete]
+=== UC1.5: Edit Guest's personal particulars
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist identifies Guest using personal particulars (e.g. name, ID, phone number)
+2. 	Receptionist updates Guest details
++
+Use case ends.
+
+[discrete]
+=== UC1.6: Reserve a room for Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist views listing of available rooms (UC1.2)
+2.	Receptionist specifies reservation dates
++
+Use case ends.
+
+[discrete]
+=== UC2.1: Edit room rates
+
+*System*: `Concierge`, *Actor*: `Hotel Manager`
+
+*MSS*
+
+1.	Hotel Manager checks the room rates for all room types
+2.	Hotel Manager specifies new room rate for a particular room type
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Hotel Manager specifies an invalid room rate (has to be non-negative integer)
++
+[none]
+**	2a1. System displays an error message that no changes have been made
++
+Use case ends.
+
+[discrete]
+=== UC2.2: Check statistics
+
+*System*: `Concierge`, *Actor*: `Hotel Manager`
+
+*MSS*
+
+1.	Hotel Manager specifies periodicity of earnings to checked-in
++
+Use case ends.
 
 _{More to be added}_
 
@@ -888,8 +1138,15 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 guests without a noticeable sluggishness in performance for typical usage.
+.  Command Line Interface is the primary mode of input. There is a preference for typing over mouse actions or key combinations. One-shot commands are preferred over multi-step commands.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Incremental development: a reasonably consistent delivery rate is expected.
+.  The data should be stored locally and should be in a human editable text file, so that advanced users can manipulate the data by editing the file.
+.  The software should follow the Object-oriented paradigm.
+.  The project will not use a DBMS.
+.  The software should be platform-independent.
+.  The software should work without requiring an installer.
 
 _{More to be added}_
 
@@ -902,22 +1159,56 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[guest]] Guest:;
+A guest staying in the hotel
+
+[[receptionist]] Receptionist::
+Staff at the counter, in-charge of check-in and check-out procedures. They occasionally receive calls from potential guests
+
+[[hotel-manager]] Hotel Manager::
+The one guest in-charge of the entire hotel. Manages staff, guests and facilities
+
+[[housekeeping]] Housekeeping::
+Staff in-charge of cleaning rooms and restoring them to the default configuration for a new Guest to stay
+
+[[facilities]] Facilities::
+Facilities: Any form of services provided within the hotel. These include the spa, gym, game room, casino, laundry, bar, restaurants, etc
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Cloudbeds*
 
-Author: ...
+* Easy to use: staff are able to learn how to operate the system with minimal training
+* Access to leading travel channels (e.g. booking.com)
+* Custom payment options
+* Group analytics
+* Global currency support
 
-Pros:
+*eZee Frontdesk*
 
-* ...
-* ...
+* Booking Engine, Channel Manager and Restaurant POS in one system
+* Rate management to maximise revenue through seasonal stay rates
 
-Cons:
+*Frontdesk Anywhere*
 
-* ...
-* ...
+* Export guest profiles
+* Data encryption and privilege control for users
+* Sends "Thank You" letters to guests after their stay
+
+*Hotelogix*
+
+* Multi-device booking engine
+
+*MSI CloudPM*
+
+* Automatic back-up on the cloud
+* Access to archived night audit reports
+
+*roomMaster*
+
+* Complete audit trail for all financial transactions
+* Guest history available
 
 [appendix]
 == Instructions for Manual Testing
@@ -943,15 +1234,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a guest
 
-. Deleting a person while all persons are listed
+. Deleting a guest while all guests are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all guests using the `list` command. Multiple guests in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No guest is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

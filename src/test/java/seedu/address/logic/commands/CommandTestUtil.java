@@ -3,9 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,9 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.person.Guest;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.TypicalRoomNumbers;
 
 /**
  * Contains helper methods for testing commands.
@@ -36,6 +41,22 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_HANDICAP = "handicap";
+    public static final String VALID_ROOM_NUMBER_AMY =
+            TypicalRoomNumbers.ROOM_NUMBER_010.value;
+    public static final String VALID_ROOM_NUMBER_BOB =
+            TypicalRoomNumbers.ROOM_NUMBER_002.value;
+    public static final String VALID_ROOM_NUMBER_001 =
+            TypicalRoomNumbers.ROOM_NUMBER_001.value;
+    public static final String VALID_ROOM_NUMBER_020 =
+            TypicalRoomNumbers.ROOM_NUMBER_020.value;
+    public static final Integer VALID_CAPACITY_SINGLE = 1;
+    public static final Integer VALID_CAPACITY_DOUBLE = 2;
+    public static final Integer VALID_CAPACITY_SUITE = 5;
+    public static final String VALID_DATE_START_AMY = "14/11/2018";
+    public static final String VALID_DATE_END_AMY = "17/11/2018";
+    public static final String VALID_DATE_START_BOB = "03/11/2018";
+    public static final String VALID_DATE_END_BOB = "05/11/2018";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -47,12 +68,32 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String ROOM_DESC_001 =
+            " " + PREFIX_ROOM + " " + VALID_ROOM_NUMBER_001;
+    public static final String ROOM_DESC_020 =
+            " " + PREFIX_ROOM + " " + VALID_ROOM_NUMBER_020;
+    public static final String ROOM_DESC_AMY = " " + PREFIX_ROOM + " " + VALID_ROOM_NUMBER_AMY;
+    public static final String ROOM_DESC_BOB = " " + PREFIX_ROOM + " " + VALID_ROOM_NUMBER_BOB;
+    public static final String DATE_START_DESC_AMY =
+            " " + PREFIX_DATE_START + " " + VALID_DATE_START_AMY;
+    public static final String DATE_END_DESC_AMY =
+            " " + PREFIX_DATE_END + " " + VALID_DATE_END_AMY;
+    public static final String DATE_START_DESC_BOB =
+            " " + PREFIX_DATE_START + " " + VALID_DATE_START_BOB;
+    public static final String DATE_END_DESC_BOB =
+            " " + PREFIX_DATE_END + " " + VALID_DATE_END_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_ROOM_DESC = " " + PREFIX_ROOM + "101"; // rooms only valid from 001 to 100.
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX + "-1"; // index has to be a counting number
+    public static final String INVALID_DATE_START_DESC =
+            " " + PREFIX_DATE_START + "138213"; // date has to be in dd/MM/yyyy format
+    public static final String INVALID_DATE_END_DESC =
+            " " + PREFIX_DATE_END + "33/33/3333"; // invalid month format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -84,7 +125,7 @@ public class CommandTestUtil {
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
+            throw new AssertionError("Execution of command should not fail. Failure reason: " + ce.getMessage(), ce);
         }
     }
 
@@ -92,7 +133,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the address book and the filtered guest list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -100,7 +141,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Guest> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -116,25 +157,25 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the guest at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        Guest guest = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = guest.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first guest in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+        Guest firstGuest = model.getFilteredPersonList().get(0);
+        model.deletePerson(firstGuest);
         model.commitAddressBook();
     }
 

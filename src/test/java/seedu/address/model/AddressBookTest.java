@@ -5,13 +5,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,9 +21,11 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.expenses.ExpenseType;
+import seedu.address.model.person.Guest;
+import seedu.address.model.person.exceptions.DuplicateGuestException;
+import seedu.address.model.room.Room;
+import seedu.address.testutil.GuestBuilder;
 
 public class AddressBookTest {
 
@@ -50,13 +54,14 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two guests with the same identity fields
+        Guest editedAlice = new GuestBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Guest> newGuests = Arrays.asList(ALICE, editedAlice);
 
-        thrown.expect(DuplicatePersonException.class);
+        AddressBookStub newData = new AddressBookStub(newGuests, null);
+
+        thrown.expect(DuplicateGuestException.class);
         addressBook.resetData(newData);
     }
 
@@ -80,7 +85,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Guest editedAlice = new GuestBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
@@ -91,19 +96,41 @@ public class AddressBookTest {
         addressBook.getPersonList().remove(0);
     }
 
+    @Test
+    public void getMenuMap_modifyMap_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getMenuMap().put("1", new ExpenseType("1", "-", 0));
+    }
+
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose guests list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Guest> guests = FXCollections.observableArrayList();
+        private final ObservableList<Room> rooms = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AddressBookStub(Collection<Guest> guests, Collection<Room> rooms) {
+            this.guests.setAll(guests);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Guest> getPersonList() {
+            return guests;
+        }
+
+        @Override
+        public ObservableList<Room> getRoomList() {
+            return rooms;
+        }
+
+        @Override
+        public Menu getMenu() {
+            return new Menu();
+        }
+
+        @Override
+        public Map<String, ExpenseType> getMenuMap() {
+            return new HashMap<>();
         }
     }
 
