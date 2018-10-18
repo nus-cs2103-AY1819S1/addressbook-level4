@@ -28,6 +28,7 @@ public class ViewCommand extends Command {
     private final SwappablePanelName panelName;
 
     public ViewCommand(SwappablePanelName panelName) {
+        requireNonNull(panelName);
         this.panelName = panelName;
     }
 

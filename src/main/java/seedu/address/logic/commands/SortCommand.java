@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SortPanelViewEvent;
 import seedu.address.logic.CommandHistory;
@@ -27,6 +29,7 @@ public class SortCommand extends Command {
     private final int[] colIdx;
 
     public SortCommand(int... colIdx) {
+        requireNonNull(colIdx);
         this.colIdx = colIdx;
     }
 
@@ -43,6 +46,6 @@ public class SortCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof SortCommand // instanceof handles nulls
-                && colIdx == (((SortCommand) other).colIdx)); // state check
+                && Arrays.equals(colIdx, ((SortCommand) other).colIdx)); // state check
     }
 }
