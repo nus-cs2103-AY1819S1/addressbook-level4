@@ -378,6 +378,22 @@ other tasks that depends on A has to be recreated.
 
 
 
+### 3.2. Dependency Validity
+#### 3.1.1 Current Implementation
+The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic and topological sort.
+
+#### 3.1.2 Design Considerations
+Aspect: Real-time graph or graph instantiated on function call.
+Alternative 1(current choice): Graph is only instantiated when needed.
+Pros: Graph does not have to be updated or maintained.
+Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won't
+have an extremely large amount of tasks.
+Alternative 2: Graph created on start-up and maintained during run-time.
+Pros: Slightly faster speed for dependency related commands.
+Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time
+
+### 3.3
 
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
