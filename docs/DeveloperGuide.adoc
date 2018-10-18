@@ -127,6 +127,9 @@ Before you start coding, get a sense of the overall design by reading <<Design-A
 [[Design-Architecture]]
 === Architecture
 
+[discrete]
+==== Overview of Architecture
+
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
@@ -145,22 +148,20 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+`Logic` is the command executor. It defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+Read <<Design-Logic,*`Logic`*>> for more details. Its class diagram is given below:
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+
+`UI` is responsible for the UI of the App. It defines its API in the `Ui.java` interface and exposes its functionality using the `UiManager.java` class.
+Read <<Design-Ui,*`UI`*>> for more details.
+
+`Model` holds the data of the App in-memory. It defines its API in the `Model.java` interface and exposes its functionality using the `ModelManager.java` class.
+Read <<Design-Model,*`Model`*>> for more details.
+
+`Storage` reads data from, and writes data to, the hard disk.It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
+Read <<Design-Storage,*`Storage`*>> for more details.
 
 [discrete]
 ==== Events-Driven nature of the design
