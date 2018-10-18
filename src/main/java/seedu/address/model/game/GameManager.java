@@ -34,14 +34,14 @@ public class GameManager {
      * @return Returns the XP the supplied task is worth at present
      */
     public int forecastTaskXp(Task task) {
-        if (task.isCompleted() || task.getStatus() == Status.) {
+        if (task.isCompleted() || task.isOverdue()) {
             return 0;
         }
 
         Task copy = new Task(task.getName(), task.getDueDate(), task.getPriorityValue(), task.getDescription(),
                 task.getLabels(), Status.COMPLETED, task.getDependency());
 
-        return appraiseTaskXp(copy;
+        return appraiseTaskXp(copy);
     }
 
     /**
