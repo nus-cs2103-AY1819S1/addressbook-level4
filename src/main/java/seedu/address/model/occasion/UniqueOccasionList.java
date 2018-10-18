@@ -1,12 +1,14 @@
 package seedu.address.model.occasion;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 
 /**
@@ -24,8 +26,12 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     /**
      * Returns true if the list contains an equivalent occasion as the given argument.
      */
-    public boolean contains(Occasion occasionToCheck) {
-        requireNonNull(occasionToCheck);
+    public boolean contains(Entity toCheck) {
+        requireNonNull(toCheck);
+        if (!(toCheck instanceof Occasion)) {
+            return false;
+        }
+        Occasion occasionToCheck = (Occasion) toCheck;
         return internalList.stream().anyMatch(occasionToCheck::equals);
     }
 
@@ -33,8 +39,14 @@ public class UniqueOccasionList implements Iterable<Occasion> {
      * Adds the specified occasion to the list iff it is not originally contained
      * within it.
      */
-    public void add(Occasion occasionToAdd) {
-        requireNonNull(occasionToAdd);
+    public void add(Entity toAdd) {
+        requireNonNull(toAdd);
+        if (!(toAdd instanceof Occasion)) {
+            // throw new NotAnOccasionException();
+            return;
+        }
+
+        Occasion occasionToAdd = (Occasion) toAdd;
         if (contains(occasionToAdd)) {
             throw new DuplicateOccasionException();
         }
@@ -47,16 +59,30 @@ public class UniqueOccasionList implements Iterable<Occasion> {
      * The occasion identity of {@code editedModule} must not be the same as another existing occasion in the list.
      */
     public void setOccasion(Occasion target, Occasion editedOccasion) {
+        requireAllNonNull(target, editedOccasion);
         // TODO fill up implementation.
-        // Will leave upto the implementer of the
+        // Will leave up to the implementer of the
         // update feature to do.
+    }
+
+    public void setEntity(Entity target, Entity editedEntity) {
+        requireAllNonNull(target, editedEntity);
+        if (!(target instanceof Occasion) || !(editedEntity instanceof Occasion)) {
+            return;
+        }
+        setOccasion((Occasion) target, (Occasion) editedEntity);
     }
 
     /**
      * Removes the designated occasions from the internal list.
      */
-    public void remove(Occasion occasionToRemove) {
-        requireNonNull(occasionToRemove);
+    public void remove(Entity toRemove) {
+        requireNonNull(toRemove);
+        if (!(toRemove instanceof Occasion)) {
+            return;
+        }
+
+        Occasion occasionToRemove = (Occasion) toRemove;
         if (!internalList.remove(occasionToRemove)) {
             throw new DuplicateOccasionException();
         }
@@ -66,6 +92,8 @@ public class UniqueOccasionList implements Iterable<Occasion> {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
+
+
 
     public void setOccasions(List<Occasion> occasions) {
         requireNonNull(occasions);

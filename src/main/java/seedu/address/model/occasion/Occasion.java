@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -84,6 +85,10 @@ public class Occasion extends Inanimate {
             && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
             && otherOccasion.getOrganiser().equals(this.getOrganiser())
             && otherOccasion.getTags().equals(this.getTags());
+    }
+
+    public boolean isSameEntity(Entity other) {
+        return this.equals(other);
     }
 
     @Override
