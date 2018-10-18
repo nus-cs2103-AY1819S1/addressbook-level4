@@ -606,13 +606,13 @@ A topological sort can also be performed on the graph to order tasks by the numb
 ** Cons: nil
 
 
-### 3.5 Handling Date
+### 3.6 Handling Date
 Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
 `Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
 
-### 3.6 List
+### 3.7 List
 
 The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
 The date filters are dependent on the due date of the task, and the current date.
@@ -621,7 +621,7 @@ The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
 This predicate is passed as an argument to update filtered Tasks.
 
-### 3.7. Logging
+### 3.8. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -640,7 +640,7 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### 3.8. Configuration
+### 3.9. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
 ## 4. Documentation
