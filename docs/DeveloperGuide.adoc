@@ -499,7 +499,7 @@ We must remember to skip this wish in methods that involve displaying the WishLi
 // end::wish[]
 
 // tag::find[]
-=== Find Wish
+=== Find Wish Feature
 
 ==== Current Implementation
 
