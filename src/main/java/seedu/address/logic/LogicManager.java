@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.logic.commands.Command;
@@ -57,7 +56,7 @@ public class LogicManager extends ComponentManager implements Logic {
         } finally {
             history.add(commandText);
             if (command instanceof QueueCommand) {
-                EventsCenter.getInstance().post(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
+                raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
             }
         }
     }

@@ -18,6 +18,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowMedicineListEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -218,7 +220,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleQueueCommandEvent(QueueUpdatedEvent event) {
+    private void handleShowPatientList(ShowPatientListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    @Subscribe
+    private void handleShowMedicineList(ShowMedicineListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listPanelPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());

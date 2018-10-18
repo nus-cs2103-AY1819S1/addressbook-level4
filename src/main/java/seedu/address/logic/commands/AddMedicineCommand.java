@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_PER_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -51,6 +53,9 @@ public class AddMedicineCommand extends Command {
 
         model.addMedicine(toAdd);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

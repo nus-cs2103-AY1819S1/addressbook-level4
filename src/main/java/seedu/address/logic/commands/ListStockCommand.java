@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowMedicineListEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
@@ -28,6 +31,8 @@ public class ListStockCommand extends Command {
             medicineListStringBuilder.append(medicine.toString());
             medicineListStringBuilder.append("\n");
         });
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
         return new CommandResult(medicineListStringBuilder.toString());
     }
