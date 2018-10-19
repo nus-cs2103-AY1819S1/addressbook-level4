@@ -18,9 +18,9 @@ import seedu.address.model.person.Person;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String DEFAULT_PAGE = "https://maps.google.com/";
+    public static final String DEFAULT_PAGE = "https://www.google.com/maps";
 
-    public static final String SEARCH_PAGE_URL = "https://www.google.com/maps/search/?api=1&query=NUS+";
+    public static final String SEARCH_PAGE_URL = "https://www.google.com/maps ";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -40,7 +40,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getFaculty().toString());
+        loadPage(SEARCH_PAGE_URL);
     }
 
     public void loadPage(String url) {

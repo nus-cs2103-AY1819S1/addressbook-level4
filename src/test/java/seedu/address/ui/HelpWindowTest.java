@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 // import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeFalse;
 import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
+import javafx.stage.Stage;
 // import javafx.stage.Stage;
 
 public class HelpWindowTest extends GuiUnitTest {
@@ -45,7 +47,6 @@ public class HelpWindowTest extends GuiUnitTest {
         assertFalse(helpWindow.isShowing());
     }
 
-    /*
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
         // TODO: This test skip can be removed once this bug is fixed:
@@ -67,5 +68,4 @@ public class HelpWindowTest extends GuiUnitTest {
         guiRobot.interact(helpWindow::focus);
         assertTrue(helpWindow.getRoot().isFocused());
     }
-    */
 }
