@@ -12,5 +12,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("ti/");
     public static final Prefix PREFIX_SECONDS = new Prefix("s/");
     public static final Prefix PREFIX_QUERY = new Prefix("q/");
-    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 }
