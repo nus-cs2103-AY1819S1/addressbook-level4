@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 /**

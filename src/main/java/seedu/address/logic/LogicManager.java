@@ -46,8 +46,9 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = null;
         try {
+            command = addressBookParser.parseCommand(commandText);
             if (command instanceof QueueCommand) {
                 return ((QueueCommand) command).execute(model, patientQueue, currentPatient,
                         servedPatientList, history);

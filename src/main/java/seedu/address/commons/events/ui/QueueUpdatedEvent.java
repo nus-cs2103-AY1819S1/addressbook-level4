@@ -14,7 +14,8 @@ public class QueueUpdatedEvent extends BaseEvent {
     private ServedPatientList servedPatientList;
     private CurrentPatient currentPatient;
 
-    public QueueUpdatedEvent(PatientQueue patientQueue, ServedPatientList servedPatientList, CurrentPatient currentPatient) {
+    public QueueUpdatedEvent(PatientQueue patientQueue, ServedPatientList servedPatientList,
+                             CurrentPatient currentPatient) {
         this.patientQueue = patientQueue;
         this.servedPatientList = servedPatientList;
         this.currentPatient = currentPatient;

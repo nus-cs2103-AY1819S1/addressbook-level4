@@ -14,6 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.medicine.Medicine;
 
+/**
+ * Panel containing the list of medicines.
+ */
 public class MedicineListPanel extends UiPart<Region> {
 
     private static final String FXML = "MedicineListPanel.fxml";

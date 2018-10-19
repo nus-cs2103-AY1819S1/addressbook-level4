@@ -16,7 +16,6 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.commons.events.ui.ShowPatientListEvent;

@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -12,7 +11,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
@@ -20,6 +18,9 @@ import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
+/**
+ * A display panel that shows the queue information to the user.
+ */
 public class QueueDisplay extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "QueueDisplay.html";
@@ -53,8 +54,8 @@ public class QueueDisplay extends UiPart<Region> {
         String patientQueueString = generatePatientQueuePrettyString(patientQueue);
         String servedPatientListString = generateServedPatientListPrettyString(servedPatientList);
 
-        String currentPatientString = currentPatient != null ?
-                currentPatient.toNameAndIc() : "No current patient!";
+        String currentPatientString = currentPatient != null
+                ? currentPatient.toNameAndIc() : "No current patient!";
 
         String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
         queueDisplayPage += "?queue=";
@@ -79,6 +80,11 @@ public class QueueDisplay extends UiPart<Region> {
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
     }
 
+    /**
+     * Convert queue object to a nice looking readable string.
+     * @param patientQueue queue object to convert.
+     * @return nice readable string
+     */
     private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
         if (patientQueue == null) {
             return "(none)";
@@ -92,6 +98,11 @@ public class QueueDisplay extends UiPart<Region> {
         return result == "" ? "(none)" : result.substring(0, result.length() - 4);
     }
 
+    /**
+     * Convert patient list object to a nice looking readable string
+     * @param servedPatientList list to convert
+     * @return nice readable string
+     */
     private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
         if (servedPatientList == null) {
             return "(none)";
