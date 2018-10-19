@@ -30,6 +30,7 @@ It has a GUI (Graphic User Interface) but most of the user interactions happen u
 
 == Acknowledgements
 
+* Some parts of this sample application were inspired by the excellent Java FX tutorial by Marco Jakob.
 * This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4], a project created by the SE-EDU initiative.
 * Libraries used: https://github.com/google/gson[Gson],
 https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]

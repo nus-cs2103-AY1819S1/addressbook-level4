@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main
+:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
@@ -268,19 +268,59 @@ Format: `exit`
 
 == Command Summary
 
-* *Clear* : `clear`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find punggol`
-* *Filter* : `filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]` +
-e.g. `filter f/true n/false ct/multi`
-* *Help* : `help`
-* *History* : `history`
-* *List* : `list`
-* *Query* : `query`
-* *Notify* : `notify` +
-e.g. `notify 60`
-* *Sort* : `sort FILTER_TYPE` +
-e.g. `sort DISTANCE`
-* *Select* : `select INDEX` +
-e.g. `select 2`
-* *Exit* : `exit`
+
+.General Commands
+|===
+|Command |Format |Example
+
+|*Help*
+|`help`
+|`h`
+
+|*Clear*
+|`clear`
+|`c`
+
+|*History*
+|`history`
+|`hi`
+
+|*Query*
+|`query`
+|`q`
+
+|*Exit*
+|`exit`
+|`e`
+|===
+
+
+.Carpark Management
+|===
+|Command |Format |Example
+
+|*List*
+|`list`
+|`l`
+
+|*Select*
+|`select INDEX`
+|`s 2`
+
+|*Find*
+|`find KEYWORD [MORE_KEYWORDS]`
+|`f punggol`
+
+|*Filter*
+|`filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]`
+|`fi f/true n/false ct/multi`
+
+|*Sort*
+|`sort FILTER_TYPE`
+|`so DISTANCE`
+
+|*Notify*
+|`notify`
+|`n 60`
+|===
+
