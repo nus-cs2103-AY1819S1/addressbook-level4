@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
@@ -26,7 +28,7 @@ public class EmailIndexCommand extends Command {
 
     public static final String COMMAND_WORD = "email_index";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to specified index. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to specified index(es). "
             + "Parameters: "
             + PREFIX_FROM + "EMAIL "
             + PREFIX_TO + "INDEX "
@@ -34,21 +36,21 @@ public class EmailIndexCommand extends Command {
             + PREFIX_CONTENT + "CONTENT(Input <br /> for newline)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FROM + "johndoe@example.com "
-            + PREFIX_TO + "1 "
+            + PREFIX_TO + "1 6 10 "
             + PREFIX_SUBJECT + "Meeting this Friday "
             + PREFIX_CONTENT + "Dear Sam<br /><br />Remember our meeting this friday.<br /><br />John";
 
     public static final String MESSAGE_SUCCESS = "Email(Index) composed: %s";
 
     private final Email toCompose;
-    private final Index index;
+    private final Set<Index> indexList;
 
-    public EmailIndexCommand(Email email, Index index) {
+    public EmailIndexCommand(Email email, Set<Index> indexList) {
         requireNonNull(email);
-        requireNonNull(index);
+        requireNonNull(indexList);
 
         toCompose = email;
-        this.index = index;
+        this.indexList = indexList;
     }
 
     @Override
@@ -56,16 +58,29 @@ public class EmailIndexCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person toPerson = lastShownList.get(index.getZeroBased());
-        String toEmail = toPerson.getEmail().value;
-        Email emailWithRecipient = EmailBuilder.copying(toCompose).to(toEmail).buildEmail();
+        Email emailWithRecipient = craftEmail(lastShownList);
 
         model.saveEmail(emailWithRecipient);
         return new CommandResult(String.format(MESSAGE_SUCCESS, emailWithRecipient.getSubject()));
+    }
+
+    /**
+     * Creates an {@code Email} with recipients in the list.
+     * @param lastShownList Current filtered list.
+     * @return Email with recipients from list.
+     * @throws CommandException if index is beyond list size
+     */
+    private Email craftEmail(List<Person> lastShownList) throws CommandException {
+        final Set<String> emailList = new HashSet<>();
+        for (Index index : indexList) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person toPerson = lastShownList.get(index.getZeroBased());
+            emailList.add(toPerson.getEmail().value);
+        }
+        return EmailBuilder.copying(toCompose).toMultiple(emailList).buildEmail();
     }
 
     @Override

@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.simplejavamail.email.Email;
@@ -37,7 +38,7 @@ public class EmailIndexCommandParser implements Parser<EmailIndexCommand> {
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
-        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TO).get());
+        Set<Index> indexList = ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_TO).get());
         String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get()).toString();
         String content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()).toString();
 
@@ -47,7 +48,7 @@ public class EmailIndexCommandParser implements Parser<EmailIndexCommand> {
                 .withHTMLText(content)
                 .buildEmail();
 
-        return new EmailIndexCommand(email, index);
+        return new EmailIndexCommand(email, indexList);
     }
 
     /**
