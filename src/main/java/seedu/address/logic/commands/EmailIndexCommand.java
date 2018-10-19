@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
 /**
- * Composes email to specified index and writes it to hard disk
+ * Composes email to specified indexes and writes it to hard disk
  */
 public class EmailIndexCommand extends Command {
 
@@ -31,14 +31,14 @@ public class EmailIndexCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to specified index(es). "
             + "Parameters: "
             + PREFIX_FROM + "EMAIL "
-            + PREFIX_TO + "INDEX "
+            + PREFIX_TO + "INDEXES "
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_CONTENT + "CONTENT(Input <br /> for newline)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FROM + "johndoe@example.com "
             + PREFIX_TO + "1 6 10 "
             + PREFIX_SUBJECT + "Meeting this Friday "
-            + PREFIX_CONTENT + "Dear Sam<br /><br />Remember our meeting this friday.<br /><br />John";
+            + PREFIX_CONTENT + "Dear All<br /><br />Remember our meeting this friday.<br /><br />John";
 
     public static final String MESSAGE_SUCCESS = "Email(Index) composed: %s";
 
@@ -58,7 +58,7 @@ public class EmailIndexCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        Email emailWithRecipient = craftEmail(lastShownList);
+        Email emailWithRecipient = addIndexesToEmail(lastShownList);
 
         model.saveEmail(emailWithRecipient);
         return new CommandResult(String.format(MESSAGE_SUCCESS, emailWithRecipient.getSubject()));
@@ -70,7 +70,7 @@ public class EmailIndexCommand extends Command {
      * @return Email with recipients from list.
      * @throws CommandException if index is beyond list size
      */
-    private Email craftEmail(List<Person> lastShownList) throws CommandException {
+    private Email addIndexesToEmail(List<Person> lastShownList) throws CommandException {
         final Set<String> emailList = new HashSet<>();
         for (Index index : indexList) {
             if (index.getZeroBased() >= lastShownList.size()) {
