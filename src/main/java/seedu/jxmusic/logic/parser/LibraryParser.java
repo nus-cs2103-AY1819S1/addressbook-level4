@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
-import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
@@ -71,7 +71,7 @@ public class LibraryParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case PlaylistDelCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_PHRASE:

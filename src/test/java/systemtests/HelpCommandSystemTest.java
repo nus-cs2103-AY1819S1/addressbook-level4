@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.ui.BrowserPanel;
@@ -68,7 +68,7 @@ public class HelpCommandSystemTest extends LibrarySystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
+        executeCommand(PlaylistDelCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
         // todo failing test
         // assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }

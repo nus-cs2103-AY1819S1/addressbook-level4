@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
@@ -45,9 +45,9 @@ public class LibraryParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PLAYLIST), command);
+        PlaylistDelCommand command = (PlaylistDelCommand) parser.parseCommand(
+                PlaylistDelCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
+        assertEquals(new PlaylistDelCommand(INDEX_FIRST_PLAYLIST), command);
     }
 
     @Test

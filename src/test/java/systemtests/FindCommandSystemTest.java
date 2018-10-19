@@ -14,7 +14,7 @@
 //import org.junit.Test;
 //
 //import seedu.jxmusic.commons.core.index.Index;
-//import seedu.jxmusic.logic.commands.DeleteCommand;
+//import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 //import seedu.jxmusic.logic.commands.FindCommand;
 //import seedu.jxmusic.model.Model;
 //import seedu.jxmusic.model.tag.Tag;
@@ -80,7 +80,7 @@
 //        assertCommandFailure(command, expectedResultMessage);
 //
 //        /* Case: find same persons in jxmusic book after deleting 1 of them -> 1 playlist found */
-//        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+//        executeCommand(PlaylistDelCommand.COMMAND_WORD + " 1");
 //        assertFalse(getModel().getAddressBook().getPlaylistList().contains(ANIME));
 //        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
 //        expectedModel = getModel();
