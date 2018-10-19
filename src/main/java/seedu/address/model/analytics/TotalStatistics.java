@@ -1,7 +1,5 @@
 package seedu.address.model.analytics;
 
-//@@author arsalanc-v2
-
 //import static java.lang.Math.toIntExact;
 //import static java.util.stream.Collectors.groupingBy;
 //import static java.util.stream.Collectors.summingInt;
@@ -46,15 +44,15 @@ public class TotalStatistics extends Statistics {
         this.appointments = appointments;
     }
 
-    /**
-     * @return the total number of appointments.
+    /*
+     * return the total number of appointments.
 
     private int getNumberOfAppointments() {
         return appointments.size();
     }
 
     /**
-     * @return the total number of follow up appointments.
+     * return the total number of follow up appointments.
 
     private int getNumberOfFollowUpAppointments() {
         long followUpCount = appointments.stream()
