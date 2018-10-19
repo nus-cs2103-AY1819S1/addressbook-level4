@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalExpenses.ALICE;
-import static seedu.address.testutil.TypicalExpenses.HOON;
-import static seedu.address.testutil.TypicalExpenses.IDA;
+import static seedu.address.testutil.TypicalExpenses.GAMBLE;
+import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
+import static seedu.address.testutil.TypicalExpenses.STOCK;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.io.IOException;
@@ -87,14 +87,14 @@ public class XmlExpensesStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addExpense(HOON);
-        original.removeExpense(ALICE);
+        original.addExpense(STOCK);
+        original.removeExpense(SCHOOLFEE);
         xmlAddressBookStorage.saveExpenses(original, filePath);
         readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addExpense(IDA);
+        original.addExpense(GAMBLE);
         xmlAddressBookStorage.saveExpenses(original); //file path not specified
         readBack = xmlAddressBookStorage.readExpenses().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));
