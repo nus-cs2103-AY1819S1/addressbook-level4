@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyClinicIo;
 /**
  * Represents a storage for {@link ClinicIo}.
  */
-public interface AddressBookStorage {
+public interface ClinicIoStorage {
 
     /**
      * Returns the file path of the data file.

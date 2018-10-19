@@ -21,13 +21,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ClinicIoStorage clinicIoStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ClinicIoStorage clinicIoStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.clinicIoStorage = clinicIoStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -53,29 +53,29 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return clinicIoStorage.getAddressBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyClinicIo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(clinicIoStorage.getAddressBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyClinicIo> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return clinicIoStorage.readAddressBook(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyClinicIo addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, clinicIoStorage.getAddressBookFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        clinicIoStorage.saveAddressBook(addressBook, filePath);
     }
 
 

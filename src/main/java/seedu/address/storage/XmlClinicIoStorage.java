@@ -18,13 +18,13 @@ import seedu.address.model.ReadOnlyClinicIo;
 /**
  * A class to access ClinicIo data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlClinicIoStorage implements ClinicIoStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlClinicIoStorage.class);
 
     private Path filePath;
 
-    public XmlAddressBookStorage(Path filePath) {
+    public XmlClinicIoStorage(Path filePath) {
         this.filePath = filePath;
     }
 
