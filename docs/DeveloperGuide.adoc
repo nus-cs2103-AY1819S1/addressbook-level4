@@ -459,17 +459,17 @@ Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It im
 * `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
 * `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
 
-These operations are exposed in the `Model` interface as
-`Model#createAllDayEvent(Year year, Month month, int date, String title)`,
-`Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`,
-`Model#loadCalendar(Year year, Month month)`,
-`Model#isExistingCalendar(Year year, Month month)`,
-`Model#isValidDate(Year year, Month month, int date)`,
-`Model#isValidTime(int hour, int min)`,
-`Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
-and in the `Storage` interface as
-`Storage#loadCalendar(String calendarName)` and
-`Storage#createCalendar(Calendar calendar, String calendarName)`.
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#createAllDayEvent(Year year, Month month, int date, String title)`
+* `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isValidTime(int hour, int min)`
+* `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
 
 ====== Add_All_Day_Event Command
 Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
@@ -510,6 +510,42 @@ This saves the updated calendar back to the local directory.
 ===== Delete_Event Command
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
 It implements the following operations:
+
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#deleteEvent(Year year, Month month)` -- Deletes an existing event in the monthly calendar.
+* `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` -- Retrieves the event object from the calendar.
+* `CalendarModel#isSameEvent(int startDate, int endDate, String title, VEvent event)` -- Checks whether the requested event to be deleted is the same event object in the calendar.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` -- Checks if an event exists in the monthly calendar.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+Given below is an example usage scenario and how the `delete_event` command behaves at each step:
+
+. The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
+The `delete_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)` and
+`Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` to perform checks on whether the request to delete event is valid.
+If it fails any one of the checks, the command does nothing and reflects to the user that the request to delete event is not valid. Else, the `Model#isExistingEvent` check will retrieve the event and load it inside the `CalendarModel`. It then calls `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`.
+
+. The `Model#isExistingEvent` check first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
+
+. The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
+
+. The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
+
+. The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
 
 ==== Design Considerations
 
