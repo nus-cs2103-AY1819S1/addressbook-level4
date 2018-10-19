@@ -18,9 +18,9 @@ public class Date {
     public final int day;
     public final int month;
     public final int year;
-    public String displayDate;
+    public final String displayDate;
     public final String[] monthNames = {
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
     /**
