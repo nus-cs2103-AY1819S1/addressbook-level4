@@ -2,6 +2,10 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Map;
+
+import seedu.address.model.medicine.Medicine;
+
 /**
  * Uncompleted class, need to add more methods and fields.
  * Represents a patient that is currently consulting the doctor in the address book.
@@ -54,6 +58,16 @@ public class CurrentPatient {
     }
 
     /**
+     * Add specified quantity of medicine to patient.
+     * @param medicine to be added.
+     * @param quantity of medicinet to be added.
+     * @return string representation of medicine added.
+     */
+    public String addMedicine(Medicine medicine, int quantity) {
+        return patient.addMedicine(medicine, quantity);
+    }
+
+    /**
      * Returns the note content for the {@code served patient}.
      */
     public String getNoteContent() {
@@ -77,6 +91,13 @@ public class CurrentPatient {
     }
 
     /**
+     * Returns the allocated medicine for the patient.
+     */
+    public Map<Medicine, Integer> getMedicineAllocated() {
+        return patient.getMedicineAllocated();
+    }
+
+    /**
      * Returns true if there is Current Patient.
      */
     public boolean hasCurrentPatient() {
@@ -94,11 +115,13 @@ public class CurrentPatient {
                 .append(getMcContent())
                 .append("\nReferral Content: ")
                 .append(getReferralContent());
+        sb.append("\nMedicine Allocated: ");
+        getMedicineAllocated().forEach((medicine, quantity) -> sb.append(medicine.toString() + ": " + quantity + "\n"));
         return sb.toString();
     }
 
     /**
-     * Returns a console-friendly representation of the patient.
+     * @return a console-friendly representation of the patient.
      */
     public String toNameAndIc() {
         return patient != null ? patient.toNameAndIc() : "No current patient!";
