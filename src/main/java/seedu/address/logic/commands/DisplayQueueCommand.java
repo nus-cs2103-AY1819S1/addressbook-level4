@@ -14,6 +14,7 @@ import seedu.address.model.person.CurrentPatient;
  */
 public class DisplayQueueCommand extends QueueCommand {
     public static final String COMMAND_WORD = "queue";
+    public static final String COMMAND_ALIAS = "q";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the current queue";
 

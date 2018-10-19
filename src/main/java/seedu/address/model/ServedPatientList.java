@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -21,9 +22,14 @@ public interface ServedPatientList {
     int getServedPatientListLength();
 
     /**
-     * Add a served patient to the served patient list.
+     * Add a served patient to the ServedPatientList.
      */
     void addServedPatient(ServedPatient patient);
+
+    /**
+     * Remove served patient based on the index from the ServedPatientList.
+     */
+    public ServedPatient removeAtIndex(int index);
 
     /**
      * Reset the served patient list.
@@ -47,4 +53,15 @@ public interface ServedPatientList {
      * @return true if the list contains patient.
      */
     boolean contains(ServedPatient patient);
+
+    /**
+     * Checks whether served patient list contains a specified patient.
+     * @return true if the list contains patient.
+     */
+    boolean containsPatient(Patient patient);
+
+    /**
+     * @return the size of the ServedPatientList.
+     */
+    int size();
 }
