@@ -23,7 +23,7 @@ By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 This guide provides an overview of ClinicIO and shows you how to install ClinicIO.
 In addition, this guide provides an in-depth documentation for all the features.
 
-This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues. 
+This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues.
 
 == Introduction
 
@@ -46,13 +46,12 @@ Ensure you have Java version `9` or later installed in your Computer. +
 
 .  Download the latest `clinicio.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ClinicIO.
-.  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below. 
+.  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below.
 +
 image::Ui.png[width="1200"]
 _Figure 1 Startup Window_
 +
 
- 
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
