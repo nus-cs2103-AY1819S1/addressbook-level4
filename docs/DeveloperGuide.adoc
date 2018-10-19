@@ -21,13 +21,15 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 CLInic is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-If this is your first time on this application, proceed to <<Setting up>> to get started with setting up your development environment. Following which, you can proceed to *Appendix A* to get start on your first task!
+If this is your first time on this application, proceed to <<Setting up>> to get started with setting up your development environment. Following which, you can proceed to *Appendix A* to get started on your first task!
 
 If you are already familiar with the basic development environment for this application and wish to understand the inner workings of this application at a higher level, proceed to <<Design>> and <<Implementation>>.
 
 For more information on documentation, testing and dev ops for this application, refer to <<Documentation>>, <<Testing>> and <<Dev Ops>> respectively.
 
 == Setting up
+
+ This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
 
 === Prerequisites
 
@@ -115,6 +117,8 @@ When you are ready to start coding,
 
 == Design
 
+ This section contains information about the main architecture and design of various components in CLInic.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -136,14 +140,14 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four similarly designed components:
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -248,11 +252,11 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+For ease of use, classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+ This section contains some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -346,7 +350,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Adding a MedicalRecord to a Patient
 ==== Current Implementation
 
-The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class structure is as follows:
+The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class:
 
 * has an attribute `BloodType` which stores the blood type of the `Patient`. This attribute is marked as `final` and cannot be changed.
 * contains a `List<DrugAllergy>` which stores the list of drug allergies that the `Patient` has.
@@ -355,7 +359,7 @@ The `MedicalRecord` class is an attribute of the `Patient` class, and it contain
 
 When a new `Patient` is created with the `AddCommand`, it is created with a default `MedicalRecord` object that contains an empty `BloodType` object, an empty `List<DrugAllergy>`, an empty `List<Disease>` and and empty `List<Note>`.
 
-Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments.
+Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments, however at least one must be present.
 
 Given below is an example usage scenario and explanation for the inner workings of the `AddMedicalRecordCommand`.
 
@@ -420,9 +424,9 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 
 ===== Aspect: Execution of the command
 
-* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the two.
+* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the old `MedicalRecord` with it.
 ** Pros: Easy to implement and better abstraction.
-** Cons: Redundant creation of new object only to discard it immediately
+** Cons: Redundant creation of new object only to discard it immediately.
 * **Alternative 2:** Add specified arguments of the command directly to the current `MedicalRecord`
 ** Pros: No redundant creation of extra objects.
 ** Cons: Require access to the existing `MedicalRecord` from outside the object, which breaks the abstraction barrier.
@@ -430,31 +434,30 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 // end::medicalrecord[]
 
 // tag::medicine[]
-=== Medicine records
-The medicine records is used to manage all medicines stored in the clinic. The AddMedicine Command helps users to
-key in a new medicine in the clinic. EditMedicine Command helps users to update the stock. In addition, whenever the
-Receipt Command is called, the records will update the stock automatically when the receptionist generates the receipt and
-issues the medicine.
+=== Medicine Records System
+The medicine records system is used to manage the medicine inventory in the clinic. The `addMedicine` Command
+creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
+`receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
 
-Given below is an example of how the medicine class is used:
+Given below is are examples of how the medicine class is used:
 
-Step 1. A new medicine arrived. The receptionist uses the `addMedicine` command to add the stock into the records.
+Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
-Step 2. A new stock of medicine that ia available in the clinic has arrived. The receptionist uses `editMedicine` command
-to update the new stock.
+Scenario 2. A new shipment of medicine has arrived. The user uses `editMedicine` command
+to update the new stock levels of exiting medicine.
 
-Step 3. When a patient pays for the bill, the `generateReceipt` calls upon the medicine records to determine the price.
-At this stage, the number of medicine issued will decrease in the records.
+Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
+for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
 
-Step 4. At the end of the day, the receptionist needs to keep track of which stock supply is low. She enters 'checkStock`
-which will list out all medicien that are low in supply.
+Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
+which lists the medicine that are below their Minimum Stock Quantity.
 //end::medicine[]
 
 // tag::pqms[]
 === Patient Queue Management System
 The Patient Queue Management System consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
-registers to see the doctor is put into the `PatientQueue`, when it is his turn to see the doctor he will be the `CurrentPatient`. After
-he is done with seeing the doctor he will be put into the `ServedPatientQueue` to await payment and document processing.
+registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
+he is done with seeing the doctor, he will be put into the `ServedPatientQueue` to await payment and document processing.
 
 Given below is an example usage scenario and how the Patient Queue Management System is used in each step.
 
@@ -473,21 +476,21 @@ Step 3. The user executes various commands to add information to the `CurrentPat
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
-the `ServedPatientQueue`. Afterwards, the user execute `serve` to get the next patient.
+the `ServedPatientQueue`. Afterwards, the user executes `serve` to get the next patient.
 
-.Complete serving a patient
+.Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
 
 Step 5. The user executes various commands to generate necessary documents for the served patient.
 
-Step 6. The user finally executes `payment` command to generate the receipt and end the patient's visit to the clinic, removing
-him from the `ServedPatientQueue` and adding him into the `ServedPatientList`.
+Step 6. The user finally executes `payment` command to generate the receipt and ends the patient's visit to the clinic, removing
+him from the `ServedPatientQueue`.
 //end::pqms[]
 
 // tag::document[]
 === Document
 ==== Current Implementation
-The `Document` `abstract class` covers all the documents that are issued by the clinic. Hence, the `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
+The `Document` `abstract class` represents all documents that can be issued by the clinic. The `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
 It specifies what general information these documents should have and how they should be formatted. It can be thought of as a template for all its inheriting classes.
 
 ===== Implementation of `Receipt`
@@ -599,10 +602,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -611,7 +614,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 == Documentation
 
-We use asciidoc for writing documentation.
+ This section contains information on how we manage the documentation for CLInic. We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -716,6 +719,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+ This section contains information on how to run tests and the different kind of tests in CLInic.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -764,6 +769,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+This section contains more information on future developments and the tools we use for different aspects of development.
 
 === Build Automation
 
