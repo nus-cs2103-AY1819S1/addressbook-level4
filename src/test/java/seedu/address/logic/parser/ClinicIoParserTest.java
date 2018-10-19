@@ -38,11 +38,11 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class ClinicIOParserTest {
+public class ClinicIoParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final ClinicIOParser parser = new ClinicIOParser();
+    private final ClinicIoParser parser = new ClinicIoParser();
 
     @Test
     public void parseCommand_add() throws Exception {

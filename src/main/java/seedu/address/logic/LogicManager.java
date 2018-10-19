@@ -10,7 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ClinicIOParser;
+import seedu.address.logic.parser.ClinicIoParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.Model;
@@ -27,20 +27,20 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final Analytics analytics;
-    private final ClinicIOParser clinicIOParser;
+    private final ClinicIoParser clinicIoParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         analytics = new Analytics();
-        clinicIOParser = new ClinicIOParser();
+        clinicIoParser = new ClinicIoParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = clinicIOParser.parseCommand(commandText);
+            Command command = clinicIoParser.parseCommand(commandText);
             return command.execute(model, history, analytics);
         } finally {
             history.add(commandText);
