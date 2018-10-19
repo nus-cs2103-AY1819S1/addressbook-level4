@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-//import java.io.;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,6 +10,7 @@ import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import seedu.address.MainApp;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
@@ -34,7 +34,8 @@ public class Document {
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
             "Unable to write contents into ";
 
-    private String completeFilePath, fileName;
+    private String completeFilePath;
+    private String fileName;
     private String fileType;
     private Name name;
     private IcNumber icNumber;
@@ -105,7 +106,7 @@ public class Document {
      * The actual generation of the file representing the Document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
-    File newDocument = new File(completeFilePath);
+        File newDocument = new File(completeFilePath);
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(newDocument);
