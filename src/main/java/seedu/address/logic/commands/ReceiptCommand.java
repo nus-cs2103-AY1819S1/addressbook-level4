@@ -12,8 +12,6 @@ import seedu.address.model.Receipt;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
-//import seedu.address.commons.core.EventsCenter;
-//import seedu.address.commons.events.ui.JumpToListRequestEvent;
 
 /**
  * Generates a receipt for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
@@ -29,7 +27,6 @@ public class ReceiptCommand extends QueueCommand {
     public static final String MESSAGE_SUCCESS = "Receipt generated for patient!";
 
     private final Index index;
-    private String generatedResult;
 
     /**
      * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
@@ -51,10 +48,8 @@ public class ReceiptCommand extends QueueCommand {
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
-        generatedResult = receipt.generate();
-        receipt.writeContentsIntoDocument();
+        receipt.generateDocument();
 
-        //EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

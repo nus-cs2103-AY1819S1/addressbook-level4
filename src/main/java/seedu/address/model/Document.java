@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.HashMap;
+import java.util.Map;
 import seedu.address.MainApp;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
@@ -16,8 +18,7 @@ import seedu.address.model.person.Name;
 /**
  * This interface bounds all classes implementing it to provide an implementation for generating a document,
  */
-public abstract class Document {
-    private static final int FILENAME_CLASS_SLICING = 20;
+public class Document {
     private static final int FILENAME_INITIAL_SLICING = 6;
     private static final int FILENAME_END_SLICING = 22;
 
@@ -33,52 +34,78 @@ public abstract class Document {
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
             "Unable to write contents into ";
 
+    private String completeFilePath, fileName;
+    private String fileType;
     private Name name;
     private IcNumber icNumber;
-    private String completeFilePath;
-    private String typeOfFile;
 
     /**
-     * Generates the relevant information that is on the printout of all the documents
+     * Method that calls the various methods that help in the generation of the HTML file
+     * for the Document.
+     * This includes a method to make the file name, another method to update the HTML template
+     * with the correct values specified by the object that extends the Document and lastly the
+     * actual writing of the bytes into a file.
+     */
+    public void generateDocument() {
+        makeFileName();
+        makeFile(writeContentsIntoDocument());
+    }
+
+    /**
+     * Formats the file name of the object that extends Document.
+     * */
+    private void makeFileName() {
+        fileName = fileType + "_For_" + name.toString().replaceAll("\\s", "")
+                + "_" + icNumber.toString();
+        completeFilePath = DIRECTORY_PATH + File.separator + fileName + ".html";
+    }
+
+    /**
+     * Generates the relevant header information that is on the printout of all the Documents
      * and formats them neatly.
-     * @return neatly formatted headers, with general information of the document and the clinic.
+     * @return neatly formatted headers, with general information of the Document and the clinic.
      */
     private String generateHeaders() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
-        return "Date/Time: " + formatter.format(date);
+        return fileType + "<br>Issued On: " + formatter.format(date);
     }
 
     /**
-     * Generates the document.
+     * Fills in the information as required by the fields of the Document.
+     * @return returns a HashMap that maps all the fields to their own correct value.
      */
-    abstract String generate();
-
-    /**
-     * Formats the file name of the object that implements Document.
-     * @return name of the file for the object
-     * */
-    private String makeDocument() {
-        //Creation of the file name using string slicing
-        typeOfFile = this.getClass().getName().substring(FILENAME_CLASS_SLICING);
-        String fileName = typeOfFile + "_For_" + this.getName().toString().replaceAll("\\s", "")
-                            + "_" + this.getIcNumber().toString();
-        completeFilePath = DIRECTORY_PATH + File.separator + fileName + ".html";
-        return completeFilePath;
+    private HashMap<String, String> generateContent() {
+        HashMap<String, String> informationFieldPairs = new HashMap<>();
+        informationFieldPairs.put("$headers", generateHeaders());
+        informationFieldPairs.put("$name", name.toString());
+        informationFieldPairs.put("$icNumber", icNumber.toString());
+        return informationFieldPairs;
     }
 
     /**
-     * Writing contents of the document into the HTML file.
+     * Writing contents of the Document into the HTML file.
+     * @return HTML code that has the "fillers" filled up with the appropriate values.
+     * For example, $headers in the HTML file is now replaced with the actual header values.
      * */
-    public void writeContentsIntoDocument() {
-        String filePath = this.makeDocument();
+    private String writeContentsIntoDocument() {
         String htmlContent = convertHtmlIntoString();
-        String title = typeOfFile + " for " + this.name;
-        String body = this.generate();
-        htmlContent = htmlContent.replace("$headers", generateHeaders());
+        String title = fileType + " for " + this.name;
         htmlContent = htmlContent.replace("$title", title);
-        htmlContent = htmlContent.replace("$body", body);
-        File newDocument = new File(filePath);
+        HashMap<String, String> fieldValues = this.generateContent();
+        for (Map.Entry<String, String> entry : fieldValues.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            htmlContent = htmlContent.replace(key, value);
+        }
+        return htmlContent;
+    }
+
+    /**
+     * The actual generation of the file representing the Document using the updated HTML code.
+     */
+    private void makeFile(String htmlContent) {
+    File newDocument = new File(completeFilePath);
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(newDocument);
@@ -86,7 +113,7 @@ public abstract class Document {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + filePath + "!");
+            System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + fileName + "!");
         }
     }
 
@@ -110,20 +137,15 @@ public abstract class Document {
         return contentBuilder.toString();
     }
 
-
-    public Name getName() {
-        return name;
-    }
-
-    public IcNumber getIcNumber() {
-        return icNumber;
-    }
-
     public void setName(Name name) {
         this.name = name;
     }
 
     public void setIcNumber(IcNumber icNumber) {
         this.icNumber = icNumber;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

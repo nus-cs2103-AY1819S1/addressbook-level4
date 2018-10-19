@@ -53,10 +53,9 @@ public class MedicalCertificateCommand extends QueueCommand {
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         mc = new MedicalCertificate(servedPatient);
-        generatedResult = mc.generate();
+        mc.generateDocument();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
     @Override

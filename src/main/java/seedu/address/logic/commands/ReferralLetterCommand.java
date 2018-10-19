@@ -31,7 +31,6 @@ public class ReferralLetterCommand extends QueueCommand {
     public static final String MESSAGE_SUCCESS = "Referral letter generated for patient!";
 
     private final Index index;
-    private String generatedResult;
 
     /**
      * Creates a ReferralLetterCommand for the {@code servedPatient} specified by {@code index}
@@ -53,10 +52,9 @@ public class ReferralLetterCommand extends QueueCommand {
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         rl = new ReferralLetter(servedPatient);
-        generatedResult = rl.generate();
+        rl.generateDocument();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
     @Override
