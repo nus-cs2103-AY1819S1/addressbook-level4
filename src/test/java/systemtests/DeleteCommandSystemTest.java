@@ -84,8 +84,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         deletedPerson = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
-        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
+        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
