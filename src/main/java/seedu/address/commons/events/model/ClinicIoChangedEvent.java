@@ -1,14 +1,14 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 
 /** Indicates the ClinicIO in the model has changed*/
 public class ClinicIoChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyClinicIo data;
 
-    public ClinicIoChangedEvent(ReadOnlyAddressBook data) {
+    public ClinicIoChangedEvent(ReadOnlyClinicIo data) {
         this.data = data;
     }
 

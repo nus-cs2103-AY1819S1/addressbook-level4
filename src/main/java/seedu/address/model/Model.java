@@ -21,10 +21,10 @@ public interface Model {
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyClinicIo newData);
 
     /** Returns the ClinicIo */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyClinicIo getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

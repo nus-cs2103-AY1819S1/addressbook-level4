@@ -6,9 +6,9 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a ClinicIO
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyClinicIo {
 
     /**
      * Returns an unmodifiable view of the persons list.

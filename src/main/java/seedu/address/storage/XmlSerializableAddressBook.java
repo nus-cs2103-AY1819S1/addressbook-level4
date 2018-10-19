@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.ClinicIo;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -41,7 +41,7 @@ public class XmlSerializableAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableAddressBook(ReadOnlyClinicIo src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         doctors.addAll(src.getDoctorList().stream().map(XmlAdaptedDoctor::new).collect(Collectors.toList()));

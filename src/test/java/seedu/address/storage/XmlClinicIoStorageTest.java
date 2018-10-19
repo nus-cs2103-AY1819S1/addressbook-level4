@@ -18,7 +18,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ClinicIo;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 
 public class XmlClinicIoStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlClinicIoStorageTest");
@@ -35,7 +35,7 @@ public class XmlClinicIoStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyClinicIo> readAddressBook(String filePath) throws Exception {
         return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -81,7 +81,7 @@ public class XmlClinicIoStorageTest {
 
         //Save in new file and read back
         xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        ReadOnlyClinicIo readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new ClinicIo(readBack));
 
         //Modify data, overwrite exiting file, and read back
@@ -108,7 +108,7 @@ public class XmlClinicIoStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyClinicIo addressBook, String filePath) {
         try {
             new XmlAddressBookStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));

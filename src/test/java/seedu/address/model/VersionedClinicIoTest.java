@@ -20,12 +20,12 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedClinicIoTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY)
+    private final ReadOnlyClinicIo addressBookWithAmy = new AddressBookBuilder().withPerson(AMY)
             .withDoctor(ADAM).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB)
+    private final ReadOnlyClinicIo addressBookWithBob = new AddressBookBuilder().withPerson(BOB)
             .withDoctor(BEN).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyClinicIo addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyClinicIo emptyAddressBook = new AddressBookBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
@@ -248,9 +248,9 @@ public class VersionedClinicIoTest {
      * equal to {@code expectedStatesAfterPointer}.
      */
     private void assertAddressBookListStatus(VersionedClinicIo versionedAddressBook,
-            List<ReadOnlyAddressBook> expectedStatesBeforePointer,
-            ReadOnlyAddressBook expectedCurrentState,
-            List<ReadOnlyAddressBook> expectedStatesAfterPointer) {
+            List<ReadOnlyClinicIo> expectedStatesBeforePointer,
+            ReadOnlyClinicIo expectedCurrentState,
+            List<ReadOnlyClinicIo> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
         assertEquals(new ClinicIo(versionedAddressBook), expectedCurrentState);
 
@@ -260,13 +260,13 @@ public class VersionedClinicIoTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesBeforePointer) {
+        for (ReadOnlyClinicIo expectedAddressBook : expectedStatesBeforePointer) {
             assertEquals(expectedAddressBook, new ClinicIo(versionedAddressBook));
             versionedAddressBook.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyClinicIo expectedAddressBook : expectedStatesAfterPointer) {
             versionedAddressBook.redo();
             assertEquals(expectedAddressBook, new ClinicIo(versionedAddressBook));
         }
@@ -282,7 +282,7 @@ public class VersionedClinicIoTest {
      * Creates and returns a {@code VersionedClinicIo} with the {@code addressBookStates} added into it,
      * and the {@code VersionedClinicIo#currentStatePointer} at the end of list.
      */
-    private VersionedClinicIo prepareAddressBookList(ReadOnlyAddressBook... addressBookStates) {
+    private VersionedClinicIo prepareAddressBookList(ReadOnlyClinicIo... addressBookStates) {
         assertFalse(addressBookStates.length == 0);
 
         VersionedClinicIo versionedAddressBook = new VersionedClinicIo(addressBookStates[0]);

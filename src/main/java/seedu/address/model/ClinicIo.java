@@ -18,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson and .isSameDoctor comparison)
  */
-public class ClinicIo implements ReadOnlyAddressBook {
+public class ClinicIo implements ReadOnlyClinicIo {
 
     private final UniquePersonList persons;
     //@@author jjlee050
@@ -46,7 +46,7 @@ public class ClinicIo implements ReadOnlyAddressBook {
     /**
      * Creates an ClinicIo using the Persons in the {@code toBeCopied}
      */
-    public ClinicIo(ReadOnlyAddressBook toBeCopied) {
+    public ClinicIo(ReadOnlyClinicIo toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -73,7 +73,7 @@ public class ClinicIo implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code ClinicIo} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyClinicIo newData) {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setDoctors(newData.getDoctorList());

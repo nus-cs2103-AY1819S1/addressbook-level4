@@ -18,7 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ClinicIo;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
@@ -105,12 +105,12 @@ public class AddCommandTest {
 
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyClinicIo newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyClinicIo getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -304,7 +304,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyClinicIo getAddressBook() {
             return new ClinicIo();
         }
     }

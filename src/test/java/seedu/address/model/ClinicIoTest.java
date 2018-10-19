@@ -72,7 +72,7 @@ public class ClinicIoTest {
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         //@@author jjlee050
-        AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         clinicIo.resetData(newData);
@@ -85,7 +85,7 @@ public class ClinicIoTest {
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
-        AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(), newDoctors);
 
         thrown.expect(DuplicateDoctorException.class);
         clinicIo.resetData(newData);
@@ -207,14 +207,14 @@ public class ClinicIoTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list and doctors list can violate interface constraints.
+     * A stub ReadOnlyClinicIo whose persons list and doctors list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ClinicIoStub implements ReadOnlyClinicIo {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Appointment> appointments, Collection<Person> persons, Collection<Doctor> doctors) {
+        ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons, Collection<Doctor> doctors) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             //@@author jjlee050

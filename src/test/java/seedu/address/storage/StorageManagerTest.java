@@ -17,7 +17,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.events.model.ClinicIoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ClinicIo;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -65,7 +65,7 @@ public class StorageManagerTest {
          */
         ClinicIo original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        ReadOnlyClinicIo retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new ClinicIo(retrieved));
     }
 
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

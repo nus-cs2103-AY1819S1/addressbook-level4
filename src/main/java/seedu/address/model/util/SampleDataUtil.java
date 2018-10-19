@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.util.HashUtil;
 import seedu.address.model.ClinicIo;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyClinicIo;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
@@ -57,7 +57,7 @@ public class SampleDataUtil {
                         new Password(HashUtil.hashToString("doctor2"), true))));
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyClinicIo getSampleAddressBook() {
         ClinicIo sampleAb = new ClinicIo();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class VersionedClinicIo extends ClinicIo {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyClinicIo> addressBookStateList;
     private int currentStatePointer;
 
-    public VersionedClinicIo(ReadOnlyAddressBook initialState) {
+    public VersionedClinicIo(ReadOnlyClinicIo initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
