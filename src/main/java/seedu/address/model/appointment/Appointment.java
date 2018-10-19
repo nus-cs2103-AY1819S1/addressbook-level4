@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.person.Person;
 
 /**
@@ -58,7 +57,9 @@ public class Appointment {
     }
 
     //@@author arsalanc-v2
-    public int getAppointmentType() { return appointmentType; }
+    public int getAppointmentType() {
+        return appointmentType;
+    }
 
     //public Doctor getassignedDoctor() { return assignedDoctor; }
 

@@ -3,9 +3,6 @@ package seedu.address.model.analytics;
 import java.util.HashMap;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.appointment.Appointment;
-
 /**
  * Represents statistics of a general type.
  * @@author arsalanc-v2

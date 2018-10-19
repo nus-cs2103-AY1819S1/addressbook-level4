@@ -1,15 +1,10 @@
 package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
