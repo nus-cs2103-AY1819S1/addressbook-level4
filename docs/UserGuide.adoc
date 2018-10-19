@@ -44,7 +44,7 @@ The application may not run correctly on Java `10` or Java `11`.
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -54,7 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ****
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, `NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
 * Items in square brackets are optional e.g [blue]`n/NAME [c/CATEGORY]` can be used as [blue]`n/do CS2100 tutorial c/CS2100` or as [blue]`n/do CS2100 tutorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [blue]`c/tutorial`, [blue]`c/tutorial c/CS2100` etc.
 * Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
@@ -79,8 +79,8 @@ Example: +
 ====
 Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 
-Outcome: Adds a task named "exam" with priority level "3",
-tag "CS3241" and deadline of 10th October 2018, venue at mpsh1.
+Outcome: Adds a task named [blue]`exam` with priority level [blue]`3`,
+tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
 ====
 The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
 [WARNING]
@@ -170,7 +170,7 @@ input: [blue]`filter tutorial` +
 output: All tasks that has tag matching with [blue]`tutorial` are listed out.
 ====
 
-The search is case insensitive. e.g `apples` will match `Apples`.
+The search is case insensitive. e.g [blue]`apples` will match [blue]`Apples`.
 
 
 [TIP]
@@ -262,17 +262,17 @@ Use the `history` command to decide if you want to undo the previous _undoable_ 
 
 Reverses the most recent `undo` command. +
 ====
-`redo`
+[blue]`redo`
 ====
 Examples:
 
 ====
 [blue]`delete1` +
 [blue]`clear` +
-[blue]`undo` (reverses the `clear` command) +
-[blue]`undo` (reverses the `delete 1` command) +
-[blue]`redo` (reapplies the `delete 1` command) +
-[blue]`redo` (reapplies the `clear` command) +
+[blue]`undo` (reverses the [blue]`clear` command) +
+[blue]`undo` (reverses the [blue]`delete 1` command) +
+[blue]`redo` (reapplies the [blue]`delete 1` command) +
+[blue]`redo` (reapplies the [blue]`clear` command) +
 ====
 
 
@@ -287,7 +287,7 @@ Clears all entries from the schedule planner. +
 
 Exits the application. +
 ====
-`exit`
+[blue]`exit`
 ====
 
 === Saving the Data
@@ -296,7 +296,7 @@ Data in the Student Schedule Planner is saved in the hard disk automatically aft
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Encrypting data files (coming in v2.0)
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
@@ -319,9 +319,7 @@ Example: +
 ====
 [blue]`list task`
 ====
-* *Clear* : `clear`
-* *Delete task* : `delete task INDEX` +
-e.g. `delete task 3`
+
 * **Editing a Task** :
 
 ====
@@ -342,7 +340,7 @@ Example: +
 ====
 [blue]`filter KEYWORD` +
 
-Example:
+Example: +
 [blue]`filter tutorial`
 ====
 * **Viewing Tasks Due Today** :
@@ -350,8 +348,7 @@ Example:
 [blue]`listday`
 ====
 
-** *Viewing Tasks Due This Termweek** :
-=
+* **Viewing Tasks Due This Termweek** :
 ====
 [blue]`listweek`
 ====
@@ -382,7 +379,7 @@ Example:
 * **Redoing the Previous Undo Command** :
 
 ====
-`redo`
+[blue]`redo`
 ====
 
 * **Clearing Schedule Planner** :
@@ -394,7 +391,7 @@ Example:
 * **Exiting the App** :
 
 ====
-`exit`
+[blue]`exit`
 ====
 
 
