@@ -109,7 +109,7 @@ public class AddressBookParser {
             return new BudgetCommandParser().parse(arguments);
 
         case EmailIndexCommand.COMMAND_WORD:
-            return new ComposeCommandParser().parse(arguments);
+            return new EmailIndexCommandParser().parse(arguments);
 
         case CreateCalendarCommand.COMMAND_WORD:
             return new CreateCalendarCommandParser().parse(arguments);

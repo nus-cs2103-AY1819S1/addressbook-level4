@@ -13,13 +13,14 @@ import java.util.stream.Stream;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EmailIndexCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class ComposeCommandParser implements Parser<EmailIndexCommand> {
+public class EmailIndexCommandParser implements Parser<EmailIndexCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EmailIndexCommand
@@ -36,18 +37,17 @@ public class ComposeCommandParser implements Parser<EmailIndexCommand> {
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
-        String to = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_TO).get()).toString();
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TO).get());
         String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get()).toString();
         String content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()).toString();
 
         Email email = EmailBuilder.startingBlank()
                 .from(from)
-                .to(to)
                 .withSubject(subject)
                 .withHTMLText(content)
                 .buildEmail();
 
-        return new EmailIndexCommand(email);
+        return new EmailIndexCommand(email, index);
     }
 
     /**
