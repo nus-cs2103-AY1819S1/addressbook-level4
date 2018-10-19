@@ -55,7 +55,7 @@ public class ReceiptCommand extends QueueCommand {
         receipt.writeContentsIntoDocument();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
-      
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
