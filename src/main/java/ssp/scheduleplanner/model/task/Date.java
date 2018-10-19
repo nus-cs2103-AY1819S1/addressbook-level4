@@ -19,7 +19,9 @@ public class Date {
     public final int month;
     public final int year;
     public String displayDate;
-    public final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public final String[] monthNames = {
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
 
     /**
      * Constructs a {@code Date}.
