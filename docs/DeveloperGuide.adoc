@@ -246,39 +246,54 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
-The `Model` component consist of a `ModelManager` that manages all the models.
+The `Model` component is managed by the `ModelManager` that stores the data of Car Park Finder.
+It does not depend on any of the three other components.
+
+Please refer to the Class Diagram below for more details.
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
 
+image::ModelClassDiagram.png[width="800"]
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Car Park Finder data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+In general, this is the structure of the Model Component:
+
+* The `ModelManager` extends the `Model` Interface.
+
+* It stores a `VersionedAddressBook` and a `UserPref` object.
+** The `UserPref` object represents the user's preferences.
+** The `VersionedAddressBook` contains a `addressBookStateList` which is used to store multiple `Carpark` objects.
+Each `Carpark` object has various attributes; `address`, `carparkNumber`, `coordinate`, `carparkType`, `freeParking`,
+`lotsAvailable`, `nightParking`, `shortTerm`, `totalLots`, `typeOfParking`,
+`tags`
+
+* The `ModelManager` also manages a filtered list of `Person(?) Carpark` objects filtered from the `UniquePersonList`.
+
+* The Model component exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Car Park Finder`, which `Carpark` can reference. This would allow `Car Park Finder` to only require one `Tag` object per unique `Tag`, instead of each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+Use of Tag object
 
 [[Design-Storage]]
 === Storage component
 
-The `Storage` component consist of a `StorageManager` that takes care of all the Input/Output actions.
+The Storage component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The Storage component can perform the following functions:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Car Park Finder data in xml format and read it back.
+* save `UserPref` objects in json format and read it back.
+* save the Car Park Finder data in xml format and read it back.
 
 == Implementation
 
@@ -425,52 +440,6 @@ If a command fails its execution, it will not call `FindCommand#execute()`, so t
 Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
 
 Step 4. The filtered list of car park is returned to the GUI.
-
-=== Filter Command
-
-==== Overview
-
-The filter mechanism is facilitated by `AddressBookParser`, `FilterCommandParser` and `FilterCommand`. It extends
-`Command` and implements `FilterCommand#execute()`.
-
-==== Current Implementation
-
-Step 1. The `parseCommand` function in `AddressBookParser` is extended to take in an additional
-command word: `filter`.
-
-Step 2. After `filter`is being detected as the command word, a
-`FilterCommandParser` is created to parse the arguments supplied to the command.
-
-Step 3. The `FilterCommandParser` parses the arguments into an array of flags, which is then
-passed into a newly created `FilterCommand`.
-
-Step 4. `FilterCommand` then checks which flags are passed in and creates predicates to
-filter the car parks accordingly. The various predicates include
-`CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and
-`CarparkIsOfTypePredicate`.
-
-Step 5. Next, `model` updates a filtered list of car parks by checking each car park
-against the specified predicate.
-
-
-Step 6. The following activity diagram summarizes what happens when a user executes a
-filter command.
-
-.Activity Diagram
-image::activityDiagram.png[width="700", align="left"]
-
-.How the filter operation works
-image::sequenceDiagram.png[width="700", align="left"]
-
-==== Possible Improvement to current implementation
-
-* Connect to `find` command
-
-* Filter through multiple flags at the same time
-
-* Check for invalid parameters
-
-* Determine whether a specific day is a public holiday, when filtering for free parking
 
 .Flow chart of the find operation.
 image::actdiagram-find.png[width="800", align="left"]
@@ -656,20 +625,24 @@ filter the car parks accordingly. The various predicates include
 Step 5. Next, `model` updates a filtered list of car parks by checking each car park
 against the specified predicate.
 
-Step 6. The following activity diagram summarizes what happens when a user executes a
-filter command.
-
-.Activity Diagram
-image::ActivityDiagram-filter.png[width="700", align="left"]
-
 .How the filter operation works
 image::SequenceDiagram-filter.png[width="700", align="left"]
 
-==== Possible Improvement to current implementation
-* Connect to `find` command
-* Filter through multiple flags at the same time
-* Check for invalid parameters
-* Determine whether a specific day is a public holiday, when filtering for free parking
+The following activity diagram summarizes what happens when a user executes a
+filter command.
+
+.Activity Diagram for filter command
+image::ActivityDiagram-filter.png[width="700", align="left"]
+
+==== Design Considerations
+===== Aspect: How filter executes
+* **Alternative 1 (Current choice):** Altering predicates to filter list of car parks by different attributes
+** Pros: Easy to implement, user friendly.
+** Cons: Does not facilitate multiple layers of filtering.
+
+* **Alternative 2:** Adding of tags to data when it is taken in.
+** Pros: Less complicated predicate.
+** Cons: Not really feasible if data is to be updated frequently.
 
 == Documentation
 
