@@ -104,6 +104,14 @@ public class ServedPatient {
     }
 
     /**
+     * Checks whether current is a specified patient.
+     * @return true if queue contains patient.
+     */
+    public boolean isPatient(Patient patient) {
+        return patient.isSamePerson(patient);
+    }
+
+    /**
      * @return a console-friendly representation of the patient.
      */
     public String toNameAndIc() {

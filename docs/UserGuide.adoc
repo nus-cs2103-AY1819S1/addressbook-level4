@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= CLInic - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -165,9 +165,9 @@ Selects the 2nd patient in the database.
 `select 1` +
 Selects the 1st patient in the results of the `find` command.
 
-==== Add medical records of a patient : `addMedicalRecord`
+==== Adding medical records of a patient : `addMedicalRecord`
 
-Add a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
+Adds a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
 Alias: `aMR` +
 Format: `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` or `addMedicalRecord <IC Number> <RELEVANT PARAMETERS>`
 
@@ -180,7 +180,7 @@ Adds blood type of the patient with that IC Number.
 
 === Medicine
 
-==== Add a new medicine to records : `addMedicine`
+==== Adding a new medicine to records : `addMedicine`
 
 Adds a new medicine into a record. +
 Alias: `aM` +
@@ -191,15 +191,15 @@ Example:
 * `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50` +
 Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
 
-==== List all medicine in stock : `listStock`
+==== Listing all medicine in stock : `listStock`
 
-List all medical stocks in the clinic. +
+Lists all medical stocks in the clinic. +
 Alias: `lS` +
 Format: `listStock`
 
 ==== Finding medicine details : `findStock`
 
-Find the details of a given medicine from the serial number.
+Finds the details of a given medicine from the serial number.
 Alias: `fS` +
 Format: `findStock <SERIAL NUMBER>`
 
@@ -209,23 +209,24 @@ Example:
 Finds the details of the medicine tagged with the serial number 1001.
 
 
-==== Check the stocks of all medicine that are low in supply : `checkStock`
+==== Checking the stocks of all medicine that are low in supply : `checkStock`
 
-List all medicines that are low in stock. +
+Lists all medicines that are low in stock. +
 Alias: `cS` +
 Format: `checkStock`
 
 
 === Queue Management
 
-==== List all Patients in Patient Queue : `queue`
+==== Listing all Patients in Patient Queue : `queue`
 
-Lists all patients in queue waiting to see the doctor.
+Lists all patients in queue waiting to see the doctor. +
+Alias: `q` +
 Format: `queue`
 
-==== Register Patient to Queue : `register`
+==== Registering Patient to Queue : `register`
 
-Register a new patient that comes to the clinic. +
+Registers a new patient that comes to the clinic. +
 Alias: `reg` +
 Format: `register <INDEX>` or `register <IC Number> [coming soon]`
 
@@ -234,9 +235,9 @@ Example:
 * `register 3` +
 Register the patient into the 3rd index.
 
-==== Remove a patient from queue : `remove`
+==== Removing a patient from queue : `remove`
 
-Remove someone from the queue if he/she leaves before being served. +
+Removes someone from the queue if he/she leaves before being served. +
 Alias: `rem` +
 Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
 
@@ -244,27 +245,27 @@ Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
 Examples:
 
 * `remove 5` +
-Removes the 5th patient in the queue.
+Remove the 5th patient in the queue.
 * `remove S9382839X` +
-Removes patient with IC Number S9382839X from the queue.
+Remove patient with IC Number S9382839X from the queue.
 
-==== Insert a patient to queue : `insert`
+==== Inserting a patient to queue : `insert`
 
-Insert a patient at specified position in the queue. +
+Inserts a patient at specified position in the queue. +
 Alias: `ins` +
 Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION> [coming soon]`
 
 Examples:
 
 * `insert 4 5` +
-Inserts the 4th person of the address book into the 5th index of the queue.
+Insert the 4th person of the address book into the 5th index of the queue.
 * `insert S9123456A 5` +
-Inserts the patient with that IC number to the 5th index of the queue.
+Insert the patient with that IC number to the 5th index of the queue.
 
 
-==== Serve the first patient in the queue : `serve`
+==== Serving the first patient in the queue : `serve`
 
-Serve the patient first in queue. +
+Serves the patient first in queue. +
 Alias: `ser` +
 Format: `serve`
 
@@ -273,9 +274,9 @@ Format: `serve`
 Transfers the current patient to the Served Patient Queue. +
 Format: `finish`
 
-==== Generate Medical Certificate : `mc`
+==== Generating Medical Certificate : `mc`
 
-Create a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
+Creates a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
 Format: `mc <INDEX> d/<DATE>-<DATE>` or `mc <IC Number> d/<DATE>-<DATE>` where date is in the format DD-MM-YYYY
 
 Examples:
@@ -285,7 +286,7 @@ Generates a MC for the 1st patient in the address book.
 * `mc S7473920X d/02-09-2018-02-09-2018` +
 Generates a MC for the IC number.
 
-==== Generate Receipt : `receipt`
+==== Generating Receipt : `receipt`
 
 Generates a receipt for the patient’s current visit based on Index Number in the Done List or IC Number. +
 Alias: `rct` +
@@ -298,9 +299,9 @@ Generates a receipt for the 5th patient in the address book.
 * `receipt S8847383L` +
 Generates a receipt for the patient with that IC number.
 
-==== Generate Referral Letter : `refer`
+==== Generating Referral Letter : `refer`
 
-Create a Referral Letter for the patient based on the IC Number or Index Number from the last list/find command. +
+Generates a Referral Letter for the patient based on the IC Number or Index Number from the last list/find command. +
 Alias: `ref` +
 Format: `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>` or `refer <IC Number> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>`
 
@@ -311,6 +312,18 @@ Generates a referral letter for the 3rd patient in the address book with the fol
 * `refer S7722742C h/SGH d/Emergency r/Internal bleeding n/Patient is dying` +
 Generates a referral letter for the patient of that IC number with the following reason and notes.
 
+==== Removing patient from served patient list : `payment`
+
+Removes a patient from the served patient list when the patient completes payment. +
+Alias: `pay` +
+Format: `payment <INDEX>`
+
+Examples:
+
+* `payment 3` +
+Removes the third patient from the list.
+* `payment 1` +
+Removes the first patient from the list.
 
 === Miscellaneous
 
