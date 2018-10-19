@@ -455,16 +455,16 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file. (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Designates critical error events which may possibly cause the termination of the application.
+* `WARNING` : Designates potentially harmful events which can be continued from, but with caution.
+* `INFO` : Designates informational events that highlight noteworthy actions by the application.
+* `FINE` : Designates event details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 [[Implementation-Configuration]]
 ==== Configuration
@@ -513,6 +513,7 @@ The following is a high level overview of this feature's implementation:
 |*Cons*| PDF template has to be preset within the application.
 |===
 +
+
 * *Alternative 2:* Display volunteer data in a window within the application
 +
 [cols="1,10"]
@@ -520,6 +521,8 @@ The following is a high level overview of this feature's implementation:
 |*Pros*| Allows the volunteer manager flexibility as to what to do with the volunteer details. This could include manually inputting it into an existing certificate creation application, or a document template.
 |*Cons*| Requires more manual work on the volunteer manager's side, especially when the process can be automated to enhance his/her productivity. Certificate templates are also infrequently updated, and thus the costs in terms of efficiency outweigh the benefits in terms of flexibility.
 |===
++
+
 
 ====== Aspect: Choice of PDF creation tool
 
@@ -531,6 +534,7 @@ The following is a high level overview of this feature's implementation:
 |*Cons*| Not the most efficient for creating PDFs (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
 |===
 +
+
 * *Alternative 2:* Apache FOP
 +
 [cols="1,10"]
@@ -539,6 +543,7 @@ The following is a high level overview of this feature's implementation:
 |*Cons*| Resource intensive, not the most efficient for PDF creation, and lacks features such as updating and merging PDFs.
 |===
 +
+
 * *Alternative 3:* iText
 +
 [cols="1,10"]
@@ -546,24 +551,28 @@ The following is a high level overview of this feature's implementation:
 |*Pros*| Fastest of the lot for PDF generation (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
 |*Cons*| Now only available as a free trial, and requires a license for extended use.
 |===
++
+
 
 ====== Aspect: Choice of additional details for identifying volunteer from certificate
 
-* *Alternative 1 (current choice):* Display Volunteer's NRIC
+* **Alternative 1 (current choice):** Use Volunteer's NRIC
 +
 [cols="1,10"]
 |===
-|*Pros*| Is unique to each volunteer and can be recovered easily, given the volunteer's name or other personal information. It also adds additional verifiability to the exported volunteer certificate.
+|*Pros*| Is unique to each volunteer and can be recovered easily, given the volunteer's name or other personal information. It also adds credibility to the exported volunteer certificate.
 |*Cons*| Requires more space as each NRIC can be represented as string of length 9 or a 7-digit integer.
 |===
 +
-* *Alternative 2:* Display Volunteer ID
+
+* **Alternative 2:** Use a Volunteer ID
 +
 [cols="1,10"]
 |===
-|*Pros*| Shorter than NRIC and achieves the intended purpose. Internally, it can be auto-incremented as well.
-|*Cons*| Hard to recover, even if additional information about the volunteer is provided. It would also be meaningless to a third person to whom the certificate is presented for verification purposes.
+|*Pros*| Shorter than NRIC and still serves the purpose, and can be auto-incremented.
+|*Cons*| Hard to recover, even if additional information about the volunteer is provided. Would also be meaningless to a third person to whom the certificate is presented for verification purposes.
 |===
++
 
 // end::exportcert[]
 
@@ -614,6 +623,9 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 |*Cons*| Requires keeping track of all existing event IDs to ensure uniqueness.
 |===
 +
+
+
+==== Delete event [Coming in V1.3]
 
 
 === Record management
@@ -1202,8 +1214,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |manager |auto-complete commands |execute commands more efficiently
 |=======================================================================
-
-_{To be updated and expanded}_
 
 [appendix]
 == Use Cases
