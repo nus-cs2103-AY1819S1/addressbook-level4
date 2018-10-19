@@ -101,7 +101,7 @@ Format: `login u/USERNAME [p/PASSWORD]`
 * USERNAME is case insensitive
 * PASSWORD is case sensitive
 * PASSWORD cannot contain any spaces and must be at least 6 characters long
-* The expense tracker contains a sample user with USERNAME `sample`
+* Expense Tracker contains a sample user with USERNAME `sample`
 ====
 
 === Setting a password for the current user : `setpassword`
@@ -187,7 +187,7 @@ Format: `delete INDEX`
 *Examples:*
 
 * `delete 1` +
- Deletes the 1st expense in the expense list from the expense tracker.
+ Deletes the 1st expense in the expense list from Expense Tracker.
 ****
 
 [NOTE]
@@ -221,7 +221,7 @@ Find all the expenses with cost which is larger than or equals to 10.00 and smal
 
 === Listing all expenses : `list`
 
-Updates the expense list to show all expenses in the expense tracker.
+Updates the expense list to show all expenses in Expense Tracker.
 
 For example, this command can be used after the `find` command is used, as the `find` command will apply a filter to the expense list.
 
@@ -242,13 +242,13 @@ Format: `list`
 //
 //* `list` +
 //`select 2` +
-//Selects the 2nd expense in the expense tracker.
+//Selects the 2nd expense in Expense Tracker.
 //* `find Betsy` +
 //`select 1` +
 //Selects the 1st expense in the results of the `find` command.
 
 === Setting a budget: `setBudget`
-Sets the budget for the expense tracker. +
+Sets the budget for Expense Tracker. +
 
 The Expense Tracker will warn you when your total expenditure exceeds the budget that is set.
 
@@ -270,9 +270,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 ====
 
 === Sets recurring frequency for budget: `setRecurringFrequency`
-Sets the recurrence frequency for the budget of the expense tracker.
+Sets the recurrence frequency for the budget of Expense Tracker.
 
-The expense tracker will reset your budget after every `FREQUENCY`
+Expense Tracker will reset your budget after every `FREQUENCY`
 
 Format: `setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -307,8 +307,8 @@ Press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previous and next 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the expense tracker to the state before the previous _undoable_ command was executed. +
-_Undoable_ commands are commands that modify expenses in the expense tracker (`add`, `delete`, `edit` and `clear`). +
+Restores Expense Tracker to the state before the previous _undoable_ command was executed. +
+_Undoable_ commands are commands that modify expenses in Expense Tracker (`add`, `delete`, `edit` and `clear`). +
 
 Format: `undo`
 
@@ -333,7 +333,7 @@ The first `undo` reverses the `clear` command. The second `undo` reverses the `d
 
 === Redoing the previously undone command : `redo`
 
-Restores the expense tracker to the state before the most recent `undo` command. +
+Restores Expense Tracker to the state before the most recent `undo` command. +
 
 Format: `redo`
 
@@ -391,7 +391,7 @@ Shows the expense statistics for the past 3 months, current day included +
 
 === Clearing all entries : `clear`
 
-Deletes all expense entries from the expense tracker. +
+Deletes all expense entries from Expense Tracker. +
 
 Format: `clear`
 
@@ -404,7 +404,10 @@ Format: `exit`
 == FAQ
 
 *Q*: Do I need to manually save my data? +
-*A*: There is no need to save your manually. All the data in the Expense Tracker is automatically saved in the hard disk after any command that changes the data. +
+*A*: There is no need to save your manually. All the data in Expense Tracker is automatically saved in the hard disk
+after
+any
+command that changes the data. +
 
 
 *Q*: How do I transfer my data to another Computer? +
@@ -412,7 +415,7 @@ Format: `exit`
 
 == Command Summary
 
-This is a summary of the commands available in the Expense Tracker:
+This is a summary of the commands available in Expense Tracker:
 
 * *SignUp* : `signup USERNAME` +
 e.g. `signup username123`
