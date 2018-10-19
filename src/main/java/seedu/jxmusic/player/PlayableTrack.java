@@ -27,13 +27,13 @@ public class PlayableTrack implements Playable {
     @Override
     public void play() {
         System.out.println("playabletrack play");
+        mediaPlayer.setStartTime(new Duration(0));
         mediaPlayer.play();
     }
 
     @Override
     public void stop() {
         System.out.println("playabletrack stop");
-        mediaPlayer.setStartTime(new Duration(0));
         mediaPlayer.stop();
     }
 
