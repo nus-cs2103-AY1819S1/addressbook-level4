@@ -459,7 +459,7 @@ Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It im
 * `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
 * `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
 
-These operations are exposed in the 'Model` interface as
+These operations are exposed in the `Model` interface as
 `Model#createAllDayEvent(Year year, Month month, int date, String title)`,
 `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`,
 `Model#loadCalendar(Year year, Month month)`,
