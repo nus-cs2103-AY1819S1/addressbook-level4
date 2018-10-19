@@ -19,14 +19,14 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.ClinicIoChangedEvent;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ClinicIo;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final ClinicIoChangedEvent EVENT_STUB = new ClinicIoChangedEvent(new AddressBook());
+    private static final ClinicIoChangedEvent EVENT_STUB = new ClinicIoChangedEvent(new ClinicIo());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());

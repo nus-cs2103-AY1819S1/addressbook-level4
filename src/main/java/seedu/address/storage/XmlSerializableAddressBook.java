@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ClinicIo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable ClinicIo that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
@@ -48,29 +48,29 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code ClinicIo} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ClinicIo toModelType() throws IllegalValueException {
+        ClinicIo clinicIo = new ClinicIo();
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (clinicIo.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            clinicIo.addPerson(person);
         }
         //@@author jjlee050
         for (XmlAdaptedDoctor d : doctors) {
             Doctor doctor = d.toModelType();
-            if (addressBook.hasDoctor(doctor)) {
+            if (clinicIo.hasDoctor(doctor)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
             }
-            addressBook.addDoctor(doctor);
+            clinicIo.addDoctor(doctor);
         }
-        return addressBook;
+        return clinicIo;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.util.HashUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ClinicIo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
@@ -20,7 +20,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ClinicIo} with sample data.
  */
 public class SampleDataUtil {
 
@@ -58,7 +58,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        ClinicIo sampleAb = new ClinicIo();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

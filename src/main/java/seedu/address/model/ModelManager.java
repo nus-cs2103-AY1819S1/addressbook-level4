@@ -25,7 +25,7 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedClinicIo versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = new VersionedClinicIo(addressBook);
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
@@ -52,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ClinicIo(), new UserPrefs());
     }
 
     @Override

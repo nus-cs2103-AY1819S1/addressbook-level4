@@ -18,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson and .isSameDoctor comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ClinicIo implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     //@@author jjlee050
@@ -41,12 +41,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments = new UniqueAppointmentList();
     }
 
-    public AddressBook() {}
+    public ClinicIo() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ClinicIo using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ClinicIo(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -71,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ClinicIo} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -175,7 +175,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ClinicIo}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -184,7 +184,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //@@author jjlee050
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ClinicIo}.
      * {@code key} must exist in the address book.
      */
     public void removeDoctor(Doctor key) {
@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //@@author gingivitiss
     /**
-     * Removes {@code key} from this {@code AddressBook}. Not to be used to cancel appointments.
+     * Removes {@code key} from this {@code ClinicIo}. Not to be used to cancel appointments.
      * {@code key} must exist in the address book.
      */
     public void removeAppointment(Appointment key) {
@@ -242,10 +242,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         //@@author jjlee050
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
-                && doctors.equals(((AddressBook) other).doctors)
-                && appointments.equals(((AddressBook) other).appointments));
+                || (other instanceof ClinicIo // instanceof handles nulls
+                && persons.equals(((ClinicIo) other).persons)
+                && doctors.equals(((ClinicIo) other).doctors)
+                && appointments.equals(((ClinicIo) other).appointments));
     }
 
     @Override

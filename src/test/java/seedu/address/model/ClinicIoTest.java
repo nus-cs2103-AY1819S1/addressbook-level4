@@ -37,31 +37,31 @@ import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class ClinicIoTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ClinicIo clinicIo = new ClinicIo();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), clinicIo.getPersonList());
         //@@author jjlee050
-        assertEquals(Collections.emptyList(), addressBook.getDoctorList());
+        assertEquals(Collections.emptyList(), clinicIo.getDoctorList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        clinicIo.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        ClinicIo newData = getTypicalAddressBook();
+        clinicIo.resetData(newData);
+        assertEquals(newData, clinicIo);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AddressBookTest {
         AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        clinicIo.resetData(newData);
     }
 
     //@@author jjlee050
@@ -88,122 +88,122 @@ public class AddressBookTest {
         AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors);
 
         thrown.expect(DuplicateDoctorException.class);
-        addressBook.resetData(newData);
+        clinicIo.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        clinicIo.hasPerson(null);
     }
 
     //@@author jjlee050
     @Test
     public void hasDoctor_nullDoctor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasDoctor(null);
+        clinicIo.hasDoctor(null);
     }
 
     //@@author gingivitiss
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasAppointment(null);
+        clinicIo.hasAppointment(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(clinicIo.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasDoctor(ADAM));
+        assertFalse(clinicIo.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAppointment(AMY_APPT));
+        assertFalse(clinicIo.hasAppointment(AMY_APPT));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        clinicIo.addPerson(ALICE);
+        assertTrue(clinicIo.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorInAddressBook_returnsTrue() {
-        addressBook.addDoctor(ADAM);
-        assertTrue(addressBook.hasDoctor(ADAM));
+        clinicIo.addDoctor(ADAM);
+        assertTrue(clinicIo.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInAddressBook_returnsTrue() {
-        addressBook.addAppointment(AMY_APPT);
-        assertTrue(addressBook.hasAppointment(AMY_APPT));
+        clinicIo.addAppointment(AMY_APPT);
+        assertTrue(clinicIo.hasAppointment(AMY_APPT));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        clinicIo.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(clinicIo.hasPerson(editedAlice));
     }
 
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addDoctor(ADAM);
+        clinicIo.addDoctor(ADAM);
         Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_ADAM).build();
-        assertTrue(addressBook.hasDoctor(editedAdam));
+        assertTrue(clinicIo.hasDoctor(editedAdam));
     }
 
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addAppointment(AMY_APPT);
+        clinicIo.addAppointment(AMY_APPT);
         Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(13, 00).build();
-        assertTrue(addressBook.hasAppointment(editedAmy));
+        assertTrue(clinicIo.hasAppointment(editedAmy));
     }
 
     @Test
     public void hasAppointment_appointmentWithDifferentIdentityFieldsInAddressBook_returnsFalse() {
-        addressBook.addAppointment(AMY_APPT);
+        clinicIo.addAppointment(AMY_APPT);
         Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(12, 00).build();
-        assertFalse(addressBook.hasAppointment(editedAmy));
+        assertFalse(clinicIo.hasAppointment(editedAmy));
     }
 
     @Test
     public void hasAppointmentClash_appointmentWithSameTimingsInAddressBook_returnsTrue() {
-        addressBook.addAppointment(AMY_APPT);
+        clinicIo.addAppointment(AMY_APPT);
         Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
-        assertTrue(addressBook.hasAppointmentClash(newAppt));
+        assertTrue(clinicIo.hasAppointmentClash(newAppt));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        clinicIo.getPersonList().remove(0);
     }
 
     //@@author jjlee050
     @Test
     public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getDoctorList().remove(0);
+        clinicIo.getDoctorList().remove(0);
     }
 
     //@@author gingivitiss
     @Test
     public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getAppointmentList().remove(0);
+        clinicIo.getAppointmentList().remove(0);
     }
 
     /**
