@@ -7,7 +7,7 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/* @@author Pakorn */
+// @@author NyxF4ll
 /**
  * TimeStamp represents a specific timing on the calendar.
  */
@@ -66,8 +66,8 @@ public class TimeStamp implements Comparable<TimeStamp> {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof TimeStamp)
-                && value.equals(((TimeStamp) other).value);
+                || ((other instanceof TimeStamp)
+                && this.toString().equals(other.toString()));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class TimeStamp implements Comparable<TimeStamp> {
     @Override
     public String toString() {
         return (value.get(Calendar.DATE)
-                + "-" + value.get(Calendar.MONTH)
+                + "-" + (value.get(Calendar.MONTH) + 1)
                 + "-" + value.get(Calendar.YEAR)
                 + "@" + value.get(Calendar.HOUR_OF_DAY)
                 + ":" + value.get(Calendar.MINUTE)).trim();

@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents the location of upcoming meeting in the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidPlace(String)}
+ *
+ * {@author Derek-Hardy}
  */
 public class Place {
 
@@ -16,7 +18,7 @@ public class Place {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String PLACE_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String PLACE_VALIDATION_REGEX = "[^\\s].*";
 
     public final String placeName;
 

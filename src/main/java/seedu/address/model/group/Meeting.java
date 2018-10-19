@@ -10,6 +10,9 @@ import seedu.address.model.person.Address;
  * Represents a Meeting for people in the same group in the address book.
  * Guarantees: Title, date, location and description are present and not null.
  * Field values are validated, immutable.
+ *
+ * {@author Derek-Hardy}
+ * {@author NyxF4ll}
  */
 public class Meeting {
 

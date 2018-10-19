@@ -20,7 +20,9 @@ import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.testutil.GroupBuilder;
 
 
-
+/**
+ * {@author Derek-Hardy}
+ */
 public class UniqueGroupListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -50,6 +52,21 @@ public class UniqueGroupListTest {
         Group editedProject = new GroupBuilder(PROJECT_2103T).withNewPerson(BOB)
                 .build();
         assertTrue(uniqueGroupList.contains(editedProject));
+    }
+
+    @Test
+    public void clear_groupNotInList_returnsFalse() {
+        uniqueGroupList.add(PROJECT_2103T);
+        uniqueGroupList.clear();
+        assertFalse(uniqueGroupList.contains(PROJECT_2103T));
+    }
+
+    @Test
+    public void clear_groupInList_returnsTrue() {
+        uniqueGroupList.add(GROUP_2101);
+        uniqueGroupList.clear();
+        uniqueGroupList.add(PROJECT_2103T);
+        assertTrue(uniqueGroupList.contains(PROJECT_2103T));
     }
 
     @Test

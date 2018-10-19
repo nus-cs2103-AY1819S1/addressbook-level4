@@ -5,10 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.GroupCardHandle;
+import guitests.guihandles.GroupListPanelHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -27,6 +30,14 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same value as {@code expectedCard} for {@code GroupCard}
+     */
+    public static void assertGroupCardEquals(GroupCardHandle expectedCard, GroupCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getGroup(), actualCard.getGroup());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
@@ -36,6 +47,13 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedGroup}
+     */
+    public static void assertCardDisplaysGroup(Tag expectedGroup, GroupCardHandle actualCard) {
+        assertEquals(expectedGroup.tagName, actualCard.getGroup());
     }
 
     /**
@@ -55,6 +73,27 @@ public class GuiTestAssert {
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
         assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code groupListPanelHandle} displays the details of {@code group} correctly and
+     * in the correct order
+     */
+    @Deprecated
+    public static void assertGroupTagListMatching(GroupListPanelHandle groupListPanelHandle, Tag... groupTags) {
+        for (int i = 0; i < groupTags.length; i++) {
+            groupListPanelHandle.navigateToCard(i);
+            assertCardDisplaysGroup(groupTags[i], groupListPanelHandle.getGroupCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code groupListPanelHandle} displays the details of {@code group} correctly and
+     * in the correct order
+     */
+    @Deprecated
+    public static void assertGroupTagListMatching(GroupListPanelHandle groupListPanelHandle, List<Tag> groupTags) {
+        assertGroupTagListMatching(groupListPanelHandle, groupTags.toArray(new Tag[0]));
     }
 
     /**

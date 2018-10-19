@@ -77,4 +77,9 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
+    @Override
+    public void deleteAddressBook(Path filePath) throws IOException {
+        FileUtil.deleteFile(filePath);
+    }
+
 }

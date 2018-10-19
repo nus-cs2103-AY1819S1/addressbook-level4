@@ -2,16 +2,20 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.GroupContainsPersonPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Selects a person identified using it's displayed index from the address book.
@@ -26,26 +30,45 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_GROUP_SUCCESS = "Selected Group: %1$s";
+
+    public static final int SELECT_TYPE_GROUP = 0;
+    public static final int SELECT_TYPE_PERSON = 1;
 
     private final Index targetIndex;
+    private final int selectType;
 
-    public SelectCommand(Index targetIndex) {
+    public SelectCommand(Index targetIndex, int selectType) {
         this.targetIndex = targetIndex;
+        this.selectType = selectType;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        if (selectType == SELECT_TYPE_GROUP) {
+            List<Tag> filteredGroupList = model.getFilteredGroupList();
 
-        if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= filteredGroupList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
+            }
+
+            EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
+            Tag group = filteredGroupList.get(targetIndex.getZeroBased());
+            final String[] keywords = { group.tagName };
+            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+            return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
+        } else {
+            List<Person> filteredPersonList = model.getFilteredPersonList();
+
+            if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+            return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
         }
-
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
-
     }
 
     @Override
