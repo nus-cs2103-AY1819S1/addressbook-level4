@@ -18,6 +18,8 @@ public class Date {
     public final int day;
     public final int month;
     public final int year;
+    public String displayDate;
+    public final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     /**
      * Constructs a {@code Date}.
@@ -35,6 +37,8 @@ public class Date {
         month = Integer.parseInt(monthString);
         String yearString = date.substring(4, 6);
         year = Integer.parseInt(yearString) + 2000;
+
+        displayDate = dayString + " " + monthNames[month - 1] + " " + year;
     }
 
     /**
