@@ -17,7 +17,7 @@ public class Appointment {
     //constants for type
     private static final int NEW = 0;
     //an appointment is a follow up if it results directly from a consultation.
-    private static final int FOLLOW_UP = 1;
+    // private static final int FOLLOW_UP = 1;
 
     //fields used for making appointment
     private final Date appointmentDate;

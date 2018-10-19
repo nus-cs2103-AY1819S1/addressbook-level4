@@ -2,12 +2,12 @@ package seedu.address.model.analytics;
 
 //@@author arsalanc-v2
 
-import static java.lang.Math.toIntExact;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
-
-import java.util.Map;
-import java.util.function.Function;
+//import static java.lang.Math.toIntExact;
+//import static java.util.stream.Collectors.groupingBy;
+//import static java.util.stream.Collectors.summingInt;
+//
+//import java.util.Map;
+//import java.util.function.Function;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
@@ -48,14 +48,14 @@ public class TotalStatistics extends Statistics {
 
     /**
      * @return the total number of appointments.
-     */
+
     private int getNumberOfAppointments() {
         return appointments.size();
     }
 
     /**
      * @return the total number of follow up appointments.
-     */
+
     private int getNumberOfFollowUpAppointments() {
         long followUpCount = appointments.stream()
             .filter(appt -> appt.getAppointmentType() == 1)
@@ -66,7 +66,7 @@ public class TotalStatistics extends Statistics {
 
     /**
      * Computes the number of appointments for each day of the present week.
-     */
+
     private Map<String, Integer> getNumberOfCurrentWeekAppointments() {
         Map<String, Integer> appointmentsWeekBreakdown =
             appointments.stream()
@@ -77,6 +77,7 @@ public class TotalStatistics extends Statistics {
 
         return appointmentsWeekBreakdown;
     }
+    */
 
     @Override
     public void compute() {

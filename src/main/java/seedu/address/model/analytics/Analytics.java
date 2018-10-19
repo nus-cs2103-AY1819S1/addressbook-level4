@@ -31,12 +31,6 @@ public class Analytics {
         return totalStatistics.toString();
     }
 
-    public void updateNumberOfAppointments(int numberOfAppointments) {
-    }
-
-    public void updateFollowUpAppointments(long numberOfFollowUpAppointments) {
-    }
-
     public void setAppointments(ObservableList<Appointment> appointments) {
         totalStatistics.setAppointments(appointments);
     }
