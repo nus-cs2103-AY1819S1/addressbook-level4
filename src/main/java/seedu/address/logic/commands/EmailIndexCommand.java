@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
 /**
- * Composes email to specified indexes and writes it to hard disk
+ * Composes an email to specified indexes.
  */
 public class EmailIndexCommand extends Command {
 
@@ -87,6 +87,7 @@ public class EmailIndexCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EmailIndexCommand // instanceof handles nulls
-                && toCompose.equals(((EmailIndexCommand) other).toCompose));
+                && toCompose.equals(((EmailIndexCommand) other).toCompose)
+                && indexList.equals(((EmailIndexCommand) other).indexList));
     }
 }

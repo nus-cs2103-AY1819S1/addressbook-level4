@@ -16,6 +16,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+//@@author EatOrBeEaten
+/**
+ * Composes an email to all currently listed people.
+ */
 public class EmailListCommand extends Command {
 
     public static final String COMMAND_WORD = "email_all";
@@ -58,5 +62,12 @@ public class EmailListCommand extends Command {
             emailList.add(person.getEmail().value);
         }
         return EmailBuilder.copying(toCompose).toMultiple(emailList).buildEmail();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EmailListCommand // instanceof handles nulls
+                && toCompose.equals(((EmailListCommand) other).toCompose));
     }
 }
