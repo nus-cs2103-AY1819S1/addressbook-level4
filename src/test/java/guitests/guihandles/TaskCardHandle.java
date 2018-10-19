@@ -78,7 +78,7 @@ public class TaskCardHandle extends NodeHandle<Node> {
     public boolean equals(Task task) {
         return getName().equals(task.getName().fullName)
                 && getAddress().equals(task.getVenue().value)
-                && getDate().equals(task.getDate().value)
+                && getDate().equals(task.getDate().displayDate)
                 && getEmail().equals(task.getPriority().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(task.getTags().stream()
                         .map(tag -> tag.tagName)
