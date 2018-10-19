@@ -51,7 +51,7 @@ public class XmlClinicIoStorage implements ClinicIoStorage {
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableClinicIo xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
@@ -74,7 +74,7 @@ public class XmlClinicIoStorage implements ClinicIoStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableClinicIo(addressBook));
     }
 
 }

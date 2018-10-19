@@ -17,8 +17,8 @@ import seedu.address.model.person.Person;
 /**
  * An Immutable ClinicIo that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+@XmlRootElement(name = "clinicio")
+public class XmlSerializableClinicIo {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_DOCTOR = "Doctors list contains duplicate doctor(s).";
@@ -30,10 +30,10 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedDoctor> doctors;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableClinicIo.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableClinicIo() {
         persons = new ArrayList<>();
         doctors = new ArrayList<>();
     }
@@ -41,14 +41,14 @@ public class XmlSerializableAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyClinicIo src) {
+    public XmlSerializableClinicIo(ReadOnlyClinicIo src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         doctors.addAll(src.getDoctorList().stream().map(XmlAdaptedDoctor::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code ClinicIo} object.
+     * Converts this ClinicIO into the model's {@code ClinicIo} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor}.
@@ -79,10 +79,10 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableClinicIo)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons)
-                && doctors.equals(((XmlSerializableAddressBook) other).doctors);
+        return persons.equals(((XmlSerializableClinicIo) other).persons)
+                && doctors.equals(((XmlSerializableClinicIo) other).doctors);
     }
 }

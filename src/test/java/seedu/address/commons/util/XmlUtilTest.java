@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.ClinicIo;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedTag;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableClinicIo;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
@@ -71,7 +71,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        ClinicIo dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        ClinicIo dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableClinicIo.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
     }
 
@@ -123,17 +123,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new ClinicIo());
+        XmlSerializableClinicIo dataToWrite = new XmlSerializableClinicIo(new ClinicIo());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableClinicIo dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableClinicIo.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AddressBookBuilder builder = new AddressBookBuilder(new ClinicIo());
-        dataToWrite = new XmlSerializableAddressBook(
+        dataToWrite = new XmlSerializableClinicIo(
                 builder.withPerson(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableClinicIo.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 
