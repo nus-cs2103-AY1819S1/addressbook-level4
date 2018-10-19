@@ -1,15 +1,12 @@
 package seedu.address.model;
 
-import seedu.address.model.person.IcNumber;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.ServedPatient;
 
 /**
  * Represents the medical certificate for the served patients.
  */
 public class MedicalCertificate extends Document {
-    private final Name name;
-    private final IcNumber icNumber;
+    private static final String FILE_TYPE = "Medical Certificate";
     private final String mcContent;
 
     /**
@@ -17,20 +14,9 @@ public class MedicalCertificate extends Document {
      * @param servedPatient the patient who has already consulted the doctor.
      */
     public MedicalCertificate(ServedPatient servedPatient) {
-        this.name = servedPatient.getName();
-        this.icNumber = servedPatient.getIcNumber();
+        setFileType(FILE_TYPE);
+        setName(servedPatient.getName());
+        setIcNumber(servedPatient.getIcNumber());
         this.mcContent = servedPatient.getMcContent();
-    }
-
-    /**
-     * Generates the content of the MedicalCertificate object generated for the specified servedPatient.
-     *
-     */
-    @Override
-    public String generate() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Name: " + name + "\n");
-        sb.append("NRIC: " + icNumber + "\n");
-        return sb.toString();
     }
 }
