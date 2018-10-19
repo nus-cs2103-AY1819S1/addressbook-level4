@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
  */
 public class EmailListCommand extends Command {
 
-    public static final String COMMAND_WORD = "email_all";
+    public static final String COMMAND_WORD = "email_list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to all currently listed people. "
             + "Parameters: "
