@@ -88,7 +88,7 @@ public class SchedulePlannerParserTest {
 
     @Test
     public void parseCommand_firstday() throws Exception {
-        assertTrue(parser.parseCommand(FirstDayCommand.COMMAND_WORD) instanceof FirstDayCommand);
+        assertTrue(parser.parseCommand(FirstDayCommand.COMMAND_WORD + " 130818") instanceof FirstDayCommand);
     }
 
     @Test
