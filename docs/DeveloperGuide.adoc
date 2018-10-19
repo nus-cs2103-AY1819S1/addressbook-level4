@@ -247,7 +247,7 @@ instead of deletion by index, deletion by name is used in this implementation.
 
 Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
 
-Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system.
+Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
 
 ==== Design Considerations
 ===== Aspect: Algorithm to find `Patient` or `Doctor` to delete
@@ -258,7 +258,7 @@ Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the s
 
 * Alternative 2: Use a Map that maps name to `Patient` or `Doctor`
 ** Pros: Fast retrieval
-** Cons: Will have to change a lot of lines of code 
+** Cons: Will have to change a lot of lines of code
 
 === Logging
 
