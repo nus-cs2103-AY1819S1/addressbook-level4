@@ -15,6 +15,7 @@ import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
@@ -88,6 +89,9 @@ public class LibraryParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case PlaylistListCommand.COMMAND_PHRASE:
+            return new PlaylistListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
