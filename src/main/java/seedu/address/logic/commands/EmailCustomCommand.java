@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 /**
  * Composes email and writes it to hard disk
  */
-public class ComposeCommand extends Command {
+public class EmailCustomCommand extends Command {
 
     public static final String COMMAND_WORD = "compose";
 
@@ -35,7 +35,7 @@ public class ComposeCommand extends Command {
 
     private final Email toCompose;
 
-    public ComposeCommand(Email email) {
+    public EmailCustomCommand(Email email) {
         requireNonNull(email);
         toCompose = email;
     }
@@ -49,7 +49,7 @@ public class ComposeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ComposeCommand // instanceof handles nulls
-                && toCompose.equals(((ComposeCommand) other).toCompose));
+                || (other instanceof EmailCustomCommand // instanceof handles nulls
+                && toCompose.equals(((EmailCustomCommand) other).toCompose));
     }
 }

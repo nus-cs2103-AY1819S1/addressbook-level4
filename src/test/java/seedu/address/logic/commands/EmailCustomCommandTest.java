@@ -15,7 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.testutil.DefaultEmailBuilder;
 
 //@@author EatOrBeEaten
-public class ComposeCommandTest {
+public class EmailCustomCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -29,16 +29,16 @@ public class ComposeCommandTest {
     @Test
     public void constructor_nullEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new ComposeCommand(null);
+        new EmailCustomCommand(null);
     }
 
     @Test
     public void execute_emailAccepted_composeSuccessful() throws Exception {
         Email validEmail = new DefaultEmailBuilder().build();
 
-        CommandResult commandResult = new ComposeCommand(validEmail).execute(model, commandHistory);
+        CommandResult commandResult = new EmailCustomCommand(validEmail).execute(model, commandHistory);
 
-        assertEquals(String.format(ComposeCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
+        assertEquals(String.format(EmailCustomCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -47,14 +47,14 @@ public class ComposeCommandTest {
     public void equals() {
         Email meeting = new DefaultEmailBuilder().withSubject("Meeting").build();
         Email conference = new DefaultEmailBuilder().withSubject("Conference").build();
-        ComposeCommand composeMeetingCommand = new ComposeCommand(meeting);
-        ComposeCommand composeConferenceCommand = new ComposeCommand(conference);
+        EmailCustomCommand composeMeetingCommand = new EmailCustomCommand(meeting);
+        EmailCustomCommand composeConferenceCommand = new EmailCustomCommand(conference);
 
         // same object -> returns true
         assertTrue(composeMeetingCommand.equals(composeMeetingCommand));
 
         // same values -> returns true
-        ComposeCommand composeMeetingCommandCopy = new ComposeCommand(meeting);
+        EmailCustomCommand composeMeetingCommandCopy = new EmailCustomCommand(meeting);
         assertTrue(composeMeetingCommand.equals(composeMeetingCommandCopy));
 
         // different types -> returns false

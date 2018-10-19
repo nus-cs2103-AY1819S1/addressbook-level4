@@ -12,7 +12,7 @@ import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ComposeCommand;
+import seedu.address.logic.commands.EmailCustomCommand;
 import seedu.address.logic.commands.CreateCalendarCommand;
 import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -108,7 +108,7 @@ public class AddressBookParser {
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
 
-        case ComposeCommand.COMMAND_WORD:
+        case EmailCustomCommand.COMMAND_WORD:
             return new ComposeCommandParser().parse(arguments);
 
         case CreateCalendarCommand.COMMAND_WORD:
