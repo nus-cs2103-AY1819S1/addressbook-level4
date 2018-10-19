@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final PreferenceQueue preferenceQueue;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given ClinicIO and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
