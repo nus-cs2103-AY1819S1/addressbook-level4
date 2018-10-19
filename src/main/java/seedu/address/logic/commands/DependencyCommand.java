@@ -49,7 +49,7 @@ public class DependencyCommand extends Command {
         //Checking if dependant or dependee already contains dependency
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
-        if (taskDependee.getDependency().containsDependency(taskDependee)) {
+        if (taskDependant.getDependency().containsDependency(taskDependee)) {
             throw new CommandException(MESSAGE_ALREADY_DEPENDANT);
         }
         //Checking if introducing dependency will create a cyclic dependency
