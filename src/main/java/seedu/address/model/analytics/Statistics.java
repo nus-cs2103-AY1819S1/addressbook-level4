@@ -3,9 +3,12 @@ package seedu.address.model.analytics;
 import java.util.HashMap;
 import java.util.Set;
 
-//@@author arsalanc-v2
+import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+
 /**
  * Represents statistics of a general type.
+ * @@author arsalanc-v2
  */
 public abstract class Statistics {
 
