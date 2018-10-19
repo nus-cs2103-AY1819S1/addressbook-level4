@@ -19,8 +19,28 @@ endif::[]
 By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner is a desktop application that serves to aid students to manage their tasks that they have to
- do.
+This Developer Guide for the Student Schedule Planner is written by the SSP team for the benefits of future
+developers and maintainers of the application.
+
+Student Schedule Planner is a desktop application aims to help students save their tasks manage them all in one place
+.
+
+This introduction briefly covers the main flow of the Developer Guide:
+
+*2. Setting up* : Walkthrough on the prequisites steps to setup the Developer Environment
+
+*3. Design* : Overview on the structure of the project code, and how each component interacts with each other.
+
+
+*4. Implementation* : In-depth explanation on the implementation of the various features in the Schedule Planner, as
+well as the considerations behind the implementations
+
+*5. Documentation* : General guide on the documentation process of the project
+
+*6. Testing* : Documentation for the coverage tests of the application and how to set up your testing environment.
+
+*7. DevOps* : General processes used during development phase, and documentation on how to set it up.
+
 
 == Setting up
 
@@ -79,9 +99,10 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `ssp/scheduleplanner`
+repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `ssp/scheduleplanner`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -110,13 +131,16 @@ When you are ready to start coding,
 
 == Design
 
+This section covers the structural design of the App, as well as how its various components interact with each other.
+
 [[Design-Architecture]]
 === Architecture
 
+The *_Architecture Diagram_* given below explains the structural design of the App. It is followed by is a quick
+overview of each component.
+
 .Architecture Diagram
 image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
