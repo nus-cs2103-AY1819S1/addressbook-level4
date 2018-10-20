@@ -55,12 +55,7 @@ public class FirstDayCommand extends Command {
         }
 
         computeRangeOfWeeks(inputDate);
-
-        try {
-            XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
-        } catch (FileNotFoundException e) {
-            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
-        }
+        saveRangeOfWeeks(rangeOfWeek);
 
         String[][] test = new String[WEEKS_IN_SEMESTER][3];
         test = retrieveRangeOfWeeks(test);
@@ -77,7 +72,20 @@ public class FirstDayCommand extends Command {
     }
 
     /**
-     * This method retrieve the rangeOfWeeks
+     * This method save the rangeOfWeeks into storage
+     * @param rangeOfWeek
+     * @throws CommandException
+     */
+    public void saveRangeOfWeeks (String[][] rangeOfWeek) throws CommandException {
+        try {
+            XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    /**
+     * This method retrieve the rangeOfWeeks from storage
      * @throws DataConversionException
      * @throws FileNotFoundException
      */
@@ -91,15 +99,6 @@ public class FirstDayCommand extends Command {
             throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
         }
         return storeRangeOfWeeks;
-    }
-
-    private XmlSerializableRangeOfWeek getDataFromFile (Path file) throws
-            DataConversionException, FileNotFoundException {
-        try {
-            return XmlUtil.getDataFromFile(path, XmlSerializableRangeOfWeek.class);
-        } catch (JAXBException e) {
-            throw new DataConversionException(e);
-        }
     }
 
     /**
@@ -117,17 +116,6 @@ public class FirstDayCommand extends Command {
         }
 
         addDescriptionForWeeks(rangeOfWeek);
-
-        /*
-        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
-            System.out.printf(rangeOfWeek[i][0]);
-            System.out.printf(" ");
-            System.out.printf(rangeOfWeek[i][1]);
-            System.out.printf(" ");
-            System.out.println(rangeOfWeek[i][2]);
-        }
-        */
-
     }
 
     /**
