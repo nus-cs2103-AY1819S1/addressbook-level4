@@ -40,8 +40,8 @@ public class ConnectToGoogleCalendar {
         return googleCalendarEnabled;
     }
 
-    public void setGoogleCalendarEnabled(boolean googleCalendarEnabled) {
-        this.googleCalendarEnabled = googleCalendarEnabled;
+    public void setGoogleCalendarEnabled() {
+        this.googleCalendarEnabled = true;
     }
 
 
