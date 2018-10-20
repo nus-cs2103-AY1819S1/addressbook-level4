@@ -1238,9 +1238,10 @@ v1.3 Full implementation: Allow pop-up function to update accordingly whenever e
 
 *Zhang Yezhong*
 
-v1.1
-v1.2
-v1.3
+v1.1 Partial impementaion on GetGCEvents
+v1.2 Implementation on GetGCEvents
+v1.3 Implementation of all relevant commands to sycn with Google Calander in real time
+v1.4 Upgrade implementation to synchronous version
 
 *Goh Cheng Yu*
 
