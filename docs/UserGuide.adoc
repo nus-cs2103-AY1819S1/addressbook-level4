@@ -28,7 +28,7 @@ This guide does not assume any prior technical knowledge. Check the <<FAQ>> sect
 == Introduction
 
 ClinicIO is a desktop app to help you manage clinic with ease, efficient and simplicity.
-You can use ClinicIO to manage patient record, manage the clinic queue, manage clinic's medical inventory, manage clinic appointment and provide statistics on ClinicIO. +
+You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
 Go to the <<Installation Guide>> to get started on install ClinicIO.
 
