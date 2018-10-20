@@ -1,8 +1,10 @@
 package seedu.address.model.group;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
+import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
+import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
@@ -34,6 +36,20 @@ public class MeetingTest {
         editedWeekly = new MeetingBuilder(WEEKLY).withDescription("Weekly report of individual progress").build();
         assertTrue(WEEKLY.isSameMeeting(editedWeekly));
     }
+
+    // @@author NyxF4ll
+    @Test
+    public void compareTo() {
+        // WEEKLY happens before URGENT -> returns negative
+        assertTrue(WEEKLY.compareTo(URGENT) < 0);
+
+        // DISCUSSION happens after REHEARSAL -> returns positive
+        assertTrue(DISCUSSION.compareTo(REHEARSAL) > 0);
+
+        // same value -> returns true
+        assertEquals(0, WEEKLY.compareTo(WEEKLY));
+    }
+    // @@author
 
     @Test
     public void equals() throws ParseException {
