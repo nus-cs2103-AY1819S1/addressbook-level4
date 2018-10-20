@@ -108,7 +108,7 @@ public class CommandTestUtil {
                                             Analytics analytics, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        ClinicIo expectedClinicIo = new ClinicIo(actualModel.getAddressBook());
+        ClinicIo expectedClinicIo = new ClinicIo(actualModel.getClinicIo());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -118,7 +118,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedClinicIo, actualModel.getAddressBook());
+            assertEquals(expectedClinicIo, actualModel.getClinicIo());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -144,7 +144,7 @@ public class CommandTestUtil {
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
-        model.commitAddressBook();
+        model.commitClinicIo();
     }
 
 }

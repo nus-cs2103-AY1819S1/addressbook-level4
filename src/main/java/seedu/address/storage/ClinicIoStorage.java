@@ -16,7 +16,7 @@ public interface ClinicIoStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getClinicIoFilePath();
 
     /**
      * Returns ClinicIo data as a {@link ReadOnlyClinicIo}.
@@ -24,23 +24,23 @@ public interface ClinicIoStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyClinicIo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyClinicIo> readClinicIo() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getClinicIoFilePath()
      */
-    Optional<ReadOnlyClinicIo> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyClinicIo> readClinicIo(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyClinicIo} to the storage.
-     * @param addressBook cannot be null.
+     * @param clinicIo cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyClinicIo addressBook) throws IOException;
+    void saveClinicIo(ReadOnlyClinicIo clinicIo) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyClinicIo)
+     * @see #saveClinicIo(ReadOnlyClinicIo)
      */
-    void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException;
+    void saveClinicIo(ReadOnlyClinicIo addressBook, Path filePath) throws IOException;
 
 }

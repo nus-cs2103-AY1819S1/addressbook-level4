@@ -36,7 +36,7 @@ public class XmlClinicIoStorageTest {
     }
 
     private java.util.Optional<ReadOnlyClinicIo> readAddressBook(String filePath) throws Exception {
-        return new XmlClinicIoStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlClinicIoStorage(Paths.get(filePath)).readClinicIo(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -80,21 +80,21 @@ public class XmlClinicIoStorageTest {
         XmlClinicIoStorage xmlAddressBookStorage = new XmlClinicIoStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyClinicIo readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveClinicIo(original, filePath);
+        ReadOnlyClinicIo readBack = xmlAddressBookStorage.readClinicIo(filePath).get();
         assertEquals(original, new ClinicIo(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveClinicIo(original, filePath);
+        readBack = xmlAddressBookStorage.readClinicIo(filePath).get();
         assertEquals(original, new ClinicIo(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        xmlAddressBookStorage.saveClinicIo(original); //file path not specified
+        readBack = xmlAddressBookStorage.readClinicIo().get(); //file path not specified
         assertEquals(original, new ClinicIo(readBack));
 
     }
@@ -111,7 +111,7 @@ public class XmlClinicIoStorageTest {
     private void saveAddressBook(ReadOnlyClinicIo addressBook, String filePath) {
         try {
             new XmlClinicIoStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveClinicIo(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

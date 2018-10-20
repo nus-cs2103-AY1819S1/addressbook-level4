@@ -46,8 +46,8 @@ public class CancelApptCommand extends Command {
         Appointment targetAppointment = lastShownList.get(targetIndex.getZeroBased());
         model.cancelAppointment(targetAppointment);
 
-        //save changes to addressbook
-        model.commitAddressBook();
+        //save changes to ClinicIO
+        model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, targetAppointment));
     }
 

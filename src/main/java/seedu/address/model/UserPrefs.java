@@ -34,8 +34,8 @@ public class UserPrefs {
         return clinicIoFilePath;
     }
 
-    public void setClinicIoFilePath(Path addressBookFilePath) {
-        this.clinicIoFilePath = addressBookFilePath;
+    public void setClinicIoFilePath(Path clinicIoFilePath) {
+        this.clinicIoFilePath = clinicIoFilePath;
     }
 
     @Override

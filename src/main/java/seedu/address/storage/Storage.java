@@ -22,18 +22,18 @@ public interface Storage extends ClinicIoStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getClinicIoFilePath();
 
     @Override
-    Optional<ReadOnlyClinicIo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyClinicIo> readClinicIo() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyClinicIo addressBook) throws IOException;
+    void saveClinicIo(ReadOnlyClinicIo clinicIo) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the ClinicIO to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(ClinicIoChangedEvent abce);
+    void handleClinicIoChangedEvent(ClinicIoChangedEvent abce);
 }

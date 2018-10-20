@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public ClinicIo readStorageAddressBook() {
         try {
-            return new ClinicIo(storage.readAddressBook().get());
+            return new ClinicIo(storage.readClinicIo().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the ClinicIo format.", dce);
         } catch (IOException ioe) {
@@ -85,14 +85,14 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getClinicIoFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getClinicIo()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

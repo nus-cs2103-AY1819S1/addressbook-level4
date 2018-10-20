@@ -40,7 +40,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private MainWindow loginWindow;
+    private MainWindow mainWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -57,10 +57,10 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            loginWindow = new MainWindow(primaryStage, config, prefs, logic);
-            loginWindow.show(); //This should be called before creating other UI parts
-            loginWindow.fillInnerParts();
-            loginWindow.viewInFullScreen(); //View this app in full-screen exclusive
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillInnerParts();
+            mainWindow.viewInFullScreen(); //View this app in full-screen exclusive
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -69,9 +69,9 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(loginWindow.getCurrentGuiSetting());
-        loginWindow.hide();
-        loginWindow.releaseResources();
+        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        mainWindow.hide();
+        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -84,7 +84,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(loginWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**
@@ -94,7 +94,7 @@ public class UiManager extends ComponentManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/LightTheme.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

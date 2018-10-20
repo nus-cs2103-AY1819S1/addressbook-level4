@@ -28,32 +28,32 @@ public class XmlClinicIoStorage implements ClinicIoStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getClinicIoFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyClinicIo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyClinicIo> readClinicIo() throws DataConversionException, IOException {
+        return readClinicIo(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readClinicIo()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyClinicIo> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyClinicIo> readClinicIo(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("ClinicIo file " + filePath + " not found");
+            logger.info("ClinicIO file " + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableClinicIo xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableClinicIo xmlClinicIo = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlClinicIo.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlClinicIoStorage implements ClinicIoStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyClinicIo addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveClinicIo(ReadOnlyClinicIo clinicIo) throws IOException {
+        saveClinicIo(clinicIo, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyClinicIo)}
+     * Similar to {@link #saveClinicIo(ReadOnlyClinicIo)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveClinicIo(ReadOnlyClinicIo clinicIo, Path filePath) throws IOException {
+        requireNonNull(clinicIo);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableClinicIo(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableClinicIo(clinicIo));
     }
 
 }

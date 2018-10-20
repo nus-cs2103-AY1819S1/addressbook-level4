@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the ClinicIO level
  * Duplicates are not allowed (by .isSamePerson and .isSameDoctor comparison)
  */
 public class ClinicIo implements ReadOnlyClinicIo {
@@ -44,7 +44,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public ClinicIo() {}
 
     /**
-     * Creates an ClinicIo using the Persons in the {@code toBeCopied}
+     * Creates an ClinicIO using the Persons in the {@code toBeCopied}
      */
     public ClinicIo(ReadOnlyClinicIo toBeCopied) {
         this();
@@ -82,7 +82,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //========== Person-level operations =====================================================================
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the ClinicIO.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -91,7 +91,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author jjlee050
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the ClinicIO.
      */
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
@@ -100,7 +100,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author gingivitiss
     /**
-     * Returns true if an appointment with the same identity as {@code appt} exists in the address book.
+     * Returns true if an appointment with the same identity as {@code appt} exists in the ClinicIO.
      */
     public boolean hasAppointment(Appointment appt) {
         requireNonNull(appt);
@@ -108,7 +108,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     /**
-     * Returns true if an appointment has the same slot as {@code appt} in the address book.
+     * Returns true if an appointment has the same slot as {@code appt} in the ClinicIO.
      */
     public boolean hasAppointmentClash(Appointment appt) {
         requireNonNull(appt);
@@ -116,8 +116,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the ClinicIO.
+     * The person must not already exist in the ClinicIO.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -134,8 +134,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author gingivitiss
     /**
-     * Adds an appointment to the address book.
-     * The appointment must not already exist in the address book.
+     * Adds an appointment to the ClinicIO.
+     * The appointment must not already exist in the ClinicIO.
      */
     public void addAppointment(Appointment appt) {
         appointments.add(appt);
@@ -143,8 +143,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the ClinicIO.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the ClinicIO.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -154,8 +154,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //@@author jjlee050
     /**
      * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
-     * {@code target} must exist in the address book.
-     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the address book.
+     * {@code target} must exist in the ClinicIO.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the ClinicIO.
      */
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireNonNull(editedDoctor);
@@ -165,9 +165,9 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //@@author gingivitiss
     /**
      * Replaces the given appointment {@code target} in the list with {@code editedAppt}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the ClinicIO.
      * The appointment identity of {@code editedAppt} must not be the same as another existing appointment
-     * in the address book.
+     * in the ClinicIO.
      */
     public void updateAppointment(Appointment target, Appointment editedAppt) {
         requireNonNull(editedAppt);
@@ -176,7 +176,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     /**
      * Removes {@code key} from this {@code ClinicIo}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ClinicIO.
      */
     public void removePerson(Person key) {
         persons.remove(key);
@@ -185,7 +185,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //@@author jjlee050
     /**
      * Removes {@code key} from this {@code ClinicIo}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ClinicIO.
      */
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
@@ -194,7 +194,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //@@author gingivitiss
     /**
      * Removes {@code key} from this {@code ClinicIo}. Not to be used to cancel appointments.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ClinicIO.
      */
     public void removeAppointment(Appointment key) {
         appointments.remove(key);
@@ -203,7 +203,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     /**
      * Cancels {@code key} by updating appointment with cancel status.
      * Calls {@code updateAppointment} to replace {@code key} with cancelled one.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ClinicIO.
      */
     public void cancelAppointment(Appointment key) {
         requireNonNull(key);

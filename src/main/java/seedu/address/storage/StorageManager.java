@@ -24,7 +24,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private ClinicIoStorage clinicIoStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(ClinicIoStorage clinicIoStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.clinicIoStorage = clinicIoStorage;
@@ -52,39 +51,39 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ ClinicIo methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return clinicIoStorage.getAddressBookFilePath();
+    public Path getClinicIoFilePath() {
+        return clinicIoStorage.getClinicIoFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyClinicIo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(clinicIoStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyClinicIo> readClinicIo() throws DataConversionException, IOException {
+        return readClinicIo(clinicIoStorage.getClinicIoFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyClinicIo> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyClinicIo> readClinicIo(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return clinicIoStorage.readAddressBook(filePath);
+        return clinicIoStorage.readClinicIo(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyClinicIo addressBook) throws IOException {
-        saveAddressBook(addressBook, clinicIoStorage.getAddressBookFilePath());
+    public void saveClinicIo(ReadOnlyClinicIo clinicIo) throws IOException {
+        saveClinicIo(clinicIo, clinicIoStorage.getClinicIoFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
+    public void saveClinicIo(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        clinicIoStorage.saveAddressBook(addressBook, filePath);
+        clinicIoStorage.saveClinicIo(addressBook, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(ClinicIoChangedEvent event) {
+    public void handleClinicIoChangedEvent(ClinicIoChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveClinicIo(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

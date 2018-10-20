@@ -143,7 +143,7 @@ public abstract class ClinicIoSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getClinicIo().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class ClinicIoSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getClinicIo().getPersonList().size());
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class ClinicIoSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        assertEquals(0, getModel().getClinicIo().getPersonList().size());
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class ClinicIoSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new ClinicIo(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new ClinicIo(expectedModel.getClinicIo()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

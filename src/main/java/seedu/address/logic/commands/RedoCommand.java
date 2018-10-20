@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 
 /**
- * Reverts the {@code model}'s address book to its previously undone state.
+ * Reverts the {@code model}'s ClinicIO to its previously undone state.
  */
 public class RedoCommand extends Command {
 
@@ -21,11 +21,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoClinicIo()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
+        model.redoClinicIo();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -56,7 +56,7 @@ public class AddApptCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
         model.addAppointment(toAdd);
-        model.commitAddressBook();
+        model.commitClinicIo();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

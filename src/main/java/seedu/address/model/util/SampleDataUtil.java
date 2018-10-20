@@ -57,16 +57,16 @@ public class SampleDataUtil {
                         new Password(HashUtil.hashToString("doctor2"), true))));
     }
 
-    public static ReadOnlyClinicIo getSampleAddressBook() {
-        ClinicIo sampleAb = new ClinicIo();
+    public static ReadOnlyClinicIo getSampleClinicIo() {
+        ClinicIo sampleClinicIo = new ClinicIo();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleClinicIo.addPerson(samplePerson);
         }
         //@@author jjlee050
         for (Doctor sampleDoctor : getSampleDoctors()) {
-            sampleAb.addDoctor(sampleDoctor);
+            sampleClinicIo.addDoctor(sampleDoctor);
         }
-        return sampleAb;
+        return sampleClinicIo;
     }
 
     /**

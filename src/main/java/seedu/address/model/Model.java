@@ -24,53 +24,53 @@ public interface Model {
     void resetData(ReadOnlyClinicIo newData);
 
     /** Returns the ClinicIo */
-    ReadOnlyClinicIo getAddressBook();
+    ReadOnlyClinicIo getClinicIo();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the ClinicIO.
      */
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the ClinicIO.
      */
     boolean hasDoctor(Doctor doctor);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the ClinicIO.
      */
     void deletePerson(Person target);
 
     /**
      * Deletes the given doctor.
-     * The doctor must exist in the address book.
+     * The doctor must exist in the ClinicIO.
      */
     void deleteDoctor(Doctor doctor);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the ClinicIO.
      */
     void addPerson(Person person);
 
     /**
      * Adds the given doctor.
-     * {@code doctor} must not already exist in the address book.
+     * {@code doctor} must not already exist in the ClinicIO.
      */
     void addDoctor(Doctor doctor);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the ClinicIO.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the ClinicIO.
      */
     void updatePerson(Person target, Person editedPerson);
 
     /**
      * Replaces the given doctor {@code target} with {@code editedDoctor}.
-     * {@code target} must exist in the address book.
-     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the address book.
+     * {@code target} must exist in the ClinicIO.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the ClinicIO.
      */
     void updateDoctor(Doctor target, Doctor editedDoctor);
 
@@ -93,29 +93,29 @@ public interface Model {
     void updateFilteredDoctorList(Predicate<Doctor> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous ClinicIO states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoClinicIo();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone ClinicIO states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoClinicIo();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's ClinicIO to its previous state.
      */
-    void undoAddressBook();
+    void undoClinicIo();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's ClinicIO to its previously undone state.
      */
-    void redoAddressBook();
+    void redoClinicIo();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current ClinicIO state for undo/redo.
      */
-    void commitAddressBook();
+    void commitClinicIo();
 
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.

@@ -16,7 +16,7 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a person identified using it's displayed index from the ClinicIO.
  */
 public class SelectCommand extends Command {
 

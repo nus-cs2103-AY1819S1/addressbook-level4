@@ -110,7 +110,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyClinicIo getAddressBook() {
+        public ReadOnlyClinicIo getClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,27 +170,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitClinicIo() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -299,12 +299,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitClinicIo() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyClinicIo getAddressBook() {
+        public ReadOnlyClinicIo getClinicIo() {
             return new ClinicIo();
         }
     }

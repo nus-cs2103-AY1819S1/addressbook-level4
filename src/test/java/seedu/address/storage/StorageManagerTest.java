@@ -64,14 +64,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlClinicIoStorageTest} class.
          */
         ClinicIo original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyClinicIo retrieved = storageManager.readAddressBook().get();
+        storageManager.saveClinicIo(original);
+        ReadOnlyClinicIo retrieved = storageManager.readClinicIo().get();
         assertEquals(original, new ClinicIo(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getClinicIoFilePath());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlClinicIoStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new ClinicIoChangedEvent(new ClinicIo()));
+        storage.handleClinicIoChangedEvent(new ClinicIoChangedEvent(new ClinicIo()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyClinicIo addressBook, Path filePath) throws IOException {
+        public void saveClinicIo(ReadOnlyClinicIo clinicIo, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

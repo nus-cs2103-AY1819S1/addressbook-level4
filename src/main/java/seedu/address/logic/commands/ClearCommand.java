@@ -8,19 +8,19 @@ import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 
 /**
- * Clears the address book.
+ * Clears the ClinicIO.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "ClinicIO has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireNonNull(model);
         model.resetData(new ClinicIo());
-        model.commitAddressBook();
+        model.commitClinicIo();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

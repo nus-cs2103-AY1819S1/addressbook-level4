@@ -25,7 +25,7 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedClinicIo versionedAddressBook;
+    private final VersionedClinicIo versionedClinicIo;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
@@ -35,17 +35,17 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given ClinicIO and userPrefs.
      */
-    public ModelManager(ReadOnlyClinicIo addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyClinicIo clinicIo, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(clinicIo, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with ClinicIO: " + clinicIo + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedClinicIo(addressBook);
+        versionedClinicIo = new VersionedClinicIo(clinicIo);
         //@@author jjlee050
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
-        filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
+        filteredDoctors = new FilteredList<>(versionedClinicIo.getDoctorList());
+        filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
@@ -57,18 +57,18 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyClinicIo newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+        versionedClinicIo.resetData(newData);
+        indicateClinicIoChanged();
     }
 
     @Override
-    public ReadOnlyClinicIo getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyClinicIo getClinicIo() {
+        return versionedClinicIo;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new ClinicIoChangedEvent(versionedAddressBook));
+    private void indicateClinicIoChanged() {
+        raise(new ClinicIoChangedEvent(versionedClinicIo));
     }
 
     //========== Boolean check ===============================================================================
@@ -76,14 +76,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedClinicIo.hasPerson(person);
     }
 
     //@@author jjlee050
     @Override
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
-        return versionedAddressBook.hasDoctor(doctor);
+        return versionedClinicIo.hasDoctor(doctor);
     }
 
     @Override
@@ -106,64 +106,64 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasAppointment(Appointment appt) {
         requireNonNull(appt);
-        return versionedAddressBook.hasAppointment(appt);
+        return versionedClinicIo.hasAppointment(appt);
     }
 
     @Override
     public boolean hasAppointmentClash(Appointment appt) {
         requireNonNull(appt);
-        return versionedAddressBook.hasAppointmentClash(appt);
+        return versionedClinicIo.hasAppointmentClash(appt);
     }
 
     //========== Delete ======================================================================================
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+        versionedClinicIo.removePerson(target);
+        indicateClinicIoChanged();
     }
 
     //@@author jjlee050
     @Override
     public void deleteDoctor(Doctor target) {
-        versionedAddressBook.removeDoctor(target);
-        indicateAddressBookChanged();
+        versionedClinicIo.removeDoctor(target);
+        indicateClinicIoChanged();
     }
 
     //@@author gingivitiss
     @Override
     public void deleteAppointment(Appointment target) {
-        versionedAddressBook.removeAppointment(target);
-        indicateAddressBookChanged();
+        versionedClinicIo.removeAppointment(target);
+        indicateClinicIoChanged();
     }
 
     @Override
     public void cancelAppointment(Appointment target) {
-        versionedAddressBook.cancelAppointment(target);
-        indicateAddressBookChanged();
+        versionedClinicIo.cancelAppointment(target);
+        indicateClinicIoChanged();
     }
 
     //========== Add =========================================================================================
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedClinicIo.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+        indicateClinicIoChanged();
     }
 
     //@@author jjlee050
     @Override
     public void addDoctor(Doctor doctor) {
-        versionedAddressBook.addDoctor(doctor);
+        versionedClinicIo.addDoctor(doctor);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+        indicateClinicIoChanged();
     }
 
     //@@author gingivitiss
     @Override
     public void addAppointment(Appointment appt) {
-        versionedAddressBook.addAppointment(appt);
+        versionedClinicIo.addAppointment(appt);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
@@ -186,31 +186,31 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        versionedClinicIo.updatePerson(target, editedPerson);
+        indicateClinicIoChanged();
     }
 
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
-        versionedAddressBook.updateDoctor(target, editedDoctor);
-        indicateAddressBookChanged();
+        versionedClinicIo.updateDoctor(target, editedDoctor);
+        indicateClinicIoChanged();
     }
 
     //@@author gingivitiss
     @Override
     public void updateAppointment(Appointment target, Appointment editedAppt) {
         requireAllNonNull(target, editedAppt);
-        versionedAddressBook.updateAppointment(target, editedAppt);
-        indicateAddressBookChanged();
+        versionedClinicIo.updateAppointment(target, editedAppt);
+        indicateClinicIoChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedClinicIo}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -228,7 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jjlee050
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedClinicIo}
      */
     @Override
     public ObservableList<Doctor> getFilteredDoctorList() {
@@ -247,7 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author gingivitiss
     /**
      * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedClinicIo}
      */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
@@ -264,30 +264,30 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo ==================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoClinicIo() {
+        return versionedClinicIo.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoClinicIo() {
+        return versionedClinicIo.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoClinicIo() {
+        versionedClinicIo.undo();
+        indicateClinicIoChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoClinicIo() {
+        versionedClinicIo.redo();
+        indicateClinicIoChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitClinicIo() {
+        versionedClinicIo.commit();
     }
 
     @Override
@@ -305,7 +305,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         //@@author jjlee050
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors)
                 && filteredAppointments.equals(other.filteredAppointments);

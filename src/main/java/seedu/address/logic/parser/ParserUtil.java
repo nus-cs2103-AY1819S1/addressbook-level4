@@ -119,7 +119,6 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String password} into a {@code Password}.
-     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code password} is invalid.
      */
