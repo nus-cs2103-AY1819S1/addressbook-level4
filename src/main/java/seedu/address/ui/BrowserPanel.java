@@ -59,6 +59,16 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(defaultPage.toExternalForm());
     }
 
+    //@@author EatOrBeEaten
+    /**
+     * Loads HTML text preview of email.
+     * @param emailModel The emailModel containing the saved email.
+     */
+    public void loadEmail(EmailModel emailModel) {
+        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
+    }
+    //@@author
+
     /**
      * Frees resources allocated to the browser.
      */
@@ -77,14 +87,6 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleEmailViewEvent(EmailViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadEmail(event.getEmailModel());
-    }
-
-    /**
-     * Loads HTML text preview of email.
-     * @param emailModel The emailModel containing the saved email.
-     */
-    public void loadEmail(EmailModel emailModel) {
-        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
     }
 
 }
