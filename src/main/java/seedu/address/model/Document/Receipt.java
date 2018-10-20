@@ -16,7 +16,7 @@ public class Receipt extends Document {
             + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
     private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\">"
             + "<td>Grand Total:" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING;
-    private static final String RECEIPT_END =  "</td></tr></table>";
+    private static final String RECEIPT_END = "</td></tr></table>";
 
 
     private float totalPrice = 0;
@@ -60,6 +60,8 @@ public class Receipt extends Document {
 
     /**
      * Extracts all the medicines dispensed by the clinic for the served patient.
+     * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
+     *                          and their individual respective quantities
      */
     private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
