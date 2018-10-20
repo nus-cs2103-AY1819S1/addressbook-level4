@@ -105,6 +105,17 @@ public class CurrentPatient {
     }
 
     /**
+     * Checks whether current is a specified patient.
+     * @return true if queue contains patient.
+     */
+    public boolean isPatient(Patient patient) {
+        if (this.patient == null) {
+            return false;
+        }
+        return (this.patient).isPatient(patient);
+    }
+
+    /**
      * Returns a console-friendly representation of the patient's documents.
      */
     public String toDocumentInformation() {

@@ -56,7 +56,8 @@ public class InsertCommand extends QueueCommand {
 
         Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
 
-        if (patientQueue.contains(patientToRegister)) {
+        if (patientQueue.contains(patientToRegister) || currentPatient.isPatient(patientToRegister)
+                || servedPatientList.containsPatient(patientToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

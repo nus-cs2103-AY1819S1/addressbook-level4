@@ -13,8 +13,8 @@ import seedu.address.model.person.CurrentPatient;
 
 
 /**
- * Serve the patient that is first in queue.
- * Updates the queue to remove the first patient.
+ * Finish serving the Current Patient.
+ * Move Patient from Current Patient to ServedPatientList.
  */
 public class FinishCommand extends QueueCommand {
     public static final String COMMAND_WORD = "finish";

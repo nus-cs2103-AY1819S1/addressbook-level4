@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -29,9 +30,15 @@ public class ServedPatientListManager implements ServedPatientList {
     public int getServedPatientListLength() {
         return servedPatientList.size();
     }
+
     @Override
     public void addServedPatient(ServedPatient patient) {
         servedPatientList.add(patient);
+    }
+
+    @Override
+    public ServedPatient removeAtIndex(int index) {
+        return servedPatientList.remove(index);
     }
 
     @Override
@@ -57,5 +64,19 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public ArrayList<ServedPatient> getPatientsAsList() {
         return servedPatientList;
+    }
+  
+    public boolean containsPatient(Patient patient) {
+        for (ServedPatient servedPatient : servedPatientList) {
+            if (servedPatient.isPatient(patient)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return servedPatientList.size();
     }
 }
