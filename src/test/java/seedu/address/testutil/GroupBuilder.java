@@ -13,6 +13,8 @@ import seedu.address.model.person.UniquePersonList;
 
 /**
  * A utility class to help with building Group objects.
+ *
+ * {@author Derek-Hardy}
  */
 public class GroupBuilder {
 

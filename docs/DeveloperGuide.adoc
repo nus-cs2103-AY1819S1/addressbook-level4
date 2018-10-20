@@ -167,7 +167,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `GroupListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -230,6 +230,7 @@ The `Group`,
 * keeps track of its members in a `UniquePersonList`. The method `hasMember(Person person)` can check the enrollment of a particular `Person`.
 * supports add and remove member using methods `addMember(Person toAdd)` and `removeMember(Person toRemove)`.
 * exposes an unmodifiable `List<Person>` for observation of member enrollment status by `getMembersView()`.
+* supports set and cancel of `Meeting` of this group by methods `setMeeting(Meeting meeting)` and `cancelMeeting()`.
 
 .The UniqueGroupList class
 image::uniqueGroupListClassDiagram.png[width="500"]
@@ -244,6 +245,21 @@ The `UniqueGroupList`,
 
 [NOTE]
 Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
+
+.The Meeting class
+
+image::meetingClassDiagram.png[width="300"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/group/Meeting.java[`Meeting.java`]
+
+The `Meeting`,
+
+Meeting encapsulates information of a meeting.
+
+* contains the title, time, location and description of a meeting.
+* resides in `Group` objects and can be assigned to a group using the `meet` command which utilises the `updateGroup` method of the `Model` interface.
+* each `Group` object can have a maximum of one meeting.
+* two `Meetings` are considered similiar if they share the same title, time, and location
 
 
 .The enhanced Person class
@@ -289,6 +305,78 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Sort and Find feature
+
+The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to. This section will
+detail how the sort and find commands are implemented.
+
+==== `sort` command usage
+
+The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
+phone number, or address by alphanumerical order. This command is executed with the following syntax: +
+
+Syntax: `sort [name|phone|email|address]` +
+
+Example: `sort name`: This command will sort the current displayed list by name by alphanumerical order.
+
+==== `find` command usage
+
+The `find` command allows the user to filter the displayed persons list by each person's name based on
+keywords given by the user. This command is executed with the following syntax: +
+
+Syntax: `find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
+
+The user can include as many keywords as desired in `<keywords>` separated by a kbd:[space].
+The keywords are case-insensitive. +
+
+The `a/`, `s/`, and `n/` prefixes allows the user to include further specifications. They function as such: +
+
+* `a/`: The results displayed must match all of the keywords following this prefix.
+* `s/`: The results displayed must match some (at least one) of the keywords following this prefix.
+* `n/`: The results displayed must match none of the keywords following this prefix.
+
+Example: `find a/alice bob s/shirlene david n/charlie`: This command will filter the displayed list such that all
+results will contain "alice" and "bob", either "shirlene" or "david", and none of the results will contain
+"charlie". +
+
+If the user doesn't use prefixes. With the following syntax: +
+
+Syntax: `find <keywords>` +
+
+The command is equivalent to `find a/<keywords>` by default. +
+
+Example: `find mary john`: This command will filter the displayed list such that all results will contain "mary" and
+"john". This command is equivalent to `find a/mary john`.
+
+==== Implementation of `sort` and `find` commands
+
+`ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
+`FilteredList<Person>`. +
+
+Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
+`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedAddressBook`.
+`persons` list in `versionedAddressBook` contains all the persons stored in the MeetingBook.
+
+image::sortedList-filteredList-persons.png[width="400"]
+
+The list displayed in the UI is bound to the `sortedPersons` list. Hence, the `persons` list has two layers of
+modification before being displayed in the GUI as `sortedPersons`. +
+
+Before the user executes any `find` or `sort` commands, no `Comparator<Person>` and no `Predicate<Person>` is applied to
+the `persons` list. The UI will display the all the persons in the MeetingBook as expected. +
+
+When the user executes a `find` command, an appropriate `Predicate<Person>` will be created based on the user's input,
+and the `Predicate<Person>` will be applied to the `persons` list. This modification will be reflected in the
+`sortedPersons` list and in the displayed list in the GUI. +
+
+Similarly, when a user executes a `sort` command, an appropriate `Comparator<Person>` will be applied to the
+`filteredPersons` list. This modification will be reflected in the displayed list in the UI.
+
+==== Design considerations
+
+Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
+list.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -370,12 +458,130 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::select[]
+=== Select feature
+==== Current Implementation
+
+The select mechanism is facilitated by `ModelManager`.
+It extends `Model` with two lists, `UniquePersonList` and `UniqueGroupList` and implements the following operations:
+
+* `Model#updateFilteredPersonList` -- Updates person list with a specific `Predicate`.
+
+Given below is an example usage scenario and how the select mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The `ModelManager` will be initialized with the initial address book state, and both `UniquePersonList` and `UniqueGroupList` contains all person and group without filter.
+
+Step 2. The user executes `select g/1` command to select the 1st group in the address book.
+The `SelectCommandParser` parses the command to determine the select type, and the command calls executes the following steps:
+
+* Step 2.1. If the select type is `SELECT_TYPE_GROUP`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
+and `Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group.
+
+* Step 2.2. If the select type is `SELECT_TYPE_PERSON`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
+
+[NOTE]
+If a group is selected, calling `select` command with `SELECT_TYPE_PERSON` will only select the person in the filtered `UniquePersonList` that contains only person in the selected group.
+
+The following activity diagram summarizes what happens when a user executes a `select` command:
+
+image::SelectActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How select executes
+
+* **Alternative 1 (current choice):** Use prefix to differentiate between selecting group or person.
+** Pros: Easy to implement.
+** Cons: Select command becomes too generalized.
+* **Alternative 2:** Individual command for selecting group and person.
+** Pros: Structurally correct as each command is specialized to executing a specific task.
+** Cons: Requires more code to implement.
+// end::select[]
+
+// tag::export[]
+=== Export feature
+==== Current Implementation
+// TODO
+The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. +
+[NOTE]
+If there is no filepath provided, `export` command will return an invalid messgae, which the usage information to the user.
+
+The following sequence diagram shows how export operation works:
+
+image::ExportCommandSeqDiagram.png[width="650"]
+
+The program will raise a `AddressBookExportEvent` to EventCenter. StorageManager which subscribed to the EventCenter which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data using `Model#exportAddressBook`.
+
+==== Design Considerations
+
+===== Aspect: Make export undo-able
+* **Alternative 1 (current choice):** Does not allow it to be undo
+** Pros: Easy to implement and verify if the command is executed successfully.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2: ** Allow it to be undo
+** Pros: Allow user to undo the command.
+** Cons: User may accidentally undo the command and does not know about it, thinking that his data has been exported.
+// end::export[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Group
+
+==== Current Implementation
+A `Group` can be created and removed from `AddressBook` using `addGroup` and `removeGroup` command respectively.
+
+Once the `Group` exists in the `AddressBook`, the existing `Person` can be assigned to that group using `addGroup`.
+The person can also be removed from the group by `removeGroup` command.
+
+Each `Group` can keep track of a list of its members. This is supported by `UniquePersonList` class.
+
+Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupList` is added to support this functionality.
+
+==== Design Consideration
+
+===== Aspect: Management of group relationship
+
+* **Alternative 1 (current choice):** The `add` and `remove` operations support bidirectional update of relationships.
+** Pros: Less complexity in current project structure.
+** Cons: The future optimisation of these operations is less flexible.
+
+* **Alternative 2:** Use a central `groupManager` to manage the group-person relationships on the `AddressBook level`.
+** Pros: Greater room for possible future improvement, and ability to contain more complex relationships required by potential users.
+** Cons: The idea is less compatible with the current project structure. Extensive change in structure and logic must be performed, and is error-prone.
+
+// tag::meeting[]
+=== Meeting
+
+.Sequence diagram for the meet command
+image::MeetCommandSequenceDiagram.png[width="500"]
+
+A `Meeting` can be assigned and remove from a `Group` using the `meet` and `cancel` command, respectively.
+
+In order to for these commands to function, we have implemented the following methods:
+* `Group#setMeeting(Meeting meeting)` which set the `meeting` field of the `Group` class to `Optional` of `meeting`
+* `Group#cancelMeeting()` which set the `meeting` field of the `Group` class to an empty `Optional`
+
+This allows us to modify the `Group` in the `UniqueGroupList` by using the `Model#updateGroup(Group target, Group editedGroup)` method.
+
+==== Design Consideration
+
+===== Aspect: Specifying the Group to add the Meeting to
+
+* **Alternative 1 (current choice):** Directly specify the group name when invoking the command.
+** Pros: The command syntax becomes natural and intuitive.
+** Cons: The user have to manually find the group name which might be difficult when the number of groups is high (~20+ groups).
+* **Alternative 2 :** Specify the group with it's index.
+** Pros: Easier to use when the number of groups is high (~20+ groups).
+** Cons: The command syntax becomes unnatural and the program becomes more suspectible to bugs for a benefit that is dubious at best.
+
+// end::meeting[]
 
 === Logging
 

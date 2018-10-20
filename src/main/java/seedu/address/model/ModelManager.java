@@ -18,8 +18,9 @@ import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonPropertyComparator;
+import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Tag> filteredGroupTags;
     private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
@@ -43,6 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
@@ -105,15 +108,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== AddGroup / RemoveGroup =====================================================================
 
+    // @@author Derek-Hardy
     @Override
-    public void addGroup(Person target, Tag newGroup) {
-        //TODO
+    public void addGroup(Group group) {
+        requireNonNull(group);
+        versionedAddressBook.addGroup(group);
     }
 
     @Override
-    public void removeGroup(Person target, Tag oldGroup) {
-        //TODO
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+        versionedAddressBook.removeGroup(group);
     }
+    // @@author
 
     // @@author NyxF4ll
     @Override
@@ -142,6 +149,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Group List Accessors =============================================================
+
+    @Override
+    public ObservableList<Tag> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroupTags);
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredGroupTags.setPredicate(predicate);
     }
 
     //=========== Sorted Person List Accessors ==============================================================

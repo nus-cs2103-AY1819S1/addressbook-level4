@@ -32,8 +32,10 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // @@author Derek-Hardy
     // Group field
     private final UniqueGroupList groups = new UniqueGroupList();
+    // @@author
 
     @Deprecated
     private Set<Tag> groupTags = new HashSet<>();
@@ -52,6 +54,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    // @@author Derek-Hardy
     /**
      * Every field must be present and not null.
      */
@@ -65,6 +68,7 @@ public class Person {
         this.tags.addAll(tags);
         this.groups.setGroups(groups);
     }
+    // @@author
 
     /**
      * @deprecated The groupTag is replaced by UniqueGroupList for
@@ -108,6 +112,7 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    // @@author Derek-Hardy
     /**
      * Returns an immutable group list which the person has enrolled in.
      * It throws {@code UnsupportedOperationException} if modification is attempted.
@@ -140,25 +145,35 @@ public class Person {
 
     /**
      * Remove the person from a group.
-     * @param group The group that should removeMember the person from
+     * @param group The group that should remove the person from
      */
     public void removeGroup(Group group) {
         requireNonNull(group);
 
-        if (groups.contains(group)) {
-            this.groups.remove(group);
-        }
+        this.groups.remove(group);
 
-        if (group.hasMember(this)) {
-            group.removeMember(this);
-        }
+        group.removeMemberHelper(this);
+    }
+
+    /**
+     * This method is reserved to be called only from
+     * {@link seedu.address.model.group.Group#removeMember(Person)}}
+     * and {@link Group#clearMembers()} methods.
+     */
+    public void removeGroupHelper(Group group) {
+        this.groups.remove(group);
     }
 
     /**
      * Remove all the groups that this person is already in.
      */
     public void clearMembership() {
-
+        // enhanced for loop to remove the person from each group
+        for (Group group : this.groups) {
+            if (group.hasMember(this)) {
+                group.removeMemberHelper(this);
+            }
+        }
         this.groups.clear();
     }
 
@@ -173,6 +188,10 @@ public class Person {
 
     /**
      * Add multiple group tags to the person.
+     *
+     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+     * and will be deprecated progressively when Group implementation is updated.
      *
      * @param groups The collection of groups that this person is in
      */
@@ -191,6 +210,7 @@ public class Person {
         this.groupTags.add(group);
     }
 
+    // @@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.

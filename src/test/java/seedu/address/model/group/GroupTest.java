@@ -17,7 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.GroupBuilder;
 
-
+/**
+ * {@author Derek-Hardy}
+ */
 public class GroupTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,6 +47,7 @@ public class GroupTest {
     @Test
     public void removeMember_personNotInGroup_returnsFalse() {
         Group group = new GroupBuilder().withNewPerson(BENSON).build();
+        BENSON.addGroup(group);
         group.removeMember(BENSON);
         assertFalse(group.hasMember(BENSON));
     }

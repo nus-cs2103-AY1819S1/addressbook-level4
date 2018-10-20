@@ -1,4 +1,4 @@
-= FlashBook - User Guide
+= MeetingBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `Team CS2103-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Flashbook is for those who prefer to use a desktop app to manage their to-do for university. Flashbook is *designed for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users who can type fast can navigate and use the to-do list faster than traditional GUI apps. Makes your hand itchy and want to try out? Go to <<Quick Start>> to get started!
+MeetingBook is for those who prefer to use a desktop app to manage their meetings for university. MeetingBook is *designed for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users who can type fast can navigate and use the meeting planner faster than traditional GUI apps. Makes your hand itchy and want to try out? Go to <<Quick Start>> to get started!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `flashbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Flash Book.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `meetingbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your MeetingBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : Display all existing tasks on the display.
-* **`add`**`n this add high Problem_5.12 with deadline on 100918: the most difficult one` : adds a task named `Problem_5.12` to the FlashBook and set the deadline of the task to due on `10/08/18`.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : Display all existing members on the display.
+* **`addMember`**`n/<name> p/<phone> e/<email> a/<address>` : adds a member with the parameters specified to the MeetingBook.
+* **`delete`**`3` : deletes the 3rd person shown in the current person list.
+* *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,8 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in square brackets are the parameters to be supplied by the user e.g. in `changeto [tag] with [TaskParameters]`, `TaskParameters` and `tag` are parameters which can be used as `changeto urgent with deadline on 110918`.
-* Words in square brackets are optional. e.g. `changeto [tag] with [TaskParameters]` can be used as `changeto with deadline on 110918` or `changeto urgent`
+* Words in square brackets are the parameters to be supplied by the user e.g. in `edit 1 e/[Email] p/[Phone]`, `Email` and `Phone` are parameters which can be used as `edit 1 e/email@email.com`.
+* Words in square brackets are optional. e.g. `edit 1 e/[Email] p/[Phone]` can be used as `edit 1 e/hello@hello.com` or `edit 1 p/12345678`.
 
 ====
 
@@ -55,103 +55,74 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a new task: `add`
+=== Adding a new member: `addMember`
 
-Add a new task named [Task Name] with parameters described in [Task Parameters] to the module [Module Name]. +
-Format: `in [Module Name] add [Tag] [Task Name] with [Task Parameters]:[Description]`
+Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook.
+Format: `addMember n/[Name] p/[Phone] e/[Email] a/[Address] t/[Tag] g/[Group Tag]`
+
+.Required person parameters:
+* name / n
+* phone / p
+* email / e
+* address / a
+
+.Optional person parameters:
+* tag / t
+* group tag / g
 
 [NOTE]
-If Module Name is “this” or “&”, the new task will be added as a subtask of the selected task
-
-.Possible tags are:
-* urgent / u
-* high / h
-* normal / n (default)
-* low / l
-* done / d (this task will not show up in the find command unless specified)
-
-.Possible task parameters:
-
-* Deadline: `deadline on DDMMYY`, or the shorthand `dlDDMMYY`
-* Location: `@[Location Name]`
+Optional parameters such as [Tag] and [GroupTag] are used for filtering the list. To learn more about how to utilize these parameters, see `select` command.
 
 Examples:
 
-* `in ST2131 add urgent Homework_1 with deadline on 170918 @S17:12 pages of statistics.` : In Module ST2131, add task Homework_1 with deadline on `17/09/18`, with task description of `12 pages of statistics` and location of task is at `S17`.
-* `#ST2131 a u Homework_1 dl170918 @S17:12 pages of statistics.`
-* `in this add high Problem_5.12 with deadline on 100918: the most difficult one`
-* `#& a h Problem_5.12 dl100918: the most difficult one`
+* `addMember Zheng Wei p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
+* `addMember Ben p/12345678 e/hello@nus.edu.sg a/NUS School of Computing t/project g/CS2103T`
 
-[NOTE]
-[Task Name] must be a string without spaces and is not a restricted keyword.
+=== Editing a person : `edit`
 
-=== Editing a task : `changeto`
-****
-Pre-condition: Task is already selected using `select` command. +
-****
-Replace the selected tasks’ parameters with those described in this command (undescribed parameters will not be changed) +
+Replace the person’s parameters with those described in this command (undescribed parameters will not be changed) +
 
-Format: `changeto [Tag] with [TaskParameters]:[TaskDescription]`, or the shorthand `c [Tag] w [Taskparameters]:[TaskDescription]`
+Format: `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]`
 
 Examples:
 
-* `changeto urgent with deadline on 150918: only ten pages is needed` +
-Edits task selected to be of `urgent` tag and deadline on `15/09/18`, with task description of `only ten pages is needed`.
-* `ct u w dl120918` +
-Edit task selected tagging it with `urgent` and set its deadline to `12/09/18`
-* `changeto with deadline on 110918: deadline extended` +
-Edit task selected deadline to `11/09/18`
+* `edit 2 n/Benjamin` +
+Edits the name of the second person in the person list to Benjamin.
+* `edit 1 p/12345678` +
+Edits the phone number of the first person in the person list to 12345678.
 
-=== Deleting a task: `delete/del`
-****
-Pre-condition: Task is already selected using select command
-****
-Remove the selected task. +
+=== Deleting a person: `delete/del`
+Remove the selected person. +
 Format: `delete`, or the shorthand `del`
 
-
-=== Managing the module list: modules
-
-Management of modules in FlashBook. Capabilities of FlashBook module system includes:
-
-- Create a module: `modules create [Module Name]`, or `+\#[Module Name]`
-- Delete a module: `modules delete [Module Name]`, or `~#[Module Name]`
-- List modules: `modules`, or `#`
-- List tasks in the module: `modules [Module Name]`, or `#[Module Name]`
-- Delete all modules: `modules delete \*` or `~*`
-
 Examples:
 
-* modules create CS2103T
-* modules delete CS2101
-* +#ST2334
-* ~#CS2040
-* #CS2040
-* #
-* ~*
+* `delete 2` +
+Deletes the second person in the person list.
+* `del 4` +
+Deletes the fourth person in the person list.
 
-`[Module Name] must be an alphanumeric string without spaces.`
+=== Find a group / person / meeting: `find`
 
-=== Find a task: `find / findwhere`
+The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
+the panel. +
 
-Finds tasks and display it on the screen. +
-Format: `in [Module List] findwhere [TaskParameters] , or in [Module List] find [Name]` +
-Shorthand format: `#[Module List] fw [TaskParameters], or #[Module List] f [Name]`
+Syntax: +
+ Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
+ Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
 
-* The first version finds tasks with parameters that match [TaskParameters], while the second version finds tasks with name that match [Name].
-* Possible [TaskParameters] are: +
-.  Deadline: “Deadline [on/after/before] DDMMYY” or “dl[=/>/<]DDMMYY”
-.  Tag: “tag=[Tag]” or “t=[Tag]”
-.  Location: “location=[LocationName]” or “@=[LocationName]”
-* [Module List] can be replaced with “any” or “*” to select all modules
-
-Examples:
-
-* `in MA2101 findwhere tag=high location=S17 deadline before 300918`
-* `in CS2103T, CS2101 find LO5.7`
-* `in any findwhere tag=urgent`
-* `#CS2030,CS2040 fw @=COM1`
-* `#* find lab3`
+* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+    This parameter is required to execute this command.
+    ** `person`, `p`: Specifies to search for persons.
+    ** `group`, `g`: Specifies to search for groups.
+    ** `meeting`, `m`: Specifies to search for meetings.
+* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+    This parameter may be omitted.
 
 The “then” keyword:
 
@@ -161,87 +132,75 @@ If “then [Command]”  is inserted after find, the [Command] will be applied t
 Thus it is possible to run commands like
 “in CS2101 findwhere then delete” to delete every task under CS2101
 
-=== Sort the list: `sort`
-
-Sorts the current displayed list based on the given property. +
-Format: `sort [TODO]` +
-
-
-=== Selecting a task : `select`
+=== Selecting a group / person : `select`
 
 ****
-Pre-condition: user already list all available tasks using  find/findwhere command
-Select and displays a task from the list obtained using find
+Pre-condition: user already list all available groups / persons using `find/findwhere` command.
+Select and displays a group / person from the list obtained using `find`
 ****
 
-Format: `“select [index]” or “s[index]” when [index] is a positive integer (starts from 1)`
+Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a positive integer (starts from 1)
 
 ****
-* This also display all subtasks of the selected task.
-  If a task is already on display, this command instead select a subtask from the displayed tasks’ list of subtasks.
+* If `select [Group]` is entered, the person list will be filtered to show only person who belong to the group.
+* If `select [Person]` is entered, only the person that is in the filtered person list will be selected.
 ****
 
+=== Add Meeting to Group: `meet`
 
-=== Going back to the parent task : `back / b`
+Add a meeting to the group specified by its name.
 
-If the selected task is a subtask, go back to the parent task of this subtask.
+Format: `meet [Group Name] n/[Meeting Name] t/[Meeting Time] l/[Meeting Location] d/[Meeting Description]`
 
-=== Listing all tasks : `list`
+Meeting time is specified in the format `dd-mm-yyyy@hh:mm`
 
-Display all existing tasks on the display.
-
-=== Marking the selected task as done: `markdone / md`
-
-*Pre-condition:* Task is already selected using select command
-
-Change the tag the selected task to “done”.
-To reverse this, find and select the task then use the changeto command
-
-=== Import Persons : `import`
-
-Import FlashBook or any AddressBook-level4. +
-
-****
-FlashBook is backward compatible to AddressBook-level4. +
-
-This means that users of AddressBook-level4 are able to upgrade to use FlashBook by just importing their AddressBook-level4 storage file. +
-****
-Format: `import f/<relative filepath>`
+Not specifying any fields will cancel the meeting associated with the group.
 
 Example:
-`import f/flashBookBackUp.xml` : import `flashBookBackUp.xml` into FlashBook.
-`import f/addressBookBackUp.xml` : import `addressBookBackUp.xml` into FlashBook even if the imported file is Addressbook and not FlashBook.
+* `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
+* `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
 
-=== Export Persons : `export`
+=== Listing all persons : `list`
 
-Export FlashBook as backup elsewhere. +
+Display all existing persons on the person list display.
+
+=== Import data : `import`
+
+User is able to import other data. +
+Format: `import <relative filepath>`
+
+=== Export data : `export`
+
+User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
 Format: +
+`Export all groups, meetings and persons : export * <relative filepath>` +
+`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
+
 `export f/<filepath>`
 
 Example:
-`export f/backup.xml` : Export FlashBook as `backup.xml`.
+`export f/backup.xml` : Export MeetingBook as `backup.xml`.
 
-== Change Storage Location: `filepath`
+=== Change Storage Location: `filepath`
 
-Change the storage location of FlashBook.
+Change the storage location of MeetingBook. +
 Format: +
 `filepath f/<filepath>`
 
 Example:
-`filepath f/new_path.xml` : Storage location of FlashBook is now stored at `new_path.xml`.
+`filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of Flashbook use `filepath show`
+User can also check the current path of MeetingBook use `filepath show`
 ****
-
-
-=== Autocomplete
-
-To assist user to speed up typing of command, user can <TAB> to autocomplete the command.
 
 === Saving the data
 
-Flashbook data are saved in the hard disk automatically after any command that changes the data.
+MeetingBook data are saved in the hard disk automatically after any command that changes the data.
+
+=== Autocomplete `[coming in v2.0]`
+
+To assist user to speed up typing of command, user can <TAB> to autocomplete the command.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -251,7 +210,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and transfer the data file into the same folder.
 
 *Q*: Is the app only for NUS student? +
@@ -265,19 +224,14 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Adding a new task:* `[module] add [tag] [task name] with [task parameters]:[description]` +
-e.g. `CS2103T add assignment v1.0 with deadline on 170918 @S17:submit docs`
-* *Editing a task* : `changeto [tag] with [task parameters]:[task description]` +
-e.g. `changeto urgent with deadline on 150918 @COM1: only ten pages is needed`
-* *Delete a task* : `delete`
-* *Managing the module list* : `modules` +
-e.g. `modules create CS2103T`
-* *Find a task* : `in [module] find [task parameter] / in [module] find [name]` +
-e.g. `in CS2103T find LO5.7`
-* *Selecting a task* : `select` +
-e.g. `select 1`
-* *Going back to the parent task* : `back / b`
-* *List all tasks* : `list`
-* *Marking the selected task as done* : `markdone / md`
-* *Import tasks* : `import /f <filepath>`
-* *Export tasks* : `export /f <filepath>`
+* *Adding a new person:* `addMember n/[Name] p/[Phone] e/[Email] a/[Address]` +
+e.g. `addMember Derek p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
+* *Editing a person* : `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]` +
+e.g. `edit 2 n/Jeffrey`
+* *Delete a person* : `delete`
+* *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
+* *Selecting a group / person* : `select [group|person]` +
+e.g. `select g/1`
+* *List all person* : `list`
+* *Import data* : `import`
+* *Export data* : `export`

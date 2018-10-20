@@ -173,20 +173,30 @@ public class Group {
      */
     public void removeMember(Person toRemove) {
         requireNonNull(toRemove);
-        if (this.members.contains(toRemove)) {
-            this.members.remove(toRemove);
-        }
+        this.members.remove(toRemove);
 
-        if (toRemove.hasGroup(this)) {
-            toRemove.removeGroup(this);
-        }
+        toRemove.removeGroupHelper(this);
+    }
+
+    /**
+     * This method is reserved to be called only from
+     * {@link seedu.address.model.person.Person#removeGroup(Group)}
+     * and {@link Person#clearMembership()} methods.
+     */
+    public void removeMemberHelper(Person person) {
+        this.members.remove(person);
     }
 
     /**
      * Remove all the members in this group.
      */
     public void clearMembers() {
-
+        // enhanced for loop to remove the group from person
+        for (Person member : this.members) {
+            if (member.hasGroup(this)) {
+                member.removeGroupHelper(this);
+            }
+        }
         this.members.clear();
     }
 
