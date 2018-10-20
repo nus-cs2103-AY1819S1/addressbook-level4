@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.simplejavamail.email.Email;
+
 import com.google.common.eventbus.Subscribe;
 
 import net.fortuna.ical4j.data.ParserException;
@@ -153,6 +155,11 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveEmail(EmailModel emailModel) throws IOException {
         emailStorage.saveEmail(emailModel);
+    }
+
+    @Override
+    public Email loadEmail(String emailName) throws IOException {
+        return emailStorage.loadEmail(emailName);
     }
 
     @Override
