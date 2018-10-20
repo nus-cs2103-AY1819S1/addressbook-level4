@@ -43,8 +43,8 @@ public class UniqueEventList implements Iterable<Event> {
 
     /**
      * Adds an {@code Event} to the list.
-     * The event must not already exist in the list and there must not be any clashes with existing events in the
-     * addressbook.
+     * The event must not already exist in the list and must not clash with any existing events in the
+     * list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
