@@ -3,7 +3,7 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyClinicIo;
 
-/** 
+/**
  * Indicates the ClinicIO in the model has changed
  */
 public class ClinicIoChangedEvent extends BaseEvent {
