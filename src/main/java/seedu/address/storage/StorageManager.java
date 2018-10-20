@@ -15,8 +15,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
+import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.EmailModel;
@@ -173,6 +175,19 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+
+    @Override
+    @Subscribe
+    public void handleEmailLoadEvent(EmailLoadEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to read email from file"));
+        try {
+            Email loadedEmail = loadEmail(event.data);
+            raise(new EmailLoadedEvent(loadedEmail));
+        } catch (IOException e) {
+            logger.warning("Email file not found.");
+        }
+    }
+
 
     //@@author GilgameshTC
     // ================ Calendar methods ==============================

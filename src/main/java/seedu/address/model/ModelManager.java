@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import org.simplejavamail.email.Email;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,7 +24,9 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
+import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -458,6 +462,13 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
+    }
+
+    @Override
+    @Subscribe
+    public void handleEmailLoadedEvent(EmailLoadedEvent event) {
+        emailModel.saveEmail(event.data);
+        raise(new EmailViewEvent(emailModel));
     }
 
 }
