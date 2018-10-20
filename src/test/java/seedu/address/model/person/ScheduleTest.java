@@ -105,7 +105,7 @@ class ScheduleTest {
         String p = s1.prettyPrint();
         assertTrue(p.contains("mon"));
 
-        ArrayList<Slot> slots = s1.getFreeSlotsByDay("monday");
+        ArrayList<Slot> slots = s1.getFreeSlotsByDay(1);
         assertTrue(slots.size() == 24 * 2 - 2);
     }
 }

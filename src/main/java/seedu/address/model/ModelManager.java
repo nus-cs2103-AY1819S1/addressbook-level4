@@ -24,6 +24,7 @@ import seedu.address.model.event.polls.Poll;
 import seedu.address.model.event.polls.TimePoll;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -240,6 +241,16 @@ public class ModelManager extends ComponentManager implements Model {
         AbstractPoll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
         updateEvent(currentEvent, currentEvent);
         return poll;
+    }
+
+    @Override
+    public void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        Event event = getEvent(index);
+        event.addPerson(currentUser);
+        updateEvent(currentEvent, currentEvent);
     }
 
     @Override

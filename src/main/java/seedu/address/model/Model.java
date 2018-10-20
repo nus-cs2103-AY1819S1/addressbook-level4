@@ -14,6 +14,7 @@ import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.event.polls.Poll;
 import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * The API of the Model component.
@@ -163,6 +164,13 @@ public interface Model {
      */
     AbstractPoll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException,
             NoEventSelectedException, UserNotJoinedEventException;
+
+    /**
+     * Adds a person to the event at the given index.
+     * @param index the index of the event to join.
+     * @throws NoUserLoggedInException
+     */
+    void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException;
 
     /**
      * Sets the current user of the address book.

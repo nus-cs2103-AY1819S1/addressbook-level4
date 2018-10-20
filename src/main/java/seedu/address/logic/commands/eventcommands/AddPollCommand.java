@@ -44,7 +44,6 @@ public class AddPollCommand extends Command {
         try {
             Poll poll = model.addPoll(pollName);
             model.commitAddressBook();
-            //model.updateEvent(event, event);
             String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, model.getSelectedEvent()));

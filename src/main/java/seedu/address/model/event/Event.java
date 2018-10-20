@@ -150,11 +150,7 @@ public class Event {
      * Adds a new person to the event.
      */
     public void addPerson(Person person) throws DuplicatePersonException {
-        try {
-            personList.add(person);
-        } catch (DuplicatePersonException e) {
-            throw e;
-        }
+        personList.add(person);
     }
 
     public UniquePersonList getPersonList() {

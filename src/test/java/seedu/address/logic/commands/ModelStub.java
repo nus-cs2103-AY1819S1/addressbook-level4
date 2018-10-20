@@ -173,4 +173,9 @@ public class ModelStub implements Model {
     public Poll voteOption(Index pollIndex, String optionName) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void joinEvent(Index index) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

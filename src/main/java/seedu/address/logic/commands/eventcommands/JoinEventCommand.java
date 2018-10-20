@@ -49,20 +49,16 @@ public class JoinEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Event event = model.getEvent(targetIndex);
-        model.setSelectedEvent(event);
-
         try {
-            event.addPerson(model.getCurrentUser());
+            model.joinEvent(targetIndex);
         } catch (DuplicatePersonException e) {
             throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
-        model.updateEvent(event, event);
         model.commitAddressBook();
-
+        Event event = model.getEvent(targetIndex);
         EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo())); //need tests
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         String result = String.format(MESSAGE_SUCCESS, event);

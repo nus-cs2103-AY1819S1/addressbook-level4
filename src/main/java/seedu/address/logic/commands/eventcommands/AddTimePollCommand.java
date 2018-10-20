@@ -54,7 +54,6 @@ public class AddTimePollCommand extends Command {
         try {
             TimePoll poll = model.addTimePoll(startDate, endDate);
             model.commitAddressBook();
-            //model.updateEvent(event, event);
             String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, model.getSelectedEvent()));
