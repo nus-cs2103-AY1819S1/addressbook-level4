@@ -37,7 +37,7 @@ Go to the <<Installation Guide>> to get started on install ClinicIO.
 This section is designed to help you to setup ClinicIO with 3 simple steps.
 
 [NOTE]
-You can move on to <<User Interface Walkthrough>> if you have install ClinicIO.
+You can move on to <<User Interface Walkthrough>> if you have installed ClinicIO.
 
 [IMPORTANT]
 Ensure you have Java version `9` or later installed in your Computer. +
