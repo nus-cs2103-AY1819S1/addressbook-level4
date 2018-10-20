@@ -10,8 +10,7 @@ public class DateTimeInfo {
     public final DateTime end;
 
     /**
-     * Constructs a {@code DateTime} from input year, month, day, hour and minute
-     * Wrapper class for LocalDateTime
+     * Constructs a {@code DateTime} from input start and end DateTimes
      *
      * @param start, end A valid start and end datetime
      *

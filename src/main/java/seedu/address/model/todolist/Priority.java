@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents the priority of a todoList event.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
- * Setting Rule: user can set 1 for High; 2 for Medium; 3 for Low
+ * Setting Rule: user can set H for High; M for Medium; L for Low
  */
 
 public class Priority {

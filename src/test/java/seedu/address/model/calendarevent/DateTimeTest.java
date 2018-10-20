@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+
 public class DateTimeTest {
 
     @Test
@@ -24,7 +25,7 @@ public class DateTimeTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new DateTime(null));
+        Assert.assertThrows(NullPointerException.class, () -> new DateTime((String) null));
     }
 
 

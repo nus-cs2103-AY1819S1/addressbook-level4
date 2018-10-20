@@ -31,6 +31,7 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_TUTORIAL = "CS2104 Tutorial";
     public static final String VALID_DESCRIPTION_LECTURE = "Abstraction, IntelliJ, Gradle";
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
+    public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
     public static final String VALID_VENUE_LECTURE = "Block 312, Amy Street 1";
     public static final String VALID_VENUE_TUTORIAL = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -57,8 +58,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " q"; // start with whitespace not allowed
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // empty string not allowed
-    public static final String INVALID_START_DESC = " " + PREFIX_START + "2018-10-16 2.00pm"; // wrong format for time
-    public static final String INVALID_END_DESC = " " + PREFIX_END + "10/16/2018 16:00"; // wrong format for date
+    public static final String INVALID_START_DESC = " " + PREFIX_START + "asdf"; // not a readable time
+    public static final String INVALID_END_DESC = " " + PREFIX_END + "asdf"; // wrong format for date
     public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE; // empty string not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 

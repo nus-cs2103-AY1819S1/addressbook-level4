@@ -18,6 +18,15 @@ public class DateTime {
     public final LocalDateTime localDateTime;
 
     /**
+     * Constructs a {@code DateTime} from LocalDateTime object
+     *
+     * @param dateTimeInput a LocalDateTime object
+     */
+    public DateTime(LocalDateTime dateTimeInput) {
+        this.localDateTime = dateTimeInput;
+    }
+
+    /**
      * Constructs a {@code DateTime} from input year, month, day, hour and minute
      * Wrapper class for LocalDateTime
      *
