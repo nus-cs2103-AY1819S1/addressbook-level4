@@ -1,5 +1,7 @@
 package seedu.address.model.group;
 
+import static seedu.address.model.group.TimeStamp.MESSAGE_TIMESTAMP_CONSTRAINT;
+
 import java.time.DateTimeException;
 import java.time.Month;
 import java.time.Year;
@@ -13,8 +15,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * This is a modified version of the Java Month class with support for detecting nonexistent dates.
  */
 public class EnhancedMonth {
-
-    public static final String MESSAGE_MONTH_CONSTRAINT = "Month must be between 1 and 12";
 
     private Month month;
 
@@ -33,7 +33,7 @@ public class EnhancedMonth {
         try {
             return new EnhancedMonth(Month.of(index));
         } catch (DateTimeException e) {
-            throw new ParseException(MESSAGE_MONTH_CONSTRAINT);
+            throw new ParseException(MESSAGE_TIMESTAMP_CONSTRAINT);
         }
     }
 
