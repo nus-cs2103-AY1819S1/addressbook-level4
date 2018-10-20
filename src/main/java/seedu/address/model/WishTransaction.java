@@ -283,8 +283,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     @Override
     public String toString() {
         wishMap.entrySet().forEach(entry -> {
-            System.out.println(entry.getKey());
-            entry.getValue().forEach(System.out::println);
+            //System.out.println(entry.getKey());
+            //entry.getValue().forEach(System.out::println);
         });
         return null;
     }

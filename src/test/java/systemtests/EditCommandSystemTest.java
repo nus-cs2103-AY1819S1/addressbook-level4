@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
@@ -52,7 +54,8 @@ public class EditCommandSystemTest extends WishBookSystemTest {
 
     @Test
     public void edit() {
-        Model model = getModel();
+        Model expectedModel = getModel();
+
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
@@ -61,40 +64,52 @@ public class EditCommandSystemTest extends WishBookSystemTest {
          */
         Index index = INDEX_FIRST_WISH;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PRICE_DESC_BOB + " " + DATE_DESC_2 + "  " + URL_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Wish editedWish = new WishBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+                + PRICE_DESC_BOB + " " + DATE_DESC_2 + "  " + URL_DESC_BOB + " " + TAG_DESC_FRIEND + " " + TAG_DESC_HUSBAND + " ";
+        String[] tags = { VALID_TAG_FRIEND, VALID_TAG_HUSBAND };
+        Wish editedWish = new WishBuilder(BOB).withTags(tags).build();
         assertCommandSuccess(command, index, editedWish);
+
 
         /* Case: undo editing the last wish in the list -> last wish restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: redo editing the last wish in the list -> last wish edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updateWish(
+        expectedModel.updateWish(
                 getModel().getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased()), editedWish);
-        assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+
 
         /* Case: edit a wish with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
+        Index sameIndex = index;
+        command = EditCommand.COMMAND_WORD + " " + sameIndex.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a wish with new values same as another wish's values but with different name -> edited */
         assertTrue(getModel().getWishBook().getWishList().contains(BOB));
-        index = INDEX_SECOND_WISH;
-        assertNotEquals(getModel().getFilteredSortedWishList().get(index.getZeroBased()), BOB);
+        index = INDEX_FIRST_WISH;
+        assertEquals(getModel().getFilteredSortedWishList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWish = new WishBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedWish);
 
-        /* Case: edit a wish with new values same as another wish's values but with different phone and email
+        /* Case: undo editing the last wish in the list -> last wish restored */
+        command = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+
+        /* Case: edit a wish with new values same as another wish's values but with different price and date
          * -> edited
          */
-        index = INDEX_SECOND_WISH;
+        assertEquals(getModel().getFilteredSortedWishList().get(index.getZeroBased()), BOB);
+        index = INDEX_FIRST_WISH;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + DATE_DESC_1
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWish = new WishBuilder(BOB).withPrice(VALID_PRICE_AMY).withDate(VALID_DATE_1).build();
@@ -167,11 +182,11 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
+        /* Case: invalid price -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_PRICE_DESC,
                 Price.MESSAGE_PRICE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid date -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_DATE_DESC,
                 Date.MESSAGE_DATE_CONSTRAINTS);
 
@@ -202,15 +217,6 @@ public class EditCommandSystemTest extends WishBookSystemTest {
                 + URL_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
 
-        /* Case: edit a wish with new values same as another wish's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + DATE_DESC_2
-                + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
-
-        /* Case: edit a wish with new values same as another wish's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_1
-                + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
     }
 
     /**

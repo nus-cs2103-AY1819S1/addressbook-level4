@@ -15,7 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.DateComparator;
+import seedu.address.model.util.WishComparator;
 import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Wish;
@@ -46,7 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedWishBook = new VersionedWishBook(wishBook);
         versionedWishTransaction = getWishTransaction(wishBook, wishTransaction);
         filteredSortedWishes = new FilteredList<>(new SortedList<>(versionedWishBook.getWishList(),
-                new DateComparator()));
+                new WishComparator()));
     }
 
     public ModelManager() {

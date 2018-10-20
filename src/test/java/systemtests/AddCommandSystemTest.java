@@ -80,7 +80,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a wish with all fields same as another wish in the wish book except phone and email
+        /* Case: add a wish with all fields same as another wish in the wish book except price and date
          * -> added
          */
         toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withDate(VALID_DATE_2).build();
@@ -100,11 +100,21 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         /* Case: add a wish, missing tags -> added */
         assertCommandSuccess(HOON);
 
+        /* Case: add a duplicate wish except with different price -> added */
+        toAdd = new WishBuilder(HOON).withPrice(VALID_PRICE_BOB).build();
+        command = WishUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate wish except with different date -> added */
+        toAdd = new WishBuilder(HOON).withDate(VALID_DATE_2).build();
+        command = WishUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the wish list before adding -> added */
-        showWishesWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+           /* Case: filters the wish list before adding -> added */
+            showWishesWithName(KEYWORD_MATCHING_MEIER);
+            assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a wish card is selected --------------------------- */
 
@@ -118,17 +128,12 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         command = WishUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
-        /* Case: add a duplicate wish except with different phone -> rejected */
-        toAdd = new WishBuilder(HOON).withPrice(VALID_PRICE_BOB).build();
-        command = WishUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
-
-        /* Case: add a duplicate wish except with different email -> rejected */
+        /* Case: add a duplicate wish except with different date -> added */
         toAdd = new WishBuilder(HOON).withDate(VALID_DATE_2).build();
         command = WishUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
+        assertCommandSuccess(command, toAdd);
 
-        /* Case: add a duplicate wish except with different wish -> rejected */
+        /* Case: add a duplicate wish except with different wish -> reject */
         toAdd = new WishBuilder(HOON).withUrl(VALID_URL_BOB).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
@@ -219,7 +224,24 @@ public class AddCommandSystemTest extends WishBookSystemTest {
      * @see AddCommandSystemTest#assertCommandSuccess(String, Wish)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        System.out.println("COMMAND: " + command);
+        System.out.println("BEFORE EXECUTION");
+        for (Wish wish : getModel().getFilteredSortedWishList()) {
+            System.out.println(wish);
+        }
         executeCommand(command);
+        System.out.println("AFTER EXECUTION");
+        for (Wish wish : getModel().getFilteredSortedWishList()) {
+            System.out.println(wish);
+        }
+
+        System.out.println("EXPECTED LIST");
+        for (Wish wish : expectedModel.getFilteredSortedWishList()) {
+            System.out.println(wish);
+        }
+        System.out.println("________________________________________________________________________________________");
+
+
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();

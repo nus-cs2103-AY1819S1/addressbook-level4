@@ -5,7 +5,7 @@ import java.util.Comparator;
 import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Wish;
 
-public class DateComparator implements Comparator<Wish> {
+public class WishComparator implements Comparator<Wish> {
 
     @Override
     public int compare(Wish o1, Wish o2) {
@@ -18,8 +18,12 @@ public class DateComparator implements Comparator<Wish> {
            return 1;
         } else if (date1.before(date2)) {
            return -1;
+        } else if (o1.getPrice().value > o2.getPrice().value) {
+           return 1;
+        } else if (o1.getPrice().value < o2.getPrice().value) {
+            return -1;
         } else {
-           return 0;
+            return 0;
         }
     }
 

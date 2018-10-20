@@ -1,6 +1,6 @@
 {
   "appTitle" : "Typical App Title",
-  "logLevel" : "INFO",
+  "logLevel" : "SEVERE",
   "userPrefsFilePath" : "preferences.json",
   "extra" : "extra value"
 }

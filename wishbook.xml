@@ -70,4 +70,46 @@
         <url>www.amazon.com</url>
         <remark></remark>
     </wishes>
+    <wishes>
+        <name>asdf</name>
+        <price>124.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>2/1/2019</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>asdf</name>
+        <price>125.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>3/1/2019</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>asdf</name>
+        <price>4.50</price>
+        <savedAmount>0.00</savedAmount>
+        <date>19/07/2020</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+    </wishes>
+    <wishes>
+        <name>Amy Bee</name>
+        <price>22.20</price>
+        <savedAmount>0.00</savedAmount>
+        <date>02/01/2019</date>
+        <url>https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html</url>
+        <remark></remark>
+        <tagged>friend</tagged>
+    </wishes>
+    <wishes>
+        <name>Amy Bee</name>
+        <price>21.20</price>
+        <savedAmount>0.00</savedAmount>
+        <date>01/01/2019</date>
+        <url>https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html</url>
+        <remark></remark>
+        <tagged>friend</tagged>
+    </wishes>
 </wishbook>

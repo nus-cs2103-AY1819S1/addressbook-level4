@@ -32,8 +32,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PRICE_AMY = "11.11";
     public static final String VALID_PRICE_BOB = "22.20";
-    public static final String VALID_DATE_1 = "02/01/2019";
-    public static final String VALID_DATE_2 = "01/01/2019";
+    public static final String VALID_DATE_1 = "01/01/2019";
+    public static final String VALID_DATE_2 = "02/01/2019";
     public static final String VALID_URL_AMY = "https://www.lazada.sg/products/"
             + "ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
     public static final String VALID_URL_BOB = "https://www.lazada.sg/products/"
