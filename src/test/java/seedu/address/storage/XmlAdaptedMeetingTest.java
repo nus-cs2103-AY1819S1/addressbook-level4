@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +7,8 @@ import static seedu.address.storage.XmlAdaptedMeeting.MESSAGE_MISSING_LOCATION_F
 import static seedu.address.storage.XmlAdaptedMeeting.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
+
+import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.group.Description;
