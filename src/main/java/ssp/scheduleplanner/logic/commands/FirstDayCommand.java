@@ -31,10 +31,13 @@ public class FirstDayCommand extends Command {
             + "default file is missing";
     public static final String MESSAGE_DATA_UNABLE_CONVERT = "Data unable to convert from saved file";
 
-    private static final int WEEKS_IN_SEMESTER = 17;
-    private final String inputDate;
+    public static final int WEEKS_IN_SEMESTER = 17;
+    private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
     private Path path = Paths.get("rangeofweek.xml");
+
+    //To allow other class to use the methods without causing any changes to the storage
+    public FirstDayCommand() {}
 
     public FirstDayCommand(String userInputDate) {
         this.inputDate = userInputDate;
@@ -54,19 +57,7 @@ public class FirstDayCommand extends Command {
         computeRangeOfWeeks(inputDate);
         saveRangeOfWeeks(rangeOfWeek);
 
-        String[][] test = new String[WEEKS_IN_SEMESTER][3];
-        test = retrieveRangeOfWeeks(test);
-
-        for (int i = 0; i < 17; i++) {
-            System.out.printf(test[i][0]);
-            System.out.printf(" ");
-            System.out.printf(test[i][1]);
-            System.out.printf(" ");
-            System.out.println(test[i][2]);
-        }
-
-        System.out.println(isWithinDateRange(test[0][0], test[16][1]));
-        throw new CommandException("success");
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     /**
@@ -81,6 +72,24 @@ public class FirstDayCommand extends Command {
         LocalDate systemDate = LocalDate.now();
         return (systemDate.isEqual(firstDate) || systemDate.isAfter(firstDate) && (systemDate.isBefore(lastDate)
                 || systemDate.isEqual(lastDate)));
+    }
+
+    /**
+     * Retrieve the description of a particular week. If week can't be found, return empty string
+     * @param rangeOfWeek
+     * @return description of week
+     */
+    public String retrieveWeekDescription(String[][] rangeOfWeek) {
+        LocalDate systemDate = LocalDate.now();
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            LocalDate firstDate = LocalDate.parse(rangeOfWeek[i][0], DateTimeFormatter.ofPattern("ddMMyy"));
+            LocalDate lastDate = LocalDate.parse(rangeOfWeek[i][1], DateTimeFormatter.ofPattern("ddMMyy"));
+            if (systemDate.isEqual(firstDate) || systemDate.isAfter(firstDate) && (systemDate.isBefore(lastDate)
+                    || systemDate.isEqual(lastDate))) {
+                return rangeOfWeek[i][2];
+            }
+        }
+        return "";
     }
 
     /**
