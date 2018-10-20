@@ -17,6 +17,9 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
+
 /**
  * A utility class to help with building Event objects.
  */
@@ -39,7 +42,7 @@ public class EventBuilder {
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
         address = new Address(DEFAULT_ADDRESS);
-        organiser = new PersonBuilder().build();
+        organiser = ALICE;
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
@@ -108,7 +111,7 @@ public class EventBuilder {
      * Adds one person as a participant to the event.
      */
     public EventBuilder withParticipant() {
-        personList.add(new PersonBuilder().build());
+        personList.add(ALICE);
         return this;
     }
 

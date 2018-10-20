@@ -4,15 +4,19 @@ package seedu.address.logic.commands.eventcommands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -25,13 +29,17 @@ public class AddPollCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedAddPoll() {
+    public void execute_acceptedAddPoll() throws NoEventSelectedException, NoUserLoggedInException,
+            NotEventOrganiserException {
         AddPollCommand command = new AddPollCommand(POLLNAME);
-        Person user = new PersonBuilder().build();
+        Person user = ALICE;
         model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
+        expectedModel.setSelectedEvent(event);
+        expectedModel.setCurrentUser(user);
+        expectedModel.addPoll(POLLNAME);
         expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

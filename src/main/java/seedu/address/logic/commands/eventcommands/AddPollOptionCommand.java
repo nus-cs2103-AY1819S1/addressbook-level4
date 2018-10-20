@@ -52,7 +52,7 @@ public class AddPollOptionCommand extends Command {
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("No poll exists at this index.");
+            throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
         } catch (NoEventSelectedException e) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }

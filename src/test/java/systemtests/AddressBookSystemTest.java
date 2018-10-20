@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import guitests.guihandles.EventListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -33,14 +35,17 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
 import seedu.address.logic.commands.personcommands.ClearCommand;
 import seedu.address.logic.commands.personcommands.FindCommand;
 import seedu.address.logic.commands.personcommands.ListCommand;
 import seedu.address.logic.commands.personcommands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.testutil.TypicalEvents;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.EventListPanel;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
@@ -83,7 +88,8 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        //return TypicalPersons.getTypicalAddressBook();
+        return TypicalEvents.getAddressBookWithPersonAndEvents();
     }
 
     /**
@@ -103,6 +109,10 @@ public abstract class AddressBookSystemTest {
 
     public PersonListPanelHandle getPersonListPanel() {
         return mainWindowHandle.getPersonListPanel();
+    }
+
+    public EventListPanelHandle getEventListPanel() {
+        return mainWindowHandle.getEventListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -150,6 +160,14 @@ public abstract class AddressBookSystemTest {
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    }
+
+    /**
+     * Displays all events with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showEventsWithName(String keyword) {
+        executeCommand(FindEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_NAME + keyword);
+        assertTrue(getModel().getFilteredEventList().size() < getModel().getAddressBook().getEventList().size());
     }
 
     /**

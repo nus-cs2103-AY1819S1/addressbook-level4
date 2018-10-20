@@ -197,8 +197,9 @@ public class ModelManager extends ComponentManager implements Model {
         if (!currentUser.equals(currentEvent.getOrganiser())) {
             throw new NotEventOrganiserException();
         }
+        int index = versionedAddressBook.getEventList().indexOf(currentEvent);
         Poll poll = currentEvent.addPoll(pollName);
-        updateEvent(currentEvent, currentEvent);
+        updateEvent(index, currentEvent);
         return poll;
     }
 
@@ -250,7 +251,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         Event event = getEvent(index);
         event.addPerson(currentUser);
-        updateEvent(currentEvent, currentEvent);
+        updateEvent(event, event);
     }
 
     @Override
