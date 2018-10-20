@@ -66,6 +66,7 @@ public class ServedPatientListManager implements ServedPatientList {
         return servedPatientList;
     }
 
+    @Override
     public boolean containsPatient(Patient patient) {
         for (ServedPatient servedPatient : servedPatientList) {
             if (servedPatient.isPatient(patient)) {
