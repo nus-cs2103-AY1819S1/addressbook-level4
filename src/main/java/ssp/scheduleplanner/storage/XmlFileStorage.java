@@ -48,4 +48,16 @@ public class XmlFileStorage {
         }
     }
 
+    /**
+     * Returns rangeOfWeek in the file
+     */
+    public static XmlSerializableRangeOfWeek loadWeekDataFromSaveFile(Path file) throws DataConversionException,
+            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableRangeOfWeek.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
 }

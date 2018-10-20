@@ -40,7 +40,6 @@ public class XmlAdaptedRangeOfWeek {
 
     /**
      * Converts a given RangeOfWeek into this class for JAXB use.
-     *
      * @param source future changes to this will not affect the created XmlAdaptedRangeOfWeek
      */
     public XmlAdaptedRangeOfWeek(RangeOfWeek source) {
@@ -78,6 +77,26 @@ public class XmlAdaptedRangeOfWeek {
         }
 
         return new RangeOfWeek(startOfWeekDate, endOfWeekDate, description);
+    }
+
+    public String getStartOfWeekDate() {
+        return startOfWeekDate;
+    }
+
+    public String getEndOfWeekDate() {
+        return endOfWeekDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(startOfWeekDate);
+        sb.append(endOfWeekDate);
+        sb.append(description);
+        return sb.toString();
     }
 
     @Override

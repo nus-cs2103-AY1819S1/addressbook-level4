@@ -2,15 +2,9 @@ package ssp.scheduleplanner.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import ssp.scheduleplanner.commons.exceptions.IllegalValueException;
-import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
-import ssp.scheduleplanner.model.SchedulePlanner;
-import ssp.scheduleplanner.model.task.Task;
 
 /**
  * An Immutable rangeOfWeek for schedule planner that is serializable to XML format
@@ -39,8 +33,32 @@ public class XmlSerializableRangeOfWeek {
         this();
         for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
             rangeOfWeeks.add(new XmlAdaptedRangeOfWeek(src[i][0], src[i][1], src[i][2]));
-            }
         }
+    }
+
+    /**
+     * Conversion from RangeOfWeeks to 2d array
+     */
+    public String[][] convertRangeOfWeeksToString2dArray(XmlSerializableRangeOfWeek rangeOfWeek) {
+        String[][] string2dArray = new String[WEEKS_IN_SEMESTER][3];
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            string2dArray[i][0] = rangeOfWeeks.get(i).getStartOfWeekDate();
+            string2dArray[i][1] = rangeOfWeeks.get(i).getEndOfWeekDate();
+            string2dArray[i][2] = rangeOfWeeks.get(i).getDescription();
+        }
+        return string2dArray;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            sb.append(rangeOfWeeks.get(i).toString());
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
 
     @Override
     public boolean equals(Object other) {

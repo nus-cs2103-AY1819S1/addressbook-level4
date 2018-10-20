@@ -6,6 +6,10 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.xml.bind.JAXBException;
+
+import ssp.scheduleplanner.commons.exceptions.DataConversionException;
+import ssp.scheduleplanner.commons.util.XmlUtil;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
@@ -28,6 +32,7 @@ public class FirstDayCommand extends Command {
     public static final String MESSAGE_NOT_MONDAY = "Date given is not a Monday";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "Unable to save range of dates of semester as "
             + "default file is missing";
+    public static final String MESSAGE_DATA_UNABLE_CONVERT = "Data unable to convert from saved file";
 
     private static final int WEEKS_IN_SEMESTER = 17;
     private final String inputDate;
@@ -64,7 +69,35 @@ public class FirstDayCommand extends Command {
             throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
+        String[][] test = new String[17][3];
+
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            test = range.convertRangeOfWeeksToString2dArray(range);
+        } catch (DataConversionException e) {
+            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+
+        for (int i = 0; i < 17; i++) {
+            System.out.printf(test[i][0]);
+            System.out.printf(" ");
+            System.out.printf(test[i][1]);
+            System.out.printf(" ");
+            System.out.println(test[i][2]);
+        }
+
         throw new CommandException("success");
+    }
+
+    private XmlSerializableRangeOfWeek getDataFromFile (Path file) throws
+            DataConversionException, FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(path, XmlSerializableRangeOfWeek.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
     }
 
     /**
