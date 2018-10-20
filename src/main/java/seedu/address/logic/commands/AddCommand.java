@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -61,6 +63,9 @@ public class AddCommand extends Command {
 
         model.addPerson(toAdd);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
