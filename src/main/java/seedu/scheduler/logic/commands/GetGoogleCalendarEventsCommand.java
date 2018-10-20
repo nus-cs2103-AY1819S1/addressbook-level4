@@ -1,6 +1,7 @@
 package seedu.scheduler.logic.commands;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
 
     public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
+    public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
 
     private static final String CALENDAR_NAME = "primary";
 
@@ -49,7 +51,12 @@ public class GetGoogleCalendarEventsCommand extends Command {
         Calendar service = connectToGoogleCalendar.getCalendar();
 
         //Get events from a specified calendar
-        Events events = getEvents(service);
+        Events events = null;
+        try {
+            events = getEvents(service);
+        } catch (UnknownHostException e) {
+            return new CommandResult(MESSAGE_INTERNET_ERROR);
+        }
 
         //Extract the items from the events object
         List <Event> items = events.getItems();
@@ -93,12 +100,12 @@ public class GetGoogleCalendarEventsCommand extends Command {
     /**
      * Parser the Google Event format to local Format.
      *
-     * @param model The current scheduler model.
-     * @param newEventname The Google event name.
+     * @param model             The current scheduler model.
+     * @param newEventname      The Google event name.
      * @param newEventStartDate The Google event start date.
      * @param newEventStartTime The Google event start timing.
-     * @param newEventEndDate The Google event end date.
-     * @param newEventEndTime The Google event end timing.
+     * @param newEventEndDate   The Google event end date.
+     * @param newEventEndTime   The Google event end timing.
      */
     private void addGcEventToLocal(Model model, String newEventname, String newEventStartDate, String newEventStartTime,
                                    String newEventEndDate, String newEventEndTime) {
@@ -127,7 +134,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         RepeatType repeatType = RepeatType.NONE;
         seedu.scheduler.model.event.DateTime
                 repeatUntilDateTime = endDateTime;
-        Set<Tag> tags = Collections.emptySet();
+        Set <Tag> tags = Collections.emptySet();
         seedu.scheduler.model.event.Event
                 event =
                 new seedu.scheduler.model.event.Event(UUID.randomUUID(), eventName, startDateTime, endDateTime,
@@ -138,7 +145,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         model.commitScheduler();
     }
 
-    private Events getEvents(Calendar service) {
+    private Events getEvents(Calendar service) throws UnknownHostException {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
@@ -156,8 +163,10 @@ public class GetGoogleCalendarEventsCommand extends Command {
                     .setSingleEvents(true)//not the repeated ones
                     //TODO: how to use setSynctoken, to prevent adding the same event multiples times
                     .execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            throw e;
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
         return events;
     }
