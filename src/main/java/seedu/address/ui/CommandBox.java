@@ -31,7 +31,7 @@ public class CommandBox extends UiPart<Region> {
     private final List<String> commands = new ArrayList<>(Arrays.asList(
             "add", "clear", "delete-patient", "delete-doctor", "edit", "exit",
             "find", "help", "history", "list", "redo", "register-patient", "register-doctor",
-            "select", "undo"));
+            ,"remark", "select", "undo"));
     private ListElementPointer historySnapshot;
 
     @FXML
