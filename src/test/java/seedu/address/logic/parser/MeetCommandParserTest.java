@@ -19,7 +19,6 @@ import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 import org.junit.Test;
 
 import seedu.address.logic.commands.MeetCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
 import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.shared.Address;
