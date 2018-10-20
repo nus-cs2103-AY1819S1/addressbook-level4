@@ -61,7 +61,7 @@ public interface ServedPatientList {
      * @return List object of Patients
      */
     ArrayList<ServedPatient> getPatientsAsList();
-  
+
     /**
      * Checks whether served patient list contains a specified patient.
      * @return true if the list contains patient.
