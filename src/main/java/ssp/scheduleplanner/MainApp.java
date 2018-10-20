@@ -124,6 +124,18 @@ public class MainApp extends Application {
 
         logger.info("Using config file : " + configFilePathUsed);
 
+        //edit to update based on date range
+
+        try {
+            if (true) {
+                Config updateConfig = new Config();
+                updateConfig.setAppTitle("week10 liao");
+                ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
+            }
+        } catch (IOException e) {
+            logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
+        }
+
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
@@ -190,6 +202,11 @@ public class MainApp extends Application {
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
+            /* edit to update when user close app
+            Config config = new Config();
+            config.setAppTitle("testing123");
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            */
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
