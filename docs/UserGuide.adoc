@@ -20,7 +20,7 @@ By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 
 = About this guide
 
-This guide provides an overview of ClinicIO and shows you how to install ClinicIO.
+This guide provides an overview of ClinicIO and walks you through the installation process.
 In addition, this guide provides an in-depth documentation for all the features.
 
 This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues.
