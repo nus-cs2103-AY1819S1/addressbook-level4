@@ -297,6 +297,21 @@ Step 2. Upon hitting enter, the `Doctor` will be created and added to the storag
 * Alternative 1 (Current Choice): Implement Google Calendar to reflect upcoming appointment to the doctor. This allow
 doctors to view information provided by the receptionist without accessing HealthBook directly to check the information.
 
+=== Remark Command
+==== Current Implementation
+Remark command allows user to input any information into Doctor/Patient object with no restrictions. This command can
+only be called after person is created.
+
+Step 1. The user types in `remark` in the command box followed by the parameters `index r/some remark`
+
+Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
+previous remark will be deleted.
+
+==== Design Considerations
+===== Aspect: Easier access to remark
+* Alternative 1 (Current choice): Currently, the remark command is only accessible via index. We will change it to be
+accessible via name as this allows the receptionist to edit the remark without looking for the index beforehand.
+
 
 === Logging
 
