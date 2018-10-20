@@ -90,9 +90,11 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
         parseInterestsForEdit(argMultimap.getAllValues(PREFIX_INTEREST)).ifPresent(editPersonDescriptor::setInterests);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
+        /*
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditUserCommand.MESSAGE_NOT_EDITED);
         }
+        */
 
         return new EditUserCommand(index, editPersonDescriptor);
     }
