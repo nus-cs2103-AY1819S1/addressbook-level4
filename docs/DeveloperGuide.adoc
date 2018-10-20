@@ -346,7 +346,7 @@ image::EmptyLocalDataBaseDiagram.png[width="150"]
 **Step 2** The user executes `GetGCEvents` command to download the Google Calendar Events to local database. +
 An Calendar object is to be built with method `getCalendar`. +
 A method `getNetHttpTransport` is called to let application establish a connection with Google to initiate an authorization process
-(for the use who use this command for the  first time).
+(for those who use this command for the  first time).
 
 A pop-up window will appear. The User will be required to log in their Google Account as per other Google Service. +
 After successful login, the login credential will be saved locally such that no future log-in is required. +
@@ -369,7 +369,7 @@ Error can be occurred when the user download and use it.
 For current implementation, only events in the primary (default) are extracted.
 ====
 
-**Step 5** For each event extracted, a [proposed] eventConvertor utility method called `addGcEventToLocal` is called to convert the Google Extreacted Event to local Event.
+**Step 5** For each event extracted, a [proposed] eventConvertor utility method called `addGcEventToLocal` is called to convert the Google Extracted Event to local Event.
 
 **Step 6** In the `execute` method, the converted events are saved in the local database, together with other locally created Events.
 
