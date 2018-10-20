@@ -20,6 +20,11 @@ public class Meal {
         this.recipe = Optional.empty();
     }
 
+    public Meal(Slot slot, Recipe recipe) {
+        this.slot = slot;
+        this.recipe = Optional.ofNullable(recipe);
+    }
+
     public Recipe getRecipe() {
         if (this.recipe.isPresent()) {
             return this.recipe.get();
