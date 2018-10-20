@@ -32,14 +32,14 @@ public class AddEventCommandIntegrationTest {
         expectedModel.addEvent(validEvent);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new AddEventCommand(validEvent), model, commandHistory,
+        assertCommandSuccess(new AddEventCommand(validEvent, null), model, commandHistory,
                 String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), expectedModel);
     }
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() {
         Event eventInList = model.getAddressBook().getEventList().get(0);
-        assertCommandFailure(new AddEventCommand(eventInList), model, commandHistory,
+        assertCommandFailure(new AddEventCommand(eventInList, null), model, commandHistory,
                 AddEventCommand.MESSAGE_DUPLICATE_EVENT);
     }
 }

@@ -18,6 +18,7 @@ import seedu.address.model.event.EventTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -215,5 +216,17 @@ public class ParserUtil {
             throw new ParseException(EventAddress.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new EventAddress(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code Collection<String> indices} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndices(Collection<String> indices) throws ParseException {
+        requireNonNull(indices);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String index : indices) {
+            indexSet.add(parseIndex(index));
+        }
+        return indexSet;
     }
 }

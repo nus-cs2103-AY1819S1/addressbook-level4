@@ -40,7 +40,7 @@ public class AddEventCommandTest {
     @Test
     public void constructor_nullEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddEventCommand(null);
+        new AddEventCommand(null, null);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class AddEventCommandTest {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new ScheduledEventBuilder().build();
 
-        CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEventCommand(validEvent, null).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
@@ -58,7 +58,7 @@ public class AddEventCommandTest {
     @Test
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
         Event validEvent = new ScheduledEventBuilder().build();
-        AddEventCommand addEventCommand = new AddEventCommand(validEvent);
+        AddEventCommand addEventCommand = new AddEventCommand(validEvent, null);
         ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
         thrown.expect(CommandException.class);
@@ -78,7 +78,7 @@ public class AddEventCommandTest {
                 .withEventStartTime("1210")
                 .withEventEndTime("1410")
                 .build();
-        AddEventCommand addEventCommand = new AddEventCommand(clashingEvent);
+        AddEventCommand addEventCommand = new AddEventCommand(clashingEvent, null);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_CLASHING_EVENT);
@@ -89,14 +89,14 @@ public class AddEventCommandTest {
     public void equals() {
         Event firstEvent = new ScheduledEventBuilder().withEventName("event").build();
         Event secondEvent = new ScheduledEventBuilder().withEventName("a different event").build();
-        AddEventCommand addFirstEventCommand = new AddEventCommand(firstEvent);
-        AddEventCommand addSecondEventCommand = new AddEventCommand(secondEvent);
+        AddEventCommand addFirstEventCommand = new AddEventCommand(firstEvent, null);
+        AddEventCommand addSecondEventCommand = new AddEventCommand(secondEvent, null);
 
         // same object -> returns true
         assertTrue(addFirstEventCommand.equals(addFirstEventCommand));
 
         // same values -> returns true
-        AddEventCommand addFirstEventCommandCopy = new AddEventCommand(firstEvent);
+        AddEventCommand addFirstEventCommandCopy = new AddEventCommand(firstEvent, null);
         assertTrue(addFirstEventCommand.equals(addFirstEventCommandCopy));
 
         // different types -> returns false

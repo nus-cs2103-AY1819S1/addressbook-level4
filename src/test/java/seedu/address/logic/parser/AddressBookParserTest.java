@@ -203,7 +203,7 @@ public class AddressBookParserTest {
     public void parseCommand_addEvent() throws Exception {
         Event event = new ScheduledEventBuilder().build();
         AddEventCommand command = (AddEventCommand) parser.parseCommand(ScheduledEventUtil.getAddEventCommand(event));
-        assertEquals(new AddEventCommand(event), command);
+        assertEquals(new AddEventCommand(event, null), command);
     }
 
     @Test
