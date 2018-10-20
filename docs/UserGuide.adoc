@@ -18,16 +18,26 @@ endif::[]
 
 By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 
+= About this guide
+
+This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features.
+
+This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues.
+
 == Introduction
 
-Working at the front desk in a medical clinic? Meet ClinicIO, a desktop app for you to manage patients' medical record as fast as possible.
-More importantly, ClinicIO is *optimized for Command Line Interface* (CLI) while retaining the benefits of a Graphical User Interface (GUI).
-ClinicIO covers a comprehensive set of actions and is designed to get out of your way!
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
+You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
-== Quick Start
+Go to the <<Installation Guide>> to get started on install ClinicIO.
 
-Follow the instructions below to install and use ClinicIO.
+== Installation Guide
+
+This section is designed to help you to setup ClinicIO with 3 simple steps.
+
+[NOTE]
+You can move on to <<User Interface Walkthrough>> if you have installed ClinicIO.
 
 [IMPORTANT]
 Ensure you have Java version `9` or later installed in your Computer. +
@@ -36,17 +46,22 @@ Ensure you have Java version `9` or later installed in your Computer. +
 
 .  Download the latest `clinicio.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ClinicIO.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="1200"]
+_Figure 1 Startup Window_
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+
+Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-[[Features]]
+== User Interface Walkthrough
+
+This section is designed to help you familiarise with all of the user componenet in ClinicIO.
+
 == Features
 
-ClinicIO has a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.
+This section is designed to provide a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.
 
 ================
 *Command Format*
@@ -390,12 +405,14 @@ _{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
+This section is designed to help you answer any issues that are frequently asked by others.
+
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
 
 == Command Summary
 
-This is a comprehensive list of commands for ClinicIO.
+This section is designed to provide a comprehensive list of commands for you.
 
 === General commands
 
