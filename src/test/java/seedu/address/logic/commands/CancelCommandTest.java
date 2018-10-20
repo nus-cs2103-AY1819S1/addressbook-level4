@@ -37,11 +37,11 @@ public class CancelCommandTest {
 
     @Test
     public void execute_validGroupSpecified_success() {
-        Model model = new ModelStubWithSingleGroup(group1);
-        ((ModelStubWithSingleGroup) model).setMeeting(DISCUSSION);
+        Group groupWithMeeting = new Group(groupTitle1);
+        groupWithMeeting.setMeeting(DISCUSSION);
+        Model model = new ModelStubWithSingleGroup(groupWithMeeting);
 
-        Group expectedGroup = new Group(groupTitle1);
-        Model expectedModel = new ModelStubWithSingleGroup(expectedGroup);
+        Model expectedModel = new ModelStubWithSingleGroup(group1);
 
         CancelCommand command = new CancelCommand(group1);
         assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
@@ -85,7 +85,7 @@ public class CancelCommandTest {
         // different group -> returns false
         assertFalse(standardCommand.equals(new CancelCommand(GROUP_2101)));
     }
-// @@author
+    // @@author
 
     private class ModelStubWithSingleGroup extends ModelStub {
 
