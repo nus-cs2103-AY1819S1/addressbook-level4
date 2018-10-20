@@ -5,7 +5,7 @@ import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Article's description in the article list.
- * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Description {
 
@@ -27,14 +27,14 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidDescription(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
