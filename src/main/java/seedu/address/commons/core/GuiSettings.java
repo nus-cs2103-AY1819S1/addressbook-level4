@@ -21,7 +21,7 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
-        notificationIsEnabled = getNotificationIsEnabled(); // true is the default setting
+        notificationIsEnabled = true; // default value is true
     }
 
     public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition, boolean notificationIsEnabled) {

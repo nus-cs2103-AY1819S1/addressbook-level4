@@ -84,7 +84,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setNotification(UserPrefs prefs) {
-        if (prefs.getGuiSettings().getNotificationIsEnabled())
+        //if (prefs.getGuiSettings().getNotificationIsEnabled())
+        if (ModelManager.getNotificationPref())
             NotificationWindow.display(NOTIFICATION_WELCOME_TITLE, NOTIFICATION_WELCOME_TEXT);
     }
 

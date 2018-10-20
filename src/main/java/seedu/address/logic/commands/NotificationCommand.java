@@ -7,6 +7,8 @@ import seedu.address.model.ModelManager;
 
 /**
  * Enable / disable notifications
+ * To do : command result only displayed the first time
+ *         command exception
  */
 
 public class NotificationCommand extends Command {
@@ -19,15 +21,21 @@ public class NotificationCommand extends Command {
             + "Parameters: enable/disable\n"
             + "Example: " + COMMAND_WORD + " enable";
 
-    public static final String MESSAGE_SUCCESS = "Notification: updated";
+    public String MESSAGE_SUCCESS;
 
     private final boolean set;
 
     public NotificationCommand(boolean set) { this.set = set; }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         ModelManager.updateNotificationPref(set);
+
+        if (set)
+            MESSAGE_SUCCESS = "Notification: Enabled";
+        else
+            MESSAGE_SUCCESS = "Notification: Disabled";
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }
