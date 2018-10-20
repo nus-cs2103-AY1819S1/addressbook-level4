@@ -46,11 +46,6 @@ public class FirstDayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //if yes, find how to save in xml format
-        //read XmlUtilTest.java
-
-        System.out.println(inputDate);
-        System.out.println();
         if (!Date.isValidDate(inputDate)) {
             throw new CommandException(MESSAGE_INVALID_DATE);
         }
@@ -61,24 +56,14 @@ public class FirstDayCommand extends Command {
 
         computeRangeOfWeeks(inputDate);
 
-        System.out.println(new XmlSerializableRangeOfWeek(rangeOfWeek));
-
         try {
             XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
-        String[][] test = new String[17][3];
-
-        try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
-            test = range.convertRangeOfWeeksToString2dArray(range);
-        } catch (DataConversionException e) {
-            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
-        } catch (FileNotFoundException e) {
-            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
-        }
+        String[][] test = new String[WEEKS_IN_SEMESTER][3];
+        test = retrieveRangeOfWeeks(test);
 
         for (int i = 0; i < 17; i++) {
             System.out.printf(test[i][0]);
@@ -89,6 +74,23 @@ public class FirstDayCommand extends Command {
         }
 
         throw new CommandException("success");
+    }
+
+    /**
+     * This method retrieve the rangeOfWeeks
+     * @throws DataConversionException
+     * @throws FileNotFoundException
+     */
+    public String[][] retrieveRangeOfWeeks (String[][] storeRangeOfWeeks) throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
+        } catch (DataConversionException e) {
+            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+        return storeRangeOfWeeks;
     }
 
     private XmlSerializableRangeOfWeek getDataFromFile (Path file) throws
