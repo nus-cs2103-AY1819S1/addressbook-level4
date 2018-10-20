@@ -31,6 +31,7 @@ public class ParserUtilTest {
     private static final String INVALID_CHARACTER_TIMESTAMP = "14-10-18M2@22:30";
     private static final String INVALID_DATE_TIMESTAMP = "31-04-2019@11:55";
     private static final String INVALID_FORMAT_TIMESTAMP = "11-22-3333@";
+    private static final String INVALID_LEAPYEAR_TIMESTAMP = "29-2-2018@15:00";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
@@ -233,7 +234,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTimeStamp_invalidDate_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_DATE_TIMESTAMP));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_DATE_TIMESTAMP));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_LEAPYEAR_TIMESTAMP));
     }
     /* @@author */
 
