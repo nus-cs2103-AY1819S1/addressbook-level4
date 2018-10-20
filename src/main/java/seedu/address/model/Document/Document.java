@@ -108,7 +108,7 @@ public class Document {
         informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt) this).unpackConsultationInformation());
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt) this).formatReceiptInformation());
         } else {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet");
         }
