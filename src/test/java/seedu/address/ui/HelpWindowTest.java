@@ -64,6 +64,7 @@ public class HelpWindowTest extends GuiUnitTest {
         ///assertFalse(helpWindow.getRoot().isFocused());
 
         guiRobot.interact(helpWindow::focus);
-        ///assertTrue(helpWindow.getRoot().isFocused());
+        ///
+        // assertTrue(helpWindow.getRoot().isFocused());
     }
 }
