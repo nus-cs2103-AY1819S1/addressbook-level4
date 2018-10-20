@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.MeetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.Description;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.Meeting;
-import seedu.address.model.group.TimeStamp;
-import seedu.address.model.group.Title;
-import seedu.address.model.person.Address;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.TimeStamp;
+import seedu.address.model.shared.Address;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 // @@author NyxF4ll
 /**
