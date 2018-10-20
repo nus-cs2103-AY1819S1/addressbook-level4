@@ -162,15 +162,4 @@ public class GetGoogleCalendarEventsCommand extends Command {
         return events;
     }
 
-    private Calendar getCalendar() {
-
-        // Build Google calender service object.
-        return connectToGoogleCalendar.getCalendar();
-    }
-
-    private NetHttpTransport getNetHttpTransport() {
-        // Build a new authorized API client service.
-        return connectToGoogleCalendar.getNetHttpTransport();
-    }
-
 }
