@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.BEN;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalClinicIo;
 
 import org.junit.Test;
 
@@ -21,8 +21,8 @@ import seedu.address.model.doctor.Password;
 //@@author jjlee050
 public class LoginCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinicIo(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalClinicIo(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private Analytics analytics = new Analytics();
 

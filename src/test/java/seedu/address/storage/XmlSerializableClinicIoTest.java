@@ -31,7 +31,7 @@ public class XmlSerializableClinicIoTest {
         XmlSerializableClinicIo dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableClinicIo.class);
         ClinicIo clinicIoFromFile = dataFromFile.toModelType();
-        ClinicIo typicalPersonsClinicIo = TypicalPersons.getTypicalAddressBook();
+        ClinicIo typicalPersonsClinicIo = TypicalPersons.getTypicalClinicIo();
         assertEquals(clinicIoFromFile, typicalPersonsClinicIo);
     }
 

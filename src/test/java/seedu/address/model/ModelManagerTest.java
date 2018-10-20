@@ -20,7 +20,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ClinicIoBuilder;
 
 public class ModelManagerTest {
 
@@ -114,7 +114,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ClinicIo clinicIo = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON)
+        ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)
                 .withDoctor(ADAM).withDoctor(BEN).build();
         ClinicIo differentClinicIo = new ClinicIo();
         UserPrefs userPrefs = new UserPrefs();

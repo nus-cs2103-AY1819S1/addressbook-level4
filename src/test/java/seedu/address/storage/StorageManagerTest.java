@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalClinicIo;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,9 +32,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlClinicIoStorage addressBookStorage = new XmlClinicIoStorage(getTempFilePath("ab"));
+        XmlClinicIoStorage clinicIoStorage = new XmlClinicIoStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(clinicIoStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -63,7 +63,7 @@ public class StorageManagerTest {
          * {@link XmlClinicIoStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlClinicIoStorageTest} class.
          */
-        ClinicIo original = getTypicalAddressBook();
+        ClinicIo original = getTypicalClinicIo();
         storageManager.saveClinicIo(original);
         ReadOnlyClinicIo retrieved = storageManager.readClinicIo().get();
         assertEquals(original, new ClinicIo(retrieved));

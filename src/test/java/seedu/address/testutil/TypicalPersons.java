@@ -85,20 +85,20 @@ public class TypicalPersons {
     /**
      * Returns an {@code ClinicIo} with all the typical persons.
      */
-    public static ClinicIo getTypicalAddressBook() {
-        ClinicIo ab = new ClinicIo();
+    public static ClinicIo getTypicalClinicIo() {
+        ClinicIo clinicIo = new ClinicIo();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            clinicIo.addPerson(person);
         }
         for (Doctor doctor : getTypicalDoctors()) {
-            ab.addDoctor(doctor);
+            clinicIo.addDoctor(doctor);
         }
         /*
         for (Appointment appointment : getTypicalAppointments()) {
-            ab.addAppointment(appointment);
+            clinicIo.addAppointment(appointment);
         }
         */
-        return ab;
+        return clinicIo;
     }
 
     public static List<Person> getTypicalPersons() {

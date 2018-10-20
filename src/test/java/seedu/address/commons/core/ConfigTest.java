@@ -17,7 +17,7 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : ClinicIO\n"
                 + "Current log level : INFO\n"
                 + "Preference file Location : preferences.json";
-
+        
         assertEquals(defaultConfigAsString, new Config().toString());
     }
 

@@ -81,9 +81,9 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableClinicIo xmlAddressBook =
+        XmlSerializableClinicIo xmlClinicIo =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableClinicIo.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        return FXCollections.observableArrayList(xmlClinicIo.toModelType().getPersonList());
     }
 
     /**

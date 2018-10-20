@@ -12,7 +12,7 @@ import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY_APPT;
 import static seedu.address.testutil.TypicalPersons.CARL_APPT;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalClinicIo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ public class ClinicIoTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        ClinicIo newData = getTypicalAddressBook();
+        ClinicIo newData = getTypicalClinicIo();
         clinicIo.resetData(newData);
         assertEquals(newData, clinicIo);
     }

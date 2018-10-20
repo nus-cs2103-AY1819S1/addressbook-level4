@@ -45,7 +45,7 @@ import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for ClinicIo, which provides access to handles of GUI components and helper methods
+ * A system test class for ClinicIO, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
 public abstract class ClinicIoSystemTest {
@@ -85,7 +85,7 @@ public abstract class ClinicIoSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected ClinicIo getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalPersons.getTypicalClinicIo();
     }
 
     /**
@@ -139,7 +139,7 @@ public abstract class ClinicIoSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the ClinicIO.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -163,7 +163,7 @@ public abstract class ClinicIoSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the ClinicIO.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -179,7 +179,7 @@ public abstract class ClinicIoSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new ClinicIo(expectedModel.getClinicIo()), testApp.readStorageAddressBook());
+        assertEquals(new ClinicIo(expectedModel.getClinicIo()), testApp.readStorageClinicIo());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

@@ -16,16 +16,16 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ClinicIoBuilder;
 
 public class VersionedClinicIoTest {
 
-    private final ReadOnlyClinicIo addressBookWithAmy = new AddressBookBuilder().withPerson(AMY)
+    private final ReadOnlyClinicIo addressBookWithAmy = new ClinicIoBuilder().withPerson(AMY)
             .withDoctor(ADAM).build();
-    private final ReadOnlyClinicIo addressBookWithBob = new AddressBookBuilder().withPerson(BOB)
+    private final ReadOnlyClinicIo addressBookWithBob = new ClinicIoBuilder().withPerson(BOB)
             .withDoctor(BEN).build();
-    private final ReadOnlyClinicIo addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyClinicIo emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyClinicIo addressBookWithCarl = new ClinicIoBuilder().withPerson(CARL).build();
+    private final ReadOnlyClinicIo emptyAddressBook = new ClinicIoBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {

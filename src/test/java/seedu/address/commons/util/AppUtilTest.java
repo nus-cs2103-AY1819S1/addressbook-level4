@@ -11,13 +11,10 @@ public class AppUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-
-
     @Test
     public void getImage_exitingImage() {
         assertNotNull(AppUtil.getImage("/images/clinicio.png"));
     }
-
 
     @Test
     public void getImage_nullGiven_throwsNullPointerException() {

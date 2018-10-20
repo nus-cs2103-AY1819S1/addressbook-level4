@@ -69,13 +69,13 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the ClinicIO data stored inside the storage file.
      */
-    public ClinicIo readStorageAddressBook() {
+    public ClinicIo readStorageClinicIo() {
         try {
             return new ClinicIo(storage.readClinicIo().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the ClinicIo format.", dce);
+            throw new AssertionError("Data is not in the ClinicIO format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalClinicIo;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class ClearCommandTest {
     private Analytics analytics = new Analytics();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyClinicIo_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitClinicIo();
@@ -28,9 +28,9 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyClinicIo_success() {
+        Model model = new ModelManager(getTypicalClinicIo(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalClinicIo(), new UserPrefs());
         expectedModel.resetData(new ClinicIo());
         expectedModel.commitClinicIo();
 

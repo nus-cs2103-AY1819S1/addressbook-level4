@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalClinicIo;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -76,7 +76,7 @@ public class XmlClinicIoStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        ClinicIo original = getTypicalAddressBook();
+        ClinicIo original = getTypicalClinicIo();
         XmlClinicIoStorage xmlAddressBookStorage = new XmlClinicIoStorage(filePath);
 
         //Save in new file and read back

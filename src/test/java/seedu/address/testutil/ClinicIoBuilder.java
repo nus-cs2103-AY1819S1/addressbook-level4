@@ -5,26 +5,26 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building ClinicIO objects.
  * Example usage: <br>
- *     {@code ClinicIo ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code ClinicIo clinicIo = new ClinicIoBuilder().withPerson("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class ClinicIoBuilder {
 
     private ClinicIo clinicIo;
 
-    public AddressBookBuilder() {
+    public ClinicIoBuilder() {
         clinicIo = new ClinicIo();
     }
 
-    public AddressBookBuilder(ClinicIo clinicIo) {
+    public ClinicIoBuilder(ClinicIo clinicIo) {
         this.clinicIo = clinicIo;
     }
 
     /**
      * Adds a new {@code Person} to the {@code ClinicIo} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
+    public ClinicIoBuilder withPerson(Person person) {
         clinicIo.addPerson(person);
         return this;
     }
@@ -32,7 +32,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Doctor} to the {@code ClinicIo} that we are building.
      */
-    public AddressBookBuilder withDoctor(Doctor doctor) {
+    public ClinicIoBuilder withDoctor(Doctor doctor) {
         clinicIo.addDoctor(doctor);
         return this;
     }
