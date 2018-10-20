@@ -19,20 +19,20 @@ public class Volunteer {
 
     // Identity fields
     private final VolunteerId volunteerId;
-    private final Name name;
+    private final VolunteerName name;
     private final Gender gender;
     private final Birthday birthday;
-    private final Phone phone;
-    private final Email email;
+    private final VolunteerPhone phone;
+    private final VolunteerEmail email;
 
     // Data fields
-    private final Address address;
+    private final VolunteerAddress address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Used when creating new Volunteer. Every field must be present and not null.
      */
-    public Volunteer(Name name, Gender gender, Birthday birthday, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Volunteer(VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
         requireAllNonNull(name, gender, birthday, phone, email, address, tags);
 
         incrementMaxId();
@@ -51,7 +51,7 @@ public class Volunteer {
      * Used when loading data from XML and editing Volunteer.
      * Every field must be present and not null.
      */
-    public Volunteer(VolunteerId volunteerId, Name name, Gender gender, Birthday birthday, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Volunteer(VolunteerId volunteerId, VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
         requireAllNonNull(volunteerId, name, phone, email, address, tags);
 
         if (isVolunteerIdGreaterThanMaxId(volunteerId.id)) {
@@ -96,7 +96,7 @@ public class Volunteer {
         return volunteerId;
     }
 
-    public Name getName() {
+    public VolunteerName getName() {
         return name;
     }
 
@@ -104,15 +104,15 @@ public class Volunteer {
 
     public Birthday getBirthday() { return  birthday; }
 
-    public Phone getPhone() {
+    public VolunteerPhone getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public VolunteerEmail getEmail() {
         return email;
     }
 
-    public Address getAddress() {
+    public VolunteerAddress getAddress() {
         return address;
     }
 
