@@ -125,7 +125,7 @@ public class AddressBookParser {
             return new EditUserCommandParser().parse(arguments);
 
         case SelectUserCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            return new SelectUserCommandParser().parse(arguments);
 
         case DeleteUserCommand.COMMAND_WORD:
             return new DeleteUserCommandParser().parse(arguments);

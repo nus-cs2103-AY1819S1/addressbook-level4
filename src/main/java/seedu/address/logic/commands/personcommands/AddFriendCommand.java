@@ -27,7 +27,7 @@ public class AddFriendCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": For two persons identified by the index number used in the displayed person list, "
             + "add friend for each other.\n"
-            + "Parameters: INDEX,INDEX (both must be a positive integer)\n"
+            + "Parameters: INDEX,INDEX (both must be a positive integer and different from each other)\n"
             + "Example: " + COMMAND_WORD + " 1,2";
 
     public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1$s, %2$s";
