@@ -6,13 +6,11 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
-<fx:root minHeight="675" minWidth="1200.0" onCloseRequest="#handleExit" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="450.0" minWidth="800.0" onCloseRequest="#handleExit"
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8">
     <icons>
         <Image url="@/images/calendar.png"/>
     </icons>
@@ -34,17 +32,12 @@
                 </VBox>
 
                 <VBox prefHeight="675.0" prefWidth="900.0">
-                    <VBox fx:id="dayMonthPanelPlaceholder" prefHeight="110" prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="calendarPanelPlaceholder" prefHeight="380" prefWidth="900"
-                               VBox.vgrow="ALWAYS"/>
-                    <StackPane fx:id="calendarCommandBoxBorder" maxHeight="1.7976931348623157E308" minHeight="25.0"
-                               prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="1.7976931348623157E308" prefHeight="25"
-                               prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="135.0"
-                               VBox.vgrow="NEVER"/>
+                    <VBox fx:id="dayMonthYearPanelPlaceholder" prefHeight="110" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="calendarPanelPlaceholder" prefHeight="380" prefWidth="900" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="calendarCommandBoxBorder" minHeight="25.0" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="commandBoxPlaceholder" prefHeight="25" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="resultDisplayPlaceholder" minHeight="135.0" VBox.vgrow="NEVER"/>
                 </VBox>
-
             </SplitPane>
         </Scene>
     </scene>

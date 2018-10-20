@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -11,7 +10,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -58,9 +56,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane calendarPanelPlaceholder;
 
-
     @FXML
-    private VBox dayMonthPanelPlaceholder;
+    private VBox dayMonthYearPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -76,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
+        // TODO decide if setAccelerators is necessary
         // setAccelerators();
         registerAsAnEventHandler(this);
 
@@ -129,11 +127,10 @@ public class MainWindow extends UiPart<Stage> {
         TaskListPanel taskListPanel = new TaskListPanel();
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        DayMonthPanel dayMonthPanel = new DayMonthPanel(logic.getFilteredCalendarEventList());
-        dayMonthPanelPlaceholder.getChildren().add(dayMonthPanel.getRoot());
+        DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFilteredCalendarEventList());
+        dayMonthYearPanelPlaceholder.getChildren().add(dayMonthYearPanel.getRoot());
 
-        CalendarPanel calendarPanel =
-            new CalendarPanel(logic.getFilteredCalendarEventList());
+        CalendarPanel calendarPanel = new CalendarPanel(logic.getFilteredCalendarEventList());
         calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -199,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
         return calendarPanel;
     }
 
+    // TODO remove method if not using browserPanel anymore
     void releaseResources() {
         browserPanel.freeResources();
     }
