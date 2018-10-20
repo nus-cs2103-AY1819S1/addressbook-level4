@@ -30,12 +30,14 @@ public class ListUserCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListUserCommand(), model, commandHistory, ListUserCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListUserCommand(), model, commandHistory,
+                ListUserCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST);
-        assertCommandSuccess(new ListUserCommand(), model, commandHistory, ListUserCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListUserCommand(), model, commandHistory,
+                ListUserCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
