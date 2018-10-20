@@ -30,7 +30,7 @@ public class MeetCommand extends Command {
             + "[" + PREFIX_NAME + "MEETING_TITLE] "
             + "[" + PREFIX_TIMESTAMP + "MEETING_TIME] "
             + "[" + PREFIX_LOCATION + "MEETING_LOCATION] "
-            + "[" + PREFIX_DESCRIPTION + "MEETING_DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + "MEETING_DESCRIPTION]\n"
 
             + "Example: " + COMMAND_WORD + " CS2103 "
             + PREFIX_NAME + "Demo Rehearsal"
@@ -46,7 +46,7 @@ public class MeetCommand extends Command {
 
     /**
      * Constructor for the MeetCommand Class.
-     * @param group Index of the group in the displayed list.
+     * @param group The group to associated the meeting with.
      * @param meeting Value of the new meeting, null value for this means that there are no meetings for this group.
      */
     public MeetCommand(Group group, Meeting meeting) {
@@ -97,7 +97,6 @@ public class MeetCommand extends Command {
 
         // instanceof handles nulls
         if (!(other instanceof MeetCommand)) {
-            System.out.println("!");
             return false;
         }
 
