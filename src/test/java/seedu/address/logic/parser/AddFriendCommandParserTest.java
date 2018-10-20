@@ -26,6 +26,7 @@ public class AddFriendCommandParserTest {
 
     @Test
     public void parseInvalidArgsThrowsParseException() {
-        assertParseFailure(parser, "a,b", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFriendCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a,b", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddFriendCommand.MESSAGE_USAGE));
     }
 }
