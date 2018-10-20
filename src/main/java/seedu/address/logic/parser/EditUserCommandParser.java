@@ -75,7 +75,8 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
             String scheduleString = argMultimap.getValue(PREFIX_SCHEDULE).get();
             editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
         }
-        else if (argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).isPresent()) {
+
+        if (argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).get();
             Schedule s = new Schedule();
             String[] parms = link.split(" ");
