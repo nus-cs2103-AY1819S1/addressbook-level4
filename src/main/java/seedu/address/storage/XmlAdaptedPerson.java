@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,8 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedInterest> interests = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedPerson> friends = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -86,7 +89,6 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
-
     }
 
     /**
@@ -97,11 +99,15 @@ public class XmlAdaptedPerson {
     public Person toModelType() throws IllegalValueException {
         final List<Interest> personInterests = new ArrayList<>();
         final List<Tag> personTags = new ArrayList<>();
+        final ArrayList<Person> personFriends = new ArrayList<>();
         for (XmlAdaptedInterest interest : interests) {
             personInterests.add(interest.toModelType());
         }
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (XmlAdaptedPerson friend : friends) {
+            personFriends.add(friend.toModelType());
         }
 
         if (name == null) {
@@ -152,7 +158,9 @@ public class XmlAdaptedPerson {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule,
+                personFriends);
     }
 
     public String getName() {
@@ -183,6 +191,10 @@ public class XmlAdaptedPerson {
         return tagged;
     }
 
+    public List<XmlAdaptedPerson> getFriends() {
+        return friends;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -199,6 +211,7 @@ public class XmlAdaptedPerson {
             && Objects.equals(email, otherPerson.email)
             && Objects.equals(address, otherPerson.address)
             && interests.equals(otherPerson.interests)
-            && tagged.equals(otherPerson.tagged);
+            && tagged.equals(otherPerson.tagged)
+            && friends.equals(otherPerson.friends);
     }
 }

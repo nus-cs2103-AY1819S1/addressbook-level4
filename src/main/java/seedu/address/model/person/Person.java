@@ -59,6 +59,22 @@ public class Person {
     }
 
     /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests,
+                  Set<Tag> tags, Schedule schedule, ArrayList<Person> friends) {
+        requireAllNonNull(name, phone, email, address, interests, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.interests.addAll(interests);
+        this.tags.addAll(tags);
+        this.schedule = schedule;
+        this.friends = friends;
+    }
+
+    /**
      * Make a duplicate of a person
      */
     public Person(Person other) {

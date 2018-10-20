@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class DisplayPollCommandParser implements Parser<DisplayPollCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * and returns an DeleteCommand object for execution.
+     * and returns an DeleteUserCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DisplayPollCommand parse(String args) throws ParseException {

@@ -33,10 +33,10 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.personcommands.ClearCommand;
-import seedu.address.logic.commands.personcommands.FindCommand;
-import seedu.address.logic.commands.personcommands.ListCommand;
-import seedu.address.logic.commands.personcommands.SelectCommand;
+import seedu.address.logic.commands.personcommands.ClearUserCommand;
+import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListUserCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
@@ -140,7 +140,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListUserCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
@@ -148,7 +148,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindUserCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
@@ -156,7 +156,7 @@ public abstract class AddressBookSystemTest {
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectUserCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
@@ -164,7 +164,7 @@ public abstract class AddressBookSystemTest {
      * Deletes all persons in the address book.
      */
     protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearUserCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
