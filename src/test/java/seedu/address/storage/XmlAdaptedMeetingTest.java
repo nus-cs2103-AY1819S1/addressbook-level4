@@ -90,7 +90,7 @@ public class XmlAdaptedMeetingTest {
         XmlAdaptedMeeting meeting =
                 new XmlAdaptedMeeting(VALID_TITLE, VALID_TIME, INVALID_LOCATION, VALID_DESCRIPTION);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
-
+        System.out.println(VALID_TIME);
         Assert.assertThrows(IllegalValueException.class, expectedMessage, meeting::toModelType);
     }
 
