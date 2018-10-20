@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.group.UniqueGroupTagList;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -157,8 +158,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * The method is not yet stable. (under construction)
      */
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
+        if (!hasGroup(target)) {
+            throw new GroupNotFoundException();
+        }
         // clear members of target & set up members for editedGroup
         // TODO
         groups.setGroup(target, editedGroup);
