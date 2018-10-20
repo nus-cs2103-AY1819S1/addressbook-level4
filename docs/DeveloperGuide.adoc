@@ -313,7 +313,7 @@ previous remark will be deleted.
 accessible via name as this allows the receptionist to edit the remark without looking for the index beforehand.
 
 === Add Medical History Feature
-====Current Implementation
+==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
 command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient`.
 
