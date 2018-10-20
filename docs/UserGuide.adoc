@@ -27,7 +27,7 @@ This guide does not assume any prior technical knowledge. Check the <<FAQ>> sect
 
 == Introduction
 
-ClinicIO is a desktop app to help you manage clinic with ease, efficient and simplicity.
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
 Go to the <<Installation Guide>> to get started on install ClinicIO.
