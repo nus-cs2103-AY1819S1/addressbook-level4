@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ModelStub;
@@ -47,7 +48,10 @@ public class ModelStubWithSingleGroup extends ModelStub {
     }
 
     @Override
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
+        if (!target.isSameGroup(this.group)) {
+            throw new GroupNotFoundException();
+        }
         this.group = editedGroup;
     }
 
