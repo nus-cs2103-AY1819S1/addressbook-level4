@@ -5,19 +5,19 @@ import seedu.address.commons.events.BaseEvent;
 //@@author EatOrBeEaten
 
 /**
- * Indicates that Email is to be loaded from local directory.
+ * Indicates that an Email is to be loaded from local directory.
  */
 public class EmailLoadEvent extends BaseEvent {
 
-    public final String emailName;
+    public final String data;
 
-    public EmailLoadEvent(String emailName) {
-        this.emailName = emailName;
+    public EmailLoadEvent(String data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
-        return emailName;
+        return data;
     }
 
 }
