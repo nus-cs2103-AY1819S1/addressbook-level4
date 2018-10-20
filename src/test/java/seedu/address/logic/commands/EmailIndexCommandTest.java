@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SET;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
@@ -39,7 +39,7 @@ public class EmailIndexCommandTest {
     public void execute_emailAccepted_composeSuccessful() throws Exception {
         Email validEmail = new DefaultEmailBuilder().build();
 
-        CommandResult commandResult = new EmailIndexCommand(validEmail, INDEX_FIRST_PERSON)
+        CommandResult commandResult = new EmailIndexCommand(validEmail, INDEX_SET)
                 .execute(model, commandHistory);
 
         assertEquals(String.format(EmailIndexCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
@@ -51,14 +51,14 @@ public class EmailIndexCommandTest {
     public void equals() {
         Email meeting = new DefaultEmailBuilder().withSubject("Meeting").build();
         Email conference = new DefaultEmailBuilder().withSubject("Conference").build();
-        EmailIndexCommand composeMeetingCommand = new EmailIndexCommand(meeting, INDEX_FIRST_PERSON);
-        EmailIndexCommand composeConferenceCommand = new EmailIndexCommand(conference, INDEX_FIRST_PERSON);
+        EmailIndexCommand composeMeetingCommand = new EmailIndexCommand(meeting, INDEX_SET);
+        EmailIndexCommand composeConferenceCommand = new EmailIndexCommand(conference, INDEX_SET);
 
         // same object -> returns true
         assertTrue(composeMeetingCommand.equals(composeMeetingCommand));
 
         // same values -> returns true
-        EmailIndexCommand composeMeetingCommandCopy = new EmailIndexCommand(meeting, INDEX_FIRST_PERSON);
+        EmailIndexCommand composeMeetingCommandCopy = new EmailIndexCommand(meeting, INDEX_SET);
         assertTrue(composeMeetingCommand.equals(composeMeetingCommandCopy));
 
         // different types -> returns false
