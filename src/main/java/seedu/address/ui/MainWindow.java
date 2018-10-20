@@ -19,6 +19,7 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
@@ -29,8 +30,9 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    public static final String NOTIFICATION_WELCOME_TITLE = "Welcome";
-    public static final String NOTIFICATION_WELCOME_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -84,9 +86,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setNotification(UserPrefs prefs) {
-        //if (prefs.getGuiSettings().getNotificationIsEnabled())
-        if (ModelManager.getNotificationPref())
-            NotificationWindow.display(NOTIFICATION_WELCOME_TITLE, NOTIFICATION_WELCOME_TEXT);
+
+        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+        ModelManager.updateFavourite(prefs.getGuiSettings().getFavourite());
+
+        if (ModelManager.getNotificationPref()) {
+            if (ModelManager.getFavourite() != null)
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavourite());
+
+            else
+                NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -172,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), ModelManager.getNotificationPref());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), ModelManager.getNotificationPref(), ModelManager.getFavourite());
     }
 
     /**

@@ -15,7 +15,7 @@ public class UserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0, true);
+        setGuiSettings(500, 500, 0, 0, true, null);
         ModelManager.updateNotificationPref(guiSettings.getNotificationIsEnabled());
     }
 
@@ -27,8 +27,8 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public void setGuiSettings(double width, double height, int x, int y, boolean set) {
-        guiSettings = new GuiSettings(width, height, x, y, set);
+    public void setGuiSettings(double width, double height, int x, int y, boolean set, String favourite) {
+        guiSettings = new GuiSettings(width, height, x, y, set, favourite);
     }
 
     public Path getAddressBookFilePath() {

@@ -72,7 +72,6 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-        ModelManager.updateNotificationPref(userPrefs.getGuiSettings().getNotificationIsEnabled());
 
         logic = new LogicManager(model);
 

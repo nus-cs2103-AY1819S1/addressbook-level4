@@ -17,12 +17,13 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager extends ComponentManager implements Model {
+public abstract class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private static boolean notificationPref;
+    private static String favourite;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,6 +45,10 @@ public class ModelManager extends ComponentManager implements Model {
     public static boolean getNotificationPref() { return notificationPref; }
 
     public static void updateNotificationPref(boolean set) { notificationPref = set; }
+
+    public static String getFavourite() { return favourite; }
+
+    public static void updateFavourite(String newFavourite) { favourite = newFavourite; }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {

@@ -16,19 +16,22 @@ public class GuiSettings implements Serializable {
     private Double windowHeight;
     private Point windowCoordinates;
     private Boolean notificationIsEnabled;
+    private String favourite;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
         notificationIsEnabled = true; // default value is true
+        favourite = null;
     }
 
-    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition, boolean notificationIsEnabled) {
+    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition, boolean notificationIsEnabled, String favourite) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
         this.notificationIsEnabled = notificationIsEnabled;
+        this.favourite = favourite;
     }
 
     public Double getWindowWidth() {
@@ -44,6 +47,8 @@ public class GuiSettings implements Serializable {
     }
 
     public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
+
+    public String getFavourite() { return favourite; }
 
     @Override
     public boolean equals(Object other) {
