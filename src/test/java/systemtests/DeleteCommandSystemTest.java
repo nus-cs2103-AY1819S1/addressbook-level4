@@ -108,7 +108,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
-     }
+    }
 
     /**
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
