@@ -7,8 +7,7 @@ import seedu.address.model.ModelManager;
 
 /**
  * Enable / disable notifications
- * To do : command result only displayed the first time
- *         command exception
+ * To do : command exception
  */
 
 public class NotificationCommand extends Command {
