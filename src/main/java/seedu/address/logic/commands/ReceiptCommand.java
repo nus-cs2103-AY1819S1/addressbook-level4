@@ -2,13 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Document.Receipt;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-import seedu.address.model.Receipt;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
@@ -50,6 +52,7 @@ public class ReceiptCommand extends QueueCommand {
         receipt = new Receipt(servedPatient);
         receipt.generateDocument();
 
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

@@ -10,8 +10,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -81,6 +83,9 @@ public class EditMedicineCommand extends Command {
         model.updateMedicine(medicineToEdit, editedMedicine);
         model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
+
         return new CommandResult(String.format(MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine));
     }
 
