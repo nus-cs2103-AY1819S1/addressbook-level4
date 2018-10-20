@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.volunteer.Address;
-import seedu.address.model.volunteer.Email;
-import seedu.address.model.volunteer.Name;
+import seedu.address.model.volunteer.VolunteerAddress;
+import seedu.address.model.volunteer.VolunteerEmail;
+import seedu.address.model.volunteer.VolunteerName;
 import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.Birthday;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
-import seedu.address.model.volunteer.Phone;
+import seedu.address.model.volunteer.VolunteerPhone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -124,12 +124,12 @@ public class XmlAdaptedVolunteer {
         VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        if (!VolunteerName.isValidName(name)) {
+            throw new IllegalValueException(VolunteerName.MESSAGE_NAME_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final VolunteerName modelName = new VolunteerName(name);
 
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
@@ -148,28 +148,28 @@ public class XmlAdaptedVolunteer {
         final Birthday modelBirthday = new Birthday(birthday);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerPhone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!VolunteerPhone.isValidPhone(phone)) {
+            throw new IllegalValueException(VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final VolunteerPhone modelPhone = new VolunteerPhone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerEmail.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!VolunteerEmail.isValidEmail(email)) {
+            throw new IllegalValueException(VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final VolunteerEmail modelEmail = new VolunteerEmail(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerAddress.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!VolunteerAddress.isValidAddress(address)) {
+            throw new IllegalValueException(VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final VolunteerAddress modelAddress = new VolunteerAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(volunteerTags);
         return new Volunteer(modelVolunteerId, modelName, modelGender, modelBirthday, modelPhone, modelEmail, modelAddress, modelTags);
