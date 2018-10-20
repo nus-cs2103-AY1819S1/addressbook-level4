@@ -270,7 +270,7 @@ Each `Carpark` object has various attributes; `address`, `carparkNumber`, `coord
 
 * The `ModelManager` also manages a filtered list of `Person(?) Carpark` objects filtered from the `UniquePersonList`.
 
-* The Model component exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
+* The `Model component` exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
 e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 
 
@@ -290,7 +290,7 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The Storage component can perform the following functions:
+The `Storage` component can perform the following functions:
 
 * save `UserPref` objects in json format and read it back.
 * save the Car Park Finder data in xml format and read it back.
@@ -455,7 +455,6 @@ image::actdiagram-find.png[width="800", align="left"]
 * **Alternative 2:** Filter the data when it is taken in.
 ** Pros: Less complicated predicate.
 ** Cons: Manipulates the data, editing it for every other case.
-
 
 === Command alias feature
 
