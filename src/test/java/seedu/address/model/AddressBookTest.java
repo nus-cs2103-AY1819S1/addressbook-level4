@@ -30,6 +30,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.exceptions.DuplicateRecordException;
+import seedu.address.model.volunteer.Volunteer;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RecordBuilder;
@@ -102,6 +103,38 @@ public class AddressBookTest {
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
+    }
+
+    //// Volunteer Tests
+    @Test
+    public void hasVolunteer_nullVolunteer_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasVolunteer(null);
+    }
+
+    @Test
+    public void hasVolunteer_volunteerNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasVolunteer(ALICE));
+    }
+
+    @Test
+    public void hasVolunteer_volunteerInAddressBook_returnsTrue() {
+        addressBook.addVolunteer(ALICE);
+        assertTrue(addressBook.hasVolunteer(ALICE));
+    }
+
+    @Test
+    public void hasVolunteer_volunteerWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addVolunteer(ALICE);
+        Volunteer editedAlice = new VolunteerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertTrue(addressBook.hasVolunteer(editedAlice));
+    }
+
+    @Test
+    public void getVolunteerList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getVolunteerList().remove(0);
     }
 
     //// Event Tests
