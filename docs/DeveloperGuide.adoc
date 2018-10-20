@@ -239,7 +239,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Delete patient and doctor feature
+=== Delete Patient and Doctor Feature
 ==== Current Implementation
 The delete patient and doctor features are facilitated by `DeletePatientCommand` and `DeleteDoctorCommand`. Both extends
 `DeleteCommand` such that it is able to delete a specific class of `Person` (i.e. `Patient` or `Doctor`) instead. Additionally,
@@ -259,6 +259,44 @@ Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the s
 * Alternative 2: Use a Map that maps name to `Patient` or `Doctor`
 ** Pros: Fast retrieval
 ** Cons: Will have to change a lot of lines of code
+
+=== Register Patient Feature
+==== Current Implementation
+The register patient are facilitated by `RegisterPatientCommand` and `RegisterPatientCommandParser`. This command extends
+the `AddCommand` and `AddCommandParser` such that it is able to create a `Patient` object. This command
+automatically tags the object created as `Patient`.
+
+Step 1. The user types in `register-patient` in the command box followed by the parameters `n/John Doe p/91234567
+e/test@test.com a/123 Clementi Road`
+
+Step 2. Upon hitting enter, the `Patient` will be created and added to the storage of the system
+
+
+==== Design Considerations
+===== Aspect: Data Structure of Upcoming and Past Appointments
+* Alternative 1 (Current Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
+ArrayList. This allows the appointments to be added in a non-chronological order. Past appointments can also be iterated
+through easily when required.
+
+* Alternative 2 (Previous Implementation): Upcoming Appointments stored within a Queue and Past Appointments stored within a
+Stack.
+
+=== Register Doctor Feature
+==== Current Implementation
+The register doctor are facilitated by `RegisterDoctorCommand` and `RegisterDoctorCommandParser`. This command extends
+the `AddCommand` and `AddCommandParser` such that it is able to create a `Doctor` object. This command automatically tags
+the object created as `Doctor`.
+
+Step 1. The user types in `register-doctor` in the command box followed by the parameters `n/John Doe p/91234567 e/test@test.com a/123 Clementi Road`
+
+Step 2. Upon hitting enter, the `Doctor` will be created and added to the storage of the system
+
+
+==== Design Considerations
+===== Aspect: Presenting Upcoming Appointment to Doctors
+* Alternative 1 (Current Choice): Implement Google Calendar to reflect upcoming appointment to the doctor. This allow
+doctors to view information provided by the receptionist without accessing HealthBook directly to check the information.
+
 
 === Logging
 
