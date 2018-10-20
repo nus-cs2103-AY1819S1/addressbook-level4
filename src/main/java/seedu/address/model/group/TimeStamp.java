@@ -1,11 +1,14 @@
 package seedu.address.model.group;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.group.DateUtil.isDateConsistent;
+import static seedu.address.model.group.DateUtil.isHourWithinBounds;
+import static seedu.address.model.group.DateUtil.isMinuteWithinBounds;
+import static seedu.address.model.group.DateUtil.isYearWithinBounds;
 
 import java.time.Month;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.Year;
+import java.util.Arrays;
 
 // @@author NyxF4ll
 /**
@@ -14,6 +17,7 @@ import java.util.GregorianCalendar;
 public class TimeStamp implements Comparable<TimeStamp> {
     public static final String DATE_SPLIT_REGEX = "[:@-]";
 
+    public static final int EXPECTED_MAXIMUM_TIMESTAMP_STRING_LENGTH = 16;
     public static final int SPLITTED_YEAR_INDEX = 2;
     public static final int SPLITTED_MONTH_INDEX = 1;
     public static final int SPLITTED_DAY_INDEX = 0;
@@ -23,70 +27,66 @@ public class TimeStamp implements Comparable<TimeStamp> {
 
     public static final String MESSAGE_TIMESTAMP_CONSTRAINT = "TimeStamp must follow the following constraints:\n"
             + "1. TimeStamp String must be of the format DD-MM-YYYY@HH:MM\n"
-            + "2. Date must exists in the calendar\n"
-            + "3. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes"
-            + "4. Month must be between 1 and 12";
-    public static final String MESSAGE_NULL_TIMESTAMP = "TimeStamp String must not be null";
+            + "2. Year must be between 0001 and 9999\n"
+            + "3. Date must be consistent with the month's length\n"
+            + "4. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes"
+            + "5. Month must be between 1 and 12";
 
-    private static final int MINIMUM_YEAR = 0;
-    private static final int MINIMUM_DAY_OF_MONTH = 1;
-    private static final int MINIMUM_HOUR_OF_DAY = 0;
-    private static final int MAXIMUM_HOUR_OF_DAY = 23;
-    private static final int MINIMUM_MINUTE_OF_HOUR = 0;
-    private static final int MAXIMUM_MINUTE_OF_HOUR = 59;
+    private final Year year;
+    private final Month month;
+    private final Integer date;
+    private final Integer hour;
+    private final Integer minute;
 
-    private Calendar value;
-
-    public TimeStamp(Integer year, Month month, Integer date, Integer hour, Integer minute) {
+    public TimeStamp(Year year, Month month, Integer date, Integer hour, Integer minute) {
         requireAllNonNull(year, month, date, hour, minute);
-        EnhancedMonth enhancedMonth = new EnhancedMonth(month);
-        checkArgument(isValidArgument(year, enhancedMonth, date, hour, minute),
-                MESSAGE_TIMESTAMP_CONSTRAINT);
-        value = new GregorianCalendar();
-        value.set(year, enhancedMonth.getMonthIndex().getZeroBased(), date, hour, minute);
-
+        this.year = year;
+        this.month = month;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
     }
 
     /**
      * Returns true if the specified arguments could be combined together to create a valid {@code TimeStamp}.
      */
-    public static boolean isValidArgument(
-            Integer year, EnhancedMonth month, Integer date, Integer hour, Integer minute) {
-        if (year < MINIMUM_YEAR) {
-            return false;
-        }
-        if (date < MINIMUM_DAY_OF_MONTH || date > month.getLength(year)) {
-            return false;
-        }
-        if (hour < MINIMUM_HOUR_OF_DAY || hour > MAXIMUM_HOUR_OF_DAY) {
-            return false;
-        }
-        return minute >= MINIMUM_MINUTE_OF_HOUR && minute <= MAXIMUM_MINUTE_OF_HOUR;
+    public static boolean isValidArgument(Year year, Month month, Integer date, Integer hour, Integer minute) {
+        return isDateConsistent(date, month, year)
+                && isYearWithinBounds(year)
+                && isHourWithinBounds(hour)
+                && isMinuteWithinBounds(minute);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || ((other instanceof TimeStamp)
-                && this.toString().equals(other.toString()));
+                && (this.compareTo((TimeStamp) other) == 0));
     }
 
     @Override
     public int compareTo(TimeStamp other) {
-        return value.compareTo(other.value);
-    }
+        if (year.getValue() - other.year.getValue() != 0) {
+            return year.getValue() - other.year.getValue();
+        }
 
-    @Override
-    public int hashCode() {
-        return value.hashCode();
+        if (month.getValue() - other.month.getValue() != 0) {
+            return month.getValue() - other.month.getValue();
+        }
+
+        if (date - other.date != 0) {
+            return date - other.date;
+        }
+
+        if (hour - other.hour != 0) {
+            return hour - other.hour;
+        }
+
+        return minute - other.minute;
     }
 
     @Override
     public String toString() {
-        return (value.get(Calendar.DATE)
-                + "-" + (value.get(Calendar.MONTH) + 1)
-                + "-" + value.get(Calendar.YEAR)
-                + "@" + value.get(Calendar.HOUR_OF_DAY)
-                + ":" + value.get(Calendar.MINUTE)).trim();
+        return date + "-" + month.getValue() + "-" + year.getValue() + "@" + hour + ":" + minute;
     }
 }
