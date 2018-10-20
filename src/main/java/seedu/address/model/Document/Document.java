@@ -108,9 +108,9 @@ public class Document {
         informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt)this).unpackConsultationInformation());
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt) this).unpackConsultationInformation());
         } else {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet");
         }
         return informationFieldPairs;
     }
