@@ -46,6 +46,7 @@ public class Meal {
      *
      * @param s Command string token
      * @return Meal
+     * @throws IllegalArgumentException
      */
     public static int stringToIntSlot(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
@@ -54,6 +55,25 @@ public class Meal {
             return 1;
         } else if (s.equalsIgnoreCase("dinner")) {
             return 2;
+        } else {
+            throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
+        }
+    }
+
+    /**
+     * Converts a string token to its Enum counterpart.
+     *
+     * @param s String token
+     * @return Meal.Slot
+     * @throws IllegalArgumentException
+     */
+    public static Slot stringToEnumSlot(String s) throws IllegalArgumentException {
+        if (s.equalsIgnoreCase("breakfast")) {
+            return Slot.BREAKFAST;
+        } else if (s.equalsIgnoreCase("lunch")) {
+            return Slot.LUNCH;
+        } else if (s.equalsIgnoreCase("dinner")) {
+            return Slot.DINNER;
         } else {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
