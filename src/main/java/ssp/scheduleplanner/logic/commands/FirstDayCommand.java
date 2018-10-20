@@ -6,10 +6,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.xml.bind.JAXBException;
-
 import ssp.scheduleplanner.commons.exceptions.DataConversionException;
-import ssp.scheduleplanner.commons.util.XmlUtil;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
@@ -68,7 +65,22 @@ public class FirstDayCommand extends Command {
             System.out.println(test[i][2]);
         }
 
+        System.out.println(isWithinDateRange(test[0][0], test[16][1]));
         throw new CommandException("success");
+    }
+
+    /**
+     * Check if system date is within the semester date
+     * @param firstDayOfSem
+     * @param lastDayOfSem
+     * @return true or false
+     */
+    public boolean isWithinDateRange(String firstDayOfSem, String lastDayOfSem) {
+        LocalDate firstDate = LocalDate.parse(firstDayOfSem, DateTimeFormatter.ofPattern("ddMMyy"));
+        LocalDate lastDate = LocalDate.parse(lastDayOfSem, DateTimeFormatter.ofPattern("ddMMyy"));
+        LocalDate systemDate = LocalDate.now();
+        return (systemDate.isEqual(firstDate) || systemDate.isAfter(firstDate) && (systemDate.isBefore(lastDate)
+                || systemDate.isEqual(lastDate)));
     }
 
     /**
