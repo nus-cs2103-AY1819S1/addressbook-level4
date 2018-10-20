@@ -21,7 +21,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_VOLUNTEER_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_VOLUNTEER_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_VOLUNTEER_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX__VOLUNTEER_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_VOLUNTEER_TAG = new Prefix("t/");
 
     /* Event Prefix definitions */
     public static final Prefix PREFIX_EVENT_NAME = new Prefix("n/");
