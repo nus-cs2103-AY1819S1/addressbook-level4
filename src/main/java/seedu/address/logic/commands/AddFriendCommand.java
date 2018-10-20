@@ -28,7 +28,7 @@ public class AddFriendCommand extends Command {
             + "Parameters: INDEX,INDEX (both must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1,2";
 
-    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1%2$s";
+    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1$s, %2$s";
 
     private final Index indexes;
 
@@ -56,8 +56,8 @@ public class AddFriendCommand extends Command {
         friendList2.add(person1);
         model.updatePerson(person1, newPerson1, person2, newPerson2);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1,
-                person2));
+        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
+                person2.getName()));
     }
 
     @Override
