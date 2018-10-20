@@ -60,6 +60,8 @@ public class Receipt extends Document {
 
     /**
      * Extracts all the medicines dispensed by the clinic for the served patient.
+     * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
+     *                          and their individual respective quantities
      */
     private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
