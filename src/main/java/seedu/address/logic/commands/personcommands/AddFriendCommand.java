@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -61,6 +62,11 @@ public class AddFriendCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
                 person2.getName()));
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD + " " + indexes.getZeroBased() + StringUtil.COMMA + indexes.getZeroBased2();
     }
 
     @Override

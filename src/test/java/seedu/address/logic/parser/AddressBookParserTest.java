@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,6 +19,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -36,6 +39,7 @@ import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
 import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.ClearUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
@@ -157,6 +161,15 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         AddUserCommand command = (AddUserCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddUserCommand(person), command);
+    }
+
+    @Test
+    public void parseCommandAddFriend() throws Exception {
+        AddFriendCommand command = (AddFriendCommand) parser.parseCommand(
+                AddFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
+                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
+        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
+                INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
