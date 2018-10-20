@@ -24,7 +24,8 @@ public class TimeStamp implements Comparable<TimeStamp> {
     public static final String MESSAGE_TIMESTAMP_CONSTRAINT = "TimeStamp must follow the following constraints:\n"
             + "1. TimeStamp String must be of the format DD-MM-YYYY@HH:MM\n"
             + "2. Date must exists in the calendar\n"
-            + "3. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes";
+            + "3. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes"
+            + "4. Month must be between 1 and 12";
     public static final String MESSAGE_NULL_TIMESTAMP = "TimeStamp String must not be null";
 
     private static final int MINIMUM_YEAR = 0;
