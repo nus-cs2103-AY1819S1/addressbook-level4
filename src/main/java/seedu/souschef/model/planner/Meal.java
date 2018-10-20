@@ -11,21 +11,13 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class Meal {
 
-    public static final int BREAKFAST = 0;
-    public static final int LUNCH = 1;
-    public static final int DINNER = 2;
-
     // Attributes
-    private final int slot;
+    private final Slot slot;
     private Optional<Recipe> recipe;
 
-    public Meal(int slot) {
+    public Meal(Slot slot) {
         this.slot = slot;
         this.recipe = Optional.empty();
-    }
-
-    public int getSlot() {
-        return this.slot;
     }
 
     public Recipe getRecipe() {
@@ -57,14 +49,21 @@ public class Meal {
      */
     public static int stringToIntSlot(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
-            return BREAKFAST;
+            return 0;
         } else if (s.equalsIgnoreCase("lunch")) {
-            return LUNCH;
+            return 1;
         } else if (s.equalsIgnoreCase("dinner")) {
-            return DINNER;
+            return 2;
         } else {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
+    }
+
+    /**
+     * Represents the 3 meals of a day.
+     */
+    enum Slot {
+        BREAKFAST, LUNCH, DINNER;
     }
 
 }
