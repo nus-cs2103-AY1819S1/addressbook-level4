@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -27,6 +26,7 @@ import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
 import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.ClearUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
