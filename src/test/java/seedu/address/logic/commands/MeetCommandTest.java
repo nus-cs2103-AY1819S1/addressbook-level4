@@ -69,7 +69,8 @@ public class MeetCommandTest {
         Model expectedModel = new ModelStubWithSingleGroup(group1);
 
         MeetCommand command = new MeetCommand(group1, null);
-        assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY, MESSAGE_MEETING_CANCELLED, expectedModel);
+        assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
+                String.format(MESSAGE_MEETING_CANCELLED, groupTitle1), expectedModel);
 
     }
 
