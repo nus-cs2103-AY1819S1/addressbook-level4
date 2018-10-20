@@ -1,10 +1,10 @@
-package seedu.address.model.group;
+package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.group.DateUtil.isDateConsistent;
-import static seedu.address.model.group.DateUtil.isHourWithinBounds;
-import static seedu.address.model.group.DateUtil.isMinuteWithinBounds;
-import static seedu.address.model.group.DateUtil.isYearWithinBounds;
+import static seedu.address.model.meeting.DateUtil.isDateConsistent;
+import static seedu.address.model.meeting.DateUtil.isHourWithinBounds;
+import static seedu.address.model.meeting.DateUtil.isMinuteWithinBounds;
+import static seedu.address.model.meeting.DateUtil.isYearWithinBounds;
 
 import java.time.Month;
 import java.time.Year;

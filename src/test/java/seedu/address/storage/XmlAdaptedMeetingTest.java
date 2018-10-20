@@ -11,10 +11,10 @@ import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.group.Description;
-import seedu.address.model.group.TimeStamp;
-import seedu.address.model.group.Title;
-import seedu.address.model.person.Address;
+import seedu.address.model.meeting.TimeStamp;
+import seedu.address.model.shared.Address;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedMeetingTest {

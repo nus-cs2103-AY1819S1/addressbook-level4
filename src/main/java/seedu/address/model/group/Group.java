@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 
 /**

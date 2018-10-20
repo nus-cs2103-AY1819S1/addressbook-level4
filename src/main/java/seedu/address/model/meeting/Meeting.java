@@ -1,10 +1,12 @@
-package seedu.address.model.group;
+package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.person.Address;
+import seedu.address.model.shared.Address;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 /**
  * Represents a Meeting for people in the same group in the address book.

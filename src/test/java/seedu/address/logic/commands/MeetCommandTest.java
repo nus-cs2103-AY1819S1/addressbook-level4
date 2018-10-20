@@ -21,9 +21,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.Meeting;
-import seedu.address.model.group.Title;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.ModelStub;
 
 

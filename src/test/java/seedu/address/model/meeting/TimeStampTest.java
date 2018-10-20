@@ -1,4 +1,4 @@
-package seedu.address.model.group;
+package seedu.address.model.meeting;
 
 import java.time.Month;
 import java.time.Year;

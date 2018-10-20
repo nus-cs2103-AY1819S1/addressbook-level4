@@ -1,4 +1,4 @@
-package seedu.address.model.group;
+package seedu.address.model.meeting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.shared.Address;
 import seedu.address.model.tag.Tag;
 
 

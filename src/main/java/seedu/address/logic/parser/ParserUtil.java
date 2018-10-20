@@ -2,15 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.model.group.TimeStamp.DATE_SPLIT_REGEX;
-import static seedu.address.model.group.TimeStamp.EXPECTED_SPLIITTED_LENGTH;
-import static seedu.address.model.group.TimeStamp.MESSAGE_TIMESTAMP_CONSTRAINT;
-import static seedu.address.model.group.TimeStamp.SPLITTED_DAY_INDEX;
-import static seedu.address.model.group.TimeStamp.SPLITTED_HOUR_INDEX;
-import static seedu.address.model.group.TimeStamp.SPLITTED_MINUTE_INDEX;
-import static seedu.address.model.group.TimeStamp.SPLITTED_MONTH_INDEX;
-import static seedu.address.model.group.TimeStamp.SPLITTED_YEAR_INDEX;
-import static seedu.address.model.group.TimeStamp.isValidArgument;
+import static seedu.address.model.meeting.TimeStamp.DATE_SPLIT_REGEX;
+import static seedu.address.model.meeting.TimeStamp.EXPECTED_SPLIITTED_LENGTH;
+import static seedu.address.model.meeting.TimeStamp.MESSAGE_TIMESTAMP_CONSTRAINT;
+import static seedu.address.model.meeting.TimeStamp.SPLITTED_DAY_INDEX;
+import static seedu.address.model.meeting.TimeStamp.SPLITTED_HOUR_INDEX;
+import static seedu.address.model.meeting.TimeStamp.SPLITTED_MINUTE_INDEX;
+import static seedu.address.model.meeting.TimeStamp.SPLITTED_MONTH_INDEX;
+import static seedu.address.model.meeting.TimeStamp.SPLITTED_YEAR_INDEX;
+import static seedu.address.model.meeting.TimeStamp.isValidArgument;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,17 +25,17 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Date;
-import seedu.address.model.group.Description;
 import seedu.address.model.group.Place;
-import seedu.address.model.group.TimeStamp;
-import seedu.address.model.group.Title;
-import seedu.address.model.person.Address;
+import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.util.PersonPropertyComparator;
+import seedu.address.model.shared.Address;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 /**

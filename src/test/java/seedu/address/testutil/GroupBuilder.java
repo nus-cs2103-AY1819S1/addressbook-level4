@@ -4,12 +4,12 @@ import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import java.util.Optional;
 
-import seedu.address.model.group.Description;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.Meeting;
-import seedu.address.model.group.Title;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 /**
  * A utility class to help with building Group objects.
