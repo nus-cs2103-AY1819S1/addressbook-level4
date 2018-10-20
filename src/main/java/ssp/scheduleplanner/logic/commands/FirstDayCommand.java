@@ -1,5 +1,8 @@
 package ssp.scheduleplanner.logic.commands;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +10,8 @@ import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.Date;
+import ssp.scheduleplanner.storage.XmlFileStorage;
+import ssp.scheduleplanner.storage.XmlSerializableRangeOfWeek;
 
 /**
  * Mark the first day of the semester to be able to compute the range of date of all semester weeks and save the range.
@@ -21,10 +26,13 @@ public class FirstDayCommand extends Command {
     public static final String MESSAGE_INVALID_DATE = "Invalid date or date format\n"
             + "Date should be in ddmmyy format\nExample: " + COMMAND_WORD + " " + "130818";;
     public static final String MESSAGE_NOT_MONDAY = "Date given is not a Monday";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST = "Unable to save range of dates of semester as "
+            + "default file is missing";
 
+    private static final int WEEKS_IN_SEMESTER = 17;
     private final String inputDate;
-    //Default university semester have 17 weeks
-    private String[][] rangeOfWeek = new String[17][3];
+    private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
+    private Path path = Paths.get("rangeofweek.xml");
 
     public FirstDayCommand(String userInputDate) {
         this.inputDate = userInputDate;
@@ -48,6 +56,14 @@ public class FirstDayCommand extends Command {
 
         computeRangeOfWeeks(inputDate);
 
+        System.out.println(new XmlSerializableRangeOfWeek(rangeOfWeek));
+
+        try {
+            XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+
         throw new CommandException("success");
     }
 
@@ -56,25 +72,27 @@ public class FirstDayCommand extends Command {
      * @param firstDay
      */
     private void computeRangeOfWeeks(String firstDay) {
-        //Default university semester have 17 weeks
-        for (int i = 0; i < 17; i++) {
-            String startOfWeek = LocalDate.parse(firstDay, DateTimeFormatter.ofPattern("ddMMyy")).plusDays(7 * i)
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            String startOfWeekDate = LocalDate.parse(firstDay, DateTimeFormatter.ofPattern("ddMMyy")).plusDays(7 * i)
                     .format(DateTimeFormatter.ofPattern("ddMMyy"));
-            String endOfWeek = LocalDate.parse(firstDay, DateTimeFormatter.ofPattern("ddMMyy")).plusDays(7 * i + 6)
+            String endOfWeekDate = LocalDate.parse(firstDay, DateTimeFormatter.ofPattern("ddMMyy")).plusDays(7 * i + 6)
                     .format(DateTimeFormatter.ofPattern("ddMMyy"));
-            rangeOfWeek[i][0] = startOfWeek;
-            rangeOfWeek[i][1] = endOfWeek;
+            rangeOfWeek[i][0] = startOfWeekDate;
+            rangeOfWeek[i][1] = endOfWeekDate;
         }
 
         addDescriptionForWeeks(rangeOfWeek);
 
-        for (int i = 0; i < 17; i++) {
+        /*
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
             System.out.printf(rangeOfWeek[i][0]);
             System.out.printf(" ");
             System.out.printf(rangeOfWeek[i][1]);
             System.out.printf(" ");
             System.out.println(rangeOfWeek[i][2]);
         }
+        */
+
     }
 
     /**

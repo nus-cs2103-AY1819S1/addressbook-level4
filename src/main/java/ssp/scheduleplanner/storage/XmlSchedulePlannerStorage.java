@@ -77,4 +77,17 @@ public class XmlSchedulePlannerStorage implements SchedulePlannerStorage {
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableSchedulePlanner(schedulePlanner));
     }
 
+    /**
+     * Similar to {@link #saveRangeOfWeek(String[][], Path)}
+     * @param filePath location of the data. Cannot be null
+     */
+    public void saveRangeOfWeek(String[][] src, Path filePath) throws IOException {
+        requireNonNull(src);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+
+        XmlFileStorage.saveWeekDataToFile(filePath, new XmlSerializableRangeOfWeek(src));
+    }
+
 }
