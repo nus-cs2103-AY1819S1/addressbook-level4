@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.model.group.TimeStamp.DATE_SPLIT_REGEX;
-import static seedu.address.model.group.TimeStamp.EXPECTED_MAXIMUM_TIMESTAMP_STRING_LENGTH;
 import static seedu.address.model.group.TimeStamp.EXPECTED_SPLIITTED_LENGTH;
 import static seedu.address.model.group.TimeStamp.MESSAGE_TIMESTAMP_CONSTRAINT;
 import static seedu.address.model.group.TimeStamp.SPLITTED_DAY_INDEX;
@@ -18,7 +17,6 @@ import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.time.Month;
 import java.time.Year;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -210,10 +208,9 @@ public class ParserUtil {
             date = Integer.parseInt(splitted[SPLITTED_DAY_INDEX]);
             hour = Integer.parseInt(splitted[SPLITTED_HOUR_INDEX]);
             minute = Integer.parseInt(splitted[SPLITTED_MINUTE_INDEX]);
-        } catch (DateTimeException | NumberFormatException e)  {
+        } catch (DateTimeException | NumberFormatException e) {
             throw new ParseException(MESSAGE_TIMESTAMP_CONSTRAINT);
         }
-
         if (!isValidArgument(year, month, date, hour, minute)) {
             throw new ParseException(MESSAGE_TIMESTAMP_CONSTRAINT);
         }

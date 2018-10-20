@@ -8,7 +8,6 @@ import static seedu.address.model.group.DateUtil.isYearWithinBounds;
 
 import java.time.Month;
 import java.time.Year;
-import java.util.Arrays;
 
 // @@author NyxF4ll
 /**
@@ -17,7 +16,6 @@ import java.util.Arrays;
 public class TimeStamp implements Comparable<TimeStamp> {
     public static final String DATE_SPLIT_REGEX = "[:@-]";
 
-    public static final int EXPECTED_MAXIMUM_TIMESTAMP_STRING_LENGTH = 16;
     public static final int SPLITTED_YEAR_INDEX = 2;
     public static final int SPLITTED_MONTH_INDEX = 1;
     public static final int SPLITTED_DAY_INDEX = 0;
