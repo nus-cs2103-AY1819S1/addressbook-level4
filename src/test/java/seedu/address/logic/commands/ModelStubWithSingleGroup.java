@@ -11,6 +11,9 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.ModelStub;
 
 // @@author NyxF4ll
+/**
+ * Model stub with only one group, used to test meet and cancel commands.
+ */
 public class ModelStubWithSingleGroup extends ModelStub {
 
     private Group group;
