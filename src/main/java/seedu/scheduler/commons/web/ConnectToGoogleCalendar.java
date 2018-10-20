@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -101,5 +104,19 @@ public class ConnectToGoogleCalendar {
         InputStream in = GetGoogleCalendarEventsCommand.class
                 .getResourceAsStream(CREDENTIALS_FILE_PATH);
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    }
+
+    public static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

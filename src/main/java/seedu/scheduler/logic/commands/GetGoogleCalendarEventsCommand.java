@@ -47,6 +47,10 @@ public class GetGoogleCalendarEventsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        if(!connectToGoogleCalendar.netIsAvailable()){
+            return new CommandResult(MESSAGE_INTERNET_ERROR);
+        }
+
         //Get the Google Calendar service object
         Calendar service = connectToGoogleCalendar.getCalendar();
 
