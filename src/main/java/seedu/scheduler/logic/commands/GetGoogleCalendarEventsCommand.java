@@ -12,7 +12,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
-import seedu.scheduler.commons.web.connectToGoogleCalendar;
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
@@ -40,10 +40,8 @@ public class GetGoogleCalendarEventsCommand extends Command {
 
     private static final String CALENDAR_NAME = "primary";
 
-
-
-    private final seedu.scheduler.commons.web.connectToGoogleCalendar connectToGoogleCalendar =
-            new connectToGoogleCalendar();
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -88,6 +86,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
                         newEventEndTime);
             }
         }
+        connectToGoogleCalendar.setGoogleCalendarEnabled();
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
     }
 

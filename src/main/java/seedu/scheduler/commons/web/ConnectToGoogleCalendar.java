@@ -23,7 +23,7 @@ import com.google.api.services.calendar.CalendarScopes;
 
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 
-public class connectToGoogleCalendar {
+public class ConnectToGoogleCalendar {
     /**
      * Global instance of the scopes required.
      */
@@ -31,8 +31,19 @@ public class connectToGoogleCalendar {
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
 
-    public connectToGoogleCalendar() {
+    public ConnectToGoogleCalendar() {
     }
+
+    private boolean googleCalendarEnabled = false;
+
+    public boolean isGoogleCalendarEnabled() {
+        return googleCalendarEnabled;
+    }
+
+    public void setGoogleCalendarEnabled(boolean googleCalendarEnabled) {
+        this.googleCalendarEnabled = googleCalendarEnabled;
+    }
+
 
     public Calendar getCalendar() {
         NetHttpTransport httpTransport = getNetHttpTransport();
