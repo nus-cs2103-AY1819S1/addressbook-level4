@@ -36,7 +36,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
      * Parses the given {@code String} of arguments in the context of the EditUserCommand
      * and returns an EditUserCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException should the user input does not conform the expected format
      */
     public EditUserCommand parse(String args) throws ParseException {
         requireNonNull(args);
