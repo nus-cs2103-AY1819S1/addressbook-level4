@@ -17,8 +17,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Article> {
 
     @Override
     public boolean test(Article article) { // AND operation
-        return !article.getIsResolved() &&
-                keywords.stream().allMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword));
+        return !article.getIsResolved()
+                && keywords.stream().allMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword));
     }
 
     @Override

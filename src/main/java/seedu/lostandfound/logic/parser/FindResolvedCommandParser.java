@@ -1,10 +1,7 @@
 package seedu.lostandfound.logic.parser;
 
-import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.lostandfound.MainApp;

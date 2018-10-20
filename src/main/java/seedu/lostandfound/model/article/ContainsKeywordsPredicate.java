@@ -2,7 +2,6 @@ package seedu.lostandfound.model.article;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import seedu.lostandfound.commons.util.StringUtil;
 
@@ -18,12 +17,17 @@ public class ContainsKeywordsPredicate implements Predicate<Article> {
 
     @Override
     public boolean test(Article article) { // AND operation
-        return !article.getIsResolved() &&
-                (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword))
-                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getPhone().value, keyword))
-                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getEmail().value, keyword))
-                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
-                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(article.getTags().toString(), keyword)));
+        return !article.getIsResolved()
+                && (keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getPhone().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getEmail().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getTags().toString(), keyword)));
     }
 
     @Override

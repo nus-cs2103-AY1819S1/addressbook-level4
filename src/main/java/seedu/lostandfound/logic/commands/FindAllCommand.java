@@ -2,8 +2,6 @@ package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import seedu.lostandfound.commons.core.Messages;
 import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.model.Model;
