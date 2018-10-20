@@ -7,7 +7,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 /**
- * Deletes a patient from health book.
+ * Deletes a doctor from health book.
  */
 public class DeleteDoctorCommand extends DeleteCommand {
 
@@ -22,6 +22,9 @@ public class DeleteDoctorCommand extends DeleteCommand {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 ";
 
+    /**
+     * Creates an DeleteDoctorCommand to add the specified {@code Doctor}
+     */
     public DeleteDoctorCommand(Name name, Phone phone) {
         super(name, phone);
     }
