@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -23,6 +21,8 @@ import seedu.address.model.person.Person;
 
 import java.util.ArrayList;
 
+import org.junit.Test;
+
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code AddFriendCommand}.
@@ -33,7 +33,7 @@ public class AddFriendCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void executeValidIndexUnfilteredListSuccess() {
         Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
         AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_FIRST.getZeroBased(),
@@ -56,7 +56,7 @@ public class AddFriendCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void executeInvalidIndexUnfilteredListThrowsCommandException() {
         Index outOfBoundIndexes = Index.fromOneBased(model.getFilteredPersonList().size() + 1,
                 model.getFilteredPersonList().size() + 2);
         AddFriendCommand addFriendCommand = new AddFriendCommand(outOfBoundIndexes);
@@ -65,7 +65,7 @@ public class AddFriendCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+    public void executeUndoRedoValidIndexUnfilteredListSuccess() throws Exception {
         Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
         AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_FIRST.getZeroBased(),
@@ -94,7 +94,7 @@ public class AddFriendCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+    public void executeUndoRedoInvalidIndexUnfilteredListFailure() {
         Index outOfBoundIndexes = Index.fromOneBased(model.getFilteredPersonList().size() + 1,
                 model.getFilteredPersonList().size() + 2);
         AddFriendCommand addFriendCommand = new AddFriendCommand(outOfBoundIndexes);
@@ -118,15 +118,12 @@ public class AddFriendCommandTest {
         assertTrue(addFriendFirstCommand.equals(addFriendFirstCommand));
 
         // same values -> returns true
-        AddFriendCommand addFriendFirstCommandCopy = new AddFriendCommand(Index.fromZeroBased(INDEX_FIRST.getZeroBased(),
-                INDEX_SECOND.getZeroBased()));
+        AddFriendCommand addFriendFirstCommandCopy = new AddFriendCommand(Index.fromZeroBased(
+                INDEX_FIRST.getZeroBased(), INDEX_SECOND.getZeroBased()));
         assertTrue(addFriendFirstCommand.equals(addFriendFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(addFriendFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addFriendFirstCommand.equals(null));
 
         // different person -> returns false
         assertFalse(addFriendFirstCommand.equals(addFriendSecondCommand));
