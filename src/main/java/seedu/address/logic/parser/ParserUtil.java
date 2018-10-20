@@ -182,7 +182,7 @@ public class ParserUtil {
         return groupTagSet;
     }
 
-    /* @@author Pakorn */
+    /* @@author NyxF4ll */
     /**
      * Parse a {@code String} representation of a timestamp into a {@code TimeStamp} object.
      */
