@@ -10,7 +10,7 @@ import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptiones can take any values, and it should not be blank";
+            "Descriptions can take any values, and it should not be blank";
 
     /*
      * The first character of the description must not be a whitespace,
