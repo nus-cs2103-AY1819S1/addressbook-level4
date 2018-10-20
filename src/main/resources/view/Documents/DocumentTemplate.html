@@ -9,7 +9,7 @@
     </h1>
 </head>
 <div class="main">
-    <table style = "400">
+    <table>
         <tr>
             <td><div class = information>Name:</div></td>
             <td><div class = field>$name</div></td>
@@ -19,11 +19,12 @@
             <td><div class = field>$icNumber</div></td>
         </tr>
     </table>
+    <br>
+    $content
 </div>
 </html>
 
 <style>
-    tr: nth-child(even) {background-color: #f2f2f2;}
     html {
         margin-left: 24px;
         margin-right: 24px;
@@ -45,5 +46,24 @@
     }
     .field{
         border-bottom: 1px solid black;
+    }
+    table {
+        border-collapse:collapse;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+    #receiptHeader{
+        font-weight: bold;
+        border-bottom: 1px solid black;
+    }
+
+    #receiptEnd{
+        border-top: 1px solid black;
+        font-weight: bold;
+    }
+    #contentTable tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
 </style>

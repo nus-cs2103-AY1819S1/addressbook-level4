@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.Document;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.MainApp;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 
@@ -19,10 +20,10 @@ import seedu.address.model.person.Name;
  * This interface bounds all classes implementing it to provide an implementation for generating a document,
  */
 public class Document {
-    private static final int FILENAME_INITIAL_SLICING = 6;
-    private static final int FILENAME_END_SLICING = 22;
 
     //Formatting the path to the directory all documents should be saved in
+    private static final int FILENAME_INITIAL_SLICING = 6;
+    private static final int FILENAME_END_SLICING = 22;
     private static final String DUMMY_PATH = "/view/Documents/DocumentTemplate.html";
     private static final String COMPLETE_TEMPLATE_NAME = MainApp.class.getResource(DUMMY_PATH).toExternalForm()
             .substring(FILENAME_INITIAL_SLICING).replace("out/production", "src/main");
@@ -34,11 +35,18 @@ public class Document {
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
             "Unable to write contents into ";
 
-    private String completeFilePath;
+    //Data placeholders in the HTML template from which all the Document objects are extended from
+    private static final String HEADER_PLACEHOLDER = "$headers";
+    private static final String NAME_PLACEHOLDER = "$name";
+    private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
+    private static final String CONTENT_PLACEHOLDER = "$content";
+
+    private String filePath;
     private String fileName;
     private String fileType;
     private Name name;
     private IcNumber icNumber;
+    private Map<Medicine, Integer> medicineAllocated;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -58,7 +66,7 @@ public class Document {
     private void makeFileName() {
         fileName = fileType + "_For_" + name.toString().replaceAll("\\s", "")
                 + "_" + icNumber.toString();
-        completeFilePath = DIRECTORY_PATH + File.separator + fileName + ".html";
+        filePath = DIRECTORY_PATH + File.separator + fileName + ".html";
     }
 
     /**
@@ -70,18 +78,6 @@ public class Document {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         return fileType + "<br>Issued On: " + formatter.format(date);
-    }
-
-    /**
-     * Fills in the information as required by the fields of the Document.
-     * @return returns a HashMap that maps all the fields to their own correct value.
-     */
-    private HashMap<String, String> generateContent() {
-        HashMap<String, String> informationFieldPairs = new HashMap<>();
-        informationFieldPairs.put("$headers", generateHeaders());
-        informationFieldPairs.put("$name", name.toString());
-        informationFieldPairs.put("$icNumber", icNumber.toString());
-        return informationFieldPairs;
     }
 
     /**
@@ -103,10 +99,27 @@ public class Document {
     }
 
     /**
+     * Fills in the information as required by the fields of the Document.
+     * @return returns a HashMap that maps all the fields to their own correct value.
+     */
+    private HashMap<String, String> generateContent() {
+        HashMap<String, String> informationFieldPairs = new HashMap<>();
+        informationFieldPairs.put(HEADER_PLACEHOLDER, generateHeaders());
+        informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
+        informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
+        if (this instanceof Receipt) {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt)this).unpackConsultationInformation());
+        } else {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        }
+        return informationFieldPairs;
+    }
+
+    /**
      * The actual generation of the file representing the Document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
-        File newDocument = new File(completeFilePath);
+        File newDocument = new File(filePath);
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(newDocument);
@@ -148,5 +161,9 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public void setMedicineAllocated(Map allocation) {
+        this.medicineAllocated = allocation;
     }
 }
