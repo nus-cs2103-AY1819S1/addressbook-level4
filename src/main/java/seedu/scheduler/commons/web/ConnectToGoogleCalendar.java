@@ -1,9 +1,13 @@
 package seedu.scheduler.commons.web;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -54,10 +58,20 @@ public class ConnectToGoogleCalendar {
         // Build Google calender service object.
         Calendar service = null;
         try {
+            //re-direct the stdout
+            //One of the Google APIs outputs to stdout which causes warning
+            System.setOut(new PrintStream(new OutputStream() {
+                @Override
+                public void write(int b) {
+                }
+            }));
+
             service = new Calendar.Builder(httpTransport, JSON_FACTORY,
                     getCredentials(httpTransport))
                     .setApplicationName("iScheduler Xs Max")
                     .build();
+            //re-direct back to the stdout
+            System.setOut(System.out);
         } catch (IOException e) {
             e.printStackTrace();
         }
