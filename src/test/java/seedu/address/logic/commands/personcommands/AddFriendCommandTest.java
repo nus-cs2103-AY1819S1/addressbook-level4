@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -34,10 +32,10 @@ public class AddFriendCommandTest {
 
     @Test
     public void executeValidIndexUnfilteredListSuccess() {
-        Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
-        Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
-        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_FIRST.getZeroBased(),
-                INDEX_SECOND.getZeroBased()));
+        Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getOneBased());
+        Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getOneBased());
+        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
+                INDEX_SECOND.getOneBased()));
 
         String expectedMessage = String.format(AddFriendCommand.MESSAGE_ADD_FRIEND_SUCCESS,
                 person1.getName(), person2.getName());
@@ -64,10 +62,10 @@ public class AddFriendCommandTest {
 
     @Test
     public void executeUndoRedoValidIndexUnfilteredListSuccess() throws Exception {
-        Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
-        Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
-        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_FIRST.getZeroBased(),
-                INDEX_SECOND.getZeroBased()));
+        Person person1 = model.getFilteredPersonList().get(INDEX_FIRST.getOneBased());
+        Person person2 = model.getFilteredPersonList().get(INDEX_SECOND.getOneBased());
+        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
+                INDEX_SECOND.getOneBased()));
 
         Person newPerson1 = new Person(person1);
         Person newPerson2 = new Person(person2);
