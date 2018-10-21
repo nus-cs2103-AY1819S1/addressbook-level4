@@ -26,7 +26,7 @@ public class Time {
      * then the start time followed by a -,
      * and lastly the end time of the tutorial.
      */
-    public static final String DAY_PART_REGEX = "[a-t]{3}";
+    public static final String DAY_PART_REGEX = "[a-w]{3}";
     public static final String START_TIME_REGEX = "\\d{4}";
     public static final String END_TIME_REGEX = "\\d{4}";
     public static final String TIME_VALIDATION_REGEX = DAY_PART_REGEX + " "
@@ -35,7 +35,7 @@ public class Time {
     /**
      * Represents the day of the tutorial.
      */
-    enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+    public enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
     private Day day;
     private int startTime;
@@ -102,6 +102,13 @@ public class Time {
             day = Day.Saturday;
             break;
         }
+    }
+
+    /**
+     * Returns number of hours of tuition
+     */
+    public int getTuitionHours() {
+        return (endTime - startTime) / 100;
     }
 
     /**

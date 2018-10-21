@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,6 +78,18 @@ public class Person {
 
     public ArrayList getTime() {
         return timeSlots;
+    }
+
+    /**
+     * Returns an array list containing days in which students
+     * have tuition lessons
+     */
+    public ArrayList<Time.Day> getDays() {
+        ArrayList<Time.Day> daysWithTuition = new ArrayList<>();
+        for (Time time : timeSlots) {
+            daysWithTuition.add(time.getDay());
+        }
+        return daysWithTuition;
     }
 
     /**

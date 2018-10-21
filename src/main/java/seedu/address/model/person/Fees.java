@@ -44,6 +44,10 @@ public class Fees {
         return baseAmount + education.getEducationalGrade();
     }
 
+    public double getFeesValue() {
+        return Double.valueOf(value);
+    }
+
     @Override
     public String toString() {
         return "$" + value + "/hour";
