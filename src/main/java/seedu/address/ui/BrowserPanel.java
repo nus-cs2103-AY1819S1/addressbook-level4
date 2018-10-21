@@ -103,8 +103,8 @@ public class BrowserPanel extends UiPart<Region> {
         url += patient.getEmail().value;
 
         url += "&blood=";
-        String bloodTypeString = patient.getMedicalRecord().getBloodType().value.equals("") ? "not taken" :
-                patient.getMedicalRecord().getBloodType().value;
+        String bloodTypeString = patient.getMedicalRecord().getBloodType().value.equals("") ? "not taken"
+                : patient.getMedicalRecord().getBloodType().value;
         url += bloodTypeString;
 
         url += "&diseases=";
