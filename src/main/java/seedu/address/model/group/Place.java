@@ -9,6 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  *
  * {@author Derek-Hardy}
  */
+@Deprecated
 public class Place {
 
     public static final String MESSAGE_PLACE_CONSTRAINTS =
@@ -18,7 +19,7 @@ public class Place {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String PLACE_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String PLACE_VALIDATION_REGEX = "[^\\s].*";
 
     public final String placeName;
 

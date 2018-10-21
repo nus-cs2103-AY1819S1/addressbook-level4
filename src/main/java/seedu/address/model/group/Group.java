@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 
 /**
@@ -173,13 +176,18 @@ public class Group {
      */
     public void removeMember(Person toRemove) {
         requireNonNull(toRemove);
-        if (this.members.contains(toRemove)) {
-            this.members.remove(toRemove);
-        }
+        this.members.remove(toRemove);
 
-        if (toRemove.hasGroup(this)) {
-            toRemove.removeGroup(this);
-        }
+        toRemove.removeGroupHelper(this);
+    }
+
+    /**
+     * This method is reserved to be called only from
+     * {@link seedu.address.model.person.Person#removeGroup(Group)}
+     * and {@link Person#clearMembership()} methods.
+     */
+    public void removeMemberHelper(Person person) {
+        this.members.remove(person);
     }
 
     /**
@@ -187,8 +195,24 @@ public class Group {
      */
     public void clearMembers() {
         // enhanced for loop to remove the group from person
-        // TODO
+        for (Person member : this.members) {
+            if (member.hasGroup(this)) {
+                member.removeGroupHelper(this);
+            }
+        }
         this.members.clear();
+    }
+
+    /**
+     * Set up the member connections for this group.
+     */
+    public void setUpMembers() {
+        // enhanced for loop to set up the member connection of this group
+        for (Person member : this.members) {
+            if (!member.hasGroup(this)) {
+                member.addGroup(this);
+            }
+        }
     }
 
     /**
@@ -228,8 +252,7 @@ public class Group {
         Group otherGroup = (Group) other;
         return otherGroup.getTitle().equals(getTitle())
                 && otherGroup.description.equals(this.description)
-                && otherGroup.meeting.equals(this.meeting)
-                && otherGroup.getMembersView().equals(getMembersView());
+                && otherGroup.meeting.equals(this.meeting);
     }
 
     @Override

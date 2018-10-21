@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 public class GroupTitleContainsKeywordsPredicateTest {

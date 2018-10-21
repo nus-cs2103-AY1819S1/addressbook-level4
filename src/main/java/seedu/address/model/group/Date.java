@@ -4,15 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.meeting.TimeStamp;
+
 /**
  * Represents the date of upcoming meeting in the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  *
- * @deprecated use {@link TimeStamp} and {@link EnhancedMonth} instead.
+ * @deprecated use {@link TimeStamp} and {@link seedu.address.model.meeting.DateUtil} instead.
  *
  * {@author Derek-Hardy}
  */
-
+@Deprecated
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =

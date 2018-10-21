@@ -52,12 +52,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addGroup(Person target, Tag newGroup) {
+    public void addGroup(Group group) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void removeGroup(Person target, Tag oldGroup) {
+    public void removeGroup(Group group) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -1,10 +1,12 @@
-package seedu.address.model.group;
+package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.person.Address;
+import seedu.address.model.shared.Address;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
 /**
  * Represents a Meeting for people in the same group in the address book.
@@ -14,7 +16,7 @@ import seedu.address.model.person.Address;
  * {@author Derek-Hardy}
  * {@author NyxF4ll}
  */
-public class Meeting {
+public class Meeting implements Comparable<Meeting> {
 
     // Identity fields
     private final Title title;
@@ -74,6 +76,16 @@ public class Meeting {
                 && otherMeeting.getTime().equals(getTime())
                 && otherMeeting.getLocation().equals(getLocation());
     }
+
+    // @@author NyxF4ll
+    /**
+     * Comparator to compare the meetings by time.
+     */
+    @Override
+    public int compareTo(Meeting other) {
+        return this.time.compareTo(other.time);
+    }
+    // @@author
 
     /**
      * Returns true if both meetings have the same identity and data fields.

@@ -29,7 +29,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.GroupContainsPersonPredicate;
+import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
 

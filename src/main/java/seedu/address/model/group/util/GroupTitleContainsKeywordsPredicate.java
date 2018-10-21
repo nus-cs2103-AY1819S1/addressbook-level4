@@ -1,4 +1,4 @@
-package seedu.address.model.group;
+package seedu.address.model.group.util;
 
 import java.util.List;
 import java.util.function.Predicate;

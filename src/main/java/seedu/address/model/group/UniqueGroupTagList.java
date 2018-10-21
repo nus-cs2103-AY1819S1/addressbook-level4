@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.group.exceptions.DuplicateGroupTagException;
 import seedu.address.model.group.exceptions.GroupTagNotFoundException;
 import seedu.address.model.tag.Tag;
