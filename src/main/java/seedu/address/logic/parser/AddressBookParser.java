@@ -10,7 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.edit.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -19,6 +19,13 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.edit.EditModuleCommand;
+import seedu.address.logic.commands.edit.EditOccasionCommand;
+import seedu.address.logic.commands.edit.EditPersonCommand;
+import seedu.address.logic.parser.edit.EditCommandParser;
+import seedu.address.logic.parser.edit.EditModuleCommandParser;
+import seedu.address.logic.parser.edit.EditOccasionCommandParser;
+import seedu.address.logic.parser.edit.EditPersonCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +60,15 @@ public class AddressBookParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case EditPersonCommand.COMMAND_WORD:
+            return new EditPersonCommandParser().parse(arguments);
+
+        case EditOccasionCommand.COMMAND_WORD:
+            return new EditOccasionCommandParser().parse(arguments);
+
+        case EditModuleCommand.COMMAND_WORD:
+            return new EditModuleCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
