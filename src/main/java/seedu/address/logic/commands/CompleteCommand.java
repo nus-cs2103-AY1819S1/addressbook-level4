@@ -65,6 +65,9 @@ public class CompleteCommand extends Command {
 
         String completedTasksOutput;
 
+        // gets oldXp before updating tasks.
+        int oldXp = model.getXpValue();
+
         if (isPredicateBasedBatchComplete) {
             completedTasksOutput = completeAllTasksReturnStringOfTasks(model);
         } else {
@@ -73,9 +76,15 @@ public class CompleteCommand extends Command {
                     targetIndex, lastShownList, model);
         }
 
+        // calculate change in xp to report to the user.
+        int newXp = model.getXpValue();
+        int changeInXp = newXp - oldXp;
+
+        // model related operations
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, completedTasksOutput));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
     }
 
     /**
