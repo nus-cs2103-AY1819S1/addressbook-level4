@@ -47,10 +47,6 @@ public class FirstDayCommand extends Command {
         this.inputDate = userInputDate;
     }
 
-    public String returnUserDate () {
-        return inputDate;
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
@@ -125,8 +121,9 @@ public class FirstDayCommand extends Command {
     /**
      * This method compute the range of weeks for one semester based on the first Monday.
      * @param firstDay
+     * @return the 2d string array
      */
-    private void computeRangeOfWeeks(String firstDay) {
+    public String[][] computeRangeOfWeeks(String firstDay) {
         for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
             String startOfWeekDate = LocalDate.parse(firstDay, DateTimeFormatter.ofPattern("ddMMyy")).plusDays(7 * i)
                     .format(DateTimeFormatter.ofPattern("ddMMyy"));
@@ -137,13 +134,14 @@ public class FirstDayCommand extends Command {
         }
 
         addDescriptionForWeeks(rangeOfWeek);
+        return rangeOfWeek;
     }
 
     /**
      * Helper method to insert description of each week in the 2d String array
      * @param rangeOfWeek
      */
-    private void addDescriptionForWeeks(String[][] rangeOfWeek) {
+    public void addDescriptionForWeeks(String[][] rangeOfWeek) {
         rangeOfWeek[0][2] = "Week 1";
         rangeOfWeek[1][2] = "Week 2";
         rangeOfWeek[2][2] = "Week 3";
@@ -163,8 +161,12 @@ public class FirstDayCommand extends Command {
         rangeOfWeek[16][2] = "Examination Week";
     }
 
-    private boolean isMonday(String inputDate) {
+    public boolean isMonday(String inputDate) {
         return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
+    }
+
+    public String returnUserDate () {
+        return inputDate;
     }
 
     @Override
