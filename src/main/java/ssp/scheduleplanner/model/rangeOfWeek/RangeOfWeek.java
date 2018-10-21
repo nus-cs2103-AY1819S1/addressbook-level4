@@ -1,4 +1,4 @@
-package ssp.scheduleplanner.model.rangeOfWeek;
+package ssp.scheduleplanner.model.rangeofweek;
 
 import static ssp.scheduleplanner.commons.util.CollectionUtil.requireAllNonNull;
 

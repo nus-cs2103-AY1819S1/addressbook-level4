@@ -77,8 +77,8 @@ public class FirstDayCommandTest {
         boolean allFieldsSame = true;
         for (int i = 0; i < FirstDayCommand.WEEKS_IN_SEMESTER; i++) {
             if (!testUserRangeOfWeeks[i][0].equals(rangeOfWeeks[i][0])
-            || !testUserRangeOfWeeks[i][1].equals(rangeOfWeeks[i][1])
-            || !testUserRangeOfWeeks[i][2].equals(rangeOfWeeks[i][2])) {
+                || !testUserRangeOfWeeks[i][1].equals(rangeOfWeeks[i][1])
+                || !testUserRangeOfWeeks[i][2].equals(rangeOfWeeks[i][2])) {
                 allFieldsSame = false;
             }
         }

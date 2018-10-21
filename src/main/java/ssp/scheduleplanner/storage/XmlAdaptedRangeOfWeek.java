@@ -5,7 +5,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import ssp.scheduleplanner.commons.exceptions.IllegalValueException;
-import ssp.scheduleplanner.model.rangeOfWeek.RangeOfWeek;
+import ssp.scheduleplanner.model.rangeofweek.RangeOfWeek;
 import ssp.scheduleplanner.model.task.Date;
 import ssp.scheduleplanner.model.task.Priority;
 
