@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelToDo;
 import seedu.address.model.todolist.ToDoListEvent;
 
+/**
+ * Adds a todolist event to the toDoList.
+ */
 public class AddToDoCommand extends CommandToDo {
     public static final String COMMAND_WORD = "add todo";
 
