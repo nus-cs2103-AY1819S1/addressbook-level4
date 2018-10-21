@@ -43,6 +43,10 @@ public class AchievementRecord {
         this.level = level;
     }
 
+    public int getXpValue() {
+        return xp.getXp();
+    }
+
     public Xp getXp() {
         return xp;
     }

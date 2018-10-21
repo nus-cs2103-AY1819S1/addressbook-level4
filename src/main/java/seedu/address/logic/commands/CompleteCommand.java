@@ -24,17 +24,18 @@ import seedu.address.model.task.Task;
 public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
-    public static final String MESSAGE_SUCCESS = "Good job! You have completed your task:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Good job! Your points have changed by %1$d.\n"
+            + "You have completed your task(s):\n%2$s";
     public static final String MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL = "There are no tasks to "
-        + "be found via your given label";
+            + "be found via your given label";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task has already been completed";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Completes the task identified by the Index number used in the displayed task list or a"
-        + " Label but not both.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1\n"
-        + "Parameters: l/LABEL\n"
-        + "Example: " + COMMAND_WORD + " l/friends";
+            + ": Completes the task identified by the Index number used in the displayed task list or a"
+            + " Label but not both.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1\n"
+            + "Parameters: l/LABEL\n"
+            + "Example: " + COMMAND_WORD + " l/friends";
 
     // Execution of completion of tasks will differ based on whether it is intended to be a batch operation
     private final boolean isPredicateBasedBatchComplete;
@@ -64,17 +65,26 @@ public class CompleteCommand extends Command {
 
         String completedTasksOutput;
 
+        // gets oldXp before updating tasks.
+        int oldXp = model.getXpValue();
+
         if (isPredicateBasedBatchComplete) {
             completedTasksOutput = completeAllTasksReturnStringOfTasks(model);
         } else {
             List<Task> lastShownList = model.getFilteredTaskList();
             completedTasksOutput = completeOneTaskReturnStringOfTask(
-                targetIndex, lastShownList, model);
+                    targetIndex, lastShownList, model);
         }
 
+        // calculate change in xp to report to the user.
+        int newXp = model.getXpValue();
+        int changeInXp = newXp - oldXp;
+
+        // model related operations
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, completedTasksOutput));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
     }
 
     /**
@@ -85,14 +95,13 @@ public class CompleteCommand extends Command {
      *
      * @param modelToUpdate model to update
      * @return {@code String} representation of all the completed {@code Task}
-     *
      * @throws CommandException if there are no completable task that fulfills {@code taskPredicate}
      */
     private String completeAllTasksReturnStringOfTasks(Model modelToUpdate)
-        throws CommandException {
+            throws CommandException {
 
         Iterator<Task> taskIterator = generateSetOfCompletableTasks(this.taskPredicate, modelToUpdate)
-            .iterator();
+                .iterator();
         String completedTasks = "";
 
         // throws an exception if there are no completable tasks
@@ -104,8 +113,8 @@ public class CompleteCommand extends Command {
             while (taskIterator.hasNext()) {
                 Task taskToComplete = taskIterator.next();
                 completedTasks += completeOneTaskReturnStringOfTask(
-                    taskToComplete,
-                    modelToUpdate) + "\n";
+                        taskToComplete,
+                        modelToUpdate) + "\n";
             }
         } catch (CommandException ce) {
             modelToUpdate.rollbackTaskManager();
@@ -120,11 +129,10 @@ public class CompleteCommand extends Command {
      * the {@code String} representation of the {@code Task}.
      *
      * @return {@code String} representing the completed {@code Task}
-     *
      * @throws CommandException if the given {@code taskToComplete} is already completed
      */
     private String completeOneTaskReturnStringOfTask(Task taskToComplete, Model modelToUpdate)
-        throws CommandException {
+            throws CommandException {
 
         if (taskToComplete.isCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
@@ -142,13 +150,12 @@ public class CompleteCommand extends Command {
      *
      * @param lastShownList {@code List} containing all the valid tasks to complete
      * @return {@code String} representing the completed {@code Task}
-     *
      * @throws CommandException if Index is invalid or task is already completed
      */
     private String completeOneTaskReturnStringOfTask(Index targetIndex,
                                                      List<Task> lastShownList,
                                                      Model modelToUpdate)
-        throws CommandException {
+            throws CommandException {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -212,11 +219,11 @@ public class CompleteCommand extends Command {
             // If either targetIndex or taskPredicate is null in one command but not the other
             // return false
             if ((targetIndex == null && targetIndex != other.targetIndex)
-                || taskPredicate == null && taskPredicate != other.taskPredicate) {
+                    || taskPredicate == null && taskPredicate != other.taskPredicate) {
                 return false;
             } else {
                 return (targetIndex == other.targetIndex // short circuits on match
-                    || targetIndex.equals(other.targetIndex)
+                        || targetIndex.equals(other.targetIndex)
                         && (taskPredicate == other.taskPredicate || // short circuits on match
                         taskPredicate.equals(other.taskPredicate))
                         && isPredicateBasedBatchComplete == other.isPredicateBasedBatchComplete);
