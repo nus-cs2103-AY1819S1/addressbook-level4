@@ -36,21 +36,29 @@ public class CompleteCommandTest {
 
     private static final LabelMatchesKeywordPredicate PREDICATE_FRIENDS = new LabelMatchesKeywordPredicate("friends");
     private static final LabelMatchesKeywordPredicate PREDICATE_NONSENSE = new LabelMatchesKeywordPredicate(
-        "AOSDIJPQWEOIDJPQWOiodj120349871238493qw");
+            "AOSDIJPQWEOIDJPQWOiodj120349871238493qw");
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         CompleteCommand completeCommand = new CompleteCommand(INDEX_FIRST_TASK);
 
-        Task completedTask = simpleCompleteTask(taskToComplete);
-        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTask);
-
+        // Expected objects initialisation
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        int oldXp = expectedModel.getXpValue();
+
+        // Model update and task completion
+        Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task completedTask = simpleCompleteTask(taskToComplete);
         expectedModel.updateTaskStatus(taskToComplete, completedTask);
         expectedModel.commitTaskManager();
+
+        // calculate change in xp
+        int newXp = expectedModel.getXpValue();
+        int xpChange = newXp - oldXp;
+
+        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, xpChange, completedTask);
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedMessage, expectedModel);
     }
