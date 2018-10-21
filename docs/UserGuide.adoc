@@ -229,6 +229,15 @@ Selects the 7th patient in the displayed list of patients resulted from the `lis
 `enqueuepatient 1` +
 Selects the 1st patient in the displayed list of patients whose name contain *Logan* (case insensitive) resulted from the `find Logan` command
 
+=== Show all patients in the queue : `showqueue`
+
+Lists all patients in the queue.
+Format: `showqueue`
+
+Example:
+
+* `showqueue`
+
 === Adding a medicine: `add medicine`
 
 Adds a medicine to the medicine inventory +
