@@ -11,6 +11,10 @@ import static seedu.address.testutil.TypicalPersons.ELLE;
 import seedu.address.model.group.Group;
 import seedu.address.model.tag.Tag;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 // @@author Derek-Hardy
 /**
  * A utility class containing a list of {@code Group} objects to be used in tests.
@@ -41,5 +45,10 @@ public class TypicalGroups {
     public static final Tag TEMP_GROUP_ASSIGNMENT = new Tag("Assignment");
 
     private TypicalGroups() {} // prevent instantiation
+
+    public static List<Group> getTypicalGroups() {
+        return new ArrayList<>(Arrays.asList(PROJECT_2103T, GROUP_2101,
+                NUS_COMPUTING, NUS_BASKETBALL));
+    }
 
 }
