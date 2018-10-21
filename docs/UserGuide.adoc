@@ -35,7 +35,7 @@ Fig. 1: The GUI of Hospital Management System 2K18
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-(The command box is indicated in the image above with the words "Enter your commands here...")
+(The command box is shown in Fig. 1 above; it is the gray box with the words "Enter your commands here..." inside.)
 
 Some example commands you can try:
 
@@ -168,9 +168,10 @@ View a patient’s information. Exactly what information is displayed depends on
 
 Format: `view VIEW_NAME`
 
-This command switches the user's view (indicated in the image below) to a chosen view. +
+This command switches the user's view (indicated in Fig. 2 below) to a chosen view. +
 
 image::highlightUserViewLocation.png[width=800]
+Fig. 2: Indication of the location of the user view
 
 Current choices include:
 
@@ -179,13 +180,11 @@ Current choices include:
 
 Listed below are images of each view.
 
-Default view:
-
 image::blankPanel.png[width=800]
-
-Medication view:
+Fig. 3: Default view
 
 image::medsView.png[width=800]
+Fig. 4: Medication view
 
 Example(s):
 
