@@ -13,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelToDo;
@@ -20,8 +22,6 @@ import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.ToDoList;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.ToDoListEventBuilder;
-
-import javafx.collections.ObservableList;
 
 public class AddToDoCommandTest {
 

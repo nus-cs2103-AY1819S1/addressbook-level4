@@ -1,14 +1,7 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.AddToDoCommand;
-import seedu.address.model.calendarevent.Description;
-import seedu.address.model.calendarevent.Title;
-import seedu.address.model.todolist.Priority;
-import seedu.address.model.todolist.ToDoListEvent;
-import seedu.address.testutil.ToDoListEventBuilder;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -25,7 +18,19 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TUTORI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseFailure;
+
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.AddToDoCommand;
+
+import seedu.address.model.calendarevent.Description;
+import seedu.address.model.calendarevent.Title;
+import seedu.address.model.todolist.Priority;
+import seedu.address.model.todolist.ToDoListEvent;
+
+import seedu.address.testutil.ToDoListEventBuilder;
 
 public class AddToDoCommandParserTest {
 
