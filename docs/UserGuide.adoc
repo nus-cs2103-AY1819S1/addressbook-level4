@@ -1,4 +1,8 @@
 = User Guide
+:site-section: UserGuide
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
 
 == Introduction
 
@@ -109,4 +113,3 @@ Help: help
 Exit: exit
 
 Group: group [word] [group]
-
