@@ -3,37 +3,36 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 
 import java.util.stream.Stream;
 
+/**
+ * Parses input arguments and creates a new AddMedicalHistoryCommand object
+ */
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.Name;
-
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.AddMedicalHistoryCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new AddMedicalHistoryCommand object
  */
 public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryCommand> {
 
-    public AddMedicalHistoryCommand parse(String args) throws ParseException{
+    public AddMedicalHistoryCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,PREFIX_ALLERGY, PREFIX_CONDITION);
+                ArgumentTokenizer.tokenize(args, PREFIX_ALLERGY, PREFIX_CONDITION);
 
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicalHistoryCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddMedicalHistoryCommand.MESSAGE_USAGE), pe);
         }
 
-//        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY, PREFIX_CONDITION)
-//                || !argMultimap.getPreamble().isEmpty()) {
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicalHistoryCommand.MESSAGE_USAGE));
-//        }
 
         String allergy = argMultimap.getValue(PREFIX_ALLERGY).get();
         String condition = argMultimap.getValue(PREFIX_CONDITION).get();

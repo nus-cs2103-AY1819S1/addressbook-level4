@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,16 +13,18 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.MedicalHistory;
-import seedu.address.model.person.Person;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
-
-public class AddMedicalHistoryCommand extends Command{
+/**
+ * add medical history a patient specified by index in healthbook
+ */
+public class AddMedicalHistoryCommand extends Command {
     public static final String COMMAND_WORD = "add-medical-history";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds medical history for a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds medical history for a person to the address book. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_ALLERGY + "ALLERGY "
             + PREFIX_CONDITION + "CONDITION \n"
@@ -44,7 +45,7 @@ public class AddMedicalHistoryCommand extends Command{
     /**
      * Creates an AddMedicalHistoryCommand to add the specified {@code Person}
      */
-    public AddMedicalHistoryCommand(Index index,String allergy, String condition) {
+    public AddMedicalHistoryCommand(Index index, String allergy, String condition) {
         requireNonNull(index);
         this.index = index;
         this.condition = condition;
@@ -53,7 +54,7 @@ public class AddMedicalHistoryCommand extends Command{
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException{
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -62,7 +63,7 @@ public class AddMedicalHistoryCommand extends Command{
         }
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if(!(personToEdit.getTags().contains( new Tag("Patient")))){
+        if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
         }
         Patient editedPatient = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),

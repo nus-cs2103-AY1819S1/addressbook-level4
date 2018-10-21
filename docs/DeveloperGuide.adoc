@@ -315,9 +315,10 @@ accessible via name as this allows the receptionist to edit the remark without l
 === Add Medical History Feature
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
-command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient`.
+command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient` specified by
+index.
 
-Step 1. The user types in `add-medical-history` in the command box followed by the parameter `n/John Doe al/milk c/sub
+Step 1. The user types in `add-medical-history` in the command box followed by the parameter `INDEX al/milk c/sub
 healthy`
 
 Step 2. Upon hitting enter, the `MedicalHistory` will be created and added to the storage of the system
