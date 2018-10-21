@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
@@ -9,13 +10,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * Adds an event to the address book.
@@ -49,13 +55,18 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_CLASHING_EVENT = "This event clashes with another event in the address book";
 
     private final Event toAdd;
+    private final Set<Index> contactIndicesToAdd;
 
     /**
      * Creates an AddEventCommand to add the specified Event {@code Event}.
+     * The {@code event} should not be a null object, and {@code indices} should not be null or contain any nulls.
      */
     public AddEventCommand(Event event, Set<Index> indices) {
         requireNonNull(event);
+        requireAllNonNull(indices);
+
         toAdd = event;
+        contactIndicesToAdd = indices;
     }
 
     @Override
@@ -69,6 +80,20 @@ public class AddEventCommand extends Command {
         if (model.hasClashingEvent(toAdd)) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
         }
+
+        // set the list of Person objects as the eventContacts of the event to be added
+        List<Person> lastShownPersonList = model.getFilteredPersonList();
+        if (contactIndicesToAdd.stream()
+                .anyMatch(targetIndex -> targetIndex.getZeroBased() >= lastShownPersonList.size())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Set<Person> contactsToAdd = IntStream.range(0, lastShownPersonList.size())
+                .filter(index -> contactIndicesToAdd.contains(index))
+                .mapToObj(lastShownPersonList::get)
+                .collect(Collectors.toSet());
+
+        toAdd.setEventContacts(contactsToAdd);
 
         model.addEvent(toAdd);
         model.commitAddressBook();

@@ -45,9 +45,11 @@ public class Event {
     }
 
     /**
-     * Sets the eventContacts of this event to {@code eventContacts}.
+     * Sets the eventContacts of this event to {@code eventContacts}. The input must not contain any null values,
+     * i.e. each element of {@code eventContacts} should be a valid Person object.
      */
     public void setEventContacts(Set<Person> eventContacts) {
+        requireAllNonNull(eventContacts);
         this.eventContacts = eventContacts;
     }
 

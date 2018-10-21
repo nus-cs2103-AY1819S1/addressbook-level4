@@ -4,18 +4,26 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_2;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -44,11 +52,47 @@ public class AddEventCommandTest {
     }
 
     @Test
-    public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_eventAcceptedByModel_noContacts_addSuccessful() throws Exception {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new ScheduledEventBuilder().build();
 
-        CommandResult commandResult = new AddEventCommand(validEvent, null).execute(modelStub, commandHistory);
+        Set<Index> contactIndices = new HashSet<>();
+
+        CommandResult commandResult = new AddEventCommand(validEvent, contactIndices)
+                .execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_eventAcceptedByModel_withContacts_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new ScheduledEventBuilder().withEventContacts(ALICE).build();
+
+        Set<Index> contactIndices = new HashSet<>();
+        contactIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)));
+
+        CommandResult commandResult = new AddEventCommand(validEvent, contactIndices)
+                .execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_eventAcceptedByModel_withMultipleContacts_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new ScheduledEventBuilder().withEventContacts(ALICE, BOB).build();
+
+        Set<Index> contactIndices = new HashSet<>();
+        contactIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)));
+        contactIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_2)));
+
+        CommandResult commandResult = new AddEventCommand(validEvent, contactIndices)
+                .execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
@@ -239,6 +283,7 @@ public class AddEventCommandTest {
      */
     private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
+        final ArrayList<Person> personsAdded = new ArrayList<>(Arrays.asList(ALICE, BOB));
 
         @Override
         public boolean hasEvent(Event event) {
@@ -250,6 +295,13 @@ public class AddEventCommandTest {
         public boolean hasClashingEvent(Event event) {
             requireNonNull(event);
             return eventsAdded.stream().anyMatch(event::isClashingEvent);
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            ObservableList<Person> personObservableList = FXCollections.observableArrayList();
+            personObservableList.addAll(personsAdded);
+            return  personObservableList;
         }
 
         @Override

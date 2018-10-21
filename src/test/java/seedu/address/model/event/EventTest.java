@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_MEETING;
@@ -11,10 +12,14 @@ import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.ScheduledEventBuilder;
 
@@ -111,6 +116,28 @@ public class EventTest {
         // different event contacts -> returns false
         editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts(ALICE).build();
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+    }
+
+    @Test
+    public void setEventContacts() {
+        // null list
+        Event event = new ScheduledEventBuilder().build();
+        Assert.assertThrows(NullPointerException.class, () -> event.setEventContacts(null));
+
+        // null objects in list
+        Set<Person> contactListWithNull = new HashSet<>();
+        contactListWithNull.add(ALICE);
+        contactListWithNull.add(null);
+        Assert.assertThrows(NullPointerException.class, () -> event.setEventContacts(contactListWithNull));
+
+        // non-null list - successfully added
+        Set<Person> validContactList = new HashSet<>();
+        validContactList.add(ALICE);
+        event.setEventContacts(validContactList);
+
+        Event expectedEvent = new ScheduledEventBuilder().withEventContacts(ALICE).build();
+
+        assertEquals(event, expectedEvent);
     }
 
     @Test
