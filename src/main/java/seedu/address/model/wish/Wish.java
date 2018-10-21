@@ -123,7 +123,7 @@ public class Wish {
      * Returns the {@code savedAmount} - {@code price} for {@code wish}.
      */
     public Amount getSavedAmountToPriceDifference() {
-        return Amount.add(new Amount(savedAmount.toString()), new Amount(price.toString()));
+        return Amount.add(new Amount(savedAmount.toString()), new Amount("-" + price.toString()));
     }
 
     /**
