@@ -13,7 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     //private Path schedulePlannerFilePath = Paths.get("data" , "addressbook.xml");
-    private Path schedulePlannerFilePath = Paths.get("addressbook.xml");
+    private Path schedulePlannerFilePath = Paths.get("scheduleplanner.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

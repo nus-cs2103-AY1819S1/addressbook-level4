@@ -19,8 +19,28 @@ endif::[]
 By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner is a desktop application that serves to aid students to manage their tasks that they have to
- do.
+This Developer Guide for the Student Schedule Planner is written by the SSP team for the benefits of future
+developers and maintainers of the application.
+
+Student Schedule Planner is a desktop application aims to help students save their tasks manage them all in one place
+.
+
+This introduction briefly covers the main flow of the Developer Guide:
+
+*2. Setting up* : Walkthrough on the prequisites steps to setup the Developer Environment
+
+*3. Design* : Overview on the structure of the project code, and how each component interacts with each other.
+
+
+*4. Implementation* : In-depth explanation on the implementation of the various features in the Schedule Planner, as
+well as the considerations behind the implementations
+
+*5. Documentation* : General guide on the documentation process of the project
+
+*6. Testing* : Documentation for the coverage tests of the application and how to set up your testing environment.
+
+*7. DevOps* : General processes used during development phase, and documentation on how to set it up.
+
 
 == Setting up
 
@@ -70,7 +90,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Click on the `Imports` tab to set the order:
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
@@ -79,9 +99,10 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `ssp/scheduleplanner`
+repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `ssp/scheduleplanner`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -110,40 +131,43 @@ When you are ready to start coding,
 
 == Design
 
+This section covers the structural design of the App, as well as how its various components interact with each other.
+
 [[Design-Architecture]]
 === Architecture
+
+The *_Architecture Diagram_* given below explains the structural design of the App. It is followed by is a quick
+overview of each component.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/ssp/scheduleplanner/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/ssp/scheduleplanner/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level. They are:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components:
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Model,*`Model`*>>: The component which holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: The component which reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a ` (_Component Name_)Manager` class.
 
-For example, `Logic`(see the class diagram given below) defines it's API in `Logic.java` interface
+For example, `Logic`(see the class diagram given below) defines its API in `Logic.java` interface
 and exposes its functionality using `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
@@ -189,7 +213,7 @@ All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
 `UI` uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/ssp/scheduleplanner/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-`UI` component,
+`UI` component does the following:
 
 * Executes user commands using `Logic` component.
 * Binds itself to some data in `Model` so that the UI can auto-update when data in `Model` changes.
@@ -205,7 +229,9 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/ssp/scheduleplanner/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses `ShedulePlannerParser` to parse user command.
+Below are the steps of how `Logic` executes an user command:
+
+.  `Logic` uses `SchedulePlannerParser` to parse the user command.
 .  This creates a `Command` object which is executed by `LogicManager`.
 .  The command execution can affect `Model` (e.g. adding a task) and/or raise events.
 .  The result is encapsulated as a `CommandResult` object which is passed back to `Ui`.
@@ -223,13 +249,13 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/ssp/scheduleplanner/model/Model.java[`Model.java`]
 
-The `Model` component...
+The `Model` component does the following:
 
-* stores a `UserPref` object that represents user's preferences.
-* stores the Schedule Planner data.
-* exposes an unmodifiable, observable `ObservableList<Task>`  e.g. UI can be bound to this list, such that it
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Schedule Planner data.
+* Exposes an unmodifiable, observable `ObservableList<Task>`  e.g. UI can be bound to this list, such that it
 automatically updates when data in the list changes.
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Schedule Planner`, which `Task` can reference. This would allow `Schedule Planner` to only require one `Tag` object per unique `Tag`, instead of each `Task` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -244,10 +270,10 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/ssp/scheduleplanner/storage/Storage.java[`Storage.java`]
 
-The `Storage` component...
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Schedule Planner data in xml format and read it back.
+* Saves `UserPref` objects in json format and reads it back.
+* Saves the Schedule Planner data in xml format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -336,22 +362,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire schedule planner
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the task being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** The entire schedule planner is saved
+** Pros: It is easy to implement.
+** Cons: It may have performance issues in terms of memory usage.
+* **Alternative 2:** Each individual command knows how to undo/redo by itself.
+** Pros: It will use less memory (e.g. for `delete`, just save the task being deleted).
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of schedule planner states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+* **Alternative 1 (current choice):** A list is used to store the history of schedule planner states.
+** Pros: It is easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
 `HistoryManager` and `VersionedSchedulePlanner`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* **Alternative 2:** `HistoryManager` is used for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: It requires dealing with commands that have already been undone: We must remember to skip these commands. It violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -363,19 +389,23 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. `LogsCenter` class is used to manage logging levels and1
+We are using `java.util.logging` package for logging. `LogsCenter` class is used to manage logging levels and
 destinations.
+
+How to log:
 
 * The logging level can be controlled using `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* The log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+The following are logging levels used:
+
+* `SEVERE` : This is for critical problems detected which may possibly cause the termination of the application
+* `WARNING` : This is to warn that application can continue running, but with caution
+* `INFO` : This is for information showing the noteworthy actions by the App
+* `FINE` : This is for details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
@@ -408,7 +438,7 @@ that was computed and display to the screen.
 
 == Documentation
 
-We use asciidoc for writing documentation.
+We used asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -426,7 +456,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
-Here are the steps to convert the project documentation files to PDF format.
+Here are the steps to convert the project documentation files to PDF format:
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
@@ -543,15 +573,15 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
+.  *GUI Tests* - These are tests involving the GUI. They include:
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `ssp.scheduleplanner.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
-..  _Unit tests_ targeting the lowest level methods/classes. +
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
+..  _Unit tests_ that target the lowest level methods/classes. +
 e.g. `ssp.scheduleplanner.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+..  _Integration tests_ that check the integration of multiple code units (those code units are assumed to be working). +
 e.g. `StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests check multiple code units as well as how the are connected together. +
 e.g. `LogicManagerTest`
 
 
@@ -580,7 +610,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 === Making a Release
 
-Here are the steps to create a new release.
+Here are the steps to create a new release:
 
 .  Update the version number in link:{repoURL}/src/main/java/ssp/scheduleplanner/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
@@ -589,21 +619,13 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Schedule Planner depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
+A project often depends on third-party libraries. For example, Schedule Planner depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than the following alternatives: +
+a. Including those libraries in the repo (this bloats the repo size) +
+b. Requiring developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
 
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
 === Improving each component
 
 Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
@@ -876,10 +898,10 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* have a need to manage their schedule for daily tasks
+* have a need to manage their schedules for daily tasks
 * have a want to view and be reminded of important things
-* able to set priority level on their schedule
-* prefers typing over mouse input
+* be able to set priority level on their schedule
+* prefer typing over mouse input
 * want a customizable schedule planner
 
 *Value proposition*: Student Scheduler Planner manages schedules faster than a typical mouse/GUI driven
@@ -958,7 +980,7 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to add task into Student Schedule Planner.
-2.  Student Schedule Planner add the exam into task list.
+2.  Student Schedule Planner adds the exam into task list.
 +
 Use case ends.
 
@@ -1147,7 +1169,7 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on most Mainstream OS as long as it has Java `9` or higher installed.
+.  The app should work on most Mainstream OS as long as it has Java `9` or higher installed.
 .  Each command execution time should not take more than 3 seconds.
 
 _{More to be added}_

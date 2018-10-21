@@ -40,6 +40,12 @@ public class Tag {
                 && tagName.equals(((Tag) other).tagName)); // state check
     }
 
+    /**
+     * Getter method for the Tag's name in String format
+     * @return String representation of Tag's name
+     */
+    public String getTagName() { return this.tagName; }
+
     @Override
     public int hashCode() {
         return tagName.hashCode();
