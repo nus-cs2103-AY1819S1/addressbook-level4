@@ -454,6 +454,8 @@ A full valid example of the nusmods link is as follows:
 https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&CS2103=LEC:1,TUT:01&CS2105=LEC:1,TUT:16&CS2106=LAB:09,LEC:1,TUT:09&MA1521=LEC:1,TUT:4&UCV2209=SEM:01
 ```
 
+image::TimeTableScheduleDiagram.png[width="800"]
+
 How to obtain the full timetable.
 
 Step 1. We can easily obtain the person's timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.
