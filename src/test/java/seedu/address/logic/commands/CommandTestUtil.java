@@ -135,7 +135,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deleteEntity(firstPerson);
+        model.deletePerson(firstPerson);
         model.commitAddressBook();
     }
 

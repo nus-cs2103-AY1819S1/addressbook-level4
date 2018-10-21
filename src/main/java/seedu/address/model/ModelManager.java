@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 
 /**
@@ -58,29 +57,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasEntity(Entity entity) {
-        requireNonNull(entity);
-        return versionedAddressBook.hasEntity(entity);
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return versionedAddressBook.hasPerson(person);
     }
 
     @Override
-    public void deleteEntity(Entity target) {
-        versionedAddressBook.removeEntity(target);
+    public void deletePerson(Person target) {
+        versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addEntity(Entity entity) {
-        versionedAddressBook.addEntity(entity);
+    public void addPerson(Person person) {
+        versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updateEntity(Entity target, Entity editedEntity) {
-        requireAllNonNull(target, editedEntity);
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.updateEntity(target, editedEntity);
+        versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
 

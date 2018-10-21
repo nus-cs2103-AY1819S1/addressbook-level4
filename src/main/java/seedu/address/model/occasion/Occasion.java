@@ -2,13 +2,14 @@ package seedu.address.model.occasion;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,8 +21,7 @@ public class Occasion extends Inanimate {
     // Identity fields
     private final OccasionName occasionName;
     private final OccasionDate occasionDate;
-    private final String location;
-    private final UniquePersonList attendanceList;
+    private final Person organiser;
 
     // Date fields
     private final Set<Tag> tags = new HashSet<>();
@@ -29,20 +29,14 @@ public class Occasion extends Inanimate {
     /**
      * Every field must be present and not null.
      */
-    public Occasion(OccasionName occasionName, OccasionDate occasionDate, String location,
-            Set<Tag> tags, TypeUtil type) {
-        requireAllNonNull(occasionName, occasionDate, tags, type);
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate,
+        Person organiser, Set<Tag> tags, TypeUtil type) {
+        requireAllNonNull(occasionName, occasionDate, organiser, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
-        this.location = location;
-        this.attendanceList = new UniquePersonList();
+        this.organiser = organiser;
         this.tags.addAll(tags);
         this.type = type;
-    }
-
-    public Occasion(OccasionName occasionName, OccasionDate occasionDate,
-                    Set<Tag> tags, TypeUtil type) {
-        this(occasionName, occasionDate, null, tags, type);
     }
 
     public OccasionName getOccasionName() {
@@ -53,12 +47,8 @@ public class Occasion extends Inanimate {
         return occasionDate;
     }
 
-    public UniquePersonList getAttendanceList() {
-        return attendanceList;
-    }
-
-    public String getLocation() {
-        return location;
+    public Person getOrganiser() {
+        return organiser;
     }
 
     /**
@@ -92,18 +82,14 @@ public class Occasion extends Inanimate {
         Occasion otherOccasion = (Occasion) other;
         return otherOccasion.getOccasionName().equals(this.getOccasionName())
             && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
-            && otherOccasion.getAttendanceList().equals(this.getAttendanceList())
+            && otherOccasion.getOrganiser().equals(this.getOrganiser())
             && otherOccasion.getTags().equals(this.getTags());
-    }
-
-    public boolean isSameEntity(Entity other) {
-        return this.equals(other);
     }
 
     @Override
     public int hashCode() {
         // Use this method for custom fields hashing instead of implementing one.
-        return Objects.hash(occasionName, occasionDate, attendanceList, tags);
+        return Objects.hash(occasionName, occasionDate, organiser, tags);
     }
 
     @Override
@@ -112,8 +98,8 @@ public class Occasion extends Inanimate {
         stringBuilder.append(getOccasionName())
             .append(" ")
             .append(getOccasionDate())
-            .append(" Attendance List: ")
-            .append(getAttendanceList()) // use the person's name to represent this Peron
+            .append(" Organiser: ")
+            .append(getOrganiser().getName()) // use the person's name to represent this Peron
             // object.
             .append(" Tags: ");
         getTags().forEach(stringBuilder::append);
