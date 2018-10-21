@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -106,8 +107,9 @@ public class EditCommand extends Command {
         SavedAmount savedAmount = wishToEdit.getSavedAmount(); // edit command does not allow editing remarks
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
+        UUID originalUUUID = wishToEdit.getId();
 
-        return new Wish(updatedName, updatedPrice, updatedDate, updatedUrl, savedAmount, remark, updatedTags);
+        return new Wish(updatedName, updatedPrice, updatedDate, updatedUrl, savedAmount, remark, updatedTags, originalUUUID);
     }
 
     @Override

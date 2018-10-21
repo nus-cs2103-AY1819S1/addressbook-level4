@@ -63,9 +63,10 @@ public class WishCard extends UiPart<Region> {
             cardPane.setOpacity(0.5);
         }
 
-        if(wish.isExpired()) {
-            name.setText(EXPIRED_WARNING + wish.getName().fullName);
-        }
+        // Code to display expired wishes
+//        if(wish.isExpired()) {
+//            name.setText(EXPIRED_WARNING + wish.getName().fullName);
+//        }
 
         initTags(wish);
     }

@@ -110,16 +110,16 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if(!Date.isValidDate(date)) {
+        if(!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         try {
-            if (!Date.isFutureDate(date)) {
+            if (!Date.isFutureDate(trimmedDate)) {
                 throw new ParseException(Date.MESSAGE_DATE_OUTDATED);
             }
         } catch (java.text.ParseException pe) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
-        return new Date(date);
+        return new Date(trimmedDate);
     }
 }

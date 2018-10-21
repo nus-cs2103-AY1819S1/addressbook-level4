@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
@@ -17,11 +18,12 @@ import seedu.address.model.tag.Tag;
 public class Wish {
 
     // Identity fields
+    private final UUID id;
+
+    // Data fields
     private final Name name;
     private final Price price;
     private final Date date;
-
-    // Data fields
     private final Url url;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
@@ -53,6 +55,37 @@ public class Wish {
         this.tags.addAll(tags);
         this.remark = remark;
         this.savedAmount = savedAmount;
+
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount,
+                Remark remark, Set<Tag> tags, UUID id) {
+        requireAllNonNull(name, price, date, url, tags);
+        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
+            fulfilled = true;
+        } else {
+            fulfilled = false;
+        }
+
+        if (isCurrDateGreaterThanOrEqualToDate(date)) {
+            expired = true;
+        } else {
+            expired = false;
+        }
+
+        this.name = name;
+        this.price = price;
+        this.date = date;
+        this.url = url;
+        this.tags.addAll(tags);
+        this.remark = remark;
+        this.savedAmount = savedAmount;
+
+        this.id = id;
     }
 
     /**
@@ -101,6 +134,8 @@ public class Wish {
         return expired;
     }
 
+    public UUID getId() { return id; }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -120,8 +155,7 @@ public class Wish {
 
         return otherWish != null
                 && otherWish.getName().equals(getName())
-                && (otherWish.getPrice().equals(getPrice())
-                && otherWish.getDate().equals(getDate()));
+                && (otherWish.getPrice().equals(getPrice()) || otherWish.getDate().equals(getDate()));
     }
 
     /**

@@ -36,8 +36,10 @@ public class CommandTestUtil {
     public static final String VALID_DATE_2 = "02/01/2019";
     public static final String VALID_URL_AMY = "https://www.lazada.sg/products/"
             + "ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
+    public static final String VALID_ID_AMY = "6b46cf8e-adf5-4c39-8885-0a3131a80c9e";
     public static final String VALID_URL_BOB = "https://www.lazada.sg/products/"
             + "ps4-090-hori-real-arcade-prov-silent-hayabusaps4ps3-ps4-090-i223784443-s340908954.html";
+    public static final String VALID_ID_BOB = "f0fc4af7-8631-4370-9554-ac2f31a22f29";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_SAVED_AMOUNT_AMY = "11.11";

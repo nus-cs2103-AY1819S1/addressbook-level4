@@ -55,11 +55,11 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
-        // multiple phones - last phone accepted
+        // multiple prices - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
-        // multiple emails - last email accepted
+        // multiple dates - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_1 + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
@@ -96,10 +96,6 @@ public class AddCommandParserTest {
 
         // missing email prefix
         assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + VALID_DATE_2 + URL_DESC_BOB,
-                expectedMessage);
-
-        // missing url prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2 + VALID_URL_BOB,
                 expectedMessage);
 
         // all prefixes missing

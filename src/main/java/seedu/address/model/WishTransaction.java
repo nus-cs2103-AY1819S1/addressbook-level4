@@ -252,7 +252,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     private Wish getUpdatedWish(Set<Tag> updatedTags, Wish target) {
         return new Wish(target.getName(), target.getPrice(), target.getDate(),
-                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags);
+                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags, target.getId());
     }
 
     /**

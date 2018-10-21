@@ -7,6 +7,7 @@
         <date>24/09/2015</date>
         <url>https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
         <remark></remark>
+        <id>a4e02199-1840-46ae-99a4-6269def77e09</id>
         <tagged>friends</tagged>
     </wishes>
     <wishes>
@@ -16,6 +17,7 @@
         <date>21/09/2020</date>
         <url>https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
         <remark></remark>
+        <id>1a04aede-ff75-4b48-a477-9502e167b756</id>
         <tagged>colleagues</tagged>
         <tagged>friends</tagged>
     </wishes>
@@ -26,6 +28,7 @@
         <date>21/09/2020</date>
         <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
         <remark></remark>
+        <id>fa01b13f-6aa6-4aeb-8d18-875ab1fe05b5</id>
         <tagged>neighbours</tagged>
     </wishes>
     <wishes>
@@ -35,6 +38,7 @@
         <date>21/11/2023</date>
         <url>https://www.lazada.sg/products/sony-playstation-4-pro-1tb-console-local-stock-with-sony-warranty-i100009437-s100011973.html</url>
         <remark></remark>
+        <id>0c3830d9-d399-4f50-b30a-998318cfa4f4</id>
         <tagged>family</tagged>
     </wishes>
     <wishes>
@@ -44,6 +48,7 @@
         <date>19/07/2020</date>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark></remark>
+        <id>1c7362f5-77e4-4bd4-9294-8f9af303fa60</id>
         <tagged>classmates</tagged>
     </wishes>
     <wishes>
@@ -53,14 +58,7 @@
         <date>10/10/2021</date>
         <url>www.amazon.com</url>
         <remark></remark>
-    </wishes>
-    <wishes>
-        <name>hoop</name>
-        <price>123.00</price>
-        <savedAmount>0.00</savedAmount>
-        <date>10/09/2021</date>
-        <url>www.amazon.com</url>
-        <remark></remark>
+        <id>25c65e7d-f0c9-4276-867f-b6c76e1fca7c</id>
     </wishes>
     <wishes>
         <name>asdf</name>
@@ -69,30 +67,7 @@
         <date>1/1/2019</date>
         <url>www.amazon.com</url>
         <remark></remark>
-    </wishes>
-    <wishes>
-        <name>asdf</name>
-        <price>124.00</price>
-        <savedAmount>0.00</savedAmount>
-        <date>2/1/2019</date>
-        <url>www.amazon.com</url>
-        <remark></remark>
-    </wishes>
-    <wishes>
-        <name>asdf</name>
-        <price>125.00</price>
-        <savedAmount>0.00</savedAmount>
-        <date>3/1/2019</date>
-        <url>www.amazon.com</url>
-        <remark></remark>
-    </wishes>
-    <wishes>
-        <name>asdf</name>
-        <price>4.50</price>
-        <savedAmount>0.00</savedAmount>
-        <date>19/07/2020</date>
-        <url>www.amazon.com</url>
-        <remark></remark>
+        <id>58e06a77-7032-421f-b8a6-163d816b8897</id>
     </wishes>
     <wishes>
         <name>Amy Bee</name>
@@ -101,15 +76,16 @@
         <date>02/01/2019</date>
         <url>https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html</url>
         <remark></remark>
+        <id>4ed507be-a8df-4abf-8fa9-d28a1b7b0a4f</id>
         <tagged>friend</tagged>
     </wishes>
     <wishes>
-        <name>Amy Bee</name>
-        <price>21.20</price>
+        <name>psp5</name>
+        <price>230.00</price>
         <savedAmount>0.00</savedAmount>
-        <date>01/01/2019</date>
-        <url>https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html</url>
+        <date>23/10/2020</date>
+        <url>www.amazon.com</url>
         <remark></remark>
-        <tagged>friend</tagged>
+        <id>1949fba8-1ce9-4e55-97d6-0338a037aa7f</id>
     </wishes>
 </wishbook>

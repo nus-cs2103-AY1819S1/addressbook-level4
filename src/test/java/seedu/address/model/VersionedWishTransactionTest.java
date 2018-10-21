@@ -31,7 +31,7 @@ public class VersionedWishTransactionTest {
         tagSet.add(new Tag("wish1"));
         this.wish = new Wish(new Name("wish1"),
                 new Price("81320902"),
-                new Date("wish1@gmail.com"),
+                new Date("22/09/2023"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),

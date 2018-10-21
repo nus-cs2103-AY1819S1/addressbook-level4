@@ -13,17 +13,18 @@ public class WishComparator implements Comparator<Wish> {
         assert(Date.isValidDate(o1.getDate().date));
         java.util.Date date1 = o1.getDate().getDateObject();
         java.util.Date date2 = o2.getDate().getDateObject();
+        int nameComaparison = o1.getName().fullName.compareTo(o2.getName().fullName);
 
         if (date1.after(date2)) {
            return 1;
         } else if (date1.before(date2)) {
            return -1;
-        } else if (o1.getPrice().value > o2.getPrice().value) {
-           return 1;
-        } else if (o1.getPrice().value < o2.getPrice().value) {
+        } else if (nameComaparison == 1){
+            return 1;
+        } else if (nameComaparison == -1) {
             return -1;
         } else {
-            return 0;
+            return o1.getId().compareTo(o2.getId());
         }
     }
 

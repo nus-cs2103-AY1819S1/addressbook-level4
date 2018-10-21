@@ -61,7 +61,7 @@ public class SaveCommand extends Command {
         try {
             Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
                     wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
-                    wishToEdit.getRemark(), wishToEdit.getTags());
+                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
 
             model.updateWish(wishToEdit, editedWish);
             model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);

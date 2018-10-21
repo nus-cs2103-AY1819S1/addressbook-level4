@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -20,7 +21,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.util.WishComparator;
 import seedu.address.model.wish.NameContainsKeywordsPredicate;
+import seedu.address.model.wish.Wish;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -74,7 +77,9 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredWishList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredSortedWishList());
+        List<Wish> expectedWishList =  Arrays.asList(CARL, ELLE, FIONA);
+        expectedWishList.sort(new WishComparator());
+        assertEquals(expectedWishList, model.getFilteredSortedWishList());
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ public class WishBuilder {
     public static final String DEFAULT_URL = "https://www.lazada.sg/products/"
             + "ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
     public static final String DEFAULT_REMARK = "";
+    public static final String DEFAULT_ID = "e2762cbc-ea52-4f66-aa73-b9b87cbcf004";
 
     private Name name;
     private Price price;
@@ -34,6 +36,7 @@ public class WishBuilder {
     private Url url;
     private Remark remark;
     private Set<Tag> tags;
+    private UUID id;
 
     public WishBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -43,6 +46,7 @@ public class WishBuilder {
         url = new Url(DEFAULT_URL);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
+        id = UUID.fromString(DEFAULT_ID);
     }
 
     /**
@@ -56,6 +60,7 @@ public class WishBuilder {
         url = wishToCopy.getUrl();
         remark = wishToCopy.getRemark();
         tags = new HashSet<>(wishToCopy.getTags());
+        id = wishToCopy.getId();
     }
 
     /**
@@ -115,8 +120,15 @@ public class WishBuilder {
         return this;
     }
 
-    public Wish build() {
-        return new Wish(name, price, date, url, savedAmount, remark, tags);
+    /**
+     * Sets the {@code UUID} of the {@code Wish} that we are building.
+     */
+    public WishBuilder withId(String id) {
+        this.id = UUID.fromString(id);
+        return this;
     }
 
+    public Wish build() {
+        return new Wish(name, price, date, url, savedAmount, remark, tags, id);
+    }
 }
