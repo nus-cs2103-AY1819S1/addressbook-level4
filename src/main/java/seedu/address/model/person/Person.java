@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.util.Pair;
 import seedu.address.model.tag.Tag;
 
 /**
