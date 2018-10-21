@@ -17,7 +17,9 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 
 /**
- * This interface bounds all classes implementing it to provide an implementation for generating a document,
+ * The Document class takes in all the information from the classes that extends it to generate a HTML file
+ * for that class.
+ * It is responsible for the HTML formatting of the data.
  */
 public class Document {
 
@@ -30,23 +32,30 @@ public class Document {
     private static final String DIRECTORY_PATH = COMPLETE_TEMPLATE_NAME
             .substring(0, COMPLETE_TEMPLATE_NAME.length() - FILENAME_END_SLICING);
 
-    private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE =
-            "Unable to find DocumentTemplate.html to use as template!";
-    private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
-            "Unable to write contents into ";
+    private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
+    private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
 
     //Data placeholders in the HTML template from which all the Document objects are extended from
     private static final String HEADER_PLACEHOLDER = "$headers";
     private static final String NAME_PLACEHOLDER = "$name";
     private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
     private static final String CONTENT_PLACEHOLDER = "$content";
+    private static final String HTML_TABLE_FORMATTING = "</td><td>";
 
+    //Formatting the contents of the receipt into a table
+    private static final String RECEIPT_HEADER = "<table ID = \"contentTable\" width = 100%><col width = \"700\">";
+    private static final String RECEIPT_HEADER_CONTENT = "<tr ID = \"receiptHeader\"><div class=\"contentHeader\">"
+            + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
+    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\">"
+            + "<td>Grand Total:" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING;
+    private static final String RECEIPT_END = "</td></tr></table>";
+
+    //Variables stored here instead of in the classes that extend Document as they are common amongst all the classes
     private String filePath;
     private String fileName;
     private String fileType;
     private Name name;
     private IcNumber icNumber;
-    private Map<Medicine, Integer> medicineAllocated;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -108,7 +117,7 @@ public class Document {
         informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt) this).formatReceiptInformation());
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
         } else {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet");
         }
@@ -151,6 +160,65 @@ public class Document {
         return contentBuilder.toString();
     }
 
+    /**
+     * Formats all the relevant information of a receipt in HTML for the served patient.
+     */
+    String formatReceiptInformation() {
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append(RECEIPT_HEADER)
+                .append(RECEIPT_HEADER_CONTENT)
+                .append(unpackTypesOfServices())
+                .append(unpackMedicineAllocation(((Receipt) this).allocatedMedicine))
+                .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
+                .append(String.format("%.02f", ((Receipt) this).totalPrice))
+                .append(RECEIPT_END);
+        return stringbuilder.toString();
+    }
+
+    /**
+     * Extracts all the types of services rendered by the clinic for the served patient and formats it into
+     * a table to be reflected in the HTML file.
+     */
+    private String unpackTypesOfServices() {
+        //placeholder
+        //private String unpackConsultationInformation(Map<String, Integer> treatmentsReceived) {
+        return "<tr><td>Consultation" + HTML_TABLE_FORMATTING + "1" + HTML_TABLE_FORMATTING + "30.00"
+                + HTML_TABLE_FORMATTING + "30.00</td></tr>";
+    }
+
+    /**
+     * Extracts all the medicines dispensed by the clinic for the served patient and formats it into
+     * a table to be reflected in the HTML file.
+     * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
+     *                          and their individual respective quantities
+     */
+    private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int quantity;
+        int pricePerUnit;
+        int totalPriceForSpecificMedicine;
+        String medicineName;
+        for (Map.Entry<Medicine, Integer> entry : medicineAllocated.entrySet()) {
+            Medicine medicine = entry.getKey();
+            medicineName = medicine.getMedicineName().toString();
+            quantity = entry.getValue();
+            pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
+            totalPriceForSpecificMedicine = pricePerUnit * quantity;
+            ((Receipt) this).totalPrice += totalPriceForSpecificMedicine;
+
+            stringBuilder.append("<tr><td>")
+                    .append(medicineName)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(quantity)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(pricePerUnit)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(totalPriceForSpecificMedicine)
+                    .append("</td></tr>");
+        }
+        return stringBuilder.toString();
+    }
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -161,9 +229,5 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
-    }
-
-    public void setMedicineAllocated(Map allocation) {
-        this.medicineAllocated = allocation;
     }
 }
