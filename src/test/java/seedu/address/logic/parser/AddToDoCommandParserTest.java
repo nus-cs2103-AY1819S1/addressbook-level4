@@ -16,8 +16,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
-import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseSuccess;
 
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
 
