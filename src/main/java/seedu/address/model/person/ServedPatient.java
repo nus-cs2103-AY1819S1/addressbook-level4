@@ -10,7 +10,7 @@ import seedu.address.model.medicine.Medicine;
 /**
  * Uncompleted class, need to add more methods and fields.
  * Represents a patient that has already consulted the doctor in the address book.
- * It has all the necessary data needed to generate any object that inherits from Document.
+ * It has all the necessary data needed to generate any object that inherits from document.
  */
 public class ServedPatient {
 

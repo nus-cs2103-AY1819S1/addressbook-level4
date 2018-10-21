@@ -29,7 +29,7 @@ public class DocumentContentAddCommand extends QueueCommand {
             + "[" + PREFIX_REFERRAL_CONTENT + "Referral] "
             + "[" + PREFIX_MC_CONTENT + " MC]";
 
-    public static final String MESSAGE_DOCUMENT_ADD_SUCCESS = "Patient Document Updated: ";
+    public static final String MESSAGE_DOCUMENT_ADD_SUCCESS = "Patient document Updated: ";
     public static final String MESSAGE_NO_CURRENT_PATIENT = "There is no Current Patient. Use the serve command first.";
 
 
