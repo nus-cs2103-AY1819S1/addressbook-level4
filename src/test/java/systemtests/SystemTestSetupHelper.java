@@ -10,8 +10,8 @@ import guitests.guihandles.MainWindowHandle;
 
 import javafx.stage.Stage;
 
-import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyClinicIo;
+import seedu.clinicio.TestApp;
+import seedu.clinicio.model.ReadOnlyClinicIo;
 
 /**
  * Contains helper methods that system tests require.
