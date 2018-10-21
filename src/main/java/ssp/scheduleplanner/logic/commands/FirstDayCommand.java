@@ -36,6 +36,7 @@ public class FirstDayCommand extends Command {
     public static final int WEEKS_IN_SEMESTER = 17;
     private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
+    private String weekDescription = "";
     private Path path = Paths.get("rangeofweek.xml");
 
     //To allow other class to use the methods without causing any changes to the storage
@@ -49,9 +50,17 @@ public class FirstDayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
         computeRangeOfWeeks(inputDate);
         saveRangeOfWeeks(rangeOfWeek);
+
+        if (isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
+            weekDescription = retrieveWeekDescription(rangeOfWeek);
+        }
+
+        if (weekDescription != "") {
+            return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + "Current week: %s", weekDescription
+            + "\n" + "The week description will reflected when you relaunch the application"));
+        }
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
