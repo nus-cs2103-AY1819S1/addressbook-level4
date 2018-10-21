@@ -75,15 +75,24 @@ public class CompleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
-        Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        // actual objects
         CompleteCommand completeCommand = new CompleteCommand(INDEX_FIRST_TASK);
 
-        Task completedTask = simpleCompleteTask(taskToComplete);
-        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTask);
-
+        //expected objects set up
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        int oldXp = expectedModel.getXpValue();
+        Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+
+        // get change in xp
+        int newXp = expectedModel.getXpValue();
+        int xpChange = newXp - oldXp;
+
+        // complete task and update model
+        Task completedTask = simpleCompleteTask(taskToComplete);
         expectedModel.updateTaskStatus(taskToComplete, completedTask);
         expectedModel.commitTaskManager();
+
+        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, xpChange, completedTask);
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedMessage, expectedModel);
     }
