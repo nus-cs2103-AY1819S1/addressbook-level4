@@ -29,28 +29,28 @@ public class TypicalPersons {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
-            .withMedicalRecord("A+").build();
+            .withMedicalRecord("").build();
     public static final Patient BENSON = new PersonBuilder().withName("Benson Meier").withIcNumber("S1234567X")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends")
-            .withMedicalRecord("A+").build();
+            .withMedicalRecord("").build();
     public static final Patient CARL = new PersonBuilder().withName("Carl Kurz").withIcNumber("S1234567X")
             .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
-            .withMedicalRecord("A+").build();
+            .withMedicalRecord("").build();
     public static final Patient DANIEL = new PersonBuilder().withName("Daniel Meier").withIcNumber("S1234567X")
             .withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends")
-            .withMedicalRecord("A+").build();
+            .withMedicalRecord("").build();
     public static final Patient ELLE = new PersonBuilder().withName("Elle Meyer").withIcNumber("S1234567X")
             .withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").withMedicalRecord("A+").build();
+            .withEmail("werner@example.com").withAddress("michegan ave").withMedicalRecord("").build();
     public static final Patient FIONA = new PersonBuilder().withName("Fiona Kunz").withIcNumber("S1234567X")
             .withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withMedicalRecord("A+").build();
+            .withEmail("lydia@example.com").withAddress("little tokyo").withMedicalRecord("").build();
     public static final Patient GEORGE = new PersonBuilder().withName("George Best").withIcNumber("S1234567X")
             .withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").withMedicalRecord("A+").build();
+            .withEmail("anna@example.com").withAddress("4th street").withMedicalRecord("").build();
 
     // Manually added
     public static final Patient HOON = new PersonBuilder().withName("Hoon Meier").withIcNumber("S1234567X")

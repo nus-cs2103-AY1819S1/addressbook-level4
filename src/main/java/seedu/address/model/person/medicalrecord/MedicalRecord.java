@@ -123,13 +123,16 @@ public class MedicalRecord {
         BloodType newBloodType = record1.getBloodType();
 
         // TODO: Some kind of proper exception throwing when there is attempt to change blood type.
-        if (!record1.getBloodType().equals(record2.getBloodType())
-                && !record1.getBloodType().value.equals("") && !record2.getBloodType().value.equals("")) {
-            // This is not allowed!
-            System.out.println("This is not allowed bruh, you can't change your blood type.");
-            System.out.println("Defaulting to original bloodtype");
-        } else {
+        if (record1.getBloodType().value.equals("")) {
             newBloodType = record2.getBloodType();
+        } else {
+            if (!record2.getBloodType().value.equals("")) {
+                if (!record1.getBloodType().value.equals(record2.getBloodType().value)) {
+                    // This is not allowed!
+                    System.out.println("This is not allowed bruh, you can't change your blood type.");
+                    System.out.println("Defaulting to original bloodtype");
+                }
+            }
         }
 
         List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
