@@ -4,12 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 
-
 import java.util.stream.Stream;
 
-/**
- * Parses input arguments and creates a new AddMedicalHistoryCommand object
- */
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddMedicalHistoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,7 +15,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new AddMedicalHistoryCommand object
  */
 public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryCommand> {
-
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddMedicalHistoryCommand
+     * and returns an AddMedicalHistoryCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddMedicalHistoryCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
@@ -39,14 +39,6 @@ public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryC
 
         return new AddMedicalHistoryCommand(index, allergy, condition);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
+    
 
 }
