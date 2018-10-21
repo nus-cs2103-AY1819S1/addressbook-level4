@@ -1,6 +1,8 @@
 //@@author theJrLinguist
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ALICE;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,9 +18,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
 
 /**
  * A utility class to help with building Event objects.

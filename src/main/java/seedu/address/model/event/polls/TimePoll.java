@@ -28,6 +28,15 @@ public class TimePoll extends AbstractPoll {
     }
 
     /**
+     * Create a TimePoll without options.
+     */
+    protected TimePoll(int id) {
+        super.id = id;
+        super.pollName = "Time Poll";
+        super.pollData = new HashMap<>();
+    }
+
+    /**
      * Creates the poll options.
      */
     private void createOptions(UniquePersonList participantList, LocalDate startDate, LocalDate endDate) {
@@ -65,5 +74,14 @@ public class TimePoll extends AbstractPoll {
             options.add(option);
         }
         return options;
+    }
+
+    /**
+     * Returns a copy of the TimePoll.
+     */
+    public TimePoll copy() {
+        TimePoll copy = new TimePoll(id);
+        copy.pollData = super.copyData();
+        return copy;
     }
 }

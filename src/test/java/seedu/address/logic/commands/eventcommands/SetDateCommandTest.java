@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalIndexes;
 
 public class SetDateCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -32,12 +34,12 @@ public class SetDateCommandTest {
     public void execute_dateAcceptedSetDate() {
         SetDateCommand command = new SetDateCommand(date);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
-        Event event = model.getFilteredEventList().get(0);
+        model.setCurrentUser(ALICE);
+        Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, date.format(dateFormat), event);
-        expectedModel.updateEvent(event, event);
+        Event eventEdited = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
+        eventEdited.setDate(date);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }

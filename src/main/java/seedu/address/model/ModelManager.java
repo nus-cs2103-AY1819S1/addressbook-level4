@@ -126,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
-        for (Event event : filteredEvents) {
+        for (Event event : versionedAddressBook.getEventList()) {
             boolean changed = event.updatePerson(target, editedPerson);
             if (changed) {
                 versionedAddressBook.updateEvent(event, event);

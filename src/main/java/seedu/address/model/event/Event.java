@@ -72,6 +72,13 @@ public class Event {
         return organiser;
     }
 
+    public String getOrganiserAsString() {
+        if (organiser == null) {
+            return "";
+        }
+        return organiser.getName().toString();
+    }
+
     public void setOrganiser(Person person) {
         organiser = person;
     }
@@ -342,6 +349,25 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, location, tags);
+    }
+
+    public Event getCopy() {
+        Event copy = new Event(name, location, tags);
+        copy.organiser = this.organiser;
+        copy.date = this.date;
+        copy.startTime = this.startTime;
+        copy.endTime = this.endTime;
+        this.personList.forEach(person -> copy.personList.add(person));
+        for (AbstractPoll poll : polls) {
+            if (poll instanceof Poll) {
+                Poll genericPoll = (Poll) poll;
+                copy.polls.add(genericPoll.copy());
+            } else if (poll instanceof TimePoll) {
+                TimePoll timePoll = (TimePoll) poll;
+                copy.polls.add(timePoll.copy());
+            }
+        }
+        return copy;
     }
 
     public String getInfo() {

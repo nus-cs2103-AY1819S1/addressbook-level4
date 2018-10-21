@@ -8,25 +8,28 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Event.
  */
 public class XmlAdaptedEvent {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(XmlAdaptedEvent.class);
     private static ObservableList<Person> personList;
 
     @XmlElement(required = true)
@@ -156,10 +159,13 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
-        final Person modelOrganiser = personList.get(Integer.valueOf(organiser));
-
         Event event = new Event(modelName, modelAddress, modelTags);
-        event.setOrganiser(modelOrganiser);
+
+        int organiserIndex = Integer.valueOf(organiser);
+        if (organiserIndex != -1) {
+            final Person modelOrganiser = personList.get(Integer.valueOf(organiser));
+            event.setOrganiser(modelOrganiser);
+        }
 
         if (!date.isEmpty()) {
             LocalDate modelDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -182,8 +188,12 @@ public class XmlAdaptedEvent {
 
         //need to catch exceptions
         for (XmlPersonIndex personIndex : participants) {
-            Person modelPerson = personIndex.toModelType();
-            modelPersonList.add(modelPerson);
+            try {
+                Person modelPerson = personIndex.toModelType();
+                modelPersonList.add(modelPerson);
+            } catch (PersonNotFoundException e) {
+                logger.info("Person not added to participants list.");
+            }
         }
         event.setPersonList(modelPersonList);
         return event;

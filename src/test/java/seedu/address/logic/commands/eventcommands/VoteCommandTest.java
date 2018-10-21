@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getAddressBookWithParticipant;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 
@@ -13,10 +14,13 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
@@ -31,19 +35,21 @@ public class VoteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedVoteOption() {
+    public void execute_acceptedVoteOption() throws UserNotJoinedEventException, NoUserLoggedInException,
+            NoEventSelectedException {
         Index index = TypicalIndexes.INDEX_FIRST;
         VoteCommand command = new VoteCommand(index, OPTION_NAME);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
-        Event event = model.getFilteredEventList().get(0);
-        event.addPoll("Generic poll");
-        Poll poll = (Poll) event.getPoll(index);
-        poll.addOption(OPTION_NAME);
-        model.setSelectedEvent(event);
+        model.setCurrentUser(ALICE);
+        expectedModel.setCurrentUser(ALICE);
+        model.setSelectedEvent(model.getEvent(index));
+        expectedModel.setSelectedEvent(expectedModel.getEvent(index));
+        model.addPoll("Generic poll");
+        expectedModel.addPoll("Generic poll");
+        model.addPollOption(index, OPTION_NAME);
+        expectedModel.addPollOption(index, OPTION_NAME);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
+        expectedModel.voteOption(index, OPTION_NAME);
         expectedModel.commitAddressBook();
-        expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -59,10 +65,9 @@ public class VoteCommandTest {
     @Test
     public void execute_noPollVoteOption() {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withParticipant().withOrganiser(user);
+        eventBuilder.withParticipant().withOrganiser(ALICE);
         Event event = eventBuilder.build();
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
@@ -72,10 +77,9 @@ public class VoteCommandTest {
     @Test
     public void execute_noOptionVoteOption() {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withParticipant().withOrganiser(user);
+        eventBuilder.withParticipant().withOrganiser(ALICE);
         Event event = eventBuilder.withPoll().build();
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_SUCH_OPTION);
@@ -110,17 +114,15 @@ public class VoteCommandTest {
     }
 
     @Test
-    public void execute_haveAlreadyVotedOption() {
+    public void execute_haveAlreadyVotedOption() throws UserNotJoinedEventException, NoUserLoggedInException,
+            NoEventSelectedException {
         Index index = TypicalIndexes.INDEX_FIRST;
         VoteCommand command = new VoteCommand(index, OPTION_NAME);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
-        Event event = model.getFilteredEventList().get(0);
-        event.addPoll("Generic poll");
-        Poll poll = (Poll) event.getPoll(index);
-        poll.addOption(OPTION_NAME);
-        event.getPoll(index).addVote(OPTION_NAME, user);
-        model.setSelectedEvent(event);
+        model.setCurrentUser(ALICE);
+        model.setSelectedEvent(model.getEvent(index));
+        model.addPoll("Generic poll");
+        model.addPollOption(index, OPTION_NAME);
+        model.voteOption(index, OPTION_NAME);
         String expectedMessage = String.format(Messages.MESSAGE_HAVE_ALREADY_VOTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

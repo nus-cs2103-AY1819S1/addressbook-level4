@@ -36,4 +36,13 @@ public class Poll extends AbstractPoll {
         UniquePersonList personList = new UniquePersonList();
         pollData.put(option, personList);
     }
+
+    /**
+     * Returns a copy of the poll.
+     */
+    public Poll copy() {
+        Poll copy = new Poll(id, pollName);
+        copy.pollData = super.copyData();
+        return copy;
+    }
 }

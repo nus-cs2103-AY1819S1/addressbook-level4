@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLL_OPTION;
-import static seedu.address.testutil.TypicalEvents.MEETING_BUILDER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assertAddPollCommandSuccess(command, POLLNAME);
 
-        /* ----------------------------------- Perform add poll option operations --------------------------------------- */
+        /* ----------------------------------- Perform add poll option operations ----------------------------------- */
 
         /* Case: invalid command format missing index -> rejected */
         String addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_POLL_OPTION + POLL_OPTION;
@@ -75,7 +74,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertAddOptionCommandSuccess(addOptionCommand, TypicalIndexes.INDEX_FIRST, POLL_OPTION);
 
-        /* ----------------------------------- Perform invalid add poll operations --------------------------------------- */
+        /* ----------------------------------- Perform invalid add poll operations ---------------------------------- */
 
         /* Case: missing name -> rejected */
         command = AddPollCommand.COMMAND_WORD;
@@ -95,11 +94,11 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
-    private void assertAddPollCommandSuccess(String command, String pollName) throws NoUserLoggedInException,
-            NoEventSelectedException, NotEventOrganiserException {
+    private void assertAddPollCommandSuccess(String command, String pollName) throws NoEventSelectedException,
+            NoUserLoggedInException, NotEventOrganiserException {
         Model expectedModel = getModel();
         expectedModel.setCurrentUser(ALICE);
-        Event event = MEETING_BUILDER.build();
+        Event event = expectedModel.getEvent(TypicalIndexes.INDEX_SECOND);
         expectedModel.setSelectedEvent(event);
         expectedModel.addPoll(pollName);
         String expectedResultMessage = String.format(AddPollCommand.MESSAGE_SUCCESS, pollName, event);

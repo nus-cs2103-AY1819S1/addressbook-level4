@@ -26,19 +26,19 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredList(Model model, Person... toDisplay) {
+        setFilteredList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
     public static void setFilteredEventList(Model model, List<Event> toDisplay) {
         Optional<Predicate<Event>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateEventMatching).reduce(Predicate::or);
         model.updateFilteredEventList(predicate.orElse(PREDICATE_MATCHING_NO_EVENTS));
-    }
-
-    /**
-     * @see ModelHelper#setFilteredList(Model, List)
-     */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**

@@ -20,6 +20,7 @@ import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalIndexes;
 
 public class AddPollCommandTest {
     private static final String POLLNAME = EventBuilder.DEFAULT_POLL;
@@ -37,10 +38,10 @@ public class AddPollCommandTest {
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
-        expectedModel.setSelectedEvent(event);
+        Event expectedEvent = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
+        expectedModel.setSelectedEvent(expectedEvent);
         expectedModel.setCurrentUser(user);
         expectedModel.addPoll(POLLNAME);
-        expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
