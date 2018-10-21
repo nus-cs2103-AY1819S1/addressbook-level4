@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
 import seedu.address.logic.commands.AddmedsCommand;
-import seedu.address.model.medicine.Duration;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.person.Nric;
 
@@ -51,8 +50,7 @@ public class PrescriptionUtil {
         sb.append(PREFIX_DOSES_PER_DAY + Integer.toString(prescription.getDose()
                                                                       .getDosesPerDay())
                 + " ");
-        sb.append(PREFIX_DURATION + Integer.toString(Duration.getAsDays(prescription.getDuration()
-                                                                                    .getDurationInMilliseconds()))
+        sb.append(PREFIX_DURATION + Integer.toString(prescription.getDuration().getDurationInDays())
                 + " ");
 
         return sb.toString();

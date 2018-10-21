@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.logging.Level;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -221,33 +219,14 @@ public class BrowserPanel extends UiPart<Region> {
      * the cell value factory for the Drug Name column.
      */
     private SimpleStringProperty getActiveStatusAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
-        Calendar today = Calendar.getInstance();
-        Calendar endDate = Calendar.getInstance();
-        try {
-            endDate.setTime(Duration.DATE_FORMAT.parse(param.getValue().getDuration().getEndDateAsString()));
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, loggingPrefix + "An exception has occurred: ", e);
-            return new SimpleStringProperty("An error has occurred.");
-        }
+        LocalDate today = LocalDate.now();
+        LocalDate endDate = LocalDate.parse(param.getValue()
+                                                         .getDuration()
+                                                         .getEndDateAsString(),
+            Duration.DATE_FORMAT);
 
-        return new SimpleStringProperty((isAfter(today, endDate) ? "No" : "Yes"));
-    }
+        boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) < 0;
 
-    /**
-     * Helper method to check if a given {@code Calendar} is after another given {@code Calendar}.
-     * @return true iff {@code firstDate} is strictly after {@code secondDate}..
-     */
-    private boolean isAfter(Calendar firstDate, Calendar secondDate) {
-        if (firstDate.get(Calendar.YEAR) < secondDate.get(Calendar.YEAR)) {
-            return false;
-        } else if (firstDate.get(Calendar.YEAR) > secondDate.get(Calendar.YEAR)) {
-            return true;
-        }
-
-        if (firstDate.get(Calendar.DAY_OF_YEAR) <= secondDate.get(Calendar.DAY_OF_YEAR)) {
-            return false;
-        }
-
-        return true;
+        return new SimpleStringProperty(isEndDateStrictlyBeforeToday ? "No" : "Yes");
     }
 }

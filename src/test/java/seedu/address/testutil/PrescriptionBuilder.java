@@ -29,7 +29,7 @@ public class PrescriptionBuilder {
     }
 
     /** Copy constructor. */
-    public PrescriptionBuilder(Prescription p) {
+    public PrescriptionBuilder(Prescription p) throws IllegalValueException {
         drugName = p.getDrugName();
         dose = new Dose(p.getDose());
         duration = new Duration(p.getDuration());
@@ -60,7 +60,7 @@ public class PrescriptionBuilder {
      * @param d The Duration object to defensively copy and use.
      * @return this
      */
-    public PrescriptionBuilder withDuration(Duration d) {
+    public PrescriptionBuilder withDuration(Duration d) throws IllegalValueException {
         duration = new Duration(d);
         return this;
     }
