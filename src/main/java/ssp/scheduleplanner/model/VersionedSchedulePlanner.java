@@ -34,7 +34,7 @@ public class VersionedSchedulePlanner extends SchedulePlanner {
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the schedule planner to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -45,7 +45,7 @@ public class VersionedSchedulePlanner extends SchedulePlanner {
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the schedule planner to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -56,14 +56,14 @@ public class VersionedSchedulePlanner extends SchedulePlanner {
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has schedule planner states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has schedule planner states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < schedulePlannerStateList.size() - 1;

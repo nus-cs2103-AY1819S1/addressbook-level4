@@ -10,6 +10,7 @@ import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.ExitCommand;
+import ssp.scheduleplanner.logic.commands.FilterCommand;
 import ssp.scheduleplanner.logic.commands.FindCommand;
 import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 import ssp.scheduleplanner.logic.commands.HelpCommand;
@@ -69,6 +70,9 @@ public class SchedulePlannerParser {
 
         case FirstDayCommand.COMMAND_WORD:
             return new FirstDayCommandParser().parse(arguments);
+
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
