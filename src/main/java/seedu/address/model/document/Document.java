@@ -50,12 +50,16 @@ public class Document {
             + "<td>Grand Total:" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING;
     private static final String RECEIPT_END = "</td></tr></table>";
 
-    //Variables stored here instead of in the classes that extend document as they are common amongst all the classes
+
     private String filePath;
     private String fileName;
     private String fileType;
     private Name name;
     private IcNumber icNumber;
+
+    //variables specific to receipt but here because of checkstyle issues
+    private float totalPrice = 0;
+    private Map<Medicine, Integer> allocatedMedicine;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -168,9 +172,9 @@ public class Document {
         stringbuilder.append(RECEIPT_HEADER)
                 .append(RECEIPT_HEADER_CONTENT)
                 .append(unpackTypesOfServices())
-                .append(unpackMedicineAllocation(((Receipt) this).allocatedMedicine))
+                .append(unpackMedicineAllocation(this.allocatedMedicine))
                 .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
-                .append(String.format("%.02f", ((Receipt) this).totalPrice))
+                .append(String.format("%.02f", this.totalPrice))
                 .append(RECEIPT_END);
         return stringbuilder.toString();
     }
@@ -204,9 +208,7 @@ public class Document {
             quantity = entry.getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
-            (
-                    (Receipt) this
-            ).totalPrice += totalPriceForSpecificMedicine;
+            this.totalPrice += totalPriceForSpecificMedicine;
 
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
@@ -231,5 +233,9 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public void setAllocatedMedicine(Map<Medicine, Integer> allocatedMedicine) {
+        this.allocatedMedicine = allocatedMedicine;
     }
 }

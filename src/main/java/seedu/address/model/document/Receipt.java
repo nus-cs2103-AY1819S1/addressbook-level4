@@ -12,9 +12,6 @@ import seedu.address.model.person.ServedPatient;
 public class Receipt extends Document {
     private static final String FILE_TYPE = "Receipt";
 
-    protected float totalPrice = 0;
-    protected Map<Medicine, Integer> allocatedMedicine;
-
     /**
      * Creates a receipt object for the specified servedPatient.
      * @param servedPatient the patient who has already consulted the doctor.
@@ -23,6 +20,6 @@ public class Receipt extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        allocatedMedicine = servedPatient.getMedicineAllocated();
+        setAllocatedMedicine(servedPatient.getMedicineAllocated());
     }
 }
