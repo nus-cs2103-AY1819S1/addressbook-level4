@@ -1,5 +1,30 @@
 {
-  "appTitle" : "Address App",
-  "logLevel" : "INFO",
-  "userPrefsFilePath" : "preferences.json"
+  "authors":
+  [
+    {
+      "githubId": "blewjy",
+      "displayName": "BRYAN...JU YU",
+      "authorNames": ["blewjy", "Bryan Lew"]
+    }
+    {
+      "githubId": "clawyq",
+      "displayName": "LAW Y...INTON",
+      "authorNames": ["clawyq", "LAPTOP-E3JOI16D\\clint"]
+    }
+    {
+      "githubId": "99percentile",
+      "displayName": "LEE Y... CONG",
+      "authorNames": ["99percentile","DESKTOP-NSV5A3C\\Lee Yu Cong", "Lee Yu Cong" ]
+    }
+    {
+      "githubId": "syahiranrafi",
+      "displayName": "MUHAM... RAFI",
+      "authorNames": ["syahiranrafi", "Syahiran Rafi"]
+    }
+    {
+      "githubId": "ChesterSng",
+      "displayName": "SNG Y...ESTER",
+      "authorNames": ["ChesterSng", "Chester Sng"]
+    }
+  ]
 }
