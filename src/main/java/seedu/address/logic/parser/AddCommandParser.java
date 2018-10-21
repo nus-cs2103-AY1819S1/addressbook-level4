@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.module.ModuleCode;
@@ -32,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<Command> {
     /**
      * Used for initial separation of type and args.
      */
@@ -43,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public Command parse(String args) throws ParseException {
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -54,11 +53,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         switch (TypeUtil.valueOf(type)) {
             case MODULE:
-                return new AddCommand(parseModuleAddCommand(arguments));
+                return new AddModuleCommand(parseModuleAddCommand(arguments));
             case PERSON:
-                return new AddCommand(parsePersonAddCommand(arguments));
+                return new AddPersonCommand(parsePersonAddCommand(arguments));
             case OCCASION:
-                return new AddCommand(parseOccasionAddCommand(arguments));
+                return new AddOccasionCommand(parseOccasionAddCommand(arguments));
         }
         return null;
     }
