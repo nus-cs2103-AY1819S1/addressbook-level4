@@ -73,4 +73,9 @@ public class PatientQueueManager implements PatientQueue {
     public List<Patient> getPatientsAsList() {
         return patientQueue;
     }
+
+    @Override
+    public void clear() {
+        patientQueue.clear();
+    }
 }

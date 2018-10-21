@@ -84,6 +84,25 @@ public class QueueDisplay extends UiPart<Region> {
     }
 
     /**
+     * Generate a list of patient queues separated with newline.
+     * @param patientQueue list of patients waiting for doctor.
+     * @return string representation of the list.
+     */
+    private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
+        if (patientQueue == null) {
+            return "(none)";
+        }
+        int counter = 1;
+        String result = "";
+        for (Patient patient: patientQueue.getPatientsAsList()) {
+            result += counter++ + ".) ";
+            result += patient.toNameAndIc();
+            result += "<br>";
+        }
+        return result;
+    }
+
+    /**
      * Generates URL parameters representing the patients in the list.
      * @param list to convert to string.
      * @return url string addon.
@@ -102,6 +121,26 @@ public class QueueDisplay extends UiPart<Region> {
                 result += "empty";
             }
             result += "&";
+        }
+        return result;
+    }
+
+    /**
+     * Generate a list of patient queues separated with newline.
+     * @param servedPatientList list of served patients.
+     * @return string representation of the list.
+     */
+    private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
+        if (servedPatientList == null) {
+            return "(none)";
+        }
+
+        int counter = 1;
+        String result = "";
+        for (ServedPatient patient: servedPatientList.getPatientsAsList()) {
+            result += counter++ + ".) ";
+            result += patient.toNameAndIc();
+            result += "<br>";
         }
         return result;
     }

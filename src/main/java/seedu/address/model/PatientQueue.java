@@ -66,4 +66,9 @@ public interface PatientQueue {
      * @return List object of Patients
      */
     List<Patient> getPatientsAsList();
+
+    /**
+     * Clears the PatientQueue
+     */
+    void clear();
 }
