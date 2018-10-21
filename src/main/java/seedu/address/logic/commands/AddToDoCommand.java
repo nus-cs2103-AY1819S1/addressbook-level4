@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ModelToDo;
-import seedu.address.model.todolist.ToDoListEvent;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelToDo;
+import seedu.address.model.todolist.ToDoListEvent;
 
 public class AddToDoCommand extends CommandToDo {
     public static final String COMMAND_WORD = "add todo";
