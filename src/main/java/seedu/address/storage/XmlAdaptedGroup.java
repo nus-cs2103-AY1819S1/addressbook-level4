@@ -1,12 +1,5 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.group.Group;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.shared.Description;
-import seedu.address.model.shared.Title;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +7,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
+
 
 // @@author Derek-Hardy
 /**
