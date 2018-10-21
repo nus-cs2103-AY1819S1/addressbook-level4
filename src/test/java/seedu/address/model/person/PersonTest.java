@@ -10,12 +10,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.group.Group;
+import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -62,6 +66,18 @@ public class PersonTest {
         Person person = new PersonBuilder().withGroup(GROUP_2101).withGroup(PROJECT_2103T).build();
         person.clearMembership();
         assertFalse(person.hasGroup(GROUP_2101));
+    }
+
+    @Test
+    public void setUpMembership_personInGroup_returnsTrue() {
+        Group group = new GroupBuilder().withNewPerson(BENSON).withNewPerson(CARL).build();
+        // since bidirectional relation is not possible in GroupBuilder
+        // manual addition is needed here
+        BENSON.addGroup(group);
+
+        group.removeMemberHelper(BENSON);
+        BENSON.setUpMembership();
+        assertTrue(group.hasMember(BENSON));
     }
 
     @Test
