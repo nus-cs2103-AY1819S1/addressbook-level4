@@ -26,7 +26,7 @@ public class Person {
     private Photo photo;
 
     /**
-     * Parameterized constructor that takes in a UniqueId argument
+     * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);

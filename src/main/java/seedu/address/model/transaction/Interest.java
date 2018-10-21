@@ -36,7 +36,7 @@ public class Interest {
             return false;
         }
         Interest interest = (Interest) other;
-        return other == this || value.equals(interest.value);
+        return other == this || value.equalsIgnoreCase(interest.value);
     }
 
     @Override

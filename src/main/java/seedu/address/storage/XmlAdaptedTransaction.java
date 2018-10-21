@@ -70,7 +70,7 @@ public class XmlAdaptedTransaction {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTransaction
      */
-    public XmlAdaptedTransaction(seedu.address.model.transaction.Transaction source) {
+    public XmlAdaptedTransaction(Transaction source) {
         name = source.getPerson().getName().fullName;
         email = source.getPerson().getEmail().value;
         phone = source.getPerson().getPhone().value;
@@ -88,9 +88,18 @@ public class XmlAdaptedTransaction {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction
      */
-    public seedu.address.model.transaction.Transaction toModelType() throws IllegalValueException {
+    public Transaction toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
+        if (tagged == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Tag.class.getSimpleName()));
+        }
+        for (int i = 0; i < tagged.size(); i++) {
+            XmlAdaptedTag tag = tagged.get(i);
+            if (i == 0 && !(tag.equals(new XmlAdaptedTag("debtor"))
+                       || tag.equals(new XmlAdaptedTag("lender")))) {
+                throw new IllegalValueException(Tag.MESSAGE_FIRST_TAG_CONSTRAINTS);
+            }
             personTags.add(tag.toModelType());
         }
 
@@ -124,9 +133,6 @@ public class XmlAdaptedTransaction {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
 
@@ -170,6 +176,6 @@ public class XmlAdaptedTransaction {
                 && Objects.equals(phone, otherTransaction.phone)
                 && Objects.equals(email, otherTransaction.email)
                 && Objects.equals(address, otherTransaction.address)
-                && tagged.equals(otherTransaction.tagged);
+                && Objects.equals(tagged, otherTransaction.tagged);
     }
 }

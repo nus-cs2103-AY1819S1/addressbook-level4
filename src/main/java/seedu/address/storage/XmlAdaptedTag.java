@@ -42,7 +42,7 @@ public class XmlAdaptedTag {
      */
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_GENERAL_TAG_CONSTRAINTS);
         }
         return new Tag(tagName);
     }
@@ -57,6 +57,6 @@ public class XmlAdaptedTag {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedTag) other).tagName);
+        return tagName.equalsIgnoreCase(((XmlAdaptedTag) other).tagName);
     }
 }
