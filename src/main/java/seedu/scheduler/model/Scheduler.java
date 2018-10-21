@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.scheduler.model.event.Event;
@@ -96,6 +97,14 @@ public class Scheduler implements ReadOnlyScheduler {
      */
     public void removeEvent(Event key) {
         events.remove(key);
+    }
+
+    /**
+     * Removes {@code key} and its repeating events from this {@code Scheduler}.
+     * {@code key} must exist in the scheduler.
+     */
+    public void removeEvents(Event key, Predicate<Event> predicate) {
+        events.remove(key, predicate);
     }
 
     //// util methods

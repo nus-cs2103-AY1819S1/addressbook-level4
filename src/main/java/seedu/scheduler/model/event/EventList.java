@@ -5,6 +5,8 @@ import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +73,18 @@ public class EventList implements Iterable<Event> {
         if (!internalList.remove(toRemove)) {
             throw new EventNotFoundException();
         }
+    }
+
+    /**
+     * Removes the events from the list according to predicate.
+     * The event must exist in the list.
+     */
+    public void remove(Event toRemove, Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        if (!internalList.remove(toRemove)) {
+            throw new EventNotFoundException();
+        }
+        internalList.removeIf(predicate);
     }
 
     public void setEvents(EventList replacement) {

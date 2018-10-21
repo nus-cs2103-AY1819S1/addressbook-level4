@@ -110,6 +110,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteRepeatingEvents(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteUpcomingEvents(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addEvents(List<Event> events) {
             throw new AssertionError("This method should not be called.");
         }
