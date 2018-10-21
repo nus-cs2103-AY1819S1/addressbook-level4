@@ -116,8 +116,8 @@ public class CompleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
-            "friends",
-            expectedModel);
+                "friends",
+                expectedModel);
 
         expectedModel = modelStringPair.getKey();
         Set<String> expectedTokens = modelStringPair.getValue();
@@ -130,7 +130,7 @@ public class CompleteCommandTest {
         CompleteCommand completeCommand = new CompleteCommand(PREDICATE_NONSENSE);
 
         assertCommandFailure(completeCommand, model, commandHistory,
-            CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
+                CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
     }
 
     @Test
@@ -205,8 +205,8 @@ public class CompleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
-            "friends",
-            expectedModel);
+                "friends",
+                expectedModel);
         expectedModel = modelStringPair.getKey();
 
         // complete -> first task completed
@@ -229,7 +229,7 @@ public class CompleteCommandTest {
 
         // execution failed -> task manager state not added into model
         assertCommandFailure(completeCommand, model, commandHistory,
-            CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
+                CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
 
         // single task manager state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
