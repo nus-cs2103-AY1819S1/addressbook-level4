@@ -144,7 +144,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      *
-     * The method is not yet stable. (under construction)
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -161,7 +160,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
      *
-     * The method is not yet stable. (under construction)
      */
     public void updateGroup(Group target, Group editedGroup) {
         requireNonNull(editedGroup);
