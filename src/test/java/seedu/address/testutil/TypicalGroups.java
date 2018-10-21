@@ -8,12 +8,13 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 
-import seedu.address.model.group.Group;
-import seedu.address.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.group.Group;
+import seedu.address.model.tag.Tag;
+
 
 // @@author Derek-Hardy
 /**
