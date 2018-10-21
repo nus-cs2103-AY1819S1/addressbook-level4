@@ -345,8 +345,8 @@ image::EmptyLocalDataBaseDiagram.png[width="150"]
 
 **Step 2** The user executes `GetGCEvents` command to download the Google Calendar Events to local database. +
 
-An Calendar object is to be built with method `getCalendar`. +
-A method `getNetHttpTransport` is called to let application establish a connection with Google to initiate an authorization process
+An Calendar object is to be built with method `getCalendar()`. +
+A method `getNetHttpTransport()` is called to let application establish a connection with Google to initiate an authorization process
 (for those who use this command for the  first time).
 
 A pop-up window will appear. The User will be required to log in their Google Account as per other Google Service. +
@@ -1232,31 +1232,31 @@ _{ more test cases ... }_
 
 *He Xinyi*
 
-v1.1: Implementation on Pop-up function based on Event start time only +
-v1.2: Create input data field to enable customisable pop-up time +
-v1.3: Full implementation: Allow pop-up function to update accordingly whenever events are changed
+- v1.1: Implementation of Pop-up function based on Event start time only +
+- v1.2: Created an input data field to enable customisable pop-up time +
+- v1.3: Full implementation of allowing the pop-up function to update accordingly whenever events are changed
 
 *Zhang Yezhong*
 
-v1.1 Partial impementaion on GetGCEvents
-v1.2 Implementation on GetGCEvents
-v1.3 Implementation of all relevant commands to sycn with Google Calander in real time
-v1.4 Upgrade implementation to synchronous version
+- v1.1 Partial implementation on `GetGCEvents` command +
+- v1.2 Implementation of `GetGCEvents` command +
+- v1.3 Implementation of all relevant commands to sync with Google Calendar in real time +
+- v1.4 Upgraded implementation to synchronous version
 
 *Goh Cheng Yu*
 
-v1.1: +
-v1.2: +
-v1.3: +
+- v1.1: +
+- v1.2: +
+- v1.3: +
 
 *Wu Jiacheng*
 
-v1.1: Partial implementation on tag book storage +
-v1.2: Partial implementation on tag functions +
-v1.3: Full implementation of tag functions +
+- v1.1: Partial implementation of tag book storage +
+- v1.2: Partial implementation of tag functions +
+- v1.3: Full implementation of tag functions +
 
-*Daniel*
+*Daniel Ng Sze Yao*
 
-v1.1: +
-v1.2: +
-v1.3: +
+- v1.1: +
+- v1.2: +
+- v1.3: +
