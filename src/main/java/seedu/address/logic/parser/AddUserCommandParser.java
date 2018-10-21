@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -18,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -50,6 +52,7 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         Set<Interest> interestList = ParserUtil.parseInterests(argMultimap.getAllValues(PREFIX_INTEREST));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Schedule schedule = null;
+        Set<Friend> friendList = new HashSet<>();
         if (argMultimap.getValue(PREFIX_TIMETABLE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_TIMETABLE).get();
             try {
@@ -61,7 +64,7 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         } else {
             schedule = new Schedule();
         }
-        Person person = new Person(name, phone, email, address, interestList, tagList, schedule);
+        Person person = new Person(name, phone, email, address, interestList, tagList, schedule, friendList);
         return new AddUserCommand(person);
     }
 

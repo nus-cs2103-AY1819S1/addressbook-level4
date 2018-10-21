@@ -40,6 +40,7 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = new Schedule();
+        this.friends = new HashSet<>();
     }
 
     /**
@@ -55,6 +56,7 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
+        this.friends = new HashSet<>();
     }
 
     /**
@@ -128,7 +130,7 @@ public class Person {
     }
 
     /**
-     * Returns an ArrayList of Person, which represent the friends of the current person.
+     * Returns an Set of friends, which represent the friends of the current person.
      */
     public Set<Friend> getFriends() {
         return friends;
@@ -186,8 +188,8 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same primary attributes
+     * that consist of name, phone, email, address
      */
     @Override
     public boolean equals(Object other) {
@@ -203,17 +205,13 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getSchedule().equals(getSchedule())
-                && otherPerson.getInterests().equals(getInterests())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getFriends().equals(getFriends());
+                && otherPerson.getAddress().equals(getAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, schedule, interests, tags);
+        return Objects.hash(name, phone, email, address);
     }
 
     @Override
@@ -233,7 +231,7 @@ public class Person {
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Friends: ");
-        getTags().forEach(builder::append);
+        getFriends().forEach(builder::append);
         return builder.toString();
     }
 }

@@ -158,8 +158,7 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case MaxScheduleCommand
-            .COMMAND_WORD:
+        case MaxScheduleCommand.COMMAND_WORD:
             return new MaxScheduleCommandParser().parse(arguments);
 
         default:

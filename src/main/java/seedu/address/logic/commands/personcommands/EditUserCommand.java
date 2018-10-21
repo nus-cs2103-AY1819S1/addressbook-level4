@@ -114,12 +114,13 @@ public class EditUserCommand extends Command {
         Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
+        Set<Friend> updatedFriends = editPersonDescriptor.getFriends().orElse(personToEdit.getFriends());
         editPersonDescriptor.getUpdateSchedule().ifPresent((x)-> {
             updatedSchedule.xor(x);
         });
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,
-                updatedSchedule);
+                updatedSchedule, updatedFriends);
     }
 
     @Override
@@ -285,6 +286,10 @@ public class EditUserCommand extends Command {
             return (friends != null) ? Optional.of(Collections.unmodifiableSet(friends)) : Optional.empty();
         }
 
+        /**
+         * Returns true if both persons have the same primary attributes
+         * that consist of name, phone, email, address
+         */
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -303,10 +308,7 @@ public class EditUserCommand extends Command {
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
-                && getInterests().equals(e.getInterests())
-                && getTags().equals(e.getTags())
-                && getFriends().equals(e.getFriends());
+                && getAddress().equals(e.getAddress());
         }
     }
 }

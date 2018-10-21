@@ -18,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
@@ -172,6 +173,17 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String friend} into a {@code Friend}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code friend} is invalid.
+     */
+    public static Friend parseFriend(String friend) {
+        requireNonNull(friend);
+        String trimmedFriend = friend.trim();
+        return new Friend(trimmedFriend);
+    }
 
     /**
      * Parses a {@code String schedule} into a {@code Schedule}.
@@ -213,5 +225,15 @@ public class ParserUtil {
         return tagSet;
     }
 
-
+    /**
+     * Parses {@code Collection<String> friends} into a {@code Set<Friend>}.
+     */
+    public static Set<Friend> parseFriends(Collection<String> friends) {
+        requireNonNull(friends);
+        final Set<Friend> friendSet = new HashSet<>();
+        for (String friend : friends) {
+            friendSet.add(parseFriend(friend));
+        }
+        return friendSet;
+    }
 }
