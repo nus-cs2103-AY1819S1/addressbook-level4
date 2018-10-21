@@ -2,7 +2,6 @@ package seedu.address.logic.commands.personcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;

@@ -13,14 +13,14 @@ import java.util.StringTokenizer;
 public class Friend {
 
     public final String friendAttributes;
-    public final String HYPHEN = "-";
+    public final String hyphen = "-";
 
     /**
      * Constructs a {@code Friend} given a {@code Person}
      */
     public Friend(Person person) {
-        friendAttributes = person.getName() + HYPHEN + person.getPhone() + HYPHEN
-                + person.getEmail() + HYPHEN + person.getAddress();
+        friendAttributes = person.getName() + hyphen + person.getPhone() + hyphen
+                + person.getEmail() + hyphen + person.getAddress();
     }
 
     /**
@@ -46,7 +46,7 @@ public class Friend {
      * Format state as text for viewing.
      */
     public String toString() {
-        StringTokenizer st = new StringTokenizer(friendAttributes, HYPHEN);
+        StringTokenizer st = new StringTokenizer(friendAttributes, hyphen);
         return '[' + st.nextToken() + ']';
     }
 
