@@ -20,6 +20,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.XmlAddressBookStorage;
 
 
 /**
@@ -223,6 +224,12 @@ public class ModelManager extends ComponentManager implements Model {
         Path currentPath = userPrefs.getAddressBookFilePath();
         userPrefs.setAddressBookFilePath(filepath);
         raise(new UserPrefsChangeEvent(userPrefs, versionedAddressBook, currentPath, filepath));
+    }
+
+    @Override
+    public void importAddressBook(ReadOnlyAddressBook importedAddressBook) {
+        versionedAddressBook.merge(importedAddressBook);
+        indicateAddressBookChanged();
     }
 
     @Override
