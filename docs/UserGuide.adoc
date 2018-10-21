@@ -474,11 +474,11 @@ e.g.`selectpatient 2`
 
 === Queue Commands
 
-* *Queue* : `queue` +
+* *Show patients in the queue* : `queue` +
 e.g. `queue`
-* *Enqueue* : `enqueuepatient INDEX` +
+* *Enqueue a patient* : `enqueuepatient INDEX` +
 e.g. `enqueuepatient 3`
-* *Dequeue* : `dequeuepatient INDEX` +
+* *Remove a patient from the queue* : `dequeuepatient INDEX` +
 e.g. `dequeuepatient 4`
 * *Help* : `help`
 * *History* : `history`
