@@ -44,10 +44,8 @@ public class AddFriendCommandTest {
 
         Person newPerson1 = new Person(person1);
         Person newPerson2 = new Person(person2);
-        ArrayList<Person> friendList1 = newPerson1.getFriends();
-        ArrayList<Person> friendList2 = newPerson2.getFriends();
-        friendList1.add(person2);
-        friendList2.add(person1);
+        newPerson1.addFriendInList(person2);
+        newPerson2.addFriendInList(person1);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(person1, newPerson1, person2, newPerson2);
         expectedModel.commitAddressBook();
@@ -73,10 +71,8 @@ public class AddFriendCommandTest {
 
         Person newPerson1 = new Person(person1);
         Person newPerson2 = new Person(person2);
-        ArrayList<Person> friendList1 = newPerson1.getFriends();
-        ArrayList<Person> friendList2 = newPerson2.getFriends();
-        friendList1.add(person2);
-        friendList2.add(person1);
+        newPerson1.addFriendInList(person2);
+        newPerson2.addFriendInList(person1);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(person1, newPerson1, person2, newPerson2);
         expectedModel.commitAddressBook();

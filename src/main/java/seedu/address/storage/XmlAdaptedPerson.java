@@ -56,6 +56,26 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (interests != null) {
+            this.interests = new ArrayList<>(interests);
+        } else {
+            Interest interest = new Interest();
+            this.interests.add(new XmlAdaptedInterest(interest));
+        }
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
                             List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged,
                             List<XmlAdaptedFriend> friends) {
         this.name = name;
