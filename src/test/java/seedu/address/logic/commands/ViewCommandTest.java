@@ -34,7 +34,6 @@ public class ViewCommandTest {
     @Test
     public void execute_normalScenario_successMessage() throws CommandException {
         CommandResult result = command.execute(new ModelStub(), new CommandHistory());
-        
         String formattedPanelName = panelName.toString()
                                              .substring(0, 1)
                                              .toUpperCase()
