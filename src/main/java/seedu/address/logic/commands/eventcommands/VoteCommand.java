@@ -16,8 +16,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
-import seedu.address.model.event.Poll;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -49,7 +49,7 @@ public class VoteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            Poll poll = model.voteOption(pollIndex, optionName);
+            AbstractPoll poll = model.voteOption(pollIndex, optionName);
             model.commitAddressBook();
             String result = String.format(MESSAGE_SUCCESS, optionName, pollIndex.getOneBased());
             String pollDisplayResult = poll.displayPoll();

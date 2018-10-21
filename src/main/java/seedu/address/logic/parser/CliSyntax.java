@@ -14,6 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_INTEREST = new Prefix("i/");
     public static final Prefix PREFIX_EVENT_NAME = new Prefix("e/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_DATE_START = new Prefix("d1/");
+    public static final Prefix PREFIX_DATE_END = new Prefix("d2/");
     public static final Prefix PREFIX_TIME_START = new Prefix("t1/");
     public static final Prefix PREFIX_TIME_END = new Prefix("t2/");
     public static final Prefix PREFIX_TIMETABLE = new Prefix("tt/");
@@ -23,4 +25,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_POLL_OPTION = new Prefix("o/");
     public static final Prefix PREFIX_PARTICIPANT_NAME = new Prefix("pn/");
     public static final Prefix PREFIX_ORGANISER_NAME = new Prefix("on/");
+
 }

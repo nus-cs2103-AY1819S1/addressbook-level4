@@ -4,20 +4,23 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * JAXB-friendly version of a single poll entry.
  */
 public class XmlAdaptedPollEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Poll option's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(XmlAdaptedPollEntry.class);
     private static ObservableList<Person> personList;
 
     @XmlElement(required = true)
@@ -57,14 +60,14 @@ public class XmlAdaptedPollEntry {
         return name;
     }
 
-    public UniquePersonList getPersonList(ObservableList<Person> personList) throws IllegalValueException {
+    public UniquePersonList getPersonList(ObservableList<Person> personList) {
         UniquePersonList persons = new UniquePersonList();
         for (XmlPersonIndex personIndex : voterList) {
             try {
                 Person modelPerson = personIndex.toModelType();
                 persons.add(modelPerson);
-            } catch (IllegalValueException e) {
-                throw e;
+            } catch (PersonNotFoundException e) {
+                logger.info("Person not added to voter list.");
             }
         }
         return persons;

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -10,7 +11,8 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.Poll;
+import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Person;
 
 /**
@@ -163,7 +165,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Poll voteOption(Index pollIndex, String optionName) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void joinEvent(Index index) {
         throw new AssertionError("This method should not be called.");
     }
 }

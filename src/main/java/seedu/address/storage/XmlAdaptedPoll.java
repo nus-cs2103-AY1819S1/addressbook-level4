@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -51,7 +51,7 @@ public class XmlAdaptedPoll {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPoll(Poll source) {
+    public XmlAdaptedPoll(AbstractPoll source) {
         id = Integer.toString(source.getId());
         name = source.getPollName();
         options = source.getPollData()
@@ -63,18 +63,12 @@ public class XmlAdaptedPoll {
 
     /**
      * Converts this jaxb-friendly adapted event object into the model's Poll object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted data
      */
-    public Poll toModelType(ObservableList<Person> personList) throws IllegalValueException {
+    public Poll toModelType(ObservableList<Person> personList) {
         //need to check for illegal arguments
         HashMap<String, UniquePersonList> pollData = new HashMap<>();
         for (XmlAdaptedPollEntry entry : options) {
-            try {
-                pollData.put(entry.getOptionName(), entry.getPersonList(personList));
-            } catch (IllegalValueException e) {
-                throw e;
-            }
+            pollData.put(entry.getOptionName(), entry.getPersonList(personList));
         }
         Poll poll = new Poll(Integer.valueOf(id), name, pollData);
         return poll;

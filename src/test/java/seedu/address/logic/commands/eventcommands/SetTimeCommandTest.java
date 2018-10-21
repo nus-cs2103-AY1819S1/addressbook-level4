@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalIndexes;
 
 public class SetTimeCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -33,22 +35,21 @@ public class SetTimeCommandTest {
     public void execute_timeAcceptedSetTime() {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event);
+        Event eventEdited = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
+        eventEdited.setTime(startTime, endTime);
         expectedModel.commitAddressBook();
-        expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_endTimeBeforeStartTime() {
         SetTimeCommand command = new SetTimeCommand(endTime, startTime);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_END_BEFORE_START_TIME);

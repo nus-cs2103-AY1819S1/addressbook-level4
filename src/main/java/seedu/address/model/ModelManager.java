@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,10 +17,14 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Poll;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
+import seedu.address.model.event.polls.TimePoll;
+
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -121,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
-        for (Event event : filteredEvents) {
+        for (Event event : versionedAddressBook.getEventList()) {
             boolean changed = event.updatePerson(target, editedPerson);
             if (changed) {
                 versionedAddressBook.updateEvent(event, event);
@@ -192,33 +197,61 @@ public class ModelManager extends ComponentManager implements Model {
         if (!currentUser.equals(currentEvent.getOrganiser())) {
             throw new NotEventOrganiserException();
         }
+        int index = versionedAddressBook.getEventList().indexOf(currentEvent);
         Poll poll = currentEvent.addPoll(pollName);
-        updateEvent(currentEvent, currentEvent);
+        updateEvent(index, currentEvent);
         return poll;
     }
 
     @Override
-    public Poll addPollOption(Index index, String option) throws NoEventSelectedException {
-        if (currentEvent == null) {
-            throw new NoEventSelectedException();
-        }
-        Poll poll = currentEvent.addOptionToPoll(index, option);
-        updateEvent(currentEvent, currentEvent);
-        return poll;
-    }
-
-    @Override
-    public Poll voteOption(Index index, String optionName) throws NoEventSelectedException, NoUserLoggedInException,
-            UserNotJoinedEventException {
+    public TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) throws NoUserLoggedInException,
+            NoEventSelectedException, NotEventOrganiserException {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
-        Poll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        TimePoll poll = currentEvent.addTimePoll(startDate, endDate);
         updateEvent(currentEvent, currentEvent);
         return poll;
+    }
+
+    @Override
+    public AbstractPoll addPollOption(Index index, String option) throws NoEventSelectedException {
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        AbstractPoll poll = currentEvent.addOptionToPoll(index, option);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    @Override
+    public AbstractPoll voteOption(Index index, String optionName) throws NoEventSelectedException,
+            NoUserLoggedInException, UserNotJoinedEventException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        AbstractPoll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    @Override
+    public void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        Event event = getEvent(index);
+        event.addPerson(currentUser);
+        updateEvent(event, event);
     }
 
     @Override

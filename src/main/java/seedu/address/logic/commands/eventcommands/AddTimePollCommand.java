@@ -1,8 +1,11 @@
-//@@author theJrLinguist
+//@@theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+
+import java.time.LocalDate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -15,38 +18,45 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.event.polls.Poll;
+import seedu.address.model.event.polls.TimePoll;
 
 /**
- * Command to add a new poll to the pre-selected event.
+ * Command to add a time poll to the event.
  */
-public class AddPollCommand extends Command {
+public class AddTimePollCommand extends Command {
 
-    public static final String COMMAND_WORD = "addPoll";
+    public static final String COMMAND_WORD = "addTimePoll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a poll to the pre-selected event.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a time poll to the pre-selected event.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME ";
-    public static final String MESSAGE_SUCCESS = "Poll %1$s created for %2$s";
+            + PREFIX_DATE_START + "FIRST_DATE "
+            + PREFIX_DATE_START + "LAST_DATE";
+    public static final String MESSAGE_SUCCESS = "Time poll created for %1$s";
 
-    private final String pollName;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
      */
-    public AddPollCommand(String pollName) {
-        requireNonNull(pollName);
-        this.pollName = pollName;
+    public AddTimePollCommand(LocalDate startDate, LocalDate endDate) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        if (DAYS.between(startDate, endDate) > 30 || endDate.isBefore(startDate)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DATE_RANGE);
+        }
         try {
-            Poll poll = model.addPoll(pollName);
+            TimePoll poll = model.addTimePoll(startDate, endDate);
             model.commitAddressBook();
             String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
-            return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, model.getSelectedEvent()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, model.getSelectedEvent()));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         } catch (NoEventSelectedException e) {
@@ -59,7 +69,6 @@ public class AddPollCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddPollCommand // instanceof handles nulls
-                && pollName.equals(((AddPollCommand) other).pollName)); // state check
+                || (other instanceof AddPollCommand); // state check
     }
 }
