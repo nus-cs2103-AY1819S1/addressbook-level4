@@ -1,23 +1,27 @@
 package seedu.address.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LECTURE;
 import static seedu.address.testutil.TypicalTodoListEvents.LECTURE;
 import static seedu.address.testutil.TypicalTodoListEvents.getTypicalToDoList;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.model.todolist.exceptions.DuplicateToDoListEventException;
+
 import seedu.address.testutil.ToDoListEventBuilder;
 
 public class ToDoListTest {
