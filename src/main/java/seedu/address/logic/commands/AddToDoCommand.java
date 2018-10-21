@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 public class AddToDoCommand extends CommandToDo {
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the scheduler. "
             + "Parameters: "
