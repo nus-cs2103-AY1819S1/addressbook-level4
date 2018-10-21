@@ -2,4 +2,8 @@
   "appTitle" : "Address App",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5aa513b140ea8b05cba574c8003689f17750ffbc
