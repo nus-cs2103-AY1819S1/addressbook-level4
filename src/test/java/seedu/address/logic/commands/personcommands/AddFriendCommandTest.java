@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FORTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FORTH;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -41,8 +41,10 @@ public class AddFriendCommandTest {
                 INDEX_THIRD.getZeroBased()));
         String expectedMessage = String.format(AddFriendCommand.MESSAGE_ADD_FRIEND_SUCCESS,
                 person1.getName(), person2.getName());
-        String actualMessage = addFriendCommand.execute(model, commandHistory).feedbackToUser;
-
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        String actualMessage = addFriendCommand.execute(expectedModel, commandHistory).feedbackToUser;
+        expectedModel.updatePerson(person1, person1, person2, person2);
+        expectedModel.commitAddressBook();
         assertEquals(expectedMessage, actualMessage);
 
         //assertCommandSuccess(addFriendCommand, model, commandHistory, expectedMessage, expectedModel);
