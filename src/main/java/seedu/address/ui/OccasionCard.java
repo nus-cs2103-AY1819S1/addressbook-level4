@@ -26,8 +26,6 @@ public class OccasionCard extends UiPart<Region> {
      */
     public final Occasion occasion;
 
-    private final Person organiser;
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -45,7 +43,6 @@ public class OccasionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         occasionName.setText(occasion.getOccasionName().fullOccasionName);
         occasionDate.setText(occasion.getOccasionDate().fullOccasionDate);
-        this.organiser = occasion.getOrganiser();
         occasion.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
@@ -65,7 +62,6 @@ public class OccasionCard extends UiPart<Region> {
         OccasionCard card = (OccasionCard) other;
         return id.getText().equals(card.id.getText())
                 && occasionName.getText().equals((card.occasionName.getText()))
-                && occasionDate.getText().equals((card.occasionDate.getText()))
-                && organiser.equals(card.organiser);
+                && occasionDate.getText().equals((card.occasionDate.getText()));
     }
 }
