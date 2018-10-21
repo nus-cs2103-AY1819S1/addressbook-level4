@@ -20,6 +20,8 @@ import ssp.scheduleplanner.commons.util.ConfigUtil;
 import ssp.scheduleplanner.commons.util.StringUtil;
 import ssp.scheduleplanner.logic.Logic;
 import ssp.scheduleplanner.logic.LogicManager;
+import ssp.scheduleplanner.logic.commands.FirstDayCommand;
+import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
@@ -111,7 +113,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig(Path configFilePath) throws CommandException {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -123,6 +125,25 @@ public class MainApp extends Application {
         }
 
         logger.info("Using config file : " + configFilePathUsed);
+
+        //added to update based on date range
+        try {
+            Config updateConfig = new Config();
+            FirstDayCommand fdc = new FirstDayCommand();
+            String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
+            rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
+
+            if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
+                updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
+                ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
+            } else {
+                updateConfig.setAppTitle("Schedule Planner");
+            }
+            ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
+        }
+        //end added
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
@@ -190,6 +211,11 @@ public class MainApp extends Application {
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
+            /* edit to update when user close app
+            Config config = new Config();
+            config.setAppTitle("testing123");
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            */
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

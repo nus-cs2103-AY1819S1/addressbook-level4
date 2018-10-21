@@ -11,6 +11,7 @@ import ssp.scheduleplanner.commons.core.GuiSettings;
 import ssp.scheduleplanner.commons.exceptions.DataConversionException;
 import ssp.scheduleplanner.commons.util.FileUtil;
 import ssp.scheduleplanner.commons.util.XmlUtil;
+import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
@@ -51,7 +52,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig(Path configFilePath) throws CommandException {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);

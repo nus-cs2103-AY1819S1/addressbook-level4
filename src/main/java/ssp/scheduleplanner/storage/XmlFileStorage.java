@@ -25,12 +25,36 @@ public class XmlFileStorage {
     }
 
     /**
+     * Saves the given scheduleplanner rangeOfWeek data to the specified file.
+     */
+    public static void saveWeekDataToFile(Path file, XmlSerializableRangeOfWeek rangeOfWeek)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, rangeOfWeek);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
      * Returns schedule planner in the file or an empty schedule planner
      */
     public static XmlSerializableSchedulePlanner loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableSchedulePlanner.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
+     * Returns rangeOfWeek in the file
+     */
+    public static XmlSerializableRangeOfWeek loadWeekDataFromSaveFile(Path file) throws DataConversionException,
+            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableRangeOfWeek.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

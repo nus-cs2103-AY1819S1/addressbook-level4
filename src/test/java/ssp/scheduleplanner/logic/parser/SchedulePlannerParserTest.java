@@ -20,6 +20,7 @@ import ssp.scheduleplanner.logic.commands.DeleteCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.ExitCommand;
 import ssp.scheduleplanner.logic.commands.FindCommand;
+import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 import ssp.scheduleplanner.logic.commands.HelpCommand;
 import ssp.scheduleplanner.logic.commands.HistoryCommand;
 import ssp.scheduleplanner.logic.commands.ListCommand;
@@ -83,6 +84,11 @@ public class SchedulePlannerParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_firstday() throws Exception {
+        assertTrue(parser.parseCommand(FirstDayCommand.COMMAND_WORD + " 130818") instanceof FirstDayCommand);
     }
 
     @Test
