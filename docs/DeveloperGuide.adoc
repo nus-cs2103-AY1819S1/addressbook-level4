@@ -257,7 +257,7 @@ image::ModelClassDiagram.png[width="800"]
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 
-In general, this is the structure of the Model Component:
+In general, this is the structure of the `Model` Component:
 
 * The `ModelManager` extends the `Model` Interface.
 
@@ -275,15 +275,20 @@ e.g. the UI can be bound to this list so that the UI automatically updates when 
 
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Car Park Finder`, which `Carpark` can reference. This would allow `Car Park Finder` to only require one `Tag` object per unique `Tag`, instead of each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Car Park Finder`, which `Carpark` can reference.
+This would allow `Car Park Finder` to only require one `Tag` object per unique `Tag`, instead of
+each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below.
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
-Use of Tag object
+
+.Use of Tag object
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+
 
 [[Design-Storage]]
 === Storage component
 
-The Storage component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
+The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -624,10 +629,12 @@ filter the car parks accordingly. The various predicates include
 Step 5. Next, `model` updates a filtered list of car parks by checking each car park
 against the specified predicate.
 
+Please refer to the Sequence Diagram below for the filter operation.
+
 .How the filter operation works
 image::SequenceDiagram-filter.png[width="700", align="left"]
 
-The following activity diagram summarizes what happens when a user executes a
+The following activity diagram summarizes the implementation of the
 filter command.
 
 .Activity Diagram for filter command
