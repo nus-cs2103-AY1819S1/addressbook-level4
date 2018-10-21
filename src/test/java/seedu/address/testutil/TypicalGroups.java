@@ -1,11 +1,17 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
+import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
 
 import seedu.address.model.group.Group;
 import seedu.address.model.tag.Tag;
 
+// @@author Derek-Hardy
 /**
  * A utility class containing a list of {@code Group} objects to be used in tests.
  *
@@ -20,6 +26,15 @@ public class TypicalGroups {
     public static final Group GROUP_2101 = new GroupBuilder().withTitle("CS2101")
             .withDescription("CS2101 Presentation team").build();
 
+    public static final Group NUS_COMPUTING = new GroupBuilder().withTitle("COMPUTING")
+            .withDescription("Discussion group for Soc students")
+            .withMeeting(DISCUSSION)
+            .withNewPerson(CARL).withNewPerson(DANIEL).withNewPerson(ELLE).build();
+
+    public static final Group NUS_BASKETBALL = new GroupBuilder().withTitle("Basketball")
+            .withDescription("NUS basketball")
+            .withMeeting(URGENT)
+            .withNewPerson(CARL).withNewPerson(ELLE).build();
 
     public static final Tag TEMP_GROUP_PROJECT = new Tag("Project");
 
