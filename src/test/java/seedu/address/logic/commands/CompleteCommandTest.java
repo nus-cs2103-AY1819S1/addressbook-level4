@@ -75,7 +75,6 @@ public class CompleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
-        // actual objects
         CompleteCommand completeCommand = new CompleteCommand(INDEX_FIRST_TASK);
 
         //expected objects set up
