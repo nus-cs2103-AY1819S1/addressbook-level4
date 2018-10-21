@@ -26,7 +26,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Date;
 import seedu.address.model.group.Place;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;

@@ -7,12 +7,13 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.shared.Description;
 import seedu.address.model.shared.Title;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
 
 // @@author Derek-Hardy
 /**
