@@ -1,4 +1,8 @@
 = Developer Guide
+:site-section: DeveloperGuide
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
 
 == Implemention
 **Trivia:**
