@@ -138,4 +138,8 @@ public class CurrentPatient {
         return patient != null ? patient.toNameAndIc() : "No current patient!";
     }
 
+    public String toUrlFormat() {
+        return patient != null ? patient.getName().fullName : "empty";
+    }
+
 }
