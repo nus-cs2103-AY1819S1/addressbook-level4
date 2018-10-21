@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -113,12 +114,13 @@ public class EditUserCommand extends Command {
         Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
+        Set<Friend> updatedFriends = editPersonDescriptor.getFriends().orElse(personToEdit.getFriends());
         editPersonDescriptor.getUpdateSchedule().ifPresent((x)-> {
             updatedSchedule.xor(x);
         });
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,
-                updatedSchedule);
+                updatedSchedule, updatedFriends);
     }
 
     @Override
@@ -157,6 +159,7 @@ public class EditUserCommand extends Command {
         private Set<Interest> interests;
         private Set<Tag> tags;
         private Schedule updateSchedule;
+        private Set<Friend> friends;
 
         public EditPersonDescriptor() {
         }
@@ -174,6 +177,7 @@ public class EditUserCommand extends Command {
             setTags(toCopy.tags);
             setSchedule(toCopy.schedule);
             setUpdateSchedule(toCopy.updateSchedule);
+            setFriends(toCopy.friends);
         }
 
         /**
@@ -265,6 +269,27 @@ public class EditUserCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code friends} to this object's {@code friends}.
+         * A defensive copy of {@code friends} is used internally.
+         */
+        public void setFriends(Set<Friend> friends) {
+            this.friends = (friends != null) ? new HashSet<>(friends) : null;
+        }
+
+        /**
+         * Returns an unmodifiable friend set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code friends} is null.
+         */
+        public Optional<Set<Friend>> getFriends() {
+            return (friends != null) ? Optional.of(Collections.unmodifiableSet(friends)) : Optional.empty();
+        }
+
+        /**
+         * Returns true if both persons have the same primary attributes
+         * that consist of name, phone, email, address
+         */
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -283,9 +308,7 @@ public class EditUserCommand extends Command {
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
-                && getInterests().equals(e.getInterests())
-                && getTags().equals(e.getTags());
+                && getAddress().equals(e.getAddress());
         }
     }
 }

@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -42,7 +43,7 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedPerson> friends = new ArrayList<>();
+    private List<XmlAdaptedFriend> friends = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -72,6 +73,30 @@ public class XmlAdaptedPerson {
     }
 
     /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged,
+                            List<XmlAdaptedFriend> friends) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (interests != null) {
+            this.interests = new ArrayList<>(interests);
+        } else {
+            Interest interest = new Interest();
+            this.interests.add(new XmlAdaptedInterest(interest));
+        }
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        if (friends != null) {
+            this.friends = new ArrayList<>(friends);
+        }
+    }
+
+    /**
      * Converts a given Person into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
@@ -88,6 +113,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
+        friends = source.getFriends().stream()
+               .map(XmlAdaptedFriend::new)
+               .collect(Collectors.toList());
     }
 
     /**
@@ -98,14 +126,14 @@ public class XmlAdaptedPerson {
     public Person toModelType() throws IllegalValueException {
         final List<Interest> personInterests = new ArrayList<>();
         final List<Tag> personTags = new ArrayList<>();
-        final ArrayList<Person> personFriends = new ArrayList<>();
+        final List<Friend> personFriends = new ArrayList<>();
         for (XmlAdaptedInterest interest : interests) {
             personInterests.add(interest.toModelType());
         }
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        for (XmlAdaptedPerson friend : friends) {
+        for (XmlAdaptedFriend friend : friends) {
             personFriends.add(friend.toModelType());
         }
 
@@ -158,8 +186,10 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        final Set<Friend> modelFriends = new HashSet<>(personFriends);
+
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule,
-                personFriends);
+                modelFriends);
     }
 
     public String getName() {
@@ -190,7 +220,7 @@ public class XmlAdaptedPerson {
         return tagged;
     }
 
-    public List<XmlAdaptedPerson> getFriends() {
+    public List<XmlAdaptedFriend> getFriends() {
         return friends;
     }
 

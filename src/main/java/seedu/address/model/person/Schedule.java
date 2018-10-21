@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -331,5 +332,12 @@ public class Schedule {
             sb.append("</tr>");
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Schedule // instanceof handles nulls
+                && Arrays.equals(this.value, ((Schedule) other).value)); // state check
     }
 }

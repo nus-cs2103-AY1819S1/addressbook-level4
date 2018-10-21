@@ -57,7 +57,7 @@ public class LoginCommand extends Command {
 
     @Override
     public String toString() {
-        return toLogin.toString();
+        return COMMAND_WORD + " " + toLogin.toString();
     }
 
     @Override
