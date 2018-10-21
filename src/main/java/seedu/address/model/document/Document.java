@@ -1,7 +1,9 @@
 package seedu.address.model.document;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -132,13 +134,23 @@ public class Document {
      * The actual generation of the file representing the document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
-        File newDocument = new File(filePath);
-        FileWriter fileWriter;
+        //File newDocument = new File(filePath);
+        //FileWriter fileWriter;
+        //try {
+        //    fileWriter = new FileWriter(newDocument);
+        //    fileWriter.write(htmlContent);
+        //    fileWriter.flush();
+        //    fileWriter.close();
+        //} catch (IOException e) {
+        //    System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + fileName + "!");
+        //    e.printStackTrace();
+        //}
+        File newDocument = new File("src/main/resources/view/Documents/" + fileName + ".html");
         try {
-            fileWriter = new FileWriter(newDocument);
-            fileWriter.write(htmlContent);
-            fileWriter.flush();
-            fileWriter.close();
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(newDocument));
+            bos.write(htmlContent.getBytes());
+            bos.flush();
+            bos.close();
         } catch (IOException e) {
             System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + fileName + "!");
         }
@@ -152,7 +164,8 @@ public class Document {
     private String convertHtmlIntoString() {
         StringBuilder contentBuilder = new StringBuilder();
         try {
-            BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_NAME));
+            //BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_NAME));
+            BufferedReader in = new BufferedReader(new FileReader(MainApp.class.getResource(DUMMY_PATH).getFile()));
             String str;
             while ((str = in.readLine()) != null) {
                 contentBuilder.append(str).append("\n");
