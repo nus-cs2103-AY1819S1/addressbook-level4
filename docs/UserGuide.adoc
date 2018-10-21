@@ -30,8 +30,9 @@ If you can type fast, Hospital Management System 2K18 can get your hospital mana
 .  Copy the file to the folder you want to use as the home folder for your Hospital Management System 2K18.
 .  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
+.The GUI of Hospital Management System 2K18
 image::Ui.png[width="790"]
-Fig. 1: The GUI of Hospital Management System 2K18
++
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -170,21 +171,21 @@ Format: `view VIEW_NAME`
 
 This command switches the user's view (indicated in Fig. 2 below) to a chosen view. +
 
+.Indication of the location of the user view
 image::highlightUserViewLocation.png[width=800]
-Fig. 2: Indication of the location of the user view
 
-Current choices include:
+Current choices for views include:
 
 * default (This is the default blank view, which is displayed when the application is started.)
 * meds (Medication view, contains information about the patient's medications.)
 
 Listed below are images of each view.
 
+.Default view
 image::blankPanel.png[width=800]
-Fig. 3: Default view
 
+.Medication view
 image::medsView.png[width=800]
-Fig. 4: Medication view
 
 Example(s):
 
