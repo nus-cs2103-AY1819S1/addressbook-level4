@@ -83,11 +83,16 @@ public class QueueDisplay extends UiPart<Region> {
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
     }
 
+    /**
+     * Generates URL parameters representing the patients in the list.
+     * @param list to convert to string.
+     * @return url string addon.
+     */
     private String generateUrlParamsFromPatientQueue(List<Patient> list) {
         String result = "";
         for (int index = 0; index < 6; index++) {
             result += "queue";
-            result += (index+1);
+            result += (index + 1);
             result += "=";
             try {
                 result += list.get(index).getName().fullName;
@@ -101,11 +106,16 @@ public class QueueDisplay extends UiPart<Region> {
         return result;
     }
 
+    /**
+     * Generates URL parameters representing the patients in the list.
+     * @param list to convert to string.
+     * @return url string addon.
+     */
     private String generateUrlParamsFromServedPatientList(List<ServedPatient> list) {
         String result = "";
         for (int index = 0; index < 6; index++) {
             result += "served";
-            result += (index+1);
+            result += (index + 1);
             result += "=";
             try {
                 result += list.get(index).getName().fullName;
