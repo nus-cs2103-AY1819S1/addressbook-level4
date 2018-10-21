@@ -17,7 +17,7 @@ import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
-import seedu.address.logic.commands.personcommands.SelectCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
@@ -42,19 +42,19 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_NO_USER_LOGGED_IN);
 
         /* Case: no event selected -> NoEventSelectedException */
-        executeCommand(SelectCommand.COMMAND_WORD + " 1");
+        executeCommand(SelectUserCommand.COMMAND_WORD + " 1");
 
         assertCommandFailure(command, Messages.MESSAGE_NO_EVENT_SELECTED);
 
         /* Case: user is not event organiser -> NotEventOrganiserException */
         executeCommand(SelectEventCommand.COMMAND_WORD + " 2");
-        executeCommand(SelectCommand.COMMAND_WORD + " 2");
+        executeCommand(SelectUserCommand.COMMAND_WORD + " 2");
         assertCommandFailure(command, Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         /* Case: add a poll with generic poll name
          * -> poll added
          */
-        executeCommand(SelectCommand.COMMAND_WORD + " 1");
+        executeCommand(SelectUserCommand.COMMAND_WORD + " 1");
         assertAddPollCommandSuccess(command, POLLNAME);
 
         /* ----------------------------------- Perform add poll option operations ----------------------------------- */
