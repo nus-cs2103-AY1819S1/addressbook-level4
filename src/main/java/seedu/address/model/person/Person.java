@@ -40,7 +40,6 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = new Schedule();
-        this.friends = new HashSet<>();
     }
 
     /**
@@ -56,7 +55,6 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
-        this.friends = new HashSet<>();
     }
 
     /**
