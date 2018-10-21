@@ -1,16 +1,13 @@
-package seedu.address.model;
+package seedu.address.model.document;
 
-import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Represents the receipt for the served patients.
+ * Represents the receipt for the served patients. This class is responsible for extracting information that is
+ * relevant to the receipt.
  */
 public class Receipt extends Document {
     private static final String FILE_TYPE = "Receipt";
-    private String noteContent;
-    private final Medicine medicine = null; //should be extractable from noteContent
-    private final int medicineQuantity = 0; //should be extractable from noteContent
 
     /**
      * Creates a receipt object for the specified servedPatient.
@@ -20,6 +17,6 @@ public class Receipt extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        this.noteContent = servedPatient.getNoteContent();
+        setAllocatedMedicine(servedPatient.getMedicineAllocated());
     }
 }

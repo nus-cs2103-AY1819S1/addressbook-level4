@@ -10,8 +10,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-import seedu.address.model.Receipt;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.document.Receipt;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
 
