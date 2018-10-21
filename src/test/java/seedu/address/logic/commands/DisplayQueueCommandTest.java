@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+import static seedu.address.logic.QueueCommandTestUtil.generatePatientQueue;
+import seedu.address.logic.commands.exceptions.CommandException;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -29,6 +33,9 @@ public class DisplayQueueCommandTest {
     private ServedPatientList servedPatientList;
     private CommandHistory commandHistory;
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Before
     public void setUp() {
         patientQueue = new PatientQueueManager();
@@ -39,9 +46,8 @@ public class DisplayQueueCommandTest {
     }
 
     @Test
-    public void execute_listIsSame() throws Exception {
-        patientQueue.enqueue(TypicalPersons.ALICE);
-        patientQueue.enqueue(TypicalPersons.BOB);
+    public void execute_listIsSame_success() throws Exception {
+        patientQueue = generatePatientQueue(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = patientQueue.displayQueue();
         CommandResult commandResult = new DisplayQueueCommand().execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
@@ -49,17 +55,29 @@ public class DisplayQueueCommandTest {
     }
 
     @Test
-    public void execute_listIsDifferent() throws Exception {
-        patientQueue.clear();
-        patientQueue.enqueue(TypicalPersons.ALICE);
-        patientQueue.enqueue(TypicalPersons.BOB);
+    public void execute_listIsDifferentOrder_failure() throws Exception {
+        patientQueue = generatePatientQueue(TypicalPersons.ALICE, TypicalPersons.BOB);
         String wrongMessage = patientQueue.displayQueue();
-        patientQueue.clear();
-        patientQueue.enqueue(TypicalPersons.BOB);
-        patientQueue.enqueue(TypicalPersons.ALICE);
+        patientQueue = generatePatientQueue(TypicalPersons.BOB, TypicalPersons.ALICE);
         CommandResult commandResult = new DisplayQueueCommand().execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
         assertNotEquals(wrongMessage, commandResult.feedbackToUser);
+    }
 
+    @Test
+    public void execute_listIsDifferent_failure() throws Exception {
+        patientQueue = generatePatientQueue(TypicalPersons.IDA, TypicalPersons.ALICE, TypicalPersons.DANIEL);
+        String wrongMessage = patientQueue.displayQueue();
+        patientQueue = generatePatientQueue(TypicalPersons.ALICE, TypicalPersons.BOB);
+        CommandResult commandResult = new DisplayQueueCommand().execute(model, patientQueue,
+                currentPatient, servedPatientList, commandHistory);
+        assertNotEquals(wrongMessage, commandResult.feedbackToUser);
+    }
+
+    @Test
+    public void execute_listIsEmpty_commandExceptionThrown() throws Exception {
+        thrown.expect(CommandException.class);
+        patientQueue = generatePatientQueue();
+        new DisplayQueueCommand().execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
     }
 }
