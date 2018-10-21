@@ -108,7 +108,7 @@ public class ServedPatient {
      * @return true if queue contains patient.
      */
     public boolean isPatient(Patient patient) {
-        return patient.isSamePerson(patient);
+        return (this.patient).isSamePerson(patient);
     }
 
     /**
