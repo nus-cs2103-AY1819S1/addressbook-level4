@@ -1,22 +1,25 @@
 package seedu.address.storage;
 
-import org.junit.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.shared.Description;
-import seedu.address.model.shared.Title;
-import seedu.address.testutil.Assert;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.storage.XmlAdaptedGroup.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalGroups.NUS_BASKETBALL;
 import static seedu.address.testutil.TypicalGroups.NUS_COMPUTING;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
+import seedu.address.testutil.Assert;
+
+
+
 
 // @@author Derek-Hardy
 public class XmlAdaptedGroupTest {
