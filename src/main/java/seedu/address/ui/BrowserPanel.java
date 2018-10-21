@@ -77,7 +77,7 @@ public class BrowserPanel extends UiPart<Region> {
             person.getAddress(),
             person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
             person.getFriends().stream()
-                .map(u -> u.getName().fullName).collect(Collectors.joining(" ", "<p>", "</p>")),
+                .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
             person.getSchedule().prettyPrint(),
         };
         String html = MessageFormat.format(sb.toString(), params);

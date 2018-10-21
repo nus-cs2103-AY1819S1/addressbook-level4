@@ -52,12 +52,14 @@ public class AddFriendCommand extends Command {
 
         Person person1 = lastShownList.get(indexes.getZeroBased());
         Person person2 = lastShownList.get(indexes.getZeroBased2());
+        if (person1.hasFriendInList(person2) || person2.hasFriendInList(person1)) {
+            throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
+        }
         Person newPerson1 = new Person(person1);
         Person newPerson2 = new Person(person2);
-        ArrayList<Person> friendList1 = newPerson1.getFriends();
-        ArrayList<Person> friendList2 = newPerson2.getFriends();
-        friendList1.add(person2);
-        friendList2.add(person1);
+        newPerson1.addFriendInList(person2);
+        newPerson2.addFriendInList(person1);
+
         model.updatePerson(person1, newPerson1, person2, newPerson2);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),

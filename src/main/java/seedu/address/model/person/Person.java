@@ -27,7 +27,7 @@ public class Person {
     private Schedule schedule;
     private Set<Interest> interests = new HashSet<>();
     private Set<Tag> tags = new HashSet<>();
-    private ArrayList<Person> friends = new ArrayList<>();
+    private Set<Friend> friends = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -62,7 +62,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests,
-                  Set<Tag> tags, Schedule schedule, ArrayList<Person> friends) {
+                  Set<Tag> tags, Schedule schedule, Set<Friend> friends) {
         requireAllNonNull(name, phone, email, address, interests, tags);
         this.name = name;
         this.phone = phone;
@@ -85,6 +85,7 @@ public class Person {
         this.interests = other.getInterests();
         this.tags = other.getTags();
         this.schedule = other.getSchedule();
+        this.friends = other.getFriends();
     }
 
     public Name getName() {
@@ -130,7 +131,7 @@ public class Person {
     /**
      * Returns an ArrayList of Person, which represent the friends of the current person.
      */
-    public ArrayList<Person> getFriends() {
+    public Set<Friend> getFriends() {
         return friends;
     }
 
@@ -138,13 +139,14 @@ public class Person {
      * Populates all attributes with that of the new person.
      */
     public void editPerson(Person newPerson) {
-        name = newPerson.name;
-        address = newPerson.address;
-        phone = newPerson.phone;
-        tags = newPerson.tags;
-        email = newPerson.email;
-        interests = newPerson.interests;
-        schedule = newPerson.schedule;
+        name = newPerson.getName();
+        address = newPerson.getAddress();
+        phone = newPerson.getPhone();
+        tags = newPerson.getTags();
+        email = newPerson.getEmail();
+        interests = newPerson.getInterests();
+        schedule = newPerson.getSchedule();
+        friends = newPerson.getFriends();
     }
 
     /**
@@ -162,16 +164,26 @@ public class Person {
     }
 
     /**
-     * Represents the user's friends list as a string
+     * Returns true if this person has the other person in the friends list.
      */
-    public String friendsToString() {
-        String friendshipString = " Friends: ";
-        ArrayList<String> friendsList = new ArrayList<>();
-        for (Person friend : friends) {
-            friendsList.add(friend.getName().toString());
+    public boolean hasFriendInList(Person otherPerson) {
+        return friends.contains(new Friend(otherPerson));
+    }
+
+    /**
+     * Adds a new person into the friends list.
+     */
+    public void addFriendInList(Person otherPerson) {
+        friends.add(new Friend(otherPerson));
+    }
+
+    /**
+     * Removes a person from the friends list if it is present.
+     */
+    public void deleteFriendInList(Person otherPerson) {
+        if (hasFriendInList(otherPerson)) {
+            friends.remove(new Friend(otherPerson));
         }
-        friendshipString += friendsList;
-        return friendshipString;
     }
 
     /**
@@ -193,14 +205,16 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSchedule().equals(getSchedule())
                 && otherPerson.getInterests().equals(getInterests())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getFriends().equals(getFriends());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address);
     }
 
     @Override
@@ -219,7 +233,8 @@ public class Person {
         getInterests().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append(friendsToString());
+        builder.append(" Friends: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 }
