@@ -1,8 +1,12 @@
 package ssp.scheduleplanner.logic.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
+import ssp.scheduleplanner.model.task.Date;
 
 /**
  * Parses input arguments and creates a new FirstDayCommand object based on first argument
@@ -25,6 +29,15 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT));
         }
+
+        if (!Date.isValidDate(trimmedArgs)) {
+            throw new ParseException(FirstDayCommand.MESSAGE_INVALID_DATE);
+        }
+
+        if (LocalDate.parse(trimmedArgs, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() != "MONDAY") {
+            throw new ParseException(FirstDayCommand.MESSAGE_NOT_MONDAY);
+        }
+
 
         return new FirstDayCommand(trimmedArgs);
     }

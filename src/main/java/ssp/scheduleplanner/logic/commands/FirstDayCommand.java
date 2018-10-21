@@ -1,5 +1,7 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
+
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,19 +42,17 @@ public class FirstDayCommand extends Command {
     public FirstDayCommand() {}
 
     public FirstDayCommand(String userInputDate) {
+        checkArgument(isMonday(userInputDate), MESSAGE_NOT_MONDAY);
+        checkArgument(Date.isValidDate(userInputDate), MESSAGE_INVALID_DATE);
         this.inputDate = userInputDate;
     }
 
+    public String returnUserDate () {
+        return inputDate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!Date.isValidDate(inputDate)) {
-            throw new CommandException(MESSAGE_INVALID_DATE);
-        }
-
-        if (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() != "MONDAY") {
-            throw new CommandException(MESSAGE_NOT_MONDAY);
-        }
 
         computeRangeOfWeeks(inputDate);
         saveRangeOfWeeks(rangeOfWeek);
@@ -163,4 +163,14 @@ public class FirstDayCommand extends Command {
         rangeOfWeek[16][2] = "Examination Week";
     }
 
+    private boolean isMonday(String inputDate) {
+        return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FirstDayCommand // instanceof handles nulls
+                && inputDate.equals(((FirstDayCommand) other).returnUserDate()));
+    }
 }
