@@ -41,6 +41,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public int getXpValue() {
+        return versionedTaskManager.getXpValue();
+    }
+
+    @Override
     public void resetData(ReadOnlyTaskManager newData) {
         versionedTaskManager.resetData(newData);
         indicateTaskManagerChanged();
@@ -154,6 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
     }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
