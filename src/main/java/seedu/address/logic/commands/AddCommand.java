@@ -39,20 +39,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    //private final Person toAdd;
-    private Person toAdd = null;
-    private Module moduleToAdd= null;
-    private Occasion occasionToAdd = null;
+    private final Person toAdd;
 
-
-    /**
-     * Creates an AddCommand to add the specified {@code Occasion}
-     * @param occasion
-     */
-    public AddCommand(Occasion occasion) {
-        requireNonNull(occasion);
-        occasionToAdd = occasion;
-    }
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -62,13 +50,6 @@ public class AddCommand extends Command {
         toAdd = person;
     }
 
-    /**
-     * Creates an AddCommand to add the specified {@code Module}
-     */
-    public AddCommand(Module module) {
-        requireNonNull(module);
-        moduleToAdd = module;
-    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

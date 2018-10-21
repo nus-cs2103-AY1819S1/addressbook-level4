@@ -12,11 +12,10 @@ import java.util.stream.Stream;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entity.Entity;
+import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
-import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
@@ -52,12 +51,14 @@ public class AddCommandParser implements Parser<Command> {
         final String arguments = matcher.group("arguments");
 
         switch (TypeUtil.valueOf(type)) {
-            case MODULE:
-                return new AddModuleCommand(parseModuleAddCommand(arguments));
-            case PERSON:
-                return new AddPersonCommand(parsePersonAddCommand(arguments));
-            case OCCASION:
-                return new AddOccasionCommand(parseOccasionAddCommand(arguments));
+        case MODULE:
+            return new AddModuleCommand(parseModuleAddCommand(arguments));
+        case PERSON:
+            return new AddPersonCommand(parsePersonAddCommand(arguments));
+        case OCCASION:
+            return new AddOccasionCommand(parseOccasionAddCommand(arguments));
+        default:
+            break;
         }
         return null;
     }
@@ -67,7 +68,7 @@ public class AddCommandParser implements Parser<Command> {
      * and returns a new Person object of the given parameters.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Person parsePersonAddCommand(String args) throws ParseException{
+    public Person parsePersonAddCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -91,12 +92,13 @@ public class AddCommandParser implements Parser<Command> {
      * and returns a new Module object of the given parameters.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Module parseModuleAddCommand(String args) throws ParseException{
+    public Module parseModuleAddCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR,
                         PREFIX_SEMESTER, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR, PREFIX_SEMESTER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR,
+                PREFIX_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -116,12 +118,13 @@ public class AddCommandParser implements Parser<Command> {
      * and returns a new Occasion object of the given parameters.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Occasion parseOccasionAddCommand(String args) throws ParseException{
+    public Occasion parseOccasionAddCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER,
+                        PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER, PREFIX_SEMESTER)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER,
+                PREFIX_SEMESTER) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
