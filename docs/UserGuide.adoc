@@ -465,16 +465,13 @@ e.g.`selectpatient 2`
 
 === Queue Commands
 
-* *Queue* : `queue QINDEX` +
-e.g. `queue 2`
-* *Queues* : `queues`
-* *Enqueue* : `enqueue INDEX QINDEX` +
-e.g. `enqueue 3 1`
-* *Dequeue* : `dequeue QINDEX` +
-e.g. `dequeue 4`
+* *Queue* : `queue` +
+e.g. `queue`
+* *Enqueue* : `enqueuepatient INDEX` +
+e.g. `enqueuepatient 3`
+* *Dequeue* : `dequeuepatient INDEX` +
+e.g. `dequeuepatient 4`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g. `select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
