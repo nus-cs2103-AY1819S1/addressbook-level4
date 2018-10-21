@@ -83,6 +83,11 @@ public class QueueDisplay extends UiPart<Region> {
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
     }
 
+    /**
+     * Generate a list of patient queues separated with newline.
+     * @param patientQueue list of patients waiting for doctor.
+     * @return string representation of the list.
+     */
     private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
         if (patientQueue == null) {
             return "(none)";
@@ -116,8 +121,15 @@ public class QueueDisplay extends UiPart<Region> {
                 result += "empty";
             }
             result += "&";
+        }
+        return result;
     }
-      
+
+    /**
+     * Generate a list of patient queues separated with newline.
+     * @param servedPatientList list of served patients.
+     * @return string representation of the list.
+     */
     private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
         if (servedPatientList == null) {
             return "(none)";
@@ -132,12 +144,12 @@ public class QueueDisplay extends UiPart<Region> {
         }
         return result;
     }
-      
-   /**
-    * Generates URL parameters representing the patients in the list.
-    * @param list to convert to string.
-    * @return url string addon.
-    */
+
+    /**
+     * Generates URL parameters representing the patients in the list.
+     * @param list to convert to string.
+     * @return url string addon.
+     */
     private String generateUrlParamsFromServedPatientList(List<ServedPatient> list) {
         String result = "";
         for (int index = 0; index < 6; index++) {
@@ -152,7 +164,7 @@ public class QueueDisplay extends UiPart<Region> {
                 result += "empty";
             }
             result += "&";
-            return result;
-       }
+        }
+        return result;
     }
 }
