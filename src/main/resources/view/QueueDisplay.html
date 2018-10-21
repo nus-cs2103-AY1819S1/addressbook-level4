@@ -2,11 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="DarkTheme.css">
-    <style>
-        table, th, td {
-            border: 0px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="QueueDisplay.css">
     <script type="text/javascript">
         function getJsonFromUrl() {
             var query = location.search.substr(1);
@@ -25,17 +21,17 @@
         });
     </script>
 </head>
-<body>
+<body class="background">
     <table style="width: 100%">
-        <tr>
-            <th style="width: 40%" align="left">Waiting:</th>
-            <th style="width: 20%" align="center">Current Patient:</th>
-            <th style="width: 40%" align="right">Served:</th>
+        <tr class = "table-header">
+            <th style="width: 40%" >Waiting:</th>
+            <th style="width: 20%" >Current Patient:</th>
+            <th style="width: 40%" >Served:</th>
         </tr>
-        <tr>
-            <td style="width: 40%" align="left" valign="top"><span id="queue"></span></td>
-            <td style="width: 20%" align="center" valign="top"><span id="current"></span></td>
-            <td style="width: 40%" align="right" valign="top"><span id="served"></span></td>
+        <tr class = "table-row">
+            <td style="width: 40%" valign="top"><span id="queue"></span></td>
+            <td style="width: 20%" valign="top"><span id="current"></span></td>
+            <td style="width: 40%" valign="top"><span id="served"></span></td>
         </tr>
     </table>
 </body>

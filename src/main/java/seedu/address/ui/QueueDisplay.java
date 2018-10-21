@@ -89,9 +89,10 @@ public class QueueDisplay extends UiPart<Region> {
         if (patientQueue == null) {
             return "(none)";
         }
-
+        int counter = 1;
         String result = "";
         for (Patient patient: patientQueue.getPatientsAsList()) {
+            result += counter++ + ".) ";
             result += patient.toNameAndIc();
             result += "<br>";
         }
@@ -108,8 +109,10 @@ public class QueueDisplay extends UiPart<Region> {
             return "(none)";
         }
 
+        int counter = 1;
         String result = "";
         for (ServedPatient patient: servedPatientList.getPatientsAsList()) {
+            result += counter++ + ".) ";
             result += patient.toNameAndIc();
             result += "<br>";
         }
