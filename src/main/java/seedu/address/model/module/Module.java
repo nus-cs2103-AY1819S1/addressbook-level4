@@ -9,8 +9,8 @@ import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.entity.Entity;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Module within the address book.
@@ -58,7 +58,9 @@ public class Module extends Entity {
         return semester;
     }
 
-    public UniquePersonList getStudents() { return students; }
+    public UniquePersonList getStudents() {
+        return students;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

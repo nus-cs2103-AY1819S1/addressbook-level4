@@ -8,9 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.inanimate.Inanimate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
