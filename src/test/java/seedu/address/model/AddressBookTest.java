@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -108,6 +109,34 @@ public class AddressBookTest {
         addressBook.addGroup(PROJECT_2103T);
         addressBook.removeGroup(PROJECT_2103T);
         assertFalse(addressBook.hasGroup(PROJECT_2103T));
+    }
+
+    @Test
+    public void hasPerson_personIsUpdated_returnsTrue() {
+        addressBook.addPerson(ALICE);
+        addressBook.updatePerson(ALICE, BOB);
+        assertTrue(addressBook.hasPerson(BOB));
+    }
+
+    @Test
+    public void hasPerson_personIsUpdated_returnsFalse() {
+        addressBook.addPerson(ALICE);
+        addressBook.updatePerson(ALICE, BOB);
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasGroup_groupIsUpdated_returnTrue() {
+        addressBook.addGroup(GROUP_2101);
+        addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
+        assertTrue(addressBook.hasGroup(PROJECT_2103T));
+    }
+
+    @Test
+    public void hasGroup_groupIsUpdated_returnFalse() {
+        addressBook.addGroup(GROUP_2101);
+        addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
+        assertFalse(addressBook.hasGroup(GROUP_2101));
     }
 
     @Test

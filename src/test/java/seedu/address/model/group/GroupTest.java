@@ -38,14 +38,14 @@ public class GroupTest {
     }
 
     @Test
-    public void addMember_personInGroup_returnsTrue() {
+    public void addMember_personAddedInGroup_returnsTrue() {
         Group group = new GroupBuilder().build();
         group.addMember(ALICE);
         assertTrue(group.hasMember(ALICE));
     }
 
     @Test
-    public void removeMember_personNotInGroup_returnsFalse() {
+    public void removeMember_personRemovedFromGroup_returnsFalse() {
         Group group = new GroupBuilder().withNewPerson(BENSON).build();
         BENSON.addGroup(group);
         group.removeMember(BENSON);

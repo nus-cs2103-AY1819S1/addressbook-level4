@@ -204,6 +204,18 @@ public class Group {
     }
 
     /**
+     * Set up the member connections for this group.
+     */
+    public void setUpMembers() {
+        // enhanced for loop to set up the member connection of this group
+        for (Person member : this.members) {
+            if (!member.hasGroup(this)) {
+                member.addGroup(this);
+            }
+        }
+    }
+
+    /**
      * Create a copy of this group.
      */
     public Group copy() {

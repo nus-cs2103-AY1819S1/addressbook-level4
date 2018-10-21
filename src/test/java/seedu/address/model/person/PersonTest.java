@@ -43,7 +43,7 @@ public class PersonTest {
     }
 
     @Test
-    public void hasGroup_personNotInGroup_returnsFalse() {
+    public void hasGroup_personRemovedFromGroup_returnsFalse() {
         Person person = new PersonBuilder().build();
         person.addGroup(GROUP_2101);
         person.removeGroup(GROUP_2101);
@@ -51,7 +51,7 @@ public class PersonTest {
     }
 
     @Test
-    public void hasGroup_personInGroup_returnsFalse() {
+    public void hasGroup_personAddedInGroup_returnsFalse() {
         Person person = new PersonBuilder().build();
         person.addGroup(GROUP_2101);
         assertTrue(person.hasGroup(GROUP_2101));

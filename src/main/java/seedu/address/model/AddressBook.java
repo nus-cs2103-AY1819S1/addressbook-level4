@@ -117,6 +117,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
+     *
+     * Note: The tag field is deprecated. When indicating a group, use the
+     * Group class instead
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -145,8 +148,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
+
         // clear membership of target & set up membership for editedPerson
-        // TODO
+        target.clearMembership();
+        editedPerson.setUpMembership();
+
         persons.setPerson(target, editedPerson);
     }
 
@@ -159,8 +165,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateGroup(Group target, Group editedGroup) {
         requireNonNull(editedGroup);
+
         // clear members of target & set up members for editedGroup
-        // TODO
+        target.clearMembers();
+        editedGroup.setUpMembers();
+
         groups.setGroup(target, editedGroup);
     }
 
