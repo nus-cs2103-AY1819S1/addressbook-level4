@@ -26,8 +26,7 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
         }
 
         if (!onlyOneSetArgument(trimmedArgs)) {
-            throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT));
+            throw new ParseException(FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT);
         }
 
         if (!Date.isValidDate(trimmedArgs)) {

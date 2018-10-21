@@ -34,6 +34,9 @@ public class FirstDayCommandParserTest {
         String testInvalidDate1 = " 321018 "; //invalid day
         String testInvalidDate2 = " 311318 "; //invalid month
         String testInvalidDate3 = " 321318 "; //invalid day and month
+        String testInvalidDate4 = " a12#12 "; //invalid format with alphabet and special character
+        String testInvalidDate5 = " 12101 "; //date not in ddMMyy format
+        String testInvalidDate6 = " 1210188 "; //date not in ddMMyy format
 
         assertParseFailure(parser, testTuesday, FirstDayCommand.MESSAGE_NOT_MONDAY);
 
@@ -44,6 +47,23 @@ public class FirstDayCommandParserTest {
         assertParseFailure(parser, testInvalidDate2, FirstDayCommand.MESSAGE_INVALID_DATE);
 
         assertParseFailure(parser, testInvalidDate3, FirstDayCommand.MESSAGE_INVALID_DATE);
+
+        assertParseFailure(parser, testInvalidDate4, FirstDayCommand.MESSAGE_INVALID_DATE);
+
+        assertParseFailure(parser, testInvalidDate5, FirstDayCommand.MESSAGE_INVALID_DATE);
+
+        assertParseFailure(parser, testInvalidDate6, FirstDayCommand.MESSAGE_INVALID_DATE);
+    }
+
+    @Test
+    public void parse_moreThanOneArgument_failure() {
+        String testDate1 = " 130818 ";
+        String testDate2 = " 140818 ";
+        String testDate3 = " 150818 ";
+
+        assertParseFailure(parser, testDate1 + testDate2, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT);
+
+        assertParseFailure(parser, testDate1 + testDate2 + testDate3, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT);
     }
 
 
