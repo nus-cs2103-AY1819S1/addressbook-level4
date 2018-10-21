@@ -21,7 +21,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.personcommands.EditCommand;
+import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -108,9 +108,9 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final EditCommand.EditPersonDescriptor DESC_ZOEY;
+    public static final EditUserCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditUserCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditUserCommand.EditPersonDescriptor DESC_ZOEY;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

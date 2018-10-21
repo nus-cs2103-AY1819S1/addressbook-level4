@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.personcommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,7 +7,10 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -25,10 +28,10 @@ public class AddFriendCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": For two persons identified by the index number used in the displayed person list, "
             + "add friend for each other.\n"
-            + "Parameters: INDEX,INDEX (both must be a positive integer)\n"
+            + "Parameters: INDEX,INDEX (both must be a positive integer and different from each other)\n"
             + "Example: " + COMMAND_WORD + " 1,2";
 
-    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1%2$s";
+    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1$s, %2$s";
 
     private final Index indexes;
 
@@ -42,7 +45,8 @@ public class AddFriendCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (indexes.getZeroBased() >= lastShownList.size()
-                || indexes.getZeroBased2() >= lastShownList.size()) {
+                || indexes.getZeroBased2() >= lastShownList.size()
+                || indexes.getZeroBased() == indexes.getZeroBased2()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -56,8 +60,13 @@ public class AddFriendCommand extends Command {
         friendList2.add(person1);
         model.updatePerson(person1, newPerson1, person2, newPerson2);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1,
-                person2));
+        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
+                person2.getName()));
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD + " " + indexes.getZeroBased() + StringUtil.COMMA + indexes.getZeroBased2();
     }
 
     @Override
