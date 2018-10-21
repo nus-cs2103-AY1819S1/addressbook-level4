@@ -872,21 +872,21 @@ of nearby car parks from their destination in a fast and efficient manner
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-=== Filter and Sorting - Yurou
+=== Filter - Yurou
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |car owner |know how far away my destination is from the car park
-|find the shortest walking distance to my destination
+|`* * *` |car owner |know if there is night parking at the car park
+|park my car at night
 
-|`* *` |driver |find out how much is the parking fee |calculate the cost of parking at the car park
+|`* * *` |driver |find out if there is free parking at a car park at a certain time on a specific day |choose to park at a car park for free
 
-|`* *` |driver |find out the types of parking available at the car park
-|decide if I can park and leave my car there
+|`* * *` |driver |find out the type of parking of a certain car park
+|decide if I should leave my car there
 |=======================================================================
 
-=== Search and Flag - Keith
+=== Search - Keith
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
