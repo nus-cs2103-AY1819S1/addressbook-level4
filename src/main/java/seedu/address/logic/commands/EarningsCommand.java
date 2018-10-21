@@ -120,7 +120,8 @@ public class EarningsCommand extends Command {
     /**
      * Returns the sum of tuition fees earned over a range of date
      */
-    private double calculateTotalFeesEarned(double sumOfFees, ArrayList<Pair<Fees, Time>> timeslots) {
+    private double calculateTotalFeesEarned(ArrayList<Pair<Fees, Time>> timeslots) {
+        double sumOfFees = 0.00;
         for (DayOfWeek day : DayOfWeek.values()) {
             sumOfFees += calculateFeesEarnedEachDayOfWeek(timeslots, day);
         }
@@ -140,9 +141,7 @@ public class EarningsCommand extends Command {
             }
         }
 
-        double totalFeesEarned = 0.00;
-
-        totalFeesEarned = calculateTotalFeesEarned(totalFeesEarned, timeslotOfAllStudents);
+        double totalFeesEarned = calculateTotalFeesEarned(timeslotOfAllStudents);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalFeesEarned,
                 startDate.toString(), endDate.toString()));
