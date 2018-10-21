@@ -83,14 +83,14 @@ public class CompleteCommandTest {
         int oldXp = expectedModel.getXpValue();
         Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
-        // get change in xp
-        int newXp = expectedModel.getXpValue();
-        int xpChange = newXp - oldXp;
-
         // complete task and update model
         Task completedTask = simpleCompleteTask(taskToComplete);
         expectedModel.updateTaskStatus(taskToComplete, completedTask);
         expectedModel.commitTaskManager();
+
+        // get change in xp
+        int newXp = expectedModel.getXpValue();
+        int xpChange = newXp - oldXp;
 
         String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, xpChange, completedTask);
 
