@@ -14,8 +14,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MedicalCertificateCommand;
+import seedu.address.logic.commands.ReceiptCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReferralLetterCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
@@ -51,7 +66,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_DisplayServedPatients() throws Exception {
+    public void parseCommand_displayServedPatients() throws Exception {
         assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD)
                 instanceof DisplayServedPatientsCommand);
         assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD + " 3")
@@ -59,7 +74,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_DisplayServedPatientsAlias() throws Exception {
+    public void parseCommand_displayServedPatientsAlias() throws Exception {
         assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_ALIAS)
                 instanceof DisplayServedPatientsCommand);
         assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD + " 3")
