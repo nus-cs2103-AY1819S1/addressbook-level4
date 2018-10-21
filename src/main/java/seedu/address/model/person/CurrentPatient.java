@@ -9,7 +9,7 @@ import seedu.address.model.medicine.Medicine;
 /**
  * Uncompleted class, need to add more methods and fields.
  * Represents a patient that is currently consulting the doctor in the address book.
- * It has all methods needed to add information to generate various Document later on.
+ * It has all methods needed to add information to generate various document later on.
  */
 public class CurrentPatient {
 
@@ -136,6 +136,10 @@ public class CurrentPatient {
      */
     public String toNameAndIc() {
         return patient != null ? patient.toNameAndIc() : "No current patient!";
+    }
+
+    public String toUrlFormat() {
+        return patient != null ? patient.getName().fullName : "empty";
     }
 
 }

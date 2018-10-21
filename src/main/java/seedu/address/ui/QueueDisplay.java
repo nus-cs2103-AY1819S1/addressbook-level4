@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -47,24 +48,26 @@ public class QueueDisplay extends UiPart<Region> {
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Loads a HTML file representing the queue display.
      */
     private void loadQueueDisplay(PatientQueue patientQueue, ServedPatientList servedPatientList,
                                   CurrentPatient currentPatient) {
-        String patientQueueString = generatePatientQueuePrettyString(patientQueue);
-        String servedPatientListString = generateServedPatientListPrettyString(servedPatientList);
-
         String currentPatientString = currentPatient != null
-                ? currentPatient.toNameAndIc() : "No current patient!";
+                ? currentPatient.toUrlFormat() : "empty";
+
+        List<Patient> patientQueueList = patientQueue == null ? null : patientQueue.getPatientsAsList();
+        List<ServedPatient> servedPatients = servedPatientList == null ? null : servedPatientList.getPatientsAsList();
 
         String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
-        queueDisplayPage += "?queue=";
-        queueDisplayPage += patientQueueString;
-        queueDisplayPage += "&served=";
-        queueDisplayPage += servedPatientListString;
+        queueDisplayPage += "?";
+        queueDisplayPage += generateUrlParamsFromPatientQueue(patientQueueList);
+        queueDisplayPage += "&";
+        queueDisplayPage += generateUrlParamsFromServedPatientList(servedPatients);
         queueDisplayPage += "&current=";
         queueDisplayPage += currentPatientString;
         loadPage(queueDisplayPage);
+        System.out.println(queueDisplayPage);
+
     }
 
     /**
@@ -80,11 +83,6 @@ public class QueueDisplay extends UiPart<Region> {
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
     }
 
-    /**
-     * Convert queue object to a nice looking readable string.
-     * @param patientQueue queue object to convert.
-     * @return nice readable string
-     */
     private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
         if (patientQueue == null) {
             return "(none)";
@@ -96,14 +94,30 @@ public class QueueDisplay extends UiPart<Region> {
             result += patient.toNameAndIc();
             result += "<br>";
         }
-        return result == "" ? "(none)" : result.substring(0, result.length() - 4);
+        return result;
     }
 
     /**
-     * Convert patient list object to a nice looking readable string
-     * @param servedPatientList list to convert
-     * @return nice readable string
+     * Generates URL parameters representing the patients in the list.
+     * @param list to convert to string.
+     * @return url string addon.
      */
+    private String generateUrlParamsFromPatientQueue(List<Patient> list) {
+        String result = "";
+        for (int index = 0; index < 6; index++) {
+            result += "queue";
+            result += (index + 1);
+            result += "=";
+            try {
+                result += list.get(index).getName().fullName;
+            } catch (IndexOutOfBoundsException ioobe) {
+                result += "empty";
+            } catch (NullPointerException npe) {
+                result += "empty";
+            }
+            result += "&";
+    }
+      
     private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
         if (servedPatientList == null) {
             return "(none)";
@@ -116,8 +130,29 @@ public class QueueDisplay extends UiPart<Region> {
             result += patient.toNameAndIc();
             result += "<br>";
         }
-        return result == "" ? "(none)" : result.substring(0, result.length() - 4);
+        return result;
     }
-
-
+      
+   /**
+    * Generates URL parameters representing the patients in the list.
+    * @param list to convert to string.
+    * @return url string addon.
+    */
+    private String generateUrlParamsFromServedPatientList(List<ServedPatient> list) {
+        String result = "";
+        for (int index = 0; index < 6; index++) {
+            result += "served";
+            result += (index + 1);
+            result += "=";
+            try {
+                result += list.get(index).getName().fullName;
+            } catch (IndexOutOfBoundsException ioobe) {
+                result += "empty";
+            } catch (NullPointerException npe) {
+                result += "empty";
+            }
+            result += "&";
+            return result;
+       }
+    }
 }
