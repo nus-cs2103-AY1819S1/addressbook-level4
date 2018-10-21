@@ -204,7 +204,9 @@ public class Document {
             quantity = entry.getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
-            ((Receipt) this).totalPrice += totalPriceForSpecificMedicine;
+            (
+                    (Receipt) this
+            ).totalPrice += totalPriceForSpecificMedicine;
 
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
