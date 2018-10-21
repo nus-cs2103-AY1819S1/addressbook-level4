@@ -37,5 +37,4 @@ public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryC
 
         return new AddMedicalHistoryCommand(index, allergy, condition);
     }
-    
 }
