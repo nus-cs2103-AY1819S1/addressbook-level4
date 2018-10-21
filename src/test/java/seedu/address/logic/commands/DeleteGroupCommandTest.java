@@ -47,8 +47,8 @@ public class DeleteGroupCommandTest {
 
         CommandResult commandResult = new DeleteGroupCommand(validGroup).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(DeleteGroupCommand.MESSAGE_DELETE_GROUP_SUCCESS,
-                validGroup), commandResult.feedbackToUser);
+        assertEquals(String.format(DeleteGroupCommand.MESSAGE_DELETE_GROUP_SUCCESS, validGroup),
+                commandResult.feedbackToUser);
 
         List<Group> standardGroups = new ArrayList<>(TypicalGroups.getTypicalGroups());
         standardGroups.remove(validGroup);
