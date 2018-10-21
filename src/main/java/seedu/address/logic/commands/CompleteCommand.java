@@ -24,7 +24,8 @@ import seedu.address.model.task.Task;
 public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
-    public static final String MESSAGE_SUCCESS = "Good job! You have completed your task:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Good job! Your points have changed by %1$d.\n"
+            + "You have completed your task(s):\n%2$s";
     public static final String MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL = "There are no tasks to "
             + "be found via your given label";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task has already been completed";
