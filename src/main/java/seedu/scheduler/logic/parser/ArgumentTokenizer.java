@@ -161,11 +161,11 @@ public class ArgumentTokenizer {
             this.startPosition = startPosition;
         }
 
-        int getStartPosition() {
+        private int getStartPosition() {
             return startPosition;
         }
 
-        Identity getIdentity() {
+        private Identity getIdentity() {
             return identity;
         }
     }

@@ -23,10 +23,25 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_EVENT));
+        assertParseSuccess(parser, "1 -a", new DeleteCommand(INDEX_FIRST_EVENT));
+        assertParseSuccess(parser, "1 -u", new DeleteCommand(INDEX_FIRST_EVENT));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidFlags_throwsParseException() {
+        assertParseFailure(parser, "1 -q", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 -q -z",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleFlags_throwsParseException() {
+        assertParseFailure(parser, "1 -a -u",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

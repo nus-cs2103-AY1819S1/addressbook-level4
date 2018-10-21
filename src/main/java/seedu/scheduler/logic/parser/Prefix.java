@@ -4,7 +4,7 @@ package seedu.scheduler.logic.parser;
  * A prefix that marks the beginning of an argument in an arguments string.
  * E.g. 't/' in 'add James t/ friend'.
  */
-public class Prefix extends Identity{
+public class Prefix extends Identity {
 
     public Prefix(String prefix) {
         super(prefix);
