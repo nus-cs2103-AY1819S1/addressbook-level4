@@ -44,7 +44,7 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        date.setText(task.getDate().value);
+        date.setText(task.getDate().displayDate);
         priority.setText(task.getVenue().value);
         venue.setText(task.getPriority().value);
         task.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
