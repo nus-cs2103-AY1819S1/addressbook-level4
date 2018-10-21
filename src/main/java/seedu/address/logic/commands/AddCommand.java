@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,7 +25,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the financial database.\n"
             + "Parameters: "
-            + PREFIX_TRANSACTION_TYPE + "TRANSACTION TYPE "
             + PREFIX_TRANSACTION_AMOUNT + "TRANSACTION AMOUNT "
             + PREFIX_TRANSACTION_DEADLINE + "TRANSACTION DEADLINE "
             + PREFIX_NAME + "NAME "
@@ -35,7 +33,6 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TRANSACTION_TYPE + "Loan "
             + PREFIX_TRANSACTION_AMOUNT + "SGD 45.20 "
             + PREFIX_TRANSACTION_DEADLINE + "18/12/2018 "
             + PREFIX_NAME + "John Doe "

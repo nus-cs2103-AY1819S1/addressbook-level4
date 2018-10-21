@@ -61,7 +61,7 @@ public class EditCommandTest {
 
 
         TransactionBuilder personInList = new TransactionBuilder(lastPerson);
-        Transaction editedPerson = personInList.withAmount(VALID_AMOUNT_AMY).withType(VALID_TYPE_AMY).build();
+        Transaction editedPerson = personInList.withAmount(VALID_AMOUNT_AMY).build();
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();

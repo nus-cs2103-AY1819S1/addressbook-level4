@@ -8,8 +8,6 @@ import seedu.address.model.person.Person;
  * {@code Transaction} class encapsulates a transaction added to the financial database
  */
 public class Transaction {
-
-    private final Type type;
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
@@ -17,23 +15,16 @@ public class Transaction {
     private Interest interest;
 
     /**
-     * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
-     * and {@code transaction}
-     * @param type type of transaction, either a loan or a debt
+     * Represents a transaction with non null fields {@code amount}, {@code deadline}
+     * and {@code person}
      * @param amount the amount lent/owed by creditor/debtor respectively
      * @param deadline the date on which the payment is to be made
      * @param person the transactor loaning/borrowing the {@code amount}
      */
-    public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
-        this.type = type;
+    public Transaction(Amount amount, Deadline deadline, Person person) {
         this.amount = amount;
         this.person = person;
         this.deadline = deadline;
-    }
-
-
-    public Type getType() {
-        return type;
     }
 
     public Amount getAmount() {
@@ -55,7 +46,7 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, amount, deadline, person);
+        return Objects.hash(amount, deadline, person);
     }
 
     @Override
@@ -64,8 +55,8 @@ public class Transaction {
             return false;
         }
         Transaction transaction = (Transaction) other;
-        return other == this || (type.equals(transaction.type)
-                && amount.equals(transaction.amount)
+        return other == this || (amount.equals(transaction.amount)
+                && deadline.equals(transaction.deadline)
                 && person.equals(transaction.person));
     }
 
@@ -75,8 +66,6 @@ public class Transaction {
         builder.append("\nPerson Details: ")
                .append(person.toString())
                .append("\nTransaction Details: ")
-               .append(" Type: ")
-               .append(type)
                .append(" Amount: ")
                .append(amount)
                .append(" Deadline: ")

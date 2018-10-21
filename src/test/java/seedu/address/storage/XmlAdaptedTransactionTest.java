@@ -47,7 +47,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_TYPE, VALID_DEADLINE,
                 INVALID_NAME, VALID_EMAIL, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -55,7 +55,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_TYPE, VALID_DEADLINE,
                 null, VALID_EMAIL, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -63,7 +63,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_TYPE, VALID_DEADLINE,
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -71,7 +71,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_TYPE, VALID_DEADLINE,
                 VALID_NAME, null, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -79,7 +79,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(VALID_TYPE, VALID_DEADLINE,
                 VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -87,7 +87,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_AMOUNT, INVALID_TYPE, INVALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_TYPE, INVALID_DEADLINE,
                 VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -95,7 +95,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_AMOUNT, INVALID_TYPE, INVALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_TYPE, INVALID_DEADLINE,
                 VALID_NAME, VALID_EMAIL, VALID_PHONE, INVALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -103,7 +103,7 @@ public class XmlAdaptedTransactionTest {
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_AMOUNT, INVALID_TYPE, INVALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_TYPE, INVALID_DEADLINE,
                 INVALID_NAME, VALID_EMAIL, VALID_PHONE, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
@@ -113,7 +113,7 @@ public class XmlAdaptedTransactionTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
-        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_AMOUNT, INVALID_TYPE, INVALID_DEADLINE,
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(INVALID_TYPE, INVALID_DEADLINE,
                 INVALID_NAME, VALID_EMAIL, VALID_PHONE, VALID_ADDRESS, invalidTags);
         Assert.assertThrows(IllegalValueException.class, transaction::toModelType);
     }

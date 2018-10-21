@@ -19,22 +19,17 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.Type;
 
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of a {@code Transaction}.
  */
 public class XmlAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
     @XmlElement(required = true)
-    private String uniqueId;
-    @XmlElement(required = true)
     private String amount;
-    @XmlElement(required = true)
-    private String type;
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
@@ -46,8 +41,8 @@ public class XmlAdaptedTransaction {
     @XmlElement(required = true)
     private String address;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement(required = true)
+    private List<XmlAdaptedTag> tagged;
 
 
     /**
@@ -59,18 +54,15 @@ public class XmlAdaptedTransaction {
     /**
      * Constructs an {@code XmlAdaptedTransaction} with the given transaction details.
      */
-    public XmlAdaptedTransaction(String type, String amount, String deadline, String name, String phone, String email,
+    public XmlAdaptedTransaction(String amount, String deadline, String name, String phone, String email,
                                  String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.amount = amount;
-        this.type = type;
         this.deadline = deadline;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
+        this.tagged = tagged;
     }
 
     /**
@@ -88,7 +80,6 @@ public class XmlAdaptedTransaction {
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         amount = source.getAmount().value;
-        type = source.getType().value;
         deadline = source.getDeadline().value;
     }
 
@@ -147,14 +138,6 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
-        if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Type.class.getSimpleName()));
-        }
-        if (!Type.isValidType(type)) {
-            throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
-        }
-        final Type modelType = new Type(type);
         if (deadline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
@@ -167,7 +150,7 @@ public class XmlAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
 
-        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson);
+        return new Transaction(modelAmount, modelDeadline, modelPerson);
     }
 
     @Override
@@ -181,11 +164,9 @@ public class XmlAdaptedTransaction {
         }
 
         XmlAdaptedTransaction otherTransaction = (XmlAdaptedTransaction) other;
-        return Objects.equals(type, otherTransaction.type)
-                && Objects.equals(amount, otherTransaction.amount)
+        return Objects.equals(amount, otherTransaction.amount)
                 && Objects.equals(deadline, otherTransaction.deadline)
                 && Objects.equals(name, otherTransaction.name)
-                && Objects.equals(uniqueId, otherTransaction.uniqueId)
                 && Objects.equals(phone, otherTransaction.phone)
                 && Objects.equals(email, otherTransaction.email)
                 && Objects.equals(address, otherTransaction.address)

@@ -13,16 +13,11 @@ import seedu.address.model.transaction.Transaction;
 public class TypicalTransactions {
 
     //TODO: Update according to accepted currencies
-    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withAmount("SGD 42.50")
-            .withType("Loan").build();
-    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withAmount("AUD 12.85")
-            .withType("Debt").build();
-    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withAmount("USD 57.60")
-            .withType("Debt").build();
-    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withAmount("INR 44.70")
-            .withType("Loan").build();
-    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withAmount("CNY 47.65")
-            .withType("Debt").build();
+    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withAmount("SGD 42.50").build();
+    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withAmount("AUD 12.85").build();
+    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withAmount("USD 57.60").build();
+    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withAmount("INR 44.70").build();
+    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withAmount("CNY 47.65").build();
 
     private TypicalTransactions() {} // prevents instantiation
 

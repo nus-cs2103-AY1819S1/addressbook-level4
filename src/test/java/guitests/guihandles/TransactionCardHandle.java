@@ -99,8 +99,7 @@ public class TransactionCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Transaction transaction) {
         Person person = transaction.getPerson();
-        return getType().equals(transaction.getType().value)
-                && getAmount().equals(transaction.getAmount().value)
+        return getAmount().equals(transaction.getAmount().value)
                 && getDeadline().equals(transaction.getDeadline().value)
                 && getName().equals(person.getName().fullName)
                 && getAddress().equals(person.getAddress().value)

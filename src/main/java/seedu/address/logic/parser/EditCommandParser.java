@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TRANSACTION_TYPE, PREFIX_TRANSACTION_AMOUNT,
+                ArgumentTokenizer.tokenize(args, PREFIX_TRANSACTION_AMOUNT,
                         PREFIX_TRANSACTION_DEADLINE, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_TAG);
 

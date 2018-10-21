@@ -47,7 +47,7 @@ public class XmlSerializableAddressBookTest {
         XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
                 XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_TRANSACTION);
         dataFromFile.toModelType();
     }
 

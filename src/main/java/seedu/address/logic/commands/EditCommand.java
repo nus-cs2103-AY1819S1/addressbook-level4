@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.Collections;
@@ -32,7 +31,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.Type;
 
 /**
  * Edits the details of an existing transaction in the address book.
@@ -45,7 +43,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the transaction identified "
             + "by the index number used in the displayed transaction list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "[" + PREFIX_TRANSACTION_TYPE + "NAME] "
             + "[" + PREFIX_TRANSACTION_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TRANSACTION_DEADLINE + "DEADLINE] "
             + "Parameters: INDEX (must be a positive integer)"
@@ -108,7 +105,6 @@ public class EditCommand extends Command {
                                                        EditTransactionDescriptor editTransactionDescriptor) {
         assert transactionToEdit != null;
 
-        Type updatedType = editTransactionDescriptor.getType().orElse(transactionToEdit.getType());
         Amount updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Deadline updatedDeadline = editTransactionDescriptor.getDeadline().orElse(transactionToEdit.getDeadline());
 
@@ -120,7 +116,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getPerson().getTags());
         Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
 
-        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline,
+        return new seedu.address.model.transaction.Transaction(updatedAmount, updatedDeadline,
                 updatedPerson);
     }
 
@@ -148,7 +144,6 @@ public class EditCommand extends Command {
      */
     public static class EditTransactionDescriptor {
         private Amount amount;
-        private Type type;
         private Deadline deadline;
         private Name name;
         private Phone phone;
@@ -165,7 +160,6 @@ public class EditCommand extends Command {
          */
         public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
-            setType(toCopy.type);
             setDeadline(toCopy.deadline);
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -179,7 +173,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, type, deadline, name, email, phone, address, tags);
+            return CollectionUtil.isAnyNonNull(amount, deadline, name, email, phone, address, tags);
         }
 
         public void setAmount(Amount amount) {
@@ -188,14 +182,6 @@ public class EditCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
-        }
-
-        public void setType(Type type) {
-            this.type = type;
-        }
-
-        public Optional<Type> getType() {
-            return Optional.ofNullable(type);
         }
 
         public void setDeadline(Deadline deadline) {
@@ -271,8 +257,7 @@ public class EditCommand extends Command {
             EditTransactionDescriptor e = (EditTransactionDescriptor) other;
 
             return getAmount().equals(e.getAmount())
-                    && getDeadline().equals(e.getDeadline())
-                    && getType().equals(e.getType());
+                    && getDeadline().equals(e.getDeadline());
         }
     }
 }

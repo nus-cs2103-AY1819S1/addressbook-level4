@@ -28,7 +28,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label type;
+    private Label id;
     @FXML
     private Label amount;
     @FXML
@@ -48,7 +48,7 @@ public class TransactionCard extends UiPart<Region> {
         super(FXML);
         this.transaction = transaction;
         Person person = transaction.getPerson();
-        type.setText(transaction.getType().value);
+        id.setText(displayedIndex + ". ");
         amount.setText(transaction.getAmount().value);
         deadline.setText(transaction.getDeadline().value);
         name.setText(person.getName().fullName);
@@ -72,6 +72,7 @@ public class TransactionCard extends UiPart<Region> {
 
         // state check
         TransactionCard card = (TransactionCard) other;
-        return transaction.equals(card.transaction);
+        return id.getText().equals(card.id.getText())
+                && transaction.equals(card.transaction);
     }
 }

@@ -1,4 +1,4 @@
-    = AddressBook Level 4 - User Guide
+= AddressBook Level 4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -29,7 +29,8 @@ DT can keep a record of your loans and debts as fast as other apps, if not faste
 2. Download the latest debttracker.jar.
 3. Copy the file to the folder you want to use as the home folder for your Debt Tracker.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
-5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter
+   will open the help window.
 
 Refer to Section 3, “Features” for details of each command.
 
@@ -39,45 +40,46 @@ Refer to Section 3, “Features” for details of each command.
 
 === Viewing help : `help`
 
-Invokes the user guide for handy reference when typing commands.
+Invokes the user guide for handy reference when typing commands. +
 Format: `help`
 
 === Adding a transaction : `add`
 
-Adds a transaction to the database.
-Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
+Adds a transaction to the database. +
+Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
+n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 
-=== Adding interest rate to a debt : `interest`
+=== Converting multiple currencies: `convert`
 
-Adds an interest rate to a specific recorded debt for app to track.
-Format: interest int/INTEREST_RATE
+Converts amounts in multiple different foreign currencies to their respective amounts in +
+the base currency, Singapore Dollars.
+Format: convert FIRST_AMOUNT [MORE_AMOUNTS}
 
-=== Hiding transactions with a private contact : `hide`
+=== Calculating interest on transactions: `interest`
 
-Makes transactions exchanged with people tagged as private invisible. Can be toggled.
-Format: hide n/NAME
+Calculates interest on transaction filtered by name(s) based on the interest rate provided.
+Format: interest SCHEME INTEREST_RATE FIRST_NAME [MORE_NAMES]
 
-=== Updating a transaction : `update`
+=== Updating a transaction : `edit`
 
 Edit an existing transaction’s details.
 Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
 
 === Sorting transactions : `sort`
 
-Sort people by the amount of money loaned to or from them, the deadlines of the debts
-(be it whether you owe them or money or vice versa), or whether they are debtors or
-creditors.
+Sort transactions by principal sum, deadline of payment or type of transactor (debtor/lender). +
 Format: sort [t/TAG]...
 
 === Filtering transactions: `filter`
 
-Filter people out by whether they are a debtor or a creditor.
-Format: filter [t/TAG]...
+Filter transactions by name(s) or deadline(s).
+Format: filter FIRST_NAME [MORE_NAMES] or +
+        filter FIRST_DEADLINE [MORE_DEADLINES]
 
 === Locating transactions by transaction's name : `find`
 
 Finds transactions exchanged with any transaction whose name contains any of the given keywords.
-Format: find KEYWORD [MORE_KEYWORDS]
+Format: find NAME [MORE_NAMES]
 
 === Deleting a transaction : `delete`
 

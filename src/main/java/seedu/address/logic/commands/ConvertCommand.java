@@ -26,7 +26,7 @@ public class ConvertCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Converts a given amount in foreign currency to Singapore Dollars\n"
-            + "Example: " + COMMAND_WORD + " USD 20.00";
+            + "Example: " + COMMAND_WORD + " USD 20.00 AUD 35.40 MYR 152.60";
 
     public static final String MESSAGE_SUCCESS = "Converted Amounts: %s";
 

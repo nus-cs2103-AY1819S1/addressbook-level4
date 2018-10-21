@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -34,12 +35,13 @@ public class AnalyticsCommand extends Command {
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
         for (int i = 0; i < transactionList.size(); i++) {
-            Transaction t = transactionList.get(i);
+            Transaction transaction = transactionList.get(i);
+            Person person = transaction.getPerson();
 
-            if (t.getType().toString().compareTo("Debt") == 0) {
-                amount += Double.parseDouble(t.getAmount().getValue());
+            if (person.getTags().contains("Debtor")) {
+                amount += Double.parseDouble(transaction.getAmount().getValue());
             } else {
-                amount -= Double.parseDouble(t.getAmount().getValue());
+                amount -= Double.parseDouble(transaction.getAmount().getValue());
             }
         }
 

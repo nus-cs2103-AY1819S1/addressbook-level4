@@ -57,9 +57,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasTransaction(Transaction person) {
-        requireNonNull(person);
-        return versionedFinancialDatabase.hasTransaction(person);
+    public boolean hasTransaction(Transaction transaction) {
+        requireNonNull(transaction);
+        return versionedFinancialDatabase.hasTransaction(transaction);
     }
 
     @Override

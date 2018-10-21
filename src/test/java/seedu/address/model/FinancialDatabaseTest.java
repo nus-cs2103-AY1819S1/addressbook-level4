@@ -89,7 +89,7 @@ public class FinancialDatabaseTest {
     public void hasTransaction_identicalTransactionInFinancialDatabase_returnsTrue() {
         financialDatabase.addTransaction(ALICE_TRANSACTION);
         Transaction editedAlice = new TransactionBuilder(ALICE_TRANSACTION)
-                .withAmount(VALID_AMOUNT_BOB).withType(VALID_TYPE_BOB).withPerson(BOB)
+                .withAmount(VALID_AMOUNT_BOB).withPerson(BOB)
                 .build();
         assertTrue(financialDatabase.hasTransaction(editedAlice));
     }
