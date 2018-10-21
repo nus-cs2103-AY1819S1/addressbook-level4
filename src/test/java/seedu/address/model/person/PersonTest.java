@@ -38,6 +38,7 @@ public class PersonTest {
         person.getGroups().remove(0);
     }
 
+    // @@author Derek-Hardy
     @Test
     public void hasGroup_personInGroup_returnsTrue() {
         Person person = new PersonBuilder().withGroup(PROJECT_2103T).build();
@@ -79,6 +80,7 @@ public class PersonTest {
         assertTrue(group.hasMember(person));
     }
 
+    // @@author
     @Test
     public void isSamePerson() {
         // same object -> returns true

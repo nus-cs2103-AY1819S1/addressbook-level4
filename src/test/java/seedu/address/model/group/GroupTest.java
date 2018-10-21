@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
+// @@author Derek-Hardy
 /**
  * {@author Derek-Hardy}
  */
@@ -48,6 +49,8 @@ public class GroupTest {
     public void removeMember_personRemovedFromGroup_returnsFalse() {
         Group group = new GroupBuilder().build();
         Person person = new PersonBuilder().withGroup(group).build();
+        // since bidirectional relation is not possible in GroupBuilder
+        // manual addition is needed here
         group.addMember(person);
 
         group.removeMember(person);
@@ -59,6 +62,8 @@ public class GroupTest {
         Person derrick = new PersonBuilder().withName("Derrick").build();
         Person peter = new PersonBuilder().withName("Peter").build();
         Group group = new GroupBuilder().withNewPerson(derrick).withNewPerson(peter).build();
+        // since bidirectional relation is not possible in PersonBuilder
+        // manual addition is needed here
         derrick.addGroup(group);
         peter.addGroup(group);
 
