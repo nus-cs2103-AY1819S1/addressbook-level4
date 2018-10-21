@@ -26,6 +26,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Date;
 import seedu.address.model.group.Place;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -219,6 +220,7 @@ public class ParserUtil {
     }
     /* @@author */
 
+    // @@author Derek-Hardy
     /**
      * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
@@ -289,6 +291,8 @@ public class ParserUtil {
 
         return parseList;
     }
+
+    // @@author
 
     /**
      * Parses a {@code String personProperty} into a {@code PersonPropertyComparator}.

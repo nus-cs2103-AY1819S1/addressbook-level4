@@ -14,7 +14,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.shared.Description;
 import seedu.address.model.shared.Title;
 
-
+// @@author Derek-Hardy
 /**
  * Represents a Group for participants in the address book.
  * The person will be able to have a list of groups that he/she has enrolled.
