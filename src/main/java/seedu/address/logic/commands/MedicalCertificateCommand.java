@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,7 +20,7 @@ import seedu.address.model.person.ServedPatient;
  * Generates an MC for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
 public class MedicalCertificateCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "medical certificate";
+    public static final String COMMAND_WORD = "medicalcertificate";
     public static final String COMMAND_ALIAS = "mc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -54,6 +56,7 @@ public class MedicalCertificateCommand extends QueueCommand {
         mc = new MedicalCertificate(servedPatient);
         mc.generateDocument();
 
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

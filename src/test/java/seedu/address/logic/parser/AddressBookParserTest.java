@@ -202,23 +202,23 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_receiptAlias() throws Exception {
+        ReceiptCommand command = (ReceiptCommand) parser.parseCommand(
+                ReceiptCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ReceiptCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_referralLetter() throws Exception {
         ReferralLetterCommand command = (ReferralLetterCommand) parser.parseCommand(
                 ReferralLetterCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ReferralLetterCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
-    public void parseCommand_referralLetter() throws Exception {
+    public void parseCommand_referralLetterAlias() throws Exception {
         ReferralLetterCommand command = (ReferralLetterCommand) parser.parseCommand(
                 ReferralLetterCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ReferralLetterCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_referralLetterAlias() throws Exception {
-        ReceiptCommand command = (ReceiptCommand) parser.parseCommand(
-                ReceiptCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new ReceiptCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
