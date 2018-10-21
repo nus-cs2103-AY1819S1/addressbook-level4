@@ -2,7 +2,12 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.person.Person;
 
 /**
  * Represents an Event in the address book.
@@ -17,9 +22,10 @@ public class Event {
     private final EventDay eventDay;
     private final EventTime eventStartTime;
     private final EventTime eventEndTime;
+    private final EventAddress eventAddress;
 
     // data fields
-    private final EventAddress eventAddress;
+    private Set<Person> eventContacts;
 
     /**
      * Every field must be present and not null. End time must be later than start time.
@@ -35,6 +41,14 @@ public class Event {
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
+        this.eventContacts = new HashSet<>();
+    }
+
+    /**
+     * Sets the eventContacts of this event to {@code eventContacts}.
+     */
+    public void setEventContacts(Set<Person> eventContacts) {
+        this.eventContacts = eventContacts;
     }
 
     public EventName getEventName() {
@@ -66,6 +80,14 @@ public class Event {
     }
 
     /**
+     * Returns an immutable {@code Person} set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Person> getEventContacts() {
+        return Collections.unmodifiableSet(eventContacts);
+    }
+
+    /**
      * Returns true if the two events clash
      */
     public boolean isClashingEvent(Event event) {
@@ -78,8 +100,18 @@ public class Event {
     /**
      * Returns true if both events are equal
      */
-    public boolean isSameEvent(Event event) {
-        return equals(event);
+    public boolean isSameEvent(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null
+                && otherEvent.getEventName().equals(getEventName())
+                && otherEvent.getEventDescription().equals(getEventDescription())
+                && otherEvent.getEventDate().equals(getEventDate())
+                && otherEvent.getEventStartTime().equals(getEventStartTime())
+                && otherEvent.getEventEndTime().equals(getEventEndTime())
+                && otherEvent.getEventAddress().equals(getEventAddress());
     }
 
     /**
@@ -95,19 +127,21 @@ public class Event {
             return false;
         }
 
-        Event otherPerson = (Event) other;
-        return otherPerson.getEventName().equals(getEventName())
-                && otherPerson.getEventDescription().equals(getEventDescription())
-                && otherPerson.getEventDate().equals(getEventDate())
-                && otherPerson.getEventStartTime().equals(getEventStartTime())
-                && otherPerson.getEventEndTime().equals(getEventEndTime())
-                && otherPerson.getEventAddress().equals(getEventAddress());
+        Event otherEvent = (Event) other;
+        return otherEvent.getEventName().equals(getEventName())
+                && otherEvent.getEventDescription().equals(getEventDescription())
+                && otherEvent.getEventDate().equals(getEventDate())
+                && otherEvent.getEventStartTime().equals(getEventStartTime())
+                && otherEvent.getEventEndTime().equals(getEventEndTime())
+                && otherEvent.getEventAddress().equals(getEventAddress())
+                && otherEvent.getEventContacts().equals(getEventContacts());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
+        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventEndTime,
+                eventAddress, eventContacts);
     }
 
     @Override
@@ -126,6 +160,7 @@ public class Event {
                 .append(getEventEndTime())
                 .append(" Event Address: ")
                 .append(getEventAddress());
+        getEventContacts().forEach(builder::append);
         return builder.toString();
     }
 
