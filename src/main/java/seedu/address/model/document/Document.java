@@ -1,4 +1,4 @@
-package seedu.address.model.Document;
+package seedu.address.model.document;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +17,9 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 
 /**
- * This interface bounds all classes implementing it to provide an implementation for generating a document,
+ * The document class takes in all the information from the classes that extends it to generate a HTML file
+ * for that class.
+ * It is responsible for the HTML formatting of the data.
  */
 public class Document {
 
@@ -30,29 +32,40 @@ public class Document {
     private static final String DIRECTORY_PATH = COMPLETE_TEMPLATE_NAME
             .substring(0, COMPLETE_TEMPLATE_NAME.length() - FILENAME_END_SLICING);
 
-    private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE =
-            "Unable to find DocumentTemplate.html to use as template!";
-    private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE =
-            "Unable to write contents into ";
+    private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
+    private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
 
-    //Data placeholders in the HTML template from which all the Document objects are extended from
+    //Data placeholders in the HTML template from which all the document objects are extended from
     private static final String HEADER_PLACEHOLDER = "$headers";
     private static final String NAME_PLACEHOLDER = "$name";
     private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
     private static final String CONTENT_PLACEHOLDER = "$content";
+    private static final String HTML_TABLE_FORMATTING = "</td><td>";
+
+    //Formatting the contents of the receipt into a table
+    private static final String RECEIPT_HEADER = "<table ID = \"contentTable\" width = 100%><col width = \"700\">";
+    private static final String RECEIPT_HEADER_CONTENT = "<tr ID = \"receiptHeader\"><div class=\"contentHeader\">"
+            + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
+    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\">"
+            + "<td>Grand Total:" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING;
+    private static final String RECEIPT_END = "</td></tr></table>";
+
 
     private String filePath;
     private String fileName;
     private String fileType;
     private Name name;
     private IcNumber icNumber;
-    private Map<Medicine, Integer> medicineAllocated;
+
+    //variables specific to receipt but here because of checkstyle issues
+    private float totalPrice = 0;
+    private Map<Medicine, Integer> allocatedMedicine;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
-     * for the Document.
+     * for the document.
      * This includes a method to make the file name, another method to update the HTML template
-     * with the correct values specified by the object that extends the Document and lastly the
+     * with the correct values specified by the object that extends the document and lastly the
      * actual writing of the bytes into a file.
      */
     public void generateDocument() {
@@ -61,7 +74,7 @@ public class Document {
     }
 
     /**
-     * Formats the file name of the object that extends Document.
+     * Formats the file name of the object that extends document.
      * */
     private void makeFileName() {
         fileName = fileType + "_For_" + name.toString().replaceAll("\\s", "")
@@ -72,7 +85,7 @@ public class Document {
     /**
      * Generates the relevant header information that is on the printout of all the Documents
      * and formats them neatly.
-     * @return neatly formatted headers, with general information of the Document and the clinic.
+     * @return neatly formatted headers, with general information of the document and the clinic.
      */
     private String generateHeaders() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -81,7 +94,7 @@ public class Document {
     }
 
     /**
-     * Writing contents of the Document into the HTML file.
+     * Writing contents of the document into the HTML file.
      * @return HTML code that has the "fillers" filled up with the appropriate values.
      * For example, $headers in the HTML file is now replaced with the actual header values.
      * */
@@ -99,7 +112,7 @@ public class Document {
     }
 
     /**
-     * Fills in the information as required by the fields of the Document.
+     * Fills in the information as required by the fields of the document.
      * @return returns a HashMap that maps all the fields to their own correct value.
      */
     private HashMap<String, String> generateContent() {
@@ -108,7 +121,7 @@ public class Document {
         informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, ((Receipt) this).formatReceiptInformation());
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
         } else {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet");
         }
@@ -116,7 +129,7 @@ public class Document {
     }
 
     /**
-     * The actual generation of the file representing the Document using the updated HTML code.
+     * The actual generation of the file representing the document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
         File newDocument = new File(filePath);
@@ -134,7 +147,7 @@ public class Document {
     /**
      * Converting the template HTML into a string for modifications.
      * @return a string containing the template HTML code into a string for population of
-     *          necessary fields required by the type of Document.
+     *          necessary fields required by the type of document.
      * */
     private String convertHtmlIntoString() {
         StringBuilder contentBuilder = new StringBuilder();
@@ -151,6 +164,65 @@ public class Document {
         return contentBuilder.toString();
     }
 
+    /**
+     * Formats all the relevant information of a receipt in HTML for the served patient.
+     */
+    String formatReceiptInformation() {
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append(RECEIPT_HEADER)
+                .append(RECEIPT_HEADER_CONTENT)
+                .append(unpackTypesOfServices())
+                .append(unpackMedicineAllocation(this.allocatedMedicine))
+                .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
+                .append(String.format("%.02f", this.totalPrice))
+                .append(RECEIPT_END);
+        return stringbuilder.toString();
+    }
+
+    /**
+     * Extracts all the types of services rendered by the clinic for the served patient and formats it into
+     * a table to be reflected in the HTML file.
+     */
+    private String unpackTypesOfServices() {
+        //placeholder
+        //private String unpackConsultationInformation(Map<String, Integer> treatmentsReceived) {
+        return "<tr><td>Consultation" + HTML_TABLE_FORMATTING + "1" + HTML_TABLE_FORMATTING + "30.00"
+                + HTML_TABLE_FORMATTING + "30.00</td></tr>";
+    }
+
+    /**
+     * Extracts all the medicines dispensed by the clinic for the served patient and formats it into
+     * a table to be reflected in the HTML file.
+     * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
+     *                          and their individual respective quantities
+     */
+    private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int quantity;
+        int pricePerUnit;
+        int totalPriceForSpecificMedicine;
+        String medicineName;
+        for (Map.Entry<Medicine, Integer> entry : medicineAllocated.entrySet()) {
+            Medicine medicine = entry.getKey();
+            medicineName = medicine.getMedicineName().toString();
+            quantity = entry.getValue();
+            pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
+            totalPriceForSpecificMedicine = pricePerUnit * quantity;
+            this.totalPrice += totalPriceForSpecificMedicine;
+
+            stringBuilder.append("<tr><td>")
+                    .append(medicineName)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(quantity)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(pricePerUnit)
+                    .append(HTML_TABLE_FORMATTING)
+                    .append(totalPriceForSpecificMedicine)
+                    .append("</td></tr>");
+        }
+        return stringBuilder.toString();
+    }
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -163,7 +235,7 @@ public class Document {
         this.fileType = fileType;
     }
 
-    public void setMedicineAllocated(Map allocation) {
-        this.medicineAllocated = allocation;
+    public void setAllocatedMedicine(Map<Medicine, Integer> allocatedMedicine) {
+        this.allocatedMedicine = allocatedMedicine;
     }
 }
