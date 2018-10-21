@@ -265,9 +265,18 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public ArrayList<Slot> getFreeSlotsByDay(String day) {
+    public ArrayList<Slot> getFreeSlotsByDay(int day) {
         ArrayList<Slot> slots = getFreeSlots();
-        slots.removeIf(s -> !s.getDay().equalsIgnoreCase(day));
+        ArrayList<Slot> filteredSlots = new ArrayList<>();
+        for (Slot slot : slots) {
+            try {
+                if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
+                    filteredSlots.add(slot);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return slots;
     }
 

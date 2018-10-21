@@ -20,7 +20,9 @@ public class ClearUserCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new AddressBook());
+        AddressBook newAddressBook = new AddressBook();
+        newAddressBook.setEvents(model.getFilteredEventList());
+        model.resetData(newAddressBook);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

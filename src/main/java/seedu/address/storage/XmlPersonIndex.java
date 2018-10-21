@@ -1,17 +1,20 @@
 //@@theJrLinguist
 package seedu.address.storage;
 
+import java.util.logging.Logger;
+
 import javax.xml.bind.annotation.XmlValue;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * JAXB-friendly index which refers to a person in the organiser.
  */
 public class XmlPersonIndex {
-
+    private static final Logger logger = LogsCenter.getLogger(XmlPersonIndex.class);
     private static ObservableList<Person> personList;
 
     @XmlValue
@@ -40,11 +43,12 @@ public class XmlPersonIndex {
     /**
      * Returns a model Person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Person toModelType() throws PersonNotFoundException {
         try {
             return personList.get(Integer.valueOf(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("No such person exists in the event organiser");
+            logger.info("No person with given index exists in event organiser");
+            throw new PersonNotFoundException();
         }
     }
 

@@ -46,9 +46,8 @@ public class Friend {
      * Format state as text for viewing.
      */
     public String toString() {
-        //StringTokenizer st = new StringTokenizer(friendAttributes, hyphen);
-        //return '[' + st.nextToken() + ']';
-        return friendAttributes;
+        StringTokenizer st = new StringTokenizer(friendAttributes, hyphen);
+        return '[' + st.nextToken() + ']';
     }
 
 }
