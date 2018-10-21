@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import static seedu.address.logic.commands.QueueCommandTestUtil.generatePatientQueue;
 import static seedu.address.logic.commands.QueueCommandTestUtil.generateServedPatientList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
