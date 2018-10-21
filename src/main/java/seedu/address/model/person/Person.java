@@ -40,6 +40,7 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = new Schedule();
+        this.friends = new HashSet<>();
     }
 
     /**
@@ -55,6 +56,7 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
+        this.friends = new HashSet<>();
     }
 
     /**
@@ -213,7 +215,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address);
+        return Objects.hash(name, phone, email, address, schedule, interests, tags);
     }
 
     @Override
