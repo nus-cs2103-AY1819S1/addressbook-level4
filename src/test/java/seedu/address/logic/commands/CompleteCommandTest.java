@@ -289,36 +289,45 @@ public class CompleteCommandTest {
      * @return an Expected-Model Expected-String pair
      */
     private Pair<Model, Set<String>> produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
-        String labelString,
-        Model model) {
+            String labelString,
+            Model model) {
 
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        int oldXp = expectedModel.getXpValue();
         StringBuilder completedTasksOutput = new StringBuilder();
 
         // Updates the model with completable tasks that fulfils the predicate completed and append
         // each of their String representation to expectedMessage
         expectedModel
-            .getFilteredTaskList()
-            .stream()
-            .map(task -> new Pair<>(task, simpleCompleteTask(task)))
-            // filters for label match and completable tasks
-            .filter(pairOfTasks -> {
-                Task taskToComplete = pairOfTasks.getKey();
-                return taskToComplete
-                    .getLabels()
-                    .contains(new Label((labelString)))
-                    && !taskToComplete.isCompleted();
-            })
-            .forEach(pairOfTasks -> {
-                Task taskToComplete = pairOfTasks.getKey();
-                Task completedTask = pairOfTasks.getValue();
-                expectedModel.updateTaskStatus(taskToComplete, completedTask);
-                completedTasksOutput.append(completedTask.toString() + "\n");
-            });
+                .getFilteredTaskList()
+                .stream()
+                .map(task -> new Pair<>(task, simpleCompleteTask(task)))
+                // filters for label match and completable tasks
+                .filter(pairOfTasks -> {
+                    Task taskToComplete = pairOfTasks.getKey();
+                    return taskToComplete
+                            .getLabels()
+                            .contains(new Label((labelString)))
+                            && !taskToComplete.isCompleted();
+                })
+                .forEach(pairOfTasks -> {
+                    Task taskToComplete = pairOfTasks.getKey();
+                    Task completedTask = pairOfTasks.getValue();
+                    expectedModel.updateTaskStatus(taskToComplete, completedTask);
+                    completedTasksOutput.append(completedTask.toString() + "\n");
+                });
+
+        // get change in xp
+        int newXp = expectedModel.getXpValue();
+        int xpChange = newXp - oldXp;
 
         expectedModel.commitTaskManager();
 
-        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTasksOutput.toString().trim());
+        String expectedMessage = String.format(
+                CompleteCommand.MESSAGE_SUCCESS,
+                xpChange,
+                completedTasksOutput.toString().trim());
+
         Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage);
 
         return new Pair<>(expectedModel, expectedTokens);
