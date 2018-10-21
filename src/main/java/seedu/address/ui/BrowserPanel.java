@@ -103,7 +103,9 @@ public class BrowserPanel extends UiPart<Region> {
         url += patient.getEmail().value;
 
         url += "&blood=";
-        url += patient.getMedicalRecord().getBloodType().value;
+        String bloodTypeString = patient.getMedicalRecord().getBloodType().value.equals("") ? "not taken" :
+                patient.getMedicalRecord().getBloodType().value;
+        url += bloodTypeString;
 
         url += "&diseases=";
         url += convertListToString(patient.getMedicalRecord().getDiseaseHistory());
@@ -129,6 +131,6 @@ public class BrowserPanel extends UiPart<Region> {
             result += item.toString();
             result += ", ";
         }
-        return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
+        return result.length() >= 2 ? result.substring(0, result.length() - 2) : "none";
     }
 }
