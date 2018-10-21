@@ -224,16 +224,4 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
-    /**
-     * Parses {@code Collection<String> friends} into a {@code Set<Friend>}.
-     */
-    public static Set<Friend> parseFriends(Collection<String> friends) {
-        requireNonNull(friends);
-        final Set<Friend> friendSet = new HashSet<>();
-        for (String friend : friends) {
-            friendSet.add(parseFriend(friend));
-        }
-        return friendSet;
-    }
 }
