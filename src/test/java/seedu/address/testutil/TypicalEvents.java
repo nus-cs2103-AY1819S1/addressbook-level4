@@ -12,6 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_MEETING;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +36,7 @@ public class TypicalEvents {
                     .withEventStartTime(VALID_EVENT_START_TIME_DOCTORAPPT)
                     .withEventEndTime(VALID_EVENT_END_TIME_DOCTORAPPT)
                     .withEventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)
+                    .withEventContacts(ALICE)
                     .build();
     public static final Event MEETING =
             new ScheduledEventBuilder()
@@ -43,6 +46,7 @@ public class TypicalEvents {
                     .withEventStartTime(VALID_EVENT_START_TIME_MEETING)
                     .withEventEndTime(VALID_EVENT_END_TIME_MEETING)
                     .withEventAddress(VALID_EVENT_ADDRESS_MEETING)
+                    .withEventContacts(BOB)
                     .build();
 
     // more events manually added

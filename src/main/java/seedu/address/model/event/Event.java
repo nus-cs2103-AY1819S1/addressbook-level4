@@ -45,6 +45,25 @@ public class Event {
     }
 
     /**
+     * Every field must be present and not null. End time must be later than start time.
+     * This constructor allows for direct creation of an event with a non-empty {@code eventContacts}.
+     */
+    public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventStartTime,
+                 EventTime eventEndTime, EventAddress eventAddress, Set<Person> eventContacts) {
+        requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
+        requireAllNonNull(eventContacts);
+
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.eventDate = eventDate;
+        this.eventDay = new EventDay(eventDate.getEventDay());
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventAddress = eventAddress;
+        this.eventContacts = eventContacts;
+    }
+
+    /**
      * Sets the eventContacts of this event to {@code eventContacts}. The input must not contain any null values,
      * i.e. each element of {@code eventContacts} should be a valid Person object.
      */
