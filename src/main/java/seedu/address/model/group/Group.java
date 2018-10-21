@@ -252,8 +252,7 @@ public class Group {
         Group otherGroup = (Group) other;
         return otherGroup.getTitle().equals(getTitle())
                 && otherGroup.description.equals(this.description)
-                && otherGroup.meeting.equals(this.meeting)
-                && otherGroup.getMembersView().equals(getMembersView());
+                && otherGroup.meeting.equals(this.meeting);
     }
 
     @Override
