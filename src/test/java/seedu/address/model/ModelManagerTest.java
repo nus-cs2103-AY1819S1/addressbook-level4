@@ -50,19 +50,19 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+    public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
-    public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
+    public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
         Appointment appt = new Appointment(date, time, ALICE);
@@ -70,21 +70,21 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInClinicIo_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+    public void hasDoctor_doctorInClinicIo_returnsTrue() {
         modelManager.addDoctor(ADAM);
         assertTrue(modelManager.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
-    public void hasAppointment_appointmentInAddressBook_returnsTrue() {
+    public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
         Appointment appt = new Appointment(date, time, ALICE);

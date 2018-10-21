@@ -58,7 +58,7 @@ public class ClinicIoTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyClinicIo_replacesData() {
         ClinicIo newData = getTypicalClinicIo();
         clinicIo.resetData(newData);
         assertEquals(newData, clinicIo);
@@ -112,44 +112,44 @@ public class ClinicIoTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+    public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
-    public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
+    public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasAppointment(AMY_APPT));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInClinicIo_returnsTrue() {
         clinicIo.addPerson(ALICE);
         assertTrue(clinicIo.hasPerson(ALICE));
     }
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+    public void hasDoctor_doctorInClinicIo_returnsTrue() {
         clinicIo.addDoctor(ADAM);
         assertTrue(clinicIo.hasDoctor(ADAM));
     }
 
     //@@author gingivitiss
     @Test
-    public void hasAppointment_appointmentInAddressBook_returnsTrue() {
+    public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
         assertTrue(clinicIo.hasAppointment(AMY_APPT));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasPerson_personWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -158,7 +158,7 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasDoctor_doctorWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addDoctor(ADAM);
         Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_ADAM).build();
         assertTrue(clinicIo.hasDoctor(editedAdam));
@@ -173,14 +173,14 @@ public class ClinicIoTest {
     }
 
     @Test
-    public void hasAppointment_appointmentWithDifferentIdentityFieldsInAddressBook_returnsFalse() {
+    public void hasAppointment_appointmentWithDifferentIdentityFieldsInClinicIo_returnsFalse() {
         clinicIo.addAppointment(AMY_APPT);
         Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(12, 00).build();
         assertFalse(clinicIo.hasAppointment(editedAmy));
     }
 
     @Test
-    public void hasAppointmentClash_appointmentWithSameTimingsInAddressBook_returnsTrue() {
+    public void hasAppointmentClash_appointmentWithSameTimingsInClinicIo_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
         Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
         assertTrue(clinicIo.hasAppointmentClash(newAppt));

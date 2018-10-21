@@ -32,7 +32,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlClinicIoStorage clinicIoStorage = new XmlClinicIoStorage(getTempFilePath("ab"));
+        XmlClinicIoStorage clinicIoStorage = new XmlClinicIoStorage(getTempFilePath("ci"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(clinicIoStorage, userPrefsStorage);
     }
@@ -57,7 +57,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void clinicIoReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlClinicIoStorage} class.
@@ -70,12 +70,12 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getClinicIoFilePath() {
         assertNotNull(storageManager.getClinicIoFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleClinicIoChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlClinicIoStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
@@ -98,6 +98,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

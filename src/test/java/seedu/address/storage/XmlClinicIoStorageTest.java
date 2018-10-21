@@ -30,12 +30,12 @@ public class XmlClinicIoStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readClinicIo_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readClinicIo(null);
     }
 
-    private java.util.Optional<ReadOnlyClinicIo> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyClinicIo> readClinicIo(String filePath) throws Exception {
         return new XmlClinicIoStorage(Paths.get(filePath)).readClinicIo(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,14 +47,14 @@ public class XmlClinicIoStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readClinicIo("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatClinicIo.xml");
+        readClinicIo("NotXmlFormatClinicIo.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,66 +62,65 @@ public class XmlClinicIoStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readClinicIo_invalidPersonClinicIo_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonClinicIo.xml");
+        readClinicIo("invalidPersonClinicIo.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readClinicIo_invalidAndValidPersonClinicIo_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonClinicIo.xml");
+        readClinicIo("invalidAndValidPersonClinicIo.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+    public void readAndSaveClinicIo_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempClinicIo.xml");
         ClinicIo original = getTypicalClinicIo();
-        XmlClinicIoStorage xmlAddressBookStorage = new XmlClinicIoStorage(filePath);
+        XmlClinicIoStorage xmlClinicIoStorage = new XmlClinicIoStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveClinicIo(original, filePath);
-        ReadOnlyClinicIo readBack = xmlAddressBookStorage.readClinicIo(filePath).get();
+        xmlClinicIoStorage.saveClinicIo(original, filePath);
+        ReadOnlyClinicIo readBack = xmlClinicIoStorage.readClinicIo(filePath).get();
         assertEquals(original, new ClinicIo(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        xmlAddressBookStorage.saveClinicIo(original, filePath);
-        readBack = xmlAddressBookStorage.readClinicIo(filePath).get();
+        xmlClinicIoStorage.saveClinicIo(original, filePath);
+        readBack = xmlClinicIoStorage.readClinicIo(filePath).get();
         assertEquals(original, new ClinicIo(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
-        xmlAddressBookStorage.saveClinicIo(original); //file path not specified
-        readBack = xmlAddressBookStorage.readClinicIo().get(); //file path not specified
+        xmlClinicIoStorage.saveClinicIo(original); //file path not specified
+        readBack = xmlClinicIoStorage.readClinicIo().get(); //file path not specified
         assertEquals(original, new ClinicIo(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveClinicIo_nullClinicIo_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveClinicIo(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code clinicIo} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyClinicIo addressBook, String filePath) {
+    private void saveClinicIo(ReadOnlyClinicIo clinicIo, String filePath) {
         try {
             new XmlClinicIoStorage(Paths.get(filePath))
-                    .saveClinicIo(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveClinicIo(clinicIo, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveClinicIo_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new ClinicIo(), null);
+        saveClinicIo(new ClinicIo(), null);
     }
-
 
 }

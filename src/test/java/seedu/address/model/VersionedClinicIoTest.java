@@ -20,286 +20,286 @@ import seedu.address.testutil.ClinicIoBuilder;
 
 public class VersionedClinicIoTest {
 
-    private final ReadOnlyClinicIo addressBookWithAmy = new ClinicIoBuilder().withPerson(AMY)
+    private final ReadOnlyClinicIo clinicIoWithAmy = new ClinicIoBuilder().withPerson(AMY)
             .withDoctor(ADAM).build();
-    private final ReadOnlyClinicIo addressBookWithBob = new ClinicIoBuilder().withPerson(BOB)
+    private final ReadOnlyClinicIo clinicIoWithBob = new ClinicIoBuilder().withPerson(BOB)
             .withDoctor(BEN).build();
-    private final ReadOnlyClinicIo addressBookWithCarl = new ClinicIoBuilder().withPerson(CARL).build();
-    private final ReadOnlyClinicIo emptyAddressBook = new ClinicIoBuilder().build();
+    private final ReadOnlyClinicIo clinicIoWithCarl = new ClinicIoBuilder().withPerson(CARL).build();
+    private final ReadOnlyClinicIo emptyClinicIo = new ClinicIoBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleClinicIo_noStatesRemovedCurrentStateSaved() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(emptyClinicIo);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedClinicIo.commit();
+        assertClinicIoListStatus(versionedClinicIo,
+                Collections.singletonList(emptyClinicIo),
+                emptyClinicIo,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleClinicIoPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        versionedClinicIo.commit();
+        assertClinicIoListStatus(versionedClinicIo,
+                Arrays.asList(emptyClinicIo, clinicIoWithAmy, clinicIoWithBob),
+                clinicIoWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void commit_multipleClinicIoPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 2);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedClinicIo.commit();
+        assertClinicIoListStatus(versionedClinicIo,
+                Collections.singletonList(emptyClinicIo),
+                emptyClinicIo,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleClinicIoPointerAtEndOfStateList_returnsTrue() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedClinicIo.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canUndo_multipleClinicIoPointerAtStartOfStateList_returnsTrue() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 1);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedClinicIo.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleClinicIo_returnsFalse() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(emptyClinicIo);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedClinicIo.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canUndo_multipleClinicIoPointerAtStartOfStateList_returnsFalse() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 2);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedClinicIo.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canRedo_multipleClinicIoPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 1);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedClinicIo.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canRedo_multipleClinicIoPointerAtStartOfStateList_returnsTrue() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 2);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedClinicIo.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleClinicIo_returnsFalse() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(emptyClinicIo);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedClinicIo.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleClinicIoPointerAtEndOfStateList_returnsFalse() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedClinicIo.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleClinicIPointerAtEndOfStateList_success() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedClinicIo.undo();
+        assertClinicIoListStatus(versionedClinicIo,
+                Collections.singletonList(emptyClinicIo),
+                clinicIoWithAmy,
+                Collections.singletonList(clinicIoWithBob));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void undo_multipleClinicIoPointerNotAtStartOfStateList_success() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 1);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
+        versionedClinicIo.undo();
+        assertClinicIoListStatus(versionedClinicIo,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                emptyClinicIo,
+                Arrays.asList(clinicIoWithAmy, clinicIoWithBob));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleClinicIo_throwsNoUndoableStateException() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(emptyClinicIo);
 
-        assertThrows(VersionedClinicIo.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedClinicIo.NoUndoableStateException.class, versionedClinicIo::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void undo_multipleClinicIoPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 2);
 
-        assertThrows(VersionedClinicIo.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedClinicIo.NoUndoableStateException.class, versionedClinicIo::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void redo_multipleClinicIoPointerNotAtEndOfStateList_success() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 1);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
+        versionedClinicIo.redo();
+        assertClinicIoListStatus(versionedClinicIo,
+                Arrays.asList(emptyClinicIo, clinicIoWithAmy),
+                clinicIoWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void redo_multipleClinicIoPointerAtStartOfStateList_success() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 2);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedClinicIo.redo();
+        assertClinicIoListStatus(versionedClinicIo,
+                Collections.singletonList(emptyClinicIo),
+                clinicIoWithAmy,
+                Collections.singletonList(clinicIoWithBob));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleClinicIo_throwsNoRedoableStateException() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(emptyClinicIo);
 
-        assertThrows(VersionedClinicIo.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedClinicIo.NoRedoableStateException.class, versionedClinicIo::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleClinicIoPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(
+                emptyClinicIo, clinicIoWithAmy, clinicIoWithBob);
 
-        assertThrows(VersionedClinicIo.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedClinicIo.NoRedoableStateException.class, versionedClinicIo::redo);
     }
 
     @Test
     public void equals() {
-        VersionedClinicIo versionedAddressBook = prepareAddressBookList(addressBookWithAmy,
-                addressBookWithBob);
+        VersionedClinicIo versionedClinicIo = prepareClinicIoList(clinicIoWithAmy,
+                clinicIoWithBob);
 
         // same values -> returns true
-        VersionedClinicIo copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
-        assertTrue(versionedAddressBook.equals(copy));
+        VersionedClinicIo copy = prepareClinicIoList(clinicIoWithAmy, clinicIoWithBob);
+        assertTrue(versionedClinicIo.equals(copy));
 
         // same object -> returns true
-        assertTrue(versionedAddressBook.equals(versionedAddressBook));
+        assertTrue(versionedClinicIo.equals(versionedClinicIo));
 
         // null -> returns false
-        assertFalse(versionedAddressBook.equals(null));
+        assertFalse(versionedClinicIo.equals(null));
 
         // different types -> returns false
-        assertFalse(versionedAddressBook.equals(1));
+        assertFalse(versionedClinicIo.equals(1));
 
         // different state list -> returns false
-        VersionedClinicIo differentAddressBookList = prepareAddressBookList(addressBookWithBob,
-                addressBookWithCarl);
-        assertFalse(versionedAddressBook.equals(differentAddressBookList));
+        VersionedClinicIo differentClinicIoList = prepareClinicIoList(clinicIoWithBob,
+                clinicIoWithCarl);
+        assertFalse(versionedClinicIo.equals(differentClinicIoList));
 
         // different current pointer index -> returns false
-        VersionedClinicIo differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
-        assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
+        VersionedClinicIo differentCurrentStatePointer = prepareClinicIoList(
+                clinicIoWithAmy, clinicIoWithBob);
+        shiftCurrentStatePointerLeftwards(versionedClinicIo, 1);
+        assertFalse(versionedClinicIo.equals(differentCurrentStatePointer));
     }
 
     /**
-     * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState}, states
-     * before {@code versionedAddressBook#currentStatePointer} is equal to {@code
-     * expectedStatesBeforePointer}, and states after {@code versionedAddressBook#currentStatePointer} is
+     * Asserts that {@code versionedClinicIo} is currently pointing at {@code expectedCurrentState}, states
+     * before {@code versionedClinicIo#currentStatePointer} is equal to {@code
+     * expectedStatesBeforePointer}, and states after {@code versionedClinicIo#currentStatePointer} is
      * equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedClinicIo versionedAddressBook,
+    private void assertClinicIoListStatus(VersionedClinicIo versionedClinicIo,
             List<ReadOnlyClinicIo> expectedStatesBeforePointer,
             ReadOnlyClinicIo expectedCurrentState,
             List<ReadOnlyClinicIo> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new ClinicIo(versionedAddressBook), expectedCurrentState);
+        assertEquals(new ClinicIo(versionedClinicIo), expectedCurrentState);
 
         // shift pointer to start of state list
-        while (versionedAddressBook.canUndo()) {
-            versionedAddressBook.undo();
+        while (versionedClinicIo.canUndo()) {
+            versionedClinicIo.undo();
         }
 
         // check states before pointer are correct
-        for (ReadOnlyClinicIo expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new ClinicIo(versionedAddressBook));
-            versionedAddressBook.redo();
+        for (ReadOnlyClinicIo expectedClinicIo : expectedStatesBeforePointer) {
+            assertEquals(expectedClinicIo, new ClinicIo(versionedClinicIo));
+            versionedClinicIo.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyClinicIo expectedAddressBook : expectedStatesAfterPointer) {
-            versionedAddressBook.redo();
-            assertEquals(expectedAddressBook, new ClinicIo(versionedAddressBook));
+        for (ReadOnlyClinicIo expectedClinicIo : expectedStatesAfterPointer) {
+            versionedClinicIo.redo();
+            assertEquals(expectedClinicIo, new ClinicIo(versionedClinicIo));
         }
 
         // check that there are no more states after pointer
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedClinicIo.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> versionedAddressBook.undo());
+        expectedStatesAfterPointer.forEach(unused -> versionedClinicIo.undo());
     }
 
     /**
-     * Creates and returns a {@code VersionedClinicIo} with the {@code addressBookStates} added into it,
+     * Creates and returns a {@code VersionedClinicIo} with the {@code clinicIoStates} added into it,
      * and the {@code VersionedClinicIo#currentStatePointer} at the end of list.
      */
-    private VersionedClinicIo prepareAddressBookList(ReadOnlyClinicIo... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedClinicIo prepareClinicIoList(ReadOnlyClinicIo... clinicIoStates) {
+        assertFalse(clinicIoStates.length == 0);
 
-        VersionedClinicIo versionedAddressBook = new VersionedClinicIo(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedAddressBook.resetData(addressBookStates[i]);
-            versionedAddressBook.commit();
+        VersionedClinicIo versionedClinicIo = new VersionedClinicIo(clinicIoStates[0]);
+        for (int i = 1; i < clinicIoStates.length; i++) {
+            versionedClinicIo.resetData(clinicIoStates[i]);
+            versionedClinicIo.commit();
         }
 
-        return versionedAddressBook;
+        return versionedClinicIo;
     }
 
     /**
-     * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
+     * Shifts the {@code versionedClinicIo#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedClinicIo versionedAddressBook, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedClinicIo versionedClinicIo, int count) {
         for (int i = 0; i < count; i++) {
-            versionedAddressBook.undo();
+            versionedClinicIo.undo();
         }
     }
 }

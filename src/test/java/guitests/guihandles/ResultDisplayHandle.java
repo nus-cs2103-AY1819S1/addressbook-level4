@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 public class ResultDisplayHandle extends NodeHandle<TextArea> {
 
     public static final String RESULT_DISPLAY_ID = "#resultDisplay";
-    
+
     public ResultDisplayHandle(TextArea resultDisplayNode) {
         super(resultDisplayNode);
     }
