@@ -12,11 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.medicine.Duration;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
@@ -65,6 +67,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
 
     private Person currentSelection;
     private ObservableList<Person> persons;
+    private SortType sortType = SortType.ASCENDING;
     private ObservableList<TableColumn<Prescription, ?>> sortOrder;
 
     /**
@@ -90,10 +93,14 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
     }
 
     /**
-     * Sorts the table view according to the defined sorting order of the table view,
-     * defined in sortOrder
+     * Sorts the table view according to the defined sorting order and type of the table view,
+     * defined in sortOrder and sortType.
      */
     private void sortTableView() {
+        for (TableColumn<?, ?> tc : sortOrder) {
+            tc.setSortType(sortType);
+        }
+
         prescriptionTableView.getSortOrder().setAll(sortOrder);
         prescriptionTableView.sort();
     }
@@ -226,7 +233,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
             .getEndDateAsString(),
             Duration.DATE_FORMAT);
 
-        boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) < 0;
+        boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) > 0;
 
         return new SimpleStringProperty(isEndDateStrictlyBeforeToday ? "No" : "Yes");
     }
@@ -241,11 +248,24 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
     }
 
     @Override
-    public void sortView(int... colIdx) {
+    public void sortView(SortOrder order, int... colIdx) {
+
+        switch (order) {
+        case ASCENDING:
+            sortType = SortType.ASCENDING;
+            break;
+        case DESCENDING:
+            sortType = SortType.DESCENDING;
+            break;
+        default:
+            sortType = SortType.ASCENDING;
+            break;
+        }
+
         sortOrder.clear();
 
         for (int i = 0; i < colIdx.length; i++) {
-            TableColumn<Prescription, String> col = colIdxToCol.get(i);
+            TableColumn<Prescription, String> col = colIdxToCol.get(colIdx[i]);
             if (col == null) {
                 // No corresponding column for that column index exists
                 continue;
@@ -253,13 +273,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
             sortOrder.add(col);
         }
 
-        prescriptionTableView.getSortOrder().setAll(sortOrder);
-
-        // We store the sort order because it disappears after
-        // we reset the cell value factories for a 'new' Person
-        // and we need to re-set our table view's sort order to the
-        // 'old' sort order to preserve sorting.
-        prescriptionTableView.sort();
+        sortTableView();
     }
 
     /* ====================== Event handling ====================== */
@@ -268,7 +282,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
         currentSelection = event.getNewSelection();
-        refreshTableView(currentSelection);
+        refreshView();
     }
 
     /**

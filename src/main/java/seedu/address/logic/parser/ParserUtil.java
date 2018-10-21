@@ -233,7 +233,7 @@ public class ParserUtil {
      */
     public static int[] parseColIdx(String colIdx) {
         List<Integer> colIdxList = Arrays.stream(colIdx.trim()
-                                                       .split(" "))
+                                                       .split(""))
                                          .map(Integer::parseInt)
                                          .collect(Collectors.toList());
         int[] toReturn = new int[colIdxList.size()];

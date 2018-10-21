@@ -23,6 +23,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SortPanelViewEvent;
 import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -182,7 +183,8 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sorts the current panel given a sorting order.
      */
-    void sortCurrentPanel(int[] colIdx) {
+    void sortCurrentPanel(SortOrder order, int[] colIdx) {
+        Objects.requireNonNull(order);
         Objects.requireNonNull(colIdx);
 
         if (currentPanel == null) {
@@ -195,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         Sortable sortablePanel = (Sortable) currentPanel;
-        sortablePanel.sortView(colIdx);
+        sortablePanel.sortView(order, colIdx);
     }
 
     void hide() {
@@ -275,6 +277,6 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleSortPanelViewEvent(SortPanelViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        sortCurrentPanel(event.getColIdx());
+        sortCurrentPanel(event.getOrder(), event.getColIdx());
     }
 }

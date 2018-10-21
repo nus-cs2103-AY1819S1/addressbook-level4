@@ -14,6 +14,7 @@ import org.testfx.api.FxToolkit;
 import javafx.application.Platform;
 import seedu.address.commons.core.Config;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
@@ -65,14 +66,14 @@ public class MainWindowTest extends GuiUnitTest {
 
     @Test(expected = NullPointerException.class)
     public void sortCurrentPanel_null_throwsNullPointerException() {
-        mainWindow.sortCurrentPanel(null);
+        mainWindow.sortCurrentPanel(null, null);
     }
 
     @Test
     public void sortCurrentPanel_currentPanelIsNull_failsGracefully()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
         setPrivateFieldFromObject(CURRENT_PANEL_FIELD_NAME, mainWindow, null);
-        mainWindow.sortCurrentPanel(new int[] { 1 });
+        mainWindow.sortCurrentPanel(SortOrder.ASCENDING, new int[] { 1 });
     }
 
     @Test
@@ -80,14 +81,14 @@ public class MainWindowTest extends GuiUnitTest {
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException,
         PrivilegedActionException {
         setPrivateFieldFromObject(CURRENT_PANEL_FIELD_NAME, mainWindow, panels.get(SwappablePanelName.BLANK));
-        mainWindow.sortCurrentPanel(new int[] { 1 });
+        mainWindow.sortCurrentPanel(SortOrder.ASCENDING, new int[] { 1 });
     }
 
     @Test
     public void sortCurrentPanel_currentPanelImplementsSortable_runsSuccessfully()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
         setPrivateFieldFromObject(CURRENT_PANEL_FIELD_NAME, mainWindow, panels.get(SwappablePanelName.MEDICATION));
-        mainWindow.sortCurrentPanel(new int[] { 1 });
+        mainWindow.sortCurrentPanel(SortOrder.ASCENDING, new int[] { 1 });
     }
 
     private Object getPrivateFieldFromObject(String fieldName, Object obj)
