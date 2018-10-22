@@ -102,7 +102,7 @@ public class AddEventCommandTest {
     @Test
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
         Event validEvent = new ScheduledEventBuilder().build();
-        AddEventCommand addEventCommand = new AddEventCommand(validEvent, null);
+        AddEventCommand addEventCommand = new AddEventCommand(validEvent, new HashSet<>());
         ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
         thrown.expect(CommandException.class);
@@ -122,7 +122,7 @@ public class AddEventCommandTest {
                 .withEventStartTime("1210")
                 .withEventEndTime("1410")
                 .build();
-        AddEventCommand addEventCommand = new AddEventCommand(clashingEvent, null);
+        AddEventCommand addEventCommand = new AddEventCommand(clashingEvent, new HashSet<>());
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_CLASHING_EVENT);
@@ -133,14 +133,17 @@ public class AddEventCommandTest {
     public void equals() {
         Event firstEvent = new ScheduledEventBuilder().withEventName("event").build();
         Event secondEvent = new ScheduledEventBuilder().withEventName("a different event").build();
-        AddEventCommand addFirstEventCommand = new AddEventCommand(firstEvent, null);
-        AddEventCommand addSecondEventCommand = new AddEventCommand(secondEvent, null);
+        AddEventCommand addFirstEventCommand = new AddEventCommand(firstEvent,
+                new HashSet<>(Arrays.asList(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)))));
+        AddEventCommand addSecondEventCommand = new AddEventCommand(secondEvent,
+                new HashSet<>(Arrays.asList(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)))));
 
         // same object -> returns true
         assertTrue(addFirstEventCommand.equals(addFirstEventCommand));
 
         // same values -> returns true
-        AddEventCommand addFirstEventCommandCopy = new AddEventCommand(firstEvent, null);
+        AddEventCommand addFirstEventCommandCopy = new AddEventCommand(firstEvent,
+                new HashSet<>(Arrays.asList(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)))));
         assertTrue(addFirstEventCommand.equals(addFirstEventCommandCopy));
 
         // different types -> returns false

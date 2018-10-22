@@ -60,7 +60,7 @@ public class AddEventCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).build();
+        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts().build();
         Set<Index> expectedIndices = new HashSet<>();
         expectedIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)));
 
@@ -130,7 +130,7 @@ public class AddEventCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero indices
-        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).build();
+        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts().build();
         assertParseSuccess(parser, EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,

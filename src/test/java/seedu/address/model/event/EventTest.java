@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIM
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -114,7 +115,7 @@ public class EventTest {
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
 
         // different event contacts -> returns false
-        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts(ALICE).build();
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts(BOB).build();
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
     }
 
