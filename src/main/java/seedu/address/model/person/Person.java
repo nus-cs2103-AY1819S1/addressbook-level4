@@ -57,7 +57,6 @@ public class Person {
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                   PrescriptionList prescriptionList, AppointmentsList appointmentsList) {
         requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList, appointmentsList);
-
         this.nric = nric;
         this.name = name;
         this.phone = phone;
@@ -197,7 +196,6 @@ public class Person {
 
     public DietCollection getDietCollection() {
         return this.dietCollection;
-
     }
 
     /**
@@ -258,15 +256,15 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getNric())
-                .append(" Name: ")
-                .append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Drug Allergies: ");
+               .append(" Name: ")
+               .append(getName())
+               .append(" Phone: ")
+               .append(getPhone())
+               .append(" Email: ")
+               .append(getEmail())
+               .append(" Address: ")
+               .append(getAddress())
+               .append(" Drug Allergies: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
