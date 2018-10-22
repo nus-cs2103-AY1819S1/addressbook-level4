@@ -254,7 +254,7 @@ Format: `delete INDEX`
 
 === Locating expenses by name: `find`
 
-Finds expense whose names contain any of the given keywords. +
+Finds expense which contains all the given keywords. +
 Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]`
 
 ****
@@ -267,7 +267,7 @@ Find all the expenses from 1-10-2018 to 7-10-2018.
 * `find d/1-10-2018` +
 Find all the expenses on 1-10-2018
 * `find $/10.00:20.00` +
-Find all the expenses with cost which is larger than or equals to 10.00 and smaller or equal to 20.
+Find all the expenses with cost between 10 and 20(inclusive).
 * `find $/10.00` +
 Find all the expenses with cost of 10.00.
 * `find c/School t/lunch d/1-10-2018` +
@@ -279,7 +279,7 @@ Find all the expense with tag "lunch" under "School" category on 1-10-2018.
 * Command should at least have one keyword.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
-* Only full words will be matched, i.e. the KEYWORD `Hav` will not match the expense name `Have`
+* Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
 ====
 
 === Listing all expenses : `list`
