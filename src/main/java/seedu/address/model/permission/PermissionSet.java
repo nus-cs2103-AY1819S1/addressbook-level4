@@ -103,6 +103,10 @@ public class PermissionSet {
         }
         boolean isEdited = false;
         for (Permission p : pList) {
+            if(p == null) {
+                continue;
+            }
+
             if(permissionSet.add(p)) {
                 isEdited = true;
             }
@@ -142,6 +146,10 @@ public class PermissionSet {
         }
         boolean isEdited = false;
         for (Permission p : pList) {
+            if(p == null) {
+                continue;
+            }
+
             if(permissionSet.add(p)) {
                 isEdited = true;
             }
@@ -220,6 +228,13 @@ public class PermissionSet {
      */
     public boolean addAll(PermissionSet pSet) {
         return this.permissionSet.addAll(pSet.permissionSet);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        getGrantedPermission().forEach(builder::append);
+        return builder.toString();
     }
 
 }

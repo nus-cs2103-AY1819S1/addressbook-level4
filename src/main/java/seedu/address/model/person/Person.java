@@ -176,6 +176,8 @@ public class Person {
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Projects: ");
         getProjects().forEach(builder::append);
+        builder.append(" Permissions: ")
+                .append(permissionSet);
         return builder.toString();
     }
 
