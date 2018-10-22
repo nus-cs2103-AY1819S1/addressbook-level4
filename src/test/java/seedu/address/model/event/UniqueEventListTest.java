@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TI
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,6 +19,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventClashException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class UniqueEventListTest {
@@ -118,6 +122,26 @@ public class UniqueEventListTest {
         List<Event> listWithClashingEvents = Arrays.asList(DOCTORAPPT, clashingEvent);
         thrown.expect(EventClashException.class);
         uniqueEventList.setEvents(listWithClashingEvents);
+    }
+
+    @Test
+    public void remove_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueEventList.remove(null);
+    }
+
+    @Test
+    public void remove_eventDoesNotExist_throwsEventNotFoundException() {
+        thrown.expect(EventNotFoundException.class);
+        uniqueEventList.remove(DOCTORAPPT);
+    }
+
+    @Test
+    public void remove_existingEvent_removesEvent() {
+        uniqueEventList.add(DOCTORAPPT);
+        uniqueEventList.remove(DOCTORAPPT);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        assertEquals(expectedUniqueEventList, uniqueEventList);
     }
 
     @Test
