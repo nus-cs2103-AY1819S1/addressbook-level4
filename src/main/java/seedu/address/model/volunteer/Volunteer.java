@@ -32,7 +32,8 @@ public class Volunteer {
     /**
      * Used when creating new Volunteer. Every field must be present and not null.
      */
-    public Volunteer(VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
+    public Volunteer(VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email,
+                     VolunteerAddress address, Set<Tag> tags) {
         requireAllNonNull(name, gender, birthday, phone, email, address, tags);
 
         incrementMaxId();
@@ -51,7 +52,8 @@ public class Volunteer {
      * Used when loading data from XML and editing Volunteer.
      * Every field must be present and not null.
      */
-    public Volunteer(VolunteerId volunteerId, VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
+    public Volunteer(VolunteerId volunteerId, VolunteerName name, Gender gender, Birthday birthday,
+                     VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
         requireAllNonNull(volunteerId, name, phone, email, address, tags);
 
         if (isVolunteerIdGreaterThanMaxId(volunteerId.id)) {
@@ -100,9 +102,13 @@ public class Volunteer {
         return name;
     }
 
-    public Gender getGender() { return gender; }
+    public Gender getGender() {
+        return gender;
+    }
 
-    public Birthday getBirthday() { return  birthday; }
+    public Birthday getBirthday() {
+        return birthday;
+    }
 
     public VolunteerPhone getPhone() {
         return phone;

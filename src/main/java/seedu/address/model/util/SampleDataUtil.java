@@ -22,15 +22,13 @@ import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Remark;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerId;
 import seedu.address.model.volunteer.Birthday;
 import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerAddress;
+import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerName;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerAddress;
-
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -66,36 +64,36 @@ public class SampleDataUtil {
     }
     public static Volunteer[] getSampleVolunteers() {
         return new Volunteer[]{
-                new Volunteer(new VolunteerName("Alex Yeoh"), new Gender("male"),
-                        new Birthday("02-10-1996"), new VolunteerPhone("87438807"),
-                        new VolunteerEmail("alexyeoh@example.com"),
-                        new VolunteerAddress("Blk 30 Geylang Street 29, #06-40"),
-                        getTagSet("friends")),
-                new Volunteer(new VolunteerName("Bernice Yu"), new Gender("female"),
-                        new Birthday("15-03-1995"), new VolunteerPhone("99272758"),
-                        new VolunteerEmail("berniceyu@example.com"),
-                        new VolunteerAddress("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        getTagSet("colleagues", "friends")),
-                new Volunteer(new VolunteerName("Charlotte Oliveiro"), new Gender("female"),
-                        new Birthday("17-09-1992"), new VolunteerPhone("93210283"),
-                        new VolunteerEmail("charlotte@example.com"),
-                        new VolunteerAddress("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        getTagSet("neighbours")),
-                new Volunteer(new VolunteerName("David Li"), new Gender("male"),
-                        new Birthday("28-04-1994"), new VolunteerPhone("91031282"),
-                        new VolunteerEmail("lidavid@example.com"),
-                        new VolunteerAddress("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        getTagSet("family")),
-                new Volunteer(new VolunteerName("Irfan Ibrahim"), new Gender("male"),
-                        new Birthday("10-12-2000"), new VolunteerPhone("92492021"),
-                        new VolunteerEmail("irfan@example.com"),
-                        new VolunteerAddress("Blk 47 Tampines Street 20, #17-35"),
-                        getTagSet("classmates")),
-                new Volunteer(new VolunteerName("Roy Balakrishnan"), new Gender("male"),
-                        new Birthday("01-01-1984"), new VolunteerPhone("92624417"),
-                        new VolunteerEmail("royb@example.com"),
-                        new VolunteerAddress("Blk 45 Aljunied Street 85, #11-31"),
-                        getTagSet("colleagues"))
+            new Volunteer(new VolunteerName("Alex Yeoh"), new Gender("male"),
+                    new Birthday("02-10-1996"), new VolunteerPhone("87438807"),
+                    new VolunteerEmail("alexyeoh@example.com"),
+                    new VolunteerAddress("Blk 30 Geylang Street 29, #06-40"),
+                    getTagSet("friends")),
+            new Volunteer(new VolunteerName("Bernice Yu"), new Gender("female"),
+                    new Birthday("15-03-1995"), new VolunteerPhone("99272758"),
+                    new VolunteerEmail("berniceyu@example.com"),
+                    new VolunteerAddress("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                    getTagSet("colleagues", "friends")),
+            new Volunteer(new VolunteerName("Charlotte Oliveiro"), new Gender("female"),
+                    new Birthday("17-09-1992"), new VolunteerPhone("93210283"),
+                    new VolunteerEmail("charlotte@example.com"),
+                    new VolunteerAddress("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    getTagSet("neighbours")),
+            new Volunteer(new VolunteerName("David Li"), new Gender("male"),
+                    new Birthday("28-04-1994"), new VolunteerPhone("91031282"),
+                    new VolunteerEmail("lidavid@example.com"),
+                    new VolunteerAddress("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                    getTagSet("family")),
+            new Volunteer(new VolunteerName("Irfan Ibrahim"), new Gender("male"),
+                    new Birthday("10-12-2000"), new VolunteerPhone("92492021"),
+                    new VolunteerEmail("irfan@example.com"),
+                    new VolunteerAddress("Blk 47 Tampines Street 20, #17-35"),
+                    getTagSet("classmates")),
+            new Volunteer(new VolunteerName("Roy Balakrishnan"), new Gender("male"),
+                    new Birthday("01-01-1984"), new VolunteerPhone("92624417"),
+                    new VolunteerEmail("royb@example.com"),
+                    new VolunteerAddress("Blk 45 Aljunied Street 85, #11-31"),
+                    getTagSet("colleagues"))
         };
     }
 

@@ -122,7 +122,8 @@ public interface Model {
     /**
      * Replaces the given volunteer {@code target} with {@code editedVolunteer}.
      * {@code target} must exist in the address book.
-     * The volunteer identity of {@code editedVolunteer} must not be the same as another existing volunteer in the address book.
+     * The volunteer identity of {@code editedVolunteer} must not be the same as another existing volunteer in
+     * the address book.
      */
     void updateVolunteer(Volunteer target, Volunteer editedVolunteer);
 

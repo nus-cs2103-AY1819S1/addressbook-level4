@@ -156,7 +156,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given volunteer {@code target} in the list with {@code editedVolunteer}.
      * {@code target} must exist in the address book.
-     * The volunteer identity of {@code editedVolunteer} must not be the same as another existing volunteer in the address book.
+     * The volunteer identity of {@code editedVolunteer} must not be the same as another existing volunteer in
+     * the address book.
      */
     public void updateVolunteer(Volunteer target, Volunteer editedVolunteer) {
         requireNonNull(editedVolunteer);

@@ -11,7 +11,9 @@ import seedu.address.commons.util.StringUtil;
 public class VolunteerNameContainsKeywordsPredicate implements Predicate<Volunteer> {
     private final List<String> keywords;
 
-    public VolunteerNameContainsKeywordsPredicate(List<String> keywords) { this.keywords = keywords; }
+    public VolunteerNameContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
 
     @Override
     public boolean test(Volunteer volunteer) {
