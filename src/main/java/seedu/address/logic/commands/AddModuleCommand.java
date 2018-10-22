@@ -36,7 +36,7 @@ public class AddModuleCommand extends Command {
             + PREFIX_TAG + "gg";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the address book";
 
     private final Module toAdd;
 

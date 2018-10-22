@@ -10,7 +10,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.AddOccasionCommand;
+import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.ModuleCode;
