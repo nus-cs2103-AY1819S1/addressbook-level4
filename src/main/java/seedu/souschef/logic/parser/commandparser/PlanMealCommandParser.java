@@ -44,12 +44,11 @@ public class PlanMealCommandParser {
                 toPlan = mealPlannerList.get(mealPlannerList.indexOf(newDay));
             } else {
                 toPlan = newDay;
-                mealPlannerModel.add(toPlan);
             }
 
             Meal meal = toPlan.getMeal(arguments[2]);
 
-            return new PlanMealCommand(mealPlannerModel, toAdd, meal);
+            return new PlanMealCommand(mealPlannerModel, toAdd, meal, toPlan);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE), pe);

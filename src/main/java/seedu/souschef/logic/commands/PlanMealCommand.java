@@ -22,16 +22,19 @@ public class PlanMealCommand extends Command {
     private final Model<Day> model;
     private final Recipe toAdd;
     private final Meal meal;
+    private final Day toPlan;
 
-    public PlanMealCommand(Model<Day> model, Recipe toAdd, Meal meal) {
+    public PlanMealCommand(Model<Day> model, Recipe toAdd, Meal meal, Day toPlan) {
         this.model = model;
         this.toAdd = toAdd;
         this.meal = meal;
+        this.toPlan = toPlan;
     }
 
     @Override
     public CommandResult execute(CommandHistory history) {
         meal.setRecipe(toAdd);
+        model.add(toPlan);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS, toAdd));
     }
