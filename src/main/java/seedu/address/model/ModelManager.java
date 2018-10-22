@@ -161,11 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentPreviewImage.getImage();
     }
 
-    @Override
-    public void setCurrentPreviewImage(PreviewImage previewImage) {
-        this.currentPreviewImage = previewImage;
-    }
-
     //author lancelotwillow
     @Override
     public void updateCurrentpreviewImage(Image image, Transformation transformation) {
@@ -177,11 +172,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         transformationSet.addTransformations(transformation);
         this.currentPreviewImage = new PreviewImage(SwingFXUtils.fromFXImage(image, null), transformationSet);
-    }
-
-    @Override
-    public boolean hasCurrentPreviewImage() {
-        return this.currentPreviewImage == null;
     }
 
     /**

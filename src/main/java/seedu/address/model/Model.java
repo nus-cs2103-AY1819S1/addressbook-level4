@@ -129,12 +129,6 @@ public interface Model {
     BufferedImage getCurrentPreviewImage();
 
     /**
-     * check whether has a preview image stored
-     * @return
-     */
-    boolean hasCurrentPreviewImage();
-
-    /**
      * update the preview image stored in the model
      * @param image
      * @param transformation
@@ -145,9 +139,4 @@ public interface Model {
      * Update the current displayed original image.
      */
     void updateCurrentOriginalImage(Image img);
-
-    /**
-     * set or update the preivew image stored in model
-     */
-    void setCurrentPreviewImage(PreviewImage previewImage);
 }
