@@ -42,7 +42,7 @@ public class VisitorInCommand extends Command {
             + PREFIX_VISITOR + "Jane";
 
     public static final String MESSAGE_SUCCESS = "New visitor checked in: %1$s";
-    public static final String MESSAGE_DUPLICATE_VISITOR = "This person is already in the list";
+    public static final String MESSAGE_DUPLICATE_VISITORS = "This person is already in the list";
     public static final String MESSAGE_UNREGISTERED = "Patient %1$s is not registered within the system.";
     public static final String MESSAGE_FULL = "Patient can not has more than 5 visitor in the list";
 
@@ -72,7 +72,7 @@ public class VisitorInCommand extends Command {
 
         Person patientToUpdate = filteredByName.get(0);
 
-        if (patientToUpdate.getVisitorList().size() >= 5) {
+        if (patientToUpdate.getVisitorList().size() > 5) {
             throw new CommandException(MESSAGE_FULL);
         }
 
