@@ -8,14 +8,14 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_VOLUNTEER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_VOLUNTEER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showVolunteerAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -35,10 +35,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.model.volunteer.Volunteer;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditVolunteerDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.VolunteerBuilder;
 
 /**
@@ -254,8 +254,8 @@ public class EditCommandTest {
         Volunteer lastVolunteer = modelVolunteer.getFilteredVolunteerList().get(indexLastVolunteer.getZeroBased());
 
         VolunteerBuilder volunteerInList = new VolunteerBuilder(lastVolunteer);
-        Volunteer editedVolunteer = volunteerInList.withName(VALID_VOLUNTEER_NAME_BOB).withPhone(VALID_VOLUNTEER_PHONE_BOB)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+        Volunteer editedVolunteer = volunteerInList.withName(VALID_VOLUNTEER_NAME_BOB)
+                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB)
                 .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
@@ -272,7 +272,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredVolunteerList_success() {
-        EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(INDEX_FIRST_PERSON, new EditVolunteerDescriptor());
+        EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(INDEX_FIRST_PERSON,
+                new EditVolunteerDescriptor());
         Volunteer editedVolunteer = modelVolunteer.getFilteredVolunteerList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditVolunteerCommand.MESSAGE_EDIT_VOLUNTEER_SUCCESS, editedVolunteer);
@@ -287,8 +288,10 @@ public class EditCommandTest {
     public void execute_filteredVolunteerList_success() {
         showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
 
-        Volunteer volunteerInFilteredList = modelVolunteer.getFilteredVolunteerList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Volunteer editedVolunteer = new VolunteerBuilder(volunteerInFilteredList).withName(VALID_VOLUNTEER_NAME_BOB).build();
+        Volunteer volunteerInFilteredList = modelVolunteer.getFilteredVolunteerList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
+        Volunteer editedVolunteer = new VolunteerBuilder(volunteerInFilteredList)
+                .withName(VALID_VOLUNTEER_NAME_BOB).build();
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(INDEX_FIRST_PERSON,
                 new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB).build());
 
@@ -307,7 +310,8 @@ public class EditCommandTest {
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(firstVolunteer).build();
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory, EditVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory,
+                EditVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
     }
 
     @Test
@@ -315,20 +319,24 @@ public class EditCommandTest {
         showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
 
         // edit volunteer in filtered list into a duplicate in address book
-        Volunteer volunteerInList = modelVolunteer.getAddressBook().getVolunteerList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Volunteer volunteerInList = modelVolunteer.getAddressBook().getVolunteerList()
+                .get(INDEX_SECOND_PERSON.getZeroBased());
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(INDEX_FIRST_PERSON,
                 new EditVolunteerDescriptorBuilder(volunteerInList).build());
 
-        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory, EditVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory,
+                EditVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
     }
 
     @Test
     public void execute_invalidVolunteerIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(modelVolunteer.getFilteredVolunteerList().size() + 1);
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB).build();
+        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder()
+                .withName(VALID_VOLUNTEER_NAME_BOB).build();
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(outOfBoundIndex, descriptor);
 
-        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory,
+                Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
     }
 
     /**
@@ -345,7 +353,8 @@ public class EditCommandTest {
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(outOfBoundIndex,
                 new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB).build());
 
-        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory,
+                Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -363,21 +372,25 @@ public class EditCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered volunteer list to show all volunteers
         expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first volunteer edited again
         expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredVolunteerList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(modelVolunteer.getFilteredVolunteerList().size() + 1);
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB).build();
+        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder()
+                .withName(VALID_VOLUNTEER_NAME_BOB).build();
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
-        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+        assertVolunteerCommandFailure(editVolunteerCommand, modelVolunteer, commandHistory,
+                Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertVolunteerCommandFailure(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -408,18 +421,21 @@ public class EditCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered volunteer list to show all volunteers
         expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredVolunteerList().get(INDEX_FIRST_PERSON.getZeroBased()), volunteerToEdit);
         // redo -> edits same second volunteer in unfiltered volunteer list
         expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
-        final EditVolunteerCommand standardVolunteerCommand = new EditVolunteerCommand(INDEX_FIRST_PERSON, DESC_VOLUNTEER_AMY);
+        final EditVolunteerCommand standardVolunteerCommand =
+                new EditVolunteerCommand(INDEX_FIRST_PERSON, DESC_VOLUNTEER_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
@@ -443,7 +459,8 @@ public class EditCommandTest {
 
         // same values -> returns true
         EditVolunteerDescriptor copyVolunteerDescriptor = new EditVolunteerDescriptor(DESC_VOLUNTEER_AMY);
-        EditVolunteerCommand commandVolunteerWithSameValues = new EditVolunteerCommand(INDEX_FIRST_PERSON, copyVolunteerDescriptor);
+        EditVolunteerCommand commandVolunteerWithSameValues = new EditVolunteerCommand(INDEX_FIRST_PERSON,
+                copyVolunteerDescriptor);
         assertTrue(standardVolunteerCommand.equals(commandVolunteerWithSameValues));
 
         // same object -> returns true

@@ -13,8 +13,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.model.volunteer.Volunteer;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.VolunteerBuilder;
 
 /**
@@ -32,7 +32,9 @@ public class AddCommandIntegrationTest {
     }
 
     @Before
-    public void setVolunteerUp() { modelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(), new UserPrefs()); }
+    public void setVolunteerUp() { modelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(),
+            new UserPrefs());
+    }
 
     @Test
     public void execute_newPerson_success() {

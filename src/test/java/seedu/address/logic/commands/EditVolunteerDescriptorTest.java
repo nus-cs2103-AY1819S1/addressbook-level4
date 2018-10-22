@@ -4,12 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_VOLUNTEER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_VOLUNTEER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -38,7 +38,8 @@ public class EditVolunteerDescriptorTest {
         assertFalse(DESC_VOLUNTEER_AMY.equals(DESC_VOLUNTEER_BOB));
 
         // different name -> returns false
-        EditVolunteerDescriptor editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY).withName(VALID_VOLUNTEER_NAME_BOB).build();
+        EditVolunteerDescriptor editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY)
+                .withName(VALID_VOLUNTEER_NAME_BOB).build();
         assertFalse(DESC_VOLUNTEER_AMY.equals(editedAmy));
 
         // different gender -> returns false
@@ -58,11 +59,13 @@ public class EditVolunteerDescriptorTest {
         assertFalse(DESC_VOLUNTEER_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_BOB).build();
+        editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY)
+                .withAddress(VALID_VOLUNTEER_ADDRESS_BOB).build();
         assertFalse(DESC_VOLUNTEER_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY).withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+        editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY)
+                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
         assertFalse(DESC_VOLUNTEER_AMY.equals(editedAmy));
     }
 }

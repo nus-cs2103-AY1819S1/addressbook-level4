@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstVolunteer;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -55,11 +55,13 @@ public class UndoCommandTest {
 
         // multiple undoable states in model
         expectedModelVolunteer.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
 
         // single undoable state in model
         expectedModelVolunteer.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
 
         // no undoable states in model
         assertVolunteerCommandFailure(new UndoCommand(), modelVolunteer, commandHistory, UndoCommand.MESSAGE_FAILURE);

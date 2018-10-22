@@ -9,10 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SWITCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_TAG;
 
@@ -27,9 +27,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
 import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditVolunteerDescriptorBuilder;
 
 /**
@@ -107,8 +107,10 @@ public class CommandTestUtil {
     public static final String PHONE_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_PHONE + VALID_VOLUNTEER_PHONE_BOB;
     public static final String EMAIL_VOLUNTEER_DESC_AMY = " " + PREFIX_VOLUNTEER_EMAIL + VALID_VOLUNTEER_EMAIL_AMY;
     public static final String EMAIL_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_EMAIL + VALID_VOLUNTEER_EMAIL_BOB;
-    public static final String ADDRESS_VOLUNTEER_DESC_AMY = " " + PREFIX_VOLUNTEER_ADDRESS + VALID_VOLUNTEER_ADDRESS_AMY;
-    public static final String ADDRESS_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_ADDRESS + VALID_VOLUNTEER_ADDRESS_BOB;
+    public static final String ADDRESS_VOLUNTEER_DESC_AMY = " " + PREFIX_VOLUNTEER_ADDRESS
+            + VALID_VOLUNTEER_ADDRESS_AMY;
+    public static final String ADDRESS_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_ADDRESS
+            + VALID_VOLUNTEER_ADDRESS_BOB;
     public static final String TAG_VOLUNTEER_DESC_FRIEND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_FRIEND;
     public static final String TAG_VOLUNTEER_DESC_HUSBAND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_HUSBAND;
 
@@ -117,13 +119,20 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_VOLUNTEER_NAME_DESC = " " + PREFIX_VOLUNTEER_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_GENDER_DESC = " " + PREFIX_VOLUNTEER_GENDER + "unknown"; // only 'male' or 'female' is allowed
-    public static final String INVALID_BIRTHDAY_DESC = " " + PREFIX_VOLUNTEER_BIRTHDAY + "11-12-19913"; //only 4 digits in year
-    public static final String INVALID_VOLUNTEER_PHONE_DESC = " " + PREFIX_VOLUNTEER_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_VOLUNTEER_EMAIL_DESC = " " + PREFIX_VOLUNTEER_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_VOLUNTEER_ADDRESS_DESC = " " + PREFIX_VOLUNTEER_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_VOLUNTEER_TAG_DESC = " " + PREFIX_VOLUNTEER_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_VOLUNTEER_NAME_DESC = " " + PREFIX_VOLUNTEER_NAME + "James&";
+    // '&' not allowed in names
+    public static final String INVALID_GENDER_DESC = " " + PREFIX_VOLUNTEER_GENDER + "unknown";
+    // only 'male' or 'female' is allowed
+    public static final String INVALID_BIRTHDAY_DESC = " " + PREFIX_VOLUNTEER_BIRTHDAY + "11-12-19913";
+    //only 4 digits in year
+    public static final String INVALID_VOLUNTEER_PHONE_DESC = " " + PREFIX_VOLUNTEER_PHONE + "911a";
+    // 'a' not allowed in phones
+    public static final String INVALID_VOLUNTEER_EMAIL_DESC = " " + PREFIX_VOLUNTEER_EMAIL + "bob!yahoo";
+    // missing '@' symbol
+    public static final String INVALID_VOLUNTEER_ADDRESS_DESC = " " + PREFIX_VOLUNTEER_ADDRESS;
+    // empty string not allowed for addresses
+    public static final String INVALID_VOLUNTEER_TAG_DESC = " " + PREFIX_VOLUNTEER_TAG + "hubby*";
+    // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -204,8 +213,8 @@ public class CommandTestUtil {
      * - the address book and the filtered volunteer list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertVolunteerCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage) {
+    public static void assertVolunteerCommandFailure(Command command, Model actualModel,
+                                                     CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());

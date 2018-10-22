@@ -47,12 +47,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listVolunteerIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListVolunteerCommand(), modelVolunteer, commandHistory, ListVolunteerCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new ListVolunteerCommand(), modelVolunteer, commandHistory,
+                ListVolunteerCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
     }
 
     @Test
     public void execute_listVolunteerIsFiltered_showsEverything() {
         showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListVolunteerCommand(), modelVolunteer, commandHistory, ListVolunteerCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new ListVolunteerCommand(), modelVolunteer, commandHistory,
+                ListVolunteerCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
     }
 }

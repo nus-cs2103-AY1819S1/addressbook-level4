@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showVolunteerAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -106,7 +106,8 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < modelVolunteer.getAddressBook().getVolunteerList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < modelVolunteer.getAddressBook()
+                .getVolunteerList().size());
 
         assertVolunteerExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
     }
@@ -176,22 +177,24 @@ public class SelectCommandTest {
     }
 
     /**
-     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
-     * is raised with the correct index.
+     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that
+     * {@code JumpToListRequestEvent} is raised with the correct index.
      */
     private void assertVolunteerExecutionSuccess(Index index) {
         SelectVolunteerCommand selectVolunteerCommand = new SelectVolunteerCommand(index);
-        String expectedMessage = String.format(SelectVolunteerCommand.MESSAGE_SELECT_VOLUNTEER_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectVolunteerCommand.MESSAGE_SELECT_VOLUNTEER_SUCCESS,
+                index.getOneBased());
 
-        assertCommandSuccess(selectVolunteerCommand, modelVolunteer, commandHistory, expectedMessage, expectedModelVolunteer);
+        assertCommandSuccess(selectVolunteerCommand, modelVolunteer, commandHistory, expectedMessage,
+                expectedModelVolunteer);
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
     /**
-     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that a {@code CommandException}
-     * is thrown with the {@code expectedMessage}.
+     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that
+     * a {@code CommandException} is thrown with the {@code expectedMessage}.
      */
     private void assertVolunteerExecutionFailure(Index index, String expectedMessage) {
         SelectVolunteerCommand selectVolunteerCommand = new SelectVolunteerCommand(index);

@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstVolunteer;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -63,11 +63,13 @@ public class RedoCommandTest {
 
         // multiple redoable states in model
         expectedModelVolunteer.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
 
         // single redoable state in model
         expectedModelVolunteer.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
+        assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModelVolunteer);
 
         // no redoable state in model
         assertVolunteerCommandFailure(new RedoCommand(), modelVolunteer, commandHistory, RedoCommand.MESSAGE_FAILURE);
