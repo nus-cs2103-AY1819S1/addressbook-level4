@@ -58,6 +58,7 @@ public class TypicalEvents {
             .withEventDate("2018-08-01")
             .withEventStartTime("1200")
             .withEventEndTime("1400")
+            .withEventContacts(ALICE)
             .build();
 
     public static final Event DINNER =
