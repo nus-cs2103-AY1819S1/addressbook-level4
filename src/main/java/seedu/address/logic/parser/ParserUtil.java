@@ -211,10 +211,10 @@ public class ParserUtil {
      */
     public static Stock parseStock(String stock) throws ParseException {
         requireNonNull(stock);
-        String trimmedStock = stock.trim();
-        if (!Stock.isValidStock(trimmedStock)) {
+        Integer stockValue = Integer.parseInt(stock);
+        if (!Stock.isValidStock(stockValue)) {
             throw new ParseException(Stock.MESSAGE_STOCK_CONSTRAINTS);
         }
-        return new Stock(trimmedStock);
+        return new Stock(stockValue);
     }
 }

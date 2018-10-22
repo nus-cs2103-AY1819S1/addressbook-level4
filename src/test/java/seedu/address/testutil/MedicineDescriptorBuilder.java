@@ -70,7 +70,7 @@ public class MedicineDescriptorBuilder {
     /**
      * Sets the {@code Stock} of the {@code MedicineDescriptor} that we are building.
      */
-    public MedicineDescriptorBuilder withStock(String stock) {
+    public MedicineDescriptorBuilder withStock(Integer stock) {
         descriptor.setStock(new Stock(stock));
         return this;
     }

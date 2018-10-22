@@ -16,7 +16,7 @@ public class MedicineBuilder {
     public static final String DEFAULT_MINIMUM_STOCK_QUANTITY = "100";
     public static final String DEFAULT_PRICE_PER_UNIT = "2";
     public static final String DEFAULT_SERIAL_NUMBER = "000129374";
-    public static final String DEFAULT_STOCK = "1834";
+    public static final Integer DEFAULT_STOCK = 1834;
 
     private MedicineName medicineName;
     private MinimumStockQuantity minimumStockQuantity;
@@ -62,7 +62,7 @@ public class MedicineBuilder {
     /**
      * Sets the {@code Stock} of the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withStock(String stock) {
+    public MedicineBuilder withStock(Integer stock) {
         this.stock = new Stock(stock);
         return this;
     }
