@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertGroupTagListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertGroupListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.nio.file.Path;
@@ -184,7 +184,7 @@ public abstract class AddressBookSystemTest {
      * Asserts that the group list panel displays the groups in the model correctly.
      */
     protected void assertGroupListDisplaysExpected(Model expectedModel) {
-        assertGroupTagListMatching(getGroupListPanel(), expectedModel.getFilteredGroupList());
+        assertGroupListMatching(getGroupListPanel(), expectedModel.getFilteredGroupList());
     }
 
     /**

@@ -29,8 +29,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
@@ -108,18 +108,18 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredGroupList_success() {
         Index lastGroupIndex = Index.fromOneBased(model.getFilteredGroupList().size());
 
-        Tag group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
-        final String[] keywords = { group.tagName };
+        Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
+        final String[] keywords = { group.getTitle().fullTitle };
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
 
         group = expectedModel.getFilteredGroupList().get(INDEX_THIRD_GROUP.getZeroBased());
-        keywords[0] = group.tagName;
+        keywords[0] = group.getTitle().fullTitle;
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(INDEX_THIRD_GROUP, SelectCommand.SELECT_TYPE_GROUP);
 
         group = expectedModel.getFilteredGroupList().get(lastGroupIndex.getZeroBased());
-        keywords[0] = group.tagName;
+        keywords[0] = group.getTitle().fullTitle;
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(lastGroupIndex, SelectCommand.SELECT_TYPE_GROUP);
     }
@@ -147,7 +147,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_GROUP;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupTagList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupList().size());
 
         assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_GROUP,
                 Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);

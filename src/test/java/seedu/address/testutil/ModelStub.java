@@ -77,7 +77,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
+    public ObservableList<Group> getFilteredGroupList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -87,7 +87,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

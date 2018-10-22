@@ -13,9 +13,9 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Selects a person identified using it's displayed index from the address book.
@@ -48,15 +48,15 @@ public class SelectCommand extends Command {
         requireNonNull(model);
 
         if (selectType == SELECT_TYPE_GROUP) {
-            List<Tag> filteredGroupList = model.getFilteredGroupList();
+            List<Group> filteredGroupList = model.getFilteredGroupList();
 
             if (targetIndex.getZeroBased() >= filteredGroupList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
             }
 
             EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
-            Tag group = filteredGroupList.get(targetIndex.getZeroBased());
-            final String[] keywords = { group.tagName };
+            Group group = filteredGroupList.get(targetIndex.getZeroBased());
+            final String[] keywords = { group.getTitle().fullTitle };
             model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
         } else {

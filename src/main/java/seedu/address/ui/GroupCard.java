@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
 
 /**
  * An UI component that displays information of a {@code Group}
@@ -14,7 +14,7 @@ public class GroupCard extends UiPart<Region> {
 
     private static final String FXML = "GroupListCard.fxml";
 
-    public final Tag group;
+    public final Group group;
 
     @FXML
     private HBox groupCardPane;
@@ -23,13 +23,21 @@ public class GroupCard extends UiPart<Region> {
     private Label id;
 
     @FXML
-    private Label groupName;
+    private Label groupTitle;
 
-    public GroupCard(Tag group, int displayedIndex) {
+    @FXML
+    private Label groupDescription;
+
+    @FXML
+    private Label memberCount;
+
+    public GroupCard(Group group, int displayedIndex) {
         super(FXML);
         this.group = group;
         id.setText(displayedIndex + ". ");
-        groupName.setText(group.tagName);
+        groupTitle.setText(group.getTitle().fullTitle);
+        groupDescription.setText(group.getDescription().statement);
+        memberCount.setText("Members: " + group.getMembers().asUnmodifiableObservableList().size());
     }
 
     @Override

@@ -19,7 +19,6 @@ import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -30,7 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Tag> filteredGroupTags;
+    private final FilteredList<Group> filteredGroups;
     private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
@@ -45,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
+        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
@@ -154,14 +153,14 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Group List Accessors =============================================================
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
-        return FXCollections.unmodifiableObservableList(filteredGroupTags);
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         requireNonNull(predicate);
-        filteredGroupTags.setPredicate(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 
     //=========== Sorted Person List Accessors ==============================================================

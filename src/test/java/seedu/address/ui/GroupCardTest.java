@@ -8,12 +8,13 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysGroup;
 import org.junit.Test;
 
 import guitests.guihandles.GroupCardHandle;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
+import seedu.address.model.shared.Title;
 
 public class GroupCardTest extends GuiUnitTest {
     @Test
     public void display() {
-        Tag group = new Tag("Test");
+        Group group = new Group(new Title("Test"));
         GroupCard groupCard = new GroupCard(group, 1);
         uiPartRule.setUiPart(groupCard);
         assertCardDisplay(groupCard, group, 1);
@@ -21,7 +22,7 @@ public class GroupCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Tag group = new Tag("Test");
+        Group group = new Group(new Title("Test"));
         GroupCard groupCard = new GroupCard(group, 0);
 
         // same group, same index -> returns true
@@ -38,7 +39,7 @@ public class GroupCardTest extends GuiUnitTest {
         assertFalse(groupCard.equals(0));
 
         // different group, same index -> return false
-        Tag differentGroup = new Tag("tseT");
+        Group differentGroup = new Group(new Title("tseT"));
         assertFalse(groupCard.equals(new GroupCard(differentGroup, 0)));
 
         // same group, different index -> returns false
@@ -49,7 +50,7 @@ public class GroupCardTest extends GuiUnitTest {
      * Asserts that {@code groupCard} displays the details of {@code expectedGroup} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(GroupCard groupCard, Tag expectedGroup, int expectedId) {
+    private void assertCardDisplay(GroupCard groupCard, Group expectedGroup, int expectedId) {
         guiRobot.pauseForHuman();
 
         GroupCardHandle groupCardHandle = new GroupCardHandle(groupCard.getRoot());
