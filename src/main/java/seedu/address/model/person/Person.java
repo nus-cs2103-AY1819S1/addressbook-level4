@@ -30,41 +30,20 @@ public class Person {
     private final PermissionSet permissionSet = new PermissionSet();
 
     /**
-     * Every field must be present and not null.
+     * Constructors: every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        requireAllNonNull(name, phone, email, address, salary, projects);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        this.projects.addAll(projects);
-        this.profilePic = Optional.empty();
+        this(name, phone, email, address, salary, projects, new PermissionSet(), Optional.empty());
     }
 
-    /**
-     * Every field must be present and not null.
-     */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   PermissionSet permissionSet) {
-        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        this.projects.addAll(projects);
-        this.permissionSet.addAll(permissionSet);
-        this.profilePic = Optional.empty();
+        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty());
     }
 
-    /**
-     * Overriden constructor that allows specification of a profile picture
-     */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic);
         this.name = name;
         this.phone = phone;
         this.email = email;
