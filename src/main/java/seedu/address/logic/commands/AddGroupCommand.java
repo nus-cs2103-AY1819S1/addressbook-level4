@@ -7,6 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.shared.Title;
 
 // @@author Derek-Hardy
 /**
@@ -26,6 +27,7 @@ public class AddGroupCommand extends Command {
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the address book";
 
     private final Group toAdd;
+    private final Title groupName;
 
     /**
      * Creates an AddGroupCommand to add the specified {@code Group}
@@ -33,6 +35,7 @@ public class AddGroupCommand extends Command {
     public AddGroupCommand(Group group) {
         requireNonNull(group);
         toAdd = group;
+        groupName = toAdd.getTitle();
     }
 
 
@@ -53,6 +56,6 @@ public class AddGroupCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddGroupCommand // instanceof handles nulls
-                && toAdd.equals(((AddGroupCommand) other).toAdd));
+                && groupName.equals(((AddGroupCommand) other).groupName));
     }
 }

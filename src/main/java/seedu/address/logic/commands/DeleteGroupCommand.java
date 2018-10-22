@@ -7,10 +7,13 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.shared.Title;
 
 // @@author Derek-Hardy
 /**
  * Deletes a group identified using it's displayed title from the address book.
+ *
+ * Note: This command is not yet complete. (Under construction)
  */
 public class DeleteGroupCommand extends Command {
 
@@ -24,6 +27,7 @@ public class DeleteGroupCommand extends Command {
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted Group: %1$s";
 
     private final Group toDelete;
+    private final Title groupName;
 
     /**
      * Creates an DeleteGroupCommand to delete the specified {@code Group}
@@ -31,6 +35,7 @@ public class DeleteGroupCommand extends Command {
     public DeleteGroupCommand(Group toDelete) {
         requireNonNull(toDelete);
         this.toDelete = toDelete;
+        this.groupName = toDelete.getTitle();
     }
 
     @Override
@@ -50,6 +55,6 @@ public class DeleteGroupCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteGroupCommand // instanceof handles nulls
-                && toDelete.equals(((DeleteGroupCommand) other).toDelete)); // state check
+                && groupName.equals(((DeleteGroupCommand) other).groupName)); // state check
     }
 }
