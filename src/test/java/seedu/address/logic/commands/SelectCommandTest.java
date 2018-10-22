@@ -6,10 +6,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.showVolunteerAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalVolunteers.getTypicalVolunteerAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,6 +35,8 @@ public class SelectCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model modelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(), new UserPrefs());
+    private Model expectedModelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -71,9 +76,47 @@ public class SelectCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredVolunteerList_success() {
+        Index lastVolunteerIndex = Index.fromOneBased(modelVolunteer.getFilteredVolunteerList().size());
+
+        assertVolunteerExecutionSuccess(INDEX_FIRST_PERSON);
+        assertVolunteerExecutionSuccess(INDEX_THIRD_PERSON);
+        assertVolunteerExecutionSuccess(lastVolunteerIndex);
+    }
+
+    @Test
+    public void execute_invalidIndexUnfilteredVolunteerList_failure() {
+        Index outOfBoundsIndex = Index.fromOneBased(modelVolunteer.getFilteredVolunteerList().size() + 1);
+
+        assertVolunteerExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexFilteredVolunteerList_success() {
+        showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
+        showVolunteerAtIndex(expectedModelVolunteer, INDEX_FIRST_PERSON);
+
+        assertVolunteerExecutionSuccess(INDEX_FIRST_PERSON);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredVolunteerList_failure() {
+        showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
+        showVolunteerAtIndex(expectedModelVolunteer, INDEX_FIRST_PERSON);
+
+        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundsIndex.getZeroBased() < modelVolunteer.getAddressBook().getVolunteerList().size());
+
+        assertVolunteerExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void equals() {
         SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
         SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        SelectVolunteerCommand selectFirstVolunteerCommand = new SelectVolunteerCommand(INDEX_FIRST_PERSON);
+        SelectVolunteerCommand selectSecondVolunteerCommand = new SelectVolunteerCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
@@ -90,6 +133,22 @@ public class SelectCommandTest {
 
         // different person -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
+
+        // same object -> returns true
+        assertTrue(selectFirstVolunteerCommand.equals(selectFirstVolunteerCommand));
+
+        // same values -> returns true
+        SelectVolunteerCommand selectFirstVolunteerCommandCopy = new SelectVolunteerCommand(INDEX_FIRST_PERSON);
+        assertTrue(selectFirstVolunteerCommand.equals(selectFirstVolunteerCommandCopy));
+
+        // different types -> returns false
+        assertFalse(selectFirstVolunteerCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(selectFirstVolunteerCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(selectFirstVolunteerCommand.equals(selectSecondVolunteerCommand));
     }
 
     /**
@@ -113,6 +172,30 @@ public class SelectCommandTest {
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+        assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
+    }
+
+    /**
+     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * is raised with the correct index.
+     */
+    private void assertVolunteerExecutionSuccess(Index index) {
+        SelectVolunteerCommand selectVolunteerCommand = new SelectVolunteerCommand(index);
+        String expectedMessage = String.format(SelectVolunteerCommand.MESSAGE_SELECT_VOLUNTEER_SUCCESS, index.getOneBased());
+
+        assertCommandSuccess(selectVolunteerCommand, modelVolunteer, commandHistory, expectedMessage, expectedModelVolunteer);
+
+        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+    }
+
+    /**
+     * Executes a {@code SelectVolunteerCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * is thrown with the {@code expectedMessage}.
+     */
+    private void assertVolunteerExecutionFailure(Index index, String expectedMessage) {
+        SelectVolunteerCommand selectVolunteerCommand = new SelectVolunteerCommand(index);
+        assertVolunteerCommandFailure(selectVolunteerCommand, modelVolunteer, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }
