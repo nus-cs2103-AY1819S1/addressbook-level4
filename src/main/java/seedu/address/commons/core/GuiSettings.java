@@ -11,12 +11,16 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
+    private static Boolean notificationIsEnabled;
 
     private Double windowWidth;
     private Double windowHeight;
     private Point windowCoordinates;
+<<<<<<< HEAD
     private Boolean notificationIsEnabled;
     private String favourite;
+=======
+>>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
@@ -46,7 +50,7 @@ public class GuiSettings implements Serializable {
         return windowCoordinates;
     }
 
-    public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
+    public static Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
 
     public String getFavourite() { return favourite; }
 
