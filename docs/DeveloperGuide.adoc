@@ -1,4 +1,4 @@
-= ClinicIO - Developer Guide
+﻿= ClinicIO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -327,15 +327,19 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::login[]
-=== Login Authentication
+=== Login
+
+ClinicIO ensure that proper user access rights is given and authenticated by login to ClinicIO.
 
 ==== Current Implementation
 
-The `login` command authenticates users to gain access to ClinicIO.
+The login mechanism uses an immutable list to retrieve a list of doctors or receptionist based on user role.
+
+
 
 ==== Design Considerations
 
-===== Aspect: How login authentication executes
+===== Aspect: How login executes
 
 _{Explain the pro and cons for login authentication}_
 
