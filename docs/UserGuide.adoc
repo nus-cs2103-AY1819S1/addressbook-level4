@@ -218,6 +218,7 @@ Format: `checkStock`
 
 === Queue Management
 
+// tag::pqms[]
 ==== Listing all Patients in Patient Queue : `queue`
 
 Lists all patients in queue waiting to see the doctor. +
@@ -274,6 +275,7 @@ Format: `serve`
 Transfers the current patient to the Served Patient Queue. +
 Format: `finish`
 
+// end::pqms[]
 ==== Generating Medical Certificate : `mc`
 
 Creates a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
