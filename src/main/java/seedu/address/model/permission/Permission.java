@@ -18,5 +18,18 @@ public enum Permission {
     CREATE_DEPARTMENT,
     ASSIGN_DEPARTMENT,
 
-    ASSIGN_PERMISSION //Might need a superadmin permission to control this permission.
+    ASSIGN_PERMISSION; //Might need a superadmin permission to control this permission.
+
+    private static final Permission[] listOfAllPermissions = values();
+    public static final String MESSAGE_INVALID_PERMISSION = "Invalid permission name.";
+
+    public static boolean isValidPermission(String permission) {
+        for (Permission p : listOfAllPermissions) {
+            if (p.name().equals(permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
