@@ -77,6 +77,11 @@ public class PermissionSet {
         permissionSet = new HashSet<>();
     }
 
+    public PermissionSet(Permission... pList) {
+        permissionSet = new HashSet<>();
+        addPermissions(pList);
+    }
+
     /**
      * Constructor to build a permission set with a preset permission list.
      *
@@ -88,29 +93,21 @@ public class PermissionSet {
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
-     * No permissions modified if operation fails.
      *
      * @param pList list of permission to add
-     * @return true if success, otherwise false.
+     * @return true if permissionSet modified, otherwise false.
      */
     public boolean addPermissions(Permission... pList) {
         if (pList == null) {
             return false;
         }
-
-        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        boolean isEdited = false;
         for (Permission p : pList) {
-            if (p == null) {
-                return false;
-            }
-
-            //If adding fails
-            if (!duplicate.add(p)) {
-                return false;
+            if(permissionSet.add(p)) {
+                isEdited = true;
             }
         }
-        permissionSet = duplicate;
-        return true;
+        return isEdited;
     }
 
     /**
@@ -124,15 +121,52 @@ public class PermissionSet {
         if (pList == null) {
             return false;
         }
-
-        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        boolean isEdited = false;
         for (Permission p : pList) {
-            if (!duplicate.remove(p)) {
-                return false;
+            if(permissionSet.remove(p)){
+                isEdited = true;
             }
         }
-        permissionSet = duplicate;
-        return true;
+        return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     *
+     * @param pList set of permission to add
+     * @return true if permissionSet modified, otherwise false.
+     */
+    public boolean addPermissions(Set<Permission> pList) {
+        if (pList == null) {
+            return false;
+        }
+        boolean isEdited = false;
+        for (Permission p : pList) {
+            if(permissionSet.add(p)) {
+                isEdited = true;
+            }
+        }
+        return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * No permissions modified if operation fails.
+     *
+     * @param pList set of permission to remove
+     * @return true if success, otherwise false.
+     */
+    public boolean removePermissions(Set<Permission> pList) {
+        if (pList == null) {
+            return false;
+        }
+        boolean isEdited = false;
+        for (Permission p : pList) {
+            if(permissionSet.remove(p)){
+                isEdited = true;
+            }
+        }
+        return isEdited;
     }
 
     /**
