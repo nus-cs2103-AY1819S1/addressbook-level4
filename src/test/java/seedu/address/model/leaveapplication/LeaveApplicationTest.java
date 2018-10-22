@@ -16,7 +16,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.testutil.LeaveApplicationBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 public class LeaveApplicationTest {
     @Rule
@@ -72,8 +71,6 @@ public class LeaveApplicationTest {
         builder.append(0)
                 .append(" Description: ")
                 .append("Alice family holiday")
-                .append(" Employee: ")
-                .append(TypicalPersons.ALICE.toString())
                 .append(" Status: ")
                 .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
@@ -86,8 +83,6 @@ public class LeaveApplicationTest {
         builder.append(0)
                 .append(" Description: ")
                 .append("Benson's brother's wedding")
-                .append(" Employee: ")
-                .append(TypicalPersons.BENSON.toString())
                 .append(" Status: ")
                 .append(StatusEnum.Status.APPROVED.toString())
                 .append(" Dates: ")

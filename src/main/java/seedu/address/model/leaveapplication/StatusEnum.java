@@ -15,6 +15,6 @@ public class StatusEnum {
 
     public static boolean isValidStatus(String statusString) {
         return Arrays.stream(Status.values())
-                .anyMatch(status -> statusString.equals(status));
+                .anyMatch(status -> statusString.equals(status.toString()));
     }
 }

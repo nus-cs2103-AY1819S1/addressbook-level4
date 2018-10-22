@@ -5,11 +5,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a LeaveApplication's status in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidStatus(StatusEnum.Status)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
  */
 public class LeaveStatus {
 
-    public static final String MESSAGE_STATUS_CONSTRAINTS = "Status should be non-empty";
+    public static final String MESSAGE_STATUS_CONSTRAINTS = "Status has to be APPROVED, REJECTED, CANCELLED, PENDING";
     public final StatusEnum.Status value;
 
     /**
