@@ -2,11 +2,13 @@ package seedu.address.model.doctor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.BEN;
+import static seedu.address.testutil.TypicalPersons.CAT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -180,6 +182,24 @@ public class UniqueDoctorListTest {
         uniqueDoctorList.setDoctors(listWithDuplicatePersons);
     }
 
+    @Test
+    public void getDoctor_nullDoctor_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueDoctorList.getDoctor(null);
+    }
+
+    @Test
+    public void getDoctor_cannotFindDoctor_throwsDoctorNotFoundException() {
+        thrown.expect(DoctorNotFoundException.class);
+        uniqueDoctorList.getDoctor(CAT);
+    }
+
+    @Test
+    public void getDoctor_validDoctor_returnDoctor() {
+        uniqueDoctorList.add(BEN);
+        assertNotNull(uniqueDoctorList.getDoctor(BEN));
+    }
+    
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
