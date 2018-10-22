@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashSet;
 import java.util.Objects;
 
-import seedu.address.commons.util.HashUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,7 +33,7 @@ public class Doctor extends Person {
         this.password = password;
         //this.shift = shift;
     }
-    
+
     public Password getPassword() {
         return password;
     }

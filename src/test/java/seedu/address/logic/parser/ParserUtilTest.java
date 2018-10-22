@@ -269,8 +269,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseRole_validFieldsWithoutWhitespace_returnsPerson() throws Exception {
-        Person expectedDoctor = new Doctor(new Id(VALID_ID),
-                new Name(VALID_NAME),
+        Person expectedDoctor = new Doctor(new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
         assertEquals(expectedDoctor,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR,
@@ -283,8 +282,7 @@ public class ParserUtilTest {
     @Test
     public void parseRole_validFieldsWithWhitespace_returnsPerson() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Person expectedDoctor = new Doctor(new Id(VALID_ID),
-                new Name(VALID_NAME),
+        Person expectedDoctor = new Doctor(new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
         assertEquals(expectedDoctor,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR,

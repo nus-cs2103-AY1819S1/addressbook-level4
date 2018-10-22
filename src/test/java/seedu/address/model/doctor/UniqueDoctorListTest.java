@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.BEN;
 
@@ -48,7 +49,7 @@ public class UniqueDoctorListTest {
     @Test
     public void contains_doctorWithSameIdentityFieldsInList_returnsTrue() {
         uniqueDoctorList.add(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(1)
+        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM)
                 .build();
         assertTrue(uniqueDoctorList.contains(editedAdam));
     }
