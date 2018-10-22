@@ -184,16 +184,16 @@ class MagickPPExport VPath
 public:
   // Constructor
   VPath ( void );
-    
+
   // Construct from VPathBase
   VPath ( const VPathBase& original_ );
-    
+
   // Destructor
   virtual ~VPath ( void );
 
   // Copy constructor
   VPath ( const VPath& original_ );
-    
+
   // Assignment operator
   VPath& operator= (const VPath& original_ );
 
@@ -238,7 +238,7 @@ public:
   // Return polymorphic copy of object
   /*virtual*/
   DrawableBase* copy() const;
-    
+
   void sx( const double sx_ )
     {
       _affine.sx = sx_;
@@ -265,7 +265,7 @@ public:
     {
       return _affine.rx;
     }
-  
+
   void ry( const double ry_ )
     {
       _affine.ry = ry_;
@@ -274,7 +274,7 @@ public:
     {
       return _affine.ry;
     }
-  
+
   void tx( const double tx_ )
     {
       _affine.tx = tx_;
@@ -283,7 +283,7 @@ public:
     {
       return _affine.tx;
     }
-  
+
   void ty( const double ty_ )
     {
       _affine.ty = ty_;
@@ -292,7 +292,7 @@ public:
     {
       return _affine.ty;
     }
-  
+
 private:
   MagickCore::AffineMatrix  _affine;
 };
@@ -385,7 +385,7 @@ public:
     {
       return _startX;
     }
-  
+
   void startY( double startY_ )
     {
       _startY = startY_;
@@ -394,7 +394,7 @@ public:
     {
       return _startY;
     }
-  
+
   void endX( double endX_ )
     {
       _endX = endX_;
@@ -412,7 +412,7 @@ public:
     {
       return _endY;
     }
-  
+
   void startDegrees( double startDegrees_ )
     {
       _startDegrees = startDegrees_;
@@ -430,7 +430,7 @@ public:
     {
       return _endDegrees;
     }
-  
+
 private:
   double _startX;
   double _startY;
@@ -458,7 +458,7 @@ public:
 
   // Return polymorphic copy of object
   /*virtual*/ DrawableBase* copy() const;
-  
+
 private:
   CoordinateList _coordinates;
 };
@@ -469,20 +469,20 @@ private:
   public:
 
     DrawableBorderColor(const Color &color_);
-  
+
     DrawableBorderColor(const DrawableBorderColor &original_);
-  
+
     ~DrawableBorderColor(void);
-  
+
     // Operator to invoke equivalent draw API call
     void operator()(MagickCore::DrawingWand *context_) const;
 
     void color(const Color &color_);
     Color color(void) const;
-  
+
     // Return polymorphic copy of object
     DrawableBase* copy() const;
-  
+
   private:
     Color _color;
   };
@@ -614,7 +614,7 @@ public:
     }
 
   /*virtual*/ ~DrawableCircle ( void );
-    
+
   // Operator to invoke equivalent draw API call
   /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
 
@@ -760,7 +760,7 @@ public:
 
   // Return polymorphic copy of object
   /*virtual*/ DrawableBase* copy() const;
-    
+
   void composition( CompositeOperator composition_ )
     {
       _composition = composition_;
@@ -848,7 +848,7 @@ private:
 class MagickPPExport DrawableEllipse : public DrawableBase
 {
 public:
-  DrawableEllipse ( double originX_, double originY_, 
+  DrawableEllipse ( double originX_, double originY_,
                     double radiusX_, double radiusY_,
                     double arcStart_, double arcEnd_ )
     : _originX(originX_),
@@ -923,7 +923,7 @@ public:
 
 private:
   double _originX;
-  double _originY; 
+  double _originY;
   double _radiusX;
   double _radiusY;
   double _arcStart;
@@ -981,7 +981,7 @@ private:
 
     // Return polymorphic copy of object
     DrawableBase* copy() const;
-  
+
   private:
     std::string _url;
   };
@@ -1728,10 +1728,10 @@ private:
 
       // Operator to invoke equivalent draw API call
       void operator()(MagickCore::DrawingWand *context_) const;
-  
+
       // Return polymorphic copy of object
       DrawableBase* copy() const;
-  
+
       void dasharray(const double* dasharray_);
       const double* dasharray(void) const;
 
@@ -1761,7 +1761,7 @@ private:
 
     void offset(const double offset_);
     double offset(void) const;
-  
+
   private:
     double _offset;
   };
@@ -2702,7 +2702,7 @@ public:
   /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
 
   // Return polymorphic copy of object
-  /*virtual*/ 
+  /*virtual*/
   VPathBase* copy() const;
 
 private:
@@ -2727,7 +2727,7 @@ public:
   /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
 
   // Return polymorphic copy of object
-  /*virtual*/ 
+  /*virtual*/
   VPathBase* copy() const;
 
 private:
