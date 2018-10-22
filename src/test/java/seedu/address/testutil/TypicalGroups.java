@@ -8,8 +8,13 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.group.Group;
 import seedu.address.model.tag.Tag;
+
 
 // @@author Derek-Hardy
 /**
@@ -41,5 +46,10 @@ public class TypicalGroups {
     public static final Tag TEMP_GROUP_ASSIGNMENT = new Tag("Assignment");
 
     private TypicalGroups() {} // prevent instantiation
+
+    public static List<Group> getTypicalGroups() {
+        return new ArrayList<>(Arrays.asList(PROJECT_2103T, GROUP_2101,
+                NUS_COMPUTING, NUS_BASKETBALL));
+    }
 
 }
