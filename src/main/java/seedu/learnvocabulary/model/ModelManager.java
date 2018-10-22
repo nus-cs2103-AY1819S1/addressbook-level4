@@ -166,11 +166,14 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLearnVocabulary.setTriviaQuestion();
     }
 
-    public int currentScore() { return versionedLearnVocabulary.currentScore(); }
+    public int currentScore() {
+        return versionedLearnVocabulary.currentScore(); }
 
-    public int maxScore() { return versionedLearnVocabulary.maxScore(); }
+    public int maxScore() {
+        return versionedLearnVocabulary.maxScore(); }
 
-    public void updateScore() { versionedLearnVocabulary.updateScore(); }
+    public void updateScore() {
+        versionedLearnVocabulary.updateScore(); }
 
     public boolean isTriviaMode() {
         return versionedLearnVocabulary.isTriviaMode(); }

@@ -147,7 +147,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         triviaQuestionList = new ArrayList<Word>();
         ObservableList<Word> triviaRef = words.asUnmodifiableObservableList();
         ArrayList<Word> triviaRefCopy = new ArrayList<Word>();
-        
         this.currentScore = 0;
         int triviaSize = 10;
         int length = triviaRef.size();

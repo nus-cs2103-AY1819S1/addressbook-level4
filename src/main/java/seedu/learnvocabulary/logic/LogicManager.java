@@ -36,8 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
             if (model.isTriviaMode()) {
                 Command command = learnVocabularyParser.parseCommand("answer " + commandText);
                 return command.execute(model, history);
-            }
-            else {
+            } else {
                 Command command = learnVocabularyParser.parseCommand(commandText);
                 return command.execute(model, history);
             }

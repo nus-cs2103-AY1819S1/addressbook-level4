@@ -72,9 +72,7 @@ public class TriviaAnsCommand extends Command {
         if (triviaList.size() < 1) {
             model.toggleTriviaMode();
             messageOutput += MESSAGE_END;
-        }
-
-        else {
+        } else {
             model.setTriviaQuestion();
             triviaQ = model.getTrivia();
             messageOutput += MESSAGE_NEXT + triviaQ.getMeaning().toString() + "\n" + MESSAGE_EXIT;
