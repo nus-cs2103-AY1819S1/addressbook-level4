@@ -9,22 +9,22 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_VOLUNTEER_DESC_
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_VOLUNTEER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_BIRTHDAY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GENDER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_GENDER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_BIRTHDAY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_VOLUNTEER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_AMY;
@@ -46,13 +46,13 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditVolunteerCommand;
 import seedu.address.logic.commands.EditVolunteerCommand.EditVolunteerDescriptor;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.VolunteerAddress;
 import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.Birthday;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditVolunteerDescriptorBuilder;
 
 public class EditVolunteerCommandParserTest {
@@ -93,31 +93,43 @@ public class EditVolunteerCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_NAME_DESC, VolunteerName.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_GENDER_DESC, Gender.MESSAGE_GENDER_CONSTRAINTS); // invalid gender
-        assertParseFailure(parser, "1" + INVALID_BIRTHDAY_DESC, Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS); // invalid birthday
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_PHONE_DESC, VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_EMAIL_DESC, VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_ADDRESS_DESC, VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_NAME_DESC,
+                VolunteerName.MESSAGE_NAME_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_GENDER_DESC,
+                Gender.MESSAGE_GENDER_CONSTRAINTS); // invalid gender
+        assertParseFailure(parser, "1" + INVALID_BIRTHDAY_DESC,
+                Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS); // invalid birthday
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_PHONE_DESC,
+                VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_EMAIL_DESC,
+                VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_ADDRESS_DESC,
+                VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_TAG_DESC,
+                Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_PHONE_DESC + EMAIL_VOLUNTEER_DESC_AMY, VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_VOLUNTEER_PHONE_DESC + EMAIL_VOLUNTEER_DESC_AMY,
+                VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_PHONE_DESC, VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PHONE_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_PHONE_DESC,
+                VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND + TAG_EMPTY,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_VOLUNTEER_NAME_DESC + INVALID_VOLUNTEER_EMAIL_DESC
-                        + VALID_VOLUNTEER_ADDRESS_AMY + VALID_VOLUNTEER_PHONE_AMY + VALID_GENDER_AMY + VALID_BIRTHDAY_AMY,
-                VolunteerName.MESSAGE_NAME_CONSTRAINTS);
+                        + VALID_VOLUNTEER_ADDRESS_AMY + VALID_VOLUNTEER_PHONE_AMY + VALID_GENDER_AMY
+                + VALID_BIRTHDAY_AMY, VolunteerName.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -128,8 +140,9 @@ public class EditVolunteerCommandParserTest {
                 + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND;
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_AMY)
-                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY)
-                .withGender(VALID_GENDER_AMY).withBirthday(VALID_BIRTHDAY_AMY).withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
+                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withEmail(VALID_VOLUNTEER_EMAIL_AMY)
+                .withAddress(VALID_VOLUNTEER_ADDRESS_AMY).withGender(VALID_GENDER_AMY).withBirthday(VALID_BIRTHDAY_AMY)
+                .withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -152,7 +165,8 @@ public class EditVolunteerCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_VOLUNTEER_DESC_AMY;
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_AMY).build();
+        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder()
+                .withName(VALID_VOLUNTEER_NAME_AMY).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -196,15 +210,16 @@ public class EditVolunteerCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY + EMAIL_VOLUNTEER_DESC_AMY
-                + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY
-                + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND + PHONE_VOLUNTEER_DESC_BOB
-                + ADDRESS_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + TAG_VOLUNTEER_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY
+                + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND
+                + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY
+                + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND + PHONE_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
+                + EMAIL_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + TAG_VOLUNTEER_DESC_HUSBAND;
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB)
-                .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB).withGender(VALID_GENDER_BOB)
-                .withBirthday(VALID_BIRTHDAY_BOB).withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_HUSBAND)
-                .build();
+                .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
+                .withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB)
+                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_HUSBAND).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -215,15 +230,17 @@ public class EditVolunteerCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_VOLUNTEER_PHONE_DESC + PHONE_VOLUNTEER_DESC_BOB;
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB).build();
+        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder()
+                .withPhone(VALID_VOLUNTEER_PHONE_BOB).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_PHONE_DESC + ADDRESS_VOLUNTEER_DESC_BOB
-                + PHONE_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB;
-        descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB).withEmail(VALID_VOLUNTEER_EMAIL_BOB)
-                .withAddress(VALID_VOLUNTEER_ADDRESS_BOB).withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB).build();
+        userInput = targetIndex.getOneBased() + EMAIL_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_PHONE_DESC
+                + ADDRESS_VOLUNTEER_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB;
+        descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB)
+                .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
+                .withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB).build();
         expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

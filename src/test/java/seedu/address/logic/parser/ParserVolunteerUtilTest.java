@@ -16,13 +16,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.VolunteerAddress;
 import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.Birthday;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserVolunteerUtilTest {

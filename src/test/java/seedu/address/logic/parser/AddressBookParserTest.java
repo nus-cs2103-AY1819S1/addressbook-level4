@@ -40,12 +40,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Context;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVolunteerDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
-import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
-import seedu.address.model.volunteer.Volunteer;
-import seedu.address.testutil.EditVolunteerDescriptorBuilder;
 import seedu.address.testutil.VolunteerBuilder;
 import seedu.address.testutil.VolunteerUtil;
 
@@ -122,7 +122,8 @@ public class AddressBookParserTest {
     public void parseCommand_editVolunteer() throws Exception {
         Volunteer volunteer = new VolunteerBuilder().build();
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(volunteer).build();
-        EditVolunteerCommand command = (EditVolunteerCommand) parser.parseCommand(EditVolunteerCommand.COMMAND_WORD + " "
+        EditVolunteerCommand command = (EditVolunteerCommand) parser
+                .parseCommand(EditVolunteerCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + " "
                         + VolunteerUtil.getEditVolunteerDescriptorDetails(descriptor),
                 Context.VOLUNTEER_CONTEXT_ID);
@@ -150,7 +151,8 @@ public class AddressBookParserTest {
     public void parseCommand_findVolunteer() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindVolunteerCommand command = (FindVolunteerCommand) parser.parseCommand(
-                FindVolunteerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
+                FindVolunteerCommand.COMMAND_WORD + " " + keywords.stream()
+                        .collect(Collectors.joining(" ")),
                 Context.VOLUNTEER_CONTEXT_ID);
         assertEquals(new FindVolunteerCommand(new VolunteerNameContainsKeywordsPredicate(keywords)), command);
     }
