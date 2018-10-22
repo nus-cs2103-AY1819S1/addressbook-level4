@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -137,6 +138,25 @@ public class AddressBookTest {
         assertTrue(addressBook.hasDoctor(editedAdam));
     }
 
+    //@@author jjlee050
+    @Test
+    public void getDoctor_nullDoctor_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.getDoctor(null);
+    }
+    
+    @Test
+    public void getDoctor_notADoctor_throwsClassCastException() {
+        thrown.expect(ClassCastException.class);
+        addressBook.getDoctor((Doctor) ALICE);
+    }
+    
+    @Test
+    public void getDoctor_validDoctor_returnDoctor() {
+        addressBook.addDoctor(ADAM);
+        assertNotNull(addressBook.getDoctor(ADAM));
+    }
+    
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

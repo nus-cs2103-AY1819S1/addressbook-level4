@@ -113,6 +113,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * This doctor must exist inside ClinicIO.
      */
     public Doctor getDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        
         return doctors.getDoctor(doctor);
     }
 
