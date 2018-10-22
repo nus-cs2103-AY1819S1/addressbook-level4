@@ -108,12 +108,7 @@ public class Occasion {
                 .append(getAttendanceList()) // use the person's name to represent this Peron
                 // object.
                 .append(" Tags: ");
-        getTags().forEach((key, value) -> {
-            stringBuilder.append("Key: ");
-            stringBuilder.append(key.toString());
-            stringBuilder.append("Value: ");
-            stringBuilder.append(value.toString());
-        });
+        getTags().forEach((key, value) -> stringBuilder.append(key + ": " + value + " "));
         return stringBuilder.toString();
     }
 }

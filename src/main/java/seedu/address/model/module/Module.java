@@ -2,21 +2,21 @@ package seedu.address.model.module;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagKey;
+import seedu.address.model.tag.TagMap;
+import seedu.address.model.tag.TagValue;
 
 /**
  * Represents a Module within the address book.
  * @author waytan
  */
-public class Module extends Entity {
+public class Module {
 
     // Identity fields
     private final ModuleCode moduleCode;
@@ -26,20 +26,19 @@ public class Module extends Entity {
     private final UniquePersonList students;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final TagMap tags = new TagMap();
     /**
      * Every field must be present and not null.
      */
     public Module(ModuleCode moduleCode, ModuleTitle moduleTitle, AcademicYear academicYear,
-                  Semester semester, UniquePersonList students, Set<Tag> tags, TypeUtil type) {
-        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags, type);
+                  Semester semester, UniquePersonList students, TagMap tags) {
+        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
         this.students = students;
         this.tags.addAll(tags);
-        this.type = type;
     }
 
     public ModuleCode getModuleCode() {
@@ -66,9 +65,9 @@ public class Module extends Entity {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    @Override
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    // TODO change all places where getTags is used.
+    public Map<TagKey, TagValue> getTags() {
+        return Collections.unmodifiableMap(tags.getTagMap());
     }
 
     /**
@@ -110,7 +109,7 @@ public class Module extends Entity {
                 .append(" ")
                 .append(getSemester())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getTags().forEach((key, value) -> builder.append(key + ": " + value + " "));
         return builder.toString();
     }
 
