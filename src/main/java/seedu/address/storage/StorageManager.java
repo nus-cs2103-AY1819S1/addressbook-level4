@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.simplejavamail.email.Email;
@@ -163,6 +164,17 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public Email loadEmail(String emailName) throws IOException {
         return emailStorage.loadEmail(emailName);
+    }
+
+    @Override
+    public Set<String> readEmailFiles() {
+        return readEmailFiles(emailStorage.getEmailPath());
+    }
+
+    @Override
+    public Set<String> readEmailFiles(Path dirPath) {
+        logger.fine("Attempting to read eml files from directory: " + dirPath);
+        return emailStorage.readEmailFiles(dirPath);
     }
 
     @Override

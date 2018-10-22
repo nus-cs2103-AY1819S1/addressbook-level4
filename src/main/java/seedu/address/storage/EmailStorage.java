@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Set;
 
 import org.simplejavamail.email.Email;
 
@@ -33,4 +34,11 @@ public interface EmailStorage {
      */
     Email loadEmail(String emailName) throws IOException;
 
+    /**
+     * Returns a set of names of eml files in the directory.
+     * Returns empty set if directory does not exist.
+     */
+    Set<String> readEmailFiles();
+
+    Set<String> readEmailFiles(Path dirPath);
 }

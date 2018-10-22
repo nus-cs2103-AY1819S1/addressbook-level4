@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 
 import org.simplejavamail.email.Email;
 
@@ -51,6 +52,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     @Override
     Email loadEmail(String emailName) throws IOException;
+
+    @Override
+    Set<String> readEmailFiles();
 
     /**
      * Saves the current version of the Address Book to the hard disk.
