@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if an entity with the same identity as {@code occasion} exists in the address book.
      */
-    public boolean hasOccasino(Occasion occasion) {
+    public boolean hasOccasion(Occasion occasion) {
         requireNonNull(occasion);
         return occasions.contains(occasion);
     }

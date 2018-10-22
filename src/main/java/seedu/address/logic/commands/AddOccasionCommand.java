@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,12 +20,12 @@ public class AddOccasionCommand extends Command {
             + "Parameters: "
             + PREFIX_OCCASION_NAME + "OCCASION_NAME "
             + PREFIX_OCCASION_DATE + "OCCASION_DATE "
-            + PREFIX_ORGANIZER + "ORGANIZER "
+            + PREFIX_LOCATION + "OCCASION_LOCATION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_OCCASION_NAME + "neighborhood party "
             + PREFIX_OCCASION_DATE + "2018-01-01 "
-            + PREFIX_ORGANIZER + "John Doe"
+            + PREFIX_LOCATION + "20th floor"
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "games";
 

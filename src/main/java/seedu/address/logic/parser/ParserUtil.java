@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.*;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -214,5 +215,20 @@ public class ParserUtil {
             throw new ParseException(OccasionDate.MESSAGE_OCCASIONDATE_CONSTRAINTS);
         }
         return new OccasionDate(trimmedOccasionDate);
+    }
+
+    /**
+     * Parses an {@code String occasionLocation} into an {@code OccasionLocation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code occasionLocation} is invalid.
+     */
+    public static OccasionLocation parseOccasionLocation(String occasionLocation) throws ParseException {
+        requireNonNull(occasionLocation);
+        String trimmedOccasionLocation = occasionLocation.trim();
+        if (!OccasionLocation.isValidLocation(trimmedOccasionLocation)) {
+            throw new ParseException(OccasionLocation.MESSAGE_OCCASIONLOCATION_CONSTRAINTS);
+        }
+        return new OccasionLocation(trimmedOccasionLocation);
     }
 }

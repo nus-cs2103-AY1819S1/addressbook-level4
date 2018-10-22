@@ -1,31 +1,30 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.edit.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.OccasionNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.*;
+
 /**
  * Contains helper methods for testing commands.
  */
-public class CommandTestUtil {
+public class CommandOccasionTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -136,6 +135,52 @@ public class CommandTestUtil {
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
+        model.commitAddressBook();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showModuleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
+
+        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
+        model.updateFilteredModuleList(module1 -> (module1.getModuleCode().fullModuleCode.equals(
+                module.getModuleCode().fullModuleCode)));
+
+        assertEquals(1, model.getFilteredModuleList().size());
+    }
+
+    /**
+     * Deletes the first module in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static void deleteFirstModule(Model model) {
+        Module firstModule = model.getFilteredModuleList().get(0);
+        model.deleteModule(firstModule);
+        model.commitAddressBook();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the occasion at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showOccasionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOccasionList().size());
+
+        Occasion occasion = model.getFilteredOccasionList().get(targetIndex.getZeroBased());
+        final String[] splitName = occasion.getOccasionName().fullOccasionName.split("\\s+");
+        model.updateFilteredOccasionList(new OccasionNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredOccasionList().size());
+    }
+
+    /**
+     * Deletes the first occasion in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static void deleteFirstOccasion(Model model) {
+        Occasion firstOccasion = model.getFilteredOccasionList().get(0);
+        model.deleteOccasion(firstOccasion);
         model.commitAddressBook();
     }
 

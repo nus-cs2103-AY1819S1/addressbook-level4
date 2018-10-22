@@ -65,10 +65,6 @@ public class AddPersonCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addPerson(Person person) {
@@ -96,11 +92,6 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -116,17 +107,47 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deleteEntity(Entity entity) {
+        public void deletePerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateEntity(Entity target, Entity editedEntity) {
+        public void deleteModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteOccasion(Occasion occasion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePerson(Person person, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateModule(Module module, Module editedModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateOccasion(Occasion occasion, Occasion editedOccasion) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Occasion> getFilteredOccasionList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -183,15 +204,9 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return this.person.isSameEntity(entity);
-        }
-
-        @Override
         public boolean hasPerson(Person personToAdd) {
             requireNonNull(person);
-            return this.person.isSameEntity(personToAdd);
+            return this.person.isSamePerson(personToAdd);
         }
     }
 
@@ -202,24 +217,9 @@ public class AddPersonCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return personsAdded.stream().anyMatch(entity::isSameEntity);
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSameEntity);
-        }
-
-        @Override
-        public void addEntity(Entity entity) {
-            requireNonNull(entity);
-            if (!(entity instanceof Person)) {
-                return;
-            }
-            personsAdded.add((Person) entity);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override

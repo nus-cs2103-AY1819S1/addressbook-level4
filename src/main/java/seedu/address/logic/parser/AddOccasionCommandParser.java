@@ -1,10 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
@@ -12,15 +9,10 @@ import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Address;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -33,21 +25,22 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
      */
     public AddOccasionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER,
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_LOCATION,
                         PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
-        OccasionDate occassionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-        Person organzier = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
-                new Address("abc"), new HashSet<Tag>());
+        OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
+//        Person organizer = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
+//                new Address("abc"), new HashSet<Tag>());
+        OccasionLocation location = ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Occasion occasion = new Occasion(occasionName, occassionDate, organzier, tagList, TypeUtil.OCCASION);
+        Occasion occasion = new Occasion(occasionName, occasionDate, location, tagList, TypeUtil.OCCASION);
         return new AddOccasionCommand(occasion);
     }
 

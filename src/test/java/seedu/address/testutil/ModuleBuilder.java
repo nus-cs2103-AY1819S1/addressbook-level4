@@ -6,6 +6,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 public class ModuleBuilder {
 
     public static final String DEFAULT_MODULECODE = "CS2103";
-    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERIG";
+    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERING";
     public static final String DEFAULT_ACADEMICYEAR = "1718";
     public static final String DEFAULT_SEMESTER = "1";
 
@@ -88,7 +89,8 @@ public class ModuleBuilder {
     }
 
     public Module build() {
-        return new Module(moduleCode, moduleTitle, academicYear, semester, tags, TypeUtil.MODULE);
+        return new Module(moduleCode, moduleTitle, academicYear, semester,
+                new UniquePersonList(), tags, TypeUtil.MODULE);
     }
 
 }

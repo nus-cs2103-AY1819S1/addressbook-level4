@@ -24,12 +24,9 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -114,7 +111,8 @@ public class AddCommandParser implements Parser<Command> {
         Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, tagList, TypeUtil.OCCASION);
+        Module module = new Module(moduleCode, moduleTitle, academicYear, semester,
+                new UniquePersonList(), tagList, TypeUtil.OCCASION);
         return module;
     }
 
@@ -125,21 +123,22 @@ public class AddCommandParser implements Parser<Command> {
      */
     public Occasion parseOccasionAddCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER,
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_LOCATION,
                         PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_ORGANIZER,
+        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_LOCATION,
                 PREFIX_SEMESTER) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
-        OccasionDate occassionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-        Person organzier = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
-                new Address("abc"), new HashSet<Tag>());
+        OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
+//        Person organizer = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
+//                new Address("abc"), new HashSet<Tag>());
+        OccasionLocation occasionLocation = ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Occasion occasion = new Occasion(occasionName, occassionDate, organzier, tagList, TypeUtil.OCCASION);
+        Occasion occasion = new Occasion(occasionName, occasionDate, occasionLocation, tagList, TypeUtil.OCCASION);
         return occasion;
     }
 
