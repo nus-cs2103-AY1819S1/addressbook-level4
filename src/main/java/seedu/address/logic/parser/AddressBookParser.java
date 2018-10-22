@@ -114,7 +114,7 @@ public class AddressBookParser {
                 return new ManageCommandParser().parse(arguments);
 
             case ExportCertCommand.COMMAND_WORD:
-                return new ExportCertCommand();
+                return new ExportCertCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
