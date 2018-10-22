@@ -22,6 +22,4 @@ public abstract class Entity {
     public TypeUtil getType() {
         return type;
     }
-
-    public abstract boolean isSameEntity(Entity other);
 }

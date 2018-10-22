@@ -60,17 +60,17 @@ public class XmlSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
-            if (addressBook.hasEntity(person)) {
+            if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addEntity(person);
+            addressBook.addPerson(person);
         }
         for (XmlAdaptedModule m : modules) {
             Module module = m.toModelType();
-            if (addressBook.hasEntity(module)) {
+            if (addressBook.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
-            addressBook.addEntity(module);
+            addressBook.addModule(module);
         }
         return addressBook;
     }

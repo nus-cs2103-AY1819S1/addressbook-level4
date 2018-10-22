@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
@@ -23,10 +22,6 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /**
-     * Returns true if an entity with the same identity as {@code entity} exists in the address book.
-     */
-    boolean hasEntity(Entity entity);
 
     /**
      * Returns true if an occasion with the same identity as {@code occasion} exists in the address book.
@@ -43,17 +38,6 @@ public interface Model {
      */
     boolean hasModule(Module module);
 
-    /**
-     * Deletes the given entity.
-     * The entity must exist in the address book.
-     */
-    void deleteEntity(Entity target);
-
-    /**
-     * Adds the given entity.
-     * {@code entity} must not already exist in the address book.
-     */
-    void addEntity(Entity entity);
 
     /**
      * Adds the given Occasion.
@@ -74,11 +58,11 @@ public interface Model {
     void addModule(Module module);
 
     /**
-     * Replaces the given entity {@code target} with {@code editedEntity}.
+     * Replaces the given entity {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The identity of {@code editedPerson} must not be the same as another existing entity in the address book.
      */
-    void updateEntity(Entity target, Entity editedEntity);
+    void updatePerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();

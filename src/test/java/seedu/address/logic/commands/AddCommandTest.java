@@ -19,7 +19,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
@@ -91,10 +90,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addPerson(Person person) {
@@ -122,11 +117,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -142,12 +132,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEntity(Entity target, Entity editedEntity) {
+        public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -208,10 +193,9 @@ public class AddCommandTest {
             this.person = person;
         }
 
-        @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return this.person.isSameEntity(entity);
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
         }
     }
 
@@ -222,18 +206,15 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return personsAdded.stream().anyMatch(entity::isSameEntity);
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override
-        public void addEntity(Entity entity) {
-            requireNonNull(entity);
-            if (!(entity instanceof Person)) {
-                return;
-            }
-            personsAdded.add((Person) entity);
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
         }
 
         @Override
@@ -246,4 +227,5 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
+
 }
