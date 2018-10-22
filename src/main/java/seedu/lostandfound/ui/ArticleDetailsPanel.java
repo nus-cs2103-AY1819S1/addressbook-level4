@@ -27,7 +27,7 @@ public class ArticleDetailsPanel extends UiPart<Region> {
 
     @FXML
     private ImageView image;
-    
+
     @FXML
     private Label articleDetails;
 
