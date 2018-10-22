@@ -6,11 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
-
 import seedu.address.logic.commands.exceptions.CommandException;
+
 import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
@@ -36,7 +34,7 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
     public static final String MESSAGE_NO_DOCTOR_FOUND = "No doctor found.";
-    public static final String MESSAGE_SUCCESS = "Login successful.";    
+    public static final String MESSAGE_SUCCESS = "Login successful.";
 
     private final Person toAuthenticate;
 
@@ -60,11 +58,11 @@ public class LoginCommand extends Command {
             }
 
             Doctor retrievedDoctor = model.getDoctor(authenticatedDoctor);
-            
+
             boolean isCorrectPassword = Password.isSameAsHashPassword(
                     authenticatedDoctor.getPassword().toString(),
                     retrievedDoctor.getPassword().toString());
-            
+
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }

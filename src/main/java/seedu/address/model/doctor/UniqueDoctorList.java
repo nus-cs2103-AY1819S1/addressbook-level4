@@ -104,11 +104,11 @@ public class UniqueDoctorList implements Iterable<Doctor> {
      */
     public Doctor getDoctor(Doctor doctor) {
         requireNonNull(doctor);
-        
+
         if (!contains(doctor)) {
             throw new DoctorNotFoundException();
         }
-        
+
         return internalList.stream()
                 .filter(x -> x.isSameDoctor(doctor))
                 .findFirst().orElse(null);

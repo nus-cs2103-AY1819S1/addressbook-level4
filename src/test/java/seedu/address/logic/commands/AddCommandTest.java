@@ -103,6 +103,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //@@author jjlee050
+        @Override
+        public Doctor getDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {

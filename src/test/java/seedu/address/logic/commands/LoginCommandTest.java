@@ -48,6 +48,8 @@ public class LoginCommandTest {
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
+
+        // TODO: Receptionist
     }
 
     @Test
@@ -63,100 +65,8 @@ public class LoginCommandTest {
         command = new LoginCommand(
                 new Doctor(ADAM.getName(), new Password("doctor2", false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-    }
-
-    @Test
-    public void checkDoctorCred_nullDoctorsList_throwsNullPointerException() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-
-        thrown.expect(NullPointerException.class);
-        command.checkDoctorCred(null);
-    }
-
-    @Test
-    public void checkDoctorCred_emptyDoctorsList_returnFalse() {
-        List<Doctor> emptyDoctorsList = new ArrayList<>();
-        LoginCommand validCommand = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-
-        assertFalse(validCommand.checkDoctorCred(emptyDoctorsList));
-    }
-
-    @Test
-    public void checkDoctorCred_validCommand_returnTrue() {
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-        LoginCommand validCommand = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-
-        assertTrue(validCommand.checkDoctorCred(doctorsList));
-    }
-
-    @Test
-    public void checkDoctorCred_invalidCommand_returnFalse() {
-        LoginCommand invalidCommand = new LoginCommand(
-                new Doctor(BEN.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        assertFalse(invalidCommand.checkDoctorCred(doctorsList));
-    }
-
-    @Test
-    public void searchDoctor_nullDoctorListAndNullDoctorToSearch_throwsNullPointerException() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> emptyList = new ArrayList<>();
-
-        thrown.expect(NullPointerException.class);
-        // All fields are null.
-        command.searchDoctor(null, null);
-
-        // Some fields are null.
-        command.searchDoctor(null, ADAM);
-        command.searchDoctor(emptyList, null);
-    }
-
-    @Test
-    public void searchDoctor_emptyDoctorList_returnNull() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> emptyList = new ArrayList<>();
-
-        assertNull(command.searchDoctor(emptyList, ADAM));
-        assertNull(command.searchDoctor(emptyList, BEN));
-    }
-
-    @Test
-    public void searchDoctor_invalidDoctorList_throwsClassCastException() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        thrown.expect(ClassCastException.class);
-
-        // The doctor to found is not a doctor.
-        command.searchDoctor(doctorsList, (Doctor) ALICE);
-        command.searchDoctor(doctorsList, (Doctor) CARL);
-    }
-
-    @Test
-    public void searchDoctor_noDoctorsFound_returnNull() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = Arrays.asList(BEN);
-
-        // Cannot find ADAM in the doctorsList
-        assertNull(command.searchDoctor(doctorsList, ADAM));
-    }
-
-    @Test
-    public void searchDoctor_doctorFound_returnDoctor() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        assertNotNull(command.searchDoctor(doctorsList, BEN));
-
+        
+        // TODO: Receptionist
     }
 
     @Test

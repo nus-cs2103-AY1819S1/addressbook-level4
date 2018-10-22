@@ -62,7 +62,7 @@ public interface Model {
      * {@code doctor} must exist in ClinicIO.
      */
     Doctor getDoctor(Doctor doctor);
-    
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
