@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Username {
 
     public static final String MESSAGE_USERNAME_CONSTRAINTS =
-        "Username should only contain alphanumeric characters and spaces, the first character cannot be a " +
-            "whitespace, and it should not be blank";
+        "Username should only contain alphanumeric characters and spaces, the first character cannot be a "
+            + "whitespace, and it should not be blank";
 
     /*
      * The first character of the username must not be a whitespace,

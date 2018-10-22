@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Password {
 
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-        "Passwords should contain at least 8 characters. It should contain at least 1 lowercase character, " +
-            "1 uppercase character and 1 number.";
+        "Passwords should contain at least 8 characters. It should contain at least 1 lowercase character, "
+            + "1 uppercase character and 1 number.";
 
     /*
      * The password regex expression to test for the constraints stated in MESSAGE_PASSWORD_CONSTRAINTS
