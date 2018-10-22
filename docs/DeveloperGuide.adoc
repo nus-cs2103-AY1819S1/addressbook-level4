@@ -180,7 +180,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteTask.png[width="800"]
 
 [NOTE]
 `Model` simply raises a `SchedulePlannerChangedEvent` when the schedule planner data is changed, instead of
@@ -190,7 +190,7 @@ The diagram below shows how `EventsCenter` reacts to the event, after which the 
 to the hard disk, and the status bar of the `UI` is updated to reflect 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteTaskEventHandling.png[width="800"]
 
 [NOTE]
 The event is propagated through `EventsCenter` to `Storage` and `UI`, without `Model` having to be coupled to either of
@@ -239,7 +239,7 @@ Below are the steps of how `Logic` executes an user command:
 Given below is the Sequence Diagram for interactions within `Logic` for the `execute("delete 1")` API call.
 
 .Sequence diagram for `delete 1` Command within Logic Component
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteTaskSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
