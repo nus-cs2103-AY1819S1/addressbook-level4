@@ -1,0 +1,58 @@
+= Chester Sng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CLInic
+
+---
+
+== Overview
+
+CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is main method to use this application.
+CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
+programming language and uses JavaFX, HTML and CSS for the GUI.
+
+== Summary of contributions
+
+* *Major enhancement*: added a *Patient Queue Management System (PQMS)*
+** What it does: This system allows the clinic to keep track of the queue in the clinic.
+** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
+** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands
+are made to be as intuitive as possible.
+
+* *Minor enhancement*: Integration of `ReceiptCommand` and PQMS.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=pqms]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=pqms]
