@@ -128,32 +128,32 @@ public class AddressBookParser {
         if (contextId.equals(Context.VOLUNTEER_CONTEXT_ID)) {
             // Replace all these commands
             switch (commandWord) {
-                case AddVolunteerCommand.COMMAND_WORD:
-                    return new AddVolunteerCommandParser().parse(arguments);
+            case AddVolunteerCommand.COMMAND_WORD:
+                return new AddVolunteerCommandParser().parse(arguments);
 
-                case EditVolunteerCommand.COMMAND_WORD:
-                    return new EditVolunteerCommandParser().parse(arguments);
+            case EditVolunteerCommand.COMMAND_WORD:
+                return new EditVolunteerCommandParser().parse(arguments);
 
-                case SelectVolunteerCommand.COMMAND_WORD:
-                    return new SelectVolunteerCommandParser().parse(arguments);
+            case SelectVolunteerCommand.COMMAND_WORD:
+                return new SelectVolunteerCommandParser().parse(arguments);
 
-                case DeleteVolunteerCommand.COMMAND_WORD:
-                    return new DeleteVolunteerCommandParser().parse(arguments);
+            case DeleteVolunteerCommand.COMMAND_WORD:
+                return new DeleteVolunteerCommandParser().parse(arguments);
 
-                case ClearCommand.COMMAND_WORD:
-                    return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-                case FindVolunteerCommand.COMMAND_WORD:
-                    return new FindVolunteerCommandParser().parse(arguments);
+            case FindVolunteerCommand.COMMAND_WORD:
+                return new FindVolunteerCommandParser().parse(arguments);
 
-                case ListVolunteerCommand.COMMAND_WORD:
-                    return new ListVolunteerCommand();
+            case ListVolunteerCommand.COMMAND_WORD:
+                return new ListVolunteerCommand();
 
-                case ManageVolunteerCommand.COMMAND_WORD:
-                    return new ManageVolunteerCommandParser().parse(arguments);
+            case ManageVolunteerCommand.COMMAND_WORD:
+                return new ManageVolunteerCommandParser().parse(arguments);
 
-                default:
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
 

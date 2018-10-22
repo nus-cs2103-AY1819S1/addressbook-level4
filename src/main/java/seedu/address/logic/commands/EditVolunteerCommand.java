@@ -2,14 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VOLUNTEERS;
-
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,15 +22,15 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerName;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.Birthday;
 import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerAddress;
+import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerId;
+import seedu.address.model.volunteer.VolunteerName;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing volunteer in the address book.
@@ -100,7 +99,8 @@ public class EditVolunteerCommand extends Command {
      * Creates and returns a {@code Volunteer} with the details of {@code volunteerToEdit}
      * edited with {@code editVolunteerDescriptor}.
      */
-    private static Volunteer createEditedVolunteer(Volunteer volunteerToEdit, EditVolunteerDescriptor editVolunteerDescriptor) {
+    private static Volunteer createEditedVolunteer(Volunteer volunteerToEdit,
+                                                   EditVolunteerDescriptor editVolunteerDescriptor) {
         assert volunteerToEdit != null;
 
         VolunteerId volunteerId = volunteerToEdit.getVolunteerId();
@@ -112,7 +112,8 @@ public class EditVolunteerCommand extends Command {
         VolunteerAddress updatedAddress = editVolunteerDescriptor.getAddress().orElse(volunteerToEdit.getAddress());
         Set<Tag> updatedTags = editVolunteerDescriptor.getTags().orElse(volunteerToEdit.getTags());
 
-        return new Volunteer(volunteerId, updatedName, updatedGender, updatedBirthday, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Volunteer(volunteerId, updatedName, updatedGender, updatedBirthday,
+                updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -171,7 +172,9 @@ public class EditVolunteerCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, gender, birthday, phone, email, address, tags);
         }
 
-        public void setVolunteerId(VolunteerId volunteerId) { this.volunteerId = volunteerId; }
+        public void setVolunteerId(VolunteerId volunteerId) {
+            this.volunteerId = volunteerId;
+        }
 
         public void setName(VolunteerName name) {
             this.name = name;
@@ -193,13 +196,17 @@ public class EditVolunteerCommand extends Command {
             this.birthday = birthday;
         }
 
-        public Optional<Birthday> getBirthday() { return Optional.ofNullable(birthday); }
+        public Optional<Birthday> getBirthday() {
+            return Optional.ofNullable(birthday);
+        }
 
         public void setPhone(VolunteerPhone phone) {
             this.phone = phone;
         }
 
-        public Optional<VolunteerPhone> getPhone() { return Optional.ofNullable(phone); }
+        public Optional<VolunteerPhone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
 
         public void setEmail(VolunteerEmail email) {
             this.email = email;

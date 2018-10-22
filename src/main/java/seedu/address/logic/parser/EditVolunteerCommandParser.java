@@ -3,10 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_TAG;
 
@@ -34,35 +34,43 @@ public class EditVolunteerCommandParser implements Parser<EditVolunteerCommand> 
     public EditVolunteerCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_VOLUNTEER_NAME, PREFIX_VOLUNTEER_GENDER, PREFIX_VOLUNTEER_BIRTHDAY,
-                        PREFIX_VOLUNTEER_PHONE, PREFIX_VOLUNTEER_EMAIL, PREFIX_VOLUNTEER_ADDRESS, PREFIX_VOLUNTEER_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_VOLUNTEER_NAME, PREFIX_VOLUNTEER_GENDER,
+                        PREFIX_VOLUNTEER_BIRTHDAY, PREFIX_VOLUNTEER_PHONE, PREFIX_VOLUNTEER_EMAIL,
+                        PREFIX_VOLUNTEER_ADDRESS, PREFIX_VOLUNTEER_TAG);
 
         Index index;
 
         try {
             index = ParserVolunteerUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditVolunteerCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditVolunteerCommand.MESSAGE_USAGE), pe);
         }
 
         EditVolunteerDescriptor editVolunteerDescriptor = new EditVolunteerDescriptor();
         if (argMultimap.getValue(PREFIX_VOLUNTEER_NAME).isPresent()) {
-            editVolunteerDescriptor.setName(ParserVolunteerUtil.parseName(argMultimap.getValue(PREFIX_VOLUNTEER_NAME).get()));
+            editVolunteerDescriptor.setName(ParserVolunteerUtil.parseName(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_VOLUNTEER_GENDER).isPresent()) {
-            editVolunteerDescriptor.setGender(ParserVolunteerUtil.parseGender(argMultimap.getValue(PREFIX_VOLUNTEER_GENDER).get()));
+            editVolunteerDescriptor.setGender(ParserVolunteerUtil.parseGender(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_GENDER).get()));
         }
         if (argMultimap.getValue(PREFIX_VOLUNTEER_BIRTHDAY).isPresent()) {
-            editVolunteerDescriptor.setBirthday(ParserVolunteerUtil.parseBirthday(argMultimap.getValue(PREFIX_VOLUNTEER_BIRTHDAY).get()));
+            editVolunteerDescriptor.setBirthday(ParserVolunteerUtil.parseBirthday(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_BIRTHDAY).get()));
         }
         if (argMultimap.getValue(PREFIX_VOLUNTEER_PHONE).isPresent()) {
-            editVolunteerDescriptor.setPhone(ParserVolunteerUtil.parsePhone(argMultimap.getValue(PREFIX_VOLUNTEER_PHONE).get()));
+            editVolunteerDescriptor.setPhone(ParserVolunteerUtil.parsePhone(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_VOLUNTEER_EMAIL).isPresent()) {
-            editVolunteerDescriptor.setEmail(ParserVolunteerUtil.parseEmail(argMultimap.getValue(PREFIX_VOLUNTEER_EMAIL).get()));
+            editVolunteerDescriptor.setEmail(ParserVolunteerUtil.parseEmail(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_VOLUNTEER_ADDRESS).isPresent()) {
-            editVolunteerDescriptor.setAddress(ParserVolunteerUtil.parseAddress(argMultimap.getValue(PREFIX_VOLUNTEER_ADDRESS).get()));
+            editVolunteerDescriptor.setAddress(ParserVolunteerUtil.parseAddress(argMultimap
+                    .getValue(PREFIX_VOLUNTEER_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_VOLUNTEER_TAG)).ifPresent(editVolunteerDescriptor::setTags);
 
