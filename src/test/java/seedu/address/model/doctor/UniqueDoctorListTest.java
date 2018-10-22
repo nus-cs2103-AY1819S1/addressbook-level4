@@ -199,7 +199,7 @@ public class UniqueDoctorListTest {
         uniqueDoctorList.add(BEN);
         assertNotNull(uniqueDoctorList.getDoctor(BEN));
     }
-    
+
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

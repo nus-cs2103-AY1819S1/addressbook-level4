@@ -146,7 +146,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public Doctor getDoctor(Doctor doctor) {
         requireNonNull(doctor);
-        
+
         return doctors.getDoctor(doctor);
     }
 

@@ -98,7 +98,7 @@ public class ModelManagerTest {
         modelManager.addDoctor(ADAM);
         assertEquals(ADAM, modelManager.getDoctor(ADAM));
     }
-    
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

@@ -70,7 +70,7 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         //@@author jjlee050
         AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
-        
+
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
     }
@@ -147,19 +147,19 @@ public class AddressBookTest {
         thrown.expect(NullPointerException.class);
         addressBook.getDoctor(null);
     }
-    
+
     @Test
     public void getDoctor_notADoctor_throwsClassCastException() {
         thrown.expect(ClassCastException.class);
         addressBook.getDoctor((Doctor) ALICE);
     }
-    
+
     @Test
     public void getDoctor_validDoctor_returnDoctor() {
         addressBook.addDoctor(ADAM);
         assertNotNull(addressBook.getDoctor(ADAM));
     }
-    
+
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
