@@ -51,7 +51,7 @@ public class RegisterDoctorCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(doctorToRegister);
+        model.addDoctor(doctorToRegister);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, doctorToRegister));
     }
