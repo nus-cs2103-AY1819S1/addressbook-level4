@@ -18,7 +18,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -44,7 +43,6 @@ import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
-import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
