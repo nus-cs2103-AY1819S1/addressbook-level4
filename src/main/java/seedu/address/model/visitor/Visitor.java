@@ -45,7 +45,6 @@ public class Visitor {
      * method to verify if the visitor name is valid.
      */
     public static boolean isValidVisitor(String test) {
-
         return true;
     }
 
