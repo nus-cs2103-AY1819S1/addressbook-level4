@@ -112,12 +112,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void addGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void removeGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.removeGroup(group);
+        indicateAddressBookChanged();
     }
     // @@author
 
