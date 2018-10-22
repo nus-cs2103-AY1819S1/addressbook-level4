@@ -77,6 +77,18 @@ public class Anakin implements AnakinReadOnlyAnakin {
         setCards(newData.getCardList());
     }
 
+    /**
+     * Sort the current list of decks/cards in alphabetical order.
+     */
+    public void sort() {
+        if (isInsideDeck()) {
+            cards.sort();
+            displayedCards.setCards(cards);
+        } else {
+            decks.sort();
+        }
+    }
+
     //// navigating operations
 
     /**
