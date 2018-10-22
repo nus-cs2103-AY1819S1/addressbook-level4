@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.util.Optional;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -46,11 +43,7 @@ public class GroupCard extends UiPart<Region> {
         groupTitle.setText(group.getTitle().fullTitle);
         Description description = group.getDescription();
         String descriptionString = "Description: " + (description != null ? description.statement : "");
-        if (description != null) {
-            groupDescription.setText("Description: " + description.statement);
-        } else {
-            groupDescription.setText("Description: ");
-        }
+        groupDescription.setText(descriptionString);
         Meeting meeting = group.getMeeting();
         String meetingString = "Has meeting: " + (meeting != null ? "true" : "false");
         groupMeeting.setText(meetingString);
