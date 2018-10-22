@@ -4,12 +4,18 @@
 **Trivia:**
 
 The trivia function is facilitated by `LearnVocabulary`.
-Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion`.
+Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion` and stores a list of trivia questions is `triviaQuestionList`.
+Scores for a trivia game are also stored using `currentScore` and `maxScore`.
 
 Additionally, it also implements the following operations:
 
-* `setTrivia` -- sets the trivia question based on the current vocabulary list
+* `setTriviaList` -- sets the trivia question list based on the current vocabulary list
+* `setTrivia` -- sets the trivia question based on `triviaQuestionList`
 * `getTrivia` -- outputs the current trivia question.
+* `updateScore` -- adds 1 to the the`currentScore`
+* `clearTrivia` -- clears the current trivia question as well as removing it from the `triviaQuestionList`
+* `isTriviaMode` -- a boolean to indicate whether the model is currently in trivia mode.
+* `toggleTriviaMode` -- toggle trivia mode
 
 These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
 
@@ -23,9 +29,14 @@ Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
 [NOTE]
 If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
 
-Step 3. `TriviaCommand.execute()` now calls `Model.setTrivia()` to set the trivia question within `LearnVocabulary`.
+Step 3. `TriviaCommand.execute()` calls `toggleTriviaMode` to indicate that LearnVocabulary is in trivia mode.
 
-Step 4. `TriviaCommand.execute()` calls `Model.getTrivia` and outputs to the user.
+[NOTE]
+While in trivia mode, every command the user types will be parsed as `TriviaAnsCommand`. Trivia mode can be exited by either completing the trivia or typing "triviaExit"
+
+Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the trivia question within `LearnVocabulary`.
+
+Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
 
 **Answer**
 
@@ -33,7 +44,7 @@ The answer command is indicated as `TriviaAnsCommand` in `commands`. It will tak
 
 Outlined below is how the answer function operates:
 
-Step 1: User calls `answer` with his/her argument.
+Step 1: User enters  his/her argument.
 
 [NOTE]
 Attempting to call the `answer` command without first calling `trivia` will result in an error.
