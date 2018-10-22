@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Module's semester in the address book.
- * Guarantees: immutable, is valid as declared in {@link #isValidSemester(Integer)} (Integer)}
+ * Guarantees: immutable, is valid as declared in {@link #isValidSemester(String)} (String)}
  *
  * @author waytan
  */
@@ -13,14 +13,14 @@ public class Semester {
     public static final String MESSAGE_SEMESTER_CONSTRAINTS =
             "Semester should only consist of an integer between 1 and 4 inclusive";
 
-    public final Integer semesterNumber;
+    public final String semesterNumber;
 
     /**
      * Constructs a {@code Semester}.
      *
      * @param number The semester number.
      */
-    public Semester(Integer number) {
+    public Semester(String number) {
         requireNonNull(number);
         checkArgument(isValidSemester(number), MESSAGE_SEMESTER_CONSTRAINTS);
         semesterNumber = number;
@@ -29,13 +29,18 @@ public class Semester {
     /**
      * Returns true if a given number is a valid semester.
      */
-    public static boolean isValidSemester(Integer number) {
-        return 1 <= number && number <= 4;
+    public static boolean isValidSemester(String number) {
+        Integer semester = Integer.getInteger(number);
+        return 1 <= semester && semester <= 4;
     }
 
     @Override
     public String toString() {
         return "Semester " + semesterNumber;
+    }
+
+    public String toStringOnlyNumber() {
+        return semesterNumber;
     }
 
     @Override
