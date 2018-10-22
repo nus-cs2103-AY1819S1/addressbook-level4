@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= ThanePark - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -16,6 +16,15 @@ endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
 By: `Team CS2103-W14-2`      Since: `Sep 2018`      Licence: `MIT`
+
+== Introduction
+Welcome to the documentation for ThanePark. The purpose of this documentation is to assist developers in their
+transition to begin developmental work on this application. For developers looking to adopt this application for their
+own uses, go to <<somewhere>>. For developers looking to contribute to the current application, go to <<somewhere>>.
+
+== About
+ThanePark is *a desktop application* for *theme park management*. The application is optimized for *keyboard-oriented*
+users and retains *user-friendly graphics* that informs users of their decisions *in a glance*.
 
 == Setting up
 Before you get started on development on the application, you will need to complete the following steps below.
@@ -37,7 +46,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 
 === Setting up the project in your computer
-After you have installed the correct software, follow the steps below to setup your development environment locally.
+After you have installed the correct software, follow the steps below to setup your development environment locally:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -81,9 +90,9 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the CS2103-W14-2 branding and refer to the `CS2103-W14-2/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-W14-2/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -103,11 +112,10 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Getting started with coding
+When you are ready to start coding:
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+* Get some sense of the overall design by reading <<Design-Architecture>>.
+* Take a look at <<GetStartedProgramming>>.
 
 == Design
 
@@ -117,22 +125,28 @@ When you are ready to start coding,
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+It shows the various interactions between <<Design-Main,*`Main`*>> and 4 other components:
+<<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>,
+<<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>,
+Given below is a quick overview of each component:
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+
+[[Design-Main]]
+=== Main component
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+* *`Commons`* represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+** `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+** `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -240,11 +254,6 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -396,18 +405,18 @@ It extends `Command` and serves as a special kind of Command that cannot be dire
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
 or when kbd:[TAB] is pressed inside the CommandBox.
 
+.Activity Diagram of user executing command
 image::AutocompleteSuggestActivityDiagram1.png[width="650"]
-Figure 3.5.1 Activity Diagram of user executing command
 
+.Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram2.png[width="650"]
-Figure 3.5.2 Activity Diagram of user pressing tab
 
 The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched Commands.
 These Commands are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
 `ResultDisplay` and `CommandBox` text.
 
+.Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="650"]
-Figure 3.5.3 Activity Diagram of user pressing tab
 
 ==== Design Considerations
 
