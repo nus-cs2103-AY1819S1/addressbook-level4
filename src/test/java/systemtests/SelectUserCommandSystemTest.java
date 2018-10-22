@@ -26,7 +26,7 @@ public class SelectUserCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + "   ";
+        String command = SelectUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST);
 
         /* Case: select the last card in the person list -> selected */

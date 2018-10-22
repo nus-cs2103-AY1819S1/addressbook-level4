@@ -21,7 +21,7 @@ public class ClearUserCommandSystemTest extends AddressBookSystemTest {
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
-        assertCommandSuccess("   " + ClearUserCommand.COMMAND_WORD + " ab12   ");
+        assertCommandSuccess(ClearUserCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */

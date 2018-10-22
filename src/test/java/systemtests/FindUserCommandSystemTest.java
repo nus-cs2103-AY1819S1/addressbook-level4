@@ -28,7 +28,7 @@ public class FindUserCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */
-        String command = "   " + FindUserCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = FindUserCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
