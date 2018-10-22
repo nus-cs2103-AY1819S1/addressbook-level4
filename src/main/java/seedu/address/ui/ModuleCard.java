@@ -49,7 +49,7 @@ public class ModuleCard extends UiPart<Region> {
         //phone.setText(module.getPhone().value);
         //address.setText(module.getAddress().value);
         //email.setText(module.getEmail().value);
-        module.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        module.getTags().forEach((key, value) -> tags.getChildren().add(new Label(key + ": " + value)));
     }
 
     @Override

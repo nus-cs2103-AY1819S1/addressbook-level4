@@ -27,18 +27,18 @@ public class Occasion {
      * Every field must be present and not null.
      */
     public Occasion(OccasionName occasionName, OccasionDate occasionDate, String location,
-                    TagMap tags) {
+                    TagMap tags, UniquePersonList attendanceList) {
         requireAllNonNull(occasionName, occasionDate, tags);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
-        this.attendanceList = new UniquePersonList();
+        this.attendanceList = attendanceList;
         this.tags.addAll(tags);
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
                     TagMap tags) {
-        this(occasionName, occasionDate, null, tags);
+        this(occasionName, occasionDate, null, tags, null);
     }
 
     public OccasionName getOccasionName() {
@@ -50,7 +50,7 @@ public class Occasion {
     }
 
     public UniquePersonList getAttendanceList() {
-        return attendanceList;
+        return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
     }
 
     public String getLocation() {

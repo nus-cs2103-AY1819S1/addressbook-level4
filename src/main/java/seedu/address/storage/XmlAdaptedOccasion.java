@@ -1,18 +1,22 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.TagKey;
+import seedu.address.model.tag.TagMap;
+import seedu.address.model.tag.TagValue;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 
 /**
@@ -29,15 +33,11 @@ public class XmlAdaptedOccasion {
     @XmlElement(required = true)
     private String occasionDateTime;
     @XmlElement(required = true)
-    private String organiser;
-    @XmlElement(required = true)
     private String location;
     @XmlElement
-    private List<Person> attendanceList = new ArrayList<>();
-
+    private List<XmlAdaptedPerson> attendanceList = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
+    private Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagMap;
     /**
      * Constructs an XmlAdaptedOccasion.
      * This is the no-arg constructor that is required by JAXB.
@@ -47,16 +47,14 @@ public class XmlAdaptedOccasion {
     /**
      * Constructs an {@code XmlAdaptedOccasion} with the given occasion details.
      */
-    public XmlAdaptedOccasion(String occasionName, String occasionDate, String organiser,
-                              String location, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedOccasion(String occasionName, String occasionDate,
+                              String location, Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged, List<XmlAdaptedPerson> attendanceList) {
+        requireAllNonNull(occasionName, occasionDate, location, tagged, attendanceList);
         this.occasionName = occasionName;
         this.occasionDateTime = occasionDate;
-        this.organiser = organiser;
         this.location = location;
-        this.attendanceList = new ArrayList<>();
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
+        this.attendanceList = attendanceList;
+        this.tagMap = tagged;
     }
 
     /**
@@ -65,9 +63,15 @@ public class XmlAdaptedOccasion {
      * @param source future changes to this will not affect the created XmlAdaptedOccasion
      */
     public XmlAdaptedOccasion(Occasion source) {
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+        requireNonNull(source);
+        source.getTags().forEach((key, value) ->
+                tagMap.put(new XmlAdaptedTagKey(key.tagKey), new XmlAdaptedTagValue(value.tagValue)));
+        occasionName = source.getOccasionName().toString();
+        occasionDateTime = source.getOccasionDate().toString();
+        location = source.getLocation();
+        attendanceList = source.getAttendanceList().asNormalList().stream()
+                            .map(XmlAdaptedPerson::new)
+                            .collect(Collectors.toList());
     }
 
     /**
@@ -75,15 +79,19 @@ public class XmlAdaptedOccasion {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted occasion
      */
-    public void toModelType() throws IllegalValueException {
-        final List<Tag> occasionTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            occasionTags.add(tag.toModelType());
+    public Occasion toModelType() throws IllegalValueException {
+        requireAllNonNull(this.occasionName, this.occasionDateTime, this.attendanceList);
+        OccasionName occasionName = new OccasionName(this.occasionName);
+        OccasionDate occasionDate = new OccasionDate(this.occasionDateTime);
+        List<Person> attendanceList = new ArrayList<>();
+        for (XmlAdaptedPerson person : this.attendanceList) {
+            attendanceList.add(person.toModelType());
         }
+        UniquePersonList uniqueAttendanceList = new UniquePersonList(attendanceList);
+        Map<TagKey, TagValue> tagMap = new HashMap<>();
+        this.tagMap.forEach((key, value) -> tagMap.put(key.toModelType(), value.toModelType()));
 
-        final Set<Tag> modelTags = new HashSet<>(occasionTags);
-        //return new Occasion(new OccasionName(occasionName), new OccasionDate(occasionDateTime),
-        //organiser, modelTags, TypeUtil.OCCASION);
+        return new Occasion(occasionName, occasionDate, location, new TagMap(tagMap), uniqueAttendanceList);
     }
 
     @Override
@@ -100,6 +108,6 @@ public class XmlAdaptedOccasion {
         return Objects.equals(occasionName, otherOccasion.occasionName)
                 && Objects.equals(occasionDateTime, otherOccasion.occasionDateTime)
                 && Objects.equals(location, otherOccasion.location)
-                && tagged.equals(otherOccasion.tagged);
+                && tagMap.equals(otherOccasion.tagMap);
     }
 }

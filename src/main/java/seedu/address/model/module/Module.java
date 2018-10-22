@@ -6,6 +6,7 @@ import java.util.*;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagKey;
@@ -58,7 +59,7 @@ public class Module {
     }
 
     public UniquePersonList getStudents() {
-        return students;
+        return students == null ? new UniquePersonList(new ArrayList<>()) : students;
     }
 
     /**

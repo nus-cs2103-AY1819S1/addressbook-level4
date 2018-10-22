@@ -1,10 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -19,6 +15,11 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagKey;
+import seedu.address.model.tag.TagMap;
+import seedu.address.model.tag.TagValue;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * JAXB-friendly version of the Module.
@@ -39,9 +40,8 @@ public class XmlAdaptedModule {
     private String semester;
     @XmlElement(required = true)
     private List<XmlAdaptedPerson> students;
-
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged = new HashMap<>();
 
     /**
      * Constructs an XmlAdaptedModule.
@@ -54,17 +54,15 @@ public class XmlAdaptedModule {
      */
     public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear,
                             String semester, List<XmlAdaptedPerson> students,
-                            List<XmlAdaptedTag> tagged) {
+                            Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged) {
+        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, students, tagged);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
-        if (students != null) {
-            this.students = new ArrayList<>(students);
-        }
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
+        this.students = new ArrayList<>(students);
+        this.tagged = tagged;
+
     }
 
     /**
@@ -81,9 +79,8 @@ public class XmlAdaptedModule {
         for (Person person : source.getStudents()) {
             students.add(new XmlAdaptedPerson(person));
         }
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+        source.getTags().forEach((key, value) ->
+                tagged.put(new XmlAdaptedTagKey(key.tagKey), new XmlAdaptedTagValue(value.tagValue)));
     }
 
     /**
@@ -92,12 +89,7 @@ public class XmlAdaptedModule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted module
      */
     public Module toModelType() throws IllegalValueException {
-        final List<Tag> moduleTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            moduleTags.add(tag.toModelType());
-        }
-
-        final UniquePersonList loadedStudentsList = new UniquePersonList();
+        final UniquePersonList loadedStudentsList = new UniquePersonList(new ArrayList<>());
         for (XmlAdaptedPerson person : students) {
             loadedStudentsList.add(person.toModelType());
         }
@@ -138,10 +130,11 @@ public class XmlAdaptedModule {
         }
         final Semester modelSemester = new Semester(semester);
 
-        final Set<Tag> modelTags = new HashSet<>(moduleTags);
-        final TypeUtil modelType = TypeUtil.MODULE;
+        Map<TagKey, TagValue> tagMap = new HashMap<>();
+        this.tagged.forEach((key, value) -> tagMap.put(key.toModelType(), value.toModelType()));
+
         return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester,
-                loadedStudentsList, modelTags, modelType);
+                loadedStudentsList, new TagMap(tagMap));
     }
 
     @Override

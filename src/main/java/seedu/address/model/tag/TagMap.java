@@ -37,6 +37,18 @@ public class TagMap {
         oldMap.getTagMap().forEach((key, value) -> tagMap.put(key, value));
     }
 
+    /**
+     * An overloaded constructor that enables to create a TagMap with the values
+     * from another raw Map of TagKey and TagValue pairs.
+     *
+     * @param oldMap The other raw map to insert into this TagMap.
+     */
+    public TagMap(Map<TagKey, TagValue> oldMap) {
+        requireNonNull(oldMap);
+        checkArgument(hasAnyOverlap(oldMap), MESSAGE_MAP_INSERT_CONSTRAINT);
+        oldMap.forEach((key, value) -> tagMap.put(key, value));
+    }
+
     public HashMap<TagKey, TagValue> getTagMap() {
         return this.tagMap;
     }
@@ -95,6 +107,17 @@ public class TagMap {
      */
     private boolean hasAnyOverlap(TagMap otherMap) {
         Iterator it = otherMap.getTagMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (tagMap.containsKey(pair.getKey())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasAnyOverlap(Map<TagKey, TagValue> otherMap) {
+        Iterator it = otherMap.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             if (tagMap.containsKey(pair.getKey())) {
