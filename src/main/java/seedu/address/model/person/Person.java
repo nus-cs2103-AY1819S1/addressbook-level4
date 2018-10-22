@@ -28,6 +28,8 @@ public class Person {
     private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
     private final PermissionSet permissionSet = new PermissionSet();
+    private final Username username;
+    private final Password password;
 
     /**
      * Every field must be present and not null.
@@ -41,6 +43,8 @@ public class Person {
         this.address = address;
         this.projects.addAll(projects);
         this.profilePic = Optional.empty();
+        this.username = new Username(name.fullName);
+        this.password = new Password("Pa55w0rd");
     }
 
     /**
@@ -57,6 +61,8 @@ public class Person {
         this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = Optional.empty();
+        this.username = new Username(name.fullName);
+        this.password = new Password("123456789");
     }
 
     /**
@@ -73,6 +79,8 @@ public class Person {
         this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
+        this.username = new Username(name.fullName);
+        this.password = new Password("123456789");
     }
 
     public Name getName() {
@@ -116,6 +124,14 @@ public class Person {
         return permissionSet;
     }
 
+    public Username getUsername() {
+        return username;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -151,13 +167,15 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getProjects().equals(getProjects())
-                && otherPerson.getProfilePic().equals(getProfilePic());
+                && otherPerson.getProfilePic().equals(getProfilePic())
+                && otherPerson.getUsername().equals(getUsername())
+                && otherPerson.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, salary, projects, profilePic);
+        return Objects.hash(name, phone, email, address, salary, projects, profilePic, username, password);
     }
 
     @Override
