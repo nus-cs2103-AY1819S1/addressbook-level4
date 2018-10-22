@@ -61,6 +61,13 @@ public class CommandTestUtil {
     public static final String TAG_DESC_CCA = " " + PREFIX_GROUPTAG + VALID_GROUPTAG_CCA;
     public static final String TAG_DESC_PROJECT = " " + PREFIX_GROUPTAG + VALID_GROUPTAG_PROJECT;
 
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_NAME + "group";
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_NAME + "CS2101";
+
+    public static final String VALID_GROUP_TITLE_GROUP_0 = "group";
+
+    public static final String INVALID_GROUP_TITLE_DESC = " " + PREFIX_NAME + "€project"; // '€' not allowed in title
+
     // @@author NyxF4ll
     public static final String VALID_MEETING_TITLE_DESC_WEEKLY = " " + PREFIX_NAME + "Weekly meetup";
     public static final String VALID_MEETING_TITLE_DESC_URGENT = " " + PREFIX_NAME + "Urgent affair";
