@@ -46,7 +46,7 @@ public class MedicineDescriptorBuilder {
     /**
      * Sets the {@code MinimumStockQuantity} of the {@code MedicineDescriptor} that we are building.
      */
-    public MedicineDescriptorBuilder withMinimumStockQuantity(String minimumStockQuantity) {
+    public MedicineDescriptorBuilder withMinimumStockQuantity(Integer minimumStockQuantity) {
         descriptor.setMinimumStockQuantity(new MinimumStockQuantity(minimumStockQuantity));
         return this;
     }

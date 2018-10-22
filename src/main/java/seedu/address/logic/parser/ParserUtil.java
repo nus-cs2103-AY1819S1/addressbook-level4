@@ -166,11 +166,11 @@ public class ParserUtil {
      */
     public static MinimumStockQuantity parseMinimumStockQuantity(String minimumStockQuantity) throws ParseException {
         requireNonNull(minimumStockQuantity);
-        String trimmedMinimumStockQuantity = minimumStockQuantity.trim();
-        if (!MinimumStockQuantity.isValidMinimumStockQuantity(trimmedMinimumStockQuantity)) {
+        Integer msq = Integer.parseInt(minimumStockQuantity);
+        if (!MinimumStockQuantity.isValidMinimumStockQuantity(msq)) {
             throw new ParseException(MinimumStockQuantity.MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS);
         }
-        return new MinimumStockQuantity(trimmedMinimumStockQuantity);
+        return new MinimumStockQuantity(msq);
     }
 
     /**

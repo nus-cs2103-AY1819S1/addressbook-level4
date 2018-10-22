@@ -84,8 +84,8 @@ public class CommandTestUtil {
 
     public static final String VALID_MEDICINE_NAME_PANADOL = "Panadol";
     public static final String VALID_MEDICINE_NAME_ZYRTEC = "Zyrtec";
-    public static final String VALID_MINIMUM_STOCK_QUANTITY_PANADOL = "100";
-    public static final String VALID_MINIMUM_STOCK_QUANTITY_ZYRTEC = "250";
+    public static final Integer VALID_MINIMUM_STOCK_QUANTITY_PANADOL = 100;
+    public static final Integer VALID_MINIMUM_STOCK_QUANTITY_ZYRTEC = 250;
     public static final String VALID_PRICE_PER_UNIT_PANADOL = "1";
     public static final String VALID_PRICE_PER_UNIT_ZYRTEC = "2";
     public static final String VALID_SERIAL_NUMBER_PANADOL = "00293756";

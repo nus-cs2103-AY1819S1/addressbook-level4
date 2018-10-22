@@ -13,7 +13,7 @@ import seedu.address.model.medicine.Stock;
 public class MedicineBuilder {
 
     public static final String DEFAULT_MEDICINE_NAME = "PANADOL";
-    public static final String DEFAULT_MINIMUM_STOCK_QUANTITY = "100";
+    public static final Integer DEFAULT_MINIMUM_STOCK_QUANTITY = 100;
     public static final String DEFAULT_PRICE_PER_UNIT = "2";
     public static final String DEFAULT_SERIAL_NUMBER = "000129374";
     public static final Integer DEFAULT_STOCK = 1834;
@@ -54,7 +54,7 @@ public class MedicineBuilder {
     /**
      * Sets the {@code MinimumStockQuantity} of the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withMinimumStockQuantity(String minimumStockQuantity) {
+    public MedicineBuilder withMinimumStockQuantity(Integer minimumStockQuantity) {
         this.minimumStockQuantity = new MinimumStockQuantity(minimumStockQuantity);
         return this;
     }

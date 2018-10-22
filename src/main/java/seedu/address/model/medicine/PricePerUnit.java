@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PricePerUnit {
     public static final String MESSAGE_PRICE_PER_UNIT_CONSTRAINTS =
             "Price per unit should be an integer.";
-    public static final String PRICE_PER_UNIT_VALIDATION_REGEX = "^[0-9]+([\\,|\\.]{0,1}[0-9]{2}){0,1}$";
+    public static final String PRICE_PER_UNIT_VALIDATION_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
     public final String value;
 
     /**
