@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -30,7 +30,7 @@ public class XmlAdaptedLeaveApplication {
     @XmlElement(required = true)
     private String status;
     @XmlElement(required = true)
-    private Set<String> dates = new HashSet<>();
+    private List<String> dates = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedLeaveApplication.
@@ -42,13 +42,13 @@ public class XmlAdaptedLeaveApplication {
     /**
      * Constructs an {@code XmlAdaptedLeaveApplication} with the given leave application details.
      */
-    public XmlAdaptedLeaveApplication(Integer id, String description, String status, Set<Date> dates) {
+    public XmlAdaptedLeaveApplication(Integer id, String description, String status, List<Date> dates) {
         this.id = id;
         this.description = description;
         this.status = status;
         this.dates = dates.stream()
                      .map(Date::toString)
-                     .collect(Collectors.toSet());
+                     .collect(Collectors.toList());
     }
 
     /**
@@ -62,7 +62,7 @@ public class XmlAdaptedLeaveApplication {
         status = source.getLeaveStatus().value.toString();
         dates = source.getDates().stream()
                 .map(Date::toString)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     /**
@@ -97,7 +97,7 @@ public class XmlAdaptedLeaveApplication {
         }
         final LeaveStatus modelStatus = new LeaveStatus(status);
 
-        final Set<Date> modelDates = new HashSet<>();
+        final List<Date> modelDates = new ArrayList<>();
         for (String dateString : dates) {
             Date parsedDate;
             try {

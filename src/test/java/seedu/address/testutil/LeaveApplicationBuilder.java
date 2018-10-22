@@ -1,15 +1,14 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.leaveapplication.LeaveId;
 import seedu.address.model.leaveapplication.LeaveStatus;
 import seedu.address.model.leaveapplication.StatusEnum;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -24,13 +23,13 @@ public class LeaveApplicationBuilder {
     private LeaveId leaveId;
     private Description description;
     private LeaveStatus leaveStatus;
-    private Set<Date> dates;
+    private List<Date> dates;
 
     public LeaveApplicationBuilder() {
         leaveId = new LeaveId(DEFAULT_ID);
         description = new Description(DEFAULT_DESCRIPTION);
         leaveStatus = new LeaveStatus(DEFAULT_STATUS.toString());
-        dates = new HashSet<>();
+        dates = new ArrayList<>();
     }
 
     /**
@@ -40,7 +39,7 @@ public class LeaveApplicationBuilder {
         leaveId = leaveApplicationToCopy.getId();
         description = leaveApplicationToCopy.getDescription();
         leaveStatus = leaveApplicationToCopy.getLeaveStatus();
-        dates = new HashSet<>(leaveApplicationToCopy.getDates());
+        dates = new ArrayList<>(leaveApplicationToCopy.getDates());
     }
 
     /**
@@ -52,11 +51,11 @@ public class LeaveApplicationBuilder {
     }
 
     /**
-     * Parses the {@code dates} into a {@code Set<Date>} and set it to the {@code LeaveApplication}
+     * Parses the {@code dates} into a {@code List<Date>} and set it to the {@code LeaveApplication}
      * that we are building.
      */
     public LeaveApplicationBuilder withDates(Date ... dates) {
-        this.dates = SampleDataUtil.getDateSet(dates);
+        this.dates = SampleDataUtil.getDateList(dates);
         return this;
     }
 

@@ -2,13 +2,11 @@ package seedu.address.model.leaveapplication;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.address.model.person.Person;
 
 /**
  * Represents a LeaveApplication in the address book.
@@ -21,12 +19,12 @@ public class LeaveApplication {
     // Data fields
     private final Description description;
     private final LeaveStatus leaveStatus;
-    private final Set<Date> dates = new HashSet<>();
+    private final List<Date> dates = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, Set<Date> dates) {
+    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, List<Date> dates) {
         requireAllNonNull(id, description, leaveStatus, dates);
         this.id = id;
         this.description = description;
@@ -50,8 +48,8 @@ public class LeaveApplication {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Date> getDates() {
-        return Collections.unmodifiableSet(dates);
+    public List<Date> getDates() {
+        return Collections.unmodifiableList(dates);
     }
 
     /**

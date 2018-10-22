@@ -15,7 +15,6 @@ import java.util.Date;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.testutil.LeaveApplicationBuilder;
 import seedu.address.testutil.TypicalPersons;
 
