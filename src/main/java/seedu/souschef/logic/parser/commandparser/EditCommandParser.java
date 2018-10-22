@@ -16,6 +16,7 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -209,7 +210,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         CookTime updatedEmail = editRecipeDescriptor.getCooktime().orElse(toEdit.getCookTime());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Recipe(updatedName, updatedPhone, updatedEmail, new ArrayList<>(), updatedTags);
     }
 
     /**
