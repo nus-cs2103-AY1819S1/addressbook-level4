@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.function.Predicate;
+import seedu.address.commons.util.HashUtil;
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
@@ -51,14 +52,18 @@ public class LoginCommand extends Command {
         
         if (toAuthenticate instanceof Doctor) {
             Predicate<Doctor> isSameDoctor = doctor -> doctor.isSameDoctor((Doctor) toAuthenticate);
-            Predicate<Doctor> isSamePassword = doctor -> doctor.isSameDoctor((Doctor) toAuthenticate); 
+            Predicate<Doctor> isSamePassword = doctor -> HashUtil
+                    .verifyPassword(((Doctor) toAuthenticate).getPassword().toString(),
+                            doctor.getPassword().toString()); 
             
-            //model.updateFilteredDoctorList(doctor -> );
+            model.updateFilteredDoctorList(isSameDoctor.and(isSamePassword));
             if (!model.getFilteredDoctorList().isEmpty()) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
             
         }
+        
+        // TODO: Receptionist
         return new CommandResult(MESSAGE_FAILURE);
     }
 
