@@ -2,7 +2,6 @@ package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.lang.Math;
 import java.util.List;
 
 import seedu.learnvocabulary.logic.CommandHistory;
@@ -11,7 +10,7 @@ import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Pose a trivia question based on the word's word list
+ * Sets vocabulary book to trivia mode
  */
 
 public class TriviaCommand extends Command {
@@ -28,14 +27,13 @@ public class TriviaCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Word> lastShownList = model.getFilteredWordList();
-        int size = Math.max(10, lastShownList.size());
 
         if (lastShownList.size() < 1) {
             return new CommandResult(MESSAGE_FAIL);
         }
 
         model.toggleTriviaMode();
-        model.setTriviaList(size);
+        model.setTriviaList();
         model.setTriviaQuestion();
         Word triviaQ = model.getTrivia();
         Meaning qMeaning = triviaQ.getMeaning();

@@ -157,14 +157,20 @@ public class ModelManager extends ComponentManager implements Model {
      * Sets the trivia question
      */
     @Override
-    public void setTriviaList(int size) {
-        versionedLearnVocabulary.setTriviaList(size);
+    public void setTriviaList() {
+        versionedLearnVocabulary.setTriviaList();
     }
 
     @Override
     public void setTriviaQuestion() {
         versionedLearnVocabulary.setTriviaQuestion();
     }
+
+    public int currentScore() { return versionedLearnVocabulary.currentScore(); }
+
+    public int maxScore() { return versionedLearnVocabulary.maxScore(); }
+
+    public void updateScore() { versionedLearnVocabulary.updateScore(); }
 
     public boolean isTriviaMode() {
         return versionedLearnVocabulary.isTriviaMode(); }

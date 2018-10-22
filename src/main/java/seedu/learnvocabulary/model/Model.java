@@ -62,7 +62,7 @@ public interface Model {
     /**
      * Sets a trivia question based on the vocabulary list;
      */
-    void setTriviaList(int size);
+    void setTriviaList();
 
     void setTriviaQuestion();
 
@@ -71,6 +71,13 @@ public interface Model {
     void toggleTriviaMode();
 
     void clearTrivia();
+
+    void updateScore();
+
+    int currentScore();
+
+    int maxScore();
+
 
     /**
      * Updates the filter of the filtered word list to filter by the given {@code predicate}.
