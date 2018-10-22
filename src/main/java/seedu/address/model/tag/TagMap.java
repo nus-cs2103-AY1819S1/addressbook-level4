@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import seedu.address.model.tag.exceptions.HasOverlapException;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -52,6 +54,20 @@ public class TagMap {
         checkArgument(contains(key), MESSAGE_MAP_DUPLICATE_CONSTRAINT);
         tagMap.put(key, value);
     }
+
+    public void addAll(TagMap toAdd) {
+        requireNonNull(toAdd);
+        if (hasAnyOverlap(toAdd)) {
+            throw new HasOverlapException();
+        }
+
+        Iterator it = toAdd.getTagMap().entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            tagMap.put((TagKey) pair.getKey(), (TagValue) pair.getValue());
+        }
+    }
+
 
     /**
      * Removes the designated key from this TagMap

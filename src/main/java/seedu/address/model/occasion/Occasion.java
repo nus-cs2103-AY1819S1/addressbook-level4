@@ -2,21 +2,18 @@ package seedu.address.model.occasion;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagKey;
+import seedu.address.model.tag.TagMap;
+import seedu.address.model.tag.TagValue;
 
 /**
  * Represents an Occasion within the address book.
  * @author KongZijin
  */
-public class Occasion extends Inanimate {
+public class Occasion {
 
     // Identity fields
     private final OccasionName occasionName;
@@ -24,26 +21,24 @@ public class Occasion extends Inanimate {
     private final String location;
     private final UniquePersonList attendanceList;
 
-    // Date fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final TagMap tags = new TagMap();
 
     /**
      * Every field must be present and not null.
      */
     public Occasion(OccasionName occasionName, OccasionDate occasionDate, String location,
-                    Set<Tag> tags, TypeUtil type) {
-        requireAllNonNull(occasionName, occasionDate, tags, type);
+                    TagMap tags) {
+        requireAllNonNull(occasionName, occasionDate, tags);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
         this.attendanceList = new UniquePersonList();
         this.tags.addAll(tags);
-        this.type = type;
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
-                    Set<Tag> tags, TypeUtil type) {
-        this(occasionName, occasionDate, null, tags, type);
+                    TagMap tags) {
+        this(occasionName, occasionDate, null, tags);
     }
 
     public OccasionName getOccasionName() {
@@ -68,9 +63,9 @@ public class Occasion extends Inanimate {
      * @return An immutable tag set, which throws {@code
      * UnsupportedOperationException} if modification is attempted.
      */
-    @Override
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    // TODO change the implementation of all the places that use this method.
+    public Map<TagKey, TagValue> getTags() {
+        return Collections.unmodifiableMap(tags.getTagMap());
     }
 
     /**
@@ -113,7 +108,12 @@ public class Occasion extends Inanimate {
                 .append(getAttendanceList()) // use the person's name to represent this Peron
                 // object.
                 .append(" Tags: ");
-        getTags().forEach(stringBuilder::append);
+        getTags().forEach((key, value) -> {
+            stringBuilder.append("Key: ");
+            stringBuilder.append(key.toString());
+            stringBuilder.append("Value: ");
+            stringBuilder.append(value.toString());
+        });
         return stringBuilder.toString();
     }
 }
