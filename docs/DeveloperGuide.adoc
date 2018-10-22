@@ -1180,6 +1180,18 @@ Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
 +
 Use case ends.
 
+=== Use case: Export patient records.
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+
+*MSS*
+
+1. Actor requests to export patient records.
+2. System retrieves all patient data and organizes it.
+3. System creates a local file with patient records.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
