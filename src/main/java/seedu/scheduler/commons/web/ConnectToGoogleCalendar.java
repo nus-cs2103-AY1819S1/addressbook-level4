@@ -41,9 +41,6 @@ public class ConnectToGoogleCalendar {
 
     private boolean googleCalendarEnabled = false;
 
-    public ConnectToGoogleCalendar() {
-    }
-
     public boolean isGoogleCalendarEnabled() {
         return googleCalendarEnabled;
     }
@@ -64,6 +61,7 @@ public class ConnectToGoogleCalendar {
             System.setOut(new PrintStream(new OutputStream() {
                 @Override
                 public void write(int b) {
+                    //no code needed here
                 }
             }));
 
@@ -134,7 +132,7 @@ public class ConnectToGoogleCalendar {
             conn.getInputStream().close();
             return true;
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            return false;
         } catch (IOException e) {
             return false;
         }
