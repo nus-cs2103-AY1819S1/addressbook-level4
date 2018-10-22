@@ -10,6 +10,7 @@ import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.DayComparator;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
@@ -100,6 +101,7 @@ public class AppContent implements ReadOnlyAppContent {
             }
 
             this.mealPlanner.set(newData.getObservableMealPlanner());
+            this.mealPlanner.sortList(new DayComparator());
         }
         if (newData.getObservableFavouritesList().size() > 0) {
             this.favourites.set(newData.getObservableFavouritesList());

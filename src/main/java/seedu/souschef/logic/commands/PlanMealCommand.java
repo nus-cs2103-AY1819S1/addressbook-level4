@@ -1,13 +1,11 @@
 package seedu.souschef.logic.commands;
 
-import javafx.collections.FXCollections;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.DayComparator;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
-
-import java.util.Comparator;
 
 /**
  * Adds a recipe to a specified meal slot of a specified day of the meal planner.
@@ -44,7 +42,7 @@ public class PlanMealCommand extends Command {
         } else {
             model.add(toPlan);
         }
-
+        model.sortList(new DayComparator());
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS, toAdd));
     }

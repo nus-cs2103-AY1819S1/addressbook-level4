@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mealplans>
     <mp>
+        <date>2017-01-01</date>
+        <lunch>
+            <name>Takoyaki</name>
+            <difficulty>5</difficulty>
+            <cooktime>PT20M</cooktime>
+        </lunch>
+    </mp>
+    <mp>
+        <date>2018-01-01</date>
+        <breakfast>
+            <name>Takoyaki</name>
+            <difficulty>5</difficulty>
+            <cooktime>PT20M</cooktime>
+        </breakfast>
+    </mp>
+    <mp>
         <date>2019-01-01</date>
         <breakfast>
             <name>Chicken Rice</name>
@@ -15,28 +31,18 @@
     </mp>
     <mp>
         <date>2020-01-01</date>
-        <breakfast>
-            <name>Roti Prata</name>
-            <difficulty>2</difficulty>
-            <cooktime>PT30M</cooktime>
-        </breakfast>
         <lunch>
-            <name>Chicken Burger</name>
-            <difficulty>1</difficulty>
-            <cooktime>PT15M</cooktime>
+            <name>Takoyaki</name>
+            <difficulty>5</difficulty>
+            <cooktime>PT20M</cooktime>
         </lunch>
     </mp>
     <mp>
-        <date>1999-09-09</date>
-        <breakfast>
+        <date>2018-10-22</date>
+        <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
             <cooktime>PT15M</cooktime>
-        </breakfast>
-        <lunch>
-            <name>Salted Egg Sotong</name>
-            <difficulty>3</difficulty>
-            <cooktime>PT25M</cooktime>
         </lunch>
     </mp>
 </mealplans>

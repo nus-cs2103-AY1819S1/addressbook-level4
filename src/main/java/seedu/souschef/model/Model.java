@@ -1,5 +1,6 @@
 package seedu.souschef.model;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -66,6 +67,11 @@ public interface Model<T extends UniqueType> {
      */
     void updateFilteredList(Predicate<? extends UniqueType> predicate);
 
+    /**
+     * Sorts the list using a given comparator.
+     * @param comparator
+     */
+    void sortList(Comparator<T> comparator);
 
 
     /**

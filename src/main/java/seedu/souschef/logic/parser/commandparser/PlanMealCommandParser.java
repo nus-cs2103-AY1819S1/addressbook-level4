@@ -37,6 +37,10 @@ public class PlanMealCommandParser {
 
             Recipe toAdd = recipeList.get(listIndex);
             LocalDate date = LocalDate.parse(arguments[1]);
+            if (date.isBefore(LocalDate.now())) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
+            }
+
             Day toPlan;
             Day newDay = new Day(date);
             boolean dayIsPresent;
@@ -48,7 +52,6 @@ public class PlanMealCommandParser {
                 toPlan = newDay;
                 dayIsPresent = false;
             }
-
             Meal meal = toPlan.getMeal(arguments[2]);
 
             return new PlanMealCommand(mealPlannerModel, toAdd, meal, toPlan, dayIsPresent);
