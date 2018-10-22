@@ -99,6 +99,22 @@ public class UniqueDoctorList implements Iterable<Doctor> {
     }
 
     /**
+     * Retrieve the doctor from the list
+     * {@code doctor} must be inside the ClinicIO record.
+     */
+    public Doctor getDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        
+        if (!contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        
+        return internalList.stream()
+                .filter(x -> x.isSameDoctor(doctor))
+                .findFirst().orElse(null);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Doctor> asUnmodifiableObservableList() {

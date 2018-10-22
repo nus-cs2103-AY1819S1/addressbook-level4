@@ -162,6 +162,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDoctors.setPredicate(predicate);
     }
 
+    @Override
+    public Doctor getDoctor(Doctor doctor) {
+        return versionedAddressBook.getDoctor(doctor);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
@@ -33,8 +34,9 @@ public class LoginCommand extends Command {
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
-    public static final String MESSAGE_SUCCESS = "Login successful.";
     public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
+    public static final String MESSAGE_NO_DOCTOR_FOUND = "No doctor found.";
+    public static final String MESSAGE_SUCCESS = "Login successful.";    
 
     private final Person toAuthenticate;
 
@@ -48,58 +50,27 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
 
         if (toAuthenticate instanceof Doctor) {
-            List<Doctor> doctorsList = model.getFilteredDoctorList();
-            if (checkDoctorCred(doctorsList)) {
+            Doctor authenticatedDoctor = (Doctor) toAuthenticate;
+            if (!model.hasDoctor(authenticatedDoctor)) {
+                throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
+            }
+
+            Doctor retrievedDoctor = model.getDoctor(authenticatedDoctor);
+            
+            boolean isCorrectPassword = Password.isSameAsHashPassword(
+                    authenticatedDoctor.getPassword().toString(),
+                    retrievedDoctor.getPassword().toString());
+            
+            if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         }
         //TODO: Receptionist
         return new CommandResult(MESSAGE_FAILURE);
-    }
-
-    /**
-     * Check through ClinicIO for valid {@code Doctor} credentials.
-     * @param doctorsList A list of doctors in ClinicIO.
-     * @return Returns true if doctor has valid credentials in ClinicIO.
-     */
-    public boolean checkDoctorCred(List<Doctor> doctorsList) {
-        requireNonNull(doctorsList);
-
-        Doctor anotherDoctor = (Doctor) toAuthenticate;
-        Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
-
-        if (doctorFound == null) {
-            return false;
-        }
-        return Password.isSameAsHashPassword(
-                anotherDoctor.getPassword().toString(),
-                doctorFound.getPassword().toString());
-    }
-
-    /**
-     * Search through {@code Model} doctor list for doctor.
-     * @param doctorsList A list of doctors in ClinicIO.
-     * @param doctorToSearch The doctor to search inside the list of doctors.
-     * @return The doctor found in the list of doctors. Return null if doctor is not found.
-     */
-    public Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
-        requireNonNull(doctorsList);
-        requireNonNull(doctorToSearch);
-
-        Doctor doctorFound;
-        try {
-            doctorFound = doctorsList.stream()
-                    .filter(doctor -> doctor.getName().equals(doctorToSearch.getName()))
-                    .findFirst().orElse(null);
-        } catch (ClassCastException ex) {
-            throw new ClassCastException();
-        }
-
-        return doctorFound;
     }
 
     @Override

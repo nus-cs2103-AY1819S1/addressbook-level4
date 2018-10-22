@@ -100,7 +100,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
-    //author jjlee050
     /**
      * Adds a doctor to the ClinicIO.
      * The doctor must not already exist in the ClinicIO.
@@ -109,6 +108,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors.add(d);
     }
 
+    /**
+     * Retrieve a doctor from ClinicIO
+     * This doctor must exist inside ClinicIO.
+     */
+    public Doctor getDoctor(Doctor doctor) {
+        return doctors.getDoctor(doctor);
+    }
+    
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
