@@ -37,7 +37,6 @@ public class Recipe extends UniqueType {
         this.difficulty = difficulty;
         this.instructions.addAll(instructions);
         this.tags.addAll(tags);
-        //this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
