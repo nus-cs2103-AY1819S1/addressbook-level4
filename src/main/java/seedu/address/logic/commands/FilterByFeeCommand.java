@@ -33,8 +33,10 @@ public class FilterByFeeCommand extends FilterCommand {
      *
      * @param limit
      */
-    public FilterByFeeCommand(Double limit) {
-        this.limit = limit;
+    public FilterByFeeCommand(String limit) {
+
+
+        this.limit = (double) Integer.parseInt(limit);
     }
 
     @Override

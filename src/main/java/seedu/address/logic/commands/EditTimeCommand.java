@@ -70,6 +70,7 @@ public class EditTimeCommand extends Command{
         if(allTimeSlot.contains(newTime)) {
             throw new CommandException(MESSAGE_TIME_IS_NOT_AVAILABLE);
         }
+        
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }

@@ -1,4 +1,5 @@
 package seedu.address.logic.parser;
+import seedu.address.logic.commands.FilterByGradeCommand;
 import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
@@ -10,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.TimeAddCommandParser.arePrefixesPresent;
 
 
-public class FilterByTimeCommandParser {/**
+public class FilterByTimeCommandParser implements Parser<FilterByTimeCommand> {/**
  * FilterByGradeCommand
  * @param args
  * @return
@@ -25,6 +26,6 @@ public FilterByTimeCommand parse(String args) throws ParseException {
                 String.format("Enter error message here"));
     }
 
-    return new FilterByTimeCommand(currTime);
+    return new FilterByTimeCommand(args);
 }
 }

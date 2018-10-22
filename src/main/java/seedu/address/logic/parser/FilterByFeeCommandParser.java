@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.FilterByFeeCommand;
-import seedu.address.logic.commands.FilterByTimeCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -23,7 +23,7 @@ public class FilterByFeeCommandParser implements Parser<FilterByFeeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByFeeCommand.MESSAGE_USAGE));
         }
 
-        return new FilterByFeeCommand((double) Integer.parseInt(trimmedArgs));
+        return new FilterByFeeCommand((trimmedArgs));
     }
 
 }

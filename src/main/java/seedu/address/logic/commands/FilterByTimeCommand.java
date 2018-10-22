@@ -29,10 +29,11 @@ public class FilterByTimeCommand extends FilterCommand{
     /**
      * filter by grade command
      *
-     * @param time
+     * @param args
      */
-    public FilterByTimeCommand(Time time) {
-        this.time = time;
+
+    public FilterByTimeCommand(String args) {
+        this.time =new Time(args);
     }
 
     @Override
