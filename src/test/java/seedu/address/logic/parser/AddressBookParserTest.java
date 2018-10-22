@@ -132,8 +132,18 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_GROUP)
+            instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_PERSON)
+            instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_MEETING)
+            instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_GROUP_SHORT)
+            instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_PERSON_SHORT)
+            instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " "
+            + ListCommand.COMMAND_PARAM_MEETING_SHORT) instanceof ListCommand);
     }
 
     @Test
