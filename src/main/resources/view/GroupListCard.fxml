@@ -28,6 +28,7 @@
         <Label fx:id="groupTitle" text="\$group" />
       </HBox>
          <Label fx:id="groupDescription" text="\$description" />
+         <Label fx:id="groupMeeting" text="\$meeting" />
          <Label fx:id="memberCount" text="\$memberCount" />
        <padding>
           <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />

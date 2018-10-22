@@ -1,10 +1,15 @@
 package seedu.address.ui;
 
+import java.nio.file.Path;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.shared.Description;
 
 /**
  * An UI component that displays information of a {@code Group}
@@ -29,6 +34,9 @@ public class GroupCard extends UiPart<Region> {
     private Label groupDescription;
 
     @FXML
+    private Label groupMeeting;
+
+    @FXML
     private Label memberCount;
 
     public GroupCard(Group group, int displayedIndex) {
@@ -36,8 +44,18 @@ public class GroupCard extends UiPart<Region> {
         this.group = group;
         id.setText(displayedIndex + ". ");
         groupTitle.setText(group.getTitle().fullTitle);
-        groupDescription.setText(group.getDescription().statement);
-        memberCount.setText("Members: " + group.getMembers().asUnmodifiableObservableList().size());
+        Description description = group.getDescription();
+        String descriptionString = "Description: " + (description != null ? description.statement : "");
+        if (description != null) {
+            groupDescription.setText("Description: " + description.statement);
+        } else {
+            groupDescription.setText("Description: ");
+        }
+        Meeting meeting = group.getMeeting();
+        String meetingString = "Has meeting: " + (meeting != null ? "true" : "false");
+        groupMeeting.setText(meetingString);
+        int membersCount = group.getMembersView().size();
+        memberCount.setText("Member count: " + membersCount);
     }
 
     @Override
