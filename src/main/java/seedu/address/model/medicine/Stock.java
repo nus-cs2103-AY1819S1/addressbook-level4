@@ -15,10 +15,6 @@ public class Stock {
     public static final String STOCK_VALIDATION_REGEX = "^[1-9]+[0-9]*$";
     public final Integer value;
 
-    public Integer getValue() {
-        return value;
-    }
-
     /**
      * Constructs a {@code Stock}.
      *
@@ -28,6 +24,10 @@ public class Stock {
         requireNonNull(number);
         checkArgument(isValidStock(number), MESSAGE_STOCK_CONSTRAINTS);
         value = number;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 
     /**
