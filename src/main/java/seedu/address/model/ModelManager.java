@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -73,9 +75,10 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
+                        Set<String> emailNamesSet) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, emailNamesSet);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -83,7 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
-        this.emailModel = new EmailModel();
+        this.emailModel = new EmailModel(emailNamesSet);
         this.userPrefs = userPrefs;
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
         this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
@@ -91,7 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new BudgetBook(), new UserPrefs());
+        this(new AddressBook(), new BudgetBook(), new UserPrefs(), new HashSet<>());
     }
 
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {

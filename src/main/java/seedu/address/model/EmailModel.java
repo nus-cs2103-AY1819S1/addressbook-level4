@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.Recipient;
@@ -13,8 +15,17 @@ public class EmailModel {
 
     private Email email;
     private String preview;
+    private final Set<String> existingEmails;
 
     private final String previewHeader = "<u>Email Preview</u><br /><br />";
+
+    public EmailModel() {
+        existingEmails = new HashSet<>();
+    }
+
+    public EmailModel(Set<String> emailNamesSet) {
+        existingEmails = emailNamesSet;
+    }
 
     /**
      * Saves email to EmailModel.
