@@ -14,13 +14,17 @@ import seedu.learnvocabulary.model.word.Word;
 public class TriviaAnsCommand extends Command {
     public static final String COMMAND_WORD = "answer";
 
+    public static final String COMMAND_EXIT = "triviaExit";
+
     public static final String MESSAGE_SUCCESS = "Correct!\n";
 
     public static final String MESSAGE_WRONG = "Wrong!\n";
 
     public static final String MESSAGE_FAILURE = "Please use the trivia command to get a question.";
 
-    public static final String MESSAGE_NEXT = "Next question:";
+    public static final String MESSAGE_NEXT = "Next question: ";
+
+    public static final String MESSAGE_EXIT = "Type triviaExit to end trivia";
 
     public static final String MESSAGE_END = "Trivia ended! Type trivia to play again!";
 
@@ -45,6 +49,11 @@ public class TriviaAnsCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
+        if (answer.equals(COMMAND_EXIT)) {
+            model.toggleTriviaMode();
+            return new CommandResult(MESSAGE_END);
+        }
+
         correct = triviaQ.getName().toString().equals(answer);
 
         model.clearTrivia();
@@ -65,7 +74,7 @@ public class TriviaAnsCommand extends Command {
         }
 
         else {
-            messageOutput += MESSAGE_NEXT + triviaQ.getMeaning().toString();
+            messageOutput += MESSAGE_NEXT+ triviaQ.getMeaning().toString() + "\n" + MESSAGE_EXIT;
         }
 
 

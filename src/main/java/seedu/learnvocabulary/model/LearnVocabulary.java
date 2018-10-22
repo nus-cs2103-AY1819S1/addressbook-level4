@@ -187,6 +187,9 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     public void toggleTriviaMode() {
         triviaMode = !triviaMode; }
 
+    /**
+     * Clears the current trivia question and remove it from the trivia question list
+     */
     public void clearTrivia() {
         triviaQuestionList.remove(triviaQuestion);
         triviaQuestion = null;
