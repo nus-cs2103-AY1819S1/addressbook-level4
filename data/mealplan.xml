@@ -1,43 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mealplans>
     <mp>
-        <date>2017-01-01</date>
-        <lunch>
-            <name>Takoyaki</name>
-            <difficulty>5</difficulty>
-            <cooktime>PT20M</cooktime>
-        </lunch>
-    </mp>
-    <mp>
-        <date>2018-01-01</date>
-        <breakfast>
-            <name>Takoyaki</name>
-            <difficulty>5</difficulty>
-            <cooktime>PT20M</cooktime>
-        </breakfast>
-    </mp>
-    <mp>
-        <date>2019-01-01</date>
-        <breakfast>
-            <name>Chicken Rice</name>
-            <difficulty>2</difficulty>
-            <cooktime>PT40M</cooktime>
-        </breakfast>
-        <lunch>
-            <name>Curry Chicken</name>
-            <difficulty>1</difficulty>
-            <cooktime>PT23M</cooktime>
-        </lunch>
-    </mp>
-    <mp>
-        <date>2020-01-01</date>
-        <lunch>
-            <name>Takoyaki</name>
-            <difficulty>5</difficulty>
-            <cooktime>PT20M</cooktime>
-        </lunch>
-    </mp>
-    <mp>
         <date>2018-10-22</date>
         <lunch>
             <name>Chicken Burger</name>

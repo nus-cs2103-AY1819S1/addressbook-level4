@@ -56,7 +56,7 @@ public interface Model<T extends UniqueType> {
     /**
      * Resets data in the UniqueList.
      */
-    void resetUniqueList();
+    void resetList();
 
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<T> getFilteredList();
