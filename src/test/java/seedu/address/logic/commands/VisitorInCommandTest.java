@@ -26,7 +26,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.testutil.PersonBuilder;
 
-//@@ GAO JIAXIN
+//@@author GAO JIAXIN
 public class VisitorInCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -63,7 +63,6 @@ public class VisitorInCommandTest {
 
         assertEquals(String.format(VisitorInCommand.MESSAGE_SUCCESS, validPersonName), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-        //TODO assertEquals(DS storing strings, the DS in the model used to store)
     }
 
     @Test
