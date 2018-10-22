@@ -87,7 +87,7 @@ public class Meal {
     /**
      * Represents the 3 meals of a day.
      */
-    enum Slot {
+    public enum Slot {
         BREAKFAST, LUNCH, DINNER;
     }
 

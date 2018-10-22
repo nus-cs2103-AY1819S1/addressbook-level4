@@ -44,6 +44,14 @@ public class Day extends UniqueType {
         return this.meals.get(targetSlot);
     }
 
+    public Meal getMeal(Meal.Slot slot) {
+        return this.meals.get(slot.ordinal());
+    }
+
+    public ObservableList<Meal> getMeals() {
+        return this.meals;
+    }
+
     /**
      * Checks if the day has any meal recipes.
      *
