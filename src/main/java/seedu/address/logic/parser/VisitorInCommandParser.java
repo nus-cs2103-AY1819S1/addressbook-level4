@@ -31,7 +31,6 @@ public class VisitorInCommandParser implements Parser<VisitorInCommand> {
         Name patientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Visitor visitor = ParserUtil.parseVisitor(argMultimap.getValue(PREFIX_VISITOR).get());
 
-        //TODO need to find the right person stored somewhere, then use the person in AddmhCommand
         return new VisitorInCommand(patientName, visitor);
     }
 
