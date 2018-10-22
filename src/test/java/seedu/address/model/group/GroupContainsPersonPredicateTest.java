@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.person.GroupContainsPersonPredicate;
+import seedu.address.model.group.util.GroupContainsPersonPredicate;
 
 public class GroupContainsPersonPredicateTest {
 

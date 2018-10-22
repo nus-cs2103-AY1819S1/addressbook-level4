@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.shared.Address;
 import seedu.address.model.tag.Tag;
 
 
@@ -175,6 +176,18 @@ public class Person {
             }
         }
         this.groups.clear();
+    }
+
+    /**
+     * Set up the group connection for the person.
+     */
+    public void setUpMembership() {
+        // enhanced for loop to set up the person's group connections
+        for (Group group : this.groups) {
+            if (!group.hasMember(this)) {
+                group.addMember(this);
+            }
+        }
     }
 
     /**

@@ -4,13 +4,14 @@ import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import java.util.Optional;
 
-import seedu.address.model.group.Description;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.Meeting;
-import seedu.address.model.group.Title;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Description;
+import seedu.address.model.shared.Title;
 
+// @@author Derek-Hardy
 /**
  * A utility class to help with building Group objects.
  *
@@ -21,7 +22,6 @@ public class GroupBuilder {
     public static final String DEFAULT_TITLE = "CS2103T";
     public static final String DEFAULT_DESCRIPTION = "The project group for CS2103T";
     public static final Meeting DEFAULT_MEETING = WEEKLY;
-    public static final UniquePersonList DEFAULT_PERSONLIST = new UniquePersonList();
 
     private Title title;
     private Description description;
@@ -33,7 +33,7 @@ public class GroupBuilder {
         title = new Title(DEFAULT_TITLE);
         description = new Description(DEFAULT_DESCRIPTION);
         meeting = DEFAULT_MEETING;
-        members = DEFAULT_PERSONLIST;
+        members = new UniquePersonList();
     }
 
     /**

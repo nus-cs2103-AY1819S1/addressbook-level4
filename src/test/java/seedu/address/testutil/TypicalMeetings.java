@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.group.Meeting;
+import seedu.address.model.meeting.Meeting;
 
 
 /**

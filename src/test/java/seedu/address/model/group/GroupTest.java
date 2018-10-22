@@ -6,17 +6,18 @@ import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.person.Person;
 import seedu.address.testutil.GroupBuilder;
+import seedu.address.testutil.PersonBuilder;
 
+// @@author Derek-Hardy
 /**
  * {@author Derek-Hardy}
  */
@@ -38,25 +39,49 @@ public class GroupTest {
     }
 
     @Test
-    public void addMember_personInGroup_returnsTrue() {
+    public void addMember_personAddedInGroup_returnsTrue() {
         Group group = new GroupBuilder().build();
         group.addMember(ALICE);
         assertTrue(group.hasMember(ALICE));
     }
 
     @Test
-    public void removeMember_personNotInGroup_returnsFalse() {
-        Group group = new GroupBuilder().withNewPerson(BENSON).build();
-        BENSON.addGroup(group);
-        group.removeMember(BENSON);
-        assertFalse(group.hasMember(BENSON));
+    public void removeMember_personRemovedFromGroup_returnsFalse() {
+        Group group = new GroupBuilder().build();
+        Person person = new PersonBuilder().withGroup(group).build();
+        // since bidirectional relation is not possible in GroupBuilder
+        // manual addition is needed here
+        group.addMember(person);
+
+        group.removeMember(person);
+        assertFalse(group.hasMember(person));
     }
 
     @Test
     public void clearMembers_personNotInGroup_returnsFalse() {
-        Group group = new GroupBuilder().withNewPerson(BENSON).withNewPerson(CARL).build();
+        Person derrick = new PersonBuilder().withName("Derrick").build();
+        Person peter = new PersonBuilder().withName("Peter").build();
+        Group group = new GroupBuilder().withNewPerson(derrick).withNewPerson(peter).build();
+        // since bidirectional relation is not possible in PersonBuilder
+        // manual addition is needed here
+        derrick.addGroup(group);
+        peter.addGroup(group);
+
         group.clearMembers();
-        assertFalse(group.hasMember(CARL));
+        assertFalse(group.hasMember(derrick));
+    }
+
+    @Test
+    public void setUpMembers_personInGroup_returnsTrue() {
+        Person person = new PersonBuilder().build();
+        // since bidirectional relation is not possible in PersonBuilder
+        // manual addition is needed here
+        Group group = new GroupBuilder().withNewPerson(person).build();
+        person.addGroup(group);
+
+        person.removeGroupHelper(group);
+        group.setUpMembers();
+        assertTrue(person.hasGroup(group));
     }
 
     @Test
@@ -119,9 +144,9 @@ public class GroupTest {
         editedGroup = new GroupBuilder(GROUP_2101).withMeeting(URGENT).build();
         assertFalse(editedGroup.equals(GROUP_2101));
 
-        // same title, same description, different members -> returns false
+        // same title, same description, different members -> returns true
         editedGroup = new GroupBuilder(GROUP_2101).withNewPerson(BOB).build();
-        assertFalse(editedGroup.equals(GROUP_2101));
+        assertTrue(editedGroup.equals(GROUP_2101));
 
         // same members -> returns true
         editedGroup = new GroupBuilder(GROUP_2101).withNewPerson(BOB).withRemovedPerson(BOB).build();

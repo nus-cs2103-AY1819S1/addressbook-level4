@@ -1,4 +1,4 @@
-= Flashbook - Developer Guide
+= MeetingBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
-By: `W17-3`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team CS2103T-AY1819S1-W17-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -1073,13 +1073,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Target user profile*:
 
 * is a student taking modules in NUS
-* has a need to manage a significant number of tasks
+* has a need to manage a significant number of meetings
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using <<cli,CLI>> apps
 
-*Value proposition*: manage tasks faster than a typical mouse/<<gui,GUI>> driven app
+*Value proposition*: manage meetings faster than a typical mouse/<<gui,GUI>> driven app
 
 [appendix]
 == User Stories

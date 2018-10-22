@@ -1,8 +1,9 @@
-package seedu.address.model.group;
+package seedu.address.model.shared;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+// @@author Derek-Hardy
 /**
  * Represents a description of the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
