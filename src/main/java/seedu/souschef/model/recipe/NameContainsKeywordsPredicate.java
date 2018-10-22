@@ -18,7 +18,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Recipe> {
     @Override
     public boolean test(Recipe recipe) {
         return (keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(recipe.getName().fullName, keyword)
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(recipe.getName().fullName, keyword)
                         || recipe.getCookTime().toString().toLowerCase().equalsIgnoreCase(keyword.toLowerCase())
                         || recipe.getDifficulty().toString().equals(keyword)
                         || recipe.getTags().stream()
