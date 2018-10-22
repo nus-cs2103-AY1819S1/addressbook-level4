@@ -333,7 +333,10 @@ ClinicIO ensure that proper user access rights is given and authenticated by log
 
 ==== Current Implementation
 
-The login mechanism uses an immutable list to retrieve a list of doctors or receptionist based on user role.
+The login mechanism uses `UniqueDoctorList` to retrieve a list of doctors or receptionist based on user role. +
+
+
+
 
 
 
