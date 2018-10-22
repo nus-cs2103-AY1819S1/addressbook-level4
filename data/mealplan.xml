@@ -15,10 +15,28 @@
     </mp>
     <mp>
         <date>2020-01-01</date>
+        <breakfast>
+            <name>Roti Prata</name>
+            <difficulty>2</difficulty>
+            <cooktime>PT30M</cooktime>
+        </breakfast>
         <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
             <cooktime>PT15M</cooktime>
+        </lunch>
+    </mp>
+    <mp>
+        <date>1999-09-09</date>
+        <breakfast>
+            <name>Chicken Burger</name>
+            <difficulty>1</difficulty>
+            <cooktime>PT15M</cooktime>
+        </breakfast>
+        <lunch>
+            <name>Salted Egg Sotong</name>
+            <difficulty>3</difficulty>
+            <cooktime>PT25M</cooktime>
         </lunch>
     </mp>
 </mealplans>
