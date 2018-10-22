@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
@@ -63,6 +64,12 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasDoctor(ADAM));
     }
 
+    @Test
+    public void getDoctor_doctorInClinicIO_returnsDoctor() {
+        modelManager.addDoctor(ADAM);
+        assertEquals(ADAM, modelManager.getDoctor(ADAM));
+    }
+    
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
