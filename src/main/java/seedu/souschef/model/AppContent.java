@@ -2,12 +2,15 @@ package seedu.souschef.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -83,6 +86,19 @@ public class AppContent implements ReadOnlyAppContent {
             this.ingredients.set(newData.getObservableIngredientList());
         }
         if (newData.getObservableMealPlanner().size() > 0) {
+            List<Day> dayList = newData.getObservableMealPlanner();
+            List<Recipe> fullRecipeList = recipes.asUnmodifiableObservableList();
+
+            for (Day d : dayList) {
+                for (Meal m : d.getMeals()) {
+                    for (Recipe r : fullRecipeList) {
+                        if (!m.isEmpty() && m.getRecipe().isSame(r)) {
+                            m.setRecipe(r);
+                        }
+                    }
+                }
+            }
+
             this.mealPlanner.set(newData.getObservableMealPlanner());
         }
         if (newData.getObservableFavouritesList().size() > 0) {

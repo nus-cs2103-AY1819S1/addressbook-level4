@@ -48,6 +48,9 @@ public class AppContentParser {
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput, ui);
         } else if (context.equals("Meal Planner")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
+            }
             return new MealPlannerParser()
                 .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, ui);
         } else if (context.equals("Recipe")) {
