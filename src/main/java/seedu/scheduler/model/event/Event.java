@@ -41,7 +41,7 @@ public class Event {
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
                  ReminderDurationList reminderDurationList) {
-        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
+        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, tags, repeatUntilDateTime, reminderDurationList);
         this.uid = uid;
         this.uuid = uuid;

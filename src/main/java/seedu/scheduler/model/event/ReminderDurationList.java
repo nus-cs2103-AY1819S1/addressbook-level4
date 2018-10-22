@@ -4,6 +4,7 @@ import static java.lang.Boolean.FALSE;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a list of duration object for reminder times
@@ -50,8 +52,23 @@ public class ReminderDurationList {
         }
     }
 
-    public Map<Duration, Boolean> get () {
+    public Map<Duration, Boolean> get() {
         return values;
+    }
+
+    /**
+     * @return the set of Durations
+     */
+    public Set<Duration> getDurationSet() {
+        return values.keySet();
+    }
+
+    /**
+      * @param key
+     * @return the status of the duration
+     */
+    public Boolean isActive(Duration key) {
+        return values.get(key);
     }
 
     /**

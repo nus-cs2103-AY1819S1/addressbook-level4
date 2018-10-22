@@ -1,7 +1,12 @@
 package seedu.scheduler.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.PriorityQueue;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -10,8 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.model.event.DateTime;
+import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.event.EventName;
 import seedu.scheduler.model.event.EventPopUpInfo;
+import seedu.scheduler.model.event.ReminderDurationList;
+import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.ui.PopUp;
 
 /**
@@ -20,17 +29,128 @@ import seedu.scheduler.ui.PopUp;
 public class PopUpManager {
 
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
+    private static PopUpManager instance;
     private PriorityQueue<EventPopUpInfo> popUpQueue;
+    // private static ArrayList<EventPopUpInfo> pastPopUps;
 
-    public PopUpManager(ReadOnlyScheduler readOnlyScheduler) {
-
+    private PopUpManager() {
         popUpQueue = new PriorityQueue<>();
-        ObservableList<Event> eventList = readOnlyScheduler.getEventList();
-        for (Event event: eventList) {
-            popUpQueue.add(new EventPopUpInfo(
-                    event.getDescription().toString(),
-                    event.getStartDateTime()));
+        //pastPopUps = new ArrayList<>();
+    }
+
+    public static PopUpManager getInstance() {
+        if (instance == null) {
+            instance = new PopUpManager();
         }
+        return instance;
+    }
+
+    /**
+     * Get an ArrayList of the popUpQueue
+     * @return ArrayList
+     */
+    public ArrayList<EventPopUpInfo> getArray() {
+        return new ArrayList(popUpQueue);
+    }
+
+    /**
+     * Initialise the popUpQueue when the app is open
+     * @param readOnlyScheduler
+     */
+    public void syncPopUpInfo(ReadOnlyScheduler readOnlyScheduler) {
+        ObservableList<Event> eventList = readOnlyScheduler.getEventList();
+        popUpQueue.addAll(generatePopUpInfoListFromEvents(eventList));
+    }
+
+    /**
+     * Add EventPopUpInfo to the popUpQueue given an Event
+     * @param event
+     */
+    public void add(Event event) {
+        popUpQueue.addAll(generatePopUpInfoListFromEvent(event));
+    }
+
+    /**
+     * Add EventPopUpInfo to the popUpQueue given a list of Event
+     * @param events
+     */
+    public void add(Collection<Event> events) {
+        popUpQueue.addAll(generatePopUpInfoListFromEvents(events));
+    }
+
+    /**
+     * Only add EventPopUpInfo that will pop up in the future, ignore ones with PopUpTimes already passed
+     * @param event
+     */
+    public void addActivePopUpInfo(Event event) {
+        ArrayList<EventPopUpInfo> PopUpList = generatePopUpInfoListFromEvent(event);
+        for (EventPopUpInfo popUpInfo : PopUpList) {
+            DateTime currentDateTime = new DateTime(LocalDateTime.now());
+            if (!popUpInfo.getPopUpDateTime().isPast(currentDateTime)) {
+                popUpQueue.add(popUpInfo);
+            }
+        }
+    }
+
+    /**
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed
+     * @param event
+     * @param editedEvent
+     */
+    public void edit(Event event, Event editedEvent) {
+        delete(event);
+        addActivePopUpInfo(editedEvent);
+    }
+
+    /**
+     * Delete all eventPopUpInfo in the popUpQueue that shares the same Uid as the deleted event
+     * @param event
+     */
+    public void delete(Event event) {
+        for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
+            if (eventPopUpInfo.getUid().equals(event.getUid())) {
+                popUpQueue.remove(eventPopUpInfo);
+            }
+        }
+    }
+
+
+    /**
+     * Generate a list of EventPopUpInfo objects of different Durations given an Event
+     * @param event
+     * @return
+     */
+    private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvent(Event event) {
+        ArrayList<EventPopUpInfo> result = new ArrayList<>();
+        UUID uid = event.getUid();
+        EventName eventName = event.getEventName();
+        DateTime startDateTime = event.getStartDateTime();
+        DateTime endDateTime = event.getEndDateTime();
+        Description description = event.getDescription();
+        Venue venue = event.getVenue();
+        ReminderDurationList reminderDurationList = event.getReminderDurationList();
+
+        for (Duration duration : reminderDurationList.getDurationSet()) {
+            if (reminderDurationList.isActive(duration)) {
+                result.add(new EventPopUpInfo(uid, eventName, startDateTime, endDateTime,
+                        description, venue, duration));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Generate a list of EventPopUpInfo objects of different Durations given a list of Events
+     * @param events
+     * @return
+     */
+    private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvents(Collection<Event> events) {
+        ArrayList<EventPopUpInfo> result = new ArrayList<>();
+
+        for (Event event : events) {
+            result.addAll(generatePopUpInfoListFromEvent(event));
+        }
+        return result;
     }
 
     /**
@@ -50,7 +170,9 @@ public class PopUpManager {
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
                         logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isPast(currentDateTime)) {
-                            displayPopUp("Event already passed!", popUpQueue.peek().getDescription());
+                            EventPopUpInfo currentPopUp = popUpQueue.peek();
+                            displayPopUp("Passed Reminder!", currentPopUp.getDescription().toString());
+                            // pastPopUps.add(currentPopUp);
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {
                                 frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
@@ -66,7 +188,9 @@ public class PopUpManager {
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
                         logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isClose(currentDateTime)) {
-                            displayPopUp("Time's Up!", popUpQueue.peek().getDescription());
+                            EventPopUpInfo currentPopUp = popUpQueue.peek();
+                            displayPopUp("Time's Up!", currentPopUp.getDescription().toString());
+                            // pastPopUps.add(currentPopUp);
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {
                                 frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
