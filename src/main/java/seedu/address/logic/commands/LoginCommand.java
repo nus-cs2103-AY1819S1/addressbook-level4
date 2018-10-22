@@ -89,7 +89,7 @@ public class LoginCommand extends Command {
         requireNonNull(doctorsList);
         requireNonNull(doctorToSearch);
 
-        final Doctor doctorFound;
+        Doctor doctorFound;
         try {
             doctorFound = doctorsList.stream()
                     .filter(doctor -> doctor.getName().equals(doctorToSearch.getName()))
