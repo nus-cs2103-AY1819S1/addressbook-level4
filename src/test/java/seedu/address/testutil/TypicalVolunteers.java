@@ -78,13 +78,14 @@ public class TypicalVolunteers {
             .withVolunteerId(10)
             .withName(VALID_VOLUNTEER_NAME_AMY).withGender(VALID_GENDER_AMY)
             .withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_VOLUNTEER_PHONE_AMY)
-            .withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY).withTags(VALID_VOLUNTEER_TAG_FRIEND).build();
+            .withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY)
+            .withTags(VALID_VOLUNTEER_TAG_FRIEND).build();
     public static final Volunteer BOB = new VolunteerBuilder()
             .withVolunteerId(11)
             .withName(VALID_VOLUNTEER_NAME_BOB).withGender(VALID_GENDER_BOB)
             .withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_VOLUNTEER_PHONE_BOB)
-            .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND)
-            .build();
+            .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
+            .withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
 
     public static final String KEYWORD_VOLUNTEER_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * A utility class to help with building Addressbook objects.

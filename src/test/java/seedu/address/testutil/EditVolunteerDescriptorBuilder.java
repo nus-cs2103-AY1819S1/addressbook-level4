@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditVolunteerCommand.EditVolunteerDescriptor;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerAddress;
 import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.Birthday;
-import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditVolunteerDescriptor objects.

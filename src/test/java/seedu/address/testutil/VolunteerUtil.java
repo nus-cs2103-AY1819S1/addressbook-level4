@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUNTEER_TAG;
 
