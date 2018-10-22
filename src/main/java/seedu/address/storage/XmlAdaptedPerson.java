@@ -44,6 +44,8 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedProject> project = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedPermission> permission = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedLeaveApplication> leaveApplications = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -57,15 +59,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String salary, List<XmlAdaptedProject> project) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        if (project != null) {
-            this.project = new ArrayList<>(project);
-        }
-        this.profilePic = null;
+        this(name, phone, email, address, salary, project, new ArrayList<>());
     }
 
     /**
@@ -73,18 +67,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String salary, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        if (project != null) {
-            this.project = new ArrayList<>(project);
-        }
-        if (permission != null) {
-            this.permission = new ArrayList<>(permission);
-        }
-        this.profilePic = null;
+        this(name, phone, email, address, salary, project, null, permission);
     }
 
     /**
@@ -101,13 +84,10 @@ public class XmlAdaptedPerson {
         if (project != null) {
             this.project = new ArrayList<>(project);
         }
-
         this.profilePic = profilePic;
-
         if (permission != null) {
             this.permission = new ArrayList<>(permission);
         }
-
     }
 
     /**
