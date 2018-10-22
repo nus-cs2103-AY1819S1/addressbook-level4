@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_CAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ADAM;
@@ -61,12 +64,12 @@ public class LoginCommandTest {
 
         // different name
         LoginCommand command = new LoginCommand(
-                new Doctor(BEN.getName(), new Password("doctor1", false)));
+                new Doctor(BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         // different password
         command = new LoginCommand(
-                new Doctor(ADAM.getName(), new Password("doctor2", false)));
+                new Doctor(ADAM.getName(), new Password(VALID_PASSWORD_BEN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
         
         // TODO: Receptionist
@@ -78,7 +81,7 @@ public class LoginCommandTest {
         
         // Doctor not inside ClinicIO
         LoginCommand command = new LoginCommand(
-                new Doctor(CAT.getName(), new Password("112323", false)));
+                new Doctor(CAT.getName(), new Password(VALID_PASSWORD_CAT, false)));
         assertCommandFailure(command, model, commandHistory, analytics, expectedMessage);
 
         // TODO: Receptionist
