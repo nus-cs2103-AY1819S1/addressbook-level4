@@ -208,28 +208,28 @@ Selects the 2nd patient in the clinic record.
 `selectpatient 1` +
 Selects the 1st patient in the results of the `find` command.
 
-=== Assigning a patient into the queue : `enqueuepatient`
+=== Assign a patient into the queue : `enqueuepatient`
 
-Assigns the patient into the queue based on the index number used in the displayed patient list.
+Assigns the patient based on the index number used in the displayed patient list. +
 Format: `enqueuepatient INDEX`
 
 ****
-* Assigns the patient into the queue (first in first out manner).
+* Assigns the patient into the queue (first in first out manner)
 * The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* `1, 2, 3, ...`.
+* The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
 * `list` +
 `enqueuepatient 7` +
-Selects the 7th patient in the displayed list of patients resulted from the `list` command.
+Selects the 7th patient in the displayed list of patients resulted from the `list` command
 
 * `find Logan` +
 `enqueuepatient 1` +
-Selects the 1st patient in the displayed list of patients whose names contain *Logan* (case insensitive) resulted from the `find Logan` command.
+Selects the 1st patient in the displayed list of patients whose name contain *Logan* (case insensitive) resulted from the `find Logan` command
 
-=== Showing all patients in the queue : `showqueue`
+=== Show all patients in the queue : `showqueue`
 
 Lists all patients in the queue.
 Format: `showqueue`
@@ -237,26 +237,6 @@ Format: `showqueue`
 Example:
 
 * `showqueue`
-
-=== Removing a patient from the queue : `dequeue INDEX`
-
-Removes a patient from the queue based on the index number used in the displayed patient list.
-
-****
-* Removes the patient from the queue.
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* `1, 2, 3, ...`.
-****
-
-Example:
-
-* `list` +
-`dequeue 8` +
-Removes the 8th patient in the list of displayed patients from the queue.
-
-* `find Juliet` +
-`dequeue 2` +
-Removes the 2nd patient in the list of patients whose names contain *Juliet* (case insensitive) resulted from the `find Juliet` command.
 
 === Adding a medicine: `add medicine`
 
