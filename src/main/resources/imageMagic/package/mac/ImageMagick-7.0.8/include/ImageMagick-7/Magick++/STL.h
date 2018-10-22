@@ -74,7 +74,7 @@ namespace Magick
     size_t _height;
     ::ssize_t _offset;
   };
-  
+
   // Add noise to image with specified noise type
   class MagickPPExport addNoiseImage
   {
@@ -125,7 +125,7 @@ namespace Magick
     // placement gravity.
     annotateImage ( const std::string &text_,
         const GravityType gravity_ );
-    
+
     void operator()( Image &image_ ) const;
 
   private:
@@ -284,7 +284,7 @@ namespace Magick
     compositeImage( const Image &compositeImage_,
         const Geometry &offset_,
         CompositeOperator compose_ = InCompositeOp );
-    
+
     void operator()( Image &image_ ) const;
 
   private:
@@ -352,7 +352,7 @@ namespace Magick
       const size_t number_arguments_,
       const double *arguments_,
       const bool bestfit_ );
-          
+
     distortImage( const Magick::DistortMethod method_,
       const size_t number_arguments_,
       const double *arguments_ );
@@ -456,7 +456,7 @@ namespace Magick
 
   // Floodfill designated area with a matte value
   class MagickPPExport floodFillAlphaImage
-   
+
   {
   public:
     floodFillAlphaImage(const ::ssize_t x_,const ::ssize_t y_,
@@ -474,7 +474,7 @@ namespace Magick
 
   // Flood-fill image with color
   class MagickPPExport floodFillColorImage
-   
+
   {
   public:
     // Flood-fill color across pixels starting at target-pixel and
@@ -506,7 +506,7 @@ namespace Magick
 
   // Flood-fill image with texture
   class MagickPPExport floodFillTextureImage
-   
+
   {
   public:
     // Flood-fill texture across pixels that match the color of the
@@ -716,7 +716,7 @@ namespace Magick
   private:
     double _radius;
   };
-  
+
   // Merge image layers
   class MagickPPExport mergeLayersImage
   {
@@ -779,7 +779,7 @@ namespace Magick
     void operator()( Image &image_ ) const;
 
   private:
-  };  
+  };
 
   // Oilpaint image (image looks like oil painting)
   class MagickPPExport oilPaintImage
@@ -960,7 +960,7 @@ namespace Magick
 
   private:
     Geometry  _geometry;
-  };  
+  };
 
   // Resize image by using simple ratio algorithm
   class MagickPPExport scaleImage
@@ -981,7 +981,7 @@ namespace Magick
   class MagickPPExport segmentImage
   {
   public:
-    segmentImage( const double clusterThreshold_ = 1.0, 
+    segmentImage( const double clusterThreshold_ = 1.0,
       const double smoothingThreshold_ = 1.5 );
 
     void operator()( Image &image_ ) const;
@@ -1399,9 +1399,9 @@ namespace Magick
   {
   public:
     composeImage( const CompositeOperator compose_ );
-                                                                                
+
     void operator()( Image &image_ ) const;
-                                                                                
+
   private:
     CompositeOperator _compose;
   };
@@ -1991,7 +1991,7 @@ namespace Magick
     GetPPException;
     MagickCore::Image* image = MagickCore::AppendImages( first_->image(),
                    (MagickBooleanType) stack_,
-                   exceptionInfo ); 
+                   exceptionInfo );
     unlinkImages( first_, last_ );
     appendedImage_->replaceImage( image );
     ThrowPPException(appendedImage_->quiet());
@@ -2206,7 +2206,7 @@ namespace Magick
 
     // Obtain histogram array
     size_t colors;
-    MagickCore::PixelInfo *histogram_array = 
+    MagickCore::PixelInfo *histogram_array =
       MagickCore::GetImageHistogram( image.constImage(), &colors, exceptionInfo );
     ThrowPPException(image.quiet());
 
@@ -2564,7 +2564,7 @@ namespace Magick
       return;
     GetPPException;
     MagickCore::Image* image = MagickCore::MergeImageLayers( first_->image(),
-       MosaicLayer,exceptionInfo ); 
+       MosaicLayer,exceptionInfo );
     unlinkImages( first_, last_ );
     mosaicImage_->replaceImage( image );
     ThrowPPException(mosaicImage_->quiet());
@@ -2599,7 +2599,7 @@ namespace Magick
 
     ThrowPPException(quiet);
   }
-  
+
   // optimizeImagePlusLayers is exactly as optimizeImageLayers, but may
   // also add or even remove extra frames in the animation, if it improves
   // the total number of pixels in the resulting GIF animation.
@@ -2631,7 +2631,7 @@ namespace Magick
 
   // Compares each image the GIF disposed forms of the previous image in the
   // sequence. Any pixel that does not change the displayed result is replaced
-  // with transparency. 
+  // with transparency.
   template<class InputIterator>
   void optimizeTransparency(InputIterator first_,InputIterator last_)
   {

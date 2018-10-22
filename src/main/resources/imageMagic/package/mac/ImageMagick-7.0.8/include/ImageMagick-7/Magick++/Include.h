@@ -900,7 +900,7 @@ namespace Magick
   using MagickCore::RightTopOrientation;
   using MagickCore::RightBottomOrientation;
   using MagickCore::LeftBottomOrientation;
-  
+
   // Paint methods
   using MagickCore::PaintMethod;
   using MagickCore::UndefinedMethod;
@@ -1045,7 +1045,7 @@ namespace Magick
   using MagickCore::PerceptualIntent;
   using MagickCore::AbsoluteIntent;
   using MagickCore::RelativeIntent;
-  
+
   // Resource types
   using MagickCore::ResourceType;
   using MagickCore::UndefinedResource;
