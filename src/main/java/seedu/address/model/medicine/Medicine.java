@@ -33,6 +33,10 @@ public class Medicine {
         return minimumStockQuantity;
     }
 
+    public Integer getMsqValue() {
+        return minimumStockQuantity.getValue();
+    }
+
     public PricePerUnit getPricePerUnit() {
         return pricePerUnit;
     }
@@ -43,6 +47,10 @@ public class Medicine {
 
     public Stock getStock() {
         return stock;
+    }
+
+    public Integer getStockValue() {
+        return stock.getValue();
     }
 
     /**
