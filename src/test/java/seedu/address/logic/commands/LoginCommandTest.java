@@ -5,11 +5,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.CAT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -66,6 +69,18 @@ public class LoginCommandTest {
                 new Doctor(ADAM.getName(), new Password("doctor2", false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
         
+        // TODO: Receptionist
+    }
+    
+    @Test
+    public void execute_doctorNotInClinicIO_throwsCommandException() {
+        String expectedMessage = LoginCommand.MESSAGE_NO_DOCTOR_FOUND;
+        
+        // Doctor not inside ClinicIO
+        LoginCommand command = new LoginCommand(
+                new Doctor(CAT.getName(), new Password("112323", false)));
+        assertCommandFailure(command, model, commandHistory, analytics, expectedMessage);
+
         // TODO: Receptionist
     }
 
