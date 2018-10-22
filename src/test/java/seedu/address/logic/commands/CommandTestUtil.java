@@ -41,6 +41,9 @@ public class CommandTestUtil {
     public static final String VALID_NAME_ADAM = "Adam Bell";
     public static final String VALID_NAME_BEN = "Ben Hill";
     public static final String VALID_NAME_CAT = "Cat Johnson";
+    public static final String VALID_PASSWORD_ADAM = "doctor1";
+    public static final String VALID_PASSWORD_BEN = "doctor1";
+    public static final String VALID_PASSWORD_CAT = "doctor1";
     public static final String VALID_HASH_PASSWORD_ADAM = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
             + ".ri/9bF3ti";
     public static final String VALID_HASH_PASSWORD_BEN = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
