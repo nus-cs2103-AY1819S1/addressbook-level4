@@ -2,8 +2,12 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * A UI component that displays information of a single {@code Event}.
@@ -34,6 +38,9 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label description;
 
+    @FXML
+    private FlowPane contacts;
+
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         assert event != null;
@@ -46,6 +53,24 @@ public class EventCard extends UiPart<Region> {
         name.setText(event.getEventName().eventName);
         address.setText(event.getEventAddress().eventAddress);
         description.setText(event.getEventDescription().eventDescription);
+
+        for (Person contact : event.getEventContacts()) {
+            Label contactLabel = new Label(contact.getName().fullName);
+            contactLabel.setUserData(contact);
+
+            String contactDisplayText = contact.getName() + "\n"
+                    + contact.getPhone() + "\n"
+                    + contact.getEmail() + "\n"
+                    + contact.getAddress();
+
+            Tooltip contactDisplay = new Tooltip(contactDisplayText);
+            contactDisplay.setShowDelay(Duration.ONE);
+            contactDisplay.setShowDuration(Duration.INDEFINITE);
+            contactDisplay.setHideDelay(Duration.ONE);
+            contactLabel.setTooltip(contactDisplay);
+
+            contacts.getChildren().add(contactLabel);
+        }
     }
 
     @Override

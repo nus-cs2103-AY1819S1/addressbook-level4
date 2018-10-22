@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,10 +48,14 @@ public class SampleDataUtil {
     }
 
     public static Event[] getSampleEvents() {
+        Person Alex = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                getTagSet("friends"));
+
         return new Event[] {
             new Event(new EventName("Meeting"), new EventDescription("test events description"),
                 new EventDate("2018-04-01"), new EventTime("1400"), new EventTime("1500"),
-                    new EventAddress("3 Kent Ridge Drive"))
+                    new EventAddress("3 Kent Ridge Drive"), new HashSet<>(Arrays.asList(Alex)))
         };
     }
 
