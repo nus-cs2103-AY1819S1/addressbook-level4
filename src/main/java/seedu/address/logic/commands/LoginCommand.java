@@ -6,11 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Person;
 
 //@@author jjlee050
@@ -49,13 +52,56 @@ public class LoginCommand extends Command {
         requireNonNull(model);
 
         if (toAuthenticate instanceof Doctor) {
-            model.updateFilteredDoctorList(doctor -> doctor.equals(toAuthenticate));
-            if (!model.getFilteredDoctorList().isEmpty()) {
+            List<Doctor> doctorsList = model.getFilteredDoctorList();
+            if (checkDoctorCred(doctorsList)) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
-            
         }
         return new CommandResult(MESSAGE_FAILURE);
+    }
+
+    /**
+     * Check through ClinicIO for valid {@code Doctor} credentials.
+     * @param doctorsList A list of doctors in ClinicIO.
+     * @return Returns true if doctor has valid credentials in ClinicIO.
+     */
+    public boolean checkDoctorCred(List<Doctor> doctorsList) {
+        requireNonNull(doctorsList);
+
+        Doctor anotherDoctor = (Doctor) toAuthenticate;
+        Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
+
+        if (doctorFound == null) {
+            return false;
+        }
+        return Password.isSameAsHashPassword(
+                anotherDoctor.getPassword().toString(),
+                doctorFound.getPassword().toString());
+    }
+
+    /**
+     * Search through {@code Model} doctor list for doctor.
+     * @param doctorsList A list of doctors in ClinicIO.
+     * @param doctorToSearch The doctor to search inside the list of doctors.
+     * @return The doctor found in the list of doctors. Return null if doctor is not found.
+     */
+    public Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
+        requireNonNull(doctorsList);
+        requireNonNull(doctorToSearch);
+
+        Doctor doctorFound = null;
+        try {
+            for (Doctor d : doctorsList) {
+                if ((d.getName().equals(doctorToSearch.getName()))) {
+                    doctorFound = d;
+                    break;
+                }
+            }
+        } catch (ClassCastException ex) {
+            throw new ClassCastException();
+        }
+
+        return doctorFound;
     }
 
     @Override
