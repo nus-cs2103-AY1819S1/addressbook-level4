@@ -486,7 +486,6 @@ e.g. `queue 2`
 e.g. `enqueue 3 1`
 * *Dequeue* : `dequeue QINDEX` +
 e.g. `dequeue 4`
-* *Help* : `help`
 * *Select* : `select INDEX` +
 e.g. `select 2`
 * *History* : `history`
@@ -499,7 +498,7 @@ e.g. `select 2`
 * *Appointment Statistics* : `apptstats`
 * *Doctor Statistics* : `doctorstats`
 * *Medicine Statistics* : `medstats`
-* *Export Data* : `export`
+* *Export Patient Records* : `export`
 
 === `MedicineInventory` Commands
 * *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
