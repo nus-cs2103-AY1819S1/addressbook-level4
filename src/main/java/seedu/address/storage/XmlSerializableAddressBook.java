@@ -7,11 +7,10 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.doctor.Doctor;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -55,12 +54,9 @@ public class XmlSerializableAddressBook {
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            System.out.println(person.getTags().toArray()[0]);
-            if (person.getTags().toArray()[0].equals( new Tag("Doctor"))) {
-                System.out.println("ADDING AS DOCTOR");
+            if (person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
                 addressBook.addDoctor(person);
-            } else if (person.getTags().toArray()[0].equals( new Tag("Patient"))) {
-                System.out.println("ADDING AS PATIENT");
+            } else if (person.getTags().toArray()[0].equals(new Tag("Patient"))) {
                 addressBook.addPatient(person);
             } else {
                 addressBook.addPerson(person);
