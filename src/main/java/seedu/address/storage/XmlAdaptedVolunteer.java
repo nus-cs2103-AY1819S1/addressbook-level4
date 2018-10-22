@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerAddress;
 import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.Birthday;
-import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
+import seedu.address.model.volunteer.VolunteerName;
 import seedu.address.model.volunteer.VolunteerPhone;
-import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Volunteer.
  */
 public class XmlAdaptedVolunteer {
 
@@ -124,7 +124,8 @@ public class XmlAdaptedVolunteer {
         VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VolunteerName.class.getSimpleName()));
         }
         if (!VolunteerName.isValidName(name)) {
             throw new IllegalValueException(VolunteerName.MESSAGE_NAME_CONSTRAINTS);
@@ -140,7 +141,8 @@ public class XmlAdaptedVolunteer {
         final Gender modelGender = new Gender(gender);
 
         if (birthday == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Birthday.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Birthday.class.getSimpleName()));
         }
         if (!Birthday.isValidBirthday(birthday)) {
             throw new IllegalValueException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
@@ -148,7 +150,8 @@ public class XmlAdaptedVolunteer {
         final Birthday modelBirthday = new Birthday(birthday);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerPhone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VolunteerPhone.class.getSimpleName()));
         }
         if (!VolunteerPhone.isValidPhone(phone)) {
             throw new IllegalValueException(VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
@@ -156,7 +159,8 @@ public class XmlAdaptedVolunteer {
         final VolunteerPhone modelPhone = new VolunteerPhone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerEmail.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VolunteerEmail.class.getSimpleName()));
         }
         if (!VolunteerEmail.isValidEmail(email)) {
             throw new IllegalValueException(VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS);
@@ -164,7 +168,8 @@ public class XmlAdaptedVolunteer {
         final VolunteerEmail modelEmail = new VolunteerEmail(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerAddress.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VolunteerAddress.class.getSimpleName()));
         }
         if (!VolunteerAddress.isValidAddress(address)) {
             throw new IllegalValueException(VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -172,7 +177,8 @@ public class XmlAdaptedVolunteer {
         final VolunteerAddress modelAddress = new VolunteerAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(volunteerTags);
-        return new Volunteer(modelVolunteerId, modelName, modelGender, modelBirthday, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Volunteer(modelVolunteerId, modelName, modelGender, modelBirthday, modelPhone,
+                modelEmail, modelAddress, modelTags);
     }
 
     @Override
