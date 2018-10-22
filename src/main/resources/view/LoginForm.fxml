@@ -17,7 +17,7 @@
 	<Label fx:id="passwordLabel" text="Password:" styleClass="label-bright"
 		   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
-	<PasswordField fx:id="passwordField" styleClass="text-field"
+	<PasswordField fx:id="passwordField" styleClass="text-field" onAction="#onPasswordEnter"
 				   GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
 	<HBox spacing="10" alignment="bottom_right"

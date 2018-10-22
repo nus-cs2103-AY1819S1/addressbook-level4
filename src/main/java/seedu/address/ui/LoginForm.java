@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,7 +45,16 @@ public class LoginForm extends UiPart<Region> {
         usernameLabel.setText(USERNAME);
         passwordLabel.setText(PASSWORD);
 
-        loginButton.setOnAction(e -> raise(new LoginEvent(usernameField.getText(), passwordField.getText())));
+        loginButton.setOnAction(e -> processLogin());
         registerAsAnEventHandler(this);
+    }
+
+    @FXML
+    public void onPasswordEnter(ActionEvent ae) {
+        processLogin();
+    }
+
+    public void processLogin() {
+        raise(new LoginEvent(usernameField.getText(), passwordField.getText()));
     }
 }
