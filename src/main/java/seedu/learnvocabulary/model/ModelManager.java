@@ -155,6 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLearnVocabulary.setTrivia();
     }
 
+    public boolean isTriviaMode() { return versionedLearnVocabulary.isTriviaMode(); }
+
 
     @Override
     public void updateFilteredWordList(Predicate<Word> predicate) {
