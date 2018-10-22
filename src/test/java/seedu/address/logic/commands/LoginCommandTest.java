@@ -44,7 +44,7 @@ public class LoginCommandTest {
     @Test
     public void execute_validCredentials_returnTrue() {
         LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+                new Doctor(ADAM.getName(), new Password("doctor1", false)));
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
@@ -56,28 +56,28 @@ public class LoginCommandTest {
 
         // different name
         LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
+                new Doctor(BEN.getName(), new Password("doctor1", false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         // different password
         command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor2", false)));
+                new Doctor(ADAM.getName(), new Password("doctor2", false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
     }
 
     @Test
     public void equals() {
         LoginCommand loginFirstCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+                new Doctor(ADAM.getName(), ADAM.getPassword()));
         LoginCommand loginSecondCommand = new LoginCommand(
-                new Doctor(BEN.getId(), BEN.getName(), BEN.getPassword()));
+                new Doctor(BEN.getName(), BEN.getPassword()));
 
         // same object -> returns true
         assertTrue(loginFirstCommand.equals(loginFirstCommand));
 
         // same values -> returns true
         LoginCommand loginFirstCommandCopy = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+                new Doctor(ADAM.getName(), ADAM.getPassword()));
         assertTrue(loginFirstCommand.equals(loginFirstCommandCopy));
 
         // different types -> returns false

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import java.util.function.Predicate;
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
@@ -47,9 +48,12 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireNonNull(model);
-
+        
         if (toAuthenticate instanceof Doctor) {
-            model.updateFilteredDoctorList(doctor -> doctor.equals(toAuthenticate));
+            Predicate<Doctor> isSameDoctor = doctor -> doctor.isSameDoctor((Doctor) toAuthenticate);
+            Predicate<Doctor> isSamePassword = doctor -> doctor.isSameDoctor((Doctor) toAuthenticate); 
+            
+            //model.updateFilteredDoctorList(doctor -> );
             if (!model.getFilteredDoctorList().isEmpty()) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }

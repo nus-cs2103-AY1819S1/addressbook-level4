@@ -142,7 +142,7 @@ public class ParserUtil {
         requireNonNull(name);
         requireNonNull(password);
         if (role.equals("doctor")) {
-            return new Doctor(new Id(1), name, password);
+            return new Doctor(name, password);
         } else if (role.equals("receptionist")) {
             return null;
         } else {
