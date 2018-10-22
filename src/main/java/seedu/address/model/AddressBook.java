@@ -17,8 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniquePersonList patients;
-    private final UniquePersonList doctors;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,8 +27,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        patients = new UniquePersonList();
-        doctors = new UniquePersonList();
     }
 
     public AddressBook() {}
@@ -80,19 +77,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a patient to the address book.
-     * The patient must not already exist in the address book.
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
      */
-    public void addPatient(Patient p) {
+    public void addPatient(Person p) {
         persons.add(p);
     }
 
     /**
-     * Adds a doctor to the address book.
-     * The doctor must not already exist in the address book.
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
      */
-    public void addDoctor(Doctor p) {
-        persons.add(p);
+    public void addDoctor(Person d) {
+        persons.add(d);
     }
 
     /**

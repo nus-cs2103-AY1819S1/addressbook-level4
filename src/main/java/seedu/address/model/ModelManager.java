@@ -24,8 +24,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Patient> filteredPatients;
-    private final FilteredList<Doctor> filteredDoctors;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,11 +33,8 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPatients = new FilteredList<>(versionedAddressBook.getPatientList());
-        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
     }
 
     public ModelManager() {
