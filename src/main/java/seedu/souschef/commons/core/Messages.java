@@ -71,6 +71,11 @@ public class Messages {
             + PREFIX_DURATION + "10 "
             + PREFIX_SCHEME + "LOSS ";
 
+    public static final String MESSAGE_ADD_FAVOURITE_USAGE = AddCommand.COMMAND_WORD
+            + ": Adds a recipe to your favourite. "
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: favourite 1";
+
     // Delete command messages
     public static final String MESSAGE_DELETE_RECIPE_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the recipe identified by the index number used in the displayed recipe list.\n"
@@ -84,6 +89,11 @@ public class Messages {
 
     public static final String MESSAGE_DELETE_HEALTHPLAN_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_DELETE_FAVOURITE_USAGE = DeleteCommand.COMMAND_WORD
+            + ": Deletes a recipe from your favourite. "
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
@@ -126,5 +136,5 @@ public class Messages {
             + "Example: " + FindCommand.COMMAND_WORD + " alice bob charlie";
     public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD;
     public static final String MESSAGE_FIND_HEALTHPLAN_USAGE = FindCommand.COMMAND_WORD;
-
+    public static final String MESSAGE_FIND_FAVOURITES_USAGE = FindCommand.COMMAND_WORD;
 }
