@@ -1,7 +1,7 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,7 +59,7 @@ public class SampleDataUtil {
     /**
      * Returns a date list containing the list of dates given.
      */
-    public static List<Date> getDateList(Date... dates) {
+    public static List<LocalDateTime> getDateList(LocalDateTime... dates) {
         return Arrays.stream(dates)
                 .collect(Collectors.toList());
     }

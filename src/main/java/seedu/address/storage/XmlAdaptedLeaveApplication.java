@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -42,12 +44,13 @@ public class XmlAdaptedLeaveApplication {
     /**
      * Constructs an {@code XmlAdaptedLeaveApplication} with the given leave application details.
      */
-    public XmlAdaptedLeaveApplication(Integer id, String description, String status, List<Date> dates) {
+    public XmlAdaptedLeaveApplication(Integer id, String description, String status, List<LocalDateTime> dates) {
         this.id = id;
         this.description = description;
         this.status = status;
+        requireAllNonNull(dates);
         this.dates = dates.stream()
-                     .map(Date::toString)
+                     .map(DateUtil::convertToString)
                      .collect(Collectors.toList());
     }
 
@@ -61,7 +64,7 @@ public class XmlAdaptedLeaveApplication {
         description = source.getDescription().value;
         status = source.getLeaveStatus().value.toString();
         dates = source.getDates().stream()
-                .map(Date::toString)
+                .map(DateUtil::convertToString)
                 .collect(Collectors.toList());
     }
 
@@ -97,11 +100,11 @@ public class XmlAdaptedLeaveApplication {
         }
         final LeaveStatus modelStatus = new LeaveStatus(status);
 
-        final List<Date> modelDates = new ArrayList<>();
+        final List<LocalDateTime> modelDates = new ArrayList<>();
         for (String dateString : dates) {
-            Date parsedDate;
+            LocalDateTime parsedDate;
             try {
-                parsedDate = DateUtil.format(dateString);
+                parsedDate = DateUtil.convertToDate(dateString);
             } catch (ParseException pe) {
                 throw new IllegalValueException(pe.getMessage());
             }
