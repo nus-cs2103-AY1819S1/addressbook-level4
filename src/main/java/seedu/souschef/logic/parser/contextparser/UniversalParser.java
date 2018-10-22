@@ -48,6 +48,10 @@ public class UniversalParser {
             return new ContextCommand("Health Plan");
 
         case "mealplanner":
+            if (history.getContext().equals("Ingredient")
+                || history.getContext().equals("Health Plan")) {
+                ui.switchToRecipeListPanel();
+            }
             return new ContextCommand("Meal Planner");
 
         case "favourite":
