@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
@@ -50,21 +49,21 @@ public class ExampleCommand extends Command {
         try {
             //this is the test image, as the time get the image from url,
             //change it to buffered image, it would throw error
-            FileInputStream inputstream = new FileInputStream(
-                    "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/test.png");
-            Image exampleImage = new Image(inputstream);
+            //FileInputStream inputstream = new FileInputStream(
+            //"/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/test.png");
+            //Image exampleImage = new Image(inputstream);
             //Image exampleImage = new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full");
             //post the image to the scene
-            EventsCenter.getInstance().post(new ChangeImageEvent(exampleImage, "original"));
+            //EventsCenter.getInstance().post(new ChangeImageEvent(exampleImage, "original"));
             File outputfile = new File(tmp + "/origin.png");
-            BufferedImage image = SwingFXUtils.fromFXImage(exampleImage, null);
+            //BufferedImage image = SwingFXUtils.fromFXImage(exampleImage, null);
             //store the original image
-            ImageIO.write(image, "png", outputfile);
-            File modifiedFile = new File(tmp + "/modified.png");
+            BufferedImage displayedImage = model.getCurrentOriginalImage();
+            ImageIO.write(displayedImage, "png", outputfile);
+            //File modifiedFile = new File(tmp + "/modified.png");
             processImage(targetIndex);
             //get the modified image
-            inputstream = new FileInputStream("/Users/Lancelot/Desktop/CS2103T/project/"
-                    + "main/src/main/java/seedu/address/storage/tmp/modified.png");
+            FileInputStream inputstream = new FileInputStream(tmp + "/modified.png");
             Image modifiedImage = new Image(inputstream);
             EventsCenter.getInstance().post(new ChangeImageEvent(modifiedImage, "preview"));
             outputfile.delete();
@@ -94,11 +93,15 @@ public class ExampleCommand extends Command {
             break;
         case 2:
             pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
-                    outputfile.getAbsolutePath(), "-resize", "30%", modifiedFile.getAbsolutePath());
+                    outputfile.getAbsolutePath(), "-rotate", "90", modifiedFile.getAbsolutePath());
             break;
         case 3:
             pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
                     outputfile.getAbsolutePath(), "-contrast", modifiedFile.getAbsolutePath());
+            break;
+        case 4:
+            pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
+                    outputfile.getAbsolutePath(), "-colorspace", "gray", modifiedFile.getAbsolutePath());
             break;
         default:
             pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
@@ -106,8 +109,7 @@ public class ExampleCommand extends Command {
         }
         //set the environment of the processbuilder
         Map<String, String> mp = pb.environment();
-        mp.put("DYLD_LIBRARY_PATH", "/Users/Lancelot/Desktop/CS2103T"
-                + "/project/main/src/main/resources/imageMagic/package/mac/ImageMagick-7.0.8/lib/");
+        mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
         Process process = pb.start();
         process.waitFor();
     }

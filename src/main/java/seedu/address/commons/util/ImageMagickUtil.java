@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 
+import seedu.address.MainApp;
+
 //import com.sun.javafx.PlatformUtil;
 
 //import seedu.address.model.VersionedAddressBook;
@@ -23,8 +25,7 @@ import java.util.NoSuchElementException;
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
  */
 public class ImageMagickUtil {
-    public static final String TMPPATH =
-            "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/";
+    public static final String TMPPATH = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/tmp";
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
@@ -73,7 +74,7 @@ public class ImageMagickUtil {
      * @return
      * @throws NoSuchElementException
      */
-    private static String getImageMagicPackagePath() throws NoSuchElementException {
+    public static String getImageMagicPackagePath() throws NoSuchElementException {
         /*
         if (PlatformUtil.isMac()) {
             return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
@@ -85,7 +86,7 @@ public class ImageMagickUtil {
             throw new NoSuchElementException("unrecongnized OS");
         }
         */
-        return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
+        return MainApp.MAIN_PATH + "/src/main/resources/imageMagic/package/mac/";
     }
 
     /**
