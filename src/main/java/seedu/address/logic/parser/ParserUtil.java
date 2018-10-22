@@ -104,7 +104,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String visitor} into a {@code visitor}. Leading
      * and trailing whitespaces will be trimmed.
-     *
      * @throws ParseException
      *              if the given {@code visitor} is invalid.
      */
