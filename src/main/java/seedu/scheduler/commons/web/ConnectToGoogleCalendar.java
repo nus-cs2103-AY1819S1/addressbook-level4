@@ -1,8 +1,6 @@
 package seedu.scheduler.commons.web;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,6 +28,9 @@ import com.google.api.services.calendar.CalendarScopes;
 
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 
+/**
+ * Methods related to the connection with Google Calendar.
+ */
 public class ConnectToGoogleCalendar {
     /**
      * Global instance of the scopes required.
@@ -38,10 +39,10 @@ public class ConnectToGoogleCalendar {
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
 
+    private boolean googleCalendarEnabled = false;
+
     public ConnectToGoogleCalendar() {
     }
-
-    private boolean googleCalendarEnabled = false;
 
     public boolean isGoogleCalendarEnabled() {
         return googleCalendarEnabled;
@@ -120,6 +121,11 @@ public class ConnectToGoogleCalendar {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
+    /**
+     * To check whether internet is available.
+     *
+     * @return true if available.
+     */
     public static boolean netIsAvailable() {
         try {
             final URL url = new URL("http://www.google.com");

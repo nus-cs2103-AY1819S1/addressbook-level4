@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
@@ -47,7 +46,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if(!connectToGoogleCalendar.netIsAvailable()){
+        if (!connectToGoogleCalendar.netIsAvailable()) {
             return new CommandResult(MESSAGE_INTERNET_ERROR);
         }
 
