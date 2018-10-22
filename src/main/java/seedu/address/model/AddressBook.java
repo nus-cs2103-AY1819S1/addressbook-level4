@@ -94,6 +94,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an entity with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return persons.contains(person);
+    }
+
+    /**
+     * Returns true if an entity with the same identity as {@code occasion} exists in the address book.
+     */
+    public boolean hasOccasino(Occasion occasion) {
+        requireNonNull(occasion);
+        return occasions.contains(occasion);
+    }
+
+    /**
+     * Returns true if an entity with the same identity as {@code module} exists in the address book.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -101,6 +125,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(entity);
         modules.add(entity);
         occasions.add(entity);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addPerson(Person person) {
+        persons.add(person);
+    }
+
+    /**
+     * Adds an occasion to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addOccasion(Occasion occasion) {
+        occasions.add(occasion);
+    }
+
+    /**
+     * Adds a module to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addModule(Module module) {
+        modules.add(module);
     }
 
     /**
