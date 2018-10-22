@@ -51,6 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(patients);
     }
 
+    //@@author 99percentile
     /**
      * Replaces the contents of the medicine list with {@code medicines}.
      * {@code medicines} must not contain duplicate medicines.
@@ -109,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// medicine-level operations
 
+    //@@author 99percentile
     /**
      * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
      */
@@ -117,6 +119,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return medicines.contains(medicine);
     }
 
+    //@@author 99percentile
     /**
      * Adds a medicine to the records.
      * The medicine must not already exist in the record.
@@ -125,6 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines.add(m);
     }
 
+    //@@author 99percentile
     /**
      * Removes {@code medicine} from this {@code AddressBook}.
      * {@code key} must exist in the records.
@@ -133,6 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines.remove(medicine);
     }
 
+    //@@author 99percentile
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the address book.
@@ -158,6 +163,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    //@@author 99percentile
     @Override
     public ObservableList<Medicine> getMedicineList() {
         return medicines.asUnmodifiableObservableList();
@@ -167,7 +173,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && medicines.equals(((AddressBook) other).medicines));
     }
 
     @Override

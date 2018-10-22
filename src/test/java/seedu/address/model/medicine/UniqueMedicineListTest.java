@@ -1,3 +1,4 @@
+/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static org.junit.Assert.assertEquals;
