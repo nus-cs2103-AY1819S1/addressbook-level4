@@ -21,19 +21,16 @@ public class LeaveApplication {
     // Data fields
     private final Description description;
     private final LeaveStatus leaveStatus;
-    private final Person employee;
     private final Set<Date> dates = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus,
-                            Person employee, Set<Date> dates) {
-        requireAllNonNull(id, description, leaveStatus, employee, dates);
+    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, Set<Date> dates) {
+        requireAllNonNull(id, description, leaveStatus, dates);
         this.id = id;
         this.description = description;
         this.leaveStatus = leaveStatus;
-        this.employee = employee;
         this.dates.addAll(dates);
     }
 
@@ -47,10 +44,6 @@ public class LeaveApplication {
 
     public LeaveStatus getLeaveStatus() {
         return leaveStatus;
-    }
-
-    public Person getEmployee() {
-        return employee;
     }
 
     /**
@@ -78,7 +71,6 @@ public class LeaveApplication {
         LeaveApplication otherLeaveApplication = (LeaveApplication) other;
         return otherLeaveApplication.getId().equals(getId())
                 && otherLeaveApplication.getDescription().equals(getDescription())
-                && otherLeaveApplication.getEmployee().equals(getEmployee())
                 && otherLeaveApplication.getLeaveStatus().equals(getLeaveStatus())
                 && otherLeaveApplication.getDates().equals(getDates());
     }
@@ -86,7 +78,7 @@ public class LeaveApplication {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, description, leaveStatus, employee, dates);
+        return Objects.hash(id, description, leaveStatus, dates);
     }
 
     @Override
@@ -95,8 +87,6 @@ public class LeaveApplication {
         builder.append(getId())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Employee: ")
-                .append(getEmployee())
                 .append(" Status: ")
                 .append(getLeaveStatus())
                 .append(" Dates: ");

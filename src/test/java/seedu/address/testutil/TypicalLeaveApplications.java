@@ -14,10 +14,10 @@ import seedu.address.model.leaveapplication.StatusEnum;
 public class TypicalLeaveApplications {
 
     public static final LeaveApplication ALICE_LEAVE = new LeaveApplicationBuilder().withId(0)
-            .withDates(new Date(1539561600), new Date(1539648000)).withEmployee(TypicalPersons.ALICE)
+            .withDates(new Date(1539561600), new Date(1539648000))
             .withStatus(StatusEnum.Status.PENDING).withDescription("Alice family holiday").build();
     public static final LeaveApplication BENSON_LEAVE = new LeaveApplicationBuilder().withId(0)
-            .withDates(new Date(1539734400), new Date(1539820800)).withEmployee(TypicalPersons.BENSON)
+            .withDates(new Date(1539734400), new Date(1539820800))
             .withStatus(StatusEnum.Status.APPROVED).withDescription("Benson's brother's wedding").build();
 
     private TypicalLeaveApplications() {} // prevents instantiation

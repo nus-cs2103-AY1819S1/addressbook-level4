@@ -14,20 +14,20 @@ public class LeaveStatus {
 
     /**
      * Constructs a {@code LeaveStatus}.
-     * @param status A valid status.
+     * @param statusString A string representing a status.
      */
-    public LeaveStatus(StatusEnum.Status status) {
-        requireNonNull(status);
-        checkArgument(isValidStatus(status), MESSAGE_STATUS_CONSTRAINTS);
-        value = status;
+    public LeaveStatus(String statusString) {
+        requireNonNull(statusString);
+        checkArgument(isValidStatus(statusString), MESSAGE_STATUS_CONSTRAINTS);
+        value = StatusEnum.Status.valueOf(statusString);
     }
 
     /**
-     * Returns if value passed in is a StatusEnum.Status, because enums are type-safe.
+     * Returns if string value passed in is a valid StatusEnum.Status.
      */
-    public static boolean isValidStatus(StatusEnum.Status test) {
+    public static boolean isValidStatus(String test) {
         requireNonNull(test);
-        return test instanceof StatusEnum.Status;
+        return StatusEnum.isValidStatus(test);
     }
 
     @Override

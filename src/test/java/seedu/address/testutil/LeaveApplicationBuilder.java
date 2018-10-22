@@ -24,14 +24,12 @@ public class LeaveApplicationBuilder {
     private LeaveId leaveId;
     private Description description;
     private LeaveStatus leaveStatus;
-    private Person employee;
     private Set<Date> dates;
 
     public LeaveApplicationBuilder() {
         leaveId = new LeaveId(DEFAULT_ID);
         description = new Description(DEFAULT_DESCRIPTION);
-        employee = new PersonBuilder().build();
-        leaveStatus = new LeaveStatus(DEFAULT_STATUS);
+        leaveStatus = new LeaveStatus(DEFAULT_STATUS.toString());
         dates = new HashSet<>();
     }
 
@@ -41,7 +39,6 @@ public class LeaveApplicationBuilder {
     public LeaveApplicationBuilder(LeaveApplication leaveApplicationToCopy) {
         leaveId = leaveApplicationToCopy.getId();
         description = leaveApplicationToCopy.getDescription();
-        employee = leaveApplicationToCopy.getEmployee();
         leaveStatus = leaveApplicationToCopy.getLeaveStatus();
         dates = new HashSet<>(leaveApplicationToCopy.getDates());
     }
@@ -64,14 +61,6 @@ public class LeaveApplicationBuilder {
     }
 
     /**
-     * Sets the {@code Person} of the {@code LeaveApplication} that we are building.
-     */
-    public LeaveApplicationBuilder withEmployee(Person employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    /**
      * Sets the {@code LeaveId} of the {@code LeaveApplication} that we are building.
      */
     public LeaveApplicationBuilder withId(Integer leaveId) {
@@ -83,12 +72,12 @@ public class LeaveApplicationBuilder {
      * Sets the {@code LeaveStatus} of the {@code LeaveApplication} that we are building.
      */
     public LeaveApplicationBuilder withStatus(StatusEnum.Status status) {
-        this.leaveStatus = new LeaveStatus(status);
+        this.leaveStatus = new LeaveStatus(status.toString());
         return this;
     }
 
     public LeaveApplication build() {
-        return new LeaveApplication(leaveId, description, leaveStatus, employee, dates);
+        return new LeaveApplication(leaveId, description, leaveStatus, dates);
     }
 
 }
