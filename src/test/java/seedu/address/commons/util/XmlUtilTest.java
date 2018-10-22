@@ -17,13 +17,13 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
 import seedu.address.storage.XmlAdaptedPerson;
-import seedu.address.storage.XmlAdaptedVolunteer;
 import seedu.address.storage.XmlAdaptedTag;
+import seedu.address.storage.XmlAdaptedVolunteer;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.VolunteerBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.VolunteerBuilder;
 
 public class XmlUtilTest {
 
@@ -47,7 +47,8 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections
+            .singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -196,8 +197,8 @@ public class XmlUtilTest {
     private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedVolunteer}
-     * objects.
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to
+     * {@code XmlAdaptedVolunteer} objects.
      */
     @XmlRootElement(name = "volunteer")
     private static class XmlAdaptedVolunteerWithRootElement extends XmlAdaptedVolunteer {}
