@@ -19,7 +19,6 @@ import seedu.address.model.person.Phone;
 public class Doctor extends Person {
 
     // Identity fields
-    private final Id id;
     private final Password password;
 
     //Data fields
@@ -28,16 +27,11 @@ public class Doctor extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Id id, Name name, Password password) {
+    public Doctor(Name name, Password password) {
         super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
-        requireAllNonNull(id, name, password);
-        this.id = id;
+        requireAllNonNull(name, password);
         this.password = password;
         //this.shift = shift;
-    }
-
-    public Id getId() {
-        return id;
     }
 
     public Password getPassword() {
@@ -58,7 +52,6 @@ public class Doctor extends Person {
         }
 
         return otherDoctor != null
-                && otherDoctor.getId().equals(getId())
                 && (otherDoctor.getName().equals(getName())
                 || otherDoctor.getPassword().equals(getPassword()));
     }
@@ -78,22 +71,20 @@ public class Doctor extends Person {
         }
 
         Doctor otherDoctor = (Doctor) other;
-        return otherDoctor.getId().equals(getId())
-                && otherDoctor.getName().equals(getName())
+        return otherDoctor.getName().equals(getName())
                 && otherDoctor.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, password);
+        return Objects.hash(password);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getId())
-                .append(" DoctorName: ")
+        builder.append("Doctor-Name: ")
                 .append(getName())
                 .append(" Password: ")
                 .append(getPassword());

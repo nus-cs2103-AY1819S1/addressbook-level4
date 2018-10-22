@@ -10,7 +10,6 @@ import seedu.address.commons.util.HashUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -51,9 +50,9 @@ public class SampleDataUtil {
     //@@author jjlee050
     public static List<Doctor> getSampleDoctors() {
         return new ArrayList<>(Arrays.asList(
-                new Doctor(new Id(1), new Name("Adam Bell"),
+                new Doctor(new Name("Adam Bell"),
                         new Password(HashUtil.hashToString("doctor1"), true)),
-                new Doctor(new Id(2), new Name("Chip Dale"),
+                new Doctor(new Name("Chip Dale"),
                         new Password(HashUtil.hashToString("doctor2"), true))));
     }
 

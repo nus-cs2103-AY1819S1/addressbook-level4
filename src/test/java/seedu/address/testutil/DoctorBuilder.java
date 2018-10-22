@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Name;
 
@@ -11,16 +10,13 @@ import seedu.address.model.person.Name;
  */
 public class DoctorBuilder {
 
-    public static final int DEFAULT_ID = 1;
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PASSWORD = "alicepaul";
 
-    private Id id;
     private Name name;
     private Password password;
 
     public DoctorBuilder() {
-        id = new Id(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
         password = new Password(DEFAULT_PASSWORD, false);
     }
@@ -29,17 +25,8 @@ public class DoctorBuilder {
      * Initializes the DoctorBuilder with the data of {@code personToCopy}.
      */
     public DoctorBuilder(Doctor doctorToCopy) {
-        id = doctorToCopy.getId();
         name = doctorToCopy.getName();
         password = doctorToCopy.getPassword();
-    }
-
-    /**
-     * Sets the {@code Id} of the {@code Doctor} that we are building.
-     */
-    public DoctorBuilder withId(int id) {
-        this.id = new Id(id);
-        return this;
     }
 
     /**
@@ -62,7 +49,7 @@ public class DoctorBuilder {
     }
 
     public Doctor build() {
-        return new Doctor(id, name, password);
+        return new Doctor(name, password);
     }
 
 }

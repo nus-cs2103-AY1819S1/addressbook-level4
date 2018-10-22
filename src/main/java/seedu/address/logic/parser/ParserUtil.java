@@ -13,7 +13,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -143,7 +142,7 @@ public class ParserUtil {
         requireNonNull(name);
         requireNonNull(password);
         if (role.equals("doctor")) {
-            return new Doctor(new Id(1), name, password);
+            return new Doctor(name, password);
         } else if (role.equals("receptionist")) {
             return null;
         } else {

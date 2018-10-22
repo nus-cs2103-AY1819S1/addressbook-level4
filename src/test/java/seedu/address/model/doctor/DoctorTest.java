@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
@@ -31,20 +30,16 @@ public class DoctorTest {
         // null -> returns false
         assertFalse(ADAM.isSameDoctor(null));
 
-        // different password and id -> returns false
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN)
+        // different password and name -> returns false
+        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BEN)
                 .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
         assertFalse(ADAM.isSameDoctor(editedAdam));
 
-        // different id -> returns false
-        editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).build();
-        assertFalse(ADAM.isSameDoctor(editedAdam));
-
-        // same id, same password, different attributes -> returns true
+        // same password, different attributes -> returns true
         editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BEN).build();
         assertTrue(ADAM.isSameDoctor(editedAdam));
 
-        // same id, same name, different attributes -> returns true
+        // same name, different attributes -> returns true
         editedAdam = new DoctorBuilder(ADAM)
                 .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
         assertTrue(ADAM.isSameDoctor(editedAdam));
@@ -71,10 +66,6 @@ public class DoctorTest {
 
         // different name -> returns false
         Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BOB).build();
-        assertFalse(ADAM.equals(editedAdam));
-
-        // different id -> returns false
-        editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).build();
         assertFalse(ADAM.equals(editedAdam));
 
         // different password -> returns false
