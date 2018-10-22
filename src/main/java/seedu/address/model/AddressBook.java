@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.UniqueMedicineList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
@@ -119,6 +120,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return medicines.contains(medicine);
     }
 
+    public boolean hasMedicine(MedicineName medicineName) {
+        requireNonNull(medicineName);
+        return medicines.contains(medicineName);
+    }
+
     //@@author 99percentile
     /**
      * Adds a medicine to the records.
@@ -146,8 +152,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);
-
         medicines.setMedicine(target, editedMedicine);
+    }
+
+    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
+        requireNonNull(quantityToDispense);
+        requireNonNull(quantityToDispense);
+        medicines.dispenseMedicine(medicineName, quantityToDispense);
     }
 
     //// util methods

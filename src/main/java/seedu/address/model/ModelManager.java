@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.Patient;
 
 /**
@@ -72,6 +73,13 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasMedicine(medicine);
     }
 
+    //@@author 99percentile
+    @Override
+    public boolean hasMedicine(MedicineName medicineName) {
+        requireNonNull(medicineName);
+        return versionedAddressBook.hasMedicine(medicineName);
+    }
+
     @Override
     public void deletePerson(Patient target) {
         versionedAddressBook.removePerson(target);
@@ -104,9 +112,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
-
         versionedAddressBook.updateMedicine(target, editedMedicine);
 
+    }
+
+    @Override
+    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
+        requireAllNonNull(medicineName, quantityToDispense);
+        versionedAddressBook.dispenseMedicine(medicineName, quantityToDispense);
     }
 
     @Override

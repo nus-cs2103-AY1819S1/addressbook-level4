@@ -79,6 +79,13 @@ public class Medicine {
     }
 
     /**
+     * Returns true if both medicines has the same name.
+     */
+    public boolean hasSameMedicineName(MedicineName otherMedicine) {
+        return otherMedicine.equals(this.medicineName);
+    }
+
+    /**
      * Returns true if both medicines have the same identity and data fields.
      * This defines a stronger notion of equality between two medicines.
      */

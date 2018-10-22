@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.Patient;
 
 /**
@@ -98,6 +99,7 @@ public interface Model {
      * Returns true if a medicine {@code medicine} exists in the records.
      */
     boolean hasMedicine(Medicine medicine);
+    boolean hasMedicine(MedicineName medicineName);
 
     //@@author 99percentile
     /**
@@ -121,4 +123,10 @@ public interface Model {
      * existing medicine in the address book.
      */
     void updateMedicine(Medicine target, Medicine editedMedicine);
+
+    /**
+     * Dispenses the medicine defined by {@code medicineName} with the allocated
+     * amount {@code quantityToDispense}.
+     */
+    void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense);
 }
