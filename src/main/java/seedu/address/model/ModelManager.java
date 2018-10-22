@@ -460,6 +460,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmailSaved();
     }
 
+    @Override
+    public boolean hasEmail(String fileName) {
+        return emailModel.hasEmail(fileName);
+    }
+
     /**
      * Raises an event to indicate the model has changed
      */

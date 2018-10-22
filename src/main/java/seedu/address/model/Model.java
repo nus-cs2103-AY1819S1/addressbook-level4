@@ -185,6 +185,11 @@ public interface Model {
     void saveEmail(Email email);
 
     /**
+     * Checks if eml file with given name exists.
+     */
+    boolean hasEmail(String fileName);
+
+    /**
      * Returns true if the model already has a calendar with the same month and year
      */
     boolean isExistingCalendar(Year year, Month month);

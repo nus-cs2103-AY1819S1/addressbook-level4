@@ -57,4 +57,8 @@ public class EmailModel {
     public String getPreview() {
         return preview;
     }
+
+    public boolean hasEmail(String fileName) {
+        return existingEmails.contains(fileName + ".eml");
+    }
 }
