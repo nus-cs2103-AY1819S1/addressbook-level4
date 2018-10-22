@@ -4,17 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOUR_H2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_R2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEvents.BLOOD;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalVolunteers.BENSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRecords.R1;
+import static seedu.address.testutil.TypicalVolunteers.BENSON;
 import static seedu.address.testutil.TypicalVolunteers.getTypicalVolunteerAddressBook;
 
 import java.util.Arrays;
@@ -123,8 +123,8 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateVolunteers_throwsDuplicatePersonException() {
         // Two volunteers with the same identity fields
-        Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND)
-                .build();
+        Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
+                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
         List<Volunteer> newVolunteers = Arrays.asList(BENSON, editedBenson);
         AddressBookStub newData = new AddressBookStub(null, newVolunteers, null, null);
 
@@ -152,8 +152,8 @@ public class AddressBookTest {
     @Test
     public void hasVolunteer_volunteerWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addVolunteer(BENSON);
-        Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND)
-                .build();
+        Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
+                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
         assertTrue(addressBook.hasVolunteer(editedBenson));
     }
 
@@ -212,7 +212,7 @@ public class AddressBookTest {
         Record editedRecord = new RecordBuilder(R1).withHour(VALID_HOUR_H2).withRemark(VALID_REMARK_R2)
                 .build();
         List<Record> newRecords = Arrays.asList(R1, editedRecord);
-        AddressBookStub newData = new AddressBookStub(null, null,null, newRecords);
+        AddressBookStub newData = new AddressBookStub(null, null, null, newRecords);
 
         thrown.expect(DuplicateRecordException.class);
         addressBook.resetData(newData);
@@ -258,7 +258,8 @@ public class AddressBookTest {
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Record> records = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Volunteer> volunteers, Collection<Event> events, Collection<Record> records) {
+        AddressBookStub(Collection<Person> persons, Collection<Volunteer> volunteers, Collection<Event> events,
+                        Collection<Record> records) {
             if (persons != null) {
                 this.persons.setAll(persons);
             }

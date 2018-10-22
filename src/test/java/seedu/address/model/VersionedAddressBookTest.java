@@ -238,7 +238,7 @@ public class VersionedAddressBookTest {
     }
 
     @Test
-    public void commit_multipleVolunteerAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+    public void commit_multipleVAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(
                 emptyVolunteerAddressBook, addressBookWithDaniel, addressBookWithElle);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
@@ -402,7 +402,8 @@ public class VersionedAddressBookTest {
     @Test
     public void equals() {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
-        VersionedAddressBook versionedVolunteerAddressBook = prepareAddressBookList(addressBookWithDaniel, addressBookWithElle);
+        VersionedAddressBook versionedVolunteerAddressBook = prepareAddressBookList(addressBookWithDaniel,
+                addressBookWithElle);
 
         // same values -> returns true
         VersionedAddressBook copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
@@ -441,7 +442,8 @@ public class VersionedAddressBookTest {
         assertFalse(versionedVolunteerAddressBook.equals(1));
 
         // different state list -> returns false
-        VersionedAddressBook differentVolunteerAddressBookList = prepareAddressBookList(addressBookWithElle, addressBookWithFiona);
+        VersionedAddressBook differentVolunteerAddressBookList = prepareAddressBookList(addressBookWithElle,
+                addressBookWithFiona);
         assertFalse(versionedVolunteerAddressBook.equals(differentVolunteerAddressBookList));
 
         // different current pointer index -> returns false

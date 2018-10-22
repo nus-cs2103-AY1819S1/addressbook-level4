@@ -7,12 +7,12 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VOLUNTEERS;
 import static seedu.address.testutil.TypicalEvents.BLOOD;
 import static seedu.address.testutil.TypicalEvents.YOUTH;
-import static seedu.address.testutil.TypicalVolunteers.CARL;
-import static seedu.address.testutil.TypicalVolunteers.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalRecords.R1;
 import static seedu.address.testutil.TypicalRecords.R2;
+import static seedu.address.testutil.TypicalVolunteers.CARL;
+import static seedu.address.testutil.TypicalVolunteers.DANIEL;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
