@@ -2,12 +2,15 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.project.Project;
 
@@ -28,22 +31,29 @@ public class Person {
     private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
     private final PermissionSet permissionSet = new PermissionSet();
+    private final List<LeaveApplication> leaveApplications;
 
     /**
      * Constructors: every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        this(name, phone, email, address, salary, projects, new PermissionSet(), Optional.empty());
+        this(name, phone, email, address, salary, projects, new PermissionSet(), Optional.empty(), new ArrayList<>());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   PermissionSet permissionSet) {
-        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty());
+        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty(), new ArrayList<>());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic);
+        this(name, phone, email, address, salary, projects, permissionSet, profilePic, new ArrayList<>());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
+                  PermissionSet permissionSet, Optional<ProfilePic> profilePic,
+                  List<LeaveApplication> leaveApplications) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic, leaveApplications);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -52,6 +62,7 @@ public class Person {
         this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
+        this.leaveApplications = leaveApplications;
     }
 
     public Name getName() {
@@ -79,7 +90,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable project set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Project> getProjects() {
@@ -93,6 +104,14 @@ public class Person {
      */
     public PermissionSet getPermissionSet() {
         return permissionSet;
+    }
+
+    /**
+     * Returns an immutable leave applications list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<LeaveApplication> getLeaveApplications() {
+        return Collections.unmodifiableList(leaveApplications);
     }
 
     /**
@@ -130,13 +149,14 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getProjects().equals(getProjects())
-                && otherPerson.getProfilePic().equals(getProfilePic());
+                && otherPerson.getProfilePic().equals(getProfilePic())
+                && otherPerson.getLeaveApplications().equals(getLeaveApplications());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, salary, projects, profilePic);
+        return Objects.hash(name, phone, email, address, salary, projects, profilePic, leaveApplications);
     }
 
     @Override
@@ -155,6 +175,8 @@ public class Person {
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Projects: ");
         getProjects().forEach(builder::append);
+        builder.append(" Leave Applications: ");
+        getLeaveApplications().forEach(builder::append);
         return builder.toString();
     }
 

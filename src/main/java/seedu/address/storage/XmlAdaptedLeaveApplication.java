@@ -1,13 +1,9 @@
 package seedu.address.storage;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,11 +15,6 @@ import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.leaveapplication.LeaveId;
 import seedu.address.model.leaveapplication.LeaveStatus;
-import seedu.address.model.permission.PermissionSet;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 
 /**
  * JAXB-friendly version of the LeaveApplication.
@@ -41,14 +32,6 @@ public class XmlAdaptedLeaveApplication {
     @XmlElement(required = true)
     private Set<String> dates = new HashSet<>();
 
-    // Employee identity fields
-    @XmlElement(required = true)
-    private String employeeName;
-    @XmlElement(required = true)
-    private String employeeEmail;
-    @XmlElement(required = true)
-    private String employeePhone;
-
     /**
      * Constructs an XmlAdaptedLeaveApplication.
      * This is the no-arg constructor that is required by JAXB.
@@ -59,14 +42,10 @@ public class XmlAdaptedLeaveApplication {
     /**
      * Constructs an {@code XmlAdaptedLeaveApplication} with the given leave application details.
      */
-    public XmlAdaptedLeaveApplication(Integer id, String description, String status, String employeeName,
-                                      String employeeEmail, String employeePhone, Set<Date> dates) {
+    public XmlAdaptedLeaveApplication(Integer id, String description, String status, Set<Date> dates) {
         this.id = id;
         this.description = description;
         this.status = status;
-        this.employeeName = employeeName;
-        this.employeeEmail = employeeEmail;
-        this.employeePhone = employeePhone;
         this.dates = dates.stream()
                      .map(Date::toString)
                      .collect(Collectors.toSet());
@@ -117,30 +96,6 @@ public class XmlAdaptedLeaveApplication {
             throw new IllegalValueException(LeaveStatus.MESSAGE_STATUS_CONSTRAINTS);
         }
         final LeaveStatus modelStatus = new LeaveStatus(status);
-
-        if (employeeName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(employeeName)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        final Name modelName = new Name(employeeName);
-
-        if (employeeEmail == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(employeeEmail)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(employeeEmail);
-
-        if (employeePhone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(employeePhone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(employeePhone);
 
         final Set<Date> modelDates = new HashSet<>();
         for (String dateString : dates) {
