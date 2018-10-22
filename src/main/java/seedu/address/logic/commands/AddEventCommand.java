@@ -47,7 +47,7 @@ public class AddEventCommand extends Command {
             + PREFIX_DATE + "2018-09-18 "
             + PREFIX_START_TIME + "1030 "
             + PREFIX_END_TIME + "1230 "
-            + PREFIX_ADDRESS + "123, Clementi Rd, 1234665"
+            + PREFIX_ADDRESS + "123, Clementi Rd, 1234665 "
             + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
@@ -89,7 +89,7 @@ public class AddEventCommand extends Command {
         }
 
         Set<Person> contactsToAdd = IntStream.range(0, lastShownPersonList.size())
-                .filter(index -> contactIndicesToAdd.contains(index))
+                .filter(index -> contactIndicesToAdd.contains(Index.fromZeroBased(index)))
                 .mapToObj(lastShownPersonList::get)
                 .collect(Collectors.toSet());
 

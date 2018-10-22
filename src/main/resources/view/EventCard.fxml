@@ -31,7 +31,7 @@
             <VBox.margin>
                <Insets left="25.0" />
             </VBox.margin></Label>
-         <FlowPane fx:id="contacts" styleClass="cell_small_label_event">
+         <FlowPane fx:id="contacts" hgap="5.0" styleClass="cell_small_label_event">
             <VBox.margin>
                <Insets left="25.0" />
             </VBox.margin>
