@@ -89,14 +89,11 @@ public class LoginCommand extends Command {
         requireNonNull(doctorsList);
         requireNonNull(doctorToSearch);
 
-        Doctor doctorFound = null;
+        final Doctor doctorFound;
         try {
-            for (Doctor d : doctorsList) {
-                if ((d.getName().equals(doctorToSearch.getName()))) {
-                    doctorFound = d;
-                    break;
-                }
-            }
+            doctorFound = doctorsList.stream()
+                    .filter(doctor -> doctor.getName().equals(doctorToSearch.getName()))
+                    .findFirst().orElse(null);
         } catch (ClassCastException ex) {
             throw new ClassCastException();
         }
