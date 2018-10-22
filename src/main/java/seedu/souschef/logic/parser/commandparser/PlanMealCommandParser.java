@@ -39,16 +39,19 @@ public class PlanMealCommandParser {
             LocalDate date = LocalDate.parse(arguments[1]);
             Day toPlan;
             Day newDay = new Day(date);
+            boolean dayIsPresent;
 
             if (mealPlannerList.contains(newDay)) {
                 toPlan = mealPlannerList.get(mealPlannerList.indexOf(newDay));
+                dayIsPresent = true;
             } else {
                 toPlan = newDay;
+                dayIsPresent = false;
             }
 
             Meal meal = toPlan.getMeal(arguments[2]);
 
-            return new PlanMealCommand(mealPlannerModel, toAdd, meal, toPlan);
+            return new PlanMealCommand(mealPlannerModel, toAdd, meal, toPlan, dayIsPresent);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE), pe);
