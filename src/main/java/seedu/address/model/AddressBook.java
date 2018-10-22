@@ -223,8 +223,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             return;
         }
         if (imported instanceof AddressBook) {
-            AddressBook importedBook = (AddressBook)imported;
-            Iterator<Person> personItr =  importedBook.persons.iterator();
+            AddressBook importedBook = (AddressBook) imported;
+            Iterator<Person> personItr = importedBook.persons.iterator();
             while (personItr.hasNext()) {
                 Person importPerson = personItr.next();
                 if (!hasPerson(importPerson)) {

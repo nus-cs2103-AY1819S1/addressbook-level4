@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -13,13 +15,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.storage.XmlAddressBookStorage;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
-
 /**
  * Import MeetingBook XML Files into MeetingBook
  */
-public class ImportCommand extends Command{
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
     public static final String MESSAGE_SUCCESS = "%s have been imported into MeetingBook.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Import XML File to Meetingbook."
@@ -27,11 +26,10 @@ public class ImportCommand extends Command{
             + PREFIX_PATH + "FilePath\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATH + "backup";
-    public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. "
-            + "Will be starting with an empty AddressBook.";
-    public  static final String MESSAGE_FAIL_IO = "Problem while reading from the file. "
-            + "Will be starting with an empty AddressBook.";
-    public  static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
+    public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. ";
+    public static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
+
+    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
     private Path importPath;
 
@@ -50,13 +48,12 @@ public class ImportCommand extends Command{
             if (!importedAddressBook.isPresent()) {
                 return new CommandResult(MESSAGE_FAIL_NOFILE);
             }
-        }
-        catch (DataConversionException e) {
+        } catch (DataConversionException e) {
             logger.warning(MESSAGE_FAIL_DATA);
             return new CommandResult(MESSAGE_FAIL_DATA);
         } catch (IOException e) {
-            logger.warning(MESSAGE_FAIL_IO);
-            return new CommandResult(MESSAGE_FAIL_IO);
+            logger.warning(MESSAGE_FAIL_NOFILE);
+            return new CommandResult(MESSAGE_FAIL_NOFILE);
         }
 
         model.importAddressBook(importedAddressBook.get());
