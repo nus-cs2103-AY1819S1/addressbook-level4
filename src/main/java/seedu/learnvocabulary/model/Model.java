@@ -59,9 +59,15 @@ public interface Model {
     /**
      * Sets a trivia question based on the vocabulary list;
      */
-    void setTrivia();
+    void setTriviaList(int size);
+
+    void setTriviaQuestion();
 
     boolean isTriviaMode();
+
+    void toggleTriviaMode();
+
+    void clearTrivia();
 
     /**
      * Updates the filter of the filtered word list to filter by the given {@code predicate}.

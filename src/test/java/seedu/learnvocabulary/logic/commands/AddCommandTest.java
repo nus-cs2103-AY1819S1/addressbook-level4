@@ -126,7 +126,7 @@
 //        }
 //
 //        @Override
-//        public void setTrivia() {
+//        public void setTriviaList() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //

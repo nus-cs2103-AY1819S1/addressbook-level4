@@ -2,6 +2,7 @@ package seedu.learnvocabulary.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +22,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
     private Word triviaQuestion = null;
+    private ArrayList<Word> triviaQuestionList;
     private boolean triviaMode = false;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -137,11 +139,29 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     /**
      * Sets the trivia question based on the current vocabulary list
      */
-    public void setTrivia() {
+    public void setTriviaList(int triviaSize) {
+        triviaQuestionList = new ArrayList<Word>();
         ObservableList<Word> triviaRef = words.asUnmodifiableObservableList();
         int length = triviaRef.size();
         Random random = new Random();
-        triviaQuestion = triviaRef.get(random.nextInt(length));
+
+        if (triviaSize >= length) {
+            for (int index = 0; index < length; index++) {
+                triviaQuestionList.add(triviaRef.get(index));
+            }
+        }
+
+        else {
+            while (triviaSize > 0) {
+                int index = random.nextInt(length);
+                Word wordToAdd = triviaRef.get(index);
+
+                while (triviaQuestionList.contains(wordToAdd)) {
+                    wordToAdd = triviaRef.get(((index + 1) % length));
+                }
+                triviaSize--;
+            }
+        }
     }
 
     /**
@@ -151,9 +171,18 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         return triviaQuestion;
     }
 
+    public void setTriviaQuestion() {
+        Random random = new Random();
+        int length = triviaQuestionList.size();
+        triviaQuestion = triviaQuestionList.get(random.nextInt(length));
+    }
+
     public boolean isTriviaMode() { return triviaMode; }
 
+    public void toggleTriviaMode() { triviaMode = true; }
+
     public void clearTrivia() {
+        triviaQuestionList.remove(triviaQuestion);
         triviaQuestion = null;
     }
 

@@ -27,15 +27,21 @@ public class TriviaCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Word> lastShownList = model.getFilteredWordList();
+        int size = lastShownList.size();
 
         if (lastShownList.size() < 1) {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        model.setTrivia();
+        model.setTriviaList(size);
+        model.setTriviaQuestion();
         Word triviaQ = model.getTrivia();
         Meaning qMeaning = triviaQ.getMeaning();
 
         return new CommandResult(MESSAGE_SUCCESS + qMeaning.toString());
+
+
+
+
     }
 }
