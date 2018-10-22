@@ -77,9 +77,7 @@ public class TriviaAnsCommand extends Command {
             triviaQ = model.getTrivia();
             messageOutput += MESSAGE_NEXT + triviaQ.getMeaning().toString() + "\n" + MESSAGE_EXIT;
         }
-
-
-
+        
         return new CommandResult(messageOutput);
     }
 }
