@@ -22,6 +22,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 import seedu.address.model.person.Person;
+import seedu.address.model.transformation.Transformation;
+import seedu.address.model.transformation.TransformationSet;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -159,6 +161,29 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentPreviewImage.getImage();
     }
 
+    @Override
+    public void setCurrentPreviewImage(PreviewImage previewImage) {
+        this.currentPreviewImage = previewImage;
+    }
+
+    //author lancelotwillow
+    @Override
+    public void updateCurrentpreviewImage(Image image, Transformation transformation) {
+        TransformationSet transformationSet;
+        if (currentPreviewImage != null) {
+            transformationSet = currentPreviewImage.getTransformationSet();
+        } else {
+            transformationSet = new TransformationSet();
+        }
+        transformationSet.addTransformations(transformation);
+        this.currentPreviewImage = new PreviewImage(SwingFXUtils.fromFXImage(image, null), transformationSet);
+    }
+
+    @Override
+    public boolean hasCurrentPreviewImage() {
+        return this.currentPreviewImage == null;
+    }
+
     /**
      * Update the current displayed original image and
      * reinitialize the previewImageManager with the new image
@@ -168,7 +193,6 @@ public class ModelManager extends ComponentManager implements Model {
         currentOriginalImage = SwingFXUtils.fromFXImage(img, null);
         previewImageManager.initialiseWithImage(new PreviewImage(currentOriginalImage));
     }
-
     //=========== GoogleClient Accessors =============================================================
 
     @Override

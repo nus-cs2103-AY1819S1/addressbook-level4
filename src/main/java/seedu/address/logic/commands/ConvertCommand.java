@@ -97,7 +97,6 @@ public class ConvertCommand extends Command {
         File tmp = new File(ImageMagickUtil.TMPPATH);
         try {
             File outputfile = new File(tmp + "/origin.png");
-            //BufferedImage image = SwingFXUtils.fromFXImage(exampleImage, null);
             //store the original image
             BufferedImage displayedImage = model.getCurrentOriginalImage();
             ImageIO.write(displayedImage, "png", outputfile);
@@ -106,6 +105,7 @@ public class ConvertCommand extends Command {
             //get the modified image
             FileInputStream inputstream = new FileInputStream(tmp + "/modified.png");
             Image modifiedImage = new Image(inputstream);
+            model.updateCurrentpreviewImage(modifiedImage, transformation);
             EventsCenter.getInstance().post(new ChangeImageEvent(modifiedImage, "preview"));
             outputfile.delete();
             return new CommandResult("process " + cmds.get(0) + " done");
