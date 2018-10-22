@@ -57,6 +57,7 @@ public class LoginCommand extends Command {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         }
+        //TODO: Receptionist
         return new CommandResult(MESSAGE_FAILURE);
     }
 
