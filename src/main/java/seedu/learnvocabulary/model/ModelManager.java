@@ -3,6 +3,7 @@ package seedu.learnvocabulary.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.learnvocabulary.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -147,6 +148,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLearnVocabulary.getTrivia();
     }
 
+    @Override
+    public ArrayList<Word> getTriviaList() {
+        return versionedLearnVocabulary.getTriviaList();
+    }
+
     /**
      * Sets the trivia question
      */
@@ -160,11 +166,14 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLearnVocabulary.setTriviaQuestion();
     }
 
-    public boolean isTriviaMode() { return versionedLearnVocabulary.isTriviaMode(); }
+    public boolean isTriviaMode() {
+        return versionedLearnVocabulary.isTriviaMode(); }
 
-    public void toggleTriviaMode() { versionedLearnVocabulary.toggleTriviaMode(); }
+    public void toggleTriviaMode() {
+        versionedLearnVocabulary.toggleTriviaMode(); }
 
-    public void clearTrivia() { versionedLearnVocabulary.clearTrivia(); }
+    public void clearTrivia() {
+        versionedLearnVocabulary.clearTrivia(); }
 
 
     @Override

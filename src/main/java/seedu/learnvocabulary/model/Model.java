@@ -1,5 +1,6 @@
 package seedu.learnvocabulary.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -55,6 +56,8 @@ public interface Model {
      *
      */
     Word getTrivia();
+
+    ArrayList<Word> getTriviaList();
 
     /**
      * Sets a trivia question based on the vocabulary list;

@@ -17,7 +17,7 @@ public class TriviaCommand extends Command {
 
     public static final String COMMAND_WORD = "trivia";
 
-    public static final String MESSAGE_SUCCESS = "Question: ";
+    public static final String MESSAGE_SUCCESS = "Trivia started\n";
 
     public static final String MESSAGE_FAIL = "Vocabulary list is empty. Please add words in use trivia.";
 
@@ -32,7 +32,7 @@ public class TriviaCommand extends Command {
         if (lastShownList.size() < 1) {
             return new CommandResult(MESSAGE_FAIL);
         }
-
+        model.toggleTriviaMode();
         model.setTriviaList(size);
         model.setTriviaQuestion();
         Word triviaQ = model.getTrivia();

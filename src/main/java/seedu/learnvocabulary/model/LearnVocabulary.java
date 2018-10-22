@@ -171,15 +171,21 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         return triviaQuestion;
     }
 
+    public ArrayList<Word> getTriviaList() {
+        return triviaQuestionList;
+    }
+
     public void setTriviaQuestion() {
         Random random = new Random();
         int length = triviaQuestionList.size();
         triviaQuestion = triviaQuestionList.get(random.nextInt(length));
     }
 
-    public boolean isTriviaMode() { return triviaMode; }
+    public boolean isTriviaMode() {
+        return triviaMode; }
 
-    public void toggleTriviaMode() { triviaMode = true; }
+    public void toggleTriviaMode() {
+        triviaMode = !triviaMode; }
 
     public void clearTrivia() {
         triviaQuestionList.remove(triviaQuestion);
