@@ -13,7 +13,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
