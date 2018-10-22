@@ -57,8 +57,6 @@ public class TriviaAnsCommand extends Command {
         correct = triviaQ.getName().toString().equals(answer);
 
         model.clearTrivia();
-        model.setTriviaQuestion();
-        triviaQ = model.getTrivia();
 
         if (correct) {
             messageOutput = MESSAGE_SUCCESS;
@@ -68,12 +66,14 @@ public class TriviaAnsCommand extends Command {
             messageOutput = MESSAGE_WRONG;
         }
 
-        if (triviaList.size() == 1) {
+        if (triviaList.size() < 1) {
             model.toggleTriviaMode();
             messageOutput += MESSAGE_END;
         }
 
         else {
+            model.setTriviaQuestion();
+            triviaQ = model.getTrivia();
             messageOutput += MESSAGE_NEXT+ triviaQ.getMeaning().toString() + "\n" + MESSAGE_EXIT;
         }
 
