@@ -33,8 +33,8 @@ public class FilterByTimeCommandTest {
         String second = new String(" ");
 
 
-        FilterByTimeCommand filterByTimeFirstCommand = new filterByTimeCommand(first);
-        FilterByTimeCommand filterByGradeSecondCommand = new filterByTimeCommand(second);
+        FilterByTimeCommand filterByTimeFirstCommand = new FilterByTimeCommand(first);
+        FilterByTimeCommand filterByGradeSecondCommand = new FilterByTimeCommand(second);
 
         // same object -> returns true
         assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommand));
