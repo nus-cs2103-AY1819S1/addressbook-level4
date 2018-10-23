@@ -351,7 +351,7 @@ Given below is an scenario to illustrate the login authentication at each step: 
 
 . If the role is receptionist,
 
-.. the `login` command call `Model#hasReceptionist()` to ensure that this receptionist exist inside ClinicIO.
+.. the `login` command invokes `Model#hasReceptionist()` to ensure that this receptionist exists inside ClinicIO.
 .. Once ClinicIO check if user exists, the `login` command call `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
 .. The `login` command verify password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by user.
 
