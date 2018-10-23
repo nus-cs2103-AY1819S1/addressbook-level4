@@ -126,7 +126,9 @@ public class SchedulePlannerTest {
         }
 
         @Override
-        public ObservableList<Task> getArchivedTaskList() {return archivedTasks; }
+        public ObservableList<Task> getArchivedTaskList() {
+            return archivedTasks;
+        }
 
     }
 
