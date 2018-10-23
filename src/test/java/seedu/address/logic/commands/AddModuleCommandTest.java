@@ -39,6 +39,7 @@ public class AddModuleCommandTest {
         new AddModuleCommand(null);
     }
 
+    /*
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
@@ -61,6 +62,7 @@ public class AddModuleCommandTest {
         thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
         addModuleCommand.execute(modelStub, commandHistory);
     }
+    */
 
     /**
      * A default model stub that have all of the methods failing.
