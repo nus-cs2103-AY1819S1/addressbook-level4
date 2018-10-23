@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.MedicationViewHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -27,18 +27,18 @@ import seedu.address.testutil.PrescriptionBuilder;
 
 //@@author snajef
 /**
- * Test driver class for the BrowserPanel class.
+ * Test driver class for the MedicationView class.
  * @author Darien Chong
  *
  */
-public class BrowserPanelTest extends GuiUnitTest {
+public class MedicationViewTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS = FXCollections.observableList(getTypicalPersons());
     private static final int PERFORMANCE_TEST_TIMEOUT = 2500;
 
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
     private NewResultAvailableEvent addmedsCommandSuccessEventStub;
-    private BrowserPanel browserPanel;
-    private BrowserPanelHandle browserPanelHandle;
+    private MedicationView medicationView;
+    private MedicationViewHandle medicationViewHandle;
     private Prescription prescription;
 
     @Before
@@ -58,16 +58,16 @@ public class BrowserPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
-        browserPanel = new BrowserPanel(backingList);
-        uiPartRule.setUiPart(browserPanel);
-        browserPanel.setCurrentSelection(ALICE);
-        browserPanelHandle = new BrowserPanelHandle(getChildNode(browserPanel.getRoot(),
-                BrowserPanelHandle.PRESCRIPTION_TABLE_VIEW_ID));
+        medicationView = new MedicationView(backingList);
+        uiPartRule.setUiPart(medicationView);
+        medicationView.setCurrentSelection(ALICE);
+        medicationViewHandle = new MedicationViewHandle(getChildNode(medicationView.getRoot(),
+                MedicationViewHandle.PRESCRIPTION_TABLE_VIEW_ID));
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void setCurrentSelection_notNull_throwsUnsupportedOperationException() {
-        browserPanel.setCurrentSelection(ALICE);
+        medicationView.setCurrentSelection(ALICE);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // We only need to verify that the ObservableList passed to the BrowserPanel contains
         // the appropriate information, then we are done.
 
-        assertTrue(browserPanelHandle.getBackingListOfPrescriptions()
+        assertTrue(medicationViewHandle.getBackingListOfPrescriptions()
                                      .equals(ALICE.getPrescriptionList()
                                                   .getObservableCopyOfPrescriptionList()));
     }
@@ -92,7 +92,7 @@ public class BrowserPanelTest extends GuiUnitTest {
              .add(prescription);
         postNow(addmedsCommandSuccessEventStub);
 
-        assertTrue(browserPanelHandle.getBackingListOfPrescriptions()
+        assertTrue(medicationViewHandle.getBackingListOfPrescriptions()
                                      .equals(toCompareWith));
     }
 

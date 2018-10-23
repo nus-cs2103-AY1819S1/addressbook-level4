@@ -7,10 +7,10 @@ import seedu.address.model.medicine.Prescription;
 /**
  * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
  */
-public class BrowserPanelHandle extends NodeHandle<TableView<Prescription>> {
+public class MedicationViewHandle extends NodeHandle<TableView<Prescription>> {
     public static final String PRESCRIPTION_TABLE_VIEW_ID = "#prescriptionTableView";
 
-    public BrowserPanelHandle(TableView<Prescription> browserPanelHandleNode) {
+    public MedicationViewHandle(TableView<Prescription> browserPanelHandleNode) {
         super(browserPanelHandleNode);
     }
 
