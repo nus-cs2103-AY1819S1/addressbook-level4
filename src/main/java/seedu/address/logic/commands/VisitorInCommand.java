@@ -72,7 +72,7 @@ public class VisitorinCommand extends Command {
 
         Person patientToUpdate = filteredByNric.get(0);
 
-        if (patientToUpdate.getVisitorList().size() > 5) {
+        if (patientToUpdate.getVisitorList().getSize() > 5) {
             throw new CommandException(MESSAGE_FULL);
         }
 
