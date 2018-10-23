@@ -42,6 +42,7 @@ public class FilterByGradeCommand extends FilterCommand {
         this.maxLimit = Integer.parseInt(stringCommand[1]);
     }
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) {
 
         // Execute the display of student's grades here
