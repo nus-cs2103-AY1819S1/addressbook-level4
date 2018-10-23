@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -9,11 +10,15 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.PersonProfileViewEvent;
 import seedu.address.model.EmailModel;
 import seedu.address.model.person.Person;
 
@@ -33,6 +38,9 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
+    @FXML
+    private StackPane personProfilePlaceholder;
+
     public BrowserPanel() {
         super(FXML);
 
@@ -51,6 +59,15 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
 
+    public void loadPersonProfile(Person person) {
+        Platform.runLater(() -> {
+            PersonProfile personProfile = new PersonProfile(person);
+            Image img = new Image("resources/images/hallper.png");
+            ImageView imgView = new ImageView(img);
+            personProfilePlaceholder.getChildren().add(imgView);
+        });
+    }
+
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
@@ -64,6 +81,12 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void freeResources() {
         browser = null;
+    }
+
+    @Subscribe
+    private void handlePersonProfileViewEvent(PersonProfileViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonProfile(event.getPersonSelected());
     }
 
     @Subscribe

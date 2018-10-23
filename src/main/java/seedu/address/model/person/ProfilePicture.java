@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * Represents a Person's profile picture file path in the address book.
@@ -18,35 +19,34 @@ public class ProfilePicture {
      * The first character of the file path must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String PROFILE_PICTURE_VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|png))$)";
-    public final String filePath;
-    private BufferedImage picture;
+    public static final String PROFILE_PICTURE_VALIDATION_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_-]+)+\\\\?";
+    public final File filePath;
 
     /**
      * Constructs a {@code ProfilePicture}.
      *
      * @param path a valid file path.
      */
-    public ProfilePicture(String path) {
+    public ProfilePicture(File path) {
         requireNonNull(path);
-        checkArgument(isValidProfilePicture(path), MESSAGE_PROFILE_PICTURE_CONSTRAINTS);
+        //checkArgument(isValidProfilePicture(path), MESSAGE_PROFILE_PICTURE_CONSTRAINTS);
         filePath = path;
     }
 
-    public BufferedImage getPicture() {
-        return picture;
+    public File getPicture() {
+        return filePath.getAbsoluteFile();
     }
 
     /**
      * Returns true if a given string ends with .jpeg or .png.
      */
-    public static boolean isValidProfilePicture(String test) {
-        return test.matches(PROFILE_PICTURE_VALIDATION_REGEX);
+    public static boolean isValidProfilePicture(File test) {
+        return test.getAbsolutePath().matches(PROFILE_PICTURE_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return filePath;
+        return filePath.getAbsolutePath();
     }
 
     @Override

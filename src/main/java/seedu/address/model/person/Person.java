@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,7 +37,8 @@ public class Person {
         this.email = email;
         this.room = room;
         this.school = school;
-        this.profilePicture = new ProfilePicture("-.jpg");
+        this.profilePicture = new ProfilePicture(
+                new File("C:\\Users\\javen\\Desktop\\My Workspace\\Y2S1\\CS2103T\\Addbos AB4\\docs\\imagesSeEduLogo.png"));
         this.tags.addAll(tags);
     }
 
@@ -61,7 +63,8 @@ public class Person {
         this.email = null;
         this.room = null;
         this.school = null;
-        this.profilePicture = new ProfilePicture("-.jpg");
+        this.profilePicture = new ProfilePicture(
+                new File("C:\\Users\\javen\\Desktop\\My Workspace\\Y2S1\\CS2103T\\Addbos AB4\\docs\\imagesSeEduLogo.png"));
     }
 
     public Name getName() {
