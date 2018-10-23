@@ -48,8 +48,8 @@ public class Password {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Name // instanceof handles nulls
-            && password.equals(((Name) other).fullName)); // state check
+            || (other instanceof Password // instanceof handles nulls
+            && password.equals(((Password) other).password)); // state check
     }
 
     @Override
