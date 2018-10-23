@@ -340,6 +340,19 @@ navigation between instructions, possibility controlling of a real-time timer is
 instructions.
 // end::recipemanagement[]
 
+// tag::favouritesimplementation[]
+=== Favourites list
+
+This feature allows users to have a quick reference to all of their favourite recipes. Users are able to add recipes
+that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
+and remove any entry within the favourites list.
+
+==== Adding to Favourites
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+// end::favouritesimplementation[]
+
 // tag::mealplannerimplementation[]
 === Meal Planner feature
 ==== Current Implementation
