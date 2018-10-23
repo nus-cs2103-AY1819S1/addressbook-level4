@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.AMY_APPT;
 import static seedu.address.testutil.TypicalPersons.AMY_AS_PATIENT;
 import static seedu.address.testutil.TypicalPersons.BEN;
@@ -63,7 +64,7 @@ public class PatientTest {
 
         // same name, one with appointment, one without -> returns false
         editedAmyAsPatientWithAppointment = new PatientBuilder(AMY_AS_PATIENT).withAppointment(AMY_APPT).build();
-        Patient editedAmyAsPatientWithoutAppointment = new PatientBuilder(AMY_AS_PATIENT).build();
+        Patient editedAmyAsPatientWithoutAppointment = PatientBuilder.buildFromPerson(AMY).build();
         assertFalse(editedAmyAsPatientWithAppointment.isSamePerson(editedAmyAsPatientWithoutAppointment));
 
         // same name, same appointment, different attributes -> returns true
