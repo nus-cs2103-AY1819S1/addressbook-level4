@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
