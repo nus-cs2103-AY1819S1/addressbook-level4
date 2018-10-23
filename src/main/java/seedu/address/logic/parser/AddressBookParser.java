@@ -14,6 +14,8 @@ import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterPatientCommand;
+import seedu.address.logic.commands.FilterDoctorCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -103,6 +105,11 @@ public class AddressBookParser {
         case AddMedicalHistoryCommand.COMMAND_WORD:
             return new AddMedicalHistoryCommandParser().parse(arguments);
 
+        case FilterPatientCommand.COMMAND_WORD:
+            return new FilterPatientCommand();
+
+        case FilterDoctorCommand.COMMAND_WORD:
+                return new FilterDoctorCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
