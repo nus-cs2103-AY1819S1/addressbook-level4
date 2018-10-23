@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -75,6 +76,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addPatient(Person p) {
+        persons.add(p);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addDoctor(Person d) {
+        persons.add(d);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -94,12 +111,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a patient's {@code appointment} to this {@code HealthBook}.
-     * {@code patient, doctor} must exist in the health book.
+     * Adds appointment to patient {@code patient, appointment} to this {@code HealthBook}.
+     * {@code patient} must exist in the health book.
      */
-    public void addAppointment(Appointment appointment) {
-        appointment.getPatient().addUpcomingAppointment(appointment);
-        appointment.getDoctor().addUpcomingAppointment(appointment);
+    public void addAppointment(Patient patient, Appointment appointment) {
+        patient.addUpcomingAppointment(appointment);
     }
 
     /**

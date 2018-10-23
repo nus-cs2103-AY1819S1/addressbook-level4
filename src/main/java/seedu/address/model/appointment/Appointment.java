@@ -3,7 +3,6 @@ package seedu.address.model.appointment;
 import java.time.LocalDateTime;
 import java.util.List;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.patient.Patient;
 
 /**
  * Represents an Appointment in the health book.
@@ -13,28 +12,23 @@ public class Appointment {
     private static int appointmentCounter;
 
     private int appointmentId;
-    private Patient patient;
     private Doctor doctor;
     private LocalDateTime dateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(Patient patient, Doctor doctor, LocalDateTime dateTime) {
+    public Appointment(Doctor doctor, LocalDateTime dateTime) {
         this.appointmentId = appointmentCounter;
         appointmentCounter++;
-        this.patient = patient;
         this.doctor = doctor;
         this.dateTime = dateTime;
         this.status = Status.UPCOMING;
+        doctor.addUpcomingAppointment(this);
     }
 
     public int getAppointmentId() {
         return appointmentId;
-    }
-    
-    public Patient getPatient() {
-        return patient;
     }
 
     public Doctor getDoctor() {

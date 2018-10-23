@@ -33,7 +33,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
@@ -80,6 +79,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addPatient(Patient patient) {
+        versionedAddressBook.addPatient(patient);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) {
+        versionedAddressBook.addDoctor(doctor);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -88,10 +101,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addAppointment(Appointment appointment) {
-        requireAllNonNull(appointment);
+    public void addAppointment(Patient patient, Appointment appointment) {
+        requireAllNonNull(patient, appointment);
 
-        versionedAddressBook.addAppointment(appointment);
+        versionedAddressBook.addAppointment(patient, appointment);
         indicateAddressBookChanged();
     }
 

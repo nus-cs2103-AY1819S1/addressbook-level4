@@ -47,11 +47,10 @@ public class RegisterDoctorCommandParser implements Parser<RegisterDoctorCommand
         Remark remark = new Remark(""); //register doctor currently doesn't support register remark
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         tagList.add(new Tag("Doctor"));
-        String googleOAuth = "123123"; // TO BE EDITED
 
-        Doctor person = new Doctor(name, phone, email, address, remark, tagList, googleOAuth); // TO BE EDITED
+        Doctor doctor = new Doctor(name, phone, email, address, remark, tagList);
 
-        return new RegisterDoctorCommand(person);
+        return new RegisterDoctorCommand(doctor);
     }
 
     /**

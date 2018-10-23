@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import seedu.address.logic.CommandHistory;
@@ -14,9 +13,7 @@ import seedu.address.model.person.Person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Adds a patient's appointment to the health book.
@@ -35,7 +32,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_DOCTOR_NAME + "Mary Jane "
             + PREFIX_DATE_TIME + "2018-10-17 15:00 ";
 
-    public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New appointment added";
     public static final String MESSAGE_INVALID_PATIENT = "This patient does not exist in the HealthBook";
     public static final String MESSAGE_INVALID_DOCTOR = "This doctor does not exist in the HealthBook";
     // TODO - add messages for various cases (e.g. conflict in schedule) here when google calendar is up
@@ -60,7 +57,7 @@ public class AddAppointmentCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         Patient patient = null;
         Doctor doctor = null;
-        
+
         for (Person person : lastShownList) {
             if (person.getName().equals(patientName) && person instanceof Patient) {
                 patient = (Patient) person;
@@ -80,10 +77,10 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DOCTOR);
         }
 
-        Appointment appointment = new Appointment(patient, doctor, dateTime);
-        model.addAppointment(appointment);
+        Appointment appointment = new Appointment(doctor, dateTime);
+        model.addAppointment(patient, appointment);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
