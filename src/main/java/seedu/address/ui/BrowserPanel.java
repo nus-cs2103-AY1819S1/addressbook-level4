@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
@@ -41,6 +42,10 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    private void loadEventPage(seedu.address.model.event.Event event) {
+        loadPage(SEARCH_PAGE_URL + event.getName().fullName);
+    }
+
     private void loadPersonPage(Person person) {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
@@ -62,6 +67,12 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void freeResources() {
         browser = null;
+    }
+
+    @Subscribe
+    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadEventPage(event.getNewSelection());
     }
 
     @Subscribe

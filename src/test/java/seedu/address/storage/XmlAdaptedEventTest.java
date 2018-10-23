@@ -28,6 +28,7 @@ public class XmlAdaptedEventTest {
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TAG = "#friend";
 
+    private static final int VALID_ID = 1;
     private static final String VALID_NAME = YOUTH.getName().toString();
     private static final String VALID_LOCATION = YOUTH.getLocation().toString();
     private static final String VALID_START_DATE = YOUTH.getStartDate().toString();
@@ -48,7 +49,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(INVALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, INVALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -56,7 +57,7 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(null, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, null, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                 VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -65,7 +66,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidLocation_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, INVALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, INVALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Location.MESSAGE_LOCATION_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -73,7 +74,7 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullLocation_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, null, VALID_START_DATE, VALID_END_DATE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, null, VALID_START_DATE, VALID_END_DATE,
                 VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -82,7 +83,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidStartDate_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, INVALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, INVALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Date.MESSAGE_DATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -90,7 +91,7 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullStartDate_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, null, VALID_END_DATE,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, null, VALID_END_DATE,
                 VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -99,7 +100,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidEndDate_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, INVALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, INVALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Date.MESSAGE_DATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -107,7 +108,7 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullEndDate_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, null,
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, null,
                 VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -116,7 +117,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidStartTime_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         INVALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Time.MESSAGE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -124,8 +125,8 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullStartTime_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
-                null, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE,
+                VALID_END_DATE, null, VALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -133,7 +134,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidEndTime_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, INVALID_END_TIME, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Time.MESSAGE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -141,8 +142,8 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullEndTime_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
-                VALID_START_TIME, null, VALID_DESCRIPTION, VALID_TAGS);
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE,
+                VALID_END_DATE, VALID_START_TIME, null, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -150,7 +151,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, INVALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
@@ -158,8 +159,8 @@ public class XmlAdaptedEventTest {
 
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
-                VALID_START_TIME, VALID_END_TIME, null, VALID_TAGS);
+        XmlAdaptedEvent event = new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE,
+                VALID_END_DATE, VALID_START_TIME, VALID_END_TIME, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -169,7 +170,7 @@ public class XmlAdaptedEventTest {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
+                new XmlAdaptedEvent(VALID_ID, VALID_NAME, VALID_LOCATION, VALID_START_DATE, VALID_END_DATE,
                         VALID_START_TIME, VALID_END_TIME, VALID_DESCRIPTION, invalidTags);
         Assert.assertThrows(IllegalValueException.class, event::toModelType);
     }

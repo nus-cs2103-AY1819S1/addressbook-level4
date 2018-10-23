@@ -4,20 +4,26 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.event.EventId;
+import seedu.address.model.person.PersonId;
+
 /**
  * Represents a volunteer's event record in application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Record {
     private final EventId eventId;
-    private final VolunteerId volunteerId;
+    private final PersonId volunteerId;
     private final Hour hour;
     private final Remark remark;
+
+    private String volunteerName;
+    private String phoneNo;
 
     /**
      * Every field must be present and not null.
      */
-    public Record(EventId eventId, VolunteerId volunteerId, Hour hour, Remark remark) {
+    public Record(EventId eventId, PersonId volunteerId, Hour hour, Remark remark) {
         requireAllNonNull(eventId, volunteerId, hour, remark);
         this.eventId = eventId;
         this.volunteerId = volunteerId;
@@ -29,7 +35,7 @@ public class Record {
         return eventId;
     }
 
-    public VolunteerId getVolunteerId() {
+    public PersonId getVolunteerId() {
         return volunteerId;
     }
 
@@ -39,6 +45,22 @@ public class Record {
 
     public Remark getRemark() {
         return remark;
+    }
+
+    public String getVolunteerName() {
+        return volunteerName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setVolunteerName(String name) {
+        this.volunteerName = name;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     /**

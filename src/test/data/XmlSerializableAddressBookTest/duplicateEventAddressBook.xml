@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <events>
+        <eventId>1</eventId>
         <name>Blood Donation Drive 2018</name>
         <location>750E Chai Chee Road</location>
         <startDate>02-10-2018</startDate>
@@ -14,6 +15,7 @@
 
     <!-- Event with same identity as Blood Donation Drive 2018 -->
     <events>
+        <eventId>2</eventId>
         <name>Blood Donation Drive 2018</name>
         <location>750E Chai Chee Road</location>
         <startDate>02-10-2018</startDate>

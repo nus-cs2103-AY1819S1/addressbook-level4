@@ -35,8 +35,8 @@
         </MenuBar>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <VBox fx:id="listPanel" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
           <VBox minWidth="340">
             <StackPane fx:id="browserPlaceholder" prefWidth="340" >
@@ -48,7 +48,7 @@
               </padding>
             </StackPane>
 
-            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" alignment="BOTTOM_CENTER"
                        minHeight="120" prefHeight="120" maxHeight="120">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />

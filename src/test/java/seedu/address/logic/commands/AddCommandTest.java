@@ -109,6 +109,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void switchToRecordContext() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String getContextId() {
             throw new AssertionError("This method should not be called.");
         }
