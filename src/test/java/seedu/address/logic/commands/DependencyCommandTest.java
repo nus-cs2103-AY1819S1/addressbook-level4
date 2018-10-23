@@ -132,10 +132,12 @@ public class DependencyCommandTest {
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks
         expectedModelRemove.undoTaskManager();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelRemove);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelRemove);
         // redo -> same first task deleted again
         expectedModelAdd.redoTaskManager();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelRemove);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelRemove);
     }
 
     @Test
