@@ -77,7 +77,7 @@ public class VisitorInCommand extends Command {
         }
 
         if (patientToUpdate.getVisitorList().contains(visitorName)) {
-            throw new CommandException(MESSAGE_DUPLICATE_VISITOR);
+            throw new CommandException(MESSAGE_DUPLICATE_VISITORS);
         }
 
         Person updatedPatient = addVisitorForPatient(patientToUpdate, this.visitorName);
