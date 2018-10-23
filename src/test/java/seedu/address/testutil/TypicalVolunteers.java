@@ -1,19 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,18 +76,18 @@ public class TypicalVolunteers {
     // Manually added - Volunteer's details found in {@code CommandTestUtil}
     public static final Volunteer AMY = new VolunteerBuilder()
             .withVolunteerId(10)
-            .withName(VALID_VOLUNTEER_NAME_AMY).withGender(VALID_GENDER_AMY)
-            .withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_VOLUNTEER_PHONE_AMY)
-            .withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY)
-            .withTags(VALID_VOLUNTEER_TAG_STUDENT).build();
+            .withName(VALID_NAME_AMY).withGender(VALID_GENDER_AMY)
+            .withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTags(VALID_TAG_STUDENT).build();
     public static final Volunteer BOB = new VolunteerBuilder()
             .withVolunteerId(11)
-            .withName(VALID_VOLUNTEER_NAME_BOB).withGender(VALID_GENDER_BOB)
-            .withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_VOLUNTEER_PHONE_BOB)
-            .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
-            .withTags(VALID_VOLUNTEER_TAG_DRIVER, VALID_VOLUNTEER_TAG_STUDENT).build();
+            .withName(VALID_NAME_BOB).withGender(VALID_GENDER_BOB)
+            .withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_DRIVER, VALID_TAG_STUDENT).build();
 
-    public static final String KEYWORD_VOLUNTEER_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalVolunteers() {
     } // prevents instantiation

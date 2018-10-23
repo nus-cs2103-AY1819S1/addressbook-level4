@@ -4,15 +4,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditVolunteerCommand.EditVolunteerDescriptor;
+import seedu.address.logic.commands.EditCommand.EditVolunteerDescriptor;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Address;
 import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Email;
 import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Name;
+import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.VolunteerPhone;
 
 /**
  * A utility class to help with building EditVolunteerDescriptor objects.
@@ -49,7 +49,7 @@ public class EditVolunteerDescriptorBuilder {
      * Sets the {@code Name} of the {@code EditVolunteerDescriptor} that we are building.
      */
     public EditVolunteerDescriptorBuilder withName(String name) {
-        descriptor.setName(new VolunteerName(name));
+        descriptor.setName(new Name(name));
         return this;
     }
 
@@ -72,7 +72,7 @@ public class EditVolunteerDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditVolunteerDescriptor} that we are building.
      */
     public EditVolunteerDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new VolunteerPhone(phone));
+        descriptor.setPhone(new Phone(phone));
         return this;
     }
 
@@ -80,7 +80,7 @@ public class EditVolunteerDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditVolunteerDescriptor} that we are building.
      */
     public EditVolunteerDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new VolunteerEmail(email));
+        descriptor.setEmail(new Email(email));
         return this;
     }
 
@@ -88,7 +88,7 @@ public class EditVolunteerDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditPVolunteerDescriptor} that we are building.
      */
     public EditVolunteerDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new VolunteerAddress(address));
+        descriptor.setAddress(new Address(address));
         return this;
     }
 

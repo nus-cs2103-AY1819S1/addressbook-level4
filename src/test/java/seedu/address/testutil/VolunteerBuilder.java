@@ -5,14 +5,14 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.volunteer.Address;
 import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Email;
 import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Name;
+import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerId;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.VolunteerPhone;
 
 /**
  * A utility class to help with building Person objects.
@@ -27,22 +27,22 @@ public class VolunteerBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private VolunteerId volunteerId;
-    private VolunteerName name;
+    private Name name;
     private Gender gender;
     private Birthday birthday;
-    private VolunteerPhone phone;
-    private VolunteerEmail email;
-    private VolunteerAddress address;
+    private Phone phone;
+    private Email email;
+    private Address address;
     private Set<Tag> tags;
 
     public VolunteerBuilder() {
         volunteerId = new VolunteerId(DEFAULT_VOLUNTEERID);
-        name = new VolunteerName(DEFAULT_NAME);
+        name = new Name(DEFAULT_NAME);
         gender = new Gender(DEFAULT_GENDER);
         birthday = new Birthday(DEFAULT_BIRTHDAY);
-        phone = new VolunteerPhone(DEFAULT_PHONE);
-        email = new VolunteerEmail(DEFAULT_EMAIL);
-        address = new VolunteerAddress(DEFAULT_ADDRESS);
+        phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
+        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -73,7 +73,7 @@ public class VolunteerBuilder {
      * Sets the {@code Name} of the {@code Volunteer} that we are building.
      */
     public VolunteerBuilder withName(String name) {
-        this.name = new VolunteerName(name);
+        this.name = new Name(name);
         return this;
     }
 
@@ -105,7 +105,7 @@ public class VolunteerBuilder {
      * Sets the {@code Address} of the {@code Volunteer} that we are building.
      */
     public VolunteerBuilder withAddress(String address) {
-        this.address = new VolunteerAddress(address);
+        this.address = new Address(address);
         return this;
     }
 
@@ -113,7 +113,7 @@ public class VolunteerBuilder {
      * Sets the {@code Phone} of the {@code Volunteer} that we are building.
      */
     public VolunteerBuilder withPhone(String phone) {
-        this.phone = new VolunteerPhone(phone);
+        this.phone = new Phone(phone);
         return this;
     }
 
@@ -121,7 +121,7 @@ public class VolunteerBuilder {
      * Sets the {@code Email} of the {@code Volunteer} that we are building.
      */
     public VolunteerBuilder withEmail(String email) {
-        this.email = new VolunteerEmail(email);
+        this.email = new Email(email);
         return this;
     }
 
