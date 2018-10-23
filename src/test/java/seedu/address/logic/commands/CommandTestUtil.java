@@ -83,6 +83,10 @@ public class CommandTestUtil {
             " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "*2 8u 2000";
+    public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "j0 39";
+    public static final String INVALID_ID_DESC = " " + PREFIX_ID + "j213";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
