@@ -8,14 +8,16 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a volunteer card in the volunteer list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class VolunteerCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
+    private static final String GENDER_FIELD_ID = "#gender";
+    private static final String BIRTHDAY_FIELD_ID = "#birthday";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
@@ -23,16 +25,20 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     private final Label idLabel;
     private final Label nameLabel;
+    private final Label genderLabel;
+    private final Label birthdayLabel;
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public VolunteerCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
+        genderLabel = getChildNode(GENDER_FIELD_ID);
+        birthdayLabel = getChildNode(BIRTHDAY_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
@@ -51,6 +57,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     public String getName() {
         return nameLabel.getText();
+    }
+
+    public String getGender() {
+        return genderLabel.getText();
+    }
+
+    public String getBirthday() {
+        return birthdayLabel.getText();
     }
 
     public String getAddress() {
@@ -73,15 +87,17 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code volunteer}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+    public boolean equals(Volunteer volunteer) {
+        return getName().equals(volunteer.getName().fullName)
+                && getGender().equals(volunteer.getGender().value)
+                && getBirthday().equals(volunteer.getBirthday().value)
+                && getAddress().equals(volunteer.getAddress().value)
+                && getPhone().equals(volunteer.getPhone().value)
+                && getEmail().equals(volunteer.getEmail().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(volunteer.getTags().stream()
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList())));
     }
 }
