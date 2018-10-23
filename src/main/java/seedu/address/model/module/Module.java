@@ -72,8 +72,7 @@ public class Module extends Entity {
     }
 
     /**
-     * Returns true if both modules of the same name have at least one other identity field that
-     * is the same.
+     * Returns true if both modules have the same code, academic year and semester.
      * This defines a weaker notion of equality between two modules.
      */
     public boolean isSameModule(Module otherModule) {
@@ -83,7 +82,8 @@ public class Module extends Entity {
 
         return otherModule != null
                 && otherModule.getModuleCode().equals(getModuleCode())
-                && (otherModule.getModuleTitle().equals(getModuleTitle()));
+                && otherModule.getAcademicYear().equals(getAcademicYear())
+                && otherModule.getSemester().equals(getSemester());
     }
 
     /**

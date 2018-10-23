@@ -27,6 +27,7 @@ public class ModuleBuilder {
     private ModuleTitle moduleTitle;
     private AcademicYear academicYear;
     private Semester semester;
+    private UniquePersonList students;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
@@ -34,6 +35,7 @@ public class ModuleBuilder {
         moduleTitle = new ModuleTitle(DEFAULT_MODULETITLE);
         academicYear = new AcademicYear(DEFAULT_ACADEMICYEAR);
         semester = new Semester(DEFAULT_SEMESTER);
+        students = new UniquePersonList();
         tags = new HashSet<>();
     }
 
@@ -45,6 +47,7 @@ public class ModuleBuilder {
         moduleTitle = moduleToCopy.getModuleTitle();
         academicYear = moduleToCopy.getAcademicYear();
         semester = moduleToCopy.getSemester();
+        students = moduleToCopy.getStudents();
         tags = moduleToCopy.getTags();
     }
 
@@ -81,6 +84,14 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets the {@code students list} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withStudents(UniquePersonList students) {
+        this.students = students;
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public ModuleBuilder withTags(String ... tags) {
@@ -94,7 +105,7 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(moduleCode, moduleTitle, academicYear, semester,
-                new UniquePersonList(), tags, TypeUtil.MODULE);
+                students, tags, TypeUtil.MODULE);
     }
 
 }

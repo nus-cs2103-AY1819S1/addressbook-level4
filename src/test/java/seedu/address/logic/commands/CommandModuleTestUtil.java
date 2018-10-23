@@ -24,6 +24,7 @@ public class CommandModuleTestUtil extends CommandTestUtil {
     public static final String VALID_MODULETITLE_ST2131 = "Probability";
     public static final String VALID_ACADEMICYEAR_CS2100 = "1617";
     public static final String VALID_ACADEMICYEAR_ST2131 = "1011";
+    public static final String VALID_SEMESTER_ONE = "1";
     public static final String VALID_TAG_BINARY = "binary";
     public static final String VALID_TAG_CALCULUS = "needs calculus";
 
