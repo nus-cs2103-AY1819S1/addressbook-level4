@@ -41,16 +41,8 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
      */
     public boolean clashes(Appointment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameSlot);
+        return internalList.stream().anyMatch(toCheck::isOverlapAppointment);
     }
-
-    /**
-     * Returns true if the list overlaps another time slot.
-
-    public boolean overlaps(Appointment toCheck) {
-        requireAllNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::)
-    }*/
 
     /**
      * Adds an appointment to the list.
