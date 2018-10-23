@@ -16,6 +16,8 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,6 +37,8 @@ public class XmlAdaptedModule {
     private String academicYear;
     @XmlElement(required = true)
     private String semester;
+    @XmlElement(required = true)
+    private List<XmlAdaptedPerson> students;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -49,11 +53,15 @@ public class XmlAdaptedModule {
      * Constructs an {@code XmlAdaptedModule} with the given person details.
      */
     public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear,
-                            String semester, List<XmlAdaptedTag> tagged) {
+                            String semester, List<XmlAdaptedPerson> students,
+                            List<XmlAdaptedTag> tagged) {
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
+        if (students != null) {
+            this.students = new ArrayList<>(students);
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -69,6 +77,10 @@ public class XmlAdaptedModule {
         moduleTitle = source.getModuleTitle().toString();
         academicYear = source.getAcademicYear().toStringOnlyNumbers();
         semester = source.getSemester().toString();
+        students = new ArrayList<>();
+        for (Person person : source.getStudents()) {
+            students.add(new XmlAdaptedPerson(person));
+        }
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -83,6 +95,11 @@ public class XmlAdaptedModule {
         final List<Tag> moduleTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             moduleTags.add(tag.toModelType());
+        }
+
+        final UniquePersonList loadedStudentsList = new UniquePersonList();
+        for (XmlAdaptedPerson person : students) {
+            loadedStudentsList.add(person.toModelType());
         }
 
         if (moduleCode == null) {
@@ -123,7 +140,8 @@ public class XmlAdaptedModule {
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
         final TypeUtil modelType = TypeUtil.MODULE;
-        return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester, modelTags, modelType);
+        return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester,
+                loadedStudentsList, modelTags, modelType);
     }
 
     @Override
@@ -141,6 +159,7 @@ public class XmlAdaptedModule {
                 && Objects.equals(moduleTitle, otherModule.moduleTitle)
                 && Objects.equals(academicYear, otherModule.academicYear)
                 && Objects.equals(semester, otherModule.semester)
+                && Objects.equals(students, otherModule.students)
                 && tagged.equals(otherModule.tagged);
     }
 }
