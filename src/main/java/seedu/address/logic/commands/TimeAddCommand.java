@@ -86,10 +86,8 @@ public class TimeAddCommand extends Command {
                 throw new CommandException(MESSAGE_TIME_CLASH);
             }
         }
-        model.addTime(targetPerson, toAdd);
-        model.commitAddressBook();
+        targetPerson.addTime(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
     }
-
 }
 

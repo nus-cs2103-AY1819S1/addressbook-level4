@@ -72,7 +72,7 @@ public class EditTimeCommand extends Command {
         }
 
         targetPerson.getTime().remove(oldTime);
-        model.addTime(targetPerson, newTime);
+        targetPerson.addTime(newTime);
         return new CommandResult(String.format(MANAGE_SUCCESS));
 
     }
