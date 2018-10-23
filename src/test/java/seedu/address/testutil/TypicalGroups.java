@@ -41,10 +41,6 @@ public class TypicalGroups {
             .withMeeting(URGENT)
             .withNewPerson(CARL).withNewPerson(ELLE).build();
 
-    public static final Tag TEMP_GROUP_PROJECT = new Tag("Project");
-
-    public static final Tag TEMP_GROUP_ASSIGNMENT = new Tag("Assignment");
-
     private TypicalGroups() {} // prevent instantiation
 
     public static List<Group> getTypicalGroups() {
