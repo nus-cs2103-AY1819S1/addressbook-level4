@@ -126,9 +126,9 @@ public class XmlAdaptedPerson {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        if (modelTags.toArray()[0].equals( new Tag("Doctor"))) {
-            return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123");
-        } else if (modelTags.toArray()[0].equals( new Tag("Patient"))) {
+        if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Doctor"))) {
+            return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
             return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123");
         } else {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
