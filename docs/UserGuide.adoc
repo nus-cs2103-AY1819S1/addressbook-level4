@@ -364,7 +364,7 @@ Example:
 * `addtime n/John Doe ts/mon 1300 1500` +
 Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
-=== Adding tuition time of a student : `deletetime`
+=== Deleting tuition time of a student : `deletetime`
 
 Deletes a tuition time slot for a student in the address book.
 Format: `deletetime [n/NAME] [ts/TIME]`
