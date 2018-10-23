@@ -410,7 +410,7 @@ Format: `medstats`
 === Exporting patient records : `export`
 
 Exports patient data. +
-Format: `export`
+Format: `exportpatient`
 
 === Exiting the program : `exit`
 
@@ -498,7 +498,7 @@ e.g. `select 2`
 * *Appointment Statistics* : `apptstats`
 * *Doctor Statistics* : `doctorstats`
 * *Medicine Statistics* : `medstats`
-* *Export Patient Records* : `export`
+* *Export Patient Records* : `exportpatient`
 
 === `MedicineInventory` Commands
 * *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
