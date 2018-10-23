@@ -31,7 +31,6 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing occasion in the address book.
- *
  * @author alistair
  */
 public class EditOccasionCommand extends Command {
