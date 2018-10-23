@@ -14,6 +14,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
@@ -83,6 +84,16 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads a HTML file that displays the current patient's information.
+     */
+    private void loadCurrentPatientPage(CurrentPatient currentPatient) {
+        System.out.println(currentPatient.toNameAndIc());
+        String filePath = "/view/CurrentPatientView.html";
+        String url = MainApp.class.getResource(filePath).toExternalForm();
+        loadPage(url);
+    }
+
+    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -99,6 +110,12 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleShowQueueInformationEvent(ShowQueueInformationEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadQueueInfomationPage(event.getPatientQueue(), event.getCurrentPatient(), event.getServedPatientList());
+    }
+
+    @Subscribe
+    private void handleShowCurrentPatientView(ShowCurrentPatientViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCurrentPatientPage(event.getCurrentPatient());
     }
 
     /**
