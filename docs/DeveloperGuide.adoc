@@ -340,15 +340,14 @@ or Model#hasReceptionist() and Model#getReceptionist() for receptionists respect
 
 Given below is an scenario to illustrate the login authentication at each step: +
 
-. The user executes the `login` command by specifying the role, name and password. The `login` command determine the type of role
-that the user entered.   
+. The user executes the `login` command by specifying the role, name and password. The `login` command determine the type of role that the user entered.
 
-. If the role is doctor, 
+. If the role is doctor,
 
 .. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
 .. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
 .. The `login` command verify password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by user.
-.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
+.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
 
 . If the role is receptionist,
 
@@ -356,7 +355,7 @@ that the user entered.
 .. Once ClinicIO check if user exists, the `login` command call `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
 .. The `login` command verify password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by user.
 
-. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
+. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
 
 The following sequence diagram shows how the login authentication works:
 
