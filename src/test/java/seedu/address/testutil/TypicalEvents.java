@@ -64,7 +64,7 @@ public class TypicalEvents {
             new ScheduledEventBuilder()
                     .withEventName("Dinner appointment")
                     .withEventDescription("with Ann")
-                    .withEventDate("2018-09-07")
+                    .withEventDate(VALID_EVENT_DATE_MEETING)
                     .withEventStartTime("1800")
                     .withEventEndTime("2015")
                     .build();
@@ -72,6 +72,6 @@ public class TypicalEvents {
     private TypicalEvents() {} // prevents instantiation
 
     public static List<Event> getTypicalEvents() {
-        return new ArrayList<>(Arrays.asList(DOCTORAPPT, MEETING));
+        return new ArrayList<>(Arrays.asList(DOCTORAPPT, MEETING, DINNER));
     }
 }
