@@ -11,8 +11,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +19,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FORTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import seedu.address.logic.commands.RedoCommand;
@@ -38,9 +35,8 @@ public class AddFriendCommandTest {
 
     @Test
     public void executeValidIndexUnfilteredListSuccess() throws CommandException {
-        List<Person> persons = getTypicalPersons();
-        Person person1 = persons.get(0);
-        Person person2 = persons.get(1);
+        Person person1 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
+        Person person2 = model.getFilteredPersonList().get(INDEX_THIRD.getZeroBased());
         AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
                 INDEX_THIRD.getZeroBased()));
         String expectedMessage = String.format(AddFriendCommand.MESSAGE_ADD_FRIEND_SUCCESS,
