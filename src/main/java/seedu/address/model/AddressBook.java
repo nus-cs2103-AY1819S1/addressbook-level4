@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -189,6 +190,35 @@ public class AddressBook implements ReadOnlyAddressBook {
         return groups.asUnmodifiableObservableList();
     }
     // @@author
+
+    /**
+     * Merge another MeetingBook into current MeetingBook.
+     */
+    public void merge(ReadOnlyAddressBook imported) {
+        // If Both book contains same entries
+        if (equals(imported)) {
+            return;
+        }
+        if (imported instanceof AddressBook) {
+            AddressBook importedBook = (AddressBook) imported;
+            Iterator<Person> personItr = importedBook.persons.iterator();
+            while (personItr.hasNext()) {
+                Person importPerson = personItr.next();
+                if (!hasPerson(importPerson)) {
+                    addPerson(importPerson);
+                }
+            }
+
+            Iterator<Group> groupItr = importedBook.groups.iterator();
+            while (groupItr.hasNext()) {
+                Group importGroup = groupItr.next();
+                if (!hasGroup(importGroup)) {
+                    addGroup(importGroup);
+                }
+            }
+
+        }
+    }
 
     @Override
     public boolean equals(Object other) {

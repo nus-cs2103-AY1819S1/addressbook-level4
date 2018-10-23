@@ -131,6 +131,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void importAddressBook(ReadOnlyAddressBook importAddressBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void changeUserPrefs(Path filepath) {
         throw new AssertionError("This method should not be called.");
     }

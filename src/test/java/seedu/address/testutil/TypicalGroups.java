@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.tag.Tag;
+
 
 // @@author Derek-Hardy
 /**
@@ -38,6 +40,12 @@ public class TypicalGroups {
             .withDescription("NUS basketball")
             .withMeeting(URGENT)
             .withNewPerson(CARL).withNewPerson(ELLE).build();
+
+    public static final Group GROUP_0 = new GroupBuilder().withTitle("group").build();
+
+    public static final Tag TEMP_GROUP_PROJECT = new Tag("Project");
+
+    public static final Tag TEMP_GROUP_ASSIGNMENT = new Tag("Assignment");
 
     private TypicalGroups() {} // prevent instantiation
 
