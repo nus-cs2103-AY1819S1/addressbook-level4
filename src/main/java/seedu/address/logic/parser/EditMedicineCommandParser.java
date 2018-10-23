@@ -55,9 +55,9 @@ public class EditMedicineCommandParser {
             medicineDescriptor.setSerialNumber(
                     ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get()));
         }
-        if (argMultimap.getValue(PREFIX_MINIMUM_STOCK_QUANTITY).isPresent()) {
+        if (argMultimap.getValue(PREFIX_STOCK).isPresent()) {
             medicineDescriptor.setStock(
-                    ParserUtil.parseStock(argMultimap.getValue(PREFIX_MINIMUM_STOCK_QUANTITY).get()));
+                    ParserUtil.parseStock(argMultimap.getValue(PREFIX_STOCK).get()));
         }
 
         if (!medicineDescriptor.isAnyFieldEdited()) {

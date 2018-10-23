@@ -25,50 +25,50 @@ import seedu.address.model.medicine.Medicine;
 public class TypicalMedicines {
 
     public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withMedicineName("Acetaminophen")
-            .withMinimumStockQuantity("200")
+            .withMinimumStockQuantity(200)
             .withPricePerUnit("1")
             .withSerialNumber("1234522")
-            .withStock("4000").build();
+            .withStock(4000).build();
     public static final Medicine BACITRACIN = new MedicineBuilder().withMedicineName("Bacitracin")
-            .withMinimumStockQuantity("132")
+            .withMinimumStockQuantity(132)
             .withPricePerUnit("6")
             .withSerialNumber("3444211")
-            .withStock("983").build();
+            .withStock(983).build();
     public static final Medicine CALEX = new MedicineBuilder().withMedicineName("CALEX")
-            .withMinimumStockQuantity("30")
-            .withStock("93")
+            .withMinimumStockQuantity(30)
+            .withStock(93)
             .withSerialNumber("9374830")
             .withPricePerUnit("100").build();
     public static final Medicine DALMANE = new MedicineBuilder().withMedicineName("Dalmane")
-            .withMinimumStockQuantity("450")
-            .withStock("450")
+            .withMinimumStockQuantity(450)
+            .withStock(450)
             .withSerialNumber("39193232")
             .withPricePerUnit("2").build();
     public static final Medicine ECOTRIN = new MedicineBuilder().withMedicineName("ECOTRIN")
-            .withMinimumStockQuantity("234")
-            .withStock("9")
+            .withMinimumStockQuantity(234)
+            .withStock(9)
             .withSerialNumber("01380952")
             .withPricePerUnit("22").build();
     public static final Medicine FABIOR = new MedicineBuilder().withMedicineName("Faboir")
-            .withMinimumStockQuantity("2344")
-            .withStock("94333")
+            .withMinimumStockQuantity(2344)
+            .withStock(94333)
             .withSerialNumber("2131433445")
             .withPricePerUnit("23").build();
     public static final Medicine GELATO = new MedicineBuilder().withMedicineName("Gelato")
-            .withMinimumStockQuantity("214")
-            .withStock("9482")
+            .withMinimumStockQuantity(214)
+            .withStock(9482)
             .withSerialNumber("397380111")
             .withPricePerUnit("22").build();
 
     // Manually added
     public static final Medicine HALAVEN = new MedicineBuilder().withMedicineName("Halaven")
-            .withMinimumStockQuantity("233")
-            .withStock("2344")
+            .withMinimumStockQuantity(233)
+            .withStock(2344)
             .withSerialNumber("92470506")
             .withPricePerUnit("12").build();
     public static final Medicine IDAPROFEN = new MedicineBuilder().withMedicineName("Idaprofen")
-            .withMinimumStockQuantity("229")
-            .withStock("84821")
+            .withMinimumStockQuantity(229)
+            .withStock(84821)
             .withSerialNumber("213456743")
             .withPricePerUnit("23").build();
 

@@ -20,7 +20,6 @@ import seedu.address.model.medicine.Medicine;
 public class AddMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "addMedicine";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the records. "
             + "Parameters: "
             + PREFIX_MEDICINE_NAME + "MEDICINE NAME "
@@ -30,7 +29,7 @@ public class AddMedicineCommand extends Command {
             + PREFIX_STOCK + "STOCK ";
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This medicine already exists in the records";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the records";
 
     private final Medicine toAdd;
 
@@ -48,7 +47,7 @@ public class AddMedicineCommand extends Command {
         requireNonNull(model);
 
         if (model.hasMedicine(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
         model.addMedicine(toAdd);
