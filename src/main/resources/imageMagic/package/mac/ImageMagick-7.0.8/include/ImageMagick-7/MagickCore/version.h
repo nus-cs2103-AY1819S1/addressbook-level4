@@ -4,7 +4,7 @@
 
   You may not use this file except in compliance with the License.
   obtain a copy of the License at
-cd
+
     http://www.imagemagick.org/script/license.php
 
   Unless required by applicable law or agreed to in writing, software
