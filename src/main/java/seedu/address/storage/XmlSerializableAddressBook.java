@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -23,6 +26,7 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedAppointment> appointments;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -38,6 +42,8 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -54,12 +60,16 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
-                addressBook.addDoctor(person);
+                addressBook.addDoctor((Doctor) person);
             } else if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Patient"))) {
-                addressBook.addPatient(person);
+                addressBook.addPatient((Patient) person);
             } else {
                 addressBook.addPerson(person);
             }
+        }
+        for (XmlAdaptedAppointment a : appointments) {
+            Appointment appointment = a.toModelType();
+            addressBook.addAppointment(appointment);
         }
         return addressBook;
     }

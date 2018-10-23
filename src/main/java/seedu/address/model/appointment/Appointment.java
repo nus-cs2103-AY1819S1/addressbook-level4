@@ -74,4 +74,11 @@ public class Appointment {
     public boolean isLaterThan(Appointment appointmentToCheck) {
         return dateTime.isAfter(appointmentToCheck.dateTime);
     }
+
+    /**
+     * Returns true if {@code appointments} has the same appointmentId.
+     */
+    public boolean isSameAppointment(Appointment toCheck) {
+        return this.appointmentId.getAppointmentId() == toCheck.getAppointmentId();
+    }
 }
