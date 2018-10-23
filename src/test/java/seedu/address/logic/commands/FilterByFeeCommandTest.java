@@ -29,7 +29,6 @@ public class FilterByFeeCommandTest {
         String first = "20";
         String second = " ";
 
-
         FilterByFeeCommand filterByFeeFirstCommand = new FilterByFeeCommand(first);
         FilterByFeeCommand filterByFeeSecondCommand = new FilterByFeeCommand(second);
 
