@@ -365,7 +365,7 @@ The following sequence diagram shows how the login authentication works:
 
 An alternative is to open another alert window to prompt user for password.
 
-* Pros: More secure as the entire password will be censored.
+* Pros: Greater security as the entire password will be censored.
 
 * Cons: Require a new window to be opened.
 This will consume time depending on the system.
