@@ -81,13 +81,16 @@ public class ModuleBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
      */
     public ModuleBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
+    /**
+     * Returns a Module based on the info in the {@code ModuleBuilder}
+     */
     public Module build() {
         return new Module(moduleCode, moduleTitle, academicYear, semester,
                 new UniquePersonList(), tags, TypeUtil.MODULE);
