@@ -43,7 +43,7 @@ public class HelpCommandSystemTest extends SchedulePlannerSystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
+        getSidebarPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
 
