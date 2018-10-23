@@ -1,30 +1,32 @@
-= AddressBook Level 4 - User Guide
-:site-section: UserGuide
+= Lost and Found - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
+:xrefstyle: short
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W12-1/main
 
-By: `Team Lost and Found`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team W12-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-Lost and  found is for lost and found counter admin who likes the snappy-ness of CLI but needed some GUI for the details.
+Lost and Found is made for lost and found (duh) administrators... +
+...with a fear of mice (no pun intended).
+
+It won't deter mice, but it makes you finish your job twice as fast.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `Lost and Found.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Lost and Found app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +35,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`delete`**`3` : deletes the 3rd article shown in the current list
-* *`exit`* : exits the app
+* *`list`* : list all articles
+* **`delete`**`3` : delete the 3rd article shown in the current list
+* *`exit`* : exit the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -45,133 +47,95 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Wallet`.
+* Parameters in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Wallet t/brown` or as `n/Wallet`.
+* Parameters with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/yellow`, `t/yellow t/empty` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME t/TAG`, `t/TAG n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 Format: `help`
 
-=== Listing all item : `list`
-Shows a list of all items in the lost and found book. +
+=== Listing all articles : `list`
+Shows a list of all articles in the app. +
 Format: `list`
 
-=== Editing an item : `edit` [coming in v1.1]
-Edits an existing item in the lost and found book +
-Format `edit INDEX [i/ITEMTYPE] [l/LOCATION] [t/DATE_AND_TIME] [n/NAME_OF_PERSON][p/PHONE][e/EMAIL][t/TAG][d/DESCRIPTION]`
+=== Editing an article : `edit`
+Edits an existing article in the article list +
+Format `edit INDEX [n/NAME] [t/TAG]...`
 
-* Edits the person at the specific INDEX. The index reffers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
+* Edits the article at the specific INDEX. The index refers to the index number shown in the displayed article list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the person will be removed i.e. adding of tags ins not cumulative
-* You can remove all the person's tags by typing t/ without specifying any tags after it
+* When editing tags, the existing tags of the article will be removed i.e. adding of tags is not cumulative.
+* You can remove all the article's tags by typing t/ without specifying any tags after it.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` edits the phone number and email address of the first item to be 91234567 and johndoe@example.com respectively
-* `edit 2 n/Betsy Crower t/` edits the name of the second item to be Betsy Crower and clears all existing tags.
+* `edit 2 n/Bag t/` edits the name of the second article to be `Bag` and clears all existing tags.
 
-=== 3.5 Locating items by keywords: `find` [coming in v1.2]
-Finds items with the keyword in all fields +
+=== 3.5 Locating articles by keywords: `find`
+Finds articles with the keyword in all fields +
 format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case sensitive e.g. wallet will match Wallet
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* All fields will be searched
-* Only full words will be matched e.g. Han will not match Hans
-* Person matching at least one keyword will be returned (i.e. OR search), e.g. Hans Bo will return Hans Gruber, Bo Yang
+* The search is case sensitive e.g. wallet will NOT match Wallet.
+* The order of the keywords does not matter. e.g. Overpriced iPhone will match iPhone Overpriced.
+* All fields will be searched.
+* Only full words will be matched. e.g. Phone will not match iPhone.
+* Person matching at least one keyword will be returned, e.g. Overpriced iPhone will return Cheap iPhone, Overpriced Phone
 
 Examples:
 
-* `find John` returns john and John Doe
-* `find wallet blue big-sized` returns any items having field wallet, blue, and big-sized
+* `find Jacket` returns Jacket and Torn Jacket
+* `find wallet blue big-sized` returns any articles having field wallet, blue, or big-sized
 
-=== Locating items by field: `find-(FIELD)` [coming in v1.2]
-Finds item whose keywords matches the field. +
-Format: `find-FIELD KEYWORD [find-(FIELD) MORE KEYWORDS]`
-
-* There can be multiple `find-(FIELD)` in a statement
-* The search is case insensitive e.g. hans will match Hans
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* Depending on the find-field command, the respective field will be searched
-* Only full words will be matched e.g. Han will not match Hans
-* Items matching at least one keyword will be returned (i.e. OR search) e.g. Hans Bo wil return Hans Gruber, Bo Yang
-
-Examples:
-
-* `find-n John` returns John and John Doe
-* `find-n Betsy Tim John` returns any person having names Betsy, Tim or John
-* `find-i Wallet find-l computing` returns item with wallet in itemtype and computing in location
-
-
-=== Deleting an item: `delete`
-Deletes the specified item from the lost and found book. +
+=== Deleting an article: `delete`
+Deletes the specified article from the article list. +
 Format: `delete INDEX`
 
-* Deletes the item at the specified INDEX
-* The index refers to the index number shown in the displayed item list.
+* Deletes the article at the specified INDEX
+* The index refers to the index number shown in the displayed article list.
 * The index must be a positive number 1, 2, 3, ...
 
 Examples:
 
-* `delete 2` deletes the second item in the list
+* `delete 2` deletes the second article in the list
 
-=== Selecting an item: `select` [coming in v1.2]
-Selects the item identified by the index number used in the displayed item list. +
+=== Selecting an article: `select`
+Selects the article identified by the index number used in the displayed articles. +
 Format: `select INDEX`
 
-* Selects the item and shows a more detailed description of the item at the specified INDEX.
-* The index refers to the index number= shown in the displayed list.
+* Selects the article and shows a more detailed description of the article at the specified INDEX.
+* The index refers to the index number shown in the displayed list.
 * The index must be a positive integer 1, 2, 3, ...
 
 Examples:
 
-* `select 2` selects the second item in the lost and found book.
+* `select 2` selects the second article in the list.
 
-=== Add photo of item: `photo` [coming in v1.3]
-Format: `nil`
-
-=== Resolve claimed items: `resolve` [coming in v1.2]
-Items claimed in the lost and found book will be marked as resolved and would not appear in the listing +
+=== Resolve claimed articles: `resolve`
+Mark an article as resolved and remove it from active list. +
 Format: `resolve INDEX`
 
-* Resolve the item at the specified index
-* The index refers to the index number shown in the displayed item list.
+* Resolve the article at the specified index
+* The index refers to the index number shown in the displayed article list.
 * The index must be a positive integer 1, 2, 3, ...
-
-=== Encrypt data files: `encrypt` [coming in v1.3]
-Encrypt the data file that stores entries in the lost and found book. +
-Format: `encrypt PASSWORD`
-
-* encrypts data file.
-
-=== Decrypt data files: `decrypt` [coming in v1.3]
-Decrypt the data file that stores entries in the lost and found book. +
-Format: `decrypt PASSWORD`
-
-* Decrypts data file
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+// tag::undoredo[]
 ===  Undoing previous command: `undo`
-Restores the lost and found book to the state before the previous undoable command was executed. +
-Format: `undo [N]`
-
-* reverses N command
-* when N is empty defaults to 1
+Restores the app to the state before the previous undoable command was executed. +
+Format: `undo`
 
 ===  Redoing previous command: `redo`
 Reverses the undo command. +
-Format: `redo [N]`
-
-* reverses N undo command
-* when N is empty defaults to 1
+Format: `redo`
+// end::undoredo[]
 
 === Clearing all entries: `clear`
-Clears all entries from the lost and found book. +
+Clears all article entries. +
 Format: `clear`
 
 === Exiting the program: `exit`
@@ -179,25 +143,25 @@ Exits the program. +
 Format: `exit`
 
 === Saving the data
-Lost and found book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually
+Lost and Found data is saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Lost and Found folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME [t/TAG]...` +
+e.g. `add n/Wallet t/brown t/empty`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [t/TAG]...` +
+e.g. `edit 2 n/Jacket t/leather`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `find brown wallet`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
