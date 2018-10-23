@@ -12,7 +12,6 @@ import org.junit.Test;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 
-//TODO Need to update this
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
@@ -24,15 +23,35 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_noPrefixUsage_defaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new NameContainsKeywordsPredicate(
-                    Arrays.asList("Alice", "Bob"), Collections.emptyList(), Collections.emptyList()));
+                        Arrays.asList("Alice", "Bob"), Collections.emptyList(), Collections.emptyList()));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
     }
 
+    @Test
+    public void parse_prefixUsage() {
+        // no leading and trailing whitespaces
+        FindCommand expectedFindCommand =
+                new FindCommand(new NameContainsKeywordsPredicate(
+                        Arrays.asList("Alice", "Bob"),
+                        Arrays.asList("Charlie", "David"),
+                        Arrays.asList("Earl", "Grey")));
+        assertParseSuccess(parser, " a/Alice Bob s/Charlie David n/Earl Grey", expectedFindCommand);
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    private NameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
+                                                           String userInputForNonePrefix) {
+        return new NameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
+                Arrays.asList(userInputForSomePrefix.split("\\s+")),
+                Arrays.asList(userInputForNonePrefix.split("\\s+")));
+    }
 }
