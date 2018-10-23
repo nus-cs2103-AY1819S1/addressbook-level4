@@ -71,6 +71,10 @@ public class Module {
         return Collections.unmodifiableMap(tags.getTagMap());
     }
 
+    public boolean isSameModule(Module other) {
+        return this.equals(other);
+    }
+
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.

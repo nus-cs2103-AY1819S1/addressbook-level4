@@ -4,7 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.*;
 
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagKey;
 import seedu.address.model.tag.TagMap;
 import seedu.address.model.tag.TagValue;
@@ -18,26 +20,26 @@ public class Occasion {
     // Identity fields
     private final OccasionName occasionName;
     private final OccasionDate occasionDate;
-    private final String location;
+    private final OccasionLocation location;
     private final UniquePersonList attendanceList;
 
-    private final TagMap tags = new TagMap();
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Occasion(OccasionName occasionName, OccasionDate occasionDate, String location,
-                    TagMap tags, UniquePersonList attendanceList) {
-        requireAllNonNull(occasionName, occasionDate, tags);
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
+                    Set<Tag> tags, TypeUtil type) {
+        requireAllNonNull(occasionName, occasionDate, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
-        this.attendanceList = attendanceList;
+        this.attendanceList = new UniquePersonList(new ArrayList<>());
         this.tags.addAll(tags);
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
-                    TagMap tags) {
+                    Set<Tag> tags) {
         this(occasionName, occasionDate, null, tags, null);
     }
 
@@ -53,7 +55,7 @@ public class Occasion {
         return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
     }
 
-    public String getLocation() {
+    public OccasionLocation getLocation() {
         return location;
     }
 
@@ -64,8 +66,8 @@ public class Occasion {
      * UnsupportedOperationException} if modification is attempted.
      */
     // TODO change the implementation of all the places that use this method.
-    public Map<TagKey, TagValue> getTags() {
-        return Collections.unmodifiableMap(tags.getTagMap());
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -108,7 +110,7 @@ public class Occasion {
                 .append(getAttendanceList()) // use the person's name to represent this Peron
                 // object.
                 .append(" Tags: ");
-        getTags().forEach((key, value) -> stringBuilder.append(key + ": " + value + " "));
+        getTags().forEach(stringBuilder::append);
         return stringBuilder.toString();
     }
 }

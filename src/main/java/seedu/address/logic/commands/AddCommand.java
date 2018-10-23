@@ -39,6 +39,7 @@ public class AddCommand extends Command {
 
     private final Person toAdd;
 
+
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
@@ -46,6 +47,7 @@ public class AddCommand extends Command {
         requireNonNull(person);
         toAdd = person;
     }
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
