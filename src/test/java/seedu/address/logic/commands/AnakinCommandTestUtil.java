@@ -35,7 +35,8 @@ public class AnakinCommandTestUtil {
     public static final List<AnakinCard> VALID_CARD_LIST = new ArrayList<>();
     public static final List<AnakinCard> TYPICAL_CARD_LIST = AnakinTypicalCards.getTypicalCards();
 
-    public static final String INVALID_NAME_DECK = " " + PREFIX_NAME + " Bad_Deck_Name!";
+    public static final String VALID_DECK_NAME_A_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_A;
+    public static final String INVALID_DECK_NAME_ARGS = " " + PREFIX_NAME + " Bad_Deck_Name!";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

@@ -19,8 +19,13 @@ public class AnakinCdCommandParserTest {
     private AnakinCdCommandParser parser = new AnakinCdCommandParser();
 
     @Test
-    public void parse_validArgs_returnsSelectCommand() {
+    public void parse_validArgs_returnsCdCommand() {
         assertParseSuccess(parser, "1", new AnakinCdCommand(INDEX_FIRST_DECK));
+    }
+
+    @Test
+    public void parse_validExit_returnsCdCommand() {
+        assertParseSuccess(parser, AnakinCdCommand.EXIT_DECK_ARGS, new AnakinCdCommand());
     }
 
     @Test
