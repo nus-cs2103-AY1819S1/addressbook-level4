@@ -15,12 +15,12 @@ import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
-import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 
+
 /**
- * Parses input arguments and creates a new AddOccasionCommand object
+ * AddOccasionCommandParser
  */
 public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
     /**
@@ -39,11 +39,11 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
         }
 
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
-        OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-        OccasionLocation location = ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        OccasionDate occassionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
+        String location = PREFIX_LOCATION.toString();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Occasion occasion = new Occasion(occasionName, occasionDate, location, tagList, TypeUtil.OCCASION);
+        Occasion occasion = new Occasion(occasionName, occassionDate, location, tagList, TypeUtil.OCCASION);
         return new AddOccasionCommand(occasion);
     }
 

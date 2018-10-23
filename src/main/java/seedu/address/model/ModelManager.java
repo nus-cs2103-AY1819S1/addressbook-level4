@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasOccasion(Occasion occasion) {
         requireNonNull(occasion);
-        return versionedAddressBook.hasOccasion(occasion);
+        return versionedAddressBook.hasOccasino(occasion);
     }
 
 
@@ -103,27 +103,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person person) {
-        versionedAddressBook.removePerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void deleteModule(Module module) {
-        versionedAddressBook.removeModule(module);
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void deleteOccasion(Occasion occasion) {
-        versionedAddressBook.removeOccasion(occasion);
-        updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -132,18 +111,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateModule(Module target, Module editedModule) {
-        requireAllNonNull(target, editedModule);
-
-        versionedAddressBook.updateModule(target, editedModule);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updateOccasion(Occasion target, Occasion editedOccasion) {
-        requireAllNonNull(target, editedOccasion);
-
-        versionedAddressBook.updateOccasion(target, editedOccasion);
+    public void deletePerson(Person target) {
+        versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
@@ -167,11 +136,6 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Occasion List Accessors =============================================================
 
     @Override
-    public ObservableList<Occasion> getFilteredOccasionList() {
-        return FXCollections.unmodifiableObservableList(filteredOccasions);
-    }
-
-    @Override
     public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
         requireNonNull(predicate);
         filteredOccasions.setPredicate(predicate);
@@ -179,11 +143,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 
     //=========== Filtered Module List Accessors =============================================================
-
-    @Override
-    public ObservableList<Module> getFilteredModuleList() {
-        return FXCollections.unmodifiableObservableList(filteredModules);
-    }
 
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {

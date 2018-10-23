@@ -13,13 +13,14 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
 
     public static final String DEFAULT_MODULECODE = "CS2103";
-    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERING";
+    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERIG";
     public static final String DEFAULT_ACADEMICYEAR = "1718";
     public static final String DEFAULT_SEMESTER = "1";
 
@@ -27,13 +28,15 @@ public class ModuleBuilder {
     private ModuleTitle moduleTitle;
     private AcademicYear academicYear;
     private Semester semester;
+    private UniquePersonList students;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
         moduleCode = new ModuleCode(DEFAULT_MODULECODE);
         moduleTitle = new ModuleTitle(DEFAULT_MODULETITLE);
         academicYear = new AcademicYear(DEFAULT_ACADEMICYEAR);
-        Semester semester = new Semester(DEFAULT_SEMESTER);
+        semester = new Semester(DEFAULT_SEMESTER);
+        students = new UniquePersonList();
         tags = new HashSet<>();
     }
 
@@ -44,7 +47,8 @@ public class ModuleBuilder {
         moduleCode = moduleToCopy.getModuleCode();
         moduleTitle = moduleToCopy.getModuleTitle();
         academicYear = moduleToCopy.getAcademicYear();
-        Semester semester = moduleToCopy.getSemester();
+        semester = moduleToCopy.getSemester();
+        students = new UniquePersonList();
         tags = moduleToCopy.getTags();
     }
 
@@ -81,19 +85,15 @@ public class ModuleBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public ModuleBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
-    /**
-     * Returns a Module based on the info in the {@code ModuleBuilder}
-     */
     public Module build() {
-        return new Module(moduleCode, moduleTitle, academicYear, semester,
-                new UniquePersonList(), tags, TypeUtil.MODULE);
+        return new Module(moduleCode, moduleTitle, academicYear, semester, students, tags, TypeUtil.MODULE);
     }
 
 }

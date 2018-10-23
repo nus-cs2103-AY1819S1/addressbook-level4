@@ -22,8 +22,9 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
+
 /**
- * Parses input arguments and creates a new AddModuleCommand object
+ * AddModuleCommandParser
  */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
@@ -47,10 +48,10 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         ModuleTitle moduleTitle = ParserUtil.parseModuleTitle(argMultimap.getValue(PREFIX_MODULETITLE).get());
         AcademicYear academicYear = ParserUtil.parseAcademicYear(argMultimap.getValue(PREFIX_ACADEMICYEAR).get());
         Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+        UniquePersonList students = new UniquePersonList();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(moduleCode, moduleTitle, academicYear, semester,
-                new UniquePersonList(), tagList, TypeUtil.MODULE);
+        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, students, tagList, TypeUtil.MODULE);
         return new AddModuleCommand(module);
     }
 

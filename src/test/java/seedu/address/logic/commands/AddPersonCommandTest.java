@@ -22,7 +22,6 @@ import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-
 public class AddPersonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -91,6 +90,7 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -107,47 +107,17 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deletePerson(Person person) {
+        public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteModule(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteOccasion(Occasion occasion) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person person, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateModule(Module module, Module editedModule) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateOccasion(Occasion occasion, Occasion editedOccasion) {
+        public void deletePerson(Person personToDelete) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Occasion> getFilteredOccasionList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,6 +173,7 @@ public class AddPersonCommandTest {
             this.person = person;
         }
 
+
         @Override
         public boolean hasPerson(Person personToAdd) {
             requireNonNull(person);
@@ -221,6 +192,7 @@ public class AddPersonCommandTest {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
         }
+
 
         @Override
         public void addPerson(Person person) {

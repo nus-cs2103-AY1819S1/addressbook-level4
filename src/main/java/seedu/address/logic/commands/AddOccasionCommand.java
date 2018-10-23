@@ -23,12 +23,12 @@ public class AddOccasionCommand extends Command {
             + "Parameters: "
             + PREFIX_OCCASION_NAME + "OCCASION_NAME "
             + PREFIX_OCCASION_DATE + "OCCASION_DATE "
-            + PREFIX_LOCATION + "OCCASION_LOCATION "
+            + PREFIX_LOCATION + "LOCATION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_OCCASION_NAME + "neighborhood party "
             + PREFIX_OCCASION_DATE + "2018-01-01 "
-            + PREFIX_LOCATION + "20th floor"
+            + PREFIX_LOCATION + "Cinnamon College"
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "games";
 
