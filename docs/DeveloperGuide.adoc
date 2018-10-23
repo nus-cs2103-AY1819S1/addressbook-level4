@@ -325,6 +325,8 @@ The desired search keywords, once parsed as `List` of `String` will be turned to
   in
  the `FilteredList`.
 
+image::recipe_search_seq.png[width="800"]
+
 Why it is implemented that way: +
 Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
 to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
