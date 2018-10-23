@@ -7,11 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
-<<<<<<< HEAD
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-=======
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
->>>>>>> 30c0401a9475bb6bd78bef052c4a02dade2ae806
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
