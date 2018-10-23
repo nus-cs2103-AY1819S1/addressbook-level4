@@ -27,6 +27,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_AMOUNT_TO_DISPENSE = "Can only dispense positive integer of medicine.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -166,11 +167,11 @@ public class ParserUtil {
      */
     public static MinimumStockQuantity parseMinimumStockQuantity(String minimumStockQuantity) throws ParseException {
         requireNonNull(minimumStockQuantity);
-        String trimmedMinimumStockQuantity = minimumStockQuantity.trim();
-        if (!MinimumStockQuantity.isValidMinimumStockQuantity(trimmedMinimumStockQuantity)) {
+        Integer msq = Integer.parseInt(minimumStockQuantity);
+        if (!MinimumStockQuantity.isValidMinimumStockQuantity(msq)) {
             throw new ParseException(MinimumStockQuantity.MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS);
         }
-        return new MinimumStockQuantity(trimmedMinimumStockQuantity);
+        return new MinimumStockQuantity(msq);
     }
 
     /**
@@ -211,10 +212,25 @@ public class ParserUtil {
      */
     public static Stock parseStock(String stock) throws ParseException {
         requireNonNull(stock);
-        String trimmedStock = stock.trim();
-        if (!Stock.isValidStock(trimmedStock)) {
+        Integer stockValue = Integer.parseInt(stock);
+        if (!Stock.isValidStock(stockValue)) {
             throw new ParseException(Stock.MESSAGE_STOCK_CONSTRAINTS);
         }
-        return new Stock(trimmedStock);
+        return new Stock(stockValue);
+    }
+
+    /**
+     * Parses a {@code String amountToDispense} into an {@code Integer}.
+     *
+     * @throws ParseException if the given {@code amountToDispense} is invalid ie not a positive integer.
+     */
+    public static Integer parseAmountToDispense(String amountToDispense) throws ParseException {
+        requireNonNull(amountToDispense);
+        Integer amount = Integer.parseInt(amountToDispense);
+        if (amount < 0) {
+            throw new ParseException(MESSAGE_INVALID_AMOUNT_TO_DISPENSE);
+        }
+
+        return amount;
     }
 }

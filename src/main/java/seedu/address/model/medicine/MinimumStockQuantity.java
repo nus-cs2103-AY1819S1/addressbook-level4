@@ -1,3 +1,4 @@
+/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static java.util.Objects.requireNonNull;
@@ -11,31 +12,34 @@ public class MinimumStockQuantity {
     public static final String MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS =
             "Minimum Stock Quantity should be integers.";
     public static final String MINIMUM_STOCK_QUANTITY_VALIDATION_REGEX = "^[1-9]+[0-9]*$";
-
-    public final String value;
+    public final Integer value;
 
     /**
      * Constructs a {@code MinimumStockQuantity}.
      *
      * @param number A positive integer.
      */
-    public MinimumStockQuantity(String number) {
+    public MinimumStockQuantity(Integer number) {
         requireNonNull(number);
         checkArgument(isValidMinimumStockQuantity(number), MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS);
         value = number;
     }
 
+    public Integer getValue() {
+        return value;
+    }
+
     /**
      * Returns true if a given string is a valid integer.
      */
-    public static boolean isValidMinimumStockQuantity(String test) {
-        return test.matches(MINIMUM_STOCK_QUANTITY_VALIDATION_REGEX);
+    public static boolean isValidMinimumStockQuantity(Integer test) {
+        return test > 0;
     }
 
 
     @Override
     public String toString() {
-        return value;
+        return Integer.toString(value);
     }
 
     @Override

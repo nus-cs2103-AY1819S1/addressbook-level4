@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.Patient;
 
 /**
@@ -13,6 +14,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Patient> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    //@@author 99percentile
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
@@ -56,15 +58,17 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Patient> predicate);
 
+    //@@author 99percentile
     /** Returns an unmodifiable view of the filtered medicine list */
     ObservableList<Medicine> getFilteredMedicineList();
 
+    //@@author 99percentile
     /**
      * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredMedicineList(Predicate<Medicine> predicate);
 
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -90,23 +94,28 @@ public interface Model {
      */
     void commitAddressBook();
 
+    //@@author 99percentile
     /**
      * Returns true if a medicine {@code medicine} exists in the records.
      */
     boolean hasMedicine(Medicine medicine);
+    boolean hasMedicine(MedicineName medicineName);
 
+    //@@author 99percentile
     /**
      * Adds the given medicine.
      * {@code medicine} must not already exist in the records.
      */
     void addMedicine(Medicine medicine);
 
+    //@@author 99percentile
     /**
      * Deletes the given medicine.
      * The medicine must exist in the records.
      */
     void deleteMedicine(Medicine medicine);
 
+    //@@author 99percentile
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the address book.
@@ -114,4 +123,10 @@ public interface Model {
      * existing medicine in the address book.
      */
     void updateMedicine(Medicine target, Medicine editedMedicine);
+
+    /**
+     * Dispenses the medicine defined by {@code medicineName} with the allocated
+     * amount {@code quantityToDispense}.
+     */
+    void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense);
 }
