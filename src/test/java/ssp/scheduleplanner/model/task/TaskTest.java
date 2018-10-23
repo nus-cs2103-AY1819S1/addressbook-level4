@@ -36,7 +36,7 @@ public class TaskTest {
         assertFalse(ALICE.isSameTask(null));
 
         // different date and email -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        Task editedAlice = new TaskBuilder(ALICE).withDate(VALID_DATE_BOB).withPriority(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameTask(editedAlice));
 
         // different name -> returns false
@@ -45,21 +45,21 @@ public class TaskTest {
 
         // same name, same date, different attributes -> returns true
         // same name, same date, different attributes -> return false as task are unique
-        editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new TaskBuilder(ALICE).withPriority(VALID_EMAIL_BOB).withVenue(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         //assertTrue(ALICE.isSameTask(editedAlice));
         assertFalse(ALICE.isSameTask(editedAlice));
 
         // same name, same email, different attributes -> returns true
         // same name, same date, different attributes -> return false as task are unique
-        editedAlice = new TaskBuilder(ALICE).withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new TaskBuilder(ALICE).withDate(VALID_DATE_BOB).withVenue(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         //assertTrue(ALICE.isSameTask(editedAlice));
         assertFalse(ALICE.isSameTask(editedAlice));
 
         // same fields -> returns true
         // commented off as the following test below check if alice is same as alice
-        //editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        //editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         //assertFalse(ALICE.isSameTask(editedAlice));
     }
 
@@ -90,11 +90,11 @@ public class TaskTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new TaskBuilder(ALICE).withPriority(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

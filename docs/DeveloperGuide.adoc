@@ -44,13 +44,16 @@ well as the considerations behind the implementations
 
 == Setting up
 
+Before you start working on the project, please make sure that you have completed the necessary prerequisites.
+
 === Prerequisites
 
 . *JDK `9`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+*JDK `10`* on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github
+.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use *JDK `9`*.
 
 . *IntelliJ* IDE
 +
@@ -285,16 +288,20 @@ Classes used by multiple components are in the `ssp.scheduleplanner.commons` pac
 This section elaborates on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo commands
+
+The Undo/Redo feature allows the user to revert the schedule planner to an earlier state when 'undo' is called, or a
+later state when 'redo' is called.
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedSchedulePlanner`.
 It extends `SchedulePlanner` with an undo/redo history, stored internally as an `SchedulePlannerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedSchedulePlanner#commit()` -- Saves the current schedule planner state in 'history'.
-* `VersionedSchedulePlanner#undo()` -- Restores the previous schedule planner state from 'history'.
-* `VersionedSchedulePlanner#redo()` -- Restores a previously undone schedule planner state from 'history'.
+* `VersionedSchedulePlanner.commit()` -- Saves the current schedule planner state in 'history'.
+* `VersionedSchedulePlanner.undo()` -- Restores the previous schedule planner state from 'history'.
+* `VersionedSchedulePlanner.redo()` -- Restores a previously undone schedule planner state from 'history'.
 
 These operations are exposed in `Model` interface as `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanner()` and `Model#redoSchedulePlanner()` respectively.
 
@@ -311,7 +318,8 @@ Step 2. The user executes `delete 5` command. The `delete` command calls `Model#
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new task. The `add` command calls `Model#commitSchedulePlanner()
+Step 3. The user executes `add n/CS2100 Lect ...` to add a new task. The `add` command calls
+`Model#commitSchedulePlanner()
 `, and the modified schedule planner state is saved into `schedulePlannerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
@@ -327,8 +335,7 @@ previous schedule planner state, and restoring the schedule planner to its previ
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0(i.e the initial schedule planner state), then there are no previous
-schedule planner states to restore to. The `undo` command uses `Model#canUndoSchedulePlanner()` to check this case.
+If the `currentStatePointer` is at index 0(i.e the initial schedule planner state), then there are no previous states to restore to. The `undo` command uses `Model#canUndoSchedulePlanner()` to check this case.
 If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
@@ -340,8 +347,7 @@ The `redo` command does the opposite -- it calls `Model#redoSchedulePlanner()`, 
 that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `schedulePlannerStateList.size() - 1` (i.e pointing to the latest schedule
-planner state), then there are no latest schedule planner states to restore. The `redo` command uses `Model#canRedoSchedulePlanner()` to check this case. If so, it will return an error to the user rather than attempting to perform the redo.
+If `currentStatePointer` is at index `schedulePlannerStateList.size() - 1` (i.e pointing to the latest state), then there are no latest states to restore. The `redo` command uses `Model#canRedoSchedulePlanner()` to check this case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then executes the command `list`. Commands that do not modify the schedule planner, such as `list`,
 will usually not call `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanner()` or `Model#redoSchedulePlanner()`. Thus, the `schedulePlannerStateList` remains unchanged.
@@ -349,7 +355,7 @@ will usually not call `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanne
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 Step 6. The user executes `clear`, which calls `Model#commitSchedulePlanner()`. If the `currentStatePointer` is not
-pointing to the latest state in the `schedulePlannerStateList`, all schedule planner states after the
+pointing to the latest state in the `schedulePlannerStateList`, all states after the
 `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
@@ -387,7 +393,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+=== Log Messages
 
 We are using `java.util.logging` package for logging. `LogsCenter` class is used to manage logging levels and
 destinations.
@@ -413,7 +419,7 @@ The following are logging levels used:
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::viewarangeoftasks[]
-=== View a range of tasks
+=== View according to Day/Week
 
 In order to enable users to better manage their tasks in *Student Schedule Planner*, we added two more variations of
  the `list` command. The `listday` command supports viewing tasks due the current date whereas `listweek` command
@@ -435,6 +441,28 @@ that was computed and display to the screen.
 
 {more to be added}
 // end::viewarangeoftasks[]
+
+=== Filter Tags
+
+The `filter` command allows the user to filter tasks in the schedule planner according to their tags. The user may
+search for multiple tags at once, and the schedule planner returns a list of tasks containing any of the tags
+specified by the user.
+
+==== Implementation
+
+The filter mechanism utilises the "FilterCommandParser" to parse the user command into separate tags e.g `filter tag1
+ tag2` will search for tasks with either tags `tag1`, `tag2`, or both.
+
+Given below is an example usage scenario and how the filter mechanism behaves at each step.
+
+Step 1. The user executes the command `filter tutorial CS2100`
+
+Step 2. The 'filter' command parses the argument `tutorial CS2100` into separate words `tutorial` and `CS2100` which
+are stored in a list in `TagsContainsKeywordsPredicate`.
+
+Step 3. `FilterCommand` is then created, which contains the `TagsContainsKeywordsPredicate`. `FilterCommand.execute()
+` returns a list of tasks containing any of the tags input by the user.
+
 
 == Documentation
 

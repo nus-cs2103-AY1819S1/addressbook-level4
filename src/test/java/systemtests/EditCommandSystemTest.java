@@ -97,7 +97,7 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
         index = INDEX_SECOND_TASK;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DATE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedTask = new TaskBuilder(BOB).withDate(VALID_DATE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedTask = new TaskBuilder(BOB).withDate(VALID_DATE_AMY).withPriority(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedTask);
 
         /* Case: clear tags -> cleared */

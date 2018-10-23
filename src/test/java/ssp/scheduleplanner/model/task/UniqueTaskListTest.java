@@ -48,7 +48,7 @@ public class UniqueTaskListTest {
     @Test
     public void contains_taskWithNotAllSameFieldsInList_returnsFalse() {
         uniqueTaskList.add(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(uniqueTaskList.contains(editedAlice));
     }
@@ -96,7 +96,7 @@ public class UniqueTaskListTest {
     @Test
     public void setTask_editedTaskHasSameIdentity_success() {
         uniqueTaskList.add(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueTaskList.setTask(ALICE, editedAlice);
         UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
