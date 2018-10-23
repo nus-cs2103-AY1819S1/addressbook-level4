@@ -130,13 +130,6 @@ public class CommandBoxTest extends GuiUnitTest {
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);
     }
-    
-    @Test
-    public void maskPassword_successfulCommand() {
-        String loginCommand = "login r/doctor n/" + VALID_NAME_ADAM + " p/" + VALID_PASSWORD_ADAM;
-        commandBoxHandle.run(loginCommand);
-        assertInputHistory(KeyCode.UP, loginCommand);
-    }
 
     /**
      * Runs a command that fails, then verifies that <br>
