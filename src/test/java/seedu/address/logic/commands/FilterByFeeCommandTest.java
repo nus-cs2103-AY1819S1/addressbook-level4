@@ -30,22 +30,22 @@ public class FilterByFeeCommandTest {
         String second = " ";
 
 
-        FilterByFeeCommand FilterByFeeFirstCommand = new FilterByFeeCommand(first);
-        FilterByFeeCommand FilterByFeeSecondCommand = new FilterByFeeCommand(second);
+        FilterByFeeCommand filterByFeeFirstCommand = new filterByFeeCommand(first);
+        FilterByFeeCommand filterByFeeSecondCommand = new filterByFeeCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByFeeFirstCommand.equals(FilterByFeeFirstCommand));
+        assertTrue(filterByFeeFirstCommand.equals(filterByFeeFirstCommand));
 
         // same values -> returns true
-        FilterByFeeCommand FilterByEducationFirstCommandCopy = new FilterByFeeCommand(first);
-        assertTrue(FilterByFeeFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByFeeCommand filterByEducationFirstCommandCopy = new FilterByFeeCommand(first);
+        assertTrue(filterByFeeFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByFeeFirstCommand.equals(1));
+        assertFalse(filterByFeeFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(FilterByFeeFirstCommand.equals(FilterByFeeSecondCommand));
+        assertFalse(filterByFeeFirstCommand.equals(filterByFeeSecondCommand));
     }
 
     @Test
