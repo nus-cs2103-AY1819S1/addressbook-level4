@@ -359,13 +359,13 @@ On initialization, the `MainApp` class loads all xml files within the data folde
 An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).
 ====
 
-This system is facilitated by methods in the Model interface which now supports the following operations:
+This system is facilitated by newly added methods in the Model interface which now supports the following operations:
 
-* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data. Returns true if the password matches the user's password, else the user is not logged into and false is returned
-* `Model#unloadUserData()` -- Unselects the user in the Model
-* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in the model
-* `Model#addUser(Username)` -- Adds a new user with the given Username to the model
-* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in the model
+* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data into the `Model`. Returns true if the password matches the user's password, else the user is not logged into and false is returned
+* `Model#unloadUserData()` -- Unselects the user in the `Model`
+* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in the `Model`
+* `Model#addUser(Username)` -- Adds a new user with the given Username to the `Model`
+* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in the `Model`
 
 The classes `Username` and `Password` have also been implemented and have the following noteworthy characteristics:
 
