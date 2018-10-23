@@ -4,7 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static ssp.scheduleplanner.ui.BrowserPanel.DEFAULT_PAGE;
+import static ssp.scheduleplanner.ui.SidebarPanel.DEFAULT_PAGE;
 import static ssp.scheduleplanner.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static ssp.scheduleplanner.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static ssp.scheduleplanner.ui.UiPart.FXML_FILE_FOLDER;
@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.SidebarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -41,7 +41,7 @@ import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.testutil.TypicalTasks;
-import ssp.scheduleplanner.ui.BrowserPanel;
+import ssp.scheduleplanner.ui.SidebarPanel;
 import ssp.scheduleplanner.ui.CommandBox;
 
 /**
@@ -111,7 +111,7 @@ public abstract class SchedulePlannerSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
+    public SidebarPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
     }
 
@@ -184,7 +184,7 @@ public abstract class SchedulePlannerSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code TaskListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code SidebarPanelHandle}, {@code TaskListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -198,7 +198,7 @@ public abstract class SchedulePlannerSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected task.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see SidebarPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
@@ -208,7 +208,7 @@ public abstract class SchedulePlannerSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the task in the task list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see SidebarPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
@@ -216,7 +216,7 @@ public abstract class SchedulePlannerSystemTest {
         String selectedCardName = getTaskListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(SidebarPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -227,7 +227,7 @@ public abstract class SchedulePlannerSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the task list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see SidebarPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {

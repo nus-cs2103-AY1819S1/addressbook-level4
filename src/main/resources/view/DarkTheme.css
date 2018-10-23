@@ -213,6 +213,7 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
+    -fx-max-width: 300px;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
@@ -334,6 +335,10 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #1f3a4c, transparent, #1f3a4c;
     -fx-background-radius: 0;
+}
+
+#sidebar {
+    -fx-max-width: 300px;
 }
 
 #tags {
