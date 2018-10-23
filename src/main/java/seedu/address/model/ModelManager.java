@@ -9,6 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Prescription;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -115,6 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.deleteAppointment(appointment);
         indicateAddressBookChanged();
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

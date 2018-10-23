@@ -28,18 +28,6 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a prescription with same identity as {@code prescription} exists in the appointment
-     */
-    boolean hasPrescription(Prescription prescription);
-
-    /**
-     * Adds the given prescription.
-     * {@code prescription} must not already exist in the appointment
-     */
-
-    void addPrescription(Prescription prescription);
-
-    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);

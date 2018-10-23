@@ -1,17 +1,22 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddPrescriptionCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.MedicineName;
-import seedu.address.model.appointment.Prescription;
-
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.ConsumptionPerDay;
+import seedu.address.model.appointment.Dosage;
+import seedu.address.model.appointment.MedicineName;
+import seedu.address.model.appointment.Prescription;
+
+
+
 
 
 /**
@@ -27,14 +32,24 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
      */
     public AddPrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE, PREFIX_CONSUMPTION_PER_DAY);
+                ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
+                        PREFIX_CONSUMPTION_PER_DAY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE, PREFIX_CONSUMPTION_PER_DAY)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
+                PREFIX_CONSUMPTION_PER_DAY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPrescriptionCommand.MESSAGE_USAGE));
         }
 
+        int id = ParserUtil.parseId(argMultimap.getValue(PREFIX_INDEX).get());
+        MedicineName medicineName = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
+        Dosage dosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).get());
+        ConsumptionPerDay consumptionPerDay = ParserUtil.parseConsumptionPerDay(
+                argMultimap.getValue(PREFIX_CONSUMPTION_PER_DAY).get());
+
+        Prescription prescription = new Prescription(id, medicineName, dosage, consumptionPerDay);
+
+        return new AddPrescriptionCommand(prescription);
 
     }
 

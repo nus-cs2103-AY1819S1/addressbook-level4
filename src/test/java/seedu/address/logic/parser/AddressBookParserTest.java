@@ -52,11 +52,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_addPrecription() throws Exception {
-        assertTrue(parser.parseCommand(AddPrescriptionCommand.COMMAND_WORD) instanceof AddPrescriptionCommand);
-    }
-
-    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);

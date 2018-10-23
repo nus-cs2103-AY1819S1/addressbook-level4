@@ -19,8 +19,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE_TIME = new Prefix("d/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
-    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("m/");
-    public static final Prefix PREFIX_DOSAGE = new Prefix("d/");
-    public static final Prefix PREFIX_CONSUMPTION_PER_DAY = new Prefix("c/");
+    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("pn/");
+    public static final Prefix PREFIX_DOSAGE = new Prefix("pd/");
+    public static final Prefix PREFIX_CONSUMPTION_PER_DAY = new Prefix("pc/");
 
 }

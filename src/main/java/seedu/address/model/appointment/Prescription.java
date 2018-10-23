@@ -8,17 +8,21 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Prescription {
+    private int id;
     private MedicineName medicineName;
     private Dosage dosage;
     private ConsumptionPerDay consumptionPerDay;
 
-    public Prescription(MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
+    public Prescription(int id, MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
+        this.id = id;
         this.medicineName = medicineName;
         this.dosage = dosage;
         this.consumptionPerDay = consumptionPerDay;
     }
 
     // Get Methods
+    public int getID() { return id; }
+
     public MedicineName getMedicineName() {
         return medicineName;
     }
@@ -59,7 +63,8 @@ public class Prescription {
         }
 
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getMedicineName().equals(getMedicineName())
+        return otherPrescription.getID()== getID()
+                &&otherPrescription.getMedicineName().equals(getMedicineName())
                 && otherPrescription.getDosage().equals(getDosage())
                 && otherPrescription.getConsumptionPerDay().equals(getConsumptionPerDay());
     }
@@ -67,13 +72,15 @@ public class Prescription {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(medicineName, dosage, consumptionPerDay);
+        return Objects.hash(id, medicineName, dosage, consumptionPerDay);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getMedicineName())
+        builder.append(getID())
+                .append(" ID: ")
+                .append(getMedicineName())
                 .append(" Medicine Name: ")
                 .append(getDosage())
                 .append(" Dosage: ")
