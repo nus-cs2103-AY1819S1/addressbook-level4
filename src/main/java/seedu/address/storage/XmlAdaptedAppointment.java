@@ -40,7 +40,7 @@ public class XmlAdaptedAppointment {
      *
      * @param source future changes to this will not affect the created XmlAdaptedAppointment
      */
-    public XmlAdaptedPerson(Appointment source) {
+    public XmlAdaptedAppointment(Appointment source) {
         /*date = String.valueOf(source.getAppointmentDate());
         time = String.valueOf(source.getAppointmentTime());
         id = source.getAppointmentDate()
