@@ -226,8 +226,8 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+.Structure of the Storage Component (The given diagram only shows the extensions of 2 functions.)
+image::StorageClassDiagramRevamp.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -237,7 +237,15 @@ The `Storage` component,
 * can save the various xml files from each of the different functions. Namely recipe.xml, ingredients.xml and healthplan.xml
 * can do a context switch for storing information into the correct xml file for the function.
 * generalized in its implementation for easy extension
-* controls information by passing a single appcontent unit around the system.
+* controls information by passing a single appContent unit around the system.
+* With the new implementation of the storage component, calls at the upper layers are generalized and all components shares
+common calls for load and saving.
+* The new storage component introduces a new abstract parent (XmlFeatureStorage) and also a new interface
+(XmlSerializableGeneric) to make all the calls of load and save to be generic to allow easy functional implementation
+without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
+calls the intended result will be achieved.
+
+
 
 
 [[Design-Commons]]
@@ -287,8 +295,6 @@ instructions.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
-
-=== VersionedAddressBook undo/redo
 
 The Meal Planner feature is supported by the classes `Meal` and `Day`.
 
@@ -369,7 +375,7 @@ of ingredients in inventory so that increases the possibility for user to use up
 
 === Health Plan list
 
-This is a feature that users can access to have healthplans to manage their diet and health due to dietary
+This is a feature that users can access to have health plans to manage their diet and health due to dietary
 needs of their choice. Users are able to add a health list to based on their specifications:
 whether they intend to gain/lose/maintain weight from their
 set age, current weight and also their current height. this will then tell them what is the required calories to
@@ -378,7 +384,7 @@ eat per day to hit their target.
 ==== Current implementation
 
 * Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
- duration, scheme(gain/loss/maintain)
+ duration, scheme (gain/loss/maintain)
 * Users are able to delete entries that they do not want to keep anymore.
 * Users are aso able to edit entries which information is incorrect.
 
