@@ -33,6 +33,10 @@ public class Meal {
         }
     }
 
+    public Slot getSlot() {
+        return this.slot;
+    }
+
     public void setRecipe(Recipe recipe) {
         this.recipe = Optional.ofNullable(recipe);
     }
