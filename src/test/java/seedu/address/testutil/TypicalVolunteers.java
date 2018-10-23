@@ -30,46 +30,46 @@ public class TypicalVolunteers {
 
     public static final Volunteer ALICE = new VolunteerBuilder().withVolunteerId(1)
             .withName("Alice Pauline")
-            .withGender("female").withBirthday("21-08-1986")
+            .withGender("f").withBirthday("21-08-1986")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("student").build();
     public static final Volunteer BENSON = new VolunteerBuilder().withVolunteerId(2)
             .withName("Benson Meier")
-            .withGender("male").withBirthday("29-09-1988")
+            .withGender("m").withBirthday("29-09-1988")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("driver", "student").build();
     public static final Volunteer CARL = new VolunteerBuilder().withVolunteerId(3)
-            .withName("Carl Kurz").withGender("male")
+            .withName("Carl Kurz").withGender("m")
             .withBirthday("27-05-1990").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Volunteer DANIEL = new VolunteerBuilder().withVolunteerId(4)
-            .withName("Daniel Meier").withGender("male")
+            .withName("Daniel Meier").withGender("m")
             .withBirthday("31-10-1993").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("student").build();
     public static final Volunteer ELLE = new VolunteerBuilder().withVolunteerId(5)
-            .withName("Elle Meyer").withGender("female")
+            .withName("Elle Meyer").withGender("f")
             .withBirthday("13-11-1994").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Volunteer FIONA = new VolunteerBuilder().withVolunteerId(6)
-            .withName("Fiona Kunz").withGender("female")
+            .withName("Fiona Kunz").withGender("f")
             .withBirthday("12-01-1995").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Volunteer GEORGE = new VolunteerBuilder().withVolunteerId(7)
-            .withName("George Best").withGender("male")
+            .withName("George Best").withGender("m")
             .withBirthday("14-01-1995").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
     public static final Volunteer HOON = new VolunteerBuilder()
             .withVolunteerId(8)
-            .withName("Hoon Meier").withGender("male")
+            .withName("Hoon Meier").withGender("m")
             .withBirthday("03-04-1996").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Volunteer IDA = new VolunteerBuilder()
             .withVolunteerId(9)
-            .withName("Ida Mueller").withGender("female")
+            .withName("Ida Mueller").withGender("f")
             .withBirthday("15-04-1996").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 

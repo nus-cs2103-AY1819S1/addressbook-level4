@@ -4,19 +4,19 @@
     <volunteers>
         <volunteerId>1</volunteerId>
         <name>Alice Pauline</name>
-        <gender>female</gender>
+        <gender>f</gender>
         <birthday>21-08-1986</birthday>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
+        <tagged>student</tagged>
     </volunteers>
 
     <!-- Volunteer with same identity as Alice Pauline -->
     <volunteers>
         <volunteerId>1</volunteerId>
         <name>Alice Pauline</name>
-        <gender>female</gender>
+        <gender>f</gender>
         <birthday>21-08-1986</birthday>
         <phone>94351253</phone>
         <email>pauline@example.com</email>

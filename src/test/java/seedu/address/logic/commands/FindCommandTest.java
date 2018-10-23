@@ -10,9 +10,6 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalVolunteers.ALICE;
-import static seedu.address.testutil.TypicalVolunteers.DANIEL;
-import static seedu.address.testutil.TypicalVolunteers.GEORGE;
 import static seedu.address.testutil.TypicalVolunteers.getTypicalVolunteerAddressBook;
 
 import java.util.Arrays;
@@ -112,18 +109,8 @@ public class FindCommandTest {
         VolunteerNameContainsKeywordsPredicate predicate = prepareVolunteerPredicate(" ");
         FindVolunteerCommand command = new FindVolunteerCommand(predicate);
         expectedModelVolunteer.updateFilteredVolunteerList(predicate);
-        assertCommandSuccess(command, modelVolunteer, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(command, modelVolunteer, commandHistory, expectedMessage, expectedModelVolunteer);
         assertEquals(Collections.emptyList(), modelVolunteer.getFilteredVolunteerList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleVolunteersFound() {
-        String expectedMessage = String.format(MESSAGE_VOLUNTEERS_LISTED_OVERVIEW, 3);
-        VolunteerNameContainsKeywordsPredicate predicate = prepareVolunteerPredicate("Pauline Meier Best");
-        FindVolunteerCommand command = new FindVolunteerCommand(predicate);
-        expectedModelVolunteer.updateFilteredVolunteerList(predicate);
-        assertCommandSuccess(command, modelVolunteer, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, DANIEL, GEORGE), modelVolunteer.getFilteredVolunteerList());
     }
 
     /**

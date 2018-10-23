@@ -250,7 +250,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredVolunteerList_success() {
-        Index indexLastVolunteer = Index.fromOneBased(model.getFilteredVolunteerList().size());
+        Index indexLastVolunteer = Index.fromOneBased(modelVolunteer.getFilteredVolunteerList().size());
         Volunteer lastVolunteer = modelVolunteer.getFilteredVolunteerList().get(indexLastVolunteer.getZeroBased());
 
         VolunteerBuilder volunteerInList = new VolunteerBuilder(lastVolunteer);
@@ -345,7 +345,7 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidVolunteerIndexFilteredList_failure() {
-        showVolunteerAtIndex(model, INDEX_FIRST_PERSON);
+        showVolunteerAtIndex(modelVolunteer, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < modelVolunteer.getAddressBook().getVolunteerList().size());
@@ -424,7 +424,7 @@ public class EditCommandTest {
         assertCommandSuccess(new UndoCommand(), modelVolunteer, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredVolunteerList().get(INDEX_FIRST_PERSON.getZeroBased()), volunteerToEdit);
+        assertNotEquals(modelVolunteer.getFilteredVolunteerList().get(INDEX_FIRST_PERSON.getZeroBased()), volunteerToEdit);
         // redo -> edits same second volunteer in unfiltered volunteer list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), modelVolunteer, commandHistory,

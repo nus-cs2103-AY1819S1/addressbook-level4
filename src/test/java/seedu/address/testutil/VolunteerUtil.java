@@ -37,9 +37,7 @@ public class VolunteerUtil {
         sb.append(PREFIX_VOLUNTEER_PHONE + volunteer.getPhone().value + " ");
         sb.append(PREFIX_VOLUNTEER_EMAIL + volunteer.getEmail().value + " ");
         sb.append(PREFIX_VOLUNTEER_ADDRESS + volunteer.getAddress().value + " ");
-        volunteer.getTags().stream().forEach(
-        s -> sb.append(PREFIX_VOLUNTEER_TAG + s.tagName + " ")
-        );
+        volunteer.getTags().stream().forEach(s -> sb.append(PREFIX_VOLUNTEER_TAG + s.tagName + " "));
         return sb.toString();
     }
 

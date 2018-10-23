@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Volunteer with an incorrect birthday format -->
+<!-- Volunteer with an incorrect phone format -->
 <volunteer>
     <name>Hans Muster</name>
-    <gender>male</gender>
-    <birthday>1987-05-22</birthday>
-    <phone>9482424</phone>
+    <gender>m</gender>
+    <birthday>22-05-1987</birthday>
+    <phone>9482asf424</phone>
     <email>hans@example</email>
     <address>4th street</address>
-    <tagged>friends</tagged>
+    <tagged>student</tagged>
 </volunteer>

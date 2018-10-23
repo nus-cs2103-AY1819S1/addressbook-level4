@@ -111,8 +111,8 @@ public class CommandTestUtil {
             + VALID_VOLUNTEER_ADDRESS_AMY;
     public static final String ADDRESS_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_ADDRESS
             + VALID_VOLUNTEER_ADDRESS_BOB;
-    public static final String TAG_VOLUNTEER_DESC_FRIEND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_STUDENT;
-    public static final String TAG_VOLUNTEER_DESC_HUSBAND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_DRIVER;
+    public static final String TAG_VOLUNTEER_DESC_STUDENT = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_STUDENT;
+    public static final String TAG_VOLUNTEER_DESC_DRIVER = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_DRIVER;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

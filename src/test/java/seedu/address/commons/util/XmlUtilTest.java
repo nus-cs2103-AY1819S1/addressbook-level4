@@ -42,13 +42,15 @@ public class XmlUtilTest {
     private static final String INVALID_PHONE = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_GENDER = "male";
+    private static final String VALID_GENDER = "m";
     private static final String VALID_BIRTHDAY = "22-05-1987";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections
             .singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_VOLUNTEER_TAGS = Collections
+            .singletonList(new XmlAdaptedTag("student"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -115,7 +117,8 @@ public class XmlUtilTest {
         XmlAdaptedVolunteer actualVolunteer = XmlUtil.getDataFromFile(
                 MISSING_VOLUNTEER_FIELD_FILE, XmlAdaptedVolunteerWithRootElement.class);
         XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(
-                null, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_VOLUNTEER_TAGS);
         assertEquals(expectedVolunteer, actualVolunteer);
     }
 
@@ -123,8 +126,8 @@ public class XmlUtilTest {
     public void xmlAdaptedVolunteerFromFile_fileWithInvalidVolunteerField_validResult() throws Exception {
         XmlAdaptedVolunteer actualVolunteer = XmlUtil.getDataFromFile(
                 INVALID_VOLUNTEER_FIELD_FILE, XmlAdaptedVolunteerWithRootElement.class);
-        XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(
-                VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(VALID_NAME, VALID_GENDER, VALID_BIRTHDAY,
+                INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_VOLUNTEER_TAGS);
         assertEquals(expectedVolunteer, actualVolunteer);
     }
 
@@ -133,7 +136,8 @@ public class XmlUtilTest {
         XmlAdaptedVolunteer actualVolunteer = XmlUtil.getDataFromFile(
                 VALID_VOLUNTEER_FILE, XmlAdaptedVolunteerWithRootElement.class);
         XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(
-                VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_VOLUNTEER_TAGS);
         assertEquals(expectedVolunteer, actualVolunteer);
     }
 

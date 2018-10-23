@@ -19,8 +19,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_VOLUNTEER_TAG
 import static seedu.address.logic.commands.CommandTestUtil.NAME_VOLUNTEER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_STUDENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
@@ -32,8 +32,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_STUDENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -62,7 +62,7 @@ public class EditVolunteerCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditVolunteerCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditVolunteerCommandParser parser = new EditVolunteerCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -119,11 +119,11 @@ public class EditVolunteerCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND + TAG_EMPTY,
+        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_STUDENT + TAG_VOLUNTEER_DESC_DRIVER + TAG_EMPTY,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_FRIEND + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND,
+        assertParseFailure(parser, "1" + TAG_VOLUNTEER_DESC_STUDENT + TAG_EMPTY + TAG_VOLUNTEER_DESC_STUDENT,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_VOLUNTEER_DESC_FRIEND + TAG_VOLUNTEER_DESC_HUSBAND,
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_VOLUNTEER_DESC_STUDENT + TAG_VOLUNTEER_DESC_DRIVER,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -135,9 +135,9 @@ public class EditVolunteerCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_HUSBAND
+        String userInput = targetIndex.getOneBased() + PHONE_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_DRIVER
                 + EMAIL_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY + NAME_VOLUNTEER_DESC_AMY
-                + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND;
+                + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_STUDENT;
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_AMY)
                 .withPhone(VALID_VOLUNTEER_PHONE_BOB).withEmail(VALID_VOLUNTEER_EMAIL_AMY)
@@ -201,7 +201,7 @@ public class EditVolunteerCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_VOLUNTEER_DESC_FRIEND;
+        userInput = targetIndex.getOneBased() + TAG_VOLUNTEER_DESC_STUDENT;
         descriptor = new EditVolunteerDescriptorBuilder().withTags(VALID_VOLUNTEER_TAG_STUDENT).build();
         expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -211,10 +211,10 @@ public class EditVolunteerCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY
-                + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND
+                + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_STUDENT
                 + PHONE_VOLUNTEER_DESC_AMY + ADDRESS_VOLUNTEER_DESC_AMY + EMAIL_VOLUNTEER_DESC_AMY + GENDER_DESC_AMY
-                + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_FRIEND + PHONE_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + EMAIL_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + TAG_VOLUNTEER_DESC_HUSBAND;
+                + BIRTHDAY_DESC_AMY + TAG_VOLUNTEER_DESC_STUDENT + PHONE_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
+                + EMAIL_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + TAG_VOLUNTEER_DESC_DRIVER;
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB)
                 .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)

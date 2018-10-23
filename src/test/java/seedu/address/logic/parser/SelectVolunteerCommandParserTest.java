@@ -15,10 +15,10 @@ import seedu.address.logic.commands.SelectVolunteerCommand;
  */
 public class SelectVolunteerCommandParserTest {
 
-    private SelectCommandParser parser = new SelectCommandParser();
+    private SelectVolunteerCommandParser parser = new SelectVolunteerCommandParser();
 
     @Test
-    public void parse_validArgs_returnsSelectCommand() {
+    public void parse_validArgs_returnsSelectVolunteerCommand() {
         assertParseSuccess(parser, "1", new SelectVolunteerCommand(INDEX_FIRST_PERSON));
     }
 

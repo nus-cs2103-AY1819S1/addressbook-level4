@@ -77,7 +77,7 @@ public class XmlAdaptedVolunteerTest {
     @Test
     public void toModelType_nullGender_throwsIllegalValueException() {
         XmlAdaptedVolunteer volunteer = new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
-                VALID_NAME,null, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, null, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }

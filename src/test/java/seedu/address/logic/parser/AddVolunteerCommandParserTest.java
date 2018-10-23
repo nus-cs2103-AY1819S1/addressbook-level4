@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_VOLUNTEER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_VOLUNTEER_DESC_STUDENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
@@ -60,46 +60,46 @@ public class AddVolunteerCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_VOLUNTEER_DESC_BOB
                 + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB
-                + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND,
+                + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT,
                 new AddVolunteerCommand(expectedVolunteer));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_AMY + NAME_VOLUNTEER_DESC_BOB
                 + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB
-                + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND,
+                + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT,
                 new AddVolunteerCommand(expectedVolunteer));
 
         // multiple genders - last gender accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_AMY + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB
-                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND, new AddVolunteerCommand(expectedVolunteer));
+                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT, new AddVolunteerCommand(expectedVolunteer));
 
         // multiple birthdays - last birthday accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_AMY
                 + BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB
-                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND, new AddVolunteerCommand(expectedVolunteer));
+                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT, new AddVolunteerCommand(expectedVolunteer));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_AMY + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB
-                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND, new AddVolunteerCommand(expectedVolunteer));
+                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT, new AddVolunteerCommand(expectedVolunteer));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_AMY + EMAIL_VOLUNTEER_DESC_BOB
-                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND, new AddVolunteerCommand(expectedVolunteer));
+                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT, new AddVolunteerCommand(expectedVolunteer));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_AMY
-                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_FRIEND, new AddVolunteerCommand(expectedVolunteer));
+                + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_STUDENT, new AddVolunteerCommand(expectedVolunteer));
 
         // multiple tags - all accepted
         Volunteer expectedVolunteerMultipleTags = new VolunteerBuilder(BOB)
                 .withTags(VALID_VOLUNTEER_TAG_STUDENT, VALID_VOLUNTEER_TAG_DRIVER).build();
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND,
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT,
                 new AddVolunteerCommand(expectedVolunteerMultipleTags));
     }
 
@@ -157,32 +157,32 @@ public class AddVolunteerCommandParserTest {
         // invalid name
         assertParseFailure(parser, INVALID_VOLUNTEER_NAME_DESC + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, VolunteerName.MESSAGE_NAME_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, VolunteerName.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid gender
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + INVALID_GENDER_DESC + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, Gender.MESSAGE_GENDER_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, Gender.MESSAGE_GENDER_CONSTRAINTS);
 
         // invalid birthday
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + INVALID_BIRTHDAY_DESC
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + INVALID_VOLUNTEER_PHONE_DESC + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_EMAIL_DESC + ADDRESS_VOLUNTEER_DESC_BOB
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + INVALID_VOLUNTEER_ADDRESS_DESC
-                + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND, VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS);
+                + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT, VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
@@ -195,9 +195,9 @@ public class AddVolunteerCommandParserTest {
                 VolunteerName.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB +
-                        BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB
-                        + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB
+                        + BIRTHDAY_DESC_BOB + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB
+                        + ADDRESS_VOLUNTEER_DESC_BOB + TAG_VOLUNTEER_DESC_DRIVER + TAG_VOLUNTEER_DESC_STUDENT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddVolunteerCommand.MESSAGE_USAGE));
     }
 }
