@@ -19,7 +19,6 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
@@ -29,10 +28,11 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
     public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
     public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
     public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
+
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

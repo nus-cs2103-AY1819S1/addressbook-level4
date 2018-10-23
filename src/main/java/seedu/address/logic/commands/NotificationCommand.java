@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -20,21 +19,27 @@ public class NotificationCommand extends Command {
             + "Parameters: enable/disable\n"
             + "Example: " + COMMAND_WORD + " enable";
 
-    public String MESSAGE_SUCCESS;
+    private String MESSAGE_NOTIFICATION_SUCCESS;
 
     private final boolean set;
 
     public NotificationCommand(boolean set) { this.set = set; }
 
+    public String getMESSAGE_NOTIFICATION_SUCCESS() {
+        return MESSAGE_NOTIFICATION_SUCCESS;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         ModelManager.updateNotificationPref(set);
 
-        if (set)
-            MESSAGE_SUCCESS = "Notification: enabled";
-        else
-            MESSAGE_SUCCESS = "Notification: disabled";
+        if (set) {
+            MESSAGE_NOTIFICATION_SUCCESS = "Notification:" + " enabled";
+        }
+        else {
+            MESSAGE_NOTIFICATION_SUCCESS = "Notification:" + " disabled";
+        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_NOTIFICATION_SUCCESS));
     }
 }

@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
