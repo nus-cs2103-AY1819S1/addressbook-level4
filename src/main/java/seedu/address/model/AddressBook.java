@@ -8,20 +8,17 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.volunteer.UniqueVolunteerList;
 import seedu.address.model.volunteer.Volunteer;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson and .isSameVolunteer and .isSameRecord comparison)
+ * Wraps all data at the application level
+ * Duplicates are not allowed (by .isSameVolunteer and .isSameRecord comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
     private final UniqueVolunteerList volunteers;
     private final UniqueEventList events;
     private final UniqueRecordList records;
@@ -34,7 +31,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         volunteers = new UniqueVolunteerList();
         events = new UniqueEventList();
         records = new UniqueRecordList();
@@ -44,7 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Volunteers in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -52,15 +48,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
     /**
      * Replaces the contents of the volunteer list with {@code volunteers}.
      * {@code volunteers} must not contain duplicate volunteers.
@@ -91,50 +78,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
         setVolunteers(newData.getVolunteerList());
         setEvents(newData.getEventList());
         setRecords(newData.getRecordList());
     }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
     //// volunteer-level operations
 
     /**
@@ -252,17 +199,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons. "
-                + volunteers.asUnmodifiableObservableList().size() + " volunteers. "
+        return volunteers.asUnmodifiableObservableList().size() + " volunteers. "
                 + events.asUnmodifiableObservableList().size() + " events. "
                 + records.asUnmodifiableObservableList() + " records. ";
     }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
-
     @Override
     public ObservableList<Volunteer> getVolunteerList() {
         return volunteers.asUnmodifiableObservableList();
@@ -282,7 +222,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
                 && volunteers.equals(((AddressBook) other).volunteers)
                 && events.equals(((AddressBook) other).events)
                 && records.equals(((AddressBook) other).records));
@@ -290,6 +229,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, volunteers, events, records);
+        return Objects.hash(volunteers, events, records);
     }
 }
