@@ -19,5 +19,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE_TIME = new Prefix("d/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
-
 }

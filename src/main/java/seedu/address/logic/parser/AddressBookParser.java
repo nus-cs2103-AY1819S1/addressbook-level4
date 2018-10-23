@@ -104,7 +104,6 @@ public class AddressBookParser {
         case RemarkCommand.COMMAND_WORD:
             return new RemarkCommandParser().parse(arguments);
 
-<<<<<<< HEAD
         case AddMedicalHistoryCommand.COMMAND_WORD:
             return new AddMedicalHistoryCommandParser().parse(arguments);
 
@@ -113,14 +112,13 @@ public class AddressBookParser {
 
         case FilterDoctorCommand.COMMAND_WORD:
             return new FilterDoctorCommand();
-=======
+
         case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentCommandParser().parse(arguments);
 
         case DeleteAppointmentCommand.COMMAND_WORD:
             return new DeleteAppointmentCommandParser().parse(arguments);
-            
->>>>>>> 8e276cdadc968496697a32c820d2691121649eb5
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
