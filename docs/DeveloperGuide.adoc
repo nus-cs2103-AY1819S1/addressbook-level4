@@ -207,21 +207,25 @@ image::LogicSequenceDiagram.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponent.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/ModelSet.java[`ModelSet.java`],
+link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `ModelSet`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Sous Chef application data.
+** Contains multiple `Model` each in-charge of a feature's data.
+* shares a single instance of VersionedAppContent to ensure single version of truth.
+* does not depend on any of the other three components.
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+* each represents a feature-unique data.
+** ensures data abstraction for each feature.
+* is reusable as model is now generic.
+* exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [[Design-Storage]]
 === Storage component
