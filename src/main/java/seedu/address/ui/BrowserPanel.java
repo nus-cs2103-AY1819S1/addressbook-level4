@@ -60,12 +60,16 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     public void loadPersonProfile(Person person) {
-        Platform.runLater(() -> {
-            PersonProfile personProfile = new PersonProfile(person);
-            Image img = new Image("resources/images/hallper.png");
-            ImageView imgView = new ImageView(img);
-            personProfilePlaceholder.getChildren().add(imgView);
-        });
+        PersonProfile personProfile = new PersonProfile(person);
+        if (getClass() == null) {
+            System.out.println("1");
+        } else if (getClass().getResource("fail2.png") == null) {
+            System.out.println("2");
+        } else if (getClass().getResource("fail2.png").toExternalForm() == null) {
+            System.out.println("3");
+        }
+        ImageView imgView = new ImageView(getClass().getResource("fail2.png").toExternalForm());
+        personProfilePlaceholder.getChildren().add(imgView);
     }
 
     /**

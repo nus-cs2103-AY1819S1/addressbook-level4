@@ -100,7 +100,6 @@ public abstract class UiPart<T> {
         requireNonNull(fxmlFileName);
         String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
         URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
-        System.out.println(MainApp.class.getResource(fxmlFileNameWithFolder));
         return requireNonNull(fxmlFileUrl);
     }
 
