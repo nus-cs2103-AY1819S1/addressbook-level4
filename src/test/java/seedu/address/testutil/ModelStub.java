@@ -62,6 +62,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void joinGroup(Person person, Group group) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void leaveGroup(Person person, Group group) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasGroup(Group group) {
         throw new AssertionError("This method should not be called.");
     }

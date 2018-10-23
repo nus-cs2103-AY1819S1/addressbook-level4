@@ -28,6 +28,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -145,6 +146,29 @@ public class AddressBookTest {
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
         assertFalse(addressBook.hasGroup(GROUP_2101));
+    }
+
+    @Test
+    public void joinGroup_personInGroup_returnTrue() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        //assertTrue(group.hasMember(person));
+        assertTrue(person.hasGroup(group));
+    }
+
+    @Test
+    public void joinGroup_groupHasPerson_returnTrue() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        assertTrue(group.hasMember(person));
     }
 
     @Test
