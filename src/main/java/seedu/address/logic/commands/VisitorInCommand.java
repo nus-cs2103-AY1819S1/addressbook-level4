@@ -29,7 +29,7 @@ import seedu.address.model.visitor.VisitorList;
  * @@author GAO JIAXIN
  * Checks in a visitor into patient's visitor list.
  */
-public class VisitorInCommand extends Command {
+public class VisitorinCommand extends Command {
 
     public static final String COMMAND_WORD = "visitorin";
 
@@ -52,7 +52,7 @@ public class VisitorInCommand extends Command {
     /**
      * Creates an VisitorInCommand to add visitors to patient's visitor's list
      */
-    public VisitorInCommand(Name patientName, Visitor visitorName) {
+    public VisitorinCommand(Name patientName, Visitor visitorName) {
         requireNonNull(patientName);
         requireNonNull(visitorName);
         this.patientName = patientName;
@@ -90,9 +90,9 @@ public class VisitorInCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VisitorInCommand //instanceof handles nulls
-                && patientName.equals(((VisitorInCommand) other).patientName)
-                && visitorName.equals(((VisitorInCommand) other).visitorName));
+                || (other instanceof VisitorinCommand //instanceof handles nulls
+                && patientName.equals(((VisitorinCommand) other).patientName)
+                && visitorName.equals(((VisitorinCommand) other).visitorName));
     }
 
     /**

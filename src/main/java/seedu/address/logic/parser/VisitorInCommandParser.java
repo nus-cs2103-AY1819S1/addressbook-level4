@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.VisitorInCommand;
+import seedu.address.logic.commands.VisitorinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.visitor.Visitor;
@@ -16,22 +16,22 @@ import seedu.address.model.visitor.Visitor;
 /**
  * Parses input arguments and creates a new VisitorInCommand object
  */
-public class VisitorInCommandParser implements Parser<VisitorInCommand> {
+public class VisitorinCommandParser implements Parser<VisitorinCommand> {
 
 
     @Override
-    public VisitorInCommand parse(String args) throws ParseException {
+    public VisitorinCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_VISITOR);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_VISITOR)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException((String.format(MESSAGE_INVALID_COMMAND_FORMAT, VisitorInCommand.MESSAGE_USAGE)));
+            throw new ParseException((String.format(MESSAGE_INVALID_COMMAND_FORMAT, VisitorinCommand.MESSAGE_USAGE)));
         }
 
         Name patientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Visitor visitor = ParserUtil.parseVisitor(argMultimap.getValue(PREFIX_VISITOR).get());
 
-        return new VisitorInCommand(patientName, visitor);
+        return new VisitorinCommand(patientName, visitor);
     }
 
     /**

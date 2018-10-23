@@ -39,7 +39,7 @@ public class VisitorInCommandTest {
     public void contructor_nullVisitor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         Person validPerson = new PersonBuilder().build();
-        new VisitorInCommand(validPerson.getName(), null);
+        new VisitorinCommand(validPerson.getName(), null);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class VisitorInCommandTest {
 
         Person validPerson = new PersonBuilder().withVisitorList(SampleDataUtil.getSampleVisitorList()).build();
         Visitor validPersonRecord = new Visitor("JACK");
-        new VisitorInCommand(null, validPersonRecord);
+        new VisitorinCommand(null, validPersonRecord);
     }
 
     @Test
@@ -58,10 +58,10 @@ public class VisitorInCommandTest {
         Visitor validPersonRecord = new Visitor("JACK");
 
         ModelStubWithRegisteredPatient modelStub = new ModelStubWithRegisteredPatient(validPerson);
-        CommandResult commandResult = new VisitorInCommand(validPersonName, validPersonRecord)
+        CommandResult commandResult = new VisitorinCommand(validPersonName, validPersonRecord)
                 .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(VisitorInCommand.MESSAGE_SUCCESS, validPersonName), commandResult.feedbackToUser);
+        assertEquals(String.format(VisitorinCommand.MESSAGE_SUCCESS, validPersonName), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -72,10 +72,10 @@ public class VisitorInCommandTest {
 
         Person diffValidPerson = new PersonBuilder().withName("JACK").build();
         Visitor visitor = new Visitor("Daniel");
-        VisitorInCommand visitorInCommand = new VisitorInCommand(diffValidPerson.getName(), visitor);
+        VisitorinCommand visitorInCommand = new VisitorinCommand(diffValidPerson.getName(), visitor);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(VisitorInCommand.MESSAGE_UNREGISTERED);
+        thrown.expectMessage(VisitorinCommand.MESSAGE_UNREGISTERED);
         visitorInCommand.execute(modelStub, commandHistory);
     }
 
@@ -85,14 +85,14 @@ public class VisitorInCommandTest {
         Person daniel = new PersonBuilder().withName("daniel").build();
         Visitor jackVisitor = new Visitor("GAO JIAXIN");
         Visitor danielVisitor = new Visitor("ENOCH");
-        VisitorInCommand addJackVisitorCommand = new VisitorInCommand(jack.getName(), jackVisitor);
-        VisitorInCommand addDanielVisitorCommand = new VisitorInCommand(jack.getName(), danielVisitor);
+        VisitorinCommand addJackVisitorCommand = new VisitorinCommand(jack.getName(), jackVisitor);
+        VisitorinCommand addDanielVisitorCommand = new VisitorinCommand(jack.getName(), danielVisitor);
 
         // same object -> returns true
         assertTrue(addJackVisitorCommand.equals(addJackVisitorCommand));
 
         // same values -> returns true
-        VisitorInCommand addJackVisitorCommandCopy = new VisitorInCommand(jack.getName(), jackVisitor);
+        VisitorinCommand addJackVisitorCommandCopy = new VisitorinCommand(jack.getName(), jackVisitor);
         assertTrue(addJackVisitorCommand.equals(addJackVisitorCommandCopy));
 
         // different types -> returns false
