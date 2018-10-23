@@ -97,7 +97,7 @@ public interface Model {
     /**
      * Adds appointment to patient.
      */
-    void addAppointment(Patient patient, Appointment appointment);
+    void addAppointment(Appointment appointment);
 
     /**
      * Deletes the appointment of given appointmentId.

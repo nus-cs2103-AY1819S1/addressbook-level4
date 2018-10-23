@@ -1,5 +1,6 @@
 package seedu.address.model.appointment;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -8,11 +9,11 @@ import java.util.Date;
  */
 public class Prescription {
     private String medicineName;
-    private Date expirationDate;
+    private LocalDateTime expirationDate;
     private int consumptionPerDay;
     private int amountToConsume;
 
-    public Prescription(String medicineName, Date expirationDate, int consumptionPerDay, int amountToConsume) {
+    public Prescription(String medicineName, LocalDateTime expirationDate, int consumptionPerDay, int amountToConsume) {
         this.medicineName = medicineName;
         this.expirationDate = expirationDate;
         this.consumptionPerDay = consumptionPerDay;
@@ -24,7 +25,7 @@ public class Prescription {
         return medicineName;
     }
 
-    public Date getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 

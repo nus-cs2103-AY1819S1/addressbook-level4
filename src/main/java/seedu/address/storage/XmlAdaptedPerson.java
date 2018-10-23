@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
@@ -39,6 +41,10 @@ public class XmlAdaptedPerson {
     private String remark;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedAppointment> upcomingAppointments = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedAppointment> pastAppointments = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -50,7 +56,8 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String remark, List<XmlAdaptedTag> tagged) {
+                            String remark, List<XmlAdaptedTag> tagged, List<XmlAdaptedAppointment> upcomingAppointments,
+                            List<XmlAdaptedAppointment> pastAppointments) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -58,6 +65,12 @@ public class XmlAdaptedPerson {
         this.remark = remark;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
+        }
+        if (upcomingAppointments != null) {
+            this.upcomingAppointments = new ArrayList<>(upcomingAppointments);
+        }
+        if (pastAppointments != null) {
+            this.pastAppointments = new ArrayList<>(pastAppointments);
         }
     }
 
@@ -75,6 +88,15 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
+            upcomingAppointments = ((Patient) source).getUpcomingAppointments().stream()
+                    .map(XmlAdaptedAppointment::new)
+                    .collect(Collectors.toList());
+            pastAppointments = ((Patient) source).getPastAppointments().stream()
+                    .map(XmlAdaptedAppointment::new)
+                    .collect(Collectors.toList());
+        }
+
     }
 
     /**
@@ -86,6 +108,16 @@ public class XmlAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+
+        final PriorityQueue<Appointment> patientUpcomingAppointments = new PriorityQueue<>();
+        for (XmlAdaptedAppointment upcomingAppointment : upcomingAppointments) {
+            patientUpcomingAppointments.add(upcomingAppointment.toModelType());
+        }
+
+        final List<Appointment> patientPastAppointments = new ArrayList<>();
+        for (XmlAdaptedAppointment pastAppointments : pastAppointments) {
+            patientPastAppointments.add(pastAppointments.toModelType());
         }
 
         if (name == null) {
@@ -129,7 +161,8 @@ public class XmlAdaptedPerson {
         if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Doctor"))) {
             return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
-            return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123");
+            return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123",
+                    patientUpcomingAppointments, patientPastAppointments);
         } else {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         }

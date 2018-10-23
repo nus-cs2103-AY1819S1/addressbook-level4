@@ -1,13 +1,17 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
-import static java.util.Objects.requireNonNull;
+
 
 /**
  * Wraps all data at the address-book level
@@ -23,7 +27,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         persons = new UniquePersonList();
     }
 
@@ -114,8 +119,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds appointment to patient {@code patient, appointment} to this {@code HealthBook}.
      * {@code patient} must exist in the health book.
      */
-    public void addAppointment(Patient patient, Appointment appointment) {
-        patient.addUpcomingAppointment(appointment);
+    public void addAppointment(Appointment appointment) {
     }
 
     /**

@@ -51,9 +51,10 @@ public class DeleteAppointmentCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Set<Tag> mySet = new HashSet<Tag>();
-        Appointment appointment 
-                = new Appointment(new Doctor(new Name("elroy"),new Phone("123412324"),new Email("erear@g.com"), new Address("2134"), new Remark("asfasf"), mySet), LocalDateTime.of(2017,1,1,1,1,1));
-//        // TODO - implementation below assumes there's a storage for appointments (rmb to implement Model, ModelManager, AddressBook)
+        Appointment appointment = new Appointment("elroy",
+                LocalDateTime.of(2017, 1, 1, 1, 1, 1));
+//        TODO - implementation below assumes there's a storage
+//        for appointments (rmb to implement Model, ModelManager, AddressBook)
 //        List<Appointment> appointmentList = model.getAppointmentList();
 //        Appointment appointment = appointmentList.stream()
 //                .filter(appt -> appt.getAppointmentId() == appointmentId)
