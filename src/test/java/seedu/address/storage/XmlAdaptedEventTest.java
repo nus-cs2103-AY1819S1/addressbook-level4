@@ -5,12 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.parser.AddEventCommandParser.MESSAGE_INVALID_START_END_TIME;
 import static seedu.address.storage.XmlAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,6 @@ import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedEventTest {
@@ -30,6 +27,7 @@ public class XmlAdaptedEventTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String INVALID_EMAIL = "example.com";
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_FACULTY = BENSON.getFaculty().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
@@ -45,7 +43,7 @@ public class XmlAdaptedEventTest {
                     .replace(":", "");
     private static final String INVALID_EVENT_ADDRESS = " ";
     private static final XmlAdaptedPerson INVALID_EVENT_CONTACT =
-            new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+            new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_FACULTY);
 
     private static final String VALID_EVENT_NAME = DOCTORAPPT.getEventName().toString();
     private static final String VALID_EVENT_DESCRIPTION = DOCTORAPPT.getEventDescription().toString();
