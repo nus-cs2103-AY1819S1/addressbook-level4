@@ -65,10 +65,6 @@ public class AddPersonCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addPerson(Person person) {
@@ -95,10 +91,6 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean hasEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public boolean hasPerson(Person person) {
@@ -116,12 +108,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deleteEntity(Entity entity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEntity(Entity target, Entity editedEntity) {
+        public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -182,16 +169,11 @@ public class AddPersonCommandTest {
             this.person = person;
         }
 
-        @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return this.person.isSameEntity(entity);
-        }
 
         @Override
         public boolean hasPerson(Person personToAdd) {
             requireNonNull(person);
-            return this.person.isSameEntity(personToAdd);
+            return this.person.isSamePerson(personToAdd);
         }
     }
 
@@ -202,25 +184,11 @@ public class AddPersonCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(entity);
-            return personsAdded.stream().anyMatch(entity::isSameEntity);
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSameEntity);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
-        @Override
-        public void addEntity(Entity entity) {
-            requireNonNull(entity);
-            if (!(entity instanceof Person)) {
-                return;
-            }
-            personsAdded.add((Person) entity);
-        }
 
         @Override
         public void addPerson(Person person) {

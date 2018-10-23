@@ -64,6 +64,12 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deletePerson(Person target);
+
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
 
