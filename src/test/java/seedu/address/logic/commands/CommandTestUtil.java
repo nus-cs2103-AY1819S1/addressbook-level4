@@ -36,15 +36,15 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_GAME = "Spend on video game";
+    public static final String VALID_NAME_IPHONE = "IPone";
     public static final String VALID_NAME_KFC = "Have KFC";
-    public static final String VALID_CATEGORY_AMY = "School";
-    public static final String VALID_CATEGORY_BOB = "Food";
+    public static final String VALID_CATEGORY_GAME = "Game";
+    public static final String VALID_CATEGORY_IPHONE = "Phone";
     public static final String VALID_CATEGORY_KFC = "Food";
 
-    public static final String VALID_COST_AMY = "123.00";
-    public static final String VALID_COST_BOB = "22.00";
+    public static final String VALID_COST_GAME = "123.00";
+    public static final String VALID_COST_IPHONE = "722.00";
     public static final String VALID_COST_KFC = "10.00";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
@@ -56,14 +56,14 @@ public class CommandTestUtil {
     public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
     public static final String VALID_TIME_ONE_MINUTE = " " + PREFIX_MINUTES + VALID_TIME_ONE;
     public static final String VALID_TIME_ONE_HOUR = " " + PREFIX_HOURS + VALID_TIME_ONE;
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_GAME;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_IPHONE;
     public static final String NAME_DESC_KFC = " " + PREFIX_NAME + VALID_NAME_KFC;
-    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
-    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
+    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_GAME;
+    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_IPHONE;
     public static final String CATEGORY_DESC_KFC = " " + PREFIX_CATEGORY + VALID_CATEGORY_KFC;
-    public static final String COST_DESC_AMY = " " + PREFIX_COST + VALID_COST_AMY;
-    public static final String COST_DESC_BOB = " " + PREFIX_COST + VALID_COST_BOB;
+    public static final String COST_DESC_AMY = " " + PREFIX_COST + VALID_COST_GAME;
+    public static final String COST_DESC_BOB = " " + PREFIX_COST + VALID_COST_IPHONE;
     public static final String COST_DESC_KFC = " " + PREFIX_COST + VALID_COST_KFC;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
@@ -79,15 +79,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_AMY;
-    public static final EditCommand.EditExpenseDescriptor DESC_BOB;
+    public static final EditCommand.EditExpenseDescriptor DESC_GAME;
+    public static final EditCommand.EditExpenseDescriptor DESC_IPHONE;
 
     static {
-        DESC_AMY = new EditExpenseDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withCategory(VALID_CATEGORY_AMY).withCost(VALID_COST_AMY)
+        DESC_GAME = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
+                .withCategory(VALID_CATEGORY_GAME).withCost(VALID_COST_GAME)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withCategory(VALID_CATEGORY_BOB).withCost(VALID_COST_BOB)
+        DESC_IPHONE = new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE)
+                .withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_IPHONE)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

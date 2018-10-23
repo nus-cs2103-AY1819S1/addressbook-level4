@@ -17,17 +17,17 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalExpenses.ALICE;
-import static seedu.address.testutil.TypicalExpenses.AMY;
-import static seedu.address.testutil.TypicalExpenses.BOB;
-import static seedu.address.testutil.TypicalExpenses.CARL;
-import static seedu.address.testutil.TypicalExpenses.HOON;
-import static seedu.address.testutil.TypicalExpenses.IDA;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalExpenses.GAMBLE;
+import static seedu.address.testutil.TypicalExpenses.GAME;
+import static seedu.address.testutil.TypicalExpenses.IPHONE;
+import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
+import static seedu.address.testutil.TypicalExpenses.STOCK;
+import static seedu.address.testutil.TypicalExpenses.TOY;
 
 import org.junit.Test;
 
@@ -65,7 +65,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a expense without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Expense toAdd = AMY;
+        Expense toAdd = GAME;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + CATEGORY_DESC_AMY + " "
                 + "   " + COST_DESC_AMY + "   " + DATE_DESC_1990 + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
@@ -82,7 +82,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a expense with all fields same as another expense in the address book except name -> added */
-        toAdd = new ExpenseBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new ExpenseBuilder(GAME).withName(VALID_NAME_IPHONE).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -90,53 +90,53 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a expense with all fields same as another expense in the address book except category and cost
          * -> added
          */
-        toAdd = new ExpenseBuilder(AMY).withCategory(VALID_CATEGORY_BOB).withCost(VALID_COST_BOB).build();
+        toAdd = new ExpenseBuilder(GAME).withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_IPHONE).build();
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllExpenses();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(SCHOOLFEE);
 
         /* Case: add a expense with tags, command with parameters in random order -> added */
-        toAdd = BOB;
+        toAdd = IPHONE;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CATEGORY_DESC_BOB + COST_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + DATE_DESC_2018;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a expense, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(STOCK);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the expense list before adding -> added */
-        showExpensesWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        showExpensesWithName(KEYWORD_MATCHING_BUY);
+        assertCommandSuccess(GAMBLE);
 
         /* ------------------------ Perform add operation while a expense card is selected -------------------------- */
 
         /* Case: selects first card in the expense list, add a expense -> added, card selection remains unchanged */
         selectExpense(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(TOY);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate expense -> rejected */
-        command = ExpenseUtil.getAddCommand(HOON);
+        command = ExpenseUtil.getAddCommand(STOCK);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
 
         /* Case: add a duplicate expense except with different category -> rejected */
-        toAdd = new ExpenseBuilder(HOON).withCategory(VALID_CATEGORY_BOB).build();
+        toAdd = new ExpenseBuilder(STOCK).withCategory(VALID_CATEGORY_IPHONE).build();
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
 
         /* Case: add a duplicate expense except with different address -> rejected */
-        toAdd = new ExpenseBuilder(HOON).withCost(VALID_COST_BOB).build();
+        toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
 
         /* Case: add a duplicate expense except with different tags -> rejected */
-        command = ExpenseUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = ExpenseUtil.getAddCommand(STOCK) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
 
         /* Case: missing name -> rejected */

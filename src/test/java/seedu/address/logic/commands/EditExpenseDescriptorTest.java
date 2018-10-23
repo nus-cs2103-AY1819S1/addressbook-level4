@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -20,36 +20,36 @@ public class EditExpenseDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditExpenseDescriptor descriptorWithSameValues = new EditExpenseDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditExpenseDescriptor descriptorWithSameValues = new EditExpenseDescriptor(DESC_GAME);
+        assertTrue(DESC_GAME.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_GAME.equals(DESC_GAME));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_GAME.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_GAME.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_GAME.equals(DESC_IPHONE));
 
         // different name -> returns false
         EditCommand.EditExpenseDescriptor editedAmy =
-                new EditExpenseDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+                new EditExpenseDescriptorBuilder(DESC_GAME).withName(VALID_NAME_IPHONE).build();
+        assertFalse(DESC_GAME.equals(editedAmy));
 
         // different category -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withCategory(VALID_CATEGORY_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withCategory(VALID_CATEGORY_IPHONE).build();
+        assertFalse(DESC_GAME.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withCost(VALID_COST_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withCost(VALID_COST_IPHONE).build();
+        assertFalse(DESC_GAME.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(DESC_GAME.equals(editedAmy));
     }
 }
