@@ -22,13 +22,6 @@ import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Remark;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.volunteer.Birthday;
-import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.VolunteerPhone;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -43,11 +36,11 @@ public class SampleDataUtil {
             new Person(new Name("Bernice Yu"), new Phone("99272758"),
                     new Email("berniceyu@example.com"),
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("driver", "friends")),
+                    getTagSet("colleagues", "friends")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
                     new Email("charlotte@example.com"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("student")),
+                    getTagSet("neighbours")),
             new Person(new Name("David Li"), new Phone("91031282"),
                     new Email("lidavid@example.com"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
@@ -60,40 +53,6 @@ public class SampleDataUtil {
                     new Email("royb@example.com"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"),
                     getTagSet("colleagues"))
-        };
-    }
-    public static Volunteer[] getSampleVolunteers() {
-        return new Volunteer[]{
-            new Volunteer(new VolunteerName("Alex Yeoh"), new Gender("m"),
-                    new Birthday("02-10-1996"), new VolunteerPhone("87438807"),
-                    new VolunteerEmail("alexyeoh@example.com"),
-                    new VolunteerAddress("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("student")),
-            new Volunteer(new VolunteerName("Bernice Yu"), new Gender("f"),
-                    new Birthday("15-03-1995"), new VolunteerPhone("99272758"),
-                    new VolunteerEmail("berniceyu@example.com"),
-                    new VolunteerAddress("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("student", "driver")),
-            new Volunteer(new VolunteerName("Charlotte Oliveiro"), new Gender("f"),
-                    new Birthday("17-09-1992"), new VolunteerPhone("93210283"),
-                    new VolunteerEmail("charlotte@example.com"),
-                    new VolunteerAddress("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("adult")),
-            new Volunteer(new VolunteerName("David Li"), new Gender("m"),
-                    new Birthday("28-04-1994"), new VolunteerPhone("91031282"),
-                    new VolunteerEmail("lidavid@example.com"),
-                    new VolunteerAddress("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("student")),
-            new Volunteer(new VolunteerName("Irfan Ibrahim"), new Gender("m"),
-                    new Birthday("10-12-2000"), new VolunteerPhone("92492021"),
-                    new VolunteerEmail("irfan@example.com"),
-                    new VolunteerAddress("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("student")),
-            new Volunteer(new VolunteerName("Roy Balakrishnan"), new Gender("m"),
-                    new Birthday("01-01-1984"), new VolunteerPhone("92624417"),
-                    new VolunteerEmail("royb@example.com"),
-                    new VolunteerAddress("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("adult"))
         };
     }
 
@@ -121,10 +80,6 @@ public class SampleDataUtil {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
-        }
-
-        for (Volunteer sampleVolunteer : getSampleVolunteers()) {
-            sampleAb.addVolunteer(sampleVolunteer);
         }
 
         for (Event sampleEvent : getSampleEvents()) {

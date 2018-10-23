@@ -7,7 +7,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.volunteer.Volunteer;
 
 /**
  * API of the Logic component
@@ -24,9 +23,6 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
-
-    /** Returns an unmodifiable view of the filtered list of volunteers */
-    ObservableList<Volunteer> getFilteredVolunteerList();
 
     /** Returns an unmodifiable view of the filtered list of events */
     ObservableList<Event> getFilteredEventList();
