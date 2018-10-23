@@ -274,6 +274,8 @@ public abstract class AddressBookSystemTest {
      * Asserts that the starting state of the application is correct.
      */
     private void assertApplicationStartingStateIsCorrect() {
+        //URL url = new URL("https://www.google.com/maps");
+
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
