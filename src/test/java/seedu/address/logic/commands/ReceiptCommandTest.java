@@ -9,12 +9,13 @@ import static seedu.address.logic.commands.QueueCommandTestUtil.generateServedPa
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.io.File;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -47,7 +48,7 @@ public class ReceiptCommandTest {
     }
 
     @Test
-    public void execute_validServedPatient_ReceiptSuccess() throws Exception {
+    public void execute_validServedPatient_receiptMessageSuccess() throws Exception {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = ReceiptCommand.MESSAGE_GENERATE_RECEIPT_SUCCESS;
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
@@ -67,7 +68,7 @@ public class ReceiptCommandTest {
     }
 
     @Test
-    public void execute_receiptFileName_Success() throws Exception {
+    public void execute_receiptFileName_receiptGenerationSuccess() throws Exception {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         receiptCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);

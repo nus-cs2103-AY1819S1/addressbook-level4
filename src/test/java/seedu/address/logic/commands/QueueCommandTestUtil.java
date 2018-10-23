@@ -2,10 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.model.document.Document.DIRECTORY_PATH;
 import static seedu.address.model.document.Document.FILE_NAME_DELIMITER;
 
 import java.io.File;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,7 +18,6 @@ import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
-import seedu.address.testutil.TypicalPersons;
 
 /**
  * Contains helper methods for testing QueueCommands.
@@ -88,8 +89,8 @@ public class QueueCommandTestUtil {
     public static void assertUniqueFileInFilteredFileList(String fileName) {
         File dir = new File(DIRECTORY_PATH);
         File[] matches = dir.listFiles((dir1, name) -> name.startsWith(fileName));
-       assertTrue("There should be exactly 1 file in the directory!", matches.length == 1);
-       fileCleanUp(matches[0]);
+        assertTrue("There should be exactly 1 file in the directory!", matches.length == 1);
+        fileCleanUp(matches[0]);
     }
 
     /**
@@ -99,7 +100,7 @@ public class QueueCommandTestUtil {
      */
     public static String generateFileName(String fileType, Patient patient) {
         return fileType + FILE_NAME_DELIMITER + patient.toNameAndIc().replaceAll("\\s", "")
-                .replace("[", "_").replace("]","");
+                .replace("[", "_").replace("]", "");
     }
 
     /**
