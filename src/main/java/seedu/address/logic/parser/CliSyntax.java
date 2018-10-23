@@ -19,6 +19,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROJECT_TAG = new Prefix("-d");
 
     /* Prefix for permission*/
-    public static final Prefix PREFIX_ADD_PERMISSION = new Prefix("-ap");
-    public static final Prefix PREFIX_REMOVE_PERMISSION = new Prefix("-rp");
+    public static final Prefix PREFIX_ADD_PERMISSION = new Prefix("-a");
+    public static final Prefix PREFIX_REMOVE_PERMISSION = new Prefix("-r");
 }
