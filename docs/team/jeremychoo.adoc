@@ -19,10 +19,10 @@ The following section shows my major code contributions to OASIS.
 
 === Major enchancement: Login feature
 
-* *Major enhancement*: added *the ability to login and logout*
-** What it does: allows the user to login into the system using their username and password, as well as logout.
-** Justification: This feature is essential in the product as only certain users can are authorized to use cetain commands, thus user identification is required.
-** Highlights: This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
+* *Major enhancement*: Added *the ability to login and logout*
+** What it does: Allows the user to login into the system using their username and password, as well as to logout.
+** Justification: This feature is essential in the product as only certain users are authorized to use cetain commands, thus user identification is required. This feature also helps to preserve the privacy of the users by ensuring that their data isn't publicly viewable.
+** Highlights: [Too general, try to give examples] This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
 
 === Minor enchancement:
 
