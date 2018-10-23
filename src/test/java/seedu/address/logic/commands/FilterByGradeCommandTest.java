@@ -28,8 +28,8 @@ public class FilterByGradeCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("20" + " " + "90");
-        String second = new String(" ");
+        String first = "20 90";
+        String second = " ";
 
 
         FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
