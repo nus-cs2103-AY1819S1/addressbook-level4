@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
