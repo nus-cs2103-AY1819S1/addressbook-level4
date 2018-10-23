@@ -230,7 +230,7 @@ public class ParserUtil {
         }
         return indexSet;
     }
-
+    
     /**
      * Parses a {@code String faculty} into an {@code Faculty}.
      * Leading and trailing whitespaces will be trimmed.
