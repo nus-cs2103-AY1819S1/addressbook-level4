@@ -102,37 +102,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs) {
-            @Override
-            public boolean hasEvent(Event event) {
-                return false;
-            }
-
-            @Override
-            public boolean hasClashingEvent(Event event) {
-                return false;
-            }
-
-            @Override
-            public void addEvent(Event event) {
-
-            }
-
-            @Override
-            public ObservableList<Event> getFilteredEventList() {
-                return null;
-            }
-
-            @Override
-            public void updateFilteredEventList(Predicate<Event> predicate) {
-
-            }
-
-            @Override
-            public ObservableList<List<Event>> getFilteredEventListByDate() {
-                return null;
-            }
-        };
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
