@@ -118,8 +118,10 @@ public class UniqueModuleList implements Iterable<Module> {
     private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size(); i++) {
             for (int j = 0; j < modules.size(); j++) {
-                if (modules.get(i).equals(modules.get(j))) {
-                    return false;
+                if (i != j) {
+                    if (modules.get(i).equals(modules.get(j))) {
+                        return false;
+                    }
                 }
             }
         }
