@@ -60,7 +60,7 @@ public class ReceiptCommandTest {
     }
 
     @Test
-    public void execute_ServedPatientListEmpty_commandExceptionThrown() throws Exception {
+    public void execute_servedPatientListEmpty_commandExceptionThrown() throws Exception {
         thrown.expect(CommandException.class);
         servedPatientList = generateServedPatientList();
         new ReceiptCommand(INDEX_FIRST_PERSON).execute(model, patientQueue,
