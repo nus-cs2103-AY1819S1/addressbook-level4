@@ -73,6 +73,8 @@ public class Anakin implements AnakinReadOnlyAnakin {
     public void resetData(AnakinReadOnlyAnakin newData) {
         requireNonNull(newData);
 
+        this.isInsideDeck = newData.isInsideDeck();
+
         setDecks(newData.getDeckList());
         setCards(newData.getCardList());
     }

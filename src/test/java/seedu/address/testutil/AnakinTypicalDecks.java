@@ -47,10 +47,11 @@ public class AnakinTypicalDecks {
         }
 
         ak.getIntoDeck(DECK_WITH_CARDS);
+        System.out.println("Anakin Level: "  + ak.isInsideDeck());
         return ak;
     }
 
     public static List<AnakinDeck> getTypicalDecks() {
-        return new ArrayList<>(Arrays.asList(DECK_A, DECK_B, DECK_C, DECK_D, DECK_E, DECK_F, DECK_G, DECK_WITH_CARDS));
+        return new ArrayList<>(Arrays.asList(DECK_WITH_CARDS, DECK_A, DECK_B, DECK_C, DECK_D, DECK_E, DECK_F, DECK_G));
     }
 }
