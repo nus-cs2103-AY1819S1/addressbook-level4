@@ -16,9 +16,8 @@ import seedu.address.model.Model;
 public class NextCommand extends Command {
 
     public static final String COMMAND_WORD = "next";
-    public static final int BATCH_SIZE = 10;
 
-    public static final String MESSAGE_NEXT_SUCCESS = "Currently viewing next 10 images.";
+    public static final String MESSAGE_NEXT_SUCCESS = "Currently viewing next %d images.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the next batch of photos for viewing.\n"
             + "Example: " + COMMAND_WORD;
@@ -29,15 +28,20 @@ public class NextCommand extends Command {
 
         ArrayList<Path> dirImageList = model.getDirectoryImageList();
 
-        for (int i = 0; i < BATCH_SIZE; i++) {
-            if (dirImageList.isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_NO_MORE_IMAGES);
-            }
+        if (dirImageList.size() <= SelectCommand.BATCH_SIZE) {
+            throw new CommandException(Messages.MESSAGE_NO_MORE_IMAGES);
+        }
+
+        for (int i = 0; i < SelectCommand.BATCH_SIZE; i++) {
             dirImageList.remove(0);
         }
 
         model.updateImageList(dirImageList);
 
-        return new CommandResult(MESSAGE_NEXT_SUCCESS);
+        return new CommandResult((String.format(MESSAGE_NEXT_SUCCESS,
+                Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)) + "\n"
+                + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.getDirectoryImageList().size()) + "\n"
+                + (String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
+                Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE))))));
     }
 }
