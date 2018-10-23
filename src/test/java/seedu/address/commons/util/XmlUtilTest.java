@@ -90,9 +90,8 @@ public class XmlUtilTest {
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS,
-                null, null );
+        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_REMARK, VALID_TAGS, null, null );
         assertEquals(expectedPerson, actualPerson);
     }
 
