@@ -83,6 +83,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         setOccasions(newData.getOccasionList());
     }
 
+    public void resetPersonData(ObservableList<Person> newPersonData) {
+        requireNonNull(newPersonData);
+
+        persons.resetData(newPersonData);
+    }
+
     //// person-level operation
     // TODO: Refactor it to Entity-level
     /**

@@ -24,7 +24,26 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniquePersonList implements Iterable<Person> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Person> internalList;
+
+    {
+        internalList = FXCollections.observableArrayList();
+    }
+
+    public UniquePersonList() {}
+
+    /**
+     * Creates a person list using the Persons in the {@code toBeCopied}
+     */
+    public UniquePersonList(ObservableList<Person> toBeCopied) {
+        this();
+        setPersons(toBeCopied);
+    }
+
+    public void resetData(ObservableList<Person> newData) {
+        requireNonNull(newData);
+        setPersons(newData);
+    }
 
     /**
      * Returns true if the list contains an equivalent entity as the given argument.

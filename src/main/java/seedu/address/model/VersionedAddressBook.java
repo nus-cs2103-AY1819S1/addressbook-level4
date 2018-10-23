@@ -2,6 +2,9 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * {@code AddressBook} that keeps track of its own history.
@@ -11,12 +14,18 @@ public class VersionedAddressBook extends AddressBook {
     private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
+    private final List<ObservableList<Person>> personListStateList;
+    private int currentPersonStatePointer;
+
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
         currentStatePointer = 0;
+
+        personListStateList = new ArrayList<>();
+        currentPersonStatePointer = 0;
     }
 
     /**
@@ -29,14 +38,32 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer++;
     }
 
+    /**
+     * Saves a copy of the current {@code AddressBook} state at the end of the addressBook state
+     * list.
+     * Saves a copy of the current {@code UniquePersonList} state at the end of the person
+     * list state list.
+     * Undone states are removed from both the addressBook and the personList state list.
+     */
+    public void commitPerson() {
+        commit();
+
+        removePersonStatesAfterCurrentPointer();
+      //  personListStateList.add(new UniquePersonList(this.getPersonList()));
+    }
+
     private void removeStatesAfterCurrentPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+    }
+
+    private void removePersonStatesAfterCurrentPointer() {
+        personListStateList.subList(currentPersonStatePointer + 1, personListStateList.size()).clear();
     }
 
     /**
      * Restores the address book to its previous state.
      */
-    public void undo() {
+    public void undoAll() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
@@ -45,9 +72,21 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
+     * Restore the person list in the address book to its previous state.
+     */
+    public void undoPerson() {
+        if (!canUndoPerson()) {
+            throw new NoUndoablePersonStateException();
+        }
+        currentPersonStatePointer--;
+        resetPersonData(personListStateList.get(currentPersonStatePointer));
+
+    }
+
+    /**
      * Restores the address book to its previously undone state.
      */
-    public void redo() {
+    public void redoAll() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
@@ -68,6 +107,11 @@ public class VersionedAddressBook extends AddressBook {
     public boolean canRedo() {
         return currentStatePointer < addressBookStateList.size() - 1;
     }
+
+    /**
+     * Returns true if if {@code undoPerson()} has person list states in address book to undo.
+     */
+    public boolean canUndoPerson() { return currentPersonStatePointer > 0; }
 
     @Override
     public boolean equals(Object other) {
@@ -95,6 +139,15 @@ public class VersionedAddressBook extends AddressBook {
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
             super("Current state pointer at start of addressBookState list, unable to undo.");
+        }
+    }
+
+    /**
+     * Thrown when trying to {@code undoPerson()} but can't.
+     */
+    public static class NoUndoablePersonStateException extends RuntimeException {
+        private NoUndoablePersonStateException() {
+            super("Current state pointer at start of personListState list, unable to undo.");
         }
     }
 
