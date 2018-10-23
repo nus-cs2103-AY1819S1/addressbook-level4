@@ -156,6 +156,11 @@ public interface Model {
     void exportAddressBook(Path filepath);
 
     /**
+     * Import the current address book.
+     */
+    void importAddressBook(ReadOnlyAddressBook importAddressBook);
+
+    /**
      * Change User Preferences.
      */
     void changeUserPrefs(Path filepath);
