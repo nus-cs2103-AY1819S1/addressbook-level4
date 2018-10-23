@@ -22,7 +22,7 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
             throw new ParseException(
                     String.format("Enter error message here"));
         }
-        if (!(stringCommand.equals("pri") || stringCommand.equals("sec") || stringCommand.equals("jc"))) {
+        if (!("pri".equals(stringCommand) || "sec".equals(stringCommand) || "jc".equals(stringCommand))) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
         }
