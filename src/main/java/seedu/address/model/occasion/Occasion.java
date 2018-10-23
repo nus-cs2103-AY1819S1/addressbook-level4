@@ -21,7 +21,7 @@ public class Occasion extends Inanimate {
     // Identity fields
     private final OccasionName occasionName;
     private final OccasionDate occasionDate;
-    private final String location;
+    private final OccasionLocation location;
     private final UniquePersonList attendanceList;
 
     // Date fields
@@ -30,7 +30,7 @@ public class Occasion extends Inanimate {
     /**
      * Every field must be present and not null.
      */
-    public Occasion(OccasionName occasionName, OccasionDate occasionDate, String location,
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
                     Set<Tag> tags, TypeUtil type) {
         requireAllNonNull(occasionName, occasionDate, tags, type);
         this.occasionName = occasionName;
@@ -58,7 +58,7 @@ public class Occasion extends Inanimate {
         return attendanceList;
     }
 
-    public String getLocation() {
+    public OccasionLocation getLocation() {
         return location;
     }
 
