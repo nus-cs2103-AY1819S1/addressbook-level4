@@ -492,7 +492,7 @@ e.g. `select 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 
-=== Analytics Commands
+=== Data Commands
 
 * *Patient Statistics* : `patientstats`
 * *Appointment Statistics* : `apptstats`
