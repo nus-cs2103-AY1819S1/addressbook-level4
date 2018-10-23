@@ -1,4 +1,4 @@
-//@author benedictcss
+//@@author benedictcss
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -47,12 +48,16 @@ public class CdCommand extends Command {
         Path newCurrDirectory = Paths.get("");
         try {
             newCurrDirectory = dir.toPath().toRealPath();
-            model.updateUserPrefs(newCurrDirectory);
+            model.updateCurrDirectory(newCurrDirectory);
             model.updateImageList();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new CommandResult(newCurrDirectory.toString());
+
+        return new CommandResult(newCurrDirectory.toString() + "\n"
+                + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getDirectoryImageList().size())
+                + String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
+                Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)));
     }
 
     public Path getPath() {

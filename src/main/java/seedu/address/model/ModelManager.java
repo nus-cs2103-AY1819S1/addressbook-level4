@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -19,6 +19,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 import seedu.address.model.person.Person;
@@ -32,10 +33,11 @@ public class ModelManager extends ComponentManager implements Model {
     private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private ArrayList<String> dirImageList;
-    private BufferedImage currentOriginalImage;
-    private PreviewImage currentPreviewImage;
+    private ArrayList<Path> dirImageList;
+    private Path currentOriginalImage;
+    private Path currentPreviewImage;
     private PhotoHandler photoLibrary = null;
+    private Canvas canvas;
 
     private final UserPrefs userPrefs;
 
@@ -127,18 +129,25 @@ public class ModelManager extends ComponentManager implements Model {
      * backed by the list of {@code userPrefs}
      */
     @Override
-    public ArrayList<String> getDirectoryImageList() {
+    public ArrayList<Path> getDirectoryImageList() {
         this.dirImageList = userPrefs.getAllImages();
         return this.dirImageList;
     }
 
     /**
-     * Returns an array list of the images from the current directory {@code dirImageList}
-     * backed by the list of {@code userPrefs}
+     * Updates the list of the images in the current directory {@code dirImageList}
      */
     @Override
     public void updateImageList() {
         userPrefs.updateImageList();
+    }
+
+    /**
+     * Updates the list of the images in the current directory {@code dirImageList} with the {@code dirImageList}
+     */
+    @Override
+    public void updateImageList(ArrayList<Path> dirImageList) {
+        userPrefs.updateImageList(dirImageList);
     }
 
     /**
@@ -150,13 +159,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public BufferedImage getCurrentOriginalImage() {
+    public Path getCurrentOriginalImage() {
         return this.currentOriginalImage;
     }
 
     @Override
-    public BufferedImage getCurrentPreviewImage() {
-        return this.currentPreviewImage.getImage();
+    public Path getCurrentPreviewImage() {
+        return this.currentPreviewImage;
     }
 
     /**
@@ -164,9 +173,15 @@ public class ModelManager extends ComponentManager implements Model {
      * reinitialize the previewImageManager with the new image
      */
     @Override
-    public void updateCurrentOriginalImage(Image img) {
-        currentOriginalImage = SwingFXUtils.fromFXImage(img, null);
-        previewImageManager.initialiseWithImage(new PreviewImage(currentOriginalImage));
+    public void updateCurrentOriginalImage(Image img, Path imgPath) {
+        canvas = new Canvas();
+        currentOriginalImage = imgPath;
+        currentPreviewImage = imgPath;
+
+        PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
+        canvas.addLayer(selectedImage);
+
+        previewImageManager.initialiseWithImage(selectedImage);
     }
 
     //=========== GoogleClient Accessors =============================================================
@@ -203,13 +218,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImageManager() {
         previewImageManager.undo();
-        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
+        currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
     }
 
     @Override
     public void redoPreviewImageManager() {
         previewImageManager.redo();
-        currentPreviewImage = previewImageManager.getCurrentPreviewImageState();
+        currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
     }
 
     @Override
@@ -239,8 +254,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Update UserPrefs ==========================================================================
 
     @Override
-    public void updateUserPrefs(Path newCurrDirectory) {
-        this.userPrefs.updateCurrDirectory(newCurrDirectory);
+    public void updateCurrDirectory(Path newCurrDirectory) {
+        this.userPrefs.updateUserPrefs(newCurrDirectory);
     }
 
     @Override
