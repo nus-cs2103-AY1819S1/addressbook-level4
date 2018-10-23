@@ -16,7 +16,8 @@ public class AutoCompleteCommandHelper {
         ListCommand.COMMAND_WORD,
         RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD,
-        UndoCommand.COMMAND_WORD
+        UndoCommand.COMMAND_WORD,
+        ModifyPermissionCommand.COMMAND_WORD
     };
 
     /**
