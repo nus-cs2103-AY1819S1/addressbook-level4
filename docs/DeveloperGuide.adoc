@@ -355,7 +355,10 @@ that the user entered.
 .. the `login` command call `Model#hasReceptionist()` to ensure that this receptionist exist inside ClinicIO.
 .. Once ClinicIO check if user exists, the `login` command call `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
 .. The `login` command verify password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by user.
-.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
+
+. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
+
+The following sequence diagram shows how the login authentication works:
 
 ==== Design Considerations
 
