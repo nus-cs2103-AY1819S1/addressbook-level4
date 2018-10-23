@@ -329,20 +329,37 @@ _{Explain here how the data encryption feature will be implemented}_
 // tag::login[]
 === Login
 
-ClinicIO ensure that proper user access rights is given and authenticated by login to ClinicIO.
+ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
 
 ==== Current Implementation
 
-The login mechanism uses `UniqueDoctorList` to retrieve a list of doctors or receptionist based on user role. +
+The login mechanism facilitated by using `UniqueDoctorList` or `UniqueReceptionistList` to retrieve a list of doctors or receptionist based on the user's role. +
 
+These operations are exposed in the Model interface as Model#hasDoctor() and Model#getDoctor() for doctors
+or Model#hasReceptionist() and Model#getReceptionist() for receptionists respectively.
 
+Given below is an scenario to illustrate the login authentication at each step: +
 
+. The user executes the `login` command by specifying the role, name and password. The `login` command determine the type of role
+that the user entered.   
 
+. If the role is doctor, 
 
+.. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
+.. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
+.. The `login` command verify password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by user.
+.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
+
+. If the role is receptionist,
+
+.. the `login` command call `Model#hasReceptionist()` to ensure that this receptionist exist inside ClinicIO.
+.. Once ClinicIO check if user exists, the `login` command call `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
+.. The `login` command verify password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by user.
+.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.   
 
 ==== Design Considerations
 
-===== Aspect: How login executes
+===== Aspect: Login execution
 
 _{Explain the pro and cons for login authentication}_
 
