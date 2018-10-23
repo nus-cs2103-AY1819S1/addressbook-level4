@@ -3,8 +3,8 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_INITIAL;
+import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -44,8 +44,6 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class AddressBookSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -118,9 +116,6 @@ public abstract class AddressBookSystemTest {
      */
     protected void executeCommand(String command) {
         rememberStates();
-        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
-        // after each command is predictable and also different from the previous command.
-        clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
     }
@@ -168,8 +163,7 @@ public abstract class AddressBookSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        statusBarFooterHandle.rememberSaveLocation();
-        statusBarFooterHandle.rememberSyncStatus();
+        statusBarFooterHandle.rememberLoginStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
 
@@ -220,8 +214,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isSyncStatusChanged());
+        assertFalse(handle.isLoginStatusChanged());
     }
 
     /**
@@ -230,10 +223,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, handle.getSyncStatus());
-        assertFalse(handle.isSaveLocationChanged());
+        String expectedLoginStatus = String.format(LOGIN_STATUS_UPDATED, "temp");
+        assertEquals(expectedLoginStatus, handle.getLoginStatus());
     }
 
     /**
@@ -243,9 +234,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+        assertEquals(LOGIN_STATUS_INITIAL, getStatusBarFooter().getLoginStatus());
     }
 
     /**
