@@ -1233,9 +1233,15 @@ Use case ends.
 *Extensions*
 
 * 1a. User enters invalid personal event or invalid command.
+<<<<<<< HEAD
 +
 ** 1a1. System displays error message.
 +
+=======
++
+** 1a1. System displays error message.
++
+>>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 Use case ends.
 +
 * a. At any time, user chooses to end the command.
@@ -1320,6 +1326,7 @@ User case ends.
 +
 Use case ends.
 
+<<<<<<< HEAD
 [discrete]
 === UC13: Import contacts
 
@@ -1347,6 +1354,8 @@ Use case ends.
 +
 Use case ends.
 
+=======
+>>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 ////
 
 [appendix]
