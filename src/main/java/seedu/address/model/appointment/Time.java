@@ -1,5 +1,6 @@
 package seedu.address.model.appointment;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -71,6 +72,7 @@ public class Time {
      * @return The difference between two timings.
      */
     public int subtractMinutes(Time time) {
+        requireNonNull(time);
         return (this.hour * 60 + this.minute) - (time.hour * 60 + time.minute);
     }
 

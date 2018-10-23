@@ -34,6 +34,16 @@ public class TimeTest {
     }
 
     @Test
+    public void subtractMinutes() {
+        Time time = new Time(0, 15);
+        Time time2 = new Time(14, 9);
+
+        assertTrue(time.subtractMinutes(time2) == (15 - (14 * 60 + 9)));
+        assertTrue(time2.subtractMinutes(time) == (14 * 60 + 9 - 15));
+        assertTrue(time2.subtractMinutes(time2) == 0);
+    }
+
+    @Test
     public void equals() {
         Time time = new Time(23, 17);
         Time time2 = new Time(23, 17);
