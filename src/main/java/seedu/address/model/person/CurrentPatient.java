@@ -142,4 +142,8 @@ public class CurrentPatient {
         return patient != null ? patient.getName().fullName : "empty";
     }
 
+    public Patient getPatient() {
+        return this.patient.getPatient();
+    }
+
 }
