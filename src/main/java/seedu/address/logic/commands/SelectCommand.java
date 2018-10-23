@@ -22,6 +22,13 @@ import seedu.address.model.person.Person;
  */
 public class SelectCommand extends Command {
 
+    /**
+     * Available select command types
+     */
+    public enum SelectCommandType {
+        GROUP, PERSON, MEETING
+    }
+
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -32,13 +39,10 @@ public class SelectCommand extends Command {
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
     public static final String MESSAGE_SELECT_GROUP_SUCCESS = "Selected Group: %1$s";
 
-    public static final int SELECT_TYPE_GROUP = 0;
-    public static final int SELECT_TYPE_PERSON = 1;
-
     private final Index targetIndex;
-    private final int selectType;
+    private final SelectCommandType selectType;
 
-    public SelectCommand(Index targetIndex, int selectType) {
+    public SelectCommand(Index targetIndex, SelectCommandType selectType) {
         this.targetIndex = targetIndex;
         this.selectType = selectType;
     }
@@ -47,7 +51,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (selectType == SELECT_TYPE_GROUP) {
+        if (selectType == SelectCommandType.GROUP) {
             List<Group> filteredGroupList = model.getFilteredGroupList();
 
             if (targetIndex.getZeroBased() >= filteredGroupList.size()) {
