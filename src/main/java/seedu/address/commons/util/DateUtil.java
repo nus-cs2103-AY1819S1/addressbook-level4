@@ -1,16 +1,9 @@
 package seedu.address.commons.util;
 
-import static java.util.Objects.requireNonNull;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * Utility methods related to Dates
@@ -45,12 +38,4 @@ public class DateUtil {
     public static String convertToString(LocalDateTime date) {
         return DATE_FORMAT.format(date);
     }
-
-    /**
-     * Checks if two dates have equivalent year, month, day, hour, minutes, and seconds
-     */
-//    public static boolean dateEquals(Date first, Date second) {
-//        Calendar.getInstance()
-//        return first.to
-//    }
 }

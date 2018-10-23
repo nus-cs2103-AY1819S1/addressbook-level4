@@ -13,6 +13,9 @@ public class StatusEnum {
         PENDING, APPROVED, REJECTED, CANCELLED;
     }
 
+    /**
+     * Checks if a string passed in is a valid Status.
+     */
     public static boolean isValidStatus(String statusString) {
         return Arrays.stream(Status.values())
                 .anyMatch(status -> statusString.equals(status.toString()));
