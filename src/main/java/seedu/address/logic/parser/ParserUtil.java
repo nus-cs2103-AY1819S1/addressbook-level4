@@ -228,6 +228,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code Collection<String> indices} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndices(Collection<String> indices) throws ParseException {
+        requireNonNull(indices);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String index : indices) {
+            indexSet.add(parseIndex(index));
+        }
+        return indexSet;
+    }
+
+    /**
      * Parses a {@code String faculty} into an {@code Faculty}.
      * Leading and trailing whitespaces will be trimmed.
      *

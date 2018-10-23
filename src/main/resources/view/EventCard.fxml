@@ -3,13 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" stylesheets="@EventListView.css" xmlns="http://javafx.com/javafx/8.0.171"
-      xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" stylesheets="@EventListView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -31,6 +31,11 @@
             <VBox.margin>
                <Insets left="25.0" />
             </VBox.margin></Label>
+         <FlowPane fx:id="contacts" hgap="5.0" styleClass="cell_small_label_event">
+            <VBox.margin>
+               <Insets left="25.0" />
+            </VBox.margin>
+         </FlowPane>
         </VBox>
       <rowConstraints>
          <RowConstraints />

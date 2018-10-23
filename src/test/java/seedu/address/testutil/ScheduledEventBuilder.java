@@ -1,11 +1,16 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventAddress;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
+import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Event objects. File naming is set to be in line with the other Event utils.
@@ -26,6 +31,7 @@ public class ScheduledEventBuilder {
     private EventTime eventStartTime;
     private EventTime eventEndTime;
     private EventAddress eventAddress;
+    private Set<Person> eventContacts;
 
     /**
      * Builds a new Event with the default values.
@@ -37,6 +43,7 @@ public class ScheduledEventBuilder {
         eventStartTime = new EventTime(DEFAULT_EVENT_START_TIME);
         eventEndTime = new EventTime(DEFAULT_EVENT_END_TIME);
         eventAddress = new EventAddress(DEFAULT_EVENT_ADDRESS);
+        eventContacts = new HashSet<>();
     }
 
     /**
@@ -49,6 +56,7 @@ public class ScheduledEventBuilder {
         eventStartTime = eventToCopy.getEventStartTime();
         eventEndTime = eventToCopy.getEventEndTime();
         eventAddress = eventToCopy.getEventAddress();
+        eventContacts = eventToCopy.getEventContacts();
     }
 
     /**
@@ -99,7 +107,20 @@ public class ScheduledEventBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code persons} into a {@code Set<Person>} and set it to the {@code Event} that we are building.
+     */
+    public ScheduledEventBuilder withEventContacts(Person ... persons) {
+        this.eventContacts = SampleDataUtil.getEventContactSet(persons);
+        return this;
+    }
+
+    /**
+     * Builds the Event
+     */
     public Event build() {
-        return new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
+        Event event = new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
+        event.setEventContacts(eventContacts);
+        return event;
     }
 }

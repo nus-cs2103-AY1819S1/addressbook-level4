@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
@@ -78,6 +79,8 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_END_TIME_MEETING = "1200";
     public static final String VALID_EVENT_ADDRESS_DOCTORAPPT = "Blk 312, Amy Street 1";
     public static final String VALID_EVENT_ADDRESS_MEETING = "Block 123, Bobby Street 3";
+    public static final String VALID_EVENT_CONTACT_INDEX_1 = "1";
+    public static final String VALID_EVENT_CONTACT_INDEX_2 = "2";
     public static final String INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT = "0800";
 
     public static final String EVENT_NAME_DESC_DOCTORAPPT = " " + PREFIX_NAME + VALID_EVENT_NAME_DOCTORAPPT;
@@ -97,6 +100,8 @@ public class CommandTestUtil {
             " " + PREFIX_END_TIME + VALID_EVENT_END_TIME_MEETING;
     public static final String EVENT_ADDRESS_DESC_DOCTORAPPT = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_DOCTORAPPT;
     public static final String EVENT_ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_MEETING;
+    public static final String EVENT_CONTACT_INDEX_DESC_DOCTORAPPT = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_1;
+    public static final String EVENT_CONTACT_INDEX_DESC_MEETING = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_2;
 
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Consultation-"; // - not allowed
     public static final String INVALID_EVENT_DESC_DESC = " " + PREFIX_EVENT_DESCRIPTION + "Important*"; // * not allowed
@@ -106,6 +111,7 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_END_TIME_TOO_EARLY_DESC =
             " " + PREFIX_END_TIME + INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT;
     public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
+    public static final String INVALID_EVENT_CONTACT_INDEX = " " + PREFIX_INDEX + "-1"; // contact index negative
 
 
     public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";

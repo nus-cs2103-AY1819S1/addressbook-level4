@@ -61,6 +61,14 @@
 		<eventStartTime>1400</eventStartTime>
         <eventEndTime>1500</eventEndTime>
 		<eventAddress>Blk 312, Amy Street 1</eventAddress>
+        <eventContacts>
+            <name>Alice Pauline</name>
+            <phone>94351253</phone>
+            <email>alice@example.com</email>
+            <address>123, Jurong West Ave 6, #08-111</address>
+            <tagged>friends</tagged>
+            <faculty>SOC</faculty>
+        </eventContacts>
 	</events>
 	<events>
 		<eventName>Meeting</eventName>
@@ -69,5 +77,14 @@
 		<eventStartTime>0900</eventStartTime>
         <eventEndTime>1200</eventEndTime>
 		<eventAddress>Block 123, Bobby Street 3</eventAddress>
+        <eventContacts>
+            <name>Benson Meier</name>
+            <phone>98765432</phone>
+            <email>johnd@example.com</email>
+            <address>311, Clementi Ave 2, #02-25</address>
+            <tagged>owesMoney</tagged>
+            <tagged>friends</tagged>
+            <faculty>SOC</faculty>
+        </eventContacts>
 	</events>
 </addressbook>
