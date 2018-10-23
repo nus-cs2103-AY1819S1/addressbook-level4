@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
@@ -68,6 +70,7 @@ public class MainApp extends Application {
         storage = new StorageManager(schedulerStorage, userPrefsStorage);
 
         initLogging(config);
+        BasicConfigurator.configure();
 
         model = initModelManager(storage, userPrefs);
 

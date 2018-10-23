@@ -1,30 +1,18 @@
 package seedu.scheduler.logic.commands;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
@@ -49,23 +37,29 @@ public class GetGoogleCalendarEventsCommand extends Command {
 
     public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
+    public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
 
     private static final String CALENDAR_NAME = "primary";
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    /**
-     * Global instance of the scopes required.
-     */
-    private static final List <String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        if (!connectToGoogleCalendar.netIsAvailable()) {
+            return new CommandResult(MESSAGE_INTERNET_ERROR);
+        }
+
         //Get the Google Calendar service object
-        Calendar service = getCalendar();
+        Calendar service = connectToGoogleCalendar.getCalendar();
 
         //Get events from a specified calendar
-        Events events = getEvents(service);
+        Events events = null;
+        try {
+            events = getEvents(service);
+        } catch (UnknownHostException e) {
+            return new CommandResult(MESSAGE_INTERNET_ERROR);
+        }
 
         //Extract the items from the events object
         List <Event> items = events.getItems();
@@ -102,18 +96,19 @@ public class GetGoogleCalendarEventsCommand extends Command {
                         newEventEndTime);
             }
         }
+        connectToGoogleCalendar.setGoogleCalendarEnabled();
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
     }
 
     /**
      * Parser the Google Event format to local Format.
      *
-     * @param model The current scheduler model.
-     * @param newEventname The Google event name.
+     * @param model             The current scheduler model.
+     * @param newEventname      The Google event name.
      * @param newEventStartDate The Google event start date.
      * @param newEventStartTime The Google event start timing.
-     * @param newEventEndDate The Google event end date.
-     * @param newEventEndTime The Google event end timing.
+     * @param newEventEndDate   The Google event end date.
+     * @param newEventEndTime   The Google event end timing.
      */
     private void addGcEventToLocal(Model model, String newEventname, String newEventStartDate, String newEventStartTime,
                                    String newEventEndDate, String newEventEndTime) {
@@ -142,7 +137,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         RepeatType repeatType = RepeatType.NONE;
         seedu.scheduler.model.event.DateTime
                 repeatUntilDateTime = endDateTime;
-        Set<Tag> tags = Collections.emptySet();
+        Set <Tag> tags = Collections.emptySet();
         seedu.scheduler.model.event.Event
                 event =
                 new seedu.scheduler.model.event.Event(UUID.randomUUID(), eventName, startDateTime, endDateTime,
@@ -153,7 +148,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         model.commitScheduler();
     }
 
-    private Events getEvents(Calendar service) {
+    private Events getEvents(Calendar service) throws UnknownHostException {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
@@ -171,64 +166,12 @@ public class GetGoogleCalendarEventsCommand extends Command {
                     .setSingleEvents(true)//not the repeated ones
                     //TODO: how to use setSynctoken, to prevent adding the same event multiples times
                     .execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            throw e;
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
         return events;
     }
 
-    private Calendar getCalendar() {
-        NetHttpTransport httpTransport = getNetHttpTransport();
-
-        // Build Google calender service object.
-        Calendar service = null;
-        try {
-            service = new Calendar.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
-                    .setApplicationName("iScheduler Xs Max")
-                    .build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return service;
-    }
-
-    private NetHttpTransport getNetHttpTransport() {
-        // Build a new authorized API client service.
-        NetHttpTransport httpTransport = null;
-        try {
-            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return httpTransport;
-    }
-
-    /**
-     * Creates an authorized Credential object.
-     *
-     * @param httpTransport The network HTTP Transport.
-     *
-     * @return An authorized Credential object.
-     *
-     * @throws IOException If the credentials.json file cannot be found.
-     */
-    private static Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
-        GoogleClientSecrets clientSecrets = getGoogleClientSecrets();
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File("tokens")))
-                .setAccessType("offline")
-                .build();
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-    }
-
-    private static GoogleClientSecrets getGoogleClientSecrets() throws IOException {
-        // Load client secrets.
-        InputStream in = GetGoogleCalendarEventsCommand.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-    }
 }
