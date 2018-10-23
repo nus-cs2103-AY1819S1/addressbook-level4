@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Queue Info</title>
+    <link rel="stylesheet" type="text/css" href="QueueInformation.css">
     <script>
         function getJsonFromUrl() {
             var query = location.search.substr(1);
@@ -48,44 +49,24 @@
 
             document.getElementById("current").innerHTML=getJsonFromUrl().current;
         });
-
-
     </script>
-    <style>
-        h2 {
-            padding: 10px;
-            text-decoration: underline;
-        }
-        h4 {
-            text-align: center;
-        }
-        table, tr, td {
-            border: 0px solid black;
-        }
-        tr {
-            height: 40px;
-        }
-    </style>
 </head>
 <body>
-<h2>Queue Information</h2>
-<div style="float: left; width: 250px; padding: 0px 10px">
-    <h4>Queue</h4>
-    <table style="border: 1px solid black; width: 100%;" id="queueTable">
-    </table>
+<div class="container">
+    <div class="table-title">Queue</div>
+    <table class="blue-alt-cols" id="queueTable"></table>
 </div>
-<div style="float: left; width: 250px; padding: 0px 10px">
-    <h4>Current Patient</h4>
-    <table style="border: 1px solid black; width: 100%;">
+<div class="container">
+    <div class="table-title">Current Patient</div>
+    <table class="blue-alt-cols">
         <tr>
             <td><span id="current"></span></td>
         </tr>
     </table>
 </div>
-<div style="float: left; width: 250px; padding: 0px 10px">
-    <h4>Served List</h4>
-    <table style="border: 1px solid black; width: 100%;" id="servedTable">
-    </table>
+<div class="container">
+    <div class="table-title">Served List</div>
+    <table class="blue-alt-cols" id="servedTable"></table>
 </div>
 </body>
 </html>
