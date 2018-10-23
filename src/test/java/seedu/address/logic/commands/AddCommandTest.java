@@ -20,7 +20,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.testutil.PersonBuilder;
@@ -91,8 +90,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
@@ -125,12 +122,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setSelectedEvent(EventId selectedEventId) {
+        public void setSelectedEvent(Event selectedEvent) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public EventId getSelectedEvent() {
+        public Event getSelectedEvent() {
             throw new AssertionError("This method should not be called.");
         }
 
