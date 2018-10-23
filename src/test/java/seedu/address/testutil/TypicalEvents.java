@@ -52,13 +52,14 @@ public class TypicalEvents {
     // more events manually added
     public static final Event CLASS =
             new ScheduledEventBuilder()
-            .withEventName("Guest lecture")
-            .withEventDescription("Cryptography")
-            .withEventDate("2018-08-01")
-            .withEventStartTime("1200")
-            .withEventEndTime("1400")
-            .withEventContacts(ALICE)
-            .build();
+                    .withEventName("Guest lecture")
+                    .withEventDescription("Cryptography")
+                    .withEventDate("2018-08-01")
+                    .withEventStartTime("1200")
+                    .withEventEndTime("1400")
+                    .withEventContacts(ALICE)
+                    .withEventAddress("NUS")
+                    .build();
 
     public static final Event DINNER =
             new ScheduledEventBuilder()
@@ -67,6 +68,7 @@ public class TypicalEvents {
                     .withEventDate(VALID_EVENT_DATE_MEETING)
                     .withEventStartTime("1800")
                     .withEventEndTime("2015")
+                    .withEventAddress("NUS")
                     .build();
 
     private TypicalEvents() {} // prevents instantiation
