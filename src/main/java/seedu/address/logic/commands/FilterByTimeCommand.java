@@ -34,7 +34,7 @@ public class FilterByTimeCommand extends FilterCommand {
      */
 
     public FilterByTimeCommand(String args) {
-        this.time =new Time(args);
+        this.time = new Time(args);
     }
 
     @Override
