@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
@@ -56,6 +57,16 @@ public interface Model {
      * Returns context name
      */
     String getContextName();
+
+    /**
+     * Sets the currently selected event
+     */
+    void setSelectedEventId(EventId eventId);
+
+    /**
+     * Returns the event id of the selected event.
+     */
+    EventId getSelectedEventId();
 
     //===========  Person Methods =============================================================
 

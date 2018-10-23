@@ -31,6 +31,14 @@ public class Record {
         this.remark = remark;
     }
 
+    public Record(Hour hour, Remark remark) {
+        requireAllNonNull(hour, remark);
+        this.eventId = null;
+        this.volunteerId = null;
+        this.hour = hour;
+        this.remark = remark;
+    }
+
     public EventId getEventId() {
         return eventId;
     }

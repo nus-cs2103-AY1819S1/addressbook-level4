@@ -166,14 +166,12 @@ public class AddressBookParser {
      **/
     private Command parseRecordCommand(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            // Related to volunteers panel
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        // Related to record management
         case AddRecordCommand.COMMAND_WORD:
             return new AddRecordCommandParser().parse(arguments);
 

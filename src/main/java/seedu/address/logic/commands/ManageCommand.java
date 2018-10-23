@@ -48,6 +48,7 @@ public class ManageCommand extends Command {
         }
 
         model.switchToRecordContext();
+        model.setSelectedEventId(filteredEventList.get(targetIndex.getZeroBased()).getEventId());
         model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
                 filteredEventList.get(targetIndex.getZeroBased()).getEventId()
         ));

@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
@@ -25,6 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
 
     private final Context context;
+
+    private EventId selectedEventId;
 
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
@@ -42,6 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
 
         context = new Context(Context.VOLUNTEER_CONTEXT_ID, Context.VOLUNTEER_CONTEXT_NAME);
+
+        selectedEventId = null;
 
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
@@ -90,6 +95,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public String getContextName() {
         return context.getContextName();
+    }
+
+    @Override
+    public void setSelectedEventId(EventId eventId) {
+        requireNonNull(eventId);
+        selectedEventId = eventId;
+    }
+
+    @Override
+    public EventId getSelectedEventId() {
+        return selectedEventId;
     }
 
     //===========  Person List Methods =============================================================
