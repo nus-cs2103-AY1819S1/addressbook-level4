@@ -12,12 +12,12 @@ public class FilterByTimeCommandParserTest {
     private FilterByEducationCommandParser parser = new FilterByEducationCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
+    public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
         FilterByTimeCommand expectedFindCommand =
                 new FilterByTimeCommand("Mon 1300 1400");

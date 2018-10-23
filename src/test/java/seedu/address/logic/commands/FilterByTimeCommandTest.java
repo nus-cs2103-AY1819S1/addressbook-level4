@@ -4,8 +4,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.FeeFilterPredicate;
+import seedu.address.model.person.GradeFilterPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.TimeFilterPredicate;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,40 +21,41 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIE
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-public class FilterByFeeCommandTest {
+public class FilterByTimeCommandTest {
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void equals() {
-        String first = "20";
-        String second = " ";
+        String first = new String("Mon 1200 1400");
+        String second = new String(" ");
 
 
-        FilterByFeeCommand FilterByFeeFirstCommand = new FilterByFeeCommand(first);
-        FilterByFeeCommand FilterByFeeSecondCommand = new FilterByFeeCommand(second);
+        FilterByTimeCommand FilterByTimeFirstCommand = new FilterByTimeCommand(first);
+        FilterByTimeCommand FilterByGradeSecondCommand = new FilterByTimeCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByFeeFirstCommand.equals(FilterByFeeFirstCommand));
+        assertTrue(FilterByTimeFirstCommand.equals(FilterByTimeFirstCommand));
 
         // same values -> returns true
-        FilterByFeeCommand FilterByEducationFirstCommandCopy = new FilterByFeeCommand(first);
-        assertTrue(FilterByFeeFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByTimeCommand FilterByEducationFirstCommandCopy = new FilterByTimeCommand(first);
+        assertTrue(FilterByTimeFirstCommand.equals(FilterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByFeeFirstCommand.equals(1));
-
+        assertFalse(FilterByTimeFirstCommand.equals(1));
 
         // different person -> returns false
-        assertFalse(FilterByFeeFirstCommand.equals(FilterByFeeSecondCommand));
+        assertFalse(FilterByTimeFirstCommand.equals(FilterByGradeSecondCommand));
     }
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FeeFilterPredicate predicate = new FeeFilterPredicate(20);
-        FilterByFeeCommand command = new FilterByFeeCommand("20");
+        Time time = new Time("Mon 1200 1400");
+        TimeFilterPredicate predicate = new TimeFilterPredicate(time);
+        FilterByTimeCommand command = new FilterByTimeCommand("Mon 1200 1400");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());

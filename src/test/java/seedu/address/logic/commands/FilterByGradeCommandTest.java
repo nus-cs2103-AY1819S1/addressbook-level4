@@ -5,6 +5,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.FeeFilterPredicate;
+import seedu.address.model.person.GradeFilterPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 import java.util.Arrays;
@@ -26,7 +27,7 @@ public class FilterByGradeCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("20");
+        String first = new String("20"+" "+"90");
         String second = new String(" ");
 
 
@@ -43,18 +44,16 @@ public class FilterByGradeCommandTest {
         // different types -> returns false
         assertFalse(FilterByGradeFirstCommand.equals(1));
 
-        // null -> returns false
-        assertFalse(FilterByGradeFirstCommand.equals(null));
 
         // different person -> returns false
         assertFalse(FilterByGradeFirstCommand.equals(FilterByGradeSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FeeFilterPredicate predicate = new FeeFilterPredicate(20);
-        FilterByGradeCommand command = new FilterByGradeCommand("20");
+        GradeFilterPredicate predicate = new GradeFilterPredicate(20,90);
+        FilterByGradeCommand command = new FilterByGradeCommand("20 90");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -64,7 +63,7 @@ public class FilterByGradeCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+    public NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

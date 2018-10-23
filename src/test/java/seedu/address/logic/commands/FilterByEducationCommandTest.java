@@ -27,8 +27,8 @@ public class FilterByEducationCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("Sec");
-        String second = new String(" ");
+        String first = "Sec";
+        String second = " ";
 
 
         FilterByEducationCommand FilterByEducationFirstCommand = new FilterByEducationCommand(first);
@@ -44,15 +44,13 @@ public class FilterByEducationCommandTest {
         // different types -> returns false
         assertFalse(FilterByEducationFirstCommand.equals(1));
 
-        // null -> returns false
-        assertFalse(FilterByEducationFirstCommand.equals(null));
 
         // different person -> returns false
         assertFalse(FilterByEducationFirstCommand.equals(FilterByEducationSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         EducationFilterPredicate predicate = new EducationFilterPredicate("Sec");
         FilterByEducationCommand command = new FilterByEducationCommand("Sec");
@@ -65,7 +63,7 @@ public class FilterByEducationCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+    public NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

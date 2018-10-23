@@ -12,12 +12,12 @@ public class FilterByGradeCommandParserTest {
     private FilterByGradeCommandParser parser = new FilterByGradeCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
+    public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
         FilterByEducationCommand expectedFindCommand =
                 new FilterByEducationCommand("Sec");
