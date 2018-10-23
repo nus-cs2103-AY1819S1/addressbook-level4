@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +35,12 @@ public class SidebarPanel extends UiPart<Region> {
     @FXML
     private ToggleButton week;
 
+    @FXML
+    private ToggleButton exams;
+
+    @FXML
+    private Accordion modules;
+
     private ToggleGroup group;
 
     public SidebarPanel(Logic logic) {
@@ -43,6 +50,7 @@ public class SidebarPanel extends UiPart<Region> {
         this.group = new ToggleGroup();
         today.setToggleGroup(group);
         week.setToggleGroup(group);
+        exams.setToggleGroup(group);
     }
 
     /**
@@ -74,6 +82,16 @@ public class SidebarPanel extends UiPart<Region> {
                     logger.info("Invalid command: " + "listweek");
                 }
                 break;
+            case "exams":
+                try {
+                    CommandResult commandResult = logic.execute("filter exams");
+                    initHistory();
+                    historySnapshot.next();
+                    logger.info("Result: " + commandResult.feedbackToUser);
+                    raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+                } catch (CommandException | ParseException e) {
+                    logger.info("Invalid command: " + "filter exams");
+                }
             default:
                 break;
         }

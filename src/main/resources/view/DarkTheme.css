@@ -220,6 +220,7 @@
     -fx-background-color: #1f3a4c;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 16pt;
+    -fx-text-alignment: left;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
@@ -307,11 +308,11 @@
     -fx-padding: 8 1 8 1;
 }
 
-.toggle-button {
+.titled-pane {
     -fx-padding: 5 22 5 22;
     -fx-max-width: 500px;
     -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-background-radius: 0;
     -fx-background-color: #1f3a4c;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -320,9 +321,39 @@
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
+.titled-pane > .title {
+    -fx-background-color: #1f3a4c;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: #1f3a4c;
+}
+
+.titled-pane:focused {
+    -fx-background-color: #1f3a4c;
+}
+
+.titled-pane:focused > .title {
+    -fx-background-color: #1f3a4c;
+}
+
+.toggle-button {
+    -fx-padding: 5 22 5 22;
+    -fx-max-width: 500px;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: #1f3a4c;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 16pt;
+    -fx-text-alignment: left;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
 .toggle-button:selected {
-    -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
+    -fx-background-color: #4f8bad;
+    -fx-text-fill: white;
 }
 
 .toggle-button:selected:focused {
@@ -336,6 +367,13 @@
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+}
+
+#categorieslabel {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 16pt;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
 }
 
 #commandTypeLabel {
