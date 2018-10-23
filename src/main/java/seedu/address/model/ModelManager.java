@@ -171,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Occasion> getFilteredOccasionList() {
         return FXCollections.unmodifiableObservableList(filteredOccasions);
     }
-    
+
     @Override
     public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
         requireNonNull(predicate);
@@ -189,7 +189,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Module> getFilteredModuleList() {
         return FXCollections.unmodifiableObservableList(filteredModules);
     }
-    
+
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
