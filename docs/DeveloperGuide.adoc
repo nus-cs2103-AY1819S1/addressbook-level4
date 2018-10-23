@@ -347,7 +347,7 @@ Given below is an scenario to illustrate the login authentication at each step: 
 .. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
 .. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
 .. The `login` command verify password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by user.
-.. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
+.. To indicate successful completion of verification, the `login` command raises a `SuccessfulLoginEvent`.
 
 . If the role is receptionist,
 
