@@ -72,7 +72,7 @@ public class TimeAddCommand extends Command {
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-        if (toAdd.getStartTime() > toAdd.getEndTime()) {
+        if (toAdd.getStartTime() >= toAdd.getEndTime()) {
             throw new CommandException(MESSAGE_INVALID_START_END_TIME);
         }
         for (Time time : sameDay) {
