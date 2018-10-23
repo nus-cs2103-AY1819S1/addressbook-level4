@@ -911,7 +911,7 @@ Use case ends.
 2.	System requests for details.
 3.	User enters keywords.
 4.	System displays recipes.
-5.	System suggests ways to refine result.
+5.	User enters keywords.
 +
 Steps 3 – 5 are repeated until search result becomes too narrow or user choose to look at existing result.
 +
