@@ -103,7 +103,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    private void maskPassword() {
+    public void maskPassword() {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
