@@ -120,6 +120,19 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(group);
         versionedAddressBook.removeGroup(group);
     }
+
+    @Override
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.joinGroup(person, group);
+    }
+
+    @Override
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.leaveGroup(person, group);
+    }
+
     // @@author
 
     // @@author NyxF4ll
