@@ -5,10 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandPersonTestUtil.showOccasionAtIndex;
+import static seedu.address.logic.commands.CommandModuleTestUtil.showModuleAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
 
 import org.junit.Test;
@@ -20,11 +19,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;
-import seedu.address.model.occasion.Occasion;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteOccasionCommand}.
+ * {@code DeleteModuleCommand}.
  */
 public class DeleteModuleCommandTest {
 
@@ -56,64 +54,64 @@ public class DeleteModuleCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showOccasionAtIndex(model, INDEX_FIRST_OCCASION);
+        showModuleAtIndex(model, INDEX_FIRST_MODULE);
 
-        Occasion occasionToDelete = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
-        DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
+        Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
+        DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(INDEX_FIRST_MODULE);
 
-        String expectedMessage = String.format(DeleteOccasionCommand.MESSAGE_DELETE_OCCASION_SUCCESS,
-                occasionToDelete);
+        String expectedMessage = String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
+                moduleToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteOccasion(occasionToDelete);
+        expectedModel.deleteModule(moduleToDelete);
         expectedModel.commitAddressBook();
-        showNoOccasion(expectedModel);
+        showNoModule(expectedModel);
 
-        assertCommandSuccess(deleteOccasionCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteModuleCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showOccasionAtIndex(model, INDEX_FIRST_OCCASION);
+        showModuleAtIndex(model, INDEX_FIRST_MODULE);
 
-        Index outOfBoundIndex = INDEX_SECOND_OCCASION;
+        Index outOfBoundIndex = INDEX_SECOND_MODULE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getOccasionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getModuleList().size());
 
-        DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(outOfBoundIndex);
+        DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteOccasionCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
+        assertCommandFailure(deleteModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Occasion occasionToDelete = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
-        DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
+        Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
+        DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(INDEX_FIRST_MODULE);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteOccasion(occasionToDelete);
+        expectedModel.deleteModule(moduleToDelete);
         expectedModel.commitAddressBook();
 
-        // delete -> first occasion deleted
-        deleteOccasionCommand.execute(model, commandHistory);
+        // delete -> first module deleted
+        deleteModuleCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered occasion list to show all occasions
+        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first occasion deleted again
+        // redo -> same first module deleted again
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOccasionList().size() + 1);
-        DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(outOfBoundIndex);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
+        DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteOccasionCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
+        assertCommandFailure(deleteModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -121,45 +119,45 @@ public class DeleteModuleCommandTest {
     }
 
     /**
-     * 1. Deletes a {@code Occasion} from a filtered list.
+     * 1. Deletes a {@code Module} from a filtered list.
      * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted occasion in the
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted module in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the occasion object regardless of indexing.
+     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the module object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_sameOccasionDeleted() throws Exception {
-        DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
+    public void executeUndoRedo_validIndexFilteredList_sameModuleDeleted() throws Exception {
+        DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(INDEX_FIRST_MODULE);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        showOccasionAtIndex(model, INDEX_SECOND_OCCASION);
-        Occasion occasionToDelete = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
-        expectedModel.deleteOccasion(occasionToDelete);
+        showModuleAtIndex(model, INDEX_SECOND_MODULE);
+        Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
+        expectedModel.deleteModule(moduleToDelete);
         expectedModel.commitAddressBook();
 
-        // delete -> deletes second occasion in unfiltered occasion list / first occasion in filtered occasion list
-        deleteOccasionCommand.execute(model, commandHistory);
+        // delete -> deletes second module in unfiltered module list / first module in filtered module list
+        deleteModuleCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered occasion list to show all occasions
+        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(occasionToDelete, model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased()));
-        // redo -> deletes same second occasion in unfiltered occasion list
+        assertNotEquals(moduleToDelete, model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased()));
+        // redo -> deletes same second module in unfiltered module list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equals() {
-        DeleteOccasionCommand deleteFirstCommand = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
-        DeleteOccasionCommand deleteSecondCommand = new DeleteOccasionCommand(INDEX_SECOND_OCCASION);
+        DeleteModuleCommand deleteFirstCommand = new DeleteModuleCommand(INDEX_FIRST_MODULE);
+        DeleteModuleCommand deleteSecondCommand = new DeleteModuleCommand(INDEX_SECOND_MODULE);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteOccasionCommand deleteFirstCommandCopy = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
+        DeleteModuleCommand deleteFirstCommandCopy = new DeleteModuleCommand(INDEX_FIRST_MODULE);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -168,16 +166,16 @@ public class DeleteModuleCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different occasion -> returns false
+        // different module -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoOccasion(Model model) {
-        model.updateFilteredOccasionList(p -> false);
+    private void showNoModule(Model model) {
+        model.updateFilteredModuleList(p -> false);
 
-        assertTrue(model.getFilteredOccasionList().isEmpty());
+        assertTrue(model.getFilteredModuleList().isEmpty());
     }
 }
