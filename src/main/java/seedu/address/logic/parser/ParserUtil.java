@@ -17,6 +17,7 @@ import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -228,5 +229,20 @@ public class ParserUtil {
             indexSet.add(parseIndex(index));
         }
         return indexSet;
+    }
+  
+    /**
+     * Parses a {@code String faculty} into an {@code Faculty}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code faculty} is invalid.
+     */
+    public static Faculty parseFaculty(String faculty) throws ParseException {
+        requireNonNull(faculty);
+        String trimmedFaculty = faculty.trim();
+        if (!Faculty.isValidFaculty(faculty)) {
+            throw new ParseException(Faculty.MESSAGE_FACULTY_CONSTRAINTS);
+        }
+        return new Faculty(trimmedFaculty);
     }
 }
