@@ -69,8 +69,9 @@ public class Event {
      * Returns true if the two events clash
      */
     public boolean isClashingEvent(Event event) {
-        //todo: implement method
-        return true;
+        return eventDate.equals(event.eventDate)
+                && eventEndTime.compareTo(event.eventStartTime) > 0
+                && eventStartTime.compareTo(event.eventEndTime) < 0;
     }
 
     //todo: check isSameEvent constraints

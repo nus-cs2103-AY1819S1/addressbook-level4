@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TIME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
@@ -16,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.event.Event;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
@@ -49,6 +52,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasClashingEvent_clashingEventNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasClashingEvent(DOCTORAPPT));
+    }
+
+    @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
@@ -58,6 +66,20 @@ public class ModelManagerTest {
     public void hasEvent_eventInAddressBook_returnsTrue() {
         modelManager.addEvent(DOCTORAPPT);
         assertTrue(modelManager.hasEvent(DOCTORAPPT));
+    }
+
+    @Test
+    public void hasClashingEvent_clashingEventInAddressBook_returnsTrue() {
+        modelManager.addEvent(DOCTORAPPT);
+        Event clashingEvent = new ScheduledEventBuilder()
+                .withEventName(DOCTORAPPT.getEventName().eventName)
+                .withEventDescription(DOCTORAPPT.getEventDescription().eventDescription)
+                .withEventDate(DOCTORAPPT.getEventDate().toString())
+                .withEventStartTime(CLASHING_EVENT_START_TIME_DOCTORAPPT)
+                .withEventEndTime(CLASHING_EVENT_END_TIME_DOCTORAPPT)
+                .withEventAddress(DOCTORAPPT.getEventAddress().eventAddress)
+                .build();
+        assertTrue(modelManager.hasClashingEvent(clashingEvent));
     }
 
     @Test

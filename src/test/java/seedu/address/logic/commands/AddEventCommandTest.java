@@ -68,6 +68,25 @@ public class AddEventCommandTest {
     }
 
     @Test
+    public void execute_clashingEvent_throwsCommandException() throws Exception {
+        Event validEvent = new ScheduledEventBuilder()
+                .withEventStartTime("1200")
+                .withEventEndTime("1400")
+                .build();
+        ModelStub modelStub = new ModelStubWithEvent(validEvent);
+
+        Event clashingEvent = new ScheduledEventBuilder()
+                .withEventStartTime("1210")
+                .withEventEndTime("1410")
+                .build();
+        AddEventCommand addEventCommand = new AddEventCommand(clashingEvent);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddEventCommand.MESSAGE_CLASHING_EVENT);
+        addEventCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
     public void equals() {
         Event firstEvent = new ScheduledEventBuilder().withEventName("event").build();
         Event secondEvent = new ScheduledEventBuilder().withEventName("a different event").build();
@@ -128,6 +147,11 @@ public class AddEventCommandTest {
         @Override
         public void readImportContactsFile(FileReader fileReader) {
             throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public boolean hasClashingEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -207,6 +231,12 @@ public class AddEventCommandTest {
             requireNonNull(event);
             return this.event.isSameEvent(event);
         }
+
+        @Override
+        public boolean hasClashingEvent(Event event) {
+            requireNonNull(event);
+            return this.event.isClashingEvent(event);
+        }
     }
 
     /**
@@ -219,6 +249,12 @@ public class AddEventCommandTest {
         public boolean hasEvent(Event event) {
             requireNonNull(event);
             return eventsAdded.stream().anyMatch(event::isSameEvent);
+        }
+
+        @Override
+        public boolean hasClashingEvent(Event event) {
+            requireNonNull(event);
+            return eventsAdded.stream().anyMatch(event::isClashingEvent);
         }
 
         @Override
