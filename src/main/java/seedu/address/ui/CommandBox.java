@@ -71,7 +71,7 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasPrevious()) {
             return;
         }
-        
+
         resetTempPassword();
         replaceText(historySnapshot.previous());
     }
@@ -109,7 +109,7 @@ public class CommandBox extends UiPart<Region> {
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
             StringBuilder maskedPassword = new StringBuilder();
-            
+
             for (int i = 0; i < password.length(); i++) {
                 if (password.charAt(i) != '-') {
                     tempPassword.append(password.charAt(i));
@@ -130,11 +130,11 @@ public class CommandBox extends UiPart<Region> {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
-            
-            if(tempPassword.length() == password.length()) {
+
+            if (tempPassword.length() == password.length()) {
                 replaceText(otherCommand + "pass/"
                         + tempPassword.toString());
-            } else if (tempPassword.length() > password.length()){
+            } else if (tempPassword.length() > password.length()) {
                 replaceText(otherCommand + "pass/"
                         + tempPassword.substring(0, password.length()));
             } else {
@@ -142,10 +142,10 @@ public class CommandBox extends UiPart<Region> {
                         + tempPassword.toString()
                         + password.substring(tempPassword.length()));
             }
-            
+
             //Reset temp password.
             resetTempPassword();
-            
+
         }
     }
 
@@ -155,7 +155,7 @@ public class CommandBox extends UiPart<Region> {
     private void resetTempPassword() {
         tempPassword.setLength(0);
     }
-    
+
     /**
      * Handles the Enter button pressed event.
      */
