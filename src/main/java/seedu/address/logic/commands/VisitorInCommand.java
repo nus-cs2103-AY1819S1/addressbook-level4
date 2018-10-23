@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import java.util.Set;
@@ -35,10 +35,10 @@ public class VisitorinCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks in a visitor into the patient's visitor list \n"
             + "Parameters: "
-            + PREFIX_NAME + "PATIENT_NAME "
+            + PREFIX_NRIC + "PATIENT_NRIC "
             + PREFIX_VISITOR + "VISITOR_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Alex Yeoh "
+            + PREFIX_NRIC + "A1234567A "
             + PREFIX_VISITOR + "Jane";
 
     public static final String MESSAGE_SUCCESS = "New visitor checked in: %1$s";
@@ -46,16 +46,16 @@ public class VisitorinCommand extends Command {
     public static final String MESSAGE_UNREGISTERED = "Patient %1$s is not registered within the system.";
     public static final String MESSAGE_FULL = "Patient can not has more than 5 visitor in the list";
 
-    private final Name patientName;
+    private final Nric patientNric;
     private final Visitor visitorName;
 
     /**
      * Creates an VisitorInCommand to add visitors to patient's visitor's list
      */
-    public VisitorinCommand(Name patientName, Visitor visitorName) {
-        requireNonNull(patientName);
+    public VisitorinCommand(Nric patientNric, Visitor visitorName) {
+        requireNonNull(patientNric);
         requireNonNull(visitorName);
-        this.patientName = patientName;
+        this.patientNric = patientNric;
         this.visitorName = visitorName;
     }
 
@@ -63,14 +63,14 @@ public class VisitorinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        ObservableList<Person> filteredByName = model.getFilteredPersonList()
-                .filtered(p -> patientName.equals(p.getName()));
+        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
+                .filtered(p -> patientNric.equals(p.getNric()));
 
-        if (filteredByName.size() < 1) {
+        if (filteredByNric.size() < 1) {
             throw new CommandException(MESSAGE_UNREGISTERED);
         }
 
-        Person patientToUpdate = filteredByName.get(0);
+        Person patientToUpdate = filteredByNric.get(0);
 
         if (patientToUpdate.getVisitorList().size() > 5) {
             throw new CommandException(MESSAGE_FULL);
@@ -84,14 +84,14 @@ public class VisitorinCommand extends Command {
 
         model.updatePerson(patientToUpdate, updatedPatient);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, patientName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, patientNric));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VisitorinCommand //instanceof handles nulls
-                && patientName.equals(((VisitorinCommand) other).patientName)
+                && patientNric.equals(((VisitorinCommand) other).patientNric)
                 && visitorName.equals(((VisitorinCommand) other).visitorName));
     }
 

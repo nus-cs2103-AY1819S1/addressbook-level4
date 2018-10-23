@@ -131,8 +131,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         Visitor visitor = new VisitorBuilder().build();
         VisitorinCommand command = (VisitorinCommand) parser.parseCommand(
-                VisitorUtil.getVisitorInCommand(person.getName(), visitor));
-        assertEquals(new VisitorinCommand(person.getName(), visitor), command);
+                VisitorUtil.getVisitorInCommand(person.getNric(), visitor));
+        assertEquals(new VisitorinCommand(person.getNric(), visitor), command);
         // test that typing visitorin returns an instance of visiterinCommand
     }
 
