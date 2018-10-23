@@ -22,12 +22,9 @@ public class NotificationCommandParser implements Parser<NotificationCommand> {
 
         if (!args.equals("enable") && !args.equals("disable")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotificationCommand.MESSAGE_USAGE));
-        }
-        else if (args.equals("enable")) {
+        } else if (args.equals("enable")) {
             return new NotificationCommand(true);
-        }
-
-        else {
+        } else {
             return new NotificationCommand(false);
         }
     }

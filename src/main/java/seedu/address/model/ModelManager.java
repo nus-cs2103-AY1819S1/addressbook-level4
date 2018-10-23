@@ -55,13 +55,21 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public static boolean getNotificationPref() { return notificationPref; }
+    public static boolean getNotificationPref() {
+        return notificationPref;
+    }
 
-    public static void updateNotificationPref(boolean set) { notificationPref = set; }
+    public static void updateNotificationPref(boolean set) {
+        notificationPref = set;
+    }
 
-    public static String getFavourite() { return favourite; }
+    public static String getFavourite() {
+        return favourite;
+    }
 
-    public static void updateFavourite(String newFavourite) { favourite = newFavourite; }
+    public static void updateFavourite(String newFavourite) {
+        favourite = newFavourite;
+    }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {

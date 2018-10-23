@@ -23,7 +23,9 @@ public class NotificationCommand extends Command {
 
     private final boolean set;
 
-    public NotificationCommand(boolean set) { this.set = set; }
+    public NotificationCommand(boolean set) {
+        this.set = set;
+    }
 
     public String getMessageNotificationSuccess() {
         return messageNotificationSuccess;
@@ -35,8 +37,7 @@ public class NotificationCommand extends Command {
 
         if (set) {
             messageNotificationSuccess = "Notification:" + " enabled";
-        }
-        else {
+        } else {
             messageNotificationSuccess = "Notification:" + " disabled";
         }
 
