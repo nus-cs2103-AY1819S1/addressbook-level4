@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;

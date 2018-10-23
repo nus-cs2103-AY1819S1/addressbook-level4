@@ -87,8 +87,8 @@ public class LeaveApplicationTest {
                 .append(" Status: ")
                 .append(StatusEnum.Status.APPROVED.toString())
                 .append(" Dates: ")
-                .append(LocalDateTime.of(2018, 10, 25, 0, 0,0).toString())
-                .append(LocalDateTime.of(2018, 10, 26, 0, 0,0).toString());
+                .append(LocalDateTime.of(2018, 10, 25, 0, 0, 0).toString())
+                .append(LocalDateTime.of(2018, 10, 26, 0, 0, 0).toString());
         assertEquals(BENSON_LEAVE.toString(), builder.toString());
     }
 }
