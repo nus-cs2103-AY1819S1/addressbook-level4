@@ -121,4 +121,8 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code String medicineName} into a {@code MedicineName}
+     */
 }

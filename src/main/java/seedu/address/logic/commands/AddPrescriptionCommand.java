@@ -3,11 +3,13 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Prescription;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 /**
  * Adds a prescription to an appointment
@@ -19,36 +21,38 @@ public class AddPrescriptionCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. "
             + "Parameters: "
-            + PREFIX_DRUG + "DRUG_NAME "
-            + PREFIX_AMOUNT + "AMOUNT_PER_DOSE "
-            + PREFIX_COUNT + "TIMES_PER_DAY ";
+            + PREFIX_MEDICINE_NAME + "MEDICINE_NAME "
+            + PREFIX_DOSAGE + "DOSAGE "
+            + PREFIX_CONSUMPTION_PER_DAY + "CONSUMPTION_PER_DAY \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_MEDICINE_NAME + "Paracetamol "
+            + PREFIX_DOSAGE + "2 "
+            + PREFIX_CONSUMPTION_PER_DAY + "3 ";
 
-    public static final String MESSAGE_ARGUMENTS = "Drug name: %1$s, Amount Per Dose: %2$d, Times Per Day: %3$d";
+    public static final String MESSAGE_SUCCESS = "New Prescription added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
 
-    private final String drug;
-    private final int amount;
-    private final int count;
+    private final Prescription toAdd;
 
     /**
-     *
-     * @param drug prescribed for that appointment
-     * @param amount per dose
-     * @param count per day
+     *Creates an AddPrescriptionCommand to add the specified {@code Person}
      */
-
-    public AddPrescriptionCommand(String drug, int amount, int count) {
-        requireAllNonNull(drug, amount, count);
-
-        this.drug = drug;
-        this.amount = amount;
-        this.count = count;
-
+    public AddPrescriptionCommand(Prescription prescription) {
+        requireAllNonNull(prescription);
+        toAdd = prescription;
     }
 
     @Override
     public CommandResult execute(Model model,CommandHistory history) throws CommandException {
+        requireNonNull(model);
 
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, drug, amount,count));
+        if(model.hasPrescription(toAdd)){
+            throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
+        }
+
+        model.addPrescription(toAdd);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
@@ -62,9 +66,7 @@ public class AddPrescriptionCommand extends Command{
         }
 
         AddPrescriptionCommand e = (AddPrescriptionCommand) o;
-        return drug.equals(e.drug)
-                && amount == e.amount
-                && count == e.amount;
+        return toAdd.equals(e.toAdd);
 
     }
 

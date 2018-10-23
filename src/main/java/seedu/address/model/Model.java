@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Prescription;
 import seedu.address.model.person.Person;
 
 /**
@@ -17,6 +18,18 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /**
+     * Returns true if a prescription with same identity as {@code prescription} exists in the appointment
+     */
+    boolean hasPrescription(Prescription prescription);
+
+    /**
+     * Adds the given prescription.
+     * {@code prescription} must not already exist in the appointment
+     */
+
+    void addPrescription(Prescription prescription);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
