@@ -122,7 +122,7 @@ public class ConnectToGoogleCalendar {
     /**
      * To check whether internet is available.
      *
-     * @return true if available.
+     * @return true if available, false otherwise.
      */
     public static boolean netIsAvailable() {
         try {
