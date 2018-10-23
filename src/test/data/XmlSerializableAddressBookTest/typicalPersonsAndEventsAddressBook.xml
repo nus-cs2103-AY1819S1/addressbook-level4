@@ -67,6 +67,7 @@
             <email>alice@example.com</email>
             <address>123, Jurong West Ave 6, #08-111</address>
             <tagged>friends</tagged>
+            <faculty>SOC</faculty>
         </eventContacts>
 	</events>
 	<events>
@@ -83,6 +84,7 @@
             <address>311, Clementi Ave 2, #02-25</address>
             <tagged>owesMoney</tagged>
             <tagged>friends</tagged>
+            <faculty>SOC</faculty>
         </eventContacts>
 	</events>
 </addressbook>
