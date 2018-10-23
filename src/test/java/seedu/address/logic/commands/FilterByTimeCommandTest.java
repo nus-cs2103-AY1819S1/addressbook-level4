@@ -28,8 +28,8 @@ public class FilterByTimeCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("Mon 1200 1400");
-        String second = new String(" ");
+        String first = "Mon 1200 1400";
+        String second = " ";
 
 
         FilterByTimeCommand filterByTimeFirstCommand = new FilterByTimeCommand(first);
