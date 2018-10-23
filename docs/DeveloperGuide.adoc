@@ -363,7 +363,7 @@ The following sequence diagram shows how the login authentication works:
 
 ===== Aspect: Retrieval of password
 
-An alternative is to open another alert window to prompt user for password.
+An alternative is to open an additional alert window to prompt the user for a password.
 
 * Pros: Greater security as the entire password will be censored.
 
