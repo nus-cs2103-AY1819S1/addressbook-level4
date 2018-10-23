@@ -15,7 +15,7 @@ public class AnakinQuestion {
      * The first character of the question must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String QUESTION_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String QUESTION_VALIDATION_REGEX = "[\\p{Graph}][\\p{Graph} ]*";
 
     public final String fullQuestion;
 
