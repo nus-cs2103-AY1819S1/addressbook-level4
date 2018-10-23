@@ -8,7 +8,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.module.Module;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Module} objects to be used in tests.
  */
 public class TypicalModules {
 
@@ -39,7 +39,7 @@ public class TypicalModules {
     private TypicalModules() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical modules.
      */
     public static AddressBook getTypicalModulesAddressBook() {
         AddressBook ab = new AddressBook();
