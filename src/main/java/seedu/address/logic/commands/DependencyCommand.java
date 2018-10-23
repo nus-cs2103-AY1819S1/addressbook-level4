@@ -91,6 +91,23 @@ public class DependencyCommand extends Command {
                 dependantTask.getDependency().addDependency(dependeeTask)
         );
     }
+    /**
+     * Returns a {@code Task} with the dependency removed.
+     * @param dependantTask An immutable task passed to have its attributes copied
+     * @return A new immutable task similar to dependantTask but without dependency to dependee
+     */
+    public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
+        return new Task(
+                dependantTask.getName(),
+                dependantTask.getDueDate(),
+                dependantTask.getPriorityValue(),
+                dependantTask.getDescription(),
+                dependantTask.getLabels(),
+                dependantTask.getStatus(),
+                dependantTask.getDependency().removeDependency(dependeeTask)
+        );
+    }
+
 
     @Override
     public boolean equals(Object obj) {
