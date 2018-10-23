@@ -8,9 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableSet;
 import seedu.jxmusic.commons.core.LogsCenter;
 import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.commons.util.FileUtil;
@@ -57,7 +57,7 @@ public class JsonLibraryStorage implements LibraryStorage {
         Library loadedLibrary = null;
         try {
             loadedLibrary = JsonFileStorage.loadDataFromFile(filePath);
-            Set<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
+            ObservableSet<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
             loadedLibrary.setTracks(trackSet);
         } catch (Exception e) {
             e.printStackTrace();
