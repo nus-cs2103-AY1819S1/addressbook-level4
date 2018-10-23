@@ -1,16 +1,18 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A utility class to help with building Module objects.
@@ -26,13 +28,15 @@ public class ModuleBuilder {
     private ModuleTitle moduleTitle;
     private AcademicYear academicYear;
     private Semester semester;
+    private UniquePersonList students;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
         moduleCode = new ModuleCode(DEFAULT_MODULECODE);
         moduleTitle = new ModuleTitle(DEFAULT_MODULETITLE);
         academicYear = new AcademicYear(DEFAULT_ACADEMICYEAR);
-        Semester semester = new Semester(DEFAULT_SEMESTER);
+        semester = new Semester(DEFAULT_SEMESTER);
+        students = new UniquePersonList();
         tags = new HashSet<>();
     }
 
@@ -43,7 +47,8 @@ public class ModuleBuilder {
         moduleCode = moduleToCopy.getModuleCode();
         moduleTitle = moduleToCopy.getModuleTitle();
         academicYear = moduleToCopy.getAcademicYear();
-        Semester semester = moduleToCopy.getSemester();
+        semester = moduleToCopy.getSemester();
+        students = new UniquePersonList();
         tags = moduleToCopy.getTags();
     }
 
@@ -88,7 +93,7 @@ public class ModuleBuilder {
     }
 
     public Module build() {
-        return new Module(moduleCode, moduleTitle, academicYear, semester, tags, TypeUtil.MODULE);
+        return new Module(moduleCode, moduleTitle, academicYear, semester, students, tags, TypeUtil.MODULE);
     }
 
 }
