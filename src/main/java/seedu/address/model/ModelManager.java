@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Occasion> filteredOccasions;
+    private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
+        filteredOccasions = new FilteredList<>(versionedAddressBook.getOccasionList());
     }
 
     public ModelManager() {
@@ -63,10 +69,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return versionedAddressBook.hasModule(module);
     }
+
+    @Override
+    public boolean hasOccasion(Occasion occasion) {
+        requireNonNull(occasion);
+        return versionedAddressBook.hasOccasino(occasion);
+    }
+
 
     @Override
     public void addPerson(Person person) {
@@ -76,10 +89,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addOccasion(Occasion occasion) {
+        versionedAddressBook.addOccasion(occasion);
+        updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addModule(Module module) {
+        versionedAddressBook.addModule(module);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deletePerson(Person target) {
+        versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
@@ -98,6 +131,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Occasion List Accessors =============================================================
+
+    @Override
+    public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
+        requireNonNull(predicate);
+        filteredOccasions.setPredicate(predicate);
+    }
+
+
+    //=========== Filtered Module List Accessors =============================================================
+
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredModules.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
