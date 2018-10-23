@@ -19,14 +19,14 @@ public class NotificationCommand extends Command {
             + "Parameters: enable/disable\n"
             + "Example: " + COMMAND_WORD + " enable";
 
-    private String MESSAGE_NOTIFICATION_SUCCESS;
+    private String messageNotificationSuccess;
 
     private final boolean set;
 
     public NotificationCommand(boolean set) { this.set = set; }
 
-    public String getMESSAGE_NOTIFICATION_SUCCESS() {
-        return MESSAGE_NOTIFICATION_SUCCESS;
+    public String getMessageNotificationSuccess() {
+        return messageNotificationSuccess;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class NotificationCommand extends Command {
         ModelManager.updateNotificationPref(set);
 
         if (set) {
-            MESSAGE_NOTIFICATION_SUCCESS = "Notification:" + " enabled";
+            messageNotificationSuccess = "Notification:" + " enabled";
         }
         else {
-            MESSAGE_NOTIFICATION_SUCCESS = "Notification:" + " disabled";
+            messageNotificationSuccess = "Notification:" + " disabled";
         }
 
-        return new CommandResult(String.format(MESSAGE_NOTIFICATION_SUCCESS));
+        return new CommandResult(String.format(messageNotificationSuccess));
     }
 }
