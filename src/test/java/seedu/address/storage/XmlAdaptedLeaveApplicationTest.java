@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveId;

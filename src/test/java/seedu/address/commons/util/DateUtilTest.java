@@ -4,10 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
 public class DateUtilTest {
