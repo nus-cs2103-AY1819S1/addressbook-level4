@@ -34,9 +34,7 @@ public class AnakinQuestion {
      * Returns true if a given string is a valid question.
      */
     public static boolean isValidQuestion(String test) {
-        // TODO: Update validation regex
-        // return test.matches(QUESTION_VALIDATION_REGEX);
-        return true;
+        return test.matches(QUESTION_VALIDATION_REGEX);
     }
 
 

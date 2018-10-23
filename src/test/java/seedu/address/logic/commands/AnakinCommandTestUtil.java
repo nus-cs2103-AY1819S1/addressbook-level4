@@ -14,17 +14,28 @@ import seedu.address.logic.anakincommands.AnakinCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
+import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.model.anakindeck.AnakinDeckNameContainsKeywordsPredicate;
+import seedu.address.testutil.AnakinTypicalCards;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class AnakinCommandTestUtil {
 
-    public static final String VALID_NAME = "My Deck";
+    public static final String VALID_NAME_DECK_A = "My Deck A";
+    public static final String VALID_NAME_DECK_B = "Your deck";
 
-    public static final String INVALID_NAME = " " + PREFIX_NAME + " Bad_Deck_Name!";
+    public static final String VALID_QUESTION_A = "Another valid stuff";
+    public static final String VALID_QUESTION_B = "Need another valid question";
+    public static final String VALID_ANSWER_A = "Valid question needs a valid answer";
+    public static final String VALID_ANSWER_B = "Whateverrrrrrr";
+
+    public static final List<AnakinCard> VALID_CARD_LIST = new ArrayList<>();
+    public static final List<AnakinCard> TYPICAL_CARD_LIST = AnakinTypicalCards.getTypicalCards();
+
+    public static final String INVALID_NAME_DECK = " " + PREFIX_NAME + " Bad_Deck_Name!";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
