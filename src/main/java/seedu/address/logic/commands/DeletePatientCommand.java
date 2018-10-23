@@ -9,7 +9,7 @@ import seedu.address.model.person.Phone;
 /**
  * Deletes a patient from health book.
  */
-public class DeletePatientCommand extends DeleteCommand {
+public class DeletePatientCommand extends DeletePersonCommand {
 
     public static final String COMMAND_WORD = "delete-patient";
 
