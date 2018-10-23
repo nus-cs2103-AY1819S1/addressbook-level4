@@ -66,8 +66,6 @@ public class QueueDisplay extends UiPart<Region> {
         queueDisplayPage += "&current=";
         queueDisplayPage += currentPatientString;
         loadPage(queueDisplayPage);
-        System.out.println(queueDisplayPage);
-
     }
 
     /**
