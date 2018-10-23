@@ -81,6 +81,14 @@ public class UserPrefs {
         imageList = dirImageList;
     }
 
+    /**
+     * Update the list of images {@code imageList} with the images found in current directory
+     * {@code currDirectory}
+     */
+    public void updateImageList(ArrayList<Path> dirImageList) {
+        imageList = dirImageList;
+    }
+
     public ArrayList<Path> getAllImages() {
         return imageList;
     }

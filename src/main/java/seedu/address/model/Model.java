@@ -112,6 +112,11 @@ public interface Model {
     void updateImageList();
 
     /**
+     * Updates the list of images with the current image list.
+     */
+    void updateImageList(ArrayList<Path> dirImageList);
+
+    /**
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);
