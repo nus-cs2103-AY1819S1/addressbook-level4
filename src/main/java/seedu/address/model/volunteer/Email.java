@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Volunteer's email in the address book.
+ * Represents a Volunteer's email in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class VolunteerEmail {
+public class Email {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_EMAIL_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -30,11 +30,11 @@ public class VolunteerEmail {
     public final String value;
 
     /**
-     * Constructs an {@code VolunteerEmail}.
+     * Constructs an {@code Email}.
      *
      * @param email A valid email address.
      */
-    public VolunteerEmail(String email) {
+    public Email(String email) {
         requireNonNull(email);
         checkArgument(isValidEmail(email), MESSAGE_EMAIL_CONSTRAINTS);
         value = email;
@@ -55,8 +55,8 @@ public class VolunteerEmail {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VolunteerEmail // instanceof handles nulls
-                && value.equals(((VolunteerEmail) other).value)); // state check
+                || (other instanceof Email // instanceof handles nulls
+                && value.equals(((Email) other).value)); // state check
     }
 
     @Override

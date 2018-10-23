@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Volunteer's name in the address book.
+ * Represents a Volunteer's name in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class VolunteerName {
+public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -21,11 +21,11 @@ public class VolunteerName {
     public final String fullName;
 
     /**
-     * Constructs a {@code VolunteerName}.
+     * Constructs a {@code Name}.
      *
      * @param name A valid name.
      */
-    public VolunteerName(String name) {
+    public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
         fullName = name;
@@ -47,8 +47,8 @@ public class VolunteerName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VolunteerName // instanceof handles nulls
-                && fullName.equals(((VolunteerName) other).fullName)); // state check
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override

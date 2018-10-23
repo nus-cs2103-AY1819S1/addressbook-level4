@@ -19,21 +19,21 @@ public class Volunteer {
 
     // Identity fields
     private final VolunteerId volunteerId;
-    private final VolunteerName name;
+    private final Name name;
     private final Gender gender;
     private final Birthday birthday;
-    private final VolunteerPhone phone;
-    private final VolunteerEmail email;
+    private final Phone phone;
+    private final Email email;
 
     // Data fields
-    private final VolunteerAddress address;
+    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Used when creating new Volunteer. Every field must be present and not null.
      */
-    public Volunteer(VolunteerName name, Gender gender, Birthday birthday, VolunteerPhone phone, VolunteerEmail email,
-                     VolunteerAddress address, Set<Tag> tags) {
+    public Volunteer(Name name, Gender gender, Birthday birthday, Phone phone, Email email,
+                     Address address, Set<Tag> tags) {
         requireAllNonNull(name, gender, birthday, phone, email, address, tags);
 
         incrementMaxId();
@@ -52,8 +52,8 @@ public class Volunteer {
      * Used when loading data from XML and editing Volunteer.
      * Every field must be present and not null.
      */
-    public Volunteer(VolunteerId volunteerId, VolunteerName name, Gender gender, Birthday birthday,
-                     VolunteerPhone phone, VolunteerEmail email, VolunteerAddress address, Set<Tag> tags) {
+    public Volunteer(VolunteerId volunteerId, Name name, Gender gender, Birthday birthday,
+                     Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(volunteerId, name, phone, email, address, tags);
 
         if (isVolunteerIdGreaterThanMaxId(volunteerId.id)) {
@@ -98,7 +98,7 @@ public class Volunteer {
         return volunteerId;
     }
 
-    public VolunteerName getName() {
+    public Name getName() {
         return name;
     }
 
@@ -110,15 +110,15 @@ public class Volunteer {
         return birthday;
     }
 
-    public VolunteerPhone getPhone() {
+    public Phone getPhone() {
         return phone;
     }
 
-    public VolunteerEmail getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public VolunteerAddress getAddress() {
+    public Address getAddress() {
         return address;
     }
 

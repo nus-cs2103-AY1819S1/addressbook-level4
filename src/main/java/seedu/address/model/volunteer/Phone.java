@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Volunteer's phone number in the address book.
+ * Represents a Volunteer's phone number in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class VolunteerPhone {
+public class Phone {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
@@ -16,11 +16,11 @@ public class VolunteerPhone {
     public final String value;
 
     /**
-     * Constructs a {@code VolunteerPhone}.
+     * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
      */
-    public VolunteerPhone(String phone) {
+    public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
         value = phone;
@@ -41,8 +41,8 @@ public class VolunteerPhone {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VolunteerPhone // instanceof handles nulls
-                && value.equals(((VolunteerPhone) other).value)); // state check
+                || (other instanceof Phone // instanceof handles nulls
+                && value.equals(((Phone) other).value)); // state check
     }
 
     @Override
