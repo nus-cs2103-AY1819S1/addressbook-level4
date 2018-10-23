@@ -2,6 +2,7 @@ package seedu.address.model.appointment;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import seedu.address.model.doctor.Doctor;
 
 /**
  * Represents an Appointment in the health book.
@@ -11,16 +12,27 @@ public class Appointment {
     private static int appointmentCounter;
 
     private int appointmentId;
-    private LocalDateTime startDateTime;
+    private Doctor doctor;
+    private LocalDateTime dateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(LocalDateTime startDateTime) {
+    public Appointment(Doctor doctor, LocalDateTime dateTime) {
         this.appointmentId = appointmentCounter;
         appointmentCounter++;
-        this.startDateTime = startDateTime;
+        this.doctor = doctor;
+        this.dateTime = dateTime;
         this.status = Status.UPCOMING;
+        doctor.addUpcomingAppointment(this);
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
     }
 
     public void addPrescription(Prescription prescription) {
@@ -36,9 +48,6 @@ public class Appointment {
      * Return true if target appointment is later than other appointment. Else, return false.
      */
     public boolean isLaterThan(Appointment appointmentToCheck) {
-        if (startDateTime.compareTo(appointmentToCheck.startDateTime) > 0) {
-            return true;
-        }
-        return false;
+        return dateTime.isAfter(appointmentToCheck.dateTime);
     }
 }
