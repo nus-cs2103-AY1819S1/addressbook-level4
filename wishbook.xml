@@ -42,16 +42,6 @@
         <tagged>family</tagged>
     </wishes>
     <wishes>
-        <name>EVGA 1080 Ti Graphics Card</name>
-        <price>70.00</price>
-        <savedAmount>4.50</savedAmount>
-        <date>19/07/2020</date>
-        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
-        <remark></remark>
-        <id>1c7362f5-77e4-4bd4-9294-8f9af303fa60</id>
-        <tagged>classmates</tagged>
-    </wishes>
-    <wishes>
         <name>hoop</name>
         <price>123.00</price>
         <savedAmount>0.00</savedAmount>
@@ -113,5 +103,32 @@
         <url>www.amazon.com</url>
         <remark></remark>
         <id>d2a9ac3b-0dda-4ec4-865a-2a30bab6dd79</id>
+    </wishes>
+    <wishes>
+        <name>Apple iPhone Xs</name>
+        <price>1120.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>22/12/2019</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+        <id>ca2ab276-3fda-411f-9d99-3e31ddbc23f0</id>
+    </wishes>
+    <wishes>
+        <name>Apple iPhone Xs</name>
+        <price>1120.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>22/12/2019</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+        <id>60d2f663-9b1d-4c51-a524-2d5222ba16bb</id>
+    </wishes>
+    <wishes>
+        <name>Apple iPhone Xs</name>
+        <price>1120.00</price>
+        <savedAmount>0.00</savedAmount>
+        <date>22/12/2019</date>
+        <url>www.amazon.com</url>
+        <remark></remark>
+        <id>ae78ddf5-f94d-4c28-a49a-d5bb9d5666af</id>
     </wishes>
 </wishbook>

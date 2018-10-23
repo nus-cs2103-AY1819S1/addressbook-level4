@@ -13,7 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path wishTransactionFilePath = Paths.get("data", "wishtransaction.xml");
-    private Path wishBookFilePath = Paths.get("wishbook.xml");
+    private Path wishBookFilePath = Paths.get("data", "wishbook.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

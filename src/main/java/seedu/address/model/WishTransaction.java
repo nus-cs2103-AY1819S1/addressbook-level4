@@ -76,6 +76,14 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     }
 
     /**
+     * Getter for wishMap.
+     * @return
+     */
+    public HashMap<String, LinkedList<Wish>> getWishTransactionMap() {
+        return wishMap;
+    }
+
+    /**
      * Adds a wish to {@code wishMap} using {@code wish} full name as key.
      * @param wish
      */

@@ -54,8 +54,8 @@ public class SaveCommandTest {
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value > 0) {
-            differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
+        if (wishSavedDifference.value >= 0) {
+            differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount());
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
         }
@@ -88,8 +88,8 @@ public class SaveCommandTest {
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value > 0) {
-            differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
+        if (wishSavedDifference.value >= 0) {
+            differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount());
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
         }
@@ -155,7 +155,7 @@ public class SaveCommandTest {
         String differenceString = "";
         Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-        if (wishSavedDifference.value > 0) {
+        if (wishSavedDifference.value >= 0) {
             differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
         } else {
             differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
