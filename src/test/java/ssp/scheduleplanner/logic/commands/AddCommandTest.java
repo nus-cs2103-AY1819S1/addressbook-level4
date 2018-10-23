@@ -94,6 +94,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void archiveTask(Task completedTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlySchedulePlanner newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -105,6 +110,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasArchivedTask(Task archivedTask) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -125,6 +135,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredArchivedTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

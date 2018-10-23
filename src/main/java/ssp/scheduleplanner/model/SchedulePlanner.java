@@ -15,6 +15,7 @@ import ssp.scheduleplanner.model.task.UniqueTaskList;
 public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
     private final UniqueTaskList tasks;
+    private final UniqueTaskList archivedTasks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +26,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      */
     {
         tasks = new UniqueTaskList();
+        archivedTasks = new UniqueTaskList();
     }
 
     public SchedulePlanner() {}
@@ -48,18 +50,26 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
+     * Replaces the contents of the archived task list with {@code archivedTasks}.
+     */
+    public void setArchivedTasks(List<Task> archivedTasks) {
+        this.archivedTasks.setTasks(archivedTasks);
+    }
+
+    /**
      * Resets the existing data of this {@code SchedulePlanner} with {@code newData}.
      */
     public void resetData(ReadOnlySchedulePlanner newData) {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
+        setArchivedTasks(newData.getArchivedTaskList());
     }
 
     //// task-level operations
 
     /**
-     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     * Returns true if a task with the same identity as {@code task} exists in the task list of schedule planner.
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
@@ -67,17 +77,42 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
-     * Adds a task to the address book.
-     * The task must not already exist in the address book.
+     * Returns true if a archived task with the same identity as {@code archivedTask} exists in the archived task list
+     * of schedule planner.
+     */
+    public boolean hasArchivedTask(Task archivedTask) {
+        requireNonNull(archivedTask);
+        return archivedTasks.contains(archivedTask);
+    }
+
+    /**
+     * Adds a task to the task list of schedule planner.
+     * The task must not already exist in the current task list of schedule planner.
      */
     public void addTask(Task p) {
         tasks.add(p);
     }
 
     /**
+     * Archive a done task.
+     */
+    public void archiveTask(Task p) {
+        archivedTasks.add(p);
+        tasks.remove(p);
+    }
+
+    /**
+     * Adds an archived task to archived task list.
+     */
+    public void addArchivedTask(Task p) {
+        archivedTasks.add(p);
+    }
+
+
+    /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the address book.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the schedule planner.
      */
     public void updateTask(Task target, Task editedTask) {
         requireNonNull(editedTask);
@@ -107,10 +142,16 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     @Override
+    public ObservableList<Task> getArchivedTaskList() {
+        return archivedTasks.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SchedulePlanner // instanceof handles nulls
-                && tasks.equals(((SchedulePlanner) other).tasks));
+                && tasks.equals(((SchedulePlanner) other).tasks)
+                && archivedTasks.equals(((SchedulePlanner) other).archivedTasks));
     }
 
     @Override
