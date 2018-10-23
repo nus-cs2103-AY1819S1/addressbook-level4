@@ -167,7 +167,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateUserPrefs(Path newCurrDirectory) {
+        public void updateCurrDirectory(Path newCurrDirectory) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
