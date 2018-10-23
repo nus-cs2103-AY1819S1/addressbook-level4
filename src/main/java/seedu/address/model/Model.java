@@ -57,6 +57,16 @@ public interface Model {
      */
     String getContextName();
 
+    /**
+     * Sets the currently selected event
+     */
+    void setSelectedEvent(Event eventId);
+
+    /**
+     * Returns the event of the selected event.
+     */
+    Event getSelectedEvent();
+
     //===========  Person Methods =============================================================
 
     /**

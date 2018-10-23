@@ -26,6 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Context context;
 
+    private Event selectedEvent;
+
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Record> filteredRecords;
@@ -42,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
 
         context = new Context(Context.VOLUNTEER_CONTEXT_ID, Context.VOLUNTEER_CONTEXT_NAME);
+
+        selectedEvent = null;
 
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
@@ -90,6 +94,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public String getContextName() {
         return context.getContextName();
+    }
+
+    @Override
+    public void setSelectedEvent(Event event) {
+        requireNonNull(event);
+        selectedEvent = event;
+    }
+
+    @Override
+    public Event getSelectedEvent() {
+        return selectedEvent;
     }
 
     //===========  Person List Methods =============================================================

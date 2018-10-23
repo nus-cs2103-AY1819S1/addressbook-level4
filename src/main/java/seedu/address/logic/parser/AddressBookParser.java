@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddRecordCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteRecordCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -109,9 +111,6 @@ public class AddressBookParser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
-            case ManageCommand.COMMAND_WORD:
-                return new ManageCommandParser().parse(arguments);
-
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
@@ -119,17 +118,7 @@ public class AddressBookParser {
 
         // Execute commands for records
         if (contextId.equals(Context.RECORD_CONTEXT_ID)) {
-            // TO_UPDATE: Change find and list to the one specific for volunteers
-            switch (commandWord) {
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+            return parseRecordCommand(commandWord, arguments);
         }
 
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
@@ -153,9 +142,6 @@ public class AddressBookParser {
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -170,4 +156,25 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user input specifically for record management commands for execution.
+     **/
+    private Command parseRecordCommand(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case AddRecordCommand.COMMAND_WORD:
+            return new AddRecordCommandParser().parse(arguments);
+
+        case DeleteRecordCommand.COMMAND_WORD:
+            return new DeleteRecordCommandParser().parse(arguments);
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
 }
