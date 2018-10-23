@@ -12,7 +12,6 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
 
     /**
      * FilterByGradeCommand
-     *
      * @param args
      * @return
      * @throws ParseException
