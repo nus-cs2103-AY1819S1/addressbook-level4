@@ -8,7 +8,7 @@ import java.util.List;
  * Represents an Appointment in the health book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     private AppointmentId appointmentId;
     private String doctor;
@@ -17,8 +17,8 @@ public class Appointment {
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(String doctor, LocalDateTime dateTime) {
-        appointmentId = new AppointmentId();
+    public Appointment(int appointmentCounter, String doctor, LocalDateTime dateTime) {
+        appointmentId = new AppointmentId(appointmentCounter);
         this.doctor = doctor;
         this.dateTime = dateTime;
         this.status = Status.UPCOMING;
@@ -31,8 +31,15 @@ public class Appointment {
         this.doctor = doctor;
         this.dateTime = dateTime;
         this.status = status;
-        this.comments = comments;
-        this.prescriptions = prescriptions;
+        if (comments != null) {
+            this.comments = comments;
+        }
+        if (prescriptions != null) {
+            this.prescriptions = prescriptions;
+        } else {
+            this.prescriptions = new ArrayList<>();
+        }
+
     }
 
     public int getAppointmentId() {
@@ -80,5 +87,19 @@ public class Appointment {
      */
     public boolean isSameAppointment(Appointment toCheck) {
         return this.appointmentId.getAppointmentId() == toCheck.getAppointmentId();
+    }
+
+    /**
+     *  Returns 1 if {@code appointment} is earlier than other appointment
+     */
+    @Override
+    public int compareTo(Appointment o) {
+        if (this.isLaterThan(o)) {
+            return -1;
+        } else if (!this.isLaterThan(o)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

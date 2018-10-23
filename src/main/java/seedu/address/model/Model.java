@@ -1,7 +1,9 @@
 package seedu.address.model;
 
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
@@ -73,6 +75,28 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Returns current appointmentCounter
+     */
+    int getAppointmentCounter();
+
+    /**
+     * Increase the Appointment Counter
+     */
+    void incrementAppointmentCounter();
 
     /**
      * Returns true if the model has previous health book states to restore.

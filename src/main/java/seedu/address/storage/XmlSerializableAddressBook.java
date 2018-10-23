@@ -26,7 +26,10 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
     private List<XmlAdaptedAppointment> appointments;
+    @XmlElement
+    private int appointmentCounter;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -34,6 +37,8 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        appointments = new ArrayList<>();
+        appointmentCounter = 1;
     }
 
     /**
@@ -44,6 +49,7 @@ public class XmlSerializableAddressBook {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new)
                 .collect(Collectors.toList()));
+        appointmentCounter = src.getAppointmentCounter();
     }
 
     /**
@@ -71,6 +77,7 @@ public class XmlSerializableAddressBook {
             Appointment appointment = a.toModelType();
             addressBook.addAppointment(appointment);
         }
+        addressBook.setAppointmentCounter(appointmentCounter);
         return addressBook;
     }
 

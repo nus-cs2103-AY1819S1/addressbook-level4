@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
@@ -21,17 +21,17 @@ public class XmlAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
 
-    @XmlValue
+    @XmlElement(required = true)
     private int appointmentId;
-    @XmlValue
+    @XmlElement(required = true)
     private String doctor;
-    @XmlValue
+    @XmlElement(required = true)
     private String dateTime;
-    @XmlValue
+    @XmlElement(required = true)
     private String status;
-    @XmlValue
+    @XmlElement
     private String comments;
-    @XmlValue
+    @XmlElement
     private List<XmlAdaptedPrescription> prescriptions;
 
     /**
@@ -76,8 +76,10 @@ public class XmlAdaptedAppointment {
      */
     public Appointment toModelType() throws IllegalValueException {
         final List<Prescription> appointmentPrescriptions = new ArrayList<>();
-        for (XmlAdaptedPrescription prescription : prescriptions) {
-            appointmentPrescriptions.add(prescription.toModelType());
+        if (prescriptions != null && prescriptions.size() > 0) {
+            for (XmlAdaptedPrescription prescription : prescriptions) {
+                appointmentPrescriptions.add(prescription.toModelType());
+            }
         }
 
         if (appointmentId == 0) {
@@ -105,10 +107,6 @@ public class XmlAdaptedAppointment {
         Status appointmentStatus = Status.UPCOMING;
         if (status == "COMPLETED") {
             appointmentStatus = Status.COMPLETED;
-        }
-
-        if (comments == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Comments"));
         }
 
         return new Appointment(currentAppointmentId, doctor, appointmentDateTime,

@@ -155,6 +155,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getAppointmentCounter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void incrementAppointmentCounter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

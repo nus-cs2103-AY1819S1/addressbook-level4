@@ -21,4 +21,9 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Appointment> getAppointmentList();
 
+    /**
+     * Returns an current appointment.
+     */
+    int getAppointmentCounter();
+
 }

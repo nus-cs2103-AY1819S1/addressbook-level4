@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import java.time.LocalDateTime;
 
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Prescription;
@@ -14,13 +14,13 @@ public class XmlAdaptedPrescription {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Prescription's %s field is missing!";
 
-    @XmlValue
+    @XmlElement(required = true)
     private String medicineName;
-    @XmlValue
+    @XmlElement(required = true)
     private String expirationDate;
-    @XmlValue
+    @XmlElement(required = true)
     private int consumptionPerDay;
-    @XmlValue
+    @XmlElement(required = true)
     private int amountToConsume;
 
     /**

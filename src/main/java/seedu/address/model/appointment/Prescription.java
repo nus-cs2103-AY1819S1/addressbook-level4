@@ -1,7 +1,6 @@
 package seedu.address.model.appointment;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Represents an Prescription in the health book.
