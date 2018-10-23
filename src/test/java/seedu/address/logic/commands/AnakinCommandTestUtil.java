@@ -39,8 +39,8 @@ public class AnakinCommandTestUtil {
     public static final String VALID_QUESTION_B = "Need another valid question";
     public static final String VALID_ANSWER_A = "Valid question needs a valid answer";
     public static final String VALID_ANSWER_B = "Whateverrrrrrr";
-    public static final String INVALID_QUESTION = "Wh@t?!";
-    public static final String INVALID_ANSWER = "I KNOW RIGHT?!?!~";
+    public static final String INVALID_QUESTION = " ";
+    public static final String INVALID_ANSWER = " ";
 
 
     public static final String VALID_CARD_A_ARGS = " " + PREFIX_QUESTION +
