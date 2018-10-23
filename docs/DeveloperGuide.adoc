@@ -340,7 +340,7 @@ or Model#hasReceptionist() and Model#getReceptionist() for receptionists respect
 
 Given below is an scenario to illustrate the login authentication at each step: +
 
-. The user executes the `login` command by specifying the role, name and password. The `login` command determine the type of role that the user entered.
+. The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user.
 
 . If the role is doctor,
 
