@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_ADDRESS_AMY;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
