@@ -42,6 +42,11 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ScheduledEventBuilder;
 
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) for adding events including
+ * persons in address book, and unit tests for
+ * {@code AddEventCommand}.
+ */
 public class AddEventCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
