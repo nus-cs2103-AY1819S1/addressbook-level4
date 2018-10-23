@@ -28,4 +28,5 @@ public class Canvas {
     public void addLayer(PreviewImage i, String name) {
         layers.add(new Layer(i, String.format(LAYER_NAME, layers.size())));
     }
+
 }
