@@ -124,11 +124,6 @@ public class AddmhCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
-            // called by {@code AddmhCommand#execute()}
-        }
-
-        @Override
         public void addPerson(Person patient) {
             //TODO refactor person to patient
             requireNonNull(patient);

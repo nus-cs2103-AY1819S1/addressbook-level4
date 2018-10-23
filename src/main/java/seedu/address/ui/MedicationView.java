@@ -1,19 +1,24 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.medicine.Duration;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
@@ -23,12 +28,14 @@ import seedu.address.model.person.Person;
 /**
  * The Medication Panel (maybe more in the future?) of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class MedicationView extends UiPart<Region> implements Swappable, Sortable {
     private static final String FXML = "BrowserPanel.fxml";
     private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt "
         + "to set the current selection, but it is not null.";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
+
+    private HashMap<Integer, TableColumn<Prescription, String>> colIdxToCol = new HashMap<>();
 
     // Remember to set the fx:id of the elements in the .fxml file!
     @javafx.fxml.FXML
@@ -60,42 +67,42 @@ public class BrowserPanel extends UiPart<Region> {
 
     private Person currentSelection;
     private ObservableList<Person> persons;
+    private SortType sortType = SortType.ASCENDING;
+    private ObservableList<TableColumn<Prescription, ?>> sortOrder;
 
     /**
-     * C'tor for the BrowserPanel.
+     * C'tor for the Medication View.
      * We need the MainWindow to supply us with a view of the list of {@code Person}s so that we can
      * update our pointer whenever a {@code Person} is updated.
      */
-    public BrowserPanel(ObservableList<Person> persons) {
+    public MedicationView(ObservableList<Person> persons) {
         super(FXML);
         this.persons = persons;
+        this.sortOrder = FXCollections.observableArrayList(new ArrayList<>());
         registerAsAnEventHandler(this);
-    }
 
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
-        currentSelection = event.getNewSelection();
-        refreshTableView(currentSelection);
+        // For easy reference when sorting later.
+        colIdxToCol.put(1, drugNameCol);
+        colIdxToCol.put(2, dosageCol);
+        colIdxToCol.put(3, dosageUnitCol);
+        colIdxToCol.put(4, dosesPerDayCol);
+        colIdxToCol.put(5, startDateCol);
+        colIdxToCol.put(6, endDateCol);
+        colIdxToCol.put(7, durationCol);
+        colIdxToCol.put(8, activePrescriptionCol);
     }
 
     /**
-     * Current strategy is to refresh the medication panel every time a new result is available.
-     * This might potentially burden the app for every new result available.
-     * Might want to consider creating a new type of event for submitting medication and subscribing only to that.
-     * TODO?
+     * Sorts the table view according to the defined sorting order and type of the table view,
+     * defined in sortOrder and sortType.
      */
-    @Subscribe
-    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
-
-        // If we're not looking at anything, there's no need to update.
-        if (currentSelection == null) {
-            return;
+    private void sortTableView() {
+        for (TableColumn<?, ?> tc : sortOrder) {
+            tc.setSortType(sortType);
         }
 
-        currentSelection = getNewReferenceToPerson(currentSelection);
-        refreshTableView(currentSelection);
+        prescriptionTableView.getSortOrder().setAll(sortOrder);
+        prescriptionTableView.sort();
     }
 
     /**
@@ -112,6 +119,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void refreshTableView(PrescriptionList prescriptionList) {
         setDataSourceForTable(prescriptionList.getObservableCopyOfPrescriptionList());
         setDataSourcesForTableColumns();
+        // TODO: Set option to choose ascending or descending sort?
     }
 
     /**
@@ -221,12 +229,79 @@ public class BrowserPanel extends UiPart<Region> {
     private SimpleStringProperty getActiveStatusAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
         LocalDate today = LocalDate.now();
         LocalDate endDate = LocalDate.parse(param.getValue()
-                                                         .getDuration()
-                                                         .getEndDateAsString(),
+            .getDuration()
+            .getEndDateAsString(),
             Duration.DATE_FORMAT);
 
-        boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) < 0;
+        boolean isEndDateStrictlyBeforeToday = today.compareTo(endDate) > 0;
 
         return new SimpleStringProperty(isEndDateStrictlyBeforeToday ? "No" : "Yes");
+    }
+
+    @Override
+    public void refreshView() {
+        if (currentSelection == null) {
+            return;
+        }
+
+        refreshTableView(currentSelection);
+    }
+
+    @Override
+    public void sortView(SortOrder order, int... colIdx) {
+
+        switch (order) {
+        case ASCENDING:
+            sortType = SortType.ASCENDING;
+            break;
+        case DESCENDING:
+            sortType = SortType.DESCENDING;
+            break;
+        default:
+            sortType = SortType.ASCENDING;
+            break;
+        }
+
+        sortOrder.clear();
+
+        for (int i = 0; i < colIdx.length; i++) {
+            TableColumn<Prescription, String> col = colIdxToCol.get(colIdx[i]);
+            if (col == null) {
+                // No corresponding column for that column index exists
+                continue;
+            }
+            sortOrder.add(col);
+        }
+
+        sortTableView();
+    }
+
+    /* ====================== Event handling ====================== */
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
+        currentSelection = event.getNewSelection();
+        refreshView();
+    }
+
+    /**
+     * Current strategy is to refresh the medication panel every time a new result is available.
+     * This might potentially burden the app for every new result available.
+     * Might want to consider creating a new type of event for submitting medication and subscribing only to that.
+     * TODO?
+     */
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
+
+        // If we're not looking at anything, there's no need to update.
+        if (currentSelection == null) {
+            return;
+        }
+
+        currentSelection = getNewReferenceToPerson(currentSelection);
+        refreshView();
+        sortTableView();
     }
 }

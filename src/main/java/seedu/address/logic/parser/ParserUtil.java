@@ -4,16 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.diet.Diet;
 import seedu.address.model.diet.DietType;
@@ -26,6 +27,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.Visitor;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -98,6 +100,21 @@ public class ParserUtil {
             throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
         }
         return new Diagnosis(trimmedDiagnosis);
+    }
+    // @@ GAO JIAXIN
+    /**
+     * Parses a {@code String visitor} into a {@code visitor}. Leading
+     * and trailing whitespaces will be trimmed.
+     * @throws ParseException
+     *              if the given {@code visitor} is invalid.
+     */
+    public static Visitor parseVisitor(String visitor) throws ParseException {
+        requireNonNull(visitor);
+        String trimmedVisitor = visitor.trim();
+        if (!Visitor.isValidVisitor(trimmedVisitor)) {
+            throw new ParseException((Visitor.MESSAGE_NAME_CONSTRAINTS));
+        }
+        return new Visitor(trimmedVisitor);
     }
 
     //@@author
@@ -225,5 +242,22 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a String of column indices into a int array.
+     */
+    public static int[] parseColIdx(String colIdx) {
+        List<Integer> colIdxList = Arrays.stream(colIdx.trim()
+                                                       .split(""))
+                                         .map(Integer::parseInt)
+                                         .collect(Collectors.toList());
+        int[] toReturn = new int[colIdxList.size()];
+
+        for (int i = 0; i < colIdxList.size(); i++) {
+            toReturn[i] = colIdxList.get(i);
+        }
+
+        return toReturn;
     }
 }

@@ -16,6 +16,8 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.Visitor;
+import seedu.address.model.visitor.VisitorList;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -71,6 +73,15 @@ public class SampleDataUtil {
                 .map(Diagnosis::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         MedicalHistory test = new MedicalHistory(mh);
+        return test;
+    }
+    //@@author GAO JIAXIN
+    public static VisitorList getSampleVisitorList() {
+        String[] visitors = {"jack", "daniel"};
+        ArrayList<Visitor> vl = Arrays.stream(visitors)
+                .map(Visitor::new)
+                .collect(Collectors.toCollection(ArrayList::new));
+        VisitorList test = new VisitorList(vl);
         return test;
     }
 }
