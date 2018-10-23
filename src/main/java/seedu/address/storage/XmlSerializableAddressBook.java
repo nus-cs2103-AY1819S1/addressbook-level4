@@ -53,9 +53,9 @@ public class XmlSerializableAddressBook {
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            if (person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
+            if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
                 addressBook.addDoctor(person);
-            } else if (person.getTags().toArray()[0].equals(new Tag("Patient"))) {
+            } else if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Patient"))) {
                 addressBook.addPatient(person);
             } else {
                 addressBook.addPerson(person);
