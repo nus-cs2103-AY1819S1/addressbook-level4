@@ -1,7 +1,7 @@
 package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class ResolveCommand extends Command {
                 articleToEdit.getEmail(), articleToEdit.getDescription(), SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
-        model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         model.commitArticleList();
 
         return new CommandResult(String.format(MESSAGE_RESOLVED_ARTICLE_SUCCESS, editedArticle));

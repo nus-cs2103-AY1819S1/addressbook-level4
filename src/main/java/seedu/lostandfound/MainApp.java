@@ -66,7 +66,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
+        model.updateFilteredArticleList(Model.NOT_RESOLVED_PREDICATE);
         logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);

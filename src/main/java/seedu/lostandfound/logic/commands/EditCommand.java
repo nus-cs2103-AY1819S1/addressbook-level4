@@ -6,7 +6,7 @@ import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -76,6 +76,11 @@ public class EditCommand extends Command {
         }
 
         Article articleToEdit = lastShownList.get(index.getZeroBased());
+
+        if (articleToEdit.getIsResolved()) {
+            throw new CommandException(Messages.MESSAGE_EDIT_INVALID_RESOLVED);
+        }
+
         Article editedArticle = createEditedArticle(articleToEdit, editArticleDescriptor);
 
         if (!articleToEdit.isSameArticle(editedArticle) && model.hasArticle(editedArticle)) {
@@ -83,7 +88,7 @@ public class EditCommand extends Command {
         }
 
         model.updateArticle(articleToEdit, editedArticle);
-        model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         model.commitArticleList();
         return new CommandResult(String.format(MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle));
     }
