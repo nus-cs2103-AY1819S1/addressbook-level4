@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,20 +27,32 @@ public interface Model {
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the health book.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the health book.
      */
     void addPerson(Person person);
 
     /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the health book.
+     */
+    void addPatient(Patient patient);
+
+    /**
+     * Adds the given doctor.
+     * {@code doctor} must not already exist in the health book.
+     */
+    void addDoctor(Doctor doctor);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the health book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the health book.
      */
     void updatePerson(Person target, Person editedPerson);
 
@@ -52,27 +66,27 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous health book states to restore.
      */
     boolean canUndoAddressBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone health book states to restore.
      */
     boolean canRedoAddressBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's health book to its previous state.
      */
     void undoAddressBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's health book to its previously undone state.
      */
     void redoAddressBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current health book state for undo/redo.
      */
     void commitAddressBook();
 }

@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -52,7 +54,13 @@ public class XmlSerializableAddressBook {
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            if (person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
+                addressBook.addDoctor(person);
+            } else if (person.getTags().toArray()[0].equals(new Tag("Patient"))) {
+                addressBook.addPatient(person);
+            } else {
+                addressBook.addPerson(person);
+            }
         }
         return addressBook;
     }
