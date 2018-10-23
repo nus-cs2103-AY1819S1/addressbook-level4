@@ -6,6 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 /**
  * Favourite an event for it to show up as a notification on startup
@@ -32,13 +33,8 @@ public class FavouriteCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        //List<Event> uniqueEventsList = model.getFilteredPersonList();
+        ModelManager.updateFavourite("new Favourite");
 
-        /*if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));*/
         return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS, targetIndex.getOneBased()));
     }
 
