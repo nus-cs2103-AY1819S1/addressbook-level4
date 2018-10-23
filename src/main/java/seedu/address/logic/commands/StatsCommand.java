@@ -73,10 +73,10 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
-        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         model.updateExpenseStats(getStatsPredicate());
         model.updateStatsMode(this.mode);
+        EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
