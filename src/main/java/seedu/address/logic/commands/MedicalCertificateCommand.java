@@ -29,7 +29,7 @@ public class MedicalCertificateCommand extends QueueCommand {
             + " NRIC of patient, and duration of medical leave. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_GENERATE_MC_SUCCESS= "MC generated for patient!";
+    public static final String MESSAGE_GENERATE_MC_SUCCESS = "MC generated for patient!";
 
     private MedicalCertificate mc;
     private final Index index;
