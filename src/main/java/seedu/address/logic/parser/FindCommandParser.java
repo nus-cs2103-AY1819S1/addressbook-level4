@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
@@ -17,14 +18,14 @@ import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new FindPersonCommand object
  */
-public class FindCommandParser implements Parser<FindPersonCommand> {
+public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindPersonCommand
-     * and returns a FindPersonCommand object for execution.
+     * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindPersonCommand parse(String args) throws ParseException {
+    public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
 
         if (!argMultimap.areAnyPrefixesPresent(PREFIX_ALL, PREFIX_SOME, PREFIX_NONE)) {
@@ -41,7 +42,7 @@ public class FindCommandParser implements Parser<FindPersonCommand> {
      * @param argMultimap the {@code ArgumentMultimap} containing the keywords.
      * @return a {@code FindPersonCommand} object for execution.
      */
-    private FindPersonCommand parseNoPrefixUsed(ArgumentMultimap argMultimap) throws ParseException {
+    private FindCommand parseNoPrefixUsed(ArgumentMultimap argMultimap) throws ParseException {
         String preamble = argMultimap.getPreamble();
         if (preamble.isEmpty()) { //TODO this will be changed when we add find by groups or meetings.
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
@@ -60,7 +61,7 @@ public class FindCommandParser implements Parser<FindPersonCommand> {
      * @param argMultimap the {@code ArgumentMultimap} containing the keywords.
      * @return a {@code FindPersonCommand} object for execution.
      */
-    private FindPersonCommand parsePrefixesUsed(ArgumentMultimap argMultimap) throws ParseException {
+    private FindCommand parsePrefixesUsed(ArgumentMultimap argMultimap) throws ParseException {
         List<String> allKeywords = parseStringKeywordsToList(argMultimap.getValue(PREFIX_ALL));
         List<String> someKeywords = parseStringKeywordsToList(argMultimap.getValue(PREFIX_SOME));
         List<String> noneKeywords = parseStringKeywordsToList(argMultimap.getValue(PREFIX_NONE));
