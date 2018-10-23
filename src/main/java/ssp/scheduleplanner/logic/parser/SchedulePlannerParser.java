@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.AddCommand;
+import ssp.scheduleplanner.logic.commands.ArchiveCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
@@ -62,6 +63,8 @@ public class SchedulePlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case ArchiveCommand.COMMAND_WORD:
+            return new ArchiveCommandParser().parse(arguments);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
