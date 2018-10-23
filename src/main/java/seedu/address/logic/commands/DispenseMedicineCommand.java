@@ -23,8 +23,8 @@ public class DispenseMedicineCommand extends Command {
             + PREFIX_MEDICINE_NAME + "MEDICINE NAME "
             + PREFIX_AMOUNT_TO_DISPENSE + "AMOUNT ";
 
-    public static final String MESSAGE_SUCCESS = "%d x %1$s dispensed!";
-    public static final String MESSAGE_MEDICINE_NOT_FOUND = "%1$s not found in records.";
+    public static final String MESSAGE_SUCCESS = "%d x %s dispensed!";
+    public static final String MESSAGE_MEDICINE_NOT_FOUND = "%s not found in records.";
 
     private final MedicineName toDispense;
     private final Integer quantityToDispense;

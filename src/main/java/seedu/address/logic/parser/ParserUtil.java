@@ -27,6 +27,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_AMOUNT_TO_DISPENSE = "Can only dispense positive integer of medicine.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -216,5 +217,15 @@ public class ParserUtil {
             throw new ParseException(Stock.MESSAGE_STOCK_CONSTRAINTS);
         }
         return new Stock(stockValue);
+    }
+
+    public static Integer parseAmountToDispense(String amountToDispense) throws ParseException {
+        requireNonNull(amountToDispense);
+        Integer amount = Integer.parseInt(amountToDispense);
+        if(amount < 0) {
+            throw new ParseException(MESSAGE_INVALID_AMOUNT_TO_DISPENSE);
+        }
+
+        return amount;
     }
 }
