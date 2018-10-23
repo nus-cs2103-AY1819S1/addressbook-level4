@@ -113,12 +113,42 @@ public class AddOccasionCommandTest {
         }
 
         @Override
+        public void updateModule(Module target, Module editedModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateOccasion(Occasion target, Occasion editedOccasion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person personToDelete) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void deleteModule(Module moduleToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteOccasion(Occasion occasionToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Occasion> getFilteredOccasionList() {
             throw new AssertionError("This method should not be called.");
         }
 

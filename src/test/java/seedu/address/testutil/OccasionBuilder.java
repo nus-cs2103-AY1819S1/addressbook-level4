@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -20,13 +21,13 @@ public class OccasionBuilder {
 
     private OccasionName occasionName;
     private OccasionDate occasionDate;
-    private String location;
+    private OccasionLocation location;
     private Set<Tag> tags;
 
     public OccasionBuilder() {
         occasionName = new OccasionName(DEFAULT_OCCASIONNAME);
         occasionDate = new OccasionDate(DEFAULT_OCCASIONDATE);
-        location = DEFAULT_LOCATION;
+        location = new OccasionLocation(DEFAULT_LOCATION);
         tags = new HashSet<>();
     }
 
@@ -56,7 +57,7 @@ public class OccasionBuilder {
     /**
      * Sets the {@code location} of the {@code Occasion} that we are building.
      */
-    public OccasionBuilder withLocation(String location) {
+    public OccasionBuilder withLocation(OccasionLocation location) {
         this.location = location;
         return this;
     }
