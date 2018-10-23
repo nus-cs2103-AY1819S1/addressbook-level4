@@ -3,11 +3,14 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 import seedu.address.model.person.Time;
 
 
-public class FilterByTimeCommandParser implements Parser<FilterByTimeCommand> {
-    /** filterByTime
+public class FilterByTimeCommandParser {
+    /**
+     * FilterByGradeCommand
+     *
      * @param args
      * @return
      * @throws ParseException
@@ -22,5 +25,6 @@ public class FilterByTimeCommandParser implements Parser<FilterByTimeCommand> {
         }
 
         return new FilterByTimeCommand(args);
+
     }
 }
