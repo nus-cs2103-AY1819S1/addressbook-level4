@@ -100,7 +100,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code timeslot} must not clash with any other time slots in the time array list.
      */
     public void addTime(Person target, Time timeslot) {
-        persons.addTimeSlot(target, timeslot);
+        persons.setTime(target, timeslot);
     }
 
     //// util methods
