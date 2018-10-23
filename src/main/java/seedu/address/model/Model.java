@@ -77,6 +77,21 @@ public interface Model {
      * @param group The group to be removed from address book
      */
     void removeGroup(Group group);
+
+    /**
+     * Join a {@code person} into a {@code group}.
+     * Both person and group must exist in the {@code AddressBook}.
+     *
+     */
+    void joinGroup(Person person, Group group);
+
+
+    /**
+     * Remove a {@code person} from a {@code group}.
+     * The person must exist in the group.
+     */
+    void leaveGroup(Person person, Group group);
+
     // @@author
 
 
