@@ -31,7 +31,6 @@ public class ReceiptCommand extends QueueCommand {
     private Receipt receipt;
     private final Index index;
 
-
     /**
      * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
      */
@@ -66,9 +65,5 @@ public class ReceiptCommand extends QueueCommand {
 
     public Receipt getReceipt() {
         return receipt;
-    }
-
-    public void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
     }
 }
