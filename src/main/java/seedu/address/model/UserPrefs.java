@@ -20,7 +20,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path currDirectory = Paths.get(System.getProperty("user.home"));
-    private ArrayList<String> imageList = new ArrayList<>();
+    private ArrayList<Path> imageList = new ArrayList<>();
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -54,7 +54,7 @@ public class UserPrefs {
      * Update the current directory {@code currDirectory} with the new directory
      * {@code newCurrDirectory}
      */
-    public void updateCurrDirectory(Path newCurrDirectory) {
+    public void updateUserPrefs(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
     }
 
@@ -65,12 +65,12 @@ public class UserPrefs {
     public void updateImageList() {
         File currFileDir = new File(currDirectory.toString());
         File[] currFiles = currFileDir.listFiles();
-        ArrayList<String> dirImageList = new ArrayList<>();
+        ArrayList<Path> dirImageList = new ArrayList<>();
         for (File file : currFiles) {
             if (file.isFile()) {
                 try {
                     if (ImageIO.read(file) != null) {
-                        dirImageList.add(file.toString());
+                        dirImageList.add(file.toPath());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -81,7 +81,15 @@ public class UserPrefs {
         imageList = dirImageList;
     }
 
-    public ArrayList<String> getAllImages() {
+    /**
+     * Update the list of images {@code imageList} with the images found in current directory
+     * {@code currDirectory}
+     */
+    public void updateImageList(ArrayList<Path> dirImageList) {
+        imageList = dirImageList;
+    }
+
+    public ArrayList<Path> getAllImages() {
         return imageList;
     }
 

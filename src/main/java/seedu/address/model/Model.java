@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -95,7 +94,7 @@ public interface Model {
     /**
      * Updates the userPrefs current directory.
      */
-    void updateUserPrefs(Path newCurrDirectory);
+    void updateCurrDirectory(Path newCurrDirectory);
 
     /**
      * Retrieves the userPrefs current directory.
@@ -105,12 +104,17 @@ public interface Model {
     /**
      * Retrieves the list of images in current directory.
      */
-    ArrayList<String> getDirectoryImageList();
+    ArrayList<Path> getDirectoryImageList();
 
     /**
      * Updates the list of images in current directory.
      */
     void updateImageList();
+
+    /**
+     * Updates the list of images with the current image list.
+     */
+    void updateImageList(ArrayList<Path> dirImageList);
 
     /**
      * Removes the image of the given index in the list.
@@ -120,15 +124,15 @@ public interface Model {
     /**
      * Retrieves the current displayed original image.
      */
-    BufferedImage getCurrentOriginalImage();
+    Path getCurrentOriginalImage();
 
     /**
      * Retrieves the current displayed preview image.
      */
-    BufferedImage getCurrentPreviewImage();
+    Path getCurrentPreviewImage();
 
     /**
      * Update the current displayed original image.
      */
-    void updateCurrentOriginalImage(Image img);
+    void updateCurrentOriginalImage(Image img, Path imgPath);
 }

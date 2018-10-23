@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -168,7 +167,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateUserPrefs(Path newCurrDirectory) {
+        public void updateCurrDirectory(Path newCurrDirectory) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
@@ -177,7 +176,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ArrayList<String> getDirectoryImageList() {
+        public ArrayList<Path> getDirectoryImageList() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -187,22 +186,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public BufferedImage getCurrentOriginalImage() {
+        public Path getCurrentOriginalImage() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public BufferedImage getCurrentPreviewImage() {
+        public Path getCurrentPreviewImage() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public void updateCurrentOriginalImage(Image img) {
+        public void updateCurrentOriginalImage(Image img, Path imgPath) {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public void updateImageList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateImageList(ArrayList<Path> dirImageList) {
             throw new AssertionError("This method should not be called");
         }
     }
