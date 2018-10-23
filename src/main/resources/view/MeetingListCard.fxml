@@ -29,12 +29,12 @@
                                  <Region fx:constant="USE_PREF_SIZE" />
                              </minWidth>
                          </Label>
-                        <Label fx:id="meetingTitle" text="\$meeting" />
+                        <Label fx:id="meetingTitle" styleClass="cell_big_label" text="\$meeting" />
                      </children>
                   </HBox>
-                  <Label fx:id="meetingDescription" text="\$description" />
-                  <Label fx:id="meetingTime" text="\$time" />
-                  <Label fx:id="meetingLocation" text="\$location" />
+                  <Label fx:id="meetingDescription" styleClass="cell_small_label" text="\$description" />
+                  <Label fx:id="meetingTime" styleClass="cell_small_label" text="\$time" />
+                  <Label fx:id="meetingLocation" styleClass="cell_small_label" text="\$location" />
                </children>
                 <padding>
                     <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />

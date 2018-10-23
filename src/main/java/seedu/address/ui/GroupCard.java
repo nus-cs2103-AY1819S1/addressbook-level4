@@ -42,13 +42,13 @@ public class GroupCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         groupTitle.setText(group.getTitle().fullTitle);
         Description description = group.getDescription();
-        String descriptionString = "Description: " + (description != null ? description.statement : "");
+        String descriptionString = description != null ? description.statement : "";
         groupDescription.setText(descriptionString);
         Meeting meeting = group.getMeeting();
-        String meetingString = "Has meeting: " + (meeting != null ? "true" : "false");
+        String meetingString = meeting != null ? meeting.getTitle().fullTitle : "null";
         groupMeeting.setText(meetingString);
         int membersCount = group.getMembersView().size();
-        memberCount.setText("Member count: " + membersCount);
+        memberCount.setText(String.format("%d", membersCount));
     }
 
     @Override

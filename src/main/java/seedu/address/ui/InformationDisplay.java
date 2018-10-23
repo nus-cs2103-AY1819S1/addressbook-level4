@@ -1,13 +1,19 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * The UI component that displays information of groups, meetings and persons in 3 horizontal panes.
@@ -22,6 +28,7 @@ public class InformationDisplay extends UiPart<Region> {
 
     private GroupListPanel groupListPanel;
     private PersonListPanel personListPanel;
+    private MeetingListPanel meetingListPanel;
 
     @FXML
     private GridPane gridPane;
@@ -51,5 +58,11 @@ public class InformationDisplay extends UiPart<Region> {
 
         personListPanel = new PersonListPanel(logic.getSortedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        List<Meeting> meetingList = logic.getFilteredGroupList().stream()
+            .map(Group::getMeeting).collect(Collectors.toList());
+        ObservableList<Meeting> meetingObservableList = FXCollections.observableList(meetingList);
+        meetingListPanel = new MeetingListPanel(meetingObservableList);
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
     }
 }
