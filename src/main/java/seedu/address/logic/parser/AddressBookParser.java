@@ -109,9 +109,6 @@ public class AddressBookParser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
-            case ManageCommand.COMMAND_WORD:
-                return new ManageCommandParser().parse(arguments);
-
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
@@ -161,6 +158,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ManageCommand.COMMAND_WORD:
+            return new ManageCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
