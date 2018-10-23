@@ -112,7 +112,7 @@ public class AddressBookParser {
                 return new FilterByGradeCommandParser().parse(arguments);
 
             case FilterByEducationCommand.COMMAND_WORD:
-                return new FindByEducationCommandParser().parse(arguments);
+                return new FilterByEducationCommandParser().parse(arguments);
 
             case FilterByTimeCommand.COMMAND_WORD:
                 return new FilterByTimeCommandParser().parse(arguments);
