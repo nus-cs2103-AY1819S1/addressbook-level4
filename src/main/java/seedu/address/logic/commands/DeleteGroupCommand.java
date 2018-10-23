@@ -9,11 +9,11 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.shared.Title;
 
+import java.util.List;
+
 // @@author Derek-Hardy
 /**
  * Deletes a group identified using it's displayed title from the address book.
- *
- * Note: This command is not yet complete. (Under construction)
  */
 public class DeleteGroupCommand extends Command {
 
@@ -26,29 +26,38 @@ public class DeleteGroupCommand extends Command {
 
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted Group: %1$s";
 
-    private final Group toDelete;
     private final Title groupName;
+    private Group matchedGroupByName;
 
     /**
      * Creates an DeleteGroupCommand to delete the specified {@code Group}
      */
     public DeleteGroupCommand(Group toDelete) {
         requireNonNull(toDelete);
-        this.toDelete = toDelete;
         this.groupName = toDelete.getTitle();
+        this.matchedGroupByName = null;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasGroup(toDelete)) {
+        List<Group> groupList = model.getGroupList();
+        for (Group group : groupList) {
+            Title title = group.getTitle();
+            if (title.equals(groupName)) {
+                matchedGroupByName = group.copy();
+                break;
+            }
+        }
+
+        if (matchedGroupByName == null) {
             throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
         }
 
-        model.removeGroup(toDelete);
+        model.removeGroup(matchedGroupByName);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, toDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, matchedGroupByName));
     }
 
     @Override

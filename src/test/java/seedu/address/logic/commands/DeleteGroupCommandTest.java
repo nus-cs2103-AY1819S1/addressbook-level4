@@ -10,6 +10,9 @@ import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -97,7 +100,7 @@ public class DeleteGroupCommandTest {
      * A Model stub that always accept the group being removed.
      */
     private class ModelStubAcceptingGroupRemoved extends ModelStub {
-        final List<Group> groupsRemoved = new ArrayList<>(TypicalGroups.getTypicalGroups());
+        List<Group> groupsRemoved = new ArrayList<>(TypicalGroups.getTypicalGroups());
 
         @Override
         public boolean hasGroup(Group group) {
@@ -115,6 +118,13 @@ public class DeleteGroupCommandTest {
         public void removeGroup(Group group) {
             requireNonNull(group);
             groupsRemoved.remove(group);
+        }
+
+        @Override
+        public ObservableList<Group> getGroupList() {
+            ObservableList<Group> list = FXCollections.observableArrayList();
+            list.setAll(groupsRemoved);
+            return list;
         }
 
         @Override
