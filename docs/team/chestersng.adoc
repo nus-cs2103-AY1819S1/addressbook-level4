@@ -9,9 +9,17 @@
 
 == Overview
 
-CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is main method to use this application.
+CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
 CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
 programming language and uses JavaFX, HTML and CSS for the GUI.
+
+My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
+after every enhancement or change.
+
+The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
+information and medicine information and additionally manage the clinic queue.
+
+The team consists of four year-2 and one year-3 student in School of Computing, NUS.
 
 == Summary of contributions
 
@@ -21,13 +29,17 @@ programming language and uses JavaFX, HTML and CSS for the GUI.
 ** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands
 are made to be as intuitive as possible.
 
-* *Minor enhancement*: Integration of `ReceiptCommand` and PQMS.
+* *Minor enhancement*:
+** Integration of `ReceiptCommand` and PQMS.
+** Enhancement of GUI.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
+*** Team Lead
+
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])

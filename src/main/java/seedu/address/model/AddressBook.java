@@ -157,10 +157,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Dispenses the medicine with {@code medicineName} to the patient.
      */
-    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
+    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
         requireNonNull(quantityToDispense);
         requireNonNull(quantityToDispense);
-        medicines.dispenseMedicine(medicineName, quantityToDispense);
+        return medicines.dispenseMedicine(medicine, quantityToDispense);
+    }
+
+    /**
+     * Refill the medicine with {@code medicineName} to the patient.
+     */
+    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+        requireNonNull(medicine);
+        requireNonNull(quantityToRefill);
+        medicines.refillMedicine(medicine, quantityToRefill);
     }
 
     //// util methods

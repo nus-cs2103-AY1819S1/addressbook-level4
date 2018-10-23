@@ -124,9 +124,16 @@ public interface Model {
      */
     void updateMedicine(Medicine target, Medicine editedMedicine);
 
+
     /**
      * Dispenses the medicine defined by {@code medicineName} with the allocated
      * amount {@code quantityToDispense}.
      */
-    void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense);
+    Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense);
+
+    /**
+     * Refill the medicine defined by {@code medicineName} with the allocated
+     * amount {@code quantityToRefill}.
+     */
+    void refillMedicine(Medicine medicine, int quantityToRefill);
 }

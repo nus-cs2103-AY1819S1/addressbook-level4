@@ -76,6 +76,7 @@ public class AddressBookParser {
             return new AddMedicineCommandParser().parse(arguments);
 
         case DispenseMedicineCommand.COMMAND_WORD:
+        case DispenseMedicineCommand.COMMAND_ALIAS:
             return new DispenseMedicineCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
