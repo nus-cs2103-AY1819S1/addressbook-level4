@@ -30,8 +30,8 @@ public class FilterByFeeCommandTest {
         String second = " ";
 
 
-        FilterByFeeCommand filterByFeeFirstCommand = new filterByFeeCommand(first);
-        FilterByFeeCommand filterByFeeSecondCommand = new filterByFeeCommand(second);
+        FilterByFeeCommand filterByFeeFirstCommand = new FilterByFeeCommand(first);
+        FilterByFeeCommand filterByFeeSecondCommand = new FilterByFeeCommand(second);
 
         // same object -> returns true
         assertTrue(filterByFeeFirstCommand.equals(filterByFeeFirstCommand));
