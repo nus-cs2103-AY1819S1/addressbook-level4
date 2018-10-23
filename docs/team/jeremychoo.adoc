@@ -1,0 +1,66 @@
+= Jeremy Choo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+
+---
+
+== Overview
+
+Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
+
+This project portfolio summarizes the contributions that I have to the project.
+
+== Summary of contributions
+
+The following section shows my major code contributions to OASIS.
+
+=== Major enchancement: Login feature
+
+* *Major enhancement*: added *the ability to login and logout*
+** What it does: allows the user to login into the system using their username and password, as well as logout.
+** Justification: This feature is essential in the product as only certain users can are authorized to use cetain commands, thus user identification is required.
+** Highlights: This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
+
+=== Minor enchancement:
+
+* *Minor enhancement*: stfu
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.0` - `v1.4` (5 releases) on GitHub
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1], https://github.com[2], https://github.com[3])
+** Tools:
+*** Integrated Travis CI, AppVeyor and Coveralls  to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=loginlogout]
+
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=login]
+
+// include::../DeveloperGuide.adoc[tag=da/taencryption]

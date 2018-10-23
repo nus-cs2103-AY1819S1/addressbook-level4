@@ -583,7 +583,7 @@ When the user wishes to logout, he enters logout, which triggers the following:
 * **Alternative 2:** Build the window from scratch to show login UI elements.
 ** Pros: Nicer, the UI elements are built for login
 ** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might asa well go with Alternative 1.
-// end::undoredo[]
+// end::login[]
 
 === Logging
 
