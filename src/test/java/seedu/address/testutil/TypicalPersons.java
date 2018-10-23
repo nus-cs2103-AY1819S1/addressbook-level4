@@ -112,7 +112,6 @@ public class TypicalPersons {
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }
-
         for (Receptionist receptionist : getTypicalReceptionists()) {
             ab.addReceptionist(receptionist);
         }

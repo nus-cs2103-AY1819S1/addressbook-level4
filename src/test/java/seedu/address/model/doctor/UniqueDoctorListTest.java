@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.CAT;
@@ -99,7 +100,7 @@ public class UniqueDoctorListTest {
     @Test
     public void setDoctor_editedDoctorHasSameIdentity_success() {
         uniqueDoctorList.add(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword(HashUtil.hashToString("doctor1"), true)
+        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword(HashUtil.hashToString(VALID_PASSWORD_ADAM), true)
                 .build();
         uniqueDoctorList.setDoctor(ADAM, editedAdam);
         UniqueDoctorList expectedUniqueDoctorList = new UniqueDoctorList();
@@ -151,7 +152,7 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void setDoctors_uniqueDictirList_replacesOwnListWithProvidedUniqueDoctorList() {
+    public void setDoctors_uniqueDictorList_replacesOwnListWithProvidedUniqueDoctorList() {
         uniqueDoctorList.add(ADAM);
         UniqueDoctorList expectedUniqueDoctorList = new UniqueDoctorList();
         expectedUniqueDoctorList.add(BEN);
@@ -168,8 +169,8 @@ public class UniqueDoctorListTest {
     @Test
     public void setDoctors_list_replacesOwnListWithProvidedList() {
         uniqueDoctorList.add(ADAM);
-        List<Doctor> personList = Collections.singletonList(BEN);
-        uniqueDoctorList.setDoctors(personList);
+        List<Doctor> doctorList = Collections.singletonList(BEN);
+        uniqueDoctorList.setDoctors(doctorList);
         UniqueDoctorList expectedUniqueDoctorList = new UniqueDoctorList();
         expectedUniqueDoctorList.add(BEN);
         assertEquals(expectedUniqueDoctorList, uniqueDoctorList);
@@ -177,9 +178,9 @@ public class UniqueDoctorListTest {
 
     @Test
     public void setDoctors_listWithDuplicateDoctors_throwsDuplicateDoctorException() {
-        List<Doctor> listWithDuplicatePersons = Arrays.asList(ADAM, ADAM);
+        List<Doctor> listWithDuplicateDoctors = Arrays.asList(ADAM, ADAM);
         thrown.expect(DuplicateDoctorException.class);
-        uniqueDoctorList.setDoctors(listWithDuplicatePersons);
+        uniqueDoctorList.setDoctors(listWithDuplicateDoctors);
     }
 
     @Test
