@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -48,6 +49,11 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().withRemark("").build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addPrecription() throws Exception {
+        assertTrue(parser.parseCommand(AddPrescriptionCommand.COMMAND_WORD) instanceof AddPrescriptionCommand);
     }
 
     @Test
