@@ -219,6 +219,7 @@ public class ParserUtil {
     }
     /* @@author */
 
+    // @@author Derek-Hardy
     /**
      * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
@@ -289,6 +290,8 @@ public class ParserUtil {
 
         return parseList;
     }
+
+    // @@author
 
     /**
      * Parses a {@code String personProperty} into a {@code PersonPropertyComparator}.
