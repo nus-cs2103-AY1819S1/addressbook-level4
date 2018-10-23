@@ -7,14 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import seedu.address.calendar.CalendarManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 /**
  * Adds a doctor to the health book.
