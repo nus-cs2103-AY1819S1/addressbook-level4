@@ -14,7 +14,10 @@ public class Time {
             "The hours should be 2 digits max and range from 0 to 23. It should not be blank.";
     public static final String MESSAGE_MINUTE_CONSTRAINTS =
             "The minutes should be 2 digits max and range from 0 to 59. It should not be blank.";
-    public static final String TIME_VALIDATION_REGEX = "\\d{0,2}";
+    public static final String MESSAGE_TIME_CONSTRAINTS =
+            "The time should be in format hh mm and should not be blank.";
+    public static final String HOUR_MIN_VALIDATION_REGEX = "\\d{1,2}";
+    public static final String TIME_VALIDATION_REGEX = "(\\d{1,2})(\\s+)(\\d{1,2})";
 
     private final int hour;
     private final int minute;
@@ -30,6 +33,18 @@ public class Time {
         checkArgument(isValidMinute(hour), MESSAGE_MINUTE_CONSTRAINTS);
         this.hour = hour;
         this.minute = minute;
+    }
+
+    /**
+     * Constructs a {@code Time} from String.
+     * @param time A valid time.
+     * @return A constructed time.
+     */
+    public static Time newTime(String time) {
+        requireNonNull(time);
+        checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
+        String[] splitTime = time.split("\\s+");
+        return new Time(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
     }
 
     public int getHour() {
@@ -50,7 +65,7 @@ public class Time {
         if (hour > 23 || hour < 0) {
             return false;
         }
-        return string.matches(TIME_VALIDATION_REGEX);
+        return string.matches(HOUR_MIN_VALIDATION_REGEX);
     }
 
     /**
@@ -63,7 +78,16 @@ public class Time {
         if (minute < 0 || minute > 59) {
             return false;
         }
-        return string.matches(TIME_VALIDATION_REGEX);
+        return string.matches(HOUR_MIN_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if time matches regex.
+     * @param time The time to validate.
+     * @return The validity of {@code time}.
+     */
+    public static boolean isValidTime(String time) {
+        return time.matches(TIME_VALIDATION_REGEX);
     }
 
     /**

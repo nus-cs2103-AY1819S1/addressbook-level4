@@ -36,6 +36,9 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DATE = "23 12 20 2";
+    private static final String INVALID_DATE_2 = "22 222 2222";
+    private static final String INVALID_DATE_3 = "222 22 2222";
+    private static final String INVALID_DATE_4 = "$2 fj eiow";
 
     private static final String INVALID_ROLE = "abc";
     private static final String INVALID_PASSWORD = "";
@@ -337,5 +340,33 @@ public class ParserUtilTest {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
         Date expectedDate = Date.newDate("02 02 2222");
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_invalidFieldsWithoutWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid month
+        ParserUtil.parseDate(INVALID_DATE_2);
+
+        //invalid day
+        ParserUtil.parseDate(INVALID_DATE_3);
+
+        //invalid alphanumerics
+        ParserUtil.parseDate(INVALID_DATE_4);
+    }
+
+    @Test
+    public void parseDate_invalidFieldsWithWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid month
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_2 + WHITESPACE);
+
+        //invalid day
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_3 + WHITESPACE);
+
+        //invalid alphanumerics
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_4 + WHITESPACE);
     }
 }
