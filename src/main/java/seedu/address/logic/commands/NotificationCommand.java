@@ -31,9 +31,9 @@ public class NotificationCommand extends Command {
         ModelManager.updateNotificationPref(set);
 
         if (set)
-            MESSAGE_SUCCESS = "Notification: Enabled";
+            MESSAGE_SUCCESS = "Notification: enabled";
         else
-            MESSAGE_SUCCESS = "Notification: Disabled";
+            MESSAGE_SUCCESS = "Notification: disabled";
 
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

@@ -91,11 +91,11 @@ public class MainWindow extends UiPart<Stage> {
         ModelManager.updateFavourite(prefs.getGuiSettings().getFavourite());
 
         if (ModelManager.getNotificationPref()) {
-            if (ModelManager.getFavourite() != null)
+            if (ModelManager.getFavourite() != null) {
                 NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavourite());
-
-            else
+            } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+            }
         }
     }
 
@@ -182,7 +182,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), ModelManager.getNotificationPref(), ModelManager.getFavourite());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                ModelManager.getNotificationPref(), ModelManager.getFavourite());
     }
 
     /**

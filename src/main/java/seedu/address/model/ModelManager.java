@@ -28,12 +28,12 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static boolean notificationPref;
+    private static String favourite;
+
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
-
-    private static boolean notificationPref;
-    private static String favourite;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

@@ -26,7 +26,8 @@ public class GuiSettings implements Serializable {
         favourite = null;
     }
 
-    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition, boolean notificationIsEnabled, String favourite) {
+    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition,
+                       boolean notificationIsEnabled, String favourite) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
