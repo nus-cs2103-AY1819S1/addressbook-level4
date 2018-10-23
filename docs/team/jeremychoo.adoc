@@ -33,6 +33,7 @@ The following section shows my major code contributions to OASIS.
 * *Other contributions*:
 
 ** Project management:
+*** Set up the project on GitHub, including the creation of the organization, labels, auto-publishing of docs, and the https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/86[team PR]
 *** Managed releases `v1.0` - `v1.4` (5 releases) on GitHub
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -40,15 +41,15 @@ The following section shows my major code contributions to OASIS.
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1], https://github.com[2], https://github.com[3])
 ** Tools:
-*** Integrated Travis CI, AppVeyor and Coveralls  to the team repo
+*** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
 |===
 
 //include::../UserGuide.adoc[tag=loginlogout]
@@ -58,7 +59,7 @@ The following section shows my major code contributions to OASIS.
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The next section serves to showcase my additions to the Developer Guide. They act as an exhibit to show my capability in writing good technical documentation, along with the technical depth of my contributions._
 |===
 
 include::../DeveloperGuide.adoc[tag=login]
