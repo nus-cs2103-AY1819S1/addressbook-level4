@@ -472,7 +472,8 @@ The new implementation of this feature should allow users to add meal plans from
 calculate the nutritional intake against the required calculate intake for the day and then also calculate the
 percentage of the set target by calculated by the system
 met by the user's own personal intake.
-This will then
+This will then also help to compare the intake taken by the user via the meal plans versus the required target calculated
+by the system using the age, height and current weight of the user.
 
 ==== Ongoing implementation (Expiry of health plans)
 
