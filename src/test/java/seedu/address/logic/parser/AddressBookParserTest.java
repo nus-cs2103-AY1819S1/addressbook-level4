@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_DESC_WEEKLY;
@@ -19,9 +20,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilepathCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MeetCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
@@ -117,6 +129,12 @@ public class AddressBookParserTest {
         }
     }
 
+    @Test
+    public void parseCommand_import() throws Exception {
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD + " "
+                + CliSyntax.PREFIX_PATH + "test.xml") instanceof ImportCommand);
+
+    }
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
