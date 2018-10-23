@@ -26,6 +26,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.PhotosLibrarySettings;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.LoginStatusEvent;
+
 //@@author chivent
 //TODO: credit --> https://github.com/google/java-photoslibrary/tree/master/sample
 //TODO: Remove comments in later future
@@ -119,6 +122,8 @@ public class PhotosLibraryClientFactory {
 
         List<Person.Emails> emails = plus.people().get("me").execute().getEmails();
 
+
+        EventsCenter.getInstance().post(new LoginStatusEvent(emails.get(0).getValue()));
         return emails.get(0).getValue();
     }
 }

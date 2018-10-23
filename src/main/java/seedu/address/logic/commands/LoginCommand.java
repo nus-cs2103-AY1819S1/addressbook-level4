@@ -7,6 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 
+//@@author chivent
 /**
  * Logs in user
  */
