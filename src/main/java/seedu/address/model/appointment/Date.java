@@ -18,7 +18,7 @@ public class Date {
     public static final String MESSAGE_YEAR_CONSTRAINTS =
             "The month should be numeric and it should not be blank.";
     public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
-    public static final String DAY_MONTH_VALIDATION_REGEX = "\\d{0,2}";
+    public static final String DAY_MONTH_VALIDATION_REGEX = "\\d{1,2}";
 
     private final int day;
     private final int month;
@@ -46,10 +46,10 @@ public class Date {
      * @param month A valid month.
      * @param year A valid year.
      */
-    public Date newDate(String day, String month, String year) {
+    public static Date newDate(String day, String month, String year) {
         requireAllNonNull(day, month, year);
-        checkArgument(isValidDayFormat(day));
-        checkArgument(isValidMonthFormat(month));
+        checkArgument(isValidDayMonthFormat(day));
+        checkArgument(isValidDayMonthFormat(month));
         checkArgument(isValidYearFormat(year));
         return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
     }
@@ -94,7 +94,7 @@ public class Date {
      * @param day The string to validate.
      * @return Validity of day format.
      */
-    public static boolean isValidDayFormat(String day) {
+    public static boolean isValidDayMonthFormat(String day) {
         return day.matches(DAY_MONTH_VALIDATION_REGEX);
     }
 
@@ -122,15 +122,6 @@ public class Date {
      */
     public static boolean isValidMonth(int month) {
         return month >= 1 && month <= 12;
-    }
-
-    /**
-     * Returns true if month format is correct.
-     * @param month The string to validate.
-     * @return Validity of month format.
-     */
-    public static boolean isValidMonthFormat(String month) {
-        return month.matches(DAY_MONTH_VALIDATION_REGEX);
     }
 
     /**
