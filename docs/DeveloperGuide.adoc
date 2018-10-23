@@ -419,7 +419,7 @@ The following are logging levels used:
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::viewarangeoftasks[]
-=== View according to Day/Week
+=== View Day/Week
 
 In order to enable users to better manage their tasks in *Student Schedule Planner*, we added two more variations of
  the `list` command. The `listday` command supports viewing tasks due the current date whereas `listweek` command
@@ -450,7 +450,7 @@ specified by the user.
 
 ==== Implementation
 
-The filter mechanism utilises the "FilterCommandParser" to parse the user command into separate tags e.g `filter tag1
+The filter mechanism utilises "FilterCommandParser" to parse the user command into separate tags e.g `filter tag1
  tag2` will search for tasks with either tags `tag1`, `tag2`, or both.
 
 Given below is an example usage scenario and how the filter mechanism behaves at each step.
