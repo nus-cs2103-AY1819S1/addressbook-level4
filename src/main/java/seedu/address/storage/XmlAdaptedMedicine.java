@@ -22,13 +22,13 @@ public class XmlAdaptedMedicine {
     @XmlElement(required = true)
     private String medicineName;
     @XmlElement(required = true)
-    private String minimumStockQuantity;
+    private Integer minimumStockQuantity;
     @XmlElement(required = true)
     private String pricePerUnit;
     @XmlElement(required = true)
     private String serialNumber;
     @XmlElement(required = true)
-    private String stock;
+    private Integer stock;
 
     /**
      * Constructs an XmlAdaptedMedicine.
@@ -39,8 +39,8 @@ public class XmlAdaptedMedicine {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given patient details.
      */
-    public XmlAdaptedMedicine(String medicineName, String minimumStockQuantity, String pricePerUnit,
-                              String serialNumber, String stock) {
+    public XmlAdaptedMedicine(String medicineName, Integer minimumStockQuantity, String pricePerUnit,
+                              String serialNumber, Integer stock) {
         this.medicineName = medicineName;
         this.minimumStockQuantity = minimumStockQuantity;
         this.pricePerUnit = pricePerUnit;
@@ -55,10 +55,10 @@ public class XmlAdaptedMedicine {
      */
     public XmlAdaptedMedicine(Medicine source) {
         medicineName = source.getMedicineName().fullName;
-        minimumStockQuantity = source.getMinimumStockQuantity().value;
+        minimumStockQuantity = source.getMinimumStockQuantity().getValue();
         pricePerUnit = source.getPricePerUnit().value;
         serialNumber = source.getSerialNumber().value;
-        stock = source.getStock().value;
+        stock = source.getStock().getValue();
     }
 
     /**

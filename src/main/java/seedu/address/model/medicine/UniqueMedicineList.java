@@ -1,3 +1,4 @@
+/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static java.util.Objects.requireNonNull;
@@ -5,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +35,14 @@ public class UniqueMedicineList implements Iterable<Medicine> {
     public boolean contains(Medicine toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameMedicine);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent medicine as the given medicine name.
+     */
+    public boolean contains(MedicineName toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(medicine -> medicine.hasSameMedicineName(toCheck));
     }
 
     /**
@@ -92,8 +102,21 @@ public class UniqueMedicineList implements Iterable<Medicine> {
         if (!medicinesAreUnique(medicines)) {
             throw new DuplicateMedicineException();
         }
-
         internalList.setAll(medicines);
+    }
+
+    /**
+     * Updates the stock level after dispensing the medicine to the patient
+     * @param medicineName The name used to search for the medicine.
+     * @param quantityToDispense The amount to dispense to patient, also to deduct from stock.
+     */
+    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
+        requireAllNonNull(medicineName, quantityToDispense);
+        Optional<Medicine> toDispense = internalList
+                .stream()
+                .filter(medicine -> medicine.hasSameMedicineName(medicineName))
+                .findFirst();
+        toDispense.ifPresent(medicine -> medicine.dispense(quantityToDispense));
     }
 
     /**
