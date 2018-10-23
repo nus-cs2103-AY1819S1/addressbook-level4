@@ -184,9 +184,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        AddressBook sb =new AddressBook(expectedModel.getAddressBook());
-        AddressBook sb2 =testApp.readStorageAddressBook();
-        assertEquals(sb, sb2);
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
