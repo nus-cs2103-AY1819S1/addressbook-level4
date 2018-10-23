@@ -19,26 +19,31 @@ By: `Team W14-3`      Since: `September 2018`      Licence: `MIT`
 == Introduction
 
 
-Hospital Management System 2K18 is for hospital administrators, doctors, nurses, and pharmacists who prefer to use a desktop app to manage patients and their associated data. +
-More importantly, Hospital Management System 2K18 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). +
-If you can type fast, Hospital Management System 2K18 can get your hospital management tasks doen faster than traditional GUI apps. +
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Hospital Management System 2K18 is for hospital administrators, doctors, nurses, and pharmacists who prefer to use a desktop app to manage patients and their associated data.
+More importantly, Hospital Management System 2K18 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, Hospital Management System 2K18 can get your hospital management tasks doen faster than traditional GUI apps.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `hm2k18.jar` link:{repoURL}/releases[here].
+.  Ensure that your computer has Java version `9` or later installed.
+.  Download the latest release of our application, `hms2k18.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Hospital Management System 2K18.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
+.The GUI of Hospital Management System 2K18
 image::Ui.png[width="790"]
++
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-* *`exit`* : exits the app
+(The command box is shown in Fig. 1 above; it is the gray box with the words "Enter your commands here..." inside.)
 
-.  Refer to <<Features>> for details of each command.
+Some example commands you can try:
+
+* *`exit`* : exits the app
+* *`select 1`* : selects the first patient (Alex Yeoh in the image above) in the list of patients.
+
+Refer to <<Features>> for the details of each command.
 
 [[Features]]
 == Features
@@ -52,86 +57,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Checking in a patient: `checkin`
-Adds a person to the patient queue.
+TIP: Features are sorted by their command word in lexicographical order.
 
 
-Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+=== Add appointment for patient: `addappt`
+Add a scheduled appointment for a patient.
 
-* If the patient is already checked in, the command will not be allowed.
+Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
 
-Examples:
+Example(s):
 
-* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
 
-=== Checking out a patient: `checkout`
-Remove a patient from the patient queue after this patient checks out of the hospital.
-
-
-
-Format: `checkout NRIC`
-
-****
-* If the NRIC does not match to an existing patient in the system, an error will be displayed.
-****
-
-Examples:
-
-* `checkout S1234567A`
-
-=== View patient queue: `viewqueue`
-View the current patient queue.
-
-Format: `viewqueue`
-
-Examples:
-
-* `viewqueue`
-
-=== View patient’s medical history: `viewmh`
-View an existing patient’s recorded medical history.
-Patient must be registered within the system.
-
-Format: `viewmh ic/NRIC`​
-****
-* If the NRIC does not match to an existing patient in the system, an error will be displayed.
-****
-
-Examples:
-
-* `viewmh ic/S1234567A`
-
-=== Add to patient’s medical history: `addmh`
-Add a diagnosis entry to an existing patient’s medical history.
-Patient must be registered within the system.
-
-Format: `addmh ic/NRIC mh/DIAGNOSIS​`
-****
-* This will prompt the user for more input, to which the user will write an entry.
-* If the NRIC does not match to an existing patient in the system, an error will be displayed.
-****
-
-Examples:
-
-* `addmh ic/S1234567A mh/ Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
-rest and rehydrate.`
-
-=== View patient’s dietary needs: `viewdiet`
-View a patient’s dietary needs.
-
-
-Format: `viewdiet NRIC`
-
-​Examples:
-
-* `viewdiet ic/S1234567A`
+The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
+*Other inputs will not be allowed.*
 
 === Add patient’s dietary needs: `adddiet`
-View a patient’s dietary needs.
+Add a patient’s dietary needs into the system.
 
 
 Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PHYSICAL_DIFFICULTY`
@@ -139,98 +81,204 @@ Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PH
 * User can pass in any number of allergies, cultural requirements and physical difficulties in one command.
 ****
 
-Examples:
+Example(s):
 
 * `adddiet ic/S1234567A alg/Egg alg/Crab cr/Halal pd/Hands cannot move.`
-
-=== View patient’s medication: UI functionality
-View a patient’s medication history.
-
-
-Simply click on the person's card and the panel on the right will display his prescribed medication. +
-You can click on a column heading to sort the medication view by that column's key. +
-You can also click and hold a column heading to shift it by dragging it to the desired location in the medication view. +
-You can also hold `Shift` while clicking multiple columns to sort by multiple columns in the order of clicking +
-
-Example:
-Holding `Shift` and clicking both the `Drug Name` and `Dosage` headings will sort first by `Drug Name` in lexicographical order, followed by `Dosage` in ascending order. +
-i.e. Listings with the same `Drug Name` will be further sorted by `Dosage`.
-
-image::ViewmedsTable.png[width="790"]
 
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
 
 Format: `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
 
-Examples:
+Example(s):
 
 * `addmeds ic/S1234567A d/Paracetamol q/2 u/tablets n/4 t/14`
 
-=== Add appointment for patient: `addappt`
-Adds a scheduled appointment for a patient.
+=== Add to patient’s medical history: `addmh`
+Add an entry to an existing patient’s medical history.
+The patient must be registered within the system.
 
-Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
+Format: `addmh ic/NRIC mh/DIAGNOSIS​`
+****
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
+****
 
-Examples:
+Example(s):
 
-* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+* `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
+rest and rehydrate.`
 
-The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
-*Other inputs will not be allowed.*
+=== Check-in a patient: `checkin`
+Add a person to the patient queue.
 
-=== Views all appointments for a patient: `viewappt`
-Views all scheduled appointments for a patient.
 
+Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+
+* If the patient is already checked in, the command will not be allowed.
+
+Example(s):
+
+* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+
+=== Check-out a patient: `checkout`
+Remove a patient from the patient queue.
+
+
+Format: `checkout ic/NRIC`
+
+****
+* If the NRIC does not match that of an existing patient in the system, an error will be displayed.
+****
+
+Example(s):
+
+* `checkout ic/S1234567A`
+
+=== View help : `help`
+Open this page.
+
+Format: `help`
+
+=== Sort user view : `sort`
+Sort the current view, if it is sortable.
+
+Format: `sort SORT_TYPE SORT_ORDER`
+
+`SORT_TYPE` refers to the order in which the sorting should be done (ascending, descending).
+It can be either 'a' for ascending, or 'd' for descending.
+
+`SORT_ORDER` refers to the order in which the sorting should be done.
+How this affects the sorting exactly depends on each view, and will be explained in greater detail below.
+
+|=======================================================================
+| View Name | Sortable? | What `SORT_ORDER` refers to
+| Default | No | -
+| Medication | Yes | The columns of the table in the medication view, one-indexed.
+|=======================================================================
+
+Example(s):
+
+* `sort a 123` where the current view is Medication
+** Sorts the table in the medication view by the first column (Drug Name). Any entries with the same drug name will be further sorted by the second column (Dosage), with any entries with the same drug name and dosage being further sorted by the third column (Dosage Unit).
+* `sort a 1` where the current view is the default view (blank view).
+** Does nothing (the current view is not sortable).
+
+[#view-command]
+=== View patient’s information: `view`
+View a patient’s information. Exactly what information is displayed depends on the choice of view.
+
+Format: `view VIEW_NAME`
+
+This command switches the user's view (indicated in Fig. 2 below) to a chosen view. +
+
+.Indication of the location of the user view
+image::highlightUserViewLocation.png[width=800]
+
+Current choices for views include:
+
+* default (This is the default blank view, which is displayed when the application is started.)
+* meds (Medication view, contains information about the patient's medications.)
+
+Listed below are images of each view.
+
+.Default view
+image::blankPanel.png[width=800]
+
+.Medication view
+image::medsView.png[width=800]
+
+Example(s):
+
+* `view default`
+* `view meds`
+
+=== View all appointments for a patient: `viewappt`
+View all scheduled appointments for a patient.
 
 Format: `viewappt ic/NRIC`
 
-Examples:
+Example(s):
 
 * `viewappt ic/S1234567A`
+
+=== View patient’s dietary needs: `viewdiet`
+View a patient’s dietary needs.
+
+Format: `viewdiet ic/NRIC`
+****
+* If the NRIC does not match to an existing patient in the system, an error will be displayed.
+****
+
+​Example(s):
+
+* `viewdiet ic/S1234567A`
+
+=== View patient medication: `view meds`
+See <<#view-command, entry>> on the `view` command.
+
+=== View patient’s medical history: `viewmh`
+View an existing patient’s recorded medical history.
+The patient must be registered within the system.
+
+Format: `viewmh ic/NRIC`​
+****
+* If the NRIC does not match that of an existing patient in the system, an error will be displayed.
+****
+
+Example(s):
+
+* `viewmh ic/S1234567A`
+
+=== View patient queue: `viewqueue`
+View the current patient queue.
+
+Format: `viewqueue`
+
+Example(s):
+
+* `viewqueue`
+
+=== View patient’s visitors: `viewvisitors`
+View a patient’s visitors.
+
+Format: `viewvisitors ic/PATIENT_NRIC`
+
+Example(s):
+
+* `viewvisitors ic/S1234567A`
+
+=== Sign in patient’s visitors: `visitorin`
+Sign in a visitor for a patient.
+
+Format: `visitorin ic/PATIENT_NRIC v/VISITOR_NAME`
+
+Example(s):
+
+* `visitorin ic/S1234567A v/Sara Ann Nicholas`
+
+=== Sign out patient’s visitors: `visitorout`
+Sign out a visitor for a patient.
+
+Format: `visitorout ic/PATIENT_NRIC v/VISITOR_NAME`
+
+Example(s):
+
+* `visitorout ic/S1234567A v/Sara Ann Nicholas`
 
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
 
-
 Format: `xappt INDEX`
 
-Examples:
+Example(s):
 
 * `viewappt S1234567A` +
 `xappt 2` +
-Deletes the second appointment belonging to patient with NRIC S1234567A
-
-=== Sign in patient’s visitors: `visitorin`
-Signs in a visitor for a patient.
-
-Format: `visitorin p/PATIENT_NAME v/VISITOR_NAME`
-
-Examples:
-
-* `visitorin p/Ling Zhiyu v/Sara Ann Nicholas`
-
-=== Sign out patient’s visitors: `visitorout`
-Signs out a visitor for a patient.
-
-Format: `visitorout p/PATIENT_NAME v/VISITOR_NAME`
-
-Examples:
-
-* `visitorout p/Ling Zhi Yu v/Sara Ann Nicholas`
-
-=== View patient’s visitors: `viewvisitors`
-Views a patient’s visitors.
-
-Format: `viewvisitors p/PATIENT_NAME`
-
-Examples:
-
-* `visitorout p/Ling Zhi Yu`
+Deletes the second appointment belonging to patient with NRIC S1234567A.
 
 === Saving the data
 
-Patient data are saved in the hard disk automatically after any command that changes the data. +
+Patient data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -241,37 +289,102 @@ _{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous app folder.
 
 == Command Summary
 
-* *Help* `help.`
-* *Check-in* : `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES` +
-e.g. `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
-* *Check-out* : `checkout NRIC` +
-e.g. `checkout S1234567A`
-* *View patient queue* : `viewqueue` +
-e.g. `viewqueue`
-* *View medical history* : `viewmh NRIC` +
-e.g. `viewmh S1234567A`
-* *Add medical history* : `addmh ic/NRIC mh/[MEDICAL_ENTRY]` +
-e.g. `addmh ic/S1234567A mh/Saw patient at 2pm today...`
-* *Add appointment for patient* : `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DATE_TIME doc/DOCTOR_IN_CHARGE` +
-e.g. `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
-* *View appointments of patient* : `viewappt ic/NRIC` +
-e.g. `viewappt S1234567A`
-* *Cancel appointment for patient* : `viewappt NRIC` `xappt INDEX` +
-e.g. `viewappt S1234567A` `xappt 2`
-* *View patient's dietary needs* : `viewdiet NRIC` +
-e.g. `viewdiet S1234567A`
-* *Add patient's dietary needs* : `adddiet NRIC` +
-e.g. `adddiet S1234567A`; `d/halal`
-* *Add patient's medication* : `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE n/ DOSES_PER_DAY t/DURATION_IN_DAYS` +
-e.g. `addmeds S1234567A d/Paracetamol q/2 u/tablets n/4 t/14`
-* *Sign in patient's visitors* : `visitorin p/PATIENT_NAME v/VISITOR_NAME` +
-e.g. `visitorin p/Ling Zhiyu v/Sara Ann Nicholas`
-* *Sign out patient's visitors* : `visitorout p/PATIENT_NAME v/VISITOR_NAME
-e.g. `visitorout p/Ling Zhiyu v/Sara Ann Nicholas`
-* *View patient's visitors* : `viewvisitors p/PATIENT_NAME`
-e.g. `viewvisitors p/Ling Zhiyu`
+====
+Each command below will be summarised in the following format:
+
+*Command name*
+
+* Command format
+* Example(s) of use
+====
+
+*addappt*
+
+* `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
+* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+
+*adddiet*
+
+* `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PHYSICAL_DIFFICULTY`
+* `adddiet ic/S1234567A alg/Egg alg/Crab cr/Halal pd/Hands cannot move.`
+
+*addmeds*
+
+* `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
+* `addmeds ic/S1234567A d/Paracetamol q/2 u/tablets n/4 t/14`
+
+*addmh*
+
+* `addmh ic/NRIC mh/DIAGNOSIS​`
+* `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to rest and rehydrate.`
+
+*checkin*
+
+* `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+
+*checkout*
+
+* `checkout ic/NRIC`
+* `checkout ic/S1234567A`
+
+*help*
+
+* `help`
+* `help`
+
+*sort*
+
+* `sort SORT_TYPE SORT_ORDER`
+* `sort a 123`
+
+*view*
+
+* `view VIEW_NAME`
+* `view default`
+
+*viewappt*
+
+* `viewappt ic/NRIC`
+* `viewappt ic/S1234567A`
+
+*viewdiet*
+
+* `viewdiet ic/NRIC`
+* `viewdiet ic/S1234567A`
+
+*viewmh*
+
+* `viewmh ic/NRIC`
+* `viewmh ic/S1234567A`
+
+*viewqueue*
+
+* `viewqueue`
+* `viewqueue`
+
+*viewvisitors*
+
+* `viewvisitors ic/PATIENT_NRIC`
+* `viewvisitors ic/S1234567A`
+
+*visitorin*
+
+* `visitorin ic/PATIENT_NRIC v/VISITOR_NAME`
+* `visitorin ic/S1234567A v/Sara Ann Nicholas`
+
+*visitorout*
+
+* `visitorout ic/PATIENT_NRIC v/VISITOR_NAME`
+* `visitorout ic/S1234567A v/Sara Ann Nicholas`
+
+*xappt*
+
+* `xappt INDEX`
+* `viewappt S1234567A` +
+`xappt 2`

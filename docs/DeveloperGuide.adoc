@@ -101,7 +101,6 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
@@ -119,7 +118,7 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At shut down: Shuts down the components and invokes cleanup method(s) where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
@@ -135,16 +134,16 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its _API_ in an `interface` with the same name as the component.
+* Exposes its functionality using a `{component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class Diagram of the Logic component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-==== Events-Driven nature of the design
+==== Events-driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
@@ -167,26 +166,26 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `patientListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `patientListPanel`, `StatusBarFooter`, `MedicationView`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following:
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Executes user commands using the `Logic` component
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes
+* Responds to events raised from various parts of the App and updates the UI accordingly
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
@@ -195,17 +194,17 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a patient) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletepatientsdForLogic.png[width="800"]
+.Interactions Inside the Logic component for the `delete 1` Command
+image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model component
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -220,12 +219,12 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `patient` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `patient` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+ image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+.Structure of the Storage component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
@@ -248,8 +247,8 @@ This section describes some noteworthy details on how certain features are imple
 === Addmeds
 ==== Current implementation
 
-The `addmeds` command provides functionality for users to add prescription-related information for a given patient. +
-This is done by adding prescription-related information to a given person, represented by a `Person` object. +
+The `addmeds` command provides functionality for users to add prescription-related information for a given patient.
+This is done by adding prescription-related information to a given person, represented by a `Person` object.
 This allows for a patient to build up a history of prescriptions for viewing at a later date.
 
 The adding of prescription-related information is facilitated by the following classes:
@@ -307,25 +306,26 @@ Control then passes back to the `LogicManager`, which calls `AddmedsCommand::exe
 NOTE: If no/multiple patient(s) with that NRIC exist, then the `AddmedsCommand::execute` method will throw a `CommandException` with the appropriate error message and the usage case will end.
 ****
 
-The `AddmedsCommand::execute` method constructs a new `Person` object using all the details of the old Person, with the sole difference being the `PrescriptionList` used being a deep copy of the original `Person` 's `PrescriptionList` with the new `Prescription` added. +
-This updated `Person` object is used to update the existing `Person` object using the `Model::updatePerson` method (or an overridden version) of the backing model. +
+The `AddmedsCommand::execute` method constructs a new `Person` object using all the details of the old Person, with the sole difference being the `PrescriptionList` used being a deep copy of the original `Person` 's `PrescriptionList` with the new `Prescription` added.
+This updated `Person` object is used to update the existing `Person` object using the `Model::updatePerson` method (or an overridden version) of the backing model.
 Finally, the `AddmedsCommand::execute` method terminates, returning a `CommandResult` with a success message.
-The `LogicManager` then returns the same `CommandResult` as the return value of the `LogicManager::execute` method. +
+The `LogicManager` then returns the same `CommandResult` as the return value of the `LogicManager::execute` method.
 The command execution then ends.
 
 [#img-addmedssequencediagram]
 The following sequence diagram shows the execution of the `addmeds` command:
 
+.Execution sequence of the `addmeds` command
 image::AddmedsSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+==== Design considerations
 
 ===== Aspect: Data structure to support the medication data storage
 * **Alternative 1 (Current implementation):** Store the data inside multiple POJO classes, with new classes being introduced as necessary to maintain high cohesion of individual classes. For example, the `Duration` class holds temporal information, whereas the `Dose` class holds medication dosage-related information.
 ** Pros: Maintains the Single Responsibility Principle (e.g. the `Prescription` class now changes only if there are changes to the structure of a physical prescription, and not due to (e.g.) changes in time representation, or the way that dosage-related information is stored.
-** Cons: More classes to maintain.
+** Cons: Increases the number of classes we will have to maintain.
 * **Alternative 2:** Store all the data directly as members inside a single `Prescription` class.
-** Pros: Easier to handle.
+** Pros: Reduces the number of classes we will have to maintain.
 ** Cons: Reduces the cohesion of the `Prescription` class as it now handles multiple different items e.g. dosage-related information and duration-related information.
 
 // tag::addappt[]
@@ -390,20 +390,21 @@ The command execution then ends.
 [#img-addapptsequencediagram]
 The following sequence diagram shows the execution of the `addappt` command:
 
+.Execution sequence of the `addappt` command
 image::AddApptSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+==== Design considerations
 
 ===== Aspect: Representation of types of medical procedures
 * **Alternative 1 (Current implementation):** Use an `Enum` for `Type`
-** Pros: Allows for easier handling of incorrect values
-** Cons: More effort needed to filter and retrieve the different types
+** Pros: Makes for easier handling of incorrect values.
+** Cons: Requires more effort to filter and retrieve the different types.
 * **Alternative 2:** Have a switch case to handle the different types
-** Pros: Easier to handle.
-** Cons: Less clean
+** Pros: Makes the process easier to handle.
+** Cons: Makes the code more difficult to read.
 
-=== Addmh/Viewmh
-==== Current Implementation
+=== Addmh/viewmh
+==== Current implementation
 
 The functionalities of the `addmh` and `viewmh` command are interlinked: the former allows the user to record a diagnosis
 into a patient’s medical history, while the latter permits the viewing of a patient’s past diagnoses as recorded in
@@ -427,10 +428,11 @@ The purpose of the keyed `addmh` command line is to register and record a diagno
 the `NRIC` S9123124A. Subsequently, the `viewmh` command line accesses the `MedicalHistory` stored within the `Person`
 with `NRIC` S9123124A and displays in the command prompt box.
 
-==== Command Execution
+==== Command execution
 
 The sequence diagram below shows the execution of the given scenario:
 
+.Execution sequence of the `addmh` and `viewmh` commands
 image::AddmhViewmhSequenceDiagram.png[width="800"]
 
 * `addmh ic/S9123124A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol`
@@ -463,13 +465,13 @@ with an appropriate error message before the use case ends.
 // tag::adddiet[]
 === Adddiet
 
-==== Current Implementation
+==== Current implementation
 
 The `adddiet` command provides functionality for users to add dietary requirements for a given patient. +
 This command allows users to add three different types of dietary requirements: allergy, cultural requirement and physical difficulty. +
 This command adds these dietary requirements to a given `Person` , so that the dietary requirements can be viewed later on.
 
-===== Classes Involved
+===== Classes involved
 
 The adding of the dietary requirements involve the following classes:
 
@@ -481,7 +483,7 @@ A more detailed description of the classes involved is as follows:
 
 * `Diet Collection`
 ** Every `Person` object has a `Diet Collection`, which is a collection of all the dietary requirements of the given patient.
-** This class is a wrapper class around the internal representation of a `Set` of `Diet`.
+** This class is a wrapper class around the internal representation of a `Set` of `Diet` s.
 
 * `Diet`
 ** This class encapsulate the information of a single dietary requirement.
@@ -493,7 +495,7 @@ A more detailed description of the classes involved is as follows:
 ** This is a `Enum` class representing the three different types of dietary requirements.
 ** Implemented as `Enum` class to avoid typo and invalid types being entered.
 
-===== Execution of the Command
+===== Execution of the command
 
 Given below is an usage scenario and the details when executing `adddiet` command. +
 For example, when the user executes `adddiet ic/S1234567A alg/Egg alg/Crab cr/Halal pd/Hands cannot move.`:
@@ -509,29 +511,30 @@ For example, when the user executes `adddiet ic/S1234567A alg/Egg alg/Crab cr/Ha
 [#img-adddietsequencediagram]
 Here is the sequence diagram of the typical execution of an `adddiet` command:
 
+.Execution sequence of the `adddiet` command
 image::AdddietSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+==== Design considerations
 
 ===== Aspect: How to represent different kinds of dietary requirements
 
-* **Alternative 1 (current choice):** Use a `Enum` inside the `Diet class` and contain all `Diet` in one collection.
-** Pros: Less repetitive code and cleaner design.
-** Cons: More efforts are needed to filter or retrieve different types of `Diet` from one `DietCollection`.
+* **Alternative 1 (current implementation):** Use a `Enum` inside the `Diet class` and contain all `Diet` in one collection.
+** Pros: Results in less repetitive code and cleaner design.
+** Cons: Requires more effort to filter or retrieve different types of `Diet` from one `DietCollection`.
 
 * **Alternative 2:** Use polymorphism to extends `Diet` class and add three different collections to a `Person`.
-** Pros: Easier to retrieve different types of dietary requirements.
-** Cons: A lot of repetitive codes since the three different types do not differ much.
+** Pros: Makes it easier to retrieve different types of dietary requirements.
+** Cons: Results in a lot of repetitive code since the three different types do not differ much.
 
 ===== Aspect: Data structure to hold the different `Diet` objects
 
-* **Alternative 1 (current choice):** Use `HashSet` and override the `hashCode` for `Diet`.
-** Pros: Easier to handle duplication in adding dietary requirement.
-** Cons: The sequence of adding dietary requirements is lost. (However, the sequence is not important for the current set of features implemented.)
+* **Alternative 1 (current implementation):** Use `HashSet` and override the `hashCode` for `Diet`.
+** Pros: Makes it easier to handle duplication in adding dietary requirement.
+** Cons: Causes the order in which dietary requirements are added to be lost. (However, the sequence is not important for the current set of features implemented.)
 
 * **Alternative 2:** Use `ArrayList`.
-** Pros: The sequence of adding the dietary requirements is preserved.
-** Cons: Harder to handle duplicates.
+** Pros: Preserves the order in which dietary requirements are added.
+** Cons: Makes it harder to handle duplicates.
 
 // end::adddiet[]
 
@@ -544,13 +547,13 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using the `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently, log messages are output through: `Console` and to a `.log` file.
 
-*Logging Levels*
+*Logging levels*
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
@@ -560,25 +563,25 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g app name, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
-We use asciidoc for writing documentation.
+We use AsciiDoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -593,7 +596,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -623,7 +626,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -651,7 +654,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -669,12 +672,12 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the third one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -710,7 +713,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -718,22 +721,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -742,7 +745,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Hospital Management System 2K18 depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
@@ -791,7 +794,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Hospital Management System 2K18 (HMS)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete patients
+=== Use case: delete patients
 
 *MSS*
 
@@ -1019,7 +1022,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
