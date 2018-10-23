@@ -80,7 +80,24 @@ public class AddCommand extends Command {
      * Pushes the even to Google Calendar.
      */
     private void pushToGoogleCal() {
-      //blank
+     //blank
+    }
+
+    /**
+     * Converts a local Event's starting data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    private String convertStartDateTimeToGoogleFormat(Event event) {
+        //local format:2018-10-20 17:00:00
+        //target :2018-10-21T22:30:00+08:00
+        return event.getStartDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
     }
 
     @Override
