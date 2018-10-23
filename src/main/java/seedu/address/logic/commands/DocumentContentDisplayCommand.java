@@ -8,7 +8,7 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 
 /**
- * Edits the details of an existing patient in the address book.
+ * Display the details of an existing patient in the address book.
  */
 public class DocumentContentDisplayCommand extends QueueCommand {
 
