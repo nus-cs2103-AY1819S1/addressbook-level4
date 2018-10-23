@@ -31,9 +31,7 @@ public class AnakinDelCardCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        System.out.println(model.isInsideDeck());
-        System.out.println("Size of filteredcardlist: " + model.getFilteredCardList().size());
-        AnakinCard cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getOneBased());
+        AnakinCard cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         AnakinDelCardCommand deleteCommand = new AnakinDelCardCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(AnakinDelCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
@@ -68,19 +66,6 @@ public class AnakinDelCardCommandTest {
         showNoCard(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        //showCardAtIndex(model, INDEX_FIRST_CARD);
-
-        Index outOfBoundIndex = Index.fromOneBased(model.getAnakin().getCardList().size() + 1);
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAnakin().getCardList().size());
-
-        AnakinDelCardCommand deleteCommand = new AnakinDelCardCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
 
     @Test

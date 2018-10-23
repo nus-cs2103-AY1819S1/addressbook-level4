@@ -107,5 +107,8 @@ public class AnakinTest {
         public ObservableList<AnakinCard> getCardList() {
             return cards;
         }
+
+        @Override
+        public boolean isInsideDeck(){ return false;}
     }
 }

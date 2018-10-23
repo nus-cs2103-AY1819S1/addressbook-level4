@@ -73,10 +73,11 @@ public class Anakin implements AnakinReadOnlyAnakin {
     public void resetData(AnakinReadOnlyAnakin newData) {
         requireNonNull(newData);
 
-        this.isInsideDeck = newData.isInsideDeck();
+        setIsInsideDeck(newData.isInsideDeck());
 
         setDecks(newData.getDeckList());
         setCards(newData.getCardList());
+        setDisplayedCards(cards);
     }
 
     /**
@@ -89,6 +90,14 @@ public class Anakin implements AnakinReadOnlyAnakin {
         } else {
             decks.sort();
         }
+    }
+
+    public void setIsInsideDeck(boolean set){
+        isInsideDeck = set;
+    }
+
+    public void setDisplayedCards(AnakinUniqueCardList cards){
+        displayedCards = cards;
     }
 
     //// navigating operations
@@ -112,9 +121,11 @@ public class Anakin implements AnakinReadOnlyAnakin {
         displayedCards.clear();
     }
 
+
     /**
      * Return true if user is inside a deck
      */
+    @Override
     public boolean isInsideDeck() {
         return isInsideDeck;
     }

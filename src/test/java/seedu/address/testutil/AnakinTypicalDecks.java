@@ -47,7 +47,6 @@ public class AnakinTypicalDecks {
         }
 
         ak.getIntoDeck(DECK_WITH_CARDS);
-        System.out.println("Anakin Level: "  + ak.isInsideDeck());
         return ak;
     }
 

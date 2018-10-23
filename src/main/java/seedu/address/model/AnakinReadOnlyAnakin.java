@@ -24,5 +24,5 @@ public interface AnakinReadOnlyAnakin {
     /**
      * Returns the state
      */
-    Boolean isInsideDeck();
+    boolean isInsideDeck();
 }
