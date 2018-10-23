@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -102,6 +103,22 @@ public class AddCommandTest {
 
         @Override
         public void addDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointment(Patient patient, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+            
+            
+            
+        }
+        
+
+        @Override
+        public void deleteAppointment(Appointment appointment
+        
+        ) {
             throw new AssertionError("This method should not be called.");
         }
 
