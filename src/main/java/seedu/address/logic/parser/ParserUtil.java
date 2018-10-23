@@ -9,6 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.AcademicYear;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleTitle;
+import seedu.address.model.module.Semester;
+import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +126,95 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String moduleCode} into a {@code ModuleCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code modulecode} is invalid.
+     */
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidCode(trimmedModuleCode)) {
+            throw new ParseException(ModuleCode.MESSAGE_MODULECODE_CONSTRAINTS);
+        }
+        return new ModuleCode(trimmedModuleCode);
+    }
+
+    /**
+     * Parses a {@code String moduleTitle} into a {@code ModuleTitle}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code moduleTitle} is invalid.
+     */
+    public static ModuleTitle parseModuleTitle(String moduleTitle) throws ParseException {
+        requireNonNull(moduleTitle);
+        String trimmedModuleTitle = moduleTitle.trim();
+        if (!ModuleTitle.isValidTitle(trimmedModuleTitle)) {
+            throw new ParseException(ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
+        }
+        return new ModuleTitle(trimmedModuleTitle);
+    }
+
+    /**
+     * Parses a {@code String academicYear} into an {@code AcademicYear}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code academicYear} is invalid.
+     */
+    public static AcademicYear parseAcademicYear(String academicYear) throws ParseException {
+        requireNonNull(academicYear);
+        String trimmedAcademicYear = academicYear.trim();
+        if (!AcademicYear.isValidYear(trimmedAcademicYear)) {
+            throw new ParseException(AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
+        }
+        return new AcademicYear(trimmedAcademicYear);
+    }
+
+    /**
+     * Parses a {@code String semester} into a {@code Semester}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code semester} is invalid.
+     */
+    public static Semester parseSemester(String semester) throws ParseException {
+        requireNonNull(semester);
+        String trimmedSemester = semester.trim();
+        if (!Semester.isValidSemester(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        }
+        return new Semester(trimmedSemester);
+    }
+
+    /**
+     * Parses an {@code String occasionName} into an {@code OccasionName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code occasionName} is invalid.
+     */
+    public static OccasionName parseOccasionName(String occasionName) throws ParseException {
+        requireNonNull(occasionName);
+        String trimmedOccasionName = occasionName.trim();
+        if (!OccasionName.isValidName(trimmedOccasionName)) {
+            throw new ParseException(OccasionName.MESSAGE_OCCASIONNAME_CONSTRAINTS);
+        }
+        return new OccasionName(trimmedOccasionName);
+    }
+
+    /**
+     * Parses an {@code String occasionDate} into an {@code OccasionDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code occasionDate} is invalid.
+     */
+    public static OccasionDate parseOccasionDate(String occasionDate) throws ParseException {
+        requireNonNull(occasionDate);
+        String trimmedOccasionDate = occasionDate.trim();
+        if (!OccasionDate.isValidDate(trimmedOccasionDate)) {
+            throw new ParseException(OccasionDate.MESSAGE_OCCASIONDATE_CONSTRAINTS);
+        }
+        return new OccasionDate(trimmedOccasionDate);
     }
 }
