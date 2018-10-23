@@ -1,12 +1,11 @@
 package ssp.scheduleplanner.ui;
 
-import java.io.Console;
 import java.util.logging.Logger;
-
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.Node;
@@ -14,12 +13,8 @@ import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.ui.NewResultAvailableEvent;
 import ssp.scheduleplanner.logic.ListElementPointer;
 import ssp.scheduleplanner.logic.Logic;
-import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.CommandResult;
-import ssp.scheduleplanner.logic.commands.ListDayCommand;
-import ssp.scheduleplanner.logic.commands.ListWeekCommand;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
-import ssp.scheduleplanner.logic.parser.SchedulePlannerParser;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,14 +29,25 @@ public class SidebarPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private BorderPane mainBorderPane;
+    private ToggleButton today;
+
+    @FXML
+    private ToggleButton week;
+
+    private ToggleGroup group;
 
     public SidebarPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
         this.historySnapshot = logic.getHistorySnapshot();
+        this.group = new ToggleGroup();
+        today.setToggleGroup(group);
+        week.setToggleGroup(group);
     }
 
+    /**
+     * Handles the sidebar button pressed event.
+     */
     @FXML
     private void handleShowView(ActionEvent event) {
         String view = (String) ((Node)event.getSource()).getUserData();
