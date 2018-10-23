@@ -64,9 +64,8 @@ public class TimeAddCommand extends Command {
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-
-
-        targetPerson.addTime(toAdd);
+        model.addTime(targetPerson, toAdd);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

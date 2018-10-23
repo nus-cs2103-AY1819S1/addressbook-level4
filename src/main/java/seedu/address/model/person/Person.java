@@ -80,13 +80,6 @@ public class Person {
     }
 
     /**
-     * Adds a time slot to a Person's time array list
-     */
-    public void addTime(Time time) {
-        timeSlots.add(time);
-    }
-
-    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

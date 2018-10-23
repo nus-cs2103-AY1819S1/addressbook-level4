@@ -67,6 +67,21 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Adds tuition time {@code timeslot} into person's {@code target} time array list.
+     * {@code target} must exist in the list.
+     */
+    public void addTimeSlot(Person target, Time timeslot) {
+        requireAllNonNull(target);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        internalList.get(index).getTime().add(timeslot);
+    }
+
+    /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
