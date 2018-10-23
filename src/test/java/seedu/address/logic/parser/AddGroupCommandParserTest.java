@@ -1,7 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GROUP_TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_TITLE_DESC_GROUP_0;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_TITLE_DESC_GROUP_2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_TITLE_GROUP_0;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalGroups.GROUP_0;
@@ -35,7 +40,7 @@ public class AddGroupCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE);
         // missing name prefix
-        assertParseFailure(parser, VALID_GROUP_TITLE_GROUP_0 ,expectedMessage);
+        assertParseFailure(parser, VALID_GROUP_TITLE_GROUP_0, expectedMessage);
     }
 
     @Test
