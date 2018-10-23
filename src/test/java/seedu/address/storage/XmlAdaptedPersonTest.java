@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ProfilePic;
 import seedu.address.model.person.Salary;
 import seedu.address.testutil.Assert;
 
@@ -26,8 +28,8 @@ public class XmlAdaptedPersonTest {
     private static final String INVALID_SALARY = " ";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_PROJECT = "#friend";
     private static final String INVALID_PERMISSION = "INVALID_PERMISSION";
+    private static final String INVALID_PROFILE_PIC = " ";
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
@@ -39,6 +41,10 @@ public class XmlAdaptedPersonTest {
     private static final List<XmlAdaptedPermission> VALID_PERMISSION = BENSON.getPermissionSet()
             .getGrantedPermission().stream()
             .map(XmlAdaptedPermission::new)
+            .collect(Collectors.toList());
+    private static final List<XmlAdaptedLeaveApplication> VALID_LEAVE_APPLICATIONS = BENSON
+            .getLeaveApplications().stream()
+            .map(XmlAdaptedLeaveApplication::new)
             .collect(Collectors.toList());
 
     @Test
@@ -99,6 +105,23 @@ public class XmlAdaptedPersonTest {
     }
 
     @Test
+    public void toModelType_invalidAddress_throwsIllegalValueException() {
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS,
+                        VALID_SALARY, VALID_PROJECTS);
+        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullAddress_throwsIllegalValueException() {
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                null, VALID_SALARY, VALID_PROJECTS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidSalary_throwsIllegalValueException() {
         XmlAdaptedPerson person =
                 new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
@@ -115,6 +138,14 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
+    @Test
+    public void toModelType_invalidProfilePic_throwsIllegalValueException() {
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                        VALID_SALARY, VALID_PROJECTS, INVALID_PROFILE_PIC, VALID_PERMISSION, VALID_LEAVE_APPLICATIONS);
+        String expectedMessage = ProfilePic.MESSAGE_PROFILEPIC_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
 
     @Test
     public void toModelType_invalidPermission_throwsIllegalValueException() {

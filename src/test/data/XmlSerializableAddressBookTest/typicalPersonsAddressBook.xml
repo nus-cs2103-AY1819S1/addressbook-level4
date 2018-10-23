@@ -14,6 +14,13 @@
         <email>johnd@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <leaveApplications>
+            <id>0</id>
+            <description>Benson's brother's wedding</description>
+            <status>APPROVED</status>
+            <dates>2018-10-25T00:00:00</dates>
+            <dates>2018-10-26T00:00:00</dates>
+        </leaveApplications>
     </persons>
     <persons>
         <name>Carl Kurz</name>

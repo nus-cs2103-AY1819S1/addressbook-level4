@@ -30,7 +30,9 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withPermissionSet(new PermissionSet(PermissionSet.PresetPermission.ADMIN)).build();
+            .withPermissionSet(new PermissionSet(PermissionSet.PresetPermission.ADMIN))
+            .withLeaveApplications(Arrays.asList(TypicalLeaveApplications.BENSON_LEAVE))
+            .build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000").build();

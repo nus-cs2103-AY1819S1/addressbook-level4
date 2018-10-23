@@ -10,14 +10,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVESTATUS_BOB
 import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.LeaveApplicationBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 public class LeaveApplicationTest {
     @Rule
@@ -73,13 +72,11 @@ public class LeaveApplicationTest {
         builder.append(0)
                 .append(" Description: ")
                 .append("Alice family holiday")
-                .append(" Employee: ")
-                .append(TypicalPersons.ALICE.toString())
                 .append(" Status: ")
                 .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
-                .append(new Date(1539561600).toString())
-                .append(new Date(1539648000).toString());
+                .append(LocalDateTime.of(2018, 10, 23, 0, 0, 0).toString())
+                .append(LocalDateTime.of(2018, 10, 24, 0, 0, 0).toString());
         assertEquals(ALICE_LEAVE.toString(), builder.toString());
 
         // same expected and actual toString() output for TypicalPerson's BENSON
@@ -87,13 +84,11 @@ public class LeaveApplicationTest {
         builder.append(0)
                 .append(" Description: ")
                 .append("Benson's brother's wedding")
-                .append(" Employee: ")
-                .append(TypicalPersons.BENSON.toString())
                 .append(" Status: ")
                 .append(StatusEnum.Status.APPROVED.toString())
                 .append(" Dates: ")
-                .append(new Date(1539734400).toString())
-                .append(new Date(1539820800).toString());
+                .append(LocalDateTime.of(2018, 10, 25, 0, 0, 0).toString())
+                .append(LocalDateTime.of(2018, 10, 26, 0, 0, 0).toString());
         assertEquals(BENSON_LEAVE.toString(), builder.toString());
     }
 }
