@@ -9,7 +9,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -19,30 +19,30 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_noPrefixUsage_defaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(
+        FindPersonCommand expectedFindPersonCommand =
+                new FindPersonCommand(new NameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Collections.emptyList(), Collections.emptyList()));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, "Alice Bob", expectedFindPersonCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindPersonCommand);
     }
 
     @Test
     public void parse_prefixUsage() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(
+        FindPersonCommand expectedFindPersonCommand =
+                new FindPersonCommand(new NameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"),
                         Arrays.asList("Charlie", "David"),
                         Arrays.asList("Earl", "Grey")));
-        assertParseSuccess(parser, " a/Alice Bob s/Charlie David n/Earl Grey", expectedFindCommand);
+        assertParseSuccess(parser, " a/Alice Bob s/Charlie David n/Earl Grey", expectedFindPersonCommand);
     }
 
     /**

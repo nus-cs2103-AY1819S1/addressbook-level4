@@ -19,9 +19,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
  */
-public class FindCommandTest {
+public class FindPersonCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -33,14 +33,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(
             Collections.emptyList(), Collections.singletonList("second"), Collections.emptyList());
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindPersonCommand findFirstCommand = new FindPersonCommand(firstPredicate);
+        FindPersonCommand findSecondCommand = new FindPersonCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindPersonCommand findFirstCommandCopy = new FindPersonCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -57,7 +57,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", " ");
-        FindCommand command = new FindCommand(predicate);
+        FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -68,7 +68,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ",
                 "Kurz Elle Kunz", " ");
-        FindCommand command = new FindCommand(predicate);
+        FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
@@ -78,7 +78,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_allPrefix() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         NameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
-        FindCommand command = new FindCommand(predicate);
+        FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON, DANIEL), model.getFilteredPersonList());
@@ -88,7 +88,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_nonePrefix() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
-        FindCommand command = new FindCommand(predicate);
+        FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());

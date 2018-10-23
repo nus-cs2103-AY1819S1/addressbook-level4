@@ -141,6 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
+    @Deprecated // Use getSortedPersonList() to obtain the list for display.
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
