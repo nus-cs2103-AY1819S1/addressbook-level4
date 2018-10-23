@@ -50,17 +50,19 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
+            maskPassword(true);
             navigateToPreviousInput();
             break;
         case DOWN:
             keyEvent.consume();
+            maskPassword(true);
             navigateToNextInput();
             break;
         default:
             // let JavaFx handle the keypress
+            maskPassword(false);
+            break;
         }
-
-        maskPassword();
     }
 
     /**
@@ -72,7 +74,8 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasPrevious()) {
             return;
         }
-
+        
+        resetTempPassword();
         replaceText(historySnapshot.previous());
     }
 
@@ -86,6 +89,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
+        resetTempPassword();
         replaceText(historySnapshot.next());
     }
 
@@ -102,17 +106,19 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    private void maskPassword() {
+    private void maskPassword(boolean isHistory) {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-
             StringBuilder maskedPassword = new StringBuilder();
-            for (int i = 0; i < password.length(); i++) {
-                maskedPassword.append("-");
-                if (password.charAt(i) != '-') {
-                    tempPassword.append(password.charAt(i));
+            
+            if (!isHistory) {
+                for (int i = 0; i < password.length(); i++) {
+                    if (password.charAt(i) != '-') {
+                        tempPassword.append(password.charAt(i));
+                    }
+                    maskedPassword.append("-");
                 }
             }
 
@@ -128,23 +134,35 @@ public class CommandBox extends UiPart<Region> {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-
-            replaceText(otherCommand + "pass/"
-                    + tempPassword.toString()
-                    + commandTextField.getText().substring(commandTextField.getText().length() - 1));
+            
+            if(commandTextField.getText().substring(commandTextField.getText().length() - 1).equals("-")) {
+                replaceText(otherCommand + "pass/"
+                        + tempPassword.toString());
+            } else {
+                replaceText(otherCommand + "pass/"
+                        + tempPassword.toString()
+                        + commandTextField.getText().substring(commandTextField.getText().length() - 1));
+            }
 
             //Reset temp password.
-            tempPassword.setLength(0);
+            resetTempPassword();
         }
     }
 
+    /**
+     * Reset the temporary password in the command text field.
+     */
+    private void resetTempPassword() {
+        tempPassword.setLength(0);
+    }
+    
     /**
      * Handles the Enter button pressed event.
      */
     @FXML
     private void handleCommandEntered() {
+        unmaskPassword();
         try {
-            unmaskPassword();
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
