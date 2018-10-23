@@ -2,15 +2,12 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-
 import seedu.address.model.person.Time;
 
 
 public class FilterByTimeCommandParser {
     /**
-     * FilterByGradeCommand
-     *
+     * FilterByTimeCommand
      * @param args
      * @return
      * @throws ParseException
