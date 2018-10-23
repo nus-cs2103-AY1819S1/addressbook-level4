@@ -18,6 +18,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -103,6 +104,10 @@ public class AddressBookParser {
 
         case ImportContactsCommand.COMMAND_WORD:
             return new ImportContactsCommandParser().parse(arguments);
+
+        case NotificationCommand.COMMAND_WORD:
+        case NotificationCommand.COMMAND_WORD_ALIAS:
+            return new NotificationCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
