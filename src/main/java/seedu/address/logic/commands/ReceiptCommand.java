@@ -26,7 +26,7 @@ public class ReceiptCommand extends QueueCommand {
             + " index. Includes information like the date of visit, consultation fee, medicine dispensed, cost, etc. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "Receipt generated for patient!";
+    public static final String MESSAGE_GENERATE_RECEIPT_SUCCESS = "Receipt generated for patient!";
 
     private final Index index;
 
@@ -53,7 +53,7 @@ public class ReceiptCommand extends QueueCommand {
         receipt.generateDocument();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_GENERATE_RECEIPT_SUCCESS));
     }
 
     @Override

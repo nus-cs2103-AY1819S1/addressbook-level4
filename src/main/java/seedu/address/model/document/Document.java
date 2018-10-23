@@ -26,13 +26,9 @@ import seedu.address.model.person.Name;
 public class Document {
 
     //Formatting the path to the directory all documents should be saved in
-    private static final int FILENAME_INITIAL_SLICING = 6;
-    private static final int FILENAME_END_SLICING = 22;
-    private static final String DUMMY_PATH = "/view/Documents/DocumentTemplate.html";
-    private static final String COMPLETE_TEMPLATE_NAME = MainApp.class.getResource(DUMMY_PATH).toExternalForm()
-            .substring(FILENAME_INITIAL_SLICING).replace("out/production", "src/main");
-    private static final String DIRECTORY_PATH = COMPLETE_TEMPLATE_NAME
-            .substring(0, COMPLETE_TEMPLATE_NAME.length() - FILENAME_END_SLICING);
+    private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
+    private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
+    private static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
 
     private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
@@ -42,18 +38,16 @@ public class Document {
     private static final String NAME_PLACEHOLDER = "$name";
     private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
     private static final String CONTENT_PLACEHOLDER = "$content";
-    private static final String HTML_TABLE_FORMATTING = "</td><td>";
+    private static final String HTML_TABLE_DATA_DIVIDER = "</td><td>";
 
     //Formatting the contents of the receipt into a table
     private static final String RECEIPT_HEADER = "<table ID = \"contentTable\" width = 100%><col width = \"700\">";
     private static final String RECEIPT_HEADER_CONTENT = "<tr ID = \"receiptHeader\"><div class=\"contentHeader\">"
             + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
-    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\">"
-            + "<td>Grand Total:" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING + "-" + HTML_TABLE_FORMATTING;
+    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\"><td>Grand Total:"
+            + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
-
-    private String filePath;
     private String fileName;
     private String fileType;
     private Name name;
@@ -81,7 +75,6 @@ public class Document {
     private void makeFileName() {
         fileName = fileType + "_For_" + name.toString().replaceAll("\\s", "")
                 + "_" + icNumber.toString();
-        filePath = DIRECTORY_PATH + File.separator + fileName + ".html";
     }
 
     /**
@@ -125,7 +118,7 @@ public class Document {
         if (this instanceof Receipt) {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
         } else {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet");
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet.");
         }
         return informationFieldPairs;
     }
@@ -134,18 +127,7 @@ public class Document {
      * The actual generation of the file representing the document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
-        //File newDocument = new File(filePath);
-        //FileWriter fileWriter;
-        //try {
-        //    fileWriter = new FileWriter(newDocument);
-        //    fileWriter.write(htmlContent);
-        //    fileWriter.flush();
-        //    fileWriter.close();
-        //} catch (IOException e) {
-        //    System.out.println(FILE_WRITE_FAILURE_ERROR_MESSAGE + fileName + "!");
-        //    e.printStackTrace();
-        //}
-        File newDocument = new File("src/main/resources/view/Documents/" + fileName + ".html");
+        File newDocument = new File(DIRECTORY_PATH + fileName + ".html");
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(newDocument));
             bos.write(htmlContent.getBytes());
@@ -164,8 +146,7 @@ public class Document {
     private String convertHtmlIntoString() {
         StringBuilder contentBuilder = new StringBuilder();
         try {
-            //BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_NAME));
-            BufferedReader in = new BufferedReader(new FileReader(MainApp.class.getResource(DUMMY_PATH).getFile()));
+            BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_PATH));
             String str;
             while ((str = in.readLine()) != null) {
                 contentBuilder.append(str).append("\n");
@@ -199,8 +180,8 @@ public class Document {
     private String unpackTypesOfServices() {
         //placeholder
         //private String unpackConsultationInformation(Map<String, Integer> treatmentsReceived) {
-        return "<tr><td>Consultation" + HTML_TABLE_FORMATTING + "1" + HTML_TABLE_FORMATTING + "30.00"
-                + HTML_TABLE_FORMATTING + "30.00</td></tr>";
+        return "<tr><td>Consultation" + HTML_TABLE_DATA_DIVIDER + "1" + HTML_TABLE_DATA_DIVIDER + "30.00"
+                + HTML_TABLE_DATA_DIVIDER + "30.00</td></tr>";
     }
 
     /**
@@ -225,11 +206,11 @@ public class Document {
 
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
-                    .append(HTML_TABLE_FORMATTING)
+                    .append(HTML_TABLE_DATA_DIVIDER)
                     .append(quantity)
-                    .append(HTML_TABLE_FORMATTING)
+                    .append(HTML_TABLE_DATA_DIVIDER)
                     .append(pricePerUnit)
-                    .append(HTML_TABLE_FORMATTING)
+                    .append(HTML_TABLE_DATA_DIVIDER)
                     .append(totalPriceForSpecificMedicine)
                     .append("</td></tr>");
         }
