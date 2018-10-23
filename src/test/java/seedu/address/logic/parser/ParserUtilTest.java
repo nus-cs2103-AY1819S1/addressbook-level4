@@ -328,14 +328,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
-        Date expectedDate = Date.newDate("02", "02", "2222");
+        Date expectedDate = Date.newDate("02 02 2222");
         assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
-        Date expectedDate = Date.newDate("02", "02", "2222");
+        Date expectedDate = Date.newDate("02 02 2222");
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 }

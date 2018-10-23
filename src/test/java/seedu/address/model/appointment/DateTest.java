@@ -11,7 +11,7 @@ public class DateTest {
     public void newDate() {
         //valid args
         Date toCompare = new Date(2, 2, 2222);
-        toCompare.equals(Date.newDate("02", "02", "2002"));
+        toCompare.equals(Date.newDate("02 02 2002"));
     }
 
     @Test
@@ -29,18 +29,6 @@ public class DateTest {
         assertFalse(Date.isValidDay(30, 2, 1977));
         assertFalse(Date.isValidDay(-9, 5, 2018));
         assertFalse(Date.isValidDay(29, 2, 2019)); //invalid leap day
-    }
-
-    @Test
-    public void isValidDayFormat() {
-        //valid date format
-        assertTrue(Date.isValidDayMonthFormat("20"));
-
-        //invalid date format
-        assertFalse(Date.isValidDayMonthFormat(""));
-        assertFalse(Date.isValidDayMonthFormat("222"));
-        assertFalse(Date.isValidDayMonthFormat("asdf"));
-        assertFalse(Date.isValidDayMonthFormat("---"));
     }
 
     @Test
@@ -80,15 +68,18 @@ public class DateTest {
     }
 
     @Test
-    public void isValidYearFormat() {
-        //valid year
-        assertTrue(Date.isValidYearFormat("2018"));
-        assertTrue(Date.isValidYearFormat("0232"));
+    public void isValidDate() {
+        //valid date
+        assertTrue(Date.isValidDate("12 08 2019"));
+
+        //invalid day
+        assertFalse(Date.isValidDate("123 03 2019"));
+
+        //invalid month
+        assertFalse(Date.isValidDate("12 033 2019"));
 
         //invalid year
-        assertFalse(Date.isValidYearFormat(""));
-        assertFalse(Date.isValidYearFormat("23132312"));
-        assertFalse(Date.isValidYearFormat("asdf"));
+        assertFalse(Date.isValidDate("12 03 222222"));
     }
 
     @Test

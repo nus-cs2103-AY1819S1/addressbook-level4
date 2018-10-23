@@ -1,5 +1,6 @@
 package seedu.address.model.appointment;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -20,7 +21,6 @@ public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "The date should be in dd mm yyyy format and it should not be blank.";
     public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
-    public static final String DAY_MONTH_VALIDATION_REGEX = "\\d{1,2}";
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\s+)(\\d{1,2})(\\s+)(\\d{4})";
 
     private final int day;
@@ -45,16 +45,13 @@ public class Date {
 
     /**
      * Constructs a {@code Date} from String.
-     * @param day A valid day.
-     * @param month A valid month.
-     * @param year A valid year.
+     * @param date A valid date.
      */
-    public static Date newDate(String day, String month, String year) {
-        requireAllNonNull(day, month, year);
-        checkArgument(isValidDayMonthFormat(day));
-        checkArgument(isValidDayMonthFormat(month));
-        checkArgument(isValidYearFormat(year));
-        return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
+    public static Date newDate(String date) {
+        requireNonNull(date);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        String[] splitDate = date.split("\\s+");
+        return new Date(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[2]));
     }
 
     public int getDay() {
@@ -97,15 +94,6 @@ public class Date {
     }
 
     /**
-     * Returns true if day format is correct.
-     * @param day The string to validate.
-     * @return Validity of day format.
-     */
-    public static boolean isValidDayMonthFormat(String day) {
-        return day.matches(DAY_MONTH_VALIDATION_REGEX);
-    }
-
-    /**
      * Returns true if it is a valid February date.
      * @param day The day to validate.
      * @param year Determines validity of day.
@@ -139,15 +127,6 @@ public class Date {
     public static boolean isValidYear(int year) {
         String string = String.valueOf(year);
         return string.matches(YEAR_VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns true if month format is correct.
-     * @param year The string to validate.
-     * @return Validity of month format.
-     */
-    public static boolean isValidYearFormat(String year) {
-        return year.matches(YEAR_VALIDATION_REGEX);
     }
 
     @Override

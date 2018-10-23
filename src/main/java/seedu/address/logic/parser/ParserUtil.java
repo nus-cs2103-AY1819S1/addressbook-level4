@@ -174,26 +174,10 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
-
-        String[] splitDate = trimmedDate.split("\\s+");
-
-        if (splitDate.length < 3) {
-            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
-        }
-        if (!Date.isValidDayMonthFormat(splitDate[0])) {
-            throw new ParseException(Date.MESSAGE_DAY_CONSTRAINTS);
-        }
-        if (!Date.isValidDayMonthFormat(splitDate[1])) {
-            throw new ParseException(Date.MESSAGE_MONTH_CONSTRAINTS);
-        }
-        if (!Date.isValidYearFormat(splitDate[2])) {
-        }
-
-        return Date.newDate(splitDate[0], splitDate[1], splitDate[2]);
+        return Date.newDate(trimmedDate);
     }
 
     /**
