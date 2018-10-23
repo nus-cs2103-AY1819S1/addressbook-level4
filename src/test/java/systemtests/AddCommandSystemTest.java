@@ -34,7 +34,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -58,7 +57,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
-
+         */
 
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
@@ -104,39 +103,33 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-    /* Case: filters the person list before adding -> added */
-    /** TODO
+        /* Case: filters the person list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
-    /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
-    /** TODO
+        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-    /* Case: add a duplicate person -> rejected */
-    /** TODO
+        /* Case: add a duplicate person -> rejected */
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-    /* Case: add a duplicate person except with different phone -> rejected */
-    /** TODO
+        /* Case: add a duplicate person except with different phone -> rejected */
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-    /* Case: add a duplicate person except with different email -> rejected */
-    /** TODO
+        /* Case: add a duplicate person except with different email -> rejected */
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-    /* Case: add a duplicate person except with different address -> rejected */
-    /** TODO
+        /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
