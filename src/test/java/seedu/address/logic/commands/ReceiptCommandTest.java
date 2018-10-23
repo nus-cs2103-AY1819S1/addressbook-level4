@@ -53,7 +53,7 @@ public class ReceiptCommandTest {
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         CommandResult commandResult = receiptCommand.execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
-        File file = receiptCommand.receipt.file;
+        File file = receiptCommand.getReceipt().getFile();
         fileCleanUp(file);
         assertEquals(expectedMessage, commandResult.feedbackToUser);
     }
@@ -71,7 +71,7 @@ public class ReceiptCommandTest {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         receiptCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
-        String fileType = receiptCommand.receipt.FILE_TYPE;
+        String fileType = receiptCommand.getReceipt().FILE_TYPE;
         String fileName = generateFileName(fileType, TypicalPersons.ALICE);
         assertUniqueFileInFilteredFileList(fileName);
     }

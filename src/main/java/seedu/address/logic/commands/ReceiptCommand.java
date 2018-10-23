@@ -28,8 +28,9 @@ public class ReceiptCommand extends QueueCommand {
 
     public static final String MESSAGE_GENERATE_RECEIPT_SUCCESS = "Receipt generated for patient!";
 
+    private Receipt receipt;
     private final Index index;
-    public Receipt receipt;
+
 
     /**
      * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
@@ -61,5 +62,13 @@ public class ReceiptCommand extends QueueCommand {
         return other == this // short circuit if same object
                 || (other instanceof ReceiptCommand // instanceof handles nulls
                 && index.equals(((ReceiptCommand) other).index)); // state check
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 }

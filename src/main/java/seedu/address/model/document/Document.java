@@ -26,10 +26,10 @@ import seedu.address.model.person.Name;
 public class Document {
 
     //Formatting the path to the directory all documents should be saved in
-    private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
-    private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
     public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
     public static final String FILE_NAME_DELIMITER = "_For_";
+    private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
+    private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
 
     private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
@@ -49,11 +49,11 @@ public class Document {
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
+    private File file;
+    private Name name;
     private String fileName;
     private String fileType;
-    private Name name;
     private IcNumber icNumber;
-    public File file;
 
     //variables specific to receipt but here because of checkstyle issues
     private float totalPrice = 0;
@@ -233,5 +233,12 @@ public class Document {
 
     public void setAllocatedMedicine(Map<Medicine, Integer> allocatedMedicine) {
         this.allocatedMedicine = allocatedMedicine;
+    }
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }
