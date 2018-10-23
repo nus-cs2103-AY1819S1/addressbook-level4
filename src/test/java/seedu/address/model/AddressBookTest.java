@@ -133,7 +133,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnTrue() {
+    public void hasGroup_groupIsUpdated_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
@@ -141,7 +141,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnFalse() {
+    public void hasGroup_groupIsUpdated_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
@@ -149,7 +149,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void joinGroup_personInGroup_returnTrue() {
+    public void joinGroup_personInGroup_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
@@ -161,7 +161,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void joinGroup_groupHasPerson_returnTrue() {
+    public void joinGroup_groupHasPerson_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
