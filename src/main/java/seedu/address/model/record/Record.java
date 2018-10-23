@@ -17,6 +17,7 @@ public class Record {
     private final Hour hour;
     private final Remark remark;
 
+    private int localIndex;
     private String volunteerName;
     private String phoneNo;
 
@@ -55,12 +56,20 @@ public class Record {
         return remark;
     }
 
+    public int getLocalIndex() {
+        return localIndex;
+    }
+
     public String getVolunteerName() {
         return volunteerName;
     }
 
     public String getPhoneNo() {
         return phoneNo;
+    }
+
+    public void setLocalIndex(int index) {
+        this.localIndex = index;
     }
 
     public void setVolunteerName(String name) {

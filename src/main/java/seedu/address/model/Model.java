@@ -61,12 +61,12 @@ public interface Model {
     /**
      * Sets the currently selected event
      */
-    void setSelectedEventId(EventId eventId);
+    void setSelectedEvent(Event eventId);
 
     /**
-     * Returns the event id of the selected event.
+     * Returns the event of the selected event.
      */
-    EventId getSelectedEventId();
+    Event getSelectedEvent();
 
     //===========  Person Methods =============================================================
 

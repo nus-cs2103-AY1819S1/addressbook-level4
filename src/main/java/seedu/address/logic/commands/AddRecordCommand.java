@@ -6,8 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORD_REMARK;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ContextChangeEvent;
+import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -33,7 +36,7 @@ public class AddRecordCommand extends Command {
             + PREFIX_RECORD_REMARK + "Emcee";
 
     public static final String MESSAGE_SUCCESS = "Record added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists.";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This volunteer is already registered.";
 
     public final Index index;
     private final Record toAdd;
@@ -59,7 +62,7 @@ public class AddRecordCommand extends Command {
         }
 
         Person personSelected = lastShownList.get(index.getZeroBased());
-        Record record = new Record(model.getSelectedEventId(), personSelected.getPersonId(),
+        Record record = new Record(model.getSelectedEvent().getEventId(), personSelected.getPersonId(),
                 toAdd.getHour(), toAdd.getRemark());
 
         if (model.hasRecord(record)) {
@@ -67,9 +70,12 @@ public class AddRecordCommand extends Command {
         }
 
         model.addRecord(record);
-        model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
-                model.getSelectedEventId()));
+        model.updateFilteredRecordList(new RecordContainsEventIdPredicate(model.getSelectedEvent().getEventId()));
         model.commitAddressBook();
+
+        // Posting event
+        EventsCenter.getInstance().post(new RecordChangeEvent(model.getSelectedEvent()));
+        EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }
 

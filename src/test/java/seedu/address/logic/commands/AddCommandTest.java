@@ -125,12 +125,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setSelectedEventId(EventId selectedEventId) {
+        public void setSelectedEvent(EventId selectedEventId) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public EventId getSelectedEventId() {
+        public EventId getSelectedEvent() {
             throw new AssertionError("This method should not be called.");
         }
 
