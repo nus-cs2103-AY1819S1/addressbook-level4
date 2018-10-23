@@ -315,9 +315,10 @@ accessible via name as this allows the receptionist to edit the remark without l
 === Add Medical History Feature
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
-command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient`.
+command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient` specified by
+index.
 
-Step 1. The user types in `add-medical-history` in the command box followed by the parameter `n/John Doe al/milk c/sub
+Step 1. The user types in `add-medical-history` in the command box followed by the parameter `INDEX al/milk c/sub
 healthy`
 
 Step 2. Upon hitting enter, the `MedicalHistory` will be created and added to the storage of the system
@@ -326,6 +327,14 @@ Step 2. Upon hitting enter, the `MedicalHistory` will be created and added to th
 ===== Aspect: Separate adding and editing
 * Alternative 1 (Current choice): `AddMedicalHistoryCommand` is only used for initialization of medical history. The
 editing is implemented as separated commands to facilitate easy modification of medical history.
+
+=== Filter Patient and Filter Doctor Feature
+===== Current Implementation
+This feature help to filter all patients/doctors in health book
+
+Step 1. The user types `filter-patient`/`filter-doctor`in the command box
+
+Step 2. Upon hitting enter, all persons who are tagged as "Patient"/"Doctor" would appear on the panel
 
 === Logging
 

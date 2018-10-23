@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddMedicalHistoryCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -15,6 +16,8 @@ import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterDoctorCommand;
+import seedu.address.logic.commands.FilterPatientCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -101,6 +104,15 @@ public class AddressBookParser {
         case RemarkCommand.COMMAND_WORD:
             return new RemarkCommandParser().parse(arguments);
 
+        case AddMedicalHistoryCommand.COMMAND_WORD:
+            return new AddMedicalHistoryCommandParser().parse(arguments);
+
+        case FilterPatientCommand.COMMAND_WORD:
+            return new FilterPatientCommand();
+
+        case FilterDoctorCommand.COMMAND_WORD:
+            return new FilterDoctorCommand();
+            
         case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentCommandParser().parse(arguments);
 
