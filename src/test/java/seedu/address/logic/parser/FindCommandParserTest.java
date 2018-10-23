@@ -10,7 +10,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindPersonCommand;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -26,7 +26,7 @@ public class FindCommandParserTest {
     public void parse_noPrefixUsage_defaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
         FindPersonCommand expectedFindPersonCommand =
-                new FindPersonCommand(new NameContainsKeywordsPredicate(
+                new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Collections.emptyList(), Collections.emptyList()));
         assertParseSuccess(parser, "Alice Bob", expectedFindPersonCommand);
 
@@ -38,7 +38,7 @@ public class FindCommandParserTest {
     public void parse_prefixUsage() {
         // no leading and trailing whitespaces
         FindPersonCommand expectedFindPersonCommand =
-                new FindPersonCommand(new NameContainsKeywordsPredicate(
+                new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"),
                         Arrays.asList("Charlie", "David"),
                         Arrays.asList("Earl", "Grey")));
@@ -46,11 +46,11 @@ public class FindCommandParserTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code PersonNameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
-                                                           String userInputForNonePrefix) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
+    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
+                                                                 String userInputForNonePrefix) {
+        return new PersonNameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
                 Arrays.asList(userInputForSomePrefix.split("\\s+")),
                 Arrays.asList(userInputForNonePrefix.split("\\s+")));
     }

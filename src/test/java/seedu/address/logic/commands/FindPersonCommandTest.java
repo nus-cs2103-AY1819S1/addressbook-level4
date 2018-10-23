@@ -16,7 +16,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
@@ -28,9 +28,9 @@ public class FindPersonCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(
+        PersonNameContainsKeywordsPredicate firstPredicate = new PersonNameContainsKeywordsPredicate(
                     Collections.emptyList(), Collections.singletonList("first"), Collections.emptyList());
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(
+        PersonNameContainsKeywordsPredicate secondPredicate = new PersonNameContainsKeywordsPredicate(
             Collections.emptyList(), Collections.singletonList("second"), Collections.emptyList());
 
         FindPersonCommand findFirstCommand = new FindPersonCommand(firstPredicate);
@@ -56,7 +56,7 @@ public class FindPersonCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", " ");
+        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ public class FindPersonCommandTest {
     @Test
     public void execute_multipleKeywords_somePrefix() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ",
+        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ",
                 "Kurz Elle Kunz", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
@@ -77,7 +77,7 @@ public class FindPersonCommandTest {
     @Test
     public void execute_multipleKeywords_allPrefix() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        NameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
+        PersonNameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -87,7 +87,7 @@ public class FindPersonCommandTest {
     @Test
     public void execute_multipleKeywords_nonePrefix() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
+        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -95,11 +95,11 @@ public class FindPersonCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code PersonNameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
-                                                           String userInputForNonePrefix) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
+    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
+                                                                 String userInputForNonePrefix) {
+        return new PersonNameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
                 Arrays.asList(userInputForSomePrefix.split("\\s+")),
                 Arrays.asList(userInputForNonePrefix.split("\\s+")));
     }

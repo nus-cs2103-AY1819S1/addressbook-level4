@@ -13,7 +13,7 @@ import java.util.Optional;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindPersonCommand object
@@ -48,7 +48,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
         }
         return new FindPersonCommand(
-            new NameContainsKeywordsPredicate(
+            new PersonNameContainsKeywordsPredicate(
                 Arrays.asList(preamble.split("\\s+")),
                 Collections.emptyList(),
                 Collections.emptyList()
@@ -69,7 +69,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             || (allKeywords.isEmpty() && someKeywords.isEmpty() && noneKeywords.isEmpty())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
         }
-        return new FindPersonCommand(new NameContainsKeywordsPredicate(allKeywords, someKeywords, noneKeywords));
+        return new FindPersonCommand(new PersonNameContainsKeywordsPredicate(allKeywords, someKeywords, noneKeywords));
     }
 
     /**
