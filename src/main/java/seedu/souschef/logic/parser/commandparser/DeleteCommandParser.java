@@ -1,6 +1,7 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -89,6 +90,31 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_HEALTHPLAN_USAGE), pe);
+        }
+    }
+
+    /**
+     *
+     * @param model
+     * @param args
+     * @return
+     * @throws ParseException
+     */
+    public DeleteCommand<Recipe> parseFavourites(Model model, String args) throws ParseException {
+        try {
+            Index targetIndex = ParserUtil.parseIndex(args);
+            requireNonNull(model);
+            List<Recipe> lastShownList = model.getFilteredList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE));
+            }
+            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            return new DeleteCommand<>(model, toDelete);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE), pe);
         }
     }
 }
