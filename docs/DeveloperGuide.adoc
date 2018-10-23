@@ -18,9 +18,10 @@ endif::[]
 By: `Team CS2103-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Welcome to the documentation for ThanePark. The purpose of this documentation is to assist developers in their
-transition to begin developmental work on this application. For developers looking to adopt this application for their
-own uses, go to <<somewhere>>. For developers looking to contribute to the current application, go to <<somewhere>>.
+Welcome to the documentation for ThanePark. The purpose of this documentation is to assist you in their
+transition to begin developmental work on this application. If you are a developer looking to *adopt this application* for their
+own uses, go to <<Setting up, *`Setting up`*>>. If you wish to *contribute to the current application*, go to <<Dev Ops, *`Developing the application`*>>.
+If you wish to *update documentation* of this application, go to <<Documentation,*`Documentation`*>>.
 
 == About
 ThanePark is *a desktop application* for *theme park management*. The application is optimized for *keyboard-oriented*
@@ -90,7 +91,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
-After forking the repo, the documentation will still have the CS2103-W14-2 branding and refer to the `CS2103-W14-2/main` repo.
+After you fork the repo, the documentation will still have the CS2103-W14-2 branding and refer to the `CS2103-W14-2/main` repo.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-W14-2/main`), you should do the following:
 
@@ -119,6 +120,7 @@ When you are ready to start coding:
 
 == Design
 
+This section will help you better understand the software architecture of ThanePark.
 [[Design-Architecture]]
 === Architecture
 
@@ -130,9 +132,6 @@ It shows the various interactions between <<Design-Main,*`Main`*>> and 4 other c
 <<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>,
 <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>,
 Given below is a quick overview of each component:
-
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 [[Design-Main]]
 === Main component
@@ -187,6 +186,8 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+The `UI` component is responsible for any UI-related functionality of the App.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
@@ -204,6 +205,8 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+
+The `Logic` component is responsible for handling and executing command logic.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -225,6 +228,8 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The `Model` component stores an internal representation of the state of the application in memory.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
@@ -244,6 +249,8 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
+
+The `Storage` component is responsible for reading data from, and writing data to, the hard disk.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -399,13 +406,15 @@ AttributePredicate to test the attribute
 ** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
 ** Cons: Need to implement more classes to handle
 
+
+// tag::autocompletesuggest[]
 === Autocomplete/Suggest feature
 ==== Current Implementation
 
-The autocomplete/suggest mechanism is facilitated by `SuggestCommand`.
-It extends `Command` and serves as a special kind of Command that cannot be directly invoked by users.
+The *autocomplete/suggest* mechanism is facilitated by `SuggestCommand`.
+It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
-or when kbd:[TAB] is pressed inside the CommandBox.
+or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
 
 .Activity Diagram of user executing command
 image::AutocompleteSuggestActivityDiagram1.png[width="650"]
@@ -413,9 +422,9 @@ image::AutocompleteSuggestActivityDiagram1.png[width="650"]
 .Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram2.png[width="650"]
 
-The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched Commands.
-These Commands are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
-`ResultDisplay` and `CommandBox` text.
+The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched `Command` s.
+These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
+`ResultDisplay` and `CommandBox` text. See figure below:
 
 .Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="650"]
@@ -425,19 +434,27 @@ image::AutocompleteSuggestActivityDiagram3.png[width="650"]
 ===== Aspect: Handling kbd:[TAB] autocomplete
 
 * **Alternative 1 (current choice):** Handle autocomplete through events and `SuggestCommand`.
-** Pros: Flexible. Easy to modify event behaviors for `SuggestCommandEvent` and `NewResultAvailableEvent`.
-** Cons: Difficult to implement.
+** Pros: Flexible. Easy to modify event behaviors for `SuggestCommandEvent` and `NewResultAvailableEvent`. Modular design that
+can be easily reused to create other autocomplete features.
+** Cons: Difficult to implement as it requires some understanding of the `EventsCenter` and handling of the various
+Event types in the application.
 * **Alternative 2:** Handle everything in `CommandBox`.
 ** Pros: Easy to implement.
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
+// end::autocompletesuggest[]
 
+[Documentation]
 == Documentation
 
-We use asciidoc for writing documentation.
+Asciidoc was used for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+[TIP]
+If you need to edit the diagrams found in this document, the `.pptx` files used to create diagrams in this document can
+be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 === Editing Documentation
 
@@ -539,6 +556,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+This section covers what you need to know about running and designing automated tests for further development on this application.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -586,6 +605,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
+[Dev Ops]
 == Dev Ops
 
 === Build Automation
@@ -683,7 +703,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 _{More to be added}_
 
-=== User stories that will not be implemented
+=== User stories that are kept for consideration for v2.0
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
@@ -1040,7 +1060,6 @@ Use case resumes at step 1.
 .  System startup should not take more than 10 seconds.
 .  User should become productive within first 30 seconds.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1050,3 +1069,6 @@ Windows, Linux, Unix, OS-X
 
 [[attraction-ride]] Attraction/ride:
 An attraction/ride that is meant for visitors to patronize.
+
+[[themepark]] Theme/ Amusement park:
+A place with rides for visitors to patronise.
