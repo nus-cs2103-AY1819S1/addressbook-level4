@@ -1,7 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION; import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE; import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME; import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
@@ -13,10 +19,9 @@ import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-import java.util.stream.Stream;
-
-
+/**
+ * Parses input arguments and creates a new AddOccasionCommand object
+ */
 public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -35,8 +40,6 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
 
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
         OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-//        Person organizer = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
-//                new Address("abc"), new HashSet<Tag>());
         OccasionLocation location = ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

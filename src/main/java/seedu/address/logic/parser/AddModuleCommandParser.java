@@ -1,28 +1,30 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
-import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Semester;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-import java.util.stream.Stream;
-
-
+/**
+ * Parses input arguments and creates a new AddModuleCommand object
+ */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
     /**
