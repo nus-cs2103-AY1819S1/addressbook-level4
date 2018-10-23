@@ -30,6 +30,12 @@ public class VisitorTest {
     }
 
     @Test
+    public void equals_objectAndItself_returnsTrue() {
+        Visitor visitor1 = new Visitor(visitorname1);
+        assertTrue(visitor1.equals(visitor1));
+    }
+
+    @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Visitor((String) null));
     }
