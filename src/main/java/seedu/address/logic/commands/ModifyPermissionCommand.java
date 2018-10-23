@@ -28,7 +28,7 @@ public class ModifyPermissionCommand extends Command {
     public static final String COMMAND_WORD = "modifypermission";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the permission of the person identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed person list.\n "
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_ADD_PERMISSION + " PERMISSION_TO_ADD]... "
             + "[" + PREFIX_REMOVE_PERMISSION + " PERMISSION_TO_REMOVE]...\n"
@@ -36,7 +36,9 @@ public class ModifyPermissionCommand extends Command {
             + PREFIX_ADD_PERMISSION + " ADD_EMPLOYEE "
             + PREFIX_REMOVE_PERMISSION + " VIEW_PROJECT";
 
-    public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified.\nEdited Person : %1$s";
+    public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified.\nNew Permissions : %1$s";
+    public static final String MESSAGE_NO_MODIFICATION = "At least 1 permission that can be added or removed must be provided.";
+    public static final String MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION = "Permission to be added and removed cannot be the same.";
 
     PermissionSet requiredPermission = new PermissionSet(Permission.ASSIGN_PERMISSION);
 
@@ -58,17 +60,22 @@ public class ModifyPermissionCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        boolean isEdited;
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = duplicatePerson(personToEdit);
-        editedPerson.getPermissionSet().addPermissions(toAdd);
-        editedPerson.getPermissionSet().removePermissions(toRemove);
+        isEdited = editedPerson.getPermissionSet().addPermissions(toAdd);
+        isEdited = editedPerson.getPermissionSet().removePermissions(toRemove) || isEdited;
+
+        if (!isEdited) {
+            throw new CommandException(MESSAGE_NO_MODIFICATION);
+        }
 
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getPermissionSet()));
     }
 
     private Person duplicatePerson(Person p) {
