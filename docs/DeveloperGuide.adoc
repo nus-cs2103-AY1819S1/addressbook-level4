@@ -374,13 +374,18 @@ The classes `Username` and `Password` have also been implemented and have the fo
 * When a `Password` class is constructed with plain text, the password is hashed before being stored as an internal String in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
 
-Given below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
+Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
 
 . The user launches the application and the directory path in the UserPref points at the _data_ folder
-. The method `Storage#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyAddressBook>` with the `Username` of the user data as the key and the user data as a `ReadOnlyAddressBook` as the value to the MainApp class
+. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyAddressBook>` with the `Username` of the user data as the key and the user data as a `ReadOnlyAddressBook` as the value to the MainApp class.
 . A `Model` instance will then be initialized using the previously mentioned `Map` of user data.
 
-Given below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
+Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
+
+.Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="800"]
+
+Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to the `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
