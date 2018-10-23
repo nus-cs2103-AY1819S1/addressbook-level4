@@ -141,6 +141,14 @@ public class BrowserPanel extends UiPart<Region> {
         return url;
     }
 
+    /**
+     * Parses object arguments and appends them to given url as parameters
+     * @param url given url string.
+     * @param patientQueue given patient queue object.
+     * @param currentPatient given current patient object.
+     * @param servedPatientList given served pateint list object.
+     * @return complete url string.
+     */
     private String addQueueDetailsAsArgs(String url, PatientQueue patientQueue,
                                          CurrentPatient currentPatient, ServedPatientList servedPatientList) {
         url += "?queue=";
@@ -153,7 +161,7 @@ public class BrowserPanel extends UiPart<Region> {
             }
         }
 
-        url = url.substring(0, url.length()-1);
+        url = url.substring(0, url.length() - 1);
 
         url += "&current=";
         url += currentPatient.toNameAndIc();
@@ -168,7 +176,7 @@ public class BrowserPanel extends UiPart<Region> {
             }
         }
 
-        url = url.substring(0, url.length()-1);
+        url = url.substring(0, url.length() - 1);
 
         return url;
 
