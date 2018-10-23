@@ -15,7 +15,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalRecords;
-import seedu.address.testutil.TypicalVolunteers;
 
 public class XmlSerializableAddressBookTest {
 
@@ -23,10 +22,6 @@ public class XmlSerializableAddressBookTest {
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
-
-    private static final Path TYPICAL_VOLUNTEERS_FILE = TEST_DATA_FOLDER.resolve("typicalVolunteersAddressBook.xml");
-    private static final Path INVALID_VOLUNTEER_FILE = TEST_DATA_FOLDER.resolve("invalidVolunteerAddressBook.xml");
-    private static final Path DUPLICATE_VOLUNTEER_FILE = TEST_DATA_FOLDER.resolve("duplicateVolunteerAddressBook.xml");
 
     private static final Path TYPICAL_EVENTS_FILE = TEST_DATA_FOLDER.resolve("typicalEventsAddressBook.xml");
     private static final Path INVALID_EVENT_FILE = TEST_DATA_FOLDER.resolve("invalidEventAddressBook.xml");
@@ -64,33 +59,6 @@ public class XmlSerializableAddressBookTest {
                 XmlSerializableAddressBook.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
-        dataFromFile.toModelType();
-    }
-
-    //// Volunteer
-    @Test
-    public void toModelType_typicalVolunteersFile_success() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_VOLUNTEERS_FILE,
-                XmlSerializableAddressBook.class);
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalVolunteersAddressBook = TypicalVolunteers.getTypicalVolunteerAddressBook();
-        assertEquals(addressBookFromFile, typicalVolunteersAddressBook);
-    }
-
-    @Test
-    public void toModelType_invalidVolunteerFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_VOLUNTEER_FILE,
-                XmlSerializableAddressBook.class);
-        thrown.expect(IllegalValueException.class);
-        dataFromFile.toModelType();
-    }
-
-    @Test
-    public void toModelType_duplicateVolunteers_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_VOLUNTEER_FILE,
-                XmlSerializableAddressBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_VOLUNTEER);
         dataFromFile.toModelType();
     }
 
