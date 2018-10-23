@@ -185,7 +185,7 @@ public class EditRecordCommand extends Command {
             this.volunteerName = volunteerName;
         }
 
-        public void setPhoneNo(String phoneNo){
+        public void setPhoneNo(String phoneNo) {
             this.phoneNo = phoneNo;
         }
 

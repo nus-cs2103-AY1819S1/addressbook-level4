@@ -30,15 +30,19 @@ public class EditRecordCommandParser implements Parser<EditRecordCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRecordCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditRecordCommand.MESSAGE_USAGE), pe);
         }
 
-        EditRecordCommand.EditRecordDescriptor editRecordDescriptor = new EditRecordCommand.EditRecordDescriptor();
+        EditRecordCommand.EditRecordDescriptor editRecordDescriptor =
+                new EditRecordCommand.EditRecordDescriptor();
         if (argMultimap.getValue(PREFIX_RECORD_HOUR).isPresent()) {
-            editRecordDescriptor.setHour(ParserRecordUtil.parseHour(argMultimap.getValue(PREFIX_RECORD_HOUR).get()));
+            editRecordDescriptor.setHour(ParserRecordUtil.parseHour(
+                    argMultimap.getValue(PREFIX_RECORD_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_RECORD_REMARK).isPresent()) {
-            editRecordDescriptor.setRemark(ParserRecordUtil.parseRemark(argMultimap.getValue(PREFIX_RECORD_REMARK).get()));
+            editRecordDescriptor.setRemark(ParserRecordUtil.parseRemark(
+                    argMultimap.getValue(PREFIX_RECORD_REMARK).get()));
         }
 
         if (!editRecordDescriptor.isAnyFieldEdited()) {
