@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
