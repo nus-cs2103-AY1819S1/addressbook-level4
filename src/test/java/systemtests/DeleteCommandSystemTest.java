@@ -8,7 +8,8 @@ import static seedu.learnvocabulary.testutil.TestUtil.getLastIndex;
 import static seedu.learnvocabulary.testutil.TestUtil.getMidIndex;
 import static seedu.learnvocabulary.testutil.TestUtil.getWord;
 import static seedu.learnvocabulary.testutil.TypicalIndexes.INDEX_FIRST_WORD;
-import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_GLIDE;
+import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_VOLCANO;
+import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_WEIGHT;
 
 import org.junit.Test;
 
@@ -58,16 +59,15 @@ public class DeleteCommandSystemTest extends LearnVocabularySystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered word list, delete index within bounds of learnvocabulary book and word list -> deleted */
-        showWordsWithName(KEYWORD_MATCHING_GLIDE);
+        /* Case: filtered word list, delete index within bounds of LearnVocabulary -> deleted */
+        showWordsWithName(KEYWORD_MATCHING_VOLCANO);
         Index index = INDEX_FIRST_WORD;
         assertTrue(index.getZeroBased() < getModel().getFilteredWordList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered word list, delete index within bounds of learnvocabulary book but out of bounds of word list
-         * -> rejected
+        /* Case: filtered word list, delete index within bounds of LearnVocabulary -> rejected
          */
-        showWordsWithName(KEYWORD_MATCHING_GLIDE);
+        showWordsWithName(KEYWORD_MATCHING_WEIGHT);
         int invalidIndex = getModel().getLearnVocabulary().getWordList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);

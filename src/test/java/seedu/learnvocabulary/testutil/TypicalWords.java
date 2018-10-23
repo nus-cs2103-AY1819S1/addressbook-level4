@@ -32,7 +32,8 @@ public class TypicalWords {
                     + "giving off light, heat, and flame.").build();
     public static final Word VOLCANO = new WordBuilder().withName("volcano")
             .withMeaning("a vent in the earth's crust through which lava, steam, "
-                    + "ashes, etc., are expelled, either continuously or at irregular intervals.").build();
+                    + "ashes, etc., are expelled, either continuously or at irregular intervals.")
+            .withTags("toLearn").build();
     public static final Word HURRICANE = new WordBuilder().withName("hurricane")
             .withMeaning("a violent, tropical, cyclonic storm of the western North Atlantic, "
                     + "having wind speeds of or in excess of 72 miles per hour 32 m/sec.").build();
@@ -58,7 +59,9 @@ public class TypicalWords {
             .withTags(VALID_TAG_ABILITY, VALID_TAG_FLOATING)
             .build();
 
-    public static final String KEYWORD_MATCHING_GLIDE = "glide"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_WEIGHT = "weight"; // A keyword that matches weight
+    public static final String KEYWORD_MATCHING_VOLCANO = "volcano"; // A keyword that matches volcano
+
 
     private TypicalWords() {} // prevents instantiation
 

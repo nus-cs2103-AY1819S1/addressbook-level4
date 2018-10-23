@@ -13,8 +13,11 @@ import seedu.learnvocabulary.model.word.Word;
 public class WordCard extends UiPart<Region> {
 
     private static final String FXML = "WordListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = { "teal", "red",
-        "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
+    private static final String[] TAG_COLOR_STYLES =
+            //{"teal", "red",
+            //        "yellow", "blue", "orange", "brown",
+            {"green",
+            }; //"pink", "black", "grey" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

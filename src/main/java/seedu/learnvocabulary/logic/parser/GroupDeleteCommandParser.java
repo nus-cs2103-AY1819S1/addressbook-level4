@@ -10,7 +10,7 @@ import seedu.learnvocabulary.model.tag.Tag;
  */
 public class GroupDeleteCommandParser<T extends Command> implements Parser<GroupdeleteCommand> {
     @Override
-    public GroupdeleteCommand parse(String userInput) throws ParseException {
+    public GroupdeleteCommand parse(String userInput) {
         Tag tag = new Tag(userInput.trim());
         return new GroupdeleteCommand(tag);
     }

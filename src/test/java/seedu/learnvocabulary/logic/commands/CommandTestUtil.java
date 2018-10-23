@@ -46,6 +46,7 @@ public class CommandTestUtil {
     public static final EditCommand.EditWordDescriptor DESC_FLY;
     public static final EditCommand.EditWordDescriptor DESC_LEVITATE;
 
+
     static {
         DESC_FLY = new EditWordDescriptorBuilder().withName(VALID_NAME_FLY).withMeaning(VALID_MEANING)
                 .withTags(VALID_TAG_FLOATING).build();

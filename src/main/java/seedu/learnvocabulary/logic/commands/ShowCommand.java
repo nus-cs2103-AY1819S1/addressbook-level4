@@ -46,7 +46,7 @@ public class ShowCommand extends Command {
     /**
      * Returns a properly formatted String just for show command.
      */
-    private String toString(List<Word> lastShownList) {
+    public static String toString(List<Word> lastShownList) {
         StringBuilder sb = new StringBuilder();
         for (Word word: lastShownList) {
             sb.append("Word: " + word.getName() + " \n");
