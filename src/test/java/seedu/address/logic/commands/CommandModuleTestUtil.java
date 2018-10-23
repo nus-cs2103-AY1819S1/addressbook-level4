@@ -24,7 +24,6 @@ public class CommandModuleTestUtil extends CommandTestUtil {
     public static final String VALID_MODULETITLE_ST2131 = "Probability";
     public static final String VALID_ACADEMICYEAR_CS2100 = "1617";
     public static final String VALID_ACADEMICYEAR_ST2131 = "1011";
-    public static final String VALID_SEMESTER_ONE = "1";
     public static final String VALID_TAG_BINARY = "binary";
     public static final String VALID_TAG_CALCULUS = "needs calculus";
 
@@ -43,6 +42,7 @@ public class CommandModuleTestUtil extends CommandTestUtil {
             + "OOP & FP"; // '&' not allowed in title
     public static final String INVALID_ACADEMICYEAR_DESC = " " + PREFIX_EMAIL
             + "1234"; // years not consecutive
+    public static final String INVALID_SEMESTER_FIVE = "5";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ":P"; // ':' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

@@ -30,16 +30,16 @@ public class Semester {
      * Returns true if a given number is a valid semester.
      */
     public static boolean isValidSemester(String number) {
-        Integer semester = Integer.getInteger(number);
+        Integer semester = Integer.parseInt(number);
         return 1 <= semester && semester <= 4;
+    }
+
+    public String toStringFull() {
+        return "Semester " + semesterNumber;
     }
 
     @Override
     public String toString() {
-        return "Semester " + semesterNumber;
-    }
-
-    public String toStringOnlyNumber() {
         return semesterNumber;
     }
 

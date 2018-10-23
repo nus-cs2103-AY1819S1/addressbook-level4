@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_ONE;
 import static seedu.address.testutil.TypicalModules.CS1101S;
 import static seedu.address.testutil.TypicalModules.CS1231;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -52,7 +51,7 @@ public class ModuleTest {
         assertFalse(CS1101S.isSameModule(editedCS1101S));
 
         // different semester -> returns false
-        editedCS1101S = new ModuleBuilder(CS1101S).withSemester(VALID_SEMESTER_ONE)
+        editedCS1101S = new ModuleBuilder(CS1101S).withSemester("4")
                 .build();
         assertFalse(CS1101S.isSameModule(editedCS1101S));
 
@@ -60,7 +59,7 @@ public class ModuleTest {
         UniquePersonList validStudents = new UniquePersonList();
         validStudents.add(ALICE);
         editedCS1101S = new ModuleBuilder(CS1101S).withStudents(validStudents).build();
-        assertFalse(CS1101S.isSameModule(editedCS1101S));
+        assertTrue(CS1101S.isSameModule(editedCS1101S));
     }
 
     @Test
@@ -100,7 +99,7 @@ public class ModuleTest {
         assertFalse(CS1101S.equals(copiedCS1101S));
 
         // different semester -> returns false
-        copiedCS1101S = new ModuleBuilder(CS1101S).withSemester(VALID_SEMESTER_ONE).build();
+        copiedCS1101S = new ModuleBuilder(CS1101S).withSemester("4").build();
         assertFalse(CS1101S.equals(copiedCS1101S));
 
         // different students list -> returns false

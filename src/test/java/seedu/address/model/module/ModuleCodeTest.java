@@ -38,8 +38,6 @@ public class ModuleCodeTest {
 
         // valid name
         assertTrue(ModuleCode.isValidCode("CS1231"));
-        assertTrue(ModuleCode.isValidCode("CS 1231"));
         assertTrue(ModuleCode.isValidCode("CS1231R"));
-        assertTrue(ModuleCode.isValidCode("CS 1231r"));
     }
 }
