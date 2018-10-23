@@ -153,7 +153,7 @@ Format: `clear`
 Exits the ThanePark application. +
 Format: `exit`
 
-=== Manage attractions
+=== Manage input/output of attractions
 
 This section contains all commands related to managing attractions.
 
@@ -205,10 +205,11 @@ Format: `shutdown <attraction>`
 Open the ride for the day. Display statistics for the ride on that day. +
 Format: `open <attraction>`
 
-=== View the information of a ride
+=== View the list of rides
 
-This section contains all commands related to viewing specific information on rides.
+This section contains all commands related to viewing list on rides.
 
+// tag::view[]
 ==== Viewing all available attractions: `viewall`
 
 Display all available attractions in a list according to the number of
@@ -227,8 +228,9 @@ Format: `view <index>`
 
 Quick view information of the top 5 most frequented rides in the park. +
 Format: `quickview`
+// end::view[]
 
-=== Storage/data management
+=== Filter the list of rides
 
 This section contains all commands related to filtering and finding rides.
 
