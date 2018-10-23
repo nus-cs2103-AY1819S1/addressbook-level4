@@ -32,16 +32,16 @@ public class AddVolunteerCommand extends Command {
             + "[" + PREFIX_VOLUNTEER_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VOLUNTEER_NAME + "John Doe "
-            + PREFIX_VOLUNTEER_GENDER + "male "
+            + PREFIX_VOLUNTEER_GENDER + "m "
             + PREFIX_VOLUNTEER_BIRTHDAY + "01-10-1985 "
             + PREFIX_VOLUNTEER_PHONE + "98765432 "
             + PREFIX_VOLUNTEER_EMAIL + "johnd@example.com "
             + PREFIX_VOLUNTEER_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_VOLUNTEER_TAG + "friends "
-            + PREFIX_VOLUNTEER_TAG + "owesMoney";
+            + PREFIX_VOLUNTEER_TAG + "driver";
 
     public static final String MESSAGE_SUCCESS = "New volunteer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_VOLUNTEER = "This volunteer already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_VOLUNTEER = "This volunteer already exists in the application.";
 
     private final Volunteer toAdd;
 
