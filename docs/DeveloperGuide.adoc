@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `GenericListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -181,6 +181,52 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+==== Modularisation
+*List Panel*
+
+_Brief overview_:
+Many of the features (such as MealPlanner, HealPlan, IngredientManager, Recipes, Favourites)
+need to use the list panel section to display their own UniqueType classes. Therefore, this
+has been abstracted and modularised for easier implementation of usage and for any future
+implementation of new components which may need to use the list panel. This is done by inserting
+generic classes into the hierarchy.
+
+_Old Hierarchy_:
+
+image::UiPanelOldHierarchy.png[width="800"]
+
+_New Hierachy_:
+
+image::UiPanelNewHierarchy.png[width="800"]
+
+[NOTE]
+Not all the components are shown, only MealPlanner and Recipe components are shown
+in the diagram as an example. Notice how the new generic abstract classes are simply inserted
+between the superclass and subclass of the old hierarchy to give the new hierarchy.
+
+_Explanation_:
+
+With the GenericListPanel, GenericCard and GenericPanelSelectionChangedEvent classes,
+new features which wish to use the UI list panel simply have to have their respective
+classes extend these three abstract classes and implement their methods accordingly.
+Then the respective fxml files for [feature]ListPanel and [feature]Card have to be
+created.
+
+_MainWindow.java and UiManager.java_:
+
+To switch between different list panels for different features, switchTo[feature]ListPanel()
+methods have to be implemented in MainWindow. This method gets the respective filteredList
+from the model within modelSet within logic and uses it to change the generalListPanel.
+The switchTo[feature]ListPanel() method has to then be implemented in UiManager (and
+declared in Ui interface) so that the method can be called through UiManager.
+
+
+_Usage_:
+
+Now in order to switch between the different list panels, the developer just has to
+call their switchTo[feature]ListPanel() function from the Ui interface. This can be done
+anywhere as long as they have access to UiManager.
 
 [[Design-Logic]]
 === Logic component
@@ -324,6 +370,10 @@ Meal Planner is currently implemented as a list of non-empty *Day* objects. This
 ensured as *Day* objects are only instantiated when recipes are added to a certain
 _date_, with that _date_ being assigned to its *Day* object. When all the recipes
 are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
+*Day* objects in the Meal Planner list panel are sorted in chronological order according
+to their dates. This is done by sorting the list when instantiated and when *Day* objects
+are added or removed.
+
 
 ===== Logic
 For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
@@ -335,14 +385,17 @@ The plan command adds a recipe from the _recipeModel_ to the _mealPlannerModel_.
 both models have to be passed to *PlanMealCommandParser*.
 
 Within *PlanMealCommandParser*, it parses the target _date_ from a *String* into a *LocalDate*.
+Only dates from the present or future are allowed to be entered.
 This *LocalDate* object is then used to find out whether _mealPlannerModel_ currently
 contains a *Day* with the target _date_. If such a *Day* object already exists, it is
 taken from _mealPlannerModel_ to be used in *PlanMealCommand*. Else, a new *Day* object is
-instantiated with the target *LocalDate* _date_ and added to _mealPlannerModel_. The target
-_meal_ is then taken from the *Day* object. _mealPlannerModel_, target _recipe_ and target _meal_
-are then passed to *PlanMealCommand*.
+instantiated with the target *LocalDate* _date_. The target _meal_ is then taken from
+the *Day* object. _mealPlannerModel_, target _day_ target _recipe_ and target _meal_ are then passed
+to *PlanMealCommand*.
 
-Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_.
+Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_ and
+target _day_ is then added to mealPlannerModel.
+
 Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 
 ====== _Display Command_: `display`
@@ -357,6 +410,10 @@ displaying the Meal Planner when the user needs to view it.
 ====== _Clear Command_: `clear`
 The clear command simply clears the Meal Planner by setting (i.e. replacing) the existing UniqueList
 of *ModelManager<Day>* _mealPlannerModel_ with a new empty UniqueList.
+
+====== _Delete Command_: `delete`
+The delete command deletes a specified *Day* from the _mealPlannerModel_ along with all its _meals_.
+The *Day* is specified by its index as seen on the list panel.
 
 // end::mealplannerimplementation[]
 
