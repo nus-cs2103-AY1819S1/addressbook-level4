@@ -16,10 +16,11 @@ import seedu.address.model.receptionist.exceptions.ReceptionistNotFoundException
 //@@author jjlee050
 /**
  * A list of receptionists that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Receptionist#isSameReceptionist(Receptionist)}. As such, adding and updating of
- * receptionists uses Receptionist#isSameReceptionist(Receptionist) for equality so as to ensure that the receptionist being added or updated is
- * unique in terms of identity in the UniqueReceptionistList. However, the removal of a receptionist uses Receptionist#equals(Object) so
- * as to ensure that the receptionist with exactly the same fields will be removed.
+ * A person is considered unique by comparing using {@code Receptionist#isSameReceptionist(Receptionist)}.
+ * As such, adding and updating of receptionists uses Receptionist#isSameReceptionist(Receptionist) for equality 
+ * so as to ensure that the receptionist being added or updated is unique in terms of identity
+ * in the UniqueReceptionistList. However, the removal of a receptionist uses Receptionist#equals(Object) so as to 
+ * ensure that the receptionist with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -52,7 +53,8 @@ public class UniqueReceptionistList implements Iterable<Receptionist> {
     /**
      * Replaces the receptionist {@code target} in the list with {@code editedReceptionist}.
      * {@code target} must exist in the list.
-     * The receptionist identity of {@code editedReceptionist} must not be the same as another existing receptionist in the list.
+     * The receptionist identity of {@code editedReceptionist} must not be the same as another existing 
+     * receptionist in the list.
      */
     public void setReceptionist(Receptionist target, Receptionist editedReceptionist) {
         requireAllNonNull(target, editedReceptionist);
