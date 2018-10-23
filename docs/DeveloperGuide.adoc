@@ -308,57 +308,33 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::recipemanagement[]
-=== Recipe Management
-==== All-field search
-The all-field search matches keywords with details of `Recipe`.
-Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search
-feature
-provides a complex querying, rather than a superficial search on merely recipes' name.
+=== Ingredient Manager
+==== Select feature of the Ingredient Manager(to be implemented)
 
-To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
-filter away recipes that does not meet the requirement.
+Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
+In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
+rather than person related information.
+However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
+ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
 
-The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
- in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
- one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
-  in
- the `FilteredList`.
+In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
+If you execute select command, it conducts search based on ingredients in inventory. Then It takes
+additional ingredients in as parameters, no matter if they are currently in inventory or not.
+Based on those ingredients, it conducts second round of search.
+The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
+include in your recipe search.
+The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
+Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
+number at the top.
+Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
+ingredients sorts the recipe.
 
-image::recipe_search_seq.png[width="800"]
-
-Why it is implemented that way: +
-Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
-to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
-
-Alternatives: +
-Tag saving recipes that uses it +
-Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
-Cons - Bi-directional association, increase difficulty in maintaining data integrity
-
-==== Cook-mode
-The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be
-triggered by choosing a `Recipe` listed.
-
-Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
-switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
-navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
-`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
-instructions.
-// end::recipemanagement[]
-
-// tag::favouritesimplementation[]
-=== Favourites list
-
-This feature allows users to have a quick reference to all of their favourite recipes. Users are able to add recipes
-that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
-and remove any entry within the favourites list.
-
-==== Adding to Favourites
-While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
-execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
-list in the favourites model.
-// end::favouritesimplementation[]
+The difference between normal search using ingredient and current select method lies in the fact that it conducts
+search based
+ on ingredients in inventory as a default.
+Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
+of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
+ inventory.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
@@ -398,7 +374,6 @@ are deleted from a certain *Day*, the *Day* object is removed from the Meal Plan
 *Day* objects in the Meal Planner list panel are sorted in chronological order according
 to their dates. This is done by sorting the list when instantiated and when *Day* objects
 are added or removed.
-
 
 ===== Logic
 For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
@@ -442,33 +417,57 @@ The *Day* is specified by its index as seen on the list panel.
 
 // end::mealplannerimplementation[]
 
-=== Ingredient Manager
-==== Select feature of the Ingredient Manager(to be implemented)
+// tag::favouritesimplementation[]
+=== Favourites list
 
-Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
-In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
-rather than person related information.
-However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
-ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
+This feature allows users to have a quick reference to all of their favourite recipes. Users are able to add recipes
+that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
+and remove any entry within the favourites list.
 
-In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
-If you execute select command, it conducts search based on ingredients in inventory. Then It takes
-additional ingredients in as parameters, no matter if they are currently in inventory or not.
-Based on those ingredients, it conducts second round of search.
-The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
-include in your recipe search.
-The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
-Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
-number at the top.
-Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
-ingredients sorts the recipe.
+==== Adding to Favourites
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+// end::favouritesimplementation[]
 
-The difference between normal search using ingredient and current select method lies in the fact that it conducts
-search based
- on ingredients in inventory as a default.
-Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
-of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
- inventory.
+// tag::recipemanagement[]
+=== Recipe Management
+==== All-field search
+The all-field search matches keywords with details of `Recipe`.
+Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search
+feature
+provides a complex querying, rather than a superficial search on merely recipes' name.
+
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
+filter away recipes that does not meet the requirement.
+
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
+ in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
+ one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
+  in
+ the `FilteredList`.
+
+image::recipe_search_seq.png[width="800"]
+
+Why it is implemented that way: +
+Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
+to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
+
+Alternatives: +
+Tag saving recipes that uses it +
+Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
+Cons - Bi-directional association, increase difficulty in maintaining data integrity
+
+==== Cook-mode
+The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be
+triggered by choosing a `Recipe` listed.
+
+Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
+switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
+navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
+`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
+instructions.
+// end::recipemanagement[]
 
 === Health Plan list
 
