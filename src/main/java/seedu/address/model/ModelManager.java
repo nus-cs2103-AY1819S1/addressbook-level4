@@ -135,12 +135,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Returns an array list of the images from the current directory {@code dirImageList}
-     * backed by the list of {@code userPrefs}
+     * Updates the list of the images in the current directory {@code dirImageList}
      */
     @Override
     public void updateImageList() {
         userPrefs.updateImageList();
+    }
+
+    /**
+     * Updates the list of the images in the current directory {@code dirImageList} with the {@code dirImageList}
+     */
+    @Override
+    public void updateImageList(ArrayList<Path> dirImageList) {
+        userPrefs.updateImageList(dirImageList);
     }
 
     /**
