@@ -13,14 +13,13 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
-
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
 
     public static final String DEFAULT_MODULECODE = "CS2103";
-    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERIG";
+    public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERING";
     public static final String DEFAULT_ACADEMICYEAR = "1718";
     public static final String DEFAULT_SEMESTER = "1";
 
@@ -48,7 +47,7 @@ public class ModuleBuilder {
         moduleTitle = moduleToCopy.getModuleTitle();
         academicYear = moduleToCopy.getAcademicYear();
         semester = moduleToCopy.getSemester();
-        students = new UniquePersonList();
+        students = moduleToCopy.getStudents();
         tags = moduleToCopy.getTags();
     }
 
@@ -85,6 +84,14 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets the {@code students list} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withStudents(UniquePersonList students) {
+        this.students = students;
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public ModuleBuilder withTags(String ... tags) {
@@ -92,8 +99,13 @@ public class ModuleBuilder {
         return this;
     }
 
+    /**
+     * Builds a new module.
+     * @return module which has been built.
+     */
     public Module build() {
-        return new Module(moduleCode, moduleTitle, academicYear, semester, students, tags, TypeUtil.MODULE);
+        return new Module(moduleCode, moduleTitle, academicYear, semester,
+                students, tags, TypeUtil.MODULE);
     }
 
 }

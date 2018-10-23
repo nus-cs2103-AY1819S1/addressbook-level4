@@ -13,6 +13,8 @@ public class Semester {
     public static final String MESSAGE_SEMESTER_CONSTRAINTS =
             "Semester should only consist of an integer between 1 and 4 inclusive";
 
+    public static final String SEMESTER_VALIDATION_REGEX = "[1-4]{1}";
+
     public final String semesterNumber;
 
     /**
@@ -30,16 +32,19 @@ public class Semester {
      * Returns true if a given number is a valid semester.
      */
     public static boolean isValidSemester(String number) {
+        if (!number.matches(SEMESTER_VALIDATION_REGEX)) {
+            return false;
+        }
         Integer semester = Integer.parseInt(number);
         return 1 <= semester && semester <= 4;
     }
 
-    @Override
-    public String toString() {
+    public String toStringFull() {
         return "Semester " + semesterNumber;
     }
 
-    public String toStringOnlyNumber() {
+    @Override
+    public String toString() {
         return semesterNumber;
     }
 
