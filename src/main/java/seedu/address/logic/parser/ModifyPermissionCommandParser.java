@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ModifyPermissionCommand.MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_PERMISSION;
 
@@ -29,15 +30,27 @@ public class ModifyPermissionCommandParser implements Parser<ModifyPermissionCom
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModifyPermissionCommand.MESSAGE_USAGE), pe);
         }
+
         Set<Permission> permissionToAdd = new HashSet<>();
         parsePermission(argMultimap.getAllValues(PREFIX_ADD_PERMISSION)).ifPresent(permissionToAdd::addAll);
 
         Set<Permission> permissionToRemove = new HashSet<>();
         parsePermission(argMultimap.getAllValues(PREFIX_REMOVE_PERMISSION)).ifPresent(permissionToRemove::addAll);
 
+        Set<Permission> intersection = new HashSet<>(permissionToAdd);
+        intersection.retainAll(permissionToRemove);
+        if(intersection.size() > 0) {
+            throw new ParseException(MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION);
+        }
+
         return new ModifyPermissionCommand(index, permissionToAdd, permissionToRemove);
     }
 
+    /**
+     * Parses {@code Collection<String> permission} into a {@code Set<Permission>} if {@code permission} is non-empty.
+     * If {@code permission} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<permission>} containing zero permissions.
+     */
     private Optional<Set<Permission>> parsePermission(Collection<String> permission) throws ParseException {
         assert permission != null;
 
