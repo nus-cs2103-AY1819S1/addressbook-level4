@@ -80,6 +80,20 @@ public class PersonTest {
         assertTrue(group.hasMember(person));
     }
 
+    @Test
+    public void copy_isSamePerson_returnsTrue() {
+        Person person = new PersonBuilder().withName("Derek").build();
+        Person personCopy = person.copy();
+        assertTrue(personCopy.isSamePerson(person));
+    }
+
+    @Test
+    public void copy_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Derek").build();
+        Person personCopy = person.copy();
+        assertTrue(personCopy.equals(person));
+    }
+
     // @@author
     @Test
     public void isSamePerson() {
