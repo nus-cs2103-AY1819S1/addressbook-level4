@@ -62,7 +62,7 @@ public class AddressBookParser {
             return new RegisterPatientCommandParser().parse(arguments);
 
         case AddPrescriptionCommand.COMMAND_WORD:
-            return new AddPrescriptionCommand();
+            return new AddPrescriptionCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
