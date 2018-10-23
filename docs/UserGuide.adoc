@@ -209,7 +209,7 @@ Format: `open <attraction>`
 
 This section contains all commands related to viewing list on rides.
 
-// tag::view[]
+# tag::view[]
 ==== Viewing all available attractions: `viewall`
 
 Display all available attractions in a list according to the number of
@@ -228,7 +228,7 @@ Format: `view <index>`
 
 Quick view information of the top 5 most frequented rides in the park. +
 Format: `quickview`
-// end::view[]
+# end::view[]
 
 === Filter the list of rides
 
