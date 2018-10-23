@@ -20,10 +20,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Volunteer;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.VolunteerBuilder;
 
 public class AddCommandTest {
@@ -36,38 +34,9 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new AddCommand(null);
-    }
-
-    @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
     public void constructor_nullVolunteer_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddVolunteerCommand(null);
+        new AddCommand(null);
     }
 
     @Test
@@ -75,9 +44,9 @@ public class AddCommandTest {
         ModelStubAcceptingVolunteerAdded modelStub = new ModelStubAcceptingVolunteerAdded();
         Volunteer validVolunteer = new VolunteerBuilder().build();
 
-        CommandResult commandResult = new AddVolunteerCommand(validVolunteer).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validVolunteer).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddVolunteerCommand.MESSAGE_SUCCESS, validVolunteer), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validVolunteer), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validVolunteer), modelStub.volunteersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -85,24 +54,20 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateVolunteer_throwsCommandException() throws Exception {
         Volunteer validVolunteer = new VolunteerBuilder().build();
-        AddVolunteerCommand addVolunteerCommand = new AddVolunteerCommand(validVolunteer);
+        AddCommand addVolunteerCommand = new AddCommand(validVolunteer);
         ModelStub modelStub = new ModelStubWithVolunteer(validVolunteer);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_VOLUNTEER);
         addVolunteerCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        Volunteer aliceVolunteer = new VolunteerBuilder().withName("Alice").build();
-        Volunteer bobVolunteer = new VolunteerBuilder().withName("Bob").build();
+        Volunteer alice = new VolunteerBuilder().withName("Alice").build();
+        Volunteer bob = new VolunteerBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
-        AddVolunteerCommand addVolunteerAliceCommand = new AddVolunteerCommand(aliceVolunteer);
-        AddVolunteerCommand addVolunteerBobCommand = new AddVolunteerCommand(bobVolunteer);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
@@ -117,24 +82,9 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different volunteer -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
 
-        // same object -> returns true
-        assertTrue(addVolunteerAliceCommand.equals(addVolunteerAliceCommand));
-
-        // same values -> returns true
-        AddVolunteerCommand addVolunteerAliceCommandCopy = new AddVolunteerCommand(aliceVolunteer);
-        assertTrue(addVolunteerAliceCommand.equals(addVolunteerAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addVolunteerAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addVolunteerAliceCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(addVolunteerAliceCommand.equals(addVolunteerBobCommand));
     }
 
     /**
@@ -171,37 +121,6 @@ public class AddCommandTest {
 
         @Override
         public String getContextName() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //=========== Person Methods =============================================================
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -326,54 +245,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
     /**
      * A Model stub that contains a single volunteer.
      */
