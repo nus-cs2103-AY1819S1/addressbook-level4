@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
@@ -15,10 +18,10 @@ import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-import java.util.stream.Stream;
 
-
+/**
+ * AddOccasionCommandParser
+ */
 public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
