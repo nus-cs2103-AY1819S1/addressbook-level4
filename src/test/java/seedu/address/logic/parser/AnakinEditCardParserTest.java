@@ -1,18 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.AnakinCommandTestUtil.INVALID_ANSWER;
-import static seedu.address.logic.commands.AnakinCommandTestUtil.INVALID_QUESTION;
-import static seedu.address.logic.commands.AnakinCommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.INVALID_CARD_ANSWER_ARGS;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.INVALID_CARD_QUESTION_ARGS;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_ANSWER_A;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_ANSWER_B;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_CARD_ANSWER_ARGS;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_CARD_QUESTION_ARGS;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_QUESTION_A;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_QUESTION_B;
 import static seedu.address.logic.parser.AnakinCommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.AnakinCommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_THIRD_CARD;
@@ -27,8 +27,6 @@ import seedu.address.model.anakindeck.AnakinQuestion;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class AnakinEditCardParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnakinEditCardCommand.MESSAGE_USAGE);
@@ -50,11 +48,11 @@ public class AnakinEditCardParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + PREFIX_QUESTION + VALID_QUESTION_A,
+        assertParseFailure(parser, "-5" + VALID_CARD_QUESTION_ARGS,
                 MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + PREFIX_QUESTION + VALID_QUESTION_A,
+        assertParseFailure(parser, "0" + VALID_CARD_QUESTION_ARGS,
                 MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
@@ -69,31 +67,30 @@ public class AnakinEditCardParserTest {
         // All tests involve valid indices
 
         // invalid question
-        assertParseFailure(parser, "1" + PREFIX_QUESTION + INVALID_QUESTION,
-                AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_CARD_QUESTION_ARGS,
+                AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
 
         // invalid question followed by valid answer
-        assertParseFailure(parser, "1" + PREFIX_QUESTION + INVALID_QUESTION +
-            " " + PREFIX_ANSWER + VALID_ANSWER_A, AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_CARD_QUESTION_ARGS +
+            VALID_CARD_ANSWER_ARGS, AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
 
         // valid question followed by invalid question. The test case for invalid question followed by valid question
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PREFIX_QUESTION + VALID_QUESTION_A +
-            " " + PREFIX_QUESTION + INVALID_QUESTION,
+        assertParseFailure(parser, "1" + VALID_CARD_QUESTION_ARGS +
+            " " + INVALID_CARD_QUESTION_ARGS,
                 AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + PREFIX_QUESTION + INVALID_QUESTION +
-                        " " + PREFIX_ANSWER + INVALID_ANSWER,
+        assertParseFailure(parser, "1" + INVALID_CARD_QUESTION_ARGS +
+                        INVALID_CARD_ANSWER_ARGS,
                 AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_CARD;
-        String userInput = targetIndex.getOneBased() + PREAMBLE_WHITESPACE
-                + PREFIX_QUESTION + VALID_QUESTION_A + " " +
-                PREFIX_ANSWER + INVALID_ANSWER;
+        String userInput = targetIndex.getOneBased() +
+                VALID_CARD_QUESTION_ARGS + VALID_CARD_ANSWER_ARGS;
 
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_A)
@@ -107,16 +104,14 @@ public class AnakinEditCardParserTest {
     public void parse_oneFieldSpecified_success() {
         // Question
         Index targetIndex = INDEX_THIRD_CARD;
-        String userInput = targetIndex.getOneBased() + PREAMBLE_WHITESPACE +
-                PREFIX_QUESTION + VALID_QUESTION_A;
+        String userInput = targetIndex.getOneBased() + VALID_CARD_QUESTION_ARGS;
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder().
                 withQuestion(VALID_QUESTION_A).build();
         AnakinEditCardCommand expectedCommand = new AnakinEditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // Answer
-        userInput = targetIndex.getOneBased() + PREAMBLE_WHITESPACE +
-                PREFIX_ANSWER + VALID_ANSWER_A;
+        userInput = targetIndex.getOneBased() + VALID_CARD_ANSWER_ARGS;
         descriptor = new EditCardDescriptorBuilder().
                 withAnswer(VALID_ANSWER_A).build();
         expectedCommand = new AnakinEditCardCommand(targetIndex, descriptor);
@@ -126,10 +121,10 @@ public class AnakinEditCardParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_CARD;
-        String userInput = targetIndex.getOneBased() + PREAMBLE_WHITESPACE +
-                PREFIX_QUESTION + VALID_QUESTION_A + " " +
-                PREFIX_QUESTION + VALID_QUESTION_B + " " +
-                PREFIX_ANSWER + VALID_QUESTION_A + " " +
+        String userInput = targetIndex.getOneBased() + "" +
+                VALID_CARD_QUESTION_ARGS +
+                " " + PREFIX_QUESTION + VALID_QUESTION_B +
+                VALID_CARD_ANSWER_ARGS + " " +
                 PREFIX_ANSWER + VALID_ANSWER_B;
 
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
@@ -144,19 +139,19 @@ public class AnakinEditCardParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_CARD;
-        String userInput = targetIndex.getOneBased() + " " +
-                PREFIX_QUESTION + INVALID_QUESTION  +
-                PREFIX_QUESTION + VALID_QUESTION_A;
+        String userInput = targetIndex.getOneBased() + "" +
+                INVALID_CARD_QUESTION_ARGS  +
+                VALID_CARD_QUESTION_ARGS;
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_A).build();
         AnakinEditCardCommand expectedCommand = new AnakinEditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() +  " " +
-                PREFIX_QUESTION + INVALID_QUESTION  +
-                PREFIX_ANSWER + VALID_ANSWER_A +
-                PREFIX_QUESTION + VALID_QUESTION_A;
+        userInput = targetIndex.getOneBased() +  "" +
+                INVALID_CARD_QUESTION_ARGS  +
+                VALID_CARD_ANSWER_ARGS +
+                VALID_CARD_QUESTION_ARGS;
         descriptor = new EditCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_A)
                 .withAnswer(VALID_ANSWER_A)

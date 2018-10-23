@@ -32,6 +32,7 @@ public class AnakinCommandTestUtil {
     public static final String VALID_NAME_DECK_B = "Your deck";
 
     public static final String VALID_DECK_NAME_A_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_A;
+    public static final String VALID_DECK_NAME_B_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_B;
     public static final String INVALID_DECK_NAME_ARGS = " " + PREFIX_NAME + " Bad_Deck_Name!";
 
     public static final String VALID_QUESTION_A = "Another valid stuff";
@@ -44,6 +45,17 @@ public class AnakinCommandTestUtil {
 
     public static final String VALID_CARD_A_ARGS = " " + PREFIX_QUESTION +
             VALID_QUESTION_A +  " " + PREFIX_ANSWER + VALID_ANSWER_A;
+
+    public static final String VALID_CARD_QUESTION_ARGS = " " +
+            PREFIX_QUESTION + VALID_QUESTION_A;
+    public static final String VALID_CARD_ANSWER_ARGS = " " +
+            PREFIX_ANSWER + VALID_ANSWER_A;
+    public static final String INVALID_CARD_QUESTION_ARGS = " " +
+            PREFIX_QUESTION + INVALID_QUESTION;
+    public static final String INVALID_CARD_ANSWER_ARGS = " " +
+            PREFIX_ANSWER + INVALID_ANSWER;
+
+
 
     public static final List<AnakinCard> VALID_CARD_LIST = new ArrayList<>();
     public static final List<AnakinCard> TYPICAL_CARD_LIST = AnakinTypicalCards.getTypicalCards();
