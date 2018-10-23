@@ -32,8 +32,8 @@ public class FilterByGradeCommandTest {
         String second = new String(" ");
 
 
-        FilterByGradeCommand filterByGradeFirstCommand = new filterByGradeCommand(first);
-        FilterByGradeCommand filterByGradeSecondCommand = new filterByGradeCommand(second);
+        FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
+        FilterByGradeCommand filterByGradeSecondCommand = new FilterByGradeCommand(second);
 
         // same object -> returns true
         assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommand));
