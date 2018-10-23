@@ -34,13 +34,13 @@ import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 /**
- * Imports an XML file to update the address book.
+ * Imports an XML file to update Hallper.
  */
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports an XML file to update the address book.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports an XML file to update Hallper.\n "
             + "Parameters: "
             + "import "
             + "f/C://Users/Documents/FILENAME.xml";
