@@ -30,8 +30,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRE
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_STUDENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalVolunteers.AMY;
@@ -55,7 +55,7 @@ public class AddVolunteerCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Volunteer expectedVolunteer = new VolunteerBuilder(BOB).withTags(VALID_VOLUNTEER_TAG_FRIEND).build();
+        Volunteer expectedVolunteer = new VolunteerBuilder(BOB).withTags(VALID_VOLUNTEER_TAG_STUDENT).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_VOLUNTEER_DESC_BOB
@@ -96,7 +96,7 @@ public class AddVolunteerCommandParserTest {
 
         // multiple tags - all accepted
         Volunteer expectedVolunteerMultipleTags = new VolunteerBuilder(BOB)
-                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_DRIVER).build();
+                .withTags(VALID_VOLUNTEER_TAG_STUDENT, VALID_VOLUNTEER_TAG_DRIVER).build();
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
                 + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND,
@@ -187,7 +187,7 @@ public class AddVolunteerCommandParserTest {
         // invalid tag
         assertParseFailure(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
-                + INVALID_VOLUNTEER_TAG_DESC + VALID_VOLUNTEER_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
+                + INVALID_VOLUNTEER_TAG_DESC + VALID_VOLUNTEER_TAG_STUDENT, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_VOLUNTEER_NAME_DESC + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
