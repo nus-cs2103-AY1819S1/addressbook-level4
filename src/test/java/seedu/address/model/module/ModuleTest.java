@@ -2,19 +2,20 @@ package seedu.address.model.module;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalModules.CS1101S;
+import static seedu.address.testutil.TypicalModules.CS1231;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModuleTest {
@@ -23,24 +24,24 @@ public class ModuleTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
+        Module module = new ModuleBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
-        person.getTags().remove(0);
+        module.getTags().remove(0);
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameModule() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(CS1101S.isSameModule(CS1101S));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(CS1101S.isSameModule(null));
 
-        // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // different moduletitle -> returns false
+        Module editedCS1101S = new ModuleBuilder(CS1101S).withModuleTitle(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(CS1101S.isSameModule(editedCS1101S));
 
-        // different name -> returns false
+        // different modulecode -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
