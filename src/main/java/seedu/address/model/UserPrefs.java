@@ -20,7 +20,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path currDirectory = Paths.get(System.getProperty("user.home"));
-    private ArrayList<String> imageList = new ArrayList<>();
+    private ArrayList<Path> imageList = new ArrayList<>();
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -65,12 +65,12 @@ public class UserPrefs {
     public void updateImageList() {
         File currFileDir = new File(currDirectory.toString());
         File[] currFiles = currFileDir.listFiles();
-        ArrayList<String> dirImageList = new ArrayList<>();
+        ArrayList<Path> dirImageList = new ArrayList<>();
         for (File file : currFiles) {
             if (file.isFile()) {
                 try {
                     if (ImageIO.read(file) != null) {
-                        dirImageList.add(file.toString());
+                        dirImageList.add(file.toPath());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -81,7 +81,7 @@ public class UserPrefs {
         imageList = dirImageList;
     }
 
-    public ArrayList<String> getAllImages() {
+    public ArrayList<Path> getAllImages() {
         return imageList;
     }
 
