@@ -1,6 +1,7 @@
 package seedu.address.model.module;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -48,9 +50,18 @@ public class UniqueModuleList implements Iterable<Module> {
      * The module identity of {@code editedModule} must not be the same as another existing module in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        // TODO fill up implementation.
-        // Will leave upto the implementer of the
-        // update feature to do.
+        requireAllNonNull(target, editedModule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!target.isSameModule(editedModule) && contains(editedModule)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.set(index, editedModule);
     }
 
     /**
@@ -107,8 +118,10 @@ public class UniqueModuleList implements Iterable<Module> {
     private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size(); i++) {
             for (int j = 0; j < modules.size(); j++) {
-                if (modules.get(i).equals(modules.get(j))) {
-                    return false;
+                if (i != j) {
+                    if (modules.get(i).equals(modules.get(j))) {
+                        return false;
+                    }
                 }
             }
         }

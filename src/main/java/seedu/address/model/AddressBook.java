@@ -166,7 +166,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds a module to the address book.
-     * The person must not already exist in the address book.
+     * The module must not already exist in the address book.
      */
     public void addModule(Module module) {
         modules.add(module);

@@ -103,27 +103,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person person) {
-        versionedAddressBook.removePerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void deleteModule(Module module) {
-        versionedAddressBook.removeModule(module);
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void deleteOccasion(Occasion occasion) {
-        versionedAddressBook.removeOccasion(occasion);
-        updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -147,6 +126,24 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void deletePerson(Person target) {
+        versionedAddressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteModule(Module target) {
+        versionedAddressBook.removeModule(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteOccasion(Occasion target) {
+        versionedAddressBook.removeOccasion(target);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -166,6 +163,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Occasion List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<Occasion> getFilteredOccasionList() {
         return FXCollections.unmodifiableObservableList(filteredOccasions);
@@ -180,6 +181,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Module List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return FXCollections.unmodifiableObservableList(filteredModules);

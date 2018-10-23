@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedModule.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalModules.CS1101S;
+import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_ONE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class XmlAdaptedModuleTest {
     private static final String INVALID_SEMESTER = "5";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_MODULECODE = CS1101S.getModuleCode().toString();
-    private static final String VALID_MODULETITLE = CS1101S.getModuleTitle().toString();
-    private static final String VALID_ACADEMICYEAR = CS1101S.getAcademicYear().toString();
-    private static final String VALID_SEMESTER = CS1101S.getSemester().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = CS1101S.getTags().stream()
+    private static final String VALID_MODULECODE = TYPICAL_MODULE_ONE.getModuleCode().toString();
+    private static final String VALID_MODULETITLE = TYPICAL_MODULE_ONE.getModuleTitle().toString();
+    private static final String VALID_ACADEMICYEAR = TYPICAL_MODULE_ONE.getAcademicYear().toString();
+    private static final String VALID_SEMESTER = TYPICAL_MODULE_ONE.getSemester().toString();
+    private static final List<XmlAdaptedTag> VALID_TAGS = TYPICAL_MODULE_ONE.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validModuleDetails_returnsModule() throws Exception {
-        XmlAdaptedModule module = new XmlAdaptedModule(CS1101S);
-        assertEquals(CS1101S, module.toModelType());
+        XmlAdaptedModule module = new XmlAdaptedModule(TYPICAL_MODULE_ONE);
+        assertEquals(TYPICAL_MODULE_ONE, module.toModelType());
     }
 
     @Test

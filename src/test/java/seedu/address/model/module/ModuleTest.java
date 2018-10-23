@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
-import static seedu.address.testutil.TypicalModules.CS1101S;
-import static seedu.address.testutil.TypicalModules.CS1231;
+import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_ONE;
+import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_TWO;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Rule;
@@ -30,82 +30,82 @@ public class ModuleTest {
     @Test
     public void isSameModule() {
         // same object -> returns true
-        assertTrue(CS1101S.isSameModule(CS1101S));
+        assertTrue(TYPICAL_MODULE_ONE.isSameModule(TYPICAL_MODULE_ONE));
 
         // null -> returns false
-        assertFalse(CS1101S.isSameModule(null));
+        assertFalse(TYPICAL_MODULE_ONE.isSameModule(null));
 
         // different moduletitle -> returns true
-        Module editedCS1101S = new ModuleBuilder(CS1101S).withModuleTitle(VALID_MODULETITLE_ST2131)
+        Module editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withModuleTitle(VALID_MODULETITLE_ST2131)
                 .build();
-        assertTrue(CS1101S.isSameModule(editedCS1101S));
+        assertTrue(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
 
         // different modulecode -> returns false
-        editedCS1101S = new ModuleBuilder(CS1101S).withModuleCode(VALID_MODULECODE_CS2100)
+        editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withModuleCode(VALID_MODULECODE_CS2100)
                 .build();
-        assertFalse(CS1101S.isSameModule(editedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
 
         // different academic year -> returns false
-        editedCS1101S = new ModuleBuilder(CS1101S).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
+        editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
                 .build();
-        assertFalse(CS1101S.isSameModule(editedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
 
         // different semester -> returns false
-        editedCS1101S = new ModuleBuilder(CS1101S).withSemester("4")
+        editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withSemester("4")
                 .build();
-        assertFalse(CS1101S.isSameModule(editedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
 
         // different students list -> return true
         UniquePersonList validStudents = new UniquePersonList();
         validStudents.add(ALICE);
-        editedCS1101S = new ModuleBuilder(CS1101S).withStudents(validStudents).build();
-        assertTrue(CS1101S.isSameModule(editedCS1101S));
+        editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withStudents(validStudents).build();
+        assertTrue(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Module copiedCS1101S = new ModuleBuilder(CS1101S).build();
-        assertTrue(CS1101S.equals(copiedCS1101S));
+        Module copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).build();
+        assertTrue(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // same object -> returns true
-        assertTrue(CS1101S.equals(CS1101S));
+        assertTrue(TYPICAL_MODULE_ONE.equals(TYPICAL_MODULE_ONE));
 
         // null -> returns false
-        assertFalse(CS1101S.equals(null));
+        assertFalse(TYPICAL_MODULE_ONE.equals(null));
 
         // different type -> returns false
-        assertFalse(CS1101S.equals(5));
+        assertFalse(TYPICAL_MODULE_ONE.equals(5));
 
         // different module -> returns false
-        assertFalse(CS1101S.equals(CS1231));
+        assertFalse(TYPICAL_MODULE_ONE.equals(TYPICAL_MODULE_TWO));
 
         // different module code -> returns false
-        copiedCS1101S = new ModuleBuilder(CS1101S)
+        copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE)
                 .withModuleCode(VALID_MODULECODE_CS2100)
                 .build();
-        assertFalse(CS1101S.equals(copiedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // different module title -> returns false
-        copiedCS1101S = new ModuleBuilder(CS1101S)
+        copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE)
                 .withModuleTitle(VALID_MODULETITLE_ST2131)
                 .build();
-        assertFalse(CS1101S.equals(copiedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // different academic year -> returns false
-        copiedCS1101S = new ModuleBuilder(CS1101S)
+        copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE)
                 .withAcademicYear(VALID_ACADEMICYEAR_CS2100)
                 .build();
-        assertFalse(CS1101S.equals(copiedCS1101S));
+        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // different semester -> returns false
-        copiedCS1101S = new ModuleBuilder(CS1101S).withSemester("4").build();
-        assertFalse(CS1101S.equals(copiedCS1101S));
+        copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withSemester("4").build();
+        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // different students list -> returns false
         UniquePersonList validStudents = new UniquePersonList();
         validStudents.add(ALICE);
-        copiedCS1101S = new ModuleBuilder(CS1101S).withStudents(validStudents).build();
-        assertFalse(CS1101S.equals(copiedCS1101S));
+        copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withStudents(validStudents).build();
+        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
     }
 }

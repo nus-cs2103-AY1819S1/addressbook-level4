@@ -96,7 +96,6 @@ public interface Model {
      */
     void deleteOccasion(Occasion occasion);
 
-
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
 

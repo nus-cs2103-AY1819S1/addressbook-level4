@@ -13,6 +13,7 @@ public class AcademicYear {
     public static final String MESSAGE_ACADEMICYEAR_CONSTRAINTS =
             "Academic Year should be a 4 digit number,"
             + " with the first and last 2 digits representing the calendar year.";
+
     public static final String ACADEMICYEAR_VALIDATION_REGEX = "[0-9]{4}";
 
     public final Integer yearNumber;

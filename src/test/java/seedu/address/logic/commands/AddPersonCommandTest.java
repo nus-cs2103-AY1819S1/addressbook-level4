@@ -106,32 +106,32 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
+        public void deletePerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateModule(Module target, Module editedModule) {
+        public void deleteModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateOccasion(Occasion target, Occasion editedOccasion) {
+        public void deleteOccasion(Occasion occasion) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person personToDelete) {
+        public void updatePerson(Person person, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteModule(Module moduleToDelete) {
+        public void updateModule(Module module, Module editedModule) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteOccasion(Occasion occasionToDelete) {
+        public void updateOccasion(Occasion occasion, Occasion editedOccasion) {
             throw new AssertionError("This method should not be called.");
         }
 
