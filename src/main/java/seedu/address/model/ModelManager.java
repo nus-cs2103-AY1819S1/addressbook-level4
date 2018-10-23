@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasOccasion(Occasion occasion) {
         requireNonNull(occasion);
-        return versionedAddressBook.hasOccasino(occasion);
+        return versionedAddressBook.hasOccasion(occasion);
     }
 
 
@@ -111,8 +111,36 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        versionedAddressBook.updateModule(target, editedModule);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateOccasion(Occasion target, Occasion editedOccasion) {
+        requireAllNonNull(target, editedOccasion);
+
+        versionedAddressBook.updateOccasion(target, editedOccasion);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteModule(Module target) {
+        versionedAddressBook.removeModule(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteOccasion(Occasion target) {
+        versionedAddressBook.removeOccasion(target);
         indicateAddressBookChanged();
     }
 
@@ -135,6 +163,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Occasion List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Occasion> getFilteredOccasionList() {
+        return FXCollections.unmodifiableObservableList(filteredOccasions);
+    }
+
     @Override
     public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
         requireNonNull(predicate);
@@ -143,6 +180,15 @@ public class ModelManager extends ComponentManager implements Model {
 
 
     //=========== Filtered Module List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return FXCollections.unmodifiableObservableList(filteredModules);
+    }
 
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {

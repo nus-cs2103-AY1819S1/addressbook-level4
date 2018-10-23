@@ -19,6 +19,6 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_OCCASION_NAME = new Prefix("on/");
     public static final Prefix PREFIX_OCCASION_DATE = new Prefix("od/");
-    public static final Prefix PREFIX_LOCATION = new Prefix("loc/");
+    public static final Prefix PREFIX_OCCASION_LOCATION = new Prefix("loc/");
 
 }

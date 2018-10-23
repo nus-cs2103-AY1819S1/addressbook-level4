@@ -14,8 +14,9 @@ public class AcademicYear {
             "Academic Year should be a 4 digit number,"
             + " with the first and last 2 digits representing the calendar year.";
 
-    public final Integer yearNumber;
+    public static final String ACADEMICYEAR_VALIDATION_REGEX = "[0-9]{4}";
 
+    public final Integer yearNumber;
     /**
      * Constructs a {@code AcademicYear}.
      *
@@ -24,14 +25,14 @@ public class AcademicYear {
     public AcademicYear(String number) {
         requireNonNull(number);
         checkArgument(isValidYear(number), MESSAGE_ACADEMICYEAR_CONSTRAINTS);
-        yearNumber = Integer.getInteger(number);
+        yearNumber = Integer.parseInt(number);
     }
 
     /**
      * Returns true if a given Integer is a valid AcademicYear number
      */
     public static boolean isValidYear(String number) {
-        Integer combinedYear = Integer.getInteger(number);
+        Integer combinedYear = Integer.parseInt(number);
         Integer firstYear = combinedYear / 100;
         Integer secondYear = combinedYear % 100;
         return (firstYear + 1) % 100 == secondYear;
