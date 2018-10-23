@@ -45,7 +45,7 @@ public class SaveCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Wish> lastShownList = model.getFilteredWishList();
+        List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -59,9 +59,9 @@ public class SaveCommand extends Command {
         String differenceString = "";
 
         try {
-            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
+            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
                     wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
-                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getTransactions());
+                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
 
             model.updateWish(wishToEdit, editedWish);
             model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);

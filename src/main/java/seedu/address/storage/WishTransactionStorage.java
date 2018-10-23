@@ -19,7 +19,7 @@ public interface WishTransactionStorage {
     /**
      * Returns WishTransaction data as a {@link WishTransaction}.
      *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws DataConversionException if the data in storage is not in the expected FORMAT.
      * @throws IOException if there was any problem when reading from the storage.
      */
     Optional<WishTransaction> readWishTransaction() throws DataConversionException, IOException;

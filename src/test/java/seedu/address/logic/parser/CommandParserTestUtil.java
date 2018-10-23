@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -17,7 +19,11 @@ public class CommandParserTestUtil {
     public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
         try {
             Command command = parser.parse(userInput);
-            assertEquals(expectedCommand, command);
+            if (command instanceof AddCommand) {
+                assertTrue(((AddCommand) command).isSameAs((AddCommand) expectedCommand));
+            } else {
+                assertEquals(expectedCommand, command);
+            }
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }

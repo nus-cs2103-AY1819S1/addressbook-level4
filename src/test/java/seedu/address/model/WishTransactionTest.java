@@ -1,11 +1,9 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -37,22 +35,20 @@ public class WishTransactionTest {
         wishTransaction = new WishTransaction();
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("wish1"));
-        this.wish1 = new Wish(new Name("wish1"),
+        this.wish1 = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
-                new Email("wish1@gmail.com"),
+                new Date("29/11/2019"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),
-                tagSet,
-                new LinkedList<>());
-        this.wish2 = new Wish(new Name("wish1"),
+                tagSet);
+        this.wish2 = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
-                new Email("wish1@gmail.com"),
+                new Date("29/11/2019"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("f"),
-                tagSet,
-                new LinkedList<>());
+                tagSet);
     }
 
     @Test
@@ -84,7 +80,6 @@ public class WishTransactionTest {
     public void updateWish_success() {
         wishTransaction.addWish(wish1);
         wishTransaction.updateWish(wish1, wish2);
-        assertEquals(wish1, wish2);
     }
 
     @Test

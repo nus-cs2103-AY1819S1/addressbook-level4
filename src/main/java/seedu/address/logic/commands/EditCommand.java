@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -10,10 +10,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,7 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -45,12 +45,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRICE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_DATE + "EMAIL] "
             + "[" + PREFIX_URL + "URL] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "60.60 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_DATE + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_WISH_SUCCESS = "Edited Wish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -74,7 +74,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Wish> lastShownList = model.getFilteredWishList();
+        List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -102,16 +102,15 @@ public class EditCommand extends Command {
 
         Name updatedName = editWishDescriptor.getName().orElse(wishToEdit.getName());
         Price updatedPrice = editWishDescriptor.getPrice().orElse(wishToEdit.getPrice());
-        Email updatedEmail = editWishDescriptor.getEmail().orElse(wishToEdit.getEmail());
+        Date updatedDate = editWishDescriptor.getDate().orElse(wishToEdit.getDate());
         Url updatedUrl = editWishDescriptor.getUrl().orElse(wishToEdit.getUrl());
         SavedAmount savedAmount = wishToEdit.getSavedAmount(); // edit command does not allow editing remarks
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
-        LinkedList<Wish> transactions = wishToEdit.getTransactions(); // no editing of transactions
+        UUID originalUuid = wishToEdit.getId();
 
-        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark,
-                updatedTags,
-                transactions);
+        return new Wish(updatedName, updatedPrice, updatedDate, updatedUrl,
+                savedAmount, remark, updatedTags, originalUuid);
     }
 
     @Override
@@ -139,7 +138,7 @@ public class EditCommand extends Command {
     public static class EditWishDescriptor {
         private Name name;
         private Price price;
-        private Email email;
+        private Date date;
         private Url url;
         private Set<Tag> tags;
 
@@ -152,7 +151,7 @@ public class EditCommand extends Command {
         public EditWishDescriptor(EditWishDescriptor toCopy) {
             setName(toCopy.name);
             setPrice(toCopy.price);
-            setEmail(toCopy.email);
+            setDate(toCopy.date);
             setUrl(toCopy.url);
             setTags(toCopy.tags);
         }
@@ -161,7 +160,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, price, email, url, tags);
+            return CollectionUtil.isAnyNonNull(name, price, date, url, tags);
         }
 
         public void setName(Name name) {
@@ -180,12 +179,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(price);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setUrl(Url url) {
@@ -230,7 +229,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPrice().equals(e.getPrice())
-                    && getEmail().equals(e.getEmail())
+                    && getDate().equals(e.getDate())
                     && getUrl().equals(e.getUrl())
                     && getTags().equals(e.getTags());
         }

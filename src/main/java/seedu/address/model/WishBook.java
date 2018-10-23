@@ -3,8 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -113,46 +111,17 @@ public class WishBook implements ReadOnlyWishBook {
 
             Wish modifiedWish = new Wish(wish.getName(),
                     wish.getPrice(),
-                    wish.getEmail(),
+                    wish.getDate(),
                     wish.getUrl(),
                     wish.getSavedAmount(),
-                    wish.getRemark(),
-                    modifiedTags,
-                    wish.getTransactions());
+                    wish.getRemark(), modifiedTags, wish.getId());
 
             modifiedWishes.add(modifiedWish);
         }
         wishes.setWishes(modifiedWishes);
     }
 
-    /**
-     * Updates all the Wishes with the latest WishTransactions.
-     * @param wishMap
-     */
-    public void synchronizeWishTransactions(HashMap<String, LinkedList<Wish>> wishMap) {
-        ArrayList<Wish> modifiedWishes = new ArrayList<>();
 
-        for (Wish wish : wishes.asUnmodifiableObservableList()) {
-
-            LinkedList<Wish> transactions = wishMap.get(wish.getName().toString());
-
-            if (transactions == null) {
-                transactions = new LinkedList<>();
-            }
-
-            Wish modifiedWish = new Wish(wish.getName(),
-                    wish.getPrice(),
-                    wish.getEmail(),
-                    wish.getUrl(),
-                    wish.getSavedAmount(),
-                    wish.getRemark(),
-                    wish.getTags(),
-                    transactions);
-
-            modifiedWishes.add(modifiedWish);
-        }
-        wishes.setWishes(modifiedWishes);
-    }
     //// util methods
 
     @Override
