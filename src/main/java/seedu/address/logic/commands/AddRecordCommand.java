@@ -27,7 +27,7 @@ public class AddRecordCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a volunteer record to the event that "
             + "is currently managed."
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: VOLUNTEER_INDEX (must be a positive integer) "
             + "[" + PREFIX_RECORD_HOUR + "HOURS] "
             + "[" + PREFIX_RECORD_REMARK + "REMARKS]\n"
             + "Example: " + COMMAND_WORD + " "
