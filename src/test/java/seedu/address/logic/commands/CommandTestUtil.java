@@ -3,10 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +32,7 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_BENSON = "Benson Boy";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
@@ -37,6 +41,13 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    public static final String VALID_DATE_AMY = "02 10 2018";
+    public static final String VALID_DATE_BENSON = "03 10 2018";
+    public static final String VALID_TIME_AMY = "13 00";
+    public static final String VALID_TIME_BENSON = "15 00";
+    public static final String VALID_ID_AMY = "2222";
+    public static final String VALID_ID_BENSON = "1234";
 
     public static final int VALID_ID_ADAM = 1;
     public static final int VALID_ID_BEN = 2;
@@ -57,6 +68,13 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String DATE_DESC_AMY = " " + PREFIX_DATE + VALID_DATE_AMY;
+    public static final String DATE_DESC_BENSON = " " + PREFIX_DATE + VALID_DATE_BENSON;
+    public static final String TIME_DESC_AMY = " " + PREFIX_TIME + VALID_TIME_AMY;
+    public static final String TIME_DESC_BENSON = " " + PREFIX_TIME + VALID_DATE_BENSON;
+    public static final String ID_DESC_AMY = " " + PREFIX_ID + VALID_ID_AMY;
+    public static final String ID_DESC_BENSON = " " + PREFIX_ID + VALID_ID_BENSON;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

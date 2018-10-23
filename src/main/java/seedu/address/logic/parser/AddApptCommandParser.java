@@ -40,14 +40,16 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        //Patient patient = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get);
+        //Patient patient = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get());
 
-        //to replace with patient id
-        Name name = new Name("asdf");
-        Email email = new Email("e@e.com");
-        Phone phone = new Phone("222");
-        Address address = new Address("a");
+        //TODO: replace with patient id
+        Name name = new Name("Amy Bee");
+        Email email = new Email("amy@example.com");
+        Phone phone = new Phone("11111111");
+        Address address = new Address("Block 312, Amy Street 1");
+        Tag tag = new Tag("friend");
         Set<Tag> tags = new HashSet<Tag>();
+        tags.add(tag);
         Person person = new Person(name, phone, email, address, tags);
 
         Appointment appt = new Appointment(date, time, person);

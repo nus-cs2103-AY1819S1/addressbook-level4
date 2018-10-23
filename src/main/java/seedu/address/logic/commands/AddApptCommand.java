@@ -26,12 +26,13 @@ public class AddApptCommand extends Command {
             + PREFIX_TIME + "hh mm "
             + PREFIX_ID + "[Patient ID]"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "3 3 2003 "
+            + PREFIX_DATE + "03 03 2003 "
             + PREFIX_TIME + "16 30"
             + PREFIX_ID + "289327";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment is already scheduled.";
+    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
 
     private final Appointment toAdd;
 
@@ -45,6 +46,9 @@ public class AddApptCommand extends Command {
         requireNonNull(model);
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+        if (model.hasAppointmentClash(toAdd)) {
+            throw new CommandException(MESSAGE_CLASH_APPOINTMENT);
         }
         model.addAppointment(toAdd);
         model.commitAddressBook();
