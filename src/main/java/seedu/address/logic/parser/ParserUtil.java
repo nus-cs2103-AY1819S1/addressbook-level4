@@ -219,10 +219,15 @@ public class ParserUtil {
         return new Stock(stockValue);
     }
 
+    /**
+     * Parses a {@code String amountToDispense} into an {@code Integer}.
+     *
+     * @throws ParseException if the given {@code amountToDispense} is invalid ie not a positive integer.
+     */
     public static Integer parseAmountToDispense(String amountToDispense) throws ParseException {
         requireNonNull(amountToDispense);
         Integer amount = Integer.parseInt(amountToDispense);
-        if(amount < 0) {
+        if (amount < 0) {
             throw new ParseException(MESSAGE_INVALID_AMOUNT_TO_DISPENSE);
         }
 

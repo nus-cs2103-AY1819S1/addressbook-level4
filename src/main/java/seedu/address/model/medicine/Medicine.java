@@ -3,6 +3,7 @@ package seedu.address.model.medicine;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
 import seedu.address.model.medicine.exceptions.InsufficientStockException;
 
 /**
@@ -54,9 +55,14 @@ public class Medicine {
         return stock.getValue();
     }
 
+    /**
+     * After dispensing the medicine to the patient, the stock is updated accordingly
+     * to the original stock level. There must be sufficient quantity of stock to dispense.
+     * @param stockToDispense the amount of medicine to dispense
+     */
     public void dispense(Integer stockToDispense) throws InsufficientStockException {
         int newStockLevel = getStockValue() - stockToDispense;
-        if(newStockLevel < 0) {
+        if (newStockLevel < 0) {
             throw new InsufficientStockException(this);
         }
         this.stock = new Stock(newStockLevel);

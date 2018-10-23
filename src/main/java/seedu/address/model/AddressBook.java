@@ -111,7 +111,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// medicine-level operations
 
-    //@@author 99percentile
     /**
      * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
      */
@@ -120,12 +119,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return medicines.contains(medicine);
     }
 
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     */
     public boolean hasMedicine(MedicineName medicineName) {
         requireNonNull(medicineName);
         return medicines.contains(medicineName);
     }
 
-    //@@author 99percentile
     /**
      * Adds a medicine to the records.
      * The medicine must not already exist in the record.
@@ -134,7 +135,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines.add(m);
     }
 
-    //@@author 99percentile
     /**
      * Removes {@code medicine} from this {@code AddressBook}.
      * {@code key} must exist in the records.
@@ -143,7 +143,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines.remove(medicine);
     }
 
-    //@@author 99percentile
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the address book.
@@ -155,6 +154,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines.setMedicine(target, editedMedicine);
     }
 
+    /**
+     * Dispenses the medicine with {@code medicineName} to the patient.
+     */
     public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
         requireNonNull(quantityToDispense);
         requireNonNull(quantityToDispense);
