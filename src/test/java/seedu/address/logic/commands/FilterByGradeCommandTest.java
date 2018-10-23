@@ -43,11 +43,11 @@ public class FilterByGradeCommandTest {
         assertTrue(filterByGradeFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByGradeFirstCommand.equals(1));
+        assertFalse(filterByGradeFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(FilterByGradeFirstCommand.equals(filterByGradeSecondCommand));
+        assertFalse(filterByGradeFirstCommand.equals(filterByGradeSecondCommand));
     }
 
     @Test
