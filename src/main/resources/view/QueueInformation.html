@@ -3,8 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Queue Info</title>
+    <script>
+        function getJsonFromUrl() {
+            var query = location.search.substr(1);
+            var result = {};
+            query.split("&").forEach(function(part) {
+                var item = part.split("=");
+                result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return result;
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var queueString = getJsonFromUrl().queue;
+            var queueTable = document.getElementById("queueTable");
+            var queueArray = queueString.split("_");
+
+            var index = 1;
+            if (queueString != "empty") {
+                queueArray.forEach(function(patient) {
+                    var row = queueTable.insertRow();
+                    row.insertCell(0).innerHTML = patient;
+                    row.insertCell(0).innerHTML = index++ + ".";
+                });
+            } else {
+                queueTable.insertRow().insertCell(0).innerHTML = "Queue is empty!";
+            }
+
+
+            var servedString = getJsonFromUrl().served;
+            var servedTable = document.getElementById("servedTable");
+            var servedArray = servedString.split("_");
+
+            index = 1;
+            if (servedString != "empty") {
+                servedArray.forEach(function (patient) {
+                    var row = servedTable.insertRow();
+                    row.insertCell(0).innerHTML = patient;
+                    row.insertCell(0).innerHTML = index++ + ".";
+                });
+            } else {
+                servedTable.insertRow().insertCell(0).innerHTML = "Served List is empty!";
+            }
+
+            document.getElementById("current").innerHTML=getJsonFromUrl().current;
+        });
+
+
+    </script>
+    <style>
+        h2 {
+            padding: 10px;
+            text-decoration: underline;
+        }
+        h4 {
+            text-align: center;
+        }
+        table, tr, td {
+            border: 0px solid black;
+        }
+        tr {
+            height: 40px;
+        }
+    </style>
 </head>
 <body>
-<p>hello world!</p>
+<h2>Queue Information</h2>
+<div style="float: left; width: 250px; padding: 0px 10px">
+    <h4>Queue</h4>
+    <table style="border: 1px solid black; width: 100%;" id="queueTable">
+    </table>
+</div>
+<div style="float: left; width: 250px; padding: 0px 10px">
+    <h4>Current Patient</h4>
+    <table style="border: 1px solid black; width: 100%;">
+        <tr>
+            <td><span id="current"></span></td>
+        </tr>
+    </table>
+</div>
+<div style="float: left; width: 250px; padding: 0px 10px">
+    <h4>Served List</h4>
+    <table style="border: 1px solid black; width: 100%;" id="servedTable">
+    </table>
+</div>
 </body>
 </html>
