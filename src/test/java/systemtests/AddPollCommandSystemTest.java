@@ -36,7 +36,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         String pollName = POLLNAME;
-        String command = AddPollCommand.COMMAND_WORD + "  " + PREFIX_NAME + POLLNAME;
+        String command = "   " + AddPollCommand.COMMAND_WORD + "  " + PREFIX_NAME + POLLNAME;
 
         /* Case: no user logged in -> NoUserLoggedInException */
         assertCommandFailure(command, Messages.MESSAGE_NO_USER_LOGGED_IN);
@@ -60,17 +60,17 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform add poll option operations ----------------------------------- */
 
         /* Case: invalid command format missing index -> rejected */
-        String addOptionCommand = AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_POLL_OPTION + POLL_OPTION;
+        String addOptionCommand = "   " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_POLL_OPTION + POLL_OPTION;
         assertCommandFailure(addOptionCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPollOptionCommand.MESSAGE_USAGE));
 
         /* Case: no poll at the given index -> rejected */
-        addOptionCommand = AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "3 "
+        addOptionCommand = "   " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "3 "
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertCommandFailure(addOptionCommand, Messages.MESSAGE_NO_POLL_AT_INDEX);
 
         /* Case: add poll option into poll -> NotEventOrganiserException */
-        addOptionCommand = AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "1 "
+        addOptionCommand = "   " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "1 "
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertAddOptionCommandSuccess(addOptionCommand, TypicalIndexes.INDEX_FIRST, POLL_OPTION);
 

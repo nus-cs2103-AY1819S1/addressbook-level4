@@ -29,7 +29,7 @@ public class FindByPhoneCommandSystemTest extends AddressBookSystemTest {
         /* Case: find persons in address book, command with leading spaces and trailing spaces
          * -> 2 person found
          */
-        String command = FindByPhoneCommand.COMMAND_WORD + " " + BENSON_AND_KENSON_PHONE + "   ";
+        String command = "   " + FindByPhoneCommand.COMMAND_WORD + " " + BENSON_AND_KENSON_PHONE + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, KENSON); // BENSON and KENSON have the same phone number
         assertCommandSuccess(command, expectedModel);
