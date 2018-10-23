@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -61,15 +63,19 @@ public class BrowserPanel extends UiPart<Region> {
 
     public void loadPersonProfile(Person person) {
         PersonProfile personProfile = new PersonProfile(person);
-        if (getClass() == null) {
+        if (personProfilePlaceholder == null) {
             System.out.println("1");
-        } else if (getClass().getResource("fail2.png") == null) {
+        } else if (personProfilePlaceholder.getChildren() == null) {
             System.out.println("2");
-        } else if (getClass().getResource("fail2.png").toExternalForm() == null) {
-            System.out.println("3");
         }
-        ImageView imgView = new ImageView(getClass().getResource("fail2.png").toExternalForm());
-        personProfilePlaceholder.getChildren().add(imgView);
+        try {
+            FileInputStream input = new FileInputStream("src/main/resources/images/fail.png");
+            Image img = new Image(input);
+            ImageView imgView = new ImageView(img);
+            personProfilePlaceholder.getChildren().add(imgView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
