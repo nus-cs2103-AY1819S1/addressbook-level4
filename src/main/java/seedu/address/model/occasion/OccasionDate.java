@@ -3,7 +3,7 @@ package seedu.address.model.occasion;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 
 
@@ -55,12 +55,10 @@ public class OccasionDate {
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         dateFormat.setLenient(false);
 
-        try {
-            dateFormat.parse(test);
-            return true;
-        } catch (ParseException pex) {
-            return false;
-        }
+
+        dateFormat.parse(test, new ParsePosition(1));
+        return true;
+
     }
     //@@author
 
