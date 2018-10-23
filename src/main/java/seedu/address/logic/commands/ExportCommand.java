@@ -26,7 +26,8 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports an XML file of current contacts in Hallper.\n "
             + "Parameters: "
             + "export "
-            + "dst/C://Users/Documents/FILENAME.xml";
+            + "dst/C://Users/Documents"
+            + "filename/FILENAME.xml";
 
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported to %1$s.";
 
