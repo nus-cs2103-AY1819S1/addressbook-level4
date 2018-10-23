@@ -21,6 +21,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHYSICAL_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +59,8 @@ public class CommandTestUtil {
 
     public static final String VALID_DIAGNOSIS = "Amy has a case of acute bronchitis, referred to Dr. Zhang";
 
+    public static final String VALID_VISITOR = "GAO JIAXIN";
+
     public static final String VALID_TYPE = Type.SURGICAL.getAbbreviation();
     public static final String VALID_PROCEDURE = "Heart Bypass";
     public static final String VALID_DATE_TIME = "12-12-2022 12:00";
@@ -85,7 +88,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String DRUG_ALLERGY_DESC_ASPIRIN = " " + PREFIX_DRUG_ALLERGY + VALID_DRUG_ALLERGY_ASPIRIN;
     public static final String DRUG_ALLERGY_DESC_PENICILLIN = " " + PREFIX_DRUG_ALLERGY + VALID_DRUG_ALLERGY_PENICILLIN;
-
+    public static final String VALID_VISITOR_DESC = " " + PREFIX_VISITOR + VALID_VISITOR;
 
     public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
 
