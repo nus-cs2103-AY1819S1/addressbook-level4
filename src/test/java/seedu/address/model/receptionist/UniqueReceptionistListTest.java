@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.util.HashUtil;
-import seedu.address.model.doctor.UniqueReceptionistList;
 import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
 
 import seedu.address.model.receptionist.exceptions.DuplicateReceptionistException;
