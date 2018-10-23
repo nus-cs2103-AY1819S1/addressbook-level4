@@ -31,22 +31,22 @@ public class FilterByEducationCommandTest {
         String second = " ";
 
 
-        FilterByEducationCommand FilterByEducationFirstCommand = new FilterByEducationCommand(first);
-        FilterByEducationCommand FilterByEducationSecondCommand = new FilterByEducationCommand(second);
+        FilterByEducationCommand filterByEducationFirstCommand = new FilterByEducationCommand(first);
+        FilterByEducationCommand filterByEducationSecondCommand = new FilterByEducationCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByEducationFirstCommand.equals(FilterByEducationFirstCommand));
+        assertTrue(filterByEducationFirstCommand.equals(filterByEducationFirstCommand));
 
         // same values -> returns true
-        FilterByEducationCommand FilterByEducationFirstCommandCopy = new FilterByEducationCommand(first);
-        assertTrue(FilterByEducationFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByEducationCommand filterByEducationFirstCommandCopy = new FilterByEducationCommand(first);
+        assertTrue(filterByEducationFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByEducationFirstCommand.equals(1));
+        assertFalse(filterByEducationFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(FilterByEducationFirstCommand.equals(FilterByEducationSecondCommand));
+        assertFalse(filterByEducationFirstCommand.equals(filterByEducationSecondCommand));
     }
 
     @Test
