@@ -416,13 +416,6 @@ met by the user's own personal intake.
 The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
  against the duration set by the user.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
