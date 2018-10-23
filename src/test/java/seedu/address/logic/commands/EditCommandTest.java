@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertVolunteerCommandFailure;
@@ -255,10 +255,10 @@ public class EditCommandTest {
 
         VolunteerBuilder volunteerInList = new VolunteerBuilder(lastVolunteer);
         Volunteer editedVolunteer = volunteerInList.withName(VALID_VOLUNTEER_NAME_BOB)
-                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_DRIVER).build();
 
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB)
-                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withPhone(VALID_VOLUNTEER_PHONE_BOB).withTags(VALID_VOLUNTEER_TAG_DRIVER).build();
         EditVolunteerCommand editVolunteerCommand = new EditVolunteerCommand(indexLastVolunteer, descriptor);
 
         String expectedMessage = String.format(EditVolunteerCommand.MESSAGE_EDIT_VOLUNTEER_SUCCESS, editedVolunteer);
