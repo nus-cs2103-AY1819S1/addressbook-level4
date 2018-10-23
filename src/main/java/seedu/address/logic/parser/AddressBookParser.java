@@ -8,27 +8,21 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddVolunteerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
-import seedu.address.logic.commands.DeleteVolunteerCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
-import seedu.address.logic.commands.EditVolunteerCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindVolunteerCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListVolunteerCommand;
 import seedu.address.logic.commands.ManageCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectEventCommand;
-import seedu.address.logic.commands.SelectVolunteerCommand;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -90,7 +84,7 @@ public class AddressBookParser {
             return parseEventCommand(commandWord, arguments);
         }
 
-        // Executes commands for persons
+        // Executes commands for volunteers
         if (contextId.equals(Context.VOLUNTEER_CONTEXT_ID)) {
             // Replace all these commands
             switch (commandWord) {
@@ -122,37 +116,6 @@ public class AddressBookParser {
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
-
-        // Execute commands for volunteers
-        if (contextId.equals(Context.VOLUNTEER_CONTEXT_ID)) {
-            // Replace all these commands
-            switch (commandWord) {
-            case AddVolunteerCommand.COMMAND_WORD:
-                return new AddVolunteerCommandParser().parse(arguments);
-
-            case EditVolunteerCommand.COMMAND_WORD:
-                return new EditVolunteerCommandParser().parse(arguments);
-
-            case SelectVolunteerCommand.COMMAND_WORD:
-                return new SelectVolunteerCommandParser().parse(arguments);
-
-            case DeleteVolunteerCommand.COMMAND_WORD:
-                return new DeleteVolunteerCommandParser().parse(arguments);
-
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
-
-            case FindVolunteerCommand.COMMAND_WORD:
-                return new FindVolunteerCommandParser().parse(arguments);
-
-            case ListVolunteerCommand.COMMAND_WORD:
-                return new ListVolunteerCommand();
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-        }
-
 
         // Execute commands for records
         if (contextId.equals(Context.RECORD_CONTEXT_ID)) {
