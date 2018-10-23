@@ -1,6 +1,6 @@
 package systemtests;
 
-/*
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -35,18 +35,18 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-*/
+
 import seedu.address.logic.commands.AddCommand;
-//import seedu.address.logic.commands.RedoCommand;
-//import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-//import seedu.address.model.person.Address;
-//import seedu.address.model.person.Email;
-//import seedu.address.model.person.Name;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-//import seedu.address.model.person.Phone;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
@@ -60,7 +60,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
-         */
+
 
     /** TODO
         Person toAdd = AMY;
@@ -115,14 +115,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
     **/
 
-        /* Case: add a person, missing tags -> added */
+    /* Case: add a person, missing tags -> added */
     /** TODO
         assertCommandSuccess(HOON);
     **/
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the person list before adding -> added */
+    /* Case: filters the person list before adding -> added */
     /** TODO
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
@@ -130,7 +130,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
-        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
+    /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
     /** TODO
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
@@ -138,79 +138,79 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate person -> rejected */
+    /* Case: add a duplicate person -> rejected */
     /** TODO
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     **/
 
-        /* Case: add a duplicate person except with different phone -> rejected */
+    /* Case: add a duplicate person except with different phone -> rejected */
     /** TODO
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     **/
 
-        /* Case: add a duplicate person except with different email -> rejected */
+    /* Case: add a duplicate person except with different email -> rejected */
     /** TODO
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     **/
 
-        /* Case: add a duplicate person except with different address -> rejected */
+    /* Case: add a duplicate person except with different address -> rejected */
     /** TODO
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     **/
 
-        /* Case: add a duplicate person except with different tags -> rejected */
+    /* Case: add a duplicate person except with different tags -> rejected */
     /** TODO
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     **/
-        /* Case: missing name -> rejected */
+    /* Case: missing name -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     **/
-        /* Case: missing phone -> rejected */
+    /* Case: missing phone -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     **/
-        /* Case: missing email -> rejected */
+    /* Case: missing email -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     **/
-        /* Case: missing address -> rejected */
+    /* Case: missing address -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     **/
-        /* Case: invalid keyword -> rejected */
+    /* Case: invalid keyword -> rejected */
     /** TODO
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
     **/
-        /* Case: invalid name -> rejected */
+    /* Case: invalid name -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
     **/
-        /* Case: invalid phone -> rejected */
+    /* Case: invalid phone -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
     **/
-        /* Case: invalid email -> rejected */
+    /* Case: invalid email -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
     **/
-        /* Case: invalid address -> rejected */
+    /* Case: invalid address -> rejected */
     /** TODO
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
