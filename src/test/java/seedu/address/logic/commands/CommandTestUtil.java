@@ -27,7 +27,6 @@ import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
