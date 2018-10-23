@@ -1,5 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandPersonTestUtil.showOccasionAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
+import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
+
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -9,13 +20,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
-
-import static org.junit.Assert.*;
-import static seedu.address.logic.commands.CommandPersonTestUtil.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
-import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -45,7 +49,8 @@ public class DeleteModuleCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        assertCommandFailure(deleteModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -55,7 +60,8 @@ public class DeleteModuleCommandTest {
         Occasion occasionToDelete = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
         DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(INDEX_FIRST_OCCASION);
 
-        String expectedMessage = String.format(DeleteOccasionCommand.MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete);
+        String expectedMessage = String.format(DeleteOccasionCommand.MESSAGE_DELETE_OCCASION_SUCCESS,
+                occasionToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOccasion(occasionToDelete);
@@ -75,7 +81,8 @@ public class DeleteModuleCommandTest {
 
         DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteOccasionCommand, model, commandHistory, Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
+        assertCommandFailure(deleteOccasionCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
     }
 
     @Test
@@ -104,7 +111,8 @@ public class DeleteModuleCommandTest {
         DeleteOccasionCommand deleteOccasionCommand = new DeleteOccasionCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteOccasionCommand, model, commandHistory, Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
+        assertCommandFailure(deleteOccasionCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
