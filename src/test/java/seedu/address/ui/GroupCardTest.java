@@ -11,6 +11,7 @@ import guitests.guihandles.GroupCardHandle;
 import seedu.address.model.group.Group;
 import seedu.address.model.shared.Title;
 
+// @@author jeffreyooi
 public class GroupCardTest extends GuiUnitTest {
     @Test
     public void display() {
@@ -35,7 +36,7 @@ public class GroupCardTest extends GuiUnitTest {
         // null -> returns false
         assertFalse(groupCard.equals(null));
 
-        // differet types -> return false
+        // different types -> return false
         assertFalse(groupCard.equals(0));
 
         // different group, same index -> return false

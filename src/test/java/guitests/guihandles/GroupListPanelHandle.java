@@ -93,7 +93,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Group>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the group card handle of a group associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public GroupCardHandle getGroupCardHandle(int index) {
