@@ -7,6 +7,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIE
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -14,12 +19,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Time;
 import seedu.address.model.person.TimeFilterPredicate;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.Test;
-
 
 public class FilterByTimeCommandTest {
 
