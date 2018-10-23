@@ -2,10 +2,15 @@ package seedu.address.model.receptionist;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+import static seedu.address.testutil.TypicalPersons.ALAN;
+import static seedu.address.testutil.TypicalPersons.FRANK;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
+import seedu.address.testutil.ReceptionistBuilder;
 
 public class ReceptionistTest {
     @Rule
@@ -14,52 +19,52 @@ public class ReceptionistTest {
     @Test
     public void isSameReceptionist() {
         // same object -> returns true
-        assertTrue(ADAM.isSameDoctor(ADAM));
+        assertTrue(ALAN.isSameReceptionist(ALAN));
 
         // null -> returns false
-        assertFalse(ADAM.isSameDoctor(null));
+        assertFalse(ALAN.isSameReceptionist(null));
 
         // different password and name -> returns false
-        Receptionist editedAdam = new ReceptionistBuilder(ADAM).withName(VALID_NAME_BEN)
-                .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
-        assertFalse(ADAM.isSameDoctor(editedAdam));
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN)
+                .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+        assertFalse(ALAN.isSameReceptionist(editedAlan));
 
         // same password, different attributes -> returns true
-        editedAdam = new ReceptionistBuilder(ADAM).withName(VALID_NAME_BEN).build();
-        assertTrue(ADAM.isSameDoctor(editedAdam));
+        editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
+        assertTrue(ALAN.isSameReceptionist(editedAlan));
 
         // same name, different attributes -> returns true
-        editedAdam = new ReceptionistBuilder(ADAM)
-                .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
-        assertTrue(ADAM.isSameDoctor(editedAdam));
+        editedAlan = new ReceptionistBuilder(ALAN)
+                .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+        assertTrue(ALAN.isSameReceptionist(editedAlan));
 
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Receptionist adamCopy = new ReceptionistBuilder(ADAM).build();
-        assertTrue(ADAM.equals(adamCopy));
+        Receptionist adamCopy = new ReceptionistBuilder(ALAN).build();
+        assertTrue(ALAN.equals(adamCopy));
 
         // same object -> returns true
-        assertTrue(ADAM.equals(ADAM));
+        assertTrue(ALAN.equals(ALAN));
 
         // null -> returns false
-        assertFalse(ADAM.equals(null));
+        assertFalse(ALAN.equals(null));
 
         // different type -> returns false
-        assertFalse(ADAM.equals(5));
+        assertFalse(ALAN.equals(5));
 
         // different person -> returns false
-        assertFalse(ADAM.equals(BEN));
+        assertFalse(ALAN.equals(FRANK));
 
         // different name -> returns false
-        Receptionist editedAdam = new ReceptionistBuilder(ADAM).withName(VALID_NAME_BOB).build();
-        assertFalse(ADAM.equals(editedAdam));
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
+        assertFalse(ALAN.equals(editedAlan));
 
         // different password -> returns false
-        editedAdam = new ReceptionistBuilder(ADAM).withPassword(VALID_HASH_PASSWORD_BEN, true).build();
-        assertFalse(ADAM.equals(editedAdam));
+        editedAlan = new ReceptionistBuilder(ALAN).withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+        assertFalse(ALAN.equals(editedAlan));
 
     }
 }
