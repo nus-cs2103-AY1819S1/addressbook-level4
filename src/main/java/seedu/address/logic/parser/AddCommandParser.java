@@ -148,8 +148,6 @@ public class AddCommandParser implements Parser<Command> {
 
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
         OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-//        Person organizer = new Person(new Name(PREFIX_ORGANIZER.toString()), new Phone("123"), new Email("asd@cd.com"),
-//                new Address("abc"), new HashSet<Tag>());
         OccasionLocation occasionLocation = ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

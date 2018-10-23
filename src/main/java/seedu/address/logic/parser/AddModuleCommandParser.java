@@ -49,7 +49,8 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, new UniquePersonList(), tagList, TypeUtil.MODULE);
+        Module module = new Module(moduleCode, moduleTitle, academicYear, semester,
+                new UniquePersonList(), tagList, TypeUtil.MODULE);
         return new AddModuleCommand(module);
     }
 
