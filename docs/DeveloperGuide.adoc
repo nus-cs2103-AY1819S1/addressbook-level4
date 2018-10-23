@@ -397,7 +397,7 @@ Given below is an example usage scenario and how the Password system behaves at 
 ==== Design Considerations
 ===== Aspect: Storage of Separate User Data
 
-* **Alternative 1 (current choice):**
+* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
 ** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
 ** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
 * **Alternative 2:** Save all the separated user data in a single xml data file
