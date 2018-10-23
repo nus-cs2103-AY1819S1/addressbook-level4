@@ -464,7 +464,7 @@ statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
 proceeds as if a `list` command is given.
 
 .Flow chart of command alias usage.
-image::AliasActivityDiagram.jpg[width="700", align="left"]
+image::ActivityDiagram-Alias.png[width="700", align="left"]
 
 The **Activity Diagram** given above explains what happens when a user executes a `l`
 command.
