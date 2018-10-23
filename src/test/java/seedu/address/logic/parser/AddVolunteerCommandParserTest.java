@@ -31,7 +31,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalVolunteers.AMY;
@@ -96,7 +96,7 @@ public class AddVolunteerCommandParserTest {
 
         // multiple tags - all accepted
         Volunteer expectedVolunteerMultipleTags = new VolunteerBuilder(BOB)
-                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_DRIVER).build();
         assertParseSuccess(parser, NAME_VOLUNTEER_DESC_BOB + GENDER_DESC_BOB + BIRTHDAY_DESC_BOB
                 + PHONE_VOLUNTEER_DESC_BOB + EMAIL_VOLUNTEER_DESC_BOB + ADDRESS_VOLUNTEER_DESC_BOB
                 + TAG_VOLUNTEER_DESC_HUSBAND + TAG_VOLUNTEER_DESC_FRIEND,

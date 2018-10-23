@@ -38,7 +38,7 @@ public class VolunteerUtil {
         sb.append(PREFIX_VOLUNTEER_EMAIL + volunteer.getEmail().value + " ");
         sb.append(PREFIX_VOLUNTEER_ADDRESS + volunteer.getAddress().value + " ");
         volunteer.getTags().stream().forEach(
-                s -> sb.append(PREFIX_VOLUNTEER_TAG + s.tagName + " ")
+        s -> sb.append(PREFIX_VOLUNTEER_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
@@ -50,10 +50,12 @@ public class VolunteerUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_VOLUNTEER_NAME).append(name.fullName).append(" "));
         descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_VOLUNTEER_GENDER).append(gender.value).append(" "));
-        descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_VOLUNTEER_BIRTHDAY).append(birthday.value).append(" "));
+        descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_VOLUNTEER_BIRTHDAY)
+                .append(birthday.value).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_VOLUNTEER_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_VOLUNTEER_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_VOLUNTEER_ADDRESS).append(address.value).append(" "));
+        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_VOLUNTEER_ADDRESS)
+                .append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

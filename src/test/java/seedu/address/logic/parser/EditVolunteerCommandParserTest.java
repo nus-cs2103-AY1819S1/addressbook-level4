@@ -33,7 +33,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -142,7 +142,7 @@ public class EditVolunteerCommandParserTest {
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_AMY)
                 .withPhone(VALID_VOLUNTEER_PHONE_BOB).withEmail(VALID_VOLUNTEER_EMAIL_AMY)
                 .withAddress(VALID_VOLUNTEER_ADDRESS_AMY).withGender(VALID_GENDER_AMY).withBirthday(VALID_BIRTHDAY_AMY)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
+                .withTags(VALID_VOLUNTEER_TAG_DRIVER, VALID_VOLUNTEER_TAG_FRIEND).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -219,7 +219,7 @@ public class EditVolunteerCommandParserTest {
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder().withPhone(VALID_VOLUNTEER_PHONE_BOB)
                 .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
                 .withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB)
-                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withTags(VALID_VOLUNTEER_TAG_FRIEND, VALID_VOLUNTEER_TAG_DRIVER).build();
         EditVolunteerCommand expectedCommand = new EditVolunteerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

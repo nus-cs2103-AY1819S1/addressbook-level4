@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_HOUR_H2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_R2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
 import static seedu.address.testutil.TypicalEvents.BLOOD;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -124,7 +124,7 @@ public class AddressBookTest {
     public void resetData_withDuplicateVolunteers_throwsDuplicatePersonException() {
         // Two volunteers with the same identity fields
         Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withTags(VALID_VOLUNTEER_TAG_DRIVER).build();
         List<Volunteer> newVolunteers = Arrays.asList(BENSON, editedBenson);
         AddressBookStub newData = new AddressBookStub(null, newVolunteers, null, null);
 
@@ -153,7 +153,7 @@ public class AddressBookTest {
     public void hasVolunteer_volunteerWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addVolunteer(BENSON);
         Volunteer editedBenson = new VolunteerBuilder(BENSON).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withTags(VALID_VOLUNTEER_TAG_DRIVER).build();
         assertTrue(addressBook.hasVolunteer(editedBenson));
     }
 

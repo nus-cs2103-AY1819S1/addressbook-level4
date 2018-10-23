@@ -55,16 +55,16 @@ public class CommandTestUtil {
     public static final String VALID_VOLUNTEER_NAME_BOB = "Bob Choo";
     public static final String VALID_VOLUNTEER_PHONE_AMY = "11111111";
     public static final String VALID_VOLUNTEER_PHONE_BOB = "22222222";
-    public static final String VALID_GENDER_AMY = "female";
-    public static final String VALID_GENDER_BOB = "male";
+    public static final String VALID_GENDER_AMY = "f";
+    public static final String VALID_GENDER_BOB = "m";
     public static final String VALID_BIRTHDAY_AMY = "01-10-1995";
     public static final String VALID_BIRTHDAY_BOB = "11-02-1991";
     public static final String VALID_VOLUNTEER_EMAIL_AMY = "amy@example.com";
     public static final String VALID_VOLUNTEER_EMAIL_BOB = "bob@example.com";
     public static final String VALID_VOLUNTEER_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_VOLUNTEER_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_VOLUNTEER_TAG_HUSBAND = "husband";
-    public static final String VALID_VOLUNTEER_TAG_FRIEND = "friend";
+    public static final String VALID_VOLUNTEER_TAG_DRIVER = "driver";
+    public static final String VALID_VOLUNTEER_TAG_STUDENT = "student";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -111,8 +111,8 @@ public class CommandTestUtil {
             + VALID_VOLUNTEER_ADDRESS_AMY;
     public static final String ADDRESS_VOLUNTEER_DESC_BOB = " " + PREFIX_VOLUNTEER_ADDRESS
             + VALID_VOLUNTEER_ADDRESS_BOB;
-    public static final String TAG_VOLUNTEER_DESC_FRIEND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_FRIEND;
-    public static final String TAG_VOLUNTEER_DESC_HUSBAND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_HUSBAND;
+    public static final String TAG_VOLUNTEER_DESC_FRIEND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_STUDENT;
+    public static final String TAG_VOLUNTEER_DESC_HUSBAND = " " + PREFIX_VOLUNTEER_TAG + VALID_VOLUNTEER_TAG_DRIVER;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -153,11 +153,11 @@ public class CommandTestUtil {
         DESC_VOLUNTEER_AMY = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_AMY)
                 .withGender(VALID_GENDER_AMY).withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_VOLUNTEER_PHONE_AMY)
                 .withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY)
-                .withTags(VALID_VOLUNTEER_TAG_FRIEND).build();
+                .withTags(VALID_VOLUNTEER_TAG_STUDENT).build();
         DESC_VOLUNTEER_BOB = new EditVolunteerDescriptorBuilder().withName(VALID_VOLUNTEER_NAME_BOB)
                 .withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_VOLUNTEER_PHONE_BOB)
                 .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
+                .withTags(VALID_VOLUNTEER_TAG_DRIVER, VALID_VOLUNTEER_TAG_STUDENT).build();
     }
 
     /**

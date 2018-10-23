@@ -20,7 +20,7 @@ import seedu.address.model.volunteer.VolunteerPhone;
 public class VolunteerBuilder {
     public static final int DEFAULT_VOLUNTEERID = 1;
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_GENDER = "female";
+    public static final String DEFAULT_GENDER = "f";
     public static final String DEFAULT_BIRTHDAY = "01-02-1993";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";

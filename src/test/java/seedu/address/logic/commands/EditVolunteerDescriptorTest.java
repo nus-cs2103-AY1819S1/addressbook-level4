@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_ADDRE
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
 
 import org.junit.Test;
 
@@ -65,7 +65,7 @@ public class EditVolunteerDescriptorTest {
 
         // different tags -> returns false
         editedAmy = new EditVolunteerDescriptorBuilder(DESC_VOLUNTEER_AMY)
-                .withTags(VALID_VOLUNTEER_TAG_HUSBAND).build();
+                .withTags(VALID_VOLUNTEER_TAG_DRIVER).build();
         assertFalse(DESC_VOLUNTEER_AMY.equals(editedAmy));
     }
 }

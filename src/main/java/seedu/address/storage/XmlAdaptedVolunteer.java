@@ -133,7 +133,8 @@ public class XmlAdaptedVolunteer {
         final VolunteerName modelName = new VolunteerName(name);
 
         if (gender == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Gender.class.getSimpleName()));
         }
         if (!Gender.isValidGender(gender)) {
             throw new IllegalValueException(Gender.MESSAGE_GENDER_CONSTRAINTS);

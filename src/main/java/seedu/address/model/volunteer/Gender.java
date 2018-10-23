@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_GENDER_CONSTRAINTS =
-            "Gender should only contain 'male' or 'female', and it should not be blank";
+            "Gender should only contain m (for male), or f (for female), and it should not be blank";
 
     /*
-     * Gender must only be male or female
+     * Gender must only be m (for male) or f (for female)
      */
-    public static final String GENDER_MALE_VALIDATION_REGEX = "male";
-    public static final String GENDER_FEMALE_VALIDATION_REGEX = "female";
+    public static final String GENDER_MALE_VALIDATION_REGEX = "m";
+    public static final String GENDER_FEMALE_VALIDATION_REGEX = "f";
 
     public final String value;
 

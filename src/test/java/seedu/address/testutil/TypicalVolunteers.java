@@ -12,8 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_DRIVER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VOLUNTEER_TAG_STUDENT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,13 +33,13 @@ public class TypicalVolunteers {
             .withGender("female").withBirthday("21-08-1986")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends").build();
+            .withTags("student").build();
     public static final Volunteer BENSON = new VolunteerBuilder().withVolunteerId(2)
             .withName("Benson Meier")
             .withGender("male").withBirthday("29-09-1988")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
+            .withTags("driver", "student").build();
     public static final Volunteer CARL = new VolunteerBuilder().withVolunteerId(3)
             .withName("Carl Kurz").withGender("male")
             .withBirthday("27-05-1990").withPhone("95352563")
@@ -47,7 +47,7 @@ public class TypicalVolunteers {
     public static final Volunteer DANIEL = new VolunteerBuilder().withVolunteerId(4)
             .withName("Daniel Meier").withGender("male")
             .withBirthday("31-10-1993").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withAddress("10th street").withTags("student").build();
     public static final Volunteer ELLE = new VolunteerBuilder().withVolunteerId(5)
             .withName("Elle Meyer").withGender("female")
             .withBirthday("13-11-1994").withPhone("9482224")
@@ -79,13 +79,13 @@ public class TypicalVolunteers {
             .withName(VALID_VOLUNTEER_NAME_AMY).withGender(VALID_GENDER_AMY)
             .withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_VOLUNTEER_PHONE_AMY)
             .withEmail(VALID_VOLUNTEER_EMAIL_AMY).withAddress(VALID_VOLUNTEER_ADDRESS_AMY)
-            .withTags(VALID_VOLUNTEER_TAG_FRIEND).build();
+            .withTags(VALID_VOLUNTEER_TAG_STUDENT).build();
     public static final Volunteer BOB = new VolunteerBuilder()
             .withVolunteerId(11)
             .withName(VALID_VOLUNTEER_NAME_BOB).withGender(VALID_GENDER_BOB)
             .withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_VOLUNTEER_PHONE_BOB)
             .withEmail(VALID_VOLUNTEER_EMAIL_BOB).withAddress(VALID_VOLUNTEER_ADDRESS_BOB)
-            .withTags(VALID_VOLUNTEER_TAG_HUSBAND, VALID_VOLUNTEER_TAG_FRIEND).build();
+            .withTags(VALID_VOLUNTEER_TAG_DRIVER, VALID_VOLUNTEER_TAG_STUDENT).build();
 
     public static final String KEYWORD_VOLUNTEER_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
