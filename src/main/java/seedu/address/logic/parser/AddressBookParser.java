@@ -63,13 +63,13 @@ public class AddressBookParser {
 
         case DeletePersonCommand.COMMAND_WORD:
             return new DeletePersonCommandParser().parse(arguments);
-            
+
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
 
         case DeleteOccasionCommand.COMMAND_WORD:
             return new DeleteOccasionCommandParser().parse(arguments);
-            
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 

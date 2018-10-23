@@ -65,7 +65,7 @@ public class AddModuleCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        
+
         @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -120,7 +120,7 @@ public class AddModuleCommandTest {
         public void deleteOccasion(Occasion occasion) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void updatePerson(Person person, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
@@ -135,7 +135,7 @@ public class AddModuleCommandTest {
         public void updateOccasion(Occasion occasion, Occasion editedOccasion) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");

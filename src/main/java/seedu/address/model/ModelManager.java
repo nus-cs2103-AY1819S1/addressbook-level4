@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         indicateAddressBookChanged();
     }
-    
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -146,7 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updateOccasion(target, editedOccasion);
         indicateAddressBookChanged();
     }
-    
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -170,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Occasion> getFilteredOccasionList() {
         return FXCollections.unmodifiableObservableList(filteredOccasions);
     }
-    
+
     @Override
     public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
         requireNonNull(predicate);
@@ -184,7 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Module> getFilteredModuleList() {
         return FXCollections.unmodifiableObservableList(filteredModules);
     }
-    
+
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);

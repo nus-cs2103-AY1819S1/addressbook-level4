@@ -77,13 +77,13 @@ public interface Model {
      * The identity of {@code editedOccasion} must not be the same as another existing occasion in the address book.
      */
     void updateOccasion(Occasion target, Occasion editedOccasion);
-    
+
     /**
      * Deletes the given Person.
      * {@code person} must exist in the address book.
      */
     void deletePerson(Person person);
-    
+
     /**
      * Deletes the given Module.
      * {@code module} must exist in the address book.
@@ -95,8 +95,7 @@ public interface Model {
      * {@code occasion} must exist in the address book.
      */
     void deleteOccasion(Occasion occasion);
-    
-    
+
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -105,7 +104,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered occasions list */
     ObservableList<Occasion> getFilteredOccasionList();
-    
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
