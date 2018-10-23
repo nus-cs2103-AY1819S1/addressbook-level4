@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddModuleCommand;
@@ -19,8 +22,6 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-import java.util.stream.Stream;
 
 
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
