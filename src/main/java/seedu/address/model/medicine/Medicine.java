@@ -69,6 +69,14 @@ public class Medicine {
     }
 
     /**
+     * In the event that the doctor changes the quantity of medicine allocated to the patient,
+     * the original quantity of medicine allocated needs to be added back to the stock.
+     */
+    public void refill(int stockToRefill) {
+        this.stock = new Stock(getStockValue() + stockToRefill);
+    }
+
+    /**
      * Returns true if both medicines of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two medicines.
      */
