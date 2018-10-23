@@ -21,10 +21,12 @@ import seedu.address.logic.anakincommands.AnakinNewCardCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
+import seedu.address.model.AnakinModelManager;
 import seedu.address.model.AnakinReadOnlyAnakin;
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.testutil.AnakinCardBuilder;
+import seedu.address.testutil.AnakinDeckBuilder;
 
 
 public class AnakinNewCardCommandTest {
@@ -35,6 +37,8 @@ public class AnakinNewCardCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+
+    private AnakinModel testModel = new AnakinModelManager();
 
     @Test
     public void constructor_nullCard_throwsNullPointerException() {
@@ -69,6 +73,36 @@ public class AnakinNewCardCommandTest {
     }
 
     @Test
+    public void execute_validCardButNotInDeck_throwsRuntimeException() throws Exception{
+        AnakinCard validCard = CARD_B;
+        AnakinNewCardCommand newCardCommand = new AnakinNewCardCommand(validCard);
+        AnakinModel model = testModel;
+        thrown.expect(RuntimeException.class);
+        newCardCommand.execute(model,commandHistory);
+
+    }
+
+    // Integrated test
+    @Test
+    public void execute_validCardInDeck_success() throws Exception{
+        AnakinCard validCard = CARD_B;
+        AnakinNewCardCommand newCardCommand = new AnakinNewCardCommand(validCard);
+        AnakinDeck validDeck =  new AnakinDeckBuilder().
+                withName("Deck with Card B").build();
+
+        AnakinModel model = testModel;
+        model.goIntoDeck(validDeck);
+
+        CommandResult commandResult = newCardCommand.execute(model,commandHistory);
+
+        assertEquals(String.format(
+                AnakinNewCardCommand.MESSAGE_NEW_CARD_SUCCESS,
+                validCard), commandResult.feedbackToUser);
+
+    }
+
+
+    @Test
     public void equals() {
         AnakinCard firstCard = new AnakinCardBuilder().
                 withQuestion("Test Card1").withAnswer("A1").build();
@@ -96,6 +130,7 @@ public class AnakinNewCardCommandTest {
         // different card -> returns false
         assertFalse(addFirstCardCommand.equals(addSecondCardCommand));
     }
+
 
     /**
      * A default model stub that have all of the methods failing.
