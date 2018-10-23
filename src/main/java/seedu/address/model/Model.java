@@ -1,21 +1,29 @@
 package seedu.address.model;
 
 import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -42,11 +50,14 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -70,6 +81,16 @@ public interface Model {
      * Restores the model's address book to its previously undone state.
      */
     void redoAddressBook();
+
+    /**
+     * Adds the given patient's appointment.
+     */
+    void addAppointment(Appointment appointment);
+
+    /**
+     * Deletes the appointment of given appointmentId.
+     */
+    void deleteAppointment(Appointment appointment);
 
     /**
      * Saves the current address book state for undo/redo.

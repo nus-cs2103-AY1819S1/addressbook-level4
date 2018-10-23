@@ -80,4 +80,11 @@ public class Patient extends Person {
         completedAppointment.completeAppointment();
         pastAppointments.push(completedAppointment);
     }
+
+    /**
+     * Deletes appointment from patient by the appointmentId
+     */
+    public void deleteAppointment(int appointmentId) {
+        // TODO - giam's implementation
+    }
 }

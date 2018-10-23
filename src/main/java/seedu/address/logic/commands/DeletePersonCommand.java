@@ -14,7 +14,7 @@ import seedu.address.model.person.Phone;
 /**
  * Deletes a patient from health book.
  */
-public class DeleteCommand extends Command {
+public class DeletePersonCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_INVALID_DELETE_PERSON = "This person does not exist in the HealthBook";
@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     private final Name name;
     private final Phone phone;
 
-    public DeleteCommand(Name name, Phone phone) {
+    public DeletePersonCommand(Name name, Phone phone) {
         this.name = name;
         this.phone = phone;
     }
@@ -42,6 +42,7 @@ public class DeleteCommand extends Command {
         Person personToDelete = null;
 
         for (Person person : lastShownList) {
+            // TODO - add another check by tag so that delete-patient can only delete patient
             if (person.getName().equals(name) && person.getPhone().equals(phone)) {
                 personToDelete = person;
                 break;
@@ -59,8 +60,8 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && name.equals(((DeleteCommand) other).name)
-                && phone.equals(((DeleteCommand) other).phone)); // state check
+                || (other instanceof DeletePersonCommand // instanceof handles nulls
+                && name.equals(((DeletePersonCommand) other).name)
+                && phone.equals(((DeletePersonCommand) other).phone)); // state check
     }
 }
