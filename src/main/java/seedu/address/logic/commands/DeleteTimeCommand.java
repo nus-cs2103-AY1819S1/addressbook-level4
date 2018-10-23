@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
@@ -48,17 +47,11 @@ public class DeleteTimeCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
-        ArrayList<Time> allTimeSlot = new ArrayList();
-
-        for (Person ppl : model.getFilteredPersonList()) {
-            allTimeSlot.addAll(ppl.getTime());
-        }
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(personToFind)));
 
         Person targetPerson = model.getFilteredPersonList().get(0);
 
-        if (!allTimeSlot.contains(toDelete)) {
+        if (!targetPerson.getTime().contains(toDelete)) {
             throw new CommandException(MESSAGE_TIME_NOT_FOUND);
         }
         if (!model.hasPerson(targetPerson)) {

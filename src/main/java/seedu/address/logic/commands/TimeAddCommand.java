@@ -87,6 +87,7 @@ public class TimeAddCommand extends Command {
             }
         }
         targetPerson.addTime(toAdd);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
     }
 }
