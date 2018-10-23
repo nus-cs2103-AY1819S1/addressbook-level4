@@ -367,15 +367,50 @@ Cancels the 4th appointment in the list.
 Clears all entries from the clinic record. +
 Format: `clear`
 
-=== Displaying average statistics : `averages`
+=== Displaying patient statistics : `patientstats`
 
-Displays all the statistics that are averages. +
-Format: `averages`
+Displays the following information about patients:
+****
+* A summary of the number of patients over various time periods.
+* The number of patients segmented by each day of the week.
+* The number of patients segmented by different time periods within a day.
+****
 
-=== Displaying total statistics : `totals`
+Format: `patientstats`
 
-Displays all the statistics that are totals. +
-Format: `totals`
+=== Displaying appointment statistics : `appointmentstats`
+
+Displays the following information about appointments:
+****
+* A summary of the number of scheduled appointments over various time periods.
+* The availability of appointment slots as compared to the number of scheduled appointments.
+* The proportion of appointments that are follow-ups, as opposed to walk-in.
+****
+Format: `appointmentstats`
+
+=== Displaying doctor statistics : `doctorstats`
+
+Displays the following information about doctors:
+****
+* A summary of the average number of consultations per doctor over various time periods.
+* The number of patient preferences for each doctor.
+****
+Format: `doctorstats`
+
+=== Displaying medicine statistics : `medstats`
+
+Displays the following information about medicines:
+****
+* A summary of the quantity of medicines prescribed over various time periods.
+* The average spending on medicines per patient.
+* A breakdown of medicines by their quantity issued.
+****
+Format: `medstats`
+
+=== Exporting patient records : `export`
+
+Exports patient data. +
+Format: `exportpatient`
 
 === Exiting the program : `exit`
 
@@ -451,19 +486,18 @@ e.g. `queue 2`
 e.g. `enqueue 3 1`
 * *Dequeue* : `dequeue QINDEX` +
 e.g. `dequeue 4`
-* *Help* : `help`
 * *Select* : `select INDEX` +
 e.g. `select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
 
-=== Analytics Commands
+=== Data Commands
 
-* *Averages* : `averages`
-* *Totals* : `totals`
+* *Patient Statistics* : `patientstats`
+* *Appointment Statistics* : `apptstats`
+* *Doctor Statistics* : `doctorstats`
+* *Medicine Statistics* : `medstats`
+* *Export Patient Records* : `exportpatient`
 
-=== `MedicineInventory` Commands
+=== Medicine inventory Commands
 * *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
 e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
 * *Delete Medicine* : `deletemedicine MEDICINE_NAME` +

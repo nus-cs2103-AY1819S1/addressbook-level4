@@ -416,6 +416,47 @@ In the example outlined in Step 5, if the `Model#hasMedicine(Paracetamol)` retur
 ** Cons: Might end up with too large a surplus of un-prescribed `Medicine`.
 // end::medicineinventory[]
 
+//tag::analytics[]
+=== Analytics feature
+The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
+clinic.
+
+==== Current Implementation
+image::AnalyticsClassDiagram.png[width="800"]
+
+The abstract `Statistics` class specified methods for the computation and retrieval of two groups of statistics. The
+first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
+of the statistics classes inherit from `Statistics`. They are encapsulated in `Analytics` which acts as a
+wrapper class and employs the delegation pattern. Additionally, each of them depend on `DateTimeCount` which provides
+the number of occurrences for various date and time periods.
+
+The following operations are implemented: +
+
+* `patientstats` Command - displays information on patients.
+* `apptstats` Command - displays information on appointments.
+* `doctorstats` Command - displays information on doctors.
+* `medstats` command - displays information on medicines.
+
+==== `patientstats` Command
+
+{add implementation details}
+
+==== `apptstats` Command
+
+{add implementation details}
+
+==== `doctorstats` Command
+
+{add implementation details}
+
+==== `medstats` Command
+
+{add implementation details}
+
+==== Design Considerations
+
+//end::analytics[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -424,17 +465,49 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::login[]
-=== Login Authentication
+=== Login
+
+ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
 
 ==== Current Implementation
 
-The `login` command authenticates users to gain access to ClinicIO.
+The login mechanism facilitated by using `UniqueDoctorList` or `UniqueReceptionistList` to retrieve a list of doctors or receptionist based on the user's role. +
+
+These operations are exposed in the Model interface as Model#hasDoctor() and Model#getDoctor() for doctors
+or Model#hasReceptionist() and Model#getReceptionist() for receptionists respectively.
+
+Given below is an scenario to illustrate the login authentication at each step: +
+
+. The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user.
+
+. If the role is doctor,
+
+.. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
+.. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
+.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by the user.
+.. To indicate successful completion of verification, the `login` command raises a `SuccessfulLoginEvent`.
+
+. If the role is receptionist,
+
+.. the `login` command invokes `Model#hasReceptionist()` to ensure that this receptionist exists inside ClinicIO.
+.. Once ClinicIO has checked that the user exists, the `login` command invokes `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
+.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by the user.
+
+. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
+
+The following sequence diagram shows how the login authentication works:
 
 ==== Design Considerations
 
-===== Aspect: How login authentication executes
+===== Aspect: Retrieval of password
 
-_{Explain the pro and cons for login authentication}_
+An alternative is to open an additional alert window to prompt the user for a password.
+
+* Pros: Greater security as the entire password will be censored.
+
+* Cons: Require a new window to be opened.
+This will consume time depending on the system.
+In addition, this will detract from the user experience due to the shift in focus required.
 
 // end::login[]
 
