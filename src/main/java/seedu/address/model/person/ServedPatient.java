@@ -117,4 +117,8 @@ public class ServedPatient {
     public String toNameAndIc() {
         return patient.toNameAndIc();
     }
+
+    public Patient getPatient() {
+        return this.patient;
+    }
 }
