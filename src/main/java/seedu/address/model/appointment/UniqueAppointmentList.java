@@ -45,6 +45,14 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Returns true if the list overlaps another time slot.
+
+    public boolean overlaps(Appointment toCheck) {
+        requireAllNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::)
+    }*/
+
+    /**
      * Adds an appointment to the list.
      * The appointment must not already exist in the list.
      */

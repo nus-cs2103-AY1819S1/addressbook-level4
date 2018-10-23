@@ -79,6 +79,7 @@ public class Appointment {
 
     /**
      * Returns true if the appointments are the same.
+     * Status is not considered.
      * @param  other Appointment to compare with.
      */
     public boolean isSameAppointment(Appointment other) {
@@ -86,6 +87,19 @@ public class Appointment {
             return true;
         }
         return isSamePatient(other) && isSameSlot(other);
+    }
+
+    /**
+     * Returns true if the {@code toCheck} appointment's time slot encroaches {@code this} appointment's duration.
+     * Maximum appointment duration is 1 hour.
+     * @param toCheck Appointment to compare with.
+     */
+    public boolean isOverlapAppointment(Appointment toCheck) {
+        if (toCheck == this) {
+            return true;
+        }
+        return (toCheck.getAppointmentTime().subtractMinutes(this.getAppointmentTime()) < 60)
+                && (toCheck.getAppointmentTime().subtractMinutes(this.getAppointmentTime()) > -60);
     }
 
     /**
@@ -118,7 +132,7 @@ public class Appointment {
         if (other == this) {
             return true;
         }
-        if (other instanceof Appointment) {
+        if (!(other instanceof Appointment)) {
             return false;
         }
         Appointment otherAppointment = (Appointment) other;

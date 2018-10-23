@@ -65,6 +65,15 @@ public class Time {
         return string.matches(TIME_VALIDATION_REGEX);
     }
 
+    /**
+     * Calculates the difference in minutes between {@code this} and {@code time}.
+     * @param time Timing to subtract with.
+     * @return The difference between two timings.
+     */
+    public int subtractMinutes(Time time) {
+        return (this.hour * 60 + this.minute) - (time.hour * 60 + time.minute);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
