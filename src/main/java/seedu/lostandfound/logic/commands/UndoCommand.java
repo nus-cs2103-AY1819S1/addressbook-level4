@@ -1,7 +1,7 @@
 package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.logic.commands.exceptions.CommandException;
@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoArticleList();
-        model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
