@@ -7,7 +7,12 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.io.IOException;
 import java.util.logging.Logger;
+
+import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.EventDateTime;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
@@ -80,7 +85,29 @@ public class AddCommand extends Command {
      * Pushes the even to Google Calendar.
      */
     private void pushToGoogleCal() {
-     //blank
+        Calendar service = connectToGoogleCalendar.getCalendar();
+
+        com.google.api.services.calendar.model.Event gEvent = new com.google.api.services.calendar.model.Event();
+
+        gEvent.setId(String.valueOf(toAdd.getUuid()).replaceAll("-", ""));
+        gEvent.setSummary(String.valueOf(toAdd.getEventName()));
+        gEvent.setLocation(String.valueOf(toAdd.getVenue()));
+        gEvent.setDescription(String.valueOf(toAdd.getDescription()));
+
+        String startDateTime = convertStartDateTimeToGoogleFormat(toAdd);
+
+        gEvent.setStart(new EventDateTime()
+                .setDateTime(DateTime.parseRfc3339(startDateTime)));
+
+        String endDateTime = convertEndDateTimeToGoogleFormat(toAdd);
+
+        gEvent.setEnd(new EventDateTime().setDateTime(DateTime.parseRfc3339(endDateTime)));
+
+        try {
+            service.events().insert("primary", gEvent).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
