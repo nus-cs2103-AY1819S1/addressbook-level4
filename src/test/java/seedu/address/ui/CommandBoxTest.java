@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 
 import java.util.ArrayList;
 
@@ -14,12 +12,8 @@ import javafx.scene.input.KeyCode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.LoginCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Password;
-import seedu.address.model.person.Name;
 
 public class CommandBoxTest extends GuiUnitTest {
 
