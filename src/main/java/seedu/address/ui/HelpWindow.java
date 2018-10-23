@@ -17,7 +17,7 @@ import seedu.address.ui.exceptions.AccessibilityException;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_FILE_PATH = "/docs/HelpWindow.html";
+    public static final String USER_GUIDE_FILE_PATH = "/docs/HelpWindow.html";
     public static final String SHORT_HELP_FILE_PATH = "/docs/ShortHelpWindow.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -27,7 +27,7 @@ public class HelpWindow extends UiPart<Stage> {
     //https://stackoverflow.com/questions/6991494/javascript-getelementbyid-base-on-partial-string
     //https://stackoverflow.com/questions/22778241/javafx-webview-scroll-to-desired-position
     //javascript to scroll webpage to commandWord
-    private static final String SCROLL_JAVA_SCRIPT =
+    private static final String SCROLL_JAVASCRIPT =
             "function scrollToElement(commandWord) {\n"
             + "    var elem = document.querySelector('[id$= code-' + commandWord + '-code]');\n"
             + "    var x = 0;\n"
@@ -56,10 +56,10 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
 
-        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+        String userGuideUrl = getClass().getResource(USER_GUIDE_FILE_PATH).toString();
         browser.getEngine().load(userGuideUrl);
         browser.getEngine().setJavaScriptEnabled(true);
-        browser.getEngine().executeScript(SCROLL_JAVA_SCRIPT);
+        browser.getEngine().executeScript(SCROLL_JAVASCRIPT);
 
         //When the help window is scrolled, invalidate the scroll test check
         getVScrollBar(browser).valueProperty().addListener((unused1, unused2, unused3)

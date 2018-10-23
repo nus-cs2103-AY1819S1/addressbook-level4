@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.address.commons.util;
 
 import static j2html.TagCreator.attrs;
 import static j2html.TagCreator.body;
@@ -74,7 +74,7 @@ public class HtmlReportGenerator {
                 h3(String.format(MESSAGE_TIME_GENERATED, formatter.format(Instant.now()))),
                 table
             )
-        ).withStyle("padding: 0px 30px").renderFormatted();
+        ).withStyle("padding: 10px 30px").renderFormatted();
     }
 
     /**
