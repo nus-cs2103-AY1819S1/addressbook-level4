@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -124,7 +126,14 @@ public class XmlAdaptedPerson {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Doctor"))) {
+            return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
+            return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123");
+        } else {
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        }
+
     }
 
     @Override

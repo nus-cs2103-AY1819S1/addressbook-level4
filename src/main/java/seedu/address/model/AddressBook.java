@@ -1,12 +1,13 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
@@ -22,12 +23,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -75,6 +76,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addPatient(Person p) {
+        persons.add(p);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addDoctor(Person d) {
+        persons.add(d);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -91,6 +108,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Adds appointment to patient {@code patient, appointment} to this {@code HealthBook}.
+     * {@code patient} must exist in the health book.
+     */
+    public void addAppointment(Patient patient, Appointment appointment) {
+        patient.addUpcomingAppointment(appointment);
+    }
+
+    /**
+     * Deletes a patient's {@code appointment} from this {@code HealthBook}.
+     */
+    public void deleteAppointment(Appointment appointment) {
+        // TODO - store appointments in separate file like persons(?)
     }
 
     //// util methods
