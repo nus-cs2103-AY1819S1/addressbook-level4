@@ -47,10 +47,15 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/souschef/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and
+link:{repoURL}/src/main/java/seedu/souschef/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check
+link:{repoURL}/src/test/java/seedu/souschef/commons/util/XmlUtilTest
+.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/souschef/ui/HelpWindowTest.java[`HelpWindowTest.java`]
+for
+code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -71,16 +76,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -116,7 +111,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/souschef/MainApp.java[`MainApp`]. It is responsible
+for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -130,7 +126,7 @@ The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`ModelSet`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -152,7 +148,8 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AppContentChangedEvent` when the Sous Chef data are changed, instead of asking
+the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -170,17 +167,66 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `GenericListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/souschef/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+==== Modularisation
+*List Panel*
+
+_Brief overview_:
+Many of the features (such as MealPlanner, HealPlan, IngredientManager, Recipes, Favourites)
+need to use the list panel section to display their own UniqueType classes. Therefore, this
+has been abstracted and modularised for easier implementation of usage and for any future
+implementation of new components which may need to use the list panel. This is done by inserting
+generic classes into the hierarchy.
+
+_Old Hierarchy_:
+
+image::UiPanelOldHierarchy.png[width="800"]
+
+_New Hierachy_:
+
+image::UiPanelNewHierarchy.png[width="800"]
+
+[NOTE]
+Not all the components are shown, only MealPlanner and Recipe components are shown
+in the diagram as an example. Notice how the new generic abstract classes are simply inserted
+between the superclass and subclass of the old hierarchy to give the new hierarchy.
+
+_Explanation_:
+
+With the GenericListPanel, GenericCard and GenericPanelSelectionChangedEvent classes,
+new features which wish to use the UI list panel simply have to have their respective
+classes extend these three abstract classes and implement their methods accordingly.
+Then the respective fxml files for [feature]ListPanel and [feature]Card have to be
+created.
+
+_MainWindow.java and UiManager.java_:
+
+To switch between different list panels for different features, switchTo[feature]ListPanel()
+methods have to be implemented in MainWindow. This method gets the respective filteredList
+from the model within modelSet within logic and uses it to change the generalListPanel.
+The switchTo[feature]ListPanel() method has to then be implemented in UiManager (and
+declared in Ui interface) so that the method can be called through UiManager.
+
+
+_Usage_:
+
+Now in order to switch between the different list panels, the developer just has to
+call their switchTo[feature]ListPanel() function from the Ui interface. This can be done
+anywhere as long as they have access to UiManager.
 
 [[Design-Logic]]
 === Logic component
@@ -190,7 +236,7 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/souschef/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AppContentParser` class to parse the user command.'
 .  `AppContentParser` passed necessary model to each feature parser such as `IngredientParser` according to the context.
@@ -208,29 +254,33 @@ image::LogicSequenceDiagram.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponent.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/model/ModelSet.java[`ModelSet.java`],
+link:{repoURL}/src/main/java/seedu/souschef/model/Model.java[`Model.java`]
+
+The `ModelSet`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Sous Chef application data.
+** Contains multiple `Model` each in-charge of a feature's data.
+* shares a single instance of VersionedAppContent to ensure single version of truth.
+* does not depend on any of the other three components.
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+* each represents a feature-unique data.
+** ensures data abstraction for each feature.
+* is reusable as model is now generic.
+* exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+.Structure of the Storage Component (The given diagram only shows the extensions of 2 functions.)
+image::StorageClassDiagramRevamp.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -238,53 +288,53 @@ The `Storage` component,
 * can save the various xml files from each of the different functions. Namely recipe.xml, ingredients.xml and healthplan.xml
 * can do a context switch for storing information into the correct xml file for the function.
 * generalized in its implementation for easy extension
-* controls information by passing a single appcontent unit around the system.
+* controls information by passing a single appContent unit around the system.
+* With the new implementation of the storage component, calls at the upper layers are generalized and all components shares
+common calls for load and saving.
+* The new storage component introduces a new abstract parent (XmlFeatureStorage) and also a new interface
+(XmlSerializableGeneric) to make all the calls of load and save to be generic to allow easy functional implementation
+without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
+calls the intended result will be achieved.
+
+
 
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::recipemanagement[]
-=== Recipe Management
-==== All-field search
-The all-field search matches keywords with details of `Recipe`.
-Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search
-feature
-provides a complex querying, rather than a superficial search on merely recipes' name.
+=== Ingredient Manager
+==== Select feature of the Ingredient Manager(to be implemented)
 
-To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
-filter away recipes that does not meet the requirement.
+Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
+In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
+rather than person related information.
+However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
+ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
 
-The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
- in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
- one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
-  in
- the `FilteredList`.
+In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
+If you execute select command, it conducts search based on ingredients in inventory. Then It takes
+additional ingredients in as parameters, no matter if they are currently in inventory or not.
+Based on those ingredients, it conducts second round of search.
+The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
+include in your recipe search.
+The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
+Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
+number at the top.
+Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
+ingredients sorts the recipe.
 
-Why it is implemented that way: +
-Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
-to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
-
-Alternatives: Tag saving recipes that uses it
-Pros - Search done more effectively as the system only need to display all recipes stored in a tag
-Cons - Bi-directional association, increase difficulty in maintaining data integrity
-
-==== Cook-mode
-The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be
-triggered by choosing a `Recipe` listed.
-
-Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
-switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
-navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
-`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
-instructions.
-// end::recipemanagement[]
+The difference between normal search using ingredient and current select method lies in the fact that it conducts
+search based
+ on ingredients in inventory as a default.
+Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
+of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
+ inventory.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
@@ -292,6 +342,7 @@ instructions.
 
 ===== Model
 The Meal Planner feature is supported by the classes *Meal* and *Day*.
+
 
 ****
 Supporting classes:
@@ -320,6 +371,9 @@ Meal Planner is currently implemented as a list of non-empty *Day* objects. This
 ensured as *Day* objects are only instantiated when recipes are added to a certain
 _date_, with that _date_ being assigned to its *Day* object. When all the recipes
 are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
+*Day* objects in the Meal Planner list panel are sorted in chronological order according
+to their dates. This is done by sorting the list when instantiated and when *Day* objects
+are added or removed.
 
 ===== Logic
 For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
@@ -331,14 +385,17 @@ The plan command adds a recipe from the _recipeModel_ to the _mealPlannerModel_.
 both models have to be passed to *PlanMealCommandParser*.
 
 Within *PlanMealCommandParser*, it parses the target _date_ from a *String* into a *LocalDate*.
+Only dates from the present or future are allowed to be entered.
 This *LocalDate* object is then used to find out whether _mealPlannerModel_ currently
 contains a *Day* with the target _date_. If such a *Day* object already exists, it is
 taken from _mealPlannerModel_ to be used in *PlanMealCommand*. Else, a new *Day* object is
-instantiated with the target *LocalDate* _date_ and added to _mealPlannerModel_. The target
-_meal_ is then taken from the *Day* object. _mealPlannerModel_, target _recipe_ and target _meal_
-are then passed to *PlanMealCommand*.
+instantiated with the target *LocalDate* _date_. The target _meal_ is then taken from
+the *Day* object. _mealPlannerModel_, target _day_ target _recipe_ and target _meal_ are then passed
+to *PlanMealCommand*.
 
-Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_.
+Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_ and
+target _day_ is then added to mealPlannerModel.
+
 Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 
 ====== _Display Command_: `display`
@@ -354,40 +411,66 @@ displaying the Meal Planner when the user needs to view it.
 The clear command simply clears the Meal Planner by setting (i.e. replacing) the existing UniqueList
 of *ModelManager<Day>* _mealPlannerModel_ with a new empty UniqueList.
 
+====== _Delete Command_: `delete`
+The delete command deletes a specified *Day* from the _mealPlannerModel_ along with all its _meals_.
+The *Day* is specified by its index as seen on the list panel.
+
 // end::mealplannerimplementation[]
 
-=== Ingredient Manager
-==== Select feature of the Ingredient Manager(to be implemented)
+// tag::favouritesimplementation[]
+=== Favourites list
 
-Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
-Basically Ingredient Manager does similar things that can be done by addressbook, such as add, delete, edit, and find
-. In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
-rather than person related information.
-However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
-ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
+This feature allows users to have a quick reference to all of their favourite recipes. Users are able to add recipes
+that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
+and remove any entry within the favourites list.
 
-In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
-If you execute select command, it conducts search based on ingredients in inventory. Then It takes
-additional ingredients in as parameters, no matter if they are currently in inventory or not.
-Based on those ingredients, it conducts second round of search.
-The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
-include in your recipe search.
-The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
-Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
-number at the top.
-Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
-ingredients sorts the recipe.
+==== Adding to Favourites
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+// end::favouritesimplementation[]
 
-The difference between normal search using ingredient and current select method lies in the fact that it conducts
-search based
- on ingredients in inventory as a default.
-Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
-of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
- inventory.
+// tag::recipemanagement[]
+=== Recipe Management
+==== All-field search
+The all-field search matches keywords with details of `Recipe`.
+Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
+
+===== Current Implementation
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
+filter away recipes that does not meet the requirement.
+
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
+ in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
+ one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
+  in
+ the `FilteredList`.
+
+image::recipe_search_seq.png[width="800"]
+
+===== Why it is implemented that way:
+Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
+to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
+
+===== Alternatives:
+Tag saving recipes that uses it. +
+Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
+Cons - Bi-directional association, increase difficulty in maintaining data integrity
+
+==== Cook-mode
+The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be triggered by choosing a `Recipe` listed.
+
+===== Current Implementation
+Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
+switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
+navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
+`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
+instructions.
+// end::recipemanagement[]
 
 === Health Plan list
 
-This is a feature that users can access to have healthplans to manage their diet and health due to dietary
+This is a feature that users can access to have health plans to manage their diet and health due to dietary
 needs of their choice. Users are able to add a health list to based on their specifications:
 whether they intend to gain/lose/maintain weight from their
 set age, current weight and also their current height. this will then tell them what is the required calories to
@@ -396,7 +479,7 @@ eat per day to hit their target.
 ==== Current implementation
 
 * Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
- duration, scheme(gain/loss/maintain)
+ duration, scheme (gain/loss/maintain)
 * Users are able to delete entries that they do not want to keep anymore.
 * Users are aso able to edit entries which information is incorrect.
 
@@ -404,20 +487,15 @@ eat per day to hit their target.
 
 The new implementation of this feature should allow users to add meal plans from the meal planner feature, and also
 calculate the nutritional intake against the required calculate intake for the day and then also calculate the
- percentage of the set target by calculated by the system
+percentage of the set target by calculated by the system
 met by the user's own personal intake.
+This will then also help to compare the intake taken by the user via the meal plans versus the required target calculated
+by the system using the age, height and current weight of the user.
 
 ==== Ongoing implementation (Expiry of health plans)
 
 The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
  against the duration set by the user.
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -614,14 +692,15 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/souschef/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Sous Chef depends on the http://wiki.fasterxml
+.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 
 [appendix]
 == Product Scope
@@ -637,9 +716,6 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Value proposition*: innovate, plan and guide health-conscious occupied working adults in preparing home-cooked meals
 
 [appendix]
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
-
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -914,7 +990,7 @@ Use case ends.
 2.	System requests for details.
 3.	User enters keywords.
 4.	System displays recipes.
-5.	System suggests ways to refine result.
+5.	User enters keywords.
 +
 Steps 3 – 5 are repeated until search result becomes too narrow or user choose to look at existing result.
 +
@@ -1129,33 +1205,11 @@ Use case ends.
 .  Should be able to hold up to 1000 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1171,7 +1225,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample recipes. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1179,26 +1233,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a recipe
 
 . Deleting a recipe while all recipes are listed
 
 .. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message.
+   Timestamp
+   in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
