@@ -144,9 +144,9 @@ The Cd mechanism is facilitated by the `UserPrefs`. It contains the current dire
 `currDirectory`. It implements the following operations:
 
 * `UserPrefs#getCurrDirectory()` - Returns the user's current directory.
-* `UserPrefs#updateCurrDirectory(Path)` - Updates the user's current directory with the updated Path.
+* `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
-These operations are exposed to the Model interface as `Model#getCurrDirectory` and `Model#updateUserPrefs(Path)`
+These operations are exposed to the Model interface as `Model#getCurrDirectory` and `Model#updateCurrDirectory(Path)`
 respectively.
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
@@ -159,7 +159,7 @@ as the user's home directory.
 
 Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
 `Model#getCurrDirectory()` and appends `Desktop` to the end of the current directory. It then checks if the new Path is
-a directory and calls `Model#updateUserPrefs(Path)` and update the new Path in `UserPrefs` if the check returns true.
+a directory and calls `Model#updateCurrDirectory(Path)` and update the new Path in `UserPrefs` if the check returns true.
 
 The following sequence diagram shows how the cd command works:
 

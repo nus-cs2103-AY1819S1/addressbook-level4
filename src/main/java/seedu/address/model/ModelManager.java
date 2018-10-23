@@ -254,8 +254,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Update UserPrefs ==========================================================================
 
     @Override
-    public void updateUserPrefs(Path newCurrDirectory) {
-        this.userPrefs.updateCurrDirectory(newCurrDirectory);
+    public void updateCurrDirectory(Path newCurrDirectory) {
+        this.userPrefs.updateUserPrefs(newCurrDirectory);
     }
 
     @Override

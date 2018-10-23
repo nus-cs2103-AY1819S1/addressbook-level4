@@ -54,7 +54,7 @@ public class UserPrefs {
      * Update the current directory {@code currDirectory} with the new directory
      * {@code newCurrDirectory}
      */
-    public void updateCurrDirectory(Path newCurrDirectory) {
+    public void updateUserPrefs(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
     }
 

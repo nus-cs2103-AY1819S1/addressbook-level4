@@ -94,7 +94,7 @@ public interface Model {
     /**
      * Updates the userPrefs current directory.
      */
-    void updateUserPrefs(Path newCurrDirectory);
+    void updateCurrDirectory(Path newCurrDirectory);
 
     /**
      * Retrieves the userPrefs current directory.

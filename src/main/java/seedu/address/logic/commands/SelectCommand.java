@@ -72,7 +72,8 @@ public class SelectCommand extends Command {
         //        new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "preview"));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
         //        new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "original"));
-        return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased())
+                + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size()));
 
     }
 

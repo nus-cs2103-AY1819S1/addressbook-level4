@@ -44,15 +44,15 @@ public class CdCommandTest {
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
         // change to Desktop
-        model.updateUserPrefs(model.getCurrDirectory().resolve("Desktop").normalize());
+        model.updateCurrDirectory(model.getCurrDirectory().resolve("Desktop").normalize());
         assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
         // change to previous directory
-        model.updateUserPrefs(model.getCurrDirectory().resolve("..").normalize());
+        model.updateCurrDirectory(model.getCurrDirectory().resolve("..").normalize());
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
         // change to previous directory
-        model.updateUserPrefs(model.getCurrDirectory().resolve("..").normalize());
+        model.updateCurrDirectory(model.getCurrDirectory().resolve("..").normalize());
         assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
 
         // different paths -> returns false

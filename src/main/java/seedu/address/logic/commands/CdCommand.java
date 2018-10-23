@@ -1,4 +1,4 @@
-//@author benedictcss
+//@@author benedictcss
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -48,11 +48,12 @@ public class CdCommand extends Command {
         Path newCurrDirectory = Paths.get("");
         try {
             newCurrDirectory = dir.toPath().toRealPath();
-            model.updateUserPrefs(newCurrDirectory);
+            model.updateCurrDirectory(newCurrDirectory);
             model.updateImageList();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new CommandResult(newCurrDirectory.toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getDirectoryImageList().size())
                 + String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
