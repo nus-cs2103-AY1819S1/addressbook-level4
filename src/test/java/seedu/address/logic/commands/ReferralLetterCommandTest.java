@@ -31,7 +31,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.testutil.TypicalPersons;
 
-public class ReceiptCommandTest {
+public class ReferralLetterCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -51,13 +51,13 @@ public class ReceiptCommandTest {
     }
 
     @Test
-    public void execute_validServedPatient_receiptMessageSuccess() throws Exception {
+    public void execute_validServedPatient_referralMessageSuccess() throws Exception {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
-        String expectedMessage = ReceiptCommand.MESSAGE_GENERATE_RECEIPT_SUCCESS;
-        ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
-        CommandResult commandResult = receiptCommand.execute(model, patientQueue,
+        String expectedMessage = ReferralLetterCommand.MESSAGE_GENERATE_REFERRAL_SUCCESS;
+        ReferralLetterCommand referralLetterCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
+        CommandResult commandResult = referralLetterCommand.execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
-        File file = receiptCommand.getReceipt().getFile();
+        File file = referralLetterCommand.getRl().getFile();
         fileCleanUp(file);
         assertEquals(expectedMessage, commandResult.feedbackToUser);
     }
@@ -66,16 +66,16 @@ public class ReceiptCommandTest {
     public void execute_servedPatientListEmpty_commandExceptionThrown() throws Exception {
         thrown.expect(CommandException.class);
         servedPatientList = generateServedPatientList();
-        new ReceiptCommand(INDEX_FIRST_PERSON).execute(model, patientQueue,
+        new ReferralLetterCommand(INDEX_FIRST_PERSON).execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
     }
 
     @Test
-    public void execute_receiptFileName_receiptGenerationSuccess() throws Exception {
+    public void execute_mcFileName_mcGenerationSuccess() throws Exception {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
-        ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
-        receiptCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
-        String fileType = receiptCommand.getReceipt().FILE_TYPE;
+        ReferralLetterCommand referralLetterCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
+        referralLetterCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
+        String fileType = referralLetterCommand.getRl().FILE_TYPE;
         String fileName = generateFileName(fileType, TypicalPersons.ALICE);
         assertUniqueFileInFilteredFileList(fileName);
     }
@@ -83,23 +83,23 @@ public class ReceiptCommandTest {
     @Test
     public void equals() {
         servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
-        ReceiptCommand receiptAliceCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
-        ReceiptCommand receiptBobCommand = new ReceiptCommand(INDEX_SECOND_PERSON);
+        ReferralLetterCommand rlAliceCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
+        ReferralLetterCommand rlBobCommand = new ReferralLetterCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
-        assertTrue(receiptAliceCommand.equals(receiptAliceCommand));
+        assertTrue(rlAliceCommand.equals(rlAliceCommand));
 
         // same values -> returns true
-        ReceiptCommand receiptAliceCommandCopy = new ReceiptCommand(INDEX_FIRST_PERSON);
-        assertTrue(receiptAliceCommand.equals(receiptAliceCommandCopy));
+        ReferralLetterCommand rlAliceCommandCopy = new ReferralLetterCommand(INDEX_FIRST_PERSON);
+        assertTrue(rlAliceCommand.equals(rlAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(receiptAliceCommand.equals(1));
+        assertFalse(rlAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(receiptAliceCommand.equals(null));
+        assertFalse(rlAliceCommand.equals(null));
 
         // different patient -> returns false
-        assertFalse(receiptAliceCommand.equals(receiptBobCommand));
+        assertFalse(rlAliceCommand.equals(rlBobCommand));
     }
 }
