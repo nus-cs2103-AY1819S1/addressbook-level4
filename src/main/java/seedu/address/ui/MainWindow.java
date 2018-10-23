@@ -23,6 +23,7 @@ import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.Context;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private ContextIndicator contextIndicator;
     private PersonListPanel personListPanel;
     private EventListPanel eventListPanel;
     private RecordEventPanel recordEventPanel;
@@ -55,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane contextIndicatorPlaceholder;
 
     @FXML
     private StackPane listPanelPlaceholder;
@@ -134,6 +139,9 @@ public class MainWindow extends UiPart<Stage> {
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
         recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredPersonList());
+
+        contextIndicator = new ContextIndicator(Context.VOLUNTEER_CONTEXT_ID);
+        contextIndicatorPlaceholder.getChildren().add(contextIndicator.getRoot());
 
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
