@@ -447,6 +447,10 @@ other the ending date.
 
 * Furthermore, after the time object is created, it will also check if the there are any clashes in the tuition timings already in the address book.
 
+The following sequence diagram shows how the addtime operation works:
+
+image::AddTimeSequenceDiagram.png[width="800"]
+
 ==== Future Implementation
 
 * Currently, the input name has the to the target student's exact spelling. In cases where a student name is very long, this command may cause some inconvenience for the user if he does not remember the exact spellings of the target student's name.
