@@ -16,13 +16,13 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Adds an event to the address book.
+ * Adds an event to the application.
  */
 public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event record to the application. "
             + "Parameters: "
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_LOCATION + "LOCATION "
@@ -43,7 +43,7 @@ public class AddEventCommand extends Command {
             + PREFIX_TAG + "Competition ";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists.";
 
     private final Event toAdd;
 
