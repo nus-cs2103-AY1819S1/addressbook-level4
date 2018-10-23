@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -192,6 +193,37 @@ public class AddressBook implements ReadOnlyAddressBook {
         group.clearMembers();
         groups.remove(group);
     }
+
+    /**
+     * Join a person in the {@code AddressBook} to an existing {@code group} in the {@code AddressBook}.
+     */
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.addMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+
+        group.addMember(person); // to satisfy the test on the input parameter
+    }
+
+    /**
+     * Remove an existing member from a existing {@code group} in {@code AddressBook}.
+     */
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.removeMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+    }
+
     // @@author
 
     //// util methods
