@@ -16,6 +16,7 @@ public class WishCard extends UiPart<Region> {
 
     private static final String FXML = "WishCard.fxml";
     private static final String[] TAG_COLORS = { "red", "yel", "blue", "navy", "ora", "green", "pink", "hot", "pur" };
+    private static final String EXPIRED_WARNING = "[EXPIRED] ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,6 +38,9 @@ public class WishCard extends UiPart<Region> {
     private Label progress;
 
     @FXML
+    private Label date;
+
+    @FXML
     private ProgressBar progressBar;
 
     @FXML
@@ -51,12 +55,14 @@ public class WishCard extends UiPart<Region> {
         this.id = displayedIndex + ". ";
 
         name.setText(wish.getName().fullName);
+        date.setText(wish.getDate().date);
         progress.setText(getProgressInString(wish));
         progressBar.setProgress(wish.getProgress());
 
         if (wish.isFulfilled()) {
             cardPane.setOpacity(0.5);
         }
+
         initTags(wish);
     }
 

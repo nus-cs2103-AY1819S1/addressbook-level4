@@ -32,7 +32,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredWishList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_WISHES_LISTED_OVERVIEW, model.getFilteredWishList().size()));
+                String.format(Messages.MESSAGE_WISHES_LISTED_OVERVIEW, model.getFilteredSortedWishList().size()));
     }
 
     @Override

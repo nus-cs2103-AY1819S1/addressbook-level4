@@ -18,6 +18,8 @@ public class Url {
      */
     public static final String URL_VALIDATION_REGEX = "\\S*";
 
+    public static final String DEFAULT_URL = "www.amazon.com";
+
     public final String value;
 
     /**
@@ -37,6 +39,7 @@ public class Url {
     public static boolean isValidUrl(String test) {
         return test.matches(URL_VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

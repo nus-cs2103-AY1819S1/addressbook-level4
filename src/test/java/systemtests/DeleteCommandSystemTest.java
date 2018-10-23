@@ -62,7 +62,7 @@ public class DeleteCommandSystemTest extends WishBookSystemTest {
         /* Case: filtered wish list, delete index within bounds of wish book and wish list -> deleted */
         showWishesWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_WISH;
-        assertTrue(index.getZeroBased() < getModel().getFilteredWishList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredSortedWishList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered wish list, delete index within bounds of wish book but out of bounds of wish list

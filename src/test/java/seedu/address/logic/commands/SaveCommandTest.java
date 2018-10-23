@@ -36,7 +36,7 @@ public class SaveCommandTest {
     @Test
     public void execute_saveUnfilteredList_success() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        Wish firstWish = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         // new wish with already incremented saved amount
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
@@ -70,7 +70,7 @@ public class SaveCommandTest {
     public void execute_saveFilteredList_success() {
         showWishAtIndex(model, INDEX_FIRST_WISH);
 
-        Wish firstWish = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         // new wish with already incremented saved amount
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
@@ -103,7 +103,7 @@ public class SaveCommandTest {
     @Test
     public void execute_invalidWishIndexUnfilteredList_failure() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        Index indexOutOfBounds = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index indexOutOfBounds = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         SaveCommand saveCommand = new SaveCommand(indexOutOfBounds, new Amount(VALID_SAVED_AMOUNT_AMY));
 
         String expectedMessage = MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
@@ -137,7 +137,7 @@ public class SaveCommandTest {
     @Test
     public void executeUndoRedo_saveUnfilteredList_success() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        Wish firstWish = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         // new wish with already incremented saved amount
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
@@ -181,7 +181,7 @@ public class SaveCommandTest {
     @Test
     public void executeUndoRedo_saveInvalidIndexUnfilteredList_failure() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        Index indexOutOfBounds = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index indexOutOfBounds = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         SaveCommand saveCommandToFail = new SaveCommand(indexOutOfBounds, new Amount(VALID_SAVED_AMOUNT_AMY));
 
         String expectedMessage = MESSAGE_INVALID_WISH_DISPLAYED_INDEX;

@@ -73,7 +73,7 @@ public class WishDetailPanel extends UiPart<Region> {
         savedAmount.setText("Saved: $" + wish.getSavedAmount().toString());
         price.setText("Price: $" + wish.getPrice().toString());
         url.setText("Product URL: " + wish.getUrl().value);
-        email.setText("Email(?): " + wish.getEmail().value);
+        email.setText("Date(?): " + wish.getDate());
         remark.setText(wish.getRemark().value);
     }
 

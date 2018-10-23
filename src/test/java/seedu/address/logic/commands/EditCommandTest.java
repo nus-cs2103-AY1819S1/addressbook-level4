@@ -40,7 +40,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Wish editedWish = new WishBuilder().build();
+        Wish firstWish = model.getFilteredSortedWishList().get(0);
+        Wish editedWish = new WishBuilder().withId(firstWish.getId().toString()).build();
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder(editedWish).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, descriptor);
 
@@ -48,7 +49,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
-        expectedModel.updateWish(model.getFilteredWishList().get(0), editedWish);
+        expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -56,8 +57,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastWish = Index.fromOneBased(model.getFilteredWishList().size());
-        Wish lastWish = model.getFilteredWishList().get(indexLastWish.getZeroBased());
+        Index indexLastWish = Index.fromOneBased(model.getFilteredSortedWishList().size());
+        Wish lastWish = model.getFilteredSortedWishList().get(indexLastWish.getZeroBased());
 
         WishBuilder wishInList = new WishBuilder(lastWish);
         Wish editedWish = wishInList.withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
@@ -80,7 +81,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, new EditWishDescriptor());
-        Wish editedWish = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish editedWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WISH_SUCCESS, editedWish);
 
@@ -95,7 +96,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showWishAtIndex(model, INDEX_FIRST_WISH);
 
-        Wish wishInFilteredList = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishInFilteredList = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         Wish editedWish = new WishBuilder(wishInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH,
                 new EditWishDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -104,36 +105,51 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
-        expectedModel.updateWish(model.getFilteredWishList().get(0), editedWish);
+        expectedModel.updateWish(model.getFilteredSortedWishList().get(0), editedWish);
         expectedModel.commitWishBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateWishUnfilteredList_failure() {
-        Wish firstWish = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
-        EditWishDescriptor descriptor = new EditWishDescriptorBuilder(firstWish).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_WISH, descriptor);
+    public void execute_duplicateWishUnfilteredList_success() {
+        Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_WISH);
+        EditWishDescriptor descriptor = new EditWishDescriptorBuilder(firstWish).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WISH_SUCCESS, firstWish);
+
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        expectedModel.updateWish(firstWish, firstWish);
+        expectedModel.commitWishBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateWishFilteredList_failure() {
+    public void execute_duplicateWishFilteredList_success() {
         showWishAtIndex(model, INDEX_FIRST_WISH);
 
-        // edit wish in filtered list into a duplicate in wish book
-        Wish wishInList = model.getWishBook().getWishList().get(INDEX_SECOND_WISH.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH,
-                new EditWishDescriptorBuilder(wishInList).build());
+        Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_WISH);
+        EditWishDescriptor descriptor = new EditWishDescriptorBuilder(firstWish).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WISH_SUCCESS, firstWish);
+
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        expectedModel.updateWish(firstWish, firstWish);
+        expectedModel.commitWishBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidWishIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -159,8 +175,8 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Wish editedWish = new WishBuilder().build();
-        Wish wishToEdit = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish wishToEdit = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
+        Wish editedWish = new WishBuilder().withId(wishToEdit.getId().toString()).build();
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder(editedWish).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, descriptor);
         Model expectedModel = new ModelManager(
@@ -182,7 +198,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -203,14 +219,15 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameWishEdited() throws Exception {
-        Wish editedWish = new WishBuilder().build();
+        Wish wishToEdit = model.getFilteredSortedWishList().get(INDEX_SECOND_WISH.getZeroBased());
+
+        Wish editedWish = new WishBuilder().withId(wishToEdit.getId().toString()).build();
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder(editedWish).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_WISH, descriptor);
         Model expectedModel = new ModelManager(
                 new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
 
         showWishAtIndex(model, INDEX_SECOND_WISH);
-        Wish wishToEdit = model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased());
         expectedModel.updateWish(wishToEdit, editedWish);
         expectedModel.commitWishBook();
 
@@ -221,7 +238,7 @@ public class EditCommandTest {
         expectedModel.undoWishBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredWishList().get(INDEX_FIRST_WISH.getZeroBased()), wishToEdit);
+        assertNotEquals(model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased()), wishToEdit);
         // redo -> edits same second wish in unfiltered wish list
         expectedModel.redoWishBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

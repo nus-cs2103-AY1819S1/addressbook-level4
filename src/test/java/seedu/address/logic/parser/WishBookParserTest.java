@@ -52,7 +52,7 @@ public class WishBookParserTest {
     public void parseCommand_add() throws Exception {
         Wish wish = new WishBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(WishUtil.getAddCommand(wish));
-        assertEquals(new AddCommand(wish), command);
+        assertTrue(new AddCommand(wish).isSameAs(command));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class WishBookParserTest {
         Wish wish = new WishBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " "
                 + WishUtil.getWishDetails(wish));
-        assertEquals(new AddCommand(wish), command);
+        assertTrue(new AddCommand(wish).isSameAs(command));
     }
 
     @Test
