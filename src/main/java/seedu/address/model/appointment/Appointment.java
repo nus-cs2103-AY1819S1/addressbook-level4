@@ -14,11 +14,16 @@ public class Appointment {
     //constants for status
     private static final int APPROVED = 1;
     private static final int CANCELLED = 0;
+    //constants for type
+    private static final int NEW = 0;
+    //an appointment is a follow up if it results directly from a consultation.
+    // private static final int FOLLOW_UP = 1;
 
     //fields used for making appointment
     private final Date appointmentDate;
     private final Time appointmentTime;
     private int appointmentStatus;
+    private int appointmentType;
 
     //to replace with patient class later on
     private final Person patient;
@@ -26,12 +31,13 @@ public class Appointment {
     //to retrieve from patient class later on
     //private final Doctor assignedDoctor;
 
-    public Appointment(Date date, Time time, Person patient) {
+    public Appointment(Date date, Time time, Person patient, int appointmentType) {
         requireAllNonNull(date, time, patient);
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
         this.appointmentStatus = APPROVED;
+        this.appointmentType = appointmentType;
     }
 
     public Date getAppointmentDate() {
@@ -48,6 +54,11 @@ public class Appointment {
 
     public Person getPatient() {
         return patient;
+    }
+
+    //@@author arsalanc-v2
+    public int getAppointmentType() {
+        return appointmentType;
     }
 
     //public Doctor getassignedDoctor() { return assignedDoctor; }
@@ -110,6 +121,22 @@ public class Appointment {
     }
 
     /**
+     * Converts type to string.
+     * @return String form of type.
+     * @@author arsalanc-v2
+     */
+    public String typeToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (appointmentType == NEW) {
+            stringBuilder.append("NEW");
+        } else {
+            stringBuilder.append("FOLLOW-UP");
+        }
+        return stringBuilder.toString();
+    }
+
+
+    /**
      * Returns true if appointments have the same date, time, patient and status.
      */
     @Override
@@ -125,13 +152,14 @@ public class Appointment {
         return otherAppointment.getAppointmentDate().equals(getAppointmentDate())
                 && otherAppointment.getAppointmentTime().equals(getAppointmentTime())
                 && otherAppointment.getPatient().equals(getPatient())
-                && (otherAppointment.getAppointmentStatus() == getAppointmentStatus());
+                && (otherAppointment.getAppointmentStatus() == getAppointmentStatus())
+                && (otherAppointment.getAppointmentType() == getAppointmentType());
     }
 
     @Override
     public int hashCode() {
         //TODO Add assignedDoctor
-        return Objects.hash(appointmentDate, appointmentTime, patient, appointmentStatus);
+        return Objects.hash(appointmentDate, appointmentTime, patient, appointmentStatus, appointmentType);
     }
 
     @Override
@@ -144,7 +172,8 @@ public class Appointment {
                 .append("\n")
                 .append(patient.toString())
                 .append("\n")
-                .append(statusToString());
+                .append(statusToString())
+                .append(typeToString());
         return builder.toString();
     }
 }
