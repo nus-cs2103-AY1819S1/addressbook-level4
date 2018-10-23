@@ -26,12 +26,14 @@ public class PlaylistListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new PlaylistListCommand(), model, commandHistory, PlaylistListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new PlaylistListCommand(), model, commandHistory,
+                PlaylistListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPlaylistAtIndex(model, INDEX_FIRST_PLAYLIST);
-        assertCommandSuccess(new PlaylistListCommand(), model, commandHistory, PlaylistListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new PlaylistListCommand(), model, commandHistory,
+                PlaylistListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
