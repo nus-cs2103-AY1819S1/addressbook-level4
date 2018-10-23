@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         /* Case: add a task with all fields same as another task in the address book except date and email
          * -> added
          */
-        toAdd = new TaskBuilder(AMY).withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new TaskBuilder(AMY).withDate(VALID_DATE_BOB).withPriority(VALID_EMAIL_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -126,13 +126,13 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different email -> rejected */
-        //toAdd = new TaskBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        //toAdd = new TaskBuilder(HOON).withPriority(VALID_EMAIL_BOB).build();
         //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different address -> rejected */
         //commented off as task are unique when one field is different
-        //toAdd = new TaskBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        //toAdd = new TaskBuilder(HOON).withVenue(VALID_ADDRESS_BOB).build();
         //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 

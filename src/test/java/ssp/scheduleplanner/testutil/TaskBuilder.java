@@ -18,9 +18,9 @@ public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_DATE = "111155";
-    //public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_EMAIL = "1";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    //public static final String DEFAULT_PRIORITY = "alice@gmail.com";
+    public static final String DEFAULT_PRIORITY = "1";
+    public static final String DEFAULT_VENUE = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Date date;
@@ -32,8 +32,8 @@ public class TaskBuilder {
         name = new Name(
                 DEFAULT_NAME);
         date = new Date(DEFAULT_DATE);
-        priority = new Priority(DEFAULT_EMAIL);
-        venue = new Venue(DEFAULT_ADDRESS);
+        priority = new Priority(DEFAULT_PRIORITY);
+        venue = new Venue(DEFAULT_VENUE);
         tags = new HashSet<>();
     }
 
@@ -67,7 +67,7 @@ public class TaskBuilder {
     /**
      * Sets the {@code Venue} of the {@code Task} that we are building.
      */
-    public TaskBuilder withAddress(String address) {
+    public TaskBuilder withVenue(String address) {
         this.venue = new Venue(address);
         return this;
     }
@@ -83,8 +83,8 @@ public class TaskBuilder {
     /**
      * Sets the {@code Priority} of the {@code Task} that we are building.
      */
-    public TaskBuilder withEmail(String email) {
-        this.priority = new Priority(email);
+    public TaskBuilder withPriority(String priority) {
+        this.priority = new Priority(priority);
         return this;
     }
 

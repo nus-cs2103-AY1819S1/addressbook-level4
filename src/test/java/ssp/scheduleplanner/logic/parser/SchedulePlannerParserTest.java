@@ -19,6 +19,7 @@ import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.ExitCommand;
+import ssp.scheduleplanner.logic.commands.FilterCommand;
 import ssp.scheduleplanner.logic.commands.FindCommand;
 import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 import ssp.scheduleplanner.logic.commands.HelpCommand;
@@ -31,6 +32,7 @@ import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.task.NameContainsKeywordsPredicate;
+import ssp.scheduleplanner.model.task.TagsContainsKeywordsPredicate;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.EditTaskDescriptorBuilder;
 import ssp.scheduleplanner.testutil.TaskBuilder;
@@ -84,6 +86,14 @@ public class SchedulePlannerParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_filter() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FilterCommand command = (FilterCommand) parser.parseCommand(
+                FilterCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FilterCommand(new TagsContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
