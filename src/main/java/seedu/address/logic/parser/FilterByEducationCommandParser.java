@@ -10,7 +10,6 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
 
     /**
      * FilterByGradeCommand
-     *
      * @param args
      * @return
      * @throws ParseException
@@ -23,9 +22,10 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
                     String.format("Enter error message here"));
         }
 
-        if(!(stringCommand.equals("pri")||stringCommand.equals("sec")||stringCommand.equals("jc"))){
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
-
+        if (!(stringCommand.equals("pri") || stringCommand.equals("sec") ||
+              stringCommand.equals("jc"))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                                   FilterByEducationCommand.MESSAGE_USAGE));
         }
         return new FilterByEducationCommand(stringCommand);
     }
