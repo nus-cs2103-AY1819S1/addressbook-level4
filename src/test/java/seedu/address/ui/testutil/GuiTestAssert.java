@@ -54,7 +54,15 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysGroup(Group expectedGroup, GroupCardHandle actualCard) {
         assertEquals(expectedGroup.getTitle().fullTitle, actualCard.getGroupTitle());
-        assertEquals(expectedGroup.getDescription().statement, actualCard.getGroupDescription());
+        if (expectedGroup.getDescription() != null) {
+            assertEquals(expectedGroup.getDescription().statement, actualCard.getGroupDescription());
+        }
+        if (expectedGroup.getMeeting() != null) {
+            assertEquals(expectedGroup.getMeeting().getTitle().fullTitle, actualCard.getGroupMeeting());
+        } else {
+            assertEquals("null", actualCard.getGroupMeeting());
+        }
+        assertEquals(String.format("%d", expectedGroup.getMembersView().size()), actualCard.getMemberCount());
     }
 
     /**
