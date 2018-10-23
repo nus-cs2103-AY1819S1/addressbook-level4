@@ -17,15 +17,6 @@ public class FilterByTimeCommandParser {
      */
     public FilterByTimeCommand parse(String args) throws ParseException {
 
-
- * FilterByGradeCommand
- * @param args
- * @return
- * @throws ParseException
- */
-public FilterByTimeCommand parse(String args) throws ParseException {
-
-
         Time currTime = new Time(args);
         if (currTime.toString().isEmpty()) {
             throw new ParseException(
