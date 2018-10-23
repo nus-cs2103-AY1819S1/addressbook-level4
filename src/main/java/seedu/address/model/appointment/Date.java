@@ -17,8 +17,11 @@ public class Date {
                     + "It should not be blank.";
     public static final String MESSAGE_YEAR_CONSTRAINTS =
             "The month should be numeric and it should not be blank.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "The date should be in dd mm yyyy format and it should not be blank.";
     public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
     public static final String DAY_MONTH_VALIDATION_REGEX = "\\d{1,2}";
+    public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\s+)(\\d{1,2})(\\s+)(\\d{4})";
 
     private final int day;
     private final int month;
@@ -64,6 +67,10 @@ public class Date {
 
     public int getYear() {
         return year;
+    }
+
+    public static boolean isValidDate(String string) {
+        return string.matches(DATE_VALIDATION_REGEX);
     }
 
     /**

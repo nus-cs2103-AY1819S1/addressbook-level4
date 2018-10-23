@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Date;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
@@ -34,6 +35,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DATE = "23 12 20 2";
 
     private static final String INVALID_ROLE = "abc";
     private static final String INVALID_PASSWORD = "";
@@ -44,6 +46,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DATE = "02 02 2222";
 
     private static final int VALID_ID = 1;
     private static final String VALID_ROLE_DOCTOR = "doctor";
@@ -311,5 +314,28 @@ public class ParserUtilTest {
     public void parsePassword_validValueWithoutWhitespace_returnsPassword() throws Exception {
         Password expectedPassword = new Password(VALID_PASSWORD, false);
         assertEquals(expectedPassword, ParserUtil.parsePassword(VALID_PASSWORD));
+    }
+
+    @Test
+    public void parseDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
+    }
+
+    @Test
+    public void parseDate_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        Date expectedDate = Date.newDate("02", "02", "2222");
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
+        Date expectedDate = Date.newDate("02", "02", "2222");
+        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 }

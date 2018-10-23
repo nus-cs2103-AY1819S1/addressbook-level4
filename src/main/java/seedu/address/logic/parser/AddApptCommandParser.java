@@ -8,8 +8,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Time;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Address;
+import seedu.address.model.tag.Tag;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 
@@ -20,8 +29,8 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddApptCommand parse(String userInput) throws ParseException {
-        /*ArgumentMultimap argMultimap =
+    public AddApptCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_ID);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TIME, PREFIX_ID)
@@ -29,14 +38,21 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddApptCommand.MESSAGE_USAGE));
         }
 
-        Date date = new Date(1, 1, 2000);
-        Time time = new Time(0, 0);
-        Person patient = new Person()
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        //Patient patient = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get);
 
-        Appointment appt = new Appointment(date, time, patient);
+        //to replace with patient id
+        Name name = new Name("asdf");
+        Email email = new Email("e@e.com");
+        Phone phone = new Phone("222");
+        Address address = new Address("a");
+        Set<Tag> tags = new HashSet<Tag>();
+        Person person = new Person(name, phone, email, address, tags);
 
-        return new AddApptCommand(appt);*/
-        return null;
+        Appointment appt = new Appointment(date, time, person);
+
+        return new AddApptCommand(appt);
     }
 
     /**

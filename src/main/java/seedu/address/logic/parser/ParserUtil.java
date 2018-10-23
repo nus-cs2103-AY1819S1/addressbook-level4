@@ -12,7 +12,6 @@ import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
@@ -176,6 +175,36 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
 
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+
+        String[] splitDate = trimmedDate.split("\\s+");
+
+        if (splitDate.length < 3) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        if (!Date.isValidDayMonthFormat(splitDate[0])) {
+            throw new ParseException(Date.MESSAGE_DAY_CONSTRAINTS);
+        }
+        if (!Date.isValidDayMonthFormat(splitDate[1])) {
+            throw new ParseException(Date.MESSAGE_MONTH_CONSTRAINTS);
+        }
+        if (!Date.isValidYearFormat(splitDate[2])) {
+        }
+
+        return Date.newDate(splitDate[0], splitDate[1], splitDate[2]);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
         return null;
     }
 }
