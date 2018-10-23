@@ -453,7 +453,7 @@ Due to the existing data structure implemented by model, to access the attribute
 to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
 
 ===== Alternatives:
-Tag saving recipes that uses it +
+Tag saving recipes that uses it. +
 Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
 Cons - Bi-directional association, increase difficulty in maintaining data integrity
 
