@@ -34,12 +34,14 @@
           </Menu>
         </MenuBar>
 
+
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="listPanel" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <StackPane fx:id="contextIndicatorPlaceholder" VBox.vgrow="NEVER"/>
             <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-          <VBox minWidth="340">
-            <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <VBox>
+            <StackPane VBox.vgrow="ALWAYS" id="browserPlaceholder" fx:id="browserPlaceholder" prefWidth="340" >
             </StackPane>
 
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
