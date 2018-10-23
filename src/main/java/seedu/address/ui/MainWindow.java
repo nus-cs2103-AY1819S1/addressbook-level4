@@ -35,7 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -209,10 +208,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public ImagePanel getPreviewImagePanel() {
         return previewImagePanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
