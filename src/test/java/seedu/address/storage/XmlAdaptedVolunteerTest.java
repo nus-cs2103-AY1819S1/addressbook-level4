@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.volunteer.Address;
 import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Email;
 import seedu.address.model.volunteer.Gender;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.VolunteerPhone;
+import seedu.address.model.volunteer.Name;
+import seedu.address.model.volunteer.Phone;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedVolunteerTest {
@@ -51,7 +51,7 @@ public class XmlAdaptedVolunteerTest {
                 new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                         INVALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_TAGS);
-        String expectedMessage = VolunteerName.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -59,7 +59,7 @@ public class XmlAdaptedVolunteerTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedVolunteer volunteer = new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                 null, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerName.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -106,7 +106,7 @@ public class XmlAdaptedVolunteerTest {
                 new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                         VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_TAGS);
-        String expectedMessage = VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS;
+        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -114,7 +114,7 @@ public class XmlAdaptedVolunteerTest {
     public void toModelType_nullPhone_throwsIllegalValueException() {
         XmlAdaptedVolunteer volunteer = new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                 VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerPhone.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -124,7 +124,7 @@ public class XmlAdaptedVolunteerTest {
                 new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                         VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS,
                         VALID_TAGS);
-        String expectedMessage = VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS;
+        String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -132,7 +132,7 @@ public class XmlAdaptedVolunteerTest {
     public void toModelType_nullEmail_throwsIllegalValueException() {
         XmlAdaptedVolunteer volunteer = new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                 VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerEmail.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -142,7 +142,7 @@ public class XmlAdaptedVolunteerTest {
                 new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                         VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS,
                         VALID_TAGS);
-        String expectedMessage = VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS;
+        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
@@ -150,7 +150,7 @@ public class XmlAdaptedVolunteerTest {
     public void toModelType_nullAddress_throwsIllegalValueException() {
         XmlAdaptedVolunteer volunteer = new XmlAdaptedVolunteer(VALID_VOLUNTEERID,
                 VALID_NAME, VALID_GENDER, VALID_BIRTHDAY, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerAddress.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, volunteer::toModelType);
     }
 
