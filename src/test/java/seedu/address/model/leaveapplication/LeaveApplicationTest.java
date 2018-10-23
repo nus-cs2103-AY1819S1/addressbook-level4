@@ -11,11 +11,11 @@ import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.testutil.LeaveApplicationBuilder;
 
 public class LeaveApplicationTest {
@@ -75,8 +75,8 @@ public class LeaveApplicationTest {
                 .append(" Status: ")
                 .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
-                .append(LocalDateTime.of(2018, 10, 23, 0, 0,0).toString())
-                .append(LocalDateTime.of(2018, 10, 24, 0, 0,0).toString());
+                .append(LocalDateTime.of(2018, 10, 23, 0, 0, 0).toString())
+                .append(LocalDateTime.of(2018, 10, 24, 0, 0, 0).toString());
         assertEquals(ALICE_LEAVE.toString(), builder.toString());
 
         // same expected and actual toString() output for TypicalPerson's BENSON
