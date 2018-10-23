@@ -100,6 +100,21 @@ public class AddCommand extends Command {
                 + "+08:00";
     }
 
+    /**
+     * Converts a local Event's ending data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    private String convertEndDateTimeToGoogleFormat(Event event) {
+        return event.getEndDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
