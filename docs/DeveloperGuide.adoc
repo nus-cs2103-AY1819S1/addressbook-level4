@@ -369,7 +369,7 @@ An alternative is to open another alert window to prompt user for password.
 
 * Cons: Require a new window to be opened.
 This will consume time depending on the system.
-In addition, This will take away the user experience.
+In addition, this will detract from the user experience due to the shift in focus required.
 
 // end::login[]
 
