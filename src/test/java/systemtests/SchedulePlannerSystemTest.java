@@ -71,7 +71,7 @@ public abstract class SchedulePlannerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getSidebarPanel());
+        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -111,8 +111,8 @@ public abstract class SchedulePlannerSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public SidebarPanelHandle getSidebarPanel() {
-        return mainWindowHandle.getSidebarPanel();
+    public SidebarPanelHandle getBrowserPanel() {
+        return mainWindowHandle.getBrowserPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -135,7 +135,7 @@ public abstract class SchedulePlannerSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getSidebarPanel());
+        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -211,7 +211,7 @@ public abstract class SchedulePlannerSystemTest {
      * @see SidebarPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
-    /*protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getTaskListPanel().navigateToCard(getTaskListPanel().getSelectedCardIndex());
         String selectedCardName = getTaskListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
@@ -220,7 +220,7 @@ public abstract class SchedulePlannerSystemTest {
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
-        assertEquals(expectedUrl, getSidebarPanel().getLoadedUrl());
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getTaskListPanel().getSelectedCardIndex());
     }
@@ -230,10 +230,10 @@ public abstract class SchedulePlannerSystemTest {
      * @see SidebarPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
-    /*protected void assertSelectedCardUnchanged() {
-        assertFalse(getSidebarPanel().isUrlChanged());
+    protected void assertSelectedCardUnchanged() {
+        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getTaskListPanel().isSelectedTaskCardChanged());
-    }*/
+    }
 
     /**
      * Asserts that the command box's shows the default style.
@@ -277,7 +277,7 @@ public abstract class SchedulePlannerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getTaskListPanel(), getModel().getFilteredTaskList());
-        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getSidebarPanel().getLoadedUrl());
+        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

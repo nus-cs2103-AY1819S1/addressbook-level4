@@ -372,8 +372,8 @@
 #categorieslabel {
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 16pt;
-    -fx-fill: white;
-    -fx-text-alignment: left;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
 }
 
 #commandTypeLabel {

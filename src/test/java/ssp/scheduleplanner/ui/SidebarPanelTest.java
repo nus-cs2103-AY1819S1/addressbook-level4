@@ -26,13 +26,13 @@ public class SidebarPanelTest extends GuiUnitTest {
     public void setUp() {
         selectionChangedEventStub = new TaskPanelSelectionChangedEvent(ALICE);
 
-        //guiRobot.interact(() -> sidebarPanel = new SidebarPanel());
+        guiRobot.interact(() -> sidebarPanel = new SidebarPanel());
         uiPartRule.setUiPart(sidebarPanel);
 
         sidebarPanelHandle = new SidebarPanelHandle(sidebarPanel.getRoot());
     }
 
-    /*@Test
+    @Test
     public void display() throws Exception {
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
@@ -44,5 +44,5 @@ public class SidebarPanelTest extends GuiUnitTest {
 
         waitUntilBrowserLoaded(sidebarPanelHandle);
         assertEquals(expectedTaskUrl, sidebarPanelHandle.getLoadedUrl());
-    }*/
+    }
 }
