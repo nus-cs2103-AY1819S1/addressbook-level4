@@ -20,7 +20,7 @@ import seedu.address.model.event.Event;
  */
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(VolunteerListPanel.class);
 
     @FXML
     private ListView<Event> eventListView;
