@@ -44,24 +44,21 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-            maskPassword(true);
             navigateToPreviousInput();
+            maskPassword();
             break;
         case DOWN:
             keyEvent.consume();
-            maskPassword(true);
             navigateToNextInput();
+            maskPassword();
             break;
         default:
             // let JavaFx handle the keypress
-            maskPassword(false);
-            break;
         }
     }
 
@@ -106,20 +103,18 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    private void maskPassword(boolean isHistory) {
+    private void maskPassword() {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
             StringBuilder maskedPassword = new StringBuilder();
             
-            if (!isHistory) {
-                for (int i = 0; i < password.length(); i++) {
-                    if (password.charAt(i) != '-') {
-                        tempPassword.append(password.charAt(i));
-                    }
-                    maskedPassword.append("-");
+            for (int i = 0; i < password.length(); i++) {
+                if (password.charAt(i) != '-') {
+                    tempPassword.append(password.charAt(i));
                 }
+                maskedPassword.append("-");
             }
 
             replaceText(otherCommand + "pass/" + maskedPassword.toString());
@@ -134,18 +129,23 @@ public class CommandBox extends UiPart<Region> {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
+            String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             
-            if(commandTextField.getText().substring(commandTextField.getText().length() - 1).equals("-")) {
+            if(tempPassword.length() == password.length()) {
                 replaceText(otherCommand + "pass/"
                         + tempPassword.toString());
+            } else if (tempPassword.length() > password.length()){
+                replaceText(otherCommand + "pass/"
+                        + tempPassword.substring(0, password.length()));
             } else {
                 replaceText(otherCommand + "pass/"
                         + tempPassword.toString()
-                        + commandTextField.getText().substring(commandTextField.getText().length() - 1));
+                        + password.substring(tempPassword.length()));
             }
-
+            
             //Reset temp password.
             resetTempPassword();
+            
         }
     }
 
