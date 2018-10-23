@@ -1,8 +1,92 @@
-.split-pane:horizontal .split-pane-divider {
-    -fx-padding: 0 1 0 1;
-    -fx-border-color: #0000001e;
-    -fx-background-color: transparent;
+.root {
+    -black-1-: #0c0c0c;
+    -grey-1-: #212121;
+    -grey-2-: #303030;
+    -grey-3-: #424242;
+    -grey-4-: #e6e6e6;
+    -white-1-: #F5F5F5;
+
+    -primary-: #3E50B4;
+    -secondary-: #FF3F80;
+
+    -font-: #98a6ad;
+    -background-: #323b44;
+    -card-: #36404a;
+
+    -yellow-primary-: #FFDE03;
+    -blue-primary-: #0336FF;
+    -red-primary-: #FF0266;
+
+    -blue-1-: #004ba0;
+    -blue-2-: #1976d2;
+    -blue-3-: #63a4ff;
+    -blue-n-: #0081cb;
+
+    -grey-b-: #E1E2E1;
+    -grey-s-: #969696;
+
+    -swatch-100: #BBDEFB;
+    -swatch-200: #90CAF9;
+    -swatch-300: #64BEF6;
+    -swatch-400: #42A5F5;
+    -swatch-500: #2196F3;
+    -swatch-grey: #c8c8c8;
+    -swatch-dark-grey: #969696;
+    -swatch-light-grey: #e6e6e6;
+    -swatch-toolbar: #F5F5F5;
+    -swatch-toolbar-selected: #D7D7D7;
 }
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('../fonts/IBMPlexSans-Regular.ttf');
+}
+
+.background {
+    -fx-background-color: -grey-b-;
+    background-color: -grey-b-; /* Used in the default.html file */
+}
+
+.menu-bar {
+    -fx-background-color: -blue-1-;
+}
+
+.grid-pane .stack-pane {
+    -fx-background-color: -blue-1-;
+}
+
+#contextIndicator {
+    -fx-font-family: "Open Sans";
+    -fx-background-color: -blue-2-;
+    -fx-padding: 10 10 10 10;
+}
+
+#contextIndicator .label {
+    -fx-font-size: 1.5em;
+    -fx-padding: 5 5 5 8;
+    -fx-text-fill: -white-1-;
+}
+
+#browserPlaceholder {
+    -fx-padding: 12;
+    -fx-background-color: -background-;
+    -fx-background-insets: 0px, 10px;
+    -fx-border-radius: 2;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0, 1.5);
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-padding: 1 0 1 0;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-background-color: -background-;
+}
+
 
 .split-pane {
     -fx-box-boder: transparent;
@@ -10,21 +94,22 @@
     -fx-background-inset: 0;
     -fx-border-radius: 0;
     -fx-border-width: 0;
-    -fx-background-color: derive(#b4b4b4, 50%);
+    -fx-background-color: transparent;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0px;
-    -fx-background-color: rgb(230.0, 230.0, 230.0);
+    -fx-background-color: -grey-b-;
 }
 
 .list-cell {
     -fx-padding: 12px;
-    -fx-background-color: transparent, #ffffff;
-    -fx-background-insets: 0px, 4px;
+    -fx-background-color: transparent, -white-1-;
+    -fx-background-insets: 0px, 0px;
     -fx-border-radius: 1;
-    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0, 1.5);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -grey-b-;
 }
 
 .list-cell:empty {
@@ -47,18 +132,18 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: #242424;
-    -fx-font-family: "Tahoma";
+    -fx-text-fill: -grey-1-;
+    -fx-font-family: "IBM Plex Sans";
 }
 
 .scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
 {
-    -fx-background-color: rgb(230.0, 230.0, 230.0);
-    -fx-background-insets: 0;
+    -fx-background-color: -grey-b-;
+    -fx-background-insets: 1 0 0 0;
 }
 
 .scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
-    -fx-background-color: rgb(180.0, 180.0, 180.0);
+    -fx-background-color: -grey-s-;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
@@ -71,10 +156,24 @@
 
 .scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow
 {
-    -fx-background-color: rgb(150.0, 150.0, 150.0);
+    -fx-background-color: -grey-s-;
 }
 
 .scroll-bar>.track-background {
     -fx-background-color: transparent;
 }
 
+
+#totalVolunteersStatus exit.label {
+    -fx-alignment: center;
+}
+
+#eventNameBox .label{
+    -fx-font-size: 18pt;
+    -fx-text-fill: -grey-1-;
+}
+
+#numOfVolunteerBox .label{
+    -fx-font-size: 14pt;
+    -fx-text-fill: -grey-1-;
+}
