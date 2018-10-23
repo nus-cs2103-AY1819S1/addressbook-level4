@@ -15,7 +15,7 @@ public class FilterDoctorCommand extends Command {
     public static final String COMMAND_WORD = "filter-doctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who are tagged as Doctor. \n"
-            + "Example: " + COMMAND_WORD ;
+            + "Example: " + COMMAND_WORD;
 
     private final TagContainsDoctorPredicate predicate = new TagContainsDoctorPredicate();
 

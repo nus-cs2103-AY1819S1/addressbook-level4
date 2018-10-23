@@ -7,7 +7,7 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Tag} contains "Doctor".
  */
-public class TagContainsDoctorPredicate  implements Predicate<Person> {
+public class TagContainsDoctorPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
@@ -15,7 +15,7 @@ public class TagContainsDoctorPredicate  implements Predicate<Person> {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == this) { //if same object
             return true;
         } else {
