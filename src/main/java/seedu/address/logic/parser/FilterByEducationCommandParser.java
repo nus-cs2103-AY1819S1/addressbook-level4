@@ -5,10 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.FilterByEducationCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
-
+/**
+ * fiterByEducation.
+ */
 public class FilterByEducationCommandParser implements Parser<FilterByEducationCommand> {
-
     /**
      * FilterByGradeCommand
      * @param args
