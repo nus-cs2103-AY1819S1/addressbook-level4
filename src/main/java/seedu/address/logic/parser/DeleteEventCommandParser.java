@@ -12,7 +12,10 @@ import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventDate;
 
-public class DeleteEventCommandParser implements Parser<DeleteEventCommand>  {
+/**
+ * Parses input arguments and creates a new DeleteEventCommand object
+ */
+public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteEventCommand
      * and returns an DeleteEventCommand object for execution.
