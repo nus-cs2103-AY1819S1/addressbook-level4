@@ -84,7 +84,7 @@ public class XmlAdaptedLeaveApplicationTest {
     public void toModelType_nullDates_throwsNullPointerException() {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, List.class.getSimpleName());
         Assert.assertThrows(NullPointerException.class, null, ()
-                -> new XmlAdaptedLeaveApplication(VALID_ID, VALID_DESCRIPTION, VALID_STATUS, null));
+            -> new XmlAdaptedLeaveApplication(VALID_ID, VALID_DESCRIPTION, VALID_STATUS, null));
     }
 
     @Test
