@@ -19,7 +19,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_MODULECODE = "CS2103";
+    public static final String DEFAULT_MODULECODE = "TYPICAL_MODULE_THREE";
     public static final String DEFAULT_MODULETITLE = "SOFTWARE ENGINEERIG";
     public static final String DEFAULT_ACADEMICYEAR = "1718";
     public static final String DEFAULT_SEMESTER = "1";
