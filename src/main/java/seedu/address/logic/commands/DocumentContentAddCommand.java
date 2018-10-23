@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REFERRAL_CONTENT;
 
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -52,6 +54,8 @@ public class DocumentContentAddCommand extends QueueCommand {
         }
 
         updateCurrentPatientDocument(currentPatient, documentContentDescriptor);
+
+        EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
 
         return new CommandResult(MESSAGE_DOCUMENT_ADD_SUCCESS + currentPatient.toNameAndIc()
                 + currentPatient.toDocumentInformation());

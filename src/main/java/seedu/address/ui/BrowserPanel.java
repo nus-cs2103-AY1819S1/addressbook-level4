@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -18,6 +19,7 @@ import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
@@ -87,10 +89,11 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a HTML file that displays the current patient's information.
      */
     private void loadCurrentPatientPage(CurrentPatient currentPatient) {
-        System.out.println(currentPatient.toNameAndIc());
         String filePath = "/view/CurrentPatientView.html";
         String url = MainApp.class.getResource(filePath).toExternalForm();
+        url = addCurrentPatientDetailsAsArgs(url, currentPatient);
         loadPage(url);
+        System.out.println(url);
     }
 
     /**
@@ -116,6 +119,42 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleShowCurrentPatientView(ShowCurrentPatientViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCurrentPatientPage(event.getCurrentPatient());
+    }
+
+    /**
+     * Parses CurrentPatient's details and adds to url as parameters
+     * @param url filepath
+     * @param currentPatient currentpatient to parse
+     * @return Final url with args
+     */
+    private String addCurrentPatientDetailsAsArgs(String url, CurrentPatient currentPatient) {
+
+        url = addPatientDetailsAsArgs(currentPatient.getPatient(), url);
+
+        url += "&noteContent=";
+        url += currentPatient.getNoteContent();
+
+        url += "&mcContent=";
+        url += currentPatient.getMcContent();
+
+        url += "&referralContent=";
+        url += currentPatient.getReferralContent();
+
+        url += "&allocatedMedicine=";
+        if (currentPatient.getMedicineAllocated().isEmpty()) {
+            url += "<br>";
+        } else {
+            for (Map.Entry<Medicine, Integer> entry : currentPatient.getMedicineAllocated().entrySet()) {
+                url += entry.getKey().getMedicineName().fullName;
+                url += " x ";
+                url += entry.getValue().toString();
+                url += "<br>";
+            }
+        }
+
+        url = url.substring(0, url.length() - 4);
+
+        return url;
     }
 
     /**
