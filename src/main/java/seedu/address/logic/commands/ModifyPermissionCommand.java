@@ -39,6 +39,7 @@ public class ModifyPermissionCommand extends Command {
     public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified.\nEdited Person : %1$s";
 
     PermissionSet requiredPermission = new PermissionSet(Permission.ASSIGN_PERMISSION);
+
     Index index;
     Set<Permission> toAdd;
     Set<Permission> toRemove;
@@ -50,8 +51,7 @@ public class ModifyPermissionCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //TODO: Check if user logged in have permission to execute this method.
+    public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
