@@ -5,7 +5,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Optional;
 
 /**
  * Represents a the expiry date of a wish.
@@ -14,13 +13,13 @@ import java.util.Optional;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date should be of the format: dd/mm/yyyy";
+            "Date should be of the FORMAT: dd/mm/yyyy";
 
     public static final String MESSAGE_DATE_OUTDATED = "Wish expiry date should be after current date";
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
-    public static final SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+    public static final SimpleDateFormat FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
     public final String date;
 
@@ -43,31 +42,36 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            format.setLenient(false);
-            java.util.Date date = format.parse(test);
+            FORMAT.setLenient(false);
+            java.util.Date date = FORMAT.parse(test);
         } catch (ParseException pe) {
             return false;
         }
         return true;
     }
 
-    /*
+    /**
      * Returns true if date is greater than current date.
      */
     public static boolean isFutureDate(String test) throws ParseException {
-        java.util.Date date = format.parse(test);
+        requireNonNull(test);
+        java.util.Date date = FORMAT.parse(test);
         if (date.after(new java.util.Date())) {
             return true;
         }
         return false;
     }
 
+    /**
+     *
+     * @return A {@link java.util.Date} object of the current {@code Date}.
+     */
     public java.util.Date getDateObject() {
         assert(isValidDate(date));
 
         java.util.Date dateObj;
         try {
-            dateObj = format.parse(date);
+            dateObj = FORMAT.parse(date);
         } catch (ParseException e) {
             dateObj = null;
         }

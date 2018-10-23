@@ -31,35 +31,9 @@ public class Wish {
     private final boolean fulfilled;
     private final boolean expired;
 
-    /**
-     * Every field must be present and not null.
-     */
-    public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, price, date, url, tags);
-        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
-            fulfilled = true;
-        } else {
-            fulfilled = false;
-        }
-
-        if (isCurrDateGreaterThanOrEqualToDate(date)) {
-            expired = true;
-        } else {
-            expired = false;
-        }
-
-        this.name = name;
-        this.price = price;
-        this.date = date;
-        this.url = url;
-        this.tags.addAll(tags);
-        this.remark = remark;
-        this.savedAmount = savedAmount;
-
-        this.id = UUID.randomUUID();
-    }
 
     /**
+     * Constructs an object for an already created {@code Wish}.
      * Every field must be present and not null.
      */
     public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount,
@@ -86,6 +60,43 @@ public class Wish {
         this.savedAmount = savedAmount;
 
         this.id = id;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    private Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, price, date, url, tags);
+        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
+            fulfilled = true;
+        } else {
+            fulfilled = false;
+        }
+
+        if (isCurrDateGreaterThanOrEqualToDate(date)) {
+            expired = true;
+        } else {
+            expired = false;
+        }
+
+        this.name = name;
+        this.price = price;
+        this.date = date;
+        this.url = url;
+        this.tags.addAll(tags);
+        this.remark = remark;
+        this.savedAmount = savedAmount;
+
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Returns a newly created {@code Wish} with a new id.
+     */
+    public static Wish createWish(Name name, Price price, Date date, Url url,
+                                  SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, price, date, url, tags);
+        return new Wish(name, price, date, url, savedAmount, remark, tags);
     }
 
     /**
@@ -134,7 +145,9 @@ public class Wish {
         return expired;
     }
 
-    public UUID getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -145,8 +158,7 @@ public class Wish {
     }
 
     /**
-     * Returns true if both wishes of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two wishe.
+     * Returns true only if two wishes have the same id.
      */
     public boolean isSameWish(Wish otherWish) {
         if (otherWish == this) {
@@ -154,8 +166,7 @@ public class Wish {
         }
 
         return otherWish != null
-                && otherWish.getName().equals(getName())
-                && (otherWish.getPrice().equals(getPrice()) || otherWish.getDate().equals(getDate()));
+                && otherWish.getId().equals(getId());
     }
 
     /**
@@ -191,7 +202,8 @@ public class Wish {
                 && otherWish.getPrice().equals(getPrice())
                 && otherWish.getDate().equals(getDate())
                 && otherWish.getUrl().equals(getUrl())
-                && otherWish.getTags().equals(getTags());
+                && otherWish.getTags().equals(getTags())
+                && otherWish.getId().equals(getId());
     }
 
     @Override

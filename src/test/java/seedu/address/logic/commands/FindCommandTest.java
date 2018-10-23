@@ -35,10 +35,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(
+                Collections.singletonList("first"));
+        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(
+                Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -77,7 +77,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredWishList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        List<Wish> expectedWishList =  Arrays.asList(CARL, ELLE, FIONA);
+        List<Wish> expectedWishList = Arrays.asList(CARL, ELLE, FIONA);
         expectedWishList.sort(new WishComparator());
         assertEquals(expectedWishList, model.getFilteredSortedWishList());
     }

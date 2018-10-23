@@ -18,9 +18,9 @@ public class Url {
      */
     public static final String URL_VALIDATION_REGEX = "\\S*";
 
-    public final String value;
-
     public static final String DEFAULT_URL = "www.amazon.com";
+
+    public final String value;
 
     /**
      * Constructs an {@code Url}.

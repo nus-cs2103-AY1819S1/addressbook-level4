@@ -29,7 +29,7 @@ public class VersionedWishTransactionTest {
         this.versionedWishTransaction = new VersionedWishTransaction();
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("wish1"));
-        this.wish = new Wish(new Name("wish1"),
+        this.wish = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
                 new Date("22/09/2023"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),

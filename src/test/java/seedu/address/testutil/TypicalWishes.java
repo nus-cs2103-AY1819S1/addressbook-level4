@@ -2,16 +2,21 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_CHARLES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_CHARLES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CHARLES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHARLES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_CHARLES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,6 +116,10 @@ public class TypicalWishes {
             .withDate(VALID_DATE_2).withUrl(VALID_URL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withSavedAmountIncrement("0.00")
             .withId(VALID_ID_BOB)
+            .build();
+    public static final Wish CHARLES = new WishBuilder().withName(VALID_NAME_CHARLES).withPrice(VALID_PRICE_CHARLES)
+            .withDate(VALID_DATE_CHARLES).withUrl(VALID_URL_CHARLES)
+            .withId(VALID_ID_CHARLES)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

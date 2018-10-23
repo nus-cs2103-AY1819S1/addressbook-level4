@@ -111,8 +111,8 @@ public class XmlUtilTest {
     public void xmlAdaptedWishFromFile_fileWithInvalidWishField_validResult() throws Exception {
         XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
                 INVALID_WISH_FIELD_FILE, XmlAdaptedWishWithRootElement.class);
-        XmlAdaptedWish expectedWish = new XmlAdaptedWish(
-                VALID_NAME, INVALID_PHONE, VALID_DATE, VALID_URL, VALID_TAGS,VALID_ID);
+        XmlAdaptedWish expectedWish = new XmlAdaptedWish(VALID_NAME, INVALID_PHONE, VALID_DATE, VALID_URL, VALID_TAGS,
+                VALID_ID);
         assertEquals(expectedWish, actualWish);
     }
 
@@ -178,6 +178,7 @@ public class XmlUtilTest {
                 .withSavedAmountIncrement(VALID_WISHTRANSACTION_SAVED_AMT)
                 .withDate(VALID_WISHTRANSACTION_DATE)
                 .withUrl(VALID_WISHTRANSACTION_URL)
+                .withId(VALID_WISHTRANSACTION_ID)
                 .build();
     }
 

@@ -107,10 +107,13 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     */
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if(!Date.isValidDate(trimmedDate)) {
+        if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         try {

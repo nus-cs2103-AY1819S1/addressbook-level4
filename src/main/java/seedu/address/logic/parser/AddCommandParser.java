@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.model.wish.Url.DEFAULT_URL;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -31,7 +30,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected FORMAT
      */
     public AddCommand parse(String args) throws ParseException {
         // TODO: include prefix for barcode
@@ -53,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Wish wish = new Wish(name, price, date, url, savedAmount, remark, tagList);
+        Wish wish = Wish.createWish(name, price, date, url, savedAmount, remark, tagList);
 
         return new AddCommand(wish);
     }

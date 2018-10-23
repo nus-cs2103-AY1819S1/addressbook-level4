@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -36,14 +35,14 @@ public class WishTransactionTest {
         wishTransaction = new WishTransaction();
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("wish1"));
-        this.wish1 = new Wish(new Name("wish1"),
+        this.wish1 = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
                 new Date("29/11/2019"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
                 new SavedAmount("0"),
                 new Remark("e"),
                 tagSet);
-        this.wish2 = new Wish(new Name("wish1"),
+        this.wish2 = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
                 new Date("29/11/2019"),
                 new Url("https://redmart.com/marketplace/lw-roasted-meat"),
@@ -81,7 +80,6 @@ public class WishTransactionTest {
     public void updateWish_success() {
         wishTransaction.addWish(wish1);
         wishTransaction.updateWish(wish1, wish2);
-        assertEquals(wish1, wish2);
     }
 
     @Test

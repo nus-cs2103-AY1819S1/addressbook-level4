@@ -143,7 +143,6 @@ public class XmlAdaptedWish {
                     SavedAmount.class.getSimpleName()));
         }
         final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
-        
         final Set<Tag> modelTags = new HashSet<>(wishTags);
         return new Wish(modelName, modelPrice, modelDate, modelUrl, modelSavedAmount, modelRemark, modelTags, modelId);
     }

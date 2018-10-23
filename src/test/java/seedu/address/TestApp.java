@@ -86,7 +86,7 @@ public class TestApp extends MainApp {
         try {
             return new WishTransaction(storage.readWishTransaction().get());
         } catch (DataConversionException e) {
-            throw new AssertionError("Data is not in the wish transaction format.", e);
+            throw new AssertionError("Data is not in the wish transaction FORMAT.", e);
         } catch (IOException e) {
             throw new AssertionError("Wish Transaction Storage file cannot be found.", e);
         }
@@ -99,7 +99,7 @@ public class TestApp extends MainApp {
         try {
             return new WishBook(storage.readWishBook().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the WishBook format.", dce);
+            throw new AssertionError("Data is not in the WishBook FORMAT.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }

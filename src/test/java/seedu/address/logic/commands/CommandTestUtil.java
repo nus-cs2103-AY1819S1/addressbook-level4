@@ -30,16 +30,26 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_CHARLES = "Charles the slave";
     public static final String VALID_PRICE_AMY = "11.11";
     public static final String VALID_PRICE_BOB = "22.20";
+    public static final String VALID_PRICE_CHARLES = "32.20";
     public static final String VALID_DATE_1 = "01/01/2019";
     public static final String VALID_DATE_2 = "02/01/2019";
+    public static final String VALID_DATE_CHARLES = "03/01/2100";
     public static final String VALID_URL_AMY = "https://www.lazada.sg/products/"
             + "ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
     public static final String VALID_ID_AMY = "6b46cf8e-adf5-4c39-8885-0a3131a80c9e";
     public static final String VALID_URL_BOB = "https://www.lazada.sg/products/"
             + "ps4-090-hori-real-arcade-prov-silent-hayabusaps4ps3-ps4-090-i223784443-s340908954.html";
     public static final String VALID_ID_BOB = "f0fc4af7-8631-4370-9554-ac2f31a22f29";
+    public static final String VALID_URL_CHARLES = "https://www.amazon.com/apb/page?handlerName="
+            + "OctopusDealLandingStream&deals=9d1efcc6&marketplaceId=ATVPDKIKX0DER&node=553836&ref_="
+            + "Oct_DotdC_553836_1&pf_rd_p=bd1935b5-36da-5d2d-95f8-38548b4e530e&pf_rd_s="
+            + "merchandised-search-4&pf_rd_t=101&pf_rd_i=553836&pf_rd_m=ATVPDKIKX0DER&pf_rd_r="
+            + "9WBH12306J9M7GD5SAWX&pf_rd_r=9WBH12306J9M7GD5SAWX&pf_rd_p=bd1935b5-36da-5d2d-95f8-38548b4e530e";
+    public static final String VALID_ID_CHARLES = "73078162-8103-4daf-9c1c-30bce2bfc4e5";
+
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_SAVED_AMOUNT_AMY = "11.11";
@@ -47,18 +57,24 @@ public class CommandTestUtil {
     public static final Remark SAMPLE_REMARK_1 = new Remark("test remark");
     public static final Remark SAMPLE_REMARK_1B = new Remark("test remark");
     public static final Remark SAMPLE_REMARK_2 = new Remark("test remark 2");
+    public static final Remark SAMPLE_REMARK_3 = new Remark("test remark 3");
     public static final Remark SAMPLE_REMARK_EMPTY = new Remark("");
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_CHARLES = " " + PREFIX_NAME + VALID_NAME_CHARLES;
     public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
     public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
+    public static final String PRICE_DESC_CHARLES = " " + PREFIX_PRICE + VALID_PRICE_CHARLES;
     public static final String DATE_DESC_1 = " " + PREFIX_DATE + VALID_DATE_1;
     public static final String DATE_DESC_2 = " " + PREFIX_DATE + VALID_DATE_2;
+    public static final String DATE_DESC_3 = " " + PREFIX_DATE + VALID_DATE_CHARLES;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
+    public static final String URL_DESC_CHARLES = " " + PREFIX_URL + VALID_URL_CHARLES;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_NONE = " " + PREFIX_TAG;
     public static final String REMARK_DESC_SAMPLE_1 = " " + PREFIX_REMARK + SAMPLE_REMARK_1;
     public static final String REMARK_DESC_SAMPLE_2 = " " + PREFIX_REMARK + SAMPLE_REMARK_2;
     public static final String REMARK_DESC_EMPTY = " " + PREFIX_REMARK;

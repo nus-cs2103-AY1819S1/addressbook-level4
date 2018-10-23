@@ -107,9 +107,10 @@ public class EditCommand extends Command {
         SavedAmount savedAmount = wishToEdit.getSavedAmount(); // edit command does not allow editing remarks
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
-        UUID originalUUUID = wishToEdit.getId();
+        UUID originalUuid = wishToEdit.getId();
 
-        return new Wish(updatedName, updatedPrice, updatedDate, updatedUrl, savedAmount, remark, updatedTags, originalUUUID);
+        return new Wish(updatedName, updatedPrice, updatedDate, updatedUrl,
+                savedAmount, remark, updatedTags, originalUuid);
     }
 
     @Override

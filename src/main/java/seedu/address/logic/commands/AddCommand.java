@@ -67,4 +67,14 @@ public class AddCommand extends Command {
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
+
+    /**
+     * A weaker notion of equality between {@code AddCommand}.
+     */
+    public boolean isSameAs(AddCommand other) {
+        return other == this
+                || toAdd.getName().equals(other.toAdd.getName())
+                && toAdd.getPrice().equals(other.toAdd.getPrice())
+                && toAdd.getDate().equals(other.toAdd.getDate());
+    }
 }
