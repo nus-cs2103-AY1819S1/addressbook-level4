@@ -1,7 +1,8 @@
 package seedu.clinicio.model.analytics;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.appointment.Appointment;
+
+import seedu.clinicio.model.appointment.Appointment;
 
 /**
  * Wrapper for all analytics functionality.

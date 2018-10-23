@@ -8,7 +8,8 @@ package seedu.clinicio.model.analytics;
 //import java.util.function.Function;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.appointment.Appointment;
+
+import seedu.clinicio.model.appointment.Appointment;
 
 /**
  * Represents statistics that are total numbers.
