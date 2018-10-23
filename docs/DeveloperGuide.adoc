@@ -30,7 +30,7 @@ Windows developers are highly recommended to use JDK `9`.
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ has Gradle and JavaFx plugins installed by default. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
@@ -148,7 +148,7 @@ Each of the User Interface, Logic, Model, Storage Components also:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the _Class Diagram_ given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -156,9 +156,9 @@ image::LogicClassDiagram.png[width="800"]
 [[Architecture-design]]
 === Events-driven nature of the design
 
-This section will explain the main nature of design adopted by the system.
+This section explains the main nature of design adopted by the system.
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact when the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
@@ -172,117 +172,390 @@ The _Sequence Diagram_ below shows how the `EventsCenter` reacts to that event, 
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how the Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
 [[Design-Main]]
 === Main component
 
-The __``Main`` component__ consists of only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+The `Main` component consists of only one class, link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializes the components in the correct sequence, and connects them with one another.
+* At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [[Design-Commons]]
 === Commons component
 
-The __``Commons`` component__ consists of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+The `Commons` component consists of classes used by multiple other components. Two of these classes play important roles at the architectural level.
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 [NOTE]
-Classes used by multiple components are in the seedu.addressbook.commons package.
+Classes used by multiple components are put in the seedu.addressbook.commons package.
 
 [[Design-Ui]]
 === User interface component
 
-The _User Interface_ (`UI`) component consists of a `MainWindow` that is made up of different parts, with the base class
-link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] using _JavaFx UI_ framework.
+The `User Interface` (`UI`) component consists of a `MainWindow` that is made up of different parts.
+The base class
+link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework.
 
 Please refer to the Class Diagram below for more details on how they are connected.
 
 .Structure of the User Interface component
 image::UiClassDiagram.png[width="800"]
 
-In general, this is the workflow of the _UI_ component:
+In general, this is the workflow of the `UI` component:
 
 . Execute user commands using the `Logic` component.
-. Bind itself to some data in the `Model` so that the _UI_ components can auto-update when data in the `Model` change.
-. Respond to events raised from various parts of the App and updates the _UI_ components accordingly.
+. Bind itself to some data in the `Model` so that the `UI` components can auto-update when data in the `Model` change.
+. Respond to events raised from various parts of the App and updates the `UI` components accordingly.
 
-All of these _UI_ parts, including the `MainWindow`, inherit from the abstract `UiPart` class. The layout for each
-component is defined in matching `.fxml` file and can be found in the `src/main/resources/view` folder.
+All `UI` parts, including the `MainWindow`, inherit from the abstract `UiPart` class. The layout for each
+component is defined in matching `.fxml` files and can be found in the `src/main/resources/view` folder.
 
-In short, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
-is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`] etc.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 [[Design-Logic]]
 === Logic component
 
-The `Logic` component consist of a `LogicManager` that takes care of all the parse and exexcution of commands.
+The `Logic` component consist of a `LogicManager` that takes care of the parse and exexcution of commands.
 It inherits the base class link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`].
 
-Please refer to the Class Diagram below for more details on how they are connected.
+Please refer to the _Class Diagram_ below for more details on how they are connected.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-In general, this is the workflow of the _Logic_ component:
+In general, this is the workflow of the `Logic` component:
 
 .  Get the `AddressBookParser` class to parse the user command.
 .  Create a `Command` object which is executed by the `LogicManager`.
 .  Pass the result of the command execution over to `Model`, which can affect it (e.g. adding a person) and/or raise events.
-.  Return the command execution by encapsulating as a `CommandResult` object which is passed back to the `UI`.
+.  Return the command execution by encapsulating the command as a `CommandResult` object which then is passed back to the `UI`.
 
-Please refer to the Sequence Diagram below for an example of interactions within the `Logic` component
-using the `execute("delete 1")` _API_ call.
+The _Sequence Diagram_ below shows the interactions within the `Logic` component
+when `execute("delete 1")` is called.
 
-.Interactions for execute operation
+.Sequence Diagram of of `execute("delete 1")
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-The `Model` component consist of a `ModelManager` that manages all the models.
+The `Model` component is managed by the `ModelManager` that stores the data of Car Park Finder.
+It does not depend on any of the three other components.
+link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`] is the base class.
+
+
+Please refer to the _Class Diagram_ below for more details.
 
 .Structure of the Model Component
+
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+In general, this is the structure of the `Model` Component:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Car Park Finder data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* The `ModelManager` extends the `Model` Interface.
+
+* It stores a `VersionedAddressBook` and a `UserPref` object.
+** The `UserPref` object represents the user's preferences.
+** The `VersionedAddressBook` contains a `addressBookStateList` which is used to store multiple `Carpark` objects.
+
+
+* The `ModelManager` also manages a filtered list of `Carpark` objects filtered from the `addressBookStateList`.
+
+* The `Model component` exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
+e.g. the UI can be bound to this list so that it automatically updates when data in the list changes.
+
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Car Park Finder`, which `Carpark` can reference. This would allow `Car Park Finder` to only require one `Tag` object per unique `Tag`, instead of each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a OOP model, we can store a `Tag` list in Car Park Finder, which `Carpark` can reference.
+This would allow Car Park Finder to only require one `Tag` object per unique `Tag`, instead of
+each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below.
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+
+.Use of Tag object
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+
 
 [[Design-Storage]]
 === Storage component
 
-The `Storage` component consist of a `StorageManager` that takes care of all the Input/Output actions.
+The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
+link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`] is the base class.
+
+Please refer to the _Class Diagram_ below for more details on how they are connected.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component can perform the following functions:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Car Park Finder data in xml format and read it back.
+* save `UserPref` objects in json format and read it back.
+* save the Car Park Finder data in xml format and read it back.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Query feature
+
+==== Overview
+
+The query mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
+An external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
+
+Some notable methods that `GsonUtil` implement are:
+
+* `GsonUtil#getCarparkData()` — Get the basic car park information from the API.
+* `GsonUtil#getCarparkAvailability()` — Get the total number of parking lots as well as the availability of the parking lots from another API.
+* `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
+
+Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
+
+==== Example
+
+Given below is an example usage scenario of how the query mechanism behaves at each step.
+
+Step 1. The user launches the application but initial car park finder state might not be up-to-date
+with those published on `data.gov.sg`.
+
+Step 2. The user executes the `query` command to fetch the latest data. The `query` command calls
+`GsonUtil#fetchCarparkInfo()` which in turn runs `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.
+
+Step 3. The user waits for data to be updated. `GsonUtil#getCarparkData()` establishes a connection with the API
+to read `JSON` data containing basic car park information.
+
+[NOTE]
+If `GsonUtil#getCarparkData()` fails to read from the API, IOException would be thrown.
+
+Step 4. The `JSON` data is parsed using `Gson` library and stored inside `CarparkJson`. A `HashSet` is used to consolidate
+all the car parks and prevent duplicate entries.
+
+Step 5. Once `GsonUtil#getCarparkData()` is done getting all the basic car park information,
+`GsonUtil#getCarparkAvailability()` retrieves additional details of the parking lot. The process is similar to how `GsonUtil#getCarparkData()` retrieves data from the API.
+
+Step 6. `GsonUtil#getCarparkAvailability()` appends the additional the parking lot details using `CarparkJson#addOn()`
+
+Step 7. Next, a final check is done to see if there is any car park with no parking lot data. The value 0 is added if there is no data.
+
+Step 8. Finally an `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fetchCarparkInfo()` to update the car park finder state.
+ The line of text at the bottom of the application then will show that the application is updated.
+
+Please refer to the _Sequence Diagram_ below for the `query` operation.
+
+.Interactions for query operation
+image::zy_seq.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How query executes
+
+* **Alternative 1 (current choice):** Wait for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Application hangs while data is being queried.
+
+* **Alternative 2 :** Data is queried using a separate thread.
+** Pros: Application can caontinue to function as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
+
+===== Aspect: Data structure to support query command
+
+* **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
+** Pros: Easy to maintain and iterate through an array list of array lists to get a specific car park.
+** Cons: Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
+
+* **Alternative 2 :** Use a `HashMap<String,Carpark>` to store data.
+** Pros: Much more efficient in accessing elements by using a key and better code readability.
+** Cons: `HashMap` does not provide an ordered collection.
+
+=== [Propose] Notify feature
+
+==== Overview
+
+The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds/minutes
+and is used in conjunction with the `select` command.
+
+This means that it will only notify the current selected car park only, and not all the car parks.
+
+==== Example
+
+_This feature is coming in v2.0._
+
+.Summary for executing a notify command
+image::zy_act.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How notify executes
+
+* **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
+** Pros: Easy to implement.
+** Cons: Performance issues as the application might stall.
+
+* **Alternative 2 :** Data is queried using a separate thread every interval.
+** Pros: Application can be used as the data is being fetched in the background.
+** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
+
+=== Find feature
+
+==== Overview
+
+The find mechanism is facilitated by `FindCommand` and `FindCommandParser`. It extends `Command` and implements the following operations:
+
+* `FindCommand#execute()` -- Executes the command by running a predicate `CarparkContainsKeywordsPredicate` to update the car park list.
+
+The find mechanism is supported by `FindCommandParser`. It implements `Parser` and contains the following operations:
+
+* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
+
+The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings matches the name or address of a car park fully or partially.
+
+.How the find operation works
+image::seqdiagram-find.png[width="800", align="left"]
+
+==== Example
+
+Given below is an example usage scenario of how the Find mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user executes `find punggol` command to get all car parks in punggol.
+The `find` command calls `FindCommandParser#parse()`.
+
+[NOTE]
+If a command execution fails, it will not call `FindCommand#execute()`, and the address book state will not be saved.
+
+Step 3. The entire list of car parks is filtered by the predicate `CarparkContainsKeywordsPredicate`, which checks for the keyword `punggol`.
+
+Step 4. The filtered list of car parks is returned to the GUI.
+
+.Flow chart of the find operation.
+image::actdiagram-find.png[width="800", align="left"]
+
+==== Design Considerations
+
+===== Aspect: How predicate works
+
+* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
+** Pros: Easy to implement, user friendly.
+** Cons: More complicated predicate, sub strings not easily taken care of.
+
+* **Alternative 2:** Filter the data when it is taken in.
+** Pros: Less complicated predicate.
+** Cons: Manipulates the data, editing it for every other case.
+
+=== Filter feature
+
+==== Overview
+The filter mechanism is facilitated by `FilterCommand` and `FilterCommandParser`.
+The filter mechanism can filter car parks by the following criteria:
+
+* Type of car park
+* Availability of free parking
+* Availability of night parking
+
+The `FilterCommandParser` extends `Parser` and implements the following operation:
+
+* `FilterCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found.
+It then splits the arguments by white spaces and store then into an array list.
+
+The `FilterCommand` extends `Command` and implements the following operation:
+
+* `FilterCommand#execute()` -- Executes the command by filtering the car park list against a selected predicate.
+* The various predicates that `FilterCommand` uses include `CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and `CarparkIsOfTypePredicate`
+
+==== Current Implementation
+
+Given below is an example usage scenario of how the Filter mechanism behaves at each step when filtering for free parking.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `filter f/ SUN 7.30am 5.30pm` to get all car parks that has free parking between 7.30am and 5.30pm on the following Sunday.
+
+Step 3. After `AddressBookParser` detects `filter` as the command word, a
+`FilterCommandParser` is created to parse the arguments supplied to the command into an array list of flags.
+
+Step 4. The `FilterCommand` object is then created to decode the array list of flags and create the `CarparkHasFreeParkingPredicate`, which checks
+that various attributes of a car park fulfills the filter criteria.
+
+Step 5. The list list of car parks is filtered against the predicate and returned to the GUI.
+
+Please refer to the _Sequence Diagram_ below for the filter operation.
+
+[NOTE]
+If the command execution fails, `FindCommand#execute()` will not be called and the address book state will not be saved.
+
+.How the filter operation works
+image::SequenceDiagram-filter.png[width="700", align="left"]
+
+The following _Activity Diagram_ summarizes the implementation of the
+filter command.
+
+.Summary for executing a filter command
+image::ActivityDiagram-filter.png[width="700", align="left"]
+
+==== Design Considerations
+===== Aspect: How filter executes
+* **Alternative 1 (Current choice):** Altering predicates to filter list of car parks by different attributes
+** Pros: Easy to implement simple filtering.
+** Cons: Does not facilitate implementation for multiple layers of filtering.
+
+* **Alternative 2:** Adding of tags to data when it is taken in.
+** Pros: Less complicated predicate for multiple layers of filtering.
+** Cons: Not really feasible if data is to be updated frequently.
+
+=== Command alias feature
+
+==== Overview
+
+The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
+when shorter command words are parsed through `parseCommand`.
+
+==== Example
+
+Given below is an example usage scenario and how the alias mechanism behaves at
+each step.
+
+Step 1. The user launches the application for the first time. The `LogicManager`
+is initialized with an `AddressBookParser`.
+
+Step 2. The user executes `l` command instead of `list`. The `Matcher` object in
+`AddressBookParser` splits the command text into _command word_ and
+_arguments_, in which the _command word_ is parsed using a _switch_
+statement. The _command word_ will be matched to case of `COMMAND_ALIAS` from
+`ListCommand`, which holds the final value of 'l'. The program finds a match and
+proceeds as if a `list` command is given.
+
+.Flow chart of command alias usage.
+image::ActivityDiagram-Alias.png[width="700", align="left"]
+
+The _Activity Diagram_ above explains what happens when a user executes a `l`
+command.
+
+==== Design Considerations
+
+===== Aspect: How alias executes
+
+* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
+in each Command file.
+** *Pros:* Easy to implement
+** *Cons:* Have to decide the alias subjectively which brings down performance
+if there are alot of commands
+
+* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
+in each Command file.
+** *Pros*: Better performance as alias will be assigned systematically.
+** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
+& `filter`, it does not work.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -290,7 +563,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Overview
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+It extends `AddressBook` with an undo/redo history stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
 * `VersionedAddressBook#commit()` -- Saves the current car park finder book state in its history.
@@ -327,7 +600,7 @@ image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-Please refer to the Sequence Diagram below for the `undo` operation.
+Please refer to the _Sequence Diagram_ below for the `undo` operation.
 
 .Interactions for undo operation
 image::UndoRedoSequenceDiagram.png[width="800"]
@@ -347,9 +620,9 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 .Step 6 of undo/redo usage scenario
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following _Activity diagram_ summarizes what happens when a user executes a new command.
 
-.Summary for executing a new command
+.Activity Diagram for executing a new command
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
@@ -392,237 +665,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
-
-=== Find feature
-
-==== Overview
-
-The find mechanism is facilitated by `FindCommand` and `FindCommandParser`. It extends `Command` and implements the following operations.
-
-* `FindCommand#execute()` -- Executes the command by running a predicate `CarparkContainsKeywordsPredicate` and updates the car park list.
-
-The find mechanism is supported by `FindCommandParser`. It implements `Parser` that contains the following operations.
-
-* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
-
-The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of car park names or address, and returns the car park if so.
-
-.How the find operation works
-image::seqdiagram-find.png[width="800", align="left"]
-
-==== Example
-
-Given below is an example usage scenario and how the Find mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time.
-
-Step 2. The user executes `find punggol` command to get all car park in punggol.
-The `find` command calls `FindCommandParser#parse()`, checking the values `punggol`.
-
-[NOTE]
-If a command fails its execution, it will not call `FindCommand#execute()`, so the address book state will not be saved.
-
-Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
-
-Step 4. The filtered list of car park is returned to the GUI.
-
-.Flow chart of the find operation.
-image::actdiagram-find.png[width="800", align="left"]
-
-==== Design Considerations
-
-===== Aspect: How predicate works
-
-* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
-** Pros: Easy to implement, user friendly.
-** Cons: More complicated predicate, sub strings not easily taken care of.
-
-* **Alternative 2:** Filter the data when it is taken in.
-** Pros: Less complicated predicate.
-** Cons: Manipulates the data, editing it for every other case.
-
-=== Command alias feature
-
-==== Overview
-
-The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
-when shorter command words are parsed through `parseCommand`.
-
-==== Example
-
-Given below is an example usage scenario and how the alias mechanism behaves at
-each step.
-
-Step 1. The user launches the application for the first time. The `LogicManager`
-will be initialized with an `AddressBookParser`.
-
-Step 2. The user executes `l` command instead of `list`. The `Matcher` object in
-`AddressBookParser` splits the command text into **command word ** section and
-*arguments,* section of which the **command word **is parsed using a _<switch>_
-statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
-`ListCommand`, which holds the final value of 'l'. The program finds a match and
-proceeds as if a `list` command is given.
-
-.Flow chart of command alias usage.
-image::ActivityDiagram-Alias.png[width="700", align="left"]
-
-The **Activity Diagram** given above explains what happens when a user executes a `l`
-command.
-
-==== Design Considerations
-
-===== Aspect: How alias executes
-
-* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
-in each Command file.
-** *Pros:* Easy to implement
-** *Cons:* Have to decide the alias subjectively which brings down performance
-if there are alot of commands
-
-* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
-in each Command file.
-** *Pros*: Better performance as alias will be assigned systematically.
-** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
-& `filter`, it does not work.
-
-=== Query feature
-
-==== Overview
-
-The query mechanism does an API call to the website `data.gov.sg` to pull the car park information in `JSON` format.
-The external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
-
-Some notable methods that `GsonUtil` implements are:
-
-* `GsonUtil#getCarparkData()` — Get the basic car park information from the API.
-* `GsonUtil#getCarparkAvailability()` — Get the total parking lots as well as availability from another API.
-* `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
-
-Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
-
-==== Example
-
-Given below is an example usage scenario and how the query mechanism behaves at each step.
-
-Step 1. The user launches the application. The initial car park finder state might not have been updated
-to the latest according to `data.gov.sg`.
-
-Step 2. The user executes the `query` command to fetch the latest data from the API. The `query` command calls
-`GsonUtil#fetchCarparkInfo()` which runs the two methods `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.
-
-Step 3. The user waits for data to be updated. Inside `GsonUtil#getCarparkData()`, a connection is established with the API
-to read the `JSON` data for the basic car park information.
-
-[NOTE]
-If the reading from the API fails, IOException is thrown.
-
-Step 4. The `JSON` data is parsed using `Gson` library and stored inside `CarparkJson` class. A `HashSet` is used to consolidate
-all the car parks and prevent duplicate entries.
-
-Step 5. Once `GsonUtil#getCarparkData()` is done getting all the basic car park information, next is getting the parking lot
-details with `GsonUtil#getCarparkAvailability()`. The process is similar to how `GsonUtil#getCarparkData()` gets the data from the API.
-
-Step 6. When `GsonUtil#getCarparkAvailability()` is done adding in the parking lot details using `CarparkJson#addOn()`, a final check
-to see if there are any car parks with no data on its parking lots. The value 0 is added if there is no data.
-
-Step 7. An `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fetchCarparkInfo()`, which is used to update the car park finder state
-to the latest. The text at the bottom of the application will show that it is updated and the user can continue to use the application.
-
-Please refer to the Sequence Diagram below for the `query` operation.
-
-.Interactions for query operation
-image::zy_seq.png[width="800", align="left"]
-
-==== Design Considerations
-
-===== Aspect: How query executes
-
-* **Alternative 1 (current choice):** Wait for data to be queried sequentially.
-** Pros: Easy to implement.
-** Cons: Performance issues as the application hangs.
-
-* **Alternative 2 :** Data is queried using a separate thread.
-** Pros: Application can be used as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
-
-===== Aspect: Data structure to support query command
-
-* **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
-** Pros: Easy to maintain an array list of list and iterate through to get a specific car park.
-** Cons: `ArrayList<ArrayList<String>>` can be confusing and not intuitive. Accessing elements is also not that efficient.
-
-* **Alternative 2 :** Use a `HashMap` to store data.
-** Pros: Much more efficient in accessing elements by using a key and better code readability
-with `HashMap<String,Carpark>`.
-** Cons: `HashMap` does not provide an ordered collection.
-
-=== [Propose] Notify feature
-
-==== Overview
-
-The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds/minutes
-and is used in conjunction with the `select` command.
-
-This means that it will only notify the current selected car park only, and not all the car parks.
-
-==== Example
-
-_This feature is coming in v2.0._
-
-.Summary for executing a notify command
-image::zy_act.png[width="800", align="left"]
-
-==== Design Considerations
-
-===== Aspect: How notify executes
-
-* **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
-** Pros: Easy to implement.
-** Cons: Performance issues as the application might stall.
-
-* **Alternative 2 :** Data is queried using a separate thread every interval.
-** Pros: Application can be used as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
-
-=== Filter feature
-
-==== Overview
-The filter mechanism is facilitated by `AddressBookParser`, `FilterCommandParser` and `FilterCommand`. It extends
-`Command` and implements `FilterCommand#execute()`.
-
-==== Current Implementation
-
-Step 1. The `parseCommand` function in `AddressBookParser` is extended to take in an additional
-command word: `filter`.
-
-Step 2. After `filter`is being detected as the command word, a
-`FilterCommandParser` is created to parse the arguments supplied to the command.
-
-Step 3. The `FilterCommandParser` parses the arguments into an array of flags, which is then
-passed into a newly created `FilterCommand`.
-
-Step 4. `FilterCommand` then checks which flags are passed in and creates predicates to
-filter the car parks accordingly. The various predicates include
-`CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and
-`CarparkIsOfTypePredicate`.
-
-Step 5. Next, `model` updates a filtered list of car parks by checking each car park
-against the specified predicate.
-
-Step 6. The following activity diagram summarizes what happens when a user executes a
-filter command.
-
-.Activity Diagram
-image::ActivityDiagram-filter.png[width="700", align="left"]
-
-.How the filter operation works
-image::SequenceDiagram-filter.png[width="700", align="left"]
-
-==== Possible Improvement to current implementation
-* Connect to `find` command
-* Filter through multiple flags at the same time
-* Check for invalid parameters
-* Determine whether a specific day is a public holiday, when filtering for free parking
 
 == Documentation
 
@@ -830,23 +872,25 @@ of nearby car parks from their destination in a fast and efficient manner
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+
 [discrete]
-=== Filter and Sorting
+=== Filter
 
 [width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |car owner |know how far away my destination is from the car park
-|find the shortest walking distance to my destination
+|`* * *` |car owner |know if there is night parking at the car park
+|park my car at night
 
-|`* *` |driver |find out how much is the parking fee |calculate the cost of parking at the car park
+|`* * *` |driver |find out if there is free parking at a car park at a certain time on a specific day |choose to park at a car park for free
 
-|`* *` |driver |find out the types of parking available at the car park
-|decide if I can park and leave my car there
+|`* * *` |driver |find out the type of parking of a certain car park
+|decide if I should leave my car there
 |=======================================================================
 
+
 [discrete]
-=== Search and Flag
+=== Search
 
 [width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
