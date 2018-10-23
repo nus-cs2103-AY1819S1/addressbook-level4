@@ -62,7 +62,7 @@ public class Person {
         this.permissionSet.addAll(permissionSet);
         this.profilePic = Optional.empty();
         this.username = new Username(name.fullName);
-        this.password = new Password("123456789");
+        this.password = new Password("Pa55w0rd");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Person {
         this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
         this.username = new Username(name.fullName);
-        this.password = new Password("123456789");
+        this.password = new Password("Pa55w0rd");
     }
 
     public Name getName() {
