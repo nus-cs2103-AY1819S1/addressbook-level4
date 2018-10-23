@@ -63,6 +63,8 @@ Summary of contributions:
 
 include::../UserGuide.adoc[tag=sort]
 
+include::../UserGuide.adoc[tag=select]
+
 include::../UserGuide.adoc[tag=view]
 
 include::../UserGuide.adoc[tag=addmeds]

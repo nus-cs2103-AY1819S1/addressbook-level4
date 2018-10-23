@@ -169,7 +169,27 @@ Example(s):
 
 //end::sort[]
 
+//tag::select[]
+	
+=== Select patient: `select`
+Select a patient through pure command-line functionality.
+The alternative is to click on the patient's card.
+
+Format: `select INDEX`
+
+where INDEX refers to the index of the patient's card (listed in the card)
+
+.Indication of the location of the index on the patient's card
+image::highlightIndex.png[width=800]
+
+Example(s):
+
+* `select 1`
+
+//end::select[]
+
 //tag::view[]
+
 [#view-command]
 === View patient’s information: `view`
 View a patient’s information. Exactly what information is displayed depends on the choice of view.

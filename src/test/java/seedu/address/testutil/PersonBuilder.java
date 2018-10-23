@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.visitor.VisitorList;
 
 /**
  * A utility class to help with building Person objects.
@@ -35,7 +36,9 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private MedicalHistory medicalHistory;
     private PrescriptionList prescriptionList;
+    private VisitorList visitorList;
     private AppointmentsList appointmentsList;
+
 
     public PersonBuilder() {
         nric = new Nric(DEFAULT_NRIC);
@@ -46,6 +49,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         prescriptionList = new PrescriptionList();
         medicalHistory = new MedicalHistory();
+        visitorList = new VisitorList();
         appointmentsList = new AppointmentsList();
     }
 
@@ -61,6 +65,7 @@ public class PersonBuilder {
         tags = new HashSet<>(personToCopy.getTags());
         medicalHistory = new MedicalHistory(personToCopy.getMedicalHistory());
         prescriptionList = personToCopy.getPrescriptionList();
+        visitorList = new VisitorList(personToCopy.getVisitorList());
         appointmentsList = personToCopy.getAppointmentsList();
     }
 
@@ -130,6 +135,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code ArrayList<Visitor> visitorlist} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withVisitorList(VisitorList vl) {
+        this.visitorList = vl;
+        return this;
+    }
+
+    /**
      * Sets the {@code AppointmentsList} of the {@code Person} that we are building.
      */
     public PersonBuilder withAppointmentsList(AppointmentsList appointmentsList) {
@@ -137,8 +150,12 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * construct person class
+     */
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList);
+        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList,
+                visitorList);
     }
 
 }
