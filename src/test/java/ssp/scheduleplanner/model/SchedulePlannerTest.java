@@ -62,7 +62,8 @@ public class SchedulePlannerTest {
         //Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         Task editedAlice = new TaskBuilder(ALICE).build();
         List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
-        SchedulePlannerStub newData = new SchedulePlannerStub(newTasks);
+        List<Task> archivedTasks = Arrays.asList();
+        SchedulePlannerStub newData = new SchedulePlannerStub(newTasks, archivedTasks);
 
         thrown.expect(DuplicateTaskException.class);
         schedulePlanner.resetData(newData);
@@ -112,15 +113,23 @@ public class SchedulePlannerTest {
      */
     private static class SchedulePlannerStub implements ReadOnlySchedulePlanner {
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
+        private final ObservableList<Task> archivedTasks = FXCollections.observableArrayList();
 
-        SchedulePlannerStub(Collection<Task> tasks) {
+        SchedulePlannerStub(Collection<Task> tasks, Collection<Task> archivedTasks) {
             this.tasks.setAll(tasks);
+            this.archivedTasks.setAll(archivedTasks);
         }
 
         @Override
         public ObservableList<Task> getTaskList() {
             return tasks;
         }
+
+        @Override
+        public ObservableList<Task> getArchivedTaskList() {
+            return archivedTasks;
+        }
+
     }
 
 }

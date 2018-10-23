@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedSchedulePlanner versionedSchedulePlanner;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredArchivedTasks;
 
     /**
      * Initializes a ModelManager with the given Schedule Planner and userPrefs.
@@ -34,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedSchedulePlanner = new VersionedSchedulePlanner(schedulePlanner);
         filteredTasks = new FilteredList<>(versionedSchedulePlanner.getTaskList());
+        filteredArchivedTasks = new FilteredList<>(versionedSchedulePlanner.getArchivedTaskList());
     }
 
     public ModelManager() {
@@ -63,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasArchivedTask(Task archivedTask) {
+        requireAllNonNull(archivedTask);
+        return versionedSchedulePlanner.hasArchivedTask(archivedTask);
+    }
+    @Override
     public void deleteTask(Task target) {
         versionedSchedulePlanner.removeTask(target);
         indicateSchedulePlannerChanged();
@@ -72,6 +79,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void addTask(Task task) {
         versionedSchedulePlanner.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public void archiveTask(Task completedTask) {
+        versionedSchedulePlanner.archiveTask(completedTask);
+        versionedSchedulePlanner.removeTask(completedTask);
         indicateSchedulePlannerChanged();
     }
 
@@ -99,6 +113,13 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
+
+    @Override
+    public void updateFilteredArchivedTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredArchivedTasks.setPredicate(predicate);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
