@@ -1,8 +1,12 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -31,6 +35,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Project> projects;
     private PermissionSet pSet;
+    private List<LeaveApplication> leaveApplications;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -40,6 +45,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         projects = new HashSet<>();
         pSet = new PermissionSet();
+        leaveApplications = new ArrayList<>();
     }
 
     /**
@@ -53,6 +59,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         projects = new HashSet<>(personToCopy.getProjects());
         pSet = personToCopy.getPermissionSet();
+        leaveApplications = personToCopy.getLeaveApplications();
     }
 
     /**
@@ -113,10 +120,18 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code List<LeaveApplication>} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeaveApplications(List<LeaveApplication> leaveApplications) {
+        this.leaveApplications = new ArrayList<>(leaveApplications);
+        return this;
+    }
+
+    /**
      * Build the person object.
      */
     public Person build() {
-        return new Person(name, phone, email, address, salary, projects, pSet);
+        return new Person(name, phone, email, address, salary, projects, pSet, Optional.empty(), leaveApplications);
     }
 
 }

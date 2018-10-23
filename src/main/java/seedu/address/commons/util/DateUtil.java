@@ -1,6 +1,6 @@
 package seedu.address.commons.util;
 
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,7 +27,7 @@ public class DateUtil {
      * Converts a date {@code String} into a {@code Date}
      * @param dateString A valid string representing a date according to {@code DATE_FORMAT}
      */
-    public static LocalDateTime convertToDate(String dateString) throws ParseException {
+    public static LocalDateTime convertToDate(String dateString) throws DateTimeException {
         assert isValidDateFormat(dateString);
         return LocalDateTime.from(DATE_FORMAT.parse(dateString));
     }

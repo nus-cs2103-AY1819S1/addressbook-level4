@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,8 +106,8 @@ public class XmlAdaptedLeaveApplication {
             LocalDateTime parsedDate;
             try {
                 parsedDate = DateUtil.convertToDate(dateString);
-            } catch (ParseException pe) {
-                throw new IllegalValueException(pe.getMessage());
+            } catch (DateTimeException e) {
+                throw new IllegalValueException(e.getMessage());
             }
             modelDates.add(parsedDate);
         }

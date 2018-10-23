@@ -73,7 +73,7 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Overriden constructor that allows specification of a profile picture
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String salary, List<XmlAdaptedProject> project, String profilePic,

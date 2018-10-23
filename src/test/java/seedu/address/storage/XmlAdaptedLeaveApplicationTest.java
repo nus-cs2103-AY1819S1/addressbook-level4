@@ -8,10 +8,8 @@ import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveId;
@@ -82,7 +80,6 @@ public class XmlAdaptedLeaveApplicationTest {
 
     @Test
     public void toModelType_nullDates_throwsNullPointerException() {
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, List.class.getSimpleName());
         Assert.assertThrows(NullPointerException.class, null, ()
             -> new XmlAdaptedLeaveApplication(VALID_ID, VALID_DESCRIPTION, VALID_STATUS, null));
     }

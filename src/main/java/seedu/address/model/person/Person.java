@@ -37,12 +37,12 @@ public class Person {
      * Constructors: every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        this(name, phone, email, address, salary, projects, new PermissionSet(), Optional.empty(), new ArrayList<>());
+        this(name, phone, email, address, salary, projects, new PermissionSet());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
                   PermissionSet permissionSet) {
-        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty(), new ArrayList<>());
+        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
