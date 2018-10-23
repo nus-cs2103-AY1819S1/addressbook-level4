@@ -4,11 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_VOLUNTEERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalVolunteers.ALICE;
+import static seedu.address.testutil.TypicalVolunteers.DANIEL;
+import static seedu.address.testutil.TypicalVolunteers.GEORGE;
+import static seedu.address.testutil.TypicalVolunteers.getTypicalVolunteerAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -27,6 +33,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model modelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(), new UserPrefs());
+    private Model expectedModelVolunteer = new ModelManager(getTypicalVolunteerAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -35,9 +43,15 @@ public class FindCommandTest {
                 new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        VolunteerNameContainsKeywordsPredicate firstVolunteerPredicate =
+                new VolunteerNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        VolunteerNameContainsKeywordsPredicate secondVolunteerPredicate =
+                new VolunteerNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindVolunteerCommand findFirstVolunteerCommand = new FindVolunteerCommand(firstVolunteerPredicate);
+        FindVolunteerCommand findSecondVolunteerCommand = new FindVolunteerCommand(secondVolunteerPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
@@ -54,6 +68,22 @@ public class FindCommandTest {
 
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
+
+        // same object -> returns true
+        assertTrue(findFirstVolunteerCommand.equals(findFirstVolunteerCommand));
+
+        // same values -> returns true
+        FindVolunteerCommand findFirstVolunteerCommandCopy = new FindVolunteerCommand(firstVolunteerPredicate);
+        assertTrue(findFirstVolunteerCommand.equals(findFirstVolunteerCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstVolunteerCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstVolunteerCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(findFirstVolunteerCommand.equals(findSecondVolunteerCommand));
     }
 
     @Test
@@ -76,10 +106,37 @@ public class FindCommandTest {
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
+    @Test
+    public void execute_zeroKeywords_noVolunteerFound() {
+        String expectedMessage = String.format(MESSAGE_VOLUNTEERS_LISTED_OVERVIEW, 0);
+        VolunteerNameContainsKeywordsPredicate predicate = prepareVolunteerPredicate(" ");
+        FindVolunteerCommand command = new FindVolunteerCommand(predicate);
+        expectedModelVolunteer.updateFilteredVolunteerList(predicate);
+        assertCommandSuccess(command, modelVolunteer, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), modelVolunteer.getFilteredVolunteerList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleVolunteersFound() {
+        String expectedMessage = String.format(MESSAGE_VOLUNTEERS_LISTED_OVERVIEW, 3);
+        VolunteerNameContainsKeywordsPredicate predicate = prepareVolunteerPredicate("Pauline Meier Best");
+        FindVolunteerCommand command = new FindVolunteerCommand(predicate);
+        expectedModelVolunteer.updateFilteredVolunteerList(predicate);
+        assertCommandSuccess(command, modelVolunteer, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, DANIEL, GEORGE), modelVolunteer.getFilteredVolunteerList());
+    }
+
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code VolunteerNameContainsKeywordsPredicate}.
+     */
+    private VolunteerNameContainsKeywordsPredicate prepareVolunteerPredicate(String userInput) {
+        return new VolunteerNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

@@ -16,26 +16,38 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddVolunteerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteVolunteerCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditVolunteerCommand;
+import seedu.address.logic.commands.EditVolunteerCommand.EditVolunteerDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindVolunteerCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListVolunteerCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectVolunteerCommand;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Context;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVolunteerDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.VolunteerBuilder;
+import seedu.address.testutil.VolunteerUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -61,6 +73,15 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addVolunteer() throws Exception {
+        Volunteer volunteer = new VolunteerBuilder().build();
+        AddVolunteerCommand command = (AddVolunteerCommand) parser.parseCommand(
+                VolunteerUtil.getAddCommand(volunteer),
+                Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new AddVolunteerCommand(volunteer), command);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD,
                 Context.VOLUNTEER_CONTEXT_ID) instanceof ClearCommand);
@@ -78,6 +99,15 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_deleteVolunteer() throws Exception {
+        DeleteVolunteerCommand command = (DeleteVolunteerCommand) parser.parseCommand(
+                DeleteVolunteerCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased(),
+                Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new DeleteVolunteerCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
@@ -86,6 +116,18 @@ public class AddressBookParserTest {
                         + PersonUtil.getEditPersonDescriptorDetails(descriptor),
                 Context.VOLUNTEER_CONTEXT_ID);
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editVolunteer() throws Exception {
+        Volunteer volunteer = new VolunteerBuilder().build();
+        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(volunteer).build();
+        EditVolunteerCommand command = (EditVolunteerCommand) parser
+                .parseCommand(EditVolunteerCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + VolunteerUtil.getEditVolunteerDescriptorDetails(descriptor),
+                Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new EditVolunteerCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -103,6 +145,16 @@ public class AddressBookParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
                 Context.VOLUNTEER_CONTEXT_ID);
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findVolunteer() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindVolunteerCommand command = (FindVolunteerCommand) parser.parseCommand(
+                FindVolunteerCommand.COMMAND_WORD + " " + keywords.stream()
+                        .collect(Collectors.joining(" ")),
+                Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new FindVolunteerCommand(new VolunteerNameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -137,11 +189,27 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_listVolunteer() throws Exception {
+        assertTrue(parser.parseCommand(ListVolunteerCommand.COMMAND_WORD,
+                Context.VOLUNTEER_CONTEXT_ID) instanceof ListVolunteerCommand);
+        assertTrue(parser.parseCommand(ListVolunteerCommand.COMMAND_WORD + " 3",
+                Context.VOLUNTEER_CONTEXT_ID) instanceof ListVolunteerCommand);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 Context.VOLUNTEER_CONTEXT_ID);
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_selectVolunteer() throws Exception {
+        SelectVolunteerCommand command = (SelectVolunteerCommand) parser.parseCommand(
+                SelectVolunteerCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new SelectVolunteerCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
