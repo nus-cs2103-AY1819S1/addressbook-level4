@@ -25,7 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Password;
+import seedu.address.model.password.Password;
 
 //@@author jjlee050
 public class LoginCommandTest {

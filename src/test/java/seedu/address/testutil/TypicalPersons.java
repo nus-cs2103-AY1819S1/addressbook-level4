@@ -5,13 +5,19 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_CAT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_DAISY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_FRANK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CAT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DAISY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -25,6 +31,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.receptionist.Receptionist;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -68,8 +75,18 @@ public class TypicalPersons {
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
     public static final Doctor BEN = new DoctorBuilder().withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
+
+    //Not inside ClinicIO
     public static final Doctor CAT = new DoctorBuilder().withName(VALID_NAME_CAT)
             .withPassword(VALID_HASH_PASSWORD_CAT, true).build();
+
+    public static final Receptionist ALAN = new ReceptionistBuilder().withName(VALID_NAME_ALAN)
+            .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+    public static final Receptionist FRANK = new ReceptionistBuilder().withName(VALID_NAME_FRANK)
+            .withPassword(VALID_HASH_PASSWORD_FRANK, true).build();
+    public static final Receptionist DAISY = new ReceptionistBuilder().withName(VALID_NAME_DAISY)
+            .withPassword(VALID_HASH_PASSWORD_DAISY, true).build();
+
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
@@ -95,6 +112,10 @@ public class TypicalPersons {
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }
+
+        for (Receptionist receptionist : getTypicalReceptionists()) {
+            ab.addReceptionist(receptionist);
+        }
         /*
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
@@ -109,6 +130,10 @@ public class TypicalPersons {
 
     public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN));
+    }
+
+    public static List<Receptionist> getTypicalReceptionists() {
+        return new ArrayList<>(Arrays.asList(ALAN, FRANK));
     }
 
     public static List<Appointment> getTypicalAppointments() {

@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Password;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;

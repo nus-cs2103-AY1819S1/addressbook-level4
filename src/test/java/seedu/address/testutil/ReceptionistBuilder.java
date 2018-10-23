@@ -3,12 +3,13 @@ package seedu.address.testutil;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Name;
+import seedu.address.model.receptionist.Receptionist;
 
 //@@author jjlee050
 /**
- * A utility class to help with building Doctor objects.
+ * A utility class to help with building Receptionist objects.
  */
-public class DoctorBuilder {
+public class ReceptionistBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PASSWORD = "alicepaul";
@@ -16,40 +17,40 @@ public class DoctorBuilder {
     private Name name;
     private Password password;
 
-    public DoctorBuilder() {
+    public ReceptionistBuilder() {
         name = new Name(DEFAULT_NAME);
         password = new Password(DEFAULT_PASSWORD, false);
     }
 
     /**
-     * Initializes the DoctorBuilder with the data of {@code personToCopy}.
+     * Initializes the ReceptionistBuilder with the data of {@code personToCopy}.
      */
-    public DoctorBuilder(Doctor doctorToCopy) {
+    public ReceptionistBuilder(Receptionist doctorToCopy) {
         name = doctorToCopy.getName();
         password = doctorToCopy.getPassword();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Doctor} that we are building.
+     * Sets the {@code Name} of the {@code Receptionist} that we are building.
      */
-    public DoctorBuilder withName(String name) {
+    public ReceptionistBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Sets the {@code Password} of the {@code Doctor} that we are building.
+     * Sets the {@code Password} of the {@code Receptionist} that we are building.
      *
      * @param isHashed Check if the password is hashed password.
      *
      */
-    public DoctorBuilder withPassword(String password, boolean isHashed) {
+    public ReceptionistBuilder withPassword(String password, boolean isHashed) {
         this.password = new Password(password, isHashed);
         return this;
     }
 
-    public Doctor build() {
-        return new Doctor(name, password);
+    public Receptionist build() {
+        return new Receptionist(name, password);
     }
 
 }

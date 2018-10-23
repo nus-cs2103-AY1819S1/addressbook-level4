@@ -50,6 +50,18 @@ public class CommandTestUtil {
         + "hQrCLGvUW";
     public static final String VALID_HASH_PASSWORD_CAT = "123";
 
+    public static final String VALID_NAME_ALAN = "Alan Lee";
+    public static final String VALID_NAME_FRANK = "Frank Tay";
+    public static final String VALID_NAME_DAISY = "Daisy Johnson";
+    public static final String VALID_PASSWORD_ALAN = "receptionist1";
+    public static final String VALID_PASSWORD_FRANK = "receptionist2";
+    public static final String VALID_PASSWORD_DAISY = "receptionist3";
+    public static final String VALID_HASH_PASSWORD_ALAN = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
+            + ".ri/9bF3ti";
+    public static final String VALID_HASH_PASSWORD_FRANK = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
+            + "hQrCLGvUW";
+    public static final String VALID_HASH_PASSWORD_DAISY = "123";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;

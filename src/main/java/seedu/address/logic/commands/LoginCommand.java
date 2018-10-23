@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Password;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
 //@@author jjlee050

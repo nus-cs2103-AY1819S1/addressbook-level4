@@ -1,4 +1,4 @@
-package seedu.address.model.doctor;
+package seedu.address.model.password;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.commons.util.HashUtil;
+import seedu.address.model.password.Password;
 import seedu.address.testutil.Assert;
 
 //@@author jjlee050

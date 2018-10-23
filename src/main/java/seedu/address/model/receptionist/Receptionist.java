@@ -1,4 +1,4 @@
-package seedu.address.model.doctor;
+package seedu.address.model.receptionist;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -14,52 +14,44 @@ import seedu.address.model.person.Phone;
 
 //@@author jjlee050
 /**
- * Represents a Doctor in the ClinicIO.
+ * Represents a Receptionist in the ClinicIO.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor extends Person {
+public class Receptionist extends Person {
 
     // Identity fields
     private final Password password;
 
-    //Data fields
-    //private final Shift shift;
-
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Password password) {
+    public Receptionist(Name name, Password password) {
         super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
         requireAllNonNull(name, password);
         this.password = password;
-        //this.shift = shift;
     }
 
     public Password getPassword() {
         return password;
     }
 
-    /*public Shift getShift() {
-        return shift;
-    }*/
-
     /**
-     * Returns true if both doctors of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two doctor.
+     * Returns true if both receptionists of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two receptionists.
      */
-    public boolean isSameDoctor(Doctor otherDoctor) {
-        if (otherDoctor == this) {
+    public boolean isSameReceptionist(Receptionist otherReceptionist) {
+        if (otherReceptionist == this) {
             return true;
         }
 
-        return otherDoctor != null
-                && (otherDoctor.getName().equals(getName())
-                || otherDoctor.getPassword().equals(getPassword()));
+        return otherReceptionist != null
+                && (otherReceptionist.getName().equals(getName())
+                || otherReceptionist.getPassword().equals(getPassword()));
     }
 
     /**
-     * Returns true if both doctors have the same identity and data fields.
-     * This defines a stronger notion of equality between two doctors.
+     * Returns true if both receptionists have the same identity and data fields.
+     * This defines a stronger notion of equality between two receptionists.
      */
     @Override
     public boolean equals(Object other) {
@@ -67,11 +59,11 @@ public class Doctor extends Person {
             return true;
         }
 
-        if (!(other instanceof Doctor)) {
+        if (!(other instanceof Receptionist)) {
             return false;
         }
 
-        Doctor otherDoctor = (Doctor) other;
+        Receptionist otherDoctor = (Receptionist) other;
         return otherDoctor.getName().equals(getName())
                 && otherDoctor.getPassword().equals(getPassword());
     }
@@ -85,7 +77,7 @@ public class Doctor extends Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Doctor-Name: ")
+        builder.append("Receptionist-Name: ")
                 .append(getName())
                 .append(" Password: ")
                 .append(getPassword());

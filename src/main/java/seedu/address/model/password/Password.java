@@ -1,4 +1,4 @@
-package seedu.address.model.doctor;
+package seedu.address.model.password;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
