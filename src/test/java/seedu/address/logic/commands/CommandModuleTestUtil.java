@@ -13,7 +13,11 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE; import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME; import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Contains helper methods for testing commands.
@@ -40,7 +44,7 @@ public class CommandModuleTestUtil {
 
     public static final String INVALID_MODULECODE_DESC = " " + PREFIX_MODULECODE + "CS12345"; // only 4 numbers in code
     public static final String INVALID_MODULETITLE_DESC = " " + PREFIX_MODULETITLE + "OOP & FP"; // '&' not allowed in title
-    public static final String INVALID_ACADEMICYEAR_DESC = " " + PREFIX_EMAIL + "1234"; // years not consecutive
+    public static final String INVALID_ACADEMICYEAR_DESC = " " + PREFIX_ACADEMICYEAR+ "1234"; // years not consecutive
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ":P"; // ':' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
