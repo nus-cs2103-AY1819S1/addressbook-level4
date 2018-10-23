@@ -540,7 +540,7 @@ Step 3. The command word will be matched to case of `COMMAND_ALIAS` from
 proceeds as if a `list` command is given.
 
 .Flow chart of command alias usage.
-image::AliasActivityDiagram.jpg[width="700", align="left"]
+image::ActivityDiagram-Alias.png[width="700", align="left"]
 
 The _Activity Diagram_ above explains what happens when a user executes a `l`
 command.
@@ -876,9 +876,11 @@ of nearby car parks from their destination in a fast and efficient manner
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-=== Filter - Yurou
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[discrete]
+=== Filter
+
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |car owner |know if there is night parking at the car park
@@ -890,9 +892,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |decide if I should leave my car there
 |=======================================================================
 
-=== Search - Keith
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[discrete]
+=== Search
+
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |car owner |know more details about the car park and its lots
@@ -904,33 +908,35 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |car owner |search by details of a car park |view information about a car park that I want
 |=======================================================================
 
-=== Store and Load Favorites - Alvin
+[discrete]
+=== Store and Load Favourites
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* *` |car owner |have a list of destinations that I visit often
 |save time as I do not have to retype my commands
 
-|`* *` |user |add a car park to my favorites
+|`* *` |user |add a car park to my favourites
 |create an organised list of preferred car parks
 
-|`* *` |user |view my favorite list with ease at the start
+|`* *` |user |view my favourite list with ease at the start
 |glance through the car parks without using commands
 
-|`* *` |user |save a list of destinations like a favorite list
+|`* *` |user |save a list of destinations like a favourite list
 |add and keep track of preferred car parks
 
-|`* *` |user |edit and write remarks about car parks in my favorite list
+|`* *` |user |edit and write remarks about car parks in my favourite list
 |add or update new information about specific car parks
 
-|`* *` |user |delete car parks from my favorites
+|`* *` |user |delete car parks from my favourites
 |remove car parks that are no longer of my interest
 |=======================================================================
 
-=== API and Notifications - Zhuan Yu
+[discrete]
+=== API and Notifications
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |car owner |receive notifications about car park availability
@@ -946,9 +952,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |plan ahead if the car park has no shelter and move to one that has it
 |=======================================================================
 
-=== Cache and Aliases - Delong
+[discrete]
+=== Cache and Aliases
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |learn how to use the application easily
@@ -967,25 +974,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Car Park Finder` and the *Actor* is the
-`user / driver / car owner`, unless specified otherwise)
-
-=== Filter and Sorting - Yurou
+For all use cases below, the *System* is the `Car Park Finder` and the *Actor* is the
+`user / driver / car owner`, unless specified otherwise.
 
 [discrete]
-==== Use case: UC01 - Filter car park
+=== Filter and Sorting
 
-*MSS*
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC01 - Filter car park
+a|*MSS*
 
-1.  *Actor* requests a list of car parks
-2.  *System* shows a list of car parks
-3.  *Actor* requests to [.underline]#filter the list of car parks using flags *(UC05)*#
-4.  *System* shows a new filtered list of car parks
+. *Actor* requests a list of car parks
+. *System* shows a list of car parks
+. *Actor* requests to [.underline]#filter the list of car parks using flags *(UC05)*#
+. *System* shows a new filtered list of car parks
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 2a. The list is empty.
 +
@@ -1004,54 +1011,54 @@ Use case resumes at step 2.
 ** 3b1. *System* will show a list of car parks with all the flags selected.
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC02 - Sort car park
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC02 - Sort car park
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* requests a list of car parks
-2.  *System* shows a list of car parks
-3.  *Actor* requests to sort the list of car parks base on distance
-4.  *System* shows a new sorted list of car parks
+. *Actor* requests a list of car parks
+. *System* shows a list of car parks
+. *Actor* requests to sort the list of car parks base on distance
+. *System* shows a new sorted list of car parks
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given distance is invalid.
+* 3a. The given flags are invalid.
 +
 [none]
 ** 3a1. *System* shows an error message.
 +
 Use case resumes at step 2.
 
-* 3b. No input for distance.
+* 3b. No input for flags.
 +
 [none]
-** 3b1. *System* will use the default distance to sort the list of car parks.
+** 3b1. *System* will show a list of car parks with all the flags selected.
++
+Use case ends.
+|=======================================================================
+
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC03 - Calculate parking fee
+a|*MSS*
+
+. *Actor* requests a list of car parks
+. *System* shows a list of car parks
+. *Actor* requests to calculate the cost of parking at a car park given a duration
+. *System* shows the amount to pay for that car park
 +
 Use case ends.
 
-[discrete]
-==== Use case: UC03 - Calculate parking fee
-
-*MSS*
-
-1.  *Actor* requests a list of car parks
-2.  *System* shows a list of car parks
-3.  *Actor* requests to calculate the cost of parking at a car park given a duration
-4.  *System* shows the amount to pay for that car park
-+
-Use case ends.
-
-*Extensions*
-
+a|*Extensions*
 [none]
 * 2a. The list is empty.
 +
@@ -1077,23 +1084,24 @@ Use case ends.
 ** 3c1. *System* shows an error message.
 +
 Use case ends.
-
-=== Search and Flag - Keith
+|=======================================================================
 
 [discrete]
-==== Use case: UC04 - Search car park
+=== Search and Flag
 
-*MSS*
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC04 - Search car park
+a|*MSS*
 
-1.  *Actor* requests a list of car parks near the destination
-2.  *System* shows a list of car parks
-3.  *Actor* requests to [.underline]#filter the list of car parks using flags *(UC05)*#
-4.  *System* shows a new filtered list of car parks
+. *Actor* requests a list of car parks near the destination
+. *System* shows a list of car parks
+. *Actor* requests to [.underline]#filter the list of car parks using flags *(UC05)*#
+. *System* shows a new filtered list of car parks
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. The destination is invalid.
 +
@@ -1120,21 +1128,19 @@ Use case resumes at step 2.
 ** 3b1. *System* will show a list of car parks with all the flags selected.
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC05 - Flag car park details
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC05 - Flag car park details
+a|*MSS*
 
-Preconditions: *Actor* already requested a list of car parks
-
-*MSS*
-
-1.  *Actor* sets the flags to indicate the required car park details
-2.  *System* shows a list of car parks with the selected flags
+. *Actor* sets the flags to indicate the required car park details
+. *System* shows a list of car parks with the selected flags
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. The given flags are invalid.
 +
@@ -1149,23 +1155,24 @@ Use case resumes before step 1.
 ** 1b1. *System* will show a list of car parks with all the flags selected.
 +
 Use case ends.
-
-=== Store and Load Favourites - Alvin
+|=======================================================================
 
 [discrete]
-==== Use case: UC06 - Add car park to Favourites
+=== Store and Load Favourites
 
-*MSS*
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC06 - Add car park to Favourites
+a|*MSS*
 
-1.  *Actor* requests to list car parks
-2.  *System* shows a list of car parks
-3.  *Actor* requests to add a specific car park to the favourites list
-4.  *System* adds the car park
+. *Actor* requests to list car parks
+. *System* shows a list of car parks
+. *Actor* requests to add a specific car park to the favourites list
+. *System* adds the car park
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 3a. The given index to add invalid.
 +
@@ -1173,21 +1180,43 @@ Use case ends.
 ** 3a1. *System* shows an error message.
 +
 Use case resumes at step 2.
+|=======================================================================
 
-[discrete]
-==== Use case: UC07 - Delete car park in Favourites
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC07 - Delete car park in Favourites
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* requests to list car parks
-2.  *System* shows a list of car parks
-3.  *Actor* requests to delete a specific car park in the favourites list
-4.  *System* deletes the car park
+. *Actor* requests to list car parks
+. *System* shows a list of car parks
+. *Actor* requests to add a specific car park to the favourites list
+. *System* adds the car park
 +
 Use case ends.
 
-*Extensions*
+a|*Extensions*
+[none]
+* 3a. The given index to add invalid.
++
+[none]
+** 3a1. *System* shows an error message.
++
+Use case resumes at step 2.
+|=======================================================================
 
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC07 - Delete car park in Favourites
+a|*MSS*
+
+. *Actor* requests to list car parks
+. *System* shows a list of car parks
+. *Actor* requests to delete a specific car park in the favourites list
+. System* deletes the car park
++
+Use case ends.
+
+a|*Extensions*
 [none]
 * 2a. The favourites list is empty.
 +
@@ -1202,19 +1231,19 @@ Use case ends.
 ** 3a1. *System* shows an error message.
 +
 Use case resumes at step 2.
+|=======================================================================
 
-[discrete]
-==== Use case: UC08 - List Favourites
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC08 - List Favourites
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* requests to list favourites
-2.  *System* shows a list of car parks
+. *Actor* requests to list favourites
+. *System* shows a list of car parks
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. The favourites list is empty.
 +
@@ -1222,21 +1251,21 @@ Use case ends.
 ** 1a1. *System* shows a message.
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC09 - Tags and remarks
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC09 - Tags and remarks
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* requests to list favourites
-2.  *System* shows a list of car parks
-3.  *Actor* requests to modify tags and remarks to the car parks
-4.  *System* shows favourites with the new changes
+. *Actor* requests to list favourites
+. *System* shows a list of car parks
+. *Actor* requests to modify tags and remarks to the car parks
+. *System* shows favourites with the new changes
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. The favourites list is empty.
 +
@@ -1251,22 +1280,24 @@ Use case ends.
 ** 3a1. *System* shows an error message.
 +
 Use case resumes at step 2.
-
-=== API and Notifications - Zhuan Yu
+|=======================================================================
 
 [discrete]
-==== Use case: UC10 - Receive notifications
-Preconditions: *Actor* already requested a list of car parks
+=== API and Notifications
+
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC10 - Receive notifications
+a|Preconditions: *Actor* already requested a list of car parks
 
 *MSS*
 
-1.  *Actor* requests to be notified at regular intervals
-2.  *System* shows the car park availability every interval
+. *Actor* requests to be notified at regular intervals
+. *System* shows the car park availability every interval
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. The given time to notify is invalid.
 +
@@ -1288,22 +1319,23 @@ Use case resumes at step 2.
 ** 2a1. *System* shows an error message.
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC11 - Car park fully occupied
-Preconditions: *Actor* already selected a car park from the list
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC11 - Car park fully occupied
+a|Preconditions: *Actor* already selected a car park from the list
 
 *MSS*
 
-1.  *System* shows the car park is now fully occupied
-2.  *Actor* requests to list car parks again
-3.  *System* shows a list of car parks
-4.  *Actor* requests to select a new car park
+. *System* shows the car park is now fully occupied
+. *Actor* requests to list car parks again
+. *System* shows a list of car parks
+. *Actor* requests to select a new car park
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 3a. Unable to retrieve car park availability.
 +
@@ -1311,23 +1343,24 @@ Use case ends.
 ** 3a1. *System* shows an error message.
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC12 - Weather update
-Preconditions:
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC12 - Weather update
+a|Preconditions:
 
 * *Actor* already selected a car park from the list
 * *System* already showed weather forecast of the area
 
 *MSS*
 
-1.  *Actor* requests to update weather conditions
-2.  *System* shows the current weather forecast of the area
+. *Actor* requests to update weather conditions
+. *System* shows the current weather forecast of the area
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 2a. Unable to retrieve weather forecast.
 +
@@ -1335,21 +1368,22 @@ Use case ends.
 ** 2a1. *System* shows an error message.
 +
 Use case ends.
-
-=== Cache and Aliases - Delong
+|=======================================================================
 
 [discrete]
-==== Use case: UC13 - View instructions
+=== Cache and Aliases
 
-*MSS*
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC13 - View instructions
+a|*MSS*
 
-1.  *Actor* requests help in learning the application
-2.  *System* shows a list of commands with information about each one of them
+. *Actor* requests help in learning the application
+. *System* shows a list of commands with information about each one of them
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. Wrong command input
 +
@@ -1357,19 +1391,19 @@ Use case ends.
 ** 1a1. *System* shows the list of commands
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC14 - Command alias
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC14 - Command alias
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* requests using alias for the commands
-2.  *System* understands the command and proceeds to process it
+. *Actor* requests using alias for the commands
+. *System* understands the command and proceeds to process it
 +
 Use case ends.
 
-*Extensions*
-
+a|*Extensions*
 [none]
 * 1a. Alias not accepted
 +
@@ -1377,17 +1411,19 @@ Use case ends.
 ** 1a1. *System* shows the list of commands
 +
 Use case ends.
+|=======================================================================
 
-[discrete]
-==== Use case: UC15 - Autocomplete command
+[width="60%",options="header",]
+|=======================================================================
+|Use case: UC15 - Autocomplete command
+a|*MSS*
 
-*MSS*
-
-1.  *Actor* beings typing in the command
-2.  *System* recognises the command and does autocomplete
-3.  *Actor* selects the autocomplete word
+. *Actor* beings typing in the command
+. *System* recognises the command and does autocomplete
+. *Actor* selects the autocomplete word
 +
 Use case ends.
+|=======================================================================
 
 [appendix]
 == Non Functional Requirements
