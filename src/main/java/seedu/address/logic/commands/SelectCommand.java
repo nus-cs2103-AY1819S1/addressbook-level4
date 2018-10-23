@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.List;
 
 import javafx.scene.image.Image;
@@ -41,7 +42,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<String> dirImageList = model.getDirectoryImageList();
+        List<Path> dirImageList = model.getDirectoryImageList();
         Image img = new Image("https://via.placeholder.com/500x500");
 
         if (targetIndex.getZeroBased() >= dirImageList.size()) {
@@ -49,8 +50,12 @@ public class SelectCommand extends Command {
         } else if (targetIndex.getZeroBased() >= BATCH_SIZE) {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
         }
+
+        Path selectedImagePath = dirImageList.get(targetIndex.getZeroBased());
+
         try {
-            FileInputStream fis = new FileInputStream(dirImageList.get(targetIndex.getZeroBased()));
+            String selectedImage = selectedImagePath.toString();
+            FileInputStream fis = new FileInputStream(selectedImage);
             img = new Image(fis);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -60,14 +65,15 @@ public class SelectCommand extends Command {
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 
-        model.updateCurrentOriginalImage(img);
+        model.updateCurrentOriginalImage(img, selectedImagePath);
 
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
         //        new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "preview"));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
         //        new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "original"));
-        return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased())
+                + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size()));
 
     }
 

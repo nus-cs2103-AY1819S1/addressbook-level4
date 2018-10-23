@@ -25,7 +25,7 @@ public class Canvas {
         layers.add(l);
     }
 
-    public void addLayer(PreviewImage i, String name) {
+    public void addLayer(PreviewImage i) {
         layers.add(new Layer(i, String.format(LAYER_NAME, layers.size())));
     }
 
