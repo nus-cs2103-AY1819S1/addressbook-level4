@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.calendar.CalendarManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
@@ -54,6 +55,8 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
+        CalendarManager calendarManager = new CalendarManager();
+        calendarManager.execute();
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
