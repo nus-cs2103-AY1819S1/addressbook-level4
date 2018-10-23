@@ -11,14 +11,14 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.volunteer.Address;
 import seedu.address.model.volunteer.Birthday;
+import seedu.address.model.volunteer.Email;
 import seedu.address.model.volunteer.Gender;
+import seedu.address.model.volunteer.Name;
+import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerAddress;
-import seedu.address.model.volunteer.VolunteerEmail;
 import seedu.address.model.volunteer.VolunteerId;
-import seedu.address.model.volunteer.VolunteerName;
-import seedu.address.model.volunteer.VolunteerPhone;
 
 /**
  * JAXB-friendly version of the Volunteer.
@@ -125,12 +125,12 @@ public class XmlAdaptedVolunteer {
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    VolunteerName.class.getSimpleName()));
+                    Name.class.getSimpleName()));
         }
-        if (!VolunteerName.isValidName(name)) {
-            throw new IllegalValueException(VolunteerName.MESSAGE_NAME_CONSTRAINTS);
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
-        final VolunteerName modelName = new VolunteerName(name);
+        final Name modelName = new Name(name);
 
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -152,30 +152,30 @@ public class XmlAdaptedVolunteer {
 
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    VolunteerPhone.class.getSimpleName()));
+                    Phone.class.getSimpleName()));
         }
-        if (!VolunteerPhone.isValidPhone(phone)) {
-            throw new IllegalValueException(VolunteerPhone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final VolunteerPhone modelPhone = new VolunteerPhone(phone);
+        final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    VolunteerEmail.class.getSimpleName()));
+                    Email.class.getSimpleName()));
         }
-        if (!VolunteerEmail.isValidEmail(email)) {
-            throw new IllegalValueException(VolunteerEmail.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Email.isValidEmail(email)) {
+            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
-        final VolunteerEmail modelEmail = new VolunteerEmail(email);
+        final Email modelEmail = new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    VolunteerAddress.class.getSimpleName()));
+                    Address.class.getSimpleName()));
         }
-        if (!VolunteerAddress.isValidAddress(address)) {
-            throw new IllegalValueException(VolunteerAddress.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final VolunteerAddress modelAddress = new VolunteerAddress(address);
+        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(volunteerTags);
         return new Volunteer(modelVolunteerId, modelName, modelGender, modelBirthday, modelPhone,
