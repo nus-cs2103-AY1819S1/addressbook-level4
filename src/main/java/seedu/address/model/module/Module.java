@@ -72,8 +72,23 @@ public class Module extends Entity {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both modules of the same name have at least one other identity field that
+     * is the same.
+     * This defines a weaker notion of equality between two modules.
+     */
+    public boolean isSameModule(Module otherModule) {
+        if (otherModule == this) {
+            return true;
+        }
+
+        return otherModule != null
+                && otherModule.getModuleCode().equals(getModuleCode())
+                && (otherModule.getModuleTitle().equals(getModuleTitle()));
+    }
+
+    /**
+     * Returns true if both modules have the same identity and data fields.
+     * This defines a stronger notion of equality between two modules.
      */
     @Override
     public boolean equals(Object other) {
