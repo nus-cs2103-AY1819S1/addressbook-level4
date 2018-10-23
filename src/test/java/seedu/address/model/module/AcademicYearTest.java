@@ -21,7 +21,7 @@ public class AcademicYearTest {
     }
 
     @Test
-    public void isValidModuleTitle() {
+    public void isValidAcademicYear() {
         // null name
         Assert.assertThrows(NullPointerException.class, () -> AcademicYear.isValidYear(null));
 
@@ -37,7 +37,7 @@ public class AcademicYearTest {
     }
 
     @Test
-    public void isEquals() {
+    public void isEqualsAcademicYear() {
         AcademicYear year = new AcademicYear("1819");
         AcademicYear secondYear = new AcademicYear("1819");
         assertTrue(year.equals(secondYear));
