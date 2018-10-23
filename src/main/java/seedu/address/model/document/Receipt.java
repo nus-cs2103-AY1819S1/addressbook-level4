@@ -7,7 +7,7 @@ import seedu.address.model.person.ServedPatient;
  * relevant to the receipt.
  */
 public class Receipt extends Document {
-    private static final String FILE_TYPE = "Receipt";
+    public static final String FILE_TYPE = "Receipt";
 
     /**
      * Creates a receipt object for the specified servedPatient.

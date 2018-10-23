@@ -29,6 +29,7 @@ public class ReceiptCommand extends QueueCommand {
     public static final String MESSAGE_GENERATE_RECEIPT_SUCCESS = "Receipt generated for patient!";
 
     private final Index index;
+    public Receipt receipt;
 
     /**
      * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
@@ -46,7 +47,6 @@ public class ReceiptCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final Receipt receipt;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
