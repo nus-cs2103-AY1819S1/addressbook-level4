@@ -26,7 +26,9 @@ public class FavouriteCommand extends Command {
 
     private final Index targetIndex;
 
-    public FavouriteCommand (Index targetIndex) { this.targetIndex = targetIndex; }
+    public FavouriteCommand (Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

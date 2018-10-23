@@ -35,8 +35,7 @@ public class NotificationCommand extends Command {
 
         if (set) {
             messageNotificationSuccess = "Notification:" + " enabled";
-        }
-        else {
+        } else {
             messageNotificationSuccess = "Notification:" + " disabled";
         }
 
