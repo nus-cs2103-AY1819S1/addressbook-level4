@@ -14,4 +14,8 @@ public interface ReadOnlySchedulePlanner {
      */
     ObservableList<Task> getTaskList();
 
+    /**
+     * Returns an unmodifiable view of the archived tasks list.
+     */
+    ObservableList<Task> getArchivedTaskList();
 }
