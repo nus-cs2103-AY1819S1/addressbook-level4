@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T10-2/main
 
-By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`      Licence: `NUS`
+By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`
 
 == Introduction
 
@@ -123,9 +123,9 @@ Examples:
 Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
 
-=== Booking an appointment: `book-appointment`
+=== Booking an appointment: `add-appointment`
 Book a doctor's appointment for the patient. A serial number of this appointment will be generated. +
-Format: `book-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
+Format: `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
 
 ****
 * Date and time should be in the format hhmm-dd-mm-yy
@@ -133,8 +133,8 @@ Format: `book-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
 
 Examples:
 
-* `book-appointment n/John Doe doc/Sally dt/1200-13-01-19`
-* `book-appointment n/Jackie Chan doc/Johnny Depp dt/1300-15-02-19`
+* `add-appointment n/John Doe doc/Sally dt/1200-13-01-19`
+* `add-appointment n/Jackie Chan doc/Johnny Depp dt/1300-15-02-19`
 
 === Editing an appointment: `edit-appointment`
 Edit a doctor's appointment for the patient by its serial number. +
