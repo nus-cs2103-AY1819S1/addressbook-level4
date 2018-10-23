@@ -16,6 +16,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -30,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private EventId selectedEventId;
 
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Volunteer> filteredVolunteers;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Record> filteredRecords;
 
@@ -49,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         selectedEventId = null;
 
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredVolunteers = new FilteredList<>(versionedAddressBook.getVolunteerList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
     }
@@ -151,6 +154,51 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //===========  Volunteer List Methods =============================================================
+    @Override
+    public boolean hasVolunteer(Volunteer volunteer) {
+        requireNonNull(volunteer);
+        return versionedAddressBook.hasVolunteer(volunteer);
+    }
+
+    @Override
+    public void deleteVolunteer(Volunteer target) {
+        versionedAddressBook.removeVolunteer(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addVolunteer(Volunteer volunteer) {
+        versionedAddressBook.addVolunteer(volunteer);
+        updateFilteredVolunteerList(PREDICATE_SHOW_ALL_VOLUNTEERS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateVolunteer(Volunteer target, Volunteer editedVolunteer) {
+        requireAllNonNull(target, editedVolunteer);
+
+        versionedAddressBook.updateVolunteer(target, editedVolunteer);
+        indicateAddressBookChanged();
+    }
+
+    //=========== Filtered Volunteer Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Volunteer} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Volunteer> getFilteredVolunteerList() {
+        return FXCollections.unmodifiableObservableList(filteredVolunteers);
+    }
+
+    @Override
+    public void updateFilteredVolunteerList(Predicate<Volunteer> predicate) {
+        requireNonNull(predicate);
+        filteredVolunteers.setPredicate(predicate);
     }
 
 
@@ -289,6 +337,7 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredVolunteers.equals(other.filteredVolunteers)
                 && filteredEvents.equals(other.filteredEvents);
     }
 

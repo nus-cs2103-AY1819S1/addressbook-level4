@@ -23,7 +23,9 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventId;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.VolunteerBuilder;
 
 public class AddCommandTest {
 
@@ -64,11 +66,44 @@ public class AddCommandTest {
     }
 
     @Test
+    public void constructor_nullVolunteer_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new AddVolunteerCommand(null);
+    }
+
+    @Test
+    public void execute_volunteerAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingVolunteerAdded modelStub = new ModelStubAcceptingVolunteerAdded();
+        Volunteer validVolunteer = new VolunteerBuilder().build();
+
+        CommandResult commandResult = new AddVolunteerCommand(validVolunteer).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddVolunteerCommand.MESSAGE_SUCCESS, validVolunteer), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validVolunteer), modelStub.volunteersAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateVolunteer_throwsCommandException() throws Exception {
+        Volunteer validVolunteer = new VolunteerBuilder().build();
+        AddVolunteerCommand addVolunteerCommand = new AddVolunteerCommand(validVolunteer);
+        ModelStub modelStub = new ModelStubWithVolunteer(validVolunteer);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddVolunteerCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        addVolunteerCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
+        Volunteer aliceVolunteer = new VolunteerBuilder().withName("Alice").build();
+        Volunteer bobVolunteer = new VolunteerBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
+        AddVolunteerCommand addVolunteerAliceCommand = new AddVolunteerCommand(aliceVolunteer);
+        AddVolunteerCommand addVolunteerBobCommand = new AddVolunteerCommand(bobVolunteer);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
@@ -85,6 +120,22 @@ public class AddCommandTest {
 
         // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
+
+        // same object -> returns true
+        assertTrue(addVolunteerAliceCommand.equals(addVolunteerAliceCommand));
+
+        // same values -> returns true
+        AddVolunteerCommand addVolunteerAliceCommandCopy = new AddVolunteerCommand(aliceVolunteer);
+        assertTrue(addVolunteerAliceCommand.equals(addVolunteerAliceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addVolunteerAliceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addVolunteerAliceCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(addVolunteerAliceCommand.equals(addVolunteerBobCommand));
     }
 
     /**
@@ -162,6 +213,37 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Volunteer Methods =============================================================
+        @Override
+        public boolean hasVolunteer(Volunteer volunteer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteVolunteer(Volunteer target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addVolunteer(Volunteer volunteer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateVolunteer(Volunteer target, Volunteer editedVolunteer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Volunteer> getFilteredVolunteerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredVolunteerList(Predicate<Volunteer> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -290,6 +372,53 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that contains a single volunteer.
+     */
+    private class ModelStubWithVolunteer extends ModelStub {
+        private final Volunteer volunteer;
+
+        ModelStubWithVolunteer(Volunteer volunteer) {
+            requireNonNull(volunteer);
+            this.volunteer = volunteer;
+        }
+
+        @Override
+        public boolean hasVolunteer(Volunteer volunteer) {
+            requireNonNull(volunteer);
+            return this.volunteer.isSameVolunteer(volunteer);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the volunteer being added.
+     */
+    private class ModelStubAcceptingVolunteerAdded extends ModelStub {
+        final ArrayList<Volunteer> volunteersAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasVolunteer(Volunteer volunteer) {
+            requireNonNull(volunteer);
+            return volunteersAdded.stream().anyMatch(volunteer::isSameVolunteer);
+        }
+
+        @Override
+        public void addVolunteer(Volunteer volunteer) {
+            requireNonNull(volunteer);
+            volunteersAdded.add(volunteer);
         }
 
         @Override
