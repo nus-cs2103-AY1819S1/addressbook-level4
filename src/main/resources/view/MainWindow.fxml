@@ -38,23 +38,24 @@
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
+          <VBox minWidth="340">
+            <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+            </StackPane>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-          </StackPane>
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+
+            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                       minHeight="120" prefHeight="120" maxHeight="120">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+          </VBox>
         </SplitPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
