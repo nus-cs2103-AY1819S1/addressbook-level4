@@ -115,6 +115,9 @@ public class ScheduledEventBuilder {
         return this;
     }
 
+    /**
+     * Builds the Event
+     */
     public Event build() {
         Event event = new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
         event.setEventContacts(eventContacts);

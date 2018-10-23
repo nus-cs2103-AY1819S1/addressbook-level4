@@ -64,7 +64,7 @@ public class AddEventCommandTest {
     }
 
     @Test
-    public void execute_eventAcceptedByModel_noContacts_addSuccessful() throws Exception {
+    public void execute_eventAcceptedByModelNoContacts_addSuccessful() throws Exception {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new ScheduledEventBuilder().build();
 
@@ -79,7 +79,7 @@ public class AddEventCommandTest {
     }
 
     @Test
-    public void execute_eventAcceptedByModel_withContacts_addSuccessful() throws Exception {
+    public void execute_eventAcceptedByModelWithContacts_addSuccessful() throws Exception {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new ScheduledEventBuilder().withEventContacts(ALICE).build();
 
@@ -95,7 +95,7 @@ public class AddEventCommandTest {
     }
 
     @Test
-    public void execute_eventAcceptedByModel_withMultipleContacts_addSuccessful() throws Exception {
+    public void execute_eventAcceptedByModelWithMultipleContacts_addSuccessful() throws Exception {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new ScheduledEventBuilder().withEventContacts(ALICE, BOB).build();
 
@@ -460,7 +460,7 @@ public class AddEventCommandTest {
         public ObservableList<Person> getFilteredPersonList() {
             ObservableList<Person> personObservableList = FXCollections.observableArrayList();
             personObservableList.addAll(personsAdded);
-            return  personObservableList;
+            return personObservableList;
         }
 
         @Override
