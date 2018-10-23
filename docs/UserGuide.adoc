@@ -56,8 +56,13 @@ Format: `help`
 
 === Listing all playlists : `playlist list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all playlists in the library. +
 Format: `playlist list`
+
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
 
 === Searching for a playlist : `playlist search`
 
