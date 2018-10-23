@@ -21,6 +21,7 @@ public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
+    public static final String MESSAGE_CLASHING_EVENT = "Events list contains clashing event(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -66,6 +67,8 @@ public class XmlSerializableAddressBook {
             Event event = e.toModelType();
             if (addressBook.hasEvent(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            } else if (addressBook.hasClashingEvent(event)) {
+                throw new IllegalValueException(MESSAGE_CLASHING_EVENT);
             }
             addressBook.addEvent(event);
         }

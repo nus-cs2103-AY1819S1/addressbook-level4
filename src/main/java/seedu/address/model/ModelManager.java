@@ -55,13 +55,21 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public static boolean getNotificationPref() { return notificationPref; }
+    public static boolean getNotificationPref() {
+        return notificationPref;
+    }
 
-    public static void updateNotificationPref(boolean set) { notificationPref = set; }
+    public static void updateNotificationPref(boolean set) {
+        notificationPref = set;
+    }
 
-    public static String getFavourite() { return favourite; }
+    public static String getFavourite() {
+        return favourite;
+    }
 
-    public static void updateFavourite(String newFavourite) { favourite = newFavourite; }
+    public static void updateFavourite(String newFavourite) {
+        favourite = newFavourite;
+    }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
@@ -243,7 +251,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredEvents.equals(other.filteredEvents);
     }
 
 }
