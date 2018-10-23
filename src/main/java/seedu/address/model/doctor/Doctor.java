@@ -18,19 +18,13 @@ import seedu.address.model.tag.Tag;
  */
 public class Doctor extends Person {
     // Variables
-    private String googleOAuth; // TO BE CHANGED TO JSON FILE
     private LinkedList<Appointment> upcomingAppointments;
 
     // Constructor
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
-                   Set<Tag> tags, String googleOAuth) {
+                   Set<Tag> tags) {
         super(name, phone, email, address, remark, tags);
-        setGoogleOAuth(googleOAuth);
         upcomingAppointments = new LinkedList<>();
-    }
-
-    public void setGoogleOAuth(String googleOAuth) {
-        this.googleOAuth = googleOAuth;
     }
 
     /**

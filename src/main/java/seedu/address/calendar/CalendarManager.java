@@ -44,7 +44,7 @@ public class CalendarManager {
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    public Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
+    public Credential getCredentials(final NetHttpTransport httpTransport, String userName) throws IOException {
         /// Load client secrets.
         InputStream in = getClass().getClassLoader().getResourceAsStream(CREDENTIALS_FILE_PATH);
         InputStreamReader inStreamReader = new InputStreamReader(in);
@@ -58,7 +58,7 @@ public class CalendarManager {
             .build();
 
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userName);
     }
 
     /**
@@ -67,30 +67,10 @@ public class CalendarManager {
      */
     /** */
 
-    public void execute() throws IOException, GeneralSecurityException {
+    public void registerDoctor(String userName) throws IOException, GeneralSecurityException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
+        Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport, userName))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("primary")
-                .setMaxResults(10)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
-                }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
-            }
-        }
     }
 }

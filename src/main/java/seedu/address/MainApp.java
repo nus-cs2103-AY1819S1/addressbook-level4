@@ -55,8 +55,6 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        CalendarManager calendarManager = new CalendarManager();
-        calendarManager.execute();
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 

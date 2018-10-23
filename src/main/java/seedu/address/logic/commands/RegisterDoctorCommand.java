@@ -1,15 +1,20 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import seedu.address.calendar.CalendarManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * Adds a doctor to the health book.
@@ -32,6 +37,8 @@ public class RegisterDoctorCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New doctor registered: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This doctor already exists in the HealthBook";
+    public static final String MESSAGE_WRONG_INPUT = "Wrong input provided. Please try again";
+    public static final String MESSAGE_SECURTIY_BREACH = "Unable to create doctor due to security breach";
 
     private final Doctor doctorToRegister;
 
@@ -50,7 +57,14 @@ public class RegisterDoctorCommand extends Command {
         if (model.hasPerson(doctorToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
+        CalendarManager calendarManager = new CalendarManager();
+        try {
+            calendarManager.registerDoctor(doctorToRegister.getName().toString());
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_WRONG_INPUT);
+        } catch (GeneralSecurityException e) {
+            throw new CommandException(MESSAGE_SECURTIY_BREACH);
+        }
         model.addDoctor(doctorToRegister);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, doctorToRegister));
