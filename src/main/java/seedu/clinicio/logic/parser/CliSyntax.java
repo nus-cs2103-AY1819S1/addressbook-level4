@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_TIME = new Prefix("tm/");
+    public static final Prefix PREFIX_TYPE = new Prefix("tp/");
 
     /* Login Prefix definitions */
     public static final Prefix PREFIX_ROLE = new Prefix("r/");

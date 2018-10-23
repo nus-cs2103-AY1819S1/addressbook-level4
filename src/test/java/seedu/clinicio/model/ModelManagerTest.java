@@ -65,7 +65,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE);
+        Appointment appt = new Appointment(date, time, ALICE, 0);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -87,7 +87,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE);
+        Appointment appt = new Appointment(date, time, ALICE, 0);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
     }

@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
 import seedu.clinicio.model.doctor.Doctor;
@@ -20,11 +21,14 @@ import seedu.clinicio.model.person.UniquePersonList;
  */
 public class ClinicIo implements ReadOnlyClinicIo {
 
+    //@@author arsalanc-v2
+    private final Analytics analytics;
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
+
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -34,11 +38,13 @@ public class ClinicIo implements ReadOnlyClinicIo {
      *   among constructors.
      */
     {
+        //@@author arsalanc-v2
+        analytics = new Analytics();
         persons = new UniquePersonList();
         //@@author jjlee050
         doctors = new UniqueDoctorList();
         //@@author gingivitiss
-        appointments = new UniqueAppointmentList();
+        appointments = new UniqueAppointmentList(analytics);
     }
 
     public ClinicIo() {}

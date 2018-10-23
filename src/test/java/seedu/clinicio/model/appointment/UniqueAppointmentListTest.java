@@ -15,16 +15,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
+
 import seedu.clinicio.testutil.AppointmentBuilder;
 
 public class UniqueAppointmentListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    public final UniqueAppointmentList uniqueAppointmentList = new UniqueAppointmentList();
+    public final UniqueAppointmentList uniqueAppointmentList = new UniqueAppointmentList(new Analytics());
 
     @Test
     public void contains_nullAppointment_throwsNullPointerException() {
@@ -93,7 +95,7 @@ public class UniqueAppointmentListTest {
     public void setAppointment_editedAppointmentHasDifferentIdentity_success() {
         uniqueAppointmentList.add(AMY_APPT);
         uniqueAppointmentList.setAppointment(AMY_APPT, BENSON_APPT);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         expectedUniqueAppointmentList.add(BENSON_APPT);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
@@ -132,7 +134,7 @@ public class UniqueAppointmentListTest {
     public void remove_existingAppointment_removesAppointment() {
         uniqueAppointmentList.add(AMY_APPT);
         uniqueAppointmentList.remove(AMY_APPT);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
@@ -145,7 +147,7 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(CARL_APPT);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         uniqueAppointmentList.add(BENSON_APPT);
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
@@ -162,7 +164,7 @@ public class UniqueAppointmentListTest {
         uniqueAppointmentList.add(AMY_APPT);
         List<Appointment> appointmentList = Collections.singletonList(BENSON_APPT);
         uniqueAppointmentList.setAppointments(appointmentList);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         expectedUniqueAppointmentList.add(BENSON_APPT);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
