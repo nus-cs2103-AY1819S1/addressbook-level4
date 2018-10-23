@@ -117,11 +117,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
-        requireAllNonNull(medicineName, quantityToDispense);
-        versionedAddressBook.dispenseMedicine(medicineName, quantityToDispense);
+    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+        requireAllNonNull(medicine, quantityToDispense);
+        return versionedAddressBook.dispenseMedicine(medicine, quantityToDispense);
     }
 
+    @Override
+    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+        requireAllNonNull(medicine, quantityToRefill);
+        versionedAddressBook.refillMedicine(medicine, quantityToRefill);
+    }
     @Override
     public void updatePerson(Patient target, Patient editedPatient) {
         requireAllNonNull(target, editedPatient);

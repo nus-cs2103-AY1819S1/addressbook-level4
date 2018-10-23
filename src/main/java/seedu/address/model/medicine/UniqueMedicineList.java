@@ -107,16 +107,31 @@ public class UniqueMedicineList implements Iterable<Medicine> {
 
     /**
      * Updates the stock level after dispensing the medicine to the patient
-     * @param medicineName The name used to search for the medicine.
+     * @param medicine The medicine to dispense.
      * @param quantityToDispense The amount to dispense to patient, also to deduct from stock.
      */
-    public void dispenseMedicine(MedicineName medicineName, Integer quantityToDispense) {
-        requireAllNonNull(medicineName, quantityToDispense);
+    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+        requireAllNonNull(medicine, quantityToDispense);
         Optional<Medicine> toDispense = internalList
                 .stream()
-                .filter(medicine -> medicine.hasSameMedicineName(medicineName))
+                .filter(med -> med.equals(medicine))
                 .findFirst();
-        toDispense.ifPresent(medicine -> medicine.dispense(quantityToDispense));
+        toDispense.ifPresent(med -> med.dispense(quantityToDispense));
+        return toDispense.get();
+    }
+
+    /**
+     * Refill the stock level of the medicine.
+     * @param medicine The medicine to refill.
+     * @param quantityToRefill The amount to refill.
+     */
+    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+        requireAllNonNull(medicine, quantityToRefill);
+        Optional<Medicine> toDispense = internalList
+                .stream()
+                .filter(med -> med.equals(medicine))
+                .findFirst();
+        toDispense.ifPresent(med -> med.refill(quantityToRefill));
     }
 
     /**

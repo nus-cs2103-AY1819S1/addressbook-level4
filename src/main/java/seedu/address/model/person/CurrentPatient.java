@@ -7,7 +7,6 @@ import java.util.Map;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * Uncompleted class, need to add more methods and fields.
  * Represents a patient that is currently consulting the doctor in the address book.
  * It has all methods needed to add information to generate various document later on.
  */
@@ -74,6 +73,7 @@ public class CurrentPatient {
         requireNonNull(patient);
         return patient.getNoteContent();
     }
+
     /**
      * Returns the MC content for the {@code served patient}.
      */
@@ -127,7 +127,8 @@ public class CurrentPatient {
                 .append("\nReferral Content: ")
                 .append(getReferralContent());
         sb.append("\nMedicine Allocated: ");
-        getMedicineAllocated().forEach((medicine, quantity) -> sb.append(medicine.toString() + ": " + quantity + "\n"));
+        getMedicineAllocated().forEach((medicine, quantity) -> sb.append(
+                medicine.getMedicineName() + ": " + quantity + "\n"));
         return sb.toString();
     }
 
