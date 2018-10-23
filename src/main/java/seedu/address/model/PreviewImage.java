@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.awt.image.BufferedImage;
 
+import seedu.address.model.transformation.Transformation;
 import seedu.address.model.transformation.TransformationSet;
 
 //@author Ivan
@@ -35,5 +36,9 @@ public class PreviewImage implements PreviewableImage {
 
     public TransformationSet getTransformationSet() {
         return transformationSet;
+    }
+
+    public void addTransformation(Transformation t){
+        transformationSet.addTransformations(t);
     }
 }

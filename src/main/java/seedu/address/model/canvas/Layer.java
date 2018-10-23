@@ -4,6 +4,7 @@ package seedu.address.model.canvas;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.PreviewImage;
+import seedu.address.model.transformation.Transformation;
 
 /**
  * Represents a layer in a canvas.
@@ -25,6 +26,11 @@ public class Layer {
         this.height = image.getImage().getHeight();
         this.width = image.getImage().getWidth();
         this.name = name;
+    }
+
+    public void addTransformation(Transformation t) {
+        image.addTransformation(t);
+        //render();
     }
 
     public int getX() {
