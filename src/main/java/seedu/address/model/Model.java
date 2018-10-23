@@ -105,7 +105,7 @@ public interface Model {
     /**
      * Retrieves the list of images in current directory.
      */
-    ArrayList<String> getDirectoryImageList();
+    ArrayList<Path> getDirectoryImageList();
 
     /**
      * Updates the list of images in current directory.
@@ -120,15 +120,15 @@ public interface Model {
     /**
      * Retrieves the current displayed original image.
      */
-    BufferedImage getCurrentOriginalImage();
+    Path getCurrentOriginalImage();
 
     /**
      * Retrieves the current displayed preview image.
      */
-    BufferedImage getCurrentPreviewImage();
+    Path getCurrentPreviewImage();
 
     /**
      * Update the current displayed original image.
      */
-    void updateCurrentOriginalImage(Image img);
+    void updateCurrentOriginalImage(Image img, Path imgPath);
 }
