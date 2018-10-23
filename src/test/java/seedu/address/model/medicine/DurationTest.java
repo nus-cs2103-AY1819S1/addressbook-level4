@@ -1,10 +1,11 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,16 +20,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
  *
  */
 public class DurationTest {
-    private Calendar startDate;
-    private Calendar oneDayEndDate;
-    private Calendar twoDaysEndDate;
-    private Calendar oneWeekEndDate;
-    private Calendar oneWeekThreeDaysEndDate;
-    private Calendar oneMonthEndDate;
-    private Calendar oneMonthTwoWeeksEndDate;
-    private Calendar oneYearEndDate;
-    private Calendar oneYearTenMonthsTwoWeeksOneDayEndDate;
-    private Calendar tenYearsEndDate;
+    private LocalDate today;
+    private LocalDate oneDayEndDate;
+    private LocalDate twoDaysEndDate;
+    private LocalDate oneWeekEndDate;
+    private LocalDate oneWeekThreeDaysEndDate;
+    private LocalDate oneMonthEndDate;
+    private LocalDate oneMonthTwoWeeksEndDate;
+    private LocalDate oneYearEndDate;
+    private LocalDate oneYearTenMonthsTwoWeeksOneDayEndDate;
+    private LocalDate tenYearsEndDate;
 
     private Duration oneDay;
     private Duration twoDays;
@@ -42,60 +43,46 @@ public class DurationTest {
 
     @Before
     public void setUp() throws IllegalValueException {
-        double oneDay = Duration.MILLISECONDS_IN_A_DAY;
-        double oneWeek = Duration.DAYS_PER_WEEK * oneDay;
-        double oneMonth = Duration.AVERAGE_DAYS_PER_MONTH * oneDay;
-        double oneYear = Duration.AVERAGE_DAYS_PER_YEAR * oneDay;
+        int oneDay = 1;
+        int oneWeek = Duration.DAYS_PER_WEEK * oneDay;
+        int oneMonth = Duration.DAYS_PER_MONTH * oneDay;
+        int oneYear = Duration.DAYS_PER_YEAR * oneDay;
 
-        startDate = Calendar.getInstance();
+        today = LocalDate.now();
 
         this.oneDay = new Duration(oneDay);
-        oneDayEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneDay, oneDayEndDate);
+        oneDayEndDate = today.plus(oneDay - 1, ChronoUnit.DAYS);
 
         this.twoDays = new Duration(2 * oneDay);
-        twoDaysEndDate = Calendar.getInstance();
-        calibrateEndDate(this.twoDays, twoDaysEndDate);
+        twoDaysEndDate = today.plus(2 * oneDay - 1, ChronoUnit.DAYS);
 
         this.oneWeek = new Duration(oneWeek);
-        oneWeekEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneWeek, oneWeekEndDate);
+        oneWeekEndDate = today.plus(oneWeek - 1, ChronoUnit.DAYS);
 
         this.oneWeekThreeDays = new Duration(oneWeek + 3 * oneDay);
-        oneWeekThreeDaysEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneWeekThreeDays, oneWeekThreeDaysEndDate);
+        oneWeekThreeDaysEndDate = today.plus(oneWeek + 3 * oneDay - 1, ChronoUnit.DAYS);
 
         this.oneMonth = new Duration(oneMonth);
-        oneMonthEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneMonth, oneMonthEndDate);
+        oneMonthEndDate = today.plus(oneMonth - 1, ChronoUnit.DAYS);
 
         this.oneMonthTwoWeeks = new Duration(oneMonth + 2 * oneWeek);
-        oneMonthTwoWeeksEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneMonthTwoWeeks, oneMonthTwoWeeksEndDate);
+        oneMonthTwoWeeksEndDate = today.plus(oneMonth + 2 * oneWeek - 1, ChronoUnit.DAYS);
 
         this.oneYear = new Duration(oneYear);
-        oneYearEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneYear, oneYearEndDate);
+        oneYearEndDate = today.plus(oneYear - 1, ChronoUnit.DAYS);
 
         this.oneYearTenMonthsTwoWeeksOneDay = new Duration(oneYear + 10 * oneMonth + 2 * oneWeek + 1 * oneDay);
-        oneYearTenMonthsTwoWeeksOneDayEndDate = Calendar.getInstance();
-        calibrateEndDate(this.oneYearTenMonthsTwoWeeksOneDay, oneYearTenMonthsTwoWeeksOneDayEndDate);
+        oneYearTenMonthsTwoWeeksOneDayEndDate = today.plus(oneYear + 10 * oneMonth + 2 * oneWeek + 1 * oneDay - 1,
+            ChronoUnit.DAYS);
 
         this.tenYears = new Duration(10 * oneYear);
-        tenYearsEndDate = Calendar.getInstance();
-        calibrateEndDate(this.tenYears, tenYearsEndDate);
-    }
-
-    @Test
-    public void constructor_negativeDoubleDuration_throwsIllegalValueException() {
-        seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
-                Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1.0));
+        tenYearsEndDate = today.plus(10 * oneYear - 1, ChronoUnit.DAYS);
     }
 
     @Test
     public void constructor_negativeIntegerDuration_throwsIllegalValueException() {
         seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
-                Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1));
+            Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1));
     }
 
     @Test
@@ -104,7 +91,7 @@ public class DurationTest {
     }
 
     @Test
-    public void equals_durationAndDefensiveCopy_returnsTrue() {
+    public void equals_durationAndDefensiveCopy_returnsTrue() throws IllegalValueException {
         assertTrue(oneDay.equals(new Duration(oneDay)));
     }
 
@@ -115,80 +102,50 @@ public class DurationTest {
 
     @Test
     public void isCorrectStringRepresentDuration() {
-        org.junit.Assert.assertEquals(periodToString(startDate, oneDayEndDate) + " [1 day(s)]", oneDay.toString());
-        org.junit.Assert.assertEquals(periodToString(startDate, twoDaysEndDate) + " [2 day(s)]", twoDays.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneDayEndDate) + " [1 day(s)]", oneDay.toString());
+        org.junit.Assert.assertEquals(periodToString(today, twoDaysEndDate) + " [2 day(s)]", twoDays.toString());
 
-        org.junit.Assert.assertEquals(periodToString(startDate, oneWeekEndDate) + " [1 week(s)]", oneWeek.toString());
-        org.junit.Assert.assertEquals(periodToString(startDate, oneWeekThreeDaysEndDate) + " [1 week(s), 3 day(s)]",
-                oneWeekThreeDays.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneWeekEndDate) + " [1 week(s)]", oneWeek.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneWeekThreeDaysEndDate) + " [1 week(s), 3 day(s)]",
+            oneWeekThreeDays.toString());
 
-        org.junit.Assert.assertEquals(periodToString(startDate, oneMonthEndDate) + " [1 month(s)]",
-                oneMonth.toString());
-        org.junit.Assert.assertEquals(periodToString(startDate, oneMonthTwoWeeksEndDate) + " [1 month(s), 2 week(s)]",
-                oneMonthTwoWeeks.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneMonthEndDate) + " [1 month(s)]",
+            oneMonth.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneMonthTwoWeeksEndDate) + " [1 month(s), 2 week(s)]",
+            oneMonthTwoWeeks.toString());
 
-        org.junit.Assert.assertEquals(periodToString(startDate, oneYearEndDate) + " [1 year(s)]", oneYear.toString());
-        org.junit.Assert.assertEquals(periodToString(startDate, oneYearTenMonthsTwoWeeksOneDayEndDate)
-                + " [1 year(s), 10 month(s), 2 week(s), 1 day(s)]", oneYearTenMonthsTwoWeeksOneDay.toString());
-        org.junit.Assert.assertEquals(periodToString(startDate, tenYearsEndDate) + " [10 year(s)]",
-                tenYears.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneYearEndDate) + " [1 year(s)]", oneYear.toString());
+        org.junit.Assert.assertEquals(periodToString(today, oneYearTenMonthsTwoWeeksOneDayEndDate)
+            + " [1 year(s), 10 month(s), 2 week(s), 1 day(s)]", oneYearTenMonthsTwoWeeksOneDay.toString());
+        org.junit.Assert.assertEquals(periodToString(today, tenYearsEndDate) + " [10 year(s)]",
+            tenYears.toString());
     }
 
     @Test
-    public void areDatesEqual_objectAndItself_returnsTrue() {
-        Calendar date = Calendar.getInstance();
-        assertTrue(Duration.areDatesEqual(date, date));
-    }
+    public void shiftDateRange_startAndEndDatesAreCorrectlyShifted() throws IllegalValueException {
+        Duration aCopyOfTwoDays = new Duration(twoDays);
+        LocalDate oneDayIntoFuture = today.plus(1, ChronoUnit.DAYS);
+        LocalDate twoDaysIntoFuture = today.plus(2, ChronoUnit.DAYS);
 
-    @Test
-    public void areDatesEqual_objectAndSameDay_returnsTrue() {
-        Calendar date = Calendar.getInstance();
-        Calendar anotherDate = Calendar.getInstance();
-        assertTrue(Duration.areDatesEqual(date, anotherDate));
-    }
+        aCopyOfTwoDays.shiftDateRange(oneDayIntoFuture);
 
-    @Test
-    public void areDatesEqual_differentDays_returnsTrue() {
-        Calendar date = Calendar.getInstance();
-        Calendar anotherDate = Calendar.getInstance();
-        anotherDate.add(Calendar.DAY_OF_YEAR, 1);
-        assertFalse(Duration.areDatesEqual(date, anotherDate));
-    }
-
-    @Test
-    public void shiftDateRange_startAndEndDatesAreCorrectlyShifted() {
-        Duration aCopyOfOneDay = new Duration(oneDay);
-        Calendar oneDayIntoFuture = Calendar.getInstance();
-        Calendar twoDaysIntoFuture = Calendar.getInstance();
-        oneDayIntoFuture.add(Calendar.DAY_OF_YEAR, 1);
-        twoDaysIntoFuture.add(Calendar.DAY_OF_YEAR, 2);
-        aCopyOfOneDay.shiftDateRange(oneDayIntoFuture);
-
-        assertTrue(aCopyOfOneDay.getStartDateAsString()
-                .equals(Duration.DATE_FORMAT.format(oneDayIntoFuture.getTime())));
-        assertTrue(aCopyOfOneDay.getEndDateAsString()
-                .equals(Duration.DATE_FORMAT.format(twoDaysIntoFuture.getTime())));
-    }
-
-    private void calibrateEndDate(Duration d, Calendar endDate) {
-        endDate.add(Calendar.MILLISECOND, (int) d.getDurationInMilliseconds());
+        assertEquals(aCopyOfTwoDays.getStartDateAsString(), Duration.DATE_FORMAT.format(oneDayIntoFuture));
+        assertEquals(aCopyOfTwoDays.getEndDateAsString(), Duration.DATE_FORMAT.format(twoDaysIntoFuture));
     }
 
     /**
      * Helper method to convert a date range into a String representation.
      *
-     * @param startDate
-     *            The start date.
-     * @param endDate
-     *            The end date.
+     * @param startDate The start date.
+     * @param endDate The end date.
      * @return A String representation as follows: "from {startDate} to {endDate}",
      *         in the format dd-MM-yyyy
      */
-    private String periodToString(Calendar startDate, Calendar endDate) {
+    private String periodToString(LocalDate startDate, LocalDate endDate) {
         StringBuilder sb = new StringBuilder();
 
-        String formattedStartDate = new SimpleDateFormat("dd-MM-yyyy").format(startDate.getTime());
-        String formattedEndDate = new SimpleDateFormat("dd-MM-yyyy").format(endDate.getTime());
+        String formattedStartDate = startDate.format(Duration.DATE_FORMAT);
+        String formattedEndDate = endDate.format(Duration.DATE_FORMAT);
 
         sb.append("from ").append(formattedStartDate).append(" to ").append(formattedEndDate);
 

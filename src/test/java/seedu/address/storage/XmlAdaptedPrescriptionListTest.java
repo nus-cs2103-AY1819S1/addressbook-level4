@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -17,8 +18,14 @@ public class XmlAdaptedPrescriptionListTest {
     @Before
     public void setUp() throws IllegalValueException {
         xmlAdaptedPrescriptionList = new XmlAdaptedPrescriptionList();
-        xmlAdaptedPrescription = new XmlAdaptedPrescription("Paracetamol", 2,
-                "tablets", 4, "01-01-1990", "02-01-1990", 8.64 * Math.pow(10, 7));
+        xmlAdaptedPrescription = new XmlAdaptedPrescription(
+            XmlAdaptedPrescriptionTest.VALID_DRUGNAME,
+            XmlAdaptedPrescriptionTest.VALID_DOSAGE,
+            XmlAdaptedPrescriptionTest.VALID_DOSE_UNIT,
+            XmlAdaptedPrescriptionTest.VALID_DOSES_PER_DAY,
+            XmlAdaptedPrescriptionTest.VALID_START_DATE,
+            XmlAdaptedPrescriptionTest.VALID_END_DATE,
+            XmlAdaptedPrescriptionTest.VALID_DURATION_IN_DAYS);
     }
 
     @Test
@@ -28,5 +35,20 @@ public class XmlAdaptedPrescriptionListTest {
 
         xmlAdaptedPrescriptionList.setPrescription(newList);
         assertTrue(xmlAdaptedPrescriptionList.equals(new XmlAdaptedPrescriptionList(newList)));
+    }
+
+    @Test
+    public void equals_objectAndItself_returnsTrue() {
+        assertTrue(xmlAdaptedPrescriptionList.equals(xmlAdaptedPrescriptionList));
+    }
+
+    @Test
+    public void equals_objectAndDefensiveCopy_returnsTrue() {
+        assertTrue(xmlAdaptedPrescriptionList.equals(new XmlAdaptedPrescriptionList(xmlAdaptedPrescriptionList)));
+    }
+
+    @Test
+    public void equals_objectAndDifferentType_returnsFalse() {
+        assertFalse(xmlAdaptedPrescriptionList.equals(1));
     }
 }
