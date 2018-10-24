@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.model.WishBook;
 import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
@@ -166,7 +166,7 @@ public class XmlUtilTest {
                 .getDataFromFile(VALID_WISHTRANSACTION_FILE, XmlWishTransactions.class)
                 .toModelType();
         Wish containedWish = getWish();
-        String key = containedWish.getName().fullName;
+        UUID key = containedWish.getId();
         assertTrue(retrievedWishTransaction.getWishMap().containsKey(key));
         assertTrue(retrievedWishTransaction.getWishMap().get(key).contains(containedWish));
     }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -59,9 +60,18 @@ public class WishTransactionTest {
 
     @Test
     public void allowMultipleWishesOfSameName() {
+        assertNotEquals(wish1.getId(), wish2.getId());
         wishTransaction.addWish(wish1);
         wishTransaction.addWish(wish2);
-        assertTrue(isSameSize(wish1, 2));
+        // should not be mapped to same key
+        assertFalse(isSameSize(wish1, 2));
+
+        // should contain 2 new distinct wishes
+        assertTrue(wishTransaction.getWishMap().size()==2);
+        assertTrue(wishTransaction.getWishMap().containsKey(wish1.getId()));
+        assertTrue(wishTransaction.getWishMap().containsKey(wish2.getId()));
+        assertTrue(wishTransaction.getWishMap().get(wish1.getId()).peekLast().isSameWish(wish1));
+        assertTrue(wishTransaction.getWishMap().get(wish2.getId()).peekLast().isSameWish(wish2));
     }
 
     @Test
