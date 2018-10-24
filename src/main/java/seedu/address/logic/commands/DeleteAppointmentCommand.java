@@ -55,10 +55,6 @@ public class DeleteAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Set<Tag> mySet = new HashSet<Tag>();
-        Appointment appointment = new Appointment(new Doctor(new Name("elroy"), new Phone("123412324"),
-                new Email("erear@g.com"), new Address("2134"), new Remark("asfasf"), mySet),
-                LocalDateTime.of(2017, 1, 1, 1, 1,1));
 
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
         List<Person> personList = model.getFilteredPersonList();
