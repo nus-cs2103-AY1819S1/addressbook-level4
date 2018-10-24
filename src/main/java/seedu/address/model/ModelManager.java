@@ -486,6 +486,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     @Subscribe
     public void handleEmailLoadedEvent(EmailLoadedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email loaded, saving to EmailModel."));
         emailModel.saveEmail(event.data);
         raise(new EmailViewEvent(emailModel));
     }
