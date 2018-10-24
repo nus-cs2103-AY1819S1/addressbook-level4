@@ -117,14 +117,15 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find expense in address book, name is substring of keyword -> 0 expenses found */
+        /* Case: find expense in address book, name is substring of keyword -> 1 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " ha";
-        ModelHelper.setFilteredList(expectedModel);
+        ModelHelper.setFilteredList(expectedModel, LUNCH);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find expense not in address book -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " gamble";
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

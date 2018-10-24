@@ -462,7 +462,10 @@ the total cost for that day
 
 === Find
 
-Given below is an example usage scenario and of how the find mechanism behaves at each step.
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram of find mechanism
+image::implementation/FindCommandSequenceDiagram.png[width="800"]
 
 . User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `AddressBookParser`,
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
