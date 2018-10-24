@@ -26,11 +26,9 @@ public class SetPasswordCommandParser implements Parser<SetPasswordCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetPasswordCommand.MESSAGE_USAGE));
         }
         Password newPassword = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_NEW_PASSWORD).get());
-        Optional<String> oldPassword = argMultimap.getValue(PREFIX_OLD_PASSWORD);
-        if (oldPassword.isPresent()) {
-            return new SetPasswordCommand(ParserUtil.parsePassword(oldPassword.get()), newPassword);
-        } else {
-            return new SetPasswordCommand(null, newPassword);
-        }
+        Optional<String> oldPasswordString = argMultimap.getValue(PREFIX_OLD_PASSWORD);
+        Optional<Password> oldPassword = oldPasswordString.isPresent()
+                ? Optional.of(ParserUtil.parsePassword(oldPasswordString.get())) : Optional.empty();
+        return new SetPasswordCommand(oldPassword, newPassword);
     }
 }

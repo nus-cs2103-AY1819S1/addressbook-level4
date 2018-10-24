@@ -359,13 +359,13 @@ On initialization, the `MainApp` class loads all xml files within the data folde
 An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).
 ====
 
-This system is facilitated by methods in the Model interface which now supports the following operations:
+This system is facilitated by newly added methods in the Model interface which now supports the following operations:
 
-* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data. Returns true if the password matches the user's password, else the user is not logged into and false is returned
-* `Model#unloadUserData()` -- Unselects the user in the Model
-* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in the model
-* `Model#addUser(Username)` -- Adds a new user with the given Username to the model
-* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in the model
+* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data into the `Model`. Returns true if the password matches the user's password, else the user is not logged into and false is returned
+* `Model#unloadUserData()` -- Unselects the user in the `Model`
+* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in the `Model`
+* `Model#addUser(Username)` -- Adds a new user with the given Username to the `Model`
+* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in the `Model`
 
 The classes `Username` and `Password` have also been implemented and have the following noteworthy characteristics:
 
@@ -374,13 +374,18 @@ The classes `Username` and `Password` have also been implemented and have the fo
 * When a `Password` class is constructed with plain text, the password is hashed before being stored as an internal String in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
 
-Given below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
+Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
 
 . The user launches the application and the directory path in the UserPref points at the _data_ folder
-. The method `Storage#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyExpenseTracker>` with the `Username` of the user data as the key and the user data as a `ReadOnlyExpenseTracker` as the value to the MainApp class
+. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyAddressBook>` with the `Username` of the user data as the key and the user data as a `ReadOnlyExpenseTracker` as the value to the MainApp class.
 . A `Model` instance will then be initialized using the previously mentioned `Map` of user data.
 
-Given below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
+Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
+
+.Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="800"]
+
+Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to the `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
@@ -388,16 +393,31 @@ Given below is an example usage scenario and how the Sign Up and Login system be
 . The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
 . The selected data in the `Model` is switched to `john`'s and an `UserLoggedInEvent` is raised for the `UI` to show `john`'s Expense Tracker data
 
-Given below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
+Below is the UML sequence diagram that shows how the `SignUpCommand` works.
+
+.Sequence diagram showing how `SignUpCommand` works
+image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
+
+Below is the UML sequence diagram that shows how the `LoginCommand` works.
+
+.Sequence diagram showing how `LoginCommand` works
+image::implementation/LoginCommandSequenceDiagram.png[width="800"]
+
+Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
 . The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
 . The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` changes `john`'s account password to `password2`
 
+Below is the UML sequence diagram that shows how the `SetPasswordCommand` works.
+
+.Sequence diagram showing how `SetPasswordCommand` works
+image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 ===== Aspect: Storage of Separate User Data
 
-* **Alternative 1 (current choice):**
+* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
 ** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
 ** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
 * **Alternative 2:** Save all the separated user data in a single xml data file
