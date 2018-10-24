@@ -51,7 +51,6 @@ public class FilterByGradeCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
-
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
