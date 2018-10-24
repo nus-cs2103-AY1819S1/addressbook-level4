@@ -7,7 +7,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>Alice Pauline</usernamem>
+        <username>Alice Pauline</username>
         <password>Ap12345678</password>
     </persons>
     <persons>
@@ -16,7 +16,7 @@
         <email>johnd@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>Benson Meier</usernamem>
+        <username>Benson Meier</username>
         <password>Bm12345678</password>
         <leaveApplications>
             <id>0</id>
@@ -32,7 +32,7 @@
         <email>heinz@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>Carl Kurz</usernamem>
+        <username>Carl Kurz</username>
         <password>P@55w0rd</password>
     </persons>
     <persons>
@@ -42,7 +42,7 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <project>OASIS</project>
-        <usernamem>Daniel Meier</usernamem>
+        <username>Daniel Meier</username>
         <password>Pa55w0rd</password>
     </persons>
     <persons>
@@ -51,7 +51,7 @@
         <email>werner@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>Elle Meyer</usernamem>
+        <username>Elle Meyer</username>
         <password>ElleI5gr8</password>
     </persons>
     <persons>
@@ -60,7 +60,7 @@
         <email>lydia@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>Fiona Kunz</usernamem>
+        <username>Fiona Kunz</username>
         <password>FionaI5H0t</password>
     </persons>
     <persons>
@@ -69,7 +69,7 @@
         <email>anna@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
-        <usernamem>George Best</usernamem>
+        <username>George Best</username>
         <password>9&M]-Wxsb&C%u'e^+gfUFPz#f;80QRW~V)GvWWbhj?`b`e%vqQcSG&eU*b+V5yf</password>
     </persons>
 </addressbook>
