@@ -15,7 +15,7 @@ import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordContainsEventIdPredicate;
 
 /**
- * Deletes an event identified using it's displayed index from the address book.
+ * Deletes an event identified using it's displayed index from the application.
  */
 public class DeleteEventCommand extends Command {
     public static final String COMMAND_WORD = "delete";

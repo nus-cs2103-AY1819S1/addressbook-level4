@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalVolunteers.ALICE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.StatusBarFooter.TOTAL_VOLUNTEERS_STATUS;
@@ -29,7 +29,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path RELATIVE_PATH = Paths.get(".");
 
     private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(
-            new AddressBookBuilder().withPerson(ALICE).build());
+            new AddressBookBuilder().withVolunteer(ALICE).build());
 
     private static final int INITIAL_TOTAL_VOLUNTEERS = 0;
 
@@ -68,7 +68,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         postNow(EVENT_STUB);
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
-                String.format(TOTAL_VOLUNTEERS_STATUS, EVENT_STUB.data.getPersonList().size()));
+                String.format(TOTAL_VOLUNTEERS_STATUS, EVENT_STUB.data.getVolunteerList().size()));
     }
 
     /**

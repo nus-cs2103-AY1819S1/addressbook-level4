@@ -41,8 +41,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+
     private ContextIndicator contextIndicator;
-    private PersonListPanel personListPanel;
+    private VolunteerListPanel volunteerListPanel;
     private EventListPanel eventListPanel;
     private RecordEventPanel recordEventPanel;
     private Config config;
@@ -135,21 +136,19 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
-        recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredPersonList());
+        recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
         contextIndicator = new ContextIndicator(Context.VOLUNTEER_CONTEXT_ID);
         contextIndicatorPlaceholder.getChildren().add(contextIndicator.getRoot());
-
-        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
+        listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
-                logic.getFilteredPersonList().size());
+                logic.getFilteredVolunteerList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -213,11 +212,11 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
             browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }
@@ -230,8 +229,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public VolunteerListPanel getVolunteerListPanel() {
+        return volunteerListPanel;
     }
 
     public EventListPanel getEventListPanel() {

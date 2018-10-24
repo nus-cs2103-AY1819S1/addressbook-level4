@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Volunteer with invalid name field -->
+    <volunteers>
+        <name>Ha!ns Mu@ster</name>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">22-05-1987</birthday>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </volunteers>
+</addressbook>
