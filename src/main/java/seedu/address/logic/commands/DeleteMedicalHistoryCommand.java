@@ -34,6 +34,7 @@ public class DeleteMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE = "This command is only for patients";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY = "No such allergy";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "No such condition";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
 
     private final Index index;
     private String allergy;
@@ -64,7 +65,10 @@ public class DeleteMedicalHistoryCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
         }
         Patient patientToEdit = (Patient)lastShownList.get(index.getZeroBased());
-        if (!(allergy.equals(null))){
+        if (allergy.equals("") && condition.equals("")){
+            throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
+        }
+        if (!(allergy.equals(""))){
             ArrayList<String> allergiesToDelete = new ArrayList<>(Arrays.asList(allergy.split(",")));
             for(int index = 0; index < allergiesToDelete.size(); index ++){
                 if(patientToEdit.getMedicalHistory().getAllergies().contains(allergiesToDelete.get(index))){
@@ -74,7 +78,7 @@ public class DeleteMedicalHistoryCommand extends Command {
                 }
             }
         }
-        if (!(condition.equals(null))){
+        if (!(condition.equals(""))){
             ArrayList<String> conditionsToDelete = new ArrayList<>(Arrays.asList(condition.split(",")));
             for(int index = 0; index < conditionsToDelete.size(); index ++){
                 if(patientToEdit.getMedicalHistory().getConditions().contains(conditionsToDelete.get(index))){
