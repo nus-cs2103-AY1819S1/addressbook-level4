@@ -44,9 +44,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private FindCommand parseNoPrefixUsed(ArgumentMultimap argMultimap) throws ParseException {
         String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) { //TODO this will be changed when we add find by groups or meetings.
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
-        }
         return new FindPersonCommand(
             new PersonNameContainsKeywordsPredicate(
                 Arrays.asList(preamble.split("\\s+")),
