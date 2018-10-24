@@ -27,7 +27,6 @@ import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 import seedu.address.model.person.Person;
 import seedu.address.model.transformation.Transformation;
-import seedu.address.model.transformation.TransformationSet;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -240,12 +239,6 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
-//
-//    @Override
-//    public void commitPreviewImageManager() {
-//        // TODO: update currentPreviewImage
-//        // TODO: previewImageManager.commit(editedImage);
-//    }
 
     //=========== get/updateing preview image ==========================================================================
 

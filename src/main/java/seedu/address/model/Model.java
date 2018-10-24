@@ -93,11 +93,6 @@ public interface Model {
      */
     void redoPreviewImage();
 
-//    /**
-//     * Saves the current PreviewImage state for undo/redo.
-//     */
-//    void commitPreviewImageManager();
-
     /**
      * Updates the userPrefs current directory.
      */

@@ -49,14 +49,23 @@ public class PreviewImage {
         return width;
     }
 
+    /**
+     * Check if have previous states to undo.
+     */
     public boolean canUndo() {
         return currentIndex > 0;
     }
 
+    /**
+     * Check if have previous undone states to redo.
+     */
     public boolean canRedo() {
         return currentIndex < currentSize - 1;
     }
 
+    /**
+     * Decrement current index if able to undo.
+     */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
@@ -64,6 +73,9 @@ public class PreviewImage {
         currentIndex--;
     }
 
+    /**
+     * Increment current index if able to redo.
+     */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
@@ -71,6 +83,9 @@ public class PreviewImage {
         currentIndex++;
     }
 
+    /**
+     * Increment size and current index, then cache the image.
+     */
     public void commit(BufferedImage image) {
         try {
             currentSize++;
@@ -83,6 +98,9 @@ public class PreviewImage {
         System.out.println("Caching successful");
     }
 
+    /**
+     * Get the current image state from cache.
+     */
     public BufferedImage getImage() {
         BufferedImage imageFromCache = null;
         try {
