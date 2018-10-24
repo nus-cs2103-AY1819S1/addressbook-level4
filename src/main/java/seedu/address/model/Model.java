@@ -68,6 +68,11 @@ public interface Model {
     void setPhotoHandler(PhotoHandler instance);
 
     /**
+     * Gets currently logged in user
+     */
+    String getUserLoggedIn() throws CommandException;
+
+    /**
      * Returns true if the model has previous PreviewImage states to restore.
      */
     boolean canUndoPreviewImageManager();

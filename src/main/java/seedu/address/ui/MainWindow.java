@@ -34,17 +34,18 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    /**
+     * Identifies logged in google account
+     */
+    private String user;
+
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private ImagePanel originalImagePanel;
     private ImagePanel previewImagePanel;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -68,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane previewImagePlaceholder;
 
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -76,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.user = user;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -140,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(user, prefs.getCurrDirectory().toString());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic, prefs);
@@ -209,10 +211,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public ImagePanel getPreviewImagePanel() {
         return previewImagePanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
