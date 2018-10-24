@@ -32,7 +32,6 @@ public class DeleteToDoCommandTest {
 
         String expectedMessage = String.format(DeleteToDoCommand.MESSAGE_DELETE_TODOLIST_EVENT_SUCCESS,
                 toDoListEventToDelete);
-        System.out.printf("%s\n",expectedMessage);
 
         ModelManagerToDo expectedModel = new ModelManagerToDo(model.getToDoList(), new UserPrefs());
         expectedModel.deleteToDoListEvent(toDoListEventToDelete);

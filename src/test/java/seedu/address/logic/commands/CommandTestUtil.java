@@ -114,7 +114,8 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandToDoSuccess(CommandToDo commandToDo, ModelToDo actualModel,
-                                                CommandHistory actualCommandHistory, String expectedMessage, ModelToDo expectedModel) {
+                                                CommandHistory actualCommandHistory,
+                                                String expectedMessage, ModelToDo expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = commandToDo.execute(actualModel, actualCommandHistory);

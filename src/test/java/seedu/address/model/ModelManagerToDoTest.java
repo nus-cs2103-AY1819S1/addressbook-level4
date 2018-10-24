@@ -6,11 +6,11 @@ import static seedu.address.model.ModelToDo.PREDICATE_SHOW_ALL_TODOLIST_EVENTS;
 import static seedu.address.testutil.TypicalTodoListEvents.LECTURE;
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
 
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import java.nio.file.Paths;
 
 import seedu.address.testutil.ToDoListBuilder;
 
