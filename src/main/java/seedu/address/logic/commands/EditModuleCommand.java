@@ -103,7 +103,8 @@ public class EditModuleCommand extends Command {
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         ModuleTitle updatedModuleTitle = editModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
-        AcademicYear updatedAcademicYear = editModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
+        AcademicYear updatedAcademicYear =
+                editModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
         Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
         UniquePersonList updatedStudents = editModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());

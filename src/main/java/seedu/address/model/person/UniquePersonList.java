@@ -40,6 +40,9 @@ public class UniquePersonList implements Iterable<Person> {
         setPersons(toBeCopied);
     }
 
+    /**
+     * Reset the data in personList to a set of new data.
+     */
     public void resetData(ObservableList<Person> newData) {
         requireNonNull(newData);
         setPersons(newData);

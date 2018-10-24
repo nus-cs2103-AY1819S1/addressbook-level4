@@ -20,10 +20,10 @@ import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -154,7 +154,7 @@ public class EditOccasionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(occasionName, occasionDate, occasionLocation,tags);
+            return CollectionUtil.isAnyNonNull(occasionName, occasionDate, occasionLocation, tags);
         }
 
         public void setOccasionName(OccasionName occasionName) {

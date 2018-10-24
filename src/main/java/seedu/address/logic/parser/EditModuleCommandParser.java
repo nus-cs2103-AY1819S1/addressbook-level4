@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.EditModuleCommand;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -15,8 +13,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -40,12 +38,15 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditModuleCommand.MESSAGE_USAGE), pe);
         }
 
-        EditModuleCommand.EditModuleDescriptor editModuleDescriptor = new EditModuleCommand.EditModuleDescriptor();
+        EditModuleCommand.EditModuleDescriptor editModuleDescriptor =
+                new EditModuleCommand.EditModuleDescriptor();
         if (argMultimap.getValue(PREFIX_MODULECODE).isPresent()) {
-            editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULECODE).get()));
+            editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(
+                    argMultimap.getValue(PREFIX_MODULECODE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULETITLE).isPresent()) {
             editModuleDescriptor.setModuleTitle(ParserUtil.parseModuleTitle(
