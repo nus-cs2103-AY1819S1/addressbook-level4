@@ -1,25 +1,25 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.address.commons.util.GsonUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.carpark.Address;
-import seedu.address.model.carpark.Carpark;
-import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.CarparkType;
-import seedu.address.model.carpark.Coordinate;
-import seedu.address.model.carpark.FreeParking;
-import seedu.address.model.carpark.LotsAvailable;
-import seedu.address.model.carpark.NightParking;
-import seedu.address.model.carpark.ShortTerm;
-import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.carpark.TypeOfParking;
+import seedu.parking.commons.util.GsonUtil;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Address;
+import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkNumber;
+import seedu.parking.model.carpark.CarparkType;
+import seedu.parking.model.carpark.Coordinate;
+import seedu.parking.model.carpark.FreeParking;
+import seedu.parking.model.carpark.LotsAvailable;
+import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.ShortTerm;
+import seedu.parking.model.carpark.TotalLots;
+import seedu.parking.model.carpark.TypeOfParking;
 
 /**
  * Queries when to get the car park information from the API.
@@ -63,7 +63,7 @@ public class QueryCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_ERROR_CARPARK);
         }
-        model.commitAddressBook();
+        model.commitCarparkFinder();
         numberChanged = model.compareParkingBook();
         return new CommandResult(numberChanged + MESSAGE_SUCCESS);
     }

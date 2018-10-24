@@ -1,11 +1,11 @@
-package seedu.address.commons.util;
+package seedu.parking.commons.util;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.parking.commons.core.Config;
+import seedu.parking.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

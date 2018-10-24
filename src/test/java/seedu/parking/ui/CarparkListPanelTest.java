@@ -22,7 +22,7 @@ import seedu.parking.commons.events.ui.JumpToListRequestEvent;
 import seedu.parking.commons.util.FileUtil;
 import seedu.parking.commons.util.XmlUtil;
 import seedu.parking.model.carpark.Carpark;
-import seedu.parking.storage.XmlSerializableAddressBook;
+import seedu.parking.storage.XmlSerializableCarparkFinder;
 
 public class CarparkListPanelTest extends GuiUnitTest {
     private static final ObservableList<Carpark> TYPICAL_CARPARKS = FXCollections.observableList(getTypicalCarparks());
@@ -81,9 +81,9 @@ public class CarparkListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Carpark> createBackingList(int carparkCount) throws Exception {
         Path xmlFile = createXmlFileWithCarparks(carparkCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getCarparkList());
+        XmlSerializableCarparkFinder xmlCarparkFinder =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableCarparkFinder.class);
+        return FXCollections.observableArrayList(xmlCarparkFinder.toModelType().getCarparkList());
     }
 
     /**
@@ -93,11 +93,11 @@ public class CarparkListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithCarparks(int carparkCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<carparkfinder>\n");
         for (int i = 0; i < carparkCount; i++) {
             builder.append("<carparks>\n");
             builder.append("<carparkNumber>").append(i).append("a</carparkNumber>\n");
-            builder.append("<parking>a</parking>\n");
+            builder.append("<address>a</address>\n");
             builder.append("<carparkType>b</carparkType>\n");
             builder.append("<coordinate>456.456, 123.123</coordinate>\n");
             builder.append("<totalLots>2</totalLots>\n");
@@ -108,7 +108,7 @@ public class CarparkListPanelTest extends GuiUnitTest {
             builder.append("<typeOfParking>t</typeOfParking>\n");
             builder.append("</carparks>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</carparkfinder>\n");
 
         Path manyCarparksFile = TEST_DATA_FOLDER.resolve("manyCarparks.xml");
         FileUtil.createFile(manyCarparksFile);

@@ -1,15 +1,15 @@
-package seedu.address.logic.parser;
+package seedu.parking.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
+import seedu.parking.logic.commands.FindCommand;
+import seedu.parking.logic.parser.exceptions.ParseException;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

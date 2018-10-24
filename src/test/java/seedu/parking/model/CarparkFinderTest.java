@@ -7,7 +7,7 @@ import static seedu.parking.logic.commands.CommandTestUtil.VALID_ADDRESS_JULIETT
 import static seedu.parking.logic.commands.CommandTestUtil.VALID_TAG_HOME;
 import static seedu.parking.testutil.TypicalCarparks.ALFA;
 import static seedu.parking.testutil.TypicalCarparks.JULIETT;
-import static seedu.parking.testutil.TypicalCarparks.getTypicalAddressBook;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,7 +24,7 @@ import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.carpark.exceptions.DuplicateCarparkException;
 import seedu.parking.testutil.CarparkBuilder;
 
-public class AddressBookTest {
+public class CarparkFinderTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,61 +39,61 @@ public class AddressBookTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        carparkFinder.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        CarparkFinder newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyCarparkFinder_replacesData() {
+        CarparkFinder newData = getTypicalCarparkFinder();
+        carparkFinder.resetData(newData);
+        assertEquals(newData, carparkFinder);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two carparks with the same identity fields
+        // Two car parks with the same identity fields
         Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
         List<Carpark> newPersons = Arrays.asList(JULIETT, editedJuliett);
         CarparkFinderStub newData = new CarparkFinderStub(newPersons);
 
         thrown.expect(DuplicateCarparkException.class);
-        addressBook.resetData(newData);
+        carparkFinder.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasCarpark(null);
+        carparkFinder.hasCarpark(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasCarpark(ALFA));
+    public void hasPerson_personNotInCarparkFinder_returnsFalse() {
+        assertFalse(carparkFinder.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addCarpark(ALFA);
-        assertTrue(addressBook.hasCarpark(ALFA));
+    public void hasPerson_personInCarparkFinder_returnsTrue() {
+        carparkFinder.addCarpark(ALFA);
+        assertTrue(carparkFinder.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addCarpark(JULIETT);
+    public void hasPerson_personWithSameIdentityFieldsInCarparkFinder_returnsTrue() {
+        carparkFinder.addCarpark(JULIETT);
         Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
-        assertTrue(addressBook.hasCarpark(editedJuliett));
+        assertTrue(carparkFinder.hasCarpark(editedJuliett));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getCarparkList().remove(0);
+        carparkFinder.getCarparkList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyCarparkFinder whose carparks list can violate interface constraints.
+     * A stub ReadOnlyCarparkFinder whose car parks list can violate interface constraints.
      */
     private static class CarparkFinderStub implements ReadOnlyCarparkFinder {
         private final ObservableList<Carpark> carparks = FXCollections.observableArrayList();

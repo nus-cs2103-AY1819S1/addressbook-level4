@@ -1,32 +1,32 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCarparks.CHARLIE;
-import static seedu.address.testutil.TypicalCarparks.ECHO;
-import static seedu.address.testutil.TypicalCarparks.FOXTROT;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
+import static seedu.parking.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.parking.testutil.TypicalCarparks.CHARLIE;
+import static seedu.parking.testutil.TypicalCarparks.ECHO;
+import static seedu.parking.testutil.TypicalCarparks.FOXTROT;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
+import seedu.parking.model.ModelManager;
+import seedu.parking.model.UserPrefs;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.parking;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,31 +10,30 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-//import seedu.address.model.AddressBook;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.parking.commons.core.Config;
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.core.Version;
+import seedu.parking.commons.events.ui.ExitAppRequestEvent;
+import seedu.parking.commons.exceptions.DataConversionException;
+import seedu.parking.commons.util.ConfigUtil;
+import seedu.parking.commons.util.StringUtil;
+import seedu.parking.logic.Logic;
+import seedu.parking.logic.LogicManager;
+import seedu.parking.model.CarparkFinder;
+import seedu.parking.model.Model;
+import seedu.parking.model.ModelManager;
+import seedu.parking.model.ReadOnlyCarparkFinder;
+import seedu.parking.model.UserPrefs;
+import seedu.parking.model.util.SampleDataUtil;
+import seedu.parking.storage.CarparkFinderStorage;
+import seedu.parking.storage.JsonUserPrefsStorage;
+import seedu.parking.storage.Storage;
+import seedu.parking.storage.StorageManager;
+import seedu.parking.storage.UserPrefsStorage;
+import seedu.parking.storage.XmlCarparkFinderStorage;
+import seedu.parking.ui.Ui;
+import seedu.parking.ui.UiManager;
 
 /**
  * The main entry point to the application.
@@ -55,7 +54,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing CarparkFinder ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -63,8 +62,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        CarparkFinderStorage carparkFinderStorage = new XmlCarparkFinderStorage(userPrefs.getCarparkFinderFilePath());
+        storage = new StorageManager(carparkFinderStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -78,25 +77,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s car park finder and {@code userPrefs}. <br>
+     * The data from the sample car park finder will be used instead if {@code storage}'s car park finder is not found,
+     * or an empty car park finder will be used instead if errors occur when reading {@code storage}'s car park finder.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyCarparkFinder> carparkFinderOptional;
+        ReadOnlyCarparkFinder initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            carparkFinderOptional = storage.readCarparkFinder();
+            if (!carparkFinderOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CarparkFinder");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty CarparkFinder");
+            initialData = new CarparkFinder();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty CarparkFinder");
+            initialData = new CarparkFinder();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -160,7 +159,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty CarparkFinder");
             initializedPrefs = new UserPrefs();
         }
 
@@ -180,13 +179,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Car Park Finder " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Car Park Finder ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

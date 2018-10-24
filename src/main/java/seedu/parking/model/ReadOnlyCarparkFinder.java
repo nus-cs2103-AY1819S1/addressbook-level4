@@ -6,11 +6,11 @@ import seedu.parking.model.carpark.Carpark;
 /**
  * Unmodifiable view of an car park finder
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyCarparkFinder {
 
     /**
-     * Returns an unmodifiable view of the carparks list.
-     * This list will not contain any duplicate carparks.
+     * Returns an unmodifiable view of the car parks list.
+     * This list will not contain any duplicate car parks.
      */
     ObservableList<Carpark> getCarparkList();
 

@@ -26,7 +26,7 @@ import seedu.parking.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class CarparkFinderParser {
 
     /**
      * Used for initial separation of command word and args.

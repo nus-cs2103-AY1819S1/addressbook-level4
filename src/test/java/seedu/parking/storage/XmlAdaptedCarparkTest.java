@@ -12,9 +12,9 @@ package seedu.parking.storage;
 //
 //import seedu.parking.commons.exceptions.IllegalValueException;
 //import seedu.parking.model.carpark.Address;
-//import seedu.parking.model.person.Email;
-//import seedu.parking.model.person.Name;
-//import seedu.parking.model.person.Phone;
+//import seedu.parking.model.carpark.Email;
+//import seedu.parking.model.carpark.Name;
+//import seedu.parking.model.carpark.Phone;
 //import seedu.parking.testutil.Assert;
 
 public class XmlAdaptedCarparkTest {
@@ -34,77 +34,77 @@ public class XmlAdaptedCarparkTest {
 //
 //    @Test
 //    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-//        XmlAdaptedCarpark person = new XmlAdaptedCarpark(BENSON);
-//        assertEquals(BENSON, person.toModelType());
+//        XmlAdaptedCarpark carpark = new XmlAdaptedCarpark(BENSON);
+//        assertEquals(BENSON, carpark.toModelType());
 //    }
 //
 //    @Test
 //    public void toModelType_invalidName_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person =
+//        XmlAdaptedCarpark carpark =
 //                new XmlAdaptedCarpark(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_nullName_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person = new XmlAdaptedCarpark(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+//        XmlAdaptedCarpark carpark = new XmlAdaptedCarpark(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_invalidPhone_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person =
+//        XmlAdaptedCarpark carpark =
 //                new XmlAdaptedCarpark(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_nullPhone_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person = new XmlAdaptedCarpark(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+//        XmlAdaptedCarpark carpark = new XmlAdaptedCarpark(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_invalidEmail_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person =
+//        XmlAdaptedCarpark carpark =
 //                new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_nullEmail_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person = new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
+//        XmlAdaptedCarpark carpark = new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_invalidAddress_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person =
+//        XmlAdaptedCarpark carpark =
 //                new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
 //        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_nullAddress_throwsIllegalValueException() {
-//        XmlAdaptedCarpark person = new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
+//        XmlAdaptedCarpark carpark = new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
 //        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-//        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, expectedMessage, carpark::toModelType);
 //    }
 //
 //    @Test
 //    public void toModelType_invalidTags_throwsIllegalValueException() {
 //        List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
 //        invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
-//        XmlAdaptedCarpark person =
+//        XmlAdaptedCarpark carpark =
 //                new XmlAdaptedCarpark(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
-//        Assert.assertThrows(IllegalValueException.class, person::toModelType);
+//        Assert.assertThrows(IllegalValueException.class, carpark::toModelType);
 //    }
 
 }

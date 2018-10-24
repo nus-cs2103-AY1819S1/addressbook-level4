@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,13 +7,13 @@ import java.util.List;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.carpark.CarparkHasFreeParkingPredicate;
-import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
-import seedu.address.model.carpark.CarparkIsOfTypePredicate;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.Model;
+import seedu.parking.model.carpark.CarparkHasFreeParkingPredicate;
+import seedu.parking.model.carpark.CarparkHasNightParkingPredicate;
+import seedu.parking.model.carpark.CarparkIsOfTypePredicate;
 
 
 /**

@@ -1,10 +1,10 @@
-package seedu.address.commons.events.ui;
+package seedu.parking.commons.events.ui;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.BaseEvent;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of carparks
+ * Indicates a request to jump to the list of car parks
  */
 public class JumpToListRequestEvent extends BaseEvent {
 

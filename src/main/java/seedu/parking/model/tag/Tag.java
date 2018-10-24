@@ -1,7 +1,7 @@
-package seedu.address.model.tag;
+package seedu.parking.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.parking.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag.

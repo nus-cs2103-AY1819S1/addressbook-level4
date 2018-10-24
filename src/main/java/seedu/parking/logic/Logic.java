@@ -1,10 +1,10 @@
-package seedu.address.logic;
+package seedu.parking.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.logic.commands.CommandResult;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.logic.parser.exceptions.ParseException;
+import seedu.parking.model.carpark.Carpark;
 
 /**
  * API of the Logic component
@@ -19,7 +19,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /** Returns an unmodifiable view of the filtered list of carparks */
+    /** Returns an unmodifiable view of the filtered list of car parks */
     ObservableList<Carpark> getFilteredCarparkList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */

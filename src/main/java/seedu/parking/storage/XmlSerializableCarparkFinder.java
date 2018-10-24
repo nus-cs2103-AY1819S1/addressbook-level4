@@ -15,8 +15,8 @@ import seedu.parking.model.carpark.Carpark;
 /**
  * An Immutable CarparkFinder that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+@XmlRootElement(name = "carparkfinder")
+public class XmlSerializableCarparkFinder {
 
     public static final String MESSAGE_DUPLICATE_CARPARK = "Car parks list contains duplicate car park(s).";
 
@@ -24,37 +24,37 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedCarpark> carparks;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableCarparkFinder.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableCarparkFinder() {
         carparks = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyCarparkFinder src) {
+    public XmlSerializableCarparkFinder(ReadOnlyCarparkFinder src) {
         this();
         carparks.addAll(src.getCarparkList().stream().map(XmlAdaptedCarpark::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code CarparkFinder} object.
+     * Converts this carparkfinder into the model's {@code CarparkFinder} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedCarpark}.
      */
     public CarparkFinder toModelType() throws IllegalValueException {
-        CarparkFinder addressBook = new CarparkFinder();
+        CarparkFinder carparkFinder = new CarparkFinder();
         for (XmlAdaptedCarpark c : carparks) {
             Carpark carpark = c.toModelType();
-            if (addressBook.hasCarpark(carpark)) {
+            if (carparkFinder.hasCarpark(carpark)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CARPARK);
             }
-            addressBook.addCarpark(carpark);
+            carparkFinder.addCarpark(carpark);
         }
-        return addressBook;
+        return carparkFinder;
     }
 
     @Override
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableCarparkFinder)) {
             return false;
         }
-        return carparks.equals(((XmlSerializableAddressBook) other).carparks);
+        return carparks.equals(((XmlSerializableCarparkFinder) other).carparks);
     }
 }

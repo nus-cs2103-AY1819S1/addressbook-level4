@@ -21,7 +21,7 @@ import java.util.List;
 import seedu.parking.commons.core.index.Index;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
-import seedu.parking.model.AddressBook;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
@@ -136,14 +136,14 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the parking book and the filtered carpark list in the {@code actualModel} remain unchanged <br>
+     * - the car park finder and the filtered car park list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        CarparkFinder expectedCarparkFinder = new CarparkFinder(actualModel.getCarparkFinder());
         List<Carpark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCarparkList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -153,7 +153,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedCarparkFinder, actualModel.getCarparkFinder());
             assertEquals(expectedFilteredList, actualModel.getFilteredCarparkList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -161,7 +161,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the carpark at the given {@code targetIndex} in the
-     * {@code model}'s parking book.
+     * {@code model}'s car park finder.
      */
     public static void showCarparkAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCarparkList().size());
@@ -173,12 +173,12 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first carpark in {@code model}'s filtered list from {@code model}'s parking book.
+     * Deletes the first carpark in {@code model}'s filtered list from {@code model}'s car park finder.
      */
     public static void deleteFirstCarpark(Model model) {
         Carpark firstCarpark = model.getFilteredCarparkList().get(0);
         model.deleteCarpark(firstCarpark);
-        model.commitAddressBook();
+        model.commitCarparkFinder();
     }
 
 }

@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.parking.commons.exceptions.IllegalValueException;
 import seedu.parking.commons.util.XmlUtil;
-import seedu.parking.model.AddressBook;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.testutil.TypicalCarparks;
 
 public class XmlSerializableCarparkFinderTest {
@@ -26,27 +26,27 @@ public class XmlSerializableCarparkFinderTest {
 
     @Test
     public void toModelType_typicalCarparksFile_success() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_CARPARKS_FILE,
-                XmlSerializableAddressBook.class);
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalCarparksAddressBook = TypicalCarparks.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalCarparksAddressBook);
+        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(TYPICAL_CARPARKS_FILE,
+                XmlSerializableCarparkFinder.class);
+        CarparkFinder carparkFinderFromFile = dataFromFile.toModelType();
+        CarparkFinder typicalCarparksCarparkFinder = TypicalCarparks.getTypicalCarparkFinder();
+        assertEquals(carparkFinderFromFile, typicalCarparksCarparkFinder);
     }
 
     @Test
     public void toModelType_invalidCarparkFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_CARPARK_FILE,
-                XmlSerializableAddressBook.class);
+        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(INVALID_CARPARK_FILE,
+                XmlSerializableCarparkFinder.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
     public void toModelType_duplicateCarparks_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_CARPARK_FILE,
-                XmlSerializableAddressBook.class);
+        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_CARPARK_FILE,
+                XmlSerializableCarparkFinder.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_CARPARK);
+        thrown.expectMessage(XmlSerializableCarparkFinder.MESSAGE_DUPLICATE_CARPARK);
         dataFromFile.toModelType();
     }
 

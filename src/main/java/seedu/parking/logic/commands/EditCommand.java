@@ -1,7 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARPARK;
+import static seedu.parking.model.Model.PREDICATE_SHOW_ALL_CARPARK;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,27 +9,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.carpark.Address;
-import seedu.address.model.carpark.Carpark;
-import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.CarparkType;
-import seedu.address.model.carpark.Coordinate;
-import seedu.address.model.carpark.FreeParking;
-import seedu.address.model.carpark.LotsAvailable;
-import seedu.address.model.carpark.NightParking;
-import seedu.address.model.carpark.ShortTerm;
-import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.carpark.TypeOfParking;
-import seedu.address.model.tag.Tag;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.commons.util.CollectionUtil;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Address;
+import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkNumber;
+import seedu.parking.model.carpark.CarparkType;
+import seedu.parking.model.carpark.Coordinate;
+import seedu.parking.model.carpark.FreeParking;
+import seedu.parking.model.carpark.LotsAvailable;
+import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.ShortTerm;
+import seedu.parking.model.carpark.TotalLots;
+import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.model.tag.Tag;
 
 /**
- * Edits the details of an existing car park in the address book.
+ * Edits the details of an existing car park in the car park finder.
  */
 public class EditCommand extends Command {
 
@@ -52,7 +52,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_CARPARK_SUCCESS = "Edited Carpark: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CARPARK = "This carpark already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "This carpark already exists in the car park finder.";
 
     private final Index index;
     private final EditCarparkDescriptor editCarparkDescriptor;
@@ -87,7 +87,7 @@ public class EditCommand extends Command {
 
         model.updateCarpark(carparkToEdit, editedCarpark);
         model.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
-        model.commitAddressBook();
+        model.commitCarparkFinder();
         return new CommandResult(String.format(MESSAGE_EDIT_CARPARK_SUCCESS, editedCarpark));
     }
 

@@ -18,31 +18,31 @@ import seedu.parking.model.ReadOnlyCarparkFinder;
 /**
  * A class to access CarparkFinder data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlCarparkFinderStorage implements CarparkFinderStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlCarparkFinderStorage.class);
 
     private Path filePath;
 
-    public XmlAddressBookStorage(Path filePath) {
+    public XmlCarparkFinderStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getCarparkFinderFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyCarparkFinder> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyCarparkFinder> readCarparkFinder() throws DataConversionException, IOException {
+        return readCarparkFinder(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readCarparkFinder()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyCarparkFinder> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyCarparkFinder> readCarparkFinder(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
@@ -51,9 +51,9 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableCarparkFinder xmlCarparkFinder = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlCarparkFinder.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyCarparkFinder addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder) throws IOException {
+        saveCarparkFinder(carparkFinder, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyCarparkFinder)}
+     * Similar to {@link #saveCarparkFinder(ReadOnlyCarparkFinder)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyCarparkFinder addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder, Path filePath) throws IOException {
+        requireNonNull(carparkFinder);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableCarparkFinder(carparkFinder));
     }
 
 }

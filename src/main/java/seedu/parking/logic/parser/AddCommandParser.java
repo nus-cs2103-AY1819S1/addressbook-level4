@@ -1,35 +1,35 @@
-package seedu.address.logic.parser;
+package seedu.parking.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_NUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COORD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE_PARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NIGHT_PARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE_PARK;
+import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_NUM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_COORD;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_FREE_PARK;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_NIGHT_PARK;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TYPE_PARK;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.carpark.Address;
-import seedu.address.model.carpark.Carpark;
-import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.CarparkType;
-import seedu.address.model.carpark.Coordinate;
-import seedu.address.model.carpark.FreeParking;
-import seedu.address.model.carpark.LotsAvailable;
-import seedu.address.model.carpark.NightParking;
-import seedu.address.model.carpark.ShortTerm;
-import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.carpark.TypeOfParking;
-import seedu.address.model.tag.Tag;
+import seedu.parking.logic.commands.AddCommand;
+import seedu.parking.logic.parser.exceptions.ParseException;
+import seedu.parking.model.carpark.Address;
+import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkNumber;
+import seedu.parking.model.carpark.CarparkType;
+import seedu.parking.model.carpark.Coordinate;
+import seedu.parking.model.carpark.FreeParking;
+import seedu.parking.model.carpark.LotsAvailable;
+import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.ShortTerm;
+import seedu.parking.model.carpark.TotalLots;
+import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object

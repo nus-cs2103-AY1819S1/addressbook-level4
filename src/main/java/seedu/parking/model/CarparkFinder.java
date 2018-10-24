@@ -12,7 +12,7 @@ import seedu.parking.model.carpark.UniqueCarparkList;
  * Wraps all data at the parking-book level
  * Duplicates are not allowed (by .isSameCarpark comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class CarparkFinder implements ReadOnlyCarparkFinder {
 
     private final UniqueCarparkList carparks;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         carparks = new UniqueCarparkList();
     }
 
-    public AddressBook() {}
+    public CarparkFinder() {}
 
     /**
-     * Creates an AddressBook using the car parks in the {@code toBeCopied}
+     * Creates an CarparkFinder using the car parks in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public CarparkFinder(ReadOnlyCarparkFinder toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CarparkFinder} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyCarparkFinder newData) {
         requireNonNull(newData);
 
         setCarparks(newData.getCarparkList());
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code CarparkFinder}.
      * {@code key} must exist in the car park finder.
      */
     public void removeCarpark(Carpark key) {
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && carparks.equals(((AddressBook) other).carparks));
+                || (other instanceof CarparkFinder // instanceof handles nulls
+                && carparks.equals(((CarparkFinder) other).carparks));
     }
 
     @Override

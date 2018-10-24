@@ -1,7 +1,7 @@
-package seedu.address.commons.events.ui;
+package seedu.parking.commons.events.ui;
 
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.commons.events.BaseEvent;
+import seedu.parking.model.carpark.Carpark;
 
 /**
  * Represents a selection change in the Car park List Panel

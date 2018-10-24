@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import seedu.parking.commons.core.index.Index;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Carpark;
-//import seedu.parking.model.person.Person;
+//import seedu.parking.model.carpark.Person;
 
 /**
  * A utility class for test cases.

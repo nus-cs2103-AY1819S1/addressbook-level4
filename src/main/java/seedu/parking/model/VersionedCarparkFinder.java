@@ -6,28 +6,28 @@ import java.util.List;
 import seedu.parking.model.carpark.Carpark;
 
 /**
- * {@code AddressBook} that keeps track of its own history.
+ * {@code CarparkFinder} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedCarparkFinder extends CarparkFinder {
 
-    private final List<ReadOnlyAddressBook> carparkFinderStateList;
+    private final List<ReadOnlyCarparkFinder> carparkFinderStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedCarparkFinder(ReadOnlyCarparkFinder initialState) {
         super(initialState);
 
         carparkFinderStateList = new ArrayList<>();
-        carparkFinderStateList.add(new AddressBook(initialState));
+        carparkFinderStateList.add(new CarparkFinder(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code CarparkFinder} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        carparkFinderStateList.add(new AddressBook(this));
+        carparkFinderStateList.add(new CarparkFinder(this));
         currentStatePointer++;
     }
 
@@ -97,16 +97,16 @@ public class VersionedAddressBook extends AddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedCarparkFinder)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedCarparkFinder otherVersionedCarparkFinder = (VersionedCarparkFinder) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && carparkFinderStateList.equals(otherVersionedAddressBook.carparkFinderStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedCarparkFinder)
+                && carparkFinderStateList.equals(otherVersionedCarparkFinder.carparkFinderStateList)
+                && currentStatePointer == otherVersionedCarparkFinder.currentStatePointer;
     }
 
     /**

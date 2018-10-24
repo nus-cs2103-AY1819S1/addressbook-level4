@@ -1,4 +1,4 @@
-package seedu.parking.model.person;
+package seedu.parking.model.carpark;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,13 +18,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.parking.model.carpark.Carpark;
-import seedu.parking.model.carpark.UniqueCarparkList;
 import seedu.parking.model.carpark.exceptions.CarparkNotFoundException;
 import seedu.parking.model.carpark.exceptions.DuplicateCarparkException;
 import seedu.parking.testutil.CarparkBuilder;
 
-public class UniquePersonListTest {
+public class UniqueCarparkListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

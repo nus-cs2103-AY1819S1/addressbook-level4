@@ -1,8 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

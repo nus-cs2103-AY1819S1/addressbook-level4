@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.parking.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,8 +13,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.model.CarparkFinderChangedEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -74,7 +74,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleCarparkFinderChangedEvent(CarparkFinderChangedEvent abce) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));

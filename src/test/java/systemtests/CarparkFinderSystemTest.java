@@ -50,7 +50,7 @@ import seedu.parking.ui.CommandBox;
  * A system test class for CarparkFinder, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class CarparkFinderSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -145,7 +145,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllCarparks() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getCarparkList().size(), getModel().getFilteredCarparkList().size());
+        assertEquals(getModel().getCarparkFinder().getCarparkList().size(), getModel().getFilteredCarparkList().size());
     }
 
     /**
@@ -153,7 +153,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showCarparksWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCarparkList().size() < getModel().getAddressBook().getCarparkList().size());
+        assertTrue(getModel().getFilteredCarparkList().size() < getModel().getCarparkFinder().getCarparkList().size());
     }
 
     /**
@@ -169,7 +169,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllCarparks() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getCarparkList().size());
+        assertEquals(0, getModel().getCarparkFinder().getCarparkList().size());
     }
 
     /**
@@ -181,7 +181,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CarparkFinder(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new CarparkFinder(expectedModel.getCarparkFinder()), testApp.readStorageCarparkFinder());
         assertListMatching(getCarparkListPanel(), expectedModel.getFilteredCarparkList());
     }
 

@@ -8,7 +8,7 @@ import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.model.Model;
 
 /**
- * Reverts the {@code model}'s parking book to its previous state.
+ * Reverts the {@code model}'s car park finder to its previous state.
  */
 public class UndoCommand extends Command {
 
@@ -20,11 +20,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndoCarparkFinder()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoAddressBook();
+        model.undoCarparkFinder();
         model.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
         return new CommandResult(MESSAGE_SUCCESS);
     }

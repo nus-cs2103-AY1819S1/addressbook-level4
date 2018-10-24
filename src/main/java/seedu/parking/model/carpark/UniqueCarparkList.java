@@ -1,15 +1,15 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.parking.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.carpark.exceptions.CarparkNotFoundException;
-import seedu.address.model.carpark.exceptions.DuplicateCarparkException;
+import seedu.parking.model.carpark.exceptions.CarparkNotFoundException;
+import seedu.parking.model.carpark.exceptions.DuplicateCarparkException;
 
 /**
  * A list of car parks that enforces uniqueness between its elements and does not allow nulls.
@@ -83,7 +83,7 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     }
 
     /**
-     * Replaces the contents of this list with {@code carparks}.
+     * Replaces the contents of this list with {@code car parks}.
      * {@code car parks} must not contain duplicate car parks.
      */
     public void setCarparks(List<Carpark> carparks) {

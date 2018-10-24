@@ -1,13 +1,13 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.parking.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.parking.model.tag.Tag;
 
 /**
  * Represents a car park.
@@ -102,8 +102,8 @@ public class Carpark {
     }
 
     /**
-     * Returns true if both carparks of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two carparks.
+     * Returns true if both car parks of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two car parks.
      */
     public boolean isSameCarpark(Carpark otherCarpark) {
         if (otherCarpark == this) {
@@ -118,8 +118,8 @@ public class Carpark {
     }
 
     /**
-     * Returns true if both carparks have the same identity and data fields.
-     * This defines a stronger notion of equality between two carparks.
+     * Returns true if both car parks have the same identity and data fields.
+     * This defines a stronger notion of equality between two car parks.
      */
     @Override
     public boolean equals(Object other) {

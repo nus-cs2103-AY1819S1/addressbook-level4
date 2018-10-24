@@ -15,11 +15,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.parking.model.AddressBook;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.storage.XmlAdaptedCarpark;
 import seedu.parking.storage.XmlAdaptedTag;
-import seedu.parking.storage.XmlSerializableAddressBook;
-import seedu.parking.testutil.AddressBookBuilder;
+import seedu.parking.storage.XmlSerializableCarparkFinder;
+import seedu.parking.testutil.CarparkFinderBuilder;
 import seedu.parking.testutil.CarparkBuilder;
 import seedu.parking.testutil.TestUtil;
 
@@ -55,7 +55,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.getDataFromFile(null, AddressBook.class);
+        XmlUtil.getDataFromFile(null, CarparkFinder.class);
     }
 
     @Test
@@ -67,18 +67,18 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, CarparkFinder.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_dataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, CarparkFinder.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        CarparkFinder dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableCarparkFinder.class).toModelType();
         assertEquals(9, dataFromFile.getCarparkList().size());
     }
 
@@ -118,7 +118,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.saveDataToFile(null, new AddressBook());
+        XmlUtil.saveDataToFile(null, new CarparkFinder());
     }
 
     @Test
@@ -130,23 +130,23 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
+        XmlUtil.saveDataToFile(MISSING_FILE, new CarparkFinder());
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
+        XmlSerializableCarparkFinder dataToWrite = new XmlSerializableCarparkFinder(new CarparkFinder());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableCarparkFinder.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(
+        CarparkFinderBuilder builder = new CarparkFinderBuilder(new CarparkFinder());
+        dataToWrite = new XmlSerializableCarparkFinder(
                 builder.withCarpark(new CarparkBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableCarparkFinder.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 

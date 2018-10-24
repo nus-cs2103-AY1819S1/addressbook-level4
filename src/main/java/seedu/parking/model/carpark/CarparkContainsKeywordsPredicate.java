@@ -1,9 +1,9 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.parking.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Carpark}'s {@code carparkNumber} matches any of the keywords given.

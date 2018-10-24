@@ -1,9 +1,9 @@
-package seedu.address.logic.parser;
+package seedu.parking.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.parking.logic.commands.Command;
+import seedu.parking.logic.parser.exceptions.ParseException;
 
 /**
  * Contains helper methods for testing command parsers.

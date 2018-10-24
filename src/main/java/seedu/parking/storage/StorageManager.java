@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.parking.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,27 +7,27 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.parking.commons.core.ComponentManager;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.model.CarparkFinderChangedEvent;
+import seedu.parking.commons.events.storage.DataSavingExceptionEvent;
+import seedu.parking.commons.exceptions.DataConversionException;
+import seedu.parking.model.ReadOnlyCarparkFinder;
+import seedu.parking.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of CarparkFinder data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private CarparkFinderStorage carparkFinderStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(CarparkFinderStorage carparkFinderStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.carparkFinderStorage = carparkFinderStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,42 +49,42 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ CarparkFinder methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getCarparkFinderFilePath() {
+        return carparkFinderStorage.getCarparkFinderFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyCarparkFinder> readCarparkFinder() throws DataConversionException, IOException {
+        return readCarparkFinder(carparkFinderStorage.getCarparkFinderFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCarparkFinder> readCarparkFinder(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return carparkFinderStorage.readCarparkFinder(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder) throws IOException {
+        saveCarparkFinder(carparkFinder, carparkFinderStorage.getCarparkFinderFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        carparkFinderStorage.saveCarparkFinder(carparkFinder, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleCarparkFinderChangedEvent(CarparkFinderChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveCarparkFinder(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

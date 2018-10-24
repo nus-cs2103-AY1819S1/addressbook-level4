@@ -1,26 +1,26 @@
-package seedu.address.model.util;
+package seedu.parking.model.util;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.carpark.Address;
-import seedu.address.model.carpark.Carpark;
-import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.CarparkType;
-import seedu.address.model.carpark.Coordinate;
-import seedu.address.model.carpark.FreeParking;
-import seedu.address.model.carpark.LotsAvailable;
-import seedu.address.model.carpark.NightParking;
-import seedu.address.model.carpark.ShortTerm;
-import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.carpark.TypeOfParking;
-import seedu.address.model.tag.Tag;
+import seedu.parking.model.CarparkFinder;
+import seedu.parking.model.ReadOnlyCarparkFinder;
+import seedu.parking.model.carpark.Address;
+import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkNumber;
+import seedu.parking.model.carpark.CarparkType;
+import seedu.parking.model.carpark.Coordinate;
+import seedu.parking.model.carpark.FreeParking;
+import seedu.parking.model.carpark.LotsAvailable;
+import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.ShortTerm;
+import seedu.parking.model.carpark.TotalLots;
+import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CarparkFinder} with sample data.
  */
 public class SampleDataUtil {
 
@@ -59,12 +59,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyCarparkFinder getSampleCarparkFinder() {
+        CarparkFinder sampleCf = new CarparkFinder();
         for (Carpark sampleCarpark : getSampleCarpark()) {
-            sampleAb.addCarpark(sampleCarpark);
+            sampleCf.addCarpark(sampleCarpark);
         }
-        return sampleAb;
+        return sampleCf;
     }
 
     /**

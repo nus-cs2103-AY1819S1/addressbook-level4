@@ -1,21 +1,21 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Carpark;
 
 /**
- * Adds a car park to the address book.
+ * Adds a car park to the car park finder.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_ALIAS = "a";
 
-    //public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a carpark to the address book. "
+    //public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a carpark to the car park finder. "
     //        + "Parameters: "
     //        + PREFIX_NAME + "NAME "
     //        + PREFIX_PHONE + "PHONE "
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = "We are not doing adds. Due for deletion.";
 
     public static final String MESSAGE_SUCCESS = "New car park added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARPARK = "This car park already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "This car park already exists in the car park finder";
 
     private final Carpark toAdd;
 
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         }
 
         model.addCarpark(toAdd);
-        model.commitAddressBook();
+        model.commitCarparkFinder();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

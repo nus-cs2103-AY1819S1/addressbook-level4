@@ -1,7 +1,7 @@
-package seedu.address.model;
+package seedu.parking.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.parking.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -10,92 +10,92 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.commons.core.ComponentManager;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.model.CarparkFinderChangedEvent;
+import seedu.parking.model.carpark.Carpark;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the car park finder data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedCarparkFinder versionedCarparkFinder;
     private final FilteredList<Carpark> filteredCarparks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given carparkFinder and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCarparkFinder carparkFinder, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(carparkFinder, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with car park finder: " + carparkFinder + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredCarparks = new FilteredList<>(versionedAddressBook.getCarparkList());
+        versionedCarparkFinder = new VersionedCarparkFinder(carparkFinder);
+        filteredCarparks = new FilteredList<>(versionedCarparkFinder.getCarparkList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new CarparkFinder(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyCarparkFinder newData) {
+        versionedCarparkFinder.resetData(newData);
+        indicateCarparkFinderChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyCarparkFinder getCarparkFinder() {
+        return versionedCarparkFinder;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateCarparkFinderChanged() {
+        raise(new CarparkFinderChangedEvent(versionedCarparkFinder));
     }
 
     @Override
     public boolean hasCarpark(Carpark carpark) {
         requireNonNull(carpark);
-        return versionedAddressBook.hasCarpark(carpark);
+        return versionedCarparkFinder.hasCarpark(carpark);
     }
 
     @Override
     public void deleteCarpark(Carpark target) {
-        versionedAddressBook.removeCarpark(target);
-        indicateAddressBookChanged();
+        versionedCarparkFinder.removeCarpark(target);
+        indicateCarparkFinderChanged();
     }
 
     @Override
     public void addCarpark(Carpark carpark) {
-        versionedAddressBook.addCarpark(carpark);
+        versionedCarparkFinder.addCarpark(carpark);
         updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
-        indicateAddressBookChanged();
+        indicateCarparkFinderChanged();
     }
 
     @Override
     public void updateCarpark(Carpark target, Carpark editedCarpark) {
         requireAllNonNull(target, editedCarpark);
 
-        versionedAddressBook.updateCarpark(target, editedCarpark);
-        indicateAddressBookChanged();
+        versionedCarparkFinder.updateCarpark(target, editedCarpark);
+        indicateCarparkFinderChanged();
     }
 
     @Override
     public void loadCarpark(List<Carpark> listCarkpark) {
-        versionedAddressBook.setCarparks(listCarkpark);
+        versionedCarparkFinder.setCarparks(listCarkpark);
         updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
-        indicateAddressBookChanged();
+        indicateCarparkFinderChanged();
     }
 
-    //=========== Filtered Carpark List Accessors ============================================================
+    //=========== Filtered Car Park List Accessors ============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Carpark} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedCarparkFinder}
      */
     @Override
     public ObservableList<Carpark> getFilteredCarparkList() {
@@ -111,35 +111,35 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoCarparkFinder() {
+        return versionedCarparkFinder.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoCarparkFinder() {
+        return versionedCarparkFinder.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoCarparkFinder() {
+        versionedCarparkFinder.undo();
+        indicateCarparkFinderChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoCarparkFinder() {
+        versionedCarparkFinder.redo();
+        indicateCarparkFinderChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitCarparkFinder() {
+        versionedCarparkFinder.commit();
     }
 
     @Override
     public int compareParkingBook() {
-        return versionedAddressBook.compare();
+        return versionedCarparkFinder.compare();
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedCarparkFinder.equals(other.versionedCarparkFinder)
                 && filteredCarparks.equals(other.filteredCarparks);
     }
 

@@ -1,7 +1,7 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.parking.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a car park's night parking.

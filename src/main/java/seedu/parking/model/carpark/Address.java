@@ -1,10 +1,10 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.parking.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a car park's address.
+ * Represents a car park's parking.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
@@ -13,7 +13,7 @@ public class Address {
             "Addresses can take any values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the parking must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
@@ -23,7 +23,7 @@ public class Address {
     /**
      * Constructs an {@code Address}.
      *
-     * @param address A valid address.
+     * @param address A valid parking.
      */
     public Address(String address) {
         requireNonNull(address);

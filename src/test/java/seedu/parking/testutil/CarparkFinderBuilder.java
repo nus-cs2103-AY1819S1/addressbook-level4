@@ -4,31 +4,31 @@ import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.carpark.Carpark;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building CarparkFinder objects.
  * Example usage: <br>
- *     {@code CarparkFinder ab = new AddressBookBuilder().withCarpark("John", "Doe").build();}
+ *     {@code CarparkFinder cf = new CarparkFinderBuilder().withCarpark("Y16", "BLK 349-355 CLEMENTI AVE 2").build();}
  */
-public class AddressBookBuilder {
+public class CarparkFinderBuilder {
 
-    private CarparkFinder addressBook;
+    private CarparkFinder carparkFinder;
 
-    public AddressBookBuilder() {
-        addressBook = new CarparkFinder();
+    public CarparkFinderBuilder() {
+        carparkFinder = new CarparkFinder();
     }
 
-    public AddressBookBuilder(CarparkFinder addressBook) {
-        this.addressBook = addressBook;
+    public CarparkFinderBuilder(CarparkFinder carparkFinder) {
+        this.carparkFinder = carparkFinder;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code CarparkFinder} that we are building.
+     * Adds a new {@code Carpark} to the {@code CarparkFinder} that we are building.
      */
-    public AddressBookBuilder withCarpark(Carpark carpark) {
-        addressBook.addCarpark(carpark);
+    public CarparkFinderBuilder withCarpark(Carpark carpark) {
+        carparkFinder.addCarpark(carpark);
         return this;
     }
 
     public CarparkFinder build() {
-        return addressBook;
+        return carparkFinder;
     }
 }

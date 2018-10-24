@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
- * Finds and lists all car parks in address book whose name contains any of the argument keywords.
+ * Finds and lists all car parks in car park finder whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

@@ -1,9 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.ui.ShowHelpRequestEvent;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
 
 /**
  * Format full help instructions for every command for display.

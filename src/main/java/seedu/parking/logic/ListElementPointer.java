@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.parking.logic;
 
 import java.util.ArrayList;
 import java.util.List;

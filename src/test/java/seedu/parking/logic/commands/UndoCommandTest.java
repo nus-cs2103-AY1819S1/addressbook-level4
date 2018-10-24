@@ -1,22 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstCarpark;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.parking.logic.commands.CommandTestUtil.deleteFirstCarpark;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
+import seedu.parking.model.ModelManager;
+import seedu.parking.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -32,11 +32,11 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoCarparkFinder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoCarparkFinder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.parking.testutil.TypicalCarparks.ALFA;
 import static seedu.parking.testutil.TypicalCarparks.HOTEL;
 import static seedu.parking.testutil.TypicalCarparks.INDIA;
-import static seedu.parking.testutil.TypicalCarparks.getTypicalAddressBook;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,8 +17,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.parking.commons.exceptions.DataConversionException;
-import seedu.parking.model.AddressBook;
-import seedu.parking.model.ReadOnlyAddressBook;
+import seedu.parking.model.CarparkFinder;
+import seedu.parking.model.ReadOnlyCarparkFinder;
 
 public class XmlCarparkFinderStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlCarparkFinderStorageTest");
@@ -30,13 +30,13 @@ public class XmlCarparkFinderStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readCarparkFinder_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readCarparkFinder(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyCarparkFinder> readCarparkFinder(String filePath) throws Exception {
+        return new XmlCarparkFinderStorage(Paths.get(filePath)).readCarparkFinder(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,14 +47,14 @@ public class XmlCarparkFinderStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readCarparkFinder("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatCarparkFinder.xml");
+        readCarparkFinder("NotXmlFormatCarparkFinder.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,65 +62,65 @@ public class XmlCarparkFinderStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidCarparkAddressBook_throwDataConversionException() throws Exception {
+    public void readCarparkFinder_invalidCarparkCarparkFinder_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidCarparkCarparkFinder.xml");
+        readCarparkFinder("invalidCarparkCarparkFinder.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readCarparkFinder_invalidAndValidPersonCarparkFinder_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidCarparkCarparkFinder.xml");
+        readCarparkFinder("invalidAndValidCarparkCarparkFinder.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        AddressBook original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+    public void readAndSaveCarparkFinder_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempCarparkFinder.xml");
+        CarparkFinder original = getTypicalCarparkFinder();
+        XmlCarparkFinderStorage xmlCarparkFinderStorage = new XmlCarparkFinderStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlCarparkFinderStorage.saveCarparkFinder(original, filePath);
+        ReadOnlyCarparkFinder readBack = xmlCarparkFinderStorage.readCarparkFinder(filePath).get();
+        assertEquals(original, new CarparkFinder(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addCarpark(HOTEL);
         original.removeCarpark(ALFA);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlCarparkFinderStorage.saveCarparkFinder(original, filePath);
+        readBack = xmlCarparkFinderStorage.readCarparkFinder(filePath).get();
+        assertEquals(original, new CarparkFinder(readBack));
 
         //Save and read without specifying file path
         original.addCarpark(INDIA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        xmlCarparkFinderStorage.saveCarparkFinder(original); //file path not specified
+        readBack = xmlCarparkFinderStorage.readCarparkFinder().get(); //file path not specified
+        assertEquals(original, new CarparkFinder(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveCarparkFinder_nullCarparkFinder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveCarparkFinder(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code carparkFinder} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder, String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new XmlCarparkFinderStorage(Paths.get(filePath))
+                    .saveCarparkFinder(carparkFinder, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveCarparkFinder_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveCarparkFinder(new CarparkFinder(), null);
     }
 
 }

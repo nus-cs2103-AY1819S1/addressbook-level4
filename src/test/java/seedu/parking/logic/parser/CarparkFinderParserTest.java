@@ -27,11 +27,11 @@ import seedu.parking.logic.commands.UndoCommand;
 import seedu.parking.logic.parser.exceptions.ParseException;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
-public class AddressBookParserTest {
+public class CarparkFinderParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final CarparkFinderParser parser = new CarparkFinderParser();
 
     @Test
     public void parseCommand_clear() throws Exception {

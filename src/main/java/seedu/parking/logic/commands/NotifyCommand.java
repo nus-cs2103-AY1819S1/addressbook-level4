@@ -62,7 +62,7 @@ public class NotifyCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_ERROR_CARPARK);
         }
-        model.commitAddressBook();
+        model.commitCarparkFinder();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

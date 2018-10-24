@@ -10,7 +10,7 @@ package seedu.parking.testutil;
 //
 //import seedu.parking.logic.commands.AddCommand;
 //import seedu.parking.logic.commands.EditCommand.EditCarparkDescriptor;
-//import seedu.parking.model.person.Person;
+//import seedu.parking.model.carpark.Person;
 //import seedu.parking.model.tag.Tag;
 
 /**
@@ -21,20 +21,20 @@ public class PersonUtil {
 //    /**
 //     * Returns an add command string for adding the {@code carpark}.
 //     */
-//    public static String getAddCommand(Person person) {
-//        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+//    public static String getAddCommand(Person carpark) {
+//        return AddCommand.COMMAND_WORD + " " + getPersonDetails(carpark);
 //    }
 //
 //    /**
 //     * Returns the part of command string for the given {@code carpark}'s details.
 //     */
-//    public static String getPersonDetails(Person person) {
+//    public static String getPersonDetails(Person carpark) {
 //        StringBuilder sb = new StringBuilder();
-//        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-//        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-//        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-//        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-//        person.getTags().stream().forEach(
+//        sb.append(PREFIX_NAME + carpark.getName().fullName + " ");
+//        sb.append(PREFIX_PHONE + carpark.getPhone().value + " ");
+//        sb.append(PREFIX_EMAIL + carpark.getEmail().value + " ");
+//        sb.append(PREFIX_ADDRESS + carpark.getAddress().value + " ");
+//        carpark.getTags().stream().forEach(
 //            s -> sb.append(PREFIX_TAG + s.tagName + " ")
 //        );
 //        return sb.toString();

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.parking.ui;
 
 import java.util.Optional;
 
@@ -8,11 +8,11 @@ import org.junit.Rule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.ui.testutil.UiPartRule;
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.ui.testutil.UiPartRule;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for CarparkFinder.
  */
 public abstract class GuiUnitTest {
     @Rule

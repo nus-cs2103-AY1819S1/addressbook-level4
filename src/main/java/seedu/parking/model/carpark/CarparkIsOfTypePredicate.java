@@ -1,4 +1,4 @@
-package seedu.address.model.carpark;
+package seedu.parking.model.carpark;
 
 import java.util.function.Predicate;
 

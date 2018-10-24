@@ -1,10 +1,10 @@
-package seedu.address.model;
+package seedu.parking.model;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.model.carpark.Carpark;
 
 /**
  * The API of the Model component.
@@ -14,33 +14,33 @@ public interface Model {
     Predicate<Carpark> PREDICATE_SHOW_ALL_CARPARK = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyCarparkFinder newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CarparkFinder */
+    ReadOnlyCarparkFinder getCarparkFinder();
 
     /**
-     * Returns true if a car park with the same identity as {@code carpark} exists in the address book.
+     * Returns true if a car park with the same identity as {@code carpark} exists in the car park finder.
      */
     boolean hasCarpark(Carpark carpark);
 
     /**
      * Deletes the given car park.
-     * The car park must exist in the address book.
+     * The car park must exist in the car park finder.
      */
     void deleteCarpark(Carpark target);
 
     /**
      * Adds the given car park.
-     * {@code carpark} must not already exist in the address book.
+     * {@code carpark} must not already exist in the car park finder.
      */
     void addCarpark(Carpark carpark);
 
     /**
      * Replaces the given car park {@code target} with {@code editedCarpark}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the car park finder.
      * The car park identity of {@code editedCarpark} must not be the same
-     * as another existing car park in the address book.
+     * as another existing car park in the car park finder.
      */
     void updateCarpark(Carpark target, Carpark editedCarpark);
 
@@ -59,32 +59,32 @@ public interface Model {
     void updateFilteredCarparkList(Predicate<Carpark> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous car park finder states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoCarparkFinder();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone car park finder states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoCarparkFinder();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's car park finder to its previous state.
      */
-    void undoAddressBook();
+    void undoCarparkFinder();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's car park finder to its previously undone state.
      */
-    void redoAddressBook();
+    void redoCarparkFinder();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current car park finder state for undo/redo.
      */
-    void commitAddressBook();
+    void commitCarparkFinder();
 
     /**
-     * Compares the current parking book state to its previous state.
+     * Compares the current car park finder state to its previous state.
      */
     int compareParkingBook();
 }

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.parking.ui;
 
 import java.util.logging.Logger;
 
@@ -7,13 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.ListElementPointer;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.logic.ListElementPointer;
+import seedu.parking.logic.Logic;
+import seedu.parking.logic.commands.CommandResult;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

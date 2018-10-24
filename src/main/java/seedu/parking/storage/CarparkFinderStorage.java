@@ -11,12 +11,12 @@ import seedu.parking.model.ReadOnlyCarparkFinder;
 /**
  * Represents a storage for {@link CarparkFinder}.
  */
-public interface AddressBookStorage {
+public interface CarparkFinderStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getCarparkFinderFilePath();
 
     /**
      * Returns CarparkFinder data as a {@link ReadOnlyCarparkFinder}.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyCarparkFinder> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyCarparkFinder> readCarparkFinder() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getCarparkFinderFilePath()
      */
-    Optional<ReadOnlyCarparkFinder> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyCarparkFinder> readCarparkFinder(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyCarparkFinder} to the storage.
-     * @param addressBook cannot be null.
+     * @param carparkFinder cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyCarparkFinder addressBook) throws IOException;
+    void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyCarparkFinder)
+     * @see #saveCarparkFinder(ReadOnlyCarparkFinder)
      */
-    void saveAddressBook(ReadOnlyCarparkFinder addressBook, Path filePath) throws IOException;
+    void saveCarparkFinder(ReadOnlyCarparkFinder carparkFinder, Path filePath) throws IOException;
 
 }

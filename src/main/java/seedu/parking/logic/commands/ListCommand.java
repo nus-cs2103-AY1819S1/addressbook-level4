@@ -1,13 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARPARK;
+import static seedu.parking.model.Model.PREDICATE_SHOW_ALL_CARPARK;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
 
 /**
- * Lists all carparks in the address book to the user.
+ * Lists all car parks in the car park finder to the user.
  */
 public class ListCommand extends Command {
 

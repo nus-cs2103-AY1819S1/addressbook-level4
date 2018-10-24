@@ -1,15 +1,15 @@
-package seedu.address.ui;
+package seedu.parking.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCarpark;
+import static seedu.parking.ui.testutil.GuiTestAssert.assertCardDisplaysCarpark;
 
 import org.junit.Test;
 
 import guitests.guihandles.CarparkCardHandle;
-import seedu.address.model.carpark.Carpark;
-import seedu.address.testutil.CarparkBuilder;
+import seedu.parking.model.carpark.Carpark;
+import seedu.parking.testutil.CarparkBuilder;
 
 public class CarparkCardTest extends GuiUnitTest {
 

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.parking.model.AddressBook;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.carpark.Carpark;
 
 /**
@@ -100,10 +100,10 @@ public class TypicalCarparks {
     private TypicalCarparks() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical car parks.
+     * Returns an {@code CarparkFinder} with all the typical car parks.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static CarparkFinder getTypicalCarparkFinder() {
+        CarparkFinder ab = new CarparkFinder();
         for (Carpark carpark : getTypicalCarparks()) {
             ab.addCarpark(carpark);
         }

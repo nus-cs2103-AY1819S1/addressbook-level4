@@ -1,13 +1,13 @@
-//package seedu.address.testutil;
+//package seedu.parking.testutil;
 //
 //import java.util.Set;
 //import java.util.stream.Collectors;
 //import java.util.stream.Stream;
 //
-//import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.EditCommand.EditCarparkDescriptor;
-//import seedu.address.model.carpark.Address;
-//import seedu.address.model.tag.Tag;
+//import seedu.parking.logic.commands.EditCommand;
+//import seedu.parking.logic.commands.EditCommand.EditCarparkDescriptor;
+//import seedu.parking.model.carpark.Address;
+//import seedu.parking.model.tag.Tag;
 //
 ///**
 // * A utility class to help with building EditCarparkDescriptor objects.
@@ -27,13 +27,13 @@
 //    /**
 //     * Returns an {@code EditCarparkDescriptor} with fields containing {@code carpark}'s details
 //     */
-//    public EditPersonDescriptorBuilder(Person person) {
+//    public EditPersonDescriptorBuilder(Person carpark) {
 //        descriptor = new EditCommand.EditCarparkDescriptor();
-//        descriptor.setName(person.getName());
-//        descriptor.setPhone(person.getPhone());
-//        descriptor.setEmail(person.getEmail());
-//        descriptor.setAddress(person.getAddress());
-//        descriptor.setTags(person.getTags());
+//        descriptor.setName(carpark.getName());
+//        descriptor.setPhone(carpark.getPhone());
+//        descriptor.setEmail(carpark.getEmail());
+//        descriptor.setAddress(carpark.getAddress());
+//        descriptor.setTags(carpark.getTags());
 //    }
 //
 //    /**
@@ -63,8 +63,8 @@
 //    /**
 //     * Sets the {@code Address} of the {@code EditCarparkDescriptor} that we are building.
 //     */
-//    public EditPersonDescriptorBuilder withAddress(String address) {
-//        descriptor.setAddress(new Address(address));
+//    public EditPersonDescriptorBuilder withAddress(String parking) {
+//        descriptor.setAddress(new Address(parking));
 //        return this;
 //    }
 //

@@ -14,286 +14,286 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.parking.testutil.AddressBookBuilder;
+import seedu.parking.testutil.CarparkFinderBuilder;
 
-public class VersionedAddressBookTest {
+public class VersionedCarparkFinderTest {
 
-    private final ReadOnlyCarparkFinder addressBookWithJuliett = new AddressBookBuilder().withCarpark(JULIETT).build();
-    private final ReadOnlyCarparkFinder addressBookWithKilo = new AddressBookBuilder().withCarpark(KILO).build();
-    private final ReadOnlyCarparkFinder addressBookWithCharlie = new AddressBookBuilder().withCarpark(CHARLIE).build();
-    private final ReadOnlyCarparkFinder emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyCarparkFinder carparkFinderWithJuliett = new CarparkFinderBuilder().withCarpark(JULIETT).build();
+    private final ReadOnlyCarparkFinder carparkFinderWithKilo = new CarparkFinderBuilder().withCarpark(KILO).build();
+    private final ReadOnlyCarparkFinder carparkFinderWithCharlie = new CarparkFinderBuilder().withCarpark(CHARLIE).build();
+    private final ReadOnlyCarparkFinder emptyCarparkFinder = new CarparkFinderBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleCarparkFinder_noStatesRemovedCurrentStateSaved() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedCarparkFinder.commit();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Collections.singletonList(emptyCarparkFinder),
+                emptyCarparkFinder,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
+    public void commit_multipleCarparkFinderPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithJuliett, addressBookWithKilo),
-                addressBookWithKilo,
+        versionedCarparkFinder.commit();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Arrays.asList(emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo),
+                carparkFinderWithKilo,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void commit_multipleCarparkFinderPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedCarparkFinder.commit();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Collections.singletonList(emptyCarparkFinder),
+                emptyCarparkFinder,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
+    public void canUndo_multipleCarparkFinderPointerAtEndOfStateList_returnsTrue() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedCarparkFinder.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canUndo_multipleCarparkFinderPointerAtStartOfStateList_returnsTrue() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 1);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedCarparkFinder.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleCarparkFinder_returnsFalse() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedCarparkFinder.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canUndo_multipleCarparkFinderPointerAtStartOfStateList_returnsFalse() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedCarparkFinder.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canRedo_multipleCarparkFinderPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 1);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedCarparkFinder.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canRedo_multipleCarparkFinderPointerAtStartOfStateList_returnsTrue() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedCarparkFinder.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleCarparkFinder_returnsFalse() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedCarparkFinder.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
+    public void canRedo_multipleCarparkFinderPointerAtEndOfStateList_returnsFalse() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedCarparkFinder.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
+    public void undo_multipleCarparkFinderPointerAtEndOfStateList_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithJuliett,
-                Collections.singletonList(addressBookWithKilo));
+        versionedCarparkFinder.undo();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Collections.singletonList(emptyCarparkFinder),
+                carparkFinderWithJuliett,
+                Collections.singletonList(carparkFinderWithKilo));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void undo_multipleCarparkFinderPointerNotAtStartOfStateList_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 1);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
+        versionedCarparkFinder.undo();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithJuliett, addressBookWithKilo));
+                emptyCarparkFinder,
+                Arrays.asList(carparkFinderWithJuliett, carparkFinderWithKilo));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleCarparkFinder_throwsNoUndoableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
 
-        assertThrows(VersionedCarparkFinder.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedCarparkFinder.NoUndoableStateException.class, versionedCarparkFinder::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void undo_multipleCarparkFinderPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
 
-        assertThrows(VersionedCarparkFinder.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedCarparkFinder.NoUndoableStateException.class, versionedCarparkFinder::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void redo_multipleCarparkFinderPointerNotAtEndOfStateList_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 1);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithJuliett),
-                addressBookWithKilo,
+        versionedCarparkFinder.redo();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Arrays.asList(emptyCarparkFinder, carparkFinderWithJuliett),
+                carparkFinderWithKilo,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void redo_multipleCarparkFinderPointerAtStartOfStateList_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithJuliett,
-                Collections.singletonList(addressBookWithKilo));
+        versionedCarparkFinder.redo();
+        assertCarparkFinderListStatus(versionedCarparkFinder,
+                Collections.singletonList(emptyCarparkFinder),
+                carparkFinderWithJuliett,
+                Collections.singletonList(carparkFinderWithKilo));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleCarparkFinder_throwsNoRedoableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
 
-        assertThrows(VersionedCarparkFinder.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedCarparkFinder.NoRedoableStateException.class, versionedCarparkFinder::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithJuliett, addressBookWithKilo);
+    public void redo_multipleCarparkFinderPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
 
-        assertThrows(VersionedCarparkFinder.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedCarparkFinder.NoRedoableStateException.class, versionedCarparkFinder::redo);
     }
 
     @Test
     public void equals() {
-        VersionedCarparkFinder versionedAddressBook = prepareAddressBookList(addressBookWithJuliett, addressBookWithKilo);
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(carparkFinderWithJuliett, carparkFinderWithKilo);
 
         // same values -> returns true
-        VersionedCarparkFinder copy = prepareAddressBookList(addressBookWithJuliett, addressBookWithKilo);
-        assertTrue(versionedAddressBook.equals(copy));
+        VersionedCarparkFinder copy = prepareCarparkFinderList(carparkFinderWithJuliett, carparkFinderWithKilo);
+        assertTrue(versionedCarparkFinder.equals(copy));
 
         // same object -> returns true
-        assertTrue(versionedAddressBook.equals(versionedAddressBook));
+        assertTrue(versionedCarparkFinder.equals(versionedCarparkFinder));
 
         // null -> returns false
-        assertFalse(versionedAddressBook.equals(null));
+        assertFalse(versionedCarparkFinder.equals(null));
 
         // different types -> returns false
-        assertFalse(versionedAddressBook.equals(1));
+        assertFalse(versionedCarparkFinder.equals(1));
 
         // different state list -> returns false
-        VersionedCarparkFinder differentAddressBookList = prepareAddressBookList(
-                addressBookWithKilo, addressBookWithCharlie);
-        assertFalse(versionedAddressBook.equals(differentAddressBookList));
+        VersionedCarparkFinder differentCarparkFinderList = prepareCarparkFinderList(
+                carparkFinderWithKilo, carparkFinderWithCharlie);
+        assertFalse(versionedCarparkFinder.equals(differentCarparkFinderList));
 
         // different current pointer index -> returns false
-        VersionedCarparkFinder differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithJuliett, addressBookWithKilo);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
-        assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
+        VersionedCarparkFinder differentCurrentStatePointer = prepareCarparkFinderList(
+                carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 1);
+        assertFalse(versionedCarparkFinder.equals(differentCurrentStatePointer));
     }
 
     /**
-     * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * Asserts that {@code versionedCarparkFinder} is currently pointing at {@code expectedCurrentState},
+     * states before {@code versionedCarparkFinder#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
+     * and states after {@code versionedCarparkFinder#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedCarparkFinder versionedAddressBook,
+    private void assertCarparkFinderListStatus(VersionedCarparkFinder versionedCarparkFinder,
                                              List<ReadOnlyCarparkFinder> expectedStatesBeforePointer,
                                              ReadOnlyCarparkFinder expectedCurrentState,
                                              List<ReadOnlyCarparkFinder> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new CarparkFinder(versionedAddressBook), expectedCurrentState);
+        assertEquals(new CarparkFinder(versionedCarparkFinder), expectedCurrentState);
 
         // shift pointer to start of state list
-        while (versionedAddressBook.canUndo()) {
-            versionedAddressBook.undo();
+        while (versionedCarparkFinder.canUndo()) {
+            versionedCarparkFinder.undo();
         }
 
         // check states before pointer are correct
-        for (ReadOnlyCarparkFinder expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new CarparkFinder(versionedAddressBook));
-            versionedAddressBook.redo();
+        for (ReadOnlyCarparkFinder expectedCarparkFinder : expectedStatesBeforePointer) {
+            assertEquals(expectedCarparkFinder, new CarparkFinder(versionedCarparkFinder));
+            versionedCarparkFinder.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyCarparkFinder expectedAddressBook : expectedStatesAfterPointer) {
-            versionedAddressBook.redo();
-            assertEquals(expectedAddressBook, new CarparkFinder(versionedAddressBook));
+        for (ReadOnlyCarparkFinder expectedCarparkFinder : expectedStatesAfterPointer) {
+            versionedCarparkFinder.redo();
+            assertEquals(expectedCarparkFinder, new CarparkFinder(versionedCarparkFinder));
         }
 
         // check that there are no more states after pointer
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedCarparkFinder.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> versionedAddressBook.undo());
+        expectedStatesAfterPointer.forEach(unused -> versionedCarparkFinder.undo());
     }
 
     /**
-     * Creates and returns a {@code VersionedCarparkFinder} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedCarparkFinder} with the {@code CarparkFinderStates} added into it, and the
      * {@code VersionedCarparkFinder#currentStatePointer} at the end of list.
      */
-    private VersionedCarparkFinder prepareAddressBookList(ReadOnlyCarparkFinder... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedCarparkFinder prepareCarparkFinderList(ReadOnlyCarparkFinder... CarparkFinderStates) {
+        assertFalse(CarparkFinderStates.length == 0);
 
-        VersionedCarparkFinder versionedAddressBook = new VersionedCarparkFinder(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedAddressBook.resetData(addressBookStates[i]);
-            versionedAddressBook.commit();
+        VersionedCarparkFinder versionedCarparkFinder = new VersionedCarparkFinder(CarparkFinderStates[0]);
+        for (int i = 1; i < CarparkFinderStates.length; i++) {
+            versionedCarparkFinder.resetData(CarparkFinderStates[i]);
+            versionedCarparkFinder.commit();
         }
 
-        return versionedAddressBook;
+        return versionedCarparkFinder;
     }
 
     /**
-     * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
+     * Shifts the {@code versionedCarparkFinder#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedCarparkFinder versionedAddressBook, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedCarparkFinder versionedCarparkFinder, int count) {
         for (int i = 0; i < count; i++) {
-            versionedAddressBook.undo();
+            versionedCarparkFinder.undo();
         }
     }
 }

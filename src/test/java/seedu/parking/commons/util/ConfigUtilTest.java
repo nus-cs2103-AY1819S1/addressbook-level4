@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.parking.commons.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,8 +14,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.parking.commons.core.Config;
+import seedu.parking.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 

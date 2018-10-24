@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.parking.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,20 +6,20 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.carpark.Address;
-import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.CarparkType;
-import seedu.address.model.carpark.Coordinate;
-import seedu.address.model.carpark.FreeParking;
-import seedu.address.model.carpark.LotsAvailable;
-import seedu.address.model.carpark.NightParking;
-import seedu.address.model.carpark.ShortTerm;
-import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.carpark.TypeOfParking;
-import seedu.address.model.tag.Tag;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.commons.util.StringUtil;
+import seedu.parking.logic.parser.exceptions.ParseException;
+import seedu.parking.model.carpark.Address;
+import seedu.parking.model.carpark.CarparkNumber;
+import seedu.parking.model.carpark.CarparkType;
+import seedu.parking.model.carpark.Coordinate;
+import seedu.parking.model.carpark.FreeParking;
+import seedu.parking.model.carpark.LotsAvailable;
+import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.ShortTerm;
+import seedu.parking.model.carpark.TotalLots;
+import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -42,10 +42,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String parking} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code parking} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);

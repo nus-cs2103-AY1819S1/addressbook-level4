@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.parking.ui;
 
 import java.util.logging.Logger;
 
@@ -10,10 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
+import seedu.parking.commons.events.ui.JumpToListRequestEvent;
+import seedu.parking.model.carpark.Carpark;
 
 /**
  * Panel containing the list of car parks.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<carparkfinder>
     <!-- Valid Car park -->
     <carparks>
         <address>BLK 508-517,520-533 HOUGANG AVENUE 10</address>
@@ -28,4 +28,4 @@
         <typeOfParking>ELECTRONIC PARKING</typeOfParking>
         <tagged>Home</tagged>
     </carparks>
-</addressbook>
+</carparkfinder>

@@ -1,35 +1,35 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.CarparkFinder;
+import seedu.parking.model.Model;
+import seedu.parking.model.ModelManager;
+import seedu.parking.model.UserPrefs;
 
 public class ClearCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyCarparkFinder_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitCarparkFinder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.resetData(new AddressBook());
-        expectedModel.commitAddressBook();
+    public void execute_nonEmptyCarparkFinder_success() {
+        Model model = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
+        expectedModel.resetData(new CarparkFinder());
+        expectedModel.commitCarparkFinder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

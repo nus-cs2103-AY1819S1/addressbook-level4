@@ -1,29 +1,29 @@
-package seedu.address.logic.commands;
+package seedu.parking.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARPARK;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.parking.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.parking.logic.commands.CommandTestUtil.showCarparkAtIndex;
+import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
+import static seedu.parking.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
+import static seedu.parking.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
+import static seedu.parking.testutil.TypicalIndexes.INDEX_THIRD_CARPARK;
 
 import java.io.IOException;
 
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.ui.testutil.EventsCollectorRule;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.commons.events.ui.JumpToListRequestEvent;
+import seedu.parking.logic.CommandHistory;
+import seedu.parking.model.Model;
+import seedu.parking.model.ModelManager;
+import seedu.parking.model.UserPrefs;
+import seedu.parking.ui.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -32,8 +32,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCarparkFinder(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     public SelectCommandTest() throws IOException {
@@ -69,8 +69,8 @@ public class SelectCommandTest {
         showCarparkAtIndex(expectedModel, INDEX_FIRST_CARPARK);
 
         Index outOfBoundsIndex = INDEX_SECOND_CARPARK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getCarparkList().size());
+        // ensures that outOfBoundIndex is still in bounds of car park finder list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getCarparkFinder().getCarparkList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
     }

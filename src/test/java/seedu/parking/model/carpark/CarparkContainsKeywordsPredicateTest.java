@@ -1,4 +1,4 @@
-package seedu.parking.model.person;
+package seedu.parking.model.carpark;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.testutil.CarparkBuilder;
 
 public class CarparkContainsKeywordsPredicateTest {

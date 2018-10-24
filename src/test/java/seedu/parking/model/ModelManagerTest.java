@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
-import seedu.parking.testutil.AddressBookBuilder;
+import seedu.parking.testutil.CarparkFinderBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -31,12 +31,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInCarparkFinder_returnsFalse() {
         assertFalse(modelManager.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInCarparkFinder_returnsTrue() {
         modelManager.addCarpark(ALFA);
         assertTrue(modelManager.hasCarpark(ALFA));
     }
@@ -49,13 +49,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withCarpark(ALFA).withCarpark(BRAVO).build();
-        AddressBook differentAddressBook = new AddressBook();
+        CarparkFinder carparkFinder = new CarparkFinderBuilder().withCarpark(ALFA).withCarpark(BRAVO).build();
+        CarparkFinder differentCarparkFinder = new CarparkFinder();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(carparkFinder, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(carparkFinder, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -67,22 +67,22 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different carparkFinder -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentCarparkFinder, userPrefs)));
 
         // different filteredList -> returns false
         List<String> temp = new ArrayList<>();
         temp.add(ALFA.getCarparkNumber().value);
         String[] keywords = temp.toArray(new String[0]);
         modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(carparkFinder, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setCarparkFinderFilePath(Paths.get("differentFilePath"));
+        assertTrue(modelManager.equals(new ModelManager(carparkFinder, differentUserPrefs)));
     }
 }

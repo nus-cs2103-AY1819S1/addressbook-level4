@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Car park values as in TypicalCarparks#getTypicalAddressBook() -->
-<addressbook>
+<!-- CarparkFinder save file which contains the same Car park values as in TypicalCarparks#getTypicalCarparkFinder() -->
+<carparkfinder>
     <carparks>
         <address>BLK 349-355 CLEMENTI AVE 2</address>
         <carparkNumber>C7</carparkNumber>
@@ -90,4 +90,4 @@
         <totalLots>230</totalLots>
         <typeOfParking>ELECTRONIC PARKING</typeOfParking>
     </carparks>
-</addressbook>
+</carparkfinder>

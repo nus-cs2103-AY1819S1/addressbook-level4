@@ -1,28 +1,28 @@
-package seedu.address.logic.parser;
+package seedu.parking.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_NUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COORD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE_PARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NIGHT_PARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE_PARK;
+import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_NUM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_COORD;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_FREE_PARK;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_NIGHT_PARK;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_TYPE_PARK;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.logic.commands.EditCommand;
+import seedu.parking.logic.parser.exceptions.ParseException;
+import seedu.parking.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
