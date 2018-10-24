@@ -7,7 +7,7 @@ import seedu.address.model.person.ServedPatient;
  * relevant to the referral letter.
  */
 public class ReferralLetter extends Document {
-    private static final String FILE_TYPE = "Referral Letter";
+    public static final String FILE_TYPE = "Referral Letter";
     private final String referralContent;
 
     /**

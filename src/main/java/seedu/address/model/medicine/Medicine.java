@@ -60,8 +60,8 @@ public class Medicine {
      * to the original stock level. There must be sufficient quantity of stock to dispense.
      * @param stockToDispense the amount of medicine to dispense
      */
-    public void dispense(Integer stockToDispense) throws InsufficientStockException {
-        int newStockLevel = getStockValue() - stockToDispense;
+    public void dispense(QuantityToDispense stockToDispense) throws InsufficientStockException {
+        int newStockLevel = getStockValue() - stockToDispense.getValue();
         if (newStockLevel < 0) {
             throw new InsufficientStockException(this);
         }
