@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -26,11 +28,11 @@ public class AddMedicalHistoryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds medical history for a person to the address book. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_ALLERGY + "ALLERGY "
-            + PREFIX_CONDITION + "CONDITION \n"
+            + PREFIX_ALLERGY + "ALLERGIES (separated by comma) "
+            + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ALLERGY + "penicillin "
-            + PREFIX_CONDITION + "sub-healthy ";
+            + PREFIX_ALLERGY + "penicillin,milk "
+            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
 
     public static final String MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS = "Medical history added for: %1$s";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY = "This command is only for patients";
@@ -66,17 +68,32 @@ public class AddMedicalHistoryCommand extends Command {
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
         }
-        Patient editedPatient = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getTags(), null);
+        Patient patientToEdit = (Patient)lastShownList.get(index.getZeroBased());
 
-        medicalHistory.addAllergy(this.allergy);
-        medicalHistory.addAllergy(this.condition);
+        Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
+                patientToEdit.getAddress(), patientToEdit.getRemark(), patientToEdit.getTags(), patientToEdit.getTelegramId());
+
+        ArrayList<String> newAllergies = new ArrayList<>(Arrays.asList(allergy.split(",")));
+        ArrayList<String> newConditions = new ArrayList<>(Arrays.asList(condition.split(",")));
+        ArrayList<String> allergies=new ArrayList<String>();
+        ArrayList<String> conditions=new ArrayList<String>();
+        
+        if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
+            allergies.addAll(patientToEdit.getMedicalHistory().getAllergies());
+        }
+        allergies.addAll(newAllergies);
+        if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
+            conditions.addAll(patientToEdit.getMedicalHistory().getConditions());
+        }
+        conditions.addAll(newConditions);
+
+        medicalHistory.setAllergies(allergies);
+        medicalHistory.setConditions(conditions);
         editedPatient.setMedicalHistory(this.medicalHistory);
-
-        model.updatePerson(personToEdit, editedPatient);
+        model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS, personToEdit));
+        return new CommandResult(String.format(MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS, patientToEdit));
     }
 
     @Override

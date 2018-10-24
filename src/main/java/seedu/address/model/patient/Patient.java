@@ -32,6 +32,7 @@ public class Patient extends Person {
         setTelegramId(telegramId);
         upcomingAppointments = new LinkedList<>();
         pastAppointments = new Stack<>();
+        medicalHistory = new MedicalHistory();
     }
 
     public String getTelegramId() {
