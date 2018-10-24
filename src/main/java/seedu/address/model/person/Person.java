@@ -12,6 +12,7 @@ import seedu.address.model.diet.DietCollection;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.VisitorList;
 
 /**
  * Represents a Person in the address book. Guarantees: details are present and
@@ -32,6 +33,7 @@ public class Person {
     private final PrescriptionList prescriptionList;
     private final AppointmentsList appointmentsList;
     private final MedicalHistory medicalHistory = new MedicalHistory();
+    private final VisitorList visitorList = new VisitorList();
 
     /**
      * Every field must be present and not null.
@@ -119,6 +121,43 @@ public class Person {
         this.dietCollection = new DietCollection();
     }
 
+    /**
+     * Overloaded constructor to include visitors.
+     */
+
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  VisitorList visitorList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, visitorList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.visitorList.addAll(visitorList);
+        this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
+        this.dietCollection = new DietCollection();
+    }
+
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, AppointmentsList appointmentsList,
+                  VisitorList visitorList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, visitorList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.medicalHistory.addAll(medicalHistory);
+        this.prescriptionList = prescriptionList;
+        this.appointmentsList = appointmentsList;
+        this.dietCollection = new DietCollection();
+        this.visitorList.addAll(visitorList);
+    }
+
+
     public Nric getNric() {
         return nric;
     }
@@ -145,6 +184,10 @@ public class Person {
 
     public MedicalHistory getMedicalHistory() {
         return medicalHistory;
+    }
+
+    public VisitorList getVisitorList() {
+        return visitorList;
     }
 
     public AppointmentsList getAppointmentsList() {
