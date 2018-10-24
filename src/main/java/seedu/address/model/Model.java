@@ -130,7 +130,7 @@ public interface Model {
     /**
      * Retrieves the current displayed preview image.
      */
-    Path getCurrentPreviewImage();
+    PreviewImage getCurrentPreviewImage();
 
     /**
      * update the preview image stored in the model
@@ -143,4 +143,10 @@ public interface Model {
      * Update the current displayed original image.
      */
     void updateCurrentOriginalImage(Image img, Path imgPath);
+
+    /**
+     * update the transformationSet of the current image
+     * @param transformation
+     */
+    void addTransformation(Transformation transformation);
 }
