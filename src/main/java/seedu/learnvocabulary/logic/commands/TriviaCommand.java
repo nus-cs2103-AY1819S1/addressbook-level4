@@ -34,7 +34,6 @@ public class TriviaCommand extends Command {
 
         model.toggleTriviaMode();
         model.setTriviaList();
-        model.setTriviaQuestion();
         Word triviaQ = model.getTrivia();
         Meaning qMeaning = triviaQ.getMeaning();
 

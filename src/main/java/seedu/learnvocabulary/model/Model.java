@@ -64,8 +64,6 @@ public interface Model {
      */
     void setTriviaList();
 
-    void setTriviaQuestion();
-
     boolean isTriviaMode();
 
     void toggleTriviaMode();

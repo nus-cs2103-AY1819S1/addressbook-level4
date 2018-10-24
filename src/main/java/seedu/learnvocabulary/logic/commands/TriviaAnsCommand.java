@@ -45,13 +45,13 @@ public class TriviaAnsCommand extends Command {
         ArrayList<Word> triviaList = model.getTriviaList();
         String messageOutput = "";
 
-        if (triviaQ == null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
         if (answer.equals(COMMAND_EXIT)) {
             model.toggleTriviaMode();
             return new CommandResult(MESSAGE_END);
+        }
+
+        if (triviaQ == null) {
+            return new CommandResult(MESSAGE_FAILURE);
         }
 
         correct = triviaQ.getName().toString().equals(answer);
@@ -73,7 +73,6 @@ public class TriviaAnsCommand extends Command {
             model.toggleTriviaMode();
             messageOutput += MESSAGE_END;
         } else {
-            model.setTriviaQuestion();
             triviaQ = model.getTrivia();
             messageOutput += MESSAGE_NEXT + triviaQ.getMeaning().toString() + "\n" + MESSAGE_EXIT;
         }

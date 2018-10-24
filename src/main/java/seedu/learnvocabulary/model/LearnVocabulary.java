@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
@@ -22,7 +21,6 @@ import seedu.learnvocabulary.model.word.Word;
 public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
-    private Word triviaQuestion = null;
     private ArrayList<Word> triviaQuestionList;
     private boolean triviaMode = false;
     private int currentScore = 0;
@@ -65,7 +63,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     public void resetData(ReadOnlyLearnVocabulary newData) {
         requireNonNull(newData);
-        triviaQuestion = null;
         setWords(newData.getWordList());
     }
 
@@ -174,7 +171,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      * Returns the current trivia question
      */
     public Word getTrivia() {
-        return triviaQuestion;
+        return triviaQuestionList.get(0);
     }
 
     /**
@@ -182,12 +179,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     public ArrayList<Word> getTriviaList() {
         return triviaQuestionList;
-    }
-
-    public void setTriviaQuestion() {
-        Random random = new Random();
-        int length = triviaQuestionList.size();
-        triviaQuestion = triviaQuestionList.get(random.nextInt(length));
     }
 
     public boolean isTriviaMode() {
@@ -200,8 +191,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      * Clears the current trivia question and remove it from the trivia question list
      */
     public void clearTrivia() {
-        triviaQuestionList.remove(triviaQuestion);
-        triviaQuestion = null;
+        triviaQuestionList.remove(0);
     }
 
     public int currentScore() {
