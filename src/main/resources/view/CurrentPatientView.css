@@ -2,13 +2,13 @@ html {
     background-color: #404040;
 }
 
-.container-personal-details {
+.left-table-container {
     width: 300px;
     padding: 15px;
     float: left;
 }
 
-.container-medical-records {
+.right-table-container {
     width: 500px;
     padding: 15px;
     float: left;
@@ -25,6 +25,10 @@ html {
     text-align: left;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 table {
     width: 100%;
     table-layout: fixed;
@@ -35,11 +39,11 @@ table, th, td {
     border-collapse: collapse;
 }
 
-.col-personal-details {
+.left-table-cols {
     width: 100px;
 }
 
-.col-medical-records {
+.right-table-cols {
     width: 120px;
 }
 

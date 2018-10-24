@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -44,6 +46,8 @@ public class PaymentCommand extends QueueCommand {
         ServedPatient servedPatient = servedPatientList.removeAtIndex(targetPosition.getZeroBased());
 
         //Do document processing, saving all documents to the patient before evicting him from the clinic.
+
+        EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
 
         return new CommandResult(MESSAGE_SUCCESS + servedPatient.toNameAndIc());
     }
