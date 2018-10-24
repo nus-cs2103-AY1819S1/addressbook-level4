@@ -117,14 +117,13 @@ public class Medicine {
         return otherMedicine.getMedicineName().equals(getMedicineName())
                 && otherMedicine.getMinimumStockQuantity().equals(getMinimumStockQuantity())
                 && otherMedicine.getPricePerUnit().equals(getPricePerUnit())
-                && otherMedicine.getSerialNumber().equals(getSerialNumber())
-                && otherMedicine.getStock().equals(getStock());
+                && otherMedicine.getSerialNumber().equals(getSerialNumber());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(medicineName, minimumStockQuantity, pricePerUnit, serialNumber, stock);
+        return Objects.hash(medicineName, minimumStockQuantity, pricePerUnit, serialNumber);
     }
 
     @Override
