@@ -1,7 +1,6 @@
 package seedu.learnvocabulary.model.word;
 
 import java.io.IOException;
-//import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +14,7 @@ public class Dictionary {
     public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet to learn about words.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
-    //private ArrayList<Tag> tagArrayList;
+
     private String args;
     private String wordToLearn;
     private String definition;
@@ -79,21 +78,4 @@ public class Dictionary {
             return null;
         }
     }
-    //
-    //public ArrayList<Tag> getTagList() {
-    //    Tag tag = new Tag("toLearn");
-    //    tagArrayList.add(tag);
-    //    return tagArrayList;
-    //}
-    //
-    ///**
-    // * Converts the tag array list into suitable string array list for utilization.
-    // */
-    //public ArrayList<String> convertStringList(ArrayList<Tag> tagArrayList){
-    //    ArrayList<String> stringArrayList = new ArrayList<>();
-    //    for (Tag tag: tagArrayList){
-    //        stringArrayList.add(tag.tagName);
-    //    }
-    //    return stringArrayList;
-    //}
 }

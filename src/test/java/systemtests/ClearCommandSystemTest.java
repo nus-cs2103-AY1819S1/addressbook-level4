@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_GLIDE;
+import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_WEIGHT;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends LearnVocabularySystemTest {
 
         /* Case: filters the word list before clearing -> entire learnvocabulary book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original learnvocabulary book
-        showWordsWithName(KEYWORD_MATCHING_GLIDE);
+        showWordsWithName(KEYWORD_MATCHING_WEIGHT);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

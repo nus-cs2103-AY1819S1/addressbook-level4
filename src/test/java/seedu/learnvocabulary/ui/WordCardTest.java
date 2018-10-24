@@ -16,7 +16,7 @@ public class WordCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Word wordWithNoTags = new WordBuilder().withTags(new String[0]).build();
+        Word wordWithNoTags = new WordBuilder().withTags().build();
         WordCard wordCard = new WordCard(wordWithNoTags, 1);
         uiPartRule.setUiPart(wordCard);
         assertCardDisplay(wordCard, wordWithNoTags, 1);

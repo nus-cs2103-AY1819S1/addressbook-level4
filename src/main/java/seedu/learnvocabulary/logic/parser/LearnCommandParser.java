@@ -3,6 +3,7 @@ package seedu.learnvocabulary.logic.parser;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_OVERALL_ERROR;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.learnvocabulary.logic.commands.LearnCommand;
@@ -29,9 +30,8 @@ public class LearnCommandParser implements Parser<LearnCommand> {
             Dictionary dictionary = new Dictionary(args).invoke();
             String wordToLearn = dictionary.getWordToLearn();
             String definition = dictionary.getDefinition();
-            ArrayList<String> stringArrayList = new ArrayList<>();
-            //ArrayList<Tag> tagArrayList = dictionary.getTagList();
-            //ArrayList<String> defaultTagList = dictionary.convertStringList(tagArrayList);
+            Tag defaultTag = new Tag("toLearn");
+            ArrayList<String> stringArrayList = new ArrayList<>(Collections.singleton(defaultTag.tagName));
 
             Name name = ParserUtil.parseName(wordToLearn);
             Meaning meaning = ParserUtil.parseMeaning(definition);

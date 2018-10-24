@@ -10,7 +10,7 @@ import seedu.learnvocabulary.model.tag.Tag;
  */
 public class GroupAddCommandParser<T extends Command> implements Parser<GroupaddCommand> {
     @Override
-    public GroupaddCommand parse(String userInput) throws ParseException {
+    public GroupaddCommand parse(String userInput) {
         Tag tag = new Tag(userInput.trim());
         return new GroupaddCommand(tag);
     }

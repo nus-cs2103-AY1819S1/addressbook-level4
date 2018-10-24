@@ -25,7 +25,7 @@ public class GroupaddCommand extends Command {
         toAdd = tag;
     }
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
         model.addGroup(toAdd);
