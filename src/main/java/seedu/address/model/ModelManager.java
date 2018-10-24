@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -17,7 +18,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,6 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Appointment> filteredAppointment;
+    private int appointmentCounter;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredAppointment = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        appointmentCounter = versionedAddressBook.getAppointmentCounter();
     }
 
     public ModelManager() {
@@ -104,10 +108,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addAppointment(Patient patient, Appointment appointment) {
-        requireAllNonNull(patient, appointment);
+    public void addAppointment(Appointment appointment) {
+        requireAllNonNull(appointment);
 
-        versionedAddressBook.addAppointment(patient, appointment);
+        versionedAddressBook.addAppointment(appointment);
         indicateAddressBookChanged();
     }
 
@@ -135,6 +139,41 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Appointment List Accessors ========================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return FXCollections.unmodifiableObservableList(filteredAppointment);
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointment.setPredicate(predicate);
+    }
+
+    //=========== Appointment Counter Accessors ========================================================
+
+    /**
+     * Returns an {@code Appointment Counter} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public int getAppointmentCounter() {
+        return appointmentCounter;
+    }
+
+    @Override
+    public void incrementAppointmentCounter() {
+        appointmentCounter++;
+        versionedAddressBook.setAppointmentCounter(appointmentCounter);
+        indicateAddressBookChanged();
     }
 
     //=========== Undo/Redo =================================================================================

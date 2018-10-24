@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Iterator;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,6 +21,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a patient's appointment to the health book.
@@ -27,14 +31,15 @@ public class DeleteAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-appointment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a patient's appointment in the health book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes a patient's appointment in the health book. "
             + "Parameters: "
-            + PREFIX_INDEX + "APPOINTMENT_INDEX \n"
+            + "APPOINTMENT_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "3 ";
+            + "3 ";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Appointment: %1$s";
-    public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "Appointment index is invalid";
+    public static final String MESSAGE_SUCCESS = "Appointment deleted";
+    public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";
 
     private final int appointmentId;
 
@@ -53,22 +58,47 @@ public class DeleteAppointmentCommand extends Command {
         Appointment appointment = new Appointment(new Doctor(new Name("elroy"), new Phone("123412324"),
                 new Email("erear@g.com"), new Address("2134"), new Remark("asfasf"), mySet),
                 LocalDateTime.of(2017, 1, 1, 1, 1,1));
-        /**
-         * //**     // TODO - implementation below assumes there's a storage for appointments
-         //      // TODO(rmb to implement Model, ModelManager, AddressBook)
-         //        List<Appointment> appointmentList = model.getAppointmentList();
-         //        Appointment appointment = appointmentList.stream()
-         //                .filter(appt -> appt.getAppointmentId() == appointmentId)
-         //                .findFirst()
-         //                .orElse(null);
-         //
-         //        if (appointment == null) {
-         //            throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
-         //        }
-         //
-         //        model.deleteAppointment(appointment);
-         //        model.commitAddressBook();
-         */
+      
+        List<Appointment> appointmentList = model.getFilteredAppointmentList();
+        List<Person> personList = model.getFilteredPersonList();
+        Patient patient = null;
+        Doctor doctor = null;
+
+        Appointment appointment = appointmentList.stream()
+                .filter(appt -> appt.getAppointmentId() == appointmentId)
+                .findFirst()
+                .orElse(null);
+
+        if (appointment == null) {
+            throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        for (Person person : personList) {
+            if (person instanceof Patient) {
+                Iterator<Appointment> itr = ((Patient) person).getUpcomingAppointments().iterator();
+                while (itr.hasNext()) {
+                    if (itr.next().getAppointmentId() == appointmentId) {
+                        patient = (Patient) person;
+                    }
+                }
+            }
+            if (person instanceof Doctor) {
+                Iterator<Appointment> itr = ((Doctor) person).getUpcomingAppointments().iterator();
+                while (itr.hasNext()) {
+                    if (itr.next().getAppointmentId() == appointmentId) {
+                        doctor = (Doctor) person;
+                    }
+                }
+            }
+            if (patient != null && doctor != null) {
+                break;
+            }
+        }
+
+        model.deleteAppointment(appointment);
+        patient.deleteAppointment(appointment);
+        doctor.deleteAppointment(appointment);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 
@@ -76,6 +106,6 @@ public class DeleteAppointmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAppointmentCommand // instanceof handles nulls
-                && ((Integer) appointmentId).equals((Integer) ((DeleteAppointmentCommand) other).appointmentId));
+                && (appointmentId == ((DeleteAppointmentCommand) other).appointmentId));
     }
 }

@@ -77,6 +77,28 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Returns current appointmentCounter
+     */
+    int getAppointmentCounter();
+
+    /**
+     * Increase the Appointment Counter
+     */
+    void incrementAppointmentCounter();
+
+    /**
      * Returns true if the model has previous health book states to restore.
      */
     boolean canUndoAddressBook();
@@ -97,12 +119,12 @@ public interface Model {
     void redoAddressBook();
 
     /**
-     * Adds appointment to patient.
+     * Adds appointment.
      */
-    void addAppointment(Patient patient, Appointment appointment);
+    void addAppointment(Appointment appointment);
 
     /**
-     * Deletes the appointment of given appointmentId.
+     * Deletes appointment.
      */
     void deleteAppointment(Appointment appointment);
 

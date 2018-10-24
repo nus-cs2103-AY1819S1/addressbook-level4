@@ -21,7 +21,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 
 /**
- * Test
+ * Manages all information transaction between doctor's google calendar and HealthBook.
  */
 public class CalendarManager {
     private static final String APPLICATION_NAME = "HealthBook";

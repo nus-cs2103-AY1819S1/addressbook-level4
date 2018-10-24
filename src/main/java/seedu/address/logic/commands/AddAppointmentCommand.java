@@ -18,7 +18,6 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
-
 /**
  * Adds a patient's appointment to the health book.
  */
@@ -81,8 +80,11 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DOCTOR);
         }
 
-        Appointment appointment = new Appointment(doctor, dateTime);
-        model.addAppointment(patient, appointment);
+        Appointment appointment = new Appointment(model.getAppointmentCounter(), doctor.getName().toString(), dateTime);
+        doctor.addUpcomingAppointment(appointment);
+        patient.addUpcomingAppointment(appointment);
+        model.incrementAppointmentCounter();
+        model.addAppointment(appointment);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

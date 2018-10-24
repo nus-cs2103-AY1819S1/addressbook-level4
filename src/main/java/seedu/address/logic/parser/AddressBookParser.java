@@ -116,13 +116,11 @@ public class AddressBookParser {
 
         case FilterDoctorCommand.COMMAND_WORD:
             return new FilterDoctorCommand();
-            
         case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentCommandParser().parse(arguments);
 
         case DeleteAppointmentCommand.COMMAND_WORD:
             return new DeleteAppointmentCommandParser().parse(arguments);
-            
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
