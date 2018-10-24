@@ -38,23 +38,26 @@ public class Person {
     /**
      * Constructors: every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        this(name, phone, email, address, salary, projects, new PermissionSet());
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects) {
+        this(name, phone, email, address, salary, username, password, projects, new PermissionSet());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet) {
-        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty());
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, Optional.empty());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
-        this(name, phone, email, address, salary, projects, permissionSet, profilePic, new ArrayList<>());
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
+                  Optional<ProfilePic> profilePic) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, profilePic,
+                new ArrayList<>());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet, Optional<ProfilePic> profilePic,
-                  List<LeaveApplication> leaveApplications) {
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
+                  Optional<ProfilePic> profilePic, List<LeaveApplication> leaveApplications) {
         requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic, leaveApplications);
         this.name = name;
         this.phone = phone;
@@ -64,8 +67,8 @@ public class Person {
         this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
-        this.username = new Username(name.fullName);
-        this.password = new Password("Pa55w0rd");
+        this.username = username;
+        this.password = password;
         this.leaveApplications = leaveApplications;
     }
 

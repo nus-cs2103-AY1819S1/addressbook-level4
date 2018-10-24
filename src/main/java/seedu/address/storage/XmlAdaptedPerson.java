@@ -213,8 +213,8 @@ public class XmlAdaptedPerson {
             modelLeaveApplications.add(leaveApplication.toModelType());
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelProjects, pSet,
-                modelProfilePic, modelLeaveApplications);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelUsername,
+                modelPassword, modelProjects, pSet, modelProfilePic, modelLeaveApplications);
     }
 
     @Override

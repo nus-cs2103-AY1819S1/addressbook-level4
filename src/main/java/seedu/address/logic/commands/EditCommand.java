@@ -106,7 +106,8 @@ public class EditCommand extends Command {
         Salary updatedSalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
         Set<Project> updatedProjects = editPersonDescriptor.getProjects().orElse(personToEdit.getProjects());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSalary, updatedProjects);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSalary,
+            personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects);
     }
 
     @Override
