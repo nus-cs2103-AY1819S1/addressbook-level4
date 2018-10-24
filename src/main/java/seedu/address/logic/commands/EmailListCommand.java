@@ -54,7 +54,7 @@ public class EmailListCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         Email emailWithRecipient = addRecipientsToEmail(lastShownList);
-        model.saveEmail(emailWithRecipient);
+        model.saveComposedEmail(emailWithRecipient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, emailWithRecipient.getSubject()));
     }

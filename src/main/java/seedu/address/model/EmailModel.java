@@ -50,6 +50,15 @@ public class EmailModel {
         this.preview = previewHeader + from + "<br />" + to + "<br />" + subject + "<br /><br />" + email.getHTMLText();
     }
 
+    /**
+     * Saves a newly composed email to the EmailModel.
+     * @param email the newly composed email.
+     */
+    public void saveComposedEmail(Email email) {
+        saveEmail(email);
+        addToExistingEmails(email.getSubject());
+    }
+
     public Set<String> getExistingEmails() {
         return existingEmails;
     }
@@ -64,6 +73,10 @@ public class EmailModel {
 
     public boolean hasEmail(String fileName) {
         return existingEmails.contains(fileName + ".eml");
+    }
+
+    public void addToExistingEmails(String fileName) {
+        existingEmails.add(fileName + ".eml");
     }
 
 }

@@ -466,6 +466,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void saveComposedEmail(Email email) {
+        emailModel.saveComposedEmail(email);
+        indicateEmailSaved();
+    }
+
+    @Override
     public boolean hasEmail(String fileName) {
         return emailModel.hasEmail(fileName);
     }

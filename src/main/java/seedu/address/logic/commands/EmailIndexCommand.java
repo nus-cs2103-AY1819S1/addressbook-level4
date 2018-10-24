@@ -66,7 +66,8 @@ public class EmailIndexCommand extends Command {
 
         Email emailWithRecipient = addIndexesToEmail(lastShownList);
 
-        model.saveEmail(emailWithRecipient);
+        model.saveComposedEmail(emailWithRecipient);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, emailWithRecipient.getSubject()));
     }
 
