@@ -52,15 +52,17 @@ public class AppContentParser {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
             }
             return new MealPlannerParser()
-                .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, ui);
+                .parseCommand(modelSet.getMealPlannerModel(), userInput);
         } else if (context.equals("Recipe")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
             if (userInput.matches("favourite(\\s|\\S)*")) {
-                return new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
+                return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
+                    modelSet.getMealPlannerModel(), userInput);
             }
-            return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+            return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
+                modelSet.getMealPlannerModel(), userInput);
         } else if (context.equals("Ingredient")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
