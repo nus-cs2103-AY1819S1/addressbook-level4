@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
@@ -28,10 +29,10 @@ public class JoinCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into a group in the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_NAME + "GROUP\n"
+            + PREFIX_GROUP + "GROUP\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Derek Hardy "
-            + PREFIX_NAME + "GROUP_03";
+            + PREFIX_GROUP + "GROUP_03";
 
     public static final String MESSAGE_JOIN_SUCCESS = "Person: %1$s added to the group: %1$s";
 
