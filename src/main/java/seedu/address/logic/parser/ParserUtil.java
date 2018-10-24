@@ -3,9 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,6 +30,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -69,19 +72,34 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String grade} into a {@code Grades}.
+     * Parses {@code Collection<String> grades} into a {@code HashMap<String, Grades>}.
+     */
+    public static HashMap<String, Grades> parseGrades(Collection<String> grades) throws ParseException {
+        requireNonNull(grades);
+        final HashMap<String, Grades> gradesMap = new HashMap<>();
+        for (String grade : grades) {
+            Pair<String, Grades> gradePair = parseGrade(grade);
+            gradesMap.put(gradePair.getKey(), gradePair.getValue());
+        }
+        return gradesMap;
+    }
+
+    /**
+     * Parses a {@code String grade} into a {@code Pair<String, Grades> parseGrade}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code grade} is invalid.
      */
-    public static Grades parseGrades(String grade) throws ParseException {
+    public static Pair<String, Grades> parseGrade(String grade) throws ParseException {
         requireNonNull(grade);
         String trimmedGrade = grade.trim();
-        if (!Grades.isValidGrade(trimmedGrade)) {
-            throw new ParseException(Grades.MESSAGE_GRADE_CONSTRAINTS);
+        if (!Grades.isValidGradeInput(trimmedGrade)) {
+            throw new ParseException(Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
         }
-        return new Grades(trimmedGrade);
+        String[] splitGrade = trimmedGrade.split("\\s+");
+        return new Pair<>(splitGrade[0], new Grades(splitGrade[1]));
     }
+
 
     /**
      * Parses a {@code String education} into a {@code Education}.
