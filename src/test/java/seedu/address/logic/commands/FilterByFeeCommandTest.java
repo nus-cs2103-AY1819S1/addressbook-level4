@@ -29,7 +29,6 @@ public class FilterByFeeCommandTest {
         String second = " ";
 
         FilterByFeeCommand filterByFeeFirstCommand = new FilterByFeeCommand(first);
-       
         // same object -> returns true
         assertTrue(filterByFeeFirstCommand.equals(filterByFeeFirstCommand));
 
