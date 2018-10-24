@@ -19,7 +19,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
-public class SelectCommandSystemTest extends AddressBookSystemTest {
+public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
     @Test
     public void select() throws NoUserSelectedException {
         showAllExpenses();
@@ -60,7 +60,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
-        int invalidIndex = getModel().getAddressBook().getExpenseList().size();
+        int invalidIndex = getModel().getExpenseTracker().getExpenseList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
@@ -112,9 +112,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws NoUserSelectedException {
         Model expectedModel = getModel();
@@ -143,8 +143,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code ExpenseListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();

@@ -39,11 +39,11 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ExpenseUtil;
 
-public class AddressBookParserTest {
+public class ExpenseTrackerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ExpenseTrackerParser parser = new ExpenseTrackerParser();
 
     @Test
     public void parseCommand_add() throws Exception {

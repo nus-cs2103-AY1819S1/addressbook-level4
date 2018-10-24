@@ -20,10 +20,10 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData) throws NoUserSelectedException;
+    void resetData(ReadOnlyExpenseTracker newData) throws NoUserSelectedException;
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook() throws NoUserSelectedException;
+    /** Returns the ExpenseTracker */
+    ReadOnlyExpenseTracker getExpenseTracker() throws NoUserSelectedException;
 
     /**
      * Returns true if a expense with the same identity as {@code expense} exists in the address book.
@@ -73,31 +73,31 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook() throws NoUserSelectedException;
+    boolean canUndoExpenseTracker() throws NoUserSelectedException;
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook() throws NoUserSelectedException;
+    boolean canRedoExpenseTracker() throws NoUserSelectedException;
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook() throws NoUserSelectedException;
+    void undoExpenseTracker() throws NoUserSelectedException;
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook() throws NoUserSelectedException;
+    void redoExpenseTracker() throws NoUserSelectedException;
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook() throws NoUserSelectedException;
+    void commitExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Selects the AddressBook of the user with the input username to be used. Returns true if successful, false if the
-     * input password is incorrect.
+     * Selects the ExpenseTracker of the user with the input username to be used.
+     * Returns true if successful, false if the input password is incorrect.
      */
     boolean loadUserData(Username username, Password password) throws NonExistentUserException;
 
@@ -112,7 +112,7 @@ public interface Model {
     boolean isUserExists(Username username);
 
     /**
-     * Adds a user with the given username and gives him/her an empty AddressBook.
+     * Adds a user with the given username and gives him/her an empty ExpenseTracker.
      * @throws UserAlreadyExistsException if a user with the given username already exists
      */
     void addUser(Username username) throws UserAlreadyExistsException;

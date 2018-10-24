@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 
 
 public class SetBudgetCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     /**
@@ -26,16 +26,16 @@ public class SetBudgetCommandTest {
      */
     @BeforeEach
     public void resetModelsAndCommandHistory() {
-        this.model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
         this.commandHistory = new CommandHistory();
     }
 
     @Test
     public void execute_setBudget_successful() throws NoUserSelectedException {
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         Budget toSet = new Budget("2.00");
         expectedModel.modifyMaximumBudget(toSet);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
         SetBudgetCommand setBudgetCommand = new SetBudgetCommand(toSet);
         String expectedMessage = String.format(SetBudgetCommand.MESSAGE_SUCCESS, toSet);
         assertCommandSuccess(setBudgetCommand, model, commandHistory, expectedMessage, expectedModel);

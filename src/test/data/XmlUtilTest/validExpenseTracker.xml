@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<expensetracker>
     <expenses>
         <name>Hans Muster</name>
         <category isPrivate="false">School</category>
@@ -54,11 +54,11 @@
         <cost isPrivate="false">123.00</cost>
 		<date isPrivate="false">01-10-2018</date>
     </expenses>
-    <username>validAddressBook</username>
+    <username>validExpenseTracker</username>
     <budget>
         <budgetCap>28.00</budgetCap>
         <currentExpenses>26.00</currentExpenses>
         <nextRecurrence>2018-10-10T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
     </budget>
-</addressbook>
+</expensetracker>

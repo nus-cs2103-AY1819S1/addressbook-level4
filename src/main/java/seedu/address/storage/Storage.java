@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.user.Username;
 
@@ -27,25 +27,25 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
     Path getExpensesDirPath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException;
 
     /**
-     * Returns all AddressBook data as a map with String keys and {@link ReadOnlyAddressBook} values. Data is read
+     * Returns all ExpenseTracker data as a map with String keys and {@link ReadOnlyExpenseTracker} values. Data is read
      * from the input dirPath.
      * Creates the directory at the given path if does not exists.
      * @param dirPath cannot be null
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
+    Map<Username, ReadOnlyExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
 
     @Override
-    void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleExpenseTrackerChangedEvent(ExpenseTrackerChangedEvent abce);
 }

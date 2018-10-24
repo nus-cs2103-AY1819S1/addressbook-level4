@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<expensetracker>
     <!-- Expense with invalid cost field -->
     <expenses>
         <name>Hans Muster</name>
@@ -7,5 +7,5 @@
         <cost isPrivate="false">a</cost>
 		<date isPrivate="false">01-10-2018</date>
     </expenses>
-    <username>invalidExpenseAddressBook</username>
-</addressbook>
+    <username>invalidExpenseExpenseTracker</username>
+</expensetracker>

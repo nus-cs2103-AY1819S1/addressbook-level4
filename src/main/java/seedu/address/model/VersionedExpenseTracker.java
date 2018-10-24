@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code AddressBook} that keeps track of its own history.
+ * {@code ExpenseTracker} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedExpenseTracker extends ExpenseTracker {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyExpenseTracker> expenseTrackerStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedExpenseTracker(ReadOnlyExpenseTracker initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AddressBook(initialState));
+        expenseTrackerStateList = new ArrayList<>();
+        expenseTrackerStateList.add(new ExpenseTracker(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code ExpenseTracker} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
 
-        addressBookStateList.add(new AddressBook(this));
+        expenseTrackerStateList.add(new ExpenseTracker(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        expenseTrackerStateList.subList(currentStatePointer + 1, expenseTrackerStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedAddressBook extends AddressBook {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(expenseTrackerStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedAddressBook extends AddressBook {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(expenseTrackerStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedAddressBook extends AddressBook {
      * Returns true if {@code redo()} has address book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < expenseTrackerStateList.size() - 1;
     }
 
     @Override
@@ -78,16 +78,16 @@ public class VersionedAddressBook extends AddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedExpenseTracker)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedExpenseTracker otherVersionedExpenseTracker = (VersionedExpenseTracker) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedExpenseTracker)
+                && expenseTrackerStateList.equals(otherVersionedExpenseTracker.expenseTrackerStateList)
+                && currentStatePointer == otherVersionedExpenseTracker.currentStatePointer;
     }
 
     /**
@@ -95,7 +95,7 @@ public class VersionedAddressBook extends AddressBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of expenseTrackerState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedAddressBook extends AddressBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of expenseTrackerState list, unable to redo.");
         }
     }
 }
