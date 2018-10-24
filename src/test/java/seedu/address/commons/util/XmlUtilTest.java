@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -199,6 +200,12 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_WISHTRANSACTION_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class);
         assertEquals(dataToWrite, dataFromFile);
+
+        WishTransaction typicalWishTransaction = getTypicalWishTransaction();
+        XmlUtil.saveDataToFile(TEMP_WISHTRANSACTION_FILE, new XmlWishTransactions(typicalWishTransaction));
+        WishTransaction retrieved = XmlUtil.getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class)
+                .toModelType();
+        assertEquals(typicalWishTransaction, retrieved);
     }
 
     /**
