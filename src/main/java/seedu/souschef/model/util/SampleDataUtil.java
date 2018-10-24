@@ -1,6 +1,8 @@
 package seedu.souschef.model.util;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,6 +25,8 @@ import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 
+import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
@@ -79,6 +83,32 @@ public class SampleDataUtil {
         };
     }
 
+    public static Day[] getDay() {
+
+        LocalDate modelDate = LocalDate.parse("2018-10-22");
+        LocalDate modelDate2 = LocalDate.parse("2018-10-23");
+
+        ArrayList<Meal> list = new ArrayList<>();
+        ArrayList<Meal> list2 = new ArrayList<>();
+
+        list.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[0]));
+        list.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[1]));
+        list.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+
+        list2.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[2]));
+        list2.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[3]));
+        list2.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+
+        return new Day[] {
+            new Day (modelDate, list),
+            new Day (modelDate2, list2)
+
+        };
+    }
+
+
+
+
 
     public static ReadOnlyAppContent getSampleAddressBook() {
         AppContent sampleAb = new AppContent();
@@ -105,6 +135,14 @@ public class SampleDataUtil {
         return sampleHealthPlans;
     }
 
+    public static ReadOnlyAppContent getSampleDays() {
+        AppContent sampleDays = new AppContent();
+        for (Day sampleDay : getDay()) {
+            sampleDays.getMealPlanner().add(sampleDay);
+
+        }
+        return sampleDays;
+    }
 
 
 
