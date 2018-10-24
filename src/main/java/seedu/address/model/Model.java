@@ -119,12 +119,12 @@ public interface Model {
     void redoAddressBook();
 
     /**
-     * Adds appointment to patient.
+     * Adds appointment.
      */
     void addAppointment(Appointment appointment);
 
     /**
-     * Deletes the appointment of given appointmentId.
+     * Deletes appointment.
      */
     void deleteAppointment(Appointment appointment);
 

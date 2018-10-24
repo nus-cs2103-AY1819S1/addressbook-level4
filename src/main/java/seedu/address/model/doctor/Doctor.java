@@ -1,6 +1,6 @@
 package seedu.address.model.doctor;
 
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
@@ -18,29 +18,31 @@ import seedu.address.model.tag.Tag;
  */
 public class Doctor extends Person {
     // Variables
-    private LinkedList<Appointment> upcomingAppointments;
+    private PriorityQueue<Appointment> upcomingAppointments;
 
     // Constructor
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
-                   Set<Tag> tags) {
+                  Set<Tag> tags) {
         super(name, phone, email, address, remark, tags);
-        upcomingAppointments = new LinkedList<>();
+        upcomingAppointments = new PriorityQueue<>();
     }
 
     /**
      * Adds an upcoming appointment to the doctor's queue of upcoming appointment.
      */
     public void addUpcomingAppointment(Appointment appointment) {
-        Appointment currentAppointment;
-        for (int i = 0; i < upcomingAppointments.size(); i++) {
-            currentAppointment = upcomingAppointments.get(i);
-            if (!appointment.isLaterThan(currentAppointment)) {
-                upcomingAppointments.add(i, appointment);
-                break;
-            }
-        }
-        // Add appointment to google calendar
-        // TO BE COMPLETED
+        upcomingAppointments.add(appointment);
+    }
+
+    public PriorityQueue<Appointment> getUpcomingAppointments() {
+        return upcomingAppointments;
+    }
+
+    /**
+     * Deletes appointment from patient's queue of upcoming appointment.
+     */
+    public void deleteAppointment(Appointment appointment) {
+        upcomingAppointments.remove(appointment);
     }
 
     /**
