@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.event.Event;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to the list of volunteers
  */
 public class RecordChangeEvent extends BaseEvent {
 

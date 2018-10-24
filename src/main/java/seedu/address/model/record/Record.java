@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * Represents a volunteer's event record in application.
@@ -13,7 +13,7 @@ import seedu.address.model.person.PersonId;
  */
 public class Record {
     private final EventId eventId;
-    private final PersonId volunteerId;
+    private final VolunteerId volunteerId;
     private final Hour hour;
     private final Remark remark;
 
@@ -24,7 +24,7 @@ public class Record {
     /**
      * Every field must be present and not null.
      */
-    public Record(EventId eventId, PersonId volunteerId, Hour hour, Remark remark) {
+    public Record(EventId eventId, VolunteerId volunteerId, Hour hour, Remark remark) {
         requireAllNonNull(eventId, volunteerId, hour, remark);
         this.eventId = eventId;
         this.volunteerId = volunteerId;
@@ -44,7 +44,7 @@ public class Record {
         return eventId;
     }
 
-    public PersonId getVolunteerId() {
+    public VolunteerId getVolunteerId() {
         return volunteerId;
     }
 
