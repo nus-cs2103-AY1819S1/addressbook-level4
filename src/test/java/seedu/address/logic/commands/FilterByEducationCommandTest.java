@@ -15,6 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -51,7 +52,7 @@ public class FilterByEducationCommandTest {
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format("Cannot find Sec education within the students list!");
         EducationFilterPredicate predicate = new EducationFilterPredicate("Sec");
         FilterByEducationCommand command = new FilterByEducationCommand("Sec");
         expectedModel.updateFilteredPersonList(predicate);

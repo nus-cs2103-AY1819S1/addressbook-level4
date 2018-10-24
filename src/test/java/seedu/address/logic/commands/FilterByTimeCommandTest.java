@@ -52,13 +52,12 @@ public class FilterByTimeCommandTest {
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        Time time = new Time("Mon 1200 1400");
+        Time time = new Time("mon 2400 0100");
+        String expectedMessage = String.format("Cannot find " + time.toString() +" education within the students list!");
         TimeFilterPredicate predicate = new TimeFilterPredicate(time);
-        FilterByTimeCommand command = new FilterByTimeCommand("Mon 1200 1400");
+        FilterByTimeCommand command = new FilterByTimeCommand("mon 2400 0100");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
 

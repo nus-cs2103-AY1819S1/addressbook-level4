@@ -68,4 +68,11 @@ public class FilterByGradeCommand extends FilterCommand {
         return new CommandResult("The person whose grade between " + minLimit + " and "
                 + maxLimit + " : " + personNameList.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByGradeCommand // instanceof handles nulls
+                && minLimit == ((FilterByGradeCommand) other).minLimit &&  maxLimit == ((FilterByGradeCommand) other).maxLimit);
+    }
 }

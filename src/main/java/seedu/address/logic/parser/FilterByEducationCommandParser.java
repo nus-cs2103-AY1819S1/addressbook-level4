@@ -17,10 +17,7 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
     public FilterByEducationCommand parse(String args) throws ParseException {
 
         String StringCommand = args.trim();
-        if (StringCommand.isEmpty()) {
-            throw new ParseException(
-                    String.format("Enter error message here"));
-        }
+
         if(!(StringCommand.equals("pri")||StringCommand.equals("sec")||StringCommand.equals("jc"))){
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
         }

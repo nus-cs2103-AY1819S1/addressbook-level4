@@ -62,4 +62,11 @@ public class FilterByFeeCommand extends FilterCommand {
 
         return new CommandResult("The person whose fee is higher than " + limit + " : " + personNameList.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByFeeCommand // instanceof handles nulls
+                && limit == ((FilterByFeeCommand) other).limit);
+    }
 }

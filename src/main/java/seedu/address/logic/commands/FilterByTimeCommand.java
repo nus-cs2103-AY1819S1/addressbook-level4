@@ -59,4 +59,11 @@ public class FilterByTimeCommand extends FilterCommand{
 
         return new CommandResult("The person whose education is " + time.toString() + " : " + personNameList.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByTimeCommand // instanceof handles nulls
+                && time.equals(((FilterByTimeCommand)other).time));
+    }
 }

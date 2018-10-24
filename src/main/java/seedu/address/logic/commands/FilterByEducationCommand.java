@@ -60,4 +60,11 @@ public class FilterByEducationCommand extends FilterCommand {
 
         return new CommandResult("The person whose education is " + education + " : " + personNameList.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByEducationCommand // instanceof handles nulls
+                && education.equals(((FilterByEducationCommand) other).education));
+    }
 }

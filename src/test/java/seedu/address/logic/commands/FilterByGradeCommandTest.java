@@ -51,12 +51,11 @@ public class FilterByGradeCommandTest {
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        GradeFilterPredicate predicate = new GradeFilterPredicate(20,90);
-        FilterByGradeCommand command = new FilterByGradeCommand("20 90");
+        String expectedMessage = String.format("Cannot find person whose grade between " + 0 + " and " + 0 + " !");
+        GradeFilterPredicate predicate = new GradeFilterPredicate(0,0);
+        FilterByGradeCommand command = new FilterByGradeCommand("0 0");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
 
