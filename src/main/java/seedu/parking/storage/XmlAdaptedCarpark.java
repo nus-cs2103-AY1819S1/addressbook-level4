@@ -119,7 +119,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     CarparkNumber.class.getSimpleName()));
         }
-        if (!CarparkNumber.isValidCarNum(carparkNumber)) {
+        if (!CarparkNumber.isValidCarparkNumber(carparkNumber)) {
             throw new IllegalValueException(CarparkNumber.MESSAGE_CAR_NUM_CONSTRAINTS);
         }
         final CarparkNumber modelCarparkNumber = new CarparkNumber(carparkNumber);
@@ -146,7 +146,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Coordinate.class.getSimpleName()));
         }
-        if (!Coordinate.isValidCoord(coordinate)) {
+        if (!Coordinate.isValidCoordinate(coordinate)) {
             throw new IllegalValueException(Coordinate.MESSAGE_COORD_CONSTRAINTS);
         }
         final Coordinate modelCoordinate = new Coordinate(coordinate);
@@ -164,7 +164,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LotsAvailable.class.getSimpleName()));
         }
-        if (!LotsAvailable.isValidLotsAvail(lotsAvailable)) {
+        if (!LotsAvailable.isValidLotsAvailable(lotsAvailable)) {
             throw new IllegalValueException(LotsAvailable.MESSAGE_LOTS_AVAIL_CONSTRAINTS);
         }
         final LotsAvailable modelLotsAvailable = new LotsAvailable(lotsAvailable);
