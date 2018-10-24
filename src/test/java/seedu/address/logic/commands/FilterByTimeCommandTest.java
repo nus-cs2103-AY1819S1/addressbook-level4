@@ -26,31 +26,27 @@ public class FilterByTimeCommandTest {
     @Test
     public void equals() {
         String first = "mon 1200 1400";
-        String second = " ";
-
-
+        
         FilterByTimeCommand filterByTimeFirstCommand = new FilterByTimeCommand(first);
-        FilterByTimeCommand filterByGradeSecondCommand = new FilterByTimeCommand(second);
-
+       
         // same object -> returns true
         assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommand));
 
         // same values -> returns true
-        FilterByTimeCommand filterByEducationFirstCommandCopy = new FilterByTimeCommand(first);
-        assertTrue(filterByTimeFirstCommand.equals(filterByEducationFirstCommandCopy));
+        FilterByTimeCommand filterByTimeFirstCommandCopy = new FilterByTimeCommand(first);
+        assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(filterByTimeFirstCommand.equals(1));
 
-        // different person -> returns false
-        assertFalse(filterByTimeFirstCommand.equals(filterByGradeSecondCommand));
+        
     }
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
         Time time = new Time("mon 2400 0100");
         String expectedMessage = String.format("Cannot find " + time.toString()
-                                               + " education within the students list!");
+                                               + " slot within the students list!");
         TimeFilterPredicate predicate = new TimeFilterPredicate(time);
         FilterByTimeCommand command = new FilterByTimeCommand("mon 2400 0100");
         expectedModel.updateFilteredPersonList(predicate);
