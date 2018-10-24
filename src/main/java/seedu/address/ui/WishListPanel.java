@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
+import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -29,6 +30,16 @@ public class WishListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(wishList);
         registerAsAnEventHandler(this);
+        // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
+    }
+
+
+    public WishListPanel(ObservableList<Wish> wishList, WishTransaction wishTransaction) {
+        super(FXML);
+        setConnections(wishList);
+        registerAsAnEventHandler(this);
+
+        // TODO: [Jiho] Utilize wishTransaction's data in the WishListPanel (if wanted).
     }
 
     private void setConnections(ObservableList<Wish> wishList) {
