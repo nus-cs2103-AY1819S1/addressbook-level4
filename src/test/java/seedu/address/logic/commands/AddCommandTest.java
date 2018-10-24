@@ -18,9 +18,9 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -125,7 +125,7 @@ public class AddCommandTest {
             throw new AssertionError("setRecurrenceFrequency should not be called");
         }
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyExpenseTracker newData) {
             throw new AssertionError("resetData method should not be called.");
         }
 
@@ -135,8 +135,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("getAddressBook should not be called.");
+        public ReadOnlyExpenseTracker getExpenseTracker() {
+            throw new AssertionError("getExpenseTracker should not be called.");
         }
 
         @Override
@@ -185,28 +185,28 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("canUndoAddressBook method should not be called.");
+        public boolean canUndoExpenseTracker() {
+            throw new AssertionError("canUndoExpenseTracker method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("canRedoAddressBook method should not be called.");
+        public boolean canRedoExpenseTracker() {
+            throw new AssertionError("canRedoExpenseTracker method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
-            throw new AssertionError("undoAddressBook method should not be called.");
+        public void undoExpenseTracker() {
+            throw new AssertionError("undoExpenseTracker method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
-            throw new AssertionError("redoAddressBook method should not be called.");
+        public void redoExpenseTracker() {
+            throw new AssertionError("redoExpenseTracker method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
-            throw new AssertionError("commitAddressBook method should not be called.");
+        public void commitExpenseTracker() {
+            throw new AssertionError("commitExpenseTracker method should not be called.");
         }
 
         @Override
@@ -301,13 +301,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitExpenseTracker() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook(new Username("aa"), Optional.empty());
+        public ReadOnlyExpenseTracker getExpenseTracker() {
+            return new ExpenseTracker(new Username("aa"), Optional.empty());
         }
 
         @Override
@@ -331,7 +331,7 @@ public class AddCommandTest {
             return false;
         }
         @Override
-        public void commitAddressBook() {
+        public void commitExpenseTracker() {
             // called by {@code AddCommand#execute()}
         }
         @Override
@@ -339,8 +339,8 @@ public class AddCommandTest {
             return this.withinBudget;
         }
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook(new Username("aa"), Optional.empty());
+        public ReadOnlyExpenseTracker getExpenseTracker() {
+            return new ExpenseTracker(new Username("aa"), Optional.empty());
         }
 
         @Override

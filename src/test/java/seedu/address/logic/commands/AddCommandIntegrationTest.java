@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,15 +25,15 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     }
 
     @Test
     public void execute_newExpense_withinBudget() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().withCost("1.00").build();
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         expectedModel.addExpense(validExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
 
         assertCommandSuccess(new AddCommand(validExpense), model, commandHistory,
@@ -43,9 +43,9 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newExpense_budgetExceed() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().withCost("9999.99").build();
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         expectedModel.addExpense(validExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(new AddCommand(validExpense), model, commandHistory,
             AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
@@ -53,7 +53,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateExpense_throwsCommandException() throws NoUserSelectedException {
-        Expense expenseInList = model.getAddressBook().getExpenseList().get(0);
+        Expense expenseInList = model.getExpenseTracker().getExpenseList().get(0);
         assertCommandFailure(new AddCommand(expenseInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_EXPENSE);
     }

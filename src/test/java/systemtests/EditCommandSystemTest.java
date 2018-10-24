@@ -47,7 +47,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ExpenseUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
     public void edit() throws NoUserSelectedException {
@@ -77,7 +77,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, IPHONE);
         /* Case: edit a expense with new values same as another expense's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getExpenseList().contains(IPHONE));
+        assertTrue(getModel().getExpenseTracker().getExpenseList().contains(IPHONE));
         index = INDEX_SECOND_EXPENSE;
         assertNotEquals(getModel().getFilteredExpenseList().get(index.getZeroBased()), IPHONE);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + CATEGORY_DESC_BOB
@@ -112,7 +112,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
-        int invalidIndex = getModel().getAddressBook().getExpenseList().size();
+        int invalidIndex = getModel().getExpenseTracker().getExpenseList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         /* ------------------ Performing edit operation while a expense card is selected ----------------------- */
@@ -159,7 +159,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
         /* Case: edit a expense with new values same as another expense's values -> rejected */
         executeCommand(ExpenseUtil.getAddCommand(IPHONE));
-        assertTrue(getModel().getAddressBook().getExpenseList().contains(IPHONE));
+        assertTrue(getModel().getExpenseTracker().getExpenseList().contains(IPHONE));
         index = INDEX_FIRST_EXPENSE;
         assertFalse(getModel().getFilteredExpenseList().get(index.getZeroBased()).equals(IPHONE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
@@ -236,10 +236,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) throws NoUserSelectedException {
@@ -262,9 +262,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();

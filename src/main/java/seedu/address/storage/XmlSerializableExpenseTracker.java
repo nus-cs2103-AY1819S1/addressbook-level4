@@ -9,16 +9,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ExpenseTracker;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable ExpenseTracker that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+@XmlRootElement(name = "expensetracker")
+public class XmlSerializableExpenseTracker {
 
     public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
 
@@ -32,17 +32,17 @@ public class XmlSerializableAddressBook {
     private XmlAdaptedPassword password;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableExpenseTracker.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableExpenseTracker() {
         expenses = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableExpenseTracker(ReadOnlyExpenseTracker src) {
         this();
         this.username = new XmlAdaptedUsername(src.getUsername());
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
@@ -51,25 +51,25 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this expensetracker into the model's {@code ExpenseTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedExpense}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public ExpenseTracker toModelType() throws IllegalValueException {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
-        AddressBook addressBook = new AddressBook(username.toModelType(), passwordOptional);
+        ExpenseTracker expenseTracker = new ExpenseTracker(username.toModelType(), passwordOptional);
         for (XmlAdaptedExpense p : expenses) {
             Expense expense = p.toModelType();
-            if (addressBook.hasExpense(expense)) {
+            if (expenseTracker.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
-            addressBook.addExpense(expense);
+            expenseTracker.addExpense(expense);
         }
         if (this.budget != null) {
-            addressBook.modifyMaximumBudget(this.budget.toModelType());
+            expenseTracker.modifyMaximumBudget(this.budget.toModelType());
         }
-        return addressBook;
+        return expenseTracker;
     }
 
     @Override
@@ -78,9 +78,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableExpenseTracker)) {
             return false;
         }
-        return expenses.equals(((XmlSerializableAddressBook) other).expenses);
+        return expenses.equals(((XmlSerializableExpenseTracker) other).expenses);
     }
 }

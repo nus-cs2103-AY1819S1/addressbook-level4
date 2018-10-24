@@ -31,17 +31,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.testutil.TypicalExpenses;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for ExpenseTracker, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class ExpenseTrackerSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -76,8 +76,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalExpenses.getTypicalAddressBook();
+    protected ExpenseTracker getInitialData() {
+        return TypicalExpenses.getTypicalExpenseTracker();
     }
 
     /**
@@ -134,7 +134,8 @@ public abstract class AddressBookSystemTest {
     protected void showAllExpenses() throws NoUserSelectedException {
 
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getExpenseList().size(), getModel().getFilteredExpenseList().size());
+        assertEquals(getModel().getExpenseTracker().getExpenseList().size(),
+                getModel().getFilteredExpenseList().size());
     }
 
     /**
@@ -143,7 +144,7 @@ public abstract class AddressBookSystemTest {
     protected void showExpensesWithName(String keyword) throws NoUserSelectedException {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredExpenseList().size()
-                < getModel().getAddressBook().getExpenseList().size());
+                < getModel().getExpenseTracker().getExpenseList().size());
     }
 
     /**
@@ -165,7 +166,7 @@ public abstract class AddressBookSystemTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertEquals(0, getModel().getAddressBook().getExpenseList().size());
+        assertEquals(0, getModel().getExpenseTracker().getExpenseList().size());
     }
 
     /**
@@ -177,10 +178,11 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) throws NoUserSelectedException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        System.out.println(expectedModel.getAddressBook().getMaximumBudget().getNextRecurrence());
-        System.out.println(new AddressBook(expectedModel.getAddressBook()).getMaximumBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageAddressBook().getMaximumBudget().getNextRecurrence());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        System.out.println(expectedModel.getExpenseTracker().getMaximumBudget().getNextRecurrence());
+        System.out.println(
+                new ExpenseTracker(expectedModel.getExpenseTracker()).getMaximumBudget().getNextRecurrence());
+        System.out.println(testApp.readStorageExpenseTracker().getMaximumBudget().getNextRecurrence());
+        assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
         assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }
 

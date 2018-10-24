@@ -181,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException(e.getMessage());
         }
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getExpenseTrackerDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
@@ -205,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the bottom part of the UI which shows entries in the AddressBook and sync information.
+     * Hides the bottom part of the UI which shows entries in the ExpenseTracker and sync information.
      */
     private void hideLoggedInUi() {
         splitPane.setManaged(false);
@@ -217,7 +217,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the bottom part of the UI which shows entries in the AddressBook and sync information.
+     * Shows the bottom part of the UI which shows entries in the ExpenseTracker and sync information.
      */
     private void showLoggedInUi() {
         splitPane.setManaged(true);

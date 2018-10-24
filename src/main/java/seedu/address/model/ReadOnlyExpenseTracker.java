@@ -9,9 +9,9 @@ import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an expense tracker
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyExpenseTracker {
 
     /**
      * Returns an unmodifiable view of the expenses list.

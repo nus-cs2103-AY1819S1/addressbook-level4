@@ -17,7 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.budget.Budget;
@@ -35,40 +35,40 @@ import seedu.address.model.user.Username;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private VersionedAddressBook versionedAddressBook;
+    private VersionedExpenseTracker versionedExpenseTracker;
     private FilteredList<Expense> filteredExpenses;
     private Username username;
 
     private StatsMode statsMode;
     private Predicate<Expense> expenseStatPredicate;
 
-    private final Map<Username, ReadOnlyAddressBook> addressBooks;
+    private final Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
 
     /**
-     * Initializes a ModelManager with the given addressBooks and userPrefs.
+     * Initializes a ModelManager with the given expenseTrackers and userPrefs.
      */
-    public ModelManager(Map<Username, ReadOnlyAddressBook> addressBooks, UserPrefs userPrefs) {
+    public ModelManager(Map<Username, ReadOnlyExpenseTracker> expenseTrackers, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBooks, userPrefs);
-        this.addressBooks = addressBooks;
-        logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
+        requireAllNonNull(expenseTrackers, userPrefs);
+        this.expenseTrackers = expenseTrackers;
+        logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
         this.username = null;
-        this.versionedAddressBook = null;
+        this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
-        Map<Username, ReadOnlyAddressBook> addressBooks = new TreeMap<>();
-        logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
-        this.addressBooks = addressBooks;
-        this.addressBooks.put(addressBook.getUsername(), addressBook);
-        this.username = addressBook.getUsername();
-        this.versionedAddressBook = null;
+        requireAllNonNull(expenseTracker, userPrefs);
+        Map<Username, ReadOnlyExpenseTracker> expenseTrackers = new TreeMap<>();
+        logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
+        this.expenseTrackers = expenseTrackers;
+        this.expenseTrackers.put(expenseTracker.getUsername(), expenseTracker);
+        this.username = expenseTracker.getUsername();
+        this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         try {
-            loadUserData(addressBook.getUsername(), addressBook.getPassword());
+            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword());
         } catch (NonExistentUserException e) {
             throw new IllegalStateException();
         }
@@ -79,48 +79,48 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) throws NoUserSelectedException {
-        versionedAddressBook.resetData(newData);
-        addressBooks.replace(this.username, this.versionedAddressBook);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyExpenseTracker newData) throws NoUserSelectedException {
+        versionedExpenseTracker.resetData(newData);
+        expenseTrackers.replace(this.username, this.versionedExpenseTracker);
+        indicateExpenseTrackerChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+    public ReadOnlyExpenseTracker getExpenseTracker() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        return this.versionedAddressBook;
+        return this.versionedExpenseTracker;
     }
 
     /** Raises an event to indicate the model has changed */
-    protected void indicateAddressBookChanged() throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+    protected void indicateExpenseTrackerChanged() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
     }
 
     @Override
     public boolean hasExpense(Expense expense) throws NoUserSelectedException {
         requireNonNull(expense);
-        if (versionedAddressBook == null) {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook.hasExpense(expense);
+        return versionedExpenseTracker.hasExpense(expense);
     }
 
     @Override
     public void deleteExpense(Expense target) throws NoUserSelectedException {
-        versionedAddressBook.removeExpense(target);
-        indicateAddressBookChanged();
+        versionedExpenseTracker.removeExpense(target);
+        indicateExpenseTrackerChanged();
     }
 
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
-        boolean budgetNotExceeded = versionedAddressBook.addExpense(expense);
+        boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
-        indicateAddressBookChanged();
+        indicateExpenseTrackerChanged();
         return budgetNotExceeded;
     }
 
@@ -128,15 +128,15 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateExpense(Expense target, Expense editedExpense) throws NoUserSelectedException {
         requireAllNonNull(target, editedExpense);
 
-        versionedAddressBook.updateExpense(target, editedExpense);
-        indicateAddressBookChanged();
+        versionedExpenseTracker.updateExpense(target, editedExpense);
+        indicateExpenseTrackerChanged();
     }
 
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedExpenseTracker}
      */
     @Override
     public ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException {
@@ -158,36 +158,36 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+    public boolean canUndoExpenseTracker() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook.canUndo();
+        return versionedExpenseTracker.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoExpenseTracker() {
+        return versionedExpenseTracker.canRedo();
     }
 
     @Override
-    public void undoAddressBook() throws NoUserSelectedException {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoExpenseTracker() throws NoUserSelectedException {
+        versionedExpenseTracker.undo();
+        indicateExpenseTrackerChanged();
     }
 
     @Override
-    public void redoAddressBook() throws NoUserSelectedException {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoExpenseTracker() throws NoUserSelectedException {
+        versionedExpenseTracker.redo();
+        indicateExpenseTrackerChanged();
     }
 
     @Override
-    public void commitAddressBook() throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+    public void commitExpenseTracker() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        versionedAddressBook.commit();
+        versionedExpenseTracker.commit();
     }
 
     //@author winsonhys
@@ -195,34 +195,34 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
-        this.versionedAddressBook.modifyMaximumBudget(budget);
-        indicateAddressBookChanged();
+        this.versionedExpenseTracker.modifyMaximumBudget(budget);
+        indicateExpenseTrackerChanged();
     }
 
     @Override
     public void setRecurrenceFrequency(long seconds) throws NoUserSelectedException {
-        this.versionedAddressBook.setRecurrenceFrequency(seconds);
-        indicateAddressBookChanged();
+        this.versionedExpenseTracker.setRecurrenceFrequency(seconds);
+        indicateExpenseTrackerChanged();
     }
 
 
     @Override
     public Budget getMaximumBudget() {
-        return this.versionedAddressBook.getMaximumBudget();
+        return this.versionedExpenseTracker.getMaximumBudget();
     }
 
     //@@author jonathantjm
     //=========== Stats =================================================================================
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedAddressBook}, filtered by {@code expenseStatPredicate} and sorted by expense date.
+     * {@code versionedExpenseTracker}, filtered by {@code expenseStatPredicate} and sorted by expense date.
      */
     @Override
     public ObservableList<Expense> getExpenseStats() throws NoUserSelectedException {
         if (this.filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
-        FilteredList<Expense> filteredList = new FilteredList<>(versionedAddressBook.getExpenseList());
+        FilteredList<Expense> filteredList = new FilteredList<>(versionedExpenseTracker.getExpenseList());
         filteredList.setPredicate(expenseStatPredicate);
 
         SortedList<Expense> sortedList = new SortedList<>(filteredList);
@@ -255,22 +255,22 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
         if (!isUserExists(username)) {
-            throw new NonExistentUserException(username, addressBooks.size());
+            throw new NonExistentUserException(username, expenseTrackers.size());
         }
-        if (!addressBooks.get(username).isMatchPassword(password)) {
+        if (!expenseTrackers.get(username).isMatchPassword(password)) {
             return false;
         }
         if (hasSelectedUser()) {
-            addressBooks.replace(this.username, this.versionedAddressBook);
+            expenseTrackers.replace(this.username, this.versionedExpenseTracker);
         }
-        this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
+        this.versionedExpenseTracker = new VersionedExpenseTracker(expenseTrackers.get(username));
 
-        this.filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
+        this.filteredExpenses = new FilteredList<>(versionedExpenseTracker.getExpenseList());
         this.username = username;
 
         try {
             indicateUserLoggedIn();
-            indicateAddressBookChanged();
+            indicateExpenseTrackerChanged();
             checkBudgetRestart();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
@@ -280,22 +280,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void unloadUserData() {
-        this.versionedAddressBook = null;
+        this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         this.username = null;
     }
 
     @Override
     public boolean isUserExists(Username toCheck) {
-        return addressBooks.containsKey(toCheck);
+        return expenseTrackers.containsKey(toCheck);
     }
 
     @Override
     public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+        if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook.isMatchPassword(toCheck);
+        return versionedExpenseTracker.isMatchPassword(toCheck);
     }
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/
@@ -310,38 +310,38 @@ public class ModelManager extends ComponentManager implements Model {
      * Checks if budget is required to restart due to recurrence
      */
     protected void checkBudgetRestart() {
-        this.versionedAddressBook.getMaximumBudget().checkBudgetRestart();
+        this.versionedExpenseTracker.getMaximumBudget().checkBudgetRestart();
     }
 
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
-        ModelManager copy = new ModelManager(addressBooks, userPrefs);
-        copy.versionedAddressBook = new VersionedAddressBook(this.getAddressBook());
-        copy.filteredExpenses = new FilteredList<>(copy.versionedAddressBook.getExpenseList());
+        ModelManager copy = new ModelManager(expenseTrackers, userPrefs);
+        copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
+        copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());
         copy.username = this.username;
         return copy;
     }
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername, Optional.empty())) != null) {
+        if (expenseTrackers.putIfAbsent(newUsername, new ExpenseTracker(newUsername, Optional.empty())) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }
 
     @Override
     public boolean hasSelectedUser() {
-        return versionedAddressBook != null && filteredExpenses != null && username != null;
+        return versionedExpenseTracker != null && filteredExpenses != null && username != null;
     }
 
     @Override
     public void setPassword(Password password) throws NoUserSelectedException {
-        if (this.versionedAddressBook == null) {
+        if (this.versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        versionedAddressBook.password = Optional.ofNullable(password);
-        addressBooks.replace(this.username, this.versionedAddressBook);
+        versionedExpenseTracker.password = Optional.ofNullable(password);
+        expenseTrackers.replace(this.username, this.versionedExpenseTracker);
     }
     //@@author
 
@@ -359,7 +359,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedExpenseTracker.equals(other.versionedExpenseTracker)
                 && filteredExpenses.equals(other.filteredExpenses);
     }
 

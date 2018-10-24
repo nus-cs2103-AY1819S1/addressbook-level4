@@ -62,7 +62,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
         boolean withinBudget = model.addExpense(toAdd);
-        model.commitAddressBook();
+        model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         if (withinBudget) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

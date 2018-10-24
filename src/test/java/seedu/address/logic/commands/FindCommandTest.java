@@ -17,7 +17,7 @@ import static seedu.address.testutil.TypicalExpenses.LUNCH;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.TAX;
 import static seedu.address.testutil.TypicalExpenses.TOY;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,8 +38,8 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
