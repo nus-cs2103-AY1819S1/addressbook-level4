@@ -9,10 +9,8 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
-import seedu.address.model.group.UniqueGroupTagList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -21,8 +19,6 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
-    private final UniqueGroupTagList groupTags;
 
     // @@author Derek-Hardy
     private final UniqueGroupList groups;
@@ -36,7 +32,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        groupTags = new UniqueGroupTagList();
         groups = new UniqueGroupList();
     }
     // @@author
@@ -61,19 +56,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    /**
-     * Replaces the contents of the group list with {@code groups}.
-     * {@code groups} must not contain duplicate groups.
-     *
-     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
-     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
-     * and will be deprecated progressively when Group implementation is updated.
-     */
-    @Deprecated
-    public void setGroupTags(List<Tag> groups) {
-        this.groupTags.setGroups(groups);
-    }
-
     // @@author Derek-Hardy
     /**
      * Replaces the contents of the group list with {@code groups}.
@@ -92,7 +74,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setGroups(newData.getGroupList());
-        setGroupTags(newData.getGroupTagList());
     }
 
     //// person-level operations
@@ -124,11 +105,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
-        if (p.getGroupTags() != null && !p.getGroupTags().isEmpty()) {
-            for (Tag t : p.getGroupTags()) {
-                groupTags.add(t);
-            }
-        }
     }
 
     // @@author Derek-Hardy
@@ -206,12 +182,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
-    }
-
-    @Override
-    @Deprecated
-    public ObservableList<Tag> getGroupTagList() {
-        return groupTags.asUnmodifiableObservableList();
     }
 
     // @@author Derek-Hardy

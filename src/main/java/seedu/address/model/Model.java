@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -16,9 +16,19 @@ import seedu.address.model.tag.Tag;
  */
 public interface Model {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} that always evaluate to true for persons
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true for groups
+     */
+    Predicate<Group> PREDICATE_SHOW_ALL_GROUPS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true for meetings
+     */
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
     /**
      * Clears existing backing model and replaces with the provided new data.
@@ -90,8 +100,6 @@ public interface Model {
     ObservableList<Group> getGroupList();
     // @@author
 
-    /** Returns an unmodifiable view of the filtered person list */
-
     /**
      * Returns an unmodifiable view of the filtered person list
      */
@@ -106,13 +114,13 @@ public interface Model {
 
 
     /** Returns an unmodifiable view of the filtered group list */
-    ObservableList<Tag> getFilteredGroupList();
+    ObservableList<Group> getFilteredGroupList();
 
     /**
      * Updates the filter of the filtered group list to filter by the given {@code predicate}
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredGroupList(Predicate<Tag> predicate);
+    void updateFilteredGroupList(Predicate<Group> predicate);
 
     /**
      * @return An unmodifiable view of the sorted person list

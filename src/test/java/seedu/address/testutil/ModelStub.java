@@ -9,7 +9,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -77,7 +76,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
+    public ObservableList<Group> getFilteredGroupList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -87,7 +86,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

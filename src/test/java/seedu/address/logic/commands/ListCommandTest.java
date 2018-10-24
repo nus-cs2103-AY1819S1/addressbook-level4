@@ -1,9 +1,13 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showGroupAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +16,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.util.GroupContainsPersonPredicate;
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -30,12 +37,35 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.PERSON), model, commandHistory,
+            ListCommand.MESSAGE_SUCCESS_PERSON, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.PERSON), model, commandHistory,
+            ListCommand.MESSAGE_SUCCESS_PERSON, expectedModel);
+    }
+
+    @Test
+    public void execute_groupListIsNotFiltered_showsSameGroupList() {
+        assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,
+            ListCommand.MESSAGE_SUCCESS_GROUP, expectedModel);
+    }
+
+    @Test
+    public void execute_groupListIsFiltered_showsEverything() {
+        showGroupAtIndex(model, INDEX_FIRST_GROUP);
+
+        // Because when a group is selected, the person list will change, hence this needs to be called to filter
+        // expectedModel's person list.
+        Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
+        final String[] groupTitle = { group.getTitle().fullTitle };
+        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
+
+        assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,
+            ListCommand.MESSAGE_SUCCESS_GROUP, expectedModel);
     }
 }

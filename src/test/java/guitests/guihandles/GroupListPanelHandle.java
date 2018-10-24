@@ -6,19 +6,20 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.tag.Tag;
+
+import seedu.address.model.group.Group;
 
 /**
  * Provides a handle for {@code GroupListPanel} containing the list of {@code GroupCard}
  */
-public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
+public class GroupListPanelHandle extends NodeHandle<ListView<Group>> {
     public static final String GROUP_LIST_VIEW_ID = "#groupListView";
 
     private static final String CARD_PANE_ID = "#groupCardPane";
 
-    private Optional<Tag> lastRememberedSelectedGroupCard;
+    private Optional<Group> lastRememberedSelectedGroupCard;
 
-    public GroupListPanelHandle(ListView<Tag> groupListPanelNode) {
+    public GroupListPanelHandle(ListView<Group> groupListPanelNode) {
         super(groupListPanelNode);
     }
 
@@ -29,7 +30,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public GroupCardHandle getHandleToSelectedCard() {
-        List<Tag> selectedGroupList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Group> selectedGroupList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedGroupList.size() != 1) {
             throw new AssertionError("Group list size expected 1.");
@@ -53,7 +54,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
      * Returns true if a card is currently selected.
      */
     public boolean isAnyCardSelected() {
-        List<Tag> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Group> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
             throw new AssertionError("Card list size expected 0 or 1.");
@@ -66,7 +67,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
      * Navigates the listview to display {@code group}.
      * @param group
      */
-    public void navigateToCard(Tag group) {
+    public void navigateToCard(Group group) {
         if (!getRootNode().getItems().contains(group)) {
             throw new IllegalArgumentException("Group does not exist.");
         }
@@ -92,7 +93,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the group card handle of a group associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public GroupCardHandle getGroupCardHandle(int index) {
@@ -103,7 +104,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Tag getGroup(int index) {
+    private Group getGroup(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -120,7 +121,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
      * Remembers the selected {@code GroupCard} in the list.
      */
     public void rememberSelectedGroupCard() {
-        List<Tag> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+        List<Group> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
             lastRememberedSelectedGroupCard = Optional.empty();
@@ -134,7 +135,7 @@ public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
      * {@code rememberSelectedGroupCard()} call.
      */
     public boolean isSelectedGroupCardChanged() {
-        List<Tag> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+        List<Group> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
             return lastRememberedSelectedGroupCard.isPresent();

@@ -1,7 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
 
 /**
  * Represents a selection change in the Group List Panel
@@ -9,9 +9,9 @@ import seedu.address.model.tag.Tag;
  */
 public class GroupPanelSelectionChangedEvent extends BaseEvent {
 
-    private final Tag newSelection;
+    private final Group newSelection;
 
-    public GroupPanelSelectionChangedEvent(Tag newSelection) {
+    public GroupPanelSelectionChangedEvent(Group newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class GroupPanelSelectionChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Tag getNewSelection() {
+    public Group getNewSelection() {
         return newSelection;
     }
 }
