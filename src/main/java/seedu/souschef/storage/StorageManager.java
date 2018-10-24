@@ -19,6 +19,7 @@ import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.util.SampleDataUtil;
 import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
 import seedu.souschef.storage.ingredient.XmlIngredientStorage;
+import seedu.souschef.storage.mealplanner.XmlMealPlanStorage;
 import seedu.souschef.storage.recipe.XmlRecipeStorage;
 
 /**
@@ -41,9 +42,11 @@ public class StorageManager extends ComponentManager implements Storage {
         FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getRecipeFilePath());
         FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
+        FeatureStorage mealPlanStorage = new XmlMealPlanStorage(userPrefs.getMealPlanPath());
         listOfFeatureStorage.add(recipeStorage);
         listOfFeatureStorage.add(ingredientStorage);
         listOfFeatureStorage.add(healthPlanStorage);
+        listOfFeatureStorage.add(mealPlanStorage);
         this.featureStorage = recipeStorage;
     }
 
@@ -132,6 +135,9 @@ public class StorageManager extends ComponentManager implements Storage {
             } else if (f instanceof XmlHealthPlanStorage) {
                 this.featureStorage = f;
                 readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
+            } else if (f instanceof XmlMealPlanStorage) {
+                this.featureStorage = f;
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
             }
             //reset the first to main
             this.featureStorage = temp.get(0);
@@ -159,6 +165,9 @@ public class StorageManager extends ComponentManager implements Storage {
             XmlHealthPlanStorage temp = new XmlHealthPlanStorage(filePath);
             temp.saveFeature(appContent, filePath);
 
+        } else if (this.featureStorage instanceof XmlMealPlanStorage) {
+            XmlMealPlanStorage temp = new XmlMealPlanStorage(filePath);
+            temp.saveFeature(appContent, filePath);
         }
     }
 

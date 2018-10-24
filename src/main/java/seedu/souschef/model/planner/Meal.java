@@ -11,21 +11,18 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class Meal {
 
-    public static final int BREAKFAST = 0;
-    public static final int LUNCH = 1;
-    public static final int DINNER = 2;
-
     // Attributes
-    private final int slot;
+    private final Slot slot;
     private Optional<Recipe> recipe;
 
-    public Meal(int slot) {
+    public Meal(Slot slot) {
         this.slot = slot;
         this.recipe = Optional.empty();
     }
 
-    public int getSlot() {
-        return this.slot;
+    public Meal(Slot slot, Recipe recipe) {
+        this.slot = slot;
+        this.recipe = Optional.ofNullable(recipe);
     }
 
     public Recipe getRecipe() {
@@ -34,6 +31,10 @@ public class Meal {
         } else {
             throw new MealRecipeNotFoundException("No recipe at selected meal slot.");
         }
+    }
+
+    public Slot getSlot() {
+        return this.slot;
     }
 
     public void setRecipe(Recipe recipe) {
@@ -54,17 +55,44 @@ public class Meal {
      *
      * @param s Command string token
      * @return Meal
+     * @throws IllegalArgumentException
      */
     public static int stringToIntSlot(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
-            return BREAKFAST;
+            return 0;
         } else if (s.equalsIgnoreCase("lunch")) {
-            return LUNCH;
+            return 1;
         } else if (s.equalsIgnoreCase("dinner")) {
-            return DINNER;
+            return 2;
         } else {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
+    }
+
+    /**
+     * Converts a string token to its Enum counterpart.
+     *
+     * @param s String token
+     * @return Meal.Slot
+     * @throws IllegalArgumentException
+     */
+    public static Slot stringToEnumSlot(String s) throws IllegalArgumentException {
+        if (s.equalsIgnoreCase("breakfast")) {
+            return Slot.BREAKFAST;
+        } else if (s.equalsIgnoreCase("lunch")) {
+            return Slot.LUNCH;
+        } else if (s.equalsIgnoreCase("dinner")) {
+            return Slot.DINNER;
+        } else {
+            throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
+        }
+    }
+
+    /**
+     * Represents the 3 meals of a day.
+     */
+    public enum Slot {
+        BREAKFAST, LUNCH, DINNER;
     }
 
 }
