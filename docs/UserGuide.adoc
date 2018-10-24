@@ -124,7 +124,7 @@ These have the same effect as using the commands `exit` and `help` respectively.
 These are the features commands available to use in the Expense Tracker:
 
 === Signing up a User : `signup`
-Signs up a new user to the Expense Tracker.
+Creates a a new user in the Expense Tracker.
 
 Format: `signup USERNAME`
 
