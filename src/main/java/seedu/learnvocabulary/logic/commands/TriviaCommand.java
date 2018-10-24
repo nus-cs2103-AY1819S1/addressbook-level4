@@ -10,14 +10,14 @@ import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Pose a trivia question based on the word's word list
+ * Sets vocabulary book to trivia mode
  */
 
 public class TriviaCommand extends Command {
 
     public static final String COMMAND_WORD = "trivia";
 
-    public static final String MESSAGE_SUCCESS = "Question: ";
+    public static final String MESSAGE_SUCCESS = "Trivia started!\n";
 
     public static final String MESSAGE_FAIL = "Vocabulary list is empty. Please add words in use trivia.";
 
@@ -32,10 +32,16 @@ public class TriviaCommand extends Command {
             return new CommandResult(MESSAGE_FAIL);
         }
 
-        model.setTrivia();
+        model.toggleTriviaMode();
+        model.setTriviaList();
+        model.setTriviaQuestion();
         Word triviaQ = model.getTrivia();
         Meaning qMeaning = triviaQ.getMeaning();
 
-        return new CommandResult(MESSAGE_SUCCESS + qMeaning.toString());
+        return new CommandResult(MESSAGE_SUCCESS + "Question: " + qMeaning.toString());
+
+
+
+
     }
 }

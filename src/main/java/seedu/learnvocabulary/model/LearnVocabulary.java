@@ -2,6 +2,8 @@ package seedu.learnvocabulary.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +23,11 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
     private Word triviaQuestion = null;
+    private ArrayList<Word> triviaQuestionList;
+    private boolean triviaMode = false;
+    private int currentScore = 0;
+    private int maxScore;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -134,13 +141,33 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     }
 
     /**
-     * Sets the trivia question based on the current vocabulary list
+     * Sets the trivia question list based on the current vocabulary list
      */
-    public void setTrivia() {
+    public void setTriviaList() {
+        triviaQuestionList = new ArrayList<Word>();
         ObservableList<Word> triviaRef = words.asUnmodifiableObservableList();
+        ArrayList<Word> triviaRefCopy = new ArrayList<Word>();
+        this.currentScore = 0;
+        int triviaSize = 10;
         int length = triviaRef.size();
-        Random random = new Random();
-        triviaQuestion = triviaRef.get(random.nextInt(length));
+
+        for (int index = 0; index < length; index++) {
+            triviaRefCopy.add(triviaRef.get(index));
+        }
+
+        Collections.shuffle(triviaRefCopy);
+
+        int copyIndex = 0;
+        int copySize = triviaRefCopy.size();
+        while (copySize > 0 && triviaSize > 0) {
+            Word wordToAdd = triviaRefCopy.get(copyIndex);
+            triviaQuestionList.add(wordToAdd);
+            copyIndex++;
+            triviaSize--;
+            copySize--;
+        }
+
+        this.maxScore = triviaQuestionList.size();
     }
 
     /**
@@ -150,8 +177,43 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         return triviaQuestion;
     }
 
+    /**
+     * Returns the current trivia question list
+     */
+    public ArrayList<Word> getTriviaList() {
+        return triviaQuestionList;
+    }
+
+    public void setTriviaQuestion() {
+        Random random = new Random();
+        int length = triviaQuestionList.size();
+        triviaQuestion = triviaQuestionList.get(random.nextInt(length));
+    }
+
+    public boolean isTriviaMode() {
+        return triviaMode; }
+
+    public void toggleTriviaMode() {
+        triviaMode = !triviaMode; }
+
+    /**
+     * Clears the current trivia question and remove it from the trivia question list
+     */
     public void clearTrivia() {
+        triviaQuestionList.remove(triviaQuestion);
         triviaQuestion = null;
+    }
+
+    public int currentScore() {
+        return this.currentScore;
+    }
+
+    public int maxScore() {
+        return this.maxScore;
+    }
+
+    public void updateScore() {
+        this.currentScore++;
     }
 
     /**
