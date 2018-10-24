@@ -17,7 +17,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
 
@@ -176,13 +175,13 @@ public class BrowserPanel extends UiPart<Region> {
 
     }
 
-//    @Subscribe
-//    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        if (event.getNewSelection() == null) {
-//            loadDefaultPage();
-//        } else {
-//            loadEventPage(event.getNewSelection());
-//        }
-//    }
+    //    @Subscribe
+    //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    //        if (event.getNewSelection() == null) {
+    //            loadDefaultPage();
+    //        } else {
+    //            loadEventPage(event.getNewSelection());
+    //        }
+    //    }
 }
