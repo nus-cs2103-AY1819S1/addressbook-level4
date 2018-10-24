@@ -21,8 +21,8 @@ public class FilterByGradeCommandParserTest {
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
         FilterByEducationCommand expectedFindCommand =
-                new FilterByEducationCommand("Sec");
-        assertParseSuccess(parser, "Sec", expectedFindCommand);
+                new FilterByEducationCommand("sec");
+        assertParseSuccess(parser, "sec", expectedFindCommand);
 
     }
 }
