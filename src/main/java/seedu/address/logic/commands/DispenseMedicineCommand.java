@@ -79,7 +79,8 @@ public class DispenseMedicineCommand extends QueueCommand {
             model.commitAddressBook();
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
             EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
-            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(), medicine.getMedicineName()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(),
+                    medicine.getMedicineName()));
         } catch (InsufficientStockException ise) {
             throw new CommandException(String.format(MESSAGE_MEDICINE_STOCK_INSUFFICIENT, medicine.getMedicineName()));
         }
