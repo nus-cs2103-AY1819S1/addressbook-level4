@@ -1,38 +1,69 @@
 package seedu.address.model.appointment;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import seedu.address.model.doctor.Doctor;
 
 /**
  * Represents an Appointment in the health book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Appointment {
-    private static int appointmentCounter;
+public class Appointment implements Comparable<Appointment> {
 
-    private int appointmentId;
-    private Doctor doctor;
+    private AppointmentId appointmentId;
+    private String doctor;
     private LocalDateTime dateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(Doctor doctor, LocalDateTime dateTime) {
-        this.appointmentId = appointmentCounter;
-        appointmentCounter++;
+    public Appointment(int appointmentCounter, String doctor, LocalDateTime dateTime) {
+        appointmentId = new AppointmentId(appointmentCounter);
         this.doctor = doctor;
         this.dateTime = dateTime;
         this.status = Status.UPCOMING;
-        doctor.addUpcomingAppointment(this);
+        prescriptions = new ArrayList<>();
+    }
+
+    public Appointment(AppointmentId appointmentId, String doctor, LocalDateTime dateTime, Status status,
+                       String comments, List<Prescription> prescriptions) {
+        this.appointmentId = appointmentId;
+        this.doctor = doctor;
+        this.dateTime = dateTime;
+        this.status = status;
+        if (comments != null) {
+            this.comments = comments;
+        }
+        if (prescriptions != null) {
+            this.prescriptions = prescriptions;
+        } else {
+            this.prescriptions = new ArrayList<>();
+        }
+
     }
 
     public int getAppointmentId() {
-        return appointmentId;
+        return appointmentId.getAppointmentId();
     }
 
-    public Doctor getDoctor() {
+    public String getDoctor() {
         return doctor;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
     }
 
     public void addPrescription(Prescription prescription) {
@@ -49,5 +80,26 @@ public class Appointment {
      */
     public boolean isLaterThan(Appointment appointmentToCheck) {
         return dateTime.isAfter(appointmentToCheck.dateTime);
+    }
+
+    /**
+     * Returns true if {@code appointments} has the same appointmentId.
+     */
+    public boolean isSameAppointment(Appointment toCheck) {
+        return this.appointmentId.getAppointmentId() == toCheck.getAppointmentId();
+    }
+
+    /**
+     *  Returns 1 if {@code appointment} is earlier than other appointment
+     */
+    @Override
+    public int compareTo(Appointment o) {
+        if (this.isLaterThan(o)) {
+            return -1;
+        } else if (!this.isLaterThan(o)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
