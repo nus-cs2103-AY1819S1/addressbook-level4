@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -18,7 +19,7 @@ public class WishDetailSavingAmount extends UiPart<Region> {
 
     private static final String FXML = "WishDetailSavingAmount.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private final Logger logger = LogsCenter.getLogger(WishDetailSavingAmount.class);
 
     @FXML
     private Label price;
@@ -53,5 +54,10 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     private void handleWishPanelSelectionChangedEvent(WishPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadWishDetails(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info("test" + event.message );
     }
 }
