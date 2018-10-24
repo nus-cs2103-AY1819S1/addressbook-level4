@@ -38,19 +38,6 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer++;
     }
 
-    /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the addressBook state
-     * list.
-     * Saves a copy of the current {@code UniquePersonList} state at the end of the person
-     * list state list.
-     * Undone states are removed from both the addressBook and the personList state list.
-     */
-    public void commitPerson() {
-        commit();
-
-        removePersonStatesAfterCurrentPointer();
-      //  personListStateList.add(new UniquePersonList(this.getPersonList()));
-    }
 
     private void removeStatesAfterCurrentPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
@@ -63,7 +50,7 @@ public class VersionedAddressBook extends AddressBook {
     /**
      * Restores the address book to its previous state.
      */
-    public void undoAll() {
+    public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
@@ -71,22 +58,11 @@ public class VersionedAddressBook extends AddressBook {
         resetData(addressBookStateList.get(currentStatePointer));
     }
 
-    /**
-     * Restore the person list in the address book to its previous state.
-     */
-    public void undoPerson() {
-        if (!canUndoPerson()) {
-            throw new NoUndoablePersonStateException();
-        }
-        currentPersonStatePointer--;
-        resetPersonData(personListStateList.get(currentPersonStatePointer));
-
-    }
 
     /**
      * Restores the address book to its previously undone state.
      */
-    public void redoAll() {
+    public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
@@ -107,11 +83,6 @@ public class VersionedAddressBook extends AddressBook {
     public boolean canRedo() {
         return currentStatePointer < addressBookStateList.size() - 1;
     }
-
-    /**
-     * Returns true if if {@code undoPerson()} has person list states in address book to undo.
-     */
-    public boolean canUndoPerson() { return currentPersonStatePointer > 0; }
 
     @Override
     public boolean equals(Object other) {

@@ -210,13 +210,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undoAll();
+        versionedAddressBook.undo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redoAll();
+        versionedAddressBook.redo();
         indicateAddressBookChanged();
     }
 
@@ -224,20 +224,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
-
-    //// Undo/Redo in person level
-    @Override
-    public boolean canUndoPersonInAddressBook() { return versionedAddressBook.canUndoPerson(); }
-
-    @Override
-    public void undoPersonInAddressBook() {
-        versionedAddressBook.undoPerson();
-        indicateAddressBookChanged(); // TODO
-    }
-
-    @Override
-    public void commitPersonInAddressBook() { versionedAddressBook.commitPerson(); }
-
 
 
     @Override
@@ -255,7 +241,9 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredModules.equals(other.filteredModules)
+                && filteredOccasions.equals(other.filteredOccasions);
     }
 
 }

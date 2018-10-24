@@ -111,10 +111,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    // TODO: Include Filtered Module and Occasion lists
-
-    //=========== Undo/Redo in level above person, module and occasion.===========================================================
-
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -151,33 +147,4 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
-
-    //// Undo/Redo in person-level
-
-    /**
-     * Returns true if the model has previous person list in address book states tp restore.
-     */
-    boolean canUndoPersonInAddressBook();
-
-    /**
-     * Returns true if the model has undone person list in address book states to restore.
-     * Using "undo person" or "undo".
-     */
-   // boolean canRedoPersonInAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoPersonInAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-  //  void redoPersonInAddressBook();
-
-    /**
-     * Saves the current person list state in address book for undo/redo.
-     */
-    void commitPersonInAddressBook();
-
 }
