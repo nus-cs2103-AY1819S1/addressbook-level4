@@ -13,15 +13,15 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.user.Username;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ExpenseTracker data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -54,7 +54,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ExpenseTracker methods ==============================
 
     @Override
     public Path getExpensesDirPath() {
@@ -62,28 +62,28 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException {
         return readExpenses(expensesStorage.getExpensesDirPath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenseTracker> readExpenses(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expensesStorage.readExpenses(filePath);
     }
 
     @Override
-    public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException,
+    public Map<Username, ReadOnlyExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException,
             IOException {
         File dir = new File(dirPath.toString());
-        final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
+        final Map<Username, ReadOnlyExpenseTracker> books = new TreeMap<>();
         File[] directoryListing = dir.listFiles();
         if (!dir.mkdir()) {
             if (directoryListing != null) {
                 for (File child : directoryListing) {
                     readExpenses(Paths.get(child.getPath())).ifPresent(
-                        addressBook -> books.put(new Username(child.getName().replace(".xml", "")),
-                                addressBook));
+                        expenseTracker -> books.put(new Username(child.getName().replace(".xml", "")),
+                                expenseTracker));
                 }
             }
         }
@@ -91,32 +91,32 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
         Path path = Paths.get(expensesStorage.getExpensesDirPath().toString(),
-                addressBook.getUsername().toString() + ".xml");
-        saveExpenses(addressBook, path);
+                expenseTracker.getUsername().toString() + ".xml");
+        saveExpenses(expenseTracker, path);
     }
 
     @Override
-    public void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        expensesStorage.saveExpenses(addressBook, filePath);
+        expensesStorage.saveExpenses(expenseTracker, filePath);
     }
 
     @Override
-    public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        backupExpenses(addressBook, expensesStorage.getExpensesDirPath());
+    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
+        backupExpenses(expenseTracker, expensesStorage.getExpensesDirPath());
     }
 
     @Override
-    public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write backup of: " + filePath);
-        expensesStorage.backupExpenses(addressBook, filePath);
+        expensesStorage.backupExpenses(expenseTracker, filePath);
     }
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleExpenseTrackerChangedEvent(ExpenseTrackerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveExpenses(event.data);

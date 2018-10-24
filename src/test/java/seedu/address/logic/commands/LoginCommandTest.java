@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,13 +29,13 @@ public class LoginCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullUsername_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new LoginCommand(null, new Password("aaaaaa", true));
+        new LoginCommand(null, Optional.of(new Password("aaaaaa", true)));
     }
 
     @Test
@@ -61,7 +63,7 @@ public class LoginCommandTest {
     @Test
     public void execute_incorrectPassword_loginFailed() throws Exception {
         model.setPassword(PasswordTest.VALID_PASSWORD);
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null).execute(model,
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty()).execute(model,
                 commandHistory);
         assertEquals(LoginCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
     }

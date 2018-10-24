@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<expensetracker>
 
     <expenses>
         <name>Alice Pauline</name>
@@ -17,6 +17,6 @@
         <cost>1.00</cost>
     </expenses>
 
-    <username>duplicateExpenseAddressBook</username>
+    <username>duplicateExpenseExpenseTracker</username>
 
-</addressbook>
+</expensetracker>

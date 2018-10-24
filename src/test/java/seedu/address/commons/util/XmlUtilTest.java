@@ -16,13 +16,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.user.Username;
 import seedu.address.storage.XmlAdaptedExpense;
 import seedu.address.storage.XmlAdaptedTag;
-import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.storage.XmlSerializableExpenseTracker;
 import seedu.address.testutil.ExpenseBuilder;
+import seedu.address.testutil.ExpenseTrackerBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -30,11 +30,11 @@ public class XmlUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validExpenseTracker.xml");
     private static final Path MISSING_EXPENSE_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingExpenseField.xml");
     private static final Path INVALID_EXPENSE_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseField.xml");
     private static final Path VALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("validExpense.xml");
-    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempExpenseTracker.xml");
 
     private static final String INVALID_CATEGORY = " ";
 
@@ -42,7 +42,7 @@ public class XmlUtilTest {
     private static final String VALID_CATEGORY = "School";
     private static final String VALID_ADDRESS = "1.00";
     private static final String VALID_DATE = "01-10-2018";
-    private static final String VALID_ADDRESS_BOOK_USERNAME = "validAddressBook";
+    private static final String VALID_ADDRESS_BOOK_USERNAME = "validExpenseTracker";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -51,7 +51,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.getDataFromFile(null, AddressBook.class);
+        XmlUtil.getDataFromFile(null, ExpenseTracker.class);
     }
 
     @Test
@@ -63,18 +63,19 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, ExpenseTracker.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_dataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, ExpenseTracker.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        ExpenseTracker dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
+                XmlSerializableExpenseTracker.class).toModelType();
         assertEquals(9, dataFromFile.getExpenseList().size());
         assertEquals(dataFromFile.getUsername(), new Username(VALID_ADDRESS_BOOK_USERNAME));
     }
@@ -109,7 +110,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.saveDataToFile(null, new AddressBook(new Username("aaa"), Optional.empty()));
+        XmlUtil.saveDataToFile(null, new ExpenseTracker(new Username("aaa"), Optional.empty()));
     }
 
     @Test
@@ -121,24 +122,26 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook(new Username("aaa"), Optional.empty()));
+        XmlUtil.saveDataToFile(MISSING_FILE, new ExpenseTracker(new Username("aaa"), Optional.empty()));
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite =
-                new XmlSerializableAddressBook(new AddressBook(new Username("AA"), Optional.empty()));
+        XmlSerializableExpenseTracker dataToWrite =
+                new XmlSerializableExpenseTracker(new ExpenseTracker(new Username("AA"), Optional.empty()));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableExpenseTracker dataFromFile =
+                XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableExpenseTracker.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook(new Username("AAA"), Optional.empty()));
-        dataToWrite = new XmlSerializableAddressBook(
+        ExpenseTrackerBuilder builder =
+                new ExpenseTrackerBuilder(new ExpenseTracker(new Username("AAA"), Optional.empty()));
+        dataToWrite = new XmlSerializableExpenseTracker(
                 builder.withExpense(new ExpenseBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableExpenseTracker.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 

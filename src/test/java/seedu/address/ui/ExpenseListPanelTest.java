@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.expense.Expense;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableExpenseTracker;
 
 public class ExpenseListPanelTest extends GuiUnitTest {
     private static final ObservableList<Expense> TYPICAL_EXPENSES =
@@ -82,9 +82,9 @@ public class ExpenseListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Expense> createBackingList(int expenseCount) throws Exception {
         Path xmlFile = createXmlFileWithExpenses(expenseCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getExpenseList());
+        XmlSerializableExpenseTracker xmlExpenseTracker =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableExpenseTracker.class);
+        return FXCollections.observableArrayList(xmlExpenseTracker.toModelType().getExpenseList());
     }
 
     /**
@@ -93,7 +93,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithExpenses(int expenseCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<expensetracker>\n");
         for (int i = 0; i < expenseCount; i++) {
             builder.append("<expenses>\n");
             builder.append("<name>").append(i).append("a</name>\n");
@@ -107,7 +107,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         builder.append("<budgetCap>").append((double) expenseCount).append("</budgetCap>\n");
         builder.append("<currentExpenses>").append((double) expenseCount).append("</currentExpenses>\n");
         builder.append("</budget>\n");
-        builder.append("</addressbook>\n");
+        builder.append("</expensetracker>\n");
 
         Path manyExpensesFile = Paths.get(TEST_DATA_FOLDER + "manyExpenses.xml");
         FileUtil.createFile(manyExpensesFile);

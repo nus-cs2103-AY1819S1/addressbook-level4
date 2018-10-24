@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Expense values as in TypicalExpenses#getTypicalAddressBook() -->
-<addressbook>
+<!-- ExpenseTracker save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseTracker() -->
+<expensetracker>
     <expenses>
         <name>School fee</name>
         <category>School</category>
@@ -47,11 +47,11 @@
         <cost>7.00</cost>
 		<date>02-10-2018</date>
     </expenses>
-    <username>typicalExpensesAddressBook</username>
+    <username>typicalExpensesExpenseTracker</username>
     <budget>
         <budgetCap>28.00</budgetCap>
         <currentExpenses>26.00</currentExpenses>
         <nextRecurrence>2017-08-04T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
     </budget>
-</addressbook>
+</expensetracker>

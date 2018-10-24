@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 //@@author JasonChong96
@@ -33,10 +34,8 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         }
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
-        if (plainPassword.isPresent()) {
-            return new LoginCommand(username, ParserUtil.parsePassword(plainPassword.get()));
-        } else {
-            return new LoginCommand(username, null);
-        }
+        Optional<Password> password = plainPassword.isPresent()
+                ? Optional.of(ParserUtil.parsePassword(plainPassword.get())) : Optional.empty();
+        return new LoginCommand(username, password);
     }
 }

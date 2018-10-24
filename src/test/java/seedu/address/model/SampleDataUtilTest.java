@@ -13,8 +13,8 @@ public class SampleDataUtilTest {
     }
 
     @Test
-    public void testGetSampleAddressBook() {
-        ReadOnlyAddressBook book = SampleDataUtil.getSampleAddressBook();
+    public void testGetSampleExpenseTracker() {
+        ReadOnlyExpenseTracker book = SampleDataUtil.getSampleExpenseTracker();
         Expense[] sampleExpenses = SampleDataUtil.getSampleExpenses();
         for (Expense p : sampleExpenses) {
             Assert.assertTrue(book.getExpenseList().contains(p));

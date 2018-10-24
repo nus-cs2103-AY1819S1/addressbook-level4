@@ -25,7 +25,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.user.Username;
 import seedu.address.model.util.SampleDataUtil;
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ExpenseTracker ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -65,7 +65,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookDirPath());
+        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getExpenseTrackerDirPath());
         storage = new StorageManager(expensesStorage, userPrefsStorage);
 
         initLogging(config);
@@ -83,25 +83,25 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * A user "sample" with a sample AddressBook will be added if the username does not exist.
+     * A user "sample" with a sample ExpenseTracker will be added if the username does not exist.
      * or no users will be used instead if errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Map<Username, ReadOnlyAddressBook> addressBooks;
+        Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
         try {
-            addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
-            ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
-            if (!addressBooks.containsKey(sampleAddressBook.getUsername())) {
-                addressBooks.put(sampleAddressBook.getUsername(), sampleAddressBook);
+            expenseTrackers = storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath());
+            ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
+            if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
+                expenseTrackers.put(sampleExpenseTracker.getUsername(), sampleExpenseTracker);
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
-            addressBooks = new TreeMap<>();
+            expenseTrackers = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the files. Will be starting with no accounts");
-            addressBooks = new TreeMap<>();
+            expenseTrackers = new TreeMap<>();
         }
-        return new ModelManager(addressBooks, userPrefs);
+        return new ModelManager(expenseTrackers, userPrefs);
     }
 
     protected void initLogging(Config config) {
@@ -162,7 +162,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExpenseTracker");
             initializedPrefs = new UserPrefs();
         }
 
@@ -182,13 +182,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ExpenseTracker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping ExpenseTracker ] =============================");
         ui.stop();
         if (model.hasSelectedUser()) {
             try {

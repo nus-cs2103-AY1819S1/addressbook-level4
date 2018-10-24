@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,7 +26,7 @@ public class SetPasswordCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -48,7 +50,7 @@ public class SetPasswordCommandTest {
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
         commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD)
                 .execute(model, commandHistory);
-        assertEquals(model.getAddressBook().getPassword().get(), PasswordTest.VALID_PASSWORD);
+        assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
     }
 
@@ -60,20 +62,21 @@ public class SetPasswordCommandTest {
                 commandResult.feedbackToUser);
         commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD)
                 .execute(model, commandHistory);
-        assertEquals(model.getAddressBook().getPassword().get(), PasswordTest.VALID_PASSWORD);
+        assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
-        commandResult = new SetPasswordCommand(new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false),
+        commandResult = new SetPasswordCommand(
+                Optional.of(new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false)),
                 PasswordTest.VALID_PASSWORD).execute(model, commandHistory);
-        assertEquals(model.getAddressBook().getPassword().get(), PasswordTest.VALID_PASSWORD);
+        assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
     }
 
     @Test
     public void testEquals() {
-        assertEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD),
-                new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD));
-        assertNotEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD),
-                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+        assertEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD),
+                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD));
+        assertNotEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD),
+                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
                         new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(), true)));
     }
 }

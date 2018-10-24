@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ExpenseTracker;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.user.Username;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ExpenseTracker} with sample data.
  */
 public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
@@ -42,8 +42,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook(new Username("sample"), Optional.empty());
+    public static ReadOnlyExpenseTracker getSampleExpenseTracker() {
+        ExpenseTracker sampleAb = new ExpenseTracker(new Username("sample"), Optional.empty());
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }
