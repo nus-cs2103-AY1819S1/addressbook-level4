@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -11,8 +13,8 @@ import seedu.address.model.person.CurrentPatient;
 
 
 /**
- * Serve the patient that is first in queue.
- * Updates the queue to remove the first patient.
+ * Finish serving the Current Patient.
+ * Move Patient from Current Patient to ServedPatientList.
  */
 public class FinishCommand extends QueueCommand {
     public static final String COMMAND_WORD = "finish";
@@ -33,6 +35,8 @@ public class FinishCommand extends QueueCommand {
 
         String currentPatientNameIc = currentPatient.toNameAndIc();
         servedPatientList.addServedPatient(currentPatient.finishServing());
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
 
         return new CommandResult(MESSAGE_SUCCESS + currentPatientNameIc);
     }

@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import seedu.address.model.person.Patient;
 
 /**
@@ -58,4 +60,15 @@ public interface PatientQueue {
      * @return true if queue contains patient.
      */
     boolean contains(Patient patient);
+
+    /**
+     * Returns the PatientQueue as a List object
+     * @return List object of Patients
+     */
+    List<Patient> getPatientsAsList();
+
+    /**
+     * Clears the PatientQueue
+     */
+    void clear();
 }

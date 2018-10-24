@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -54,7 +56,8 @@ public class InsertCommand extends QueueCommand {
 
         Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
 
-        if (patientQueue.contains(patientToRegister)) {
+        if (patientQueue.contains(patientToRegister) || currentPatient.isPatient(patientToRegister)
+                || servedPatientList.containsPatient(patientToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -67,6 +70,8 @@ public class InsertCommand extends QueueCommand {
             patientQueue.addAtIndex(patientToRegister, targetPosition.getZeroBased());
             actualPosition = targetPosition.getOneBased();
         }
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
 
         return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
                 + " with Queue Number: " + actualPosition + "\n" + patientQueue.displayQueue());

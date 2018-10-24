@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -66,5 +67,15 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public boolean contains(Patient patient) {
         return patientQueue.contains(patient);
+    }
+
+    @Override
+    public List<Patient> getPatientsAsList() {
+        return patientQueue;
+    }
+
+    @Override
+    public void clear() {
+        patientQueue.clear();
     }
 }

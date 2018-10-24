@@ -2,10 +2,15 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import seedu.address.model.medicine.Medicine;
+
 /**
  * Uncompleted class, need to add more methods and fields.
  * Represents a patient that has already consulted the doctor in the address book.
- * It has all the necessary data needed to generate any object that inherits from Document.
+ * It has all the necessary data needed to generate any object that inherits from document.
  */
 public class ServedPatient {
 
@@ -13,6 +18,7 @@ public class ServedPatient {
     private String noteContent;
     private String referralContent;
     private String mcContent;
+    private Map<Medicine, Integer> medicineAllocated;
     // add more fields as required
 
     /**
@@ -23,6 +29,7 @@ public class ServedPatient {
      */
     public ServedPatient(Patient patient) {
         requireNonNull(patient);
+        medicineAllocated = new HashMap<>();
         this.patient = patient;
         this.noteContent = "";
         this.referralContent = "";
@@ -58,6 +65,13 @@ public class ServedPatient {
     }
 
     /**
+     * Returns the medicine and quantity allocated for the {@code served patient}.
+     */
+    public Map<Medicine, Integer> getMedicineAllocated() {
+        return medicineAllocated;
+    }
+
+    /**
      * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
@@ -79,10 +93,32 @@ public class ServedPatient {
     }
 
     /**
-     * Console view of a served patient.
-     * @return String representation of patient with Name and IcNumber.
+     * Add specified quantity of medicine to patient.
+     * @param medicine to be added.
+     * @param quantity of medicine to be added.
+     * @return string representation of medicine added.
+     */
+    public String addMedicine(Medicine medicine, int quantity) {
+        medicineAllocated.put(medicine, quantity);
+        return medicine.toString();
+    }
+
+    /**
+     * Checks whether current is a specified patient.
+     * @return true if queue contains patient.
+     */
+    public boolean isPatient(Patient patient) {
+        return (this.patient).isSamePerson(patient);
+    }
+
+    /**
+     * @return a console-friendly representation of the patient.
      */
     public String toNameAndIc() {
         return patient.toNameAndIc();
+    }
+
+    public Patient getPatient() {
+        return this.patient;
     }
 }

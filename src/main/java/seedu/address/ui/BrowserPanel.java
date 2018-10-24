@@ -9,13 +9,17 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
+import seedu.address.model.PatientQueue;
+import seedu.address.model.ServedPatientList;
+import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.ServedPatient;
 
 /**
  * The Browser Panel of the App.
@@ -32,8 +36,6 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    @FXML
-    private TreeView treeView;
 
     public BrowserPanel() {
         super(FXML);
@@ -70,6 +72,17 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads a HTML file that displays the queue information
+     */
+    private void loadQueueInfomationPage(PatientQueue patientQueue, CurrentPatient currentPatient,
+                                         ServedPatientList servedPatientList) {
+        String filePath = "/view/QueueInformation.html";
+        String url = MainApp.class.getResource(filePath).toExternalForm();
+        url = addQueueDetailsAsArgs(url, patientQueue, currentPatient, servedPatientList);
+        loadPage(url);
+    }
+
+    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -80,6 +93,12 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowQueueInformationEvent(ShowQueueInformationEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadQueueInfomationPage(event.getPatientQueue(), event.getCurrentPatient(), event.getServedPatientList());
     }
 
     /**
@@ -106,7 +125,9 @@ public class BrowserPanel extends UiPart<Region> {
         url += patient.getEmail().value;
 
         url += "&blood=";
-        url += patient.getMedicalRecord().getBloodType().value;
+        String bloodTypeString = patient.getMedicalRecord().getBloodType().value.equals("") ? "not taken"
+                : patient.getMedicalRecord().getBloodType().value;
+        url += bloodTypeString;
 
         url += "&diseases=";
         url += convertListToString(patient.getMedicalRecord().getDiseaseHistory());
@@ -121,6 +142,47 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Parses object arguments and appends them to given url as parameters
+     * @param url given url string.
+     * @param patientQueue given patient queue object.
+     * @param currentPatient given current patient object.
+     * @param servedPatientList given served pateint list object.
+     * @return complete url string.
+     */
+    private String addQueueDetailsAsArgs(String url, PatientQueue patientQueue,
+                                         CurrentPatient currentPatient, ServedPatientList servedPatientList) {
+        url += "?queue=";
+        if (patientQueue.getPatientsAsList().isEmpty()) {
+            url += "empty_";
+        } else {
+            for (Patient patient : patientQueue.getPatientsAsList()) {
+                url += patient.toNameAndIc();
+                url += "_";
+            }
+        }
+
+        url = url.substring(0, url.length() - 1);
+
+        url += "&current=";
+        url += currentPatient.toNameAndIc();
+
+        url += "&served=";
+        if (servedPatientList.getPatientsAsList().isEmpty()) {
+            url += "empty_";
+        } else {
+            for (ServedPatient patient : servedPatientList.getPatientsAsList()) {
+                url += patient.toNameAndIc();
+                url += "_";
+            }
+        }
+
+        url = url.substring(0, url.length() - 1);
+
+        return url;
+
+    }
+
+    /**
      * Convert any list into a String with commas.
      * @param list list to convert
      * @param <T> Generic method
@@ -132,6 +194,6 @@ public class BrowserPanel extends UiPart<Region> {
             result += item.toString();
             result += ", ";
         }
-        return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
+        return result.length() >= 2 ? result.substring(0, result.length() - 2) : "none";
     }
 }

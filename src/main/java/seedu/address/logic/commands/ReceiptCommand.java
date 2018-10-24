@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-import seedu.address.model.Receipt;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.document.Receipt;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
 
@@ -26,10 +26,10 @@ public class ReceiptCommand extends QueueCommand {
             + " index. Includes information like the date of visit, consultation fee, medicine dispensed, cost, etc. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "Receipt generated for patient! Contents can be found below:";
+    public static final String MESSAGE_GENERATE_RECEIPT_SUCCESS = "Receipt generated for patient!";
 
+    private Receipt receipt;
     private final Index index;
-    private String generatedResult;
 
     /**
      * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
@@ -47,14 +47,13 @@ public class ReceiptCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final Receipt receipt;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         receipt = new Receipt(servedPatient);
-        generatedResult = receipt.generate();
+        receipt.generateDocument();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+        return new CommandResult(String.format(MESSAGE_GENERATE_RECEIPT_SUCCESS));
     }
 
     @Override
@@ -62,5 +61,9 @@ public class ReceiptCommand extends QueueCommand {
         return other == this // short circuit if same object
                 || (other instanceof ReceiptCommand // instanceof handles nulls
                 && index.equals(((ReceiptCommand) other).index)); // state check
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
     }
 }

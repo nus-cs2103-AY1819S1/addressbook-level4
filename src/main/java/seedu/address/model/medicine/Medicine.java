@@ -1,7 +1,10 @@
+/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import seedu.address.model.medicine.exceptions.InsufficientStockException;
 
 /**
  * Represents a Medicine in the records.
@@ -32,6 +35,10 @@ public class Medicine {
         return minimumStockQuantity;
     }
 
+    public Integer getMsqValue() {
+        return minimumStockQuantity.getValue();
+    }
+
     public PricePerUnit getPricePerUnit() {
         return pricePerUnit;
     }
@@ -42,6 +49,31 @@ public class Medicine {
 
     public Stock getStock() {
         return stock;
+    }
+
+    public Integer getStockValue() {
+        return stock.getValue();
+    }
+
+    /**
+     * After dispensing the medicine to the patient, the stock is updated accordingly
+     * to the original stock level. There must be sufficient quantity of stock to dispense.
+     * @param stockToDispense the amount of medicine to dispense
+     */
+    public void dispense(Integer stockToDispense) throws InsufficientStockException {
+        int newStockLevel = getStockValue() - stockToDispense;
+        if (newStockLevel < 0) {
+            throw new InsufficientStockException(this);
+        }
+        this.stock = new Stock(newStockLevel);
+    }
+
+    /**
+     * In the event that the doctor changes the quantity of medicine allocated to the patient,
+     * the original quantity of medicine allocated needs to be added back to the stock.
+     */
+    public void refill(int stockToRefill) {
+        this.stock = new Stock(getStockValue() + stockToRefill);
     }
 
     /**
@@ -58,6 +90,13 @@ public class Medicine {
                 && (otherMedicine.getMinimumStockQuantity().equals(getMedicineName())
                 || otherMedicine.getPricePerUnit().equals(getPricePerUnit())
                 || otherMedicine.getStock().equals(getStock()));
+    }
+
+    /**
+     * Returns true if both medicines has the same name.
+     */
+    public boolean hasSameMedicineName(MedicineName otherMedicine) {
+        return otherMedicine.equals(this.medicineName);
     }
 
     /**

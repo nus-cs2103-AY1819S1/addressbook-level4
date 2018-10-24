@@ -9,11 +9,15 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddMedicalRecordCommand;
 import seedu.address.logic.commands.AddMedicineCommand;
+import seedu.address.logic.commands.CheckStockCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DispenseMedicineCommand;
 import seedu.address.logic.commands.DisplayQueueCommand;
 import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.DocumentContentAddCommand;
+import seedu.address.logic.commands.DocumentContentDisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditMedicineCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -25,6 +29,7 @@ import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListStockCommand;
 import seedu.address.logic.commands.MedicalCertificateCommand;
+import seedu.address.logic.commands.PaymentCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReferralLetterCommand;
@@ -70,6 +75,10 @@ public class AddressBookParser {
         case AddMedicineCommand.COMMAND_WORD:
             return new AddMedicineCommandParser().parse(arguments);
 
+        case DispenseMedicineCommand.COMMAND_WORD:
+        case DispenseMedicineCommand.COMMAND_ALIAS:
+            return new DispenseMedicineCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
@@ -84,6 +93,9 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
+
+        case CheckStockCommand.COMMAND_WORD:
+            return new CheckStockCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -126,12 +138,15 @@ public class AddressBookParser {
             return new ReceiptCommandParser().parse(arguments);
 
         case MedicalCertificateCommand.COMMAND_WORD:
+        case MedicalCertificateCommand.COMMAND_ALIAS:
             return new MedicalCertificateCommandParser().parse(arguments);
 
         case ReferralLetterCommand.COMMAND_WORD:
+        case ReferralLetterCommand.COMMAND_ALIAS:
             return new ReferralLetterCommandParser().parse(arguments);
 
         case DisplayQueueCommand.COMMAND_WORD:
+        case DisplayQueueCommand.COMMAND_ALIAS:
             return new DisplayQueueCommand();
 
         case DisplayServedPatientsCommand.COMMAND_WORD:
@@ -146,15 +161,27 @@ public class AddressBookParser {
         case InsertCommand.COMMAND_ALIAS:
             return new InsertCommandParser().parse(arguments);
 
-        case ServeCommand.COMMAND_WORD:
-            return new ServeCommand();
-
         case RemoveCommand.COMMAND_WORD:
         case RemoveCommand.COMMAND_ALIAS:
             return new RemoveCommandParser().parse(arguments);
 
+        case ServeCommand.COMMAND_WORD:
+            return new ServeCommand();
+
+        case DocumentContentAddCommand.COMMAND_WORD:
+        case DocumentContentAddCommand.COMMAND_ALIAS:
+            return new DocumentContentAddCommandParser().parse(arguments);
+
+        case DocumentContentDisplayCommand.COMMAND_WORD:
+        case DocumentContentDisplayCommand.COMMAND_ALIAS:
+            return new DocumentContentDisplayCommand();
+
         case FinishCommand.COMMAND_WORD:
             return new FinishCommand();
+
+        case PaymentCommand.COMMAND_WORD:
+        case PaymentCommand.COMMAND_ALIAS:
+            return new PaymentCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

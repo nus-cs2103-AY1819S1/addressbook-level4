@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -44,6 +46,9 @@ public class DeleteCommand extends Command {
         Patient patientToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(patientToDelete);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete));
     }
 

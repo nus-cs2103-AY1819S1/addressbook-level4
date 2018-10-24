@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayServedPatientsCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -24,8 +25,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MedicalCertificateCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReferralLetterCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -60,6 +63,22 @@ public class AddressBookParserTest {
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_displayServedPatients() throws Exception {
+        assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD)
+                instanceof DisplayServedPatientsCommand);
+        assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD + " 3")
+                instanceof DisplayServedPatientsCommand);
+    }
+
+    @Test
+    public void parseCommand_displayServedPatientsAlias() throws Exception {
+        assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_ALIAS)
+                instanceof DisplayServedPatientsCommand);
+        assertTrue(parser.parseCommand(DisplayServedPatientsCommand.COMMAND_WORD + " 3")
+                instanceof DisplayServedPatientsCommand);
     }
 
     @Test
@@ -161,6 +180,20 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_medicalCertificate() throws Exception {
+        MedicalCertificateCommand command = (MedicalCertificateCommand) parser.parseCommand(
+                MedicalCertificateCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new MedicalCertificateCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_medicalCertificateAlias() throws Exception {
+        MedicalCertificateCommand command = (MedicalCertificateCommand) parser.parseCommand(
+                MedicalCertificateCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new MedicalCertificateCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_receipt() throws Exception {
         ReceiptCommand command = (ReceiptCommand) parser.parseCommand(
                 ReceiptCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
@@ -172,6 +205,20 @@ public class AddressBookParserTest {
         ReceiptCommand command = (ReceiptCommand) parser.parseCommand(
                 ReceiptCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ReceiptCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_referralLetter() throws Exception {
+        ReferralLetterCommand command = (ReferralLetterCommand) parser.parseCommand(
+                ReferralLetterCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ReferralLetterCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_referralLetterAlias() throws Exception {
+        ReferralLetterCommand command = (ReferralLetterCommand) parser.parseCommand(
+                ReferralLetterCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ReferralLetterCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

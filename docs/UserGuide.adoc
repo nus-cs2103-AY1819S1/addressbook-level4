@@ -1,8 +1,9 @@
-= AddressBook Level 4 - User Guide
+= CLInic - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -14,17 +15,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*CLInic* is a desktop application that is created for clinics and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+If you have average to high typing speed and are in need of a clinic management application, CLInic can get your clinic management tasks more efficiently than traditional GUI apps.
+You will have *all the tools* needed to manage your patient and medicine data, completed with an efficient queue management system. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+Follow the steps below to get started with CLInic.
+
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `CLInic.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -34,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe ic/S1234567X p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a patient named `John Doe` to the CLInic database.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -49,18 +54,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Some commands have an alias, which you can also use to execute the command e.g. to add a person to the address book, you can type either `add n/John Doe` or `a n/John Doe`.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `[b/BLOOD_TYPE] [da/DRUG_ALLERGY]` can be used as `b/A+ da/Panadol` or as `b/A+`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[da/DRUG_ALLERGY]...` can be used as `{nbsp}` (i.e. 0 times), `da/Panadol`, `da/Panadol da/Zyrtec` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Patient
 
-Format: `help`
+==== Adding a patient: `add`
 
-=== Adding a patient: `add`
-
-Adds a patient to the address book +
+Adds a patient to the CLInic database +
 Alias: `a` +
 Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
@@ -70,17 +73,17 @@ A patient can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all patients : `list`
+==== Listing all patients : `list`
 
-Shows a list of all patients in the address book. +
+Shows a list of all patients in the CLInic database. +
 Alias: `l` +
 Format: `list`
 
-=== Editing a patient : `edit`
+==== Editing a patient : `edit`
 
-Edits an existing patient in the address book. +
+Edits an existing patient in the CLInic database. +
 Alias: `e` +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
@@ -99,7 +102,7 @@ Edits the phone number and email address of the 1st patient to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-=== Locating patients by name: `find`
+==== Locating patients by name: `find`
 
 Finds patients whose names contain any of the given keywords. +
 Alias: `f` +
@@ -110,7 +113,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -120,9 +123,9 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a patient : `delete`
+==== Deleting a patient : `delete`
 
-Deletes the specified patient from the address book. +
+Deletes the specified patient from the CLInic database. +
 Alias: `d` +
 Format: `delete INDEX`
 
@@ -136,12 +139,12 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd patient in the address book.
+Deletes the 2nd patient in the database.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st patient in the results of the `find` command.
 
-=== Selecting a patient : `select`
+==== Selecting a patient : `select`
 
 Selects the patient identified by the index number used in the displayed patient list. +
 Alias: `s` +
@@ -157,14 +160,135 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd patient in the address book.
+Selects the 2nd patient in the database.
 * `find Betsy` +
 `select 1` +
 Selects the 1st patient in the results of the `find` command.
 
-=== Generate Medical Certificate : `mc`
+==== Adding medical records of a patient : `addMedicalRecord`
 
-Create a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
+Adds a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
+Alias: `aMR` +
+Format: `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` or `addMedicalRecord <IC Number> <RELEVANT PARAMETERS>`
+
+Examples:
+
+* `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes` +
+Adds Paracetamol and Diabetes to the 5th patient details.
+* `aMR S94738123X b/B+` +
+Adds blood type of the patient with that IC Number.
+
+=== Medicine
+
+==== Adding a new medicine to records : `addMedicine`
+
+Adds a new medicine into a record. +
+Alias: `aM` +
+Format: `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+
+Example:
+
+* `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50` +
+Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
+
+==== Editing a medicine : `editMedicine`
+
+Edits the medicine in the current records. +
+Format: `editMedicine index sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+
+Example:
+
+* `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
+Edits the information of the medicine based on the inputs.
+
+==== Listing all medicine in stock : `listStock`
+
+Lists all medical stocks in the clinic. +
+Alias: `lS` +
+Format: `listStock`
+
+==== Finding medicine details : `findStock`
+
+Finds the details of a given medicine from the serial number.
+Alias: `fS` +
+Format: `findStock <SERIAL NUMBER>`
+
+Example:
+
+* `findStock 1001`
+Finds the details of the medicine tagged with the serial number 1001.
+
+
+==== Checking the stocks of all medicine that are low in supply : `checkStock`
+
+Lists all medicines that are low in stock. +
+Alias: `cS` +
+Format: `checkStock`
+
+
+=== Queue Management
+
+// tag::pqms[]
+==== Listing all Patients in Patient Queue : `queue`
+
+Lists all patients in queue waiting to see the doctor. +
+Alias: `q` +
+Format: `queue`
+
+==== Registering Patient to Queue : `register`
+
+Registers a new patient that comes to the clinic. +
+Alias: `reg` +
+Format: `register <INDEX>` or `register <IC Number> [coming soon]`
+
+Example:
+
+* `register 3` +
+Register the patient into the 3rd index.
+
+==== Removing a patient from queue : `remove`
+
+Removes someone from the queue if he/she leaves before being served. +
+Alias: `rem` +
+Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
+
+
+Examples:
+
+* `remove 5` +
+Remove the 5th patient in the queue.
+* `remove S9382839X` +
+Remove patient with IC Number S9382839X from the queue.
+
+==== Inserting a patient to queue : `insert`
+
+Inserts a patient at specified position in the queue. +
+Alias: `ins` +
+Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION> [coming soon]`
+
+Examples:
+
+* `insert 4 5` +
+Insert the 4th person of the address book into the 5th index of the queue.
+* `insert S9123456A 5` +
+Insert the patient with that IC number to the 5th index of the queue.
+
+
+==== Serving the first patient in the queue : `serve`
+
+Serves the patient first in queue. +
+Alias: `ser` +
+Format: `serve`
+
+==== Finish serving the Current Patient : `finish`
+
+Transfers the current patient to the Served Patient Queue. +
+Format: `finish`
+
+// end::pqms[]
+==== Generating Medical Certificate : `mc`
+
+Creates a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
 Format: `mc <INDEX> d/<DATE>-<DATE>` or `mc <IC Number> d/<DATE>-<DATE>` where date is in the format DD-MM-YYYY
 
 Examples:
@@ -174,7 +298,7 @@ Generates a MC for the 1st patient in the address book.
 * `mc S7473920X d/02-09-2018-02-09-2018` +
 Generates a MC for the IC number.
 
-=== Generate Receipt : `receipt`
+==== Generating Receipt : `receipt`
 
 Generates a receipt for the patient’s current visit based on Index Number in the Done List or IC Number. +
 Alias: `rct` +
@@ -187,9 +311,9 @@ Generates a receipt for the 5th patient in the address book.
 * `receipt S8847383L` +
 Generates a receipt for the patient with that IC number.
 
-=== Generate Referral Letter : `refer`
+==== Generating Referral Letter : `refer`
 
-Create a Referral Letter for the patient based on the IC Number or Index Number from the last list/find command. +
+Generates a Referral Letter for the patient based on the IC Number or Index Number from the last list/find command. +
 Alias: `ref` +
 Format: `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>` or `refer <IC Number> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>`
 
@@ -200,123 +324,26 @@ Generates a referral letter for the 3rd patient in the address book with the fol
 * `refer S7722742C h/SGH d/Emergency r/Internal bleeding n/Patient is dying` +
 Generates a referral letter for the patient of that IC number with the following reason and notes.
 
-=== Add medical records of a patient : `addMedicalRecord`
+==== Removing patient from served patient list : `payment`
 
-Add a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
-Alias: `aMR` +
-Format: `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` or `addMedicalRecord <IC Number> <RELEVANT PARAMETERS>`
-
-Examples:
-
-* `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes` +
-Adds Paracetamol and Diabetes to the 5th patient details.
-* `addMedicalRecord S94738123X b/B+` +
-Adds blood type of the patient with that IC Number.
-
-=== Adding extra notes to medical records : `addNoteToMedicalRecord`
-
-Add a note to the current medical record of a specified patient. Patient index is referenced from the previous ‘list’ or ‘find’ command. +
-Alias: `aNMR` +
-Format: `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` or `addNoteToMedicalRecord <IC Number> m/<MESSAGE>`
+Removes a patient from the served patient list when the patient completes payment. +
+Alias: `pay` +
+Format: `payment <INDEX>`
 
 Examples:
 
-* `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.` +
-Adds the message to the 5th patient of the address book.
-* `addNoteToMedicalRecord S9336262X m/Patient should not use his arm for any intensive physical activities.` +
-Adds the message to the patient with that IC number.
+* `payment 3` +
+Removes the third patient from the list.
+* `payment 1` +
+Removes the first patient from the list.
 
-=== Add a new medicine to records : `addMedicine`
+=== Miscellaneous
 
-Adds a new medicine into a record. +
-Alias: `aM` +
-Format: `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+==== Viewing help : `help`
 
-Example:
+Format: `help`
 
-* `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50` +
-Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
-
-=== List all medicine in stock : `listStock`
-
-List all medical stocks in the clinic. +
-Alias: `lS` +
-Format: `listStock`
-
-=== Finding medicine details : `findStock`
-
-Find the details of a given medicine from the serial number.
-Alias: `fS` +
-Format: `findStock <SERIAL NUMBER>`
-
-Example:
-
-* `findStock 1001`
-Finds the details of the medicine tagged with the serial number 1001.
-
-
-=== Check the stocks of all medicine that are low in supply : `checkStock`
-
-Lists all medicines that are low in stock. +
-Alias: `cS` +
-Format: `checkStock`
-
-=== Lists all Patients in Patient Queue : `queue`
-
-Lists all patients in queue waiting to see the doctor.
-Format: `queue`
-
-=== Register Patient to Queue : `register`
-
-Register a new patient that comes to the clinic. +
-Alias: `reg` +
-Format: `register <INDEX>` or `register <IC Number> [coming soon]`
-
-Example:
-
-* `register 3` +
-Register the patient into the 3rd index.
-
-=== Remove a patient from queue : `remove`
-
-Remove someone from the queue if he/she leaves before being served. +
-Alias: `rem` +
-Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
-
-
-Examples:
-
-* `remove 5` +
-Removes the 5th patient in the queue.
-* `remove S9382839X` +
-Removes patient with IC Number S9382839X from the queue.
-
-=== Insert a patient to queue : `insert`
-
-Insert a patient at specified position in the queue. +
-Alias: `ins` +
-Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION> [coming soon]`
-
-Examples:
-
-* `insert 4 5` +
-Inserts the 4th person of the address book into the 5th index of the queue.
-* `insert S9123456A 5` +
-Inserts the patient with that IC number to the 5th index of the queue.
-
-
-=== Serve the first patient in the queue : `serve`
-
-Serve the patient first in queue. +
-Alias: `ser` +
-Format: `serve`
-
-=== Finish serving the Current Patient : `finish`
-
-Transfers the current patient to the Served Patient Queue. +
-Format: `finish`
-
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Alias: `h` +
@@ -328,7 +355,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Alias: `u` +
@@ -355,7 +382,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `deleteAll` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Alias: `r` +
@@ -379,24 +406,18 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `deleteAll` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `deleteAll`
-
-Clears all entries from the address book. +
-Alias: `dA` +
-Format: `deleteAll`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
@@ -404,46 +425,46 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLInic folder.
 
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *DeleteAll* : `deleteAll`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *List* : `list`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Add a medical record* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
+e.g. `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
+* *Add a medicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
+e.g. `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
+* *List medicine stock* : `listStock`
+* *Find medicine stock* : `findStock <SERIAL NUMBER>` +
+e.g. `findStock 1001`
+* *Check medicine stock* : `checkStock`
+* *Display queue* : `queue`
+* *Register patient to queue* : `register <INDEX>` +
+e.g. `register 3`
+* *Remove patient from queue* : `remove <INDEX>` +
+e.g. `remove 2`
+* *Insert patient to queue* : `insert <INDEX> <POSITION>` +
+e.g. `insert 4 5`
+* *Serve patient* : `serve`
+* *Finish serving patient* : `finish`
 * *Generate MC* : `mc <INDEX> d/<DATE>-<DATE>` +
 e.g. `mc 1 d/02-09-2018-04-09-2018`
 * *Generate receipt* : `receipt INDEX` +
 e.g. `receipt 5`
 * *Generate referral letter* : `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>` +
 e.g. `refer 3 h/NUH d/Surgery r/Internal bleeding n/Patient complains heart is in pain`
-* *AddMedicalRecord* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
-e.g. `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
-* *AddNoteToMedicalRecord* : `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` +
-e.g. `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.`
-* *AddMedicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
-e.g. `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
-* *ListStock* : `listStock`
-* *FindStock* : `findStock <SERIAL NUMBER>` +
-e.g. `findStock 1001`
-* *CheckStock* : `checkStock`
-* *register* : `register <INDEX>` +
-e.g. `register 3`
-* *Serve* : `serve`
-* *Dequeue* : `dequeue <INDEX>` +
-e.g. `dequeue 5`
-* *Insert* : `insert <INDEX> <POSITION>` +
-e.g. `insert 4 5`
+* *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Exit* : `exit`

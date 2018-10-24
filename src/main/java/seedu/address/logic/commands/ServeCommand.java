@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -39,6 +42,9 @@ public class ServeCommand extends QueueCommand {
 
         Patient patient = patientQueue.dequeue();
         currentPatient.assignPatient(patient);
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(currentPatient.getPatient()));
 
         return new CommandResult(MESSAGE_SUCCESS + patient.toNameAndIc());
     }

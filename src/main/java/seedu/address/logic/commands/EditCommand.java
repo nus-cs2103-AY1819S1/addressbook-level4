@@ -15,8 +15,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,6 +29,7 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -89,6 +92,9 @@ public class EditCommand extends Command {
         model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPatient));
     }
 
@@ -105,8 +111,11 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(patientToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(patientToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(patientToEdit.getTags());
+        MedicalRecord updatedMedicalRecord = editPersonDescriptor.getMedicalRecord()
+                .orElse(patientToEdit.getMedicalRecord());
 
-        return new Patient(updatedName, updatedIcNumber, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Patient(updatedName, updatedIcNumber, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedMedicalRecord);
     }
 
     @Override
@@ -138,6 +147,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private MedicalRecord medicalRecord;
 
         public EditPersonDescriptor() {}
 
@@ -152,6 +162,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setMedicalRecord(toCopy.medicalRecord);
         }
 
         /**
@@ -199,6 +210,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setMedicalRecord(MedicalRecord medicalRecord) {
+            this.medicalRecord = medicalRecord;
+        }
+
+        public Optional<MedicalRecord> getMedicalRecord() {
+            return Optional.ofNullable(medicalRecord);
         }
 
         /**

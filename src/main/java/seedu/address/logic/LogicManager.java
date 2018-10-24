@@ -5,9 +5,15 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.QueueUpdatedEvent;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DisplayQueueCommand;
+import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.FinishCommand;
 import seedu.address.logic.commands.QueueCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -16,6 +22,7 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
@@ -44,8 +51,9 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+        Command command = null;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            command = addressBookParser.parseCommand(commandText);
             if (command instanceof QueueCommand) {
                 return ((QueueCommand) command).execute(model, patientQueue, currentPatient,
                         servedPatientList, history);
@@ -53,12 +61,26 @@ public class LogicManager extends ComponentManager implements Logic {
             return command.execute(model, history);
         } finally {
             history.add(commandText);
+            if (command instanceof QueueCommand) {
+                raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
+            }
+            if (command instanceof DisplayQueueCommand
+                    || command instanceof RegisterCommand
+                    || command instanceof FinishCommand
+                    || command instanceof DisplayServedPatientsCommand) {
+                raise(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
+            }
         }
     }
 
     @Override
     public ObservableList<Patient> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return model.getFilteredMedicineList();
     }
 
     @Override

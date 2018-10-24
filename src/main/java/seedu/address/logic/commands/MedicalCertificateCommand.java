@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.MedicalCertificate;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.document.MedicalCertificate;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
 
@@ -20,7 +20,8 @@ import seedu.address.model.person.ServedPatient;
  * Generates an MC for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
 public class MedicalCertificateCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "mc";
+    public static final String COMMAND_WORD = "medicalcertificate";
+    public static final String COMMAND_ALIAS = "mc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generates a medical certificate for the patient in"
@@ -28,10 +29,10 @@ public class MedicalCertificateCommand extends QueueCommand {
             + " NRIC of patient, and duration of medical leave. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "MC generated for patient! Contents can be found below:";
+    public static final String MESSAGE_GENERATE_MC_SUCCESS = "MC generated for patient!";
 
+    private MedicalCertificate mc;
     private final Index index;
-    private String generatedResult;
 
     /**
      * Creates a MedicalCertificateCommand for the {@code servedPatient} specified by {@code index}
@@ -49,14 +50,13 @@ public class MedicalCertificateCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final MedicalCertificate mc;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         mc = new MedicalCertificate(servedPatient);
-        generatedResult = mc.generate();
+        mc.generateDocument();
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
+        EventsCenter.getInstance().post(new ShowPatientListEvent());
+        return new CommandResult(String.format(MESSAGE_GENERATE_MC_SUCCESS));
     }
 
     @Override
@@ -64,5 +64,9 @@ public class MedicalCertificateCommand extends QueueCommand {
         return other == this // short circuit if same object
                 || (other instanceof MedicalCertificateCommand // instanceof handles nulls
                 && index.equals(((MedicalCertificateCommand) other).index)); // state check
+    }
+
+    public MedicalCertificate getMc() {
+        return mc;
     }
 }
