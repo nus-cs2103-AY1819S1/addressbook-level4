@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -15,6 +16,16 @@ import seedu.address.model.person.ServedPatient;
 public class ServedPatientListManager implements ServedPatientList {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
     private ArrayList<ServedPatient> servedPatientList = new ArrayList<>();
+
+
+    public ServedPatientListManager() {}
+
+    /**
+     * Create a new Patient Queue Manager with {@code patientListToCopy}
+     */
+    public ServedPatientListManager(List<ServedPatient> patientListToCopy) {
+        this.servedPatientList = (ArrayList<ServedPatient>) patientListToCopy;
+    }
 
     @Override
     public String displayServedPatientList() {
@@ -79,5 +90,23 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public int size() {
         return servedPatientList.size();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ServedPatientListManager)) {
+            return false;
+        }
+
+        // state check
+        ServedPatientListManager other = (ServedPatientListManager) obj;
+
+        return this.servedPatientList.equals(other.servedPatientList);
     }
 }

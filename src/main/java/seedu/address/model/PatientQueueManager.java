@@ -16,6 +16,15 @@ public class PatientQueueManager implements PatientQueue {
 
     private LinkedList<Patient> patientQueue = new LinkedList<>();
 
+    public PatientQueueManager() {}
+
+    /**
+     * Create a new Patient Queue Manager with {@code patientQueueToCopy}
+     */
+    public PatientQueueManager(List<Patient> patientQueueToCopy) {
+        this.patientQueue = (LinkedList<Patient>) patientQueueToCopy;
+    }
+
     @Override
     public String displayQueue() {
         AtomicInteger position = new AtomicInteger(1);
@@ -77,5 +86,23 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public void clear() {
         patientQueue.clear();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof PatientQueueManager)) {
+            return false;
+        }
+
+        // state check
+        PatientQueueManager other = (PatientQueueManager) obj;
+
+        return this.patientQueue.equals(other.patientQueue);
     }
 }
