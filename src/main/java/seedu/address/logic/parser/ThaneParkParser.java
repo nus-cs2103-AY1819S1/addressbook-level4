@@ -15,6 +15,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.QuickViewCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SuggestCommand;
@@ -51,54 +52,57 @@ public class ThaneParkParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case UpdateCommand.COMMAND_WORD:
-            return new UpdateCommandParser().parse(arguments);
+            case UpdateCommand.COMMAND_WORD:
+                return new UpdateCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case FilterCommand.COMMAND_WORD:
-            return new FilterCommandParser().parse(arguments);
+            case FilterCommand.COMMAND_WORD:
+                return new FilterCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments);
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommandParser().parse(arguments);
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommandParser().parse(arguments);
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommandParser().parse(arguments);
 
-        case QuickViewCommand.COMMAND_WORD:
-            return new QuickViewCommand();
+            case OpenCommand.COMMAND_WORD:
+                return new OpenCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            case QuickViewCommand.COMMAND_WORD:
+                return new QuickViewCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
 
-        case ViewAllCommand.COMMAND_WORD:
-            return new ViewAllCommand();
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
 
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
+            case ViewAllCommand.COMMAND_WORD:
+                return new ViewAllCommand();
 
-        default:
-            SuggestCommand command = new SuggestCommand(commandWord);
-            if (!command.isPrefixValid()) {
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-            return command;
+            case ViewCommand.COMMAND_WORD:
+                return new ViewCommandParser().parse(arguments);
+
+            default:
+                SuggestCommand command = new SuggestCommand(commandWord);
+                if (!command.isPrefixValid()) {
+                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                }
+                return command;
         }
     }
 
