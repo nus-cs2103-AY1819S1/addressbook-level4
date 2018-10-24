@@ -30,7 +30,7 @@ public class DispenseMedicineCommandParser implements Parser<DispenseMedicineCom
                     DispenseMedicineCommand.MESSAGE_USAGE), pe);
         }
 
-        if(!arePrefixesPresent(argMultimap, PREFIX_AMOUNT_TO_DISPENSE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT_TO_DISPENSE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DispenseMedicineCommand.MESSAGE_USAGE));
         }
