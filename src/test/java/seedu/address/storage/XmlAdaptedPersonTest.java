@@ -28,6 +28,8 @@ public class XmlAdaptedPersonTest {
     private static final String INVALID_SALARY = " ";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_USERNAME = " hi";
+    private static final String INVALID_PASSWORD = "password";
     private static final String INVALID_PERMISSION = "INVALID_PERMISSION";
     private static final String INVALID_PROFILE_PIC = " ";
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -35,6 +37,8 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_SALARY = BENSON.getSalary().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_USERNAME = BENSON.getUsername().toString();
+    private static final String VALID_PASSWORD = BENSON.getPassword().toString();
     private static final List<XmlAdaptedProject> VALID_PROJECTS = BENSON.getProjects().stream()
             .map(XmlAdaptedProject::new)
             .collect(Collectors.toList());
