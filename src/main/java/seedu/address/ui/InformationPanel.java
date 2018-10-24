@@ -16,6 +16,9 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
 
+/**
+ * The Information Panel of the App.
+ */
 public class InformationPanel extends UiPart<Region> {
     private static final String FXML = "InformationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -46,6 +49,9 @@ public class InformationPanel extends UiPart<Region> {
         pastAppointmentTable.getItems().addAll(pastAppointmentList);
     }
 
+    /**
+     * Loads a patient's information on the panel.
+     */
     private void loadPatientInformation(Patient patient) {
         Iterator<Appointment> upcomingAppointmentItr = patient.getUpcomingAppointments().iterator();
         Iterator<Appointment> pastAppointmentItr = patient.getPastAppointments().iterator();
