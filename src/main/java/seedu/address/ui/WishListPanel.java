@@ -39,7 +39,7 @@ public class WishListPanel extends UiPart<Region> {
         setConnections(wishList);
         registerAsAnEventHandler(this);
 
-        // TODO: [Jiho] Utilize wishTransaction's data in the WishListPanel
+        // TODO: [Jiho] Utilize wishTransaction's data in the WishListPanel (if wanted).
     }
 
     private void setConnections(ObservableList<Wish> wishList) {
