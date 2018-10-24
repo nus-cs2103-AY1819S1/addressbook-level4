@@ -4,7 +4,9 @@ package seedu.address.commons.util;
 //import com.sun.javafx.PlatformUtil;
 //@@author j-lum
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -13,7 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import seedu.address.MainApp;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transformation.Transformation;
+import seedu.address.storage.JsonConvertArgsStorage;
 
 //import com.sun.javafx.PlatformUtil;
 
@@ -23,8 +35,10 @@ import java.util.NoSuchElementException;
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
  */
 public class ImageMagickUtil {
-    public static final String TMPPATH =
-            "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/";
+    public static final String IMAGEMAGIC_PATH = ImageMagickUtil.class.getResource("/imageMagic").getPath();
+    public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get(
+            IMAGEMAGIC_PATH + "/commandTemplate.json");
+    public static final String TMPPATH = IMAGEMAGIC_PATH + "/tmp";
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
@@ -73,7 +87,7 @@ public class ImageMagickUtil {
      * @return
      * @throws NoSuchElementException
      */
-    private static String getImageMagicPackagePath() throws NoSuchElementException {
+    public static String getImageMagicPackagePath() throws NoSuchElementException {
         /*
         if (PlatformUtil.isMac()) {
             return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
@@ -85,7 +99,7 @@ public class ImageMagickUtil {
             throw new NoSuchElementException("unrecongnized OS");
         }
         */
-        return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
+        return MainApp.MAIN_PATH + "/src/main/resources/imageMagic/package/mac/";
     }
 
     /**
@@ -161,7 +175,6 @@ public class ImageMagickUtil {
                 zipfile = file;
             }
         }
-
         if (!zipfile.getName().endsWith(".tar.gz")) {
             System.err.println("cannot find the package");
             return;
@@ -195,17 +208,69 @@ public class ImageMagickUtil {
      * @return
      */
     public static int getPlatform() {
-        /*
-        if (PlatformUtil.isLinux()) {
-            return LINUX;
-        } else if (PlatformUtil.isMac()) {
-            return MAX;
-        } else if (PlatformUtil.isWindows()) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
             return WINDOWS;
-        } else {
-            return -1;
+        } else if (os.contains("mac")) {
+            return MAC;
+        } else if (os.contains("nux") || os.contains("ubuntu")) {
+            return LINUX;
         }
-        */
         return 0;
+    }
+
+    /**
+     * with a path and the transmission, return the bufferedimage processed.
+     * @param path
+     * @param transformation
+     * @return
+     * @throws ParseException
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static BufferedImage processImage(Path path, Transformation transformation)
+            throws ParseException, IOException, InterruptedException {
+        List<String> cmds = parseArguments(SINGLE_COMMAND_TEMPLATE_PATH, transformation);
+        File modifiedFile = new File(TMPPATH + "/modified.png");
+        //create a processbuilder to blur the image
+        ProcessBuilder pb;
+        List<String> args = new ArrayList<>();
+        args.add(ImageMagickUtil.getExecuteImageMagic());
+        args.add(path.toAbsolutePath().toString());
+        args.add("-" + cmds.get(0));
+        for (int i = 1; i < cmds.size(); i++) {
+            args.add(cmds.get(i));
+        }
+        args.add(modifiedFile.getAbsolutePath());
+        pb = new ProcessBuilder(args);
+        //set the environment of the processbuilder
+        Map<String, String> mp = pb.environment();
+        mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
+        Process process = pb.start();
+        process.waitFor();
+        FileInputStream inputstream = new FileInputStream(TMPPATH + "/modified.png");
+        Image modifiedImage = new Image(inputstream);
+        return SwingFXUtils.fromFXImage(modifiedImage, null);
+    }
+
+    /**
+     * parse the argument passing to the imageMagic to check the validation about the arguments
+     * @param filepath
+     * @param transformation
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    private static List<String> parseArguments(Path filepath, Transformation transformation)
+            throws IOException, ParseException {
+        int i;
+        List<String> trans = transformation.toList();
+        String operation = trans.get(0);
+        List<String> cmds = JsonConvertArgsStorage.retrieveArgumentsTemplate(filepath, operation);
+        int num = cmds.size();
+        if (num != trans.size() - 1) {
+            throw new ParseException("Invalid arguments, should be " + cmds.toArray().toString());
+        }
+        return trans;
     }
 }

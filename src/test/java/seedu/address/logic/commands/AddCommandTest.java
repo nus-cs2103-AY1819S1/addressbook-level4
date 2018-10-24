@@ -20,9 +20,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.PreviewImage;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.person.Person;
+import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -191,12 +193,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getCurrentPreviewImage() {
+        public PreviewImage getCurrentPreviewImage() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public void updateCurrentOriginalImage(Image img, Path imgPath) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addTransformation(Transformation transformation) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateCurrentpreviewImage(Image image, Transformation transformation) {
             throw new AssertionError("This method should not be called");
         }
 

@@ -1,14 +1,19 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
+import java.nio.file.Paths;
 
+import seedu.address.MainApp;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.storage.JsonConvertArgsStorage;
+import seedu.address.model.transformation.Transformation;
+
 
 /**
  * @author lancelotwillow
@@ -16,27 +21,31 @@ import seedu.address.storage.JsonConvertArgsStorage;
  */
 public class ConvertCommand extends Command {
 
+    public static final String COMMAND_WORD = "convert";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": do the operation to the image.\n"
+            + "Parameters: operationName argument1 argument2 ...\n"
+            + "Example: " + COMMAND_WORD + " blur 1x8";
     //the path of the json file containing the arguments of the convert command
+    public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get(
+            MainApp.MAIN_PATH + "/src/main/resources/imageMagic/commandTemplate.json");
     private Path filepath;
-
+    private Transformation transformation;
     /**
      * the constructor take the path of the JSON file of the detail of the convert operation
      * @param filepath the path to the JSON file
+     * @param transformation contains the operation to be processed to the image
      */
-    ConvertCommand(Path filepath) {
-        this.filepath = filepath;
+    public ConvertCommand(Path filepath, Transformation transformation) throws ParseException, IOException {
         if (!isFileExist(filepath)) {
-            throw new IllegalArgumentException("no file found");
+            throw new ParseException("no file found");
         }
+        this.filepath = filepath;
+        this.transformation = transformation;
     }
 
     private static boolean isFileExist(Path filepath) {
         return new File(filepath.toString()).exists();
-    }
-
-    private List<String> parseArguments() {
-        List<String> cmds = JsonConvertArgsStorage.retrieveArguments(filepath);
-        return cmds;
     }
 
     /**
@@ -48,12 +57,13 @@ public class ConvertCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        ProcessBuilder pb = new ProcessBuilder(parseArguments());
+        requireNonNull(model);
         try {
-            pb.start();
-        } catch (IOException e) {
-            System.err.println(e.toString());
+            //ask the model to update the transformation
+            model.addTransformation(transformation);
+        } catch (Exception e) {
+            throw new CommandException(e.toString());
         }
-        return null;
+        return new CommandResult("process is done");
     }
 }
