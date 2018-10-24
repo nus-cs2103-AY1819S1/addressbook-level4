@@ -423,24 +423,47 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 In order to enable users to better manage their tasks in *Student Schedule Planner*, we added two more variations of
  the `list` command. The `listday` command supports viewing tasks due the current date whereas `listweek` command
- supports viewing tasks from the current date until the nearest Sunday.
+ supports viewing tasks from the current date till the closest Sunday.
 
-==== Implementation
+==== Current Implementation
 
-The details of the implementation are broken down into several sections below.
+The `listday`/`listweek` mechanism utilise `DateSamePredicate`/`DateWeekSamePredicate` respectively.
 
-==== Date computation
+When the `listday` command was executed, `DateSamePredicate` will use the current
+system date as a 'filter' and
+retrieve all tasks with deadline that match the system date.
 
-When the `listday` command was used, the current system date will be retrieved. Whereas for the `listweek` command,
-the range of date from current system date until Sunday will be computed and retrieved.
+Whereas for the `listweek` command, `DateWeekSamePredicate` will use the range of dates from current system date until
+Sunday and retrieve all tasks with deadline that match the range of dates.
 
-==== Data retrieval
+Given below is an example usage scenario and how the `listday`/`listweek` mechanism behaves at each step:
 
-Based on the range of date given, the *Student Schedule Planner* will retrieve all the tasks that matches the date
-that was computed and display to the screen.
+Step 1. The user entered the command `listweek`.
 
-{more to be added}
+Step 2. `ListWeekCommand#appendDateList()` will generate the "list of days" in "ddmmyy" format.
+
+Step 3. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
+as the parameter. `DateWeekSamePredicate` itself would take "list of days" in Step 2 as the paramter.
+
+Step 4. The updated task list would be reflected on the UI to be displayed to the user.
+
+==== Design Considerations
+
+{to be added}
 // end::viewarangeoftasks[]
+
+// tag::generateacademiccalendar[]
+=== Generate academic calendar weeks
+
+==== Current Implementation
+
+{to be added. Placeholder to avoid possible merge conflict}
+
+==== Design Considerations
+
+{to be added. Placeholder to avoid possible merge conflict}
+
+// end::generateacademiccalendar[]
 
 === Filter Tags
 
