@@ -36,12 +36,14 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    private String user;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, String loggedInUser) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.user = loggedInUser;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic, user);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

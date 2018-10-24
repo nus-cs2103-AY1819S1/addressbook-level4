@@ -78,7 +78,8 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model);
 
-        ui = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs, model.getUserLoggedIn());
+
 
         initEventsCenter();
 
