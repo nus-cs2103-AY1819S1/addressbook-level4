@@ -513,32 +513,34 @@ image::ActivityDiagram-filter.png[width="700", align="left"]
 ** Pros: Less complicated predicate for multiple layers of filtering.
 ** Cons: Not really feasible if data is to be updated frequently.
 
-=== Command alias feature
+=== Abbreviation feature
 
 ==== Overview
 
-The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
-when shorter command words are parsed through `parseCommand`.
+The abbreviation mechanism is facilitated by `AddressBookParser`. It extends the cases
+to allow command abbreviations to be parsed through `parseCommand` as well.
 
 ==== Example
 
-Given below is an example usage scenario and how the alias mechanism behaves at
+Given below is an example usage scenario and how the abbreviation mechanism behaves at
 each step.
 
 Step 1. The user launches the application for the first time. The `LogicManager`
 is initialized with an `AddressBookParser`.
 
-Step 2. The user executes `l` command instead of `list`. The `Matcher` object in
+Step 2. The user executes `f` command instead of `find`. The `Matcher` object in
 `AddressBookParser` splits the command text into _command word_ and
 _arguments_, in which the _command word_ is parsed using a _switch_
-statement. The _command word_ will be matched to case of `COMMAND_ALIAS` from
-`ListCommand`, which holds the final value of 'l'. The program finds a match and
-proceeds as if a `list` command is given.
+statement.
+
+Step 3. This _command word_ will be matched to a `COMMAND_ALIAS` from
+`ListCommand`, which holds the value of 'f'. As the program finds a match, it
+proceeds as if a `find` command is given.
 
 .Flow chart of command alias usage.
-image::ActivityDiagram-Alias.png[width="700", align="left"]
+image::ActivityDiagram-alias.png[width="700", align="left"]
 
-The _Activity Diagram_ above explains what happens when a user executes a `l`
+The _Activity Diagram_ above explains what happens when a user executes a `f`
 command.
 
 ==== Design Considerations
@@ -548,14 +550,14 @@ command.
 * *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
 in each Command file.
 ** *Pros:* Easy to implement
-** *Cons:* Have to decide the alias subjectively which brings down performance
-if there are alot of commands
+** *Cons:* Have to decide on each abbreviation subjectively which brings down performance
+if there are a lot of commands
 
-* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
+* *Alternative 2:* declare `COMMAND_ALIAS` using the first two characters of `COMMAND_WORD`
 in each Command file.
-** *Pros*: Better performance as alias will be assigned systematically.
-** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
-& `filter`, it does not work.
+** *Pros*: Better performance as abbreviations will be assigned systematically.
+** *Cons*: When there are 2 command words starting with same two characters e.g. `find`
+& `filter`, this does not work.
 
 // tag::undoredo[]
 === Undo/Redo feature
