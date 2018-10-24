@@ -15,6 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.model.todolist.ToDoListEvent;
 
+/**
+ * Represents the in-memory model of the todolist data.
+ */
 public class ModelManagerToDo extends ComponentManager implements ModelToDo {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
