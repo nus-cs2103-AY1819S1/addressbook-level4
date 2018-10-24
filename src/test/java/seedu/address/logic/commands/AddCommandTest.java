@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -128,6 +129,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Set<String> getExistingEmails() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,6 +151,11 @@ public class AddCommandTest {
         @Override
         public boolean hasCca(Person toAdd) {
             return false;
+        }
+
+        @Override
+        public boolean hasEmail(String fileName) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.simplejavamail.email.Email;
@@ -41,6 +42,11 @@ public interface Model {
      * Returns the BudgetBook
      */
     ReadOnlyBudgetBook getBudgetBook();
+
+    /**
+     * Returns a set of existing emails
+     */
+    Set<String> getExistingEmails();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

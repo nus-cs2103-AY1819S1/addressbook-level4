@@ -124,6 +124,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedBudgetBook;
     }
 
+    @Override
+    public Set<String> getExistingEmails() {
+        return emailModel.getExistingEmails();
+    }
+
     /**
      * Raises an event to indicate the model has changed
      */

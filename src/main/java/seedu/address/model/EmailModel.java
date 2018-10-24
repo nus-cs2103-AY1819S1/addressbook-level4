@@ -47,7 +47,11 @@ public class EmailModel {
         while (itr.hasNext()) {
             to = to + ", " + itr.next().getAddress();
         }
-        preview = previewHeader + from + "<br />" + to + "<br />" + subject + "<br /><br />" + email.getHTMLText();
+        this.preview = previewHeader + from + "<br />" + to + "<br />" + subject + "<br /><br />" + email.getHTMLText();
+    }
+
+    public Set<String> getExistingEmails() {
+        return existingEmails;
     }
 
     public Email getEmail() {
@@ -61,4 +65,5 @@ public class EmailModel {
     public boolean hasEmail(String fileName) {
         return existingEmails.contains(fileName + ".eml");
     }
+
 }
