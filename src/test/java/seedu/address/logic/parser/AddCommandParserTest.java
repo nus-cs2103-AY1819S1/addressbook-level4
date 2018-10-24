@@ -55,7 +55,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
-        // multiple prices - last phone accepted
+        // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
@@ -90,7 +90,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + PRICE_DESC_BOB + DATE_DESC_2 + URL_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
+        // missing price prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PRICE_BOB + DATE_DESC_2 + URL_DESC_BOB,
                 expectedMessage);
 
@@ -109,7 +109,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_DESC + PRICE_DESC_BOB + DATE_DESC_2 + URL_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        // invalid phone
+        // invalid price
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PRICE_DESC + DATE_DESC_2 + URL_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Price.MESSAGE_PRICE_CONSTRAINTS);
 

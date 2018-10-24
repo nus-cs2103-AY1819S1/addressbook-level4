@@ -18,7 +18,7 @@ public class SavedAmount {
     public final Double value;
 
     /**
-     * Constructs a {@code Price}.
+     * Constructs a {@code SavedAmount}.
      *
      * @param savedAmount A valid savedAmount number.
      */

@@ -4,29 +4,29 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Wish's phone number in the wish book.
+ * Represents a Wish's price in the wish book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and at most two numbers after the decimal point.";
+            "Price value should only contain numbers, and at most two numbers after the decimal point.";
     public static final String PRICE_VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
     public final Double value;
 
     /**
      * Constructs a {@code Price}.
      *
-     * @param phone A valid phone number.
+     * @param price A valid price.
      */
-    public Price(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPrice(phone), MESSAGE_PRICE_CONSTRAINTS);
-        value = Double.parseDouble(phone); // TO-DO: check before allowing.
+    public Price(String price) {
+        requireNonNull(price);
+        checkArgument(isValidPrice(price), MESSAGE_PRICE_CONSTRAINTS);
+        value = Double.parseDouble(price); // TO-DO: check before allowing.
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
         return test.matches(PRICE_VALIDATION_REGEX);

@@ -39,7 +39,7 @@ public class EditWishDescriptorTest {
         EditWishDescriptor editedAmy = new EditWishDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
+        // different price -> returns false
         editedAmy = new EditWishDescriptorBuilder(DESC_AMY).withPrice(VALID_PRICE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
