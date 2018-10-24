@@ -278,18 +278,20 @@ The sorting of the displayed results is done by the `filteredSortedWishes` list.
 ** Pros: Extremely low probability of collision.
 ** Pros: No extra maintenance required upon generation as every `Wish` is unique.
 ** Cons: UUID does not map to any real world entity and it is used strictly for identification.
+** Cons: It is more difficult to system test the `AddCommand` with the current group of methods for system tests as
+UUID is randomly generated each time.
 
-* **Alternative 2:** Identify a wish by Name, Price, Date, Url, Tags. Wishes with identical values for
+* **Alternative 2:** Identify a wish by `Name`, `Price`, `Date`, `Url`, `Tags`. Wishes with identical values for
 these attributes will be represented by a single `WishCard`. The `WishCard` will be augmented with a `Multiplicity` to
 indicate the number of identical wishes.
 ** Pros: WishBook will be more compact and every attribute stored in a `Wish` maps to a real entity.
-** Cons: Additional entity `Multiplicity` may have to be frequently edited under each as it is another
-field that is affected by multiple commands.
+** Cons: Additional attribute `Multiplicity` may have to be frequently edited as it is another
+attribute that is affected by multiple commands.
 
 * **Alternative 3:** Identify a wish by a new attribute `CreatedTime`, which is derived from the system time
 when the wish is created.
 ** Pros: The attribute maps to a real entity. It can be an additional information presented to the user about a wish.
-** Cons: There might be collisions in `CreatedTime` if the the time stored is incorrect.
+** Cons: There might be collisions in `CreatedTime` if the the system time is incorrect.
 
 // tag::undoredo[]
 === Undo/Redo feature
