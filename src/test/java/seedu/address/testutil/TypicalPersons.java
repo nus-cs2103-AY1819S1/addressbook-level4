@@ -29,29 +29,28 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000").withEmail("alice@example.com")
-            .withPhone("94351253").withUsername("Alice Pauline").withPassword("Pa55w0rd")
+            .withPhone("94351253").withUsername("Alice Pauline").withPassword("Ap12345678")
             .build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
             .withEmail("johnd@example.com").withPhone("98765432").withUsername("Benson Meier")
-            .withPassword("Pa55w0rd")
+            .withPassword("Bm12345678")
             .withPermissionSet(new PermissionSet(PermissionSet.PresetPermission.ADMIN))
             .withLeaveApplications(Arrays.asList(TypicalLeaveApplications.BENSON_LEAVE))
             .build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
-            .withUsername("Carl Kurz").withPassword("Pa55w0rd")
-            .build();
+            .withUsername("Carl Kurz").withPassword("P@55w0rd").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
             .withProjects("OASIS").withUsername("Daniel Meier").withPassword("Pa55w0rd").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
-            .withUsername("Elle Meyer").withPassword("Pa55w0rd").build();
+            .withUsername("Elle Meyer").withPassword("ElleI5gr8").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
-            .withUsername("Fiona Kunz").withPassword("Pa55w0rd").build();
+            .withUsername("Fiona Kunz").withPassword("FionaI5H0t").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
             .withUsername("George Best").withPassword("Pa55w0rd").build();
