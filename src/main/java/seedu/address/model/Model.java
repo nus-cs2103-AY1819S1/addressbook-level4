@@ -1,8 +1,9 @@
 package seedu.address.model;
 
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
-import seedu.address.model.appointment.Prescription;
+
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;

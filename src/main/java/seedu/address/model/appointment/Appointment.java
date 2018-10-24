@@ -2,6 +2,7 @@ package seedu.address.model.appointment;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import seedu.address.model.doctor.Doctor;
 
 /**

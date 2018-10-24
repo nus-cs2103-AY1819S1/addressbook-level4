@@ -1,6 +1,5 @@
 package seedu.address.model.appointment;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -21,7 +20,9 @@ public class Prescription {
     }
 
     // Get Methods
-    public int getID() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public MedicineName getMedicineName() {
         return medicineName;
@@ -63,8 +64,8 @@ public class Prescription {
         }
 
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getID()== getID()
-                &&otherPrescription.getMedicineName().equals(getMedicineName())
+        return otherPrescription.getId() == getId()
+                && otherPrescription.getMedicineName().equals(getMedicineName())
                 && otherPrescription.getDosage().equals(getDosage())
                 && otherPrescription.getConsumptionPerDay().equals(getConsumptionPerDay());
     }
@@ -78,7 +79,7 @@ public class Prescription {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getID())
+        builder.append(getId())
                 .append(" ID: ")
                 .append(getMedicineName())
                 .append(" Medicine Name: ")

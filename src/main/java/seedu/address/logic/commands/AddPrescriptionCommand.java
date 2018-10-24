@@ -1,14 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Prescription;
-
-import javax.print.attribute.HashPrintJobAttributeSet;
-import java.util.HashMap;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
@@ -16,11 +7,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
+import java.util.HashMap;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Prescription;
+
+
+
+
 /**
  * Adds a prescription to an appointment
  */
 
-public class AddPrescriptionCommand extends Command{
+public class AddPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-prescription";
 
@@ -50,12 +52,12 @@ public class AddPrescriptionCommand extends Command{
     }
 
     @Override
-    public CommandResult execute(Model model,CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         HashMap<Integer, Appointment> allAppointmentsOfPatient = new HashMap<Integer, Appointment>();
 
-        if (!allAppointmentsOfPatient.containsKey(toAdd.getID())) {
-            allAppointmentsOfPatient.get(toAdd.getID()).addPrescription(toAdd);
+        if (!allAppointmentsOfPatient.containsKey(toAdd.getId())) {
+            allAppointmentsOfPatient.get(toAdd.getId()).addPrescription(toAdd);
         }
 
         //Todo Include Model Manager for update appointment and remove stub hashmap
