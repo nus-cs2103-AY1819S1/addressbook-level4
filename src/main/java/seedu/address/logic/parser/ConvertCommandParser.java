@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transformation.Transformation;
@@ -30,7 +31,7 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
                 cmds = Arrays.copyOfRange(all, 2, all.length);
                 filePath = ConvertCommand.SINGLE_COMMAND_TEMPLATE_PATH;
             } else {
-                filePath = ConvertCommand.SINGLE_COMMAND_PATH;
+                filePath = ConvertCommand.SINGLE_COMMAND_TEMPLATE_PATH;
             }
             return new ConvertCommand(filePath, new Transformation(operation, cmds));
         } catch (ParseException | IOException pe) {

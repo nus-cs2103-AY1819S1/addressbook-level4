@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -37,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private ArrayList<Path> dirImageList;
     private Path currentOriginalImage;
-    private Path currentPreviewImage;
+    private PreviewImage currentPreviewImage;
     private PhotoHandler photoLibrary = null;
     private Canvas canvas;
 
@@ -165,23 +164,6 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentOriginalImage;
     }
 
-    @Override
-    public Path getCurrentPreviewImage() {
-        return this.currentPreviewImage;
-    }
-
-    //author lancelotwillow
-    @Override
-    public void updateCurrentpreviewImage(Image image, Transformation transformation) {
-        TransformationSet transformationSet;
-        if (currentPreviewImage != null) {
-            transformationSet = currentPreviewImage.getTransformationSet();
-        } else {
-            transformationSet = new TransformationSet();
-        }
-        transformationSet.addTransformations(transformation);
-        this.currentPreviewImage = new PreviewImage(SwingFXUtils.fromFXImage(image, null), transformationSet);
-    }
 
     /**
      * Update the current displayed original image and
@@ -191,9 +173,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrentOriginalImage(Image img, Path imgPath) {
         canvas = new Canvas();
         currentOriginalImage = imgPath;
-        currentPreviewImage = imgPath;
-
+        //currentPreviewImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
+        currentPreviewImage = selectedImage;
         canvas.addLayer(selectedImage);
 
         previewImageManager.initialiseWithImage(selectedImage);
@@ -232,19 +214,46 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImageManager() {
         previewImageManager.undo();
-        currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
+        //currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
     }
 
     @Override
     public void redoPreviewImageManager() {
         previewImageManager.redo();
-        currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
+        //currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
     }
 
     @Override
     public void commitPreviewImageManager() {
         // TODO: update currentPreviewImage
         // TODO: previewImageManager.commit(editedImage);
+    }
+
+    //=========== get/updateing preview image ==========================================================================
+
+    @Override
+    public void addTransformation(Transformation transformation) {
+        //need to check the availability of adding a new transformation
+        //need to get the current layer and update the transformationSet
+        return;
+    }
+
+    @Override
+    public PreviewImage getCurrentPreviewImage() {
+        return this.currentPreviewImage;
+    }
+
+    //author lancelotwillow
+    @Override
+    public void updateCurrentpreviewImage(Image image, Transformation transformation) {
+        TransformationSet transformationSet;
+        if (currentPreviewImage != null) {
+            transformationSet = currentPreviewImage.getTransformationSet();
+        } else {
+            transformationSet = new TransformationSet();
+        }
+        transformationSet.addTransformations(transformation);
+        this.currentPreviewImage = new PreviewImage(SwingFXUtils.fromFXImage(image, null), transformationSet);
     }
 
     @Override
