@@ -85,6 +85,7 @@ public class XmlAdaptedRecipe {
         for (XmlAdaptedInstruction instruction : instructions) {
             modelInstructions.add(instruction.toModelType());
         }
+        // TODO: To implement reject if instruction is empty.
 
         final List<Tag> recipeTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
