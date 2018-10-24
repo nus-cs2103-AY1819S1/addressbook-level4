@@ -4,10 +4,10 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.Node;
 import javafx.scene.layout.Region;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.ui.NewResultAvailableEvent;
@@ -91,6 +91,7 @@ public class SidebarPanel extends UiPart<Region> {
             } catch (CommandException | ParseException e) {
                 logger.info("Invalid command: " + "filter exams");
             }
+            break;
         default:
             break;
         }
