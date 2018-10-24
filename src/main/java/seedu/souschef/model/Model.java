@@ -71,7 +71,7 @@ public interface Model<T extends UniqueType> {
      * Sorts the list using a given comparator.
      * @param comparator
      */
-    void sortList(Comparator<T> comparator);
+    void sort(Comparator<T> comparator);
 
 
     /**

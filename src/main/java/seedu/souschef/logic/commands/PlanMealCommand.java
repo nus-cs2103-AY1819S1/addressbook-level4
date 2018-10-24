@@ -42,7 +42,7 @@ public class PlanMealCommand extends Command {
         } else {
             model.add(toPlan);
         }
-        model.sortList(new DayComparator());
+        model.sort(new DayComparator());
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS, toAdd));
     }

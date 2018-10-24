@@ -110,7 +110,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public void sortList(Comparator<T> comparator) {
+    public void sort(Comparator<T> comparator) {
         uniqueList.sortList(comparator);
     }
 
