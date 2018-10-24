@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
 
 /**
  * Panel containing the list of groups.
@@ -24,15 +24,15 @@ public class GroupListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
 
     @FXML
-    private ListView<Tag> groupListView;
+    private ListView<Group> groupListView;
 
-    public GroupListPanel(ObservableList<Tag> groupList) {
+    public GroupListPanel(ObservableList<Group> groupList) {
         super(FXML);
         setConnections(groupList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Tag> groupList) {
+    private void setConnections(ObservableList<Group> groupList) {
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -67,16 +67,16 @@ public class GroupListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Group} using a {@code GroupCard}
      */
-    class GroupListViewCell extends ListCell<Tag> {
+    class GroupListViewCell extends ListCell<Group> {
         @Override
-        protected void updateItem(Tag tag, boolean empty) {
-            super.updateItem(tag, empty);
+        protected void updateItem(Group group, boolean empty) {
+            super.updateItem(group, empty);
 
-            if (empty || tag == null) {
+            if (empty || group == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new GroupCard(tag, getIndex() + 1).getRoot());
+                setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
             }
         }
     }
