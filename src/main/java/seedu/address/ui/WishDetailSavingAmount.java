@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -58,6 +58,6 @@ public class WishDetailSavingAmount extends UiPart<Region> {
 
     @Subscribe
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        logger.info("test" + event.message );
+        logger.info("test" + event.message);
     }
 }
