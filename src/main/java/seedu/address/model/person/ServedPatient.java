@@ -95,7 +95,7 @@ public class ServedPatient {
     /**
      * Add specified quantity of medicine to patient.
      * @param medicine to be added.
-     * @param quantity of medicinet to be added.
+     * @param quantity of medicine to be added.
      * @return string representation of medicine added.
      */
     public String addMedicine(Medicine medicine, int quantity) {
@@ -116,5 +116,9 @@ public class ServedPatient {
      */
     public String toNameAndIc() {
         return patient.toNameAndIc();
+    }
+
+    public Patient getPatient() {
+        return this.patient;
     }
 }

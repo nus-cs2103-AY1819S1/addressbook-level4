@@ -191,6 +191,16 @@ Example:
 * `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50` +
 Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
 
+==== Editing a medicine : `editMedicine`
+
+Edits the medicine in the current records. +
+Format: `editMedicine index sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+
+Example:
+
+* `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
+Edits the information of the medicine based on the inputs.
+
 ==== Listing all medicine in stock : `listStock`
 
 Lists all medical stocks in the clinic. +
@@ -218,6 +228,7 @@ Format: `checkStock`
 
 === Queue Management
 
+// tag::pqms[]
 ==== Listing all Patients in Patient Queue : `queue`
 
 Lists all patients in queue waiting to see the doctor. +
@@ -274,6 +285,7 @@ Format: `serve`
 Transfers the current patient to the Served Patient Queue. +
 Format: `finish`
 
+// end::pqms[]
 ==== Generating Medical Certificate : `mc`
 
 Creates a Medical Certificate based on the IC Number or Index Number from the last list/find command. +

@@ -66,8 +66,6 @@ public class QueueDisplay extends UiPart<Region> {
         queueDisplayPage += "&current=";
         queueDisplayPage += currentPatientString;
         loadPage(queueDisplayPage);
-        System.out.println(queueDisplayPage);
-
     }
 
     /**
@@ -114,7 +112,7 @@ public class QueueDisplay extends UiPart<Region> {
             result += (index + 1);
             result += "=";
             try {
-                result += list.get(index).getName().fullName;
+                result += list.get(index).getIcNumber().toString().substring(5, 9); //need to change
             } catch (IndexOutOfBoundsException ioobe) {
                 result += "empty";
             } catch (NullPointerException npe) {
@@ -157,7 +155,7 @@ public class QueueDisplay extends UiPart<Region> {
             result += (index + 1);
             result += "=";
             try {
-                result += list.get(index).getName().fullName;
+                result += list.get(index).getIcNumber().toString().substring(5, 9); //need to change
             } catch (IndexOutOfBoundsException ioobe) {
                 result += "empty";
             } catch (NullPointerException npe) {

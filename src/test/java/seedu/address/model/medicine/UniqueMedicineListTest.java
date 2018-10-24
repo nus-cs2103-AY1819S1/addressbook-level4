@@ -1,3 +1,4 @@
+/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +30,7 @@ public class UniqueMedicineListTest {
     @Test
     public void contains_nullMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueMedicineList.contains(null);
+        uniqueMedicineList.contains((Medicine) null);
     }
 
     @Test

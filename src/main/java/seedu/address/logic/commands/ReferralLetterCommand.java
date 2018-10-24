@@ -29,8 +29,9 @@ public class ReferralLetterCommand extends QueueCommand {
             + " and information written by the issuing doctor. \n"
             + "Example: " + COMMAND_WORD + "<person's index>";
 
-    public static final String MESSAGE_SUCCESS = "Referral letter generated for patient!";
+    public static final String MESSAGE_GENERATE_REFERRAL_SUCCESS = "Referral letter generated for patient!";
 
+    private ReferralLetter rl;
     private final Index index;
 
     /**
@@ -49,14 +50,13 @@ public class ReferralLetterCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final ReferralLetter rl;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         rl = new ReferralLetter(servedPatient);
         rl.generateDocument();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_GENERATE_REFERRAL_SUCCESS));
     }
 
     @Override
@@ -64,5 +64,9 @@ public class ReferralLetterCommand extends QueueCommand {
         return other == this // short circuit if same object
                 || (other instanceof ReferralLetterCommand // instanceof handles nulls
                 && index.equals(((ReferralLetterCommand) other).index)); // state check
+    }
+
+    public ReferralLetter getRl() {
+        return rl;
     }
 }

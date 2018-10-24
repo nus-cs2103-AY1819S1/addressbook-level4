@@ -29,10 +29,10 @@ public class MedicalCertificateCommand extends QueueCommand {
             + " NRIC of patient, and duration of medical leave. \n"
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "MC generated for patient!";
+    public static final String MESSAGE_GENERATE_MC_SUCCESS = "MC generated for patient!";
 
+    private MedicalCertificate mc;
     private final Index index;
-    private String generatedResult;
 
     /**
      * Creates a MedicalCertificateCommand for the {@code servedPatient} specified by {@code index}
@@ -50,14 +50,13 @@ public class MedicalCertificateCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final MedicalCertificate mc;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
         mc = new MedicalCertificate(servedPatient);
         mc.generateDocument();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_GENERATE_MC_SUCCESS));
     }
 
     @Override
@@ -65,5 +64,9 @@ public class MedicalCertificateCommand extends QueueCommand {
         return other == this // short circuit if same object
                 || (other instanceof MedicalCertificateCommand // instanceof handles nulls
                 && index.equals(((MedicalCertificateCommand) other).index)); // state check
+    }
+
+    public MedicalCertificate getMc() {
+        return mc;
     }
 }

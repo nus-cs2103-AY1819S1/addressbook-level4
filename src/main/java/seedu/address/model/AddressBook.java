@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.UniqueMedicineList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
@@ -51,6 +52,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(patients);
     }
 
+    //@@author 99percentile
     /**
      * Replaces the contents of the medicine list with {@code medicines}.
      * {@code medicines} must not contain duplicate medicines.
@@ -118,6 +120,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     */
+    public boolean hasMedicine(MedicineName medicineName) {
+        requireNonNull(medicineName);
+        return medicines.contains(medicineName);
+    }
+
+    /**
      * Adds a medicine to the records.
      * The medicine must not already exist in the record.
      */
@@ -141,8 +151,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);
-
         medicines.setMedicine(target, editedMedicine);
+    }
+
+    /**
+     * Dispenses the medicine with {@code medicineName} to the patient.
+     */
+    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+        requireNonNull(quantityToDispense);
+        requireNonNull(quantityToDispense);
+        return medicines.dispenseMedicine(medicine, quantityToDispense);
+    }
+
+    /**
+     * Refill the medicine with {@code medicineName} to the patient.
+     */
+    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+        requireNonNull(medicine);
+        requireNonNull(quantityToRefill);
+        medicines.refillMedicine(medicine, quantityToRefill);
     }
 
     //// util methods
@@ -158,6 +185,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    //@@author 99percentile
     @Override
     public ObservableList<Medicine> getMedicineList() {
         return medicines.asUnmodifiableObservableList();
@@ -167,7 +195,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && medicines.equals(((AddressBook) other).medicines));
     }
 
     @Override

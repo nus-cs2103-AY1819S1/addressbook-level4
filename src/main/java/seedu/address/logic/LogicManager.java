@@ -6,9 +6,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DisplayQueueCommand;
+import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.FinishCommand;
 import seedu.address.logic.commands.QueueCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -58,6 +63,12 @@ public class LogicManager extends ComponentManager implements Logic {
             history.add(commandText);
             if (command instanceof QueueCommand) {
                 raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
+            }
+            if (command instanceof DisplayQueueCommand
+                    || command instanceof RegisterCommand
+                    || command instanceof FinishCommand
+                    || command instanceof DisplayServedPatientsCommand) {
+                raise(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
             }
         }
     }
