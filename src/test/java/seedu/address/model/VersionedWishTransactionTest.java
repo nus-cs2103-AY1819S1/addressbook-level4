@@ -1,14 +1,17 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishes;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import seedu.address.model.tag.Tag;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Date;
@@ -22,6 +25,7 @@ import seedu.address.model.wish.Wish;
 public class VersionedWishTransactionTest {
 
     private VersionedWishTransaction versionedWishTransaction;
+    private VersionedWishTransaction populatedVersionedWishTransaction;
     private Wish wish;
 
     @Before
@@ -36,6 +40,8 @@ public class VersionedWishTransactionTest {
                 new SavedAmount("0"),
                 new Remark("e"),
                 tagSet);
+
+        this.populatedVersionedWishTransaction = new VersionedWishTransaction(getTypicalWishTransaction());
     }
 
     @Test
@@ -52,11 +58,24 @@ public class VersionedWishTransactionTest {
     public void addWishWithoutCommit_shouldFail() {
         versionedWishTransaction.addWish(wish);
         assertTrue(isSameSize(1));
+
+        VersionedWishTransaction copy = new VersionedWishTransaction(getTypicalWishTransaction());
+        populatedVersionedWishTransaction.addWish(wish);
+        assertEquals(populatedVersionedWishTransaction, copy);
     }
     @Test
     public void addWishWithCommit_success() {
         addWishWithCommit();
         assertTrue(isSameSize(2));
+    }
+
+    @Test
+    public void addMultipleWishesWithCommit_success() {
+        getTypicalWishes().stream().forEach(wish -> {
+            versionedWishTransaction.addWish(wish);
+            versionedWishTransaction.commit();
+        });
+        assertEquals(versionedWishTransaction, populatedVersionedWishTransaction);
     }
 
     @Test
@@ -67,11 +86,48 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
+    public void removeAllWishes_success() {
+        getTypicalWishes().stream().forEach(wish -> {
+            populatedVersionedWishTransaction.removeWish(wish);
+            populatedVersionedWishTransaction.commit();
+        });
+        assertEquals(versionedWishTransaction, populatedVersionedWishTransaction);
+    }
+
+    @Test
     public void undo_shouldSucceed() {
         addWishWithCommit();
         versionedWishTransaction.undo();
 
         assertTrue(isSameSize(2));
+    }
+
+    @Test
+    public void multipleUndos_shouldSucceed() {
+        List<Wish> wishes = getTypicalWishes();
+        int limit = wishes.size() / 2;
+        VersionedWishTransaction blank = new VersionedWishTransaction();
+        for (int i = 0; i < limit; i++) {
+            versionedWishTransaction.addWish(wishes.get(i));
+            versionedWishTransaction.commit();
+            versionedWishTransaction.undo();
+        }
+        assertEquals(versionedWishTransaction, blank);
+
+        versionedWishTransaction = new VersionedWishTransaction();
+        assertTrue(isSameSize(1));
+
+        for (int i = 0; i < limit; i++) {
+            int prevSize = versionedWishTransaction.getWishStateList().size();
+            versionedWishTransaction.addWish(wishes.get(i));
+            versionedWishTransaction.commit();
+            versionedWishTransaction.removeWish(wishes.get(i));
+            versionedWishTransaction.commit();
+            versionedWishTransaction.undo();
+            int currSize = versionedWishTransaction.getWishStateList().size();
+            if (i > 0) assertEquals(currSize - prevSize, 1);
+        }
+
     }
 
     @Test

@@ -21,7 +21,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     /**
      * Stores a log of wish histories for this current state.
      */
-    private HashMap<UUID, LinkedList<Wish>> wishMap;
+    protected HashMap<UUID, LinkedList<Wish>> wishMap;
 
     /**
      * Logger associated with this class.
@@ -74,14 +74,6 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         for (Wish wish : wishBook.getWishList()) {
             addWish(wish);
         }
-    }
-
-    /**
-     * Getter for wishMap.
-     * @return
-     */
-    public HashMap<UUID, LinkedList<Wish>> getWishTransactionMap() {
-        return wishMap;
     }
 
     /**
