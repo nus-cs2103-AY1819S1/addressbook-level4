@@ -87,6 +87,13 @@ public class Patient extends Person {
     public void addUpcomingAppointment(Appointment appointment) {
         upcomingAppointments.add(appointment);
     }
+    
+    /**
+     * Deletes appointment from patient's queue of upcoming appointment.
+     */
+    public void deleteAppointment(Appointment appointment) {
+        upcomingAppointments.remove(appointment);
+    }
 
     /**
      * Completes the latest appointment of the patient, placing the records of the appointment in to the stack of
@@ -96,12 +103,5 @@ public class Patient extends Person {
         Appointment completedAppointment = upcomingAppointments.remove();
         completedAppointment.completeAppointment();
         pastAppointments.add(completedAppointment);
-    }
-
-    /**
-     * Deletes appointment from patient by the appointmentId
-     */
-    public void deleteAppointment(int appointmentId) {
-        // TODO - giam's implementation
     }
 }
