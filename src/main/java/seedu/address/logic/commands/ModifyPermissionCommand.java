@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_PERMISSION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -51,6 +52,7 @@ public class ModifyPermissionCommand extends Command {
     private Set<Permission> toRemove;
 
     public ModifyPermissionCommand(Index index, Set<Permission> toAdd, Set<Permission> toRemove) {
+        requireAllNonNull(index, toAdd, toRemove);
         this.index = index;
         this.toAdd = toAdd;
         this.toRemove = toRemove;
