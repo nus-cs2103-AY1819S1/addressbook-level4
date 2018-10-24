@@ -56,7 +56,7 @@ public class DependencyCommandTest {
     }
 
     @Test
-    public void execute_cyclicDependencyUnfilteredList_throwsCommandException() {
+    public void execute_containsCyclicDependencyUnfilteredList_throwsCommandException() {
         Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         Task newDependeeTask = DependencyCommand.createDependantTask(dependeeTask, dependantTask);
@@ -69,7 +69,7 @@ public class DependencyCommandTest {
     }
 
     @Test
-    public void execute_addValidIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_success() {
         showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 
         Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
