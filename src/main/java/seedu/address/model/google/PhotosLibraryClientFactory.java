@@ -8,6 +8,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -26,9 +27,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.PhotosLibrarySettings;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.LoginStatusEvent;
+
 //@@author chivent
 //TODO: credit --> https://github.com/google/java-photoslibrary/tree/master/sample
-//TODO: Remove comments in later future
 //TODO: Store files elsewhere [TBD]
 
 /**
@@ -82,7 +85,6 @@ public class PhotosLibraryClientFactory {
         // Credential is a google construct that wraps the access token and helps you to refresh periodically
         // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
         Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-
         //UserCredentials is a specific credential type that stores user specific credentials
         UserCredentials userCredentials = UserCredentials.newBuilder()
                 .setClientId(clientId)
@@ -119,7 +121,20 @@ public class PhotosLibraryClientFactory {
 
         List<Person.Emails> emails = plus.people().get("me").execute().getEmails();
 
+        EventsCenter.getInstance().post(new LoginStatusEvent(emails.get(0).getValue()));
         return emails.get(0).getValue();
+    }
+
+    /**
+     * Checks if a user has storedCredentials (did not logout previously), and auto log ins user if true.
+     * @return a PhotoHandler instance if user has storedCredentials, else null
+     */
+    public static PhotoHandler checkUserLogin() throws IOException, GeneralSecurityException {
+        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
+        if (credentialExists) {
+            return createClient();
+        }
+        return null;
     }
 }
 

@@ -7,7 +7,6 @@ package seedu.address.logic.commands.google;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.gax.rpc.ApiException;
@@ -31,7 +30,7 @@ public class GoogleLsCommand extends GoogleCommand {
             throws CommandException {
         requireNonNull(model);
 
-        List<String> printTarget = new ArrayList<>();
+        List<String> printTarget;
         StringBuilder toPrint = new StringBuilder();
         try {
             if (parameter.isEmpty()) {

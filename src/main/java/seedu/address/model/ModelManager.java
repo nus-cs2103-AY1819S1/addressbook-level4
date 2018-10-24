@@ -15,8 +15,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
@@ -36,8 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private ArrayList<Path> dirImageList;
     private Path currentOriginalImage;
+    private PhotoHandler photoLibrary;
     private PreviewImage currentPreviewImage;
-    private PhotoHandler photoLibrary = null;
     private Canvas canvas;
 
     private final UserPrefs userPrefs;
@@ -57,6 +59,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.userPrefs = userPrefs;
         dirImageList = new ArrayList<>();
+
+        try {
+            photoLibrary = PhotosLibraryClientFactory.checkUserLogin();
+        } catch (Exception e) {
+            logger.warning("Unable to log into user account");
+        }
+
     }
 
     public ModelManager() {
@@ -199,6 +208,14 @@ public class ModelManager extends ComponentManager implements Model {
         return photoLibrary;
     }
 
+    @Override
+    public String getUserLoggedIn () throws CommandException {
+        if (photoLibrary == null) {
+            return null;
+        }
+        return getPhotoHandler().identifyUser();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -279,6 +296,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
+        EventsCenter.getInstance().post(new ChangeDirectoryEvent(userPrefs.getCurrDirectory().toString()));
     }
 
     @Override

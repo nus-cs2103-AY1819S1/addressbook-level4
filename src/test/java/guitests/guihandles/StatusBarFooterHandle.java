@@ -10,63 +10,37 @@ import javafx.scene.Node;
 public class StatusBarFooterHandle extends NodeHandle<Node> {
     public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
 
-    private static final String SYNC_STATUS_ID = "#syncStatus";
-    private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
+    private static final String LOGIN_STATUS_ID = "#loginStatus";
 
-    private final StatusBar syncStatusNode;
-    private final StatusBar saveLocationNode;
+    private final StatusBar loginStatusNode;
 
-    private String lastRememberedSyncStatus;
-    private String lastRememberedSaveLocation;
+    private String lastRememberedLoginStatus;
 
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
-        syncStatusNode = getChildNode(SYNC_STATUS_ID);
-        saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
+        loginStatusNode = getChildNode(LOGIN_STATUS_ID);
     }
 
     /**
-     * Returns the text of the sync status portion of the status bar.
+     * Returns the text of the login status portion of the status bar.
      */
-    public String getSyncStatus() {
-        return syncStatusNode.getText();
+    public String getLoginStatus() {
+        return loginStatusNode.getText();
     }
 
     /**
-     * Returns the text of the 'save location' portion of the status bar.
+     * Remembers the content of the login status portion of the status bar.
      */
-    public String getSaveLocation() {
-        return saveLocationNode.getText();
+    public void rememberLoginStatus() {
+        lastRememberedLoginStatus = getLoginStatus();
     }
 
     /**
-     * Remembers the content of the sync status portion of the status bar.
+     * Returns true if the current content of the login status is different from the value remembered by the most recent
+     * {@code rememberLoginStatus()} call.
      */
-    public void rememberSyncStatus() {
-        lastRememberedSyncStatus = getSyncStatus();
-    }
-
-    /**
-     * Returns true if the current content of the sync status is different from the value remembered by the most recent
-     * {@code rememberSyncStatus()} call.
-     */
-    public boolean isSyncStatusChanged() {
-        return !lastRememberedSyncStatus.equals(getSyncStatus());
-    }
-
-    /**
-     * Remembers the content of the 'save location' portion of the status bar.
-     */
-    public void rememberSaveLocation() {
-        lastRememberedSaveLocation = getSaveLocation();
-    }
-
-    /**
-     * Returns true if the current content of the 'save location' is different from the value remembered by the most
-     * recent {@code rememberSaveLocation()} call.
-     */
-    public boolean isSaveLocationChanged() {
-        return !lastRememberedSaveLocation.equals(getSaveLocation());
+    public boolean isLoginStatusChanged() {
+        return !lastRememberedLoginStatus.equals(getLoginStatus());
     }
 }
