@@ -10,6 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.CommandResult;
 import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Model;
@@ -38,8 +39,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = PlaylistListCommand.COMMAND_PHRASE;
+        assertCommandSuccess(listCommand, PlaylistListCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test

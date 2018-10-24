@@ -12,7 +12,7 @@ import seedu.jxmusic.model.Track;
  * Lists all the tracks inside the library to the user.
  */
 public class TrackListCommand extends Command {
-    public static final String COMMAND_WORD = "tracklist";
+    public static final String COMMAND_PHRASE = "track list";
     public static final String MESSAGE_SUCCESS = "Listed all tracks";
 
     @Override

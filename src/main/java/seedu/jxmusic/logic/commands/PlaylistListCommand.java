@@ -9,7 +9,7 @@ import seedu.jxmusic.model.Model;
  * Lists all playlist inside library.
  */
 public class PlaylistListCommand extends Command {
-    public static final String COMMAND_PHRASE = "playlistlist";
+    public static final String COMMAND_PHRASE = "playlist list";
 
     public static final String MESSAGE_SUCCESS = "Listed all playlists";
 

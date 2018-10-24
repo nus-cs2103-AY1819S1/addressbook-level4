@@ -64,8 +64,14 @@ public class LibraryParser {
             //double time = arguments.toInt() sth like this, change the string to time in double
             //return new SeekCommand(time);
 
+        case PlaylistListCommand.COMMAND_PHRASE:
+            return new PlaylistListCommand();
+
         case PlaylistNewCommand.COMMAND_PHRASE:
             return new PlaylistNewCommandParser().parse(arguments);
+
+        case TrackListCommand.COMMAND_PHRASE:
+            return new TrackListCommand();
 
         // case EditCommand.COMMAND_PHRASE:
         //     return new EditCommandParser().parse(arguments);
@@ -82,20 +88,14 @@ public class LibraryParser {
         // case FindCommand.COMMAND_WORD:
         //     return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case TrackListCommand.COMMAND_WORD:
-            return new TrackListCommand();
+        // case ListCommand.COMMAND_WORD:
+        //     return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case PlaylistListCommand.COMMAND_PHRASE:
-            return new PlaylistListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
