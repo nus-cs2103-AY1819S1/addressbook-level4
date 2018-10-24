@@ -37,10 +37,9 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a ride
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ACCELERATOR.getName().fullName
-                .replaceAll(" ", "%20"));
+        URL expectedRideUrl = getClass().getResource(BrowserPanel.RIDE_INFO_PATH);
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedRideUrl, browserPanelHandle.getLoadedUrl());
     }
 }

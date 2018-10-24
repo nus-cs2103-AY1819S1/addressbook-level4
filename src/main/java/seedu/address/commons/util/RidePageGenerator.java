@@ -16,6 +16,9 @@ import java.io.IOException;
 
 import j2html.tags.ContainerTag;
 
+/**
+ * Generates a Html page used to display ride details.
+ */
 public class RidePageGenerator {
     private static final String RIDE_PAGE_PATH = "src/main/resources/docs/ride.html";
     private static final String RIDE_PAGE_TITLE = "Ride Information";
@@ -36,7 +39,7 @@ public class RidePageGenerator {
         return html(
             head(
                 title(RIDE_PAGE_TITLE),
-                link().withRel("stylesheet").withHref("docs/stylesheets/asciidoctor.css")
+                link().withRel("stylesheet").withHref("/stylesheets/asciidoctor.css")
             ),
             body(
                 generateRidePageHeader(),
@@ -49,12 +52,12 @@ public class RidePageGenerator {
         return div(
             div(
                 p("Name:"),
-                p(h2().attr("id=name"))
-            ).withStyle("height: 100px; width: 50%; display: inline-block; left: 0px; word-wrap: break-word"),
+                p(h2().withId("name"))
+            ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px; word-wrap: break-word"),
             div(
                 img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
-            ).withStyle("min-height: 100px; min-width: 40%;" +
-                "height: 100px, width: 40%; display: inline-block; right: 0px")
+            ).withStyle("min-width: 200px;" +
+                "height: auto, width: 40%; display: inline-block; right: 0px")
         );
     }
 
@@ -65,8 +68,8 @@ public class RidePageGenerator {
                 p("Days since last maintenance:")
             ).withStyle("width: 40%; display: inline-block; left: 0px"),
             div(
-                p().attr("id=status"),
-                p().attr("id=waitTime")
+                p().withId("status"),
+                p().withId("waitTime")
             ).withStyle("width: 50%; display: inline-block; right: 0px")
         ).withStyle("padding: 30px 10px");
     }
