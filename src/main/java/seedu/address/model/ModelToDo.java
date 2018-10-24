@@ -10,6 +10,7 @@ import seedu.address.model.todolist.ToDoListEvent;
  * The API of the Model component of todolist.
  */
 public interface ModelToDo {
+
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -62,4 +63,8 @@ public interface ModelToDo {
      */
     void updateFilteredToDoListEventList(Predicate<ToDoListEvent> predicate);
 
+    /**
+     * Saves the current toDoList state.
+     */
+    void commitToDoList();
 }
