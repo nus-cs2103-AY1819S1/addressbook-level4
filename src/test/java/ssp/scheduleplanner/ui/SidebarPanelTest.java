@@ -1,18 +1,12 @@
 package ssp.scheduleplanner.ui;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
 import static ssp.scheduleplanner.testutil.EventsUtil.postNow;
 import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;
-import static ssp.scheduleplanner.ui.UiPart.FXML_FILE_FOLDER;
-
-import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.SidebarPanelHandle;
-import ssp.scheduleplanner.MainApp;
 import ssp.scheduleplanner.commons.events.ui.TaskPanelSelectionChangedEvent;
 import ssp.scheduleplanner.logic.Logic;
 import ssp.scheduleplanner.logic.LogicManager;

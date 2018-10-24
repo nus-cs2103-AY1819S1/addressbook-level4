@@ -2,8 +2,6 @@ package guitests.guihandles;
 
 import java.net.URL;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
 
 /**
@@ -19,8 +17,8 @@ public class SidebarPanelHandle extends NodeHandle<Node> {
 
     public SidebarPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
-
-        /*new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+        /*
+        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
                 isWebViewLoaded = false;
             } else if (newState == Worker.State.SUCCEEDED) {
