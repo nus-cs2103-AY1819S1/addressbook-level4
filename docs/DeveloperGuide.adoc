@@ -381,7 +381,7 @@ The delete medical history feature is facilitated by `DeleteMedicalHistoryComman
 `DeleteMedicalHistoryCommandParser`. This command is implemented such that it is able to delete `allergy` AND/OR
 `condition` from `MedicalHistory` object for a specific `Patient` specified by index.
 
-Delete Medical History Sequence Diagram
+.Delete Medical History Sequence Diagram
 image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
 
 Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `INDEX
@@ -394,7 +394,7 @@ Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory`
 
 [WARNING]
 Exception will be thrown if inputs for both field are blank.
-Exception will be thrown if given input is not in the original medical history
+Exception will be thrown if given input is not in the original medical history.
 
 ==== Design Consideration
 ===== Aspect: Support different types of input
