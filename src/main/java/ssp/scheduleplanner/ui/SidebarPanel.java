@@ -7,9 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
 import javafx.scene.Node;
+import javafx.scene.layout.Region;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.ui.NewResultAvailableEvent;
 import ssp.scheduleplanner.logic.ListElementPointer;
@@ -58,42 +57,42 @@ public class SidebarPanel extends UiPart<Region> {
      */
     @FXML
     private void handleShowView(ActionEvent event) {
-        String view = (String) ((Node)event.getSource()).getUserData();
+        String view = (String) ((Node) event.getSource()).getUserData();
         switch (view) {
-            case "today":
-                try {
-                    CommandResult commandResult = logic.execute("listday");
-                    initHistory();
-                    historySnapshot.next();
-                    logger.info("Result: " + commandResult.feedbackToUser);
-                    raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-                } catch (CommandException | ParseException e) {
-                    logger.info("Invalid command: " + "listday");
-                }
-                break;
-            case "week":
-                try {
-                    CommandResult commandResult = logic.execute("listweek");
-                    initHistory();
-                    historySnapshot.next();
-                    logger.info("Result: " + commandResult.feedbackToUser);
-                    raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-                } catch (CommandException | ParseException e) {
-                    logger.info("Invalid command: " + "listweek");
-                }
-                break;
-            case "exams":
-                try {
-                    CommandResult commandResult = logic.execute("filter exams");
-                    initHistory();
-                    historySnapshot.next();
-                    logger.info("Result: " + commandResult.feedbackToUser);
-                    raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-                } catch (CommandException | ParseException e) {
-                    logger.info("Invalid command: " + "filter exams");
-                }
-            default:
-                break;
+        case "today":
+            try {
+                CommandResult commandResult = logic.execute("listday");
+                initHistory();
+                historySnapshot.next();
+                logger.info("Result: " + commandResult.feedbackToUser);
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            } catch (CommandException | ParseException e) {
+                logger.info("Invalid command: " + "listday");
+            }
+            break;
+        case "week":
+            try {
+                CommandResult commandResult = logic.execute("listweek");
+                initHistory();
+                historySnapshot.next();
+                logger.info("Result: " + commandResult.feedbackToUser);
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            } catch (CommandException | ParseException e) {
+                logger.info("Invalid command: " + "listweek");
+            }
+            break;
+        case "exams":
+            try {
+                CommandResult commandResult = logic.execute("filter exams");
+                initHistory();
+                historySnapshot.next();
+                logger.info("Result: " + commandResult.feedbackToUser);
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            } catch (CommandException | ParseException e) {
+                logger.info("Invalid command: " + "filter exams");
+            }
+        default:
+            break;
         }
     }
 
