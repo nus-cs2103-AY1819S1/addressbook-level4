@@ -37,7 +37,8 @@ public class XmlWishTransactions {
     public XmlWishTransactions(WishTransaction wishTransaction) {
         this();
         for (Map.Entry<UUID, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
-            this.wishMap.put(entries.getKey().toString(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
+            this.wishMap.put(IDMarshaller.toWishmapKey(entries.getKey()),
+                    new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
         }
     }
 
@@ -58,7 +59,7 @@ public class XmlWishTransactions {
     private HashMap<UUID, LinkedList<Wish>> toWishMap() throws IllegalValueException {
         HashMap<UUID, LinkedList<Wish>> convertedMap = new HashMap<>();
         for (Map.Entry<String, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
-            convertedMap.put(UUID.fromString(entries.getKey()), toWishList(entries.getValue()));
+            convertedMap.put(IDMarshaller.toUUID(entries.getKey()), toWishList(entries.getValue()));
         }
         return convertedMap;
     }
@@ -104,4 +105,16 @@ public class XmlWishTransactions {
         return Objects.equals(wishMap.keySet(), otherMap.wishMap.keySet());
     }
 
+    /**
+     * This class contains methods that converts non xml-compatible key (UUID) to xml-compatible key (String).
+     */
+    private static class IDMarshaller {
+        static String toWishmapKey(UUID uuid) {
+            return uuid.toString();
+        }
+
+        static UUID toUUID(String key) {
+            return UUID.fromString(key);
+        }
+    }
 }
