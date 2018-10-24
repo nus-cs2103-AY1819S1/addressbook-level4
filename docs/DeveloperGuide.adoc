@@ -393,11 +393,26 @@ Below is an example usage scenario and how the Sign Up and Login system behaves 
 . The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
 . The selected data in the `Model` is switched to `john`'s and an `UserLoggedInEvent` is raised for the `UI` to show `john`'s Expense Tracker data
 
-Given below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
+Below is the UML sequence diagram that shows how the `SignUpCommand` works.
+
+.Sequence diagram showing how `SignUpCommand` works
+image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
+
+Below is the UML sequence diagram that shows how the `LoginCommand` works.
+
+.Sequence diagram showing how `LoginCommand` works
+image::implementation/LoginCommandSequenceDiagram.png[width="800"]
+
+Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
 . The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
 . The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` changes `john`'s account password to `password2`
+
+Below is the UML sequence diagram that shows how the `SetPasswordCommand` works.
+
+.Sequence diagram showing how `SetPasswordCommand` works
+image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Storage of Separate User Data
