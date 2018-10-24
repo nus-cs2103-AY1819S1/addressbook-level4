@@ -10,10 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.WishComparator;
 import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Wish;
@@ -28,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedWishBook versionedWishBook;
     private final VersionedWishTransaction versionedWishTransaction;
-    private final FilteredList<Wish> filteredWishes;
+    private final FilteredList<Wish> filteredSortedWishes;
 
     /**
      * Initializes a ModelManager with the given wishBook and userPrefs.
@@ -43,7 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedWishBook = new VersionedWishBook(wishBook);
         versionedWishTransaction = getWishTransaction(wishBook, wishTransaction);
-        filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
+        filteredSortedWishes = new FilteredList<>(new SortedList<>(versionedWishBook.getWishList(),
+                new WishComparator()));
     }
 
     public ModelManager() {
@@ -110,7 +113,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedWishBook.addWish(wish);
         versionedWishTransaction.addWish(wish);
         updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        versionedWishBook.synchronizeWishTransactions(versionedWishTransaction.getWishMap());
         indicateWishBookChanged();
     }
 
@@ -139,14 +141,14 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedWishBook}
      */
     @Override
-    public ObservableList<Wish> getFilteredWishList() {
-        return FXCollections.unmodifiableObservableList(filteredWishes);
+    public ObservableList<Wish> getFilteredSortedWishList() {
+        return FXCollections.unmodifiableObservableList(filteredSortedWishes);
     }
 
     @Override
     public void updateFilteredWishList(Predicate<Wish> predicate) {
         requireNonNull(predicate);
-        filteredWishes.setPredicate(predicate);
+        filteredSortedWishes.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -196,7 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedWishBook.equals(other.versionedWishBook)
-                && filteredWishes.equals(other.filteredWishes);
+                && filteredSortedWishes.equals(other.filteredSortedWishes);
     }
 
 }

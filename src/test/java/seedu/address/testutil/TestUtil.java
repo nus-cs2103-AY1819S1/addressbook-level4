@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the wish in the {@code model}'s wish list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredWishList().size() / 2);
+        return Index.fromOneBased(model.getFilteredSortedWishList().size() / 2);
     }
 
     /**
      * Returns the last index of the wish in the {@code model}'s wish list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredWishList().size());
+        return Index.fromOneBased(model.getFilteredSortedWishList().size());
     }
 
     /**
      * Returns the wish in the {@code model}'s wish list at {@code index}.
      */
     public static Wish getWish(Model model, Index index) {
-        return model.getFilteredWishList().get(index.getZeroBased());
+        return model.getFilteredSortedWishList().get(index.getZeroBased());
     }
 }

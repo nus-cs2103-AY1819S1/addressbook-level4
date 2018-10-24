@@ -38,7 +38,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Wish> filteredWishList = model.getFilteredWishList();
+        List<Wish> filteredWishList = model.getFilteredSortedWishList();
 
         if (targetIndex.getZeroBased() >= filteredWishList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);

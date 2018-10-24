@@ -63,7 +63,7 @@ public class SelectCommandSystemTest extends WishBookSystemTest {
 
         /* Case: filtered wish list, select index within bounds of address book and wish list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assertTrue(validIndex.getZeroBased() < getModel().getFilteredWishList().size());
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredSortedWishList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
@@ -78,7 +78,7 @@ public class SelectCommandSystemTest extends WishBookSystemTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredWishList().size() + 1;
+        invalidIndex = getModel().getFilteredSortedWishList().size() + 1;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */

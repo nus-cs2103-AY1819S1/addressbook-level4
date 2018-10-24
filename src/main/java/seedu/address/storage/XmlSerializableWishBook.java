@@ -13,7 +13,7 @@ import seedu.address.model.WishBook;
 import seedu.address.model.wish.Wish;
 
 /**
- * An Immutable WishBook that is serializable to XML format
+ * An Immutable WishBook that is serializable to XML FORMAT
  */
 @XmlRootElement(name = "wishbook")
 public class XmlSerializableWishBook {

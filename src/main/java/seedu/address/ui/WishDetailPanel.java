@@ -11,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
+import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -51,6 +52,19 @@ public class WishDetailPanel extends UiPart<Region> {
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
+
+        // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
+    }
+
+    public WishDetailPanel(WishTransaction wishTransaction) {
+        super(FXML);
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        getRoot().setOnKeyPressed(Event::consume);
+
+        loadDefaultPage();
+        registerAsAnEventHandler(this);
+        // TODO: [Jiho] Utilize wishTransaction's data in the WishDetailPanel (if wanted).
     }
 
     /**
@@ -73,7 +87,7 @@ public class WishDetailPanel extends UiPart<Region> {
         savedAmount.setText("Saved: $" + wish.getSavedAmount().toString());
         price.setText("Price: $" + wish.getPrice().toString());
         url.setText("Product URL: " + wish.getUrl().value);
-        email.setText("Email(?): " + wish.getEmail().value);
+        email.setText("Date(?): " + wish.getDate());
         remark.setText(wish.getRemark().value);
     }
 

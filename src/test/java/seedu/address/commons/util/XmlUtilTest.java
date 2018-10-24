@@ -47,17 +47,19 @@ public class XmlUtilTest {
 
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
+    private static final String VALID_DATE = "24/09/2020";
     private static final String VALID_URL = "https://www.amazon.com/gp/product/B07D998212";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_ID = "ae536134-96c8-45b1-a68e-c872493a935a";
 
     private static final String VALID_WISHTRANSACTION_NAME = "George Best";
     private static final String VALID_WISHTRANSACTION_PRICE = "94.82";
     private static final String VALID_WISHTRANSACTION_SAVED_AMT = "0.00";
-    private static final String VALID_WISHTRANSACTION_EMAIL = "anna@example.com";
+    private static final String VALID_WISHTRANSACTION_DATE = "24/09/2020";
     private static final String VALID_WISHTRANSACTION_URL =
             "https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV";
     private static final String VALID_WISHTRANSACTION_REMARK = "";
+    private static final String VALID_WISHTRANSACTION_ID = "1eb6564f-7b01-4c5c-a2c5-37678131c3e4";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -101,7 +103,7 @@ public class XmlUtilTest {
         XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
                 MISSING_WISH_FIELD_FILE, XmlAdaptedWishWithRootElement.class);
         XmlAdaptedWish expectedWish = new XmlAdaptedWish(
-                null, VALID_PHONE, VALID_EMAIL, VALID_URL, VALID_TAGS);
+                null, VALID_PHONE, VALID_DATE, VALID_URL, VALID_TAGS, VALID_ID);
         assertEquals(expectedWish, actualWish);
     }
 
@@ -109,8 +111,8 @@ public class XmlUtilTest {
     public void xmlAdaptedWishFromFile_fileWithInvalidWishField_validResult() throws Exception {
         XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
                 INVALID_WISH_FIELD_FILE, XmlAdaptedWishWithRootElement.class);
-        XmlAdaptedWish expectedWish = new XmlAdaptedWish(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_URL, VALID_TAGS);
+        XmlAdaptedWish expectedWish = new XmlAdaptedWish(VALID_NAME, INVALID_PHONE, VALID_DATE, VALID_URL, VALID_TAGS,
+                VALID_ID);
         assertEquals(expectedWish, actualWish);
     }
 
@@ -119,7 +121,7 @@ public class XmlUtilTest {
         XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
                 VALID_WISH_FILE, XmlAdaptedWishWithRootElement.class);
         XmlAdaptedWish expectedWish = new XmlAdaptedWish(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_URL, VALID_TAGS);
+                VALID_NAME, VALID_PHONE, VALID_DATE, VALID_URL, VALID_TAGS, VALID_ID);
         assertEquals(expectedWish, actualWish);
     }
 
@@ -174,8 +176,9 @@ public class XmlUtilTest {
                 .withName(VALID_WISHTRANSACTION_NAME)
                 .withPrice(VALID_WISHTRANSACTION_PRICE)
                 .withSavedAmountIncrement(VALID_WISHTRANSACTION_SAVED_AMT)
-                .withEmail(VALID_WISHTRANSACTION_EMAIL)
+                .withDate(VALID_WISHTRANSACTION_DATE)
                 .withUrl(VALID_WISHTRANSACTION_URL)
+                .withId(VALID_WISHTRANSACTION_ID)
                 .build();
     }
 

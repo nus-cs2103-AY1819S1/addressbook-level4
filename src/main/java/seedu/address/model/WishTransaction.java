@@ -259,9 +259,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @return a new updated wish.
      */
     private Wish getUpdatedWish(Set<Tag> updatedTags, Wish target) {
-        return new Wish(target.getName(), target.getPrice(), target.getEmail(),
-                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags,
-                target.getTransactions());
+        return new Wish(target.getName(), target.getPrice(), target.getDate(),
+                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags, target.getId());
     }
 
     /**
@@ -292,8 +291,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     @Override
     public String toString() {
         wishMap.entrySet().forEach(entry -> {
-            System.out.println(entry.getKey());
-            entry.getValue().forEach(System.out::println);
+            //System.out.println(entry.getKey());
+            //entry.getValue().forEach(System.out::println);
         });
         return null;
     }

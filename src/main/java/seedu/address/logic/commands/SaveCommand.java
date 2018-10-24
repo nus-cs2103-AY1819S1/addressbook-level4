@@ -29,8 +29,8 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
 
-    public static final String MESSAGE_SAVE_EXCESS = " with %1$s in excess";
-    public static final String MESSAGE_SAVE_DIFFERENCE = " with %1$s left to completion";
+    public static final String MESSAGE_SAVE_EXCESS = " with $%1$s in excess";
+    public static final String MESSAGE_SAVE_DIFFERENCE = " with $%1$s left to completion";
 
     private final Index index;
     private final Amount amountToSave;
@@ -45,7 +45,7 @@ public class SaveCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Wish> lastShownList = model.getFilteredWishList();
+        List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -59,9 +59,9 @@ public class SaveCommand extends Command {
         String differenceString = "";
 
         try {
-            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
+            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
                     wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
-                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getTransactions());
+                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
 
             model.updateWish(wishToEdit, editedWish);
             model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
@@ -69,8 +69,8 @@ public class SaveCommand extends Command {
 
             Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
 
-            if (wishSavedDifference.value < 0) {
-                differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference);
+            if (wishSavedDifference.value >= 0) {
+                differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount());
             } else {
                 differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
             }

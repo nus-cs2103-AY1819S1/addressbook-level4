@@ -41,7 +41,7 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Wish> lastShownList = model.getFilteredWishList();
+        List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -61,9 +61,8 @@ public class RemarkCommand extends Command {
      * with updated Remark.
      */
     private static Wish createUpdatedRemarkWish(Wish wishToEdit, Remark remark) {
-        return new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
-                wishToEdit.getUrl(), wishToEdit.getSavedAmount(), remark, wishToEdit.getTags(),
-                wishToEdit.getTransactions());
+        return new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
+                wishToEdit.getUrl(), wishToEdit.getSavedAmount(), remark, wishToEdit.getTags(), wishToEdit.getId());
     }
 
     @Override

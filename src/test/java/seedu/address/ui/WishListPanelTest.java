@@ -96,9 +96,10 @@ public class WishListPanelTest extends GuiUnitTest {
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<price>00.00</price>\n");
             builder.append("<savedAmount>00.00</savedAmount>\n");
-            builder.append("<email>a@aa</email>\n");
+            builder.append("<date>22/12/2018</date>\n");
             builder.append("<url>a</url>\n");
             builder.append("<remark>aa</remark>\n");
+            builder.append("<id>c422548e-050e-4f2c-a6bb-f72ead2e").append(String.format("%04d", i)).append("</id>");
             builder.append("</wishes>\n");
         }
         builder.append("</wishbook>\n");

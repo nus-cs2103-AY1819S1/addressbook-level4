@@ -136,7 +136,7 @@ public abstract class WishBookSystemTest {
      */
     protected void showAllWishes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getWishBook().getWishList().size(), getModel().getFilteredWishList().size());
+        assertEquals(getModel().getWishBook().getWishList().size(), getModel().getFilteredSortedWishList().size());
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class WishBookSystemTest {
      */
     protected void showWishesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredWishList().size() < getModel().getWishBook().getWishList().size());
+        assertTrue(getModel().getFilteredSortedWishList().size() < getModel().getWishBook().getWishList().size());
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class WishBookSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new WishBook(expectedModel.getWishBook()),
                 testApp.readStorageWishBook());
-        assertListMatching(getWishListPanel(), expectedModel.getFilteredWishList());
+        assertListMatching(getWishListPanel(), expectedModel.getFilteredSortedWishList());
     }
 
     /**
@@ -271,7 +271,7 @@ public abstract class WishBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getWishListPanel(), getModel().getFilteredWishList());
+        assertListMatching(getWishListPanel(), getModel().getFilteredSortedWishList());
         //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

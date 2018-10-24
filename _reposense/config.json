@@ -1,0 +1,39 @@
+{
+    "authors": [
+        {
+            "githubId": "leongshengmin",
+            "displayName": "Leong Shengmin",
+            "authorNames": [
+                "leongshengmin", "Shengmin"
+            ]
+        },
+        {
+            "githubId": "lionelat",
+            "displayName": "Lionel Tan",
+            "authorNames": [
+                "lionelat", "LAPTOP-C1KL05RT\\lionel"
+            ]
+        },
+        {
+            "githubId": "bannified",
+            "displayName": "Dominic Chong",
+            "authorNames": [
+                "bannified", "Dominic Chong"
+            ]
+        },
+        {
+            "githubId": "dioptrique",
+            "displayName": "Ananda Kumar",
+            "authorNames": [
+                "dioptrique"
+            ]
+        },
+        {
+            "githubId": "jiholim",
+            "displayName": "Jiho Lim",
+            "authorNames": [
+                "jiholim"
+            ]
+        }
+    ]
+}
