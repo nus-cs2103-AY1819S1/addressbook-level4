@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 
 /**
  * Uncompleted class, need to add more methods and fields.
@@ -18,7 +19,7 @@ public class ServedPatient {
     private String noteContent;
     private String referralContent;
     private String mcContent;
-    private Map<Medicine, Integer> medicineAllocated;
+    private Map<Medicine, QuantityToDispense> medicineAllocated;
     // add more fields as required
 
     /**
@@ -67,7 +68,7 @@ public class ServedPatient {
     /**
      * Returns the medicine and quantity allocated for the {@code served patient}.
      */
-    public Map<Medicine, Integer> getMedicineAllocated() {
+    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
         return medicineAllocated;
     }
 
@@ -98,7 +99,7 @@ public class ServedPatient {
      * @param quantity of medicine to be added.
      * @return string representation of medicine added.
      */
-    public String addMedicine(Medicine medicine, int quantity) {
+    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
         medicineAllocated.put(medicine, quantity);
         return medicine.toString();
     }
