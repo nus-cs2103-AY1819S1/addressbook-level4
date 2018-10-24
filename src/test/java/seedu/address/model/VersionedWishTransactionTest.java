@@ -56,12 +56,18 @@ public class VersionedWishTransactionTest {
 
     @Test
     public void addWishWithoutCommit_shouldFail() {
+        int wishStateListSize = versionedWishTransaction.getWishStateList().size();
         versionedWishTransaction.addWish(wish);
-        assertTrue(isSameSize(1));
+        assertTrue(versionedWishTransaction.getWishMap().containsKey(wish.getId()));
+        assertTrue(isSameSize(wishStateListSize));
 
         VersionedWishTransaction copy = new VersionedWishTransaction(getTypicalWishTransaction());
+        wishStateListSize = copy.getWishStateList().size();
         populatedVersionedWishTransaction.addWish(wish);
+        assertTrue(populatedVersionedWishTransaction.getWishMap().containsKey(wish.getId()));
+        assertTrue(populatedVersionedWishTransaction.getWishMap().get(wish.getId()).peekLast().isSameWish(wish));
         assertEquals(populatedVersionedWishTransaction, copy);
+        assertEquals(copy.getWishStateList().size(), wishStateListSize);
     }
     @Test
     public void addWishWithCommit_success() {
