@@ -14,12 +14,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ExpenseTracker;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.user.Username;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access ExpenseTracker data stored as an xml file on the hard disk.
  */
 public class XmlExpensesStorage implements ExpensesStorage {
 
@@ -38,7 +38,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException {
         return readExpenses(filePath);
     }
 
@@ -47,26 +47,27 @@ public class XmlExpensesStorage implements ExpensesStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyExpenseTracker> readExpenses(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
         if (!Files.exists(filePath)) {
-            logger.info("AddressBook file " + filePath + " not found");
+            logger.info("ExpenseTracker file " + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableExpenseTracker xmlExpenseTracker = XmlFileStorage.loadDataFromSaveFile(filePath);
 
         try {
-            Optional<AddressBook> addressBookOptional = Optional.of(xmlAddressBook.toModelType());
+            Optional<ExpenseTracker> expenseTrackerOptional = Optional.of(xmlExpenseTracker.toModelType());
             Username fileName = new Username(filePath.getFileName().toString().replace(".xml", ""));
-            addressBookOptional.ifPresent(addressBook -> {
-                if (!fileName.equals(addressBook.getUsername())) {
+            expenseTrackerOptional.ifPresent(expenseTracker -> {
+                if (!fileName.equals(expenseTracker.getUsername())) {
                     logger.info("File name does not match username. Changing username to \"" + fileName + "\"");
-                    addressBook.setUsername(fileName);
+                    expenseTracker.setUsername(fileName);
                 }
             });
-            return addressBookOptional.map(addressBook -> addressBook); // Typecast to Optional<ReadOnlyAddressBook>
+            return expenseTrackerOptional.map(expenseTracker -> expenseTracker);
+            // Typecast to Optional<ReadOnlyExpenseTracker>
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -74,36 +75,36 @@ public class XmlExpensesStorage implements ExpensesStorage {
     }
 
     @Override
-    public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        saveExpenses(addressBook, filePath);
+    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
+        saveExpenses(expenseTracker, filePath);
     }
 
     /**
-     * Similar to {@link #saveExpenses(ReadOnlyAddressBook)}
+     * Similar to {@link #saveExpenses(ReadOnlyExpenseTracker)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
+        requireNonNull(expenseTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableExpenseTracker(expenseTracker));
     }
 
     @Override
-    public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        backupExpenses(addressBook, backupFilePath);
+    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
+        backupExpenses(expenseTracker, backupFilePath);
     }
 
     /**
-     * Similar to {@link #backupExpenses(ReadOnlyAddressBook)}
+     * Similar to {@link #backupExpenses(ReadOnlyExpenseTracker)}
      * @param filePath location of the data. Cannot be null
      */
-    public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
+        requireNonNull(expenseTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableExpenseTracker(expenseTracker));
     }
 }

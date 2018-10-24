@@ -11,14 +11,14 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableExpenseTracker;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalExpenses;
 import systemtests.ModelHelper;
@@ -34,20 +34,20 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyExpenseTracker> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyExpenseTracker> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableExpenseTracker(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -63,8 +63,8 @@ public class TestApp extends MainApp {
     @Override
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         UserPrefs userPrefs = super.initPrefs(storage);
-        userPrefs.setAddressBookDirPath(
-                TestUtil.getFilePathInSandboxFolder(userPrefs.getAddressBookDirPath().toString()));
+        userPrefs.setExpenseTrackerDirPath(
+                TestUtil.getFilePathInSandboxFolder(userPrefs.getExpenseTrackerDirPath().toString()));
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(800.0, 800.0, (int) x, (int) y));
@@ -74,12 +74,12 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public ExpenseTracker readStorageExpenseTracker() {
         try {
-            return new AddressBook(storage.readAllExpenses(userPrefs.getAddressBookDirPath()).get(
+            return new ExpenseTracker(storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath()).get(
                     TypicalExpenses.SAMPLE_USERNAME));
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the ExpenseTracker format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }

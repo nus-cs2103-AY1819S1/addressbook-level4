@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.Optional;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.LoginCommand;
@@ -27,7 +29,7 @@ public class LoginCommandParserTest {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING
                 + " " + CliSyntax.PREFIX_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
                 new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING),
-                        new Password(PasswordTest.VALID_PASSWORD_STRING, true)));
+                        Optional.of(new Password(PasswordTest.VALID_PASSWORD_STRING, true))));
     }
 
     @Test

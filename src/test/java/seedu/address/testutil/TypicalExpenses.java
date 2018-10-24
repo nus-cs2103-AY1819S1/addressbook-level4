@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
@@ -106,12 +106,12 @@ public class TypicalExpenses {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical expenses
+     * Returns an {@code ExpenseTracker} with all the typical expenses
      * and its maximmum budget equal to the sum of all expenses.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static ExpenseTracker getTypicalExpenseTracker() {
         double expense = 0;
-        AddressBook ab = new AddressBook(SAMPLE_USERNAME, Optional.empty());
+        ExpenseTracker ab = new ExpenseTracker(SAMPLE_USERNAME, Optional.empty());
         for (Expense e : getTypicalExpenses()) {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();

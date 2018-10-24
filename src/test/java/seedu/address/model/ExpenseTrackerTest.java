@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,31 +28,31 @@ import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
-public class AddressBookTest {
+public class ExpenseTrackerTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty());
+    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getExpenseList());
+        assertEquals(Collections.emptyList(), expenseTracker.getExpenseList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        this.addressBook.resetData(null);
-        assertTrue(this.addressBook.getMaximumBudget().getBudgetCap() == 0);
+        this.expenseTracker.resetData(null);
+        assertTrue(this.expenseTracker.getMaximumBudget().getBudgetCap() == 0);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
-        assertEquals(newData.getMaximumBudget(), addressBook.getMaximumBudget());
+    public void resetData_withValidReadOnlyExpenseTracker_replacesData() {
+        ExpenseTracker newData = getTypicalExpenseTracker();
+        expenseTracker.resetData(newData);
+        assertEquals(newData, expenseTracker);
+        assertEquals(newData.getMaximumBudget(), expenseTracker.getMaximumBudget());
     }
 
     @Test
@@ -61,51 +61,51 @@ public class AddressBookTest {
         Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Expense> newExpenses = Arrays.asList(SCHOOLFEE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newExpenses);
+        ExpenseTrackerStub newData = new ExpenseTrackerStub(newExpenses);
 
         thrown.expect(DuplicateExpenseException.class);
-        addressBook.resetData(newData);
+        expenseTracker.resetData(newData);
     }
 
     @Test
     public void hasExpense_nullExpense_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasExpense(null);
+        expenseTracker.hasExpense(null);
     }
 
     @Test
-    public void hasExpense_expenseNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasExpense(SCHOOLFEE));
+    public void hasExpense_expenseNotInExpenseTracker_returnsFalse() {
+        assertFalse(expenseTracker.hasExpense(SCHOOLFEE));
     }
 
     @Test
-    public void hasExpense_expenseInAddressBook_returnsTrue() {
-        addressBook.addExpense(SCHOOLFEE);
-        assertTrue(addressBook.hasExpense(SCHOOLFEE));
+    public void hasExpense_expenseInExpenseTracker_returnsTrue() {
+        expenseTracker.addExpense(SCHOOLFEE);
+        assertTrue(expenseTracker.hasExpense(SCHOOLFEE));
     }
 
     @Test
-    public void hasExpense_expenseWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addExpense(SCHOOLFEE);
+    public void hasExpense_expenseWithSameIdentityFieldsInExpenseTracker_returnsTrue() {
+        expenseTracker.addExpense(SCHOOLFEE);
         Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasExpense(editedAlice));
+        assertTrue(expenseTracker.hasExpense(editedAlice));
     }
 
     @Test
     public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getExpenseList().remove(0);
+        expenseTracker.getExpenseList().remove(0);
     }
 
 
     /**
-     * A stub ReadOnlyAddressBook whose expenses list can violate interface constraints.
+     * A stub ReadOnlyExpenseTracker whose expenses list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ExpenseTrackerStub implements ReadOnlyExpenseTracker {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Expense> expenses) {
+        ExpenseTrackerStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
         }
 
@@ -130,7 +130,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public boolean isMatchPassword(Password password) {
+        public boolean isMatchPassword(Optional<Password> password) {
             return true;
         }
     }

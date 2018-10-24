@@ -17,7 +17,7 @@ import seedu.address.model.user.Username;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameExpense comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     protected Username username;
     protected Optional<Password> password;
@@ -25,10 +25,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     private Budget maximumBudget;
 
     /**
-     * Creates an empty AddressBook with the given username.
-     * @param username the username of the AddressBook
+     * Creates an empty ExpenseTracker with the given username.
+     * @param username the username of the ExpenseTracker
      */
-    public AddressBook(Username username, Optional<Password> password) {
+    public ExpenseTracker(Username username, Optional<Password> password) {
         this.username = username;
         this.password = password;
         this.expenses = new UniqueExpenseList();
@@ -36,9 +36,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Creates an AddressBook using the Expenses in the {@code toBeCopied}
+     * Creates an ExpenseTracker using the Expenses in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
         this(toBeCopied.getUsername(), toBeCopied.getPassword());
         this.maximumBudget = toBeCopied.getMaximumBudget();
         resetData(toBeCopied);
@@ -75,9 +75,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ExpenseTracker} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyExpenseTracker newData) {
         requireNonNull(newData);
 
         this.setExpenses(newData.getExpenseList());
@@ -118,7 +118,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ExpenseTracker}.
      * {@code key} must exist in the address book.
      */
     public void removeExpense(Expense key) {
@@ -142,9 +142,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public boolean isMatchPassword(Password toCheck) {
+    public boolean isMatchPassword(Optional<Password> toCheck) {
         return this.password
-                .map(userPassword -> userPassword.equals(toCheck))
+                .map(userPassword -> userPassword.equals(toCheck.orElse(null)))
+                // if userPassword will never be equals to null if map is called
                 .orElse(true); // If the current user has no password, then anyone is allowed
     }
 
@@ -167,9 +168,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && expenses.equals(((AddressBook) other).expenses))
-                && this.maximumBudget.equals(((AddressBook) other).maximumBudget);
+                || (other instanceof ExpenseTracker // instanceof handles nulls
+                && expenses.equals(((ExpenseTracker) other).expenses))
+                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget);
     }
 
     @Override

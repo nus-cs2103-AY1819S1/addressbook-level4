@@ -22,7 +22,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ExpenseTrackerBuilder;
 import seedu.address.testutil.ModelUtil;
 
 public class ModelManagerTest {
@@ -39,7 +39,7 @@ public class ModelManagerTest {
     public void checkBudgetRestart_noFrequency_doesNotResetSpending() throws NoUserSelectedException {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ModelManagerTest {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.setRecurrenceFrequency(Integer.MAX_VALUE);
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ModelManagerTest {
             return;
         }
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == 0);
+        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == 0);
     }
 
 
@@ -72,12 +72,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasExpense_expenseNotInAddressBook_returnsFalse() throws NoUserSelectedException {
+    public void hasExpense_expenseNotInExpenseTracker_returnsFalse() throws NoUserSelectedException {
         assertFalse(modelManager.hasExpense(SCHOOLFEE));
     }
 
     @Test
-    public void hasExpense_expenseInAddressBook_returnsTrue() throws NoUserSelectedException {
+    public void hasExpense_expenseInExpenseTracker_returnsTrue() throws NoUserSelectedException {
         modelManager.addExpense(SCHOOLFEE);
         assertTrue(modelManager.hasExpense(SCHOOLFEE));
     }
@@ -89,15 +89,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void getExpenseTracker_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.getAddressBook();
+        modelManagerLoggedOut.getExpenseTracker();
     }
 
     @Test
-    public void indicateAddressBookChanged_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void indicateExpenseTrackerChanged_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.indicateAddressBookChanged();
+        modelManagerLoggedOut.indicateExpenseTrackerChanged();
     }
 
     @Test
@@ -119,15 +119,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void canUndoAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void canUndoExpenseTracker_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.canUndoAddressBook();
+        modelManagerLoggedOut.canUndoExpenseTracker();
     }
 
     @Test
-    public void commitAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void commitExpenseTracker_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.commitAddressBook();
+        modelManagerLoggedOut.commitExpenseTracker();
     }
 
     @Test
@@ -159,13 +159,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws NoUserSelectedException {
-        AddressBook addressBook = new AddressBookBuilder().withExpense(SCHOOLFEE).withExpense(ICECREAM).build();
-        AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty());
+        ExpenseTracker expenseTracker =
+                new ExpenseTrackerBuilder().withExpense(SCHOOLFEE).withExpense(ICECREAM).build();
+        ExpenseTracker differentExpenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(expenseTracker, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(expenseTracker, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -177,21 +178,21 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different expenseTracker -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseTracker, userPrefs)));
 
         // different filteredList -> returns false
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
                 + SCHOOLFEE.getName().expenseName, PREFIX_NAME);
         modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseTracker, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookDirPath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setExpenseTrackerDirPath(Paths.get("differentFilePath"));
+        assertTrue(modelManager.equals(new ModelManager(expenseTracker, differentUserPrefs)));
     }
 }

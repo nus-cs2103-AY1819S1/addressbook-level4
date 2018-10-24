@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ExpenseTracker;
+import seedu.address.model.ReadOnlyExpenseTracker;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link ExpenseTracker}.
  */
 public interface ExpensesStorage {
 
@@ -18,40 +19,40 @@ public interface ExpensesStorage {
     Path getExpensesDirPath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns ExpenseTracker data as a {@link ReadOnlyExpenseTracker}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException;
 
     /**
      * @see #getExpensesDirPath()
      */
-    Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseTracker> readExpenses(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ReadOnlyExpenseTracker} to the storage.
+     * @param expenseTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException;
 
     /**
-     * @see #saveExpenses(ReadOnlyAddressBook)
+     * @see #saveExpenses(ReadOnlyExpenseTracker)
      */
-    void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException;
 
     /**
-     * Backup the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Backup the given {@link ReadOnlyExpenseTracker} to the storage.
+     * @param expenseTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException;
+    void backupExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException;
 
     /**
-     * @see #backupExpenses(ReadOnlyAddressBook)
+     * @see #backupExpenses(ReadOnlyExpenseTracker)
      */
-    void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void backupExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException;
 
 }
