@@ -38,7 +38,7 @@ public class SetPasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        if (!model.getAddressBook().isMatchPassword(oldPassword)) {
+        if (!model.getExpenseTracker().isMatchPassword(oldPassword)) {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
         model.setPassword(newPassword);

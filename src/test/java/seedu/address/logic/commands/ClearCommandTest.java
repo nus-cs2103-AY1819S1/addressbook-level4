@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,27 +24,27 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() throws NoUserSelectedException, UserAlreadyExistsException,
+    public void execute_emptyExpenseTracker_success() throws NoUserSelectedException, UserAlreadyExistsException,
             NonExistentUserException {
         Model model = ModelUtil.modelWithTestUser();
         Model expectedModel = ModelUtil.modelWithTestUser();
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() throws NoUserSelectedException {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyExpenseTracker_success() throws NoUserSelectedException {
+        Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.resetData(new AddressBook(new Username("typicalAddressBook"), Optional.empty()));
+        Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), Optional.empty()));
 
         Budget clearedBudget = model.getMaximumBudget();
         clearedBudget.clearSpending();
         expectedModel.modifyMaximumBudget(clearedBudget);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

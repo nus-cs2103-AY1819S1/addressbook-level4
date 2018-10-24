@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
@@ -20,7 +20,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +34,7 @@ import seedu.address.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -44,9 +44,9 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
         expectedModel.updateExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -66,9 +66,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
         expectedModel.updateExpense(lastExpense, editedExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -80,8 +80,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -97,9 +97,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
         expectedModel.updateExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -117,7 +117,7 @@ public class EditCommandTest {
     public void execute_duplicateExpenseFilteredList_failure() throws NoUserSelectedException {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         // edit expense in filtered list into a duplicate in address book
-        Expense expenseInList = model.getAddressBook().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
+        Expense expenseInList = model.getExpenseTracker().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
 
@@ -143,7 +143,7 @@ public class EditCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExpenseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE).build());
@@ -157,19 +157,19 @@ public class EditCommandTest {
         Expense expenseToEdit = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
         expectedModel.updateExpense(expenseToEdit, editedExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         // edit -> first expense edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered expense list to show all expenses
-        expectedModel.undoAddressBook();
+        // undo -> reverts expensetracker back to previous state and filtered expense list to show all expenses
+        expectedModel.undoExpenseTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first expense edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoExpenseTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Expense editedExpense = new ExpenseBuilder().build();
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
 
         showExpenseAtIndex(model, INDEX_SECOND_EXPENSE);
         Expense expenseToEdit = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         expectedModel.updateExpense(expenseToEdit, editedExpense);
-        expectedModel.commitAddressBook();
+        expectedModel.commitExpenseTracker();
 
         // edit -> edits second expense in unfiltered expense list / first expense in filtered expense list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered expense list to show all expenses
-        expectedModel.undoAddressBook();
+        // undo -> reverts expensetracker back to previous state and filtered expense list to show all expenses
+        expectedModel.undoExpenseTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased()), expenseToEdit);
         // redo -> edits same second expense in unfiltered expense list
-        expectedModel.redoAddressBook();
+        expectedModel.redoExpenseTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

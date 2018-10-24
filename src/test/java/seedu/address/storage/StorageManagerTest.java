@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,10 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ExpenseTracker;
+import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.ModelUtil;
 import seedu.address.ui.testutil.EventsCollectorRule;
@@ -34,9 +34,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlExpensesStorage addressBookStorage = new XmlExpensesStorage(getTempFilePath("ab"));
+        XmlExpensesStorage expenseTrackerStorage = new XmlExpensesStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(expenseTrackerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -59,31 +59,31 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void expenseTrackerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlExpensesStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlExpensesStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
+        ExpenseTracker original = getTypicalExpenseTracker();
         storageManager.saveExpenses(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAllExpenses(storageManager.getExpensesDirPath())
+        ReadOnlyExpenseTracker retrieved = storageManager.readAllExpenses(storageManager.getExpensesDirPath())
                 .get(original.getUsername());
-        assertEquals(original, new AddressBook(retrieved));
+        assertEquals(original, new ExpenseTracker(retrieved));
     }
 
     @Test
-    public void getAddressBookDirPath() {
+    public void getExpenseTrackerDirPath() {
         assertNotNull(storageManager.getExpensesDirPath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleExpenseTrackerChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlExpensesStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(
-                new AddressBookChangedEvent(new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty())));
+        storage.handleExpenseTrackerChangedEvent(
+                new ExpenseTrackerChangedEvent(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty())));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -98,7 +98,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

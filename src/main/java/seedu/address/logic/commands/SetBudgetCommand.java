@@ -38,7 +38,7 @@ public class SetBudgetCommand extends Command {
         requireNonNull(model);
 
         model.modifyMaximumBudget(this.toSet);
-        model.commitAddressBook();
+        model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet));
     }

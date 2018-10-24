@@ -41,7 +41,7 @@ public class SetRecurringBudgetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
         model.setRecurrenceFrequency(this.toSet);
-        model.commitAddressBook();
+        model.commitExpenseTracker();
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet));
     }
 

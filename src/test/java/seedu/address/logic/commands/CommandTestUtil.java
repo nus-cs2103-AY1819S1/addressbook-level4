@@ -22,7 +22,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -125,7 +125,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         try {
-            AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+            ExpenseTracker expectedExpenseTracker = new ExpenseTracker(actualModel.getExpenseTracker());
             List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenseList());
 
             CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -135,7 +135,7 @@ public class CommandTestUtil {
                 throw new AssertionError("The expected CommandException was not thrown.");
             } catch (CommandException e) {
                 assertEquals(expectedMessage, e.getMessage());
-                assertEquals(expectedAddressBook, actualModel.getAddressBook());
+                assertEquals(expectedExpenseTracker, actualModel.getExpenseTracker());
                 assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
                 assertEquals(expectedCommandHistory, actualCommandHistory);
             }
@@ -166,7 +166,7 @@ public class CommandTestUtil {
     public static void deleteFirstExpense(Model model) throws NoUserSelectedException {
         Expense firstExpense = model.getFilteredExpenseList().get(0);
         model.deleteExpense(firstExpense);
-        model.commitAddressBook();
+        model.commitExpenseTracker();
     }
 
 }

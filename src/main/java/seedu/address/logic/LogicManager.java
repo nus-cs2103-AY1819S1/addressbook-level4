@@ -12,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ExpenseTrackerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
@@ -29,12 +29,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final ExpenseTrackerParser expenseTrackerParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        expenseTrackerParser = new ExpenseTrackerParser();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
             UserAlreadyExistsException, NonExistentUserException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = expenseTrackerParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

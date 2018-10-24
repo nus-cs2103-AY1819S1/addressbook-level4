@@ -271,7 +271,7 @@ Find all the expenses with cost between 10 and 20(inclusive).
 * `find $/10.00` +
 Find all the expenses with cost of 10.00.
 * `find c/School t/lunch d/1-10-2018` +
-Find all the expense with tag "lunch" under "School" category on 1-10-2018.
+Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
 
 ****
 [NOTE]
