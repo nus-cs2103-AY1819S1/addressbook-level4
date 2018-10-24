@@ -211,6 +211,38 @@ View tasks that are due from current date till the closest Sunday. +
 [blue]`listweek`
 ====
 
+=== Generating academic calendar weeks
+
+Generate the entire academic calendar calendar with description based on the first academic day and store in storage.
+
+Currently, the generated academic calendar is adapted from the academic calender of National university of Singapore
+(NUS).
+
+Whenever user launch the application within the academic calendar's dates, the application title
+will append that particular week's description. +
+
+====
+[blue]`firstday ddmmyy`
+====
+
+Example:
+====
+input: [blue]`firstday 130818` +
+output: When user launch the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
+semester 1), the application title will append "week 10".
+====
+The [blue]`ddmmyy` refers to the date format of day, month and year.
+
+Before:
+====
+image::FirstDayCommand_UG_Before.png[width="600"]
+====
+
+After:
+====
+image::FirstDayCommand_UG_After.png[width="400"]
+====
+
 === Listing Overdue Tasks (Coming in v1.3)
 
 Lists all the overdue tasks. +
@@ -343,6 +375,13 @@ Example: +
 Example: +
 [blue]`filter tutorial`
 ====
+* **Deleting Task** :
+====
+[blue]`delete task INDEX` +
+
+Example: +
+[blue]`delete task 1` +
+====
 * **Viewing Tasks Due Today** :
 ====
 [blue]`listday`
@@ -351,6 +390,13 @@ Example: +
 * **Viewing Tasks Due This Termweek** :
 ====
 [blue]`listweek`
+====
+* **Generating academic calendar weeks** :
+====
+[blue]`firstday ddmmyy`
+
+Example: +
+[blue]`firstday 130818` +
 ====
 
 * **Listing Overdue Tasks** : (Coming in v1.3)
