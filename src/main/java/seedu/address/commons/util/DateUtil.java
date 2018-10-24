@@ -9,7 +9,8 @@ import java.time.format.DateTimeParseException;
  * Utility methods related to Dates
  */
 public class DateUtil {
-    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final String MESSAGE_DATE_CONSTRANTS = "Date should be of the format YYYY-MM-DD";
 
     /**
      * Checks if a date string is of the valid {@code DATE_FORMAT}
@@ -33,9 +34,10 @@ public class DateUtil {
     }
 
     /**
-     * Converts a date {@code Date} into a {@code String}
+     * Converts a date {@code LocalDateTime} into a {@code String}
      */
     public static String convertToString(LocalDateTime date) {
         return DATE_FORMAT.format(date);
     }
+
 }
