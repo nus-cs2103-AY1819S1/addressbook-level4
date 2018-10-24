@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
@@ -40,16 +42,21 @@ public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Alex Yeoh"), new Difficulty("1"), new CookTime("PT30M"),
-                    getTagSet("friends")),
+                    getInstructionList("Preheat the oven...", "Mix ..."), getTagSet("friends")),
             new Recipe(new Name("Bernice Yu"), new Difficulty("1"), new CookTime("PT30M"),
+                    getInstructionList("Preheat the oven...", "Mix ...") ,
                     getTagSet("colleagues", "friends")),
             new Recipe(new Name("Charlotte Oliveiro"), new Difficulty("1"), new CookTime("PT30M"),
+                    getInstructionList("Preheat the oven...", "Mix ..."),
                     getTagSet("neighbours")),
             new Recipe(new Name("David Li"), new Difficulty("1"), new CookTime("PT30M"),
+                    getInstructionList("Preheat the oven...", "Mix ..."),
                     getTagSet("family")),
             new Recipe(new Name("Irfan Ibrahim"), new Difficulty("1"), new CookTime("PT30M"),
+                    getInstructionList("Preheat the oven...", "Mix ..."),
                     getTagSet("classmates")),
             new Recipe(new Name("Roy Balakrishnan"), new Difficulty("1"), new CookTime("PT30M"),
+                    getInstructionList("Preheat the oven...", "Mix ..."),
                     getTagSet("colleagues"))
         };
     }
@@ -153,6 +160,12 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public static List<Instruction> getInstructionList(String... strings) {
+        return Arrays.stream(strings)
+                .map(Instruction::new)
+                .collect(Collectors.toList());
     }
 
 }

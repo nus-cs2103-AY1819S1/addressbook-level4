@@ -5,9 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.souschef.commons.core.Messages.MESSAGE_LISTED_OVERVIEW;
 import static seedu.souschef.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.souschef.testutil.TypicalRecipes.CARL;
-import static seedu.souschef.testutil.TypicalRecipes.ELLE;
-import static seedu.souschef.testutil.TypicalRecipes.FIONA;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -66,16 +63,6 @@ public class FindCommandTest {
         expectedModel.updateFilteredList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_LISTED_OVERVIEW, 3, "recipe");
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand<Recipe> command = new FindCommand<Recipe>(model, predicate);
-        expectedModel.updateFilteredList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredList());
     }
 
     /**
