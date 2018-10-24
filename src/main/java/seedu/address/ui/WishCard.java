@@ -49,9 +49,9 @@ public class WishCard extends UiPart<Region> {
         super(FXML);
 
         this.wish = wish;
-        this.id = displayedIndex + ". ";
+        this.id = wish.getId().toString();
 
-        name.setText(wish.getName().fullName);
+        name.setText(displayedIndex + ". " + wish.getName().fullName);
         progress.setText(getProgressInString(wish));
         progressBar.setProgress(wish.getProgress());
 
