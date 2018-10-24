@@ -87,6 +87,7 @@ public class AddMedicalRecordCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddMedicalRecordCommand // instanceof handles nulls
-                && toAdd.equals(((AddMedicalRecordCommand) other).toAdd));
+                && toAdd.equals(((AddMedicalRecordCommand) other).toAdd)
+                && index.equals(((AddMedicalRecordCommand) other).index));
     }
 }

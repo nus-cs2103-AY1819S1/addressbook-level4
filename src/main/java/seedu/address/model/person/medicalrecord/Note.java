@@ -73,4 +73,20 @@ public class Note {
         }
         return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Note)) {
+            return false;
+        }
+
+        Note otherNote = (Note) other;
+        return otherNote != null
+                && otherNote.getMessage().equals(message)
+                && otherNote.getDispensedMedicines().equals(dispensedMedicines);
+    }
 }
