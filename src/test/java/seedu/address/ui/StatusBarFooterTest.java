@@ -33,7 +33,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
         // after address book is updated
         postNow(EVENT_STUB);
-        assertStatusBarContent(String.format(LOGIN_STATUS_UPDATED, "temp"));
+        assertStatusBarContent(LOGIN_STATUS_INITIAL);
     }
 
     /**
