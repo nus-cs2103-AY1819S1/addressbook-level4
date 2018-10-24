@@ -166,11 +166,9 @@ Example(s):
 ** Sorts the table in the medication view by the first column (Drug Name). Any entries with the same drug name will be further sorted by the second column (Dosage), with any entries with the same drug name and dosage being further sorted by the third column (Dosage Unit).
 * `sort a 1` where the current view is the default view (blank view).
 ** Does nothing (the current view is not sortable).
-
 //end::sort[]
 
 //tag::select[]
-	
 === Select patient: `select`
 Select a patient through pure command-line functionality.
 The alternative is to click on the patient's card.
@@ -189,7 +187,6 @@ Example(s):
 //end::select[]
 
 //tag::view[]
-
 [#view-command]
 === View patient’s information: `view`
 View a patient’s information. Exactly what information is displayed depends on the choice of view.
