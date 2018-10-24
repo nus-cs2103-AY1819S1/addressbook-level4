@@ -162,9 +162,12 @@ Format: +
 
 === Recipe Details Commands
 ==== Add recipe to favourite: `favourite`
-Add a recipe in their favourites list. +
+Add a recipe to their favourites list. +
+****
+* INDEX should be the index number of the recipe displayed
+****
 Format: +
-`favourite`
+`favourite INDEX`
 
 ==== Add to meal plan: `plan INDEX DATE MEAL`
 Add a specified recipe to meal plan. +
@@ -196,16 +199,16 @@ Format: +
 
 Adds an ingredient to the ingredient manager.
 Format: +
-`add NAME AMOUNT DATE`
+`add NAME AMOUNT SERVING_UNIT DATE`
 
 ****
 * If there are more than 1 words for name, ‘_’ is used to separate words
-* Amount: follows the recipe book's standard
-* Expiry Date: mm-dd-yyyy
+* Serving Unit: follows the recipe book's standard
+* Entered Date: mm-dd-yyyy
 ****
 ==== List all ingredients: `list`
 
-Shows a list of user’s ingredients.
+Shows a list of user’s ingredients. +
 Format: +
 `list`
 
@@ -213,11 +216,8 @@ Format: +
 
 Edit an existing ingredient in the ingredient manager. +
 Format: +
-`edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
 
-****
-* Can be used to define compound ingredient name e.g. Spring_Onion
-****
 ==== Search ingredient: `find`
 
 Find ingredients whose name contains any of the given keywords.
@@ -234,17 +234,16 @@ Format: +
 
 Delete ingredient(s) added by user.
 Format: +
-`delete NAME`
+`delete INDEX`
 
-==== Search recipes based on ingredients manager availability: `select`
+==== Search recipes based on ingredients manager availability: `recipe`
 
 Search for recipes based on ingredients stored in manager. User can add additional parameters to widen search result.
 Format: +
-`select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
+`select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD…`
 
 ****
-* Multi-line command that ends with end.
-* Search result guarantees Keywords before entered before “optional”.
+* Search result guarantees Keywords entered before “optional”.
 * Search result that aligns with keywords after “optional” are placed higher in order.
 ****
 
@@ -401,11 +400,11 @@ Format: +
 
 *Ingredient Manager Commands*
 
-* Add an ingredient: `add NAME AMOUNT DATE`
+* Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
 * List all ingredients: `list`
-* Edit ingredient info:`edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
 * Search ingredient: `find KEYWORD…`
-* Delete ingredient: `delete NAME`
+* Delete ingredient: `delete INDEX`
 * Search recipes based on ingredients manager availability: `select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
 
 *Meal Planner Commands*
