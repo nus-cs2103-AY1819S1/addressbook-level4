@@ -73,7 +73,7 @@ public class RecipeParser {
             return new ListCommand<Recipe>(recipeModel);
 
         case SelectCommand.COMMAND_WORD:
-             return new SelectCommandParser().parseRecipe(recipeModel, arguments);
+            return new SelectCommandParser().parseRecipe(recipeModel, arguments);
 
         case PlanMealCommand.COMMAND_WORD:
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, args);
