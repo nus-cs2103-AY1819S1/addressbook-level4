@@ -30,6 +30,6 @@ public class IngredientName {
     }
 
     public String toString() {
-        return fullName;
+        return fullName.replaceAll("_", " ");
     }
 }
