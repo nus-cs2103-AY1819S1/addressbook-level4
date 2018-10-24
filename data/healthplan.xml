@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <healthplans>
     <hp>
-        <name>Johnny get fit quick 1</name>
-        <tweight>60</tweight>
-        <cweight>55</cweight>
-        <cheight>170</cheight>
-        <age>21</age>
-        <duration>10</duration>
-        <scheme>GAIN</scheme>
-    </hp>
-    <hp>
-        <name>SLIM DOWN FAST</name>
+        <name>Lose weight</name>
         <tweight>70</tweight>
         <cweight>80</cweight>
-        <cheight>180</cheight>
-        <age>24</age>
+        <cheight>160</cheight>
+        <age>25</age>
         <duration>10</duration>
         <scheme>LOSS</scheme>
     </hp>
