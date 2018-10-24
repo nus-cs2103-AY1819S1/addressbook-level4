@@ -48,7 +48,7 @@ public class FilterByTimeCommand extends FilterCommand {
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find " + time.toString() + " education within the students list!");
+            return new CommandResult("Cannot find " + time.toString() + " slot within the students list!");
         }
 
 
