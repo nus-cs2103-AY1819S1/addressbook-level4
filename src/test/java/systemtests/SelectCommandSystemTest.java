@@ -54,8 +54,8 @@ public class SelectCommandSystemTest extends CarparkFinderSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered car park list, select index within bounds of car park finder but out of bounds of car park list
-         * -> rejected
+        /* Case: filtered car park list, select index within bounds of car park finder but out of bounds of car park
+         * list -> rejected
          */
         showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
         int invalidIndex = getModel().getCarparkFinder().getCarparkList().size();
