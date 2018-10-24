@@ -15,10 +15,12 @@ import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
+import seedu.jxmusic.logic.commands.TrackListCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
 /**
@@ -83,11 +85,17 @@ public class LibraryParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case TrackListCommand.COMMAND_WORD:
+            return new TrackListCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case PlaylistListCommand.COMMAND_PHRASE:
+            return new PlaylistListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

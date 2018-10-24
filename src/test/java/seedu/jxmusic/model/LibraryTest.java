@@ -9,6 +9,7 @@ import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Rule;
@@ -17,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.jxmusic.model.exceptions.DuplicatePlaylistException;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 import seedu.jxmusic.testutil.TypicalPlaylists;
@@ -52,7 +54,7 @@ public class LibraryTest {
         Playlist editedAlice = new PlaylistBuilder(SFX).withTracks(VALID_TRACK_NAME_IHOJIN)
                 .build();
         List<Playlist> newPlaylists = Arrays.asList(SFX, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPlaylists);
+        LibraryStub newData = new LibraryStub(newPlaylists);
 
         thrown.expect(DuplicatePlaylistException.class);
         library.resetData(newData);
@@ -92,16 +94,21 @@ public class LibraryTest {
     /**
      * A stub ReadOnlyAddressBook whose playlists list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyLibrary {
+    private static class LibraryStub implements ReadOnlyLibrary {
         private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
+        private final ObservableSet<Track> tracks = FXCollections.observableSet(new HashSet<>());
 
-        AddressBookStub(Collection<Playlist> playlists) {
+        LibraryStub(Collection<Playlist> playlists) {
             this.playlists.setAll(playlists);
         }
 
         @Override
         public ObservableList<Playlist> getPlaylistList() {
             return playlists;
+        }
+        @Override
+        public ObservableSet<Track> getTracks() {
+            return tracks;
         }
     }
 
