@@ -405,6 +405,9 @@ conditions (separated by comma). It is also supported to leave EITHER field blan
 ===== Current Implementation
 This feature help to filter all patients/doctors in health book
 
+.Filter Patient Sequence Diagram
+image::FilterPatientSequenceDiagram.png[width="600"]
+
 Step 1. The user types `filter-patient` or `filter-doctor` in the command box
 
 Step 2. Upon hitting enter, all persons who are tagged as "Patient" or "Doctor" would appear on the panel
