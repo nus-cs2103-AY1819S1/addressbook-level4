@@ -49,7 +49,7 @@ public class FilterByGradeCommandTest {
     @Test
     public void executeZeroKeywordsNoPersonFound() {
 
-        String expectedMessage = String.format("Cannot find person whose grade between " + 0 + " and " + 0 + " !");
+        String expectedMessage = String.format("Cannot find person whose grade between 0.0 and 0.0 !");
         GradeFilterPredicate predicate = new GradeFilterPredicate(0, 0);
         FilterByGradeCommand command = new FilterByGradeCommand("0 0");
 
