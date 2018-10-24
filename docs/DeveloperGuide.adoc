@@ -240,6 +240,12 @@ The delete patient and doctor features are facilitated by `DeletePatientCommand`
 `DeleteCommand` such that it is able to delete a specific class of `Person` (i.e. `Patient` or `Doctor`) instead. Additionally,
 instead of deletion by index, deletion by name is used in this implementation.
 
+.Delete Patient Sequence Diagram
+image::DeletePatientSequenceDiagram.png[width="600"]
+
+.Delete Doctor Sequence Diagram
+image::DeleteDoctorSequenceDiagram.png[width="600"]
+
 Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
 
 Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
