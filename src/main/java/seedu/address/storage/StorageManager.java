@@ -23,6 +23,7 @@ import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
@@ -197,7 +198,7 @@ public class StorageManager extends ComponentManager implements Storage {
             Email loadedEmail = loadEmail(event.data);
             raise(new EmailLoadedEvent(loadedEmail));
         } catch (IOException e) {
-            logger.warning("Email file not found.");
+            logger.warning("Email file not found: " + StringUtil.getDetails(e));
             raise(new EmailNotFoundEvent(event.data));
         }
     }
