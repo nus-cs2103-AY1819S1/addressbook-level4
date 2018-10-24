@@ -41,9 +41,12 @@ public class CommandModuleTestUtil {
     public static final String TAG_DESC_BINARY = " " + PREFIX_TAG + VALID_TAG_BINARY;
     public static final String TAG_DESC_CALCULUS = " " + PREFIX_TAG + VALID_TAG_CALCULUS;
 
-    public static final String INVALID_MODULECODE_DESC = " " + PREFIX_MODULECODE + "CS12345"; // only 4 numbers in code
-    public static final String INVALID_MODULETITLE_DESC = " " + PREFIX_MODULETITLE + "A&B"; // '&' not allowed in title
-    public static final String INVALID_ACADEMICYEAR_DESC = " " + PREFIX_ACADEMICYEAR + "1234"; // years not consecutive
+    public static final String INVALID_MODULECODE_DESC = " " + PREFIX_MODULECODE
+            + "CS12345"; // only 4 numbers in code
+    public static final String INVALID_MODULETITLE_DESC = " " + PREFIX_MODULETITLE
+            + "OOP & FP"; // '&' not allowed in title
+    public static final String INVALID_ACADEMICYEAR_DESC = " " + "1234"; // years not consecutive
+    public static final String INVALID_SEMESTER_FIVE = "5";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ":P"; // ':' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
