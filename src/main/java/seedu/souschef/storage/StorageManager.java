@@ -128,10 +128,12 @@ public class StorageManager extends ComponentManager implements Storage {
                         .orElseGet(SampleDataUtil::getSampleAddressBook));
             } else if (f instanceof XmlIngredientStorage) {
                 this.featureStorage = f;
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
+                        .orElseGet(SampleDataUtil::getSampleIngredients));
             } else if (f instanceof XmlHealthPlanStorage) {
                 this.featureStorage = f;
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
+                        .orElseGet(SampleDataUtil::getSampleHealthPlans));
             }
             //reset the first to main
             this.featureStorage = temp.get(0);
