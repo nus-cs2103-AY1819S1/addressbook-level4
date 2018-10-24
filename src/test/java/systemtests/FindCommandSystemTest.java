@@ -136,8 +136,8 @@ public class FindCommandSystemTest extends LearnVocabularySystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd volcano" +
-                "";
+        command = "FiNd volcano"
+                + "";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

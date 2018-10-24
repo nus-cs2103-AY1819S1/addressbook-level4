@@ -126,13 +126,53 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTrivia() {
+        public Word getTrivia() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Word getTrivia() {
-            throw new AssertionError("This method should not be called.");
+        public ArrayList<Word> getTriviaList() {
+            return null;
+        }
+
+        @Override
+        public void setTriviaList() {
+
+        }
+
+        @Override
+        public void setTriviaQuestion() {
+
+        }
+
+        @Override
+        public boolean isTriviaMode() {
+            return false;
+        }
+
+        @Override
+        public void toggleTriviaMode() {
+
+        }
+
+        @Override
+        public void clearTrivia() {
+
+        }
+
+        @Override
+        public void updateScore() {
+
+        }
+
+        @Override
+        public int currentScore() {
+            return 0;
+        }
+
+        @Override
+        public int maxScore() {
+            return 0;
         }
 
         @Override
