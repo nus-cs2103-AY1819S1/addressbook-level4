@@ -386,7 +386,7 @@ conditions (separated by comma). It is also supported to leave EITHER field blan
 ===== Current Implementation
 This feature help to filter all patients/doctors in health book
 
-Step 1. The user types `filter-patient`/`filter-doctor`in the command box
+Step 1. The user types `filter-patient`/ `filter-doctor`in the command box
 
 Step 2. Upon hitting enter, all persons who are tagged as "Patient"/"Doctor" would appear on the panel
 
