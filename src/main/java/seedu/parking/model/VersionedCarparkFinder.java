@@ -62,7 +62,7 @@ public class VersionedCarparkFinder extends CarparkFinder {
      */
     public int compare() {
         if (!canUndo()) {
-            throw new NoCompareStateException();
+            throw new NoComparableStateException();
         }
         int copyPointer = currentStatePointer;
 
@@ -130,8 +130,8 @@ public class VersionedCarparkFinder extends CarparkFinder {
     /**
      * Thrown when trying to {@code compare()} but can't.
      */
-    public static class NoCompareStateException extends RuntimeException {
-        private NoCompareStateException() {
+    public static class NoComparableStateException extends RuntimeException {
+        private NoComparableStateException() {
             super("Current state pointer at start of carparkFinderState list, unable to compare.");
         }
     }

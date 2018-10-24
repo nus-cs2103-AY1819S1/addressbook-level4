@@ -42,38 +42,42 @@ public class CarparkContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void test_carparkNumberContainsKeywords_returnsTrue() {
         // One keyword
         CarparkContainsKeywordsPredicate predicate = new CarparkContainsKeywordsPredicate(
-                Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
+                Collections.singletonList("A1"));
+        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("A1").build()));
 
         // Multiple keywords
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("PUNGGOL", "SERANGOON"));
+        assertTrue(predicate.test(new CarparkBuilder().withAddress("PUNGGOL SERANGOON").build()));
 
         // Only one matching keyword
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Carol").build()));
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("A1", "KENT"));
+        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("A1")
+                .withAddress("BLK 347 ANG MO KIO AVENUE 3").build()));
 
         // Mixed-case keywords
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("a1", "nEwToN"));
+        assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("A1")
+                .withAddress("BLK 123 NEWTON SQUARE").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_carparkNumberDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         CarparkContainsKeywordsPredicate predicate = new CarparkContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("Alice").build()));
+        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("V6").build()));
 
         // Non-matching keyword
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("V32", "SENGKANG"));
+        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("A29")
+                .withAddress("BLK 347 ANG MO KIO AVENUE 3").build()));
 
-        // Keywords match phone, email and parking, but does not match name
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("V32", "SURFACE", "SENGKANG"));
-        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("A29").withCarparkType("SURFACE CAR PARK")
+        // Keywords match car park type, free parking, but does not match address
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("SURFACE", "7AM-10.30PM",
+                "SENGKANG"));
+        assertFalse(predicate.test(new CarparkBuilder().withCarparkType("SURFACE CAR PARK")
                 .withFreeParking("SUN & PH FR 7AM-10.30PM").withAddress("BLK 347 ANG MO KIO AVENUE 3").build()));
     }
 }

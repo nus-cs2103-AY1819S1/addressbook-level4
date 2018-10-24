@@ -211,6 +211,39 @@ public class VersionedCarparkFinderTest {
     }
 
     @Test
+    public void compare_multipleCarparkFinderHaveTwoLeftOne_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+
+        assertEquals(1, versionedCarparkFinder.compare());
+    }
+
+    @Test
+    public void compare_multipleCarparkFinderHaveThreeLeftOne_success() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo, carparkFinderWithCharlie);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
+
+        assertEquals(1, versionedCarparkFinder.compare());
+    }
+
+    @Test
+    public void compare_singleCarparkFinder_throwsNoComparableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(emptyCarparkFinder);
+
+        assertThrows(VersionedCarparkFinder.NoComparableStateException.class, versionedCarparkFinder::compare);
+    }
+
+    @Test
+    public void compare_multipleCarparkFinderPointerAtStartOfStateList_throwsNoComparableStateException() {
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(
+                emptyCarparkFinder, carparkFinderWithJuliett, carparkFinderWithKilo);
+        shiftCurrentStatePointerLeftwards(versionedCarparkFinder, 2);
+
+        assertThrows(VersionedCarparkFinder.NoComparableStateException.class, versionedCarparkFinder::compare);
+    }
+
+    @Test
     public void equals() {
         VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(carparkFinderWithJuliett,
                 carparkFinderWithKilo);

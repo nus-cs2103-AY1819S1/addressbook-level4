@@ -18,14 +18,14 @@ public class Carpark {
     private final Address address;
     private final CarparkNumber carparkNumber;
     private final Coordinate coordinate;
+    private final LotsAvailable lotsAvailable;
+    private final TotalLots totalLots;
 
     // Data fields
     private final CarparkType carparkType;
     private final FreeParking freeParking;
-    private final LotsAvailable lotsAvailable;
     private final NightParking nightParking;
     private final ShortTerm shortTerm;
-    private final TotalLots totalLots;
     private final TypeOfParking typeOfParking;
     private final Set<Tag> tags = new HashSet<>();
 
