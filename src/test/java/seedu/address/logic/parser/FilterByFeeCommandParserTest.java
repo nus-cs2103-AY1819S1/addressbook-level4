@@ -4,9 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import seedu.address.logic.commands.FilterByFeeCommand;
-
 import org.junit.Test;
+
+import seedu.address.logic.commands.FilterByFeeCommand;
 
 public class FilterByFeeCommandParserTest {
 
@@ -14,7 +14,8 @@ public class FilterByFeeCommandParserTest {
 
     @Test
     public void parseEmptyArgThrowsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByFeeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " ", String.format(
+            MESSAGE_INVALID_COMMAND_FORMAT, FilterByFeeCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -24,8 +25,6 @@ public class FilterByFeeCommandParserTest {
                 new FilterByFeeCommand("20");
         assertParseSuccess(parser, "20", expectedFindCommand);
 
-
     }
-
 
 }

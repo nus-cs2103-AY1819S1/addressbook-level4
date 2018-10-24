@@ -56,7 +56,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         grades.setText(person.getGrades().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        fees.setText(person.getFees().value);
+        fees.setText("$" + person.getFees().value + "/hour");
     }
 
     @Override

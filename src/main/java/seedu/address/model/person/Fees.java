@@ -30,10 +30,10 @@ public class Fees {
         double baseAmount = 0.00;
 
         switch (education.getEducationalLevel()) {
-        case PRIMARY:
+        case Primary:
             baseAmount = PRIMARY_BASE_AMOUNT;
             break;
-        case SECONDARY:
+        case Secondary:
             baseAmount = SECONDARY_BASE_AMOUNT;
             break;
         default:
@@ -46,5 +46,6 @@ public class Fees {
 
     @Override
     public String toString() {
-        return "$" + value + "/hour"; }
+        return "$" + value + "/hour";
+    }
 }

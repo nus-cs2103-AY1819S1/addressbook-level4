@@ -1,25 +1,24 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.GradeFilterPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Time;
-import seedu.address.model.person.TimeFilterPredicate;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.TimeFilterPredicate;
 
 public class FilterByTimeCommandTest {
 
@@ -29,25 +28,25 @@ public class FilterByTimeCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("Mon 1200 1400");
-        String second = new String(" ");
+        String first = "Mon 1200 1400";
+        String second = " ";
 
 
-        FilterByTimeCommand FilterByTimeFirstCommand = new FilterByTimeCommand(first);
-        FilterByTimeCommand FilterByGradeSecondCommand = new FilterByTimeCommand(second);
+        FilterByTimeCommand filterByTimeFirstCommand = new FilterByTimeCommand(first);
+        FilterByTimeCommand filterByGradeSecondCommand = new FilterByTimeCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByTimeFirstCommand.equals(FilterByTimeFirstCommand));
+        assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommand));
 
         // same values -> returns true
-        FilterByTimeCommand FilterByEducationFirstCommandCopy = new FilterByTimeCommand(first);
-        assertTrue(FilterByTimeFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByTimeCommand filterByEducationFirstCommandCopy = new FilterByTimeCommand(first);
+        assertTrue(filterByTimeFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByTimeFirstCommand.equals(1));
+        assertFalse(filterByTimeFirstCommand.equals(1));
 
         // different person -> returns false
-        assertFalse(FilterByTimeFirstCommand.equals(FilterByGradeSecondCommand));
+        assertFalse(filterByTimeFirstCommand.equals(filterByGradeSecondCommand));
     }
 
     @Test

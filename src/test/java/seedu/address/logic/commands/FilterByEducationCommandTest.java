@@ -1,17 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.EducationFilterPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +7,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.EducationFilterPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class FilterByEducationCommandTest {
 
@@ -32,22 +32,22 @@ public class FilterByEducationCommandTest {
         String second = " ";
 
 
-        FilterByEducationCommand FilterByEducationFirstCommand = new FilterByEducationCommand(first);
-        FilterByEducationCommand FilterByEducationSecondCommand = new FilterByEducationCommand(second);
+        FilterByEducationCommand filterByEducationFirstCommand = new FilterByEducationCommand(first);
+        FilterByEducationCommand filterByEducationSecondCommand = new FilterByEducationCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByEducationFirstCommand.equals(FilterByEducationFirstCommand));
+        assertTrue(filterByEducationFirstCommand.equals(filterByEducationFirstCommand));
 
         // same values -> returns true
-        FilterByEducationCommand FilterByEducationFirstCommandCopy = new FilterByEducationCommand(first);
-        assertTrue(FilterByEducationFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByEducationCommand filterByEducationFirstCommandCopy = new FilterByEducationCommand(first);
+        assertTrue(filterByEducationFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByEducationFirstCommand.equals(1));
+        assertFalse(filterByEducationFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(FilterByEducationFirstCommand.equals(FilterByEducationSecondCommand));
+        assertFalse(filterByEducationFirstCommand.equals(filterByEducationSecondCommand));
     }
 
     @Test

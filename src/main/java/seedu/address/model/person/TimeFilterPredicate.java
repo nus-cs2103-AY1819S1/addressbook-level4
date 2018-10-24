@@ -3,6 +3,10 @@ package seedu.address.model.person;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+/**
+ * TimeFilterPredicate
+ */
+
 public class TimeFilterPredicate implements Predicate<Person> {
     private Time time;
     public TimeFilterPredicate(Time time) {

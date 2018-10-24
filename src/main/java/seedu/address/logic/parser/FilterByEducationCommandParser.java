@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FilterByEducationCommand;
-import seedu.address.logic.commands.FilterByTimeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.commands.FilterByEducationCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * fiterByEducation.
+ */
 public class FilterByEducationCommandParser implements Parser<FilterByEducationCommand> {
     /**
      * FilterByGradeCommand
@@ -16,11 +17,17 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
      */
     public FilterByEducationCommand parse(String args) throws ParseException {
 
-        String StringCommand = args.trim();
 
-        if(!(StringCommand.equals("pri")||StringCommand.equals("sec")||StringCommand.equals("jc"))){
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
+        String stringCommand = args.trim();
+        if (stringCommand.isEmpty()) {
+            throw new ParseException(
+                    String.format("Enter error message here"));
         }
-        return new FilterByEducationCommand(StringCommand);
+        if (!("pri".equals(stringCommand) || "sec".equals(stringCommand) || "jc".equals(stringCommand))) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
+
+        }
+        return new FilterByEducationCommand(stringCommand);
     }
 }

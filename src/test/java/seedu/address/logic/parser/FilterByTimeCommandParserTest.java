@@ -1,19 +1,20 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FilterByTimeCommand;
-
-import org.junit.Test;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.FilterByTimeCommand;
 
 public class FilterByTimeCommandParserTest {
     private FilterByEducationCommandParser parser = new FilterByEducationCommandParser();
 
     @Test
     public void parseEmptyArgThrowsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "  ", String.format(
+            MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
     }
 
     @Test

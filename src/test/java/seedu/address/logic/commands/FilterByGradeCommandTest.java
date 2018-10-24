@@ -1,24 +1,24 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.FeeFilterPredicate;
-import seedu.address.model.person.GradeFilterPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.GradeFilterPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 
 public class FilterByGradeCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -27,33 +27,35 @@ public class FilterByGradeCommandTest {
 
     @Test
     public void equals() {
-        String first = new String("20"+" "+"90");
-        String second = new String(" ");
+        String first = "20 90";
+        String second = " ";
 
 
-        FilterByGradeCommand FilterByGradeFirstCommand = new FilterByGradeCommand(first);
-        FilterByGradeCommand FilterByGradeSecondCommand = new FilterByGradeCommand(second);
+        FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
+        FilterByGradeCommand filterByGradeSecondCommand = new FilterByGradeCommand(second);
 
         // same object -> returns true
-        assertTrue(FilterByGradeFirstCommand.equals(FilterByGradeFirstCommand));
+        assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommand));
 
         // same values -> returns true
-        FilterByGradeCommand FilterByEducationFirstCommandCopy = new FilterByGradeCommand(first);
-        assertTrue(FilterByGradeFirstCommand.equals(FilterByEducationFirstCommandCopy));
+        FilterByGradeCommand filterByEducationFirstCommandCopy = new FilterByGradeCommand(first);
+        assertTrue(filterByGradeFirstCommand.equals(filterByEducationFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(FilterByGradeFirstCommand.equals(1));
+        assertFalse(filterByGradeFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(FilterByGradeFirstCommand.equals(FilterByGradeSecondCommand));
+        assertFalse(filterByGradeFirstCommand.equals(filterByGradeSecondCommand));
     }
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
+
         String expectedMessage = String.format("Cannot find person whose grade between " + 0 + " and " + 0 + " !");
         GradeFilterPredicate predicate = new GradeFilterPredicate(0,0);
         FilterByGradeCommand command = new FilterByGradeCommand("0 0");
+
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }

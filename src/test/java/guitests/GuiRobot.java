@@ -52,7 +52,7 @@ public class GuiRobot extends FxRobot {
      * @throws EventTimeoutException if the time taken exceeds {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS}
      * milliseconds.
      */
-    public void waitForEvent(BooleanSupplier event) {
+    public void waitForEvent(BooleanSupplier event) throws EventTimeoutException {
         waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
     }
 
@@ -62,7 +62,7 @@ public class GuiRobot extends FxRobot {
      * @param timeOut in milliseconds
      * @throws EventTimeoutException if the time taken exceeds {@code timeOut}.
      */
-    public void waitForEvent(BooleanSupplier event, int timeOut) {
+    public void waitForEvent(BooleanSupplier event, int timeOut) throws EventTimeoutException {
         int timePassed = 0;
         final int retryInterval = 50;
 
@@ -101,7 +101,7 @@ public class GuiRobot extends FxRobot {
      *
      * @throws StageNotFoundException if the stage is not found.
      */
-    public Stage getStage(String stageTitle) {
+    public Stage getStage(String stageTitle) throws StageNotFoundException {
         Optional<Stage> targetStage = listTargetWindows().stream()
                 .filter(Stage.class::isInstance) // checks that the window is of type Stage
                 .map(Stage.class::cast)
