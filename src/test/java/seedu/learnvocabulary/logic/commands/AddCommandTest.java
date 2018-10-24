@@ -140,10 +140,10 @@ public class AddCommandTest {
 
         }
 
-        @Override
-        public void setTriviaQuestion() {
-
-        }
+        //@Override
+        //public void setTriviaQuestion() {
+        //
+        //}
 
         @Override
         public boolean isTriviaMode() {
