@@ -18,7 +18,7 @@ import seedu.address.ui.exceptions.AccessibilityException;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USER_GUIDE_FILE_PATH = "/docs/HelpWindow.html";
-    public static final String SHORT_HELP_FILE_PATH = "/docs/ShortHelpWindow.html";
+    public static final String SHORT_HELP_FILE_PATH = "src/main/resources/docs/ShortHelpWindow.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";

@@ -37,7 +37,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a ride
         postNow(selectionChangedEventStub);
-        URL expectedRideUrl = getClass().getResource(BrowserPanel.RIDE_INFO_PATH);
+        URL expectedRideUrl = getClass().getResource(BrowserPanel.RIDE_PAGE_PATH);
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedRideUrl, browserPanelHandle.getLoadedUrl());

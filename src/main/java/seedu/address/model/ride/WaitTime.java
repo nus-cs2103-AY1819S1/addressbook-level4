@@ -17,12 +17,20 @@ public class WaitTime implements NumericAttribute {
     /**
      * Constructs a {@code WaitTime}.
      *
+     * @param waitingTimeString Waiting time in minutes.
+     */
+    public WaitTime(String waitingTimeString) {
+        requireNonNull(waitingTimeString);
+        checkArgument(isValidWaitTime(waitingTimeString), MESSAGE_WAIT_TIME_CONSTRAINTS);
+        value = Integer.parseInt(waitingTimeString);
+    }
+
+    /**
+     * Constructs a {@code WaitTime}.
      * @param waitingTime Waiting time in minutes.
      */
-    public WaitTime(String waitingTime) {
-        requireNonNull(waitingTime);
-        checkArgument(isValidWaitTime(waitingTime), MESSAGE_WAIT_TIME_CONSTRAINTS);
-        value = Integer.parseInt(waitingTime);
+    public WaitTime(int waitingTime) {
+        value = waitingTime;
     }
 
     public int getValue() {

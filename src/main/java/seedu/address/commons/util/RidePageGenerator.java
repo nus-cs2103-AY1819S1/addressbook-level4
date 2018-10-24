@@ -1,54 +1,51 @@
 package seedu.address.commons.util;
 
-import static j2html.TagCreator.body;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h2;
-import static j2html.TagCreator.head;
-import static j2html.TagCreator.html;
 import static j2html.TagCreator.img;
-import static j2html.TagCreator.link;
 import static j2html.TagCreator.p;
-import static j2html.TagCreator.title;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import j2html.tags.ContainerTag;
+import seedu.address.model.ride.Ride;
 
 /**
- * Generates a Html page used to display ride details.
+ * Singleton Class for generating a Html page used to display ride details.
  */
-public class RidePageGenerator {
-    private static final String RIDE_PAGE_PATH = "src/main/resources/docs/ride.html";
-    private static final String RIDE_PAGE_TITLE = "Ride Information";
+public class RidePageGenerator extends HtmlGenerator<Ride>{
+    private static RidePageGenerator instance;
+
+    /**
+     * Required for singleton.
+     */
+    private RidePageGenerator() {
+        ;
+    }
+
+    public static RidePageGenerator getInstance() {
+        if (instance == null) {
+            instance = new RidePageGenerator();
+        }
+        return instance;
+    }
 
     /**
      * Generates a Html report with commandEntryList as entries as fileName.
      */
-    public static void generateRidePage() {
-        String content = generateRidePageLayout();
-        createFile(RIDE_PAGE_PATH, content);
+    public void generateHtml(String title, Ride data, String fileName)
+        throws IOException {
+        List<Ride> dataAsList = new LinkedList<>();
+        dataAsList.add(data);
+        generateHtml(title, dataAsList, fileName);
     }
 
-    /**
-     * Returns a String representation of the generated Html report with commandEntryList as entries.
-     */
-    private static String generateRidePageLayout() {
-        ContainerTag table = null;
-        return html(
-            head(
-                title(RIDE_PAGE_TITLE),
-                link().withRel("stylesheet").withHref("/stylesheets/asciidoctor.css")
-            ),
-            body(
-                generateRidePageHeader(),
-                generateRidePageDetails()
-            )
-        ).withStyle("padding: 10px 30px").renderFormatted();
-    }
-
-    private static ContainerTag generateRidePageHeader() {
+    @Override
+    public ContainerTag generateHeader(String title) {
         return div(
             div(
                 p("Name:"),
@@ -61,17 +58,9 @@ public class RidePageGenerator {
         );
     }
 
-    private static ContainerTag generateRidePageDetails() {
-        return div(
-            div(
-                p("Status:"),
-                p("Days since last maintenance:")
-            ).withStyle("width: 40%; display: inline-block; left: 0px"),
-            div(
-                p().withId("status"),
-                p().withId("waitTime")
-            ).withStyle("width: 50%; display: inline-block; right: 0px")
-        ).withStyle("padding: 30px 10px");
+    @Override
+    public ContainerTag generateBody(List<Ride> data) {
+        return generateVerticalTable(data.get(0));
     }
 
     /**

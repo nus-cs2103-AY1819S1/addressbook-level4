@@ -114,6 +114,22 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
     }
 
     /**
+     * Generates a vertical table with 2 columns using HtmlFormattable data.
+     */
+    protected ContainerTag generateVerticalTable(HtmlData data) {
+        ContainerTag table = table().withStyle("width: 100%");
+        List<String> template = data.getFieldHeaders();
+        int totalFields = template.size();
+        for (int row = 0; row < totalFields; row++) {
+            ContainerTag htmlRow = tr();
+            htmlRow.with(th(template.get(row)));
+            htmlRow.with(td(data.getFields().get(row)).withId(template.get(row)));
+            table.with(htmlRow);
+        }
+        return table;
+    }
+
+    /**
      * Creates the html file and writes the html content into it. Overwrites existing files.
      * Throws IOException if file cannot be written to.
      */
