@@ -17,7 +17,7 @@ public class EmailModel {
     private String preview;
     private final Set<String> existingEmails;
 
-    private final String previewHeader = "<u>Email Preview</u><br /><br />";
+    private final String previewHeader = "<u>Email Preview</u><br><br>";
 
     public EmailModel() {
         existingEmails = new HashSet<>();
@@ -47,7 +47,7 @@ public class EmailModel {
         while (itr.hasNext()) {
             to = to + ", " + itr.next().getAddress();
         }
-        this.preview = previewHeader + from + "<br />" + to + "<br />" + subject + "<br /><br />" + email.getHTMLText();
+        this.preview = previewHeader + from + "<br>" + to + "<br>" + subject + "<br><br>" + email.getHTMLText();
     }
 
     /**

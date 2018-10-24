@@ -29,11 +29,11 @@ public class EmailListCommand extends Command {
             + "Parameters: "
             + PREFIX_FROM + "EMAIL "
             + PREFIX_SUBJECT + "SUBJECT "
-            + PREFIX_CONTENT + "CONTENT(Input <br /> for newline)\n"
+            + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FROM + "johndoe@example.com "
             + PREFIX_SUBJECT + "Meeting this Friday "
-            + PREFIX_CONTENT + "Dear All<br /><br />Remember our meeting this friday.<br /><br />John";
+            + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
 
     public static final String MESSAGE_SUCCESS = "Email(List) composed: %s";
     public static final String MESSAGE_EMAIL_ALREADY_EXISTS = "Email with subject: \"%s\" already exists.";
