@@ -13,6 +13,7 @@ import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -34,7 +35,8 @@ public class EmailListCommand extends Command {
             + PREFIX_SUBJECT + "Meeting this Friday "
             + PREFIX_CONTENT + "Dear All<br /><br />Remember our meeting this friday.<br /><br />John";
 
-    public static final String MESSAGE_SUCCESS = "Email(All) composed: %s";
+    public static final String MESSAGE_SUCCESS = "Email(List) composed: %s";
+    public static final String MESSAGE_EMAIL_ALREADY_EXISTS = "Email with subject: \"%s\" already exists.";
 
     private final Email toCompose;
 
@@ -43,11 +45,17 @@ public class EmailListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasEmail(toCompose.getSubject())) {
+            throw new CommandException(String.format(MESSAGE_EMAIL_ALREADY_EXISTS, toCompose.getSubject()));
+        }
+
         List<Person> lastShownList = model.getFilteredPersonList();
         Email emailWithRecipient = addRecipientsToEmail(lastShownList);
         model.saveEmail(emailWithRecipient);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, emailWithRecipient.getSubject()));
     }
 
