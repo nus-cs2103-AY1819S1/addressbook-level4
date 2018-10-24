@@ -19,8 +19,8 @@ import seedu.parking.model.CarparkFinder;
 import seedu.parking.storage.XmlAdaptedCarpark;
 import seedu.parking.storage.XmlAdaptedTag;
 import seedu.parking.storage.XmlSerializableCarparkFinder;
-import seedu.parking.testutil.CarparkFinderBuilder;
 import seedu.parking.testutil.CarparkBuilder;
+import seedu.parking.testutil.CarparkFinderBuilder;
 import seedu.parking.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -78,7 +78,8 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        CarparkFinder dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableCarparkFinder.class).toModelType();
+        CarparkFinder dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableCarparkFinder.class)
+                .toModelType();
         assertEquals(9, dataFromFile.getCarparkList().size());
     }
 
@@ -138,7 +139,8 @@ public class XmlUtilTest {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableCarparkFinder dataToWrite = new XmlSerializableCarparkFinder(new CarparkFinder());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableCarparkFinder.class);
+        XmlSerializableCarparkFinder dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+                XmlSerializableCarparkFinder.class);
         assertEquals(dataToWrite, dataFromFile);
 
         CarparkFinderBuilder builder = new CarparkFinderBuilder(new CarparkFinder());

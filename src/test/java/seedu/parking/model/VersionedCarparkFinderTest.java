@@ -18,9 +18,12 @@ import seedu.parking.testutil.CarparkFinderBuilder;
 
 public class VersionedCarparkFinderTest {
 
-    private final ReadOnlyCarparkFinder carparkFinderWithJuliett = new CarparkFinderBuilder().withCarpark(JULIETT).build();
-    private final ReadOnlyCarparkFinder carparkFinderWithKilo = new CarparkFinderBuilder().withCarpark(KILO).build();
-    private final ReadOnlyCarparkFinder carparkFinderWithCharlie = new CarparkFinderBuilder().withCarpark(CHARLIE).build();
+    private final ReadOnlyCarparkFinder carparkFinderWithJuliett = new CarparkFinderBuilder()
+            .withCarpark(JULIETT).build();
+    private final ReadOnlyCarparkFinder carparkFinderWithKilo = new CarparkFinderBuilder()
+            .withCarpark(KILO).build();
+    private final ReadOnlyCarparkFinder carparkFinderWithCharlie = new CarparkFinderBuilder()
+            .withCarpark(CHARLIE).build();
     private final ReadOnlyCarparkFinder emptyCarparkFinder = new CarparkFinderBuilder().build();
 
     @Test
@@ -209,7 +212,8 @@ public class VersionedCarparkFinderTest {
 
     @Test
     public void equals() {
-        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(carparkFinderWithJuliett, carparkFinderWithKilo);
+        VersionedCarparkFinder versionedCarparkFinder = prepareCarparkFinderList(carparkFinderWithJuliett,
+                carparkFinderWithKilo);
 
         // same values -> returns true
         VersionedCarparkFinder copy = prepareCarparkFinderList(carparkFinderWithJuliett, carparkFinderWithKilo);
@@ -239,7 +243,8 @@ public class VersionedCarparkFinderTest {
     /**
      * Asserts that {@code versionedCarparkFinder} is currently pointing at {@code expectedCurrentState},
      * states before {@code versionedCarparkFinder#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedCarparkFinder#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * and states after {@code versionedCarparkFinder#currentStatePointer}
+     * is equal to {@code expectedStatesAfterPointer}.
      */
     private void assertCarparkFinderListStatus(VersionedCarparkFinder versionedCarparkFinder,
                                              List<ReadOnlyCarparkFinder> expectedStatesBeforePointer,
@@ -276,12 +281,12 @@ public class VersionedCarparkFinderTest {
      * Creates and returns a {@code VersionedCarparkFinder} with the {@code CarparkFinderStates} added into it, and the
      * {@code VersionedCarparkFinder#currentStatePointer} at the end of list.
      */
-    private VersionedCarparkFinder prepareCarparkFinderList(ReadOnlyCarparkFinder... CarparkFinderStates) {
-        assertFalse(CarparkFinderStates.length == 0);
+    private VersionedCarparkFinder prepareCarparkFinderList(ReadOnlyCarparkFinder... carparkFinderStates) {
+        assertFalse(carparkFinderStates.length == 0);
 
-        VersionedCarparkFinder versionedCarparkFinder = new VersionedCarparkFinder(CarparkFinderStates[0]);
-        for (int i = 1; i < CarparkFinderStates.length; i++) {
-            versionedCarparkFinder.resetData(CarparkFinderStates[i]);
+        VersionedCarparkFinder versionedCarparkFinder = new VersionedCarparkFinder(carparkFinderStates[0]);
+        for (int i = 1; i < carparkFinderStates.length; i++) {
+            versionedCarparkFinder.resetData(carparkFinderStates[i]);
             versionedCarparkFinder.commit();
         }
 

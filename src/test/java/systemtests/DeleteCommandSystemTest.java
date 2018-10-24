@@ -64,7 +64,8 @@ public class DeleteCommandSystemTest extends CarparkFinderSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredCarparkList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered car park list, delete index within bounds of car park finder but out of bounds of car park list
+        /* Case: filtered car park list, delete index within bounds of car park finder but out of bounds of
+         * car park list
          * -> rejected
          */
         showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
