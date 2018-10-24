@@ -4,16 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.tag.Tag;
-
 
 
 /**
@@ -23,7 +19,8 @@ public class DeleteAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-appointment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a patient's appointment in the health book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD 
+            + ": Deletes a patient's appointment in the health book. "
             + "Parameters: "
             + PREFIX_INDEX + "APPOINTMENT_INDEX \n"
             + "Example: " + COMMAND_WORD + " "
@@ -45,23 +42,18 @@ public class DeleteAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Set<Tag> mySet = new HashSet<Tag>();
-        Appointment appointment = new Appointment(model.getAppointmentCounter() , "elroy",
-                LocalDateTime.of(2017, 1, 1, 1, 1, 1));
-        //        TODO - implementation below assumes there's a storage
-        //        for appointments (rmb to implement Model, ModelManager, AddressBook)
-        //        List<Appointment> appointmentList = model.getAppointmentList();
-        //        Appointment appointment = appointmentList.stream()
-        //                .filter(appt -> appt.getAppointmentId() == appointmentId)
-        //                .findFirst()
-        //                .orElse(null);
-        //
-        //        if (appointment == null) {
-        //            throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
-        //        }
-        //
-        //        model.deleteAppointment(appointment);
-        //        model.commitAddressBook();
+        List<Appointment> lastShownList = model.getFilteredAppointmentList();
+        Appointment appointment = lastShownList.stream()
+                .filter(appt -> appt.getAppointmentId() == appointmentId)
+                .findFirst()
+                .orElse(null);
+
+        if (appointment == null) {
+            throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        model.deleteAppointment(appointment);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 
@@ -69,6 +61,6 @@ public class DeleteAppointmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAppointmentCommand // instanceof handles nulls
-                && ((Integer) appointmentId).equals((Integer) ((DeleteAppointmentCommand) other).appointmentId));
+                && (appointmentId == ((DeleteAppointmentCommand) other).appointmentId));
     }
 }
