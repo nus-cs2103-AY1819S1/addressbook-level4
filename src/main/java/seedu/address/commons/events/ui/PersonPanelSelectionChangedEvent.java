@@ -23,4 +23,5 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
     public Person getNewSelection() {
         return newSelection;
     }
+
 }
