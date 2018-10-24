@@ -227,7 +227,7 @@ public class ParserUtil {
      */
     public static QuantityToDispense parseQuantityToDispense(String amountToDispense) throws ParseException {
         requireNonNull(amountToDispense);
-        Integer amount = Integer.parseInt(amountToDispense.substring(4));
+        Integer amount = Integer.parseInt(amountToDispense);
         if (amount < 0) {
             throw new ParseException(MESSAGE_INVALID_QUANTITY_TO_DISPENSE);
         }
