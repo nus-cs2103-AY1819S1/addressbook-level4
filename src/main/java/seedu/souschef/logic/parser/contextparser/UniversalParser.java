@@ -48,6 +48,7 @@ public class UniversalParser {
             return new ContextCommand("Health Plan");
 
         case "mealplanner":
+            ui.switchToMealPlanListPanel();
             return new ContextCommand("Meal Planner");
 
         case "favourite":

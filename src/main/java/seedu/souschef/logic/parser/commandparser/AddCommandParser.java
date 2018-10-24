@@ -84,7 +84,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
     @Override
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
-        String[] tokens = args.trim().split(" ");
+        String[] tokens = args.trim().split("\\s+");
         if (tokens.length != 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
