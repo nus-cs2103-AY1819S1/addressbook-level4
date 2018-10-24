@@ -144,6 +144,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getUserLoggedIn() {
+            return "";
+        }
+
+        @Override
         public boolean canUndoPreviewImageManager() {
             return false;
         }
