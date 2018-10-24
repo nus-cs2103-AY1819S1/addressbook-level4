@@ -4,14 +4,10 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static ssp.scheduleplanner.ui.SidebarPanel.DEFAULT_PAGE;
 import static ssp.scheduleplanner.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static ssp.scheduleplanner.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static ssp.scheduleplanner.ui.UiPart.FXML_FILE_FOLDER;
 import static ssp.scheduleplanner.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,7 +26,6 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import guitests.guihandles.TaskListPanelHandle;
-import ssp.scheduleplanner.MainApp;
 import ssp.scheduleplanner.TestApp;
 import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.core.index.Index;
@@ -41,7 +36,6 @@ import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.testutil.TypicalTasks;
-import ssp.scheduleplanner.ui.SidebarPanel;
 import ssp.scheduleplanner.ui.CommandBox;
 
 /**
@@ -71,7 +65,7 @@ public abstract class SchedulePlannerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        waitUntilBrowserLoaded(getSidebarPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -111,8 +105,8 @@ public abstract class SchedulePlannerSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public SidebarPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
+    public SidebarPanelHandle getSidebarPanel() {
+        return mainWindowHandle.getSidebarPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -135,7 +129,7 @@ public abstract class SchedulePlannerSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        waitUntilBrowserLoaded(getSidebarPanel());
     }
 
     /**
@@ -189,7 +183,7 @@ public abstract class SchedulePlannerSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getSidebarPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getTaskListPanel().rememberSelectedTaskCard();
@@ -201,7 +195,7 @@ public abstract class SchedulePlannerSystemTest {
      * @see SidebarPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getSidebarPanel().isUrlChanged());
         assertFalse(getTaskListPanel().isAnyCardSelected());
     }
 
@@ -214,14 +208,14 @@ public abstract class SchedulePlannerSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getTaskListPanel().navigateToCard(getTaskListPanel().getSelectedCardIndex());
         String selectedCardName = getTaskListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
+        /*URL expectedUrl;
         try {
             expectedUrl = new URL(SidebarPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-
+        assertEquals(expectedUrl, getSidebarPanel().getLoadedUrl());
+*/
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getTaskListPanel().getSelectedCardIndex());
     }
 
@@ -231,7 +225,7 @@ public abstract class SchedulePlannerSystemTest {
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getSidebarPanel().isUrlChanged());
         assertFalse(getTaskListPanel().isSelectedTaskCardChanged());
     }
 
@@ -277,7 +271,7 @@ public abstract class SchedulePlannerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getTaskListPanel(), getModel().getFilteredTaskList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getSidebarPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

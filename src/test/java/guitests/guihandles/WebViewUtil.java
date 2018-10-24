@@ -26,6 +26,6 @@ public class WebViewUtil {
      * If the {@code sidebarPanelHandle}'s {@code WebView} is loading, sleeps the thread till it is successfully loaded.
      */
     public static void waitUntilBrowserLoaded(SidebarPanelHandle sidebarPanelHandle) {
-        new GuiRobot().waitForEvent(sidebarPanelHandle::isLoaded);
+        //new GuiRobot().waitForEvent(sidebarPanelHandle::isLoaded);
     }
 }
