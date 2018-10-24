@@ -68,16 +68,6 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredList());
     }
 
-    @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_LISTED_OVERVIEW, 3, "recipe");
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand<Recipe> command = new FindCommand<Recipe>(model, predicate);
-        expectedModel.updateFilteredList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredList());
-    }
-
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
