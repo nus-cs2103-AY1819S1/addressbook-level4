@@ -14,7 +14,7 @@ public class FilterByGradeCommandParserTest {
     @Test
     public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, " ", String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
+            MESSAGE_INVALID_COMMAND_FORMAT, FilterByGradeCommand.MESSAGE_USAGE));
     }
 
     @Test
