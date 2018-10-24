@@ -15,8 +15,8 @@ import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
  */
 public class ListWeekCommand extends Command {
     public static final String COMMAND_WORD = "listweek";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all task(s) till Sunday.\n";
-    public static final String MESSAGE_SUCCESS = "This week task(s) are listed as followed";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all task(s) till this Sunday.\n";
+    public static final String MESSAGE_SUCCESS = "This week's task(s) are listed as followed";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
