@@ -306,12 +306,13 @@ Example(s)
 *A*: Yes, by typing keywords like street names.
 
 == Glossary
+
+Here are a few technical terms used in the user guide.
+
 .General Commands
+[cols="1,6"]
 |===
 |Term |Explanation
-
-|*Flag*
-|Flag is a value that acts as a signal for a function.
 
 |*Flag*
 |Flag is a value that acts as a signal for a function.
@@ -322,6 +323,7 @@ Example(s)
 Here are the summarize list of commands available to the user.
 
 .General Commands
+[cols="1,4,2"]
 |===
 |Command |Format |Example
 
@@ -348,6 +350,7 @@ Here are the summarize list of commands available to the user.
 
 
 .Carpark Management
+[cols="1,4,2"]
 |===
 |Command |Format |Example
 
