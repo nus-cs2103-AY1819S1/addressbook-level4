@@ -15,6 +15,12 @@ public class IngredientServingUnit {
         dictionary = new ArrayList<String>();
         dictionary.add("gram");
         dictionary.add("piece");
+        dictionary.add("cup");
+        dictionary.add("pinch");
+        dictionary.add("clove");
+        dictionary.add("tablespoon");
+        dictionary.add("teaspoon");
+        dictionary.add("ml");
         this.unit = unit;
     }
 
