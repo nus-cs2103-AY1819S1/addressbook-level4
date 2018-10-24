@@ -1,9 +1,9 @@
 package seedu.address.model.patient;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.Stack;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
@@ -22,17 +22,34 @@ public class Patient extends Person {
     // Variables
     private String telegramId;
     private MedicalHistory medicalHistory;
-    private Queue<Appointment> upcomingAppointments;
-    private Stack<Appointment> pastAppointments;
+    private PriorityQueue<Appointment> upcomingAppointments;
+    private List<Appointment> pastAppointments;
 
     // Constructor
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
                    Set<Tag> tags, String telegramId) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
-        upcomingAppointments = new LinkedList<>();
-        pastAppointments = new Stack<>();
+        upcomingAppointments = new PriorityQueue<>();
+        pastAppointments = new ArrayList<>();
         medicalHistory = new MedicalHistory();
+    }
+
+    public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
+                   Set<Tag> tags, String telegramId, PriorityQueue<Appointment> upcomingAppointments,
+                   List<Appointment> pastAppointments) {
+        super(name, phone, email, address, remark, tags);
+        setTelegramId(telegramId);
+        this.upcomingAppointments = upcomingAppointments;
+        this.pastAppointments = pastAppointments;
+    }
+
+    public PriorityQueue<Appointment> getUpcomingAppointments() {
+        return upcomingAppointments;
+    }
+
+    public List<Appointment> getPastAppointments() {
+        return pastAppointments;
     }
 
     public String getTelegramId() {
@@ -79,7 +96,7 @@ public class Patient extends Person {
     public void completeUpcomingAppointment() {
         Appointment completedAppointment = upcomingAppointments.remove();
         completedAppointment.completeAppointment();
-        pastAppointments.push(completedAppointment);
+        pastAppointments.add(completedAppointment);
     }
 
     /**
