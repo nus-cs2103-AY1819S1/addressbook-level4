@@ -3,9 +3,9 @@ package seedu.souschef.logic.parser.commandparser;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.commons.core.Messages.MESSAGE_NO_ELEMENT;
 
 import java.util.List;
 
@@ -49,20 +49,24 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
 
     @Override
     public DeleteCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
-        Ingredient toDelete = null;
+        requireNonNull(model);
+        requireNonNull(args);
 
         List<Ingredient> lastShownList = model.getFilteredList();
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Ingredient cur = lastShownList.get(i);
-            if (cur.getName().toString().equals(args.trim())) {
-                toDelete = cur;
-                break;
+        String[] tokens = args.trim().split("\\s+");
+        int index;
+        try {
+            index = Integer.parseInt(tokens[0]) - 1;
+            if (index >= lastShownList.size() || tokens.length % 2 == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_DELETE_INGREDIENT_USAGE));
             }
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_DELETE_INGREDIENT_USAGE));
         }
 
-        if (toDelete == null) {
-            throw new ParseException(MESSAGE_NO_ELEMENT);
-        }
+        Ingredient toDelete = lastShownList.get(index);
 
         return new DeleteCommand<>(model, toDelete);
     }
