@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * {@code ToDoList} that keeps track of its own history.
  */
-public class VersionedToDoList extends ToDoList{
+public class VersionedToDoList extends ToDoList {
     private final List<ReadOnlyToDoList> toDoListStateList;
     private int currentStatePointer;
 

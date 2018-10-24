@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -9,12 +10,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelToDo;
 import seedu.address.model.todolist.ToDoListEvent;
 
-import java.util.List;
-
 /**
  * Deletes a todolist event identified using it's displayed index from the todolist.
  */
-public class DeleteToDoCommand extends CommandToDo{
+public class DeleteToDoCommand extends CommandToDo {
 
     public static final String COMMAND_WORD = "delete todo";
 
