@@ -28,6 +28,10 @@ public class Layer {
         this.name = name;
     }
 
+    /**
+     * .
+     * @param t
+     */
     public void addTransformation(Transformation t) {
         image.addTransformation(t);
         //render();

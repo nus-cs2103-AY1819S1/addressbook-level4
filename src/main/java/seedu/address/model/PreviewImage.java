@@ -38,7 +38,7 @@ public class PreviewImage implements PreviewableImage {
         return transformationSet;
     }
 
-    public void addTransformation(Transformation t){
+    public void addTransformation(Transformation t) {
         transformationSet.addTransformations(t);
     }
 }
