@@ -130,7 +130,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public boolean isMatchPassword(Password password) {
+        public boolean isMatchPassword(Optional<Password> password) {
             return true;
         }
     }

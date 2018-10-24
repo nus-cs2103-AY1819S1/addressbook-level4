@@ -27,8 +27,8 @@ public class SetPasswordCommandParser implements Parser<SetPasswordCommand> {
         }
         Password newPassword = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_NEW_PASSWORD).get());
         Optional<String> oldPasswordString = argMultimap.getValue(PREFIX_OLD_PASSWORD);
-        Optional<Password> oldPassword = oldPasswordString.isPresent() ?
-                Optional.of(ParserUtil.parsePassword(oldPasswordString.get())) : Optional.empty();
+        Optional<Password> oldPassword = oldPasswordString.isPresent()
+                ? Optional.of(ParserUtil.parsePassword(oldPasswordString.get())) : Optional.empty();
         return new SetPasswordCommand(oldPassword, newPassword);
     }
 }

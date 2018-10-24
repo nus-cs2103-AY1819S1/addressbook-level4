@@ -34,8 +34,8 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         }
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
-        Optional<Password> password = plainPassword.isPresent() ?
-                Optional.of(ParserUtil.parsePassword(plainPassword.get())) : Optional.empty();
+        Optional<Password> password = plainPassword.isPresent()
+                ? Optional.of(ParserUtil.parsePassword(plainPassword.get())) : Optional.empty();
         return new LoginCommand(username, password);
     }
 }

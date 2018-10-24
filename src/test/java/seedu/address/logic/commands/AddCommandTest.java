@@ -210,7 +210,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
+        public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -242,6 +242,11 @@ public class AddCommandTest {
         @Override
         public void setPassword(Password password) throws NoUserSelectedException {
             throw new AssertionError("copy method should not be called.");
+        }
+
+        @Override
+        public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+            throw new AssertionError("isMatchPassword method should not be called.");
         }
 
         @Override
