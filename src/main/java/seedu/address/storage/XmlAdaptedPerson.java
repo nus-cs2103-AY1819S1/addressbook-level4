@@ -176,7 +176,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Username.class.getSimpleName()));
         }
-        if(!Username.isValidUsername(username)) {
+        if (!Username.isValidUsername(username)) {
             throw new IllegalValueException(Username.MESSAGE_USERNAME_CONSTRAINTS);
         }
         final Username modelUsername = new Username(username);
@@ -184,7 +184,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Password.class.getSimpleName()));
         }
-        if(!Password.isValidPassword(password)) {
+        if (!Password.isValidPassword(password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         final Password modelPassword = new Password(password);
