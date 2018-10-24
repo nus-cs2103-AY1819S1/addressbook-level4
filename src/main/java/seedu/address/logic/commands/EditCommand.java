@@ -45,12 +45,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRICE + "PHONE] "
-            + "[" + PREFIX_DATE + "EMAIL] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_URL + "URL] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "60.60 "
-            + PREFIX_DATE + "johndoe@example.com";
+            + PREFIX_DATE + "20/11/2021";
 
     public static final String MESSAGE_EDIT_WISH_SUCCESS = "Edited Wish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
