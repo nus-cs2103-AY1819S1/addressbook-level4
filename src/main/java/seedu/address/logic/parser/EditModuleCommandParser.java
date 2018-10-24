@@ -9,19 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
-
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -37,7 +32,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     public EditModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR, PREFIX_SEMESTER, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR,
+                        PREFIX_SEMESTER, PREFIX_TAG);
 
         Index index;
 
@@ -52,13 +48,16 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULECODE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULETITLE).isPresent()) {
-            editModuleDescriptor.setModuleTitle(ParserUtil.parseModuleTitle(argMultimap.getValue(PREFIX_MODULETITLE).get()));
+            editModuleDescriptor.setModuleTitle(ParserUtil.parseModuleTitle(
+                    argMultimap.getValue(PREFIX_MODULETITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_ACADEMICYEAR).isPresent()) {
-            editModuleDescriptor.setAcademicYear(ParserUtil.parseAcademicYear(argMultimap.getValue(PREFIX_ACADEMICYEAR).get()));
+            editModuleDescriptor.setAcademicYear(ParserUtil.parseAcademicYear(
+                    argMultimap.getValue(PREFIX_ACADEMICYEAR).get()));
         }
         if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
-            editModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
+            editModuleDescriptor.setSemester(ParserUtil.parseSemester(
+                    argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
 

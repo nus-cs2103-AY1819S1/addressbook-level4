@@ -22,8 +22,8 @@ import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.AcademicYear;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
@@ -36,7 +36,7 @@ import seedu.address.model.tag.Tag;
  * @author alistair
  * @author kongzijin
  */
-public class EditModuleCommand extends Command{
+public class EditModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "editModule";
 
@@ -53,10 +53,9 @@ public class EditModuleCommand extends Command{
             + PREFIX_MODULECODE + "CS1101S "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the " 
-        + "address book.";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the address book.";
 
     private final Index index;
     private final EditModuleDescriptor editModuleDescriptor;
@@ -109,7 +108,8 @@ public class EditModuleCommand extends Command{
         UniquePersonList updatedStudents = editModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
-        return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester, updatedStudents, updatedTags, TypeUtil.MODULE);
+        return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
+                updatedStudents, updatedTags, TypeUtil.MODULE);
     }
 
     @Override

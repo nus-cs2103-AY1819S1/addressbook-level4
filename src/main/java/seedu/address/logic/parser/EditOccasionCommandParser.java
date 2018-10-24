@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditOccasionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -29,25 +28,31 @@ public class EditOccasionCommandParser implements Parser<EditOccasionCommand> {
     public EditOccasionCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE,
+                        PREFIX_OCCASION_LOCATION, PREFIX_TAG);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOccasionCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditOccasionCommand.MESSAGE_USAGE), pe);
         }
 
-        EditOccasionCommand.EditOccasionDescriptor editOccasionDescriptor = new EditOccasionCommand.EditOccasionDescriptor();
+        EditOccasionCommand.EditOccasionDescriptor editOccasionDescriptor =
+                 new EditOccasionCommand.EditOccasionDescriptor();
         if (argMultimap.getValue(PREFIX_OCCASION_NAME).isPresent()) {
-            editOccasionDescriptor.setOccasionName(ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get()));
+            editOccasionDescriptor.setOccasionName(ParserUtil.parseOccasionName(
+                    argMultimap.getValue(PREFIX_OCCASION_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_OCCASION_DATE).isPresent()) {
-            editOccasionDescriptor.setOccasionDate(ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get()));
+            editOccasionDescriptor.setOccasionDate(ParserUtil.parseOccasionDate(
+                    argMultimap.getValue(PREFIX_OCCASION_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_OCCASION_LOCATION).isPresent()) {
-            editOccasionDescriptor.setOccasionLocation(ParserUtil.parseOccasionLocation(argMultimap.getValue(PREFIX_OCCASION_LOCATION).get()));
+            editOccasionDescriptor.setOccasionLocation(ParserUtil.parseOccasionLocation(
+                    argMultimap.getValue(PREFIX_OCCASION_LOCATION).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editOccasionDescriptor::setTags);
 

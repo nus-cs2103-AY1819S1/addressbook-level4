@@ -21,8 +21,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.OccasionLocation;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.tag.Tag;
 
@@ -32,7 +32,7 @@ import seedu.address.model.tag.Tag;
  * @author alistair
  * @author kongzijin
  */
-public class EditOccasionCommand extends Command{
+public class EditOccasionCommand extends Command {
 
     public static final String COMMAND_WORD = "editOccasion";
 
@@ -93,15 +93,20 @@ public class EditOccasionCommand extends Command{
      * Creates and returns a {@code Occasion} with the details of {@code occasionToEdit}
      * edited with {@code editOccasionDescriptor}.
      */
-    private static Occasion createEditedOccasion(Occasion occasionToEdit, EditOccasionCommand.EditOccasionDescriptor editOccasionDescriptor) {
+    private static Occasion createEditedOccasion(Occasion occasionToEdit,
+                                                 EditOccasionCommand.EditOccasionDescriptor editOccasionDescriptor) {
         assert occasionToEdit != null;
 
-        OccasionName updatedOccasionName = editOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
-        OccasionDate updatedOccasionDate = editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
-        OccasionLocation updatedOccasionLocation = editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getLocation());
+        OccasionName updatedOccasionName =
+                editOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
+        OccasionDate updatedOccasionDate =
+                editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
+        OccasionLocation updatedOccasionLocation =
+                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getLocation());
         Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
 
-        return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation, updatedTags, TypeUtil.OCCASION);
+        return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
+                updatedTags, TypeUtil.OCCASION);
     }
 
     @Override
