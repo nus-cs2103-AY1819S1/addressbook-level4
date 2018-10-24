@@ -520,6 +520,7 @@ The UI has been redesigned to implement the following UI elements required for t
 Animations will also be incorporated into the UI elements for a better user experience.
 
 ==== Budget Panel
+
 The budget panel consists of 3 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
@@ -555,6 +556,11 @@ If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress per
 . `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()``. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
 [NOTE]
 Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+
+The following sequence diagram shows the process of updating the `BudgetPanel` UI elements:
+
+.Sequence diagram of the `BudgetPanel` update
+image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
 ====== Aspect: Which library to implement animation
