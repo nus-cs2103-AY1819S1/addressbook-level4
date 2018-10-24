@@ -2,6 +2,7 @@ package seedu.address.model.transformation;
 
 //@@uthor j-lum
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,8 +35,9 @@ public class Transformation {
      * @return
      */
     public List<String> toList() {
-        List<String> list = Arrays.asList(args);
-        list.add(0, operation);
+        List<String> list = new ArrayList<>();
+        list.add(operation);
+        list.addAll(Arrays.asList(args));
         return list;
     }
 }

@@ -3,14 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Map;
-import javax.imageio.ImageIO;
+import java.nio.file.Path;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
@@ -18,7 +14,9 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.transformation.Transformation;
 
 
 //author lancelotwillow
@@ -37,6 +35,7 @@ public class ExampleCommand extends Command {
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Example Person: %1$s";
 
     private final Index targetIndex;
+    private Path imagePath;
 
     public ExampleCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -46,30 +45,13 @@ public class ExampleCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        File tmp = new File(ImageMagickUtil.TMPPATH);
         try {
-            //this is the test image, as the time get the image from url,
-            //change it to buffered image, it would throw error
-            FileInputStream inputstream = new FileInputStream(
-                    "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/test.png");
-            Image exampleImage = new Image(inputstream);
-            //Image exampleImage = new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full");
-            //post the image to the scene
-            EventsCenter.getInstance().post(new ChangeImageEvent(exampleImage, "original"));
-            File outputfile = new File(tmp + "/origin.png");
-            BufferedImage image = SwingFXUtils.fromFXImage(exampleImage, null);
-            //store the original image
-            ImageIO.write(image, "png", outputfile);
-            File modifiedFile = new File(tmp + "/modified.png");
-            processImage(targetIndex);
-            //get the modified image
-            inputstream = new FileInputStream("/Users/Lancelot/Desktop/CS2103T/project/"
-                    + "main/src/main/java/seedu/address/storage/tmp/modified.png");
-            Image modifiedImage = new Image(inputstream);
-            EventsCenter.getInstance().post(new ChangeImageEvent(modifiedImage, "preview"));
-            outputfile.delete();
+            imagePath = model.getCurrentOriginalImage();
+            BufferedImage modifiedImage = processImage(targetIndex, imagePath);
+            EventsCenter.getInstance().post(
+                    new ChangeImageEvent(SwingFXUtils.toFXImage(modifiedImage, null), "preview"));
             return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException | ParseException e) {
             throw new CommandException(e.toString());
         }
     }
@@ -78,38 +60,31 @@ public class ExampleCommand extends Command {
     /**
      * the method to handle the image processing
      * @param targetIndex
+     * @return bufferedImage of the modifed file
      * @throws IOException
      * @throws InterruptedException
      */
-    private void processImage(Index targetIndex) throws IOException, InterruptedException {
-        File tmp = new File(ImageMagickUtil.TMPPATH);
-        File outputfile = new File(tmp + "/origin.png");
-        File modifiedFile = new File(tmp + "/modified.png");
+    private BufferedImage processImage(Index targetIndex, Path imagePath)
+            throws IOException, InterruptedException, ParseException {
         //create a processbuilder to blur the image
         ProcessBuilder pb;
         switch (targetIndex.getOneBased()) {
         case 1:
-            pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
-                     outputfile.getAbsolutePath(), "-blur", "0x8", modifiedFile.getAbsolutePath());
-            break;
+            Transformation transformation = new Transformation("blur", "0x8");
+            return ImageMagickUtil.processImage(imagePath, transformation);
         case 2:
-            pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
-                    outputfile.getAbsolutePath(), "-resize", "30%", modifiedFile.getAbsolutePath());
-            break;
+            transformation = new Transformation("rotate", "50");
+            return ImageMagickUtil.processImage(imagePath, transformation);
         case 3:
-            pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
-                    outputfile.getAbsolutePath(), "-contrast", modifiedFile.getAbsolutePath());
-            break;
+            transformation = new Transformation("resize", "50%");
+            return ImageMagickUtil.processImage(imagePath, transformation);
+        case 4:
+            transformation = new Transformation("colorspace", "gray");
+            return ImageMagickUtil.processImage(imagePath, transformation);
         default:
-            pb = new ProcessBuilder(ImageMagickUtil.getExecuteImageMagic(),
-                    outputfile.getAbsolutePath(), "-resize", "100%", modifiedFile.getAbsolutePath());
+            transformation = new Transformation("resize", "100%");
+            return ImageMagickUtil.processImage(imagePath, transformation);
         }
-        //set the environment of the processbuilder
-        Map<String, String> mp = pb.environment();
-        mp.put("DYLD_LIBRARY_PATH", "/Users/Lancelot/Desktop/CS2103T"
-                + "/project/main/src/main/resources/imageMagic/package/mac/ImageMagick-7.0.8/lib/");
-        Process process = pb.start();
-        process.waitFor();
     }
 
     @Override

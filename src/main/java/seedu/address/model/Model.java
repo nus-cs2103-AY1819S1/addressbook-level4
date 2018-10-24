@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.person.Person;
+import seedu.address.model.transformation.Transformation;
 
 /**
  * The API of the Model component.
@@ -134,10 +135,23 @@ public interface Model {
     /**
      * Retrieves the current displayed preview image.
      */
-    Path getCurrentPreviewImage();
+    PreviewImage getCurrentPreviewImage();
+
+    /**
+     * update the preview image stored in the model
+     * @param image
+     * @param transformation
+     */
+    void updateCurrentpreviewImage(Image image, Transformation transformation);
 
     /**
      * Update the current displayed original image.
      */
     void updateCurrentOriginalImage(Image img, Path imgPath);
+
+    /**
+     * update the transformationSet of the current image
+     * @param transformation
+     */
+    void addTransformation(Transformation transformation);
 }
