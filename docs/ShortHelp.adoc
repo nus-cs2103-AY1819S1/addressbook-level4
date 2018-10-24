@@ -9,6 +9,7 @@
 * `undo`
 * `redo`
 * `update <attraction> <tag> <value>`
+* `open <attraction>`
 * `shutdown <attraction>`
 * `view <name>`
 * `quickview`
