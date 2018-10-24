@@ -52,17 +52,18 @@ public class SchedulePlannerTest {
     /*
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same identity fields
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
     */
     @Test
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same fields
 
-        //Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        //Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         Task editedAlice = new TaskBuilder(ALICE).build();
         List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
-        SchedulePlannerStub newData = new SchedulePlannerStub(newTasks);
+        List<Task> archivedTasks = Arrays.asList();
+        SchedulePlannerStub newData = new SchedulePlannerStub(newTasks, archivedTasks);
 
         thrown.expect(DuplicateTaskException.class);
         schedulePlanner.resetData(newData);
@@ -89,14 +90,14 @@ public class SchedulePlannerTest {
     /*
     public void hasTask_taskWithSameIdentityFieldsInSchedulePlanner_returnsTrue() {
         schedulePlanner.addTask(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(schedulePlanner.hasTask(editedAlice));
     */
     @Test
     public void hasTask_taskWithNotAllSameFieldsInSchedulePlanner_returnsFalse() {
         schedulePlanner.addTask(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(schedulePlanner.hasTask(editedAlice));
     }
@@ -112,15 +113,23 @@ public class SchedulePlannerTest {
      */
     private static class SchedulePlannerStub implements ReadOnlySchedulePlanner {
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
+        private final ObservableList<Task> archivedTasks = FXCollections.observableArrayList();
 
-        SchedulePlannerStub(Collection<Task> tasks) {
+        SchedulePlannerStub(Collection<Task> tasks, Collection<Task> archivedTasks) {
             this.tasks.setAll(tasks);
+            this.archivedTasks.setAll(archivedTasks);
         }
 
         @Override
         public ObservableList<Task> getTaskList() {
             return tasks;
         }
+
+        @Override
+        public ObservableList<Task> getArchivedTaskList() {
+            return archivedTasks;
+        }
+
     }
 
 }

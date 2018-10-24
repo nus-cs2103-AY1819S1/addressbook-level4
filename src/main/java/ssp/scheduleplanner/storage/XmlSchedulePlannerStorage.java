@@ -51,9 +51,9 @@ public class XmlSchedulePlannerStorage implements SchedulePlannerStorage {
             return Optional.empty();
         }
 
-        XmlSerializableSchedulePlanner xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableSchedulePlanner xmlSchedulePlanner = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlSchedulePlanner.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

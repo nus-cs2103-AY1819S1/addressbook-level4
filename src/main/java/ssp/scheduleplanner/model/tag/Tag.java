@@ -44,7 +44,9 @@ public class Tag {
      * Getter method for the Tag's name in String format
      * @return String representation of Tag's name
      */
-    public String getTagName() { return this.tagName; }
+    public String getTagName() {
+        return this.tagName;
+    }
 
     @Override
     public int hashCode() {

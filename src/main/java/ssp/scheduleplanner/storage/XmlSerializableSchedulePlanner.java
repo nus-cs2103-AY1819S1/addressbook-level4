@@ -23,12 +23,16 @@ public class XmlSerializableSchedulePlanner {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
 
+    @XmlElement
+    private List<XmlAdaptedTask> archivedTasks;
+
     /**
      * Creates an empty XmlSerializableSchedulePlanner.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableSchedulePlanner() {
         tasks = new ArrayList<>();
+        archivedTasks = new ArrayList<>();
     }
 
     /**
@@ -37,24 +41,30 @@ public class XmlSerializableSchedulePlanner {
     public XmlSerializableSchedulePlanner(ReadOnlySchedulePlanner src) {
         this();
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        archivedTasks.addAll(src.getArchivedTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code SchedulePlanner} object.
+     * Converts this schedule planner into the model's {@code SchedulePlanner} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedTask}.
      */
     public SchedulePlanner toModelType() throws IllegalValueException {
-        SchedulePlanner addressBook = new SchedulePlanner();
+        SchedulePlanner schedulePlanner = new SchedulePlanner();
         for (XmlAdaptedTask p : tasks) {
             Task task = p.toModelType();
-            if (addressBook.hasTask(task)) {
+            if (schedulePlanner.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            addressBook.addTask(task);
+            schedulePlanner.addTask(task);
         }
-        return addressBook;
+
+        for (XmlAdaptedTask p : archivedTasks) {
+            Task archivedTask = p.toModelType();
+            schedulePlanner.addArchivedTask(archivedTask);
+        }
+        return schedulePlanner;
     }
 
     @Override
@@ -66,6 +76,7 @@ public class XmlSerializableSchedulePlanner {
         if (!(other instanceof XmlSerializableSchedulePlanner)) {
             return false;
         }
-        return tasks.equals(((XmlSerializableSchedulePlanner) other).tasks);
+        return (tasks.equals(((XmlSerializableSchedulePlanner) other).tasks))
+                && (archivedTasks.equals(((XmlSerializableSchedulePlanner) other).archivedTasks));
     }
 }

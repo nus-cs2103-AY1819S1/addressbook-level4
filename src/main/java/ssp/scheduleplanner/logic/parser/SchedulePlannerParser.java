@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.AddCommand;
+import ssp.scheduleplanner.logic.commands.ArchiveCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
@@ -15,6 +16,7 @@ import ssp.scheduleplanner.logic.commands.FindCommand;
 import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 import ssp.scheduleplanner.logic.commands.HelpCommand;
 import ssp.scheduleplanner.logic.commands.HistoryCommand;
+import ssp.scheduleplanner.logic.commands.ListArchivedCommand;
 import ssp.scheduleplanner.logic.commands.ListCommand;
 import ssp.scheduleplanner.logic.commands.ListDayCommand;
 import ssp.scheduleplanner.logic.commands.ListWeekCommand;
@@ -62,6 +64,8 @@ public class SchedulePlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case ArchiveCommand.COMMAND_WORD:
+            return new ArchiveCommandParser().parse(arguments);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -76,6 +80,9 @@ public class SchedulePlannerParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListArchivedCommand.COMMAND_WORD:
+            return new ListArchivedCommand();
 
         case ListDayCommand.COMMAND_WORD:
             return new ListDayCommand();

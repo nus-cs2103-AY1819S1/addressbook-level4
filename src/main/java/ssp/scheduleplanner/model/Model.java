@@ -12,6 +12,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true*/
+    Predicate<Task> PREDICATE_SHOW_ALL_ARCHIVED_TASKS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlySchedulePlanner newData);
 
@@ -24,6 +27,12 @@ public interface Model {
     boolean hasTask(Task task);
 
     /**
+     * Returns true if a archived task with the same identity as {@code archivedTask} exists
+     * in the Schedule Planner.
+     */
+    boolean hasArchivedTask(Task archivedTask);
+
+    /**
      * Deletes the given task.
      * The task must exist in the Schedule Planner.
      */
@@ -34,6 +43,11 @@ public interface Model {
      * {@code task} must not already exist in the Schedule Planner.
      */
     void addTask(Task task);
+
+    /**
+     * Archive the given task.
+     */
+    void archiveTask(Task task);
 
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
@@ -50,6 +64,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * updates the filter of filtered archived task list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchivedTaskList(Predicate<Task> predicate);
 
     /**
      * Returns true if the model has previous Schedule Planner states to restore.
