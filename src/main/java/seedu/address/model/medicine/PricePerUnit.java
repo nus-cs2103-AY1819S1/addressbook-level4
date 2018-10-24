@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the unit price of a medicine in the clinic.
- * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)} and {@link #isValidUnit(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPricePerUnit(String)}
  */
 public class PricePerUnit {
     public static final String MESSAGE_PRICE_PER_UNIT_CONSTRAINTS =
