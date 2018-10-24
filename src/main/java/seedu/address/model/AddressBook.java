@@ -150,7 +150,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Deletes a patient's {@code appointment} from this {@code HealthBook}.
      */
     public void deleteAppointment(Appointment appointment) {
-        // TODO - store appointments in separate file like persons(?)
+        appointments.remove(appointment);
     }
 
     //// util methods
