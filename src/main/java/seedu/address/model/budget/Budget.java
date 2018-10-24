@@ -89,7 +89,8 @@ public class Budget {
      *
      * @param expenses a valid double
      */
-    public void modifyExpenses(double expenses) { this.currentExpenses = expenses; }
+    public void modifyExpenses(double expenses) {
+        this.currentExpenses = expenses; }
 
     /**
      * Returns the current date in which the budget is created
