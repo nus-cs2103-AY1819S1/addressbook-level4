@@ -45,6 +45,10 @@ public class Password {
         return password;
     }
 
+    public String getEncodedPassword() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
