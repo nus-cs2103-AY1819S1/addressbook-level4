@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,22 +27,22 @@ public class Person {
     private final Address address;
     private final Education education;
     private final Fees tuitionFee;
-    private final Grades grades;
+    private final HashMap<String, Grades> grades;
     private final ArrayList<Time> timeSlots;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Education education, Grades grades,
+    public Person(Name name, Phone phone, Email email, Address address, Education education,
                   Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, education, grades, tags);
+        requireAllNonNull(name, phone, email, address, education, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.education = education;
-        this.grades = grades;
+        this.grades = new HashMap<>();
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(education);
         this.timeSlots = new ArrayList<>();
@@ -67,7 +68,7 @@ public class Person {
         return education;
     }
 
-    public Grades getGrades() {
+    public HashMap<String, Grades> getGrades() {
         return grades;
     }
 
@@ -135,7 +136,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, education, grades, tags);
+        return Objects.hash(name, phone, email, address, education, tags);
     }
 
     @Override
@@ -150,8 +151,6 @@ public class Person {
                 .append(getAddress())
                 .append(" Education: ")
                 .append(getEducation())
-                .append(" Grades: ")
-                .append(getGrades())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
