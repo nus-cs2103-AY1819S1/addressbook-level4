@@ -10,14 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class PricePerUnit {
     public static final String MESSAGE_PRICE_PER_UNIT_CONSTRAINTS =
-            "Price per unit should be an integer.";
+            "Price per unit should be a positive integer, with 0 or 2 decimal places.";
     public static final String PRICE_PER_UNIT_VALIDATION_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
     public final String value;
 
     /**
      * Constructs a {@code PricePerUnit}.
      *
-     * @param number A positive integer.
+     * @param number A positive integer, or a positive number with 2 decimal places.
      */
     public PricePerUnit(String number) {
         requireNonNull(number);

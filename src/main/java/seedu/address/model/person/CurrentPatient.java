@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 
 /**
  * Represents a patient that is currently consulting the doctor in the address book.
@@ -62,7 +63,7 @@ public class CurrentPatient {
      * @param quantity of medicinet to be added.
      * @return string representation of medicine added.
      */
-    public String addMedicine(Medicine medicine, int quantity) {
+    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
         return patient.addMedicine(medicine, quantity);
     }
 
@@ -93,7 +94,7 @@ public class CurrentPatient {
     /**
      * Returns the allocated medicine for the patient.
      */
-    public Map<Medicine, Integer> getMedicineAllocated() {
+    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
         return patient.getMedicineAllocated();
     }
 

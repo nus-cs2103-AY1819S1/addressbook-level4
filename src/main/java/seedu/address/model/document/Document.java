@@ -15,6 +15,7 @@ import java.util.Map;
 
 import seedu.address.MainApp;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 
@@ -57,7 +58,7 @@ public class Document {
 
     //variables specific to receipt but here because of checkstyle issues
     private float totalPrice = 0;
-    private Map<Medicine, Integer> allocatedMedicine;
+    private Map<Medicine, QuantityToDispense> allocatedMedicine;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -192,16 +193,16 @@ public class Document {
      * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
      *                          and their individual respective quantities
      */
-    private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
+    private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
         int quantity;
         int pricePerUnit;
         int totalPriceForSpecificMedicine;
         String medicineName;
-        for (Map.Entry<Medicine, Integer> entry : medicineAllocated.entrySet()) {
+        for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
             Medicine medicine = entry.getKey();
             medicineName = medicine.getMedicineName().toString();
-            quantity = entry.getValue();
+            quantity = entry.getValue().getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
             this.totalPrice += totalPriceForSpecificMedicine;
@@ -231,7 +232,7 @@ public class Document {
         this.fileType = fileType;
     }
 
-    public void setAllocatedMedicine(Map<Medicine, Integer> allocatedMedicine) {
+    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
         this.allocatedMedicine = allocatedMedicine;
     }
     public File getFile() {
