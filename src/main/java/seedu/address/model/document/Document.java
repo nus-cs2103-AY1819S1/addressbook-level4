@@ -27,9 +27,10 @@ import seedu.address.model.person.Name;
 public class Document {
 
     //Formatting the path to the directory all documents should be saved in
+    public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
+    public static final String FILE_NAME_DELIMITER = "_For_";
     private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
     private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
-    private static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
 
     private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
@@ -49,9 +50,10 @@ public class Document {
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
+    private File file;
+    private Name name;
     private String fileName;
     private String fileType;
-    private Name name;
     private IcNumber icNumber;
 
     //variables specific to receipt but here because of checkstyle issues
@@ -74,7 +76,7 @@ public class Document {
      * Formats the file name of the object that extends document.
      * */
     private void makeFileName() {
-        fileName = fileType + "_For_" + name.toString().replaceAll("\\s", "")
+        fileName = fileType + FILE_NAME_DELIMITER + name.toString().replaceAll("\\s", "")
                 + "_" + icNumber.toString();
     }
 
@@ -128,9 +130,9 @@ public class Document {
      * The actual generation of the file representing the document using the updated HTML code.
      */
     private void makeFile(String htmlContent) {
-        File newDocument = new File(DIRECTORY_PATH + fileName + ".html");
+        file = new File(DIRECTORY_PATH + fileName + ".html");
         try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(newDocument));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bos.write(htmlContent.getBytes());
             bos.flush();
             bos.close();
@@ -232,5 +234,12 @@ public class Document {
 
     public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
         this.allocatedMedicine = allocatedMedicine;
+    }
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

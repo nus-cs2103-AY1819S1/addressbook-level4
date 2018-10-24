@@ -1,6 +1,12 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import static seedu.address.model.document.Document.DIRECTORY_PATH;
+import static seedu.address.model.document.Document.FILE_NAME_DELIMITER;
+
+import java.io.File;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -73,7 +79,35 @@ public class QueueCommandTestUtil {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
-
     }
 
+    /**
+     * Executes the given {@code queueCommand}, confirms that there exists a file in the generated
+     * documents directory
+     * @param fileName the name of the file which presence is being tested in the generated document directory
+     */
+    public static void assertUniqueFileInFilteredFileList(String fileName) {
+        File dir = new File(DIRECTORY_PATH);
+        File[] matches = dir.listFiles((dir1, name) -> name.startsWith(fileName));
+        assertTrue("There should be exactly 1 file in the directory!", matches.length == 1);
+        fileCleanUp(matches[0]);
+    }
+
+    /**
+     * Generates the fileName given the type of file and the patient to generate the file for
+     * @param fileType the type of file which presence is being tested in the generated document directory
+     * @param patient the patient for whom the file is being generated for
+     */
+    public static String generateFileName(String fileType, Patient patient) {
+        return fileType + FILE_NAME_DELIMITER + patient.toNameAndIc().replaceAll("\\s", "")
+                .replace("[", "_").replace("]", "");
+    }
+
+    /**
+     * Cleans up the files that have been created for the tests
+     * @param file the file to be cleaned up
+     */
+    public static void fileCleanUp(File file) {
+        file.delete();
+    }
 }

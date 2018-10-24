@@ -23,7 +23,7 @@ The team consists of four year-2 and one year-3 student in School of Computing, 
 
 == Summary of contributions
 
-* *Major enhancement*: added a *Patient Queue Management System (PQMS)*
+* *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.
 ** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
 ** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands

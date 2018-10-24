@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -77,8 +78,8 @@ public class DispenseMedicineCommand extends QueueCommand {
             currentPatient.addMedicine(medicine, quantityToDispense);
             model.commitAddressBook();
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
-            return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    quantityToDispense.getValue(), medicine.getMedicineName()));
+            EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(), medicine.getMedicineName()));
         } catch (InsufficientStockException ise) {
             throw new CommandException(String.format(MESSAGE_MEDICINE_STOCK_INSUFFICIENT, medicine.getMedicineName()));
         }

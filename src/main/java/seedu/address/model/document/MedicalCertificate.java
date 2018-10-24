@@ -7,7 +7,7 @@ import seedu.address.model.person.ServedPatient;
  * is relevant to the medical certificate.
  */
 public class MedicalCertificate extends Document {
-    private static final String FILE_TYPE = "Medical Certificate";
+    public static final String FILE_TYPE = "Medical Certificate";
     private final String mcContent;
 
     /**

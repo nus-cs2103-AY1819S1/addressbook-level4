@@ -87,8 +87,8 @@ public class MedicineTest {
         editedPanadol = new MedicineBuilder(PANADOL).withSerialNumber(VALID_SERIAL_NUMBER_ZYRTEC).build();
         assertFalse(PANADOL.equals(editedPanadol));
 
-        // different stock -> returns false
+        // different stock -> returns true
         editedPanadol = new MedicineBuilder(PANADOL).withStock(VALID_STOCK_ZYRTEC).build();
-        assertFalse(PANADOL.equals(editedPanadol));
+        assertTrue(PANADOL.equals(editedPanadol));
     }
 }
