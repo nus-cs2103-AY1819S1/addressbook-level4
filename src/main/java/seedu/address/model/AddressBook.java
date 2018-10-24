@@ -3,9 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
@@ -83,57 +83,115 @@ public class AddressBook implements ReadOnlyAddressBook {
         setOccasions(newData.getOccasionList());
     }
 
-    public void resetPersonData(ObservableList<Person> newPersonData) {
-        requireNonNull(newPersonData);
 
-        persons.resetData(newPersonData);
-    }
-
-    //// person-level operation
-    // TODO: Refactor it to Entity-level
     /**
      * Returns true if an entity with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasEntity(Entity entity) {
-        requireNonNull(entity);
-        return persons.contains(entity) || modules.contains(entity) || occasions.contains(entity);
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return persons.contains(person);
+    }
+
+    /**
+     * Returns true if an entity with the same identity as {@code occasion} exists in the address book.
+     */
+    public boolean hasOccasion(Occasion occasion) {
+        requireNonNull(occasion);
+        return occasions.contains(occasion);
+    }
+
+    /**
+     * Returns true if an entity with the same identity as {@code module} exists in the address book.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addEntity(Entity entity) {
-        persons.add(entity);
-        modules.add(entity);
-        occasions.add(entity);
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 
     /**
-     * Replaces the given entity {@code target} in the list with {@code editedEntity}.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The identity of {@code editedEntity} must not be the same as another existing entity in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person
+     * in the address book.
      */
+    public void updatePerson(Person target, Person editedPerson) {
+        requireNonNull(editedPerson);
 
-    public void updateEntity(Entity target, Entity editedEntity) {
-        requireNonNull(editedEntity);
-
-        persons.setEntity(target, editedEntity);
-        modules.setEntity(target, editedEntity);
-        occasions.setEntity(target, editedEntity);
+        persons.setPerson(target, editedPerson);
     }
 
     /**
-     * Removes {@code entity} from this {@code AddressBook}.
-     * {@code entity} must exist in the address book.
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
      */
-    public void removeEntity (Entity entity) {
-        persons.remove(entity);
-        modules.remove(entity);
-        occasions.remove(entity);
+    public void removePerson(Person key) {
+        persons.remove(key);
     }
 
-    //// util methods
+    /**
+     * Adds an occasion to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addOccasion(Occasion occasion) {
+        occasions.add(occasion);
+    }
+
+    /**
+     * Replaces the given occasion {@code target} in the list with {@code editedOccasion}.
+     * {@code target} must exist in the address book.
+     * The occasion identity of {@code editedOccasion} must not be the same as another
+     * existing occasion in the address book.
+     */
+    public void updateOccasion(Occasion target, Occasion editedOccasion) {
+        requireNonNull(editedOccasion);
+
+        occasions.setOccasion(target, editedOccasion);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeOccasion(Occasion key) {
+        occasions.remove(key);
+    }
+
+    /**
+     * Adds a module to the address book.
+     * The module must not already exist in the address book.
+     */
+    public void addModule(Module module) {
+        modules.add(module);
+    }
+
+    /**
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the address book.
+     * The module identity of {@code editedModule} must not be the same as another existing
+     * module in the address book.
+     */
+    public void updateModule(Module target, Module editedModule) {
+        requireNonNull(editedModule);
+
+        modules.setModule(target, editedModule);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeModule(Module key) {
+        modules.remove(key);
+    }
+
 
     @Override
     public String toString() {
@@ -169,7 +227,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
-        // TODO: proper design of getting the hashcode of this addressBook
+        return Objects.hash(persons, modules, occasions);
     }
 }

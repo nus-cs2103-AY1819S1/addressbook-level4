@@ -8,9 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.NotAPersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -21,6 +19,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
+ *
+ * @see Person#isSamePerson(Person)
  */
 public class UniquePersonList implements Iterable<Person> {
 
@@ -46,37 +46,29 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list contains an equivalent entity as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Entity toCheck) {
+    public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        if (!(toCheck instanceof Person)) {
-            return false;
-        }
-        Person personToCheck = (Person) toCheck;
-        return internalList.stream().anyMatch(personToCheck::isSameEntity);
+        return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Entity toAdd) {
+    public void add(Person toAdd) {
         requireNonNull(toAdd);
-        if (!(toAdd instanceof Person)) {
-            throw new NotAPersonException();
-        } else if (contains(toAdd)) {
+        if (contains(toAdd)) {
             throw new DuplicatePersonException();
-        } else {
-            Person personToAdd = (Person) toAdd;
-            internalList.add(personToAdd);
         }
+        internalList.add(toAdd);
     }
 
     /**
-     * Replaces the entity {@code target} in the list with {@code editedEntity}.
+     * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The identity of {@code editedPerson} must not be the same as another entity in the list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -86,31 +78,19 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSameEntity(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
         internalList.set(index, editedPerson);
     }
 
-    public void setEntity(Entity target, Entity editedEntity) {
-        requireAllNonNull(target, editedEntity);
-        if (!(target instanceof Person && editedEntity instanceof Person)) {
-            return;
-        }
-        setPerson((Person) target, (Person) editedEntity);
-    }
-
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Entity toRemove) {
+    public void remove(Person toRemove) {
         requireNonNull(toRemove);
-        if (!(toRemove instanceof Person)) {
-            throw new NotAPersonException();
-        }
-
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
@@ -164,7 +144,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSameEntity(persons.get(j))) {
+                if (persons.get(i).isSamePerson(persons.get(j))) {
                     return false;
                 }
             }

@@ -1,25 +1,25 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandPersonTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandPersonTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandPersonTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandPersonTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandPersonTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandPersonTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandPersonTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandPersonTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandPersonTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandPersonTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -69,7 +69,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addEntity(toAdd);
+        model.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -203,7 +203,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Person toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addEntity(toAdd);
+        expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

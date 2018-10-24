@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,6 +23,7 @@ public class Module extends Entity {
     private final ModuleTitle moduleTitle;
     private final AcademicYear academicYear;
     private final Semester semester;
+    private final UniquePersonList students;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -29,12 +31,13 @@ public class Module extends Entity {
      * Every field must be present and not null.
      */
     public Module(ModuleCode moduleCode, ModuleTitle moduleTitle, AcademicYear academicYear,
-                  Semester semester, Set<Tag> tags, TypeUtil type) {
+                  Semester semester, UniquePersonList students, Set<Tag> tags, TypeUtil type) {
         requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags, type);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
+        this.students = students;
         this.tags.addAll(tags);
         this.type = type;
     }
@@ -55,6 +58,10 @@ public class Module extends Entity {
         return semester;
     }
 
+    public UniquePersonList getStudents() {
+        return students;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -62,6 +69,10 @@ public class Module extends Entity {
     @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean isSameModule(Module other) {
+        return this.equals(other);
     }
 
     /**
@@ -82,12 +93,8 @@ public class Module extends Entity {
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getModuleTitle().equals(getModuleTitle())
                 && otherModule.getAcademicYear().equals(getAcademicYear())
-                && otherModule.getSemester().equals(getSemester());
-    }
-
-
-    public boolean isSameEntity(Entity other) {
-        return this.equals(other);
+                && otherModule.getSemester().equals(getSemester())
+                && otherModule.getStudents().equals(getStudents());
     }
 
     @Override

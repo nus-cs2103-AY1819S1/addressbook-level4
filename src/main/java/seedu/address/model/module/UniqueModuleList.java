@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -27,13 +27,8 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if the list contains an equivalent module as the given argument.
      */
-    public boolean contains(Entity toCheck) {
-        requireNonNull(toCheck);
-        if (!(toCheck instanceof Module)) {
-            return false;
-        }
-
-        Module moduleToCheck = (Module) toCheck;
+    public boolean contains(Module moduleToCheck) {
+        requireNonNull(moduleToCheck);
         return internalList.stream().anyMatch(moduleToCheck::equals);
     }
 
@@ -41,13 +36,8 @@ public class UniqueModuleList implements Iterable<Module> {
      * Adds the specified module to the list iff it is not originally contained
      * within it.
      */
-    public void add(Entity toAdd) {
-        requireNonNull(toAdd);
-        if (!(toAdd instanceof Module)) {
-            // throw new NotAModuleException();
-            return;
-        }
-        Module moduleToAdd = (Module) toAdd;
+    public void add(Module moduleToAdd) {
+        requireNonNull(moduleToAdd);
         if (contains(moduleToAdd)) {
             throw new DuplicateModuleException();
         }
@@ -61,30 +51,24 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
-        // TODO fill up implementation.
-        // Will leave upto the implementer of the
-        // update feature to do.
-    }
 
-    public void setEntity(Entity target, Entity editedEntity) {
-        requireAllNonNull(target, editedEntity);
-        if (!(target instanceof Module) || !(editedEntity instanceof Module)) {
-            return;
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
         }
-        setModule((Module) target, (Module) editedEntity);
+
+        if (!target.isSameModule(editedModule) && contains(editedModule)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.set(index, editedModule);
     }
 
     /**
      * Removes the designated module from the internal list.
      */
-    public void remove(Entity toRemove) {
-        requireNonNull(toRemove);
-        if (!(toRemove instanceof Module)) {
-            // throw new NotAModuleException();
-            return;
-        }
-
-        Module moduleToRemove = (Module) toRemove;
+    public void remove(Module moduleToRemove) {
+        requireNonNull(moduleToRemove);
         if (!internalList.remove(moduleToRemove)) {
             throw new DuplicateModuleException();
         }
@@ -134,8 +118,10 @@ public class UniqueModuleList implements Iterable<Module> {
     private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size(); i++) {
             for (int j = 0; j < modules.size(); j++) {
-                if (modules.get(i).equals(modules.get(j))) {
-                    return false;
+                if (i != j) {
+                    if (modules.get(i).equals(modules.get(j))) {
+                        return false;
+                    }
                 }
             }
         }

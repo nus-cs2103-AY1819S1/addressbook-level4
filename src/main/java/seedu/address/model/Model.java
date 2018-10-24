@@ -3,7 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.entity.Entity;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -12,6 +13,8 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Occasion> PREDICATE_SHOW_ALL_OCCASIONS = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,32 +22,88 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /**
-     * Returns true if an entity with the same identity as {@code entity} exists in the address book.
-     */
-    boolean hasEntity(Entity entity);
 
     /**
-     * Deletes the given entity.
-     * The entity must exist in the address book.
+     * Returns true if an occasion with the same identity as {@code occasion} exists in the address book.
      */
-    void deleteEntity(Entity target);
+    boolean hasOccasion(Occasion occasion);
 
     /**
-     * Adds the given entity.
-     * {@code entity} must not already exist in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    void addEntity(Entity entity);
+    boolean hasPerson(Person person);
 
     /**
-     * Replaces the given entity {@code target} with {@code editedEntity}.
+     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     */
+    boolean hasModule(Module module);
+
+
+    /**
+     * Adds the given Occasion.
+     * {@code occasion} must not already exist in the address book.
+     */
+    void addOccasion(Occasion occasion);
+
+    /**
+     * Adds the given Person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addPerson(Person person);
+
+    /**
+     * Adds the given Module.
+     * {@code module} must not already exist in the address book.
+     */
+    void addModule(Module module);
+
+    /**
+     * Replaces the given entity {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The identity of {@code editedPerson} must not be the same as another existing entity in the address book.
+     * The identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void updateEntity(Entity target, Entity editedEntity);
+    void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the given entity {@code target} with {@code editedModule}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedModule} must not be the same as another existing module in the address book.
+     */
+    void updateModule(Module target, Module editedModule);
+
+    /**
+     * Replaces the given entity {@code target} with {@code editedOccasion}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedOccasion} must not be the same as another existing occasion in the address book.
+     */
+    void updateOccasion(Occasion target, Occasion editedOccasion);
+
+    /**
+     * Deletes the given Person.
+     * {@code person} must exist in the address book.
+     */
+    void deletePerson(Person person);
+
+    /**
+     * Deletes the given Module.
+     * {@code module} must exist in the address book.
+     */
+    void deleteModule(Module module);
+
+    /**
+     * Deletes the given Occasion.
+     * {@code occasion} must exist in the address book.
+     */
+    void deleteOccasion(Occasion occasion);
 
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered modules list */
+    ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered occasions list */
+    ObservableList<Occasion> getFilteredOccasionList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -55,6 +114,18 @@ public interface Model {
     // TODO: Include Filtered Module and Occasion lists
 
     //=========== Undo/Redo in level above person, module and occasion.===========================================================
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredModuleList(Predicate<Module> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredOccasionList(Predicate<Occasion> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

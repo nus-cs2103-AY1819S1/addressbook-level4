@@ -9,15 +9,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeletePersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteperson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
@@ -28,7 +27,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -41,16 +40,16 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Entity entityToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteEntity(entityToDelete);
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(personToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, entityToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeletePersonCommand // instanceof handles nulls
+                && targetIndex.equals(((DeletePersonCommand) other).targetIndex)); // state check
     }
 }

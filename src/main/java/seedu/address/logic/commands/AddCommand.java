@@ -39,6 +39,7 @@ public class AddCommand extends Command {
 
     private final Person toAdd;
 
+
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
@@ -47,15 +48,16 @@ public class AddCommand extends Command {
         toAdd = person;
     }
 
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasEntity(toAdd)) {
+        if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addEntity(toAdd);
+        model.addPerson(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

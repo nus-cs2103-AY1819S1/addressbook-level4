@@ -287,8 +287,8 @@ state, which the 'currentStatePointer' is currently pointing to.
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2: The user executes 'add n/David...' command to add a person called
-David in his TheTracker. The 'add' command calls 'Model#commitAddressBook()
-', causing the modified state of TheTracker after the 'add n/David' command
+David in his TheTracker. The 'find' command calls 'Model#commitAddressBook()
+', causing the modified state of TheTracker after the 'find David...' command
  executes to be saved in the 'addressBookStateList', and the
  'currentStatePointer' is shifted to the newly inserted address book state.
 
@@ -449,15 +449,15 @@ after the `add David...` command executes to be saved in the `addressBookStateLi
 
 image::DeleteNewCommand1StateListDiagramXueyan.png[width="800"]
 
-Step 3: The user executes 'delete n/David' to delete the person named David in the address
+Step 3: The user executes `delete n/David` to delete the person named David in the address
 book. The parser `DeleteCommandParser` will identify by the '\n' tag that the entity to be
-deleted is a person.The 'delete' command calls Model#getFilteredEntity(), Model#deleteEntity()
+deleted is a person.The `delete` command calls Model#getFilteredEntity(), Model#deleteEntity()
 and 'Model#commitAddressBook()', and causes modified address book state to be saved into the 'addressBookStateList'
 
 image::DeleteDeleteCommandStateListDiagramXueyan.png[width="800"]
 
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the delete operation works:
 
 image::DeleteSequenceDiagramXueyan.png[width="800"]
 
