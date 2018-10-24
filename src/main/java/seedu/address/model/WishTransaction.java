@@ -43,6 +43,14 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         resetData(savedCopy);
     }
 
+    public WishTransaction getCopy(WishTransaction wishTransaction) {
+        WishTransaction copy = new WishTransaction();
+        wishTransaction.getWishMap().entrySet().forEach(entry -> {
+            copy.wishMap.put(entry.getKey(), entry.getValue());
+        });
+        return copy;
+    }
+
     /**
      * Creates a WishTransaction using a {@code ReadOnlyWishBook}.
      *
