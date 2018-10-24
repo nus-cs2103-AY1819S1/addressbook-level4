@@ -173,10 +173,17 @@
     -fx-border-width: 0;
 }
 
-.cell_big_label {
+.cell_index_label {
      -fx-font-family: "Segoe UI Bold";
      -fx-font-size: 16px;
      -fx-text-fill: #ffffff;
+}
+
+.cell_name_label {
+     -fx-font-family: "Segoe UI Bold";
+     -fx-font-size: 16px;
+     -fx-text-fill: #ffffff;
+     -fx-padding: 0 0 0 18;
 }
 
 .cell_big_green_label {

@@ -23,7 +23,8 @@
       <HBox spacing="0" alignment="CENTER_LEFT">
         <GridPane>
           <children>
-            <Label fx:id="name" text="\$first" styleClass="cell_big_label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="index" text="\$index" styleClass="cell_index_label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="name" text="\$first" styleClass="cell_name_label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <Label fx:id="progress" text="\$progress" styleClass="cell_big_green_label" GridPane.halignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="0">
               <minWidth>
                 <!-- Ensures that the label text is never truncated -->
