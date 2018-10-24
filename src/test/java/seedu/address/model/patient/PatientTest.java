@@ -89,9 +89,6 @@ public class PatientTest {
         // same object -> returns true
         assertTrue(ALICE_AS_PATIENT.equals(ALICE_AS_PATIENT));
 
-        // null -> returns false
-        assertFalse(ALICE_AS_PATIENT.equals(null));
-
         // different type -> returns false
         assertFalse(ALICE_AS_PATIENT.equals(5));
 
