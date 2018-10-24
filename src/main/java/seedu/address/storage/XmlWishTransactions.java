@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -22,8 +21,7 @@ import seedu.address.model.wish.Wish;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
 
-    @XmlElementWrapper
-    private Map<UUID, XmlAdaptedWishWrapper> wishMap;
+    private Map<String, XmlAdaptedWishWrapper> wishMap;
 
     /**
      * Creates an empty XmlSerializableWishTransactionMap.
@@ -39,7 +37,7 @@ public class XmlWishTransactions {
     public XmlWishTransactions(WishTransaction wishTransaction) {
         this();
         for (Map.Entry<UUID, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
-            this.wishMap.put(entries.getKey(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
+            this.wishMap.put(entries.getKey().toString(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
         }
     }
 
@@ -59,8 +57,8 @@ public class XmlWishTransactions {
      */
     private HashMap<UUID, LinkedList<Wish>> toWishMap() throws IllegalValueException {
         HashMap<UUID, LinkedList<Wish>> convertedMap = new HashMap<>();
-        for (Map.Entry<UUID, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
-            convertedMap.put(entries.getKey(), toWishList(entries.getValue()));
+        for (Map.Entry<String, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
+            convertedMap.put(UUID.fromString(entries.getKey()), toWishList(entries.getValue()));
         }
         return convertedMap;
     }
