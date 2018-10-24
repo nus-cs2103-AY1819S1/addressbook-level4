@@ -14,7 +14,7 @@ public class AppointmentTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Appointment(null, null, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Appointment(null, null, null, 0));
     }
 
     @Test
@@ -45,13 +45,16 @@ public class AppointmentTest {
         Appointment appt3 = new Appointment(otherDate, validTime, ALICE);
         Appointment appt4 = new Appointment(otherDate, otherTime, ALICE);
 
-        //same obj
+        Appointment appt = new Appointment(validDate, validTime, ALICE, 0);
+        Appointment appt2 = new Appointment(validDate, validTime, BOB, 0);
+      //same obj
         assertTrue(appt.isSameSlot(appt));
 
         //same date and time
         assertTrue(appt.isSameSlot(appt2));
 
         //different date
+        Appointment appt3 = new Appointment(otherDate, otherTime, ALICE, 0);
         assertFalse(appt.isSameSlot(appt3));
 
         //different time
@@ -67,6 +70,9 @@ public class AppointmentTest {
         Appointment validAppt = new Appointment(validDate, validTime, ALICE);
         Appointment validAppt2 = new Appointment(validDate, validTime, BOB);
         Appointment validAppt3 = new Appointment(validDate, validTime, BOB);
+        Appointment validAppt = new Appointment(validDate, validTime, ALICE, 0);
+        Appointment validAppt2 = new Appointment(validDate, validTime, BOB, 0);
+        Appointment valiAppt3 = new Appointment(validDate, validTime, BOB, 0);
 
         //same obj
         assertTrue(validAppt.isSamePatient(validAppt));
