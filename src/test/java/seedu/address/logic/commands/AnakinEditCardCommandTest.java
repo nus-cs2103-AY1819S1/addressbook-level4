@@ -4,13 +4,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_ANSWER_A;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_ANSWER_B;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_CARD_A_ARGS;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_QUESTION_A;
+import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_QUESTION_B;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.AnakinCommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.testutil.AnakinTypicalDecks.getTypicalAnakin;
+import static seedu.address.testutil.AnakinTypicalDecks.getTypicalAnakinInDeck;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_SECOND_CARD;
 
@@ -37,7 +40,7 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
  */
 public class AnakinEditCardCommandTest {
 
-    private AnakinModel model = new AnakinModelManager(getTypicalAnakin(), new UserPrefs());
+    private AnakinModel model = new AnakinModelManager(getTypicalAnakinInDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -49,7 +52,7 @@ public class AnakinEditCardCommandTest {
         String expectedMessage = String.format(AnakinEditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
         AnakinModel expectedModel = new AnakinModelManager(model.getAnakin(), new UserPrefs());
-        expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
+        expectedModel.updateCard(model.getFilteredCardList().get(INDEX_FIRST_CARD.getOneBased()), editedCard);
         expectedModel.commitAnakin();
 
         assertCommandSuccess(anakinEditCardCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -96,8 +99,8 @@ public class AnakinEditCardCommandTest {
     public void execute_filteredList_success() {
         //showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        AnakinCard anakincardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
-        AnakinCard editedAnakinCard = new AnakinCardBuilder(anakincardInFilteredList).withQuestion(VALID_QUESTION_A).build();
+        AnakinCard anakinCardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        AnakinCard editedAnakinCard = new AnakinCardBuilder(anakinCardInFilteredList).withQuestion(VALID_QUESTION_A).build();
         AnakinEditCardCommand anakinEditCardCommand = new AnakinEditCardCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_A).build());
 
@@ -227,11 +230,16 @@ public class AnakinEditCardCommandTest {
 
     @Test
     public void equals() {
-        EditCardDescriptor CARD_A_DESC = EditCardDescriptor()
-        final AnakinEditCardCommand standardCommand = new AnakinEditCardCommand(INDEX_FIRST_CARD, VALID_CARD_A_ARGS);
+        EditCardDescriptor CARD_A_DESC = new EditCardDescriptorBuilder()
+                .withAnswer(VALID_ANSWER_A).withQuestion(VALID_QUESTION_A)
+                .build();
+        EditCardDescriptor CARD_B_DESC = new EditCardDescriptorBuilder()
+                .withAnswer(VALID_ANSWER_B).withQuestion(VALID_QUESTION_B)
+                .build();
+        final AnakinEditCardCommand standardCommand = new AnakinEditCardCommand(INDEX_FIRST_CARD, CARD_A_DESC);
 
         // same values -> returns true
-        EditCardDescriptor copyDescriptor = new EditCardDescriptor(DESC_AMY);
+        EditCardDescriptor copyDescriptor = new EditCardDescriptor(CARD_A_DESC);
         AnakinEditCardCommand commandWithSameValues = new AnakinEditCardCommand(INDEX_FIRST_CARD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -245,10 +253,10 @@ public class AnakinEditCardCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new AnakinEditCardCommand(INDEX_SECOND_CARD, DESC_AMY)));
+        assertFalse(standardCommand.equals(new AnakinEditCardCommand(INDEX_SECOND_CARD, CARD_A_DESC)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new AnakinEditCardCommand(INDEX_FIRST_CARD, DESC_BOB)));
+        assertFalse(standardCommand.equals(new AnakinEditCardCommand(INDEX_FIRST_CARD, CARD_B_DESC)));
     }
 
 }
