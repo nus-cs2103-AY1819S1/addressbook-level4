@@ -19,11 +19,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoPreviewImageManager()) {
+        if (!model.canRedoPreviewImage()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoPreviewImageManager();
+        model.redoPreviewImage();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

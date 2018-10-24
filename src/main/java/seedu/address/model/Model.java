@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -75,27 +76,22 @@ public interface Model {
     /**
      * Returns true if the model has previous PreviewImage states to restore.
      */
-    boolean canUndoPreviewImageManager();
+    boolean canUndoPreviewImage();
 
     /**
      * Returns true if the model has undone PreviewImage states to restore.
      */
-    boolean canRedoPreviewImageManager();
+    boolean canRedoPreviewImage();
 
     /**
      * Restores the model's PreviewImage to its previous state.
      */
-    void undoPreviewImageManager();
+    void undoPreviewImage();
 
     /**
      * Restores the model's PreviewImage to its previously undone state.
      */
-    void redoPreviewImageManager();
-
-    /**
-     * Saves the current PreviewImage state for undo/redo.
-     */
-    void commitPreviewImageManager();
+    void redoPreviewImage();
 
     /**
      * Updates the userPrefs current directory.
@@ -142,7 +138,7 @@ public interface Model {
      * @param image
      * @param transformation
      */
-    void updateCurrentpreviewImage(Image image, Transformation transformation);
+    void updateCurrentPreviewImage(BufferedImage image, Transformation transformation);
 
     /**
      * Update the current displayed original image.
