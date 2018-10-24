@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -56,6 +57,16 @@ public class WishTransactionTest {
     public void addWish_success() {
         wishTransaction.addWish(wish1);
         assertTrue(isSameSize(wish1, 1));
+        assertTrue(wishmapContainsKey(wishTransaction, wish1));
+        assertTrue(wishmapContainsWish(wishTransaction, wish1));
+    }
+
+    private boolean wishmapContainsKey(WishTransaction wishTransaction, Wish wish) {
+        return wishTransaction.wishMap.containsKey(wish.getId());
+    }
+
+    private boolean wishmapContainsWish(WishTransaction wishTransaction, Wish wish) {
+        return wishTransaction.wishMap.get(wish.getId()).peekLast().isSameWish(wish);
     }
 
     @Test
@@ -67,11 +78,11 @@ public class WishTransactionTest {
         assertFalse(isSameSize(wish1, 2));
 
         // should contain 2 new distinct wishes
-        assertTrue(wishTransaction.getWishMap().size()==2);
-        assertTrue(wishTransaction.getWishMap().containsKey(wish1.getId()));
-        assertTrue(wishTransaction.getWishMap().containsKey(wish2.getId()));
-        assertTrue(wishTransaction.getWishMap().get(wish1.getId()).peekLast().isSameWish(wish1));
-        assertTrue(wishTransaction.getWishMap().get(wish2.getId()).peekLast().isSameWish(wish2));
+        assertEquals(wishTransaction.getWishMap().size(), 2);
+        assertTrue(wishmapContainsKey(wishTransaction, wish1));
+        assertTrue(wishmapContainsKey(wishTransaction, wish2));
+        assertTrue(wishmapContainsWish(wishTransaction, wish1));
+        assertTrue(wishmapContainsWish(wishTransaction, wish2));
     }
 
     @Test
@@ -83,21 +94,27 @@ public class WishTransactionTest {
 
     @Test
     public void removeNonExistentialWish_shouldFail() {
-        wishTransaction.addWish(wish1);
+        assertFalse(wishmapContainsKey(wishTransaction, wish1));
+        int prevSize = wishTransaction.wishMap.size();
+        wishTransaction.removeWish(wish1);
+        assertEquals(prevSize, wishTransaction.wishMap.size());
     }
 
     @Test
     public void updateWish_success() {
         wishTransaction.addWish(wish1);
         wishTransaction.updateWish(wish1, wish2);
+        assertTrue(wishmapContainsKey(wishTransaction, wish2));
+        assertTrue(wishmapContainsWish(wishTransaction, wish2));
     }
 
     @Test
     public void resetData_success() {
         wishTransaction.addWish(wish1);
-        assertTrue(isSameSize(wish1, 1));
-        wishTransaction.resetData(new WishTransaction());
+        assertTrue(isFound(wish1));
+        wishTransaction.resetData();
         assertFalse(isFound(wish1));
+        assertTrue(wishTransaction.wishMap.isEmpty());
     }
 
     /**
