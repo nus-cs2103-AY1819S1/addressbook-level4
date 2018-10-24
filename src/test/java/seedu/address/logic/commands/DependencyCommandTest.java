@@ -118,7 +118,7 @@ public class DependencyCommandTest {
         // tasks
         expectedModelAdd.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelAdd);
-        // redo -> same first task deleted again
+        // redo -> same first task added
         expectedModelAdd.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelAdd);
 
@@ -134,7 +134,7 @@ public class DependencyCommandTest {
         expectedModelRemove.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
                 expectedModelRemove);
-        // redo -> same first task deleted again
+        // redo -> same first task dependency deleted again
         expectedModelAdd.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
                 expectedModelRemove);
