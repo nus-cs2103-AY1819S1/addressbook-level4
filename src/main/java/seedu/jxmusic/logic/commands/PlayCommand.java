@@ -6,7 +6,7 @@ import seedu.jxmusic.player.PlayerManager;
 /**
  * Lists all persons in the jxmusic book to the user.
  */
-public class PlayPlaylistCommand extends Command {
+public class PlayCommand extends Command {
 
     // todo change to "play p/" when parser can use p/ for parameter
     public static final String COMMAND_WORD = "play";
