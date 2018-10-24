@@ -53,5 +53,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public WishTransaction getWishTransaction() { return model.getWishTransaction(); }
+    public WishTransaction getWishTransaction() {
+        return model.getWishTransaction();
+    }
 }
