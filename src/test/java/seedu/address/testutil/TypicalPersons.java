@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -68,6 +69,14 @@ public class TypicalPersons {
     public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
+    // Appointments
+    public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+            .withTime(13, 00).withPerson(AMY).build();
+    public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
+            .withTime(17, 45).withPerson(BENSON).build();
+    public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+            .withTime(18, 00).withPerson(CARL).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {
@@ -84,6 +93,11 @@ public class TypicalPersons {
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }
+        /*
+        for (Appointment appointment : getTypicalAppointments()) {
+            ab.addAppointment(appointment);
+        }
+        */
         return ab;
     }
 
@@ -93,5 +107,9 @@ public class TypicalPersons {
 
     public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN));
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
     }
 }

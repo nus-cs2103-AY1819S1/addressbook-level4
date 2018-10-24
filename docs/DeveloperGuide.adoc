@@ -1,4 +1,4 @@
-= ClinicIO - Developer Guide
+﻿= ClinicIO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -209,7 +209,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the ClinicIO data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<E>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -319,12 +319,197 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+
+//tag::apptfeature[]
+=== Appointment feature
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
+
+==== Current Implementation
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The implemented operations include: +
+
+* `addappt` Command - Adds appointments to the appointment schedule.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
+* `listapptday` Command - Lists the appointment schedule of the date specified.
+
+Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
+
+==== `addappt` Command
+
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in a `Patient` id. +
+The image below illustrates this process.
+
+.Appointment construction process.
+image::ApptConstructorSequenceDiagram.png[width="0"]
+
+Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
+
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+
+`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to the it's latest state. i.e. The addition of a new `Appointment` object. This means that this command can be undone or redone.
+
+==== `listapptday` Command
+
+The `listapptday` command searches for appointments in the `UniqueAppointmentList` that land on the date that was entered by the user. For example, `listapptday 03032018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed.
+
+==== `cancelappt` Command
+
+Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+
+==== Design Considerations
+
+//end::apptfeature[]
+
+// tag::medicineinventory[]
+=== MedicineInventory
+==== Current Implementation
+
+The `MedicineInventory` extends `ClinicIO` with a medicine inventory. The `MedicineInventory` provides the user with an organised system to manage the medicines in the clinic.
+It implements the following operations:
+
+* `MedicineInventory#hasMedicine(MedicineName medicineName)` -- Checks if the `MedicineInventory` contains the `Medicine` with name `medicineName`.
+* `MedicineInventory#addMedicine(MedicineName medicineName, Medicine newMedicine)` -- Adds `newMedicine` to the `MedicineInventory` with its `medicineName`.
+* `MedicineInventory#updateMedicineQuantity(MedicineName medicineName, MedicineQuantity newQuantity)` -- Updates the `MedicineQuantity` of the `Medicine` with name `medicineName` with the `newQuantity` in the `MedicineInventory`.
+* `MedicineInventory#deleteMedicine(MedicineName medicineName)` -- Deletes the `Medicine` with name `medicineName` from the `MedicineInventory`.
+
+These operations are exposed in the `Model` interface as `Model#hasMedicine(MedicineName medicine)`, `Model#addMedicine(MedicineName medicineName, Medicine medicine)`, `Model#updateMedicine(MedicineName target, MedicineQuantity newQuantity)`, and `Model#deleteMedicine(MedicineName medicine)` respectively.
+
+Given below is an example usage scenario and how the `MedicineInventory` behaves at each step.
+
+Step 1. The user launches the ClinicIO application. The empty `MedicineInventory` will be initialized at the same time as the `ClinicIO`.
+
+Step 2. The user executes `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours` command to add a new `Medicine` with `MedicineName` `Paracetamol` to the `MedicineInventory`. The `addmedicine` command creates a new `Medicine` `newMedicine` with the fields specified by the command and calls `Model#addMedicine(Paracetamol, newMedicine)`. This adds a new entry into `MedicineInventory`.
+
+Step 3. The user executes `increasemedicine m/Paracetamol q/500` command to increase the current `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` by `500` units in the `MedicineInventory`. The `increase medicine` command first calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, the `increasemedicine` command adds `500` to the current `MedicineQuantity`, and calls `Model#updateMedicine(Paracetamol, increasedQuantity)`. This updates the `MedicineQuantity` data attribute of the `Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `increasedQuantity`.
+
+[NOTE]
+In the example outlined in Step 3, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call `Model#updateMedicine(Paracetamol, increasedQuantity)`. This prevents the user from adding extra quantity to a `Medicine` that does not exist in the `MedicineInventory`.
+
+Step 4. The user executes `decreasemedicine m/Paracetamol q/20` command to decrease the current `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` by `20` units in the `MedicineInventory`. The `decreasemedicine` command first calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, the `decreasemedicine` command subtracts `20` from the current `MedicineQuantity`, and calls `Model#updateMedicine(Paracetamol, decreasedQuantity)`. This updates the `MedicineQuantity` data attribute of the `Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `decreasedQuantity`.
+
+[NOTE]
+In the example outlined in Step 4, if the current value of the `MedicineQuantity` of the `Medicine` with `MedicineName` `Paracetamol` is less than `20`, the `MedicineInventory` does not contain enough quantity of `Medicine` with `MedicineName` `Paracetamol` to prescribe to the `Patient`, and will not call `Model#updateMedicine(Paracetamol, decreasedQuantity)`. This prevents the user from getting a negative value for `MedicineQuantity` of a `Medicine` in the `MedicineInventory`.
+
+Step 5. The user executes `deletemedicine Paracetamol` command to delete the  `Medicine` with `MedicineName` `Paracetamol` from the `MedicineInventory`. The `deletemedicine` command calls `Model#hasMedicine(Paracetamol)` to check if the `MedicineInventory` contains a `Medicine` with `MedicineName` `Paracetamol`. Next, it calls `Model#deleteMedicine(Paracetamol)` to delete the `Medicine` with `MedicineName` `Paracetamol` from the `MedicineInventory`. Now the `MedicineInventory` is empty.
+
+[NOTE]
+In the example outlined in Step 5, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call `Model#deleteMedicine(Paracetamol, increasedQuantity)`. This prevents the user from deleting a `Medicine` that does not exist in the `MedicineInventory`.
+
+==== Design Considerations
+
+===== Aspect: How to implement different protocols for `Medicine` with different `MedicineType` when managing the `MedicineInventory`
+
+* **Alternative 1 (current choice):** Use one `MedicineInventory` and implement different protocols for each `MedicineType`.
+** Pros: Use less memory.
+** Cons: More complicated to implement.
+* **Alternative 2:** Use different `MedicineInventory` for each `MedicineType`.
+** Pros: Use more memory.
+** Cons: Easier to implement logic for commands.
+
+==== Aspect: How to ensure that the `MedicineInventory` has sufficient `MedicineQuantity` of each `Medicine` at all times
+
+* **Alternative 1 (current choice):** Design a predictive algorithm using data from `Analytics`.
+** Pros: `MedicineInventory` will not have too large a surplus of un-prescribed `Medicine`.
+** Cons: Logic difficult to implement, will be complicated to incorporate data from `Analytics`.
+* **Alternative 2:** Maintain a fixed amount of `MedicineQuantity` for each `Medicine` in the `MedicineInventory`.
+** Pros: Easier and more straightforward to implement logic.
+** Cons: Might end up with too large a surplus of un-prescribed `Medicine`.
+// end::medicineinventory[]
+
+//tag::analytics[]
+=== Analytics feature
+The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
+clinic.
+
+==== Current Implementation
+image::AnalyticsClassDiagram.png[width="800"]
+
+The abstract `Statistics` class specified methods for the computation and retrieval of two groups of statistics. The
+first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
+of the statistics classes inherit from `Statistics`. They are encapsulated in `Analytics` which acts as a
+wrapper class and employs the delegation pattern. Additionally, each of them depend on `DateTimeCount` which provides
+the number of occurrences for various date and time periods.
+
+The following operations are implemented: +
+
+* `patientstats` Command - displays information on patients.
+* `apptstats` Command - displays information on appointments.
+* `doctorstats` Command - displays information on doctors.
+* `medstats` command - displays information on medicines.
+
+==== `patientstats` Command
+
+{add implementation details}
+
+==== `apptstats` Command
+
+{add implementation details}
+
+==== `doctorstats` Command
+
+{add implementation details}
+
+==== `medstats` Command
+
+{add implementation details}
+
+==== Design Considerations
+
+//end::analytics[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::login[]
+=== Login
+
+ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
+
+==== Current Implementation
+
+The login mechanism facilitated by using `UniqueDoctorList` or `UniqueReceptionistList` to retrieve a list of doctors or receptionist based on the user's role. +
+
+These operations are exposed in the Model interface as Model#hasDoctor() and Model#getDoctor() for doctors
+or Model#hasReceptionist() and Model#getReceptionist() for receptionists respectively.
+
+Given below is an scenario to illustrate the login authentication at each step: +
+
+. The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user.
+
+. If the role is doctor,
+
+.. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
+.. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
+.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by the user.
+.. To indicate successful completion of verification, the `login` command raises a `SuccessfulLoginEvent`.
+
+. If the role is receptionist,
+
+.. the `login` command invokes `Model#hasReceptionist()` to ensure that this receptionist exists inside ClinicIO.
+.. Once ClinicIO has checked that the user exists, the `login` command invokes `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
+.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by the user.
+
+. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
+
+The following sequence diagram shows how the login authentication works:
+
+==== Design Considerations
+
+===== Aspect: Retrieval of password
+
+An alternative is to open an additional alert window to prompt the user for a password.
+
+* Pros: Greater security as the entire password will be censored.
+
+* Cons: Require a new window to be opened.
+This will consume time depending on the system.
+In addition, this will detract from the user experience due to the shift in focus required.
+
+// end::login[]
 
 === Logging
 
@@ -516,6 +701,12 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== User Interface Previews
+When a pull request has visual changes to the user interface (UI), you can use `git fetch upstream
+pull/ID/head:NEW_BRANCH_NAME` to obtain the changes locally in a new branch and see what the UI will look like when the
+pull request is merged. See https://help.github.com/articles/checking-out-pull-requests-locally/[local pull requests]
+for more details.
 
 === Making a Release
 
@@ -825,6 +1016,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*:
 
+* Allow users to view data that serves as feedback on the functioning of a clinic.
 * Allow users to focus on attending to patients and providing a better experience.
 * Avoid critical errors stemming from inaccurate or incomplete paper records.
 * Improve visibility of a clinic's patient record and patient management process.
@@ -837,6 +1029,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |login |have access to confidental information relating to ClinicIO
+
 |`* * *` |medical clinic receptionist |view all patients record |see medical details of all patients
 
 |`* * *` |medical clinic receptionist |view a patient record |carry out tasks which require a patient's details
@@ -849,7 +1043,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |medical clinic receptionist |delete a patient record |ensure records of only active patients are kept
 
-|`* * *` |medical clinic receptionist |assign a patient to a queue for any room |patients can begin consultation quickly
+|`* * *` |medical clinic receptionist |assign a patient to a queue for any room |consultation can take place systematically and fairly
+
+|`* * *` |medical clinic receptionist |assign a queue number for each patient |patient can be called for consultation using his/her queue number
+
+|`* * *` |medical clinic receptionist |assign a patient to a queue based on his/her nric|I can quickly assign him/her
+
+|`* * *` |medical clinic receptionist |view the length of the queue|the logistic department can be informed to accomodate visitors
 
 |`* * *` |medical clinic receptionist |assign a patient with specific request to an individual queue for a room |patients can begin consultation quickly
 
@@ -873,8 +1073,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |medical clinic receptionist |patient medical information to the respective doctor |inform a doctor of their patient's medical history
 
-|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
-
 |`*` |medical clinic receptionist |prioritize doctors based on patient preference |enable patients to feel comfortable
 
 |`* * *` |medical clinic receptionist |update the drug inventory |ensure it is updated
@@ -886,6 +1084,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |careless user |undo any command |revert any mistakes
 
 |`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
+
+|`* * *` |medical clinic receptionist |cancel an appointment |cancel appointments if a patient cannot make the date
+
+|`* * *` |medical clinic receptionist |view a list of appointments |enable receptionists to find free appointment slots
+
+|`* * *` |medical clinic receptionist |reschedule appointments |change appointment bookings in case of an error
+
+|`* *` |medical clinic receptionist |have a calendar view of appointments |provide easier viewing of the appointment schedule
+
 |=======================================================================
 
 [appendix]
@@ -1031,8 +1240,18 @@ Use case ends.
 	** 1a.5 Repeat MSS
 +
 Use case ends.
+
+=== Use case: View ClinicIO analytics
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+
+*MSS*
+
+1. Actor requests to view ClinicIO analytics.
+2. System retrieves values and computes all statistics.
+3. System displays numerical summary and visualizations.
 +
-* 2a. All queues are full.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1062,23 +1281,6 @@ A person that is in charge of the front desk receptionist in a medical clinic.
 
 [[doctor]] Doctor::
 A person who is qualified to treat people who are ill.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

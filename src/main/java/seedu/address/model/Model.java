@@ -17,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -114,24 +117,26 @@ public interface Model {
      */
     void commitAddressBook();
 
-    //=========== For scheduling ============================================================================
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    //void resetData(ReadOnlySchedule newData);
-
-    /** Returns the schedule */
-    //ReadOnlySchedule getSchedule();
-
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */
     boolean hasAppointment(Appointment appt);
 
     /**
+     * Returns true if an appointment clashes with another appointment.
+     */
+    boolean hasAppointmentClash(Appointment appt);
+    /**
+     * Deletes the given appointment.
+     * Not to be directly accessed by the user.
+     */
+    void deleteAppointment(Appointment target);
+
+    /**
      * Cancels the given appointment.
      * The appointment must exist in the schedule.
      */
-    void cancelAppointment(Appointment appt);
+    void cancelAppointment(Appointment target);
 
     /**
      * Adds the given appointment.
@@ -153,32 +158,7 @@ public interface Model {
      * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredAppointmentList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous schedule states to restore.
-     */
-    boolean canUndoSchedule();
-
-    /**
-     * Returns true if the model has undone schedule states to restore.
-     */
-    boolean canRedoSchedule();
-
-    /**
-     * Restores the model's schedule to its previous state.
-     */
-    void undoSchedule();
-
-    /**
-     * Restores the model's schedule to its previously undone state.
-     */
-    void redoSchedule();
-
-    /**
-     * Saves the current schedule state for undo/redo.
-     */
-    void commitSchedule();
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     //@@author iamjackslayer
     /**
