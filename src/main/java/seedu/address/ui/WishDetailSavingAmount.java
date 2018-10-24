@@ -27,6 +27,8 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     @FXML
     private Label savedAmount;
 
+    private String id;
+
     public WishDetailSavingAmount() {
         super(FXML);
 
@@ -48,6 +50,7 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     private void loadWishDetails(Wish wish) {
         savedAmount.setText("$" + wish.getSavedAmount().toString());
         price.setText("/ $" + wish.getPrice().toString());
+        this.id = wish.getId().toString();
     }
 
     @Subscribe
@@ -59,6 +62,8 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     @Subscribe
     private void handleWishDataUpdatedEvent(WishDataUpdatedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadWishDetails(event.getNewData());
+        if (this.id.equals(event.getNewData().getId().toString())) {
+            loadWishDetails(event.getNewData());
+        }
     }
 }
