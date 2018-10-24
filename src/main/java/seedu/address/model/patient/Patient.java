@@ -87,7 +87,7 @@ public class Patient extends Person {
     public void addUpcomingAppointment(Appointment appointment) {
         upcomingAppointments.add(appointment);
     }
-    
+
     /**
      * Deletes appointment from patient's queue of upcoming appointment.
      */
