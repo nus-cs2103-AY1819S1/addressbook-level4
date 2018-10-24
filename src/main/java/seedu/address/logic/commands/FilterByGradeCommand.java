@@ -70,8 +70,8 @@ public class FilterByGradeCommand extends FilterCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterByGradeCommand 
-                    && minLimit == ((FilterByGradeCommand) other).minLimit 
+                || (other instanceof FilterByGradeCommand
+                    && minLimit == ((FilterByGradeCommand) other).minLimit
                     && maxLimit == ((FilterByGradeCommand) other).maxLimit);
     }
 }
