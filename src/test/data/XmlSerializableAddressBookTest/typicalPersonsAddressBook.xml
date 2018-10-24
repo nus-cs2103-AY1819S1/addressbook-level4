@@ -7,6 +7,8 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>Alice Pauline</usernamem>
+        <password>Ap12345678</password>
     </persons>
     <persons>
         <name>Benson Meier</name>
@@ -14,6 +16,8 @@
         <email>johnd@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>Benson Meier</usernamem>
+        <password>Bm12345678</password>
         <leaveApplications>
             <id>0</id>
             <description>Benson's brother's wedding</description>
@@ -28,6 +32,8 @@
         <email>heinz@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>Carl Kurz</usernamem>
+        <password>P@55w0rd</password>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -36,6 +42,8 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <project>OASIS</project>
+        <usernamem>Daniel Meier</usernamem>
+        <password>Pa55w0rd</password>
     </persons>
     <persons>
         <name>Elle Meyer</name>
@@ -43,6 +51,8 @@
         <email>werner@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>Elle Meyer</usernamem>
+        <password>ElleI5gr8</password>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -50,6 +60,8 @@
         <email>lydia@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>Fiona Kunz</usernamem>
+        <password>FionaI5H0t</password>
     </persons>
     <persons>
         <name>George Best</name>
@@ -57,5 +69,7 @@
         <email>anna@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <usernamem>George Best</usernamem>
+        <password>9&M]-Wxsb&C%u'e^+gfUFPz#f;80QRW~V)GvWWbhj?`b`e%vqQcSG&eU*b+V5yf</password>
     </persons>
 </addressbook>
