@@ -7,7 +7,7 @@
             </head>
             <body>
                 <xsl:for-each select="ccabook/ccas">
-                            <xsl:if test="name='Choir'">
+                    <xsl:if test="name='Choir'">
                         <p>
                             CCA:
                             <xsl:value-of select="name"/>
@@ -26,16 +26,25 @@
                             OutStanding:
                             <xsl:value-of select="outstanding"/>
                             <br/>
+                            <br/>
+                            <h3>Transaction: </h3>
                         </p>
                         <table border="1">
                             <tr>
-                                <th>Transaction</th>
+                                <th>S/N</th>
+                                <th>Date</th>
+                                <th>Amount ($)</th>
+                                <th>Remarks</th>
                             </tr>
-                            <tr>
-                                <td>
-                                    <xsl:value-of select="transaction"/>
-                                </td>
-                            </tr>
+
+                            <xsl:for-each select="transaction">
+                                <tr>
+                                    <td><xsl:value-of select="entryNum"/></td>
+                                    <td><xsl:value-of select="date"/></td>
+                                    <td align="right"><xsl:value-of select="amount"/></td>
+                                    <td><xsl:value-of select="log"/></td>
+                                </tr>
+                            </xsl:for-each>
                         </table>
                     </xsl:if>
                 </xsl:for-each>

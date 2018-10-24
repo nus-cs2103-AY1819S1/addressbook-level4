@@ -1,11 +1,17 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.budget.Transaction;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -34,8 +40,9 @@ public class XmlAdaptedCca {
     private String spent;
     @XmlElement(required = true)
     private String outstanding;
-    @XmlElement(required = true)
-    private String transaction;
+
+    @XmlElement
+    private List<XmlAdaptedEntry> transaction = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedCca.
@@ -48,7 +55,7 @@ public class XmlAdaptedCca {
      * Constructs an {@code XmlAdaptedCca} with the given CCA details.
      */
     public XmlAdaptedCca(String name, String head, String viceHead, String budget, String spent, String outstanding,
-                         String transaction) {
+                         List<XmlAdaptedEntry> transaction) {
         this.name = name;
         this.head = head;
         this.viceHead = viceHead;
@@ -72,7 +79,9 @@ public class XmlAdaptedCca {
         budget = String.valueOf(source.getGivenBudgetAmount());
         spent = String.valueOf(source.getSpentAmount());
         outstanding = String.valueOf(source.getOutstandingAmount());
-        transaction = source.getTransactionLog();
+        transaction = source.getEntries().stream()
+            .map(XmlAdaptedEntry::new)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -134,14 +143,11 @@ public class XmlAdaptedCca {
 
         final Outstanding modelOutstanding = new Outstanding(Integer.parseInt(outstanding));
 
-        if (transaction == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Transaction.class.getSimpleName()));
+        final List<Entry>transactionEntries = new ArrayList<>();
+        for (XmlAdaptedEntry entry : transaction) {
+            transactionEntries.add(entry.toModelType());
         }
-        if (!Transaction.isValidTranscation(transaction)) {
-            throw new IllegalValueException(Transaction.MESSAGE_TRANSACTION_CONSTRAINTS);
-        }
-        final Transaction modelTransaction = new Transaction(transaction);
+        final Set<Entry> modelTransaction = new HashSet<>(transactionEntries);
 
         return new Cca(modelName, modelHeadName, modelViceHeadName, modelBudget, modelSpent, modelOutstanding,
             modelTransaction);

@@ -7,14 +7,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CCAS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Transaction;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Remarks;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -22,7 +29,7 @@ import seedu.address.model.cca.Outstanding;
 import seedu.address.model.cca.Spent;
 import seedu.address.model.person.Name;
 
-
+//@@author ericyjw
 /**
  * Update the details of a CCA.
  *
@@ -111,10 +118,12 @@ public class UpdateCommand extends Command {
 
         Outstanding updatedOutstanding = editCcaDescriptor.getOutstanding().orElse(ccaToEdit.getOutstanding());
 
-        Transaction updatedTransaction = editCcaDescriptor.getTransaction().orElse(ccaToEdit.getTransaction());
+       // Date updatedDate = editCcaDescriptor.getDate().orElse(ccaToEdit.getDate());
+
+        Set<Entry> updatedTransactionEntry = editCcaDescriptor.getTransactionEntries().orElse(ccaToEdit.getEntries());
 
         return new Cca(updatedCcaName, updatedHead, updatedViceHead, updatedBudget, updatedSpent,
-            updatedOutstanding, updatedTransaction);
+            updatedOutstanding, updatedTransactionEntry);
     }
 
     @Override
@@ -146,7 +155,10 @@ public class UpdateCommand extends Command {
         private Budget budget;
         private Spent spent;
         private Outstanding outstanding;
-        private Transaction transaction;
+        private Set<Entry> transactions;
+        private Date date;
+        private Amount amount;
+        private Remarks remarks;
 
         public EditCcaDescriptor() {
         }
@@ -162,14 +174,19 @@ public class UpdateCommand extends Command {
             setBudget(toCopy.budget);
             setSpent(toCopy.spent);
             setOutstanding(toCopy.outstanding);
-            setTransaction(toCopy.transaction);
+            setTransaction(toCopy.transactions);
+
+            setDate(toCopy.date);
+            setAmount(toCopy.amount);
+            setRemarks(toCopy.remarks);
         }
+
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, head, viceHead, budget, spent, outstanding, transaction);
+            return CollectionUtil.isAnyNonNull(name, head, viceHead, budget, spent, outstanding, transactions);
         }
 
         public void setCcaName(CcaName name) {
@@ -220,12 +237,55 @@ public class UpdateCommand extends Command {
             return Optional.ofNullable(outstanding);
         }
 
-        public void setTransaction(Transaction transaction) {
-            this.transaction = transaction;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Transaction> getTransaction() {
-            return Optional.ofNullable(transaction);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(this.date);
+        }
+
+        public void setAmount(Amount amount) {
+            this.amount = amount;
+        }
+
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(this.amount);
+        }
+
+        public void setRemarks(Remarks remarks) {
+            this.remarks = remarks;
+        }
+
+        public Optional<Remarks> getRemarks() {
+            return Optional.ofNullable(this.remarks);
+        }
+
+
+        /**
+         * Sets {@code transaction} to this object's {@code transaction}.
+         * A defensive copy of {@code transactions} is used internally.
+         */
+        public void setTransaction(Set<Entry> transaction) {
+            this.transactions = (transactions != null) ? new HashSet<>(transaction) : null;
+        }
+
+//        /**
+//         * Sets {@code transaction} to this object's {@code transaction}.
+//         * A defensive copy of {@code transactions} is used internally.
+//         */
+//        public void setTransaction(Entry entry) {
+//            this.transactions.add(entry);
+//            //this.transactions = (transactions != null) ? new HashSet<>(transaction) : null;
+//        }
+
+        /**
+         * Returns an unmodifiable transactions entry set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code transactions} is null.
+         */
+        public Optional<Set<Entry>> getTransactionEntries() {
+            return (transactions != null) ? Optional.of(Collections.unmodifiableSet(transactions)) : Optional.empty();
         }
 
         @Override
@@ -249,7 +309,7 @@ public class UpdateCommand extends Command {
                 && getBudget().equals(e.getBudget())
                 && getSpent().equals(e.getSpent())
                 && getOutstanding().equals(e.getOutstanding())
-                && getTransaction().equals(e.getTransaction());
+                && getTransactionEntries() .equals(e.getTransactionEntries());
         }
     }
 }

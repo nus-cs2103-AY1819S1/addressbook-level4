@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import java.util.function.Predicate;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -35,5 +37,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_SPENT = new Prefix("spt/");
     public static final Prefix PREFIX_OUTSTANDING = new Prefix("out/");
     public static final Prefix PREFIX_TRANSACTION = new Prefix("trans/");
+    public static final Prefix PREFIX_ENTRY = new Prefix("entry/");
+    public static final Prefix PREFIX_AMOUNT = new Prefix("amount/");
+    public static final Prefix PREFIX_REMARKS = new Prefix("remarks/");
 
 }

@@ -2,9 +2,13 @@ package seedu.address.model.cca;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import seedu.address.model.budget.Transaction;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.person.Name;
 
 /**
@@ -23,7 +27,7 @@ public class Cca {
     private final Budget budget;
     private final Spent spent;
     private final Outstanding outstanding;
-    private final Transaction transaction;
+    private final Set<Entry> transaction;
 
     /**
      * Constructor for CCA
@@ -39,7 +43,7 @@ public class Cca {
      * @param transaction transaction history of the CCA
      */
     public Cca(CcaName name, Name head, Name viceHead, Budget budget, Spent spent, Outstanding outstanding,
-               Transaction transaction) {
+               Set<Entry> transaction) {
         requireAllNonNull(name, head, viceHead, budget, spent, outstanding);
         this.name = name;
         this.head = head;
@@ -61,7 +65,7 @@ public class Cca {
      * @param transaction transaction history of the CCA
      */
     public Cca(CcaName name, Name head, Budget budget, Spent spent, Outstanding outstanding,
-               Transaction transaction) {
+               Set<Entry> transaction) {
         requireAllNonNull(name, head, budget, spent, outstanding);
         this.name = name;
         this.head = head;
@@ -90,7 +94,7 @@ public class Cca {
         this.budget = budget;
         this.spent = new Spent(0);
         this.outstanding = new Outstanding(budget.getBudget());
-        this.transaction = new Transaction("-");
+        this.transaction = new HashSet<>();
     }
 
     public String getCcaName() {
@@ -120,8 +124,12 @@ public class Cca {
         return outstanding.getOutstanding();
     }
 
-    public String getTransactionLog() {
-        return transaction.getTransactionLog();
+    /**
+     * Returns an immutable Transaction Entry set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Entry> getEntries() {
+        return Collections.unmodifiableSet(transaction);
     }
 
     public CcaName getName() {
@@ -148,9 +156,6 @@ public class Cca {
         return budget;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
-    }
 
     /**
      * Returns true if both CCA of the same name have at least one other identity field that is the same.

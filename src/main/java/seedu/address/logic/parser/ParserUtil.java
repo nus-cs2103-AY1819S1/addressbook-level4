@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 
 import java.io.File;
 import java.util.Collection;
@@ -11,7 +16,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.budget.Transaction;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Remarks;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Budget;
@@ -254,6 +263,7 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    //@@author ericyjw
     /**
      * Parses a {@code String Budget} into a {@code Budget}.
      * Leading and trailing whitespaces will be trimmed.
@@ -319,20 +329,96 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String transaction} into a {@code Transaction}.
+     * Parses a {@code String date} into a {@code int}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
-     * @throws ParseException if the given {@code Transaction} is invalid.
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Transaction parseTransaction(String transaction) throws ParseException {
-        requireNonNull(transaction);
-        String trimmedTransaction = transaction.trim();
-        if (!Transaction.isValidTranscation(trimmedTransaction)) {
-            throw new ParseException(Transaction.MESSAGE_TRANSACTION_CONSTRAINTS);
+    public static Date parseEntryDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        int dateInt = Integer.parseInt(trimmedDate);
+        if (dateInt < 0 || dateInt > 31) {
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
         }
-        return new Transaction(trimmedTransaction);
+        return new Date(String.valueOf(dateInt));
     }
+
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_AMOUNT_CONSTRAINTS);
+        }
+        return new Amount(Integer.valueOf(trimmedAmount));
+    }
+
+    public static Remarks parseRemarks(String remarks) throws ParseException {
+        requireNonNull(remarks);
+        if (!Remarks.isValidRemark(remarks)) {
+            throw new ParseException(Remarks.MESSAGE_REMARKS_CONSTRAINTS);
+        }
+        return new Remarks(remarks);
+    }
+
+    /**
+     * Parses {@code Collection<Entry> transactions} into a {@code Set<Entry>}.
+     *
+     * @author ericyjw
+     */
+    public static Set<Entry> parseTransaction(ArgumentMultimap map, Collection<String> transaction) throws ParseException {
+        requireNonNull(transaction);
+        final Set<Entry> transactionSet = new HashSet<>();
+
+        for(String entry: transaction) {
+            transactionSet.add(parseEntry(map, entry));
+        }
+
+        return transactionSet;
+    }
+
+    /**
+     * Parses a {@code Entry entry} into a {@code Entry}.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static Entry parseEntry(ArgumentMultimap map, String entry) throws ParseException {
+        requireNonNull(entry);
+        Integer entryNum = null;
+        Date date = null;
+        Amount amount = null;
+        Remarks remarks = null;
+
+        if (map.getValue(PREFIX_ENTRY).isPresent()) {
+            entryNum = ParserUtil.parseEntryNum(map.getValue(PREFIX_TRANSACTION).get());
+        }
+
+        if (map.getValue(PREFIX_DATE).isPresent()) {
+            date = ParserUtil.parseEntryDate(map.getValue(PREFIX_DATE).get());
+        }
+        if (map.getValue(PREFIX_AMOUNT).isPresent()) {
+            amount = ParserUtil.parseAmount(map.getValue(PREFIX_AMOUNT).get());
+        }
+        if (map.getValue(PREFIX_REMARKS).isPresent()) {
+            remarks = ParserUtil.parseRemarks(map.getValue(PREFIX_REMARKS).get());
+        }
+
+        Entry toCheck = new Entry(entryNum, date, amount, remarks);
+        if (!Entry.isValidEntry(toCheck)){
+            throw new ParseException(Entry.MESSAGE_ENTRY_CONSTRAINTS);
+        }
+        return toCheck;
+    }
+
+    public static Integer parseEntryNum(String entryNum) throws ParseException {
+        requireNonNull(entryNum);
+        if (entryNum != null) {
+            throw new ParseException(Remarks.MESSAGE_REMARKS_CONSTRAINTS);
+        }
+        return Integer.parseInt(entryNum);
+    }
+
+    //@@author
     /**
      * Parses a {@code String date} into a {@code int}.
      * Leading and trailing whitespaces will be trimmed.
