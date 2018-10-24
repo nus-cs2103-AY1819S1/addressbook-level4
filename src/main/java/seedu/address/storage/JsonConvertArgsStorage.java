@@ -39,5 +39,4 @@ public class JsonConvertArgsStorage {
         }
         return args;
     }
-
 }
