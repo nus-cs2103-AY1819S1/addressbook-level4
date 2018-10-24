@@ -25,7 +25,7 @@ public class FilterByTimeCommandTest {
 
     @Test
     public void equals() {
-        String first = "Mon 1200 1400";
+        String first = "mon 1200 1400";
         String second = " ";
 
 
