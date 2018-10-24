@@ -92,8 +92,8 @@ public class AddMedicalHistoryCommand extends Command {
             if (!(patientToEdit.getMedicalHistory().getConditions().equals(null))) {
                 for (int i = 0; i < newConditions.size(); i++) {
                     if (patientToEdit.getMedicalHistory().getConditions().contains(newConditions.get(i))) {
-                        throw new CommandException(newConditions.get(i) +
-                                MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+                        throw new CommandException(newConditions.get(i)
+                                + MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
                     }
                 }
             }
