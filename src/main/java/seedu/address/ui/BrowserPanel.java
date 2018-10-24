@@ -20,6 +20,7 @@ import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
@@ -144,7 +145,7 @@ public class BrowserPanel extends UiPart<Region> {
         if (currentPatient.getMedicineAllocated().isEmpty()) {
             url += "<br>";
         } else {
-            for (Map.Entry<Medicine, Integer> entry : currentPatient.getMedicineAllocated().entrySet()) {
+            for (Map.Entry<Medicine, QuantityToDispense> entry : currentPatient.getMedicineAllocated().entrySet()) {
                 url += entry.getKey().getMedicineName().fullName;
                 url += " x ";
                 url += entry.getValue().toString();
