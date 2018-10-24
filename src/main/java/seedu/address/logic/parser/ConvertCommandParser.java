@@ -29,9 +29,9 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
             Path filePath;
             if (all.length >= 1) {
                 cmds = Arrays.copyOfRange(all, 2, all.length);
-                filePath = ConvertCommand.SINGLE_COMMAND_TEMPLATE_PATH;
+                filePath = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
             } else {
-                filePath = ConvertCommand.SINGLE_COMMAND_TEMPLATE_PATH;
+                filePath = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
             }
             return new ConvertCommand(filePath, new Transformation(operation, cmds));
         } catch (ParseException | IOException pe) {
