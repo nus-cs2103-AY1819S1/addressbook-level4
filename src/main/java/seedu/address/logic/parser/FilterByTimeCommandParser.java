@@ -21,7 +21,7 @@ public class FilterByTimeCommandParser {
         Time currTime = new Time(args);
         if (currTime.toString().isEmpty()) {
             throw new ParseException(
-                    String.format("Enter error message here"));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
         }
 
         return new FilterByTimeCommand(args);
