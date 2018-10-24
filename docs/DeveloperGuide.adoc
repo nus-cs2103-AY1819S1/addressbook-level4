@@ -1,15 +1,25 @@
 = Developer Guide
+:site-section: DeveloperGuide
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
 
 == Implemention
 **Trivia:**
 
 The trivia function is facilitated by `LearnVocabulary`.
-Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion`.
+Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion` and stores a list of trivia questions is `triviaQuestionList`.
+Scores for a trivia game are also stored using `currentScore` and `maxScore`.
 
 Additionally, it also implements the following operations:
 
-* `setTrivia` -- sets the trivia question based on the current vocabulary list
+* `setTriviaList` -- sets the trivia question list based on the current vocabulary list
+* `setTrivia` -- sets the trivia question based on `triviaQuestionList`
 * `getTrivia` -- outputs the current trivia question.
+* `updateScore` -- adds 1 to the the`currentScore`
+* `clearTrivia` -- clears the current trivia question as well as removing it from the `triviaQuestionList`
+* `isTriviaMode` -- a boolean to indicate whether the model is currently in trivia mode.
+* `toggleTriviaMode` -- toggle trivia mode
 
 These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
 
@@ -23,9 +33,14 @@ Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
 [NOTE]
 If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
 
-Step 3. `TriviaCommand.execute()` now calls `Model.setTrivia()` to set the trivia question within `LearnVocabulary`.
+Step 3. `TriviaCommand.execute()` calls `toggleTriviaMode` to indicate that LearnVocabulary is in trivia mode.
 
-Step 4. `TriviaCommand.execute()` calls `Model.getTrivia` and outputs to the user.
+[NOTE]
+While in trivia mode, every command the user types will be parsed as `TriviaAnsCommand`. Trivia mode can be exited by either completing the trivia or typing "triviaExit"
+
+Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the trivia question within `LearnVocabulary`.
+
+Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
 
 **Answer**
 
@@ -33,7 +48,7 @@ The answer command is indicated as `TriviaAnsCommand` in `commands`. It will tak
 
 Outlined below is how the answer function operates:
 
-Step 1: User calls `answer` with his/her argument.
+Step 1: User enters  his/her argument.
 
 [NOTE]
 Attempting to call the `answer` command without first calling `trivia` will result in an error.
@@ -80,9 +95,12 @@ Step 2: `GroupDeleteCommand` checks passed arguments.
 
 Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
 
-**Show**
+**Show implementation**
 
-The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page.
+The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
+As for `find`, perhaps the team and I can find another purpose for it.
+As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
 
 Below is a description on how the select function operates:
 
@@ -94,7 +112,14 @@ Step 3: The result is the list of filtered words, together with their definition
 
 **Learn**
 
-The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web. This command is delicate in the sense that it requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception. There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
+However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
+
+Functions added:
+
+* `Dictionary#invoke()` -- calls the main function of Dictionary which links it to LearnVocabulary
+* `Dictionary#isConnectedToInternet()` -- checks to see if there is an Internet connection established.
+* `Dictionary#isWordInOnlineDictionary()` -- checks to see if it is a valid word and if it exists in Dictionary.com
 
 Below is a description on how the select function operates:
 

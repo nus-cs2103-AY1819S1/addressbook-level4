@@ -1,4 +1,8 @@
 = User Guide
+:site-section: UserGuide
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
 
 == Introduction
 
@@ -49,14 +53,16 @@ Format: delete 3
 
 *Trivia game*
 
-Presents a question based on words in LearnVocabulary
+Starts trivia mode.
+Presents 10 questions from the user's vocabulary list.
+
 Command syntax: trivia
 Format: trivia
 
 *Trivia Answer*
-Answer the trivia question presented when using the trivia command
-Command syntax: answer
-Format: answer [word]
+Used to answer questions presented in trivia mode. No command syntax is needed.
+
+Format: [word]
 
 *Clears all words from the vocabulary list*
 
@@ -109,4 +115,3 @@ Help: help
 Exit: exit
 
 Group: group [word] [group]
-

@@ -1,5 +1,6 @@
 package seedu.learnvocabulary.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -56,10 +57,27 @@ public interface Model {
      */
     Word getTrivia();
 
+    ArrayList<Word> getTriviaList();
+
     /**
      * Sets a trivia question based on the vocabulary list;
      */
-    void setTrivia();
+    void setTriviaList();
+
+    void setTriviaQuestion();
+
+    boolean isTriviaMode();
+
+    void toggleTriviaMode();
+
+    void clearTrivia();
+
+    void updateScore();
+
+    int currentScore();
+
+    int maxScore();
+
 
     /**
      * Updates the filter of the filtered word list to filter by the given {@code predicate}.
