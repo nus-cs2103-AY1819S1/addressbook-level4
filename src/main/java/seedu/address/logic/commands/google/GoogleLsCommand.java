@@ -31,7 +31,7 @@ public class GoogleLsCommand extends GoogleCommand {
             throws CommandException {
         requireNonNull(model);
 
-        List<String> printTarget = new ArrayList<>();
+        List<String> printTarget;
         StringBuilder toPrint = new StringBuilder();
         try {
             if (parameter.isEmpty()) {

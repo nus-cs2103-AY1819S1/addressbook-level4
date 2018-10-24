@@ -34,6 +34,11 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    /**
+     * Identifies logged in google account
+     */
+    private String user;
+
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private Config config;
@@ -64,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane previewImagePlaceholder;
 
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -72,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.user = user;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -136,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter();
+        StatusBarFooter statusBarFooter = new StatusBarFooter(user, prefs.getCurrDirectory().toString());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic, prefs);
