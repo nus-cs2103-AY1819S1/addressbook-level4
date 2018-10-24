@@ -52,7 +52,7 @@ public class WishCard extends UiPart<Region> {
         super(FXML);
 
         this.wish = wish;
-        this.id = wish.getId().toString();
+        this.id = displayedIndex + ". ";
 
         index.setText(displayedIndex + ". ");
         name.setText(wish.getName().fullName);
