@@ -59,7 +59,7 @@ public class FirstDayCommand extends Command {
 
         if (weekDescription != "") {
             return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + "Current week: %s", weekDescription
-            + "\n" + "The week description will reflected when you relaunch the application"));
+            + "\n" + "The week description will be reflected when you relaunch the application"));
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
