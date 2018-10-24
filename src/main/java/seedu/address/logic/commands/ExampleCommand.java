@@ -36,6 +36,7 @@ public class ExampleCommand extends Command {
 
     private final Index targetIndex;
     private Path imagePath;
+    private Transformation transformationDone;
 
     public ExampleCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -48,6 +49,7 @@ public class ExampleCommand extends Command {
         try {
             imagePath = model.getCurrentOriginalImage();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
+            model.updateCurrentPreviewImage(modifiedImage, transformationDone);
             EventsCenter.getInstance().post(
                     new ChangeImageEvent(SwingFXUtils.toFXImage(modifiedImage, null), "preview"));
             return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
@@ -71,18 +73,23 @@ public class ExampleCommand extends Command {
         switch (targetIndex.getOneBased()) {
         case 1:
             Transformation transformation = new Transformation("blur", "0x8");
+            transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         case 2:
             transformation = new Transformation("rotate", "50");
+            transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         case 3:
             transformation = new Transformation("resize", "50%");
+            transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         case 4:
             transformation = new Transformation("colorspace", "gray");
+            transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         default:
             transformation = new Transformation("resize", "100%");
+            transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         }
     }

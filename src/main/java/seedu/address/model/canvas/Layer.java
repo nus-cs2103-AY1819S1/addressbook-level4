@@ -23,8 +23,8 @@ public class Layer {
         this.image = requireNonNull(image);
         this.x = 0;
         this.y = 0;
-        this.height = image.getImage().getHeight();
-        this.width = image.getImage().getWidth();
+        this.height = image.getHeight();
+        this.width = image.getWidth();
         this.name = name;
     }
 
