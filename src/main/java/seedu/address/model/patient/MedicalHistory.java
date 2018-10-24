@@ -14,6 +14,10 @@ public class MedicalHistory {
         allergies = new ArrayList<>();
         conditions = new ArrayList<>();
     }
+    public MedicalHistory(ArrayList<String> allergies, ArrayList<String> conditions){
+        this.allergies = allergies;
+        this.conditions = conditions;
+    }
 
     public ArrayList<String> getAllergies() {
         return allergies;

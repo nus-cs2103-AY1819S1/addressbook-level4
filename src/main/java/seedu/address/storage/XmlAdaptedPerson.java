@@ -76,7 +76,6 @@ public class XmlAdaptedPerson {
         if (pastAppointments != null) {
             this.pastAppointments = new ArrayList<>(pastAppointments);
         }
-
         if (medicalHistory != null){
             this.medicalHistory = medicalHistory;
         }
@@ -106,7 +105,6 @@ public class XmlAdaptedPerson {
                     .collect(Collectors.toList());
         }
         if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
-
             medicalHistory = ((Patient) source).getMedicalHistory();
         }
 
@@ -132,6 +130,9 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedAppointment pastAppointments : pastAppointments) {
             patientPastAppointments.add(pastAppointments.toModelType());
         }
+
+        final MedicalHistory modelMedicalHistory = new MedicalHistory(medicalHistory.getAllergies(),
+                medicalHistory.getConditions());
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -175,7 +176,7 @@ public class XmlAdaptedPerson {
             return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
             return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123",
-                    patientUpcomingAppointments, patientPastAppointments);
+                    patientUpcomingAppointments, patientPastAppointments, modelMedicalHistory);
         } else {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         }

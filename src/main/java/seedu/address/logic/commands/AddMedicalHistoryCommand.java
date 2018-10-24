@@ -36,6 +36,8 @@ public class AddMedicalHistoryCommand extends Command {
 
     public static final String MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS = "Medical history added for: %1$s";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY = "This command is only for patients";
+    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE = ": already existed";
+
 
     private final Index index;
     private String allergy;
@@ -70,13 +72,26 @@ public class AddMedicalHistoryCommand extends Command {
         }
         Patient patientToEdit = (Patient)lastShownList.get(index.getZeroBased());
 
-        Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
-                patientToEdit.getAddress(), patientToEdit.getRemark(), patientToEdit.getTags(), patientToEdit.getTelegramId());
-
         ArrayList<String> newAllergies = new ArrayList<>(Arrays.asList(allergy.split(",")));
         ArrayList<String> newConditions = new ArrayList<>(Arrays.asList(condition.split(",")));
+        if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
+            for (int i = 0; i < newAllergies.size(); i++){
+                if (patientToEdit.getMedicalHistory().getAllergies().contains(newAllergies.get(i))){
+                    throw new CommandException(newAllergies.get(i) + MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+                }
+            }
+        }
+        if(!(patientToEdit.getMedicalHistory().getConditions().equals(null))){
+            for (int i = 0; i < newAllergies.size(); i++){
+                if (patientToEdit.getMedicalHistory().getConditions().contains(newConditions.get(i))){
+                    throw new CommandException(newConditions.get(i) + MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+                }
+            }
+        }
+
         ArrayList<String> allergies=new ArrayList<String>();
         ArrayList<String> conditions=new ArrayList<String>();
+
 
         if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
             allergies.addAll(patientToEdit.getMedicalHistory().getAllergies());
@@ -89,7 +104,12 @@ public class AddMedicalHistoryCommand extends Command {
 
         medicalHistory.setAllergies(allergies);
         medicalHistory.setConditions(conditions);
-        editedPatient.setMedicalHistory(this.medicalHistory);
+
+        Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
+                patientToEdit.getAddress(), patientToEdit.getRemark(), patientToEdit.getTags(),
+                patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
+                patientToEdit.getPastAppointments());
+        editedPatient.setMedicalHistory(medicalHistory);
         model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
