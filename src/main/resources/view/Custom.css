@@ -55,11 +55,34 @@
 }
 
 .menu-bar {
-    -fx-background-color: -blue-1-;
+    -fx-background-color: -background-;
+}
+
+.menu-bar .label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Open Sans";
+    -fx-text-fill: -white-1-;
+    -fx-opacity: 1;
+}
+
+.context-menu {
+    -fx-background-color: -background-;
+}
+
+.grid-pane {
+    -fx-background-color: -background-;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-alignment: center;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: -blue-1-;
+    -fx-border-width: 0;
+    -fx-background-color: -background-;
+}
+
+.grid-pane .stack-pane .label {
+    -fx-font-family: "Open Sans"
 }
 
 #contextIndicator {
@@ -199,7 +222,7 @@
 }
 
 #browserPlaceholder {
-    -fx-padding: 12;
+    -fx-padding: 0 12 12 12;
     -fx-background-color: -background-;
     -fx-background-insets: 0px, 10px;
     -fx-border-radius: 2;
