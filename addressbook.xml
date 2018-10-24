@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
     <tasks>
-        <name>Alex Yeoh</name>
-        <date>121107</date>
-        <priority>1</priority>
-        <venue>Blk 30 Geylang Street 29, #06-40</venue>
-        <tagged>friends</tagged>
-    </tasks>
-    <tasks>
         <name>Bernice Yu</name>
         <date>141258</date>
         <priority>1</priority>
@@ -50,4 +43,11 @@
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
+    <archivedTasks>
+        <name>Alex Yeoh</name>
+        <date>121107</date>
+        <priority>1</priority>
+        <venue>Blk 30 Geylang Street 29, #06-40</venue>
+        <tagged>friends</tagged>
+    </archivedTasks>
 </scheduleplanner>
