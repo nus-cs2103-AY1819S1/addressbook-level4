@@ -214,7 +214,9 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Wish Book data.
-* exposes an unmodifiable `ObservableList<Wish>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Wish>` that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change. The elements of the `ObservableList<Wish>` can also
+be filtered and sorted to suit the needs of specific commands.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -243,6 +245,53 @@ Classes used by multiple components are in the `seedu.wishbook.commons` package.
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Model
+==== Wish Model
+A wish is uniquely identified by its Universal Unique Identifier (UUID) which is generated randomly only once for a
+particular wish, upon its creation through the `AddCommand`. A wish stores the following primary attributes:
+
+* Name
+* Price
+* Date
+* Saved Amount
+* Url
+* Remark
+* Tags
+* UUID
+
+[NOTE]
+It is impossible for the user to create a duplicate wish as it is impossible to modify a wish's UUID.
+
+==== Wish Priority
+A wish needs to be prioritised in a specific order such that the wishes with the highest priority will be visible
+on the top of the list. In WishBook, the priority is determined primarily by the due date of the wish which is
+stored in every wish's `Date` attribute. Ties are broken by `Name`. Further ties are broken by `UUID` as it is possible
+for the `Date` and `Name` of two wishes to be identical.
+
+The sorting of the displayed results is done by the `filteredSortedWishes` list. The sorting order is specified by
+`WishComparator`.
+
+==== Design Considerations
+===== Aspect: Uniqueness of a Wish
+* **Alternative 1(current choice):** Identify a `Wish` by a randomly generated UUID.
+** Pros: Extremely low probability of collision.
+** Pros: No extra maintenance required upon generation as every `Wish` is unique.
+** Cons: UUID does not map to any real world entity and it is used strictly for identification.
+** Cons: It is more difficult to system test the `AddCommand` with the current group of methods for system tests as
+UUID is randomly generated each time.
+
+* **Alternative 2:** Identify a wish by `Name`, `Price`, `Date`, `Url`, `Tags`. Wishes with identical values for
+these attributes will be represented by a single `WishCard`. The `WishCard` will be augmented with a `Multiplicity` to
+indicate the number of identical wishes.
+** Pros: WishBook will be more compact and every attribute stored in a `Wish` maps to a real entity.
+** Cons: Additional attribute `Multiplicity` may have to be frequently edited as it is another
+attribute that is affected by multiple commands.
+
+* **Alternative 3:** Identify a wish by a new attribute `CreatedTime`, which is derived from the system time
+when the wish is created.
+** Pros: The attribute maps to a real entity. It can be an additional information presented to the user about a wish.
+** Cons: There might be collisions in `CreatedTime` if the the system time is incorrect.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -384,37 +433,33 @@ If there was some error saving the current state of the `WishTransaction` to the
 The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
 is facilitated mainly by the `ModelManager` which implements `Model`.
 It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their respective data structures.
-After adding a `Wish`, the `FilteredWishList` is also updated to reflect the latest WishBook.
+After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the latest WishBook.
 The UI is also prompted to refresh through a `WishBookChangedEvent`.
 
 Given below is an example usage scenario and how an AddCommand is carried out.
 
 Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200`, and the current date is 2nd October 2017 (2/10/2017).
-The user's command is successfully parsed to create a `Wish` with the following properties:
+The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
+`Date` attribute which follows `d/` in the command will be discussed below.
 
-* Name: _1TB Toshiba SSD_
-* Price: $158.00
-* DueDate: `200d` ays from 2/10/2017
-* URL: `not stated`
-
-Step 2. During the computation of DueDate is handled internally in the `DueDate` class,
-which is able to take days, months, and years as input to generate a proper DueDate with the current time the user executes the command.
-Internally, DueDate converts the input time into number of days, and adds it to the current date to get the desired DueDate.
+During the computation of wish expiry date is handled internally in the `ParserUtil` class,
+which is able to take days, months, and years as input to generate a proper `Date` with the current time the user executes the command.
+Internally, `ParserUtil#parseDate()` converts the input time into number of days, and adds it to the current date to get the desired `Date`.
 
 The resultant wish will have the following properties:
 
 * Name: _1TB Toshiba SSD_
 * SavedAmount: 0
 * Price: 158.00
-* DueDate: 20/4/2018 (20th April 2018)
+* Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
 * Transactions: `empty LinkedList`
 
-Step 3. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
+Step 2. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
 which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
-as `filteredWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
+as `filteredSortedWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
 
 _{TO-DO: Sequence Diagram here}_
 
@@ -433,15 +478,14 @@ The Save Amount feature is executed through an `SaveCommand` by the user, which 
 is facilitated mainly by the `ModelManager` which implements `Model`.
 Wish stores the `price` and `savedAmount` of `Wish`, helping to track the progress of the savings towards the `price`.
 Meanwhile, WishBook stores the `spareFunds`, which is an excess pool of funds that can be used in the future.
-After adding a saving, the FilteredWishList is also updated to reflect the latest WishBook.
+After adding a saving, the `filteredSortedWishes` is also updated to reflect the latest observable WishBook.
 
 Given below is an example usage scenario and how the SaveCommand behaves at each step:
 
-Step 1. The user launches the application for the first time.
-WishBook will be initialised in `ModelManager` with the initial WishBook state, where `SavedAmount spareFunds` = 0.0 .
-
-Step 2. The user executes `save 1 s/10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. In the SaveCommand#execute method,
-a new editedWish is created to reflect the new savedAmount. It then calls Model#updateWish to update this wish with the old one in `WishBook`.
+Step 1. The user executes `save 1 s/10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. The $10 is
+wrapped in an `Amount` and a `SaveCommand` instance is created with the `Amount`. `Amount` is then used to make an updated
+instance of the `Wish` at index 1 whose `SavedAmount` will be updated. `Model#updateWish` is then called to update this
+wish with the old one in `WishBook`.
 
 The resultant wish will have the following properties:
 
@@ -454,12 +498,17 @@ The resultant wish will have the following properties:
 * Tags: `none`
 * Transactions: `empty LinkedList`
 * Fulfilled: `false`
+* Expired: `false`
 
 [NOTE]
-If the `Index` is invalid, or the saving entered causes `savedAmount` to become negative, it will not call Model#updateWish.
+`Amount` can be a negative value where it would mean a withdrawal of money from a particular wish.
+
+[NOTE]
+`SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
+to be negative.
 
 Step 3. The user decides to execute save 1 s/10 again. However, SaveCommand checks that `savedAmount` > `price`.
-SaveCommand#execute creates a new `editedWish` with `savedAmount = wish.getPrice()`.
+SaveCommand#execute creates a new updated `Wish` with `savedAmount = wish.getPrice()`.
 
 The resultant wish will have the following properties:
 
@@ -472,6 +521,7 @@ The resultant wish will have the following properties:
 * Tags: `none`
 * Transactions: `empty LinkedList`
 * Fulfilled: `true`
+* Expired: `false`
 
 Step 4. The excess amount of $5 is stored in a new `SavedAmount` variable `excessAmount`.
 SaveCommand#execute then calls Model#addToSpareFunds(excess) to update the `spareFunds` in WishBook.
