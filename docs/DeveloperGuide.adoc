@@ -11,13 +11,25 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
-:experimental:
 endif::[]
+:experimental:
 :repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
+== Introduction
+
+Welcome to Car Park Finder's developer guide!
+
+=== What is Car Park Finder
+Car Park Finder is an application to find HDB (Housing Development Board) car parks in Singapore. It allows you to
+work with a *Command Line Interface (CLI)* to display a list of car parks by typing. It enables the following:
+
+* Viewing of car park information through typing.
+* Searching and filtering by location and keywords.
+
 == Setting up
+This section describes the steps needed to set up the application.
 
 === Prerequisites
 
@@ -36,7 +48,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repository and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project
 dialog first)
 . Set up the correct JDK version for Gradle
@@ -54,7 +66,7 @@ This will generate all resources required by the application and tests.
 and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the
 newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER],
+.. To resolve this, place your cursor over any of the code section highlighted in red. kbd:[ALT + ENTER]
 and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well
 (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
@@ -63,10 +75,11 @@ and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
-. <<Testing,Run the tests>> to ensure they all pass.
+* Run the `seedu.parking.MainApp` and try a few commands
+* <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+Here are some tips to before writing code for an easier time.
 
 ==== Configuring the coding style
 
@@ -96,6 +109,7 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 == Design
+This section explains the design architecture and various components of the system.
 
 [[Design-Architecture]]
 === Architecture overview
@@ -148,7 +162,7 @@ Each of the User Interface, Logic, Model, Storage Components also:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the _Class Diagram_ given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
+For example, the `Logic` component (see the *_Class Diagram_* given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -158,15 +172,15 @@ image::LogicClassDiagram.png[width="800"]
 
 This section explains the main nature of design adopted by the system.
 
-The _Sequence Diagram_ below shows how the components interact when the user issues the command `delete 1`.
+The *_Sequence Diagram_* below shows how the components interact when the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `CarparkFinderChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The _Sequence Diagram_ below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The *_Sequence Diagram_* below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
@@ -181,8 +195,8 @@ The sections below give more details of each component.
 
 The `Main` component consists of only one class, link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them with one another.
-* At shut down: Shuts down the components and invokes cleanup methods where necessary.
+* At app launch: initializes the components in the correct sequence, and connects them with one another.
+* At shut down: shuts down the components and invokes cleanup methods where necessary.
 
 [[Design-Commons]]
 === Commons component
@@ -193,7 +207,7 @@ The `Commons` component consists of classes used by multiple other components. T
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 [NOTE]
-Classes used by multiple components are put in the seedu.addressbook.commons package.
+Classes used by multiple components are put in the seedu.carparkfinder.commons package.
 
 [[Design-Ui]]
 === User interface component
@@ -202,7 +216,7 @@ The `User Interface` (`UI`) component consists of a `MainWindow` that is made up
 The base class
 link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework.
 
-Please refer to the Class Diagram below for more details on how they are connected.
+Please refer to the *_Class Diagram_* below for more details on how they are connected.
 
 .Structure of the User Interface component
 image::UiClassDiagram.png[width="800"]
@@ -225,7 +239,7 @@ is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWind
 The `Logic` component consist of a `LogicManager` that takes care of the parse and exexcution of commands.
 It inherits the base class link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`].
 
-Please refer to the _Class Diagram_ below for more details on how they are connected.
+Please refer to the *_Class Diagram_* below for more details on how they are connected.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -233,12 +247,12 @@ image::LogicClassDiagram.png[width="800"]
 
 In general, this is the workflow of the `Logic` component:
 
-.  Get the `AddressBookParser` class to parse the user command.
+.  Get the `CarparkFinderParser` class to parse the user command.
 .  Create a `Command` object which is executed by the `LogicManager`.
 .  Pass the result of the command execution over to `Model`, which can affect it (e.g. adding a person) and/or raise events.
 .  Return the command execution by encapsulating the command as a `CommandResult` object which then is passed back to the `UI`.
 
-The _Sequence Diagram_ below shows the interactions within the `Logic` component
+The *_Sequence Diagram_* below shows the interactions within the `Logic` component
 when `execute("delete 1")` is called.
 
 .Sequence Diagram of of `execute("delete 1")
@@ -252,7 +266,7 @@ It does not depend on any of the three other components.
 link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`] is the base class.
 
 
-Please refer to the _Class Diagram_ below for more details.
+Please refer to the *_Class Diagram_* below for more details.
 
 .Structure of the Model Component
 
@@ -263,12 +277,12 @@ In general, this is the structure of the `Model` Component:
 
 * The `ModelManager` extends the `Model` Interface.
 
-* It stores a `VersionedAddressBook` and a `UserPref` object.
+* It stores a `VersionedCarparkFinder` and a `UserPref` object.
 ** The `UserPref` object represents the user's preferences.
-** The `VersionedAddressBook` contains a `addressBookStateList` which is used to store multiple `Carpark` objects.
+** The `VersionedCarparkFinder` contains a `carparkFinderStateList` which is used to store multiple `Carpark` objects.
 
 
-* The `ModelManager` also manages a filtered list of `Carpark` objects filtered from the `addressBookStateList`.
+* The `ModelManager` also manages a filtered list of `Carpark` objects filtered from the `carparkFinderStateList`.
 
 * The `Model component` exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
 e.g. the UI can be bound to this list so that it automatically updates when data in the list changes.
@@ -291,7 +305,7 @@ image::ModelClassBetterOopDiagram.png[width="800"]
 The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
 link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`] is the base class.
 
-Please refer to the _Class Diagram_ below for more details on how they are connected.
+Please refer to the *_Class Diagram_* below for more details on how they are connected.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -308,6 +322,8 @@ This section describes some noteworthy details on how certain features are imple
 
 === Query feature
 
+The query features updates the car park information.
+
 ==== Overview
 
 The query mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
@@ -320,6 +336,9 @@ Some notable methods that `GsonUtil` implement are:
 * `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
 
 Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
+
+[NOTE]
+A local copy of the car park information is saved at the end. The user only needs to execute this command to get the latest information.
 
 ==== Example
 
@@ -360,24 +379,58 @@ image::zy_seq.png[width="800", align="left"]
 ===== Aspect: How query executes
 
 * **Alternative 1 (current choice):** Wait for data to be queried sequentially.
-** Pros: Easy to implement.
-** Cons: Application hangs while data is being queried.
++
+[cols="1,10"]
+|===
+|Pros| Easy to implement.
+|Cons| Application hangs while data is being queried.
+|===
++
+
+//** Pros: Easy to implement.
+//** Cons: Application hangs while data is being queried.
 
 * **Alternative 2 :** Data is queried using a separate thread.
-** Pros: Application can caontinue to function as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
++
+[cols="1,10"]
+|===
+|Pros| Application can continue to function as the data is being fetched in the background.
+|Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
+|===
++
+
+//** Pros: Application can continue to function as the data is being fetched in the background.
+//** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 ===== Aspect: Data structure to support query command
 
 * **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
-** Pros: Easy to maintain and iterate through an array list of array lists to get a specific car park.
-** Cons: Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
++
+[cols="1,10"]
+|===
+|Pros| Easy to maintain and iterate through an array list of array lists to get a specific car park.
+|Cons| Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
+|===
++
+
+//** Pros: Easy to maintain and iterate through an array list of array lists to get a specific car park.
+//** Cons: Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
 
 * **Alternative 2 :** Use a `HashMap<String,Carpark>` to store data.
-** Pros: Much more efficient in accessing elements by using a key and better code readability.
-** Cons: `HashMap` does not provide an ordered collection.
++
+[cols="1,10"]
+|===
+|Pros| Much more efficient in accessing elements by using a key and better code readability.
+|Cons| `HashMap` does not provide an ordered collection.
+|===
++
+
+//** Pros: Much more efficient in accessing elements by using a key and better code readability.
+//** Cons: `HashMap` does not provide an ordered collection.
 
 === [Propose] Notify feature
+
+The notify feature updates specific car parks.
 
 ==== Overview
 
@@ -398,14 +451,32 @@ image::zy_act.png[width="800", align="left"]
 ===== Aspect: How notify executes
 
 * **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
-** Pros: Easy to implement.
-** Cons: Performance issues as the application might stall.
++
+[cols="1,10"]
+|===
+|Pros| Easy to implement.
+|Cons| Performance issues as the application might stall.
+|===
++
+
+//** Pros: Easy to implement.
+//** Cons: Performance issues as the application might stall.
 
 * **Alternative 2 :** Data is queried using a separate thread every interval.
-** Pros: Application can be used as the data is being fetched in the background.
-** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
++
+[cols="1,10"]
+|===
+|Pros| Application can be used as the data is being fetched in the background.
+|Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
+|===
++
+
+//** Pros: Application can be used as the data is being fetched in the background.
+//** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 === Find feature
+
+The find feature searches for a car park by keyword or location.
 
 ==== Overview
 
@@ -422,6 +493,8 @@ The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and 
 .How the find operation works
 image::seqdiagram-find.png[width="800", align="left"]
 
+The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
+
 ==== Example
 
 Given below is an example usage scenario of how the Find mechanism behaves at each step.
@@ -432,11 +505,13 @@ Step 2. The user executes `find punggol` command to get all car parks in punggol
 The `find` command calls `FindCommandParser#parse()`.
 
 [NOTE]
-If a command execution fails, it will not call `FindCommand#execute()`, and the address book state will not be saved.
+If a command execution fails, it will not call `FindCommand#execute()`, and the car park finder state will not be saved.
 
 Step 3. The entire list of car parks is filtered by the predicate `CarparkContainsKeywordsPredicate`, which checks for the keyword `punggol`.
 
 Step 4. The filtered list of car parks is returned to the GUI.
+
+The flow chart below describes the user interaction with the application and how it processes it.
 
 .Flow chart of the find operation.
 image::actdiagram-find.png[width="800", align="left"]
@@ -446,14 +521,32 @@ image::actdiagram-find.png[width="800", align="left"]
 ===== Aspect: How predicate works
 
 * **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
-** Pros: Easy to implement, user friendly.
-** Cons: More complicated predicate, sub strings not easily taken care of.
++
+[cols="1,10"]
+|===
+|Pros| Re-usable functions introduced for partial checking.
+|Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
+|===
++
+
+//** Pros: Re-usable functions for partial checking.
+//** Cons: Harder to maintain for multiple keywords, which might cause unintended side effects.
 
 * **Alternative 2:** Filter the data when it is taken in.
-** Pros: Less complicated predicate.
-** Cons: Manipulates the data, editing it for every other case.
++
+[cols="1,10"]
+|===
+|Pros| Easy to maintain as predicate will have lesser conditions.
+|Cons| Breaks OOP style as the parser will modify the data.
+|===
++
+
+//** Pros: Easy to maintain as predicate will have lesser conditions.
+//** Cons: Breaks OOP style as the parser will modify the data.
 
 === Filter feature
+
+The filter feature reduces the amount of car park data by a condition.
 
 ==== Overview
 The filter mechanism is facilitated by `FilterCommand` and `FilterCommandParser`.
@@ -492,7 +585,6 @@ Step 6. The list of car parks is filtered against the predicate and returned to 
 
 Please refer to the _Sequence Diagram_ below for the filter operation.
 
-
 .How the filter operation works
 image::SequenceDiagram2.png[width="700", align="left"]
 
@@ -503,6 +595,7 @@ filter command.
 image::ActivityDiagram-filter.png[width="700", align="left"]
 
 ==== Design Considerations
+
 ===== Aspect: How location based filtering executes
 
 * **Alternative 1 (Current choice):** Extracting the location from the previous `FindCommand` to form the predicate for the current `FilterCommand`
@@ -513,36 +606,34 @@ image::ActivityDiagram-filter.png[width="700", align="left"]
 ** Pros: Improved efficiency as a shorter list of car park needs to be filtered by `FilterCommand`.
 ** Cons: Additional memory required to store the list of car park generated by `FindCommand`.
 
-=== Command alias feature
+The abbreviation feature reduces the amount of characters needed to type.
 
 ==== Overview
 
-The alias mechanism is facilitated by `AddressBookParser`.
-It extends the switch cases to allow shorter command words to be parsed by `parseCommand`.
+The abbreviation mechanism is facilitated by `CarparkFinderParser`. It extends the cases
+to allow command abbreviations to be parsed through `parseCommand` as well.
 
 ==== Example
 
-Given below is an example usage scenario and how the alias mechanism behaves at
+Given below is an example usage scenario and how the abbreviation mechanism behaves at
 each step.
 
 Step 1. The user launches the application for the first time. The `LogicManager`
-is initialized with an `AddressBookParser`.
+is initialized with an `CarparkFinderParser`.
 
-(Please insert picture here)
-
-Step 2. The user inputs `f` command instead of `find`. The `Matcher` object in
-`AddressBookParser` splits the command text into command word and
-arguments, in which the command word is parsed using a switch
+Step 2. The user executes `f` command instead of `find`. The `Matcher` object in
+`CarparkFinderParser` splits the command text into _command word_ and
+_arguments_, in which the _command word_ is parsed using a _switch_
 statement.
 
-Step 3. The command word will be matched to case of `COMMAND_ALIAS` from
-`FindCommand`, which holds the final value of `f`. The program finds a match and
-proceeds as if a `list` command is given.
+Step 3. This _command word_ will be matched to a `COMMAND_ALIAS` from
+`ListCommand`, which holds the value of 'f'. As the program finds a match, it
+proceeds as if a `find` command is given.
 
 .Flow chart of command alias usage.
-image::ActivityDiagram-Alias.png[width="700", align="left"]
+image::ActivityDiagram-alias.png[width="700", align="left"]
 
-The _Activity Diagram_ above explains what happens when a user executes a `l`
+The _Activity Diagram_ above explains what happens when a user executes a `f`
 command.
 
 ==== Design Considerations
@@ -551,104 +642,29 @@ command.
 
 * *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
 in each Command file.
-** *Pros:* Easy to implement
-** *Cons:* Have to decide the alias subjectively which brings down performance
-if there are alot of commands
++
+[cols="1,10"]
+|===
+|Pros| Easy to implement
+|Cons| Have to decide on each abbreviation subjectively which brings down performance
+       if there are a lot of commands
+|===
++
 
-* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
+//** *Pros:* Easy to implement
+//** *Cons:* Have to decide on each abbreviation subjectively which brings down performance if there are a lot of commands
+
+* *Alternative 2:* declare `COMMAND_ALIAS` using the first two characters of `COMMAND_WORD`
 in each Command file.
-** *Pros*: Better performance as alias will be assigned systematically.
-** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
-& `filter`, it does not work.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-
-==== Overview
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current car park finder book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous car park finder book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone car park finder state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
-
-.Step 1 of undo/redo usage scenario
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the car park finder. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the car park finder after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
-
-.Step 2 of undo/redo usage scenario
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified car park finder state to be saved into the `addressBookStateList`.
-
-.Step 3 of undo/redo usage scenario
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the car park finder state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
-
-.Step 4 of undo/redo usage scenario
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-Please refer to the _Sequence Diagram_ below for the `undo` operation.
-
-.Interactions for undo operation
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest car park finder state, then there are no undone car park finder states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-.Step 5 of undo/redo usage scenario
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-.Step 6 of undo/redo usage scenario
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following _Activity diagram_ summarizes what happens when a user executes a new command.
-
-.Activity Diagram for executing a new command
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire car park finder.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of car park finder states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
++
+[cols="1,10"]
+|===
+|Pros| Better performance as abbreviations will be assigned systematically.
+|Cons| When there are 2 command words starting with same two characters e.g. `find` & `filter`, this does not work.
+|===
++
+//** *Pros*: Better performance as abbreviations will be assigned systematically.
+//** *Cons*: When there are 2 command words starting with same two characters e.g. `find` & `filter`, this does not work.
 
 === Logging
 
@@ -777,6 +793,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing is done to verify the application is running in its intended behavior. This section covers multiple ways to run test using Gradle, Gradle (Headless) and Intellij JUnit.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -808,14 +826,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.parking.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.parking.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.parking.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.parking.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -825,6 +843,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+Dev Ops ensure the product runs on both Linux and Windows by building it and testing after it is uploaded to Github.
 
 === Build Automation
 
@@ -875,7 +895,6 @@ of nearby car parks from their destination in a fast and efficient manner
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
 
 [discrete]
 === Filter
@@ -1428,17 +1447,17 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-. Should not have any noticeable sluggishness when holding list of car parks.
-. Should come with automated unit tests and be able to handle errors and exceptions.
-. Should be easy to use for novice that have never used a CLI before or never used an application
+- Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+- Should not have any noticeable sluggishness when holding list of car parks.
+- Should come with automated unit tests and be able to handle errors and exceptions.
+- Should be easy to use for novice that have never used a CLI before or never used an application
 to search for locations of car parks.
-. Query should respond fast assuming no connection delays and the API is working.
-. The application is not expected to download an entire list of car parks in the country to work offline.
-. This application is not suppose to be used by drivers on the road.
-. The system should be easy and scalable in adding on features for future versions.
-. The car park data should be updated frequently while running to send notifications in real time.
-. Privacy details in the favourites list should not be seen or shared easily by others.
+- Query should respond fast assuming no connection delays and the API is working.
+- The application is not expected to download an entire list of car parks in the country to work offline.
+- This application is not suppose to be used by drivers on the road.
+- The system should be easy and scalable in adding on features for future versions.
+- The car park data should be updated frequently while running to send notifications in real time.
+- Privacy details in the favourites list should not be seen or shared easily by others.
 
 [appendix]
 == Glossary
