@@ -3,8 +3,8 @@ package seedu.souschef.logic.parser.commandparser;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
-import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_MEALPLANNER_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_INGREDIENT_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_MEALPLANNER_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
