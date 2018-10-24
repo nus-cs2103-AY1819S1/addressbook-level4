@@ -77,7 +77,7 @@ public class AddMedicalHistoryCommand extends Command {
         ArrayList<String> newConditions = new ArrayList<>(Arrays.asList(condition.split(",")));
         ArrayList<String> allergies=new ArrayList<String>();
         ArrayList<String> conditions=new ArrayList<String>();
-        
+
         if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
             allergies.addAll(patientToEdit.getMedicalHistory().getAllergies());
         }

@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -39,6 +40,8 @@ public class XmlAdaptedPerson {
     private String remark;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private MedicalHistory medicalHistory = new MedicalHistory();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -50,7 +53,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String remark, List<XmlAdaptedTag> tagged) {
+                            String remark, List<XmlAdaptedTag> tagged, MedicalHistory medicalHistory) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -58,6 +61,9 @@ public class XmlAdaptedPerson {
         this.remark = remark;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
+        }
+        if (medicalHistory != null){
+            this.medicalHistory = medicalHistory;
         }
     }
 
@@ -75,6 +81,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
+            medicalHistory = ((Patient) source).getMedicalHistory();
+        }
     }
 
     /**
