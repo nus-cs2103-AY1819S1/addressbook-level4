@@ -189,6 +189,10 @@ public class Person {
                 .append(getAddress())
                 .append(" Salary: ")
                 .append(getSalary())
+                .append(" Username; ")
+                .append(getUsername())
+                .append(" Password: ")
+                .append(getPassword())
                 .append(" Profile Pic: ")
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Projects: ");
