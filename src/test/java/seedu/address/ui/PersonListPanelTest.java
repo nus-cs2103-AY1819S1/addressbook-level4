@@ -100,6 +100,8 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
             builder.append("<salary>1</salary>\n");
+            builder.append("<username>").append(i).append("a</username>\n");
+            builder.append("<password>Pa55w0rd</password>\n");
             builder.append("</persons>\n");
         }
         builder.append("</addressbook>\n");
