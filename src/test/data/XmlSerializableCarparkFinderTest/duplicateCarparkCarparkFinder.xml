@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<carparkfinder>
 
     <carparks>
         <address>BLK 349-355 CLEMENTI AVE 2</address>
@@ -30,4 +30,4 @@
         <tagged>Office</tagged>
     </carparks>
 
-</addressbook>
+</carparkfinder>
