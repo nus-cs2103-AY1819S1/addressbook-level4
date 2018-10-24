@@ -50,7 +50,7 @@ public class LoginCommand extends Command {
         if (!model.hasPerson(toLogin)) {
             throw new CommandException(MESSAGE_PERSON_DOES_NOT_EXIST);
         }
-
+        toLogin.login();
         model.setCurrentUser(toLogin);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getName()));
     }

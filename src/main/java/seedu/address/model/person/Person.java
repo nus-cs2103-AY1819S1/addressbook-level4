@@ -28,6 +28,8 @@ public class Person {
     private Set<Tag> tags = new HashSet<>();
     private Set<Friend> friends = new HashSet<>();
 
+    private boolean isLoggedIn = false;
+
     /**
      * Every field must be present and not null.
      */
@@ -185,6 +187,27 @@ public class Person {
         if (hasFriendInList(otherPerson)) {
             friends.remove(new Friend(otherPerson));
         }
+    }
+
+    /**
+     *  Logs in a user
+     */
+    public void login() {
+        this.isLoggedIn = true;
+    }
+
+    /**
+     *  Logs out a user
+     */
+    public void logout() {
+        this.isLoggedIn = false;
+    }
+
+    /**
+     *  Gets Login status of a user
+     */
+    public boolean getLoginStatus() {
+        return isLoggedIn;
     }
 
     /**
