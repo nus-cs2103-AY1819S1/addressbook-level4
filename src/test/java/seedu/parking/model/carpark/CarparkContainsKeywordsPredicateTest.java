@@ -37,7 +37,7 @@ public class CarparkContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different carpark -> returns false
+        // different car park -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
