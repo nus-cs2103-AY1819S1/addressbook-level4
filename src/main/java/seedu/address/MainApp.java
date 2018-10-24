@@ -100,7 +100,9 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Model model = new ModelManager(initialData, userPrefs);
+        model.setClearEnabled();
+        return model;
     }
 
     private void initLogging(Config config) {

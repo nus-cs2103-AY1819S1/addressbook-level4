@@ -178,4 +178,12 @@ public class ModelStub implements Model {
     public void joinEvent(Index index) {
         throw new AssertionError("This method should not be called.");
     }
+
+    public void setClearEnabled() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public boolean getClearEnabled() {
+        throw new AssertionError("This method should not be called.");
+    }
 }

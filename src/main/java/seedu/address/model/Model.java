@@ -198,4 +198,14 @@ public interface Model {
      * Gets the selected event.
      */
     Event getSelectedEvent() throws NoEventSelectedException;
+
+    /**
+     * Enable clear command, only for testing purposes.
+     */
+    void setClearEnabled();
+
+    /**
+     * Get whether clear is enabled.
+     */
+    boolean getClearEnabled();
 }

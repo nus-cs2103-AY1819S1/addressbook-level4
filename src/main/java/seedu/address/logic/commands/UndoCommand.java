@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -20,6 +21,10 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getClearEnabled()) {
+            throw new CommandException(MESSAGE_UNKNOWN_COMMAND);
+        }
 
         if (!model.canUndoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);

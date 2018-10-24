@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private Person currentUser;
     private Event currentEvent;
+    private boolean clearEnabled;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -52,6 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         currentUser = null;
+        clearEnabled = false;
     }
 
     public ModelManager() {
@@ -71,6 +73,17 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserLoggedInException();
         }
         return currentUser;
+    }
+
+    /**
+     * Enable clear command, only for testing purposes.
+     */
+    public void setClearEnabled() {
+        clearEnabled = true;
+    }
+
+    public boolean getClearEnabled() {
+        return clearEnabled;
     }
 
     public void setSelectedEvent(Event currentEvent) {
