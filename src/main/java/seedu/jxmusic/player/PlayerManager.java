@@ -5,7 +5,7 @@ import javafx.util.Duration;
 /**
  * The actual implemented player to be used by Logic component
  */
-public class JxMusicPlayer implements Player {
+public class PlayerManager implements Player {
     private static PlayablePlaylist pp;
     @Override
     public void play() {
