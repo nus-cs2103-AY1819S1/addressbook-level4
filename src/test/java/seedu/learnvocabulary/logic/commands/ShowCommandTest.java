@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_BLANK;
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_WORDS_LISTED_OVERVIEW;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.learnvocabulary.testutil.TypicalWords.FIRE;
 import static seedu.learnvocabulary.testutil.TypicalWords.GLIDE;

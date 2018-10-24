@@ -47,7 +47,7 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
          */
         Index index = INDEX_FIRST_WORD;
         String command = " " + EditCommand.COMMAND_WORD + "  "
-        + index.getOneBased() + "  " + NAME_DESC_LEVITATE + "  "
+            + index.getOneBased() + "  " + NAME_DESC_LEVITATE + "  "
                 + MEANING_DESC + " " + TAG_DESC_ABILITY + " ";
         Word editedWord = new WordBuilder(LEVITATE).withTags(VALID_TAG_ABILITY).build();
         assertCommandSuccess(command, index, editedWord);

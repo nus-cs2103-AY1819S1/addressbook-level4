@@ -1,6 +1,5 @@
 package seedu.learnvocabulary.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
