@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -87,6 +89,20 @@ public class StorageManager extends ComponentManager implements Storage {
             saveAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    public void clearCache() {
+        String cachePath = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
+        File cache = new File(cachePath);
+        File[] list = cache.listFiles();
+        if (list != null) {
+            for (File file: list) {
+                if (!file.isDirectory()) {
+                    file.delete();
+                }
+            }
         }
     }
 
