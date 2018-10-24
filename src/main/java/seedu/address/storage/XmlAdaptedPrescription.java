@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -47,7 +45,7 @@ public class XmlAdaptedPrescription {
     public XmlAdaptedPrescription(Prescription source) {
         medicineName = source.getMedicineName();
         dosage = source.getDosage();
-        consumptionPerDay= source.getConsumptionPerDay();
+        consumptionPerDay = source.getConsumptionPerDay();
     }
 
     /**

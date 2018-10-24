@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.doctor.Doctor;
-
 /**
  * Represents an Appointment in the health book.
  * Guarantees: details are present and not null, field values are validated, immutable.
