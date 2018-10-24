@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -26,10 +28,10 @@ public class SetPasswordCommand extends Command {
     public static final String MESSAGE_SET_PASSWORD_SUCCESS = "Your password has been changed.";
     public static final String MESSAGE_INCORRECT_PASSWORD = "The old password is incorrect.";
 
-    private final Password oldPassword;
+    private final Optional<Password> oldPassword;
     private final Password newPassword;
 
-    public SetPasswordCommand(Password oldPassword, Password newPassword) {
+    public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword) {
         requireNonNull(newPassword);
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
@@ -38,7 +40,7 @@ public class SetPasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        if (!model.getAddressBook().isMatchPassword(oldPassword)) {
+        if (!model.isMatchPassword(oldPassword)) {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
         model.setPassword(newPassword);

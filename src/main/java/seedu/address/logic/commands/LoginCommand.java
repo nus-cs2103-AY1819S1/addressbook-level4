@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -26,9 +28,9 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_INCORRECT_PASSWORD = "Incorrect password";
 
     private final Username username;
-    private final Password password;
+    private final Optional<Password> password;
 
-    public LoginCommand(Username username, Password password) {
+    public LoginCommand(Username username, Optional<Password> password) {
         requireNonNull(username);
         this.username = username;
         this.password = password;

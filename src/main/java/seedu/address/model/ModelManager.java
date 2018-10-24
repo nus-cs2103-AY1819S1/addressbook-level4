@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.versionedAddressBook = null;
         this.filteredExpenses = null;
         try {
-            loadUserData(addressBook.getUsername(), addressBook.getPassword().orElse(null));
+            loadUserData(addressBook.getUsername(), addressBook.getPassword());
         } catch (NonExistentUserException e) {
             throw new IllegalStateException();
         }
@@ -253,7 +253,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
+    public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
         }
@@ -288,6 +288,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean isUserExists(Username toCheck) {
         return addressBooks.containsKey(toCheck);
+    }
+
+    @Override
+    public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
+        return versionedAddressBook.isMatchPassword(toCheck);
     }
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/

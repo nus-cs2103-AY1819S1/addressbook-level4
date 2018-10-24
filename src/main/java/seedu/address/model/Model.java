@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -99,7 +100,7 @@ public interface Model {
      * Selects the AddressBook of the user with the input username to be used. Returns true if successful, false if the
      * input password is incorrect.
      */
-    boolean loadUserData(Username username, Password password) throws NonExistentUserException;
+    boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException;
 
     /**
      * Logs out the user in the model.
@@ -152,5 +153,17 @@ public interface Model {
      */
     Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException;
 
-    void setPassword(Password password) throws NoUserSelectedException;
+    /**
+     * Sets the password of the currently logged in user as the new password given.
+     * @param newPassword the new password to be set
+     */
+    void setPassword(Password newPassword) throws NoUserSelectedException;
+
+    /**
+     * Checks if the given password matches that of the currently logged in user. If the user does not have any password
+     * set, then they are considered to be matching.
+     * @param toCheck the password to check as an optional
+     * @return true if the password to check matches that of the currently logged in user, false if it doesn't
+     */
+    boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException;
 }
