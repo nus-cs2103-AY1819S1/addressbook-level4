@@ -15,9 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Prescription;
 
-
-
-
 /**
  * Adds a prescription to an appointment
  */
