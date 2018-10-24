@@ -9,7 +9,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.FilterByTimeCommand;
 
 public class FilterByTimeCommandParserTest {
-    private FilterByEducationCommandParser parser = new FilterByEducationCommandParser();
+    private FilterByTimeCommandParser parser = new FilterByTimeCommandParser();
 
     @Test
     public void parseEmptyArgThrowsParseException() {
