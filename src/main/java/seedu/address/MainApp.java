@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -43,6 +44,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Path MAIN_PATH = Paths.get("").toAbsolutePath();
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -59,14 +61,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        //check whether the package is in the app
-        //if (!ImageMagickUtil.hasPackage()) {
-        //    ImageMagickUtil.storePackage();
-        //}
-        //ImageMagickUtil.unzipPacakge();
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
