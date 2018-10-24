@@ -25,25 +25,24 @@ public class FilterByGradeCommandTest {
     @Test
     public void equals() {
         String first = "20 90";
-        String second = " ";
+    
 
 
         FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
-        FilterByGradeCommand filterByGradeSecondCommand = new FilterByGradeCommand(second);
+        
 
         // same object -> returns true
         assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommand));
 
         // same values -> returns true
-        FilterByGradeCommand filterByEducationFirstCommandCopy = new FilterByGradeCommand(first);
-        assertTrue(filterByGradeFirstCommand.equals(filterByEducationFirstCommandCopy));
+        FilterByGradeCommand filterByGradeFirstCommandCopy = new FilterByGradeCommand(first);
+        assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(filterByGradeFirstCommand.equals(1));
 
 
-        // different person -> returns false
-        assertFalse(filterByGradeFirstCommand.equals(filterByGradeSecondCommand));
+      
     }
 
     @Test
