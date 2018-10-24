@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
@@ -114,8 +114,8 @@ public class WishTransactionTest {
      * @param wish queried wish.
      * @return key for the corresponding wish.
      */
-    private String getKey(Wish wish) {
-        return wish.getName().fullName;
+    private UUID getKey(Wish wish) {
+        return wish.getId();
     }
 
 }
