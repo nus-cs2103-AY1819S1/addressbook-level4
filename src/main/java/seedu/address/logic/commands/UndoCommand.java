@@ -19,11 +19,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoPreviewImageManager()) {
+        if (!model.canUndoPreviewImage()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoPreviewImageManager();
+        model.undoPreviewImage();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

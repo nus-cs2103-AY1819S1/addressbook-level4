@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,27 +150,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoPreviewImageManager() {
+        public boolean canUndoPreviewImage() {
             return false;
         }
 
         @Override
-        public boolean canRedoPreviewImageManager() {
+        public boolean canRedoPreviewImage() {
             return false;
         }
 
         @Override
-        public void undoPreviewImageManager() {
+        public void undoPreviewImage() {
 
         }
 
         @Override
-        public void redoPreviewImageManager() {
-
-        }
-
-        @Override
-        public void commitPreviewImageManager() {
+        public void redoPreviewImage() {
 
         }
 
@@ -213,7 +209,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateCurrentpreviewImage(Image image, Transformation transformation) {
+        public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
             throw new AssertionError("This method should not be called");
         }
 

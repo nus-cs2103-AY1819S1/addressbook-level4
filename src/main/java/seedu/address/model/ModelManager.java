@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -19,13 +20,13 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
+import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 import seedu.address.model.person.Person;
 import seedu.address.model.transformation.Transformation;
-import seedu.address.model.transformation.TransformationSet;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,7 +34,7 @@ import seedu.address.model.transformation.TransformationSet;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final PreviewImageManager previewImageManager;
+    // private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private ArrayList<Path> dirImageList;
@@ -53,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        previewImageManager = PreviewImageManager.getInstance();
+        // previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
 
@@ -173,7 +174,6 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentOriginalImage;
     }
 
-
     /**
      * Update the current displayed original image and
      * reinitialize the previewImageManager with the new image
@@ -182,12 +182,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrentOriginalImage(Image img, Path imgPath) {
         canvas = new Canvas();
         currentOriginalImage = imgPath;
-        //currentPreviewImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         currentPreviewImage = selectedImage;
         canvas.addLayer(selectedImage);
-
-        previewImageManager.initialiseWithImage(selectedImage);
     }
     //=========== GoogleClient Accessors =============================================================
 
@@ -217,33 +214,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
-
     @Override
-    public boolean canUndoPreviewImageManager() {
-        return previewImageManager.canUndo();
+    public boolean canUndoPreviewImage() {
+        return currentPreviewImage.canUndo();
     }
 
     @Override
-    public boolean canRedoPreviewImageManager() {
-        return previewImageManager.canRedo();
+    public boolean canRedoPreviewImage() {
+        return currentPreviewImage.canRedo();
     }
 
     @Override
-    public void undoPreviewImageManager() {
-        previewImageManager.undo();
-        //currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
+    public void undoPreviewImage() {
+        currentPreviewImage.undo();
+        BufferedImage newImage = currentPreviewImage.getImage();
+        EventsCenter.getInstance().post(
+                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
 
     @Override
-    public void redoPreviewImageManager() {
-        previewImageManager.redo();
-        //currentPreviewImage = Paths.get(previewImageManager.getCurrentPreviewImageState().toString());
-    }
-
-    @Override
-    public void commitPreviewImageManager() {
-        // TODO: update currentPreviewImage
-        // TODO: previewImageManager.commit(editedImage);
+    public void redoPreviewImage() {
+        currentPreviewImage.redo();
+        BufferedImage newImage = currentPreviewImage.getImage();
+        EventsCenter.getInstance().post(
+                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
 
     //=========== get/updateing preview image ==========================================================================
@@ -262,15 +256,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //author lancelotwillow
     @Override
-    public void updateCurrentpreviewImage(Image image, Transformation transformation) {
-        TransformationSet transformationSet;
-        if (currentPreviewImage != null) {
-            transformationSet = currentPreviewImage.getTransformationSet();
-        } else {
-            transformationSet = new TransformationSet();
-        }
-        transformationSet.addTransformations(transformation);
-        this.currentPreviewImage = new PreviewImage(SwingFXUtils.fromFXImage(image, null), transformationSet);
+    public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
+        currentPreviewImage.commit(image);
+        currentPreviewImage.addTransformation(transformation);
     }
 
     @Override
@@ -302,5 +290,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Path getCurrDirectory() {
         return this.userPrefs.getCurrDirectory();
+    }
+
+    //LOL
+    public void testCache() {
+
     }
 }
