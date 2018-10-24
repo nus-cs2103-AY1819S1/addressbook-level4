@@ -5,6 +5,7 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,16 +30,13 @@ public class Recipe extends UniqueType {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, Set<Tag> tags) {
+    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, List<Instruction> instructions, Set<Tag> tags) {
         requireAllNonNull(name, difficulty, cooktime, tags);
         this.name = name;
         this.cookTime = cooktime;
         this.difficulty = difficulty;
+        this.instructions.addAll(instructions);
         this.tags.addAll(tags);
-
-        //this.instructions.addAll(instructions);
-
-        this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
@@ -53,8 +51,8 @@ public class Recipe extends UniqueType {
         return difficulty;
     }
 
-    public ArrayList<Instruction> getInstructions() {
-        return instructions;
+    public List<Instruction> getInstructions() {
+        return Collections.unmodifiableList(instructions);
     }
 
     /**

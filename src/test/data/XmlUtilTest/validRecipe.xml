@@ -4,4 +4,7 @@
     <difficulty>5</difficulty>
     <cooktime>PT23M</cooktime>
     <tagged>friends</tagged>
+    <instructions>
+        <instruction>Preheat oven.</instruction>
+    </instructions>
 </recipe>

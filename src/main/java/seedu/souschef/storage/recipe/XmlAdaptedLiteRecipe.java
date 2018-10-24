@@ -1,6 +1,8 @@
 package seedu.souschef.storage.recipe;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
@@ -87,7 +90,8 @@ public class XmlAdaptedLiteRecipe {
         final CookTime modelCooktime = new CookTime(cooktime);
 
         final Set<Tag> modelTags = new HashSet<>();
-        return new Recipe(modelName, modelDifficulty, modelCooktime, modelTags);
+        final List<Instruction> modelInstructions = new ArrayList<>();
+        return new Recipe(modelName, modelDifficulty, modelCooktime, modelInstructions, modelTags);
     }
 
     @Override
