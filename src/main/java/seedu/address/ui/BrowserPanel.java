@@ -17,7 +17,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
 
@@ -95,45 +94,45 @@ public class BrowserPanel extends UiPart<Region> {
         //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
 
-    /**
-     * Load Person into browser panel
-     *
-     * @param event
-     */
-    private void loadEventPage(seedu.address.model.event.Event event) {
-
-        StringBuilder sb = new StringBuilder();
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + EVENT_PAGE);
-        try {
-            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
-            byte[] contents = new byte[1024];
-            int bytesRead = 0;
-            while ((bytesRead = bin.read(contents)) != -1) {
-                sb.append(new String(contents, 0, bytesRead));
-            }
-            bin.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // replace the template with person stuff
-        Object[] params = new Object[] {
-            event.getName(),
-            event.getOrganiser().getName(),
-            event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
-            event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
-            event.getDate() == null ? "No date time" : event.getDate().toString()
-        };
-        String html = MessageFormat.format(sb.toString(), params);
-
-        Platform.runLater(() -> {
-                browser.getEngine().loadContent(html);
-            }
-        );
-
-
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-    }
+    //    /**
+    //     * Load Person into browser panel
+    //     *
+    //     * @param event
+    //     */
+    //    private void loadEventPage(seedu.address.model.event.Event event) {
+    //
+    //        StringBuilder sb = new StringBuilder();
+    //        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + EVENT_PAGE);
+    //        try {
+    //            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
+    //            byte[] contents = new byte[1024];
+    //            int bytesRead = 0;
+    //            while ((bytesRead = bin.read(contents)) != -1) {
+    //                sb.append(new String(contents, 0, bytesRead));
+    //            }
+    //            bin.close();
+    //        } catch (IOException e) {
+    //            e.printStackTrace();
+    //        }
+    //
+    //        // replace the template with person stuff
+    //        Object[] params = new Object[] {
+    //            event.getName(),
+    //            event.getOrganiser().getName(),
+    //            event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
+    //            event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
+    //            event.getDate() == null ? "No date time" : event.getDate().toString()
+    //        };
+    //        String html = MessageFormat.format(sb.toString(), params);
+    //
+    //        Platform.runLater(() -> {
+    //                browser.getEngine().loadContent(html);
+    //            }
+    //        );
+    //
+    //
+    //        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    //    }
 
 
     public void loadPage(String url) {
@@ -176,13 +175,13 @@ public class BrowserPanel extends UiPart<Region> {
 
     }
 
-    @Subscribe
-    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.getNewSelection() == null) {
-            loadDefaultPage();
-        } else {
-            loadEventPage(event.getNewSelection());
-        }
-    }
+    //    @Subscribe
+    //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    //        if (event.getNewSelection() == null) {
+    //            loadDefaultPage();
+    //        } else {
+    //            loadEventPage(event.getNewSelection());
+    //        }
+    //    }
 }
