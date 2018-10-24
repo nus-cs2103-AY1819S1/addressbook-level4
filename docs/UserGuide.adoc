@@ -299,7 +299,7 @@ Reverses the most recent `undo` command. +
 Examples:
 
 ====
-[blue]`delete1` +
+[blue]`delete 1` +
 [blue]`clear` +
 [blue]`undo` (reverses the [blue]`clear` command) +
 [blue]`undo` (reverses the [blue]`delete 1` command) +
