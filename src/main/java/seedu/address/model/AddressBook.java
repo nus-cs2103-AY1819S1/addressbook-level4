@@ -45,20 +45,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //// budget operations
 
-    /**
-     * Modifies the maximum budget for the current expense tracker
-     * @param budget a valid double
-     */
-    public void modifyMaximumBudget(double budget) {
-        this.maximumBudget.modifyBudget(budget);
-    }
 
     /**
      * Modifies the maximum budget for the current expense tracker
      * @param budget a valid Budget
      */
     public void modifyMaximumBudget(Budget budget) {
+        double previousSpending = this.maximumBudget.getCurrentExpenses();
         this.maximumBudget = budget;
+        this.maximumBudget.modifyExpenses(previousSpending);
+
+
     }
 
     public void setRecurrenceFrequency(long seconds) {

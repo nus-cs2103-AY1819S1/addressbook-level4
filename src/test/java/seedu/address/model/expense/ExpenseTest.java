@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalExpenses.BOB;
+import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import org.junit.Rule;
@@ -35,7 +35,7 @@ public class ExpenseTest {
         assertTrue(
                 new ExpenseBuilder(SCHOOLFEE).build().hashCode() == new ExpenseBuilder(SCHOOLFEE).build().hashCode());
         // different expense -> return false
-        assertFalse(new ExpenseBuilder(BOB).build().hashCode() == new ExpenseBuilder(SCHOOLFEE).build().hashCode());
+        assertFalse(new ExpenseBuilder(IPHONE).build().hashCode() == new ExpenseBuilder(SCHOOLFEE).build().hashCode());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ExpenseTest {
         assertNotEquals(5, SCHOOLFEE);
 
         // different expense -> returns false
-        assertNotEquals(SCHOOLFEE, BOB);
+        assertNotEquals(SCHOOLFEE, IPHONE);
 
         // different name -> returns false
         Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withName(VALID_NAME_IPHONE).build();
