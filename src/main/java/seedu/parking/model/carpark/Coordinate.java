@@ -12,7 +12,7 @@ public class Coordinate {
     public static final String MESSAGE_COORD_CONSTRAINTS =
             "Coordinate should only contain decimal numbers";
 
-    public static final String COORD_VALIDATION_REGEX = "^(\\d+(\\.\\d+)?),\\s*(\\d+(\\.\\d+)?)$";
+    public static final String COORD_VALIDATION_REGEX = "^(\\d+(\\.\\d+)?),\\s(\\d+(\\.\\d+)?)$";
 
     public final String value;
 

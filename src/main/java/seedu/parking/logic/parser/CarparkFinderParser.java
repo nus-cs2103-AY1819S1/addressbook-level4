@@ -6,11 +6,9 @@ import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.parking.logic.commands.AddCommand;
 import seedu.parking.logic.commands.ClearCommand;
 import seedu.parking.logic.commands.Command;
 import seedu.parking.logic.commands.DeleteCommand;
-import seedu.parking.logic.commands.EditCommand;
 import seedu.parking.logic.commands.ExitCommand;
 import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.commands.FindCommand;
@@ -49,13 +47,6 @@ public class CarparkFinderParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
