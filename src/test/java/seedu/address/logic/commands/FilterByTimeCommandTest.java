@@ -28,17 +28,16 @@ public class FilterByTimeCommandTest {
         String first = "mon 1200 1400";
         
         FilterByTimeCommand filterByTimeFirstCommand = new FilterByTimeCommand(first);
-       
+        
         // same object -> returns true
         assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommand));
-
+        
         // same values -> returns true
         FilterByTimeCommand filterByTimeFirstCommandCopy = new FilterByTimeCommand(first);
         assertTrue(filterByTimeFirstCommand.equals(filterByTimeFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(filterByTimeFirstCommand.equals(1));
-
         
     }
 
@@ -52,7 +51,6 @@ public class FilterByTimeCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
-
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
