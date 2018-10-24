@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
@@ -66,7 +67,7 @@ public class VersionedWishTransactionTest {
         populatedVersionedWishTransaction.addWish(wish);
         assertTrue(populatedVersionedWishTransaction.getWishMap().containsKey(wish.getId()));
         assertTrue(populatedVersionedWishTransaction.getWishMap().get(wish.getId()).peekLast().isSameWish(wish));
-        assertEquals(populatedVersionedWishTransaction, copy);
+        assertNotEquals(populatedVersionedWishTransaction, copy);
         assertEquals(copy.getWishStateList().size(), wishStateListSize);
     }
     @Test
