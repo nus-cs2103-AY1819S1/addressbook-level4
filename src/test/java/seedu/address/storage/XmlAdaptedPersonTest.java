@@ -29,7 +29,10 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_EDUCATION = BENSON.getEducation().toString();
-    private static final String VALID_GRADES = BENSON.getGrades().toString();
+
+    private static final List<XmlAdaptedGrades> VALID_GRADES = BENSON.getGrades().entrySet().stream()
+                .map(XmlAdaptedGrades::new).collect(Collectors.toList());
+
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
