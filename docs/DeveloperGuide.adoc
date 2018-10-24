@@ -423,15 +423,30 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Statistics
 
-Given below is an example usage scenario and of how the statistics mechanism behaves at each step.
+The implementation of the Statistics function can be divided into two parts - preparation and execution.
+Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.
+
+==== Preparation
+In the preparation phase, the program parses the command for statistics, prepares filters used by the model
+and posts events in `EventsCenter`.
+Below is the UML sequence diagram and a step-by-step explanation of the preparation stage.
+
+.Sequence diagram of the preparation stage in the statistics mechanism
+image::implementation/StatsCommandSequenceDiagram.png[width="800"]
 
 . User enters command `stats n/7 m/d`. The command is received by `AddressBookParser`, which calls `StatsCommandParser#parse()`
 to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
 
-. `LogicManager` then calls `StatsCommand#execute()`, which updates the `Predicate` and `StatsMode` in `ModelManager`, which
-are used as filters for the expense list. The `Predicate` is used to filter out expenses which have dates within the last 7 days.
+. `LogicManager` then calls `StatsCommand#execute()`, which updates the `Predicate` and `StatsMode` in `ModelManager and
+also posts a `ShowStatsRequestEvent` and `SwapLeftPanelEvent` event to the `EventsCenter`.
+
+In this example, `Predicate` is set to filter out expenses which have dates within the last 7 days and
 `StatsMode` is set to DAY, representing the day mode.
-`StatsCommand#execute()` also posts a `ShowStatsRequestEvent` event to the `EventsCenter`.
+
+==== Execution
+In the execution phase, the program handles the events posted by `StatsCommand` by
+processing and retrieving the data to be displayed and finally displaying it.
+Below is a step-by-step explanation of the execution stage.
 
 . The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which updates the 'StatisticsPanel' object after getting the
 expense data and mode by calling `Logic#getExpenseStats()` and `Logic#getStatsMode()`.
@@ -447,7 +462,10 @@ the total cost for that day
 
 === Find
 
-Given below is an example usage scenario and of how the find mechanism behaves at each step.
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram of find mechanism
+image::implementation/FindCommandSequenceDiagram.png[width="800"]
 
 . User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `AddressBookParser`,
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
