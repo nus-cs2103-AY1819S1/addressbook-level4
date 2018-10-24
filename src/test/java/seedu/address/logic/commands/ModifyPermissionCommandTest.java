@@ -26,8 +26,8 @@ import seedu.address.testutil.PersonBuilder;
  * All test here use the Person in first index of model, which only contains REMOVE_PERMISSION permission.
  */
 class ModifyPermissionCommandTest {
-    Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    CommandHistory commandHistory = new CommandHistory();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     void execute_noModification_failure() {
@@ -69,7 +69,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
+                editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
@@ -91,7 +92,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION,
+                editedFirstPerson.getPermissionSet());
 
         assertCommandFailure(command, model, commandHistory, expectedString);
     }
@@ -109,7 +111,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
+                editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
@@ -131,7 +134,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION,
+                editedFirstPerson.getPermissionSet());
 
         assertCommandFailure(command, model, commandHistory, expectedString);
     }
@@ -150,7 +154,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
+                editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
@@ -173,7 +178,8 @@ class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().addPermissions(toAdd);
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
-        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION, editedFirstPerson.getPermissionSet());
+        String expectedString = String.format(ModifyPermissionCommand.MESSAGE_NO_MODIFICATION,
+                editedFirstPerson.getPermissionSet());
 
         assertCommandFailure(command, model, commandHistory, expectedString);
     }
