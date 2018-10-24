@@ -14,8 +14,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
-import seedu.address.model.event.Poll;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
+import seedu.address.model.event.polls.Poll;
 
 /**
  * Command to add a new poll to the pre-selected event.
@@ -44,7 +44,6 @@ public class AddPollCommand extends Command {
         try {
             Poll poll = model.addPoll(pollName);
             model.commitAddressBook();
-            //model.updateEvent(event, event);
             String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, model.getSelectedEvent()));

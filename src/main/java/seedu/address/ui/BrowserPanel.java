@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -10,6 +14,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -21,8 +26,9 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
+    public static final String PERSON_PAGE = "browse.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+        "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -41,8 +47,48 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Load Person into browser panel
+     *
+     * @param person
+     */
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+
+        StringBuilder sb = new StringBuilder();
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + PERSON_PAGE);
+        try {
+            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
+            byte[] contents = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = bin.read(contents)) != -1) {
+                sb.append(new String(contents, 0, bytesRead));
+            }
+            bin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // replace the template with person stuff
+        Object[] params = new Object[] {
+            person.getName(),
+            person.getPhone(),
+            person.getEmail(),
+            person.getTags().stream().map(u -> u.tagName).collect(Collectors.joining(", ")),
+            person.getAddress(),
+            person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
+            person.getFriends().stream()
+                .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
+            person.getSchedule().prettyPrint(),
+        };
+        String html = MessageFormat.format(sb.toString(), params);
+
+        Platform.runLater(() -> {
+                browser.getEngine().loadContent(html);
+            }
+        );
+
+
+        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
 
     public void loadPage(String url) {

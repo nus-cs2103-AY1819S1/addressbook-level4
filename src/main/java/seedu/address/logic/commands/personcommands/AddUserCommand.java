@@ -71,7 +71,7 @@ public class AddUserCommand extends Command {
 
     @Override
     public String toString() {
-        return toAdd.toString();
+        return COMMAND_WORD + " " + toAdd.toString();
     }
 
     @Override

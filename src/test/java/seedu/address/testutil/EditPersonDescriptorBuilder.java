@@ -4,7 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.personcommands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -40,6 +41,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(person.getAddress());
         descriptor.setInterests(person.getInterests());
         descriptor.setTags(person.getTags());
+        descriptor.setFriends(person.getFriends());
     }
 
     /**
@@ -99,12 +101,27 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     *  Sets the {@code Schedule} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Schedule} of the {@code EditPersonDescriptor} that we are building.
+     *
      * @param schedule
      * @return
      */
-    public EditPersonDescriptorBuilder withSchedule(String schedule) {
+    public EditPersonDescriptorBuilder withSchedule(String schedule) throws ParseException {
         descriptor.setSchedule(new Schedule(schedule));
+        return this;
+    }
+
+    /**
+     * Sets the {@code UpdateSchedule} of the {@code EditPersonDescriptor} that we are building.
+     *
+     * @param validScheduleUpdateDay validScheduleUpdateTime
+     * @return
+     */
+    public EditPersonDescriptorBuilder withUpdateSchedule(String validScheduleUpdateDay, String validScheduleUpdateTime)
+        throws ParseException {
+        Schedule updateSchedule = new Schedule();
+        updateSchedule.setTimeDay(validScheduleUpdateDay, validScheduleUpdateTime, true);
+        descriptor.setUpdateSchedule(updateSchedule);
         return this;
     }
 }

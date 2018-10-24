@@ -21,7 +21,7 @@ import seedu.address.model.person.UserContainsKeywordsPredicate;
  */
 public class FindUserCommand extends Command {
 
-    public static final String COMMAND_WORD = "finduser";
+    public static final String COMMAND_WORD = "findUser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose attributes match "
             + "the specified keywords for each attribute (case-insensitive) "

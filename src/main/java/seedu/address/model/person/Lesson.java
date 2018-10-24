@@ -61,11 +61,6 @@ public class Lesson {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-
     @Override
     public String toString() {
         return String.format("%s %s %s %s %s %s %s",

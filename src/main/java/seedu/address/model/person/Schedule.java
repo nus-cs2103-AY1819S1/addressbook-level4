@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -28,13 +29,15 @@ public class Schedule {
      * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
      */
 
-    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS =
+        "Schedule should be in 0 or 1s and in correct length";
+    public static final String INVALID_MESSAGE_SCHEDULE = "Invalid Schedule Input";
     private static final int DAY = 7;
     private static final int HOUR = 48;
     private static final int TOTAL = DAY * HOUR;
 
     // 7 days 24 hours - 48 30mins
-    public final int[][] value;
+    private final int[][] value;
 
     public Schedule() {
         value = new int[DAY][HOUR];
@@ -42,7 +45,7 @@ public class Schedule {
 
     public Schedule(String schedule) {
         requireNonNull(schedule);
-        assert (schedule.length() == TOTAL);
+
         value = new int[DAY][HOUR];
 
         for (int i = 0, counter = 0; i < value.length; i++) {
@@ -138,7 +141,7 @@ public class Schedule {
             dayNum = 6;
             break;
         default:
-            throw new ParseException("Invalid Schedule Input");
+            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
         }
         return dayNum;
     }
@@ -168,7 +171,7 @@ public class Schedule {
             day = "sunday";
             break;
         default:
-            throw new ParseException("Invalid Schedule Input");
+            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
         }
         return day;
     }
@@ -233,18 +236,22 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public ArrayList<Slot> getFreeTime() throws ParseException {
+    public ArrayList<Slot> getFreeSlots() {
         ArrayList<Slot> slots = new ArrayList<Slot>();
 
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
                 if (this.value[i][j] == 0) {
                     Slot slot = new Slot();
-                    slot.day = getNumDay(i);
+                    try {
+                        slot.setDay(getNumDay(i));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     if (j / 2 > 9) {
-                        slot.time = "" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                        slot.setTime("" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     } else {
-                        slot.time = "0" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                        slot.setTime("0" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     }
                     slots.add(slot);
                 }
@@ -258,46 +265,79 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public String freeTimeToString() throws ParseException {
+    public ArrayList<Slot> getFreeSlotsByDay(int day) {
+        ArrayList<Slot> slots = getFreeSlots();
+        ArrayList<Slot> filteredSlots = new ArrayList<>();
+        for (Slot slot : slots) {
+            try {
+                if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
+                    filteredSlots.add(slot);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return slots;
+    }
+
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public String freeTimeToString() {
         StringBuilder sb = new StringBuilder();
-        getFreeTime().forEach((slot) -> sb.append(slot.day + "," + slot.time + ";"));
+        getFreeSlots().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + ";"));
         return sb.toString().trim();
     }
 
-
     /**
+     * Pretty printing into table format
      *
+     * @return
      */
-    class Slot {
-        private String day;
-        private String time;
-
-        /**
-         * @return
-         */
-        public String getDay() {
-            return day;
+    public String prettyPrint() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<tr>");
+        sb.append("<th></th>");
+        for (int i = 0; i < 7; i++) {
+            try {
+                sb.append("<th>" + getNumDay(i).substring(0, 3) + "</th>");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+        sb.append("</tr>");
+        int oddatinator = 0;
+        int hourcounter = 0;
+        for (int i = 0; i < value[0].length; i++) {
+            sb.append("<tr>");
+            if (oddatinator % 2 == 0) {
+                sb.append("<td>" + String.format("%02d", hourcounter) + "00</td>");
+                oddatinator++;
+            } else {
+                sb.append("<td>" + String.format("%02d", hourcounter) + "30</td>");
+                hourcounter++;
+                oddatinator++;
+            }
 
-        /**
-         * @param day
-         */
-        public void setDay(String day) {
-            this.day = day;
-        }
 
-        /**
-         * @return
-         */
-        public String getTime() {
-            return time;
-        }
+            for (int j = 0; j < value.length; j++) {
 
-        /**
-         * @param time
-         */
-        public void setTime(String time) {
-            this.time = time;
+                if (this.value[j][i] == 1) {
+                    sb.append("<td class='table-danger'> </td>");
+                } else {
+                    sb.append("<td> </td>");
+                }
+            }
+            sb.append("</tr>");
         }
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Schedule // instanceof handles nulls
+                && Arrays.equals(this.value, ((Schedule) other).value)); // state check
     }
 }

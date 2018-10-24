@@ -527,8 +527,10 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com` +
+e.g. `edit 1 tt/ http://modsn.us/H4v8s` +
+e.g. `edit 1 su/ monday 0000`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -538,3 +540,6 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Free time between persons*: `maxSchedule INDEX INDEX ...` +
+e.g. `maxSchedule 0 1 2 3`
+​

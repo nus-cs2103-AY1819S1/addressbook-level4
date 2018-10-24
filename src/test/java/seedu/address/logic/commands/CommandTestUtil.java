@@ -21,7 +21,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.personcommands.EditCommand;
+import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -52,7 +52,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TIMETABLE = "http://modsn.us/H4v8s";
-    public static final String VALID_SCHEDULEUPDATE = "monday 0100";
+    public static final String VALID_SCHEDULE_UPDATE_DAY = "monday";
+    public static final String VALID_SCHEDULE_UPDATE_TIME = "0100";
     public static final String VALID_TIME = "12:30";
     public static final String VALID_DATE = "12-12-2018";
     public static final String VALID_SCHEDULE = "00000000000000000000000000000000000000"
@@ -75,6 +76,16 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String EMAIL_DESC_ZOEY = " " + PREFIX_EMAIL + VALID_EMAIL_ZOEY;
+    public static final String TIMETABLE_AMY = "http://modsn.us/H4v8s";
+    public static final String SCHEDULE_AMY = "100000000000000011110000000011110000000000"
+        +
+        "0000000000000000000000000000001111111100000000000000000000000000000000000011"
+        +
+        "000000111100000000000000000000000000000000000000001111000011110000000000000000"
+        +
+        "0000000000000011110000111111111100000000000000000000000000000000000000000000000"
+        +
+        "0000000000000000000000000000000000000000000000000000000000000";
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String INTEREST_DESC_STUDY = " " + PREFIX_INTEREST + VALID_INTEREST_STUDY;
@@ -97,9 +108,9 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final EditCommand.EditPersonDescriptor DESC_ZOEY;
+    public static final EditUserCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditUserCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditUserCommand.EditPersonDescriptor DESC_ZOEY;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

@@ -12,8 +12,8 @@ import org.junit.Test;
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.personcommands.DeleteCommand;
-import seedu.address.logic.commands.personcommands.SelectCommand;
+import seedu.address.logic.commands.personcommands.DeleteUserCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.StatusBarFooter;
 
@@ -60,7 +60,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(SelectUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
@@ -69,7 +69,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(DeleteUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

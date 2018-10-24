@@ -10,13 +10,13 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SelectCommand object
+ * Parses input arguments and creates a new SelectUserCommand object
  */
 public class SelectEventCommandParser implements Parser<SelectEventCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SelectCommand
-     * and returns an SelectCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SelectUserCommand
+     * and returns an SelectUserCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SelectEventCommand parse(String args) throws ParseException {

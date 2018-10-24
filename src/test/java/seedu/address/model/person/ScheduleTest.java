@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
-
 class ScheduleTest {
 
     private String emptyScheduleString = "0000000000000000000000"
@@ -41,17 +40,17 @@ class ScheduleTest {
     @Test
     public void getTimeDay() throws ParseException {
         Schedule s = new Schedule();
-        assertFalse (s.getTimeDay("monday", "0100"));
-        assertFalse (s.getTimeDay("tuesday", "0100"));
-        assertFalse (s.getTimeDay("wednesday", "0100"));
-        assertFalse (s.getTimeDay("thursday", "0100"));
-        assertFalse (s.getTimeDay("friday", "0100"));
-        assertFalse (s.getTimeDay("saturday", "0100"));
-        assertFalse (s.getTimeDay("sunday", "0100"));
+        assertFalse(s.getTimeDay("monday", "0100"));
+        assertFalse(s.getTimeDay("tuesday", "0100"));
+        assertFalse(s.getTimeDay("wednesday", "0100"));
+        assertFalse(s.getTimeDay("thursday", "0100"));
+        assertFalse(s.getTimeDay("friday", "0100"));
+        assertFalse(s.getTimeDay("saturday", "0100"));
+        assertFalse(s.getTimeDay("sunday", "0100"));
         Assert.assertThrows(ParseException.class, () -> s
             .setTimeDay("unknown", "0130", true)
         );
-        assertFalse (s.getTimeDay("monday", "0130"));
+        assertFalse(s.getTimeDay("monday", "0130"));
 
     }
 
@@ -67,8 +66,11 @@ class ScheduleTest {
 
     @Test
     void valueToString() {
-        Schedule s = new Schedule();
-        assertTrue (s.valueToString().equals(emptyScheduleString));
+        Schedule s1 = new Schedule();
+        assertTrue(s1.valueToString().equals(emptyScheduleString));
+
+        Schedule s2 = new Schedule(emptyScheduleString);
+        assertTrue(s2.valueToString().equals(emptyScheduleString));
     }
 
     @Test
@@ -76,7 +78,7 @@ class ScheduleTest {
         Schedule s1 = new Schedule();
         Schedule s2 = new Schedule();
         s1.maxSchedule(s2);
-        assertTrue (s1.valueToString().equals(s2.valueToString()));
+        assertTrue(s1.valueToString().equals(s2.valueToString()));
     }
 
 
@@ -85,7 +87,7 @@ class ScheduleTest {
         Schedule s1 = new Schedule();
         Schedule s2 = new Schedule();
         s1.xor(s2);
-        assertTrue (s1.valueToString().equals(emptyScheduleString));
+        assertTrue(s1.valueToString().equals(emptyScheduleString));
     }
 
     @Test
@@ -93,6 +95,14 @@ class ScheduleTest {
         Schedule s1 = new Schedule();
         s1.setTimeDay("monday", "1100", true);
         s1.setTimeDay("monday", "0130", true);
-        s1.freeTimeToString();
+
+        String ft = s1.freeTimeToString();
+        assertTrue(ft.contains("monday"));
+
+        String p = s1.prettyPrint();
+        assertTrue(p.contains("mon"));
+
+        //ArrayList<Slot> slots = s1.getFreeSlotsByDay(1);
+        //assertTrue(slots.size() == 24 * 2 - 2);
     }
 }

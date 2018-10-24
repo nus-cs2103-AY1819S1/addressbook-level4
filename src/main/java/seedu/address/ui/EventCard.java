@@ -47,7 +47,7 @@ public class EventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().fullName);
         address.setText(event.getLocation().value);
-        organiser.setText(event.getOrganiser().getName().toString());
+        organiser.setText(event.getOrganiserAsString());
         time.setText(event.getTimeString());
         date.setText(event.getDateString());
 
