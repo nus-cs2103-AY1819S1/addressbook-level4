@@ -27,10 +27,10 @@ import seedu.jxmusic.logic.parser.exceptions.ParseException;
 public class LibraryParser {
 
     /**
-     * Used for initial separation of command word and args.
+     * Used for initial separation of command phrase and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandPhrase>(?:\\p{Alpha}+\\s+)+|\\p{Alpha}+)(?<arguments>.*)");
+            Pattern.compile("(?<commandPhrase>(?:[a-zA-Z]+\\s+){0,1}[a-zA-Z]+(?!/))(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -46,7 +46,7 @@ public class LibraryParser {
         }
 
         final String commandWord = matcher.group("commandPhrase").trim();
-        final String arguments = " " + matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
+        final String arguments = matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
         switch (commandWord) {
 
         case PlayPlaylistCommand.COMMAND_WORD:
