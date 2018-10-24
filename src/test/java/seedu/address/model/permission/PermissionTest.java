@@ -7,16 +7,16 @@ import org.junit.Test;
 
 public class PermissionTest {
 
-    String VALID_PERMISSION = "ADD_EMPLOYEE";
-    String INVALID_PERMISSION = "invalid";
+    private String validPermission = "ADD_EMPLOYEE";
+    private String invalidPermission = "invalid";
 
     @Test
     public void isValidPermission() {
         //null -> false
         assertFalse(Permission.isValidPermission(null));
         //Invalid permission -> false
-        assertFalse(Permission.isValidPermission(INVALID_PERMISSION));
+        assertFalse(Permission.isValidPermission(invalidPermission));
         //Valid permission -> true
-        assertTrue(Permission.isValidPermission(VALID_PERMISSION));
+        assertTrue(Permission.isValidPermission(validPermission));
     }
 }
