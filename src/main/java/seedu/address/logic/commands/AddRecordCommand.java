@@ -14,9 +14,9 @@ import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordContainsEventIdPredicate;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * Adds a record to the application.
@@ -55,14 +55,14 @@ public class AddRecordCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Volunteer> lastShownList = model.getFilteredVolunteerList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
         }
 
-        Person personSelected = lastShownList.get(index.getZeroBased());
-        Record record = new Record(model.getSelectedEvent().getEventId(), personSelected.getPersonId(),
+        Volunteer volunteerSelected = lastShownList.get(index.getZeroBased());
+        Record record = new Record(model.getSelectedEvent().getEventId(), volunteerSelected.getVolunteerId(),
                 toAdd.getHour(), toAdd.getRemark());
 
         if (model.hasRecord(record)) {

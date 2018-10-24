@@ -16,11 +16,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordContainsEventIdPredicate;
 import seedu.address.model.record.Remark;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * Edits the details of an existing record in the application.
@@ -89,12 +89,12 @@ public class EditRecordCommand extends Command {
     private static Record createEditedRecord(Record recordToEdit, EditRecordDescriptor editRecordDescriptor) {
         assert recordToEdit != null;
 
-        PersonId personId = recordToEdit.getVolunteerId();
+        VolunteerId volunteerId = recordToEdit.getVolunteerId();
         EventId eventId = recordToEdit.getEventId();
         Hour updatedHour = editRecordDescriptor.getHour().orElse(recordToEdit.getHour());
         Remark updatedRemark = editRecordDescriptor.getRemark().orElse(recordToEdit.getRemark());
 
-        return new Record(eventId, personId, updatedHour, updatedRemark);
+        return new Record(eventId, volunteerId, updatedHour, updatedRemark);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class EditRecordCommand extends Command {
      */
     public static class EditRecordDescriptor {
         private EventId eventId;
-        private PersonId personId;
+        private VolunteerId volunteerId;
         private Hour hour;
         private Remark remark;
 
@@ -138,7 +138,7 @@ public class EditRecordCommand extends Command {
          */
         public EditRecordDescriptor(EditRecordDescriptor toCopy) {
             setEventId(toCopy.eventId);
-            setPersonId(toCopy.personId);
+            setVolunteerId(toCopy.volunteerId);
             setHour(toCopy.hour);
             setRemark(toCopy.remark);
             setLocalIndex(toCopy.localIndex);
@@ -157,8 +157,8 @@ public class EditRecordCommand extends Command {
             this.eventId = eventId;
         }
 
-        public void setPersonId(PersonId personId) {
-            this.personId = personId;
+        public void setVolunteerId(VolunteerId volunteerId) {
+            this.volunteerId = volunteerId;
         }
 
         public void setHour(Hour hour) {
