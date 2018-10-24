@@ -27,6 +27,15 @@ public class PersonUtil {
     }
 
     /**
+     * Returns the part of command string for the given {@code person}'s name details.
+     */
+    public static String getPersonName(Person person) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        return sb.toString();
+    }
+
+    /**
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getPersonDetails(Person person) {
