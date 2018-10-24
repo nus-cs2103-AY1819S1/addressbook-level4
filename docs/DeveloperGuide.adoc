@@ -435,6 +435,8 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 
 // tag::medicine[]
 === Medicine Records System
+
+==== Current Implementation
 The medicine records system is used to manage the medicine inventory in the clinic. The `addMedicine` Command
 creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
 `receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
@@ -451,6 +453,17 @@ for the medicine that is allocated, in addition, the stock level of the medicine
 
 Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
+
+==== Design Considerations
+
+===== Aspect: Execution of the command
+
+* **Alternative 1 (current choice):** Stores the medicine in a list.
+** Pros: Similar format with the list with patients.
+** Cons: Need to search through the list to find a medicine.
+* **Alternative 2:** Stores the medicine in a hash map.
+** Pros: Quick reference for object given index.
+** Cons: Messy implementation with long methods everywhere.
 //end::medicine[]
 
 // tag::pqms[]
