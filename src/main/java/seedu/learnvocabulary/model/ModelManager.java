@@ -161,11 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLearnVocabulary.setTriviaList();
     }
 
-    @Override
-    public void setTriviaQuestion() {
-        versionedLearnVocabulary.setTriviaQuestion();
-    }
-
     public int currentScore() {
         return versionedLearnVocabulary.currentScore(); }
 
