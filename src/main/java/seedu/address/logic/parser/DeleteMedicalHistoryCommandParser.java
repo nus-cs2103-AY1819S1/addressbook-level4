@@ -11,13 +11,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DeleteMedicalHistoryCommand object
  */
-public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHistoryCommand>{
+public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHistoryCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteMedicalHistoryCommand
      * and returns an DeleteMedicalHistoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteMedicalHistoryCommand parse(String args) throws ParseException{
+    public DeleteMedicalHistoryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ALLERGY, PREFIX_CONDITION);
 

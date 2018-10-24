@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * add medical history a patient specified by index in healthbook
+ * add medical history for a patient specified by index in healthbook
  */
 public class AddMedicalHistoryCommand extends Command {
     public static final String COMMAND_WORD = "add-medical-history";
@@ -70,44 +70,45 @@ public class AddMedicalHistoryCommand extends Command {
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
         }
-        Patient patientToEdit = (Patient)lastShownList.get(index.getZeroBased());
-        if (allergy.equals("") && condition.equals("")){
+        Patient patientToEdit = (Patient) lastShownList.get(index.getZeroBased());
+        if (allergy.equals("") && condition.equals("")) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO);
         }
 
         ArrayList<String> newAllergies = new ArrayList<>();
         ArrayList<String> newConditions = new ArrayList<>();
-        if (!(allergy.equals(null))){
+        if (!(allergy.equals(null))) {
             newAllergies = new ArrayList<>(Arrays.asList(allergy.split(",")));
-            if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
-                for (int i = 0; i < newAllergies.size(); i++){
-                    if (patientToEdit.getMedicalHistory().getAllergies().contains(newAllergies.get(i))){
+            if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
+                for (int i = 0; i < newAllergies.size(); i++) {
+                    if (patientToEdit.getMedicalHistory().getAllergies().contains(newAllergies.get(i))) {
                         throw new CommandException(newAllergies.get(i) + MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
                     }
                 }
             }
         }
-        if (!(condition.equals(null))){
+        if (!(condition.equals(null))) {
             newConditions = new ArrayList<>(Arrays.asList(condition.split(",")));
-            if(!(patientToEdit.getMedicalHistory().getConditions().equals(null))){
-                for (int i = 0; i < newConditions.size(); i++){
-                    if (patientToEdit.getMedicalHistory().getConditions().contains(newConditions.get(i))){
-                        throw new CommandException(newConditions.get(i) + MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+            if (!(patientToEdit.getMedicalHistory().getConditions().equals(null))) {
+                for (int i = 0; i < newConditions.size(); i++) {
+                    if (patientToEdit.getMedicalHistory().getConditions().contains(newConditions.get(i))) {
+                        throw new CommandException(newConditions.get(i) +
+                                MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
                     }
                 }
             }
         }
 
 
-        ArrayList<String> allergies=new ArrayList<String>();
-        ArrayList<String> conditions=new ArrayList<String>();
+        ArrayList<String> allergies = new ArrayList<String>();
+        ArrayList<String> conditions = new ArrayList<String>();
 
 
-        if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
+        if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
             allergies.addAll(patientToEdit.getMedicalHistory().getAllergies());
         }
         allergies.addAll(newAllergies);
-        if(!(patientToEdit.getMedicalHistory().getAllergies().equals(null))){
+        if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
             conditions.addAll(patientToEdit.getMedicalHistory().getConditions());
         }
         conditions.addAll(newConditions);

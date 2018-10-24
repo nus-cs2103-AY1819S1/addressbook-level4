@@ -18,6 +18,9 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
+/**
+ * delete medical history for a patient specified by index in healthbook
+ */
 public class DeleteMedicalHistoryCommand extends Command {
     public static final String COMMAND_WORD = "delete-medical-history";
 
@@ -52,7 +55,7 @@ public class DeleteMedicalHistoryCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException{
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -64,27 +67,29 @@ public class DeleteMedicalHistoryCommand extends Command {
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
         }
-        Patient patientToEdit = (Patient)lastShownList.get(index.getZeroBased());
-        if (allergy.equals("") && condition.equals("")){
+        Patient patientToEdit = (Patient) lastShownList.get(index.getZeroBased());
+        if (allergy.equals("") && condition.equals("")) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
         }
-        if (!(allergy.equals(""))){
+        if (!(allergy.equals(""))) {
             ArrayList<String> allergiesToDelete = new ArrayList<>(Arrays.asList(allergy.split(",")));
-            for(int index = 0; index < allergiesToDelete.size(); index ++){
-                if(patientToEdit.getMedicalHistory().getAllergies().contains(allergiesToDelete.get(index))){
+            for (int index = 0; index < allergiesToDelete.size(); index ++ ) {
+                if (patientToEdit.getMedicalHistory().getAllergies().contains(allergiesToDelete.get(index))) {
                     patientToEdit.getMedicalHistory().getAllergies().remove(allergiesToDelete.get(index));
-                }else{
-                    throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY + patientToEdit.getMedicalHistory().getAllergies().get(0));
+                } else {
+                    throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY +
+                            patientToEdit.getMedicalHistory().getAllergies().get(0));
                 }
             }
         }
-        if (!(condition.equals(""))){
+        if (!(condition.equals(""))) {
             ArrayList<String> conditionsToDelete = new ArrayList<>(Arrays.asList(condition.split(",")));
-            for(int index = 0; index < conditionsToDelete.size(); index ++){
-                if(patientToEdit.getMedicalHistory().getConditions().contains(conditionsToDelete.get(index))){
+            for (int index = 0; index < conditionsToDelete.size(); index ++ ) {
+                if (patientToEdit.getMedicalHistory().getConditions().contains(conditionsToDelete.get(index))) {
                     patientToEdit.getMedicalHistory().getConditions().remove(conditionsToDelete.get(index));
-                }else{
-                    throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION + patientToEdit.getMedicalHistory().getConditions().get(0));
+                } else {
+                    throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION +
+                            patientToEdit.getMedicalHistory().getConditions().get(0));
                 }
             }
         }

@@ -76,7 +76,7 @@ public class XmlAdaptedPerson {
         if (pastAppointments != null) {
             this.pastAppointments = new ArrayList<>(pastAppointments);
         }
-        if (medicalHistory != null){
+        if (medicalHistory != null) {
             this.medicalHistory = medicalHistory;
         }
     }

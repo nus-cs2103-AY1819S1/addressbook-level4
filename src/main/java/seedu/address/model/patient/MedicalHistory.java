@@ -14,7 +14,7 @@ public class MedicalHistory {
         allergies = new ArrayList<>();
         conditions = new ArrayList<>();
     }
-    public MedicalHistory(ArrayList<String> allergies, ArrayList<String> conditions){
+    public MedicalHistory(ArrayList<String> allergies, ArrayList<String> conditions) {
         this.allergies = allergies;
         this.conditions = conditions;
     }
@@ -35,11 +35,16 @@ public class MedicalHistory {
         conditions.add(condition);
     }
 
-    public void setAllergies(ArrayList<String> allergies){ this.allergies = allergies; }
+    public void setAllergies(ArrayList<String> allergies) {
+        this.allergies = allergies;
+    }
 
-    public void setConditions(ArrayList<String> conditions){ this.conditions = conditions; }
+    public void setConditions(ArrayList<String> conditions) {
+        this.conditions = conditions;
+    }
 
-    public boolean equals(Object o){
+    @Override
+    public boolean equals(Object o) {
         if (o == this) { //if same object
             return true;
         } else if (!(o instanceof MedicalHistory)) {
