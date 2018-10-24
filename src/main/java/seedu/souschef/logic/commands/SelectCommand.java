@@ -47,7 +47,6 @@ public class SelectCommand extends Command {
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_RECIPE_SUCCESS, targetIndex.getOneBased()));
-
     }
 
     @Override
