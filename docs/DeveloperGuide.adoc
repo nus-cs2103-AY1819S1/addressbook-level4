@@ -434,13 +434,6 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 ** Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user's data.
 // end::login[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Statistics
 
 The implementation of the Statistics function can be divided into two parts - preparation and execution.
