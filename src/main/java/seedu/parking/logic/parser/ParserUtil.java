@@ -94,7 +94,7 @@ public class ParserUtil {
     public static Coordinate parseCoordinate(String coordinate) throws ParseException {
         requireNonNull(coordinate);
         String trimmedCoordinate = coordinate.trim();
-        if (!Coordinate.isValidCoord(trimmedCoordinate)) {
+        if (!Coordinate.isValidCoordinate(trimmedCoordinate)) {
             throw new ParseException(Coordinate.MESSAGE_COORD_CONSTRAINTS);
         }
         return new Coordinate(trimmedCoordinate);
