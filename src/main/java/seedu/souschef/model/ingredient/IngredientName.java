@@ -29,6 +29,27 @@ public class IngredientName {
         return false;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientName)) {
+            return false;
+        }
+
+        IngredientName otherIngredient = (IngredientName) other;
+
+        return otherIngredient != null
+                && otherIngredient.fullName.equalsIgnoreCase(fullName);
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.toLowerCase().hashCode();
+    }
+
     public String toString() {
         return fullName.replaceAll("_", " ");
     }
