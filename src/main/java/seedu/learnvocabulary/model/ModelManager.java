@@ -105,11 +105,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteWord(Word target) {
 
         versionedLearnVocabulary.removeWord(target);
-
-        if (target.equals(versionedLearnVocabulary.getTrivia())) {
-            versionedLearnVocabulary.clearTrivia();
-        }
-
         indicateLearnVocabularyChanged();
     }
 
