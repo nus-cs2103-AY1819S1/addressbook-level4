@@ -170,7 +170,7 @@ The sections below give more details of each component.
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
+7
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `patientListPanel`, `StatusBarFooter`, `MedicationView`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -347,11 +347,9 @@ A more detailed description of the classes follows below:
 ** Every `Person` has an `AppointmentsList`, the purpose of which is to store all `Appointment` belonging to a `Person`.
 ** A wrapper class around the internal representation of a list of appointments that exposes only a few select methods in the `List` API.
 *** The methods relevant to the `addappt` command from the API are: `add`.
-
 * `Appointment`
 ** Class encapsulating all the information about a particular appointment.
 *** These information include the type of appointment (enum Type), name of the procedure, date and time of the appointment and the name of the doctor-in-charge of the appointment
-
 * `Type`
 ** An enumeration that covers all the different types of medical procedures. The four types are:
 *** `PROPAEDEUTIC`, with `PROP` as abbreviation
