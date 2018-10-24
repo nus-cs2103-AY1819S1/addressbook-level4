@@ -27,8 +27,8 @@ work with a *Command Line Interface (CLI)* to display a list of car parks with t
 Here are several quick tips to get the application running.
 
 . Check that you have https://www.oracle.com/technetwork/java/javase/downloads/index.html[Java version 9] or later installed in your Computer.
-. Download the latest carparkbook.jar here.
-. Copy the file to the folder you want to use as the home folder for your Car park book.
+. Download the latest carparkfinder.jar https://github.com/CS2103-AY1819S1-T09-4/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for Car Park Finder.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
 .Home page
@@ -36,10 +36,10 @@ image::Ui2.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it.
 
-Some example commands you can try are:
+Some example commands you can try:
 
-- list: list your favorites list, with all the car park details
-- help: shows the list of available commands and how to use them
+- list: bring up a list of all the car parks
+- help: show the list of available commands and how to use them
 - exit: exit the program
 
 Refer to <<Features>> for details of each command.
@@ -107,7 +107,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Select the 2nd car park in the address book.
+Select the 2nd car park in the list.
 * `find sengkang` +
 `s 1` +
 Selects the 1st car park in the results of the `find` command.
