@@ -7,10 +7,11 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-
 
 /**
  * Wraps all data at the address-book level
@@ -19,6 +20,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueAppointmentList appointments;
+    private int appointmentCounter;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -26,8 +29,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         persons = new UniquePersonList();
+        appointments = new UniqueAppointmentList();
+        appointmentCounter = 1;
     }
 
     public AddressBook() {
@@ -52,12 +58,29 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments.setAppointments(appointments);
+    }
+
+    /**
+     * Replaces the contents of the appointment counter with {@code appointmentCounter}.
+     */
+    public void setAppointmentCounter(int appointmentCounter) {
+        this.appointmentCounter = appointmentCounter;
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setAppointments(newData.getAppointmentList());
+        setAppointmentCounter(newData.getAppointmentCounter());
     }
 
     //// person-level operations
@@ -79,18 +102,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
+     * Adds a patient to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPatient(Person p) {
+    public void addPatient(Patient p) {
         persons.add(p);
     }
 
     /**
-     * Adds a person to the address book.
+     * Adds a doctor to the address book.
      * The person must not already exist in the address book.
      */
-    public void addDoctor(Person d) {
+    public void addDoctor(Doctor d) {
         persons.add(d);
     }
 
@@ -117,15 +140,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds appointment to patient {@code patient, appointment} to this {@code HealthBook}.
      * {@code patient} must exist in the health book.
      */
-    public void addAppointment(Patient patient, Appointment appointment) {
-        patient.addUpcomingAppointment(appointment);
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
     }
 
     /**
      * Deletes a patient's {@code appointment} from this {@code HealthBook}.
      */
     public void deleteAppointment(Appointment appointment) {
-        // TODO - store appointments in separate file like persons(?)
+        appointments.remove(appointment);
     }
 
     //// util methods
@@ -142,10 +165,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public int getAppointmentCounter() {
+        return appointmentCounter;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons))
+                && (other instanceof AddressBook
+                && appointments.equals(((AddressBook) other).appointments))
+                && (other instanceof AddressBook // instanceof handles nulls
+                && appointmentCounter == (((AddressBook) other).appointmentCounter));
     }
 
     @Override

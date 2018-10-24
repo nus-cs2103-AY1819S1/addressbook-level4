@@ -12,7 +12,6 @@ import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
-
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
  */
@@ -29,7 +28,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_NAME, PREFIX_DOCTOR_NAME, PREFIX_DATE_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAppointmentCommand.MESSAGE_USAGE));
         }
 
         Name patientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PATIENT_NAME).get());
