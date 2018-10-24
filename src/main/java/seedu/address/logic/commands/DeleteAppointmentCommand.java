@@ -2,11 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,21 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-<<<<<<< HEAD
-import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
-
-=======
->>>>>>> b6982f364f6784cb858263f614651f9c1e630ba8
 /**
  * Adds a patient's appointment to the health book.
  */
