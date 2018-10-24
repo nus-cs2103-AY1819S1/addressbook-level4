@@ -221,14 +221,14 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageComponentClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Health Book data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -263,14 +263,26 @@ Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the s
 === Register Patient Feature
 ==== Current Implementation
 The register patient are facilitated by `RegisterPatientCommand` and `RegisterPatientCommandParser`. This command extends
-the `AddCommand` and `AddCommandParser` such that it is able to create a `Patient` object. This command
-automatically tags the object created as `Patient`.
+the `AddCommand` and `AddCommandParser` such that it is able to create a `Patient` object. The Patient object is
+automatically tagged as `Patient`.
+
+.Register Patient Sequence Diagram
+image::RegisterPatientSequenceDiagram.png[width="600"]
+
+Patient model contains a PriorityQueue of upcoming appointment and ArrayList of past appointments. We implemented
+the patient model in this way to allow ease of addition of new upcoming appointment to the patient.
 
 Step 1. The user types in `register-patient` in the command box followed by the parameters `n/John Doe p/91234567
 e/test@test.com a/123 Clementi Road`
 
+[WARNING]
+Command Exception will be thrown if any of the information is missing or invalid. All fields are mandatory.
+
 Step 2. Upon hitting enter, the `Patient` will be created and added to the storage of the system
 
+[NOTE]
+Patient is saved in the storage as person. However, when we retrieve the patient object from storage, it will be
+created as a patient as determined by their tag.
 
 ==== Design Considerations
 ===== Aspect: Data Structure of Upcoming and Past Appointments
@@ -284,18 +296,49 @@ Stack.
 === Register Doctor Feature
 ==== Current Implementation
 The register doctor are facilitated by `RegisterDoctorCommand` and `RegisterDoctorCommandParser`. This command extends
-the `AddCommand` and `AddCommandParser` such that it is able to create a `Doctor` object. This command automatically tags
-the object created as `Doctor`.
+the `AddCommand` and `AddCommandParser` such that it is able to create a `Doctor` object. The Doctor object is
+automatically tagged as `Doctor`.
+
+.Register Patient Sequence Diagram
+image::RegisterDoctorSequenceDiagram.png[width="600"]
 
 Step 1. The user types in `register-doctor` in the command box followed by the parameters `n/John Doe p/91234567 e/test@test.com a/123 Clementi Road`
 
-Step 2. Upon hitting enter, the `Doctor` will be created and added to the storage of the system
+[WARNING]
+Command Exception will be thrown if any of the information is missing or invalid. All fields are mandatory.
+
+Step 2. Upon hitting enter, a browser will be opened for user to login to google to register their Google Calendar.
+
+.Google Login Page
+image::GoogleLoginPage.png[width="600"]
+
+Step 3. Simultaneously, the `Doctor` will be created and added to the storage of the system. In the case that the user
+does not login to google, subsequent access to their google calendar will be denied. However, doctor object will still
+be created.
+
+[NOTE]
+Doctor is saved in the storage as person. However, when we retrieve the doctor object from storage, it will be
+created as a doctor as determined by their tag.
 
 
 ==== Design Considerations
-===== Aspect: Presenting Upcoming Appointment to Doctors
-* Alternative 1 (Current Choice): Implement Google Calendar to reflect upcoming appointment to the doctor. This allow
-doctors to view information provided by the receptionist without accessing HealthBook directly to check the information.
+===== Aspect: Presenting Google Calendar Login to Doctors
+* Alternative 1 (Current Choice): Implement Google Calendar login with a popped up browser. This allow the data transfer
+ for the Google login to be simplified. No additional parsing will be required. In addition, the pop up of the browser
+ will capture the users attention, decreasing the chance of user missing this login procedure.
+
+* Alternative 2 (Alternative Choice): Implement Google Calendar login with the browser panel instead.
+Instead of having an additional browser, we load the login page into the Browser Panel. This will facilitate a seamless
+login for the login but user might miss the login compared to having a popped up browser.
+
+===== Aspect: Saving Doctor with respect to Google Login
+* Alternative 1 (Current Choice): Allow doctor to still be created with or without the Google Login. Since the Google
+Calendar acts as an add-on, it should not interfere with the main function of the HealthBook. As such, we implemented
+register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
+prompt the user to login.
+
+* Alternative 2 (Alternative Choice): Doctor object will not be created if Google Login is unsuccessful, instead throw
+an exception. This will make Google Calendar mandatory for all doctors.
 
 === Remark Command
 ==== Current Implementation
