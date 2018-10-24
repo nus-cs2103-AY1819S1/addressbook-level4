@@ -25,7 +25,7 @@ public class ManageCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Manages the event identified by the index number used in the displayed event list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: EVENT_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MANAGE_EVENT_SUCCESS = "Selected Event to Manage: %1$s";
@@ -48,6 +48,7 @@ public class ManageCommand extends Command {
         }
 
         model.switchToRecordContext();
+        model.setSelectedEvent(filteredEventList.get(targetIndex.getZeroBased()));
         model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
                 filteredEventList.get(targetIndex.getZeroBased()).getEventId()
         ));

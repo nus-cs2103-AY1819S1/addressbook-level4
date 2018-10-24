@@ -26,8 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Context context;
 
-    private final FilteredList<Volunteer> filteredVolunteers;
+    private Event selectedEvent;
 
+    private final FilteredList<Volunteer> filteredVolunteers;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Record> filteredRecords;
 
@@ -43,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
 
         context = new Context(Context.VOLUNTEER_CONTEXT_ID, Context.VOLUNTEER_CONTEXT_NAME);
+
+        selectedEvent = null;
 
         filteredVolunteers = new FilteredList<>(versionedAddressBook.getVolunteerList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
@@ -93,6 +96,18 @@ public class ModelManager extends ComponentManager implements Model {
         return context.getContextName();
     }
 
+    @Override
+    public void setSelectedEvent(Event event) {
+        requireNonNull(event);
+        selectedEvent = event;
+    }
+
+    @Override
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+
     //===========  Volunteer List Methods =============================================================
     @Override
     public boolean hasVolunteer(Volunteer volunteer) {
@@ -105,6 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removeVolunteer(target);
         indicateAddressBookChanged();
     }
+
     @Override
     public void addVolunteer(Volunteer volunteer) {
         versionedAddressBook.addVolunteer(volunteer);

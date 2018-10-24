@@ -4,15 +4,10 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
@@ -22,7 +17,7 @@ import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Volunteer;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of volunteers.
  */
 public class RecordEventPanel extends UiPart<Region> {
     private static final String FXML = "RecordEventPanel.fxml";
@@ -55,6 +50,7 @@ public class RecordEventPanel extends UiPart<Region> {
         this.recordList = recordList;
         this.volunteerList = volunteerList;
 
+        mapVolunteerToRecord();
         setConnections();
         registerAsAnEventHandler(this);
     }
@@ -75,6 +71,7 @@ public class RecordEventPanel extends UiPart<Region> {
         for (int i = 0; i < recordList.size(); i++) {
             for (int j = 0; j < volunteerList.size(); j++) {
                 if (recordList.get(i).getVolunteerId().id == volunteerList.get(j).getVolunteerId().id) {
+                    recordList.get(i).setLocalIndex(i + 1);
                     recordList.get(i).setVolunteerName(volunteerList.get(j).getName().fullName);
                     recordList.get(i).setPhoneNo(volunteerList.get(j).getPhone().value);
                     break;
@@ -84,22 +81,7 @@ public class RecordEventPanel extends UiPart<Region> {
     }
 
     private void setConnections() {
-        indexColumn.setCellFactory(col -> {
-            TableCell<String, Integer> indexCell = new TableCell<>();
-            ReadOnlyObjectProperty<TableRow<String>> rowProperty = indexCell.tableRowProperty();
-            ObjectBinding<String> rowBinding = Bindings.createObjectBinding(() -> {
-                TableRow<String> row = rowProperty.get();
-                if (row != null) {
-                    int rowIndex = row.getIndex();
-                    if (rowIndex < row.getTableView().getItems().size()) {
-                        return Integer.toString(rowIndex + 1);
-                    }
-                }
-                return null;
-            }, rowProperty);
-            indexCell.textProperty().bind(rowBinding);
-            return indexCell;
-        });
+        indexColumn.setCellValueFactory(new PropertyValueFactory<>("localIndex"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("volunteerName"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
         hourColumn.setCellValueFactory(new PropertyValueFactory<>("hour"));
