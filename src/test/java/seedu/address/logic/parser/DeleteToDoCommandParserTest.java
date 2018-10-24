@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteToDoCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.DeleteToDoCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

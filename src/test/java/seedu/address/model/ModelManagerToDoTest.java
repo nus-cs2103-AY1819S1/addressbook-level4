@@ -1,17 +1,18 @@
 package seedu.address.model;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.testutil.ToDoListBuilder;
-
-import java.nio.file.Paths;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.ModelToDo.PREDICATE_SHOW_ALL_TODOLIST_EVENTS;
 import static seedu.address.testutil.TypicalTodoListEvents.LECTURE;
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.nio.file.Paths;
+
+import seedu.address.testutil.ToDoListBuilder;
 
 public class ModelManagerToDoTest {
     @Rule

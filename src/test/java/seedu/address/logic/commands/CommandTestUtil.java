@@ -113,8 +113,8 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandToDoSuccess(CommandToDo commandToDo, ModelToDo actualModel, CommandHistory actualCommandHistory,
-                                                String expectedMessage, ModelToDo expectedModel) {
+    public static void assertCommandToDoSuccess(CommandToDo commandToDo, ModelToDo actualModel,
+                                                CommandHistory actualCommandHistory, String expectedMessage, ModelToDo expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = commandToDo.execute(actualModel, actualCommandHistory);
@@ -160,8 +160,8 @@ public class CommandTestUtil {
      * - the todolist and the filtered todolistevent list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandToDoHistory} remains unchanged.
      */
-    public static void assertCommandToDoFailure(CommandToDo commandToDo, ModelToDo actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage) {
+    public static void assertCommandToDoFailure(CommandToDo commandToDo, ModelToDo actualModel,
+                                                CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ToDoList expectedToDoList = new ToDoList(actualModel.getToDoList());

@@ -1,15 +1,15 @@
 package seedu.address.model.todolist;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import seedu.address.testutil.ToDoListEventBuilder;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import seedu.address.testutil.ToDoListEventBuilder;
 
 public class TitleToDoContainsKeywordsPredicateTest {
     @Test
@@ -17,8 +17,10 @@ public class TitleToDoContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        TitleToDoContainsKeywordsPredicate firstPredicate = new TitleToDoContainsKeywordsPredicate(firstPredicateKeywordList);
-        TitleToDoContainsKeywordsPredicate secondPredicate = new TitleToDoContainsKeywordsPredicate(secondPredicateKeywordList);
+        TitleToDoContainsKeywordsPredicate firstPredicate =
+                new TitleToDoContainsKeywordsPredicate(firstPredicateKeywordList);
+        TitleToDoContainsKeywordsPredicate secondPredicate =
+                new TitleToDoContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
