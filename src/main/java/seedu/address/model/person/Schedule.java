@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -264,9 +265,18 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public ArrayList<Slot> getFreeSlotsByDay(String day) {
+    public ArrayList<Slot> getFreeSlotsByDay(int day) {
         ArrayList<Slot> slots = getFreeSlots();
-        slots.removeIf(s -> !s.getDay().equalsIgnoreCase(day));
+        ArrayList<Slot> filteredSlots = new ArrayList<>();
+        for (Slot slot : slots) {
+            try {
+                if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
+                    filteredSlots.add(slot);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return slots;
     }
 
@@ -322,5 +332,12 @@ public class Schedule {
             sb.append("</tr>");
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Schedule // instanceof handles nulls
+                && Arrays.equals(this.value, ((Schedule) other).value)); // state check
     }
 }

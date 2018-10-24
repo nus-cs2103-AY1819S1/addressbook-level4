@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DisplayPollEvent;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,6 +37,10 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
+            if (!commandText.split(" ")[0].toLowerCase().contains("select")) {
+                raise(new PersonPanelSelectionChangedEvent(null));
+                raise(new DisplayPollEvent(null));
+            }
             return command.execute(model, history);
         } finally {
             history.add(commandText);

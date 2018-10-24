@@ -4,12 +4,14 @@ package seedu.address.logic.commands.eventcommands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getAddressBookWithParticipant;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,13 +30,15 @@ public class JoinEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedJoinEvent() {
+    public void execute_acceptedJoinEvent() throws NoUserLoggedInException {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = TypicalPersons.BENSON;
         model.setCurrentUser(user);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
         expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
+        expectedModel.setCurrentUser(user);
+        expectedModel.joinEvent(TypicalIndexes.INDEX_FIRST);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,8 +64,7 @@ public class JoinEventCommandTest {
     @Test
     public void execute_alreadyJoinedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         model.updateEvent(TypicalIndexes.INDEX_FIRST.getZeroBased(), event);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);

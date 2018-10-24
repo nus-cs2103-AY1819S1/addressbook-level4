@@ -17,6 +17,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
+import seedu.address.logic.commands.eventcommands.AddTimePollCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
 import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
@@ -31,13 +32,15 @@ import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.ClearUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
-import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
+import seedu.address.logic.commands.personcommands.FindUserByNameCommand;
+import seedu.address.logic.commands.personcommands.FindUserByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
+import seedu.address.logic.parser.eventparsers.AddTimePollCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
 import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
 import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
@@ -106,6 +109,9 @@ public class AddressBookParser {
         case AddPollCommand.COMMAND_WORD:
             return new AddPollCommandParser().parse(arguments);
 
+        case AddTimePollCommand.COMMAND_WORD:
+            return new AddTimePollCommandParser().parse(arguments);
+
         case AddPollOptionCommand.COMMAND_WORD:
             return new AddPollOptionCommandParser().parse(arguments);
 
@@ -136,9 +142,11 @@ public class AddressBookParser {
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
 
-        case FindByPhoneCommand.COMMAND_WORD_ALIAS:
-        case FindByPhoneCommand.COMMAND_WORD:
-            return new FindByPhoneCommandParser().parse(arguments);
+        case FindUserByNameCommand.COMMAND_WORD:
+            return new FindUserByNameCommandParser().parse(arguments);
+
+        case FindUserByPhoneCommand.COMMAND_WORD:
+            return new FindUserByPhoneCommandParser().parse(arguments);
 
         case ListUserCommand.COMMAND_WORD:
             return new ListUserCommand();
@@ -158,8 +166,7 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case MaxScheduleCommand
-            .COMMAND_WORD:
+        case MaxScheduleCommand.COMMAND_WORD:
             return new MaxScheduleCommandParser().parse(arguments);
 
         default:

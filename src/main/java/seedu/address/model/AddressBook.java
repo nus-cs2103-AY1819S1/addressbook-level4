@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -52,10 +53,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    private void setEvents(List<Event> events) {
-        this.events.setEvents(events);
+    /**
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
+     */
+    public void setEvents(List<Event> events) {
+        List<Event> eventListCopy = new ArrayList<>();
+        for (Event event : events) {
+            eventListCopy.add(event.getCopy());
+        }
+        this.events.setEvents(eventListCopy);
+        //this.events.setEvents(events);
     }
-
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.

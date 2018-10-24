@@ -1,43 +1,27 @@
-//@@author theJrLinguist
-package seedu.address.model.event;
+package seedu.address.model.event.polls;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Represents a poll associated with an event.
+ * An abstract poll class.
  */
-public class Poll {
-    private int id;
-    private String pollName;
-    private HashMap<String, UniquePersonList> pollData;
-
-    /**
-     * Creates a new Poll object
-     * @param pollName The name of the poll
-     */
-    public Poll(int id, String pollName) {
-        this.id = id;
-        this.pollName = pollName;
-        pollData = new HashMap<>();
-    }
-
-    /**
-     * Creates a new poll object with the poll data.
-     */
-    public Poll(int id, String pollName, HashMap<String, UniquePersonList> pollData) {
-        this.id = id;
-        this.pollName = pollName;
-        this.pollData = pollData;
-    }
+public class AbstractPoll {
+    private static final Logger logger = LogsCenter.getLogger(AbstractPoll.class);
+    protected int id;
+    protected String pollName;
+    protected HashMap<String, UniquePersonList> pollData;
 
     public int getId() {
         return id;
@@ -49,15 +33,6 @@ public class Poll {
 
     public HashMap<String, UniquePersonList> getPollData() {
         return pollData;
-    }
-
-    /**
-     * Add an option into the poll
-     * @param option The string representing the option to be added
-     */
-    public void addOption(String option) {
-        UniquePersonList personList = new UniquePersonList();
-        pollData.put(option, personList);
     }
 
     /**
@@ -74,7 +49,17 @@ public class Poll {
      * Updates the person in the poll votes.
      */
     public void updatePerson(Person target, Person editedPerson) {
-        pollData.forEach((k, v) -> v.setPerson(target, editedPerson));
+        for (Map.Entry<String, UniquePersonList> entry : pollData.entrySet()) {
+            if (entry.getValue().contains(target)) {
+                try {
+                    entry.getValue().setPerson(target, editedPerson);
+                } catch (PersonNotFoundException e) {
+                    logger.info("Person is not in voter list.");
+                } catch (DuplicatePersonException e) {
+                    logger.info("The same person is already in the voter list.");
+                }
+            }
+        }
     }
 
     /**
@@ -124,5 +109,50 @@ public class Poll {
             result += entry.getKey() + ":\n" + entry.getValue().toString() + "\n";
         }
         return result;
+    }
+
+    /**
+     * Returns a copy of the poll data.
+     */
+    public HashMap<String, UniquePersonList> copyData() {
+        HashMap<String, UniquePersonList> dataCopy = new HashMap<>();
+        for (Map.Entry<String, UniquePersonList> entry : pollData.entrySet()) {
+            UniquePersonList newPersonList = new UniquePersonList();
+            for (Person person : entry.getValue()) {
+                newPersonList.add(person);
+            }
+            dataCopy.put(entry.getKey(), newPersonList);
+        }
+        return dataCopy;
+    }
+
+    /**
+     * Deletes a person from the voter lists in the poll data.
+     */
+    public void deletePerson(Person target) {
+        for (Map.Entry<String, UniquePersonList> entry : pollData.entrySet()) {
+            if (entry.getValue().contains(target)) {
+                entry.getValue().remove(target);
+            }
+        }
+    }
+
+    /**
+     * Returns true if both polls have the same identity and data fields.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AbstractPoll)) {
+            return false;
+        }
+
+        AbstractPoll otherPoll = (AbstractPoll) other;
+        return otherPoll.getId() == getId()
+                && otherPoll.getPollData().equals(getPollData())
+                && otherPoll.getPollName().equals(getPollName());
     }
 }

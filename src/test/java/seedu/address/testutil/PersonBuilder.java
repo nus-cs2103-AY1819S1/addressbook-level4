@@ -7,6 +7,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -48,6 +49,7 @@ public class PersonBuilder {
     private Schedule schedule;
     private Set<Interest> interests;
     private Set<Tag> tags;
+    private Set<Friend> friends;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -58,6 +60,7 @@ public class PersonBuilder {
         interests.add(new Interest(DEFAULT_INTERESTS));
         tags = new HashSet<>();
         schedule = new Schedule(DEFAULT_SCHEDULE);
+        friends = new HashSet<>();
     }
 
     /**
@@ -71,6 +74,7 @@ public class PersonBuilder {
         interests = new HashSet<>(personToCopy.getInterests());
         tags = new HashSet<>(personToCopy.getTags());
         schedule = new Schedule(personToCopy.getSchedule().valueToString());
+        friends = new HashSet<>(personToCopy.getFriends());
     }
 
     /**
@@ -94,6 +98,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code friends} into a {@code Set<Friend>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withFriends(String... friends) {
+        this.friends = SampleDataUtil.getFriendSet(friends);
         return this;
     }
 
@@ -134,7 +146,7 @@ public class PersonBuilder {
      * Builds a person.
      */
     public Person build() {
-        return new Person(name, phone, email, address, interests, tags, schedule);
+        return new Person(name, phone, email, address, interests, tags, schedule, friends);
     }
 
 

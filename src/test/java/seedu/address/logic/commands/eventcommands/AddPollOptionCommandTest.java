@@ -4,22 +4,27 @@ package seedu.address.logic.commands.eventcommands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalIndexes;
 
 public class AddPollOptionCommandTest {
+    private static final String POLLNAME = EventBuilder.DEFAULT_POLL;
     private static final String OPTION_NAME = "Generic option";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -27,16 +32,18 @@ public class AddPollOptionCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedAddPollOption() {
+    public void execute_acceptedAddPollOption() throws NoEventSelectedException,
+            NoUserLoggedInException, NotEventOrganiserException {
         Index index = TypicalIndexes.INDEX_FIRST;
         AddPollOptionCommand command = new AddPollOptionCommand(index, OPTION_NAME);
-        Event event = model.getFilteredEventList().get(0);
-        event.addPoll("Generic poll");
-        Person user = new PersonBuilder().build();
-        model.setCurrentUser(user);
-        model.setSelectedEvent(event);
+        model.setSelectedEvent(model.getEvent(index));
+        model.setCurrentUser(ALICE);
+        model.addPoll(POLLNAME);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
-        expectedModel.updateEvent(event, event);
+        expectedModel.setSelectedEvent(expectedModel.getEvent(index));
+        expectedModel.setCurrentUser(ALICE);
+        expectedModel.addPoll(POLLNAME);
+        expectedModel.addPollOption(index, OPTION_NAME);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }

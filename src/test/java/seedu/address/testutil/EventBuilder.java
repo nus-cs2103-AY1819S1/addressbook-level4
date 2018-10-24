@@ -1,6 +1,8 @@
 //@@author theJrLinguist
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ALICE;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -8,7 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.AbstractPoll;
+import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -29,7 +32,7 @@ public class EventBuilder {
     private Address address;
     private Person organiser;
     private Set<Tag> tags;
-    private ArrayList<Poll> polls;
+    private ArrayList<AbstractPoll> polls;
     private UniquePersonList personList;
     private LocalDate date;
     private LocalTime startTime;
@@ -38,7 +41,7 @@ public class EventBuilder {
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
         address = new Address(DEFAULT_ADDRESS);
-        organiser = new PersonBuilder().build();
+        organiser = ALICE;
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
@@ -107,7 +110,7 @@ public class EventBuilder {
      * Adds one person as a participant to the event.
      */
     public EventBuilder withParticipant() {
-        personList.add(new PersonBuilder().build());
+        personList.add(ALICE);
         return this;
     }
 

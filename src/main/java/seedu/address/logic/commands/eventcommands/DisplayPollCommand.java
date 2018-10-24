@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Poll;
+import seedu.address.model.event.polls.AbstractPoll;
 
 /**
  * Command to display a poll of a pre-selected event given an index.
@@ -40,7 +40,7 @@ public class DisplayPollCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             Event event = model.getSelectedEvent();
-            Poll poll = event.getPoll(targetIndex);
+            AbstractPoll poll = event.getPoll(targetIndex);
             String result = String.format(MESSAGE_SUCCESS, targetIndex.getOneBased(), event);
             String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));

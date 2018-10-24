@@ -63,6 +63,16 @@ public class EventListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    /*
+     * Resets selection
+     */
+    //    public void resetSelection() {
+    //        eventListView.getSelectionModel().clearSelection();
+    //    }
+    public ObservableList<Event> getModel() {
+        return eventListView.getItems();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
