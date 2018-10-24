@@ -21,10 +21,15 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
-
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
+<<<<<<< HEAD
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
+
+=======
+>>>>>>> b6982f364f6784cb858263f614651f9c1e630ba8
 /**
  * Adds a patient's appointment to the health book.
  */
@@ -55,7 +60,6 @@ public class DeleteAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
         List<Person> personList = model.getFilteredPersonList();
         Patient patient = null;
