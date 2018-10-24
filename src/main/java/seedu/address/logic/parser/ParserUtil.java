@@ -12,6 +12,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.ConsumptionPerDay;
+import seedu.address.model.appointment.Dosage;
+import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -150,7 +153,7 @@ public class ParserUtil {
      * Parses a {@code String id} into a {@code int}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code dateTime} format is invalid.
+     * @throws ParseException if the given {@code id} format is invalid.
      */
     public static int parseId(String id) throws ParseException {
         requireNonNull(id);
@@ -160,4 +163,51 @@ public class ParserUtil {
         }
         return Integer.parseInt(trimmedId);
     }
+
+    /**
+     * Parses a {@code String medicineName} into a {@code MedicineName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicineName} format is invalid.
+     */
+    public static MedicineName parseMedicineName(String medicineName) throws ParseException {
+        requireNonNull(medicineName);
+        String trimmedMedicineName = medicineName.trim();
+        if (!MedicineName.isValidMedicineName(trimmedMedicineName)) {
+            throw new ParseException(MedicineName.MESSAGE_MEDICINE_NAME_CONSTRAINTS);
+        }
+        return new MedicineName(trimmedMedicineName);
+    }
+
+    /**
+     * Parses a {@code String dosage} into a {@code Dosage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dosage} format is invalid.
+     */
+    public static Dosage parseDosage(String dosage) throws ParseException {
+        requireNonNull(dosage);
+        String trimmedDosage = dosage.trim();
+        if (!Dosage.isValidDosage(trimmedDosage)) {
+            throw new ParseException(Dosage.MESSAGE_CONSTRAINTS);
+        }
+        return new Dosage(trimmedDosage);
+    }
+
+    /**
+     * Parses a {@code String consumptionPerDay} into a {@code ConsumptionPerDay}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code consumptionPerDay} format is invalid.
+     */
+    public static ConsumptionPerDay parseConsumptionPerDay(String consumptionPerDay) throws ParseException {
+        requireNonNull(consumptionPerDay);
+        String trimmedConsumptionPerDay = consumptionPerDay.trim();
+        if (!ConsumptionPerDay.isValidConsumptionPerDay(trimmedConsumptionPerDay)) {
+            throw new ParseException(ConsumptionPerDay.MESSAGE_CONSTRAINTS);
+        }
+        return new ConsumptionPerDay(trimmedConsumptionPerDay);
+    }
+
+
 }

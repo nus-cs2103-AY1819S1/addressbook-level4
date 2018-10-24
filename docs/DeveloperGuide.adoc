@@ -346,6 +346,9 @@ an exception. This will make Google Calendar mandatory for all doctors.
 Remark command allows user to input any information into Doctor/Patient object with no restrictions. This command can
 only be called after person is created.
 
+.Sequence Diagram for Remark Command
+image::RemarkCommandSequenceDiagram.png[width="600"]
+
 Step 1. The user types in `remark` in the command box followed by the parameters `index r/some remark`
 
 Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
