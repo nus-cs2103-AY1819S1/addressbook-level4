@@ -37,6 +37,7 @@ public class ModifyPermissionCommandParser implements Parser<ModifyPermissionCom
         Set<Permission> permissionToRemove = new HashSet<>();
         parsePermission(argMultimap.getAllValues(PREFIX_REMOVE_PERMISSION)).ifPresent(permissionToRemove::addAll);
 
+        //Check for intersection between permissionToAdd and permissionToRemove
         Set<Permission> intersection = new HashSet<>(permissionToAdd);
         intersection.retainAll(permissionToRemove);
         if(intersection.size() > 0) {
