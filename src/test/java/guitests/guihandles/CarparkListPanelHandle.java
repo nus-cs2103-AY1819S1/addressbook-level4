@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.model.carpark.Carpark;
 
 /**
  * Provides a handle for {@code CarparkListPanel} containing the list of {@code PersonCard}.
@@ -63,7 +63,7 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code carpark}.
      */
     public void navigateToCard(Carpark person) {
         if (!getRootNode().getItems().contains(person)) {

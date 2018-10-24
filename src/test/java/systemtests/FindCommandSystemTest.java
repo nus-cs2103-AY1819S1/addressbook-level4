@@ -1,31 +1,31 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCarparks.BRAVO;
-import static seedu.address.testutil.TypicalCarparks.CHARLIE;
-import static seedu.address.testutil.TypicalCarparks.DELTA;
-import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_SENGKANG;
+import static seedu.parking.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
+import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.parking.testutil.TypicalCarparks.BRAVO;
+import static seedu.parking.testutil.TypicalCarparks.CHARLIE;
+import static seedu.parking.testutil.TypicalCarparks.DELTA;
+import static seedu.parking.testutil.TypicalCarparks.KEYWORD_MATCHING_SENGKANG;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.parking.commons.core.index.Index;
+import seedu.parking.logic.commands.DeleteCommand;
+import seedu.parking.logic.commands.FindCommand;
+import seedu.parking.logic.commands.RedoCommand;
+import seedu.parking.logic.commands.UndoCommand;
+import seedu.parking.model.Model;
+import seedu.parking.model.tag.Tag;
 
-public class FindCommandSystemTest extends AddressBookSystemTest {
+public class FindCommandSystemTest extends CarparkFinderSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple persons in car park finder, command with leading spaces and trailing spaces
          * -> 2 car parks found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG + "   ";
@@ -49,23 +49,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple car parks in address book, 2 keywords -> 2 car parks found */
+        /* Case: find multiple car parks in car park finder, 2 keywords -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK88 SK23";
         ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple car parks in address book, 2 keywords in reversed order -> 2 car parks found */
+        /* Case: find multiple car parks in car park finder, 2 keywords in reversed order -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK23 SK88";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple car parks in address book, 2 keywords with 1 repeat -> 2 car parks found */
+        /* Case: find multiple car parks in car park finder, 2 keywords with 1 repeat -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK23 SK88 SK23";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple car parks in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple car parks in car park finder, 2 matching keywords and 1 non-matching keyword
          * -> 2 car parks found
          */
         command = FindCommand.COMMAND_WORD + " SK23 SK88 NonMatchingKeyWord";
@@ -82,88 +82,88 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same car parks in address book after deleting 1 of them -> 1 car park found */
+        /* Case: find same car parks in car park finder after deleting 1 of them -> 1 car park found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getCarparkList().contains(BRAVO));
+        assertFalse(getModel().getCarparkFinder().getCarparkList().contains(BRAVO));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find car park in address book, keyword is same as name but of different case
+        /* Case: find car park in car park finder, keyword is same as name but of different case
          * -> 1 car park found
          */
         command = FindCommand.COMMAND_WORD + " SeNgKaNg";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find car park in address book, keyword is substring of name -> 0 car parks found */
+        /* Case: find car park in car park finder, keyword is substring of name -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " Sen";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find car park in address book, name is substring of keyword -> 0 car parks found */
+        /* Case: find car park in car park finder, name is substring of keyword -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " Sengkangs";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find car park not in address book -> 0 car parks found */
+        /* Case: find car park not in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " AK47";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find type of car park in address book -> 0 car parks found */
+        /* Case: find type of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getCarparkType().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find coordinate of car park in address book -> 0 car parks found */
+        /* Case: find coordinate of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getCoordinate().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find lots available of car park in address book -> 0 car parks found */
+        /* Case: find lots available of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getLotsAvailable().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find total lots of car park in address book -> 0 car parks found */
+        /* Case: find total lots of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getTotalLots().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find free parking of car park in address book -> 0 car parks found */
+        /* Case: find free parking of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getFreeParking().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find night parking of car park in address book -> 0 car parks found */
+        /* Case: find night parking of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getNightParking().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find short term parking of car park in address book -> 0 car parks found */
+        /* Case: find short term parking of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getShortTerm().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find type of parking of car park in address book -> 0 car parks found */
+        /* Case: find type of parking of car park in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " " + DELTA.getTypeOfParking().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of carpark in address book -> 0 persons found */
+        /* Case: find tags of car park in car park finder -> 0 persons found */
         List<Tag> tags = new ArrayList<>(DELTA.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a carpark is selected -> selected card deselected */
+        /* Case: find while a car park is selected -> selected card deselected */
         showAllCarparks();
         selectCarpark(Index.fromOneBased(1));
         assertFalse(getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber().equals(
@@ -173,7 +173,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find car park in empty address book -> 0 persons found */
+        /* Case: find car park in empty car park finder -> 0 persons found */
         deleteAllCarparks();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         expectedModel = getModel();
@@ -191,10 +191,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code Messages#MESSAGE_CARPARKS_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code CarparkFinderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see CarparkFinderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
@@ -210,10 +210,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code CarparkFinderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see CarparkFinderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

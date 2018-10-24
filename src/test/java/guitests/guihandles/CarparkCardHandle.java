@@ -8,13 +8,14 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.carpark.Carpark;
+import seedu.parking.model.carpark.Carpark;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a carpark card in the carpark list panel.
  */
 public class CarparkCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
+    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String CARPARK_NUMBER_FIELD_ID = "#carparkNumber";
     private static final String CARPARK_TYPE_FIELD_ID = "#carparkType";
     private static final String COORDINATE_FIELD_ID = "#coordinate";
@@ -24,7 +25,6 @@ public class CarparkCardHandle extends NodeHandle<Node> {
     private static final String SHORT_TERM_FIELD_ID = "#shortTerm";
     private static final String TOTAL_LOTS_FIELD_ID = "#totalLots";
     private static final String TYPE_OF_PARKING_FIELD_ID = "#parkingSystem";
-    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -114,7 +114,7 @@ public class CarparkCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code carpark}.
      */
     public boolean equals(Carpark carpark) {
         if (carpark.getTotalLots().value.equals("0")) {
