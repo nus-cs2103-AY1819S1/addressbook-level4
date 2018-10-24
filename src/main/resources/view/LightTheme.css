@@ -97,11 +97,11 @@
 
 .list-cell:filled:hover .card {
     -fx-background-color: #21777B;
-    -fx-text-fill: white;
+    -fx-text-fill: #73c2fb;
 }
 
 .list-cell:hover .label {
-  -fx-text-fill: #2cf0f9;
+  -fx-text-fill: #73c2fb;
 }
 
 #tags {
