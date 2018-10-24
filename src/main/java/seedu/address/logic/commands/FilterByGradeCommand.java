@@ -71,6 +71,7 @@ public class FilterByGradeCommand extends FilterCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilterByGradeCommand // instanceof handles nulls
-                && minLimit == ((FilterByGradeCommand) other).minLimit && maxLimit == other.maxLimit);
+                && minLimit == ((FilterByGradeCommand) other).minLimit 
+                    && maxLimit == ((FilterByGradeCommand) other).maxLimit);
     }
 }
