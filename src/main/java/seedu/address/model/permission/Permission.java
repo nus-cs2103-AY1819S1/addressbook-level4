@@ -20,9 +20,13 @@ public enum Permission {
 
     ASSIGN_PERMISSION; //Might need a superadmin permission to control this permission.
 
-    private static final Permission[] listOfAllPermissions = values();
     public static final String MESSAGE_INVALID_PERMISSION = "Invalid permission name.";
 
+    private static final Permission[] listOfAllPermissions = values();
+
+    /**
+     * Checks if {@code permission} is valid.
+     */
     public static boolean isValidPermission(String permission) {
         for (Permission p : listOfAllPermissions) {
             if (p.name().equals(permission)) {

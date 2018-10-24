@@ -18,7 +18,6 @@ public class PermissionSet {
      */
     public enum PresetPermission {
         ADMIN {
-
             /**
              * @return a set of permission that represent the permission an admin should have.
              */
@@ -39,7 +38,6 @@ public class PermissionSet {
             }
         },
         MANAGER {
-
             /**
              * @return a set of permission that represent the permission a manager should have.
              */
@@ -59,7 +57,6 @@ public class PermissionSet {
             }
         },
         EMPLOYEE {
-
             /**
              * @return a set of permission that represent the permission an employee should have.
              */
@@ -103,11 +100,34 @@ public class PermissionSet {
         }
         boolean isEdited = false;
         for (Permission p : pList) {
-            if(p == null) {
+            if (p == null) {
                 continue;
             }
 
-            if(permissionSet.add(p)) {
+            if (permissionSet.add(p)) {
+                isEdited = true;
+            }
+        }
+        return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     *
+     * @param pList set of permission to add
+     * @return true if permissionSet modified, otherwise false.
+     */
+    public boolean addPermissions(Set<Permission> pList) {
+        if (pList == null) {
+            return false;
+        }
+        boolean isEdited = false;
+        for (Permission p : pList) {
+            if (p == null) {
+                continue;
+            }
+
+            if (permissionSet.add(p)) {
                 isEdited = true;
             }
         }
@@ -127,35 +147,13 @@ public class PermissionSet {
         }
         boolean isEdited = false;
         for (Permission p : pList) {
-            if(permissionSet.remove(p)){
+            if (permissionSet.remove(p)) {
                 isEdited = true;
             }
         }
         return isEdited;
     }
 
-    /**
-     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
-     *
-     * @param pList set of permission to add
-     * @return true if permissionSet modified, otherwise false.
-     */
-    public boolean addPermissions(Set<Permission> pList) {
-        if (pList == null) {
-            return false;
-        }
-        boolean isEdited = false;
-        for (Permission p : pList) {
-            if(p == null) {
-                continue;
-            }
-
-            if(permissionSet.add(p)) {
-                isEdited = true;
-            }
-        }
-        return isEdited;
-    }
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
@@ -170,7 +168,7 @@ public class PermissionSet {
         }
         boolean isEdited = false;
         for (Permission p : pList) {
-            if(permissionSet.remove(p)){
+            if (permissionSet.remove(p)) {
                 isEdited = true;
             }
         }

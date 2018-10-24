@@ -23,6 +23,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.project.Project;
 
+/**
+ * Modify the permission an employee have.
+ */
 public class ModifyPermissionCommand extends Command {
 
     public static final String COMMAND_WORD = "modifypermission";
@@ -37,14 +40,15 @@ public class ModifyPermissionCommand extends Command {
             + PREFIX_REMOVE_PERMISSION + " VIEW_PROJECT";
 
     public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified.\nNew Permissions : %1$s";
-    public static final String MESSAGE_NO_MODIFICATION = "At least 1 permission that can be added or removed must be provided.";
-    public static final String MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION = "Permission to be added and removed cannot be the same.";
+    public static final String MESSAGE_NO_MODIFICATION = "At least 1 permission that can be added or removed "
+            + "must be provided.";
+    public static final String MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION = "Permission to be added and removed "
+            + "cannot be the same.";
 
-    PermissionSet requiredPermission = new PermissionSet(Permission.ASSIGN_PERMISSION);
 
-    Index index;
-    Set<Permission> toAdd;
-    Set<Permission> toRemove;
+    private Index index;
+    private Set<Permission> toAdd;
+    private Set<Permission> toRemove;
 
     public ModifyPermissionCommand(Index index, Set<Permission> toAdd, Set<Permission> toRemove) {
         this.index = index;
@@ -78,6 +82,9 @@ public class ModifyPermissionCommand extends Command {
         return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getPermissionSet()));
     }
 
+    /**
+     * Creates and return a {@code Person} with the details of {@code p}
+     */
     private Person duplicatePerson(Person p) {
         Name name = p.getName();
         Phone phone = p.getPhone();
