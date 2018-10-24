@@ -64,7 +64,7 @@ public class FilterByTimeCommand extends FilterCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterByTimeCommand // instanceof handles nulls
-                && time.equals(((FilterByTimeCommand)other).time));
+                || (other instanceof FilterByTimeCommand 
+                    && time.equals(((FilterByTimeCommand)other).time));
     }
 }
