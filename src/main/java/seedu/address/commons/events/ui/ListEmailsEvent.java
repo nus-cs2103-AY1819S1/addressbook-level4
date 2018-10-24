@@ -19,7 +19,7 @@ public class ListEmailsEvent extends BaseEvent {
 
     private void listAsString(Set<String> emailSet) {
         for (String email : emailSet) {
-            emailListString.concat("<br>" + email.substring(0, email.length() - 4));
+            emailListString += "<br>" + email.substring(0, email.length() - 4);
         }
     }
 
