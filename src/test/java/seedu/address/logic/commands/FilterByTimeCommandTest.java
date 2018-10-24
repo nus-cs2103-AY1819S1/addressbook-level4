@@ -49,7 +49,8 @@ public class FilterByTimeCommandTest {
     @Test
     public void executeZeroKeywordsNoPersonFound() {
         Time time = new Time("mon 2400 0100");
-        String expectedMessage = String.format("Cannot find " + time.toString() +" education within the students list!");
+        String expectedMessage = String.format("Cannot find " + time.toString()
+                                               + " education within the students list!");
         TimeFilterPredicate predicate = new TimeFilterPredicate(time);
         FilterByTimeCommand command = new FilterByTimeCommand("mon 2400 0100");
         expectedModel.updateFilteredPersonList(predicate);
