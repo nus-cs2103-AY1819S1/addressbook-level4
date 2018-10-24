@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.UniqueMedicineList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
@@ -157,8 +158,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Dispenses the medicine with {@code medicineName} to the patient.
      */
-    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
-        requireNonNull(quantityToDispense);
+    public Medicine dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
+        requireNonNull(medicine);
         requireNonNull(quantityToDispense);
         return medicines.dispenseMedicine(medicine, quantityToDispense);
     }
@@ -166,7 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Refill the medicine with {@code medicineName} to the patient.
      */
-    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+    public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
         requireNonNull(medicine);
         requireNonNull(quantityToRefill);
         medicines.refillMedicine(medicine, quantityToRefill);
