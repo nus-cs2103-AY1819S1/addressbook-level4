@@ -6,9 +6,11 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.WishDataUpdatedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -74,6 +76,8 @@ public class SaveCommand extends Command {
             } else {
                 differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
             }
+
+            EventsCenter.getInstance().post(new WishDataUpdatedEvent(editedWish));
         } catch (IllegalArgumentException iae) {
             throw new CommandException(iae.getMessage());
         }
