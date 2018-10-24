@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class LeaveApplicationBuilder {
     private LeaveId leaveId;
     private Description description;
     private LeaveStatus leaveStatus;
-    private List<LocalDateTime> dates;
+    private List<LocalDate> dates;
 
     public LeaveApplicationBuilder() {
         leaveId = new LeaveId(DEFAULT_ID);
@@ -54,7 +54,7 @@ public class LeaveApplicationBuilder {
      * Parses the {@code dates} into a {@code List<Date>} and set it to the {@code LeaveApplication}
      * that we are building.
      */
-    public LeaveApplicationBuilder withDates(LocalDateTime ... dates) {
+    public LeaveApplicationBuilder withDates(LocalDate ... dates) {
         this.dates = SampleDataUtil.getDateList(dates);
         return this;
     }

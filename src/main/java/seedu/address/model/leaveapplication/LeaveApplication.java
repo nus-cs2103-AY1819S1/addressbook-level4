@@ -2,7 +2,7 @@ package seedu.address.model.leaveapplication;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,12 +19,12 @@ public class LeaveApplication {
     // Data fields
     private final Description description;
     private final LeaveStatus leaveStatus;
-    private final List<LocalDateTime> dates = new ArrayList<>();
+    private final List<LocalDate> dates = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, List<LocalDateTime> dates) {
+    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, List<LocalDate> dates) {
         requireAllNonNull(id, description, leaveStatus, dates);
         this.id = id;
         this.description = description;
@@ -48,7 +48,7 @@ public class LeaveApplication {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<LocalDateTime> getDates() {
+    public List<LocalDate> getDates() {
         return Collections.unmodifiableList(dates);
     }
 

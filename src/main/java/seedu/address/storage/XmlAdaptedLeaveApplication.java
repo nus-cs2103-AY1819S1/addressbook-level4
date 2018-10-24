@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +44,7 @@ public class XmlAdaptedLeaveApplication {
     /**
      * Constructs an {@code XmlAdaptedLeaveApplication} with the given leave application details.
      */
-    public XmlAdaptedLeaveApplication(Integer id, String description, String status, List<LocalDateTime> dates) {
+    public XmlAdaptedLeaveApplication(Integer id, String description, String status, List<LocalDate> dates) {
         this.id = id;
         this.description = description;
         this.status = status;
@@ -100,9 +100,9 @@ public class XmlAdaptedLeaveApplication {
         }
         final LeaveStatus modelStatus = new LeaveStatus(status);
 
-        final List<LocalDateTime> modelDates = new ArrayList<>();
+        final List<LocalDate> modelDates = new ArrayList<>();
         for (String dateString : dates) {
-            LocalDateTime parsedDate;
+            LocalDate parsedDate;
             try {
                 parsedDate = DateUtil.convertToDate(dateString);
             } catch (DateTimeException e) {

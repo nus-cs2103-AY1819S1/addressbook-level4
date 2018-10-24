@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -159,12 +159,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code LocalDateTime}.
+     * Parses a {@code String date} into an {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static LocalDateTime parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateUtil.isValidDateFormat(trimmedDate)) {
@@ -174,11 +174,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> dates} into a {@code List<LocalDateTime>}.
+     * Parses {@code Collection<String> dates} into a {@code List<LocalDate>}.
      */
-    public static List<LocalDateTime> parseDates(Collection<String> dates) throws ParseException {
+    public static List<LocalDate> parseDates(Collection<String> dates) throws ParseException {
         requireNonNull(dates);
-        final List<LocalDateTime> datelist = new ArrayList<>();
+        final List<LocalDate> datelist = new ArrayList<>();
         for (String date : dates) {
             datelist.add(parseDate(date));
         }

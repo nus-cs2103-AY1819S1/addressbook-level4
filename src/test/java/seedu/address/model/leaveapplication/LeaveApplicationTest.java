@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVESTATUS_BOB
 import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -75,8 +75,8 @@ public class LeaveApplicationTest {
                 .append(" Status: ")
                 .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
-                .append(LocalDateTime.of(2018, 10, 23, 0, 0, 0).toString())
-                .append(LocalDateTime.of(2018, 10, 24, 0, 0, 0).toString());
+                .append(LocalDate.of(2018, 10, 23).toString())
+                .append(LocalDate.of(2018, 10, 24).toString());
         assertEquals(ALICE_LEAVE.toString(), builder.toString());
 
         // same expected and actual toString() output for TypicalPerson's BENSON
@@ -87,8 +87,8 @@ public class LeaveApplicationTest {
                 .append(" Status: ")
                 .append(StatusEnum.Status.APPROVED.toString())
                 .append(" Dates: ")
-                .append(LocalDateTime.of(2018, 10, 25, 0, 0, 0).toString())
-                .append(LocalDateTime.of(2018, 10, 26, 0, 0, 0).toString());
+                .append(LocalDate.of(2018, 10, 25).toString())
+                .append(LocalDate.of(2018, 10, 26).toString());
         assertEquals(BENSON_LEAVE.toString(), builder.toString());
     }
 }
