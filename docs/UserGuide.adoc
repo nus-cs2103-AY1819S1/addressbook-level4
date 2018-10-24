@@ -23,37 +23,41 @@ work with a *Command Line Interface (CLI)* to display a list of car parks with t
  *use the computer frequently* and *commute by driving*, you would find our application useful in helping you obtain
  various information about car parks.
 
+Interested? Head towards <<Quick Start>> to get started.
+
 == Quick Start
 Here are several quick tips to get the application running.
 
 . Check that you have https://www.oracle.com/technetwork/java/javase/downloads/index.html[Java version 9] or later installed in your Computer.
-. Download the latest carparkfinder.jar https://github.com/CS2103-AY1819S1-T09-4/main/releases[here].
+. Download the latest `carparkfinder.jar` https://github.com/CS2103-AY1819S1-T09-4/main/releases[here].
 . Copy the file to the folder you want to use as the home folder for Car Park Finder.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
 .Home page
-image::Ui2.png[width="790"]
+image::Ui2.png[width="880"]
+The figure above is a sample display of the application.
+
 +
 . Type the command in the command box and press kbd:[Enter] to execute it.
 
 Some example commands you can try:
 
-- list: bring up a list of all the car parks
-- help: show the list of available commands and how to use them
-- exit: exit the program
+- `list` : bring up a list of all the car parks
+- `help` : show the list of available commands and how to use them
+- `exit` : exit the program
 
 Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+Here are the details of the features available to the user.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find LOCATION`, `LOCATION` is a
 parameter which can be used as `find serangoon`.
-* Items in square brackets are optional e.g `filter [f/] [n/] [ct/CARPARK_TYPE]` can be used as `filter f/ n/ ct/SURFACE
-` or as `filter f/`.
+* Items in square brackets are optional e.g `filter [f/] [n/] [ct/CARPARK_TYPE]` can be used as `filter f/ n/ ct/SURFACE` or as `filter f/`.
 * Parameters can be in any order e.g. if the command specifies `filter [f/] [n/] [ct/CARPARK_TYPE]`,
 `filter [n/] [f/] [ct/CARPARK_TYPE]` is also acceptable.
 ====
@@ -69,23 +73,31 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
+Example(s)
+
+- `help`
+
 === Finding car parks : `find`
 
-Finds a list of available car parks +
+Finds a list of available car parks. +
 Format: `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]`
 
-[NOTE]
-====
-Upper and lower case characters do not matter.
-====
+****
+* Common words are ignored, like blk and ave.
+* Upper and lower case characters do not matter.
+****
 
 .Before using find command
-image::findbefore.png[width="790"]
+image::findbefore.png[width="880"]
+The figure above is a sample display of the application.
+
 
 .After using find command
-image::findafter.png[width="790"]
+image::findafter.png[width="880"]
+The figure above shows what happen after executing the `find` command.
 
-Examples:
+
+Example(s):
 
 * `find punggol`
 * `f HG83`
@@ -101,16 +113,22 @@ Format: `select INDEX` or `s INDEX`
 ****
 
 .After using select command
-image::select.png[width="790"]
+image::select.png[width="880"]
+The figure above is the outcome of the select command.
 
-Examples:
+Example(s):
 
-* `list` +
-`select 2` +
-Select the 2nd car park in the list.
-* `find sengkang` +
-`s 1` +
-Selects the 1st car park in the results of the `find` command.
+Selecting the 2nd car park in the list.
+
+Step 1. `list`
+
+Step 2. `select 2`
+
+Selecting the 1st car park in the results of the `find` command.
+
+Step 1. `find sengkang`
+
+Step 2.  `s 1`
 
 === Listing entered commands : `history`
 
@@ -122,7 +140,11 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Filter car parks : `filter`
+Example(s)
+
+* `history`
+
+=== Filtering car parks : `filter`
 
 Filters the list of car parks by free parking, night parking or car park type. +
 Format: `filter [f/ DAY START_TIME END_TIME] [n/] [ct/ CARPARK_TYPE]` +
@@ -147,21 +169,23 @@ Flags:
 - `MECHANISED`
 
 .Filtering covered car parks
-image::filter.png[width="790"]
+image::filter.png[width="880"]
 
-Example:
+After filtering, a smaller subset of car parks are listed.
+
+Example(s):
 
 * `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
 * `fi ct/ BASEMENT`
 
-=== Sort car parks : `sort`
+=== Sorting car parks : `sort`
 
 Sort the list of car parks by distance or name. +
 Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
 
 [NOTE]
 ====
-Must have car parks beforehand.
+Must have car parks listed beforehand.
 ====
 
 Flags:
@@ -171,7 +195,7 @@ Flags:
 * `FP (Free Parking)`
 * `NP (Night Parking)`
 
-Example:
+Example(s):
 
 * `sort DISTANCE`
 * `so NAME`
@@ -182,31 +206,36 @@ Show a list of all the car parks with their details. +
 Format: `list` or `l`
 
 .After using list command
-image::listafter.png[width="790"]
+image::listafter.png[width="880"]
 
+After executing `list`, it will show all the car parks again.
 
-=== Add favourite car parks or location : `add` `[coming in v2.0]`
+Example(s)
+
+* `list`
+
+=== Adding favourite car parks or location : `add` `[coming in v2.0]`
 
 Add a car park into your favorites list +
 Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
 
-Examples:
+Example(s):
 
 * `add c/SE12`
 * `a c/SE12`
 
-=== Remove from favorites list : `delete` `[coming in v2.0]`
+=== Removing from favorites list : `delete` `[coming in v2.0]`
 
 
 Remove the specified car park from your favorites list +
 Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
 
-Examples:
+Example(s):
 
 * `delete c/SE12`
 * `d c/SE12`
 
-=== Data query : `query`
+=== Querying data: `query`
 
 Get car park information from data.gov.sg by querying it. +
 
@@ -216,13 +245,15 @@ You need to run this command to get the latest information on all the car parks.
 ====
 
 .After using query command
-image::query.png[width="790"]
+image::query.png[width="880"]
 
-Examples:
+All car parks data are refreshed, with all the bottom left panel saying when it was updated.
+
+Example(s):
 
 * `query`
 
-=== Notification : `notify` `[coming in v2.0]`
+=== Enabling Notification : `notify` `[coming in v2.0]`
 
 Set the interval to give updates in real time for all the car parks. +
 Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
@@ -232,17 +263,17 @@ Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
 The default value is 60 seconds. You can set within a range of 10 seconds to 1 hour.
 ====
 
-Examples:
+Example(s):
 
 * `notify 60`
 * `n 60`
 
-=== Weather update : `weather` `[coming in v2.0]`
+=== Updating Weather : `weather` `[coming in v2.0]`
 
 Include weather updates in the notifications by indicating on or off. +
 Format: `weather TOGGLE`
 
-Examples:
+Example(s):
 
 * `weather on`
 
@@ -253,10 +284,18 @@ Examples:
 Clears all entries from the list. +
 Format: `clear`
 
+Example(s)
+
+* `clear`
+
 === Exiting the application : `exit`
 
 Exits the application. +
 Format: `exit`
+
+Example(s)
+
+* `exit`
 
 == FAQ
 
@@ -266,10 +305,25 @@ Format: `exit`
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.
 
-== Command Summary
+== Glossary
 
+Here are a few technical terms used in the user guide.
 
 .General Commands
+[cols="1,6"]
+|===
+|Term |Explanation
+
+|*Flag*
+|Flag is a value that acts as a signal for a function.
+|===
+
+
+== Command Summary
+Here are the summarize list of commands available to the user.
+
+.General Commands
+[cols="1,4,2"]
 |===
 |Command |Format |Example
 
@@ -296,6 +350,7 @@ Format: `exit`
 
 
 .Carpark Management
+[cols="1,4,2"]
 |===
 |Command |Format |Example
 
