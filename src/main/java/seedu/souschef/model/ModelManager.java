@@ -3,6 +3,7 @@ package seedu.souschef.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -84,8 +85,9 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public void resetUniqueList() {
+    public void resetList() {
         this.uniqueList.set(new UniqueList<T>());
+        indicateAppContentChanged();
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
@@ -107,7 +109,10 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         filteredList.setPredicate(predicate);
     }
 
-
+    @Override
+    public void sort(Comparator<T> comparator) {
+        uniqueList.sortList(comparator);
+    }
 
 
 

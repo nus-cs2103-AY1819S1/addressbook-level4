@@ -12,28 +12,24 @@ public class IngredientName {
         this.fullName = fullName;
     }
 
-    public IngredientName(String[] tokens) {
-        String fullName = "";
-        for (int i = 0; i < tokens.length; i++) {
-            if (i == tokens.length - 1) {
-                fullName = fullName + tokens[i];
-                break;
-            }
-            fullName = fullName + tokens[i] + "_";
-        }
-        this.fullName = fullName;
-    }
-
     public boolean isValid() {
         return fullName.matches("^(\\p{Alpha}+)(_\\p{Alpha}+)*");
     }
 
-    public String[] getTokens() {
-        return fullName.split("_");
+    /**
+     * return true if the name contains given keyword.
+     */
+    public boolean containsKeyword(String keyword) {
+        String[] tokens = fullName.split("_");
+        for (String token : tokens) {
+            if (token.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-
     public String toString() {
-        return fullName;
+        return fullName.replaceAll("_", " ");
     }
 }
