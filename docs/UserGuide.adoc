@@ -257,7 +257,7 @@ Examples:
 Removes the 3rd patient in the displayed list of patients from the queue.
 
 * `find Cassandra` +
-* `dequeue 1` +
+`dequeue 1` +
 Selects the 1st Cassandra as displayed in the list resulting from the `find Cassandra` command and removes her from the queue.
 
 === Adding a medicine: `add medicine`
