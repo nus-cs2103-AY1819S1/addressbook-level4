@@ -39,6 +39,10 @@ public class AchievementPanelTest extends GuiUnitTest {
         return new AchievementsUpdatedEvent(achievementRecordStub);
     }
 
+    /**
+     * Asserts that {@code AchievementPanel} displays the both {@code xpValueLabel} and {@code levelValueLabel}
+     * correctly and matches {@code expectedXP} and {@code expectedLevel}.
+     */
     private void assertAchievementPanelContent(String expectedXp, String expectedLevel) {
         assertEquals(achievementPanelHandle.getXp(), expectedXp);
         assertEquals(achievementPanelHandle.getLevel(), expectedLevel);
