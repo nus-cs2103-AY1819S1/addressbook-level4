@@ -132,8 +132,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_modifyPermissionCommandWord_returnsModifyPermissionCommand() throws Exception {
-        assertTrue(parser.parseCommand(ModifyPermissionCommand.COMMAND_WORD +" 1 "+ PREFIX_ADD_PERMISSION +
-                Permission.ADD_EMPLOYEE.name()) instanceof ModifyPermissionCommand);
+        assertTrue(parser.parseCommand(ModifyPermissionCommand.COMMAND_WORD + " 1 " + PREFIX_ADD_PERMISSION
+                + Permission.ADD_EMPLOYEE.name()) instanceof ModifyPermissionCommand);
 
     }
 

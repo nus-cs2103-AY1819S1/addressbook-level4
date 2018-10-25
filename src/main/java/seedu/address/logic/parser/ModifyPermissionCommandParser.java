@@ -42,7 +42,7 @@ public class ModifyPermissionCommandParser implements Parser<ModifyPermissionCom
         Set<Permission> permissionToRemove = new HashSet<>();
         parsePermission(argMultimap.getAllValues(PREFIX_REMOVE_PERMISSION)).ifPresent(permissionToRemove::addAll);
 
-        if(permissionToAdd.size() == 0 && permissionToRemove.size() == 0) {
+        if (permissionToAdd.size() == 0 && permissionToRemove.size() == 0) {
             throw new ParseException(MESSAGE_NO_MODIFICATION);
         }
 

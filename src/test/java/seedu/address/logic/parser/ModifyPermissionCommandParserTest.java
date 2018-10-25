@@ -64,11 +64,12 @@ class ModifyPermissionCommandParserTest {
         // invalid remove permission
         assertParseFailure(parser, "1" + invalidRemovePermissionArg, Permission.MESSAGE_INVALID_PERMISSION);
         // invalid add and remove permission
-        assertParseFailure(parser, "1" + invalidAddPermissionArg + invalidRemovePermissionArg, Permission.MESSAGE_INVALID_PERMISSION);
+        assertParseFailure(parser, "1" + invalidAddPermissionArg + invalidRemovePermissionArg,
+                Permission.MESSAGE_INVALID_PERMISSION);
     }
 
     @Test
-    public void parse_addPermission_success(){
+    public void parse_addPermission_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = INDEX_FIRST_PERSON.getOneBased() + validAddPermissionArg;
         Set<Permission> toAdd = new HashSet<>();
@@ -80,7 +81,7 @@ class ModifyPermissionCommandParserTest {
     }
 
     @Test
-    public void parse_removePermission_success(){
+    public void parse_removePermission_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = INDEX_FIRST_PERSON.getOneBased() + validRemovePermissionArg;
         Set<Permission> toAdd = new HashSet<>();
@@ -92,9 +93,9 @@ class ModifyPermissionCommandParserTest {
     }
 
     @Test
-    public void parse_addAndRemovePermission_success(){
+    public void parse_addAndRemovePermission_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = INDEX_FIRST_PERSON.getOneBased() + validAddPermissionArg +validRemovePermissionArg;
+        String userInput = INDEX_FIRST_PERSON.getOneBased() + validAddPermissionArg + validRemovePermissionArg;
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
