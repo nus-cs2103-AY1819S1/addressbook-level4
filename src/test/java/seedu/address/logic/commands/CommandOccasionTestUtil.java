@@ -30,7 +30,7 @@ public class CommandOccasionTestUtil {
     public static final String VALID_OCCASIONLOCATION_TWO = "Home";
     public static final String VALID_TAG_STUDY = "Must Prepare";
     public static final String VALID_TAG_SLEEP = "More Sleep";
-    
+
     public static final String OCCASIONNAME_DESC_ONE = " " + PREFIX_OCCASION_NAME + VALID_OCCASIONNAME_ONE;
     public static final String OCCASIONNAME_DESC_TWO = " " + PREFIX_OCCASION_NAME + VALID_OCCASIONNAME_TWO;
     public static final String OCCASIONDATE_DESC_ONE = " " + PREFIX_OCCASION_DATE + VALID_OCCASIONDATE_ONE;
