@@ -15,6 +15,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.anakincommands.AnakinCommand;
+import seedu.address.logic.anakincommands.AnakinEditDeckCommand;
+import seedu.address.logic.anakincommands.AnakinEditDeckCommand.EditDeckDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
@@ -22,11 +24,16 @@ import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.model.anakindeck.AnakinDeckNameContainsKeywordsPredicate;
 import seedu.address.testutil.AnakinTypicalCards;
+import seedu.address.testutil.EditDeckDescriptorBuilder;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class AnakinCommandTestUtil {
+
+    public static final String VALID_NAME = "My Deck";
+    public static final String VALID_NAME_JOHN = "John Phua";
 
     public static final String VALID_NAME_DECK_A = "My Deck A";
     public static final String VALID_NAME_DECK_B = "Your deck";
@@ -63,6 +70,17 @@ public class AnakinCommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+    public static final EditDeckDescriptor DESC_AMY;
+    public static final EditDeckDescriptor DESC_BOB;
+
+    static {
+        DESC_AMY = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_A)
+                    .withCards(TYPICAL_CARD_LIST).build();
+        DESC_BOB = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_B)
+                    .withCards(TYPICAL_CARD_LIST).build();
+    }
+
+
 
 
 
