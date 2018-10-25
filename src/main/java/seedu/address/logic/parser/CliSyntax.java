@@ -31,7 +31,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_MIN = new Prefix("emin/");
     public static final Prefix PREFIX_TITLE = new Prefix("title/");
     public static final Prefix PREFIX_DESTINATION = new Prefix("dst/");
-    public static final Prefix PREFIX_FILENAME = new Prefix("filename/");
+    public static final Prefix PREFIX_FILENAME = new Prefix("fn/");
 
     public static final Prefix PREFIX_HEAD = new Prefix("h/");
     public static final Prefix PREFIX_VICE_HEAD = new Prefix("vh/");
