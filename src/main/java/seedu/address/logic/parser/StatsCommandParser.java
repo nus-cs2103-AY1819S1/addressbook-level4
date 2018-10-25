@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_OF_DAYS_OR_MONTHS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
+
 
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,11 +32,12 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
         try {
             ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_NUMBER_OF_DAYS_OR_MONTHS, PREFIX_MODE);
-            int numberOfDaysOrMonths = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_OF_DAYS_OR_MONTHS).get());
+                    ArgumentTokenizer.tokenize(args, PREFIX_PERIOD_AMOUNT, PREFIX_PERIOD, PREFIX_MODE);
+            int periodAmount = Integer.parseInt(argMultimap.getValue(PREFIX_PERIOD_AMOUNT).get());
             String mode = argMultimap.getValue(PREFIX_MODE).get();
+            String period = argMultimap.getValue(PREFIX_PERIOD).get();
 
-            return new StatsCommand(numberOfDaysOrMonths, mode);
+            return new StatsCommand(periodAmount, period, mode);
         } catch (Exception e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
