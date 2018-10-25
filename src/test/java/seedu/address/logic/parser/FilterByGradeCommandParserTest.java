@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FilterByEducationCommand;
+import seedu.address.logic.commands.FilterByGradeCommand;
 
 public class FilterByGradeCommandParserTest {
     private FilterByGradeCommandParser parser = new FilterByGradeCommandParser();
