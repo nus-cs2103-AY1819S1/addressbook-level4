@@ -14,12 +14,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Address;
 import seedu.address.model.tag.Tag;
+
+import javax.print.Doc;
 
 /**
  * Parses input arguments and creates a new AddApptCommand object
@@ -53,8 +57,9 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(tag);
         Person person = new Person(name, phone, email, address, tags);
+        Patient patient = Patient.buildFromPerson(person);
 
-        Appointment appt = new Appointment(date, time, person);
+        Appointment appt = new Appointment(date, time, patient, 1, null);
 
         return new AddApptCommand(appt);
     }

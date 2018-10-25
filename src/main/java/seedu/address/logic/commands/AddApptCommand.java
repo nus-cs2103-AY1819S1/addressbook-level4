@@ -29,7 +29,7 @@ public class AddApptCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "03 03 2003 "
             + PREFIX_TIME + "16 30"
-            + PREFIX_ID + "289327";
+            + PREFIX_ID + "289327"
             + PREFIX_TYPE + "followup ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";

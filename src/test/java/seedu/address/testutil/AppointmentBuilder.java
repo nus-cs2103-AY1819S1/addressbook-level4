@@ -1,10 +1,14 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 //@@author gingivitiss
@@ -15,13 +19,15 @@ public class AppointmentBuilder {
 
     public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
     public static final Time DEFAULT_TIME = new Time(16, 30);
-    public static final Person DEFAULT_PATIENT = ALICE;
+    public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
+    public static final Doctor DEFAULT_DOCTOR = ADAM;
 
     private Date date;
     private Time time;
-    private Person patient;
+    private Patient patient;
     private int type;
+    private Doctor doctor;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -59,12 +65,12 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code Patient} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withPerson(Person patient) {
+    public AppointmentBuilder withPatient(Patient patient) {
         this.patient = patient;
         return this;
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient, type);
+        return new Appointment(date, time, patient, type, null);
     }
 }
