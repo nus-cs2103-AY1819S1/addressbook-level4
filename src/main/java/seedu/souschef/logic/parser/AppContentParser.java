@@ -2,7 +2,7 @@ package seedu.souschef.logic.parser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.regex.Pattern;
+import java.util.Optional;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
@@ -22,12 +22,6 @@ import seedu.souschef.ui.Ui;
  * Parses user input.
  */
 public class AppContentParser {
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
      * Based on the context and command, the parser determines the specific model and storage to be modified or
@@ -54,11 +48,9 @@ public class AppContentParser {
         switch (context) {
         case RECIPE:
             setFeatureStorage(storage, Context.RECIPE);
-            if (userInput.matches("favourite(\\s|\\S)*")) {
-                return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                        modelSet.getMealPlannerModel(), userInput);
-            }
-            return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
+            Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage);
+            return optionalCommand.isPresent() ? optionalCommand.get()
+                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(),
                     modelSet.getMealPlannerModel(), userInput);
         case INGREDIENT:
             setFeatureStorage(storage, Context.INGREDIENT);
@@ -82,6 +74,22 @@ public class AppContentParser {
         if (storage.getListOfFeatureStorage().containsKey(context)) {
             storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(context));
         }
+    }
+
+    /**
+     * Based on user input, get cross context command.
+     */
+    private Optional<Command> getCrossContextCommand(String userInput, ModelSet modelSet, Storage storage)
+        throws ParseException {
+        Command command = null;
+        if (FavouritesParser.isCrossContextCommand(userInput)) {
+            // Consider to use Favorite command instead
+            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
+                    modelSet.getMealPlannerModel(), userInput);
+        }
+        // Add other cross context command and set ur storage here.
+
+        return Optional.ofNullable(command);
     }
 
 }
