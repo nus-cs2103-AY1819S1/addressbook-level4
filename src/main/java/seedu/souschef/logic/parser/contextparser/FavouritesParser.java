@@ -22,6 +22,7 @@ import seedu.souschef.model.recipe.Recipe;
  * Class to parse favourite logic
  */
 public class FavouritesParser {
+    public static final String COMMAND_WORD = "favourite";
     /**
      * Used for initial separation of command word and args.
      */
