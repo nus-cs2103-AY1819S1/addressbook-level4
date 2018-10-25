@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.doctor.Doctor;
@@ -21,14 +20,11 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    //@@author arsalanc-v2
-    private final Analytics analytics;
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
-
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,13 +34,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        //@@author arsalanc-v2
-        analytics = new Analytics();
         persons = new UniquePersonList();
         //@@author jjlee050
         doctors = new UniqueDoctorList();
         //@@author gingivitiss
-        appointments = new UniqueAppointmentList(analytics);
+        appointments = new UniqueAppointmentList();
     }
 
     public AddressBook() {}

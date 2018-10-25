@@ -1,35 +1,90 @@
 package seedu.address.model.analytics;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+// @@author arsalanc-v2
 
 /**
  * Represents statistics of a general type.
- * @@author arsalanc-v2
  */
 public abstract class Statistics {
 
-    protected HashMap<String, Integer> statistics;
+    // summary fields
+    public final String SUMMARY_TODAY = "Today";
+    public final String SUMMARY_WEEK = "This Week";
+    public final String SUMMARY_MONTH = "This Month";
+    public final String SUMMARY_YEAR = "This Year";
+
+    protected Map<String, Integer> summaryStatistics;
+    protected Map<String, Integer> visualizationStatistics;
 
     /**
-     * Initializes a HashMap to store statistic names as keys and their values.
+     * Initializes maps to store statistic names as keys and their corresponding values.
      */
     public Statistics() {
-        this.statistics = new HashMap<>();
+        summaryStatistics = new HashMap<>();
+        visualizationStatistics = new HashMap<>();
+    }
+
+    /**
+     *
+     */
+    public void resetAllStatistics() {
+        resetSummaryStatistics();
+        resetVisualizationStatistics();
+    }
+
+    /**
+     * Resets all summary statistics to 0.
+     */
+    public void resetSummaryStatistics() {
+        summaryStatistics.clear();
+        summaryStatistics.replaceAll((key, value) -> 0);
+    }
+
+    /**
+     *
+     */
+    public void resetVisualizationStatistics() {
+        visualizationStatistics.clear();
+        visualizationStatistics.replaceAll((key, value) -> 0);
+
+    }
+
+    public abstract void computeSummaryStatistics();
+    public abstract void computeVisualizationStatistics();
+
+    public Map<String, Map<String, Integer>> getAllStatistics() {
+        Map<String, Map<String, Integer>> allStats = new HashMap<>();
+        allStats.put("summary", getSummaryStatistics());
+        allStats.put("visualization", getVisualizationStatistics());
+        return allStats;
     }
 
     /**
      * @return The HashMap containing all statistics of a type.
      */
-    public HashMap<String, Integer> getStatistics() {
-        return this.statistics;
+    public Map<String, Integer> getSummaryStatistics() {
+        computeSummaryStatistics();
+        return summaryStatistics;
     }
 
     /**
-     * @return The names of the statistics.
+     *
      */
-    public Set<String> getKeys() {
-        return this.statistics.keySet();
+    public Map<String, Integer> getVisualizationStatistics() {
+        computeVisualizationStatistics();
+        return visualizationStatistics;
+    }
+
+    /**
+     * @return The names of the different summary statistics.
+     */
+    public Set<String> getSummaryKeys() {
+        return summaryStatistics.keySet();
     }
 
     /**
@@ -37,13 +92,15 @@ public abstract class Statistics {
      */
     @Override
     public String toString() {
-        String toDisplay = "";
-        for (HashMap.Entry<String, Integer> entry : this.statistics.entrySet()) {
-            toDisplay += entry.getKey() + ": " + entry.getValue() + "\n";
+        StringBuilder toDisplay = new StringBuilder();
+        for (Map.Entry<String, Integer> entry : summaryStatistics.entrySet()) {
+            toDisplay.append(entry.getKey() + ": " + entry.getValue() + "\n");
         }
 
-        return toDisplay;
-    }
+        for (Map.Entry<String, Integer> entry : visualizationStatistics.entrySet()) {
+            toDisplay.append(entry.getKey() + ": " + entry.getValue() + "\n");
+        }
 
-    public abstract void compute();
+        return toDisplay.toString();
+    }
 }

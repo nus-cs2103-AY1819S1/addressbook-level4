@@ -1,37 +1,72 @@
 package seedu.address.model.analytics;
 
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+
+//@@author arsalanc-v2
 
 /**
  * Wrapper for all analytics functionality.
- * @@author arsalanc-v2
+ *
  */
 public class Analytics {
 
-    private AverageStatistics averageStatistics;
-    private TotalStatistics totalStatistics;
+    private PatientStatistics patientStatistics;
+    private AppointmentStatistics appointmentStatistics;
+    private DoctorStatistics doctorStatistics;
+    private MedicineStatistics medicineStatistics;
 
     public Analytics() {
-        averageStatistics = new AverageStatistics();
-        totalStatistics = new TotalStatistics();
+        patientStatistics = new PatientStatistics();
+        appointmentStatistics = new AppointmentStatistics();
+        doctorStatistics = new DoctorStatistics();
+        medicineStatistics = new MedicineStatistics();
     }
 
-    /**
-     * @return The String representation for displaying of average statistics.
-     */
-    public String getAverageStatistics() {
-        return averageStatistics.toString();
-    }
-
-    /**
-     * @return The String representation for displaying total statistics.
-     */
-    public String getTotalStatistics() {
-        return totalStatistics.toString();
-    }
-
+//    public void setPatients(ObservableList<Appointment> appointments) {
+//        patientStatistics.setPatients(appointments);
+//    }
+//
     public void setAppointments(ObservableList<Appointment> appointments) {
-        totalStatistics.setAppointments(appointments);
+        appointmentStatistics.setAppointments(appointments);
     }
+
+    public void setDoctors(ObservableList<Doctor> doctors) {
+        doctorStatistics.setDoctors(doctors);
+    }
+
+    /**
+     *
+     * @param type
+     * @return
+     */
+    public Map getAllStatisticsOfType(StatisticType type) {
+        switch (type) {
+        case PATIENT:
+            return patientStatistics.getAllStatistics();
+
+        case APPOINTMENT:
+            return appointmentStatistics.getAllStatistics();
+
+        case DOCTOR:
+            return doctorStatistics.getAllStatistics();
+
+        case MEDICINE:
+            return medicineStatistics.getAllStatistics();
+
+        default:
+            return appointmentStatistics.getAllStatistics();
+        }
+    }
+
+//    public void setMedicines(ObservableList<Medicine> medicines) {
+//        medicineStatistics.setMedicines(medicines);
+//    }
+//
+//    public void getAllMedicineStatistics() {
+//        medicineStatistics.getAllStatistics();
+//    }
 }

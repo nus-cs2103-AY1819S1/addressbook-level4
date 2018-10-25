@@ -4,7 +4,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.analytics.Analytics;
 
 /**
  * Format full help instructions for every command for display.
@@ -19,7 +18,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }

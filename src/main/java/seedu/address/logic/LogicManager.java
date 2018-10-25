@@ -26,13 +26,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final Analytics analytics;
     private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        analytics = new Analytics();
         addressBookParser = new AddressBookParser();
     }
 
@@ -41,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            return command.execute(model, history, analytics);
+            return command.execute(model, history);
         } finally {
             history.add(commandText);
         }

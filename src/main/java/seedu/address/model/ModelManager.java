@@ -2,7 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.analytics.StatisticType.APPOINTMENT;
+import static seedu.address.model.analytics.StatisticType.DOCTOR;
 
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AnalyticsDisplayEvent;
+import seedu.address.model.analytics.Analytics;
+import seedu.address.model.analytics.StatisticType;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patientqueue.MainQueue;
@@ -31,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
+    private final Analytics analytics;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,6 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
+        //@@author arsalanc-v2
+        analytics = new Analytics();
     }
 
     public ModelManager() {
@@ -289,6 +298,45 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
+
+    //=========== Analytics ==================================================================================
+    //@@author arsalanc-v2
+
+    /**
+     *
+     */
+    @Override
+    public void requestAnalyticsDisplay(StatisticType type) {
+        raise(new AnalyticsDisplayEvent(type, retrieveAnalytics(type)));
+    }
+
+    /**
+     *
+     */
+    public Map<String, Map<String, Integer>> retrieveAnalytics(StatisticType type) {
+        updateAnalytics(type);
+        return analytics.getAllStatisticsOfType(type);
+    }
+
+    /**
+     *
+     */
+    public void updateAnalytics(StatisticType type) {
+        switch (type) {
+        case APPOINTMENT:
+            analytics.setAppointments(versionedAddressBook.getAppointmentList());
+            break;
+
+        case DOCTOR:
+            analytics.setDoctors(versionedAddressBook.getDoctorList());
+            break;
+
+        default:
+            analytics.setAppointments(versionedAddressBook.getAppointmentList());
+            break;
+        }
+    }
+    //========================================================================================================
 
     @Override
     public boolean equals(Object obj) {

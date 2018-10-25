@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 
 //@@author gingivitiss
@@ -50,7 +49,7 @@ public class AddApptCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);

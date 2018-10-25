@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.Analytics;
+import seedu.address.model.analytics.StatisticType;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
@@ -46,7 +47,7 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory, analytics);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -61,7 +62,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory, analytics);
+        addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -258,6 +259,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void requestAnalyticsDisplay(StatisticType statisticType) {
             throw new AssertionError("This method should not be called.");
         }
     }
