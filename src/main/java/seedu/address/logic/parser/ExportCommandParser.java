@@ -2,15 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESTINATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author kengwoon
@@ -29,11 +26,13 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESTINATION, PREFIX_FILENAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESTINATION, PREFIX_FILENAME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESTINATION, PREFIX_FILENAME) ||
+                !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
-        Path path = ParserUtil.parsePath(argMultimap.getValue(PREFIX_DESTINATION).get(), argMultimap.getValue(PREFIX_FILENAME).get());
+        Path path = ParserUtil.parsePath(argMultimap.getValue(PREFIX_DESTINATION).get(),
+                argMultimap.getValue(PREFIX_FILENAME).get());
 
         return new ExportCommand(path);
     }

@@ -150,8 +150,8 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleExportAddressBookEvent(ExportAddressBookEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Exporting address book data"));
         try {
-            exportAddressBook(event.addressBook, event.path);
-        } catch (IOException e){
+            exportAddressBook(event.getAddressBook(), event.getPath());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
