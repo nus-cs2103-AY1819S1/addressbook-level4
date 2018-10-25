@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalPersons.ADAM;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
 
 import seedu.address.model.appointment.Appointment;
@@ -9,7 +8,6 @@ import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 
 //@@author gingivitiss
 /**

@@ -153,10 +153,9 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(CARL_APPT);
-      
+
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         uniqueAppointmentList.add(AMY_APPT);
-        //uniqueAppointmentList.add(BENSON_APPT);
 
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);

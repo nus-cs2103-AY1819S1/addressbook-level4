@@ -16,8 +16,7 @@ public class AppointmentTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> new Appointment(null, null, null, 0, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Appointment(null, null, null, 0, null));
     }
 
     @Test

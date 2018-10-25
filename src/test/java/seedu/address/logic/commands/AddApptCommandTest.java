@@ -9,8 +9,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.testutil.AppointmentBuilder;
 
