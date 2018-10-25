@@ -25,19 +25,17 @@ public class FilterByGradeCommandTest {
     @Test
     public void equals() {
         String first = "20 90";
-        
         FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
-
         // same object -> returns true
         assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommand));
 
         // same values -> returns true
         FilterByGradeCommand filterByGradeFirstCommandCopy = new FilterByGradeCommand(first);
         assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommandCopy));
-        
+
         // different types -> returns false
         assertFalse(filterByGradeFirstCommand.equals(1));
-      
+
     }
 
     @Test
