@@ -17,7 +17,8 @@ public class ModuleCode {
     /*
      * The code must consist of 2 or 3 letters, followed by 4 digits and an optional letter behind.
      */
-    public static final String MODULECODE_VALIDATION_REGEX = "[a-zA-Z]{2,}[0-9]{4}[a-zA-Z]*";
+    public static final String MODULECODE_VALIDATION_REGEX =
+            "[a-zA-Z]{2,}[0-9]{4}[a-zA-Z]*";
 
     public final String fullModuleCode;
 

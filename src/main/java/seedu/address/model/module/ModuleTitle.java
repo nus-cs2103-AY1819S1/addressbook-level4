@@ -17,7 +17,7 @@ public class ModuleTitle {
     /*
      * The title should consist of any number of alphanumeric characters and spaces.
      */
-    public static final String MODULETITLE_VALIDATION_REGEX = "[a-zA-Z0-9 ]*";
+    public static final String MODULETITLE_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String fullModuleTitle;
 

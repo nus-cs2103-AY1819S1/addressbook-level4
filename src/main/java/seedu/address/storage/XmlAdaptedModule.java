@@ -73,7 +73,7 @@ public class XmlAdaptedModule {
     public XmlAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().toString();
         moduleTitle = source.getModuleTitle().toString();
-        academicYear = source.getAcademicYear().toStringOnlyNumbers();
+        academicYear = source.getAcademicYear().toString();
         semester = source.getSemester().toString();
         students = new ArrayList<>();
         for (Person person : source.getStudents()) {

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Module's academic year in the address book.
- * Guarantees: immutable, is valid as declared in {@link #isValidYear(Integer)} (Integer)}
+ * Guarantees: immutable, is valid as declared in {@link #isValidYear(String)} (String)}
  *
  * @author waytan
  */
@@ -17,6 +17,7 @@ public class AcademicYear {
     public static final String ACADEMICYEAR_VALIDATION_REGEX = "[0-9]{4}";
 
     public final Integer yearNumber;
+
     /**
      * Constructs a {@code AcademicYear}.
      *
@@ -32,6 +33,9 @@ public class AcademicYear {
      * Returns true if a given Integer is a valid AcademicYear number
      */
     public static boolean isValidYear(String number) {
+        if (!number.matches(ACADEMICYEAR_VALIDATION_REGEX)) {
+            return false;
+        }
         Integer combinedYear = Integer.parseInt(number);
         Integer firstYear = combinedYear / 100;
         Integer secondYear = combinedYear % 100;
@@ -46,12 +50,12 @@ public class AcademicYear {
         return yearNumber % 100;
     }
 
-    @Override
-    public String toString() {
+    public String toStringFull() {
         return "AY" + firstYear() + "/" + secondYear();
     }
 
-    public String toStringOnlyNumbers() {
+    @Override
+    public String toString() {
         return firstYear() + "" + secondYear();
     }
 
