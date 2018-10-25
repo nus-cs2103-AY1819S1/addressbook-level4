@@ -560,6 +560,8 @@ commit in `taskManagerStateList`.
 The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.
 
+image::DependencyCommandSequenceDiagram.png[width="1200"]
+
 #### 3.4.2 Design Considerations
 ##### Aspect: Modelling of the embedded dependency object.
 
@@ -579,7 +581,6 @@ as a set of hashcodes, and can only perform the tasks reference once all tasks a
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
 other tasks that depends on A has to be recreated.
 
-image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 
 ### 3.5 Modelling Dependency Validity
