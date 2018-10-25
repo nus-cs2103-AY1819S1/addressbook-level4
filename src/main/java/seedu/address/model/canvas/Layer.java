@@ -11,12 +11,14 @@ import seedu.address.model.PreviewImage;
  */
 
 public class Layer {
+
     private final PreviewImage image;
     private int x;
     private int y;
     private int height;
     private int width;
     private String name;
+    private Boolean isLocked;
 
     public Layer(PreviewImage image, String name) {
         this.image = requireNonNull(image);
@@ -25,6 +27,7 @@ public class Layer {
         this.height = image.getImage().getHeight();
         this.width = image.getImage().getWidth();
         this.name = name;
+        isLocked = false;
     }
 
     public int getX() {
@@ -57,6 +60,22 @@ public class Layer {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    public void lock() {
+        isLocked = true;
+    }
+
+    public void unlock() {
+        isLocked = false;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public PreviewImage getImage() {
+        return image;
     }
 
     @Override
