@@ -1,5 +1,6 @@
 package ssp.scheduleplanner;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -126,22 +127,37 @@ public class MainApp extends Application {
 
         logger.info("Using config file : " + configFilePathUsed);
 
-        //added to update based on date range
-        try {
-            Config updateConfig = new Config();
-            FirstDayCommand fdc = new FirstDayCommand();
-            String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
-            rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
+        //Only when 'rangeofweek.xml' exist then the application check for possible week description
+        //solution below adapted from
+        //https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
+        File checkFileExist = new File("rangeofweek.xml");
+        if (checkFileExist.exists()) {
+            try {
+                Config updateConfig = new Config();
+                FirstDayCommand fdc = new FirstDayCommand();
+                String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
+                rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
 
-            if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
-                updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
+                if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
+                    updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
+                    ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
+                } else {
+                    updateConfig.setAppTitle("Schedule Planner");
+                }
                 ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
-            } else {
-                updateConfig.setAppTitle("Schedule Planner");
+            } catch (IOException e) {
+                logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
             }
-            ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
+        }
+
+        //When user launch the application for the first time or deleted the 'rangeofweek.xml'
+        // generate the file to allow user to use'firstday' command
+        if (!checkFileExist.exists()) {
+            try {
+                checkFileExist.createNewFile();
+            } catch (java.io.IOException e) {
+                logger.warning("Filed to create rangeofweek.xml");
+            }
         }
         //end added
 

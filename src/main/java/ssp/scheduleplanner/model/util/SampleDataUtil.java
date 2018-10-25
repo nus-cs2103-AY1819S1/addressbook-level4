@@ -19,24 +19,12 @@ import ssp.scheduleplanner.model.task.Venue;
 public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task(new Name("Alex Yeoh"), new Date("121107"), new Priority("1"),
-                new Venue("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Task(new Name("Bernice Yu"), new Date("141258"), new Priority("1"),
-                new Venue("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Task(new Name("Charlotte Oliveiro"), new Date("150983"), new Priority("1"),
-                new Venue("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Task(new Name("David Li"), new Date("120782"), new Priority("1"),
-                new Venue("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Task(new Name("Irfan Ibrahim"), new Date("230721"), new Priority("1"),
-                new Venue("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Task(new Name("Roy Balakrishnan"), new Date("080717"), new Priority("1"),
-                new Venue("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+            new Task(new Name("Homework"), new Date("111118"), new Priority("3"),
+                new Venue("Home"),
+                getTagSet("CS2100")),
+            new Task(new Name("Assignment"), new Date("121118"), new Priority("3"),
+                new Venue("Home"),
+                getTagSet("CS2101"))
         };
     }
 
