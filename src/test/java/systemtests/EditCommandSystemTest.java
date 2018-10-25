@@ -137,12 +137,16 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         showAllPersons();
         index = INDEX_FIRST_PERSON;
+        originalUsername = model.getFilteredPersonList().get(index.getZeroBased()).getUsername();
+        originalPassword = model.getFilteredPersonList().get(index.getZeroBased()).getPassword();
         selectPerson(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
-        assertCommandSuccess(command, index, AMY, index);
+        Person newPerson = new PersonBuilder(AMY).withUsername(originalUsername.username)
+            .withPassword(originalPassword.password).build();
+        assertCommandSuccess(command, index, newPerson, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
