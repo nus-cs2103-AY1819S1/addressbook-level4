@@ -16,7 +16,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
@@ -175,12 +174,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateStatsMode(StatsMode statsMode) {
+        public StatsCommand.StatsMode getStatsMode() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public StatsMode getStatsMode() {
+        public void updateStatsMode(StatsCommand.StatsMode statsMode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StatsCommand.StatsPeriod getStatsPeriod() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatsPeriod(StatsCommand.StatsPeriod statsPeriod) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getPeriodAmount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePeriodAmount(int x) {
             throw new AssertionError("This method should not be called.");
         }
 
