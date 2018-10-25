@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
@@ -25,11 +25,11 @@ public class AddApptCommand extends Command {
             + "Parameters: "
             + PREFIX_DATE + "dd mm yyyy "
             + PREFIX_TIME + "hh mm "
-            + PREFIX_ID + "[Patient ID]"
+            + PREFIX_IC + "[Patient ID]"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "03 03 2003 "
             + PREFIX_TIME + "16 30"
-            + PREFIX_ID + "289327"
+            + PREFIX_IC + "S000000A"
             + PREFIX_TYPE + "followup ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
