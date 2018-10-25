@@ -136,11 +136,17 @@ public class Consultation {
         return date;
     }
 
-    public Time getConsultationTime() { return consultationTime; }
+    public Time getConsultationTime() {
+        return consultationTime;
+    }
 
-    public Time getArrivalTime() { return arrivalTime; }
+    public Time getArrivalTime() {
+        return arrivalTime;
+    }
 
-    public Time getEndTime() { return endTime; }
+    public Time getEndTime() {
+        return endTime;
+    }
 
     public String getDescription() {
         return description;
@@ -150,5 +156,7 @@ public class Consultation {
         return prescription;
     }
 
-    public Optional<Appointment> getAppointment() { return appointment; }
+    public Optional<Appointment> getAppointment() {
+        return appointment;
+    }
 }
