@@ -9,15 +9,15 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.AnakinLogic;
-import seedu.address.logic.AnakinLogicManager;
-import seedu.address.logic.anakincommands.AnakinSortCommand;
-import seedu.address.model.AnakinModel;
-import seedu.address.model.AnakinModelManager;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.anakincommands.SortCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = AnakinSortCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = SortCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -27,8 +27,8 @@ public class CommandBoxTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        AnakinModel model = new AnakinModelManager();
-        AnakinLogic logic = new AnakinLogicManager(model);
+        Model model = new ModelManager();
+        Logic logic = new LogicManager(model);
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),

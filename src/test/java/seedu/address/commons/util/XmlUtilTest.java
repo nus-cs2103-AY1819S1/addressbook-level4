@@ -20,8 +20,8 @@ import seedu.address.storage.XmlAdaptedCard;
 import seedu.address.storage.XmlAdaptedDeck;
 import seedu.address.storage.XmlSerializableAnakin;
 import seedu.address.testutil.AnakinBuilder;
-import seedu.address.testutil.AnakinDeckBuilder;
-import seedu.address.testutil.AnakinTestUtil;
+import seedu.address.testutil.DeckBuilder;
+import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
 
@@ -32,7 +32,7 @@ public class XmlUtilTest {
     private static final Path MISSING_DECK_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingDeckField.xml");
     private static final Path INVALID_DECK_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidDeckField.xml");
     private static final Path VALID_DECK_FILE = TEST_DATA_FOLDER.resolve("validDeck.xml");
-    private static final Path TEMP_FILE = AnakinTestUtil.getFilePathInSandboxFolder("tempAnakin.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAnakin.xml");
 
     private static final String INVALID_NAME = " ";
 
@@ -128,7 +128,7 @@ public class XmlUtilTest {
 
         AnakinBuilder builder = new AnakinBuilder(new Anakin());
         dataToWrite = new XmlSerializableAnakin(
-                builder.withDeck(new AnakinDeckBuilder().build()).build());
+                builder.withDeck(new DeckBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAnakin.class);

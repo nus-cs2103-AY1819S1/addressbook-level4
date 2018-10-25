@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.AnakinTypicalDecks.getTypicalAnakin;
+import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.Anakin;
-import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -64,7 +64,7 @@ public class StorageManagerTest {
          */
         Anakin original = getTypicalAnakin();
         storageManager.saveAnakin(original);
-        AnakinReadOnlyAnakin retrieved = storageManager.readAnakin().get();
+        ReadOnlyAnakin retrieved = storageManager.readAnakin().get();
         assertEquals(original, new Anakin(retrieved));
     }
 
@@ -76,10 +76,10 @@ public class StorageManagerTest {
     @Test
     public void handleAnakinChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAnakinStorageExceptionThrowingStub(Paths.get
+        Storage anakinStorageSwap = new StorageManager(new XmlAnakinStorageExceptionThrowingStub(Paths.get
                 ("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
+        anakinStorageSwap.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAnakin(AnakinReadOnlyAnakin anakin, Path filePath) throws IOException {
+        public void saveAnakin(ReadOnlyAnakin anakin, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

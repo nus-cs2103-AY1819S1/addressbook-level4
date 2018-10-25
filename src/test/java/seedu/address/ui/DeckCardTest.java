@@ -3,14 +3,14 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.AnakinTypicalCards.getTypicalDeck;
+import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.ui.testutil.GuiTestAssert.assertDeckCardDisplaysDeck;
 
 import org.junit.Test;
 
 import guitests.guihandles.DeckCardHandle;
-import seedu.address.model.anakindeck.AnakinDeck;
-import seedu.address.testutil.AnakinDeckBuilder;
+import seedu.address.model.anakindeck.Deck;
+import seedu.address.testutil.DeckBuilder;
 
 
 public class DeckCardTest extends GuiUnitTest {
@@ -18,13 +18,13 @@ public class DeckCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        AnakinDeck deckWithNoCards = new AnakinDeckBuilder().build();
+        Deck deckWithNoCards = new DeckBuilder().build();
         DeckCard deckCard = new DeckCard(deckWithNoCards, 1);
         uiPartRule.setUiPart(deckCard);
         assertCardDisplay(deckCard, deckWithNoCards, 1);
 
         // with cards
-        AnakinDeck deckWithCards = getTypicalDeck();
+        Deck deckWithCards = getTypicalDeck();
         deckCard = new DeckCard(deckWithCards, 2);
         uiPartRule.setUiPart(deckCard);
         assertCardDisplay(deckCard, deckWithCards, 2);
@@ -32,7 +32,7 @@ public class DeckCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        AnakinDeck deck = new AnakinDeckBuilder().build();
+        Deck deck = new DeckBuilder().build();
         DeckCard deckCard = new DeckCard(deck, 0);
 
         // same deck, same index -> returns true
@@ -49,7 +49,7 @@ public class DeckCardTest extends GuiUnitTest {
         assertFalse(deckCard.equals(0));
 
         // different deck, same index -> returns false
-        AnakinDeck differentDeck = new AnakinDeckBuilder().withName("differentName").build();
+        Deck differentDeck = new DeckBuilder().withName("differentName").build();
         assertFalse(deckCard.equals(new DeckCard(differentDeck, 0)));
 
         // same deck, different index -> returns false
@@ -60,7 +60,7 @@ public class DeckCardTest extends GuiUnitTest {
      * Asserts that {@code deckCard} displays the details of {@code expectedDeck} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(DeckCard deckCard, AnakinDeck expectedDeck, int expectedId) {
+    private void assertCardDisplay(DeckCard deckCard, Deck expectedDeck, int expectedId) {
         guiRobot.pauseForHuman();
 
         DeckCardHandle deckCardHandle = new DeckCardHandle(deckCard.getRoot());

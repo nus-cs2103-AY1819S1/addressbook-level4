@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.AnakinTypicalDecks.DECK_A;
-import static seedu.address.testutil.AnakinTypicalDecks.DECK_F;
-import static seedu.address.testutil.AnakinTypicalDecks.DECK_G;
-import static seedu.address.testutil.AnakinTypicalDecks.getTypicalAnakin;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.DECK_F;
+import static seedu.address.testutil.TypicalDecks.DECK_G;
+import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,7 +18,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Anakin;
-import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.ReadOnlyAnakin;
 
 public class XmlAnakinStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAnakinStorageTest");
@@ -34,7 +34,7 @@ public class XmlAnakinStorageTest {
                 : null;
     }
 
-    private java.util.Optional<AnakinReadOnlyAnakin> readAnakin(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyAnakin> readAnakin(String filePath) throws Exception {
         return new XmlAnakinStorage(Paths.get(filePath)).readAnakin(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -75,7 +75,7 @@ public class XmlAnakinStorageTest {
 
         //Save in new file and read back
         xmlAnakinStorage.saveAnakin(original, filePath);
-        AnakinReadOnlyAnakin readBack = xmlAnakinStorage.readAnakin(filePath).get();
+        ReadOnlyAnakin readBack = xmlAnakinStorage.readAnakin(filePath).get();
         assertEquals(original, new Anakin(readBack));
 
         //Modify data, overwrite exiting file, and read back
@@ -95,7 +95,7 @@ public class XmlAnakinStorageTest {
     /**
      * Saves {@code anakin} at the specified {@code filePath}.
      */
-    private void saveAnakin(AnakinReadOnlyAnakin anakin, String filePath) {
+    private void saveAnakin(ReadOnlyAnakin anakin, String filePath) {
         try {
             new XmlAnakinStorage(Paths.get(filePath))
                     .saveAnakin(anakin, addToTestDataPathIfNotNull(filePath));

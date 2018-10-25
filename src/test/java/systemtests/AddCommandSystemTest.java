@@ -1,56 +1,56 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.commons.core.AddressbookMessages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.AddressbookCommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.AddressbookTypicalPersons.ALICE;
+import static seedu.address.testutil.AddressbookTypicalPersons.AMY;
+import static seedu.address.testutil.AddressbookTypicalPersons.BOB;
+import static seedu.address.testutil.AddressbookTypicalPersons.CARL;
+import static seedu.address.testutil.AddressbookTypicalPersons.HOON;
+import static seedu.address.testutil.AddressbookTypicalPersons.IDA;
+import static seedu.address.testutil.AddressbookTypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AddressbookMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.address.model.AddressbookModel;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.AddressbookPersonBuilder;
+import seedu.address.testutil.AddressbookPersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() {
-        Model model = getModel();
+        AddressbookModel addressbookModel = getModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
@@ -65,16 +65,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: undo adding Amy to the list -> Amy deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, addressbookModel, expectedResultMessage);
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        addressbookModel.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, addressbookModel, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new AddressbookPersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -82,8 +82,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the address book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new AddressbookPersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        command = AddressbookPersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -114,26 +114,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate person -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = AddressbookPersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new AddressbookPersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        command = AddressbookPersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new AddressbookPersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        command = AddressbookPersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new AddressbookPersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        command = AddressbookPersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = AddressbookPersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
@@ -153,8 +153,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
-        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
+        command = "adds " + AddressbookPersonUtil.getPersonDetails(toAdd);
+        assertCommandFailure(command, AddressbookMessages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
@@ -189,11 +189,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, AddressbookModel)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, AddressbookModel)
      */
     private void assertCommandSuccess(Person toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(AddressbookPersonUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
@@ -202,11 +202,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddCommandSystemTest#assertCommandSuccess(Person)
      */
     private void assertCommandSuccess(String command, Person toAdd) {
-        Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        AddressbookModel expectedAddressbookModel = getModel();
+        expectedAddressbookModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertCommandSuccess(command, expectedAddressbookModel, expectedResultMessage);
     }
 
     /**
@@ -214,12 +214,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
-     * {@code expectedModel}.<br>
+     * {@code expectedAddressbookModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, Person)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, AddressbookModel expectedAddressbookModel, String expectedResultMessage) {
         executeCommand(command);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedAddressbookModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
@@ -233,14 +233,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, AddressbookModel)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, AddressbookModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        AddressbookModel expectedAddressbookModel = getModel();
 
         executeCommand(command);
-        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedAddressbookModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();

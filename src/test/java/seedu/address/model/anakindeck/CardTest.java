@@ -2,15 +2,15 @@ package seedu.address.model.anakindeck;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_ANSWER_A;
-import static seedu.address.logic.commands.AnakinCommandTestUtil.VALID_QUESTION_A;
-import static seedu.address.testutil.AnakinTypicalCards.CARD_A;
-import static seedu.address.testutil.AnakinTypicalCards.CARD_B;
+import static seedu.address.logic.anakincommands.CommandTestUtil.VALID_ANSWER_A;
+import static seedu.address.logic.anakincommands.CommandTestUtil.VALID_QUESTION_A;
+import static seedu.address.testutil.TypicalCards.CARD_A;
+import static seedu.address.testutil.TypicalCards.CARD_B;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.testutil.AnakinCardBuilder;
+import seedu.address.testutil.CardBuilder;
 
 public class CardTest {
     @Rule
@@ -25,18 +25,18 @@ public class CardTest {
         assertFalse(CARD_A.isSameCard(null));
 
         // different question -> returns false
-        AnakinCard editedCard_A = new AnakinCardBuilder(CARD_A).withQuestion(VALID_QUESTION_A).build();
+        Card editedCard_A = new CardBuilder(CARD_A).withQuestion(VALID_QUESTION_A).build();
         assertFalse(CARD_A.isSameCard(editedCard_A));
 
         // same question, different answers -> returns true
-        editedCard_A = new AnakinCardBuilder(CARD_A).withAnswer(VALID_ANSWER_A).build();
+        editedCard_A = new CardBuilder(CARD_A).withAnswer(VALID_ANSWER_A).build();
         assertTrue(CARD_A.isSameCard(editedCard_A));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        AnakinCard cardCopy = new AnakinCardBuilder(CARD_A).build();
+        Card cardCopy = new CardBuilder(CARD_A).build();
         assertTrue(CARD_A.equals(cardCopy));
 
         // same object -> returns true
