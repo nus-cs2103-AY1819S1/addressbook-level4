@@ -134,15 +134,6 @@ public class VersionedWishTransactionTest {
     }
 
     /**
-     * Checks if wishmap for this {@code wishTransaction} object contains the given {@code wish}.
-     *
-     * @return true if the given {@code wish} is found, false otherwise.
-     */
-    private boolean wishmapContainsKey(WishTransaction wishTransaction, Wish wish) {
-        return wishTransaction.wishMap.containsKey(wish.getId());
-    }
-
-    /**
      * Retrieves the index of the reference pointer for the wish state list.
      */
     private int getIndexOfReferencePtr(VersionedWishTransaction versionedWishTransaction) {
@@ -221,6 +212,18 @@ public class VersionedWishTransactionTest {
         return versionedWishTransaction.getWishStateList().size();
     }
 
+    /**
+     * Checks if wishmap for this {@code wishTransaction} object contains the given {@code wish}.
+     *
+     * @return true if the given {@code wish} is found, false otherwise.
+     */
+    private boolean wishmapContainsKey(WishTransaction wishTransaction, Wish wish) {
+        return wishTransaction.wishMap.containsKey(wish.getId());
+    }
+
+    /**
+     * @see VersionedWishTransactionTest#wishmapContainsKey(WishTransaction, Wish)
+     */
     private boolean wishmapContainsKey(VersionedWishTransaction versionedWishTransaction, Wish wish) {
         return versionedWishTransaction.getWishMap().containsKey(wish.getId());
     }
