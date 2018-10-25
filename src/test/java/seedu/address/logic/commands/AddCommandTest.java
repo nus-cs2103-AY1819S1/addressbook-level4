@@ -169,7 +169,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateExpenseStats(Predicate<Expense> predicate) {
+        public void updateExpenseStatsPredicate (Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

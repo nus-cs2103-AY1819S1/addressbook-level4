@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -141,7 +140,7 @@ public class ModelManagerTest {
     @Test
     public void updateExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.updateExpenseStats(unused -> true);
+        modelManagerLoggedOut.updateExpenseStatsPredicate(unused -> true);
     }
 
 
