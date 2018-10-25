@@ -363,9 +363,9 @@ At the end of the explanation is a link:{repoURL}/src/main/docs/images/AddApptSe
 The user executes `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`.
 This command has the following intent: Record the following appointment to a patient with NRIC = S1234567A:
 
-[cols="1,2a,1", options="header"]
+[cols="1,2a,2,2", options="header"]
 |===
-|Appointment type |Procedure name |Date and time |Doctor-in-charge
+|Appt. type |Procedure name |Date and time |Doctor-in-charge
 
 |`SRG`
 |Heart Bypass
