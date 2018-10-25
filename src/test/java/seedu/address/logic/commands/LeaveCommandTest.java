@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.PersonBuilder;
@@ -165,17 +168,27 @@ public class LeaveCommandTest {
         }
 
         @Override
-        public ObservableList<Group> getGroupList() {
-            ObservableList<Group> list = FXCollections.observableArrayList();
-            list.setAll(groupsJoined);
-            return list;
+        public Group getGroupByTitle(Title title) {
+            requireNonNull(title);
+            for (Group group : groupsJoined) {
+                Title groupTitle = group.getTitle();
+                if (groupTitle.equals(title)) {
+                    return group.copy();
+                }
+            }
+            return null;
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            ObservableList<Person> list = FXCollections.observableArrayList();
-            list.setAll(personList);
-            return list;
+        public Person getPersonByName(Name name) {
+            requireNonNull(name);
+            for (Person person : personList) {
+                Name personName = person.getName();
+                if (personName.equals(name)) {
+                    return person.copy();
+                }
+            }
+            return null;
         }
 
         @Override
