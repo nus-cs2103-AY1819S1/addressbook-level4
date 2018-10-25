@@ -4,7 +4,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -62,6 +64,16 @@ public interface Model {
     void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
+     * Updates statsPeriod to the given {@code period}.
+     */
+    void updateStatsPeriod(StatsPeriod period);
+
+    /**
+     * Returns statsPeriod.
+     */
+    StatsPeriod getStatsPeriod();
+
+    /**
      * Updates statsMode to the given {@code mode}.
      */
     void updateStatsMode(StatsMode mode);
@@ -70,6 +82,16 @@ public interface Model {
      * Returns statsMode.
      */
     StatsMode getStatsMode();
+
+    /**
+     * Updates statsNoOfDays to the given {@code noOfDays}.
+     */
+    void updatePeriodAmount(int periodAmount);
+
+    /**
+     * Returns statsNoOfDaysOrMonths.
+     */
+    int getPeriodAmount();
 
     /**
      * Returns true if the model has previous address book states to restore.
