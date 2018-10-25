@@ -130,6 +130,13 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    //@@author kengwoon
+    // ================ Export and Import methods =========================
+    @Override
+    public void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException {
+        addressBookStorage.exportAddressBook(addressBook, path);
+    }
+
     //@@author EatOrBeEaten
     // ================ Email methods ==============================
 

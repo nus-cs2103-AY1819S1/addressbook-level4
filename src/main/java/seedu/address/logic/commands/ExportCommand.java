@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -53,8 +54,8 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        ReadOnlyAddressBook exportAB = model.getAddressBook();
 
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, path.getFileName()));
     }
 

@@ -40,6 +40,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
+    void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException;
+
+    @Override
     Path getEmailPath();
 
     @Override
