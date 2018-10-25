@@ -48,7 +48,7 @@ public class FilterByTimeCommand extends FilterCommand {
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find " + time.toString() + " education within the students list!");
+            return new CommandResult("Cannot find " + time.toString() + " slot within the students list!");
         }
 
 
@@ -64,7 +64,6 @@ public class FilterByTimeCommand extends FilterCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterByTimeCommand // instanceof handles nulls
-                && time.equals(((FilterByTimeCommand)other).time));
+                || (other instanceof FilterByTimeCommand && time.equals(((FilterByTimeCommand) other).time));
     }
 }

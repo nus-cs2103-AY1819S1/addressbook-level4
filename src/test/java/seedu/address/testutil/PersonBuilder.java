@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,14 +24,13 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_EDUCATION = "Secondary 4";
-    public static final String DEFAULT_GRADES = "100";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Education education;
-    private Grades grades;
+    private HashMap<String, Grades> grades;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -39,7 +39,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         education = new Education(DEFAULT_EDUCATION);
-        grades = new Grades(DEFAULT_GRADES);
+        grades = new HashMap<>();
         tags = new HashSet<>();
     }
 
@@ -67,7 +67,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -107,8 +107,12 @@ public class PersonBuilder {
     /**
      * Sets the {@code Grades} of the {@code Person} that we are building.
      */
-    public PersonBuilder withGrades(String grades) {
-        this.grades = new Grades(grades);
+    public PersonBuilder withGrades(String... grades) {
+        for (String grade : grades) {
+            assert (Grades.isValidGradeInput(grade));
+            String[] splitGrade = grade.trim().split("\\s+");
+            this.grades.put(splitGrade[0], new Grades(splitGrade[1]));
+        }
         return this;
     }
 

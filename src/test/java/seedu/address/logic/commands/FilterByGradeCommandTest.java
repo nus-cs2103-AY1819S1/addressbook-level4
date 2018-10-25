@@ -1,14 +1,11 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.Test;
 
@@ -28,38 +25,33 @@ public class FilterByGradeCommandTest {
     @Test
     public void equals() {
         String first = "20 90";
-        String second = " ";
-
-
+        
         FilterByGradeCommand filterByGradeFirstCommand = new FilterByGradeCommand(first);
-        FilterByGradeCommand filterByGradeSecondCommand = new FilterByGradeCommand(second);
 
         // same object -> returns true
         assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommand));
 
         // same values -> returns true
-        FilterByGradeCommand filterByEducationFirstCommandCopy = new FilterByGradeCommand(first);
-        assertTrue(filterByGradeFirstCommand.equals(filterByEducationFirstCommandCopy));
-
+        FilterByGradeCommand filterByGradeFirstCommandCopy = new FilterByGradeCommand(first);
+        assertTrue(filterByGradeFirstCommand.equals(filterByGradeFirstCommandCopy));
+        
         // different types -> returns false
         assertFalse(filterByGradeFirstCommand.equals(1));
-
-
-        // different person -> returns false
-        assertFalse(filterByGradeFirstCommand.equals(filterByGradeSecondCommand));
+      
     }
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
 
-        String expectedMessage = String.format("Cannot find person whose grade between " + 0.0 + " and " + 0.0 + " !");
-        GradeFilterPredicate predicate = new GradeFilterPredicate(0,0);
+
+        String expectedMessage = String.format("Cannot find person whose grade between 0.0 and 0.0 !");
+        GradeFilterPredicate predicate = new GradeFilterPredicate(0, 0);
+
         FilterByGradeCommand command = new FilterByGradeCommand("0 0");
 
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
-
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

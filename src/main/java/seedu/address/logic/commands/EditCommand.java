@@ -11,8 +11,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -47,7 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_EDUCATION + "EDUCATION] "
-            + "[" + PREFIX_GRADES + "GRADES] "
+            + "[" + PREFIX_GRADES + "EXAM GRADE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -61,7 +63,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -108,12 +110,26 @@ public class EditCommand extends Command {
 
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Education updatedEducation = editPersonDescriptor.getEducation().orElse(personToEdit.getEducation());
-        Grades updatedGrades = editPersonDescriptor.getGrades().orElse(personToEdit.getGrades());
+        HashMap<String, Grades> updatedGrades =
+                getUpdatedGrades(personToEdit, editPersonDescriptor.getGrades().orElse(null));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedEducation, updatedGrades,
-                updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail,
+                updatedAddress, updatedEducation, updatedGrades, updatedTags);
     }
+
+    private static HashMap<String, Grades> getUpdatedGrades(
+            Person personToEdit, HashMap<String, Grades> grades) {
+        if (grades == null) {
+            return new HashMap<>(personToEdit.getGrades());
+        }
+        HashMap<String, Grades> finalGrades = new HashMap<>(personToEdit.getGrades());
+        for (Map.Entry<String, Grades> grade : grades.entrySet()) {
+            finalGrades.put(grade.getKey(), grade.getValue());
+        }
+        return finalGrades;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -143,10 +159,11 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Education education;
-        private Grades grades;
+        private HashMap<String, Grades> grades;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -209,12 +226,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(education);
         }
 
-        public void setGrades(Grades grades) {
+        public void setGrades(HashMap<String, Grades> grades) {
             this.grades = grades;
         }
 
-        public Optional<Grades> getGrades() {
-            return Optional.ofNullable(grades);
+        public Optional<HashMap<String, Grades>> getGrades() {
+            return (grades != null) ? Optional.of(grades) : Optional.empty();
         }
 
         /**

@@ -369,14 +369,23 @@ phone number and address.
 The earnings feature has been implemented to retrieve the sum of all tuition fees
 from each student. A `Fee` class has been added to the list of attributes of Person class.
 
-* The earnings command is taken as an input into the `AddressBookParser` class,
-where an `EarningsCommand` object is returned, which executes and displays the calculated
-sum of total tuition fees per hour from each student.
-
 * Each student's tuition fee per hour is also displayed on the PersonCard GUI. The tuition
 fee of an individual student is determined by his or her educational level and grade.
 +
 image::PersonCardExample.png[width="250"]
+
+* The earnings command word and two arguments which contains a start and end date are taken as an
+input into the `AddressBookParser` class. An `EarningsCommand` object is returned,
+which executes and displays the calculated sum of tuition fees earned between a range of dates.
+
+The earnings command uses the information in UniquePersonList from `VersionedAddressBook` to obtain the fees information
+of every student contained in the AddressBook. Using the list of students, `EarningsCommand` then uses the
+Java 8 Stream API to calculate and return the total amount of tuition fees earned within the period provided by
+the user.
+
+The following sequence diagram shows how the earnings function works:
+
+image::EarningsCommandSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
@@ -429,11 +438,11 @@ other the ending date.
 // end::timefeature[]
 
 // tag::timeaddcommand[]
-=== Addition of Tuition Timings feature
+=== Addition of Tuition Time feature
 
 ==== Current Implementation
 
-* Since the time attribute is an array list, we created a new command to add tutorial timings for a student.
+* Since the time attribute is an array list, we created a new command to add tuition timings of a student.
 
 * It takes in 2 parameters, name of the student and the tuition timing to be added.
 
@@ -441,7 +450,15 @@ other the ending date.
 
 * Tuition timing should consists of the day, start and end time of the tuition.
 
-* When the command is called, a time object of the tuition timings will be created. After that, it will search through the address book to see if the input name of the student exists. If the student is found, the tuition timing will be added into his time array list, otherwise, an error message will be shown.
+* The start time of the tuition must be earlier than the end time of the tuition.
+
+* When the command is called, a time object of the tuition timings will be created. It will then search through the address book to see if the input name of the student exists. If the student is found, the tuition timing will be added into his time array list, otherwise, an error message, depending on the type of error, will be shown.
+
+* Furthermore, after the time object is created, it will also check if the there are any clashes in the tuition timings already in the address book.
+
+The following sequence diagram shows how the addtime operation works:
+
+image::AddTimeSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
@@ -464,6 +481,28 @@ other the ending date.
 ** Cons: We will still need to do sorting if we want to display the tuition timings in another order.
 
 // end::timeaddcommand[]
+
+// tag::deletetimecommand[]
+=== Deletion of Tuition Time feature
+
+==== Current Implementation
+
+* Since the time attribute is an array list, we create a new command to delete the tuition timings of a student.
+
+* Name of the student will be in string, while tuition timing will be in time.
+
+* Tuition timing should consists of the day, start and end time of the tuition.
+
+* When the command is called, a time object of the tuition timings will be created. It will then search through the address book to see if the input name of the student exists and he contains the tuition time to be deleted. If the student is found and he indeed had been allocated the tuition time, the tuition time will be deleted, otherwise, an error message, depending on the type of error, will be shown.
+
+==== Future Implementation
+
+* Currently, the input name has the to the target student's exact spelling. In cases where a student name is very long, this command may cause some inconvenience for the user if he does not remember the exact spellings of the target student's name.
+
+* In the future, the input name do not need to be the target student's full name
+(e.g `John` instead of `John Doe`). If multiple students' names containing that input name are found, system will display all these students and user can choose which is the target student.
+
+// end::deletetimecommand[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1048,38 +1087,54 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use case: Adding a student
+=== Use case: Adding the tuition time of a student
 
 *MSS*
 
-1. User enters the details of the student
-2. System displays the details entered for confirmation
-3. System displays successful message
+1. User enters name of the student and the tuition time to be added
+2. System displays successful message
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 1a. User did not specify all the attributes of a student.
+* 1a. Input name is not found in the address book.
 +
 [none]
-** 1a1. Dummy variables are created for missing attributes.
+** 1a1. System displays the invalid student message.
 
-* 1a*. Phone number of student already exist in the address book.
+* 1a*. There is a clash in the tuition time to be added with the ones already in the address book.
 +
 [none]
-** 1a*1. System display student already exists in address book message.
+** 1a*1. System displays tuition timing clash message.
 
-* 2a. User chooses to cancel the addition.
+* 1a**. An invalid tuition time is entered
 +
 [none]
-** 2a1. System displays command cancelled message.
+** 1a**1. System displays invalid tuition time message.
 
-* 3a. The student name entered already exists.
+=== Use case: Deleting the tuition time of a student
+
+*MSS*
+
+1. User enters name of the student and the tuition time to be deleted
+2. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Input name is not found in the address book.
 +
 [none]
-** 3a1. System asks user whether wants to overwrite existing information or create a new student.
+** 1a1. System displays the invalid student message.
+
+* 1a*. The student does not have the tuition time allocated to him.
++
+[none]
+** 1a*1. System displays tuition time not found message.
 
 === Use case: Editing a student
 

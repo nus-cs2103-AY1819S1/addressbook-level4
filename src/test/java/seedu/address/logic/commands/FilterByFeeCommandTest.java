@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -30,8 +29,6 @@ public class FilterByFeeCommandTest {
         String second = " ";
 
         FilterByFeeCommand filterByFeeFirstCommand = new FilterByFeeCommand(first);
-        FilterByFeeCommand filterByFeeSecondCommand = new FilterByFeeCommand(second);
-
         // same object -> returns true
         assertTrue(filterByFeeFirstCommand.equals(filterByFeeFirstCommand));
 
@@ -42,9 +39,6 @@ public class FilterByFeeCommandTest {
         // different types -> returns false
         assertFalse(filterByFeeFirstCommand.equals(1));
 
-
-        // different person -> returns false
-        assertFalse(filterByFeeFirstCommand.equals(filterByFeeSecondCommand));
     }
 
     @Test

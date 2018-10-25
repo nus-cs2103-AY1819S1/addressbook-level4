@@ -59,7 +59,7 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -351,6 +351,32 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Adding tuition time of a student : `addtime`
+
+Adds a tuition time slot for a student in the address book.
+Format: `addtime [n/NAME] [ts/TIME]`
+
+* The student with the name `NAME` must be already be in the address book.
+* Adds the tuition time `TIME` for the student called `NAME`.
+* `TIME` must not clash with any other tuition time in the address book.
+
+Example:
+* `addtime n/John Doe ts/mon 1300 1500` +
+Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+
+=== Deleting tuition time of a student : `deletetime`
+
+Deletes a tuition time slot for a student in the address book.
+Format: `deletetime [n/NAME] [ts/TIME]`
+
+* The student with the name `NAME` must be already be in the address book.
+* `TIME` must already exist in the student's tuition timings.
+* The student with the name `NAME` will have the tuition timing `TIME` deleted.
+
+Example:
+* `deletetime n/John Doe ts/mon 1300 1500` +
+Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -374,11 +400,16 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]...` +
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 el/JC 1 g/85`
+* *AddTime* : `addtime n/NAME ts/TIME` +
+e.g. `addtime n/James Ho ts/mon 1300 1500`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *DeleteTime* : `deletetime n/NAME ts/TIME` +
+e.g. `deletetime n/James Ho ts/mon 1300 1500`
+* *
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
