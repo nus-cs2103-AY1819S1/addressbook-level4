@@ -3,9 +3,9 @@ package seedu.address.model.analytics;
 import java.util.HashMap;
 import java.util.Set;
 
-//@@author arsalanc-v2
 /**
  * Represents statistics of a general type.
+ * @@author arsalanc-v2
  */
 public abstract class Statistics {
 
