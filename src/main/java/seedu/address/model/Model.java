@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.analytics.StatisticType;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -20,6 +21,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -194,4 +198,42 @@ public interface Model {
      * Check if patient exists in the patient queue.
      */
     boolean hasPatientInPatientQueue();
+
+    //@@author arsalanc-v2
+    /**
+     * Returns true if a consultation with the same identity as {@code consultation}.
+     */
+    boolean hasConsultation(Consultation consultation);
+
+    //@@author arsalanc-v2
+    /**
+     * Deletes the given consultation.
+     * Not to be directly accessed by the user.
+     */
+    void deleteConsultation(Consultation target);
+
+    //@@author arsalanc-v2
+    /**
+     * Adds the given consultation.
+     * {@code consultation} must not already exist.
+     */
+    void addConsultation(Consultation consultation);
+
+    //@@author arsalanc-v2
+    /**
+     * Replaces the given consultation {@code consultation} with {@code editedConsultation}.
+     * {@code consultation} must exist in the schedule.
+     */
+    void updateConsultation(Consultation target, Consultation editedConsultation);
+
+    //@@author arsalanc-v2
+    /** Returns an unmodifiable view of the consultation list. */
+    ObservableList<Consultation> getFilteredConsultationList();
+
+    //@@author arsalanc-v2
+    /**
+     * Updates the filter of the filtered consultation list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredConsultationList(Predicate<Consultation> predicate);
 }

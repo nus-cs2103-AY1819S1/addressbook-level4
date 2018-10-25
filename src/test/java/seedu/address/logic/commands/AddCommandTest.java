@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.analytics.StatisticType;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -218,6 +219,36 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasConsultation(Consultation consultation) {
+            return false;
+        }
+
+        @Override
+        public void deleteConsultation(Consultation target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addConsultation(Consultation consultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateConsultation(Consultation target, Consultation editedConsultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Consultation> getFilteredConsultationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

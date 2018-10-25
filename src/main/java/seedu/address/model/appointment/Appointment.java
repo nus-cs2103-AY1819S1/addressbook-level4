@@ -145,7 +145,7 @@ public class Appointment {
         if (other == this) {
             return true;
         }
-        if (other instanceof Appointment) {
+        if (!(other instanceof Appointment)) {
             return false;
         }
         Appointment otherAppointment = (Appointment) other;
