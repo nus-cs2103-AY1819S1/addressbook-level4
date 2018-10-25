@@ -219,7 +219,7 @@ Format: `enqueuepatient INDEX`
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
-The command is typically used in combination with other commands.
+The command is typically used in combination with other commands. +
 Examples:
 
 * `list` +
