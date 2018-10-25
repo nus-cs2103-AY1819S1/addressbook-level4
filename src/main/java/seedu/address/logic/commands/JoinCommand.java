@@ -56,23 +56,9 @@ public class JoinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Group> groupList = model.getGroupList();
-        for (Group group : groupList) {
-            Title title = group.getTitle();
-            if (title.equals(groupName)) {
-                matchedGroupByName = group.copy();
-                break;
-            }
-        }
+        matchedGroupByName = model.getGroupByTitle(groupName);
 
-        List<Person> personList = model.getFilteredPersonList();
-        for (Person person : personList) {
-            Name name = person.getName();
-            if (name.equals(personName)) {
-                matchedPersonByName = person.copy();
-                break;
-            }
-        }
+        matchedPersonByName = model.getPersonByName(personName);
 
         if (matchedGroupByName == null) {
             throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
