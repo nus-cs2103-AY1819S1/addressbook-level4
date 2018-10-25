@@ -1,10 +1,11 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.ConsumptionPerDay;
+import seedu.address.model.appointment.Dosage;
+import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
 
 /**
@@ -15,13 +16,11 @@ public class XmlAdaptedPrescription {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Prescription's %s field is missing!";
 
     @XmlElement(required = true)
-    private String medicineName;
+    private MedicineName medicineName;
     @XmlElement(required = true)
-    private String expirationDate;
+    private Dosage dosage;
     @XmlElement(required = true)
-    private int consumptionPerDay;
-    @XmlElement(required = true)
-    private int amountToConsume;
+    private ConsumptionPerDay consumptionPerDay;
 
     /**
      * Constructs an XmlAdaptedPrescription.
@@ -32,12 +31,10 @@ public class XmlAdaptedPrescription {
     /**
      * Constructs a {@code XmlAdaptedPrescription} with the given prescription details
      */
-    public XmlAdaptedPrescription(String medicineName, String expirationDate,
-                                  int consumptionPerDay, int amountToConsume) {
+    public XmlAdaptedPrescription(MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
         this.medicineName = medicineName;
-        this.expirationDate = expirationDate;
+        this.dosage = dosage;
         this.consumptionPerDay = consumptionPerDay;
-        this.amountToConsume = amountToConsume;
     }
 
     /**
@@ -47,9 +44,8 @@ public class XmlAdaptedPrescription {
      */
     public XmlAdaptedPrescription(Prescription source) {
         medicineName = source.getMedicineName();
-        expirationDate = source.getExpirationDate().toString();
+        dosage = source.getDosage();
         consumptionPerDay = source.getConsumptionPerDay();
-        amountToConsume = source.getAmountToConsume();
     }
 
     /**
@@ -63,41 +59,32 @@ public class XmlAdaptedPrescription {
         if (medicineName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final String medicineName = "Empty";
+        final MedicineName medicineName = new MedicineName("Empty");
 
-        if (expirationDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
-        }
-        final String expirationDate = "2018-01-01T00:00:00";
-        LocalDateTime expirationInLocalDateTime = LocalDateTime.parse(expirationDate);
 
-        if (consumptionPerDay == 0) {
+        if (Integer.parseInt(dosage.toString()) == 0) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
         }
-        final int consumptionPerDay = 1;
+        final Dosage dosage = new Dosage(String.valueOf(1));
 
-        if (amountToConsume == 0) {
+        if (Integer.parseInt(consumptionPerDay.toString()) == 0) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
         }
-        final int amountToConsume = 1;
+        final ConsumptionPerDay consumptionPerDay = new ConsumptionPerDay(String.valueOf(1));
 
-        return new Prescription(medicineName, expirationInLocalDateTime, consumptionPerDay, amountToConsume);
+        return new Prescription(12, medicineName, dosage, consumptionPerDay);
     }
 
-    public String getMedicineName() {
+    public MedicineName getMedicineName() {
         return medicineName;
     }
 
-    public String getExpirationDate() {
-        return expirationDate;
+    public Dosage getDosage() {
+        return dosage;
     }
 
-    public int getConsumptionPerDay() {
+    public ConsumptionPerDay getConsumptionPerDay() {
         return consumptionPerDay;
-    }
-
-    public int getAmountToConsume() {
-        return amountToConsume;
     }
 
     @Override
@@ -111,7 +98,7 @@ public class XmlAdaptedPrescription {
         }
 
         if (medicineName.equals(((XmlAdaptedPrescription) other).getMedicineName())
-                && expirationDate.equals(((XmlAdaptedPrescription) other).getExpirationDate())
+                && dosage.equals(((XmlAdaptedPrescription) other).getDosage())
                 && consumptionPerDay == (((XmlAdaptedPrescription) other).getConsumptionPerDay())) {
             return true;
         } else {

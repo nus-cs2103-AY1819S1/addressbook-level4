@@ -14,7 +14,6 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-
 /**
  * Adds a patient's appointment to the health book.
  */

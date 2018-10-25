@@ -18,4 +18,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DOCTOR_NAME = new Prefix("nd/");
     public static final Prefix PREFIX_DATE_TIME = new Prefix("d/");
 
+    public static final Prefix PREFIX_INDEX = new Prefix("pi/");
+    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("pn/");
+    public static final Prefix PREFIX_DOSAGE = new Prefix("pd/");
+    public static final Prefix PREFIX_CONSUMPTION_PER_DAY = new Prefix("pc/");
+
 }

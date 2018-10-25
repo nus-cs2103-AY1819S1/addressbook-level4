@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -45,6 +46,8 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedAppointment> upcomingAppointments = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedAppointment> pastAppointments = new ArrayList<>();
+    @XmlElement
+    private MedicalHistory medicalHistory = new MedicalHistory();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -58,6 +61,7 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String remark, List<XmlAdaptedTag> tagged, List<XmlAdaptedAppointment> upcomingAppointments,
                             List<XmlAdaptedAppointment> pastAppointments) {
+
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -71,6 +75,29 @@ public class XmlAdaptedPerson {
         }
         if (pastAppointments != null) {
             this.pastAppointments = new ArrayList<>(pastAppointments);
+        }
+
+    }
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String remark, List<XmlAdaptedTag> tagged, List<XmlAdaptedAppointment> upcomingAppointments,
+                            List<XmlAdaptedAppointment> pastAppointments, MedicalHistory medicalHistory) {
+
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        if (upcomingAppointments != null) {
+            this.upcomingAppointments = new ArrayList<>(upcomingAppointments);
+        }
+        if (pastAppointments != null) {
+            this.pastAppointments = new ArrayList<>(pastAppointments);
+        }
+        if (medicalHistory != null) {
+            this.medicalHistory = medicalHistory;
         }
     }
 
@@ -88,6 +115,7 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+
         if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
             upcomingAppointments = ((Patient) source).getUpcomingAppointments().stream()
                     .map(XmlAdaptedAppointment::new)
@@ -95,6 +123,9 @@ public class XmlAdaptedPerson {
             pastAppointments = ((Patient) source).getPastAppointments().stream()
                     .map(XmlAdaptedAppointment::new)
                     .collect(Collectors.toList());
+        }
+        if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
+            medicalHistory = ((Patient) source).getMedicalHistory();
         }
 
     }
@@ -119,6 +150,9 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedAppointment pastAppointments : pastAppointments) {
             patientPastAppointments.add(pastAppointments.toModelType());
         }
+
+        final MedicalHistory modelMedicalHistory = new MedicalHistory(medicalHistory.getAllergies(),
+                medicalHistory.getConditions());
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -162,7 +196,7 @@ public class XmlAdaptedPerson {
             return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
             return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123",
-                    patientUpcomingAppointments, patientPastAppointments);
+                    patientUpcomingAppointments, patientPastAppointments, modelMedicalHistory);
         } else {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         }
