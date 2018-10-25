@@ -4,6 +4,15 @@
 :toc-title:
 :imagesDir: images
 :repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
 ## Disclaimer
 This guide was adapted from relevant parts of the developer guide from AB4 (https://github.com/nus-cs2103-AY1819S1/addressbook-level4). This project and AB4 are distributed under the MIT license.
@@ -15,6 +24,8 @@ Tech savvy students who need to keep their tasks organized and motivate themselv
 The target age group is from 15 years old to 25 years old.
 
 Attributable to our target demographic are the following qualities:
+
+==== Setting up CI
 
   * Adept with technology
   * Inclined to vicariously project a virtual avatar's experience unto themselves
