@@ -41,9 +41,11 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.Username;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -59,10 +61,13 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
+        Username originalUsername = model.getFilteredPersonList().get(0).getUsername();
+        Password originalPassword = model.getFilteredPersonList().get(0).getPassword();
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + "   " + SALARY_DESC_BOB
                 + "  " + PROJECT_DESC_OASIS + " ";
-        Person editedPerson = new PersonBuilder(BOB).build();
+        Person editedPerson = new PersonBuilder(BOB).withUsername(originalUsername.username)
+                .withPassword(originalPassword.password).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */
@@ -80,15 +85,18 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a person with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SALARY_DESC_BOB;
-        assertCommandSuccess(command, index, BOB);
+        assertCommandSuccess(command, index, editedPerson);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getPersonList().contains(editedPerson));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), editedPerson);
+        originalUsername = model.getFilteredPersonList().get(index.getZeroBased()).getUsername();
+        originalPassword = model.getFilteredPersonList().get(index.getZeroBased()).getPassword();
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).withUsername(originalUsername.username)
+                .withPassword(originalPassword.password).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: edit a person with new values same as another person's values but with different phone and email
