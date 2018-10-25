@@ -30,7 +30,8 @@ public class DispenseMedicineCommand extends QueueCommand {
     public static final String COMMAND_ALIAS = "dm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dispenses the medicine to the current patient. "
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Existing medicine will be overriden with input values.\n"
+            + "Parameters: MEDICINE INDEX (must be a positive integer) "
             + PREFIX_AMOUNT_TO_DISPENSE + "AMOUNT ";
 
     public static final String MESSAGE_SUCCESS = "%d x %s dispensed!";
@@ -79,8 +80,8 @@ public class DispenseMedicineCommand extends QueueCommand {
             model.commitAddressBook();
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
             EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
-            return new CommandResult(String.format(
-                    MESSAGE_SUCCESS, quantityToDispense.getValue(), medicine.getMedicineName()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(),
+                    medicine.getMedicineName()));
         } catch (InsufficientStockException ise) {
             throw new CommandException(String.format(MESSAGE_MEDICINE_STOCK_INSUFFICIENT, medicine.getMedicineName()));
         }

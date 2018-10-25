@@ -148,7 +148,7 @@ public class BrowserPanel extends UiPart<Region> {
             for (Map.Entry<Medicine, QuantityToDispense> entry : currentPatient.getMedicineAllocated().entrySet()) {
                 url += entry.getKey().getMedicineName().fullName;
                 url += " x ";
-                url += entry.getValue().toString();
+                url += entry.getValue().getValue();
                 url += "<br>";
             }
         }
