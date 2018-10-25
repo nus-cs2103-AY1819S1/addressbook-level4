@@ -32,7 +32,7 @@ public class XmlAdaptedGroup {
     private XmlAdaptedMeeting meeting;
 
     @XmlElement
-    private List<XmlAdaptedPerson> members;
+    private List<XmlAdaptedPerson> members = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedGroup.
@@ -48,9 +48,7 @@ public class XmlAdaptedGroup {
         this.title = title;
         this.description = description;
         this.meeting = meeting;
-        if (members != null) {
-            this.members = new ArrayList<>(members);
-        }
+        this.members.addAll(members);
     }
 
     /**

@@ -7,13 +7,13 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showGroupAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 
@@ -29,8 +29,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
@@ -48,16 +48,16 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON, SelectCommand.SELECT_TYPE_PERSON);
-        assertExecutionSuccess(lastPersonIndex, SelectCommand.SELECT_TYPE_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON);
+        assertExecutionSuccess(INDEX_THIRD_PERSON, SelectCommand.SelectCommandType.PERSON);
+        assertExecutionSuccess(lastPersonIndex, SelectCommand.SelectCommandType.PERSON);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
 
-        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_PERSON,
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.PERSON,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -66,7 +66,7 @@ public class SelectCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON);
     }
 
     @Test
@@ -78,20 +78,23 @@ public class SelectCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_PERSON,
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.PERSON,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON, SelectCommand.SELECT_TYPE_PERSON);
+        SelectCommand selectFirstCommand =
+            new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON);
+        SelectCommand selectSecondCommand =
+            new SelectCommand(INDEX_SECOND_PERSON, SelectCommand.SelectCommandType.PERSON);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON);
+        SelectCommand selectFirstCommandCopy =
+            new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -108,27 +111,27 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredGroupList_success() {
         Index lastGroupIndex = Index.fromOneBased(model.getFilteredGroupList().size());
 
-        Tag group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
-        final String[] keywords = { group.tagName };
+        Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
+        final String[] keywords = { group.getTitle().fullTitle };
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
-        assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         group = expectedModel.getFilteredGroupList().get(INDEX_THIRD_GROUP.getZeroBased());
-        keywords[0] = group.tagName;
+        keywords[0] = group.getTitle().fullTitle;
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
-        assertExecutionSuccess(INDEX_THIRD_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        assertExecutionSuccess(INDEX_THIRD_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         group = expectedModel.getFilteredGroupList().get(lastGroupIndex.getZeroBased());
-        keywords[0] = group.tagName;
+        keywords[0] = group.getTitle().fullTitle;
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
-        assertExecutionSuccess(lastGroupIndex, SelectCommand.SELECT_TYPE_GROUP);
+        assertExecutionSuccess(lastGroupIndex, SelectCommand.SelectCommandType.GROUP);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredGroupList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredGroupList().size() + 1);
 
-        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_GROUP,
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.GROUP,
                 Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
     }
 
@@ -137,7 +140,7 @@ public class SelectCommandTest {
         showGroupAtIndex(model, INDEX_FIRST_GROUP);
         showGroupAtIndex(expectedModel, INDEX_FIRST_GROUP);
 
-        assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
     }
 
     @Test
@@ -147,22 +150,24 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_GROUP;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupTagList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupList().size());
 
-        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_GROUP,
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.GROUP,
                 Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
     }
 
     @Test
     public void equalsGroup() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
+        SelectCommand selectSecondCommand =
+            new SelectCommand(INDEX_SECOND_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        SelectCommand selectFirstCommandCopy =
+            new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -179,16 +184,16 @@ public class SelectCommandTest {
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
-    private void assertExecutionSuccess(Index index, int selectType) {
+    private void assertExecutionSuccess(Index index, SelectCommand.SelectCommandType selectType) {
         SelectCommand selectCommand = new SelectCommand(index, selectType);
-        String expectedMessage = (selectType == SelectCommand.SELECT_TYPE_PERSON)
+        String expectedMessage = (selectType == SelectCommand.SelectCommandType.PERSON)
                 ? String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased())
                 : String.format(SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
         BaseEvent baseEvent = eventsCollectorRule.eventsCollector.getMostRecent();
-        if (selectType == SelectCommand.SELECT_TYPE_PERSON) {
+        if (selectType == SelectCommand.SelectCommandType.PERSON) {
             JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) baseEvent;
             assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
         } else {
@@ -201,7 +206,8 @@ public class SelectCommandTest {
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
-    private void assertExecutionFailure(Index index, int selectType, String expectedMessage) {
+    private void assertExecutionFailure(Index index, SelectCommand.SelectCommandType selectType,
+                                        String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index, selectType);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());

@@ -23,11 +23,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -195,8 +195,8 @@ public class CommandTestUtil {
     public static void showGroupAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
 
-        Tag group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
-        final String[] splitGroupTitle = { group.tagName };
+        Group group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
+        final String[] splitGroupTitle = { group.getTitle().fullTitle };
         model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(splitGroupTitle[0])));
         model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(splitGroupTitle[0])));
         assertEquals(1, model.getFilteredGroupList().size());

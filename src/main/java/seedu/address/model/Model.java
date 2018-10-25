@@ -6,10 +6,12 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.shared.Title;
+
 
 
 /**
@@ -20,6 +22,16 @@ public interface Model {
      * {@code Predicate} that always evaluate to true for persons
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true for groups
+     */
+    Predicate<Group> PREDICATE_SHOW_ALL_GROUPS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true for meetings
+     */
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
     /**
      * Clears existing backing model and replaces with the provided new data.

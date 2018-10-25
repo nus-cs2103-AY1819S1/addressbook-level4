@@ -4,8 +4,8 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * API of the Logic component
@@ -24,7 +24,7 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered list of groups */
-    ObservableList<Tag> getFilteredGroupList();
+    ObservableList<Group> getFilteredGroupList();
 
     /** Returns an unmodifiable view of the sorted list of persons */
     ObservableList<Person> getSortedPersonList();
