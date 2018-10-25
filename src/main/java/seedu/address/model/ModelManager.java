@@ -245,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException {
+    public void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException {
         if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }

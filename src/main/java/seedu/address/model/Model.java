@@ -152,7 +152,7 @@ public interface Model {
      * Updates the expense stats
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException;
+    void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
      * Modifies the existing maximum budget for the current user
