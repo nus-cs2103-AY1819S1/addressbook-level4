@@ -4,6 +4,15 @@
 :toc-title:
 :imagesDir: images
 :repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
 ## Disclaimer
 This guide was adapted from relevant parts of the developer guide from AB4 (https://github.com/nus-cs2103-AY1819S1/addressbook-level4). This project and AB4 are distributed under the MIT license.
@@ -15,6 +24,8 @@ Tech savvy students who need to keep their tasks organized and motivate themselv
 The target age group is from 15 years old to 25 years old.
 
 Attributable to our target demographic are the following qualities:
+
+==== Setting up CI
 
   * Adept with technology
   * Inclined to vicariously project a virtual avatar's experience unto themselves
@@ -560,6 +571,8 @@ commit in `taskManagerStateList`.
 The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.
 
+image::DependencyCommandSequenceDiagram.png[width="1200"]
+
 #### 3.4.2 Design Considerations
 ##### Aspect: Modelling of the embedded dependency object.
 
@@ -579,7 +592,6 @@ as a set of hashcodes, and can only perform the tasks reference once all tasks a
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
 other tasks that depends on A has to be recreated.
 
-image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 
 ### 3.5 Modelling Dependency Validity
