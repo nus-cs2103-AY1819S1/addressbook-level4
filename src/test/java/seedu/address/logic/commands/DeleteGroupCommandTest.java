@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.TypicalGroups;
@@ -104,28 +105,22 @@ public class DeleteGroupCommandTest {
         private List<Group> groupsRemoved = new ArrayList<>(TypicalGroups.getTypicalGroups());
 
         @Override
-        public boolean hasGroup(Group group) {
-            requireNonNull(group);
-            return groupsRemoved.stream().anyMatch(group::isSameGroup);
-        }
-
-        @Override
-        public void addGroup(Group group) {
-            requireNonNull(group);
-            groupsRemoved.add(group);
-        }
-
-        @Override
         public void removeGroup(Group group) {
             requireNonNull(group);
             groupsRemoved.remove(group);
         }
 
         @Override
-        public ObservableList<Group> getGroupList() {
-            ObservableList<Group> list = FXCollections.observableArrayList();
-            list.setAll(groupsRemoved);
-            return list;
+        public Group getGroupByTitle(Title title) {
+            requireNonNull(title);
+            for (Group group : groupsRemoved) {
+                Title groupTitle = group.getTitle();
+                if (groupTitle.equals(title)) {
+                    return group.copy();
+                }
+            }
+
+            return null;
         }
 
         @Override

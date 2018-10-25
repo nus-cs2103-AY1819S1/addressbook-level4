@@ -43,14 +43,7 @@ public class DeleteGroupCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Group> groupList = model.getGroupList();
-        for (Group group : groupList) {
-            Title title = group.getTitle();
-            if (title.equals(groupName)) {
-                matchedGroupByName = group.copy();
-                break;
-            }
-        }
+        matchedGroupByName = model.getGroupByTitle(groupName);
 
         if (matchedGroupByName == null) {
             throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
