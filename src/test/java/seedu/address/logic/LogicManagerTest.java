@@ -17,7 +17,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -83,26 +85,48 @@ public class LogicManagerTest {
     public void getExpenseStatsReturnsMapWithCorrectEntries() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().build();
         model.addExpense(validExpense);
-        model.updateStatsMode(StatsMode.DAY);
+        model.updateStatsMode(StatsMode.TIME);
+
+        model.updateStatsPeriod(StatsPeriod.DAY);
         LinkedHashMap<String, Double> map = logic.getExpenseStats();
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(validExpense.getDate().toString()));
         assertTrue(map.get(validExpense.getDate().toString()) == validExpense.getCost().getCostValue());
 
-        model.updateStatsMode(StatsMode.MONTH);
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
         map = logic.getExpenseStats();
         String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(month));
         assertTrue(map.get(month) == validExpense.getCost().getCostValue());
+
+        model.updateStatsMode(StatsMode.CATEGORY);
+        map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getCategory().categoryName));
+        assertTrue(map.get(validExpense.getCategory().categoryName) == validExpense.getCost().getCostValue());
     }
 
     @Test
-    public void getExpenseStatsReturnsCorrectStatsMode() throws NoUserSelectedException {
-        model.updateStatsMode(StatsMode.DAY);
-        assertTrue(logic.getStatsMode() == StatsMode.DAY);
-        model.updateStatsMode(StatsMode.MONTH);
-        assertTrue(logic.getStatsMode() == StatsMode.MONTH);
+    public void getStatsPeriodReturnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.DAY);
+        assertTrue(logic.getStatsPeriod() == StatsPeriod.DAY);
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
+        assertTrue(logic.getStatsPeriod() == StatsCommand.StatsPeriod.MONTH);
+    }
+
+    @Test
+    public void getStatsModeReturnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updateStatsMode(StatsMode.TIME);
+        assertTrue(logic.getStatsMode() == StatsMode.TIME);
+        model.updateStatsMode(StatsMode.CATEGORY);
+        assertTrue(logic.getStatsMode() == StatsMode.CATEGORY);
+    }
+
+    @Test
+    public void getPeriodAmountReturnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updatePeriodAmount(7);
+        assertTrue(logic.getPeriodAmount() == 7);
     }
 
     /**

@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ExpenseTrackerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,11 +71,21 @@ public class LogicManager extends ComponentManager implements Logic {
      */
     public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
         ObservableList<Expense> expenseList = model.getExpenseStats();
+        StatsPeriod statsPeriod = model.getStatsPeriod();
         StatsMode statsMode = model.getStatsMode();
+
+        if (statsMode == statsMode.TIME) {
+            return getTimeBasedStats(expenseList, statsPeriod);
+        } else {
+            return getCategoryBasedStats(expenseList);
+        }
+    }
+
+    private LinkedHashMap<String, Double> getTimeBasedStats(ObservableList<Expense> expenseList, StatsPeriod statsPeriod) {
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
         for (Expense e : expenseList) {
             String period;
-            if (statsMode == statsMode.DAY) {
+            if (statsPeriod == statsPeriod.DAY) {
                 period = e.getDate().toString();
             } else {
                 period = new SimpleDateFormat("MMM-YYYY").format(e.getDate().fullDate.getTime());
@@ -92,13 +103,40 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
+    private LinkedHashMap<String, Double> getCategoryBasedStats(ObservableList<Expense> expenseList) {
+        LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+        for (Expense e : expenseList) {
+            String category;
+            category = e.getCategory().categoryName;
+
+            if (stats.containsKey(category)) {
+                stats.put(
+                        category,
+                        stats.get(category) + e.getCost().getCostValue()
+                );
+            } else {
+                stats.put(category, e.getCost().getCostValue());
+            }
+        }
+        return stats;
+    }
+
+    public StatsPeriod getStatsPeriod() {
+        return model.getStatsPeriod();
+    }
+
+    public StatsMode getStatsMode() {
+        return model.getStatsMode();
+    }
+
+    public int getPeriodAmount() {
+        return model.getPeriodAmount();
+    }
+
 
     //@@author
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
     }
 
-    public StatsMode getStatsMode() {
-        return model.getStatsMode();
-    }
 }
