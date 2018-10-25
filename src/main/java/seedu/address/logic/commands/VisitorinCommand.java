@@ -24,9 +24,8 @@ import seedu.address.model.visitor.VisitorList;
 
 
 
-
+//@@author GAO JIAXIN666
 /**
- * @@author GAO JIAXIN
  * Checks in a visitor into patient's visitor list.
  */
 public class VisitorinCommand extends Command {

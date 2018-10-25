@@ -24,6 +24,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.ViewmhCommand;
+import seedu.address.logic.commands.ViewvisitorsCommand;
 import seedu.address.logic.commands.VisitorinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -95,6 +96,9 @@ public class AddressBookParser {
 
         case AddmedsCommand.COMMAND_WORD:
             return new AddmedsCommandParser().parse(arguments);
+
+        case ViewvisitorsCommand.COMMAND_WORD:
+            return new ViewvisitorsCommandParser().parse(arguments);
 
         case VisitorinCommand.COMMAND_WORD:
             return new VisitorinCommandParser().parse(arguments);

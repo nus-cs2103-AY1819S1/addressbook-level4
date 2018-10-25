@@ -12,7 +12,7 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.visitor.Visitor;
 
 
-//@@ gao jiaxin
+//@@author GAO JIAXIN666
 /**
  * Parses input arguments and creates a new VisitorInCommand object
  */
