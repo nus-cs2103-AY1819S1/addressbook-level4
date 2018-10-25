@@ -141,7 +141,6 @@ public class ParserUtil {
     }
 
     /**
-     * TODO COMMENT
      * Parses a {@code String permission} into a {@code Permission}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -157,7 +156,6 @@ public class ParserUtil {
     }
 
     /**
-     * TODO COMMENT
      * Parses {@code Collection<String> permissions} into a {@code Set<Permission>}.
      */
     public static Set<Permission> parsePermissions(Collection<String> permissions) throws ParseException {

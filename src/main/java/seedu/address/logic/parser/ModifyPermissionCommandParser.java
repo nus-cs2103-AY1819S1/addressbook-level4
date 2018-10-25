@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.ModifyPermissionCommand.MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION;
+import static seedu.address.logic.commands.ModifyPermissionCommand.MESSAGE_NO_MODIFICATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_PERMISSION;
 
@@ -40,6 +41,10 @@ public class ModifyPermissionCommandParser implements Parser<ModifyPermissionCom
 
         Set<Permission> permissionToRemove = new HashSet<>();
         parsePermission(argMultimap.getAllValues(PREFIX_REMOVE_PERMISSION)).ifPresent(permissionToRemove::addAll);
+
+        if(permissionToAdd.size() == 0 && permissionToRemove.size() == 0) {
+            throw new ParseException(MESSAGE_NO_MODIFICATION);
+        }
 
         //Check for intersection between permissionToAdd and permissionToRemove
         Set<Permission> intersection = new HashSet<>(permissionToAdd);

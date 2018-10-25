@@ -43,7 +43,11 @@ public class PermissionSetTest {
 
 
         permissionSet = new PermissionSet();
-        Set<Permission> permissionsToAdd = new HashSet<>();
+        Set<Permission> permissionsToAdd = null;
+        //null set -> false
+        assertFalse(permissionSet.addPermissions((permissionsToAdd)));
+
+        permissionsToAdd = new HashSet<>();
         //null -> false
         permissionsToAdd.add(null);
         assertFalse(permissionSet.addPermissions((permissionsToAdd)));
@@ -114,7 +118,11 @@ public class PermissionSetTest {
                 Permission.EDIT_EMPLOYEE
         );
 
-        Set<Permission> permissionsToRemove = new HashSet<>();
+        Set<Permission> permissionsToRemove = null;
+        //null set -> false
+        assertFalse(permissionSet.removePermissions((permissionsToRemove)));
+
+        permissionsToRemove = new HashSet<>();
         //null -> false
         permissionsToRemove.add(null);
         assertFalse(permissionSet.removePermissions((permissionsToRemove)));

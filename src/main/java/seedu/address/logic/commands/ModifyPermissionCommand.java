@@ -97,4 +97,23 @@ public class ModifyPermissionCommand extends Command {
         PermissionSet pSet = p.getPermissionSet();
         return new Person(name, phone, email, address, salary, projects, pSet);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ModifyPermissionCommand)) {
+            return false;
+        }
+
+        // state check
+        ModifyPermissionCommand mp = (ModifyPermissionCommand) other;
+        return index.equals(mp.index)
+                && toAdd.equals(mp.toAdd)
+                && toRemove.equals(mp.toRemove);
+    }
 }
