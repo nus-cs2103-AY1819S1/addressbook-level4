@@ -16,7 +16,7 @@ public interface ReadOnlyTaskManager {
     ObservableList<Task> getTaskList();
 
     /**
-     * Returns a copy the task manager's achievement record.
+     * Returns a copy of the task manager's {@code AchievementRecord}.
      */
     AchievementRecord getAchievementRecord();
 
