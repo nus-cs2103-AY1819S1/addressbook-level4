@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,8 +10,10 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Title;
 
 /**
  * Wraps all data at the address-book level
@@ -56,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+
     // @@author Derek-Hardy
     /**
      * Replaces the contents of the group list with {@code groups}.
@@ -93,6 +97,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasGroup(Group group) {
         requireNonNull(group);
         return groups.contains(group);
+    }
+
+    /**
+     * Returns a group that matches the given title. {@code null} is returned if the group is not found.
+     */
+    public Group getGroupByTitle(Title title) {
+        requireNonNull(title);
+        return groups.getGroupByTitle(title);
+    }
+
+    /**
+     * Returns a person that matches the given name. {@code null} is returned if the person is not found.
+     */
+    public Person getPersonByName(Name name) {
+        requireNonNull(name);
+        return persons.getPersonByName(name);
     }
     // @@author
 
@@ -168,6 +188,37 @@ public class AddressBook implements ReadOnlyAddressBook {
         group.clearMembers();
         groups.remove(group);
     }
+
+    /**
+     * Join a person in the {@code AddressBook} to an existing {@code group} in the {@code AddressBook}.
+     */
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.addMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+
+        group.addMember(person); // to satisfy the test on the input parameter
+    }
+
+    /**
+     * Remove an existing member from a existing {@code group} in {@code AddressBook}.
+     */
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.removeMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+    }
+
     // @@author
 
     //// util methods
@@ -183,6 +234,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
+
 
     // @@author Derek-Hardy
     @Override

@@ -223,6 +223,13 @@ public class Person {
         this.groupTags.add(group);
     }
 
+    /**
+     * Create a copy of this person.
+     */
+    public Person copy() {
+        return new Person(name, phone, email, address, tags, groups);
+    }
+
     // @@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
