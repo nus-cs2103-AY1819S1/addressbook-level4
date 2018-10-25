@@ -37,12 +37,12 @@ public class BrowserPanel extends UiPart<Region> {
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
     private static final String FXML = "BrowserPanel.fxml";
 
+    private static int counter = 0;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
-
-    private static int counter = 0;
 
     public BrowserPanel() {
         super(FXML);
@@ -58,20 +58,25 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
 
+    /**
+     * This function runs the executes some javascript in the html file.
+     * @param script script to run
+     * @param scriptCounter Ensure that only the script called is ran using an index counter.
+     */
     private void runScript(String script, int scriptCounter) {
-        browser.getEngine().getLoadWorker().stateProperty().addListener(
-                (ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-                    if (newValue != Worker.State.SUCCEEDED) {
-                        // Browser not loaded, return.
-                        return;
-                    }
-                    if (this.counter != scriptCounter) {
-                        return;
-                    }
-                    System.out.println("Script to be run: " + script);
-                    Platform.runLater(() -> browser.getEngine().executeScript(script));
-                    this.counter++;
-                });
+        browser.getEngine().getLoadWorker().stateProperty().addListener((
+                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+            if (newValue != Worker.State.SUCCEEDED) {
+                // Browser not loaded, return.
+                return;
+            }
+            if (counter != scriptCounter) {
+                return;
+            }
+            System.out.println("Script to be run: " + script);
+            Platform.runLater(() -> browser.getEngine().executeScript(script));
+            counter++;
+        });
     }
 
     /**
@@ -139,6 +144,9 @@ public class BrowserPanel extends UiPart<Region> {
         loadCurrentPatientPage(event.getCurrentPatient());
     }
 
+    /**
+     * Gets the javascript code to run for PatientView.html
+     */
     private String getScriptForPatientView(Patient patient) {
         String script = "loadPatientDetails('";
         script += patient.getName().fullName;
@@ -162,6 +170,9 @@ public class BrowserPanel extends UiPart<Region> {
         return script;
     }
 
+    /**
+     * Gets the javascript code for CurrentPatientView.html
+     */
     private String getScriptForCurrentPatientView(CurrentPatient currentPatient) {
         String script = "loadCurrentPatientDetails('";
         script += currentPatient.getPatient().getName().fullName;
@@ -204,6 +215,9 @@ public class BrowserPanel extends UiPart<Region> {
         return script;
     }
 
+    /**
+     * Gets the javascript code for QueueInformation.html
+     */
     private String getScriptForQueueInformation(PatientQueue patientQueue, CurrentPatient currentPatient,
                                                 ServedPatientList servedPatientList) {
         String script = "loadQueueInformation('";
@@ -241,8 +255,6 @@ public class BrowserPanel extends UiPart<Region> {
 
         return script;
     }
-
-
 
     /**
      * Convert any list into a String with commas.

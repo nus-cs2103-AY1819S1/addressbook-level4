@@ -30,12 +30,12 @@ public class QueueDisplay extends UiPart<Region> {
 
     private static final String FXML = "QueueDisplay.fxml";
 
+    private static int counter = 0;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView display;
-
-    private static int counter = 0;
 
     public QueueDisplay() {
         super(FXML);
@@ -51,20 +51,25 @@ public class QueueDisplay extends UiPart<Region> {
         Platform.runLater(() -> display.getEngine().load(url));
     }
 
+    /**
+     * This function runs the executes some javascript in the html file.
+     * @param script script to run
+     * @param scriptCounter Ensure that only the script called is ran using an index counter.
+     */
     private void runScript(String script, int scriptCounter) {
-        display.getEngine().getLoadWorker().stateProperty().addListener(
-                (ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-                    if (newValue != Worker.State.SUCCEEDED) {
-                        // Browser not loaded, return.
-                        return;
-                    }
-                    if (this.counter != scriptCounter) {
-                        return;
-                    }
-                    System.out.println("Script to be run: " + script);
-                    Platform.runLater(() -> display.getEngine().executeScript(script));
-                    this.counter++;
-                });
+        display.getEngine().getLoadWorker().stateProperty().addListener((
+                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+            if (newValue != Worker.State.SUCCEEDED) {
+                // Browser not loaded, return.
+                return;
+            }
+            if (counter != scriptCounter) {
+                return;
+            }
+            System.out.println("Script to be run: " + script);
+            Platform.runLater(() -> display.getEngine().executeScript(script));
+            counter++;
+        });
     }
 
     /**
@@ -90,8 +95,9 @@ public class QueueDisplay extends UiPart<Region> {
         loadPage(queueDisplayPage);
     }
 
-
-
+    /**
+     * Gets the javascript code for QueueDisplay.html
+     */
     private String getScriptForQueueDisplay(List<Patient> patientQueueList, String currentPatientString,
                                             List<ServedPatient> servedPatientList) {
         String script = "loadQueueDisplay(";
@@ -143,90 +149,5 @@ public class QueueDisplay extends UiPart<Region> {
     private void handleQueueUpdatedEvent(QueueUpdatedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
-    }
-
-    /**
-     * Generate a list of patient queues separated with newline.
-     * @param patientQueue list of patients waiting for doctor.
-     * @return string representation of the list.
-     */
-    private String generatePatientQueuePrettyString(PatientQueue patientQueue) {
-        if (patientQueue == null) {
-            return "(none)";
-        }
-        int counter = 1;
-        String result = "";
-        for (Patient patient: patientQueue.getPatientsAsList()) {
-            result += counter++ + ".) ";
-            result += patient.toNameAndIc();
-            result += "<br>";
-        }
-        return result;
-    }
-
-    /**
-     * Generates URL parameters representing the patients in the list.
-     * @param list to convert to string.
-     * @return url string addon.
-     */
-    private String generateUrlParamsFromPatientQueue(List<Patient> list) {
-        String result = "";
-        for (int index = 0; index < 6; index++) {
-            result += "queue";
-            result += (index + 1);
-            result += "=";
-            try {
-                result += list.get(index).getIcNumber().toString().substring(5, 9); //need to change
-            } catch (IndexOutOfBoundsException ioobe) {
-                result += "empty";
-            } catch (NullPointerException npe) {
-                result += "empty";
-            }
-            result += "&";
-        }
-        return result;
-    }
-
-    /**
-     * Generate a list of patient queues separated with newline.
-     * @param servedPatientList list of served patients.
-     * @return string representation of the list.
-     */
-    private String generateServedPatientListPrettyString(ServedPatientList servedPatientList) {
-        if (servedPatientList == null) {
-            return "(none)";
-        }
-
-        int counter = 1;
-        String result = "";
-        for (ServedPatient patient: servedPatientList.getPatientsAsList()) {
-            result += counter++ + ".) ";
-            result += patient.toNameAndIc();
-            result += "<br>";
-        }
-        return result;
-    }
-
-    /**
-     * Generates URL parameters representing the patients in the list.
-     * @param list to convert to string.
-     * @return url string addon.
-     */
-    private String generateUrlParamsFromServedPatientList(List<ServedPatient> list) {
-        String result = "";
-        for (int index = 0; index < 6; index++) {
-            result += "served";
-            result += (index + 1);
-            result += "=";
-            try {
-                result += list.get(index).getIcNumber().toString().substring(5, 9); //need to change
-            } catch (IndexOutOfBoundsException ioobe) {
-                result += "empty";
-            } catch (NullPointerException npe) {
-                result += "empty";
-            }
-            result += "&";
-        }
-        return result;
     }
 }
