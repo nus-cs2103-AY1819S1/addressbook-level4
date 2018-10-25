@@ -22,7 +22,7 @@ public class Entry {
     private Remarks remarks;
 
     public Entry(int entryNum, Date date, Amount amount, Remarks remarks) {
-//        requireAllNonNull(entryNum, date, amount, remarks);
+        requireAllNonNull(entryNum, date, amount, remarks);
         this.entryNum = entryNum;
         this.date = date;
         this.amount = amount;

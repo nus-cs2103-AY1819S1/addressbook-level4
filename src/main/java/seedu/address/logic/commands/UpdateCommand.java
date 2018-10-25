@@ -122,7 +122,7 @@ public class UpdateCommand extends Command {
         if(editCcaDescriptor.getEntryNum().isPresent()) {
             Set<Entry> entrySet = ccaToEdit.getEntries();
             Entry[] currentCcaEntries = entrySet.toArray(new Entry[entrySet.size()]);
-            Integer updatingEntryNum = editCcaDescriptor.getEntryNum().get() - 1;
+            int updatingEntryNum = editCcaDescriptor.getEntryNum().get() - 1;
             Entry entryToEdit = currentCcaEntries[updatingEntryNum];
 
             if (editCcaDescriptor.getDate().isPresent()) {
@@ -276,7 +276,6 @@ public class UpdateCommand extends Command {
         public Optional<Integer> getEntryNum() {
             return Optional.ofNullable(entryNum);
         }
-
 
         public void setDate(Date date) {
             this.date = date;

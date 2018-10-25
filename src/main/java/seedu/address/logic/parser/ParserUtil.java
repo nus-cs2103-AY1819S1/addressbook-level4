@@ -361,11 +361,10 @@ public class ParserUtil {
     public static Date parseEntryDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        int dateInt = Integer.parseInt(trimmedDate);
-        if (dateInt < 0 || dateInt > 31) {
+        if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
         }
-        return new Date(String.valueOf(dateInt));
+        return new Date(trimmedDate);
     }
 
     /**

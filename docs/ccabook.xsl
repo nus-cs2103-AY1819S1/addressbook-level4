@@ -7,7 +7,7 @@
             </head>
             <body>
                 <xsl:for-each select="ccabook/ccas">
-                    <xsl:if test="name='Choir'">
+                    <xsl:if test="name='Hockey'">
                         <p>
                             CCA:
                             <xsl:value-of select="name"/>
