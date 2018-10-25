@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         try {
-            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword().orElse(null));
+            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword());
         } catch (NonExistentUserException e) {
             throw new IllegalStateException();
         }
@@ -253,7 +253,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
+    public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
         }
@@ -288,6 +288,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean isUserExists(Username toCheck) {
         return expenseTrackers.containsKey(toCheck);
+    }
+
+    @Override
+    public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        return versionedExpenseTracker.isMatchPassword(toCheck);
     }
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/
