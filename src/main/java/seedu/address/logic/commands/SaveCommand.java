@@ -29,7 +29,7 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
 
-    public static final String MESSAGE_SAVE_EXCESS = " with $%1$s in excess";
+    public static final String MESSAGE_SAVE_EXCESS = " with $%1$s in excess. Unused Funds now contains $%2$s";
     public static final String MESSAGE_SAVE_DIFFERENCE = " with $%1$s left to completion";
 
     private final Index index;
@@ -63,17 +63,21 @@ public class SaveCommand extends Command {
                     wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
                     wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
 
-            model.updateWish(wishToEdit, editedWish);
-            model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-            model.commitWishBook();
-
             Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
-
-            if (wishSavedDifference.value >= 0) {
-                differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount());
+            if (wishSavedDifference.value > 0) {
+                editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
+                        wishToEdit.getUrl(), wishToEdit.getSavedAmount()
+                        .incrementSavedAmount(wishToEdit.getSavedAmountToPriceDifference().getAbsoluteAmount()),
+                        wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
+                model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
+                differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount(), model.getWishBook().getUnusedFunds());
             } else {
                 differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
             }
+
+            model.updateWish(wishToEdit, editedWish);
+            model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+            model.commitWishBook();
         } catch (IllegalArgumentException iae) {
             throw new CommandException(iae.getMessage());
         }

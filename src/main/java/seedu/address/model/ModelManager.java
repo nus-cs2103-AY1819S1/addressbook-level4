@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.WishComparator;
@@ -122,6 +123,11 @@ public class ModelManager extends ComponentManager implements Model {
         versionedWishTransaction.updateWish(target, editedWish);
         versionedWishBook.updateWish(target, editedWish);
         indicateWishBookChanged();
+    }
+
+    @Override
+    public void updateUnusedFunds(Amount change) {
+        versionedWishBook.updateUnusedFunds(change);
     }
 
     /**

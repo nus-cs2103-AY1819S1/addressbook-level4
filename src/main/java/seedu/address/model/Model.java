@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -45,6 +46,12 @@ public interface Model {
      */
     void updateWish(Wish target, Wish editedWish);
 
+    /**
+     * Updates the unusedFunds amount by the given {@code change}
+     * @code change The amount to update unusedFunds by.
+     */
+    void updateUnusedFunds(Amount change);
+
     /** Returns an unmodifiable view of the filtered wish list */
     ObservableList<Wish> getFilteredSortedWishList();
 
@@ -78,4 +85,6 @@ public interface Model {
      * Saves the current wish book state for undo/redo.
      */
     void commitWishBook();
+
+
 }
