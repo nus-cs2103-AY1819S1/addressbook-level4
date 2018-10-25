@@ -39,7 +39,7 @@ public class AppContentParser {
      */
     public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
                                 Storage storage, Ui ui) throws ParseException {
-        String context = history.getContext();
+        Context context = history.getContext();
 
         if (storage == null) {
             storage = new StorageManager();
@@ -47,13 +47,13 @@ public class AppContentParser {
 
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput, ui);
-        } else if (context.equals("Meal Planner")) {
+        } else if (context.equals(Context.MEAL_PLANNER)) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
             }
             return new MealPlannerParser()
                 .parseCommand(modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals("Recipe")) {
+        } else if (context.equals(Context.RECIPE)) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
@@ -63,17 +63,17 @@ public class AppContentParser {
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
                 modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals("Ingredient")) {
+        } else if (context.equals(Context.INGREDIENT)) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
             }
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
-        } else if (context.equals("Health Plan")) {
+        } else if (context.equals(Context.HEALTH_PLAN)) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
-        } else if (context.equals("Favourites")) {
+        } else if (context.equals(Context.FAVOURITES)) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
             }
