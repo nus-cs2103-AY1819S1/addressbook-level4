@@ -35,6 +35,18 @@ public interface Model {
     void deleteEvent(Event target);
 
     /**
+     * Deletes the given event and its repeats.
+     * The event must exist in the scheduler.
+     */
+    void deleteRepeatingEvents(Event target);
+
+    /**
+     * Deletes the given event and its upcoming events.
+     * The event must exist in the scheduler.
+     */
+    void deleteUpcomingEvents(Event target);
+
+    /**
      * Adds all the given events.
      */
     void addEvents(List<Event> events);

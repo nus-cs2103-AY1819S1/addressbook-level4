@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.scheduler.logic.commands.CommandTestUtil.showEventAtIndex;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_ALL;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
@@ -34,7 +36,8 @@ public class DeleteCommandTest {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EVENT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS,
+                eventToDelete.getEventName());
 
         ModelManager expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
@@ -58,7 +61,8 @@ public class DeleteCommandTest {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EVENT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS,
+                eventToDelete.getEventName());
 
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
@@ -79,6 +83,36 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_allRepeatingEvents_success() {
+        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EVENT, FLAG_ALL);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS,
+                eventToDelete.getEventName());
+
+        ModelManager expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
+        expectedModel.deleteRepeatingEvents(eventToDelete);
+        expectedModel.commitScheduler();
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_upcomingEvents_success() {
+        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EVENT, FLAG_UPCOMING);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS,
+                eventToDelete.getEventName());
+
+        ModelManager expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
+        expectedModel.deleteUpcomingEvents(eventToDelete);
+        expectedModel.commitScheduler();
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

@@ -1,6 +1,8 @@
 package seedu.scheduler.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.scheduler.logic.parser.CliSyntax.LIST_OF_ALL_FLAG;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -35,20 +37,35 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
     public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
-    public static final String MESSAGE_FAILED_PRIORITY_PARSE = "Priority is not valid";
+    public static final String MESSAGE_FAILED_FLAG_PARSE = "Input flag is not valid";
     public static final String EMPTY_STRING = "";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Gets the integer value of {@code argsString} and parses it into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
+    public static Index parseIndex(String argsString) throws ParseException {
+        String trimmedIndex = argsString.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code List<Flag> flags} into a {@code Set<Flag>}.
+     */
+    public static Set<Flag> parseFlags(List<Flag> flags) throws ParseException {
+        requireAllNonNull(flags);
+        final Set<Flag> flagSet = new HashSet<>();
+        for (Flag flag : flags) {
+            if (!LIST_OF_ALL_FLAG.contains(flag)) {
+                throw new ParseException(MESSAGE_FAILED_FLAG_PARSE);
+            }
+            flagSet.add(flag);
+        }
+        return flagSet;
     }
 
     /**

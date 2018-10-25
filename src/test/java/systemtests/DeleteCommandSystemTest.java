@@ -33,7 +33,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_EVENT.getOneBased() + "       ";
         Event deletedEvent = removeEvent(expectedModel, INDEX_FIRST_EVENT);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent.getEventName());
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last event in the list -> deleted */
@@ -82,7 +82,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         selectEvent(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedEvent = removeEvent(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent);
+        expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent.getEventName());
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -129,7 +129,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Event deletedEvent = removeEvent(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent.getEventName());
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
