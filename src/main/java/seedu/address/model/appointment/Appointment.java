@@ -155,7 +155,6 @@ public class Appointment {
         return stringBuilder.toString();
     }
 
-
     /**
      * Returns true if appointments have the same date, time, patient and status.
      */

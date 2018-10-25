@@ -21,12 +21,14 @@ public class AppointmentBuilder {
     public static final Time DEFAULT_TIME = new Time(16, 30);
     public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
+    public static final int DEFAULT_STATUS = 1;
     public static final Doctor DEFAULT_DOCTOR = ADAM;
 
     private Date date;
     private Time time;
     private Patient patient;
     private int type;
+    private int status;
     private Doctor doctor;
 
     public AppointmentBuilder() {
@@ -34,6 +36,8 @@ public class AppointmentBuilder {
         time = DEFAULT_TIME;
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
+        status = DEFAULT_STATUS;
+        doctor = DEFAULT_DOCTOR;
     }
 
     /**
@@ -44,6 +48,8 @@ public class AppointmentBuilder {
         time = appointmentToCopy.getAppointmentTime();
         patient = appointmentToCopy.getPatient();
         type = appointmentToCopy.getAppointmentType();
+        status = appointmentToCopy.getAppointmentStatus();
+        doctor = appointmentToCopy.getAssignedDoctor();
     }
 
     /**
@@ -70,7 +76,15 @@ public class AppointmentBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Doctor} of the {@code Appointment} that we are building.
+     */
+    public AppointmentBuilder withDoctor(Doctor doctor) {
+        this.doctor = doctor;
+        return this;
+    }
+
     public Appointment build() {
-        return new Appointment(date, time, patient, type, null);
+        return new Appointment(date, time, patient, type, doctor);
     }
 }
