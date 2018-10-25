@@ -27,23 +27,31 @@ public class SaveCommandParser implements Parser<SaveCommand> {
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SAVING);
 
-        if (!isSavingsCommandPresent(argumentMultimap) || argumentMultimap.getPreamble().isEmpty()) {
+        // new
+
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE), pe);
+
+        String[] arguments = trimmedArgs.split(" ");
+
+        if (arguments.length != 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
 
-        String savedAmountString = argumentMultimap.getValue(PREFIX_SAVING).orElse("");
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(arguments[0]);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        }
 
         Amount amount;
         try {
-            amount = new Amount(savedAmountString);
+            amount = new Amount(arguments[1]);
         } catch (IllegalArgumentException iae) {
-            throw new ParseException(String.format(MESSAGE_INVALID_AMOUNT, savedAmountString));
+            throw new ParseException(String.format(MESSAGE_INVALID_AMOUNT, arguments[1]));
         }
 
         return new SaveCommand(index, amount);
