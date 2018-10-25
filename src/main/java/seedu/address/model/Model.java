@@ -241,4 +241,8 @@ public interface Model {
      */
     void updateExistingCalendar();
 
+    /**
+     * Deletes an existing CCA in the CCA list.
+     */
+    void deleteCca(Cca ccaToDelete);
 }

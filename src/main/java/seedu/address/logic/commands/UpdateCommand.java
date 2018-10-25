@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEAD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CCAS;
 
@@ -47,7 +51,21 @@ public class UpdateCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "Basketball "
         + PREFIX_HEAD + "John "
-        + PREFIX_VICE_HEAD + "Alex \n";
+        + PREFIX_VICE_HEAD + "Alex \n\n"
+        + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA " +
+        "and a valid transaction entry number."
+        + "Parameters: "
+        + PREFIX_TAG + "CCA"
+        + PREFIX_TRANSACTION + "ENTRY NUMBER OF TRANSACTION TO UPDATE"
+        + PREFIX_DATE + "UPDATED DATE OF TRANSACTION "
+        + PREFIX_AMOUNT + "UPDATE AMOUNT OF THE TRANSACTION "
+        + PREFIX_REMARKS + "UPDATED REMARKS OF THE TRANSACTION\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_TAG + "basketball "
+        + PREFIX_TRANSACTION + "1 "
+        + PREFIX_DATE + "20.12.2018 "
+        + PREFIX_AMOUNT + "-300 "
+        + PREFIX_REMARKS + "Purchase of Equipment\n";
 
     public static final String MESSAGE_UPDATE_SUCCESS = "CCA updated: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to be update must be provided.";

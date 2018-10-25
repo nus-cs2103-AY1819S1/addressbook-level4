@@ -163,6 +163,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void deleteCca(Cca target) {
+        versionedBudgetBook.removeCca(target);
+        indicateBudgetBookChanged();
+    }
+
     //@@author kengwoon
     @Override
     public void clearMultiplePersons(List<Person> target) {
