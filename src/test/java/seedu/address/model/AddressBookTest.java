@@ -235,11 +235,6 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Tag> getGroupTagList() {
-            return groupTags;
-        }
-
-        @Override
         public ObservableList<Group> getGroupList() {
             return groups;
         }

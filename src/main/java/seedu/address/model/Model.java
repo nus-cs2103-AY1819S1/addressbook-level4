@@ -10,7 +10,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.shared.Title;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -18,7 +17,7 @@ import seedu.address.model.tag.Tag;
  */
 public interface Model {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} that always evaluate to true for persons
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -127,13 +126,13 @@ public interface Model {
 
 
     /** Returns an unmodifiable view of the filtered group list */
-    ObservableList<Tag> getFilteredGroupList();
+    ObservableList<Group> getFilteredGroupList();
 
     /**
      * Updates the filter of the filtered group list to filter by the given {@code predicate}
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredGroupList(Predicate<Tag> predicate);
+    void updateFilteredGroupList(Predicate<Group> predicate);
 
     /**
      * @return An unmodifiable view of the sorted person list
