@@ -2,10 +2,14 @@ package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.google.api.services.calendar.Calendar;
 
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
@@ -29,7 +33,8 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
@@ -48,6 +53,13 @@ public class DeleteCommand extends Command {
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEvent(eventToDelete);
         model.commitScheduler();
+        Calendar service = connectToGoogleCalendar.getCalendar();
+        String gEventId = String.valueOf(eventToDelete.getUuid()).replaceAll("-","");
+        try {
+            service.events().delete("primary", gEventId).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 
