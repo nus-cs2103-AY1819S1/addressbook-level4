@@ -78,7 +78,7 @@ public class WishBook implements ReadOnlyWishBook {
      * Sets the value of the unused funds.
      * @param amount The amount to set.
      */
-    private void setUnusedFunds(SavedAmount amount) {
+    public void setUnusedFunds(SavedAmount amount) {
         this.unusedFunds = amount;
     }
 
