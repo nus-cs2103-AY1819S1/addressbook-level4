@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.List;
@@ -25,9 +24,9 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Channels saving amount to wish."
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_SAVING + "SAVING_AMOUNT]\n"
+            + "[SAVING_AMOUNT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SAVING + "108.50";
+            + "108.50";
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
 
