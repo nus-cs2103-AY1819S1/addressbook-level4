@@ -31,7 +31,8 @@ public class AddCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.add(toAdd);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, history.getContext().toLowerCase(), toAdd));
+        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
+                history.getContext().toString().toLowerCase(), toAdd));
     }
 
     @Override
