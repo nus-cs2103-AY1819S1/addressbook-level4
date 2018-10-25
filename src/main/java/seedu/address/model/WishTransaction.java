@@ -43,14 +43,6 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         resetData(savedCopy);
     }
 
-    public WishTransaction getCopy(WishTransaction wishTransaction) {
-        WishTransaction copy = new WishTransaction();
-        wishTransaction.getWishMap().entrySet().forEach(entry -> {
-            copy.wishMap.put(entry.getKey(), entry.getValue());
-        });
-        return copy;
-    }
-
     /**
      * Creates a WishTransaction using a {@code ReadOnlyWishBook}.
      *
@@ -67,6 +59,17 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     public WishTransaction(HashMap<UUID, LinkedList<Wish>> wishMap) {
         this.logger = getLogger();
         this.wishMap = wishMap;
+    }
+
+    /**
+     * Returns a deep copy of the the given {@code wishTransaction} object.
+     */
+    public WishTransaction getCopy(WishTransaction wishTransaction) {
+        WishTransaction copy = new WishTransaction();
+        wishTransaction.getWishMap().entrySet().forEach(entry -> {
+            copy.wishMap.put(entry.getKey(), entry.getValue());
+        });
+        return copy;
     }
 
     private Logger getLogger() {

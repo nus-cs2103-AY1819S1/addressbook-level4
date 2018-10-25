@@ -112,9 +112,11 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof VersionedWishTransaction)) return false;
+        if (!(obj instanceof VersionedWishTransaction)) {
+            return false;
+        }
 
-        return ((VersionedWishTransaction)obj).getWishStateList().size() == wishStateList.size()
-                && ((VersionedWishTransaction)obj).getWishMap().equals(wishMap);
+        return ((VersionedWishTransaction) obj).getWishStateList().size() == wishStateList.size()
+                && ((VersionedWishTransaction) obj).getWishMap().equals(wishMap);
     }
 }
