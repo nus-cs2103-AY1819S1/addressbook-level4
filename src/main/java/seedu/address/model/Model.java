@@ -67,7 +67,7 @@ public interface Model {
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     AchievementRecord getAchievementRecord();
-    
+
     /**
      * Returns an unmodifiable view of the filtered task list
      */
