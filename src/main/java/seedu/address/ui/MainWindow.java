@@ -1,27 +1,75 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.ShowModuleRequestEvent;
-import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
-import seedu.address.commons.events.ui.ShowPersonRequestEvent;
+import seedu.address.commons.events.ui.*;
+import seedu.address.logic.Logic;
+import seedu.address.model.UserPrefs;
 
 import java.net.URL;
 import java.util.logging.Logger;
 
-public class MainWindow extends UiPart<Stage> {
+abstract public class MainWindow extends UiPart<Stage> {
 
+    public BrowserPanel browserPanel;
+    public PersonListPanel personListPanel;
+    public Config config;
+    public Logic logic;
+    private UserPrefs prefs;
     private Stage primaryStage;
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    public final Logger logger = LogsCenter.getLogger(getClass());
     private HelpWindow helpWindow;
 
-    public MainWindow(String fxml, Stage primaryStage) {
+    @FXML
+    public StackPane browserPlaceholder;
+
+    @FXML
+    public StackPane commandBoxPlaceholder;
+
+    @FXML
+    public MenuItem helpMenuItem;
+
+    @FXML
+    public MenuItem personMenuItem;
+
+    @FXML
+    public MenuItem moduleWindowItem;
+
+    @FXML
+    public MenuItem occasionWindowItem;
+
+    @FXML
+    public StackPane personListPanelPlaceholder;
+
+    @FXML
+    public StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    public StackPane occasionListPanelPlaceholder;
+
+    @FXML
+    public StackPane resultDisplayPlaceholder;
+
+    @FXML
+    public StackPane statusbarPlaceholder;
+
+    public MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(fxml, primaryStage);
         this.primaryStage = primaryStage;
         helpWindow = new HelpWindow();
+        this.config = config;
+        this.prefs = prefs;
+        this.logic = logic;
     }
 
     void hide() {
@@ -30,6 +78,62 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets the accelerator of a MenuItem.
+     * @param keyCombination the KeyCombination value of the accelerator
+     */
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
+
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666
+         * is fixed in later version of SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * not work when the focus is in them because the key event is consumed by
+         * the TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is
+         * in CommandBox or ResultDisplay.
+         */
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
+
+    /**
+     * Returns the current size and the position of the main Window.
+     */
+    GuiSettings getCurrentGuiSetting() {
+        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+
+    abstract void releaseResources();
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        raise(new ExitAppRequestEvent());
     }
 
     /**
@@ -51,6 +155,8 @@ public class MainWindow extends UiPart<Stage> {
     public void handleModule() {
         URL moduleWindowUrl = getFxmlFileUrl("ModuleWindow.fxml");
         loadFxmlFile(moduleWindowUrl, primaryStage);
+
+        this.fillInnerParts();
     }
 
     /**
@@ -60,6 +166,8 @@ public class MainWindow extends UiPart<Stage> {
     public void handlePerson() {
         URL personWindowUrl = getFxmlFileUrl("PersonWindow.fxml");
         loadFxmlFile(personWindowUrl, primaryStage);
+
+        this.fillInnerParts();
     }
 
     /**
@@ -69,7 +177,11 @@ public class MainWindow extends UiPart<Stage> {
     public void handleOccasion() {
         URL occasionWindowUrl = getFxmlFileUrl("OccasionWindow.fxml");
         loadFxmlFile(occasionWindowUrl, primaryStage);
+
+        this.fillInnerParts();
     }
+
+    abstract void fillInnerParts();
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
