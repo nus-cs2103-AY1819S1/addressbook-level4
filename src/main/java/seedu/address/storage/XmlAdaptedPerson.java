@@ -66,24 +66,24 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project) {
-        this(name, phone, email, address, salary, project, new ArrayList<>());
+                            String salary, String username, String password, List<XmlAdaptedProject> project) {
+        this(name, phone, email, address, salary, username, password, project, new ArrayList<>());
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String salary, String username,
+                            String password, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
+        this(name, phone, email, address, salary, username, password, project, null, permission, new ArrayList<>());
     }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
-        this(name, phone, email, address, salary, project, null, permission, new ArrayList<>());
-    }
-
-    /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
-     */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project, String profilePic,
-                            List<XmlAdaptedPermission> permission,
+                            String salary, String username, String password, List<XmlAdaptedProject> project,
+                            String profilePic, List<XmlAdaptedPermission> permission,
                             List<XmlAdaptedLeaveApplication> leaveApplications) {
         this.name = name;
         this.phone = phone;
@@ -91,8 +91,8 @@ public class XmlAdaptedPerson {
         this.salary = salary;
         this.address = address;
         this.profilePic = profilePic;
-        this.username = name;
-        this.password = "Pa55w0rd";
+        this.username = username;
+        this.password = password;
         if (project != null) {
             this.project = new ArrayList<>(project);
         }
