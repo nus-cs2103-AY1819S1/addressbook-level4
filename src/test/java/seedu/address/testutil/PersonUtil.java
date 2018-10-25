@@ -8,10 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.person.Grades;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -37,7 +39,8 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_EDUCATION + person.getEducation().toString() + " ");
-        sb.append(PREFIX_GRADES + person.getGrades().value + " ");
+        person.getGrades().forEach((key, value) ->
+                sb.append(PREFIX_GRADES + "" + key + " " + value.toString() + " "));
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -55,11 +58,19 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getEducation().ifPresent(education -> sb.append(PREFIX_EDUCATION).append(education.toString())
                 .append(" "));
-        descriptor.getGrades().ifPresent(grades -> sb.append(PREFIX_GRADES).append(grades.value).append(" "));
+        if (descriptor.getGrades().isPresent()) {
+            HashMap<String, Grades> grades = descriptor.getGrades().get();
+            if (grades.isEmpty()) {
+                sb.append(PREFIX_GRADES).append(" ");
+            } else {
+                grades.forEach((key, value) -> sb.append(PREFIX_GRADES)
+                        .append(key + " " + value.toString()).append(" "));
+            }
+        }
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_TAG).append(" ");
             } else {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
