@@ -103,7 +103,7 @@ public class Wish {
      * Returns true if SaveAmount exceeds Price of wish.
      */
     private boolean isSavedAmountGreaterThanOrEqualToPrice(SavedAmount savedAmount, Price price) {
-        return savedAmount.value > price.value;
+        return savedAmount.value >= price.value;
     }
 
     /*
