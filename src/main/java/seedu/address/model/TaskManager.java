@@ -71,7 +71,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
-        setAchievements(newData.getAchievementRecord().get());
+        setAchievements(newData.getAchievementRecord());
     }
 
     //// task-level operations
@@ -148,8 +148,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
-        return achievements.asSimpleObjectProperty();
+    public AchievementRecord getAchievementRecord() {
+        AchievementRecord copy = new AchievementRecord();
+        copy.resetData(achievements);
+        return copy;
     }
 
     @Override

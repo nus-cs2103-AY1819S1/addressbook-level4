@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
@@ -65,6 +66,13 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(versionedTaskManager));
     }
 
+    /**
+     * Raises an event to indicate the achievements reflected on UI should be updated
+     */
+    private void indicateAchievementsUpdated() {
+        raise(new AchievementsUpdatedEvent(versionedTaskManager.getAchievementRecord()));
+    }
+
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
@@ -108,13 +116,14 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.addXp(xpDiff);
 
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     /**
-     * Returns a property wrapper of the {@code AchievementRecord} whose changes can be monitored.
+     * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     @Override
-    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
+    public AchievementRecord getAchievementRecord() {
         return versionedTaskManager.getAchievementRecord();
     }
 
@@ -151,12 +160,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoTaskManager() {
         versionedTaskManager.undo();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     @Override
     public void redoTaskManager() {
         versionedTaskManager.redo();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     @Override

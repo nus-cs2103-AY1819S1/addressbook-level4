@@ -26,9 +26,10 @@ public interface Logic {
     ObservableList<Task> getFilteredTaskList();
 
     /**
-     * Returns a property wrapper of the {@code AchievementRecord} whose changes can be monitored.
+     * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
-    SimpleObjectProperty<AchievementRecord> getAchievementRecord();
+    AchievementRecord getAchievementRecord();
+
     /**
      * Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object
      */

@@ -2,13 +2,14 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.beans.property.SimpleObjectProperty;
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.model.achievement.AchievementRecord;
-import seedu.address.model.task.Task;
 
 public class AchievementPanel extends UiPart<Region>{
     private static final Logger logger = LogsCenter.getLogger(AchievementPanel.class);
@@ -18,20 +19,25 @@ public class AchievementPanel extends UiPart<Region>{
     @FXML
     private Label xpValueLabel;
     @FXML
-    private Label LevelValueLabel;
+    private Label levelValueLabel;
     
-    public AchievementPanel() {
+    public AchievementPanel(AchievementRecord achievements) {
         super(FXML);
+        setLabelValues(achievements);
         registerAsAnEventHandler(this);
     }
     
-//    public void setConnections(SimpleObjectProperty<AchievementRecord> achievements) {
-//        achievements.addListener(((observable, oldValue, newValue) -> {
-//            if (oldValue.getXp().equals(newValue.getXp())) {
-//                return;
-//            }
-//            xpValueLabel.setText(newValue.getXp);
-//        }));
-//    }
+    public void setLabelValues(AchievementRecord achievements) {
+        String xp = Integer.toString(achievements.getXpValue());
+        String level = achievements.getLevel().toString();
+        xpValueLabel.setText(xp);
+        levelValueLabel.setText(level);
+    }
+
+    @Subscribe
+    public void handleAddressBookChangedEvent(AchievementsUpdatedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setLabelValues(event.data);
+    }
 
 }

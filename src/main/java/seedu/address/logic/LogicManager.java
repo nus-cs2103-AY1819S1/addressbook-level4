@@ -48,7 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
+    public AchievementRecord getAchievementRecord() {
         return model.getAchievementRecord();
     }
 

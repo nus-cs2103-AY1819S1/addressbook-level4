@@ -17,8 +17,8 @@ public interface ReadOnlyTaskManager {
     ObservableList<Task> getTaskList();
 
     /**
-     * Returns an unmodifiable view of the achievement record.
+     * Returns a copy the task manager's achievement record.
      */
-    SimpleObjectProperty<AchievementRecord> getAchievementRecord();
+    AchievementRecord getAchievementRecord();
 
 }

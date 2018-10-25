@@ -64,9 +64,9 @@ public interface Model {
     void updateTaskStatus(Task target, Task updatedTask);
 
     /**
-     * Returns a property wrapper of the {@code AchievementRecord} whose changes can be monitored.
+     * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
-    SimpleObjectProperty<AchievementRecord> getAchievementRecord();
+    AchievementRecord getAchievementRecord();
     
     /**
      * Returns an unmodifiable view of the filtered task list
