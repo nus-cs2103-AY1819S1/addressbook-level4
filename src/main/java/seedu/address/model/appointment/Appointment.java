@@ -16,7 +16,7 @@ public class Appointment {
     private static final int CANCELLED = 0;
     //constants for type
     private static final int NEW = 0;
-    //an appointment is a follow up if it results directly from a consultation.
+    // an appointment is a follow up if it results directly from a consultation.
     // private static final int FOLLOW_UP = 1;
 
     //fields used for making appointment
@@ -120,10 +120,10 @@ public class Appointment {
         return stringBuilder.toString();
     }
 
+    //@@author arsalanc-v2
     /**
      * Converts type to string.
      * @return String form of type.
-     * @@author arsalanc-v2
      */
     public String typeToString() {
         StringBuilder stringBuilder = new StringBuilder();
