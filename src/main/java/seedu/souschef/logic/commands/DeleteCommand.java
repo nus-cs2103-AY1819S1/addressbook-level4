@@ -3,7 +3,6 @@ package seedu.souschef.logic.commands;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.planner.DayComparator;
 
 /**
  * Deletes a recipe identified using it's displayed index from the address book.
