@@ -14,8 +14,8 @@ import seedu.address.model.achievement.AchievementRecord;
 /**
  * A ui for the achievement field that is displayed on top of the status bar.
  */
-public class AchievementPanel extends UiPart<Region>{
-    
+public class AchievementPanel extends UiPart<Region> {
+
     private static final Logger logger = LogsCenter.getLogger(AchievementPanel.class);
 
     private static final String FXML = "AchievementPanel.fxml";

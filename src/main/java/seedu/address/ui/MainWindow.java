@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
-    
+
     @FXML
     private GridPane achievementPlaceholder;
 
@@ -127,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        
+
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
 

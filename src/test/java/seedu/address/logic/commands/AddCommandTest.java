@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -141,6 +142,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Task> getFilteredTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AchievementRecord getAchievementRecord() {
             throw new AssertionError("This method should not be called.");
         }
 
