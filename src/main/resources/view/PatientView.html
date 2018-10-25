@@ -5,27 +5,17 @@
     <title>Patient View</title>
     <link rel="stylesheet" type="text/css" href="PatientView.css">
     <script type="text/javascript">
-        function getJsonFromUrl() {
-            var query = location.search.substr(1);
-            var result = {};
-            query.split("&").forEach(function(part) {
-                var item = part.split("=");
-                result[item[0]] = decodeURIComponent(item[1]);
-            });
-            return result;
+        function loadPatientDetails(name, ic, address, phone, email, blood, diseases, drugs, notes) {
+            document.getElementById("name").innerHTML=name;
+            document.getElementById("ic").innerHTML=ic;
+            document.getElementById("address").innerHTML=address;
+            document.getElementById("phone").innerHTML=phone;
+            document.getElementById("email").innerHTML=email;
+            document.getElementById("blood").innerHTML=blood;
+            document.getElementById("diseases").innerHTML=diseases;
+            document.getElementById("drugs").innerHTML=drugs;
+            document.getElementById("notes").innerHTML=notes;
         }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            document.getElementById("name").innerHTML=getJsonFromUrl().name;
-            document.getElementById("ic").innerHTML=getJsonFromUrl().ic;
-            document.getElementById("address").innerHTML=getJsonFromUrl().address;
-            document.getElementById("phone").innerHTML=getJsonFromUrl().phone;
-            document.getElementById("email").innerHTML=getJsonFromUrl().email;
-            document.getElementById("blood").innerHTML=getJsonFromUrl().blood;
-            document.getElementById("diseases").innerHTML=getJsonFromUrl().diseases;
-            document.getElementById("drugs").innerHTML=getJsonFromUrl().drugs;
-            document.getElementById("notes").innerHTML=getJsonFromUrl().notes;
-        });
     </script>
 </head>
 <body>
