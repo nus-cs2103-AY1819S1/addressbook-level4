@@ -193,6 +193,17 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void getPersonByName_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Pakorn").build();
+        Name name = new Name("Pakorn");
+
+        uniquePersonList.add(person);
+        Person match = uniquePersonList.getPersonByName(name);
+
+        assertTrue(match.equals(person));
+    }
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         uniquePersonList.asUnmodifiableObservableList().remove(0);
