@@ -113,6 +113,12 @@ public class StorageManager extends ComponentManager implements Storage {
         return featureStorage.readFeature(filePath);
     }
 
+    /**
+     * Read data for a specific feature if available in its default file path.
+     * If not, retrieve sample data from the supplier.
+     * @param context Specify the feature to be read.
+     * @param sampleSupplier Supply sample data as backup.
+     */
     private void readFeature(Context context, Supplier<ReadOnlyAppContent> sampleSupplier) throws
             DataConversionException, IOException {
         if (listOfFeatureStorage.containsKey(context)) {
