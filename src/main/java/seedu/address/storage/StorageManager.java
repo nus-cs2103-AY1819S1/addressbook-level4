@@ -12,6 +12,7 @@ import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
@@ -130,9 +131,20 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    @Override
+    @Subscribe
+    public void handleBudgetBookChangedEvent(BudgetBookChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveBudgetBook(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
     //@@author kengwoon
     // ================ Export and Import methods =========================
-    @Override
+    // @Override
     public void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException {
         addressBookStorage.exportAddressBook(addressBook, path);
     }

@@ -34,12 +34,14 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ROOM + "C420 "
-            + PREFIX_SCHOOL + "FoS "
+            + PREFIX_SCHOOL + "FacultyOfScience "
             + PREFIX_TAG + "soccer "
             + PREFIX_TAG + "track";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before "
+        + "adding its member";
 
     private final Person toAdd;
 
@@ -57,6 +59,10 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (toAdd.getTags().size() > 0 && !model.hasCca(toAdd)) {
+            throw new CommandException(MESSAGE_NON_EXISTENT_CCA);
         }
 
         model.addPerson(toAdd);
