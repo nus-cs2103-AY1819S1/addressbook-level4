@@ -1,6 +1,5 @@
 package seedu.address.model.game;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.address.model.task.Status;
@@ -9,8 +8,6 @@ import seedu.address.testutil.TaskBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-//import static org.junit.Assert.*;
 
 public class GameManagerTest {
 
