@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
