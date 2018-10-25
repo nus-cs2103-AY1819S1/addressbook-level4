@@ -57,7 +57,7 @@ public class Password {
     /**
      * Returns true if the given hashed password match the user hash password.
      */
-    public static boolean isSameAsHashPassword(String password, String passwordHashString) {
+    public static boolean checkPassword(String password, String passwordHashString) {
         return HashUtil.verifyPassword(password, passwordHashString);
     }
 

@@ -59,7 +59,7 @@ public class LoginCommand extends Command {
 
             Doctor retrievedDoctor = model.getDoctor(authenticatedDoctor);
 
-            boolean isCorrectPassword = Password.isSameAsHashPassword(
+            boolean isCorrectPassword = Password.checkPassword(
                     authenticatedDoctor.getPassword().toString(),
                     retrievedDoctor.getPassword().toString());
 

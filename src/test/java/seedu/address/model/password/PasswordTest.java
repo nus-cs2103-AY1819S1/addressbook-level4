@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.commons.util.HashUtil;
-import seedu.address.model.password.Password;
 import seedu.address.testutil.Assert;
 
 //@@author jjlee050
@@ -84,19 +83,19 @@ public class PasswordTest {
     public void isSameAsHashPassword() {
         String password = "peter12";
         //null password
-        Assert.assertThrows(NullPointerException.class, () -> Password.isSameAsHashPassword(password, null));
+        Assert.assertThrows(NullPointerException.class, () -> Password.checkPassword(password, null));
 
         //empty string
-        Assert.assertThrows(IllegalArgumentException.class, () -> Password.isSameAsHashPassword(password, ""));
+        Assert.assertThrows(IllegalArgumentException.class, () -> Password.checkPassword(password, ""));
 
         //invalid password
-        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.isSameAsHashPassword("peter12", " ")); //Only spaces password hash string
-        assertFalse(Password.isSameAsHashPassword("", " ")); //Empty string and only spaces password hash string
+        assertFalse(Password.checkPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.checkPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.checkPassword("peter12", " ")); //Only spaces password hash string
+        assertFalse(Password.checkPassword("", " ")); //Empty string and only spaces password hash string
 
         //valid password
-        assertTrue(Password.isSameAsHashPassword(password, HashUtil.hashToString(password)));
+        assertTrue(Password.checkPassword(password, HashUtil.hashToString(password)));
 
     }
 }
