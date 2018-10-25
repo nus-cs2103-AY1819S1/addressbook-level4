@@ -29,5 +29,4 @@ public class ExportCommandTest {
 
         assertCommandSuccess(exportCommand, modelEmpty, commandHistory, expectedMessage, expectedModelEmpty);
     }
-
 }

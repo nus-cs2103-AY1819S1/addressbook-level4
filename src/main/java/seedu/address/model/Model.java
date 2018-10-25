@@ -129,7 +129,7 @@ public interface Model {
      * Exports current data in Hallper to given {@code filePath}.
      */
     void exportAddressBook(Path filePath);
-    
+
     /**
      * Returns an unmodifiable view of the filtered person list
      */
