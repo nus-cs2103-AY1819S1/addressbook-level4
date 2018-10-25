@@ -2,13 +2,14 @@ package seedu.address.model.project;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
+
+/**
+ * Represents a Project in the address book.
+ */
 public class Assignment {
 
     //identity field

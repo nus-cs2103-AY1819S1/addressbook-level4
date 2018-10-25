@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.project.Assignment;
 
+/**
+ * Adds a project to the address book.
+ */
 public class AddAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "addproject";

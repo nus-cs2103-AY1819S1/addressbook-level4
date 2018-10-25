@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
