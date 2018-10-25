@@ -41,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
     private Path currentOriginalImage;
     private PhotoHandler photoLibrary;
     private PreviewImage currentPreviewImage;
+    private Path currentPreviewImagePath;
     private Canvas canvas;
 
     private final UserPrefs userPrefs;
@@ -184,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         currentPreviewImage = selectedImage;
+        currentPreviewImagePath = currentPreviewImage.getCurrentPath();
         canvas.addLayer(selectedImage);
     }
     //=========== GoogleClient Accessors =============================================================
@@ -251,13 +253,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public PreviewImage getCurrentPreviewImage() {
-        return this.currentPreviewImage;
+        return currentPreviewImage;
+    }
+
+    @Override
+    public Path getCurrentPreviewImagePath() {
+        return currentPreviewImage.getCurrentPath();
     }
 
     //author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
         currentPreviewImage.commit(image);
+        currentPreviewImagePath = currentPreviewImage.getCurrentPath();
         currentPreviewImage.addTransformation(transformation);
     }
 
