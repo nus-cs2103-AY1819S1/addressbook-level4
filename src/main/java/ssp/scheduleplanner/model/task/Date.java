@@ -9,13 +9,12 @@ import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
-
-
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date should only contain numbers, and it should be exactly 6 digits long";
     public static final String DATE_VALIDATION_REGEX = "\\d{6}";
     public final String value;
     public final int day;
+    public final int yymmdd;
     public final int month;
     public final int year;
     public final String displayDate;
@@ -39,6 +38,8 @@ public class Date {
         month = Integer.parseInt(monthString);
         String yearString = date.substring(4, 6);
         year = Integer.parseInt(yearString) + 2000;
+
+        yymmdd = Integer.parseInt(yearString + monthString + dayString);
 
         displayDate = dayString + " " + monthNames[month - 1] + " " + year;
     }
