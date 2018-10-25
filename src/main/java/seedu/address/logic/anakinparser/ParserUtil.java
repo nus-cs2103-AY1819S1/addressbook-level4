@@ -5,14 +5,14 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.AnakinAnswer;
-import seedu.address.model.anakindeck.AnakinQuestion;
+import seedu.address.model.anakindeck.Answer;
+import seedu.address.model.anakindeck.Question;
 import seedu.address.model.anakindeck.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
-public class AnakinParserUtil {
+public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
@@ -46,30 +46,30 @@ public class AnakinParserUtil {
     }
 
     /**
-     * Parses a {@code String question} into a {@code AnakinQuestion}
+     * Parses a {@code String question} into a {@code Question}
      *
      * @throws ParseException
      */
-    public static AnakinQuestion parseQuestion(String question) throws ParseException {
+    public static Question parseQuestion(String question) throws ParseException {
         requireNonNull(question);
         String trimmed = question.trim();
-        if (!AnakinQuestion.isValidQuestion(trimmed)) {
-            throw new ParseException(AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
+        if (!Question.isValidQuestion(trimmed)) {
+            throw new ParseException(Question.MESSAGE_QUESTION_CONSTRAINTS);
         }
-        return new AnakinQuestion(trimmed);
+        return new Question(trimmed);
     }
 
     /**
-     * Parses a {@code String answer} into a {@code AnakinAnswer}
+     * Parses a {@code String answer} into a {@code Answer}
      *
      * @throws ParseException
      */
-    public static AnakinAnswer parseAnswer(String answer) throws ParseException {
+    public static Answer parseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
         String trimmed = answer.trim();
-        if (!AnakinAnswer.isValidAnswer(trimmed)) {
-            throw new ParseException(AnakinAnswer.MESSAGE_ANSWER_CONSTRAINTS);
+        if (!Answer.isValidAnswer(trimmed)) {
+            throw new ParseException(Answer.MESSAGE_ANSWER_CONSTRAINTS);
         }
-        return new AnakinAnswer(trimmed);
+        return new Answer(trimmed);
     }
 }

@@ -1,6 +1,6 @@
 package seedu.address.logic.anakinparser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.AddressbookMessages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
@@ -10,14 +10,14 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.anakindeck.Deck;
 import seedu.address.model.anakindeck.Name;
 
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AnakinNewDeckCommandParser implements AnakinParserInterface<NewDeckCommand> {
+public class NewDeckCommandParser implements ParserInterface<NewDeckCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -34,8 +34,8 @@ public class AnakinNewDeckCommandParser implements AnakinParserInterface<NewDeck
                     NewDeckCommand.MESSAGE_USAGE));
         }
 
-        Name name = AnakinParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        AnakinDeck deck = new AnakinDeck(name);
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Deck deck = new Deck(name);
 
         return new NewDeckCommand(deck);
     }

@@ -1,15 +1,15 @@
 package seedu.address.logic.anakinparser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.AddressbookMessages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.AddressbookMessages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.anakincommands.ChangeDeckCommand;
 import seedu.address.logic.anakincommands.Command;
-import seedu.address.logic.anakincommands.DelCardCommand;
-import seedu.address.logic.anakincommands.DelDeckCommand;
+import seedu.address.logic.anakincommands.DeleteCardCommand;
+import seedu.address.logic.anakincommands.DeleteDeckCommand;
 import seedu.address.logic.anakincommands.EditCardCommand;
 import seedu.address.logic.anakincommands.EditDeckCommand;
 import seedu.address.logic.anakincommands.ExitCommand;
@@ -23,7 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AnakinParser {
+public class Parser {
 
     /**
      * Used for initial separation of command word and args.
@@ -47,25 +47,25 @@ public class AnakinParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case NewDeckCommand.COMMAND_WORD:
-            return new AnakinNewDeckCommandParser().parse(arguments);
+            return new NewDeckCommandParser().parse(arguments);
 
         case EditDeckCommand.COMMAND_WORD:
-            return new AnakinEditDeckCommandParser().parse(arguments);
+            return new EditDeckCommandParser().parse(arguments);
 
-        case DelDeckCommand.COMMAND_WORD:
-            return new AnakinDelDeckCommandParser().parse(arguments);
+        case DeleteDeckCommand.COMMAND_WORD:
+            return new DeleteDeckCommandParser().parse(arguments);
 
         case NewCardCommand.COMMAND_WORD:
-            return new AnakinNewCardCommandParser().parse(arguments);
+            return new NewCardCommandParser().parse(arguments);
 
         case EditCardCommand.COMMAND_WORD:
-            return new AnakinEditCardCommandParser().parse(arguments);
+            return new EditCardCommandParser().parse(arguments);
 
-        case DelCardCommand.COMMAND_WORD:
-            return new AnakinDelCardCommandParser().parse(arguments);
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardCommandParser().parse(arguments);
 
         case ChangeDeckCommand.COMMAND_WORD:
-            return new AnakinCdCommandParser().parse(arguments);
+            return new ChangeDeckCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
             return new SortCommand();

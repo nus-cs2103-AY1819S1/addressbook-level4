@@ -1,6 +1,6 @@
 package seedu.address.logic.anakinparser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.AddressbookMessages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.stream.Stream;
 
@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AnakinCdCommandParser implements AnakinParserInterface<ChangeDeckCommand> {
+public class ChangeDeckCommandParser implements ParserInterface<ChangeDeckCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ChangeDeckCommand
@@ -29,7 +29,7 @@ public class AnakinCdCommandParser implements AnakinParserInterface<ChangeDeckCo
             if (args.equals(ChangeDeckCommand.EXIT_DECK_ARGS)) {
                 return new ChangeDeckCommand();
             } else {
-                Index index = AnakinParserUtil.parseIndex(args);
+                Index index = ParserUtil.parseIndex(args);
                 return new ChangeDeckCommand(index);
             }
 

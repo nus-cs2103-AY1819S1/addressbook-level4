@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  *  Represents a Card's question in the deck.
  *  Guarantees: immutable; is valid as declared in {@link #isValidQuestion(String)}
  */
-public class AnakinQuestion {
+public class Question {
     public static final String MESSAGE_QUESTION_CONSTRAINTS =
             "Questions can contain any text inputs but it should not be blank";
 
@@ -24,7 +24,7 @@ public class AnakinQuestion {
      *
      * @param question A valid question.
      */
-    public AnakinQuestion(String question) {
+    public Question(String question) {
         requireNonNull(question);
         checkArgument(isValidQuestion(question), MESSAGE_QUESTION_CONSTRAINTS);
         fullQuestion = question;
@@ -46,8 +46,8 @@ public class AnakinQuestion {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AnakinQuestion // instanceof handles nulls
-                && fullQuestion.equals(((AnakinQuestion) other).fullQuestion)); // state check
+                || (other instanceof Question // instanceof handles nulls
+                && fullQuestion.equals(((Question) other).fullQuestion)); // state check
     }
 
     @Override

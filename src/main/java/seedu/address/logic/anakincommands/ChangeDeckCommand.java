@@ -4,19 +4,19 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AddressbookMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AnakinModel;
-import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.Model;
+import seedu.address.model.anakindeck.Deck;
 
 /**
  * Navigates into a deck identified using its displayed index from Anakin.
  */
 
-public class AnakinCdCommand extends AnakinCommand {
+public class ChangeDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "cd";
     public static final String EXIT_DECK_ARGS = " ..";
@@ -33,41 +33,41 @@ public class AnakinCdCommand extends AnakinCommand {
 
     private boolean noIndex;
 
-    public AnakinCdCommand(Index targetIndex) {
+    public ChangeDeckCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.noIndex = false;
     }
 
     /**
-     * Alternate constructor for AnakinCdCommand that does not require an Index
+     * Alternate constructor for ChangeDeckCommand that does not require an Index
      */
-    public AnakinCdCommand() {
+    public ChangeDeckCommand() {
         //Set targetIndex as 0.
         this.targetIndex = Index.fromZeroBased(0);
         this.noIndex = true;
     }
 
     @Override
-    public CommandResult execute(AnakinModel anakinModel, CommandHistory history) throws CommandException {
-        requireNonNull(anakinModel);
-        List<AnakinDeck> lastShownList = anakinModel.getFilteredDeckList();
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (this.noIndex) {
-            if (!anakinModel.isInsideDeck()){
-                throw new CommandException(Messages.MESSAGE_NOT_INSIDE_DECK);
+            if (!model.isInsideDeck()){
+                throw new CommandException(AddressbookMessages.MESSAGE_NOT_INSIDE_DECK);
             }
             //Exit the deck
-            anakinModel.getOutOfDeck();
-            anakinModel.commitAnakin();
+            model.getOutOfDeck();
+            model.commitAnakin();
             return new CommandResult(String.format(MESSAGE_EXIT_SUCCESS));
         } else {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
+                throw new CommandException(AddressbookMessages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
             }
 
-            AnakinDeck deckToEnter = lastShownList.get(targetIndex.getZeroBased());
-            anakinModel.goIntoDeck(deckToEnter);
-            anakinModel.commitAnakin();
+            Deck deckToEnter = lastShownList.get(targetIndex.getZeroBased());
+            model.goIntoDeck(deckToEnter);
+            model.commitAnakin();
             return new CommandResult(String.format(MESSAGE_CD_SUCCESS, deckToEnter));
         }
     }
@@ -75,8 +75,8 @@ public class AnakinCdCommand extends AnakinCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AnakinCdCommand // instanceof handles nulls
-                && targetIndex.equals(((AnakinCdCommand) other).targetIndex)); // state check
+                || (other instanceof ChangeDeckCommand // instanceof handles nulls
+                && targetIndex.equals(((ChangeDeckCommand) other).targetIndex)); // state check
     }
 }
 

@@ -17,14 +17,14 @@ import seedu.address.model.anakindeck.anakinexceptions.DuplicateCardException;
  *
  * Supports a minimal set of list operations.
  */
-public class AnakinUniqueCardList implements Iterable<AnakinCard> {
+public class UniqueCardList implements Iterable<Card> {
 
-    public final ObservableList<AnakinCard> internalList = FXCollections.observableArrayList();
+    public final ObservableList<Card> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent deck as the given argument.
      */
-    public boolean contains(AnakinCard toCheck) {
+    public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameCard);
     }
@@ -33,7 +33,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
      * Adds a card to the list.
      * The card must not already exist in the list.
      */
-    public void add(AnakinCard toAdd) {
+    public void add(Card toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateCardException();
@@ -46,7 +46,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
      * {@code target} must exist in the list.
      * The card identity of {@code editedCard} must not be the same as another existing card in the list.
      */
-    public void setCard(AnakinCard target, AnakinCard editedCard) {
+    public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
 
         int index = internalList.indexOf(target);
@@ -65,7 +65,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
      * Removes the equivalent card from the list.
      * The card must exist in the list.
      */
-    public void remove(AnakinCard toRemove) {
+    public void remove(Card toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new CardNotFoundException();
@@ -86,7 +86,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
         internalList.sort(Comparator.comparing(o -> o.getQuestion().toString()));
     }
 
-    public void setCards(AnakinUniqueCardList replacement) {
+    public void setCards(UniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -95,7 +95,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
      * Replaces the contents of this list with {@code cards}.
      * {@code cards} must not contain duplicate cards.
      */
-    public void setCards(List<AnakinCard> cards) {
+    public void setCards(List<Card> cards) {
         requireAllNonNull(cards);
         if (!cardsAreUnique(cards)) {
             throw new DuplicateCardException();
@@ -107,20 +107,20 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<AnakinCard> asUnmodifiableObservableList() {
+    public ObservableList<Card> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<AnakinCard> iterator() {
+    public Iterator<Card> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AnakinUniqueDeckList // instanceof handles nulls
-                && internalList.equals(((AnakinUniqueDeckList) other).internalList));
+                || (other instanceof UniqueDeckList // instanceof handles nulls
+                && internalList.equals(((UniqueDeckList) other).internalList));
     }
 
     @Override
@@ -132,7 +132,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
      * Returns true if {@code cards} contains only unique cards.
      * @param cards
      */
-    private boolean cardsAreUnique(List<AnakinCard> cards) {
+    private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
                 if (cards.get(i).isSameCard(cards.get(j))) {

@@ -7,26 +7,26 @@ import java.util.Objects;
 /**
  * Represents a Card inside a Deck.
  */
-public class AnakinCard {
+public class Card {
 
     private final Performance performance;
 
     // Identity fields
-    private final AnakinQuestion question;
-    private final AnakinAnswer answer;
+    private final Question question;
+    private final Answer answer;
 
-    public AnakinCard(AnakinQuestion question, AnakinAnswer answer) {
+    public Card(Question question, Answer answer) {
         requireAllNonNull(question, answer);
         this.question = question;
         this.answer = answer;
         performance = Performance.DEFAULT;
     }
 
-    public AnakinQuestion getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 
-    public AnakinAnswer getAnswer() {
+    public Answer getAnswer() {
         return answer;
     }
 
@@ -37,7 +37,7 @@ public class AnakinCard {
     /**
      * Returns true if 2 cards are the same, or have same question.
      */
-    public boolean isSameCard(AnakinCard otherCard) {
+    public boolean isSameCard(Card otherCard) {
         if (otherCard == this) {
             return true;
         }
@@ -47,11 +47,11 @@ public class AnakinCard {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof AnakinCard)) {
+        if (!(other instanceof Card)) {
             return false;
         }
 
-        return isSameCard((AnakinCard) other);
+        return isSameCard((Card) other);
     }
 
     @Override

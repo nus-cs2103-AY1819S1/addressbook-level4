@@ -8,22 +8,22 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
-import seedu.address.testutil.AnakinDeckBuilder;
+import seedu.address.testutil.DeckBuilder;
 
-public class AnakinDeckNameContainsKeywordPredicateTest {
+public class DeckNameContainsKeywordPredicateTest {
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        AnakinDeckNameContainsKeywordsPredicate firstPredicate = new AnakinDeckNameContainsKeywordsPredicate(firstPredicateKeywordList);
-        AnakinDeckNameContainsKeywordsPredicate secondPredicate = new AnakinDeckNameContainsKeywordsPredicate(secondPredicateKeywordList);
+        DeckNameContainsKeywordsPredicate firstPredicate = new DeckNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        DeckNameContainsKeywordsPredicate secondPredicate = new DeckNameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        AnakinDeckNameContainsKeywordsPredicate firstPredicateCopy = new AnakinDeckNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        DeckNameContainsKeywordsPredicate firstPredicateCopy = new DeckNameContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -39,30 +39,30 @@ public class AnakinDeckNameContainsKeywordPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        AnakinDeckNameContainsKeywordsPredicate predicate = new AnakinDeckNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new AnakinDeckBuilder().withName("Alice Bob").build()));
+        DeckNameContainsKeywordsPredicate predicate = new DeckNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        assertTrue(predicate.test(new DeckBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
-        predicate = new AnakinDeckNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new AnakinDeckBuilder().withName("Alice Bob").build()));
+        predicate = new DeckNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+        assertTrue(predicate.test(new DeckBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new AnakinDeckNameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new AnakinDeckBuilder().withName("Alice Carol").build()));
+        predicate = new DeckNameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        assertTrue(predicate.test(new DeckBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new AnakinDeckNameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new AnakinDeckBuilder().withName("Alice Bob").build()));
+        predicate = new DeckNameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        assertTrue(predicate.test(new DeckBuilder().withName("Alice Bob").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        AnakinDeckNameContainsKeywordsPredicate predicate = new AnakinDeckNameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new AnakinDeckBuilder().withName("Alice").build()));
+        DeckNameContainsKeywordsPredicate predicate = new DeckNameContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new DeckBuilder().withName("Alice").build()));
 
         // Non-matching keyword
-        predicate = new AnakinDeckNameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new AnakinDeckBuilder().withName("Alice Bob").build()));
+        predicate = new DeckNameContainsKeywordsPredicate(Arrays.asList("Carol"));
+        assertFalse(predicate.test(new DeckBuilder().withName("Alice Bob").build()));
     }
 }

@@ -1,25 +1,25 @@
 package seedu.address.logic.anakincommands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_DECKS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AnakinModel;
+import seedu.address.model.Model;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
  */
-public class AnakinUndoCommand extends AnakinCommand {
+public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Undo success!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
     @Override
-    public CommandResult execute(AnakinModel model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (!model.canUndoAnakin()) {

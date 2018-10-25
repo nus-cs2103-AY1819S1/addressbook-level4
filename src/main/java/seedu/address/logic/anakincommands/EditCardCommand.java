@@ -3,27 +3,27 @@ package seedu.address.logic.anakincommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.AnakinMessages;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.AnakinModel;
-import seedu.address.model.anakindeck.AnakinAnswer;
-import seedu.address.model.anakindeck.AnakinCard;
-import seedu.address.model.anakindeck.AnakinQuestion;
+import seedu.address.model.Model;
+import seedu.address.model.anakindeck.Answer;
+import seedu.address.model.anakindeck.Card;
+import seedu.address.model.anakindeck.Question;
 
 /**
  * Edits the details of an existing card in a deck.
  */
-public class AnakinEditCardCommand extends AnakinCommand {
+public class EditCardCommand extends Command {
 
     public static final String COMMAND_WORD = "editcard";
 
@@ -47,7 +47,7 @@ public class AnakinEditCardCommand extends AnakinCommand {
      * @param index of the card in the deck to edit
      * @param editCardDescriptor details to edit the card with
      */
-    public AnakinEditCardCommand(Index index, EditCardDescriptor editCardDescriptor) {
+    public EditCardCommand(Index index, EditCardDescriptor editCardDescriptor) {
         requireNonNull(index);
         requireNonNull(editCardDescriptor);
 
@@ -56,16 +56,16 @@ public class AnakinEditCardCommand extends AnakinCommand {
     }
 
     @Override
-    public CommandResult execute(AnakinModel model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<AnakinCard> lastShownList = model.getFilteredCardList();
+        List<Card> lastShownList = model.getFilteredCardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(AnakinMessages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
-        AnakinCard cardToEdit = lastShownList.get(index.getZeroBased());
-        AnakinCard editedCard = createEditedCard(cardToEdit, editCardDescriptor);
+        Card cardToEdit = lastShownList.get(index.getZeroBased());
+        Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
         if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
@@ -82,13 +82,13 @@ public class AnakinEditCardCommand extends AnakinCommand {
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
      */
-    private static AnakinCard createEditedCard(AnakinCard cardToEdit, EditCardDescriptor editCardDescriptor) {
+    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor) {
         assert cardToEdit != null;
 
-        AnakinQuestion updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
-        AnakinAnswer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
+        Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
+        Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
 
-        return new AnakinCard(updatedQuestion, updatedAnswer);
+        return new Card(updatedQuestion, updatedAnswer);
     }
 
     @Override
@@ -99,12 +99,12 @@ public class AnakinEditCardCommand extends AnakinCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AnakinEditCardCommand)) {
+        if (!(other instanceof EditCardCommand)) {
             return false;
         }
 
         // state check
-        AnakinEditCardCommand e = (AnakinEditCardCommand) other;
+        EditCardCommand e = (EditCardCommand) other;
         return index.equals(e.index)
                 && editCardDescriptor.equals(e.editCardDescriptor);
     }
@@ -114,8 +114,8 @@ public class AnakinEditCardCommand extends AnakinCommand {
      * corresponding field value of the card.
      */
     public static class EditCardDescriptor {
-        private AnakinQuestion question;
-        private AnakinAnswer answer;
+        private Question question;
+        private Answer answer;
 
         public EditCardDescriptor() {}
 
@@ -134,19 +134,19 @@ public class AnakinEditCardCommand extends AnakinCommand {
             return CollectionUtil.isAnyNonNull(question, answer);
         }
 
-        public void setQuestion(AnakinQuestion question) {
+        public void setQuestion(Question question) {
             this.question = question;
         }
 
-        public Optional<AnakinQuestion> getQuestion() {
+        public Optional<Question> getQuestion() {
             return Optional.ofNullable(question);
         }
 
-        public void setAnswer(AnakinAnswer answer) {
+        public void setAnswer(Answer answer) {
             this.answer = answer;
         }
 
-        public Optional<AnakinAnswer> getAnswer() {
+        public Optional<Answer> getAnswer() {
             return Optional.ofNullable(answer);
         }
 

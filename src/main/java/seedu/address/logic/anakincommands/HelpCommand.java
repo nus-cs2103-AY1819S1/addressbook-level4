@@ -4,12 +4,12 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.AnakinModel;
+import seedu.address.model.Model;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class AnakinHelpCommand extends AnakinCommand {
+public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
@@ -19,7 +19,7 @@ public class AnakinHelpCommand extends AnakinCommand {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(AnakinModel model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }

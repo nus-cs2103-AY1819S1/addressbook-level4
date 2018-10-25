@@ -1,6 +1,6 @@
 package seedu.address.logic.anakinparser;
 
-import static seedu.address.commons.core.AnakinMessages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
@@ -11,14 +11,14 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.AnakinAnswer;
-import seedu.address.model.anakindeck.AnakinCard;
-import seedu.address.model.anakindeck.AnakinQuestion;
+import seedu.address.model.anakindeck.Answer;
+import seedu.address.model.anakindeck.Card;
+import seedu.address.model.anakindeck.Question;
 
 /**
  * Parses input arguments and creates a new NewCardCommand object
  */
-public class AnakinNewCardCommandParser implements AnakinParserInterface<NewCardCommand> {
+public class NewCardCommandParser implements ParserInterface<NewCardCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the NewCardCommand
@@ -35,10 +35,10 @@ public class AnakinNewCardCommandParser implements AnakinParserInterface<NewCard
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NewCardCommand.MESSAGE_USAGE));
         }
-        AnakinQuestion question = AnakinParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
-        AnakinAnswer answer = AnakinParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
+        Question question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
+        Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
 
-        AnakinCard card = new AnakinCard(question, answer);
+        Card card = new Card(question, answer);
 
         return new NewCardCommand(card);
     }

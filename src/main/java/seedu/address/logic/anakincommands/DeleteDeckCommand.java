@@ -4,18 +4,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AddressbookMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AnakinModel;
-import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.Model;
+import seedu.address.model.anakindeck.Deck;
 
 /**
  * Deletes a deck identified using it's displayed index from Anakin.
  */
-public class DelDeckCommand extends Command {
+public class DeleteDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "deldeck";
 
@@ -28,30 +28,30 @@ public class DelDeckCommand extends Command {
 
     private final Index targetIndex;
 
-    public DelDeckCommand(Index targetIndex) {
+    public DeleteDeckCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(AnakinModel anakinModel, CommandHistory history) throws CommandException {
-        requireNonNull(anakinModel);
-        List<AnakinDeck> lastShownList = anakinModel.getFilteredDeckList();
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
+            throw new CommandException(AddressbookMessages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        AnakinDeck deckToDelete = lastShownList.get(targetIndex.getZeroBased());
-        anakinModel.deleteDeck(deckToDelete);
-        anakinModel.commitAnakin();
+        Deck deckToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteDeck(deckToDelete);
+        model.commitAnakin();
         return new CommandResult(String.format(MESSAGE_DELETE_DECK_SUCCESS, deckToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DelDeckCommand // instanceof handles nulls
-                && targetIndex.equals(((DelDeckCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteDeckCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteDeckCommand) other).targetIndex)); // state check
     }
 }
 

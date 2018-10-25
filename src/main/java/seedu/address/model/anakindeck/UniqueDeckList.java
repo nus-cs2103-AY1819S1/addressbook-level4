@@ -17,14 +17,14 @@ import seedu.address.model.anakindeck.anakinexceptions.DuplicateDeckException;
  *
  * Supports a minimal set of list operations.
  */
-public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
+public class UniqueDeckList implements Iterable<Deck> {
 
-    public final ObservableList<AnakinDeck> internalList = FXCollections.observableArrayList();
+    public final ObservableList<Deck> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent deck as the given argument.
      */
-    public boolean contains(AnakinDeck toCheck) {
+    public boolean contains(Deck toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameDeck);
     }
@@ -33,7 +33,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
      * Adds a deck to the list.
      * The deck must not already exist in the list.
      */
-    public void add(AnakinDeck toAdd) {
+    public void add(Deck toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateDeckException();
@@ -46,7 +46,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
      * {@code target} must exist in the list.
      * The deck identity of {@code editedPerson} must not be the same as another existing deck in the list.
      */
-    public void setDeck(AnakinDeck target, AnakinDeck editedDeck) {
+    public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
         int index = internalList.indexOf(target);
@@ -65,7 +65,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
      * Removes the equivalent deck from the list.
      * The deck must exist in the list.
      */
-    public void remove(AnakinDeck toRemove) {
+    public void remove(Deck toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new DeckNotFoundException();
@@ -79,7 +79,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
         internalList.sort(Comparator.comparing(o -> o.getName().toString()));
     }
 
-    public void setDecks(AnakinUniqueDeckList replacement) {
+    public void setDecks(UniqueDeckList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,7 +88,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
      * Replaces the contents of this list with {@code decks}.
      * {@code decks} must not contain duplicate decks.
      */
-    public void setDecks(List<AnakinDeck> decks) {
+    public void setDecks(List<Deck> decks) {
         requireAllNonNull(decks);
         if (!decksAreUnique(decks)) {
             throw new DuplicateDeckException();
@@ -100,20 +100,20 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<AnakinDeck> asUnmodifiableObservableList() {
+    public ObservableList<Deck> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<AnakinDeck> iterator() {
+    public Iterator<Deck> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AnakinUniqueDeckList // instanceof handles nulls
-                && internalList.equals(((AnakinUniqueDeckList) other).internalList));
+                || (other instanceof UniqueDeckList // instanceof handles nulls
+                && internalList.equals(((UniqueDeckList) other).internalList));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
      * Returns true if {@code decks} contains only unique decks.
      * @param decks
      */
-    private boolean decksAreUnique(List<AnakinDeck> decks) {
+    private boolean decksAreUnique(List<Deck> decks) {
         for (int i = 0; i < decks.size() - 1; i++) {
             for (int j = i + 1; j < decks.size(); j++) {
                 if (decks.get(i).isSameDeck(decks.get(j))) {

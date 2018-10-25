@@ -6,17 +6,17 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code AnakinDeck}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Deck}'s {@code Name} matches any of the keywords given.
  */
-public class AnakinDeckNameContainsKeywordsPredicate implements Predicate<AnakinDeck> {
+public class DeckNameContainsKeywordsPredicate implements Predicate<Deck> {
     private final List<String> keywords;
 
-    public AnakinDeckNameContainsKeywordsPredicate(List<String> keywords) {
+    public DeckNameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(AnakinDeck deck) {
+    public boolean test(Deck deck) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(deck.getName().fullName, keyword));
     }
@@ -24,8 +24,8 @@ public class AnakinDeckNameContainsKeywordsPredicate implements Predicate<Anakin
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AnakinDeckNameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((AnakinDeckNameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof DeckNameContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((DeckNameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

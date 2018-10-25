@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.AnakinModel;
+import seedu.address.model.Model;
 
 
 /**
  * Lists all persons in the address book to the user.
  */
-public class AnakinListCommand extends AnakinCommand {
+public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
@@ -18,7 +18,7 @@ public class AnakinListCommand extends AnakinCommand {
 
 
     @Override
-    public CommandResult execute(AnakinModel model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredDeckList(unusedVariable -> true);
         return new CommandResult(MESSAGE_SUCCESS);

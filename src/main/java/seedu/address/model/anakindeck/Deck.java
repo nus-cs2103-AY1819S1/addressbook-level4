@@ -7,18 +7,18 @@ import java.util.Objects;
 /**
  * Represents a Deck inside Anakin.
  */
-public class AnakinDeck {
+public class Deck {
 
     private final Name name;
-    private final AnakinUniqueCardList cards;
+    private final UniqueCardList cards;
 
-    public AnakinDeck(Name name) {
+    public Deck(Name name) {
         this.name = name;
-        cards = new AnakinUniqueCardList();
+        cards = new UniqueCardList();
     }
-    public AnakinDeck(Name name, List<AnakinCard> cards) {
+    public Deck(Name name, List<Card> cards) {
         this(name);
-        for (AnakinCard card : cards) {
+        for (Card card : cards) {
             this.cards.add(card);
         }
     }
@@ -27,14 +27,14 @@ public class AnakinDeck {
         return name;
     }
 
-    public AnakinUniqueCardList getCards() {
+    public UniqueCardList getCards() {
         return cards;
     }
 
     /**
      * Returns true if 2 decks are the same, or have identical name.
      */
-    public boolean isSameDeck(AnakinDeck otherDeck) {
+    public boolean isSameDeck(Deck otherDeck) {
         if (otherDeck == this) {
             return true;
         }
@@ -44,11 +44,11 @@ public class AnakinDeck {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof AnakinDeck)) {
+        if (!(other instanceof Deck)) {
             return false;
         }
 
-        return isSameDeck((AnakinDeck) other);
+        return isSameDeck((Deck) other);
     }
 
     @Override
