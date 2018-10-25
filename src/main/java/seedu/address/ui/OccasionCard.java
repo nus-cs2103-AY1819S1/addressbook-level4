@@ -42,7 +42,7 @@ public class OccasionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         occasionName.setText(occasion.getOccasionName().fullOccasionName);
         occasionDate.setText(occasion.getOccasionDate().fullOccasionDate);
-        occasion.getTags().forEach((key, value) -> tags.getChildren().add(new Label(key + ": " + value)));
+        occasion.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
     }
 
     @Override

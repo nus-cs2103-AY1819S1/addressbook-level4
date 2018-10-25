@@ -40,7 +40,7 @@ public class Occasion {
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
                     Set<Tag> tags) {
-        this(occasionName, occasionDate, null, tags, null);
+        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION);
     }
 
     public OccasionName getOccasionName() {

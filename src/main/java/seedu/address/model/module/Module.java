@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.*;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -27,12 +26,12 @@ public class Module {
     private final UniquePersonList students;
 
     // Data fields
-    private final TagMap tags = new TagMap();
+    private final Set<Tag> tags = new HashSet<>();
     /**
      * Every field must be present and not null.
      */
     public Module(ModuleCode moduleCode, ModuleTitle moduleTitle, AcademicYear academicYear,
-                  Semester semester, UniquePersonList students, TagMap tags) {
+                  Semester semester, UniquePersonList students, Set<Tag> tags) {
         requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
@@ -67,8 +66,8 @@ public class Module {
      * if modification is attempted.
      */
     // TODO change all places where getTags is used.
-    public Map<TagKey, TagValue> getTags() {
-        return Collections.unmodifiableMap(tags.getTagMap());
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     public boolean isSameModule(Module other) {
@@ -114,7 +113,7 @@ public class Module {
                 .append(" ")
                 .append(getSemester())
                 .append(" Tags: ");
-        getTags().forEach((key, value) -> builder.append(key + ": " + value + " "));
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

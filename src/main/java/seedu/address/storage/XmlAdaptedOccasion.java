@@ -6,11 +6,14 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagKey;
 import seedu.address.model.tag.TagMap;
 import seedu.address.model.tag.TagValue;
@@ -37,7 +40,7 @@ public class XmlAdaptedOccasion {
     @XmlElement
     private List<XmlAdaptedPerson> attendanceList = new ArrayList<>();
     @XmlElement
-    private Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagMap;
+    private List<XmlAdaptedTag> tagMap;
     /**
      * Constructs an XmlAdaptedOccasion.
      * This is the no-arg constructor that is required by JAXB.
@@ -48,7 +51,7 @@ public class XmlAdaptedOccasion {
      * Constructs an {@code XmlAdaptedOccasion} with the given occasion details.
      */
     public XmlAdaptedOccasion(String occasionName, String occasionDate,
-                              String location, Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged, List<XmlAdaptedPerson> attendanceList) {
+                              String location, List<XmlAdaptedTag> tagged, List<XmlAdaptedPerson> attendanceList) {
         requireAllNonNull(occasionName, occasionDate, location, tagged, attendanceList);
         this.occasionName = occasionName;
         this.occasionDateTime = occasionDate;
@@ -64,11 +67,12 @@ public class XmlAdaptedOccasion {
      */
     public XmlAdaptedOccasion(Occasion source) {
         requireNonNull(source);
-        source.getTags().forEach((key, value) ->
-                tagMap.put(new XmlAdaptedTagKey(key.tagKey), new XmlAdaptedTagValue(value.tagValue)));
+        tagMap = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
         occasionName = source.getOccasionName().toString();
         occasionDateTime = source.getOccasionDate().toString();
-        location = source.getLocation();
+        location = source.getLocation().toString();
         attendanceList = source.getAttendanceList().asNormalList().stream()
                             .map(XmlAdaptedPerson::new)
                             .collect(Collectors.toList());
@@ -87,11 +91,13 @@ public class XmlAdaptedOccasion {
         for (XmlAdaptedPerson person : this.attendanceList) {
             attendanceList.add(person.toModelType());
         }
-        UniquePersonList uniqueAttendanceList = new UniquePersonList(attendanceList);
-        Map<TagKey, TagValue> tagMap = new HashMap<>();
-        this.tagMap.forEach((key, value) -> tagMap.put(key.toModelType(), value.toModelType()));
+        Set<Tag> tags = new HashSet<>();
+        OccasionLocation location = new OccasionLocation(this.location);
+        for (XmlAdaptedTag t : tagMap) {
+            tags.add(t.toModelType());
+        }
 
-        return new Occasion(occasionName, occasionDate, location, new TagMap(tagMap), uniqueAttendanceList);
+        return new Occasion(occasionName, occasionDate, location, tags, TypeUtil.OCCASION);
     }
 
     @Override

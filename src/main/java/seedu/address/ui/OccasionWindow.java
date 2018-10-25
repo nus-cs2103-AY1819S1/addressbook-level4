@@ -3,6 +3,8 @@ package seedu.address.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -11,15 +13,14 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.*;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 import java.util.logging.Logger;
 
-public class ModuleWindow extends MainWindow {
-
-    private static final String FXML = "ModuleWindow.fxml";
+public class OccasionWindow extends MainWindow {
+    private static final String FXML = "OccasionWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -28,11 +29,11 @@ public class ModuleWindow extends MainWindow {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private ModuleListPanel moduleListPanel;
+    private OccasionListPanel occasionListPanel;
     private Config config;
     private UserPrefs prefs;
 
-    @FXML
+    @javafx.fxml.FXML
     private StackPane browserPlaceholder;
 
     @FXML
@@ -42,7 +43,7 @@ public class ModuleWindow extends MainWindow {
     private MenuItem helpMenuItem;
 
     @FXML
-    private MenuItem personMenuIitem;
+    private MenuItem personWindowItem;
 
     @FXML
     private MenuItem moduleWindowItem;
@@ -51,7 +52,7 @@ public class ModuleWindow extends MainWindow {
     private MenuItem occasionWindowItem;
 
     @FXML
-    private StackPane moduleListPanelPlaceholder;
+    private StackPane occasionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -59,7 +60,7 @@ public class ModuleWindow extends MainWindow {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public ModuleWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public OccasionWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -74,7 +75,6 @@ public class ModuleWindow extends MainWindow {
 
         setAccelerators();
         registerAsAnEventHandler(this);
-
     }
 
     public Stage getPrimaryStage() {
@@ -122,8 +122,8 @@ public class ModuleWindow extends MainWindow {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
+        occasionListPanelPlaceholder.getChildren().add(occasionListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -134,7 +134,6 @@ public class ModuleWindow extends MainWindow {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
-
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
@@ -168,8 +167,8 @@ public class ModuleWindow extends MainWindow {
         raise(new ExitAppRequestEvent());
     }
 
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
+    public OccasionListPanel getPersonListPanel() {
+        return occasionListPanel;
     }
 
     void releaseResources() {

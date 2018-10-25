@@ -35,7 +35,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private MainWindow mainWindow;
+    private PersonWindow personWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -52,9 +52,9 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            personWindow = new PersonWindow(primaryStage, config, prefs, logic);
+            personWindow.show(); //This should be called before creating other UI parts
+            personWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -64,9 +64,9 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
-        mainWindow.hide();
-        mainWindow.releaseResources();
+        prefs.updateLastUsedGuiSetting(personWindow.getCurrentGuiSetting());
+        personWindow.hide();
+        personWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -79,7 +79,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(personWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

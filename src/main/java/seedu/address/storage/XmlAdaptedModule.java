@@ -41,7 +41,7 @@ public class XmlAdaptedModule {
     @XmlElement(required = true)
     private List<XmlAdaptedPerson> students;
     @XmlElement
-    private Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged = new HashMap<>();
+    private List<XmlAdaptedTag> tagged;
 
     /**
      * Constructs an XmlAdaptedModule.
@@ -54,7 +54,7 @@ public class XmlAdaptedModule {
      */
     public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear,
                             String semester, List<XmlAdaptedPerson> students,
-                            Map<XmlAdaptedTagKey, XmlAdaptedTagValue> tagged) {
+                            List<XmlAdaptedTag> tagged) {
         requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, students, tagged);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
@@ -79,9 +79,9 @@ public class XmlAdaptedModule {
         for (Person person : source.getStudents()) {
             students.add(new XmlAdaptedPerson(person));
         }
-        source.getTags().forEach((key, value) ->
-                tagged.put(new XmlAdaptedTagKey(key.tagKey), new XmlAdaptedTagValue(value.tagValue)));
-    }
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());    }
 
     /**
      * Converts this jaxb-friendly adapted person object into the model's Module object.
@@ -130,11 +130,13 @@ public class XmlAdaptedModule {
         }
         final Semester modelSemester = new Semester(semester);
 
-        Map<TagKey, TagValue> tagMap = new HashMap<>();
-        this.tagged.forEach((key, value) -> tagMap.put(key.toModelType(), value.toModelType()));
+        Set<Tag> tagMap = new HashSet<>();
+        for (XmlAdaptedTag t : tagged) {
+            tagMap.add(t.toModelType());
+        }
 
         return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester,
-                loadedStudentsList, new TagMap(tagMap));
+                loadedStudentsList, tagMap);
     }
 
     @Override
