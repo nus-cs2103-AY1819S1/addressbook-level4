@@ -15,8 +15,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -105,6 +107,28 @@ public class ModelManagerTest {
         modelManager.addGroup(randomChat);
         modelManager.updateGroup(randomChat, formalDiscussion);
         assertFalse(modelManager.hasGroup(randomChat));
+    }
+
+    @Test
+    public void getPersonByName_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Pakorn").build();
+        Name name = new Name("Pakorn");
+
+        modelManager.addPerson(person);
+        Person match = modelManager.getPersonByName(name);
+
+        assertTrue(match.equals(person));
+    }
+
+    @Test
+    public void getGroupByTitle_equals_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("tutorial").build();
+        Title title = new Title("tutorial");
+
+        modelManager.addGroup(group);
+        Group match = modelManager.getGroupByTitle(title);
+
+        assertTrue(match.equals(group));
     }
 
     @Test

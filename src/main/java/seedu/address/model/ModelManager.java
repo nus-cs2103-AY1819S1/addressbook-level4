@@ -17,8 +17,10 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 
@@ -146,6 +148,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getGroupList();
     }
     // @@author
+
+    @Override
+    public Group getGroupByTitle(Title title) {
+        return versionedAddressBook.getGroupByTitle(title);
+    }
+
+    @Override
+    public Person getPersonByName(Name name) {
+        return versionedAddressBook.getPersonByName(name);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 

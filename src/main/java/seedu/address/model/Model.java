@@ -6,8 +6,10 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 
@@ -105,7 +107,11 @@ public interface Model {
     ObservableList<Group> getGroupList();
     // @@author
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an existing group that matches the {@code title} */
+    Group getGroupByTitle(Title title);
+
+    /** Returns an existing person that matches the {@code name} */
+    Person getPersonByName(Name name);
 
     /**
      * Returns an unmodifiable view of the filtered person list

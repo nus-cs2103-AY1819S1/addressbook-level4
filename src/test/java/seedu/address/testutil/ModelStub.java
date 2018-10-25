@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 
@@ -78,6 +80,16 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Group> getGroupList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Group getGroupByTitle(Title title) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Person getPersonByName(Name name) {
         throw new AssertionError("This method should not be called.");
     }
 
