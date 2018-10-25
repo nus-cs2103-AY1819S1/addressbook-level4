@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.commands.InventoryCommand;
 import seedu.souschef.logic.parser.contextparser.FavouritesParser;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
@@ -51,15 +52,17 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
             }
-            return new MealPlannerParser()
-                .parseCommand(modelSet.getMealPlannerModel(), userInput);
+            return new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(), userInput);
         } else if (context.equals("Recipe")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
             if (userInput.matches("favourite(\\s|\\S)*")) {
                 return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                    modelSet.getMealPlannerModel(), userInput);
+                        modelSet.getMealPlannerModel(), userInput);
+            }
+            if (userInput.matches("inventory(\\s|\\S)*")) {
+                return new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
                 modelSet.getMealPlannerModel(), userInput);
