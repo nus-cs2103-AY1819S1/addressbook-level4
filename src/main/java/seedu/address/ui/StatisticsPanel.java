@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -14,21 +17,26 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
+import seedu.address.model.exceptions.NoUserSelectedException;
 
 //@@author jonathantjm
 /**
  * Panel containing the statistic information.
  */
-public class StatisticPanel extends UiPart<Region> {
-    private static final String FXML = "StatisticPanel.fxml";
+public class StatisticsPanel extends UiPart<Region> {
+    private static final String FXML = "StatisticsPanel.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(StatisticsPanel.class);
 
     @FXML
     private StackPane chartArea;
 
 
-    public StatisticPanel (LinkedHashMap<String, Double> statsData, StatsPeriod statsPeriod, StatsMode statsMode, int periodAmount) {
+    public StatisticsPanel(LinkedHashMap<String, Double> statsData, StatsPeriod statsPeriod, StatsMode statsMode, int periodAmount) {
         super(FXML);
         setData(statsData, statsPeriod, statsMode, periodAmount);
     }
