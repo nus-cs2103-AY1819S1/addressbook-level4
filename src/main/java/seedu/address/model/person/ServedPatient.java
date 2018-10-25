@@ -122,4 +122,26 @@ public class ServedPatient {
     public Patient getPatient() {
         return this.patient;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ServedPatient)) {
+            return false;
+        }
+
+        // state check
+        ServedPatient other = (ServedPatient) obj;
+
+        return this.patient.equals(other.patient)
+                && this.mcContent.equals(other.mcContent)
+                && this.referralContent.equals(other.referralContent)
+                && this.noteContent.equals(other.noteContent)
+                && this.medicineAllocated.equals(other.medicineAllocated);
+    }
 }
