@@ -6,7 +6,7 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
@@ -14,7 +14,7 @@
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
@@ -22,7 +22,7 @@
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
@@ -30,7 +30,7 @@
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Werner Meyer</name>
@@ -38,7 +38,7 @@
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Lydia Kunz</name>
@@ -46,7 +46,7 @@
         <email isPrivate="false">lydia@example.com</email>
         <address isPrivate="false">little tokyo</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Anna Best</name>
@@ -54,7 +54,7 @@
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Stefan Meier</name>
@@ -62,7 +62,7 @@
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Martin Mueller</name>
@@ -70,6 +70,6 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
         <education isPrivate="false">Secondary 4</education>
-        <grades isPrivate="false">99</grades>
+        <grades isPrivate="false">Y1819S1_Mid 99</grades>
     </persons>
 </addressbook>

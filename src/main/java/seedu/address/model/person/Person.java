@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,15 +27,15 @@ public class Person {
     private final Address address;
     private final Education education;
     private final Fees tuitionFee;
-    private final Grades grades;
+    private final HashMap<String, Grades> grades;
     private final ArrayList<Time> timeSlots;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Education education, Grades grades,
-                  Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Education education,
+                  HashMap<String, Grades> grades, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, education, grades, tags);
         this.name = name;
         this.phone = phone;
@@ -67,7 +68,7 @@ public class Person {
         return education;
     }
 
-    public Grades getGrades() {
+    public HashMap<String, Grades> getGrades() {
         return grades;
     }
 
@@ -149,10 +150,9 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Education: ")
-                .append(getEducation())
-                .append(" Grades: ")
-                .append(getGrades())
-                .append(" Tags: ");
+                .append(getEducation());
+        getGrades().forEach((key, value) -> builder.append(" " + key + " " + value + " "));
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

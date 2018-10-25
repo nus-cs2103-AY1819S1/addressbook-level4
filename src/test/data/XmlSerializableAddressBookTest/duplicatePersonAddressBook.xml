@@ -7,7 +7,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <education>Primary 6</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
         <tagged>friends</tagged>
     </persons>
 
@@ -18,7 +18,7 @@
         <email>pauline@example.com</email>
         <address>4th street</address>
         <education>Primary 3</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
     </persons>
 
 </addressbook>
