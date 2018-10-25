@@ -246,7 +246,7 @@ public class WishBookParserTest {
         Amount amount = new Amount(VALID_SAVED_AMOUNT_AMY);
         SaveCommand saveCommandFromParser = (SaveCommand) parser.parseCommand(
                 SaveCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + " "
-            + PREFIX_SAVING + VALID_SAVED_AMOUNT_AMY);
+                        + VALID_SAVED_AMOUNT_AMY);
         assertEquals(new SaveCommand(INDEX_FIRST_WISH, amount), saveCommandFromParser);
     }
 

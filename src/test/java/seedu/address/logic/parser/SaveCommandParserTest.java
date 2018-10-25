@@ -21,8 +21,7 @@ public class SaveCommandParserTest {
 
     @Test
     public void parse_indexSpecified_success() {
-        final String userInput = targetIndex.getOneBased() + " " + PREFIX_SAVING
-                + VALID_SAVED_AMOUNT_AMY;
+        final String userInput = targetIndex.getOneBased() + " " + VALID_SAVED_AMOUNT_AMY;
 
         final SaveCommand expectedCommand = new SaveCommand(targetIndex, amount);
 
@@ -33,12 +32,8 @@ public class SaveCommandParserTest {
     public void parse_missingCompulsoryField_failure() {
         final String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
-        final String userInputMissingIndex = PREFIX_SAVING + VALID_SAVED_AMOUNT_AMY;
+        final String userInputMissingIndex = VALID_SAVED_AMOUNT_AMY;
         assertParseFailure(saveCommandParser, userInputMissingIndex,
-                expectedMessage);
-
-        final String userInputMissingSavingPrefix = targetIndex + " " + VALID_SAVED_AMOUNT_AMY;
-        assertParseFailure(saveCommandParser, userInputMissingSavingPrefix,
                 expectedMessage);
 
         final String userInputMissingSavingAmount = targetIndex + " " + PREFIX_SAVING;
