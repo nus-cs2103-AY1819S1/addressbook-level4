@@ -11,8 +11,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.group.UniqueGroupTagList;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -113,6 +115,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasGroup(Group group) {
         requireNonNull(group);
         return groups.contains(group);
+    }
+
+    /**
+     * Returns a group that matches the given title. {@code null} is returned if the group is not found.
+     */
+    public Group getGroupByTitle(Title title) {
+        requireNonNull(title);
+        return groups.getGroupByTitle(title);
+    }
+
+    /**
+     * Returns a person that matches the given name. {@code null} is returned if the person is not found.
+     */
+    public Person getPersonByName(Name name) {
+        requireNonNull(name);
+        return persons.getPersonByName(name);
     }
     // @@author
 

@@ -25,8 +25,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -177,6 +179,28 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
+    }
+
+    @Test
+    public void getPersonByName_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Pakorn").build();
+        Name name = new Name("Pakorn");
+
+        addressBook.addPerson(person);
+        Person match = addressBook.getPersonByName(name);
+
+        assertTrue(match.equals(person));
+    }
+
+    @Test
+    public void getGroupByTitle_equals_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("tutorial").build();
+        Title title = new Title("tutorial");
+
+        addressBook.addGroup(group);
+        Group match = addressBook.getGroupByTitle(title);
+
+        assertTrue(match.equals(group));
     }
 
     @Test
