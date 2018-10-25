@@ -37,24 +37,22 @@ public class RidePageGenerator extends HtmlGenerator<Ride>{
     /**
      * Generates a Html report with commandEntryList as entries as fileName.
      */
-    public void generateHtml(String title, Ride data, String fileName)
+    public void generateHtml(String title, Ride data, FilePathToUrl filePathToUrl)
         throws IOException {
         List<Ride> dataAsList = new LinkedList<>();
         dataAsList.add(data);
-        generateHtml(title, dataAsList, fileName);
+        generateHtml(title, dataAsList, filePathToUrl);
     }
 
     @Override
     public ContainerTag generateHeader(String title) {
         return div(
             div(
-                p("Name:"),
                 p(h2().withId("name"))
             ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px; word-wrap: break-word"),
             div(
                 img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
-            ).withStyle("min-width: 200px;" +
-                "height: auto, width: 40%; display: inline-block; right: 0px")
+            ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block; right: 0px")
         );
     }
 

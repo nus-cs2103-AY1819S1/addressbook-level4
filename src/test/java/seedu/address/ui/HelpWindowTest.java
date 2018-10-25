@@ -30,7 +30,7 @@ public class HelpWindowTest extends GuiUnitTest {
     @Test
     public void display() throws Exception {
         FxToolkit.showStage();
-        URL expectedHelpPage = HelpWindow.class.getResource(USER_GUIDE_FILE_PATH);
+        URL expectedHelpPage = USER_GUIDE_FILE_PATH.filePathToUrl();
         assertEquals(expectedHelpPage, helpWindowHandle.getLoadedUrl());
     }
 

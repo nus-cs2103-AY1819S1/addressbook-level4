@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static j2html.TagCreator.attrs;
 import static j2html.TagCreator.body;
+import static j2html.TagCreator.col;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h3;
@@ -44,10 +45,10 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
     /**
      * Generates a Html report with commandEntryList as entries as fileName.
      */
-    public void generateHtml(String title, List<HtmlData> data, String fileName)
+    public void generateHtml(String title, List<HtmlData> data, FilePathToUrl filePathToUrl)
         throws IOException {
         String content = generateHtmlLayout(title, data);
-        createFile(fileName, content);
+        createFile(filePathToUrl.getFilePath(), content);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -10,15 +11,19 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.ui.exceptions.AccessibilityException;
+import seedu.address.ui.exceptions.BrowserRelatedUiPart;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+public class HelpWindow extends BrowserRelatedUiPart<Stage> {
 
-    public static final String USER_GUIDE_FILE_PATH = "/docs/HelpWindow.html";
-    public static final String SHORT_HELP_FILE_PATH = "src/main/resources/docs/ShortHelpWindow.html";
+    public static final FilePathToUrl USER_GUIDE_FILE_PATH =
+        new FilePathToUrl("src/main/resources/docs/HelpWindow.html");
+    public static final FilePathToUrl SHORT_HELP_FILE_PATH =
+        new FilePathToUrl("src/main/resources/docs/ShortHelpWindow.html");
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -42,8 +47,6 @@ public class HelpWindow extends UiPart<Stage> {
             + "}";
 
     private int verticalScroll = 0;
-    //Variable for verifying functionality of help [commandWord].
-    private boolean isScrollCheckValid = false;
 
     @FXML
     private WebView browser;
@@ -56,14 +59,7 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
 
-        String userGuideUrl = getClass().getResource(USER_GUIDE_FILE_PATH).toString();
-        browser.getEngine().load(userGuideUrl);
-        browser.getEngine().setJavaScriptEnabled(true);
-        browser.getEngine().executeScript(SCROLL_JAVASCRIPT);
-
-        //When the help window is scrolled, invalidate the scroll test check
-        getVScrollBar(browser).valueProperty().addListener((unused1, unused2, unused3)
-            -> isScrollCheckValid = false);
+        loadPage(USER_GUIDE_FILE_PATH);
     }
 
     /**
@@ -71,6 +67,11 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    @Override
+    protected WebView getWebView() {
+        return browser;
     }
 
     /**

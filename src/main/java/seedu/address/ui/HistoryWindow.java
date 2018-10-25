@@ -8,15 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FilePathToUrl;
+import seedu.address.ui.exceptions.BrowserRelatedUiPart;
 
 /**
  * Controller for a command history window.
  */
-public class HistoryWindow extends UiPart<Stage> {
+public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HistoryWindow.class);
     private static final String FXML = "HistoryWindow.fxml";
-    private static final String MESSAGE_FILE_ERROR = "%1$s cannot be accessed!";
-    private static final String URL_HEADER = "file:/";
 
     @FXML
     private WebView commandHistoryWindow;
@@ -28,6 +28,11 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public HistoryWindow(Stage root) {
         super(FXML, root);
+    }
+
+    @Override
+    protected WebView getWebView() {
+        return commandHistoryWindow;
     }
 
     /**
@@ -56,12 +61,8 @@ public class HistoryWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show(String reportFileName) throws IOException {
-        File file = new File(reportFileName);
-        if (!file.exists() || !file.canRead()) {
-            throw new IOException(String.format(MESSAGE_FILE_ERROR, reportFileName));
-        }
-        String reportUrl = URL_HEADER + file.getAbsolutePath();
-        commandHistoryWindow.getEngine().load(reportUrl);
+        FilePathToUrl reportUrl = new FilePathToUrl(reportFileName);
+        loadPage(reportUrl);
 
         logger.fine("Showing command history report.");
         getRoot().show();

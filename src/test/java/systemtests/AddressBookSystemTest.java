@@ -8,6 +8,7 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +31,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -63,7 +65,7 @@ public abstract class AddressBookSystemTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
@@ -208,10 +210,11 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see RideListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws IOException {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+        //TODO: Check that the ride information displays the correct name
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl = getClass().getResource(BrowserPanel.RIDE_PAGE_PATH);
+        URL expectedUrl = BrowserPanel.RIDE_PAGE_PATH.filePathToUrl();
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
@@ -265,11 +268,11 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the starting state of the application is correct.
      */
-    private void assertApplicationStartingStateIsCorrect() {
+    private void assertApplicationStartingStateIsCorrect() throws IOException {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredRideList());
-        assertEquals(getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH), getBrowserPanel().getLoadedUrl());
+        assertEquals(HelpWindow.SHORT_HELP_FILE_PATH.filePathToUrl(), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -32,12 +32,12 @@ public class BrowserPanelTest extends GuiUnitTest {
     @Test
     public void display() throws Exception {
         // default web page
-        URL expectedDefaultPageUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH);
+        URL expectedDefaultPageUrl = HelpWindow.SHORT_HELP_FILE_PATH.filePathToUrl();
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a ride
         postNow(selectionChangedEventStub);
-        URL expectedRideUrl = getClass().getResource(BrowserPanel.RIDE_PAGE_PATH);
+        URL expectedRideUrl = BrowserPanel.RIDE_PAGE_PATH.filePathToUrl();
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedRideUrl, browserPanelHandle.getLoadedUrl());
