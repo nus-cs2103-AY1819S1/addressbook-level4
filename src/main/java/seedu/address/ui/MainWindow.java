@@ -21,14 +21,16 @@ import java.util.logging.Logger;
 
 abstract public class MainWindow extends UiPart<Stage> {
 
+    private UserPrefs prefs;
+    private Stage primaryStage;
+    private HelpWindow helpWindow;
+
+    public final Logger logger = LogsCenter.getLogger(getClass());
+
     public BrowserPanel browserPanel;
     public PersonListPanel personListPanel;
     public Config config;
     public Logic logic;
-    private UserPrefs prefs;
-    private Stage primaryStage;
-    public final Logger logger = LogsCenter.getLogger(getClass());
-    private HelpWindow helpWindow;
 
     @FXML
     public StackPane browserPlaceholder;
