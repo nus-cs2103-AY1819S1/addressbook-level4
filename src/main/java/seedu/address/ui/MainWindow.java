@@ -51,21 +51,21 @@ abstract public class MainWindow extends UiPart<Stage> {
     public MenuItem occasionWindowItem;
 
     @FXML
-    public StackPane personListPanelPlaceholder;
+    StackPane personListPanelPlaceholder;
 
     @FXML
-    public StackPane moduleListPanelPlaceholder;
+    StackPane moduleListPanelPlaceholder;
 
     @FXML
-    public StackPane occasionListPanelPlaceholder;
+    StackPane occasionListPanelPlaceholder;
 
     @FXML
-    public StackPane resultDisplayPlaceholder;
+    StackPane resultDisplayPlaceholder;
 
     @FXML
-    public StackPane statusbarPlaceholder;
+    StackPane statusbarPlaceholder;
 
-    public MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(fxml, primaryStage);
         this.primaryStage = primaryStage;
         helpWindow = new HelpWindow();
@@ -86,7 +86,7 @@ abstract public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public void setAccelerators() {
+    void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
@@ -154,7 +154,7 @@ abstract public class MainWindow extends UiPart<Stage> {
      * Opens up the module window on this primaryStage.
      */
     @FXML
-    public void handleModule() {
+    private void handleModule() {
         URL moduleWindowUrl = getFxmlFileUrl("ModuleWindow.fxml");
         loadFxmlFile(moduleWindowUrl, primaryStage);
 
@@ -165,7 +165,7 @@ abstract public class MainWindow extends UiPart<Stage> {
      * Opens up the persons window on this primaryStage.
      */
     @FXML
-    public void handlePerson() {
+    private void handlePerson() {
         URL personWindowUrl = getFxmlFileUrl("PersonWindow.fxml");
         loadFxmlFile(personWindowUrl, primaryStage);
 
@@ -176,7 +176,7 @@ abstract public class MainWindow extends UiPart<Stage> {
      * Opesn up the occasions window on this primaryStage.
      */
     @FXML
-    public void handleOccasion() {
+    private void handleOccasion() {
         URL occasionWindowUrl = getFxmlFileUrl("OccasionWindow.fxml");
         loadFxmlFile(occasionWindowUrl, primaryStage);
 
