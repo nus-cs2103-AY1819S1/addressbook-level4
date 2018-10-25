@@ -99,7 +99,7 @@ public class MainApp extends Application {
             }
             initialData = wishBookOptional.orElseGet(SampleDataUtil::getSampleWishBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty WishBook");
+            logger.warning("Data file not in the correct FORMAT. Will be starting with an empty WishBook");
             initialData = new WishBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WishBook");
@@ -124,7 +124,7 @@ public class MainApp extends Application {
             }
             initialData = wishTransactionOptional.orElseGet(SampleDataUtil::getSampleWishTransaction);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty WishBook");
+            logger.warning("Data file not in the correct FORMAT. Will be starting with an empty WishBook");
             initialData = new WishTransaction();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WishBook");
@@ -160,7 +160,7 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct FORMAT. "
                     + "Using default config properties");
             initializedConfig = new Config();
         }
@@ -188,7 +188,7 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct FORMAT. "
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
@@ -227,7 +227,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         } catch (DataConversionException e) {
-            logger.severe("Failed to convert file contents to correct format " + StringUtil.getDetails(e));
+            logger.severe("Failed to convert file contents to correct FORMAT " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);

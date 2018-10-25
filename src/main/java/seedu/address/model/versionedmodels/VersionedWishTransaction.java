@@ -14,7 +14,7 @@ public class VersionedWishTransaction extends WishTransaction implements Version
     /**
      * Stores the log of wish histories for each state.
      */
-    private final List<WishTransaction> wishStateList;
+    private List<WishTransaction> wishStateList;
 
     /**
      * Index to the current referenced state.
@@ -26,7 +26,7 @@ public class VersionedWishTransaction extends WishTransaction implements Version
      */
     public VersionedWishTransaction() {
         wishStateList = new ArrayList<>();
-        wishStateList.add(this);
+        wishStateList.add(new WishTransaction());
         referencePointer = 0;
     }
 
@@ -38,7 +38,7 @@ public class VersionedWishTransaction extends WishTransaction implements Version
     public VersionedWishTransaction(WishTransaction wishTransaction) {
         super(wishTransaction);
         wishStateList = new ArrayList<>();
-        wishStateList.add(wishTransaction);
+        wishStateList.add(getCopy(wishTransaction));
         referencePointer = 0;
     }
 
@@ -49,7 +49,7 @@ public class VersionedWishTransaction extends WishTransaction implements Version
     public VersionedWishTransaction(ReadOnlyWishBook wishBook) {
         extractData(wishBook);
         wishStateList = new ArrayList<>();
-        wishStateList.add(this);
+        wishStateList.add(getCopy(this));
         referencePointer = 0;
     }
 
@@ -58,7 +58,7 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         if (!hasNothingToRemove()) {
             removeStatesAfterCurrentPointer();
         }
-        wishStateList.add(this);
+        wishStateList.add(getCopy(this));
         referencePointer++;
     }
 
@@ -106,4 +106,17 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         return wishStateList;
     }
 
+    public int getReferencePointer() {
+        return referencePointer;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof VersionedWishTransaction)) {
+            return false;
+        }
+
+        return ((VersionedWishTransaction) obj).getWishStateList().size() == wishStateList.size()
+                && ((VersionedWishTransaction) obj).getWishMap().equals(wishMap);
+    }
 }

@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.WishBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -43,11 +44,16 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<Wish> getFilteredWishList() {
-        return model.getFilteredWishList();
+        return model.getFilteredSortedWishList();
     }
 
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    @Override
+    public WishTransaction getWishTransaction() {
+        return model.getWishTransaction();
     }
 }

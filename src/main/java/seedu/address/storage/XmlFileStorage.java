@@ -40,7 +40,7 @@ public class XmlFileStorage {
     /**
      * Saves the given wishBook data to the backup file.
      * @param file filepath to save the data temporarily.
-     * @param xmlSerializableWishBook data in XML format.
+     * @param xmlSerializableWishBook data in XML FORMAT.
      * @throws FileNotFoundException
      */
     public static void backupDataToFile(Path file, XmlSerializableWishBook xmlSerializableWishBook)

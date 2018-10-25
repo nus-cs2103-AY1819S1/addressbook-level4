@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
@@ -17,34 +18,85 @@ import seedu.address.model.tag.Tag;
 public class Wish {
 
     // Identity fields
-    private final Name name;
-    private final Price price;
-    private final Email email;
+    private final UUID id;
 
     // Data fields
+    private final Name name;
+    private final Price price;
+    private final Date date;
     private final Url url;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
     private final SavedAmount savedAmount;
     private final boolean fulfilled;
+    private final boolean expired;
+
 
     /**
+     * Constructs an object for an already created {@code Wish}.
      * Every field must be present and not null.
      */
-    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, price, email, url, tags);
+    public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount,
+                Remark remark, Set<Tag> tags, UUID id) {
+        requireAllNonNull(name, price, date, url, tags);
         if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
         } else {
             fulfilled = false;
         }
+
+        if (isCurrDateGreaterThanOrEqualToDate(date)) {
+            expired = true;
+        } else {
+            expired = false;
+        }
+
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.date = date;
         this.url = url;
         this.tags.addAll(tags);
         this.remark = remark;
         this.savedAmount = savedAmount;
+
+        this.id = id;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    private Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, price, date, url, tags);
+        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
+            fulfilled = true;
+        } else {
+            fulfilled = false;
+        }
+
+        if (isCurrDateGreaterThanOrEqualToDate(date)) {
+            expired = true;
+        } else {
+            expired = false;
+        }
+
+        this.name = name;
+        this.price = price;
+        this.date = date;
+        this.url = url;
+        this.tags.addAll(tags);
+        this.remark = remark;
+        this.savedAmount = savedAmount;
+
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Returns a newly created {@code Wish} with a new id.
+     */
+    public static Wish createWish(Name name, Price price, Date date, Url url,
+                                  SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, price, date, url, tags);
+        return new Wish(name, price, date, url, savedAmount, remark, tags);
     }
 
     /**
@@ -52,6 +104,13 @@ public class Wish {
      */
     private boolean isSavedAmountGreaterThanOrEqualToPrice(SavedAmount savedAmount, Price price) {
         return savedAmount.value > price.value;
+    }
+
+    /*
+     * Returns true if CurrDate exceeds Date of wish.
+     */
+    private boolean isCurrDateGreaterThanOrEqualToDate(Date date) {
+        return new java.util.Date().after(date.getDateObject());
     }
 
     public Name getName() {
@@ -62,8 +121,8 @@ public class Wish {
         return price;
     }
 
-    public Email getEmail() {
-        return email;
+    public Date getDate() {
+        return date;
     }
 
     public SavedAmount getSavedAmount() {
@@ -82,6 +141,14 @@ public class Wish {
         return fulfilled;
     }
 
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -91,8 +158,7 @@ public class Wish {
     }
 
     /**
-     * Returns true if both wishes of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two wishe.
+     * Returns true only if two wishes have the same id.
      */
     public boolean isSameWish(Wish otherWish) {
         if (otherWish == this) {
@@ -100,8 +166,7 @@ public class Wish {
         }
 
         return otherWish != null
-                && otherWish.getName().equals(getName())
-                && (otherWish.getPrice().equals(getPrice()) || otherWish.getEmail().equals(getEmail()));
+                && otherWish.getId().equals(getId());
     }
 
     /**
@@ -115,7 +180,7 @@ public class Wish {
      * Returns the {@code savedAmount} - {@code price} for {@code wish}.
      */
     public Amount getSavedAmountToPriceDifference() {
-        return Amount.add(new Amount(savedAmount.toString()), new Amount(price.toString()));
+        return Amount.add(new Amount(savedAmount.toString()), new Amount("-" + price.toString()));
     }
 
     /**
@@ -135,26 +200,27 @@ public class Wish {
         Wish otherWish = (Wish) other;
         return otherWish.getName().equals(getName())
                 && otherWish.getPrice().equals(getPrice())
-                && otherWish.getEmail().equals(getEmail())
+                && otherWish.getDate().equals(getDate())
                 && otherWish.getUrl().equals(getUrl())
-                && otherWish.getTags().equals(getTags());
+                && otherWish.getTags().equals(getTags())
+                && otherWish.getId().equals(getId());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, email, url, tags);
+        return Objects.hash(name, price, date, url, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(" Price: ")
                 .append(getPrice())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Url: ")
                 .append(getUrl())
                 .append(" Remark: ")
                 .append(getRemark())

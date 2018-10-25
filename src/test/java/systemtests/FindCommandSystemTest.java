@@ -122,7 +122,7 @@ public class FindCommandSystemTest extends WishBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find email of wish in wish book -> 0 wishes found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getDate().date;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -166,7 +166,7 @@ public class FindCommandSystemTest extends WishBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_WISHES_LISTED_OVERVIEW, expectedModel.getFilteredWishList().size());
+                MESSAGE_WISHES_LISTED_OVERVIEW, expectedModel.getFilteredSortedWishList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

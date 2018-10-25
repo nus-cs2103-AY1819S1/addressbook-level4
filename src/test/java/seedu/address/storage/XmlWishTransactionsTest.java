@@ -31,8 +31,11 @@ public class XmlWishTransactionsTest extends XmlWishTransactions {
     public void shouldConvertCorrectlyXmlWishTransactions() throws IllegalValueException {
         WishTransaction wishTransaction = emptyXmlWishTransactions.toModelType();
         assertEquals(wishTransaction, new WishTransaction());
-
         assertEquals(populatedXmlWishTransactions.toModelType(), wishTransaction);
+
+        WishTransaction typicalWishTransaction = getTypicalWishTransaction();
+        XmlWishTransactions xmlWishTransactions = new XmlWishTransactions(typicalWishTransaction);
+        assertEquals(xmlWishTransactions.toModelType(), typicalWishTransaction);
     }
 
 }

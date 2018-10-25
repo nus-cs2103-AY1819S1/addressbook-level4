@@ -37,7 +37,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastWishIndex = Index.fromOneBased(model.getFilteredWishList().size());
+        Index lastWishIndex = Index.fromOneBased(model.getFilteredSortedWishList().size());
 
         assertExecutionSuccess(INDEX_FIRST_WISH);
         assertExecutionSuccess(INDEX_THIRD_WISH);
@@ -46,7 +46,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredWishList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
     }

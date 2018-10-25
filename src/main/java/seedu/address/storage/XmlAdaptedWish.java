@@ -5,13 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Date;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
@@ -33,11 +34,13 @@ public class XmlAdaptedWish {
     @XmlElement(required = true)
     private String savedAmount;
     @XmlElement(required = true)
-    private String email;
+    private String date;
     @XmlElement(required = true)
     private String url;
     @XmlElement(required = true)
     private String remark;
+    @XmlElement(required = true)
+    private String id;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -51,16 +54,17 @@ public class XmlAdaptedWish {
     /**
      * Constructs an {@code XmlAdaptedWish} with the given wish details.
      */
-    public XmlAdaptedWish(String name, String price, String email, String url, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedWish(String name, String price, String date, String url, List<XmlAdaptedTag> tagged, String id) {
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.date = date;
         this.url = url;
         this.savedAmount = "0.00";
         this.remark = "";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.id = id;
     }
 
     /**
@@ -71,13 +75,14 @@ public class XmlAdaptedWish {
     public XmlAdaptedWish(Wish source) {
         name = source.getName().fullName;
         price = source.getPrice().toString();
-        email = source.getEmail().value;
+        date = source.getDate().date;
         url = source.getUrl().value;
         savedAmount = source.getSavedAmount().toString();
         remark = source.getRemark().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        id = source.getId().toString();
     }
 
     /**
@@ -90,6 +95,11 @@ public class XmlAdaptedWish {
         for (XmlAdaptedTag tag : tagged) {
             wishTags.add(tag.toModelType());
         }
+
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
+        }
+        final UUID modelId = UUID.fromString(id);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -107,13 +117,13 @@ public class XmlAdaptedWish {
         }
         final Price modelPrice = new Price(price);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Date modelDate = new Date(date);
 
         if (url == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
@@ -133,9 +143,8 @@ public class XmlAdaptedWish {
                     SavedAmount.class.getSimpleName()));
         }
         final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
-
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelSavedAmount, modelRemark, modelTags);
+        return new Wish(modelName, modelPrice, modelDate, modelUrl, modelSavedAmount, modelRemark, modelTags, modelId);
     }
 
     @Override
@@ -151,9 +160,10 @@ public class XmlAdaptedWish {
         XmlAdaptedWish otherWish = (XmlAdaptedWish) other;
         return Objects.equals(name, otherWish.name)
                 && Objects.equals(price, otherWish.price)
-                && Objects.equals(email, otherWish.email)
+                && Objects.equals(date, otherWish.date)
                 && Objects.equals(url, otherWish.url)
                 && Objects.equals(remark, otherWish.remark)
-                && tagged.equals(otherWish.tagged);
+                && tagged.equals(otherWish.tagged)
+                && id.equals(otherWish.id);
     }
 }

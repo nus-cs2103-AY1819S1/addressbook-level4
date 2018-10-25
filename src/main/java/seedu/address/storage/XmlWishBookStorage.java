@@ -41,7 +41,7 @@ public class XmlWishBookStorage implements WishBookStorage {
     /**
      * Similar to {@link #readWishBook()}
      * @param filePath location of the data. Cannot be null
-     * @throws DataConversionException if the file is not in the correct format.
+     * @throws DataConversionException if the file is not in the correct FORMAT.
      */
     public Optional<ReadOnlyWishBook> readWishBook(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {

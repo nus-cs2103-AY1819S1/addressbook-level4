@@ -46,7 +46,7 @@ public interface Model {
     void updateWish(Wish target, Wish editedWish);
 
     /** Returns an unmodifiable view of the filtered wish list */
-    ObservableList<Wish> getFilteredWishList();
+    ObservableList<Wish> getFilteredSortedWishList();
 
     /**
      * Updates the filter of the filtered wish list to filter by the given {@code predicate}.

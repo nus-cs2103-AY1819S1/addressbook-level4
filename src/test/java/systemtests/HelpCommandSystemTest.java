@@ -63,7 +63,7 @@ public class HelpCommandSystemTest extends WishBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
         //assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertListMatching(getWishListPanel(), getModel().getFilteredWishList());
+        assertListMatching(getWishListPanel(), getModel().getFilteredSortedWishList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar

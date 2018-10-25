@@ -19,6 +19,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WishTransaction;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -119,10 +120,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        WishTransaction transaction = logic.getWishTransaction(); // Access to WishTransaction
+
         wishDetailPanel = new WishDetailPanel();
         wishDetailPlaceholder.getChildren().add(wishDetailPanel.getRoot());
 
         wishListPanel = new WishListPanel(logic.getFilteredWishList());
+        // New constructor below to be used to access WishTransaction in model
+        // wishListPanel = new WishListPanel(logic.getFilteredWishList(), logic.getWishTransaction());
         wishListPanelPlaceholder.getChildren().add(wishListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
