@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
-import seedu.address.model.appointment.Appointment;
-
 import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.model.appointment.Appointment;
 
 /**
  * JAXB-friendly version of the Appointment.

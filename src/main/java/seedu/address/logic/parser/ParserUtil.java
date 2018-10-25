@@ -17,6 +17,7 @@ import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -194,4 +195,21 @@ public class ParserUtil {
         }
         return Time.newTime(trimmedTime);
     }
+
+    /**
+     * Parses a {@code String ic} into an {@code Patient}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ic} is invalid.
+     */
+    //TODO: Implement when IC is available
+    /*public static Patient parseIc(String ic) throws ParseException {
+        requireNonNull(ic);
+        String trimmedIc = ic.trim();
+        if (!Patient.isValidIc(ic)) {
+            throw new ParseException(Patient.MESSAGE_PATIENT_IC_CONSTRAINTS);
+        }
+        Patient
+        return patient;
+    }*/
 }

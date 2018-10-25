@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 
 /**
  * Contains details regarding appointment.
@@ -60,7 +59,9 @@ public class Appointment {
         return appointmentType;
     }
 
-    public Doctor getAssignedDoctor() { return assignedDoctor; }
+    public Doctor getAssignedDoctor() {
+        return assignedDoctor;
+    }
 
     /**
      * Cancels appointment.
