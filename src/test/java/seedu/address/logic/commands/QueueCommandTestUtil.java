@@ -77,6 +77,7 @@ public class QueueCommandTestUtil {
             assertEquals(expectedServedPatientList, actualServedPatientList);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
+            System.out.println(ce.getMessage());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
+
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
@@ -26,8 +28,8 @@ public class InsertCommand extends QueueCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a patient into the queue. "
             + "Parameters: "
-            + "Index "
-            + "Position ";
+            + "INDEX (must be a positive integer) "
+            + PREFIX_POSITION + "POSITION ";
 
     public static final String MESSAGE_SUCCESS = "Inserted ";
     public static final String MESSAGE_INVALID_POSITION = "Invalid position!";
