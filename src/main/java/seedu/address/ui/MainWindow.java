@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private AchievementPanel achievementPanel;
     private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -54,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+    
+    @FXML
+    private GridPane achievementPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -122,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        
+        achievementPanel = new AchievementPanel();
+        achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());

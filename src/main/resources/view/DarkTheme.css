@@ -179,6 +179,10 @@
     -fx-border-width: 1px;
 }
 
+.achievement-grid .label{
+    -fx-text-fill: white; important!
+}
+
 .grid-pane .stack-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
