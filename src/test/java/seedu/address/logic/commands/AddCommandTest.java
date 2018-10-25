@@ -199,6 +199,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getCurrentPreviewImagePath() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void updateCurrentOriginalImage(Image img, Path imgPath) {
             throw new AssertionError("This method should not be called");
         }
