@@ -2,6 +2,14 @@ package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.address.model.person.Name;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Project in the address book.
@@ -12,7 +20,10 @@ public class Project {
     public static final String MESSAGE_PROJECT_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String PROJECT_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String projectName;
+    //private final ProjectName projectName;
+    //private final Name author;
+    //private final Set<Tag> description = new HashSet<>();
+    private final String projectName;
 
     /**
      * Constructs a {@code Project}.
@@ -20,9 +31,23 @@ public class Project {
      * @param projectName A valid project name.
      */
     public Project(String projectName) {
-        requireNonNull(projectName);
+        requireAllNonNull(projectName);
         checkArgument(isValidProjectName(projectName), MESSAGE_PROJECT_CONSTRAINTS);
         this.projectName = projectName;
+        //this.author = author;
+        //this.description.addAll(description);
+    }
+
+    /*public Set<Tag> getDescription() {
+        return Collections.unmodifiableSet(description);
+    }
+
+    public Name getAuthor() {
+        return author;
+    }*/
+
+    public String getProjectName() {
+        return projectName;
     }
 
     /**
