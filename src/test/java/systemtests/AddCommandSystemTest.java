@@ -111,7 +111,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        //Set check to default password in generation
+        assertCommandSuccess(new PersonBuilder(CARL).withPassword("Pa55w0rd").build());
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
