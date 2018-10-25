@@ -124,7 +124,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getPeriodAmountReturnsCorrectStatsMode() throws NoUserSelectedException {
+    public void getPeriodAmountReturnsCorrectPeriodAmount() throws NoUserSelectedException {
         model.updatePeriodAmount(7);
         assertTrue(logic.getPeriodAmount() == 7);
     }
