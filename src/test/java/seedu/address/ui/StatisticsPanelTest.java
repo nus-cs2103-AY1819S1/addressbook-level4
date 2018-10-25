@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.EventsUtil.postNow;
 
 import java.util.LinkedHashMap;
 
@@ -9,10 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.StatisticsPanelHandle;
-import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
-import seedu.address.model.budget.Budget;
 
 //@@author jonathantjm
 public class StatisticsPanelTest extends GuiUnitTest {
@@ -20,7 +17,12 @@ public class StatisticsPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws InterruptedException {
-        StatisticsPanel statisticsPanel = new StatisticsPanel(new LinkedHashMap<>(), StatsPeriod.DAY, StatsMode.TIME, 7);
+        StatisticsPanel statisticsPanel = new StatisticsPanel(
+                new LinkedHashMap<>(),
+                StatsPeriod.DAY,
+                StatsMode.TIME,
+                7
+        );
         Thread.sleep(1000);
         uiPartRule.setUiPart(statisticsPanel);
         statisticsPanelHandle = new StatisticsPanelHandle(statisticsPanel.getRoot());
@@ -47,7 +49,12 @@ public class StatisticsPanelTest extends GuiUnitTest {
         assertTrue(statisticsPanelHandle.isTimeChart());
     }
 
-    private void setChartData(LinkedHashMap<String, Double> mockData, StatsPeriod statsPeriod, StatsMode statsMode, int periodAmount) {
+    private void setChartData(
+            LinkedHashMap<String, Double> mockData,
+            StatsPeriod statsPeriod,
+            StatsMode statsMode,
+            int periodAmount
+    ) {
         StatisticsPanel statisticsPanel = new StatisticsPanel(mockData, statsPeriod, statsMode, periodAmount);
         statisticsPanelHandle = new StatisticsPanelHandle(statisticsPanel.getRoot());
     }

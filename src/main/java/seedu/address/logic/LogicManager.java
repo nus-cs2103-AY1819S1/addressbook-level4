@@ -81,7 +81,10 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
-    private LinkedHashMap<String, Double> getTimeBasedStats(ObservableList<Expense> expenseList, StatsPeriod statsPeriod) {
+    private LinkedHashMap<String, Double> getTimeBasedStats(
+            ObservableList<Expense> expenseList,
+            StatsPeriod statsPeriod
+    ) {
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
         for (Expense e : expenseList) {
             String period;

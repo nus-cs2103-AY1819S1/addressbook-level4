@@ -192,7 +192,12 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        statisticsPanel = new StatisticsPanel(logic.getExpenseStats(), logic.getStatsPeriod(), logic.getStatsMode(), logic.getPeriodAmount());
+        statisticsPanel = new StatisticsPanel(
+                logic.getExpenseStats(),
+                logic.getStatsPeriod(),
+                logic.getStatsMode(),
+                logic.getPeriodAmount()
+        );
         CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsSplitPane = new AnchorPane();
@@ -295,7 +300,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowStatsEvent(ShowStatsRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            statisticsPanel.setData(logic.getExpenseStats(), event.statsPeriod, event.statsMode, event.periodAmount);
+            statisticsPanel.setData(
+                    logic.getExpenseStats(),
+                    logic.getStatsPeriod(),
+                    logic.getStatsMode(),
+                    logic.getPeriodAmount()
+            );
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }

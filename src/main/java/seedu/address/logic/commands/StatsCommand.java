@@ -93,7 +93,7 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        model.updateExpenseStats(getStatsPredicate());
+        model.updateExpenseStatsPredicate(getStatsPredicate());
         model.updateStatsMode(this.mode);
         model.updateStatsPeriod(this.period);
         model.updatePeriodAmount(this.periodAmount);

@@ -4,9 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.beans.binding.Bindings;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
@@ -18,10 +17,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
-import seedu.address.model.exceptions.NoUserSelectedException;
 
 //@@author jonathantjm
 /**
@@ -36,12 +33,21 @@ public class StatisticsPanel extends UiPart<Region> {
     private StackPane chartArea;
 
 
-    public StatisticsPanel(LinkedHashMap<String, Double> statsData, StatsPeriod statsPeriod, StatsMode statsMode, int periodAmount) {
+    public StatisticsPanel(
+            LinkedHashMap<String, Double> statsData,
+            StatsPeriod statsPeriod,
+            StatsMode statsMode,
+            int periodAmount
+    ) {
         super(FXML);
         setData(statsData, statsPeriod, statsMode, periodAmount);
     }
 
-    public void setData(LinkedHashMap<String, Double> statsData, StatsPeriod statsPeriod, StatsMode statsMode, int periodAmount) {
+    public void setData(LinkedHashMap<String, Double> statsData,
+                        StatsPeriod statsPeriod,
+                        StatsMode statsMode,
+                        int periodAmount
+    ) {
         chartArea.getChildren().clear();
         if (statsData.size() == 0) {
             Text text = new Text();
@@ -90,7 +96,11 @@ public class StatisticsPanel extends UiPart<Region> {
         series.setName("Day Amounts");
         Set<String> keySet = statsData.keySet();
         for (String s : keySet) {
-            series.getData().add(new XYChart.Data<>(s + "\n$" + String.format( "%.2f", statsData.get(s)), statsData.get(s)));
+            series.getData().add(
+                    new XYChart.Data<>(
+                            s + "\n$" + String.format("%.2f", statsData.get(s)), statsData.get(s)
+                    )
+            );
         }
 
         stats.getData().add(series);

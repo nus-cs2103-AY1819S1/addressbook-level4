@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
 
-
 import seedu.address.logic.commands.StatsCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 

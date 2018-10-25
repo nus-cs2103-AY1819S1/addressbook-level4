@@ -20,8 +20,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
-import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -258,10 +258,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public StatsPeriod getStatsPeriod() { return this.statsPeriod; }
+    public StatsPeriod getStatsPeriod() {
+        return this.statsPeriod;
+    }
 
     @Override
-    public void updateStatsMode(StatsMode mode) { this.statsMode = mode; }
+    public void updateStatsMode(StatsMode mode) {
+        this.statsMode = mode;
+    }
 
     @Override
     public StatsMode getStatsMode() {
@@ -269,19 +273,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePeriodAmount(int periodAmount) { this.periodAmount = periodAmount; }
+    public void updatePeriodAmount(int periodAmount) {
+        this.periodAmount = periodAmount;
+    }
 
     @Override
     public int getPeriodAmount() {
         return this.periodAmount;
     }
-    
 
-    private StatsPeriod defaultStatsPeriod() { return StatsPeriod.DAY; }
+    private StatsPeriod defaultStatsPeriod() {
+        return StatsPeriod.DAY;
+    }
 
-    private StatsMode defaultStatsMode() { return StatsMode.TIME; }
+    private StatsMode defaultStatsMode() {
+        return StatsMode.TIME;
+    }
 
-    private int defaultPeriodAmount() { return 7; }
+    private int defaultPeriodAmount() {
+        return 7;
+    }
 
     private Predicate <Expense> defaultExpensePredicate() {
         Calendar now = Calendar.getInstance();

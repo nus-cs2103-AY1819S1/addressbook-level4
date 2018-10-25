@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
@@ -18,9 +17,9 @@ public class StatisticsPanelHandle extends NodeHandle<Region> {
     private final StackPane chartArea;
 
     public StatisticsPanelHandle(Region statisticPanelHandle) {
-            super(statisticPanelHandle);
+        super(statisticPanelHandle);
 
-            chartArea = getChildNode(CHART_AREA_ID);
+        chartArea = getChildNode(CHART_AREA_ID);
     }
 
     public boolean isCategoryChart() {
