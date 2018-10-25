@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -77,7 +78,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code AddressbookModelManagerAddressbook} with the data from {@code anakinStorage}'s anakin and {@code userPrefs}. <br>
+     * Returns a {@code AddressbookModelManagerAddressbook} with the data
+     * from {@code anakinStorage}'s anakin and {@code userPrefs}. <br>
      * The data from the sample anakin will be used instead if {@code anakinStorage}'s anakin is not found,
      * or an empty anakin will be used instead if errors occur when reading {@code anakinStorage}'s anakin.
      */
