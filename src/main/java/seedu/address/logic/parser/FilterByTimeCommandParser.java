@@ -1,17 +1,18 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Time;
 
-/**
- * Finds and lists the list of person whose time is between A to B.
- */
 
+/**
+ * FilterByTime.
+ */
 public class FilterByTimeCommandParser {
     /**
-     * FilterByGradeCommand
-     *
+     * FilterByTimeCommand
      * @param args
      * @return
      * @throws ParseException
@@ -22,9 +23,10 @@ public class FilterByTimeCommandParser {
         Time currTime = new Time(args);
         if (currTime.toString().isEmpty()) {
             throw new ParseException(
-                    String.format("Enter error message here"));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
         }
 
-        return new FilterByTimeCommand(currTime);
+        return new FilterByTimeCommand(args);
+
     }
 }

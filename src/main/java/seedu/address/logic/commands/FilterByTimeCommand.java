@@ -30,10 +30,11 @@ public class FilterByTimeCommand extends FilterCommand {
     /**
      * filter by grade command
      *
-     * @param time
+     * @param args
      */
-    public FilterByTimeCommand(Time time) {
-        this.time = time;
+
+    public FilterByTimeCommand(String args) {
+        this.time = new Time(args);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class FilterByTimeCommand extends FilterCommand {
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find " + time.toString() + " education within the students list!");
+            return new CommandResult("Cannot find " + time.toString() + " slot within the students list!");
         }
 
 
@@ -58,5 +59,11 @@ public class FilterByTimeCommand extends FilterCommand {
 
         return new CommandResult("The person whose education is "
                 + time.toString() + " : " + personNameList.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByTimeCommand && time.equals(((FilterByTimeCommand) other).time));
     }
 }
