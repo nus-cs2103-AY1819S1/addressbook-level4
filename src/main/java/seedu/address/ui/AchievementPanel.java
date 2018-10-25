@@ -20,19 +20,18 @@ public class AchievementPanel extends UiPart<Region>{
     @FXML
     private Label LevelValueLabel;
     
-    public AchievementPanel(SimpleObjectProperty<AchievementRecord> achievements) {
+    public AchievementPanel() {
         super(FXML);
-        setConnections(achievements);
         registerAsAnEventHandler(this);
     }
     
-    public void setConnections(SimpleObjectProperty<AchievementRecord> achievements) {
-        achievements.addListener(((observable, oldValue, newValue) -> {
-            if (oldValue.getXp().equals(newValue.getXp())) {
-                return;
-            }
+//    public void setConnections(SimpleObjectProperty<AchievementRecord> achievements) {
+//        achievements.addListener(((observable, oldValue, newValue) -> {
+//            if (oldValue.getXp().equals(newValue.getXp())) {
+//                return;
+//            }
 //            xpValueLabel.setText(newValue.getXp);
-        }));
-    }
+//        }));
+//    }
 
 }

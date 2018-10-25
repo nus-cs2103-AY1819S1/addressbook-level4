@@ -105,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
         int xpDiff = newXp - oldXp;
 
         // Update with new XP difference
-        versionedTaskManager.updateXp(xpDiff);
+        versionedTaskManager.addXp(xpDiff);
 
         indicateTaskManagerChanged();
     }

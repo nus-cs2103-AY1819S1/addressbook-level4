@@ -124,7 +124,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Updates the Xp in the {@code AchievementRecord} of the {@code TaskManager} with the new xp value.
      */
-    public void updateXp(Integer xp) {
+    public void addXp(Integer xp) {
         requireNonNull(xp);
 
         achievements.updateXp(xp);
