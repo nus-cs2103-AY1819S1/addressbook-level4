@@ -28,4 +28,8 @@ public interface Ui {
     /** void switchToIngredientListPanel() */
     void switchToHealthPlanListPanel();
 
+    /**method to show the meal plan list to add*/
+    void showMealPlanListPanel();
+
+    void hideMealPlanListPanel();
 }

@@ -164,6 +164,16 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
+    protected void showMealPlanListPanel() {
+        generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
+        browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
+    protected void hideMealPlanListPanel(){
+        browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
+    }
+
+
     protected void switchToMealPlanListPanel() {
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());

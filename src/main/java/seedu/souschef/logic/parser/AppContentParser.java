@@ -72,7 +72,7 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
-            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
+            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput, ui);
         } else if (context.equals("Favourites")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
