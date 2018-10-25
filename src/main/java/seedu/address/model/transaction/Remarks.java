@@ -68,4 +68,9 @@ public class Remarks {
         Remarks otherRemarks = (Remarks) other;
         return otherRemarks.remarks.equals(remarks);
     }
+
+    @Override
+    public String toString() {
+        return remarks;
+    }
 }

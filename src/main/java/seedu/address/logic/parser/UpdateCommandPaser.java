@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -17,6 +18,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,7 +45,7 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NAME, PREFIX_HEAD, PREFIX_VICE_HEAD, PREFIX_BUDGET,
-                PREFIX_SPENT, PREFIX_OUTSTANDING, PREFIX_TRANSACTION, PREFIX_ENTRY, PREFIX_DATE, PREFIX_AMOUNT,
+                PREFIX_SPENT, PREFIX_OUTSTANDING, PREFIX_TRANSACTION, PREFIX_DATE, PREFIX_AMOUNT,
                 PREFIX_REMARKS);
 
         if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {
@@ -52,6 +54,7 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
         CcaName ccaName = ParserUtil.parseCcaName((argMultimap.getValue(PREFIX_TAG).get()));
 
         EditCcaDescriptor editCcaDescriptor = new EditCcaDescriptor();
+
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editCcaDescriptor.setCcaName(ParserUtil.parseCcaName((argMultimap.getValue(PREFIX_NAME).get())));
         }
@@ -72,13 +75,10 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
                 ParserUtil.parseOutstanding(argMultimap.getValue(PREFIX_OUTSTANDING).get())
             );
         }
-
-
-
-
-
-
-/*
+        if (argMultimap.getValue(PREFIX_TRANSACTION).isPresent()) {
+            editCcaDescriptor.setEntryNum(ParserUtil.parseEntryNum(argMultimap.getValue(PREFIX_TRANSACTION).get())
+            );
+        }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editCcaDescriptor.setDate(ParserUtil.parseEntryDate(argMultimap.getValue(PREFIX_DATE).get())
             );
@@ -91,36 +91,6 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
             editCcaDescriptor.setRemarks(ParserUtil.parseRemarks(argMultimap.getValue(PREFIX_REMARKS).get())
             );
         }
- */
-
-//        if (argMultimap.getValue(PREFIX_TRANSACTION).isPresent()) {
-//            String entryNum = argMultimap.getValue(PREFIX_TRANSACTION).get();
-//            String date = null;
-//            String amount = null;
-//            String remarks = null;
-//
-//            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-//                date = argMultimap.getValue(PREFIX_DATE).get();
-//            }
-//            if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-//                amount = argMultimap.getValue(PREFIX_AMOUNT).get();
-//            }
-//            if (argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
-//                remarks = argMultimap.getValue(PREFIX_REMARKS).get();
-//            }
-//
-//            parseTransactionEntriesForEdit(argMultimap.getAllEntries(PREFIX_TRANSACTION)).ifPresent
-//             (editCcaDescriptor::setTransaction);
-//
-//            editCcaDescriptor.setTransaction(
-//                ParserUtil.parseTransaction(new Entry(entryNum, date, amount, remarks))
-//            );
-//        }
-
-        parseTransactionEntriesForEdit(argMultimap, argMultimap.getAllEntries(PREFIX_TRANSACTION)).ifPresent
-         (editCcaDescriptor::setTransaction);
-
-
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }
@@ -128,21 +98,4 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
         return new UpdateCommand(ccaName, editCcaDescriptor);
     }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Entry>> parseTransactionEntriesForEdit(ArgumentMultimap map, Collection<String> entries) throws ParseException {
-        assert entries != null;
-
-        if (entries.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> transactionEntrySet = entries.size() == 1 && entries.contains("") ? Collections.emptySet()
-            : entries;
-        return Optional.of(ParserUtil.parseTransaction(map, transactionEntrySet));
-    }
-
 }
-

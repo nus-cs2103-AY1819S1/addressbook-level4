@@ -43,9 +43,9 @@ public class XmlAdaptedEntry {
      */
     public XmlAdaptedEntry(Entry source) {
         entryNum = String.valueOf(source.getEntryNum());
-        date = String.valueOf(source.getDate());
-        amount = String.valueOf(source.getAmount());
-        log = String.valueOf(source.getRemarks());
+        date = String.valueOf(source.getDateValue());
+        amount = String.valueOf(source.getAmountValue());
+        log = String.valueOf(source.getRemarkValue());
     }
 
     /**

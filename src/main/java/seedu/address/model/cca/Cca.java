@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.transaction.Entry;
@@ -132,6 +133,11 @@ public class Cca {
         return Collections.unmodifiableSet(transaction);
     }
 
+//    public Entry getEntry(Optional<String> value) {
+//        int index = Integer.valueOf(value.get());
+//        return transaction.
+//    }
+
     public CcaName getName() {
         return this.name;
     }
@@ -220,6 +226,5 @@ public class Cca {
             .append(getOutstandingAmount());
         return builder.toString();
     }
-
 }
 

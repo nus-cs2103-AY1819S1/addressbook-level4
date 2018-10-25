@@ -2,6 +2,8 @@ package seedu.address.model.transaction;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Optional;
+
 //@@uthor ericyjw
 /**
  * Represents a Transaction Entry in the budget book.
@@ -14,13 +16,13 @@ public class Entry {
 
     public static final String ENTRY_NUM_VALIDATION_REGEX = "[1-9][0-9]*";
 
-    private final Integer entryNum;
-    private final Date date;
-    private final Amount amount;
-    private final Remarks remarks;
+    private Integer entryNum;
+    private Date date;
+    private Amount amount;
+    private Remarks remarks;
 
     public Entry(int entryNum, Date date, Amount amount, Remarks remarks) {
-        requireAllNonNull(entryNum, date, amount, remarks);
+//        requireAllNonNull(entryNum, date, amount, remarks);
         this.entryNum = entryNum;
         this.date = date;
         this.amount = amount;
@@ -43,21 +45,69 @@ public class Entry {
         return date;
     }
 
+    public String getDateValue() {
+        return this.date.getDate();
+    }
+
     public Amount getAmount() {
         return amount;
+    }
+
+    public int getAmountValue() {
+        return this.amount.getAmount();
     }
 
     public Remarks getRemarks() {
         return remarks;
     }
 
-    public static boolean isValidEntry(String entryNum, String date, String amount, String remarks) {
-        boolean b1 =  entryNum.matches(ENTRY_NUM_VALIDATION_REGEX);
-        boolean b2 = Date.isValidDate(date);
-        boolean b3 = Amount.isValidAmount(amount);
-        boolean b4 = Remarks.isValidRemark(remarks);
+    public String getRemarkValue() {
+        return this.remarks.getRemarks();
+    }
 
-        return b1 && b2 && b3 && b4;
+    /**
+     * Update the Transaction Date of a specific transaction entry in a specific CCA
+     * @param toUpdate the new date to be updated
+     */
+    public void updateDate(Optional<Date> toUpdate) {
+        Date date = toUpdate.get();
+        this.date = date;
+    }
+
+    /**
+     * Update the Transaction Amount of a specific transaction entry in a specific CCA
+     * @param toUpdate the new amount to be updated
+     */
+    public void updateAmount(Optional<Amount> toUpdate) {
+        Amount amount = toUpdate.get();
+        this.amount = amount;
+    }
+
+    /**
+     * Update the Transaction Remark of a specific transaction remark in a specific CCA
+     * @param toUpdate the new amount to be updated
+     */
+    public void updateRemarks(Optional<Remarks> toUpdate) {
+        Remarks remarks = toUpdate.get();
+        this.remarks = remarks;
+    }
+
+    /**
+     * Returns true if both Entry are the same.
+     */
+    public boolean isSameEntry(Entry otherEntry) {
+        if (otherEntry == this) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isValidEntry(String entryNum, String date, String amount, String remarks) {
+        return entryNum.matches(ENTRY_NUM_VALIDATION_REGEX)
+            && Date.isValidDate(date)
+            && Amount.isValidAmount(amount)
+            && Remarks.isValidRemark(remarks);
     }
 
     public static boolean isValidEntry(Entry e) {

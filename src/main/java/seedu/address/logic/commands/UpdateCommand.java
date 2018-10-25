@@ -118,12 +118,41 @@ public class UpdateCommand extends Command {
 
         Outstanding updatedOutstanding = editCcaDescriptor.getOutstanding().orElse(ccaToEdit.getOutstanding());
 
-       // Date updatedDate = editCcaDescriptor.getDate().orElse(ccaToEdit.getDate());
+        Set<Entry> updatedTransactions = new HashSet<>();
+        if(editCcaDescriptor.getEntryNum().isPresent()) {
+            Set<Entry> entrySet = ccaToEdit.getEntries();
+            Entry[] currentCcaEntries = entrySet.toArray(new Entry[entrySet.size()]);
+            Integer updatingEntryNum = editCcaDescriptor.getEntryNum().get() - 1;
+            Entry entryToEdit = currentCcaEntries[updatingEntryNum];
 
-        Set<Entry> updatedTransactionEntry = editCcaDescriptor.getTransactionEntries().orElse(ccaToEdit.getEntries());
+            if (editCcaDescriptor.getDate().isPresent()) {
+                entryToEdit.updateDate(editCcaDescriptor.getDate());
+            }
+
+            if (editCcaDescriptor.getAmount().isPresent()) {
+                entryToEdit.updateAmount(editCcaDescriptor.getAmount());
+            }
+
+            if (editCcaDescriptor.getRemarks().isPresent()) {
+                entryToEdit.updateRemarks(editCcaDescriptor.getRemarks());
+            }
+
+            currentCcaEntries[updatingEntryNum] = entryToEdit;
+
+            int index = 1;
+            for (Entry e: currentCcaEntries) {
+                if (e.getEntryNum() == index) {
+                    updatedTransactions.add(e);
+                    index++;
+                }
+            }
+//            updatedTransactions = Set.of(currentCcaEntries);
+        } else {
+            updatedTransactions = ccaToEdit.getEntries();
+        }
 
         return new Cca(updatedCcaName, updatedHead, updatedViceHead, updatedBudget, updatedSpent,
-            updatedOutstanding, updatedTransactionEntry);
+            updatedOutstanding, updatedTransactions);
     }
 
     @Override
@@ -156,6 +185,7 @@ public class UpdateCommand extends Command {
         private Spent spent;
         private Outstanding outstanding;
         private Set<Entry> transactions;
+        private Integer entryNum;
         private Date date;
         private Amount amount;
         private Remarks remarks;
@@ -176,6 +206,7 @@ public class UpdateCommand extends Command {
             setOutstanding(toCopy.outstanding);
             setTransaction(toCopy.transactions);
 
+            setEntryNum(toCopy.entryNum);
             setDate(toCopy.date);
             setAmount(toCopy.amount);
             setRemarks(toCopy.remarks);
@@ -186,7 +217,8 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, head, viceHead, budget, spent, outstanding, transactions);
+            return CollectionUtil.isAnyNonNull(name, head, viceHead, budget, spent, outstanding, transactions,
+                entryNum, date, amount, remarks);
         }
 
         public void setCcaName(CcaName name) {
@@ -237,6 +269,15 @@ public class UpdateCommand extends Command {
             return Optional.ofNullable(outstanding);
         }
 
+        public void setEntryNum(Integer entryNum) {
+            this.entryNum = entryNum;
+        }
+
+        public Optional<Integer> getEntryNum() {
+            return Optional.ofNullable(entryNum);
+        }
+
+
         public void setDate(Date date) {
             this.date = date;
         }
@@ -269,15 +310,6 @@ public class UpdateCommand extends Command {
         public void setTransaction(Set<Entry> transaction) {
             this.transactions = (transactions != null) ? new HashSet<>(transaction) : null;
         }
-
-//        /**
-//         * Sets {@code transaction} to this object's {@code transaction}.
-//         * A defensive copy of {@code transactions} is used internally.
-//         */
-//        public void setTransaction(Entry entry) {
-//            this.transactions.add(entry);
-//            //this.transactions = (transactions != null) ? new HashSet<>(transaction) : null;
-//        }
 
         /**
          * Returns an unmodifiable transactions entry set, which throws {@code UnsupportedOperationException}
@@ -312,4 +344,5 @@ public class UpdateCommand extends Command {
                 && getTransactionEntries() .equals(e.getTransactionEntries());
         }
     }
+
 }

@@ -20,11 +20,14 @@
                             <br/>
                         </p>
                         <p>
-                            Budget:
+                            Budget: $
                             <xsl:value-of select="budget"/>
                             <br/>
-                            OutStanding:
+                            Outstanding: $
                             <xsl:value-of select="outstanding"/>
+                            <br/>
+                            Spent: $
+                            <xsl:value-of select="spent"/>
                             <br/>
                             <br/>
                             <h3>Transaction: </h3>

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
@@ -10,12 +11,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Entry;
@@ -44,17 +49,18 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date must be a non-negative integer and not greater than 31.";
+        "Date must be a non-negative integer and not greater than 31.";
     public static final String MESSAGE_HOUR_CONSTRAINTS =
-            "Hour must be a non-negative integer and not greater than 23.";
+        "Hour must be a non-negative integer and not greater than 23.";
     public static final String MESSAGE_MINUTE_CONSTRAINTS =
-            "Minute must be a non-negative integer and not greater than 59";
+        "Minute must be a non-negative integer and not greater than 59";
     public static final String MESSAGE_TITLE_CONSTRAINTS =
-            "Title must not be empty";
+        "Title must not be empty";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -141,6 +147,7 @@ public class ParserUtil {
         return new School(trimmedSchool);
     }
     //@@author
+
     /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
@@ -184,6 +191,7 @@ public class ParserUtil {
     }
 
     //@@author kengwoon
+
     /**
      * Parses a {@code String file} into a {@code File}.
      * Leading and trailing whitespaces will be trimmed.
@@ -200,6 +208,7 @@ public class ParserUtil {
     }
 
     //@@author EatOrBeEaten
+
     /**
      * Parses a {@code String content} into an {@code Content}.
      * Leading and trailing whitespaces will be trimmed.
@@ -231,6 +240,7 @@ public class ParserUtil {
     }
 
     //@@author GilgameshTC
+
     /**
      * Parses a {@code String month} into a {@code Month}.
      * Leading and trailing whitespaces will be trimmed.
@@ -268,8 +278,8 @@ public class ParserUtil {
      * Parses a {@code String Budget} into a {@code Budget}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code budget} is invalid.
+     * @author ericyjw
      */
     public static Budget parseBudget(String budget) throws ParseException {
         requireNonNull(budget);
@@ -284,8 +294,8 @@ public class ParserUtil {
      * Parses a {@code String ccaName} into a {@code CcaName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code ccaName} is invalid.
+     * @author ericyjw
      */
     public static CcaName parseCcaName(String ccaName) throws ParseException {
         requireNonNull(ccaName);
@@ -300,8 +310,8 @@ public class ParserUtil {
      * Parses a {@code String Spent} into a {@code Spent}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code Spent} is invalid.
+     * @author ericyjw
      */
     public static Spent parseSpent(String spent) throws ParseException {
         requireNonNull(spent);
@@ -316,8 +326,8 @@ public class ParserUtil {
      * Parses a {@code String outstanding} into a {@code Outstanding}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code Outstanding} is invalid.
+     * @author ericyjw
      */
     public static Outstanding parseOutstanding(String outstanding) throws ParseException {
         requireNonNull(outstanding);
@@ -329,7 +339,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code int}.
+     * Parses a {@code String entryNum} into a {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code entryNum} is invalid.
+     */
+    public static Integer parseEntryNum(String entryNum) throws ParseException {
+        requireNonNull(entryNum);
+        if (entryNum == null || Integer.valueOf(entryNum) < 1) {
+            throw new ParseException("Entry number should only be positive integer that is more than 0!");
+        }
+        return Integer.parseInt(entryNum);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
@@ -344,6 +368,12 @@ public class ParserUtil {
         return new Date(String.valueOf(dateInt));
     }
 
+    /**
+     * Parses a {@code String amount} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
@@ -353,69 +383,18 @@ public class ParserUtil {
         return new Amount(Integer.valueOf(trimmedAmount));
     }
 
+    /**
+     * Parses a {@code String remarks} into a {@code Remarks}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remarks} is invalid.
+     */
     public static Remarks parseRemarks(String remarks) throws ParseException {
         requireNonNull(remarks);
         if (!Remarks.isValidRemark(remarks)) {
             throw new ParseException(Remarks.MESSAGE_REMARKS_CONSTRAINTS);
         }
         return new Remarks(remarks);
-    }
-
-    /**
-     * Parses {@code Collection<Entry> transactions} into a {@code Set<Entry>}.
-     *
-     * @author ericyjw
-     */
-    public static Set<Entry> parseTransaction(ArgumentMultimap map, Collection<String> transaction) throws ParseException {
-        requireNonNull(transaction);
-        final Set<Entry> transactionSet = new HashSet<>();
-
-        for(String entry: transaction) {
-            transactionSet.add(parseEntry(map, entry));
-        }
-
-        return transactionSet;
-    }
-
-    /**
-     * Parses a {@code Entry entry} into a {@code Entry}.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Entry parseEntry(ArgumentMultimap map, String entry) throws ParseException {
-        requireNonNull(entry);
-        Integer entryNum = null;
-        Date date = null;
-        Amount amount = null;
-        Remarks remarks = null;
-
-        if (map.getValue(PREFIX_ENTRY).isPresent()) {
-            entryNum = ParserUtil.parseEntryNum(map.getValue(PREFIX_TRANSACTION).get());
-        }
-
-        if (map.getValue(PREFIX_DATE).isPresent()) {
-            date = ParserUtil.parseEntryDate(map.getValue(PREFIX_DATE).get());
-        }
-        if (map.getValue(PREFIX_AMOUNT).isPresent()) {
-            amount = ParserUtil.parseAmount(map.getValue(PREFIX_AMOUNT).get());
-        }
-        if (map.getValue(PREFIX_REMARKS).isPresent()) {
-            remarks = ParserUtil.parseRemarks(map.getValue(PREFIX_REMARKS).get());
-        }
-
-        Entry toCheck = new Entry(entryNum, date, amount, remarks);
-        if (!Entry.isValidEntry(toCheck)){
-            throw new ParseException(Entry.MESSAGE_ENTRY_CONSTRAINTS);
-        }
-        return toCheck;
-    }
-
-    public static Integer parseEntryNum(String entryNum) throws ParseException {
-        requireNonNull(entryNum);
-        if (entryNum != null) {
-            throw new ParseException(Remarks.MESSAGE_REMARKS_CONSTRAINTS);
-        }
-        return Integer.parseInt(entryNum);
     }
 
     //@@author

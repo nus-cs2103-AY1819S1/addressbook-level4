@@ -68,4 +68,9 @@ public class Amount {
         Amount otherAmounts = (Amount) other;
         return otherAmounts.amount.equals(this.amount);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(amount);
+    }
 }
