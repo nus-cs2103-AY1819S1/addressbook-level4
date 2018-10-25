@@ -5,31 +5,22 @@
     <title>Current Patient View</title>
     <link rel="stylesheet" type="text/css" href="CurrentPatientView.css">
     <script>
-        function getJsonFromUrl() {
-            var query = location.search.substr(1);
-            var result = {};
-            query.split("&").forEach(function(part) {
-                var item = part.split("=");
-                result[item[0]] = decodeURIComponent(item[1]);
-            });
-            return result;
+        function loadCurrentPatientDetails(name, ic, address, phone, email, blood, diseases, drugs, notes,
+                                           mcContent, referralContent, noteContent, allocatedMedicine) {
+            document.getElementById("name").innerHTML=name;
+            document.getElementById("ic").innerHTML=ic;
+            document.getElementById("address").innerHTML=address;
+            document.getElementById("phone").innerHTML=phone;
+            document.getElementById("email").innerHTML=email;
+            document.getElementById("blood").innerHTML=blood;
+            document.getElementById("diseases").innerHTML=diseases;
+            document.getElementById("drugs").innerHTML=drugs;
+            document.getElementById("notes").innerHTML=notes;
+            document.getElementById("mcContent").innerHTML=mcContent;
+            document.getElementById("referralContent").innerHTML=referralContent;
+            document.getElementById("noteContent").innerHTML=noteContent;
+            document.getElementById("allocatedMedicine").innerHTML=allocatedMedicine;
         }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            document.getElementById("name").innerHTML=getJsonFromUrl().name;
-            document.getElementById("ic").innerHTML=getJsonFromUrl().ic;
-            document.getElementById("address").innerHTML=getJsonFromUrl().address;
-            document.getElementById("phone").innerHTML=getJsonFromUrl().phone;
-            document.getElementById("email").innerHTML=getJsonFromUrl().email;
-            document.getElementById("blood").innerHTML=getJsonFromUrl().blood;
-            document.getElementById("diseases").innerHTML=getJsonFromUrl().diseases;
-            document.getElementById("drugs").innerHTML=getJsonFromUrl().drugs;
-            document.getElementById("notes").innerHTML=getJsonFromUrl().notes;
-            document.getElementById("mcContent").innerHTML=getJsonFromUrl().mcContent;
-            document.getElementById("referralContent").innerHTML=getJsonFromUrl().referralContent;
-            document.getElementById("noteContent").innerHTML=getJsonFromUrl().noteContent;
-            document.getElementById("allocatedMedicine").innerHTML=getJsonFromUrl().allocatedMedicine;
-        });
     </script>
 </head>
 <body>

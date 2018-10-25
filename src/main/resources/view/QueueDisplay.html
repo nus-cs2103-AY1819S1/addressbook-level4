@@ -42,108 +42,72 @@
         }
     </style>
     <script type="text/javascript">
-        function getJsonFromUrl() {
-            var query = location.search.substr(1);
-            var result = {};
-            query.split("&").forEach(function(part) {
-                var item = part.split("=");
-                result[item[0]] = decodeURIComponent(item[1]);
-            });
-            return result;
+        function loadQueueDisplay(q1, q2, q3, q4, q5, q6, current, s1, s2, s3, s4, s5, s6) {
+            document.getElementById("queue1").innerHTML = "#1<br>" + q1;
+            if (q1 !== "empty") {
+                document.getElementById("qdot1").classList.remove("hide");
+            }
+
+            document.getElementById("queue2").innerHTML = "#2<br>" + q2;
+            if (q2 !== "empty") {
+                document.getElementById("qdot2").classList.remove("hide");
+            }
+
+            document.getElementById("queue3").innerHTML = "#3<br>" + q3;
+            if (q3 !== "empty") {
+                document.getElementById("qdot3").classList.remove("hide");
+            }
+
+            document.getElementById("queue4").innerHTML = "#4<br>" + q4;
+            if (q4 !== "empty") {
+                document.getElementById("qdot4").classList.remove("hide");
+            }
+
+            document.getElementById("queue5").innerHTML = "#5<br>" + q5;
+            if (q5 !== "empty") {
+                document.getElementById("qdot5").classList.remove("hide");
+            }
+
+            document.getElementById("queue6").innerHTML = "#6<br>" + q6;
+            if (q6 !== "empty") {
+                document.getElementById("qdot6").classList.remove("hide");
+            }
+
+            document.getElementById("current").innerHTML = current;
+            if (current !== "empty") {
+                document.getElementById("cdot").classList.remove("hide");
+            }
+
+            document.getElementById("served1").innerHTML = "#1<br>" + s1;
+            if (s1 !== "empty") {
+                document.getElementById("sdot1").classList.remove("hide");
+            }
+
+            document.getElementById("served2").innerHTML = "#2<br>" + s2;
+            if (s2 !== "empty") {
+                document.getElementById("sdot2").classList.remove("hide");
+            }
+
+            document.getElementById("served3").innerHTML = "#3<br>" + s3;
+            if (s3 !== "empty") {
+                document.getElementById("sdot3").classList.remove("hide");
+            }
+
+            document.getElementById("served4").innerHTML = "#4<br>" + s4;
+            if (s4 !== "empty") {
+                document.getElementById("sdot4").classList.remove("hide");
+            }
+
+            document.getElementById("served5").innerHTML = "#5<br>" + s5;
+            if (s5 !== "empty") {
+                document.getElementById("sdot5").classList.remove("hide");
+            }
+
+            document.getElementById("served6").innerHTML = "#6<br>" + s6;
+            if (s6 !== "empty") {
+                document.getElementById("sdot6").classList.remove("hide");
+            }
         }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            var q1elem = document.getElementById("queue1");
-            var q1string = getJsonFromUrl().queue1;
-            q1elem.innerHTML = "#1<br>" + q1string;
-            if (q1string === "empty") {
-                document.getElementById("qdot1").classList.add("hide");
-            }
-
-            var q2elem = document.getElementById("queue2");
-            var q2string = getJsonFromUrl().queue2;
-            q2elem.innerHTML = "#2<br>" + q2string;
-            if (q2string === "empty") {
-                document.getElementById("qdot2").classList.add("hide");
-            }
-
-            var q3elem = document.getElementById("queue3");
-            var q3string = getJsonFromUrl().queue3;
-            q3elem.innerHTML = "#3<br>" + q3string;
-            if (q3string === "empty") {
-                document.getElementById("qdot3").classList.add("hide");
-            }
-
-            var q4elem = document.getElementById("queue4");
-            var q4string = getJsonFromUrl().queue4;
-            q4elem.innerHTML = "#4<br>" + q4string;
-            if (q4string === "empty") {
-                document.getElementById("qdot4").classList.add("hide");
-            }
-
-            var q5elem = document.getElementById("queue5");
-            var q5string = getJsonFromUrl().queue5;
-            q5elem.innerHTML = "#5<br>" + q5string;
-            if (q5string === "empty") {
-                document.getElementById("qdot5").classList.add("hide");
-            }
-
-            var q6elem = document.getElementById("queue6");
-            var q6string = getJsonFromUrl().queue6;
-            q6elem.innerHTML = "#6<br>" + q6string;
-            if (q6string === "empty") {
-                document.getElementById("qdot6").classList.add("hide");
-            }
-
-            var s1elem = document.getElementById("served1");
-            var s1string = getJsonFromUrl().served1;
-            s1elem.innerHTML = "#1<br>" + s1string;
-            if (s1string === "empty") {
-                document.getElementById("sdot1").classList.add("hide");
-            }
-
-            var s2elem = document.getElementById("served2");
-            var s2string = getJsonFromUrl().served2;
-            s2elem.innerHTML = "#2<br>" + s2string;
-            if (s2string === "empty") {
-                document.getElementById("sdot2").classList.add("hide");
-            }
-
-            var s3elem = document.getElementById("served3");
-            var s3string = getJsonFromUrl().served3;
-            s3elem.innerHTML = "#3<br>" + s3string;
-            if (s3string === "empty") {
-                document.getElementById("sdot3").classList.add("hide");
-            }
-
-            var s4elem = document.getElementById("served4");
-            var s4string = getJsonFromUrl().served4;
-            s4elem.innerHTML = "#4<br>" + s4string;
-            if (s4string === "empty") {
-                document.getElementById("sdot4").classList.add("hide");
-            }
-
-            var s5elem = document.getElementById("served5");
-            var s5string = getJsonFromUrl().served5;
-            s5elem.innerHTML = "#5<br>" + s5string;
-            if (s5string === "empty") {
-                document.getElementById("sdot5").classList.add("hide");
-            }
-
-            var s6elem = document.getElementById("served6");
-            var s6string = getJsonFromUrl().served6;
-            s6elem.innerHTML = "#6<br>" + s6string;
-            if (s6string === "empty") {
-                document.getElementById("sdot6").classList.add("hide");
-            }
-
-            var current = document.getElementById("current");
-            var currentString = getJsonFromUrl().current;
-            current.innerHTML = currentString;
-            if (currentString === "empty") {
-                document.getElementById("cdot").classList.add("hide");
-            }
-        });
     </script>
 </head>
 <body>
@@ -156,27 +120,27 @@
     <tr>
         <td style="width: 45%" align="center" valign="center">
             <div class="circles">
-                <div class="dot" id="qdot6"><span id="queue6"></span></div>
-                <div class="dot" id="qdot5"><span id="queue5"></span></div>
-                <div class="dot" id="qdot4"><span id="queue4"></span></div>
-                <div class="dot" id="qdot3"><span id="queue3"></span></div>
-                <div class="dot" id="qdot2"><span id="queue2"></span></div>
-                <div class="dot" id="qdot1"><span id="queue1"></span></div>
+                <div class="dot hide" id="qdot6"><span id="queue6"></span></div>
+                <div class="dot hide" id="qdot5"><span id="queue5"></span></div>
+                <div class="dot hide" id="qdot4"><span id="queue4"></span></div>
+                <div class="dot hide" id="qdot3"><span id="queue3"></span></div>
+                <div class="dot hide" id="qdot2"><span id="queue2"></span></div>
+                <div class="dot hide" id="qdot1"><span id="queue1"></span></div>
             </div>
         </td>
         <td style="width: 10%" align="center" valign="center">
             <div class="circles">
-                <div class="dot" id="cdot"><span id="current"></span></div>
+                <div class="dot hide" id="cdot"><span id="current"></span></div>
             </div>
         </td>
         <td style="width: 45%" align="center" valign="center">
             <div class="circles">
-                <div class="dot" id="sdot6"><span id="served6"></span></div>
-                <div class="dot" id="sdot5"><span id="served5"></span></div>
-                <div class="dot" id="sdot4"><span id="served4"></span></div>
-                <div class="dot" id="sdot3"><span id="served3"></span></div>
-                <div class="dot" id="sdot2"><span id="served2"></span></div>
-                <div class="dot" id="sdot1"><span id="served1"></span></div>
+                <div class="dot hide" id="sdot6"><span id="served6"></span></div>
+                <div class="dot hide" id="sdot5"><span id="served5"></span></div>
+                <div class="dot hide" id="sdot4"><span id="served4"></span></div>
+                <div class="dot hide" id="sdot3"><span id="served3"></span></div>
+                <div class="dot hide" id="sdot2"><span id="served2"></span></div>
+                <div class="dot hide" id="sdot1"><span id="served1"></span></div>
             </div>
         </td>
     </tr>

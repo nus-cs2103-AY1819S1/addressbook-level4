@@ -5,23 +5,12 @@
     <title>Queue Info</title>
     <link rel="stylesheet" type="text/css" href="QueueInformation.css">
     <script>
-        function getJsonFromUrl() {
-            var query = location.search.substr(1);
-            var result = {};
-            query.split("&").forEach(function(part) {
-                var item = part.split("=");
-                result[item[0]] = decodeURIComponent(item[1]);
-            });
-            return result;
-        }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            var queueString = getJsonFromUrl().queue;
+        function loadQueueInformation(queueString, current, servedString) {
             var queueTable = document.getElementById("queueTable");
             var queueArray = queueString.split("_");
 
             var index = 1;
-            if (queueString != "empty") {
+            if (queueString !== "empty") {
                 queueArray.forEach(function(patient) {
                     var row = queueTable.insertRow();
                     row.insertCell(0).innerHTML = patient;
@@ -31,13 +20,13 @@
                 queueTable.insertRow().insertCell(0).innerHTML = "Queue is empty!";
             }
 
+            document.getElementById("current").innerHTML=current;
 
-            var servedString = getJsonFromUrl().served;
             var servedTable = document.getElementById("servedTable");
             var servedArray = servedString.split("_");
 
             index = 1;
-            if (servedString != "empty") {
+            if (servedString !== "empty") {
                 servedArray.forEach(function (patient) {
                     var row = servedTable.insertRow();
                     row.insertCell(0).innerHTML = patient;
@@ -47,8 +36,7 @@
                 servedTable.insertRow().insertCell(0).innerHTML = "Served List is empty!";
             }
 
-            document.getElementById("current").innerHTML=getJsonFromUrl().current;
-        });
+        }
     </script>
 </head>
 <body>

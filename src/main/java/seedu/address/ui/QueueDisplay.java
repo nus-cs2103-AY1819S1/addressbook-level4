@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -33,6 +35,8 @@ public class QueueDisplay extends UiPart<Region> {
     @FXML
     private WebView display;
 
+    private static int counter = 0;
+
     public QueueDisplay() {
         super(FXML);
 
@@ -47,25 +51,85 @@ public class QueueDisplay extends UiPart<Region> {
         Platform.runLater(() -> display.getEngine().load(url));
     }
 
+    private void runScript(String script, int scriptCounter) {
+        display.getEngine().getLoadWorker().stateProperty().addListener(
+                (ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+                    if (newValue != Worker.State.SUCCEEDED) {
+                        // Browser not loaded, return.
+                        return;
+                    }
+                    if (this.counter != scriptCounter) {
+                        return;
+                    }
+                    System.out.println("Script to be run: " + script);
+                    Platform.runLater(() -> display.getEngine().executeScript(script));
+                    this.counter++;
+                });
+    }
+
     /**
      * Loads a HTML file representing the queue display.
      */
     private void loadQueueDisplay(PatientQueue patientQueue, ServedPatientList servedPatientList,
                                   CurrentPatient currentPatient) {
-        String currentPatientString = currentPatient != null
-                ? currentPatient.toUrlFormat() : "empty";
-
         List<Patient> patientQueueList = patientQueue == null ? null : patientQueue.getPatientsAsList();
+        String currentPatientString;
+        if (currentPatient == null) {
+            currentPatientString = "empty";
+        } else {
+            try {
+                currentPatientString = currentPatient.getPatient().getName().fullName;
+            } catch (NullPointerException npe) {
+                currentPatientString = "empty";
+            }
+        }
         List<ServedPatient> servedPatients = servedPatientList == null ? null : servedPatientList.getPatientsAsList();
 
         String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
-        queueDisplayPage += "?";
-        queueDisplayPage += generateUrlParamsFromPatientQueue(patientQueueList);
-        queueDisplayPage += "&";
-        queueDisplayPage += generateUrlParamsFromServedPatientList(servedPatients);
-        queueDisplayPage += "&current=";
-        queueDisplayPage += currentPatientString;
+        runScript(getScriptForQueueDisplay(patientQueueList, currentPatientString, servedPatients), counter);
         loadPage(queueDisplayPage);
+    }
+
+
+
+    private String getScriptForQueueDisplay(List<Patient> patientQueueList, String currentPatientString,
+                                            List<ServedPatient> servedPatientList) {
+        String script = "loadQueueDisplay(";
+        for (int index = 0; index < 6; index++) {
+            try {
+                script += "'";
+                script += patientQueueList.get(index).getIcNumber().value.substring(5, 9);
+            } catch (IndexOutOfBoundsException ioobe) {
+                script += "empty";
+            } catch (NullPointerException npe) {
+                script += "empty";
+            } finally {
+                script += "', ";
+            }
+        }
+        script = script.substring(0, script.length() - 2);
+
+        script += ", '";
+        script += currentPatientString;
+        script += "', ";
+
+        for (int index = 0; index < 6; index++) {
+            try {
+                script += "'";
+                script += servedPatientList.get(index).getIcNumber().value.substring(5, 9);
+            } catch (IndexOutOfBoundsException ioobe) {
+                script += "empty";
+            } catch (NullPointerException npe) {
+                script += "empty";
+            } finally {
+                script += "', ";
+            }
+        }
+        script = script.substring(0, script.length() - 2);
+
+        script += ");";
+        System.out.println(script);
+        return script;
     }
 
     /**
