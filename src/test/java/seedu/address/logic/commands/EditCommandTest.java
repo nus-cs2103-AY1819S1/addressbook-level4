@@ -42,9 +42,14 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        String originalUsername = model.getFilteredPersonList().get(0).getUsername().username;
+        String originalPassword = model.getFilteredPersonList().get(0).getPassword().password;
+        editedPerson = new PersonBuilder(editedPerson).withUsername(originalUsername)
+                .withPassword(originalPassword).build();
+
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
 
