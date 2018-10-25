@@ -54,8 +54,7 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        ReadOnlyAddressBook exportAB = model.getAddressBook();
-
+        model.exportAddressBook(path);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path.getFileName()));
     }
 
