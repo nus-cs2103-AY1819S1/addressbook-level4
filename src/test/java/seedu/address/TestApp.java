@@ -1,43 +1,23 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.function.Supplier;
-
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.Anakin;
-import seedu.address.model.AnakinModel;
-import seedu.address.model.AnakinModelManager;
-import seedu.address.model.AnakinReadOnlyAnakin;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.XmlSerializableAnakin;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.testutil.TestUtil;
-
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
  */
 public class TestApp extends MainApp {
 //
-//    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+//    public static final Path SAVE_LOCATION_FOR_TESTING = AddressbookTestUtil.getFilePathInSandboxFolder("sampleData.xml");
 //    public static final String APP_TITLE = "Test App";
 //
 //    protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-//            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-//    protected Supplier<AnakinReadOnlyAnakin> initialDataSupplier = () -> null;
+//            AddressbookTestUtil.getFilePathInSandboxFolder("pref_testing.json");
+//    protected Supplier<ReadOnlyAnakin> initialDataSupplier = () -> null;
 //    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 //
 //    public TestApp() {
 //    }
 //
-//    public TestApp(Supplier<AnakinReadOnlyAnakin> initialDataSupplier, Path saveFileLocation) {
+//    public TestApp(Supplier<ReadOnlyAnakin> initialDataSupplier, Path saveFileLocation) {
 //        super();
 //        this.initialDataSupplier = initialDataSupplier;
 //        this.saveFileLocation = saveFileLocation;
@@ -90,8 +70,8 @@ public class TestApp extends MainApp {
 //    /**
 //     * Returns a defensive copy of the model.
 //     */
-//    public AnakinModel getModel() {
-//        AnakinModel copy = new AnakinModelManager((model.getAnakin()), new UserPrefs());
+//    public Model getModel() {
+//        Model copy = new ModelManager((model.getAnakin()), new UserPrefs());
 //        ModelHelper.setFilteredDeckList(copy, model.getFilteredDeckList());
 //        ModelHelper.setFilteredCardList(copy, model.getFilteredCardList());
 //        return copy;

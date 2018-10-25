@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Anakin;
-import seedu.address.model.AnakinReadOnlyAnakin;
-import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.ReadOnlyAnakin;
+import seedu.address.model.anakindeck.Deck;
 
 /**
  * An Immutable Anakin that is serializable to XML format
@@ -34,7 +34,7 @@ public class XmlSerializableAnakin {
     /**
      * Conversion
      */
-    public XmlSerializableAnakin(AnakinReadOnlyAnakin src) {
+    public XmlSerializableAnakin(ReadOnlyAnakin src) {
         this();
         decks.addAll(src.getDeckList().stream().map(XmlAdaptedDeck::new).collect(Collectors.toList()));
     }
@@ -48,7 +48,7 @@ public class XmlSerializableAnakin {
     public Anakin toModelType() throws IllegalValueException {
         Anakin anakin = new Anakin();
         for (XmlAdaptedDeck d : decks) {
-            AnakinDeck deck = d.toModelType();
+            Deck deck = d.toModelType();
             if (anakin.hasDeck(deck)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_DECK);
             }

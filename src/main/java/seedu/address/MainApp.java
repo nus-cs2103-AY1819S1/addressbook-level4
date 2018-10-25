@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -18,20 +17,20 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.AnakinLogic;
-import seedu.address.logic.AnakinLogicManager;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.Anakin;
-import seedu.address.model.AnakinModel;
-import seedu.address.model.AnakinModelManager;
-import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.AnakinSampleDataUtil;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AnakinStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.XmlAnakinStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.XmlAnakinStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -47,8 +46,8 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Config config;
     protected UserPrefs userPrefs;
-    protected AnakinLogic logic;
-    protected AnakinModel model;
+    protected Logic logic;
+    protected Model model;
     protected Storage storage;
 
 
@@ -70,7 +69,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new AnakinLogicManager(model);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -78,19 +77,20 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s anakin and {@code userPrefs}. <br>
+     * Returns a {@code AddressbookModelManagerAddressbook} with the data
+     * from {@code storage}'s anakin and {@code userPrefs}. <br>
      * The data from the sample anakin will be used instead if {@code storage}'s anakin is not found,
      * or an empty anakin will be used instead if errors occur when reading {@code storage}'s anakin.
      */
-    private AnakinModel initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<AnakinReadOnlyAnakin> anakinOptional;
-        AnakinReadOnlyAnakin initialData;
+    private Model initModelManager(Storage anakinStorageSwap, UserPrefs userPrefs) {
+        Optional<ReadOnlyAnakin> anakinOptional;
+        ReadOnlyAnakin initialData;
         try {
-            anakinOptional = storage.readAnakin();
+            anakinOptional = anakinStorageSwap.readAnakin();
             if (!anakinOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Anakin");
             }
-            initialData = anakinOptional.orElseGet(AnakinSampleDataUtil::getSampleAnakin);
+            initialData = anakinOptional.orElseGet(SampleDataUtil::getSampleAnakin);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Anakin");
             initialData = new Anakin();
@@ -99,7 +99,7 @@ public class MainApp extends Application {
             initialData = new Anakin();
         }
 
-        return new AnakinModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

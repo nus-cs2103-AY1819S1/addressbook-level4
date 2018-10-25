@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedDeck.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.AnakinTypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
 
 import java.util.List;
 import java.util.stream.Collectors;

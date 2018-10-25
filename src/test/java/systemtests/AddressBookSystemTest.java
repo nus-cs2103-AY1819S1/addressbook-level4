@@ -39,8 +39,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.AddressbookModel;
+import seedu.address.testutil.AddressbookTypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return AddressbookTypicalPersons.getTypicalAddressBook();
     }
 
     /**
@@ -172,15 +172,15 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedAddressbookModel}
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+            AddressbookModel expectedAddressbookModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new AddressBook(expectedAddressbookModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedAddressbookModel.getFilteredPersonList());
     }
 
     /**
@@ -286,7 +286,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns a defensive copy of the current model.
      */
-    protected Model getModel() {
+    protected AddressbookModel getModel() {
         return testApp.getModel();
     }
 }

@@ -1,7 +1,12 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.anakincommands.AnakinEditDeckCommand.EditDeckDescriptor;
-import seedu.address.model.anakindeck.AnakinDeck;
+import java.util.List;
+
+import seedu.address.logic.anakincommands.EditDeckCommand.EditDeckDescriptor;
+import seedu.address.model.anakindeck.Card;
+import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.anakindeck.UniqueCardList;
+
 import seedu.address.model.anakindeck.Name;
 
 /**
@@ -20,11 +25,13 @@ public class EditDeckDescriptorBuilder {
     }
 
     /**
+
      * Returns an {@code EditDeckDescriptor} with fields containing {@code person}'s details
      */
-    public EditDeckDescriptorBuilder(AnakinDeck deck) {
+    public EditDeckDescriptorBuilder(Deck deck) {
         descriptor = new EditDeckDescriptor();
         descriptor.setName(deck.getName());
+
     }
 
     /**
@@ -32,6 +39,15 @@ public class EditDeckDescriptorBuilder {
      */
     public EditDeckDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Cards} of the {@code EditDeckDescriptor} that we are building.
+     */
+    public EditDeckDescriptorBuilder withCards(List<Card> cardlist) {
+        UniqueCardList uniqueCardList = new UniqueCardList();
+        uniqueCardList.setCards(cardlist);
         return this;
     }
 

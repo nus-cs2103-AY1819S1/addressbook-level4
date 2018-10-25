@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.address.model.util.AddressbookSampleDataUtil;
+import seedu.address.testutil.AddressbookTestUtil;
 
 public class SampleDataTest extends AddressBookSystemTest {
     /**
@@ -27,7 +27,7 @@ public class SampleDataTest extends AddressBookSystemTest {
      */
     @Override
     protected Path getDataFileLocation() {
-        Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        Path filePath = AddressbookTestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);
         return filePath;
     }
@@ -45,7 +45,7 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
+        Person[] expectedList = AddressbookSampleDataUtil.getSamplePersons();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }

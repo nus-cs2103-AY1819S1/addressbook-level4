@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.Anakin;
-import seedu.address.testutil.AnakinTypicalDecks;
+import seedu.address.testutil.TypicalDecks;
 
 public class XmlSerializableAnakinTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -28,7 +28,7 @@ public class XmlSerializableAnakinTest {
         XmlSerializableAnakin dataFromFile = XmlUtil.getDataFromFile(TYPICAL_DECKS_FILE,
                 XmlSerializableAnakin.class);
         Anakin anakinFromFile = dataFromFile.toModelType();
-        Anakin typicalDecksAnakin = AnakinTypicalDecks.getTypicalAnakin();
+        Anakin typicalDecksAnakin = TypicalDecks.getTypicalAnakin();
         assertEquals(anakinFromFile, typicalDecksAnakin);
     }
 

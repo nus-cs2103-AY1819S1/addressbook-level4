@@ -8,14 +8,14 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.AddressbookTestUtil;
 
 /**
  * Tests JSON Read and Write
  */
 public class JsonUtilTest {
 
-    private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
+    private static final Path SERIALIZATION_FILE = AddressbookTestUtil.getFilePathInSandboxFolder("serialize.json");
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
