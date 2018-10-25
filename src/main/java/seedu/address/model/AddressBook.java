@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.consultation.Consultation;
+import seedu.address.model.consultation.UniqueConsultationList;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
@@ -25,6 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueDoctorList doctors;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
+    private final UniqueConsultationList consultations;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -39,6 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors = new UniqueDoctorList();
         //@@author gingivitiss
         appointments = new UniqueAppointmentList();
+        consultations = new UniqueConsultationList();
     }
 
     public AddressBook() {}
@@ -115,6 +119,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         return appointments.clashes(appt);
     }
 
+    //@@author arsalanc-v2
+    /**
+     * Returns true if a consultation with the same identity as {@code consultation} exists in the address book.
+     */
+    public boolean hasConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return consultations.contains(consultation);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -139,6 +152,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addAppointment(Appointment appt) {
         appointments.add(appt);
+    }
+
+    //@@author arsalanc-v2
+    /**
+     * Adds a consultation to the address book.
+     * The consultation must not already exist in the address book.
+     */
+    public void add(Consultation consultation) {
+        consultations.add(consultation);
     }
 
     /**
@@ -172,6 +194,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updateAppointment(Appointment target, Appointment editedAppt) {
         requireNonNull(editedAppt);
         appointments.setAppointment(target, editedAppt);
+    }
+
+    //@@author arsalanc-v2
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code editedConsultation}.
+     * {@code target} must exist in the address book.
+     * The consultation identity of {@code editedConsultation} must not be the same as another existing consultation
+     * in the address book.
+     */
+    public void updateConsultation(Consultation target, Consultation editedConsultation) {
+        requireNonNull(editedConsultation);
+        consultations.setConsultation(target, editedConsultation);
     }
 
     /**
@@ -210,6 +244,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.cancelAppointment(key);
     }
 
+    //@@author arsalanc-v2
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeConsultation(Consultation key) {
+        consultations.remove(key);
+    }
     //========== Util methods ================================================================================
 
     @Override
@@ -236,6 +278,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
+    }
+
+    //@@author arsalanc-v2
+    public ObservableList<Consultation> getConsultationList() {
+        return consultations.asUnmodifiableObservableList();
     }
 
     @Override
