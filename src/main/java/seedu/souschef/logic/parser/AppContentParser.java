@@ -30,6 +30,8 @@ public class AppContentParser {
 
     /**
      * Parses user input into command for execution.
+     * Based on the context and command, the parser determines the specific model and storage to be modified or
+     * accessed.
      *
      * @param modelSet
      * @param userInput full user input string
@@ -47,39 +49,38 @@ public class AppContentParser {
 
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput, ui);
-        } else if (context.equals(Context.MEAL_PLANNER)) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
-            }
-            return new MealPlannerParser()
-                .parseCommand(modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals(Context.RECIPE)) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
-            }
+        }
+
+        switch (context) {
+        case RECIPE:
+            setFeatureStorage(storage, Context.RECIPE);
             if (userInput.matches("favourite(\\s|\\S)*")) {
                 return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                    modelSet.getMealPlannerModel(), userInput);
+                        modelSet.getMealPlannerModel(), userInput);
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
-                modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals(Context.INGREDIENT)) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
-            }
+                    modelSet.getMealPlannerModel(), userInput);
+        case INGREDIENT:
+            setFeatureStorage(storage, Context.INGREDIENT);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
-        } else if (context.equals(Context.HEALTH_PLAN)) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
-            }
+        case HEALTH_PLAN:
+            setFeatureStorage(storage, Context.HEALTH_PLAN);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
-        } else if (context.equals(Context.FAVOURITES)) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
-            }
+        case MEAL_PLANNER:
+            setFeatureStorage(storage, Context.MEAL_PLANNER);
+            return new MealPlannerParser()
+                    .parseCommand(modelSet.getMealPlannerModel(), userInput);
+        case FAVOURITES:
+            setFeatureStorage(storage, Context.FAVOURITES);
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
-        } else {
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    private void setFeatureStorage(Storage storage, Context context) {
+        if (storage.getListOfFeatureStorage().containsKey(context)) {
+            storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(context));
         }
     }
 
