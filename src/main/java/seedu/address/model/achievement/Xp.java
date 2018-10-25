@@ -31,15 +31,18 @@ public class Xp {
         this.xp = xp;
     }
 
-    public Integer getXp() {
-        return this.xp;
-    }
-
     /**
      * Returns true if a given integer is a valid xp.
      */
     public static boolean isValidXp(Integer test) {
         return test instanceof Integer && test >= 0;
+    }
+
+    /**
+     * @return the {@code Integer} value representing the Xp.
+     */
+    public Integer getXp() {
+        return this.xp;
     }
 
     @Override

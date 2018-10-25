@@ -1,10 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.function.Predicate;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
+import seedu.address.model.task.Task;
+
+
 
 /**
  * Lists all tasks in the task manager to the user.
@@ -15,11 +23,45 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists tasks. "
+            + "Parameters: "
+            + "[" + PREFIX_DUE_BEFORE + "DUE BEFORE " + "]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DUE_BEFORE + "today";
+
+    private final Predicate<Task> predicate;
+
+    /**
+     * Denotes the kind of filters List supports.
+     */
+    public enum ListFilter {
+            DUE_TODAY;
+    }
+
+    public ListCommand() {
+        this.predicate = PREDICATE_SHOW_ALL_TASKS;
+    }
+
+    public ListCommand(ListFilter listFilter) {
+        switch (listFilter) {
+        case DUE_TODAY:
+            this.predicate = new DueDateIsBeforeTodayPredicate();
+            break;
+
+        default:
+            this.predicate = PREDICATE_SHOW_ALL_TASKS;
+            break;
+        }
+    }
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.updateFilteredTaskList(this.predicate);
+        return model.getFilteredTaskList().size() == model.getTaskManager().getTaskList().size()
+                ? new CommandResult(MESSAGE_SUCCESS)
+                : new CommandResult(String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW,
+                    model.getFilteredTaskList().size()));
     }
 }

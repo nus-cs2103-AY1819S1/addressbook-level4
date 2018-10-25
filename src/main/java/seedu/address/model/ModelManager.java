@@ -43,6 +43,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public int getXpValue() {
+        return versionedTaskManager.getXpValue();
+    }
+
+    @Override
     public void resetData(ReadOnlyTaskManager newData) {
         versionedTaskManager.resetData(newData);
         indicateTaskManagerChanged();
@@ -92,8 +97,16 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, updatedTask);
 
         versionedTaskManager.updateTask(target, updatedTask);
-        //temporarily taking the xp of each task to be 50
-        versionedTaskManager.updateXp(50);
+
+        // Calculate difference between new task XP and old task XP
+        int oldXp = versionedTaskManager.appraiseTaskXp(target);
+        int newXp = versionedTaskManager.appraiseTaskXp(updatedTask);
+
+        int xpDiff = newXp - oldXp;
+
+        // Update with new XP difference
+        versionedTaskManager.updateXp(xpDiff);
+
         indicateTaskManagerChanged();
     }
 
@@ -156,6 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
     }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

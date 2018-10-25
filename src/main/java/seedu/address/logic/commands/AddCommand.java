@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_DUE_DATE + "PHONE "
+            + PREFIX_DUE_DATE + "DUE DATE "
             + PREFIX_PRIORITY_VALUE + "PRIORITY VALUE "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_LABEL + "LABEL]...\n"

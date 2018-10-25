@@ -41,7 +41,9 @@ Adds a task to the task manager.
 Format:
 
 `add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
-Date Format: yyyy-mm-dd or yyyy-mm-dd hhmm
+
+Date Format: `yyyy-mm-dd` or `yyyy-mm-dd hhmm`. A missing `hhmm` field will cause time to
+be interpreted as the start of the day, i.e `00:00`.
 
 On task creation, the task's `INDEX` is shown as such:
 ```
@@ -73,11 +75,55 @@ Format:
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
+#### Adding a dependency to a Task: `dependency`
+[%hardbreaks]
+Adds a dependency to a task dependant to the task dependee
+Format:
+`edit INDEX_DEPENDANT INDEX_DEPENDEE`
++Example:
+`dependency 1 2`
+-Example:
+`dependency 1`
+`dependency a b`
+
+#### Completing a Task: `complete`
+[%hardbreaks]
+Completes task(s) in the task manager
+Format: `complete INDEX` or `complete t/LABEL`
++Example:
+`complete 1`
+`complete l/urgent`
+-Example:
+`complete 1 l/urgent` (Behavior is not clear)
+
+_Note that completion via label is case-sensitive_
+
+* You can complete multiple tasks at once through the use of the format complete `l/LABEL`
+* Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
+condition:
+** Has at least one task which is labelled `x` and status is not "COMPLETED"
+
 #### Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
 
-+Example: `list`
+Format:
+`list [b/DUE_BEFORE]`, where DUE_BEFORE must be any of the following:
+
+ * `today`
+
+ * `week`
+
+ * `month`
+
++Example:
+`list`
+
++Example:
+`list b/today`
+
+-Example:
+`list b/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
 2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
@@ -106,6 +152,8 @@ Format: `find KEYWORD`
 ** `delete INDEX`
 
 ** `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
+
+** `complete INDEX` or `complete l/LABEL`
 
 ** `list`
 

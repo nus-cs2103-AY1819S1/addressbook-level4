@@ -101,6 +101,14 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Dependecy} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDependency(Task task) {
+        this.dependency = this.dependency.addDependency(task);
+        return this;
+    }
+
     public Task build() {
         return new Task(name, dueDate, priorityValue, description, labels, status, dependency);
     }

@@ -43,6 +43,10 @@ public class AchievementRecord {
         this.level = level;
     }
 
+    public int getXpValue() {
+        return xp.getXp();
+    }
+
     public Xp getXp() {
         return xp;
     }
@@ -91,11 +95,11 @@ public class AchievementRecord {
         if (xp < Level.LEVEL_1.getMaxXp()) {
             return Level.LEVEL_1;
         } else if (xp < Level.LEVEL_2.getMaxXp()) {
-            return level.LEVEL_2;
+            return Level.LEVEL_2;
         } else if (xp < Level.LEVEL_3.getMaxXp()) {
-            return level.LEVEL_3;
+            return Level.LEVEL_3;
         } else if (xp < Level.LEVEL_4.getMaxXp()) {
-            return level.LEVEL_4;
+            return Level.LEVEL_4;
         } else {
             return Level.LEVEL_5;
         }

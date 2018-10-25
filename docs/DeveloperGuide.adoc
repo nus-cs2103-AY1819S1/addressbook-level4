@@ -2,6 +2,7 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:imagesDir: images
 :repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
 
 ## Disclaimer
@@ -127,6 +128,29 @@ Use case resumes at step 1 in MSS.
 
 Use case resumes at step 1 in MSS.
 
+### Use case: Add dependency for task
+#### MSS
+. User requests to add a dependency between tasks
+. Application adds the task dependency
+
+Use case ends.
+
+#### Extensions
+* 1a. The additional task dependency creates a cyclic dependency
+** 1a1. Application shows an error message, rejects the additional task dependency
+
+Use case resumes at step 1 in MSS.
+
+* 1b. The user enters the add dependency command in a wrong format.
+** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+* 1c. The dependency already exists in the model
+** 1c1. Application shows an error message, rejects the additional task dependency
+
+Use case resumes at step 1 in MSS.
+
 ### Use case: Delete task
 #### MSS
 . User requests to delete a task with a particular index
@@ -184,12 +208,28 @@ Use case ends.
 
 Use case ends.
 
-### Use case: Completing Task
+### Use case: Completing Task (Single)
 #### MSS
-. User marks tasks as complete.
+. User marks task as complete.
 . Application reports both points earned and current points to user.
 
 #### Extensions
+* 1a. An error occurs, causes one of the task to not be completed
+** 1a1. Application displays error message, no points are earned either.
+
+* 2a. User earns enough points to level up
+** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+
+### Use case: Completing Task (Batch via `Label`)
+#### MSS
+. User marks a batch of tasks with the same specified `Label` as complete.
+. Application reports both points earned and current points to user.
+
+#### Extensions
+* 1a. An error occurs, causes one of the tasks to not be able to be completed
+** 1a1. Application displays an error message, resetting the batch of tasks to their
+pre-completed state and no points are earned.
+
 * 2a. User earns enough points to level up
 ** 2a1. Application displays a congratulatory message, current points, and points earned to user.
 
@@ -212,6 +252,7 @@ Use case ends.
 #### Extensions
 * 2a. User loses enough points that it level down.
     * 2a1. Application displays a warning message, current points, and points lost to user.
+
 Use case ends.
 
 ## Non-functional requirements
@@ -330,12 +371,257 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-### 3.1. Undo/Redo feature
-#### 3.1.1. Current Implementation
-Look at https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation
-Its really good
+### 3.1. Achievement mechanism
 
-### 3.3. Logging
+#### 3.1.1. Structural Overview
+The achievement mechanism is facilitated by `AchievementRecord`. TaskManager is now composed of a `UniqueTaskList` as
+well as an `AchievementRecord`. It stores the achievement information of the user internally with an `Xp` field and a
+`Level` field. +
+ +
+When the task manager application runs for the first time, it is initialized at 0 xp and level 1, xp and level
+information in `AchievementRecord` are updated subsequently when tasks are completed. +
+ +
+The storage of the `AchievementRecord` is facilitated by `XmlAdaptedAchievementRecord` which is saved together with
+the list of `XmlAdaptedTask` in the `SerializableTaskManager`. +
+ +
+Integration of AchievementRecord in Model component:
+
+image::AchievementModel.png[width="1200"]
+
+
+#### 3.1.2. Basic Mechanism
+An `updateTaskStatus` method is implemented in `ModelManager` and exposed in the `Model` interface, this method is
+called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
+along with that, the `AchievementRecord` is also updated with higher Xp. `AchievementRecord` implements the operations
+`updateXp`, `getMatchingLevel` and `updateLevelWithXp` to update xp, recalculate the level corresponding to the
+new Xp value and update level information. +
+ +
+Sequence diagram of the achievement mechanism:
+
+image::AchievementSequence1.png[width="1200"]
+
+image::AchievementSequence2.png[width="1200"]
+
+Activity diagram of updating of xp and level:
+
+image::AchievementActivity.png[width="1200"]
+
+
+#### 3.1.3. Event-driven Interaction with other components
+
+The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
+When a task is marked as complete, both the `UniqueTaskList` and the `AchievementRecord` of the task manager is updated
+to reflect the new status of the task and the new xp and level information. A `TaskManagerChangedEvent` is then posted
+to `EventsCenter` and handled by both Storage and UI components to save the changes and feedback to user. +
+ +
+On top of the `TaskManagerChangedEvent`, an `AchievementLevelChangedEvent` would be posted by the Model component as
+well, if the user levels up with the newly added xp. This event will be handled by UI component to display a
+congratulatory message to user. (to be implemented in v1.3)
+
+#### 3.1.4. Design Considerations
+
+Aspect: Associations Among `TaskManager`,`UniqueTaskList` and `AchievementRecord` +
+
+* Alternative 1 (current choice): Integrate `AchievementRecord` into `TaskManager` as an additional field besides the
+existing `UniqueTaskList`.
+    ** Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+    we can update both the `UniqueTaskList` and `AchievementRecord` then save the `TaskManager` only once. Undo/redo
+    commands that revert the status tasks would revert the xp and level as well, matching between task status and
+    corresponding achievements is guaranteed.
+    ** Cons: `TaskManager` now has another reason of change, breaks Single Responsibility Principle.
+
+* Alternative 2: Implement `AchievementRecord` as another component outside of `TaskManager` and let them communicate
+with events.
+    ** Pros: Follows Single Responsibility Principle. `TaskManager` handles only task operations, achievement
+     information is handled by `AchievementRecord` independently.
+     ** Cons: Logic is duplicated twice. For example, we would need to implement a `VersionedAchievementRecord` besides
+     the current `VersionedTaskManager` to support undo/redo. A lot of overhead will result from the communication
+     between `TaskManager` and `AchievementRecord` as well.
+
+### 3.2. Batch Completion via Label feature
+#### 3.2.1. Current Implementation
+
+The batch completion mechanism is facilitated by `CompleteCommand`.
+It extends `Command` and encapsulates the internal logic of finding task and completing multiple
+tasks atomically.
+
+Additionally, in order to facilitate the finding of task and completing tasks atomically, the
+following auxiliary classes have been created / extended as a result:
+
+* `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
+** This class is required to encapsulate the logic of determining if a task has a `Label` matching
+the desired `Label`.
+
+*Updated*
+
+* `Model` -- Extends with a rollback() method
+* `ModelManager` -- Extends with a rollback() method
+* `VersionedTaskManager` -- Implements a rollback() method
+* `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
+commands
+
+These are the methods in the CompleteCommand class supporting the batch completion:
+
+* `#completeAllTasksReturnStringOfTasks(Model)`
+* `#completeOneTaskReturnStringOfTasks(Task, Model)`
+
+[NOTE]
+The `CompleteCommand` class has two overloaded constructors, one taking in a
+`Task<Predicate>` and another taking in an `Index` to support polymorphic behavior for both a
+single operation and batch operation.
+These operations are exposed in the `CompleteCommand` class via `CompleteCommand#execute(...)`.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+_Premise: The application has several tasks tagger with the `Label::many`._
+
+Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
+
+Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
+if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
+result a new `CompleteCommand` instance containing a  `LabelMatchesKeywordPredicate` which
+will only test true against a `Task` containing a `Label::many`.
+
+Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
+created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
+called which handles the logic for updating all valid completable tasks matching the predicate.
+
+image::CompleteViaLabelOnFail.png[width="1200"]
+
+[NOTE]
+If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
+all current changes will be reset to the latest commit / state in `taskManagerStateList`.
+
+image::CompleteViaLabelOnSuccess.png[width="1200"]
+
+Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
+
+Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it's status to `COMPLETED`
+
+#### 3.2.2. Design Considerations
+
+##### 3.2.2.1. Aspect: Implementation of atomicity
+
+* **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
+otherwise `Model#commit()`
+** Pros: This implementation defensively codes for scenarios where exceptions are thrown, thus
+ensuring that no half-done batch operation may left.
+** Cons: Increases coupling of components.
+* **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
+commit if deemed that all tasks can be completed successfully else throw an exception.
+** Pros: Reduces coupling.
+** Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
+batch operation.
+
+##### 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
+
+* **Alternative 1 (current choice):** Overloading the constructors and implement the logic for
+both behaviours within.
+** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
+coupling.
+** Cons: Possibly goes against the Seperations of Concerns principle.
+* **Alternative 2 (possible enhancement):** Implementing `CompleteCommand` as a interface and
+creating two separate
+classes for each of the behaviours.
+** Pros: Clear separation of concern.
+** Cons: Harder to design properly.
+
+##### 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
+
+* **Alternative 1 (current choice):** As an explicit implemented class
+`LabelMatchesKeywordPredicate`.
+** Pros: Notion of equality can be overload, making testing for equality in every class composing
+ the class able to check for structural equality.
+** Cons: Creation of an extra class requires more understanding by developers to pick up the
+quirks as opposed to commonly recognised _Alternative 2_
+* **Alternative 2:** Declaration of predicate as an anonymous function
+** Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
+ Abstract Methods.
+** Cons: Inability to properly check for equality.
+
+### 3.3. Model Rollback feature
+#### 3.3.1. Current Implementation
+
+Allows for any uncommitted changes to be discarded.
+
+* `Model` -- Extends with a `rollback()` method
+* `ModelManager` -- Extends with a `rollback()` method
+* `VersionedTaskManager` -- Implements a `rollback()` method
+
+When `VersionedTaskManager#Rollback()` is called, the current data is reset to the state of the
+latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to reset the data to
+the latest commit, also the `currentStatePointer` is set to point at the index of the latest
+commit in `taskManagerStateList`.
+
+
+### 3.4. Dependency Feature Modelling
+#### 3.4.1. Current Implementation
+The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+a hashset that contains the hashcode of the object that the task is dependent upon.
+
+#### 3.4.2 Design Considerations
+##### Aspect: Modelling of the embedded dependency object.
+
+* ** Alternative 1(current choice):** Add a new string of the hashcode into the hashset.
+** Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
+Easy to reform the dependency graph.
+** Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+finding details of the dependee task given its hashcode.
+
+* ** Alternative 2: **Add (a reference to) the dependant Task object into the hashset.
+** Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+to rather than recreated every time a topological sort or a cyclical check is needed.
+** Cons: Introduces unnecessary complications.
+*** When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.
+*** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
+i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
+other tasks that depends on A has to be recreated.
+
+image::DependencyCommandSequenceDiagram.png[width="1200"]
+
+
+### 3.5 Modelling Dependency Validity
+#### 3.5.1 Current Implementation
+The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic and topological sort.
+
+#### 3.5.2 Design Considerations
+##### Aspect: Real-time graph or graph instantiated on function call.
+* **Alternative 1(current choice):** Graph is only instantiated when needed.
+** Pros: Graph does not have to be updated or maintained.
+** Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won't
+have an extremely large amount of tasks.
+* ** Alternative 2:** Graph created on start-up and maintained during run-time.
+*** Pros: Slightly faster speed for dependency related commands.
+*** Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time
+
+##### Aspect: Task dependency modelled as a graph
+* **Alternative 1(current choice):** Using a graph.
+** Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
+depend on each other.
+A topological sort can also be performed on the graph to order tasks by the number of dependencies.
+** Cons: nil
+
+
+### 3.6 Handling Date
+Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
+`Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
+date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
+accurate to the minute.
+
+### 3.7 List
+
+The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
+The date filters are dependent on the due date of the task, and the current date.
+
+The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
+depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
+This predicate is passed as an argument to update filtered Tasks.
+
+### 3.8. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -354,7 +640,7 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### 3.4. Configuration
+### 3.9. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
 ## 4. Documentation

@@ -110,6 +110,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public int getXpValue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyTaskManager getTaskManager() {
             throw new AssertionError("This method should not be called.");
         }

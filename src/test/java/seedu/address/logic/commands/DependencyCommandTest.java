@@ -32,14 +32,20 @@ public class DependencyCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-
+        //Adding a task dependency
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
-        String expectedMessage = String.format(DependencyCommand.MESSAGE_SUCCESS, newTask);
-        ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependantTask, newTask);
-        expectedModel.commitTaskManager();
-        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModel);
+        String expectedMessageAdd = String.format(DependencyCommand.MESSAGE_ADD_SUCCESS, newTask, dependeeTask);
+        ModelManager expectedModelAdd = new ModelManager(model.getTaskManager(), new UserPrefs());
+        expectedModelAdd.updateTask(dependantTask, newTask);
+        expectedModelAdd.commitTaskManager();
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageAdd, expectedModelAdd);
+        //Remove a task dependency
+        ModelManager expectedModelRemove = expectedModelAdd;
+        expectedModelRemove.updateTask(newTask, dependantTask);
+        expectedModelRemove.commitTaskManager();
+        String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask, dependeeTask);
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
     }
 
     @Test
@@ -50,20 +56,40 @@ public class DependencyCommandTest {
     }
 
     @Test
+    public void execute_containsCyclicDependencyUnfilteredList_throwsCommandException() {
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task newDependeeTask = DependencyCommand.createDependantTask(dependeeTask, dependantTask);
+
+        model.updateTask(dependeeTask, newDependeeTask);
+
+        DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        assertCommandFailure(dependencyCommand, model, commandHistory, DependencyCommand.MESSAGE_CYCLIC_DEPENDENCY);
+    }
+
+    @Test
     public void execute_validIndexFilteredList_success() {
         showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 
         Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-
+        //Add task dependency
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
-        String expectedMessage = String.format(DependencyCommand.MESSAGE_SUCCESS, newTask);
-        ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependantTask, newTask);
-        expectedModel.commitTaskManager();
+        String expectedMessage = String.format(DependencyCommand.MESSAGE_ADD_SUCCESS, newTask, dependeeTask);
+        ModelManager expectedModelAdd = new ModelManager(model.getTaskManager(), new UserPrefs());
+        expectedModelAdd.updateTask(dependantTask, newTask);
+        expectedModelAdd.commitTaskManager();
 
-        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModelAdd);
+
+        //Remove a task dependency
+        ModelManager expectedModelRemove = expectedModelAdd;
+        expectedModelRemove.updateTask(newTask, dependantTask);
+        expectedModelRemove.commitTaskManager();
+        String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask, dependeeTask);
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
     }
 
     @Test
@@ -83,18 +109,35 @@ public class DependencyCommandTest {
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
 
-        Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependantTask, newTask);
-        expectedModel.commitTaskManager();
+        ModelManager expectedModelAdd = new ModelManager(model.getTaskManager(), new UserPrefs());
+        expectedModelAdd.updateTask(dependantTask, newTask);
+        expectedModelAdd.commitTaskManager();
         // add dependency
         dependencyCommand.execute(model, commandHistory);
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks
-        expectedModel.undoTaskManager();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-        // redo -> same first task deleted again
-        expectedModel.redoTaskManager();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModelAdd.undoTaskManager();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelAdd);
+        // redo -> same first task added
+        expectedModelAdd.redoTaskManager();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelAdd);
+
+        //Remove a task dependency
+        ModelManager expectedModelRemove = expectedModelAdd;
+        expectedModelRemove.updateTask(newTask, dependantTask);
+        expectedModelRemove.commitTaskManager();
+        String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask, dependeeTask);
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
+
+        // undo -> reverts task manager back to previous state and filtered task list to show all
+        // tasks
+        expectedModelRemove.undoTaskManager();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelRemove);
+        // redo -> same first task dependency deleted again
+        expectedModelAdd.redoTaskManager();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelRemove);
     }
 
     @Test

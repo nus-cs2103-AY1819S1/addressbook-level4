@@ -27,6 +27,11 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /**
+     * Returns the current amount of Xp that the user has.
+     */
+    int getXpValue();
+
+    /**
      * Returns true if a task with the same identity as {@code task} exists in the task manager.
      */
     boolean hasTask(Task task);
