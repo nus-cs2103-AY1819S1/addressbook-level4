@@ -74,7 +74,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        //default username in the add command: equal to name
+        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).withUsername(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
         assertCommandSuccess(command, toAdd);
