@@ -60,8 +60,6 @@ public class StorageManager extends ComponentManager implements Storage {
 
     public StorageManager () {
         this.listOfFeatureStorage = new ArrayList<>();
-
-
     }
 
     // ================ UserPrefs methods ==============================
