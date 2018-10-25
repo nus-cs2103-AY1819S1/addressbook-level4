@@ -3,12 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,7 +25,6 @@ import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
-import seedu.address.commons.events.model.ImportAddressBookEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -197,9 +193,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author kengwoon
     @Override
     public void addMultiplePersons(List<Person> personList) {
-        for (Person p : personList) {
-            addPerson(p);
-        }
+        versionedAddressBook.addMultiplePersons(personList);
         indicateAddressBookChanged();
     }
 
