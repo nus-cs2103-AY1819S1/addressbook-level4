@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.project.Assignment;
+import seedu.address.model.project.UniqueAssignmentList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueAssignmentList assignments;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        assignments = new UniqueAssignmentList();
     }
 
     public AddressBook() {}
@@ -116,5 +120,48 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    //// project-level operations
+
+    /**
+     * Returns true if a assignment with the same identity as {@code assignment} exists in the address book.
+     */
+    public boolean hasProject(Assignment assignment) {
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
+    }
+
+    /**
+     * Adds an assignment to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addProject(Assignment p) {
+        assignments.add(p);
+    }
+
+    /**
+     * Replaces the given assignment {@code target} in the list with {@code editedAssignment}.
+     * {@code target} must exist in the address book.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment
+     * in the address book.
+     */
+    public void updateProject(Assignment target, Assignment editedAssignment) {
+        requireNonNull(editedAssignment);
+
+        assignments.setAssignment(target, editedAssignment);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeProject(Assignment key) {
+        assignments.remove(key);
+    }
+
+    @Override
+    public ObservableList<Assignment> getAssignmentList() {
+        return assignments.asUnmodifiableObservableList();
     }
 }
