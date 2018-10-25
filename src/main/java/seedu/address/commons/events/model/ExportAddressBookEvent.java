@@ -21,7 +21,9 @@ public class ExportAddressBookEvent extends BaseEvent {
 
     public Path getPath() { return this.path; }
 
-    public ReadOnlyAddressBook getAddressBook() { return this.addressBook; }
+    public ReadOnlyAddressBook getAddressBook() {
+        return this.addressBook;
+    }
 
     @Override
     public String toString() {

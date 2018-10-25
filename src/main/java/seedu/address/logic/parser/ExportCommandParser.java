@@ -26,8 +26,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESTINATION, PREFIX_FILENAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESTINATION, PREFIX_FILENAME) ||
-                !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESTINATION, PREFIX_FILENAME)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
