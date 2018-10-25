@@ -89,7 +89,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        //Set check to default password in generation
+        assertCommandSuccess(new PersonBuilder(ALICE).withPassword("Pa55w0rd").build());
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
