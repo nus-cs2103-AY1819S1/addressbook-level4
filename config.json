@@ -1,5 +1,5 @@
 {
   "appTitle" : "LearnVocabulary App ",
   "logLevel" : "INFO",
-  "userPrefsFilePath" : "preferences.json"
+  "userPrefsFilePath" : "preferences.json",
 }
