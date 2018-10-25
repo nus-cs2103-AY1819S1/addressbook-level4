@@ -59,10 +59,10 @@ public class AppContentParser {
             }
             if (userInput.matches("favourite(\\s|\\S)*")) {
                 return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                    modelSet.getMealPlannerModel(), userInput);
+                    modelSet.getMealPlannerModel(), storage, userInput);
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
-                modelSet.getMealPlannerModel(), userInput);
+                modelSet.getMealPlannerModel(), storage, userInput);
         } else if (context.equals("Ingredient")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));

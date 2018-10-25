@@ -23,6 +23,7 @@ import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.storage.Storage;
 
 /**
  * Parses user input.
@@ -42,7 +43,7 @@ public class RecipeParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command<Recipe> parseCommand(Model recipeModel,
-        Model mealPlannerModel, String userInput) throws ParseException {
+        Model mealPlannerModel, Storage storage, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -71,6 +72,9 @@ public class RecipeParser {
             return new ListCommand<Recipe>(recipeModel);
 
         case PlanMealCommand.COMMAND_WORD:
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
+            }
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, args);
 
         default:
