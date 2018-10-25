@@ -112,10 +112,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String project} into a {@code Project}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code project} is invalid.
      */
     public static Project parseProject(String project) throws ParseException {
         requireNonNull(project);
@@ -127,7 +127,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> projects} into a {@code Set<Project>}.
      */
     public static Set<Project> parseProjects(Collection<String> projects) throws ParseException {
         requireNonNull(projects);
