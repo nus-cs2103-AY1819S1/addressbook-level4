@@ -233,7 +233,7 @@ Assigns the 1st patient in the displayed list of patients whose names contain *L
 === Show all patients in the queue : `showqueue`
 
 Lists all patients in the queue.
-Format: `showqueue`
+Format: `showqueue` +
 
 Example:
 
@@ -244,11 +244,14 @@ Example:
 Pulls out the patient based on the index number used in the displayed patient list.
 
 Examples:
+
 * `dequeuepatient 9` +
 Removes the 9th patient in the ClinicIO record from the queue.
 
 The command can also be used in combination with other commands such as `list` and `find`.
+
 Examples:
+
 * `list` +
 `dequeuepatient 3` +
 Removes the 3rd patient in the displayed list of patients from the queue.
