@@ -54,7 +54,8 @@ public class DeleteCommand extends Command {
         model.deleteEvent(eventToDelete);
         model.commitScheduler();
         Calendar service = connectToGoogleCalendar.getCalendar();
-        String gEventId = String.valueOf(eventToDelete.getUuid()).replaceAll("-","");
+        String gEventId = String.valueOf(eventToDelete.getUuid())
+                                                      .replaceAll("-", "");
         try {
             service.events().delete("primary", gEventId).execute();
         } catch (IOException e) {
