@@ -497,6 +497,8 @@ Given below is an scenario to illustrate the login authentication at each step: 
 
 The following sequence diagram shows how the login authentication works:
 
+image::LoginSequenceDiagram.png[width="1080"]
+
 ==== Design Considerations
 
 ===== Aspect: Retrieval of password
