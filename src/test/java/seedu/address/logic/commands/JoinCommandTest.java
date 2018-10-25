@@ -17,9 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -111,8 +108,8 @@ public class JoinCommandTest {
         assertTrue(joinCommand1.equals(joinCommand1));
 
         // same values -> returns true
-        JoinCommand JoinCommand1Copy = new JoinCommand(hardy, network);
-        assertTrue(JoinCommand1Copy.equals(joinCommand1));
+        JoinCommand JoinCommandCopy = new JoinCommand(hardy, network);
+        assertTrue(JoinCommandCopy.equals(joinCommand1));
 
         // different types -> returns false
         assertFalse(joinCommand1.equals(2));

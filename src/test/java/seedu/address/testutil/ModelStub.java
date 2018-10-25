@@ -11,7 +11,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.shared.Title;
-import seedu.address.model.tag.Tag;
 
 
 
