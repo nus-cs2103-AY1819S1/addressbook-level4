@@ -35,7 +35,7 @@ public class XmlArchiveListStorage implements ArchiveListStorage {
 
   @Override
   public Optional<ReadOnlyArchiveList> readArchiveList() throws DataConversionException, IOException {
-    return readAddressBook(filePath);
+    return readArchiveList(filePath);
   }
 
   /**
@@ -52,7 +52,7 @@ public class XmlArchiveListStorage implements ArchiveListStorage {
       return Optional.empty();
     }
 
-    XmlSerializableAddressBook xmlArchiveList = XmlFileStorage.loadDataFromSaveFile(filePath);
+    XmlSerializableArchiveList xmlArchiveList = XmlFileStorage.loadArchiveDataFromSaveFile(filePath);
     try {
       return Optional.of(xmlArchiveList.toModelType());
     } catch (IllegalValueException ive) {
@@ -67,7 +67,7 @@ public class XmlArchiveListStorage implements ArchiveListStorage {
   }
 
   /**
-   * Similar to {@link #saveArchiveList(ReadOnlyAddressBook)}
+   * Similar to {@link #saveArchiveList(ReadOnlyArchiveList)}
    * @param filePath location of the data. Cannot be null
    */
   public void saveArchiveList(ReadOnlyArchiveList archiveList, Path filePath) throws IOException {
@@ -75,7 +75,7 @@ public class XmlArchiveListStorage implements ArchiveListStorage {
     requireNonNull(filePath);
 
     FileUtil.createIfMissing(filePath);
-    XmlFileStorage.saveDataToFile(filePath, new XmlSerializableArchiveList(archiveList));
+    XmlFileStorage.saveArchiveListDataToFile(filePath, new XmlSerializableArchiveList(archiveList));
   }
 
 }

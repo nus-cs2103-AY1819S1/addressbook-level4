@@ -82,6 +82,22 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public Path getArchiveListFilePath() {
+        return archiveListStorage.getArchiveListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyArchiveList> readArchiveList() throws DataConversionException, IOException {
+        return readArchiveList(archiveListStorage.getArchiveListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyArchiveList> readArchiveList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return archiveListStorage.readArchiveList(filePath);
+    }
+
+    @Override
     public void saveArchiveList(ReadOnlyArchiveList archiveList) throws IOException {
         saveArchiveList(archiveList, archiveListStorage.getArchiveListFilePath());
     }
