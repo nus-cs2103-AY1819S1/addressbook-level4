@@ -13,14 +13,21 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Selects a person identified using it's displayed index from the address book.
  */
 public class SelectCommand extends Command {
+
+    /**
+     * Available select command types
+     */
+    public enum SelectCommandType {
+        GROUP, PERSON, MEETING
+    }
 
     public static final String COMMAND_WORD = "select";
 
@@ -32,13 +39,10 @@ public class SelectCommand extends Command {
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
     public static final String MESSAGE_SELECT_GROUP_SUCCESS = "Selected Group: %1$s";
 
-    public static final int SELECT_TYPE_GROUP = 0;
-    public static final int SELECT_TYPE_PERSON = 1;
-
     private final Index targetIndex;
-    private final int selectType;
+    private final SelectCommandType selectType;
 
-    public SelectCommand(Index targetIndex, int selectType) {
+    public SelectCommand(Index targetIndex, SelectCommandType selectType) {
         this.targetIndex = targetIndex;
         this.selectType = selectType;
     }
@@ -47,16 +51,16 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (selectType == SELECT_TYPE_GROUP) {
-            List<Tag> filteredGroupList = model.getFilteredGroupList();
+        if (selectType == SelectCommandType.GROUP) {
+            List<Group> filteredGroupList = model.getFilteredGroupList();
 
             if (targetIndex.getZeroBased() >= filteredGroupList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
             }
 
             EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
-            Tag group = filteredGroupList.get(targetIndex.getZeroBased());
-            final String[] keywords = { group.tagName };
+            Group group = filteredGroupList.get(targetIndex.getZeroBased());
+            final String[] keywords = { group.getTitle().fullTitle };
             model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
         } else {

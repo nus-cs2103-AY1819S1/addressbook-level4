@@ -24,6 +24,7 @@ import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 
+
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -32,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Tag> filteredGroupTags;
+    private final FilteredList<Group> filteredGroups;
     private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
@@ -47,7 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
+        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
@@ -115,12 +116,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void addGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void removeGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.removeGroup(group);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -179,14 +182,14 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Group List Accessors =============================================================
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
-        return FXCollections.unmodifiableObservableList(filteredGroupTags);
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         requireNonNull(predicate);
-        filteredGroupTags.setPredicate(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 
     //=========== Sorted Person List Accessors ==============================================================

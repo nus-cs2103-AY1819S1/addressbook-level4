@@ -14,6 +14,7 @@ import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 
 
+
 /**
  * A default model stub that have all of the methods failing.
  */
@@ -99,7 +100,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
+    public ObservableList<Group> getFilteredGroupList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -109,7 +110,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -33,13 +33,13 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         try {
             Optional<String> option = argMultimap.getValue(PREFIX_GROUPTAG);
             String indexString;
-            int selectOption;
+            SelectCommand.SelectCommandType selectOption;
             if (option.isPresent()) {
                 indexString = option.get();
-                selectOption = SelectCommand.SELECT_TYPE_GROUP;
+                selectOption = SelectCommand.SelectCommandType.GROUP;
             } else {
                 indexString = argMultimap.getValue(PREFIX_PERSON).get();
-                selectOption = SelectCommand.SELECT_TYPE_PERSON;
+                selectOption = SelectCommand.SelectCommandType.PERSON;
             }
             Index index = ParserUtil.parseIndex(indexString);
             return new SelectCommand(index, selectOption);

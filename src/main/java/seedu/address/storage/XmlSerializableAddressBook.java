@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,12 +24,16 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
 
+    @XmlElement
+    private List<XmlAdaptedGroup> groups;
+
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        groups = new ArrayList<>();
     }
 
     /**
@@ -37,6 +42,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        groups.addAll(src.getGroupList().stream().map(XmlAdaptedGroup::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +59,14 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (XmlAdaptedGroup g : groups) {
+            Group group = g.toModelType();
+            if (addressBook.hasGroup(group)) {
+                // TODO throw duplicate group exception?
+                continue;
+            }
+            addressBook.addGroup(group);
         }
         return addressBook;
     }
