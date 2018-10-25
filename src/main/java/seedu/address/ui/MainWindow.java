@@ -128,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         
-        achievementPanel = new AchievementPanel();
+        achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());

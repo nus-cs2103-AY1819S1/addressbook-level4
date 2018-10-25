@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
 
 /**
@@ -56,6 +58,11 @@ public interface Model {
      */
     void updateTaskStatus(Task target, Task updatedTask);
 
+    /**
+     * Returns a property wrapper of the {@code AchievementRecord} whose changes can be monitored.
+     */
+    SimpleObjectProperty<AchievementRecord> getAchievementRecord();
+    
     /**
      * Returns an unmodifiable view of the filtered task list
      */

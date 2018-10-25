@@ -6,12 +6,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
 
 /**
@@ -93,6 +95,14 @@ public class ModelManager extends ComponentManager implements Model {
         //temporarily taking the xp of each task to be 50
         versionedTaskManager.updateXp(50);
         indicateTaskManagerChanged();
+    }
+
+    /**
+     * Returns a property wrapper of the {@code AchievementRecord} whose changes can be monitored.
+     */
+    @Override
+    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
+        return versionedTaskManager.getAchievementRecord();
     }
 
     //=========== Filtered Task List Accessors =============================================================
