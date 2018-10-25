@@ -78,6 +78,14 @@ public class InsertCommand extends QueueCommand {
         return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
                 + " with Queue Number: " + actualPosition + "\n" + patientQueue.displayQueue());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof InsertCommand // instanceof handles nulls
+                && targetIndex.equals(((InsertCommand) other).targetIndex)
+                && targetPosition.equals(((InsertCommand) other).targetPosition));
+    }
 }
 
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandSuccess;
