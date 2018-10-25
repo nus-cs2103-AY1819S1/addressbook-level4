@@ -14,7 +14,6 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.Model;
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
