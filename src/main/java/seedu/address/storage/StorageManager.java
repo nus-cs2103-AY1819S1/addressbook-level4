@@ -7,27 +7,27 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.AddressbookComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of Anakin data in local storage.
+ * Manages anakinStorage of Anakin data in local anakinStorage.
  */
-public class StorageManager extends ComponentManager implements Storage {
+public class StorageManager extends AddressbookComponentManager implements AnakinStorage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AnakinStorage anakinStorage;
+    private Storage storage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AnakinStorage anakinStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(Storage storage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.anakinStorage = anakinStorage;
+        this.storage = storage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -53,29 +53,29 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Path getAnakinFilePath() {
-        return anakinStorage.getAnakinFilePath();
+        return storage.getAnakinFilePath();
     }
 
     @Override
-    public Optional<AnakinReadOnlyAnakin> readAnakin() throws DataConversionException, IOException {
-        return readAnakin(anakinStorage.getAnakinFilePath());
+    public Optional<ReadOnlyAnakin> readAnakin() throws DataConversionException, IOException {
+        return readAnakin(storage.getAnakinFilePath());
     }
 
     @Override
-    public Optional<AnakinReadOnlyAnakin> readAnakin(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAnakin> readAnakin(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return anakinStorage.readAnakin(filePath);
+        return storage.readAnakin(filePath);
     }
 
     @Override
-    public void saveAnakin(AnakinReadOnlyAnakin anakin) throws IOException {
-        saveAnakin(anakin, anakinStorage.getAnakinFilePath());
+    public void saveAnakin(ReadOnlyAnakin anakin) throws IOException {
+        saveAnakin(anakin, storage.getAnakinFilePath());
     }
 
     @Override
-    public void saveAnakin(AnakinReadOnlyAnakin anakin, Path filePath) throws IOException {
+    public void saveAnakin(ReadOnlyAnakin anakin, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        anakinStorage.saveAnakin(anakin, filePath);
+        storage.saveAnakin(anakin, filePath);
     }
 
 

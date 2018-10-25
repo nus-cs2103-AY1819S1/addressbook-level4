@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
-import seedu.address.ui.UiManager;
+import seedu.address.ui.UiManagerAddressbook;
 
 /**
  * A handle for the {@code AlertDialog} of the UI.
@@ -13,7 +13,7 @@ public class AlertDialogHandle extends StageHandle {
     public AlertDialogHandle(Stage stage) {
         super(stage);
 
-        dialogPane = getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        dialogPane = getChildNode("#" + UiManagerAddressbook.ALERT_DIALOG_PANE_FIELD_ID);
     }
 
     /**

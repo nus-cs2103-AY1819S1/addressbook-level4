@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.AnakinTypicalDecks.getTypicalAnakin;
+import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.Anakin;
-import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -31,7 +31,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAnakinStorage anakinStorage = new XmlAnakinStorage(getTempFilePath("ab"));
+        XmlStorage anakinStorage = new XmlStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(anakinStorage, userPrefsStorage);
     }
@@ -46,7 +46,7 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonUserPrefsStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsAnakinStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
@@ -59,12 +59,12 @@ public class StorageManagerTest {
     public void anakinReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAnakinStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAnakinStorage} class.
+         * {@link XmlStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlStorage} class.
          */
         Anakin original = getTypicalAnakin();
         storageManager.saveAnakin(original);
-        AnakinReadOnlyAnakin retrieved = storageManager.readAnakin().get();
+        ReadOnlyAnakin retrieved = storageManager.readAnakin().get();
         assertEquals(original, new Anakin(retrieved));
     }
 
@@ -76,10 +76,10 @@ public class StorageManagerTest {
     @Test
     public void handleAnakinChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAnakinStorageExceptionThrowingStub(Paths.get
+        AnakinStorage anakinStorage = new StorageManager(new XmlStorageExceptionThrowingStub(Paths.get
                 ("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
+        anakinStorage.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -87,14 +87,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAnakinStorageExceptionThrowingStub extends XmlAnakinStorage {
+    class XmlStorageExceptionThrowingStub extends XmlStorage {
 
-        public XmlAnakinStorageExceptionThrowingStub(Path filePath) {
+        public XmlStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAnakin(AnakinReadOnlyAnakin anakin, Path filePath) throws IOException {
+        public void saveAnakin(ReadOnlyAnakin anakin, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

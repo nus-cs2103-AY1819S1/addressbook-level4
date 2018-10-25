@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.AddressbookModel;
 import seedu.address.model.person.Person;
 
 /**
@@ -48,15 +48,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(AddressbookModel addressbookModel, CommandHistory history) throws CommandException {
+        requireNonNull(addressbookModel);
 
-        if (model.hasPerson(toAdd)) {
+        if (addressbookModel.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        model.commitAddressBook();
+        addressbookModel.addPerson(toAdd);
+        addressbookModel.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

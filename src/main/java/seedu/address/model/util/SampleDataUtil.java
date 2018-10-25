@@ -1,60 +1,44 @@
 package seedu.address.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.Anakin;
+import seedu.address.model.AnakinReadOnlyAnakin;
+import seedu.address.model.anakindeck.AnakinAnswer;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinQuestion;
+import seedu.address.model.anakindeck.Name;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Anakin} with sample decks.
  */
-public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
-        };
-    }
-
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
-        }
-        return sampleAb;
-    }
-
+public class AnakinSampleDataUtil {
     /**
-     * Returns a tag set containing the list of strings given.
+     * @param sampleAnakin
+     * @return sampleAnakin with a sample deck
      */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+    private static Anakin addSampleDeck(Anakin sampleAnakin) {
+        AnakinDeck sampleDeck = new AnakinDeck(new Name("Asking Questions"));
+        sampleAnakin.addDeck(sampleDeck);
+        sampleAnakin.getIntoDeck(sampleDeck);
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("What is always coming, but never arrives?"),
+                new AnakinAnswer("Tomorrow")));
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("What can be broken, but is never held?"),
+                new AnakinAnswer("A promise")));
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("What is it that lives if it is fed, and dies if you " +
+                "give it a drink?"), new AnakinAnswer("Fire")));
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("What can one catch that is not thrown?"),
+                new AnakinAnswer("A cold")));
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("What is it that if you have, you want to share me, " +
+                "and if you share, you do not have?"), new AnakinAnswer("A secret")));
+        sampleAnakin.addCard(new AnakinCard(new AnakinQuestion("If it takes eight men ten hours to build a wall, "
+                + "how long would it take four men?"), new AnakinAnswer("No time, because the wall is already built"
+                + ".")));
+        return sampleAnakin;
     }
 
+    public static AnakinReadOnlyAnakin getSampleAnakin() {
+        Anakin sampleAnakin = new Anakin();
+        addSampleDeck(sampleAnakin);
+        return sampleAnakin;
+    }
 }

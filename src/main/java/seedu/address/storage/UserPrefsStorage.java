@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 
 /**
- * Represents a storage for {@link seedu.address.model.UserPrefs}.
+ * Represents a anakinStorage for {@link seedu.address.model.UserPrefs}.
  */
 public interface UserPrefsStorage {
 
@@ -18,15 +18,15 @@ public interface UserPrefsStorage {
     Path getUserPrefsFilePath();
 
     /**
-     * Returns UserPrefs data from storage.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * Returns UserPrefs data from anakinStorage.
+     *   Returns {@code Optional.empty()} if anakinStorage file is not found.
+     * @throws DataConversionException if the data in anakinStorage is not in the expected format.
+     * @throws IOException if there was any problem when reading from the anakinStorage.
      */
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.model.UserPrefs} to the storage.
+     * Saves the given {@link seedu.address.model.UserPrefs} to the anakinStorage.
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
