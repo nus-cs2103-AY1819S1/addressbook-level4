@@ -92,11 +92,11 @@ public class Anakin implements ReadOnlyAnakin {
         }
     }
 
-    public void setIsInsideDeck(boolean set){
+    public void setIsInsideDeck(boolean set) {
         isInsideDeck = set;
     }
 
-    public void setDisplayedCards(UniqueCardList cards){
+    public void setDisplayedCards(UniqueCardList cards) {
         displayedCards = cards;
     }
 

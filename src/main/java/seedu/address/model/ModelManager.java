@@ -140,7 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean isInsideDeck(){
+    public boolean isInsideDeck() {
         return versionedAnakin.isInsideDeck();
     }
 

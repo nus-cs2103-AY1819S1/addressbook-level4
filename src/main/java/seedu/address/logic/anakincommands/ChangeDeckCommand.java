@@ -53,7 +53,7 @@ public class ChangeDeckCommand extends Command {
         List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (this.noIndex) {
-            if (!model.isInsideDeck()){
+            if (!model.isInsideDeck()) {
                 throw new CommandException(AddressbookMessages.MESSAGE_NOT_INSIDE_DECK);
             }
             //Exit the deck

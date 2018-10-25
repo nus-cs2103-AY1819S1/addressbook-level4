@@ -31,7 +31,8 @@ public class FindCommand extends Command {
         requireNonNull(addressbookModel);
         addressbookModel.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(AddressbookMessages.MESSAGE_PERSONS_LISTED_OVERVIEW, addressbookModel.getFilteredPersonList().size()));
+                String.format(AddressbookMessages.MESSAGE_PERSONS_LISTED_OVERVIEW,
+                        addressbookModel.getFilteredPersonList().size()));
     }
 
     @Override

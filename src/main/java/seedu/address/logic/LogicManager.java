@@ -22,19 +22,19 @@ public class LogicManager extends AddressbookComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final Parser Parser;
+    private final Parser parser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        Parser = new Parser();
+        parser = new Parser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = Parser.parseCommand(commandText);
+            Command command = parser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

@@ -5,8 +5,8 @@ import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.anakindeck.Answer;
 import seedu.address.model.anakindeck.Card;
 import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.Question;
 import seedu.address.model.anakindeck.Name;
+import seedu.address.model.anakindeck.Question;
 
 /**
  * Contains utility methods for populating {@code Anakin} with sample decks.
@@ -24,12 +24,12 @@ public class SampleDataUtil {
                 new Answer("Tomorrow")));
         sampleAnakin.addCard(new Card(new Question("What can be broken, but is never held?"),
                 new Answer("A promise")));
-        sampleAnakin.addCard(new Card(new Question("What is it that lives if it is fed, and dies if you " +
-                "give it a drink?"), new Answer("Fire")));
+        sampleAnakin.addCard(new Card(new Question("What is it that lives if it is fed, and dies if you "
+                + "give it a drink?"), new Answer("Fire")));
         sampleAnakin.addCard(new Card(new Question("What can one catch that is not thrown?"),
                 new Answer("A cold")));
-        sampleAnakin.addCard(new Card(new Question("What is it that if you have, you want to share me, " +
-                "and if you share, you do not have?"), new Answer("A secret")));
+        sampleAnakin.addCard(new Card(new Question("What is it that if you have, you want to share me, "
+                + "and if you share, you do not have?"), new Answer("A secret")));
         sampleAnakin.addCard(new Card(new Question("If it takes eight men ten hours to build a wall, "
                 + "how long would it take four men?"), new Answer("No time, because the wall is already built"
                 + ".")));

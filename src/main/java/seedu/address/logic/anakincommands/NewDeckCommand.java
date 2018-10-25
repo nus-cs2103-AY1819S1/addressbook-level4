@@ -30,9 +30,9 @@ public class NewDeckCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public NewDeckCommand(Deck Deck) {
-        requireNonNull(Deck);
-        toAdd = Deck;
+    public NewDeckCommand(Deck deck) {
+        requireNonNull(deck);
+        toAdd = deck;
     }
 
     @Override
