@@ -16,6 +16,26 @@ public class IngredientAmount {
         this.amount = Double.parseDouble(amount);
     }
 
+    public Double toDouble() {
+        return amount;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientAmount)) {
+            return false;
+        }
+
+        IngredientAmount otherAmount = (IngredientAmount) other;
+
+        return otherAmount != null
+                && this.amount == otherAmount.amount;
+    }
+
     public String toString() {
         return Double.toString(amount);
     }

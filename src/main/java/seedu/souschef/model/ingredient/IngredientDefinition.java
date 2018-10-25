@@ -1,5 +1,7 @@
 package seedu.souschef.model.ingredient;
 
+import java.util.HashMap;
+
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -7,13 +9,43 @@ import seedu.souschef.model.UniqueType;
  */
 public class IngredientDefinition extends UniqueType {
     private final IngredientName name;
+    private final IngredientServingUnit unit;
 
-    public IngredientDefinition(IngredientName name) {
+    private final HashMap<String, String> dictionary = new HashMap<>();
+
+    public IngredientDefinition(IngredientName name, IngredientServingUnit unit) {
         this.name = name;
+        this.unit = unit;
+    }
+
+    // temp
+    public IngredientDefinition(String name, String unit) {
+        this.name = new IngredientName(name);
+        this.unit = new IngredientServingUnit(unit);
+    }
+
+    public IngredientDefinition(String name) {
+        dictionary.put("chicken", "gram");
+        dictionary.put("onion", "piece");
+        dictionary.put("egg", "piece");
+        dictionary.put("garlic", "clove");
+        dictionary.put("flour", "gram");
+        dictionary.put("octopus", "gram");
+
+        this.name = new IngredientName(name);
+        if (dictionary.containsKey(name)) {
+            this.unit = new IngredientServingUnit(dictionary.get(name));
+        } else {
+            this.unit = new IngredientServingUnit("none");
+        }
     }
 
     public IngredientName getName() {
         return name;
+    }
+
+    public IngredientServingUnit getUnit() {
+        return unit;
     }
 
     /**
@@ -54,10 +86,11 @@ public class IngredientDefinition extends UniqueType {
         IngredientDefinition otherIngredient = (IngredientDefinition) other;
 
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName());
+                && otherIngredient.getName().equals(getName())
+                && otherIngredient.getUnit().equals(getUnit());
     }
 
     public String toString() {
-        return getName().toString();
+        return getName().toString() + " " + getUnit().toString();
     }
 }
