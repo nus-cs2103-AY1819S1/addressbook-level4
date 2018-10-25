@@ -90,7 +90,7 @@ public class AddressbookLogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the AddressbookLogicManager object's state are as expected:<br>
      *      - the internal addressbookModel manager data are same as those in the {@code expectedAddressbookModel} <br>
-     *      - {@code expectedAddressbookModel}'s address book was saved to the anakinStorage file.
+     *      - {@code expectedAddressbookModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, AddressbookModel expectedAddressbookModel) {

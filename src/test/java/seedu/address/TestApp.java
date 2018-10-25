@@ -38,8 +38,8 @@ public class TestApp extends MainApp {
 //    }
 //
 //    @Override
-//    protected UserPrefs initPrefs(UserPrefsStorage anakinStorage) {
-//        UserPrefs userPrefs = super.initPrefs(anakinStorage);
+//    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+//        UserPrefs userPrefs = super.initPrefs(storage);
 //        double x = Screen.getPrimary().getVisualBounds().getMinX();
 //        double y = Screen.getPrimary().getVisualBounds().getMinY();
 //        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
@@ -48,23 +48,23 @@ public class TestApp extends MainApp {
 //    }
 //
 //    /**
-//     * Returns a defensive copy of the address book data stored inside the anakinStorage file.
+//     * Returns a defensive copy of the address book data stored inside the storage file.
 //     */
 //    public Anakin readStorageAddressBook() {
 //        try {
-//            return new Anakin(anakinStorage.readAnakin().get());
+//            return new Anakin(storage.readAnakin().get());
 //        } catch (DataConversionException dce) {
 //            throw new AssertionError("Data is not in the Anakin format.", dce);
 //        } catch (IOException ioe) {
-//            throw new AssertionError("AnakinStorage file cannot be found.", ioe);
+//            throw new AssertionError("Storage file cannot be found.", ioe);
 //        }
 //    }
 //
 //    /**
-//     * Returns the file path of the anakinStorage file.
+//     * Returns the file path of the storage file.
 //     */
 //    public Path getStorageSaveLocation() {
-//        return anakinStorage.getAnakinFilePath();
+//        return storage.getAnakinFilePath();
 //    }
 //
 //    /**

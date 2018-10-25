@@ -31,7 +31,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlStorage anakinStorage = new XmlStorage(getTempFilePath("ab"));
+        XmlAnakinStorage anakinStorage = new XmlAnakinStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(anakinStorage, userPrefsStorage);
     }
@@ -46,7 +46,7 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonUserPrefsStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsAnakinStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
@@ -59,8 +59,8 @@ public class StorageManagerTest {
     public void anakinReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlStorage} class.
+         * {@link XmlAnakinStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlAnakinStorage} class.
          */
         Anakin original = getTypicalAnakin();
         storageManager.saveAnakin(original);
@@ -76,10 +76,10 @@ public class StorageManagerTest {
     @Test
     public void handleAnakinChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        AnakinStorage anakinStorage = new StorageManager(new XmlStorageExceptionThrowingStub(Paths.get
+        Storage anakinStorageSwap = new StorageManager(new XmlAnakinStorageExceptionThrowingStub(Paths.get
                 ("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
-        anakinStorage.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
+        anakinStorageSwap.handleAnakinChangedEvent(new AnakinChangedEvent(new Anakin()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -87,9 +87,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlStorageExceptionThrowingStub extends XmlStorage {
+    class XmlAnakinStorageExceptionThrowingStub extends XmlAnakinStorage {
 
-        public XmlStorageExceptionThrowingStub(Path filePath) {
+        public XmlAnakinStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

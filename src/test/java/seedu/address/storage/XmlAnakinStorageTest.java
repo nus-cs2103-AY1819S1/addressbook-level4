@@ -20,8 +20,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Anakin;
 import seedu.address.model.ReadOnlyAnakin;
 
-public class XmlAnakinAnakinStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAnakinAnakinStorageTest");
+public class XmlAnakinStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAnakinStorageTest");
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -35,7 +35,7 @@ public class XmlAnakinAnakinStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAnakin> readAnakin(String filePath) throws Exception {
-        return new XmlStorage(Paths.get(filePath)).readAnakin(addToTestDataPathIfNotNull(filePath));
+        return new XmlAnakinStorage(Paths.get(filePath)).readAnakin(addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class XmlAnakinAnakinStorageTest {
     public void readAndSaveAnakin_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAnakin.xml");
         Anakin original = getTypicalAnakin();
-        XmlStorage xmlAnakinStorage = new XmlStorage(filePath);
+        XmlAnakinStorage xmlAnakinStorage = new XmlAnakinStorage(filePath);
 
         //Save in new file and read back
         xmlAnakinStorage.saveAnakin(original, filePath);
@@ -97,7 +97,7 @@ public class XmlAnakinAnakinStorageTest {
      */
     private void saveAnakin(ReadOnlyAnakin anakin, String filePath) {
         try {
-            new XmlStorage(Paths.get(filePath))
+            new XmlAnakinStorage(Paths.get(filePath))
                     .saveAnakin(anakin, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

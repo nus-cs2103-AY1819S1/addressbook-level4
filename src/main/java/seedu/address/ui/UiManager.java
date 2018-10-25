@@ -21,7 +21,7 @@ import seedu.address.model.UserPrefs;
 /**
  * The manager of the UI component.
  */
-public class UiManagerAddressbook extends AddressbookComponentManager implements Ui {
+public class UiManager extends AddressbookComponentManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -29,7 +29,7 @@ public class UiManagerAddressbook extends AddressbookComponentManager implements
     public static final String FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE = "Could not save data";
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
 
-    private static final Logger logger = LogsCenter.getLogger(UiManagerAddressbook.class);
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/anakin.png";
 
     private Logic logic;
@@ -37,7 +37,7 @@ public class UiManagerAddressbook extends AddressbookComponentManager implements
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManagerAddressbook(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;

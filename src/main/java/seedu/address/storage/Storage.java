@@ -4,44 +4,36 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.events.model.AnakinChangedEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAnakin;
+import seedu.address.model.UserPrefs;
 
 /**
- * Represents a anakinStorage for {@link ReadOnlyAnakin}
+ * API of the Storage component
  */
-public interface Storage {
+public interface Storage extends AnakinStorage, UserPrefsStorage {
 
-    /**
-     * Returns the file path of the data file.
-     */
+    @Override
+    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+
+    @Override
+    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
+
+    @Override
     Path getAnakinFilePath();
 
-    /**
-     * Returns Anakin data as a {@link ReadOnlyAnakin}.
-     * Returns {@code Optional.empty()} if anakinStorage file is not found.
-     *
-     * @throws DataConversionException if the data in anakinStorage is not in the expected format.
-     * @throws IOException             if there was any problem when reading from the anakinStorage.
-     */
+    @Override
     Optional<ReadOnlyAnakin> readAnakin() throws DataConversionException, IOException;
 
-    /**
-     * @see #getAnakinFilePath()
-     */
-    Optional<ReadOnlyAnakin> readAnakin(Path filePath) throws DataConversionException, IOException;
-
-    /**
-     * Saves the given {@link ReadOnlyAnakin} to the anakinStorage.
-     *
-     * @param anakin cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
+    @Override
     void saveAnakin(ReadOnlyAnakin anakin) throws IOException;
 
     /**
-     * @see #saveAnakin(ReadOnlyAnakin)
+     * Saves the current version of the Anakin to the hard disk.
+     * Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void saveAnakin(ReadOnlyAnakin anakin, Path filePath) throws IOException;
-
+    void handleAnakinChangedEvent(AnakinChangedEvent abce);
 }

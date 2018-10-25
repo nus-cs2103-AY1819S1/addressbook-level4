@@ -18,13 +18,13 @@ import seedu.address.model.ReadOnlyAnakin;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlStorage implements Storage {
+public class XmlAnakinStorage implements AnakinStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlAnakinStorage.class);
 
     private Path filePath;
 
-    public XmlStorage(Path filePath) {
+    public XmlAnakinStorage(Path filePath) {
         this.filePath = filePath;
     }
 

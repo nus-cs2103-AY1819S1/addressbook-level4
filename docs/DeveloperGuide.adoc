@@ -158,7 +158,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/anakinStorage/AnakinStorage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 

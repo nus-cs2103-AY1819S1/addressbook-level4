@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -31,9 +30,9 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlStorage;
+import seedu.address.storage.XmlAnakinStorage;
 import seedu.address.ui.Ui;
-import seedu.address.ui.UiManagerAddressbook;
+import seedu.address.ui.UiManager;
 
 /**
  * The main entry point to the application.
@@ -49,7 +48,7 @@ public class MainApp extends Application {
     protected UserPrefs userPrefs;
     protected Logic logic;
     protected Model model;
-    protected AnakinStorage anakinStorage;
+    protected Storage storage;
 
 
     @Override
@@ -63,31 +62,31 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
 
-        Storage storage = new XmlStorage(userPrefs.getAnakinFilePath());
-        anakinStorage = new StorageManager(storage, userPrefsStorage);
+        AnakinStorage anakinStorage = new XmlAnakinStorage(userPrefs.getAnakinFilePath());
+        storage = new StorageManager(anakinStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(anakinStorage, userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model);
 
-        ui = new UiManagerAddressbook(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
     }
 
     /**
      * Returns a {@code AddressbookModelManagerAddressbook} with the data
-     * from {@code anakinStorage}'s anakin and {@code userPrefs}. <br>
-     * The data from the sample anakin will be used instead if {@code anakinStorage}'s anakin is not found,
-     * or an empty anakin will be used instead if errors occur when reading {@code anakinStorage}'s anakin.
+     * from {@code storage}'s anakin and {@code userPrefs}. <br>
+     * The data from the sample anakin will be used instead if {@code storage}'s anakin is not found,
+     * or an empty anakin will be used instead if errors occur when reading {@code storage}'s anakin.
      */
-    private Model initModelManager(AnakinStorage anakinStorage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage anakinStorageSwap, UserPrefs userPrefs) {
         Optional<ReadOnlyAnakin> anakinOptional;
         ReadOnlyAnakin initialData;
         try {
-            anakinOptional = anakinStorage.readAnakin();
+            anakinOptional = anakinStorageSwap.readAnakin();
             if (!anakinOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Anakin");
             }
@@ -144,7 +143,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code anakinStorage}'s user prefs file path,
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
@@ -190,7 +189,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Anakin ] =============================");
         ui.stop();
         try {
-            anakinStorage.saveUserPrefs(userPrefs);
+            storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
