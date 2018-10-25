@@ -13,6 +13,18 @@ import seedu.address.model.task.Task;
  */
 public class GameManager {
 
+    // Stores an instance of the currently chosen game mode.
+    GameMode gameMode;
+
+
+    public GameManager() {
+        this.gameMode = new FlatMode();
+    }
+
+    public GameManager(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
     /**
      * Appraises the present XP worth of a particular task.
      * <p>
@@ -22,34 +34,24 @@ public class GameManager {
      * @return Returns the XP the supplied task is worth at present
      */
     public int appraiseTaskXp(Task task) {
-        if (task.isCompleted()) {
-            return 50;
-        }
-
-        // Task has not been completed
-        return 0;
+        return gameMode.appraiseTaskXp(task);
     }
 
     /**
-     * Forecasts the XP an incomplete task will give, if completed.
-     * <p>
-     * Overdue or completed tasks have a 0XP forecast.
+     * Shows the expected XP gain if the given task is completed.
      *
      * @param task The task to be evaluated
      * @return Returns the XP the supplied task is worth at present
      */
     public int forecastTaskXp(Task task) {
 
-        // If task is completed or overdue, then there is no XP to be earned.
-        if (task.isCompleted() || task.isOverdue()) {
-            return 0;
-        }
-
         // Make a copy of the task with COMPLETED status.
         Task copy = new Task(task.getName(), task.getDueDate(), task.getPriorityValue(), task.getDescription(),
                 task.getLabels(), Status.COMPLETED, task.getDependency());
 
-        return appraiseTaskXp(copy);
+        int xpDiff = appraiseTaskXp(copy) - appraiseTaskXp(task);
+
+        return xpDiff;
     }
 
     /**
