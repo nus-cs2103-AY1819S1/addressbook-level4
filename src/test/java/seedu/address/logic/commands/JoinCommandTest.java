@@ -108,8 +108,8 @@ public class JoinCommandTest {
         assertTrue(joinCommand1.equals(joinCommand1));
 
         // same values -> returns true
-        JoinCommand JoinCommandCopy = new JoinCommand(hardy, network);
-        assertTrue(JoinCommandCopy.equals(joinCommand1));
+        JoinCommand joinCommandCopy = new JoinCommand(hardy, network);
+        assertTrue(joinCommandCopy.equals(joinCommand1));
 
         // different types -> returns false
         assertFalse(joinCommand1.equals(2));
