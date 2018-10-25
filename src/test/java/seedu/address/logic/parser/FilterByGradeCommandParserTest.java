@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FilterByEducationCommand;
+import seedu.address.logic.commands.FilterByGradeCommand;
 
 public class FilterByGradeCommandParserTest {
     private FilterByGradeCommandParser parser = new FilterByGradeCommandParser();
@@ -14,14 +14,14 @@ public class FilterByGradeCommandParserTest {
     @Test
     public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, " ", String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
+            MESSAGE_INVALID_COMMAND_FORMAT, FilterByGradeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
-        FilterByEducationCommand expectedFindCommand =
-                new FilterByEducationCommand("Sec");
+        FilterByGradeCommand expectedFindCommand =
+                new FilterByGradeCommand("Sec");
         assertParseSuccess(parser, "Sec", expectedFindCommand);
 
     }
