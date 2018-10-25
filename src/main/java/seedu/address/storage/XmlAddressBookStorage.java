@@ -77,6 +77,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         XmlFileStorage.saveDataToAbFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
+    /**
+     * Export {@code ReadOnlyAddressBook} as XML file to given {@code Path}
+     * @param addressBook
+     * @param filePath
+     * @throws IOException
+     */
     public void exportAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
@@ -84,5 +90,4 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveDataToAbFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
-
 }

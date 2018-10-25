@@ -69,12 +69,11 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     //@@author kengwoon
 
     /**
-     * Saves the current version of Address Book to the specified path on hard disk.
+     * Saves the current version of Hallper to the specified path on hard disk.
      * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleExportAddressBookEvent(ExportAddressBookEvent exbe);
-
+    void handleExportAddressBookEvent(ExportAddressBookEvent eabe);
 
     //@@author EatOrBeEaten
 

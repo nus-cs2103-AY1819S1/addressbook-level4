@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +52,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_CONFIG_ERR = "Configuration error.";
     public static final String MESSAGE_PARSE_ERR = "Error parsing XML file.";
 
-    private final File file;
+    private final Path path;
     private final List<Person> personList;
     private final Set<Tag> tags;
     private final List<String> roomsList;
@@ -61,9 +62,9 @@ public class ImportCommand extends Command {
     /**
      * Creates an ImportCommand to import the specified file.
      */
-    public ImportCommand(File file) {
-        requireNonNull(file);
-        this.file = file;
+    public ImportCommand(Path path) {
+        requireNonNull(path);
+        this.path = path;
         this.personList = new ArrayList<>();
         this.tags = new HashSet<>();
         this.roomsList = new ArrayList<>();
@@ -81,14 +82,14 @@ public class ImportCommand extends Command {
             importCca(doc, model);
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, path.toString()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
-                && file.equals(((ImportCommand) other).file));
+                && path.equals(((ImportCommand) other).path));
     }
 
     /**
@@ -98,7 +99,7 @@ public class ImportCommand extends Command {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file);
+            Document doc = dBuilder.parse(path.toFile());
             doc.getDocumentElement().normalize();
             return doc;
 
