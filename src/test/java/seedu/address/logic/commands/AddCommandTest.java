@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -195,7 +196,12 @@ public class AddCommandTest {
 
         //@@author iamjackslayer
         @Override
-        public void enqueue(Person patient) {
+        public void enqueue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void enqueueIntoMainQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
 

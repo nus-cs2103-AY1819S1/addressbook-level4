@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
@@ -172,9 +173,14 @@ public interface Model {
     //@@author iamjackslayer
     /**
      * Enqueues the given person.
-     * TODO Change Person object to Patient Object
      */
-    void enqueue(Person patient);
+    void enqueue(Patient patient) throws CommandException;
+
+    /**
+     * Enqueues the given patient into main queue.
+     * @param patient
+     */
+    void enqueueIntoMainQueue(Person patient);
 
     //@@author iamjackslayer
     /**

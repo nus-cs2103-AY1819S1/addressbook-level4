@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -11,7 +13,6 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-import java.util.List;
 
 /**
  * Enqueues a given patient (for consultation).
@@ -23,9 +24,11 @@ public class EnqueueCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_ENQUEUE_PATIENT_SUCCESS = "Patient %1$s successfully assigned to the queue";
+    public static final String MESSAGE_ENQUEUE_PATIENT_SUCCESS = "Patient %1$s successfully assigned to the queue. ";
 
     public static final String MESSAGE_PERSON_NOT_PATIENT = "Person %1$s is not a patient. ";
+
+    public static final String MESSAGE_PATIENT_IS_CURRENTLY_QUEUING = "Patient %1$s is not currently in the queue. ";
 
     private final Index index;
 
@@ -52,10 +55,10 @@ public class EnqueueCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_PATIENT);
         }
 
-        model.enqueue(patientToEnqueue);
+        model.enqueue((Patient) patientToEnqueue);
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitAddressBook();
-        return new CommandResult("good job");
+        return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue));
     }
 }

@@ -13,8 +13,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.EnqueueCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.patientqueue.MainQueue;
 import seedu.address.model.patientqueue.PreferenceQueue;
 import seedu.address.model.person.Person;
@@ -168,9 +171,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //========== Update ======================================================================================
-
     @Override
-    public void enqueue(Person patient) {
+    public void enqueue(Patient patient) throws CommandException {
+        if (patient.isQueuing()) {
+            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING, patient));
+        }
+        if (patient.hasPreferredDoctor()) {
+            enqueueIntoPreferenceQueue(patient);
+        } else {
+            enqueueIntoMainQueue(patient);
+        }
+    }
+
+    /**
+     * Enqueues patient who is consulting a particular doctor into the 'main' queue.
+     * @param patient
+     */
+    @Override
+    public void enqueueIntoMainQueue(Person patient) {
         mainQueue.add(patient);
     }
 
