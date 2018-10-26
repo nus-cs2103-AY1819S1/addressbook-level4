@@ -14,6 +14,7 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.receptionist.Receptionist;
 
 /**
  * Wraps all data at the address-book level
@@ -135,6 +136,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addDoctor(Doctor d) {
         doctors.add(d);
+    }
+
+    /**
+     * Adds a receptionist to the ClinicIO.
+     * The receptionist must not already exist in the ClinicIO.
+     */
+    public void addReceptionist(Receptionist r) {
+        receptionists.add(r);
     }
 
     //@@author gingivitiss
