@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -8,9 +9,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ExitBudgetWindowRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.cca.CcaName;
 
+//@@author ericyjw
 /**
  * The Budget Window. Displays the CCAs available and the budget information of each CCA
  *
@@ -23,6 +27,8 @@ public class BudgetWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Logic logic;
+
+    private boolean isShowing;
 
     // Independent Ui parts residing in this Ui container
     private BudgetBrowserPanel budgetBrowserPanel;
@@ -46,14 +52,20 @@ public class BudgetWindow extends UiPart<Stage> {
         this(new Stage());
         this.prefs = prefs;
         this.logic = logic;
+        this.isShowing = false;
     }
 
 
     /**
      * Fills up all the placeholders of this window.
+     * @param ccaName the name of the CCA to be viewed
      */
-    void fillInnerParts() {
-        budgetBrowserPanel = new BudgetBrowserPanel();
+    void fillInnerParts(CcaName ccaName) {
+        if(Optional.ofNullable(ccaName).isPresent()) {
+            budgetBrowserPanel = new BudgetBrowserPanel(ccaName);
+        } else {
+            budgetBrowserPanel = new BudgetBrowserPanel();
+        }
         browserPlaceholder.getChildren().add(budgetBrowserPanel.getRoot());
 
         ccaListPanel = new CcaListPanel(logic.getFilteredCcaList());
@@ -61,11 +73,12 @@ public class BudgetWindow extends UiPart<Stage> {
     }
 
     /**
-     * Closes the application.
+     * Closes the budget window.
      */
     @FXML
     private void handleExit() {
-        raise(new ExitAppRequestEvent());
+        this.isShowing = false;
+        raise(new ExitBudgetWindowRequestEvent());
     }
 
     public CcaListPanel getCcaListPanel() {
@@ -78,24 +91,27 @@ public class BudgetWindow extends UiPart<Stage> {
 
     /**
      * Show budget window
+     * @param ccaName
      */
-    public void show() {
+    public void show(CcaName ccaName) {
         logger.fine("Showing budget list of the hostel.");
         getRoot().show();
-        fillInnerParts();
+        fillInnerParts(ccaName);
+        this.isShowing = true;
     }
 
     /**
      * Returns true if the budget window is currently being shown.
      */
     public boolean isShowing() {
-        return getRoot().isShowing();
+        return this.isShowing;
     }
 
     /**
      * Focuses on the budget window.
      */
-    public void focus() {
+    public void focus(CcaName ccaName) {
+        fillInnerParts(ccaName);
         getRoot().requestFocus();
     }
 

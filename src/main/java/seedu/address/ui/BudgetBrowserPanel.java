@@ -17,7 +17,9 @@ import seedu.address.XmlToHmtl;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CcaPanelSelectionChangedEvent;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 
+//@author ericyjw
 /**
  * The Browser Panel of the App.
  *
@@ -45,6 +47,33 @@ public class BudgetBrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    public BudgetBrowserPanel(CcaName ccaName) {
+        super(FXML);
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        getRoot().setOnKeyPressed(Event::consume);
+
+        loadCcaBudgetPage(ccaName);
+        registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Load the budget page of a chosen CCA
+     *
+     * @param ccaName chosen CCA
+     */
+    private void loadCcaBudgetPage(CcaName ccaName) {
+        String chosen = ccaName.getCcaName();
+        XmlToHmtl.convertCcaBook(chosen);
+        File budgetFile = new File(BUDGET_PAGE);
+        try {
+            URL url = budgetFile.toURI().toURL();
+            loadPage(url.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Load the budget page of a chosen CCA
      *
@@ -60,7 +89,6 @@ public class BudgetBrowserPanel extends UiPart<Region> {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void loadPage(String url) {

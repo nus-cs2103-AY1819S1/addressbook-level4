@@ -13,9 +13,10 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 
 //@@author ericyjw
-
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteCcaCommand object
+ *
+ * @author ericyjw
  */
 public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
 

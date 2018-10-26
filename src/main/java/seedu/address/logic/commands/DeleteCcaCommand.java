@@ -17,8 +17,11 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
+//@@author ericyjw
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a CCA from the budget book.
+ *
+ * @author ericyjw
  */
 public class DeleteCcaCommand extends Command {
 

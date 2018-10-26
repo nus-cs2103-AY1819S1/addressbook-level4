@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -16,10 +17,12 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ExitBudgetWindowRequestEvent;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.cca.CcaName;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -182,14 +185,18 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Opens the budget window or focuses on it if it's already opened.
+     * @param ccaName
      */
     @FXML
-    public void handleBudget() {
-        budgetWindow = new BudgetWindow(logic, prefs);
+    public void handleBudget(CcaName ccaName) {
+        if (!Optional.ofNullable(budgetWindow).isPresent()) {
+            budgetWindow = new BudgetWindow(logic, prefs);
+        }
+
         if (!budgetWindow.isShowing()) {
-            budgetWindow.show();
+            budgetWindow.show(ccaName);
         } else {
-            budgetWindow.focus();
+            budgetWindow.focus(ccaName);
         }
     }
 
@@ -222,6 +229,12 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleShowBudgetEvent(ShowBudgetViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleBudget();
+        CcaName ccaName = event.getCcaName();
+        handleBudget(ccaName);
+    }
+
+    @Subscribe
+    private void handleExitBudgetWindowRequestEvent(ExitBudgetWindowRequestEvent event) {
+        primaryStage.show();
     }
 }

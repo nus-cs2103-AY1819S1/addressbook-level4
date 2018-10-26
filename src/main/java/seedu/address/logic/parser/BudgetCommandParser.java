@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Budget;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.tag.TagContainsKeywordPredicate;
 
 
@@ -21,14 +24,25 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public BudgetCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+
+        if(!argMultimap.getValue(PREFIX_TAG).isPresent() && !args.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            return new BudgetCommand();
+        }
+
+        String ccaName = argMultimap.getValue(PREFIX_TAG).get();
+
+        if (!CcaName.isValidCcaName(ccaName)) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
 
-        String[] tagKeywords = trimmedArgs.split("\\s+");
+//        CcaName ccaName = new CcaName(argMultimap.getValue(PREFIX_TAG).get());
 
-        return new BudgetCommand(new TagContainsKeywordPredicate(Arrays.asList(tagKeywords)));
+        return new BudgetCommand(new CcaName(ccaName));
     }
 }
