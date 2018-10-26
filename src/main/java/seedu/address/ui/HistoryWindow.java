@@ -8,7 +8,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FilePathToUrl;
-import seedu.address.ui.exceptions.BrowserRelatedUiPart;
+import seedu.address.ui.browser.BrowserRelatedUiPart;
 
 /**
  * Controller for a command history window.

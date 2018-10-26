@@ -1,4 +1,4 @@
-package seedu.address.ui.exceptions;
+package seedu.address.ui.browser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import seedu.address.ui.UiPart;
 public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
     private static final int MAX_QUEUE_SIZE = 15;
 
-    protected ArrayList<String> queuedJavascript = new ArrayList<>();
+    protected ArrayList<String> queuedJavascriptCommands = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public BrowserRelatedUiPart(String fxml) {
@@ -64,12 +64,12 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
      */
     private void runQueuedJavascript() {
         WebView webView = getWebView();
-        if (queuedJavascript.size() > MAX_QUEUE_SIZE) {
+        if (queuedJavascriptCommands.size() > MAX_QUEUE_SIZE) {
             logger.warning(String.format("Javascript queue size exceeds %1s", MAX_QUEUE_SIZE));
-            queuedJavascript.clear();
+            queuedJavascriptCommands.clear();
         }
-        while (!queuedJavascript.isEmpty()) {
-            webView.getEngine().executeScript(queuedJavascript.remove(0));
+        while (!queuedJavascriptCommands.isEmpty()) {
+            webView.getEngine().executeScript(queuedJavascriptCommands.remove(0));
         }
     }
 
@@ -84,6 +84,7 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
         } catch (IOException e) {
             e.printStackTrace();
             logger.warning(e.getMessage());
+            queuedJavascriptCommands.clear();
         }
     }
 

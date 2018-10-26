@@ -11,8 +11,8 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FilePathToUrl;
+import seedu.address.ui.browser.BrowserRelatedUiPart;
 import seedu.address.ui.exceptions.AccessibilityException;
-import seedu.address.ui.exceptions.BrowserRelatedUiPart;
 
 /**
  * Controller for a help page
@@ -114,6 +114,7 @@ public class HelpWindow extends BrowserRelatedUiPart<Stage> {
      * Scrolls the help window to the specified commandWord.
      */
     public void scrollToCommandWord(String commandWord) throws AccessibilityException {
+        browser.getEngine().executeScript(SCROLL_JAVASCRIPT);
         browser.getEngine().executeScript("window.scrollTo(document.body.scrollLeft, 0)");
         verticalScroll = (int) browser.getEngine().executeScript("document.body.scrollTop");
         //No commandWords in the window are at the top of the window.

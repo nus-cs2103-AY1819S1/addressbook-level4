@@ -14,7 +14,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.commons.util.RidePageGenerator;
 import seedu.address.model.ride.Ride;
-import seedu.address.ui.exceptions.BrowserRelatedUiPart;
+import seedu.address.ui.browser.BrowserRelatedUiPart;
 
 /**
  * The Browser Panel of the App.
@@ -62,7 +62,6 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
      * Loads the ride information page using Javascript and BrowserRelatedUiPart.loadPage
      */
     private void loadRidePage(Ride ride) {
-        loadPage(RIDE_PAGE_PATH);
         int totalFields = ride.getFieldHeaders().size();
         StringBuilder parameters = new StringBuilder();
         parameters.append(String.format("[\"%1s\", \"%2s\"], ", "name", ride.getName().fullName));
@@ -70,8 +69,10 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
             parameters.append(String.format("[\"%1s\", \"%2s\"], ",
                 ride.getFieldHeaders().get(i), ride.getFields().get(i)));
         }
-        queuedJavascript.add(TEXT_REPLACEMENT_JAVASCRIPT);
-        queuedJavascript.add(String.format("updateRide([%1s])", parameters.toString()));
+        queuedJavascriptCommands.add(TEXT_REPLACEMENT_JAVASCRIPT);
+        queuedJavascriptCommands.add(String.format("updateRide([%1s])", parameters.toString()));
+
+        loadPage(RIDE_PAGE_PATH);
     }
 
     /**

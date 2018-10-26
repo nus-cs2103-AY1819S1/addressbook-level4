@@ -5,8 +5,6 @@ import static j2html.TagCreator.h2;
 import static j2html.TagCreator.img;
 import static j2html.TagCreator.p;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +50,7 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
             ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px;"
                 + "word-wrap: break-word"),
             div(
-                img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
+                img().attr("src=\"images/ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
             ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block; right: 0px")
         );
     }
@@ -60,24 +58,6 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
     @Override
     public ContainerTag generateBody(List<Ride> data) {
         return generateVerticalTable(data.get(0));
-    }
-
-    /**
-     * Creates the html file and writes the html content into it. Overwrites existing files.
-     * Throws IOException if file cannot be written to.
-     */
-    private static void createFile(String fileName, String content) {
-        File file = new File(fileName);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fileWriter = new FileWriter(fileName, false);
-            fileWriter.append(content);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
