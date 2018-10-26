@@ -25,7 +25,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.testutil.PersonBuilder;
 
-//@@author GAO JIAXIN
+//@@author GAO JIAXIN666
 public class VisitorInCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
