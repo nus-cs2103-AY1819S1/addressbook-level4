@@ -15,9 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import seedu.address.logic.CommandHistory;
@@ -25,13 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.imports.ImportAddressBook;
 import seedu.address.logic.commands.imports.ImportCcaList;
 import seedu.address.model.Model;
-import seedu.address.model.person.ContactContainsRoomPredicate;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Room;
-import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
