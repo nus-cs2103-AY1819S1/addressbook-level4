@@ -602,7 +602,7 @@ budget will reset (recurrence time). If it is not set, the expense tracker will 
 expense tracker will track the set recurrence time against the time now. If it exceeds, budget will be reset. Else,
 nothing will be done.
 
-* Recurrence time is set by `setReccurenceFrequency()`. If it has not been set before, the next recurrence time will
+* Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`.
 * If it has already been set, the timing will be updated on the next occurence time
 //TODO: ADD DIAGRAM TO SHOW THIS
