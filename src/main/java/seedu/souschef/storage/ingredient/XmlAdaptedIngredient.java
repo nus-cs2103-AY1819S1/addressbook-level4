@@ -35,9 +35,9 @@ public class XmlAdaptedIngredient {
     public XmlAdaptedIngredient(){}
 
     public XmlAdaptedIngredient(String name, String amount, String unit, String date) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.amount = amount;
-        this.unit = unit;
+        this.unit = unit.toLowerCase();
         this.date = date;
     }
 
