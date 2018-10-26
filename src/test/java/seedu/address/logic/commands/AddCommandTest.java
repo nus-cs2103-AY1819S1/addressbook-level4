@@ -192,7 +192,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Medicine dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
+        public void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
             throw new AssertionError("This method should not be called.");
         }
 
