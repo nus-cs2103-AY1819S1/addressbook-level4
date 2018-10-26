@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -267,6 +268,39 @@ public class ModelManager extends ComponentManager implements Model {
         updateEvent(currentEvent, currentEvent);
         return poll;
     }
+
+    @Override
+    public void setDate(LocalDate date) throws NoEventSelectedException, NoUserLoggedInException,
+            NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        currentEvent.setDate(date);
+        updateEvent(currentEvent, currentEvent);
+    }
+
+    @Override
+    public void setTime(LocalTime startTime, LocalTime endTime) throws NoEventSelectedException,
+            NoUserLoggedInException, NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        currentEvent.setTime(startTime, endTime);
+        updateEvent(currentEvent, currentEvent);
+    }
+
 
     @Override
     public void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException {

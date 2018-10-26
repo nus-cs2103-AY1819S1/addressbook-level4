@@ -126,7 +126,7 @@ public class FindUserCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo previous find command -> rejected */
         /*command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
-        assertCommandFailure(command, expectedResultMessage);
+        assertCommandFailure(command, expectedResultMessage);*/
     }
 
 
