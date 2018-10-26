@@ -1,17 +1,21 @@
 package seedu.address.logic.commands;
 
-import javax.print.attribute.standard.Severity;
-
 import static org.junit.Assert.assertTrue;
+
+import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
+import static seedu.address.logic.commands.DispenseMedicineCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.AMY;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
-import static seedu.address.logic.commands.DispenseMedicineCommand.MESSAGE_SUCCESS;
-import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandSuccess;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PatientQueue;
@@ -23,10 +27,6 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalMedicines.BACITRACIN;
-import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.AMY;
 
 public class DispenseMedicineCommandTest {
     @Rule
