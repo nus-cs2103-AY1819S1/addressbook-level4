@@ -28,6 +28,7 @@
                 <Label fx:id="occasionName" text="\$name" styleClass="cell_big_label" />
                 <Label fx:id="occasionDate" text="\$name" styleClass="cell_big_label" />
             </HBox>
+            <FlowPane fx:id="tags" />
         </VBox>
     </GridPane>
 </HBox>
