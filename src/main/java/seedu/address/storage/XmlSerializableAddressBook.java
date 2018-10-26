@@ -40,7 +40,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         doctors = new ArrayList<>();
-        receptionists = new ArrayList<>(); 
+        receptionists = new ArrayList<>();
     }
 
     /**
@@ -50,14 +50,15 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         doctors.addAll(src.getDoctorList().stream().map(XmlAdaptedDoctor::new).collect(Collectors.toList()));
-        receptionists.addAll(src.getReceptionistList().stream().map(XmlAdaptedReceptionist::new).collect(Collectors.toList()));
+        receptionists.addAll(
+                src.getReceptionistList().stream().map(XmlAdaptedReceptionist::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor} & & {@code XmlAdaptedReceptionist}. 
+     * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor} & & {@code XmlAdaptedReceptionist}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
@@ -83,7 +84,7 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECEPTIONIST);
             }
             addressBook.addReceptionist(receptionist);
-        }        
+        }
         return addressBook;
     }
 

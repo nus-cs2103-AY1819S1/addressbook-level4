@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.receptionist.Receptionist;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -144,7 +145,7 @@ public class ParserUtil {
         if (role.equals("doctor")) {
             return new Doctor(name, password);
         } else if (role.equals("receptionist")) {
-            return null;
+            return new Receptionist(name, password);
         } else {
             throw new ParseException("No role existed.");
         }

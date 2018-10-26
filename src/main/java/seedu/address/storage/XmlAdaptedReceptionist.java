@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Name;
 import seedu.address.model.receptionist.Receptionist;
