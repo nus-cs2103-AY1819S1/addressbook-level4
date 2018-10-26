@@ -15,6 +15,7 @@ import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.receptionist.Receptionist;
+import seedu.address.model.receptionist.UniqueReceptionistList;
 
 /**
  * Wraps all data at the address-book level
@@ -29,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueDoctorList doctors;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
-
+    private final UniqueReceptionistList receptionists;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -46,6 +47,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors = new UniqueDoctorList();
         //@@author gingivitiss
         appointments = new UniqueAppointmentList(analytics);
+        receptionists = new UniqueReceptionistList();
     }
 
     public AddressBook() {}
@@ -84,6 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setDoctors(newData.getDoctorList());
+        receptionists = newData.getReceptionistList();
     }
 
     //========== Person-level operations =====================================================================
@@ -261,6 +264,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
     }
+    
+    @Override
+    public ObservableList<Receptionist> getReceptionistList() {
+        return receptionists.asUnmodifiableObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -269,12 +277,13 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
                 && doctors.equals(((AddressBook) other).doctors)
-                && appointments.equals(((AddressBook) other).appointments));
+                && appointments.equals(((AddressBook) other).appointments))
+                && receptionists.equals(((AddressBook) other).receptionists);
     }
 
     @Override
     public int hashCode() {
         //@@author jjlee050
-        return Objects.hash(persons.hashCode(), doctors.hashCode(), appointments.hashCode());
+        return Objects.hash(persons.hashCode(), doctors.hashCode(), appointments.hashCode(), receptionists.hashCode());
     }
 }
