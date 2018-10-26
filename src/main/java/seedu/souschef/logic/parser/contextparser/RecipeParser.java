@@ -14,10 +14,12 @@ import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
+import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.parser.commandparser.AddCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
+import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
@@ -67,6 +69,9 @@ public class RecipeParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand<Recipe>(recipeModel);
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parseRecipe(recipeModel, arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
