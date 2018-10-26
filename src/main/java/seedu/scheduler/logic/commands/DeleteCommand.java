@@ -1,6 +1,7 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,6 +13,7 @@ import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
+import seedu.scheduler.logic.parser.Flag;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
 
@@ -29,16 +31,20 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed event list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Compulsory Parameters: INDEX (must be a positive integer)\n"
+            + "Optional Flags (Only one at a time):\n"
+            + "-u: delete all upcoming events\n" + "-a: delete all similar repeating events"
+            + "Example: " + COMMAND_WORD + " 1 -a";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
     private final Index targetIndex;
+    private final Flag[] flags;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCommand(Index targetIndex, Flag... flags) {
         this.targetIndex = targetIndex;
+        this.flags = flags;
     }
 
     @Override
@@ -51,7 +57,16 @@ public class DeleteCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteEvent(eventToDelete);
+        if (flags.length == 0) {
+            model.deleteEvent(eventToDelete);
+        } else {
+            if (flags[0].equals(FLAG_UPCOMING)) {
+                model.deleteUpcomingEvents(eventToDelete);
+            } else { //will catch FLAG_ALL
+                model.deleteRepeatingEvents(eventToDelete);
+            }
+        }
+
         model.commitScheduler();
         Calendar service = connectToGoogleCalendar.getCalendar();
         String gEventId = String.valueOf(eventToDelete.getUuid())
@@ -61,7 +76,7 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
     }
 
     @Override
