@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 
 //@@author zioul123
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the address book using their name.
  */
 public class EditByNameCommand extends EditCommand {
 
