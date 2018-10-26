@@ -142,6 +142,6 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, IANNA, JENNY,
-                KENNETH, LEONARD, MICHAEL, NOEL, OPENHEIMER, PERCY, QUINE, RICHARD));
+                OPENHEIMER, PERCY, QUINE, RICHARD));
     }
 }
