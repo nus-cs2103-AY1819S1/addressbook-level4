@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -8,8 +7,8 @@ import java.io.File;
 import java.nio.file.Path;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.ExportCommandParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
