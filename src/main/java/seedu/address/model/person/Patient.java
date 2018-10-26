@@ -153,7 +153,6 @@ public class Patient {
                 && otherPatient.getEmail().equals(getEmail())
                 && otherPatient.getAddress().equals(getAddress())
                 && otherPatient.getTags().equals(getTags());
-                //&& otherPatient.getMedicalRecord().equals(getMedicalRecord());
     }
 
     @Override
