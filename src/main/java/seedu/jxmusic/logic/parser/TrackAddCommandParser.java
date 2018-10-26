@@ -4,13 +4,10 @@ import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
-import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.TrackAddCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
-import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 

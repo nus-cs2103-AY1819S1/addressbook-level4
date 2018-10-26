@@ -10,8 +10,8 @@ import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.util.StringUtil;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Name;
-import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 //import seedu.jxmusic.model.tag.Tag;
 
 /**

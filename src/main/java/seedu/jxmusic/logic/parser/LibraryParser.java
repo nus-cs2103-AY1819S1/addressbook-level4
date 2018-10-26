@@ -17,10 +17,10 @@ import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
-import seedu.jxmusic.logic.commands.TrackAddCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
+import seedu.jxmusic.logic.commands.TrackAddCommand;
 import seedu.jxmusic.logic.commands.TrackListCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
