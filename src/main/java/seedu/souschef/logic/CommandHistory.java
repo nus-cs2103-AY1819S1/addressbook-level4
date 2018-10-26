@@ -5,32 +5,34 @@ import static java.util.Objects.requireNonNull;
 import java.util.LinkedList;
 import java.util.List;
 
+import seedu.souschef.logic.parser.Context;
+
 /**
  * Stores the history of commands executed.
  */
 public class CommandHistory {
     private LinkedList<String> userInputHistory;
 
-    private String context;
+    private Context context;
 
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
-        context = "Recipe";
+        context = Context.RECIPE;
     }
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
-        context = "Recipe";
+        context = Context.RECIPE;
     }
 
     /**
      * returns context.
      */
-    public String getContext() {
+    public Context getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(Context context) {
         this.context = context;
     }
 
