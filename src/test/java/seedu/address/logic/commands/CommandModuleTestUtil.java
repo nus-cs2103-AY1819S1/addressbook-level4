@@ -16,7 +16,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.person.Person;
 
 /**
  * Contains helper methods for testing commands.
@@ -83,7 +82,7 @@ public class CommandModuleTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -106,8 +105,7 @@ public class CommandModuleTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
 
         Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
-        model.updateFilteredModuleList(module1 -> (module1.getModuleCode().fullModuleCode.equals(
-                module.getModuleCode().fullModuleCode)));
+        model.updateFilteredModuleList(module1 -> (module1.isSameModule(module)));
 
         assertEquals(1, model.getFilteredModuleList().size());
     }
