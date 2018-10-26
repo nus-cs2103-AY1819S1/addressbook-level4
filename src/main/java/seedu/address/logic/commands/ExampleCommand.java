@@ -48,7 +48,7 @@ public class ExampleCommand extends Command {
         requireNonNull(model);
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         try {
-            imagePath = model.getCurrentOriginalImage();
+            imagePath = model.getCurrentPreviewImagePath();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
             model.updateCurrentPreviewImage(modifiedImage, transformationDone);
             EventsCenter.getInstance().post(
