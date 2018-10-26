@@ -21,7 +21,7 @@ public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addmodule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the address book. \n"
             + "Parameters: "
             + PREFIX_MODULECODE + "OCCASION_NAME "
             + PREFIX_MODULETITLE + "OCCASION_DATE "
@@ -29,11 +29,11 @@ public class AddModuleCommand extends Command {
             + PREFIX_SEMESTER + "SEMESTER"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULECODE + "CS2103"
-            + PREFIX_MODULETITLE + "SOFTWARE ENGINEERING"
-            + PREFIX_ACADEMICYEAR + "AY1718"
-            + PREFIX_SEMESTER + "1"
-            + PREFIX_TAG + "gg";
+            + PREFIX_MODULECODE + "CS2103 "
+            + PREFIX_MODULETITLE + "SOFTWARE ENGINEERING "
+            + PREFIX_ACADEMICYEAR + "AY1718 "
+            + PREFIX_SEMESTER + "1 "
+            + PREFIX_TAG + "gg ";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the address book";

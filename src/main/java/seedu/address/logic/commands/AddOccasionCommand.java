@@ -19,18 +19,18 @@ public class AddOccasionCommand extends Command {
 
     public static final String COMMAND_WORD = "addoccasion";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an occasion to the address book. \n"
             + "Parameters: "
             + PREFIX_OCCASION_NAME + "OCCASION_NAME "
             + PREFIX_OCCASION_DATE + "OCCASION_DATE "
             + PREFIX_OCCASION_LOCATION + "LOCATION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_OCCASION_NAME + "neighborhood party "
+            + PREFIX_OCCASION_NAME + "discussion "
             + PREFIX_OCCASION_DATE + "2018-01-01 "
-            + PREFIX_OCCASION_LOCATION + "Cinnamon College"
-            + PREFIX_TAG + "food "
-            + PREFIX_TAG + "games";
+            + PREFIX_OCCASION_LOCATION + "SoC "
+            + PREFIX_TAG + "project "
+            + PREFIX_TAG + "gg ";
 
     public static final String MESSAGE_SUCCESS = "New occasion added: %1$s";
     public static final String MESSAGE_DUPLICATE_OCCASION = "This occasion already exists in the address book";
