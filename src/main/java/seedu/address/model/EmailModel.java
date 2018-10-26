@@ -13,11 +13,11 @@ import org.simplejavamail.email.Recipient;
  */
 public class EmailModel {
 
+    private final String emlExtension = ".eml";
+
     private Email email;
     private String preview;
     private final Set<String> existingEmails;
-
-    private final String previewHeader = "<u>Email Preview</u><br><br>";
 
     public EmailModel() {
         existingEmails = new HashSet<>();
@@ -40,6 +40,7 @@ public class EmailModel {
      * Creates preview of email in EmailModel.
      */
     private void savePreview() {
+        String previewHeader = "<u>Email Preview</u><br><br>";
         String from = "From: " + email.getFromRecipient().getAddress();
         Iterator<Recipient> itr = email.getRecipients().iterator();
         String to = "To: " + itr.next().getAddress();
@@ -72,11 +73,15 @@ public class EmailModel {
     }
 
     public boolean hasEmail(String fileName) {
-        return existingEmails.contains(fileName + ".eml");
+        return existingEmails.contains(fileName + emlExtension);
     }
 
-    public void addToExistingEmails(String fileName) {
-        existingEmails.add(fileName + ".eml");
+    private void addToExistingEmails(String fileName) {
+        existingEmails.add(fileName + emlExtension);
+    }
+
+    private void removeFromExistingEmails(String fileName) {
+        existingEmails.remove(fileName + emlExtension);
     }
 
 }
