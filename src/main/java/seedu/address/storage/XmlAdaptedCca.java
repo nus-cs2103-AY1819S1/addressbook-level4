@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.transaction.Entry;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -72,11 +71,11 @@ public class XmlAdaptedCca {
      */
     public XmlAdaptedCca(Cca source) {
         name = source.getCcaName();
-        budget = String.valueOf(source.getGivenBudgetAmount());
+        budget = String.valueOf(source.getBudgetAmount());
 
         head = source.getHeadName();
         viceHead = source.getViceHeadName();
-        budget = String.valueOf(source.getGivenBudgetAmount());
+        budget = String.valueOf(source.getBudgetAmount());
         spent = String.valueOf(source.getSpentAmount());
         outstanding = String.valueOf(source.getOutstandingAmount());
         transaction = source.getEntries().stream()
@@ -147,7 +146,8 @@ public class XmlAdaptedCca {
         for (XmlAdaptedEntry entry : transaction) {
             transactionEntries.add(entry.toModelType());
         }
-        final Set<Entry> modelTransaction = new HashSet<>(transactionEntries);
+//        final Set<Entry> modelTransaction = new HashSet<>(transactionEntries);
+        final Set<Entry> modelTransaction = new LinkedHashSet<>(transactionEntries);
 
         return new Cca(modelName, modelHeadName, modelViceHeadName, modelBudget, modelSpent, modelOutstanding,
             modelTransaction);

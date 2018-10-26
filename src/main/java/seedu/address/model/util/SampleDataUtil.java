@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,7 +9,6 @@ import seedu.address.model.BudgetBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.transaction.Entry;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -116,10 +114,11 @@ public class SampleDataUtil {
             .collect(Collectors.toSet());
     }
 
+    //@@author ericyjw
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a transaction entry set containing the list of transaction entries given.
      */
-    public static Set<Entry> getTransactionEntrySet(Entry... entries) {
+    private static Set<Entry> getTransactionEntrySet(Entry... entries) {
         return Arrays.stream(entries)
             .collect(Collectors.toSet());
     }

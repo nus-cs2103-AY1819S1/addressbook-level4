@@ -63,7 +63,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
      * @param ccaName chosen CCA
      */
     private void loadCcaBudgetPage(CcaName ccaName) {
-        String chosen = ccaName.getCcaName();
+        String chosen = ccaName.getNameOfCca();
         XmlToHmtl.convertCcaBook(chosen);
         File budgetFile = new File(BUDGET_PAGE);
         try {

@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CCAS;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,7 +25,6 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.transaction.Remarks;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -40,10 +39,9 @@ import seedu.address.model.person.Name;
  * @author ericyjw
  */
 public class UpdateCommand extends Command {
-
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update details of an existing CCA"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update details of an existing CCA\n"
         + "Parameters: "
         + PREFIX_TAG + "CCA "
         + PREFIX_HEAD + "NAME OF HEAD "
@@ -51,15 +49,16 @@ public class UpdateCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "Basketball "
         + PREFIX_HEAD + "John "
-        + PREFIX_VICE_HEAD + "Alex \n\n"
+        + PREFIX_VICE_HEAD + "Alex \n"
+        + "or\n"
         + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA " +
-        "and a valid transaction entry number."
+        "and a valid transaction entry number.\n"
         + "Parameters: "
-        + PREFIX_TAG + "CCA"
-        + PREFIX_TRANSACTION + "ENTRY NUMBER OF TRANSACTION TO UPDATE"
-        + PREFIX_DATE + "UPDATED DATE OF TRANSACTION "
-        + PREFIX_AMOUNT + "UPDATE AMOUNT OF THE TRANSACTION "
-        + PREFIX_REMARKS + "UPDATED REMARKS OF THE TRANSACTION\n"
+        + PREFIX_TAG + "CCA "
+        + PREFIX_TRANSACTION + "ENTRY NUMBER "
+        + PREFIX_DATE + "DATE "
+        + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_REMARKS + "REMARKS\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "basketball "
         + PREFIX_TRANSACTION + "1 "
@@ -75,10 +74,14 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
 
-    public final CcaName cca;
+    private final CcaName cca;
     private final EditCcaDescriptor editCcaDescriptor;
 
-
+    /**
+     * Creates an UpdateCommand to update the specified {@code Cca}.
+     * @param ccaName name of the Cca to edit
+     * @param editCcaDescriptor details to edit the Cca with
+     */
     public UpdateCommand(CcaName ccaName, EditCcaDescriptor editCcaDescriptor) {
         requireAllNonNull(ccaName, editCcaDescriptor);
 
@@ -97,7 +100,7 @@ public class UpdateCommand extends Command {
 
         int index = 0;
         for (Cca c : lastShownList) {
-            if (c.getCcaName().equals(cca.getCcaName())) {
+            if (c.getCcaName().equals(cca.getNameOfCca())) {
                 break;
             }
             index++;
@@ -136,7 +139,7 @@ public class UpdateCommand extends Command {
 
         Outstanding updatedOutstanding = editCcaDescriptor.getOutstanding().orElse(ccaToEdit.getOutstanding());
 
-        Set<Entry> updatedTransactions = new HashSet<>();
+        Set<Entry> updatedTransactions = new LinkedHashSet<>();
         if(editCcaDescriptor.getEntryNum().isPresent()) {
             Set<Entry> entrySet = ccaToEdit.getEntries();
             Entry[] currentCcaEntries = entrySet.toArray(new Entry[entrySet.size()]);
@@ -192,8 +195,8 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the CCA with. Each non-empty field value will replace the
-     * corresponding field value of the CCA.
+     * Stores the details to edit the CCA with. Each non-empty field value will replace the corresponding field value
+     * of the CCA.
      */
     public static class EditCcaDescriptor {
         private CcaName name;
@@ -212,10 +215,9 @@ public class UpdateCommand extends Command {
         }
 
         /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * Copy constructor. To copy the values the attributes to be updated.
          */
-        public EditCcaDescriptor(UpdateCommand.EditCcaDescriptor toCopy) {
+        private EditCcaDescriptor(EditCcaDescriptor toCopy) {
             setCcaName(toCopy.name);
             setHead(toCopy.head);
             setViceHead(toCopy.viceHead);
@@ -232,7 +234,7 @@ public class UpdateCommand extends Command {
 
 
         /**
-         * Returns true if at least one field is edited.
+         * Returns true if at least one cca field is edited.
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, head, viceHead, budget, spent, outstanding, transactions,
@@ -325,7 +327,7 @@ public class UpdateCommand extends Command {
          * A defensive copy of {@code transactions} is used internally.
          */
         public void setTransaction(Set<Entry> transaction) {
-            this.transactions = (transactions != null) ? new HashSet<>(transaction) : null;
+            this.transactions = (transactions != null) ? new LinkedHashSet<>(transaction) : null;
         }
 
         /**
@@ -345,12 +347,12 @@ public class UpdateCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UpdateCommand.EditCcaDescriptor)) {
+            if (!(other instanceof EditCcaDescriptor)) {
                 return false;
             }
 
             // state check
-            UpdateCommand.EditCcaDescriptor e = (UpdateCommand.EditCcaDescriptor) other;
+            EditCcaDescriptor e = (EditCcaDescriptor) other;
 
             return getCcaName().equals(e.getCcaName())
                 && getHead().equals(e.getHead())

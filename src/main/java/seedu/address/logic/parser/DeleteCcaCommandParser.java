@@ -1,15 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCcaCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 
 //@@author ericyjw
@@ -19,7 +14,6 @@ import seedu.address.model.cca.CcaName;
  * @author ericyjw
  */
 public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCcaCommand
      * and returns an DeleteCcaCommand object for execution.
@@ -40,5 +34,4 @@ public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
 
         return new DeleteCcaCommand(ccaName);
     }
-
 }

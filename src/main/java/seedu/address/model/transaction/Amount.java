@@ -5,14 +5,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 //@@author ericyjw
 /**
- * Represents a Transaction Entry Amount in the budget book.
+ * Represents a transaction entry amount in the Cca book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
+ *
  * @author ericyjw
  */
 public class Amount {
     public static final String MESSAGE_AMOUNT_CONSTRAINTS =
-        "Transaction Amount should only contain digits and dashes, and it should not be blank";
-
+        "Transaction amount should only contain digits and dashes, and it should not be blank";
     /*
      * The first character of the Date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -21,14 +21,14 @@ public class Amount {
 
     private Integer amount;
 
-    public Amount() {
-        this.amount = null;
-    }
-
     public Amount(Integer amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(String.valueOf(amount)), MESSAGE_AMOUNT_CONSTRAINTS);
         this.amount = amount;
+    }
+
+    public Integer getAmount() {
+        return this.amount;
     }
 
     public static boolean isValidAmount(String test) {
@@ -36,20 +36,8 @@ public class Amount {
     }
 
     public static boolean isValidAmount(Entry e) {
-        String amount = String.valueOf(e.getAmount().amount);
+        String amount = String.valueOf(e.getAmountValue());
         return amount.matches(AMOUNT_VALIDATION_REGEX);
-    }
-
-    public Integer getAmount() {
-        return this.amount;
-    }
-
-    /**
-     * Update the transaction entry amount by replacing the existing amount with the new amount
-     * @param newAmount new amount to be updated
-     */
-    public void updateAmount(Integer newAmount) {
-        this.amount = newAmount;
     }
 
     /**

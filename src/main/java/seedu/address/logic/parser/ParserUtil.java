@@ -25,7 +25,6 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.transaction.Remarks;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Budget;

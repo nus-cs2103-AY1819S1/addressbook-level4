@@ -3,20 +3,15 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
-
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.tag.TagContainsKeywordPredicate;
 
-
+//@author ericyjw
 /**
  * Parses input arguments and creates a new BudgetCommand object
  */
 public class BudgetCommandParser implements Parser<BudgetCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the BudgetCommand
      * and returns a BudgetCommand object for execution.
@@ -40,8 +35,6 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
-
-//        CcaName ccaName = new CcaName(argMultimap.getValue(PREFIX_TAG).get());
 
         return new BudgetCommand(new CcaName(ccaName));
     }
