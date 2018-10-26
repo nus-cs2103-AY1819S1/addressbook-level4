@@ -13,15 +13,18 @@ import seedu.address.model.person.Email;
 public class DefaultEmailBuilder {
 
     public static final String DEFAULT_FROM = "alice@gmail.com";
+    public static final String DEFAULT_TO = "billy@gmail.com";
     public static final String DEFAULT_SUBJECT = "Meeting on Friday";
     public static final String DEFAULT_CONTENT = "Dear Billy<br /><br />See you tomorrow!<br /><br />Alice";
 
     private Email from;
+    private Email to;
     private Subject subject;
     private Content content;
 
     public DefaultEmailBuilder() {
         from = new Email(DEFAULT_FROM);
+        to = new Email(DEFAULT_TO);
         subject = new Subject(DEFAULT_SUBJECT);
         content = new Content(DEFAULT_CONTENT);
     }
@@ -35,10 +38,21 @@ public class DefaultEmailBuilder {
     }
 
     /**
-     * Returns an Email object built.
-     * @return org.simplejavamail.email.Email object with builder values.
+     * Returns an Email.
      */
     public org.simplejavamail.email.Email build() {
+        return EmailBuilder.startingBlank()
+                .from(from.value)
+                .to(to.value)
+                .withSubject(subject.value)
+                .withHTMLText(content.value)
+                .buildEmail();
+    }
+
+    /**
+     * Returns an Email without recipients.
+     */
+    public org.simplejavamail.email.Email buildWithoutTo() {
         return EmailBuilder.startingBlank()
                 .from(from.value)
                 .withSubject(subject.value)
