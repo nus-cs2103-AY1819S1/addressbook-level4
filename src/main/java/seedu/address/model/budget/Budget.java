@@ -5,9 +5,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
@@ -20,18 +23,16 @@ public class Budget {
     public static final String MESSAGE_BUDGET_CONSTRAINTS =
         "Cost should only take values in the following format: {int}.{digit}{digit}";
 
-    public static final String MESSAGE_NEXT_MONTH = String.format("It is the end of the month. Please set a new "
-        + "budget");
-
     public static final String BUDGET_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
 
-    private double budgetCap;
-    private double currentExpenses;
+    protected double budgetCap;
+    protected double currentExpenses;
+    protected long numberOfSecondsToRecurAgain;
     private LocalDateTime nextRecurrence;
-    private long numberOfSecondsToRecurAgain;
+    private HashSet<CategoryBudget> categoryBudgets;
 
 
 
@@ -47,6 +48,7 @@ public class Budget {
         this.nextRecurrence = null;
         this.numberOfSecondsToRecurAgain = 50000;
         this.currentExpenses = 0.0;
+        this.categoryBudgets = new HashSet<>();
     }
 
     /**
@@ -62,6 +64,7 @@ public class Budget {
         this.currentExpenses = currentExpenses;
         this.nextRecurrence = nextRecurrence;
         this.numberOfSecondsToRecurAgain = numberOfSecondsToRecurAgain;
+        this.categoryBudgets = new HashSet<>();
     }
 
     /**
@@ -74,6 +77,7 @@ public class Budget {
         this.currentExpenses = currentExpenses;
         this.nextRecurrence = null;
         this.numberOfSecondsToRecurAgain = 50000;
+        this.categoryBudgets = new HashSet<>();
 
     }
 
@@ -157,6 +161,32 @@ public class Budget {
 
     public long getNumberOfSecondsToRecurAgain() {
         return this.numberOfSecondsToRecurAgain;
+    }
+
+    /**
+     * Adds a category budget. Total sum of all category budgets cannnot exceed the budget cap.
+     * @param budget
+     * @throws CategoryBudgetExceedTotalBudgetException throws this if adding a category budget exceeds the current
+     * total budget.
+     */
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+        double sumOfCurrentCategoryBudgets =
+            this.categoryBudgets.stream().mapToDouble(categoryBudget -> categoryBudget.getBudgetCap()).sum();
+        if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {
+            throw new CategoryBudgetExceedTotalBudgetException(budget, this);
+        }
+        this.categoryBudgets.add(budget);
+    }
+
+    /**
+     * Modifies a category budget currently in the set of category budgets.
+     * @param budget
+     */
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
+        if (this.categoryBudgets.remove(budget)) {
+            throw new CategoryBudgetDoesNotExist(budget);
+        }
+        this.categoryBudgets.add(budget);
     }
 
     @Override

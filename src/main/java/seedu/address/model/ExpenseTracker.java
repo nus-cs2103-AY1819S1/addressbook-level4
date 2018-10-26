@@ -8,6 +8,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.model.user.Password;
@@ -55,7 +56,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.maximumBudget = budget;
         this.maximumBudget.modifyExpenses(previousSpending);
 
+    }
 
+    public void addCategoryBudget(CategoryBudget budget) {
+        this.maximumBudget.addCategoryBudget(budget);
+    }
+
+    public void modifyCategoryBudget(CategoryBudget budget) {
+        this.maximumBudget.modifyCategoryBudget(budget);
     }
 
     public void setRecurrenceFrequency(long seconds) {
