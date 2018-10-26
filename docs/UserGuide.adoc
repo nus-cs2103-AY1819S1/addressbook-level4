@@ -128,13 +128,13 @@ Add new recipe. +
 Format: +
 `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... i/INSTRUCTION... end`
 
-==== Display recipe details: `INDEX`
+==== Display recipe details: `select INDEX`
 View a recipe and its details from the list. +
 ****
 * `INDEX` should be as displayed in the list.
 ****
 Format: +
-`INDEX`
+`select INDEX`
 
 ==== Activate cook-mode: `cook INDEX`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
@@ -144,7 +144,7 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 Format: +
 `cook INDEX`
 
-==== Search and display recipes: `search KEYWORD... [x/KEYWORD]...`
+==== Search and display recipes: `search KEYWORD...`
 Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
 dietary types (vegan, Keto),
@@ -385,7 +385,7 @@ Format: +
 
 * View help: `-help [local]`
 * Navigate pages: `-back [TIMES]`/ `-forward [TIMES]`
-* Search and display recipes: `-search KEYWORD... [x/KEYWORD]...`
+* Search and display recipes: `-search KEYWORD...`
 * Display all recipe: '-recipe'
 * Display recipe suggestion: `-suggest`
 * Display new recipe: `-surprise`
@@ -397,7 +397,7 @@ Format: +
 *Recipes/Favourite List*
 
 * Add a recipe: `add n/NAME c/TIME [t/TAG]... i/INSTRUCTION... end`
-* Display recipe details: `INDEX`
+* Display recipe details: `select INDEX`
 * Activate cook-mode: `cook INDEX`
 
 *Recipe Details Commands*

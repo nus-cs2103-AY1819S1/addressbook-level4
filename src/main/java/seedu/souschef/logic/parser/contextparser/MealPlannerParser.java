@@ -10,7 +10,9 @@ import seedu.souschef.logic.commands.ClearMealPlannerCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.HelpCommand;
+import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
+import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 
@@ -33,7 +35,7 @@ public class MealPlannerParser {
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(Model mealPlannerModel, String userInput) throws ParseException {
+    public Command parseCommand(Model mealPlannerModel, Model recipeModel, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -47,9 +49,23 @@ public class MealPlannerParser {
             return new ClearMealPlannerCommand(mealPlannerModel);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
+        case PlanMealCommand.COMMAND_WORD:
+            return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * To check if the user input is a cross context command.
+     */
+    public static boolean isCrossContextCommand(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        final String commandWord = matcher.group("commandWord");
+        return commandWord.equals(PlanMealCommand.COMMAND_WORD);
     }
 }

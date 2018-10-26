@@ -20,6 +20,22 @@ public class IngredientDate {
         this.date = (new SimpleDateFormat("MM-dd-yyyy")).parse(date);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientDate)) {
+            return false;
+        }
+
+        IngredientDate otherDate = (IngredientDate) other;
+
+        return otherDate != null
+                && this.date.equals(otherDate.date);
+    }
+
     public String toString() {
         return new SimpleDateFormat("MM-dd-yyyy").format(date);
     }

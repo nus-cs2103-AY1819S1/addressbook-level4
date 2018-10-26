@@ -4,12 +4,16 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.souschef.model.UniqueType;
+import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.tag.Tag;
 
 /**
@@ -26,6 +30,7 @@ public class Recipe extends UniqueType {
     // Data fields
     private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final HashMap<IngredientDefinition, Double> ingredients = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -36,6 +41,17 @@ public class Recipe extends UniqueType {
         this.cookTime = cooktime;
         this.difficulty = difficulty;
         this.instructions.addAll(instructions);
+        for (Instruction instruction : instructions) {
+            for (IngredientPortion portion : instruction.ingredients) {
+                IngredientDefinition key = new IngredientDefinition(portion.getName().toString());
+                Double amount = portion.getAmount().getValue();
+                if (ingredients.containsKey(key)) {
+                    ingredients.replace(key, ingredients.get(key) + amount);
+                } else {
+                    ingredients.put(key, amount);
+                }
+            }
+        }
         this.tags.addAll(tags);
     }
 
@@ -61,6 +77,10 @@ public class Recipe extends UniqueType {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Map<IngredientDefinition, Double> getIngredients() {
+        return ingredients;
     }
 
     /**
