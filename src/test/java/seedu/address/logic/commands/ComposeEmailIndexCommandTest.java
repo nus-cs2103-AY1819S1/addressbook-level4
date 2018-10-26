@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SET;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -32,12 +34,19 @@ public class ComposeEmailIndexCommandTest {
     @Test
     public void constructor_nullEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new ComposeEmailIndexCommand(null, null);
+        new ComposeEmailIndexCommand(null, INDEX_SET);
+    }
+
+    @Test
+    public void constructor_nullIndexSet_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
+        new ComposeEmailIndexCommand(validEmail, null);
     }
 
     @Test
     public void execute_emailAccepted_composeSuccessful() throws Exception {
-        Email validEmail = new DefaultEmailBuilder().build();
+        Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
 
         CommandResult commandResult = new ComposeEmailIndexCommand(validEmail, INDEX_SET)
                 .execute(model, commandHistory);
@@ -49,8 +58,8 @@ public class ComposeEmailIndexCommandTest {
 
     @Test
     public void equals() {
-        Email meeting = new DefaultEmailBuilder().withSubject("Meeting").build();
-        Email conference = new DefaultEmailBuilder().withSubject("Conference").build();
+        Email meeting = new DefaultEmailBuilder().withSubject("Meeting").buildWithoutTo();
+        Email conference = new DefaultEmailBuilder().withSubject("Conference").buildWithoutTo();
         ComposeEmailIndexCommand composeMeetingCommand = new ComposeEmailIndexCommand(meeting, INDEX_SET);
         ComposeEmailIndexCommand composeConferenceCommand = new ComposeEmailIndexCommand(conference, INDEX_SET);
 
@@ -67,7 +76,7 @@ public class ComposeEmailIndexCommandTest {
         // null -> returns false
         assertFalse(composeMeetingCommand.equals(null));
 
-        // different person -> returns false
+        // different email -> returns false
         assertFalse(composeMeetingCommand.equals(composeConferenceCommand));
     }
 
