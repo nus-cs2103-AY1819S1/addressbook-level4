@@ -484,7 +484,7 @@ image::implementation/FindCommandSequenceDiagram.png[width="800"]
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
 . `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
-an ArgumentMultimap Object.
+an `ArgumentMultimap` Object.
 
 . `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
 of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
@@ -614,10 +614,10 @@ image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
 
 . User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
 
-. `ExpenseTrackerParser` will then creates a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
+. `ExpenseTrackerParser` will then create a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
 
 . `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
-an ArgumentMultimap Object.
+an `ArgumentMultimap` Object.
 
 . `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
 method. If none of the keywords are present, `ParseException` will be thrown.
