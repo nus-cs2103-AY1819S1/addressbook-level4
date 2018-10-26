@@ -13,6 +13,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.EmailModel;
@@ -54,6 +55,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     Email loadEmail(String emailName) throws IOException;
 
     @Override
+    void deleteEmail(String emailName) throws IOException;
+
+    @Override
     Set<String> readEmailFiles();
 
     /**
@@ -84,6 +88,11 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      * Loads an email from the given path.
      */
     void handleEmailLoadEvent(EmailLoadEvent ele);
+
+    /**
+     * Deletes an email from the local directory.
+     */
+    void handleEmailDeleteEvent(EmailDeleteEvent ede);
 
     //@@author GilgameshTC
     @Override

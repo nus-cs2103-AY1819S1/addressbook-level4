@@ -19,6 +19,7 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
@@ -168,6 +169,11 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public void deleteEmail(String emailName) throws IOException {
+        emailStorage.deleteEmail(emailName);
+    }
+
+    @Override
     public Set<String> readEmailFiles() {
         return readEmailFiles(emailStorage.getEmailPath());
     }
@@ -181,7 +187,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleEmailSavedEvent(EmailSavedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to directory."));
         try {
             saveEmail(event.data);
             raise(new EmailViewEvent(event.data));
@@ -193,10 +199,22 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleEmailLoadEvent(EmailLoadEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to read email from file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to read email from directory."));
         try {
             Email loadedEmail = loadEmail(event.data);
             raise(new EmailLoadedEvent(loadedEmail));
+        } catch (IOException e) {
+            logger.warning("Email file not found: " + StringUtil.getDetails(e));
+            raise(new EmailNotFoundEvent(event.data));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleEmailDeleteEvent(EmailDeleteEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to delete email from directory."));
+        try {
+            deleteEmail(event.data);
         } catch (IOException e) {
             logger.warning("Email file not found: " + StringUtil.getDetails(e));
             raise(new EmailNotFoundEvent(event.data));

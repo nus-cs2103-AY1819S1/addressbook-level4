@@ -35,6 +35,13 @@ public interface EmailStorage {
     Email loadEmail(String emailName) throws IOException;
 
     /**
+     * Delete email from local directory.
+     * @param emailName Name of the eml file
+     * @throws IOException if there was any problem deleting the file.
+     */
+    void deleteEmail(String emailName) throws IOException;
+
+    /**
      * Returns a set of names of eml files in the directory.
      * Returns empty set if directory does not exist.
      */

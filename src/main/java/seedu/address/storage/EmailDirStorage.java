@@ -30,6 +30,8 @@ public class EmailDirStorage implements EmailStorage {
 
     private static final Logger logger = LogsCenter.getLogger(EmailDirStorage.class);
 
+    private final String emlExtension = ".eml";
+
     private Path dirPath;
 
     public EmailDirStorage(Path dirPath) {
@@ -43,7 +45,7 @@ public class EmailDirStorage implements EmailStorage {
 
     @Override
     public void saveEmail(EmailModel emailModel) throws IOException {
-        Path fileName = Paths.get(dirPath.toString(), emailModel.getEmail().getSubject().concat(".eml"));
+        Path fileName = Paths.get(dirPath.toString(), emailModel.getEmail().getSubject().concat(emlExtension));
         String toSave = EmailConverter.emailToEML(emailModel.getEmail());
         FileUtil.createIfMissing(fileName);
         FileUtil.writeToFile(fileName, toSave);
@@ -51,11 +53,18 @@ public class EmailDirStorage implements EmailStorage {
 
     @Override
     public Email loadEmail(String emailName) throws IOException {
-        String fileName = emailName + ".eml";
+        String fileName = emailName + emlExtension;
         Path pathToLoad = Paths.get(dirPath.toString(), fileName);
         String emlString = readFromFile(pathToLoad);
         Email loadedEmail = emlToEmail(emlString);
         return loadedEmail;
+    }
+
+    @Override
+    public void deleteEmail(String emailName) throws IOException {
+        String fileName = emailName + emlExtension;
+        Path pathToDelete = Paths.get(dirPath.toString(), fileName);
+        Files.delete(pathToDelete);
     }
 
     @Override
@@ -80,7 +89,7 @@ public class EmailDirStorage implements EmailStorage {
         File emailDir = new File(dirPath.toString());
 
         FilenameFilter emlFilter = (dir, name) -> {
-            if (name.endsWith(".eml")) {
+            if (name.endsWith(emlExtension)) {
                 return true;
             } else {
                 return false;
