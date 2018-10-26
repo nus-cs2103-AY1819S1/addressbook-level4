@@ -25,9 +25,9 @@ public class Day extends UniqueType {
     public Day(LocalDate date) {
         this.date = date;
         this.meals = FXCollections.observableArrayList();
-        this.meals.add(Meal.BREAKFAST, new Meal(Meal.BREAKFAST));
-        this.meals.add(Meal.LUNCH, new Meal(Meal.LUNCH));
-        this.meals.add(Meal.DINNER, new Meal(Meal.DINNER));
+        this.meals.add(Meal.Slot.BREAKFAST.ordinal(), new Meal(Meal.Slot.BREAKFAST));
+        this.meals.add(Meal.Slot.LUNCH.ordinal(), new Meal(Meal.Slot.LUNCH));
+        this.meals.add(Meal.Slot.DINNER.ordinal(), new Meal(Meal.Slot.DINNER));
     }
 
     public Day(LocalDate date, ArrayList<Meal> meals) {
@@ -42,6 +42,14 @@ public class Day extends UniqueType {
     public Meal getMeal(String slot) {
         int targetSlot = Meal.stringToIntSlot(slot);
         return this.meals.get(targetSlot);
+    }
+
+    public Meal getMeal(Meal.Slot slot) {
+        return this.meals.get(slot.ordinal());
+    }
+
+    public ObservableList<Meal> getMeals() {
+        return this.meals;
     }
 
     /**

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Meal;
 
 /**
  * An UI component that displays information of a {@code Day}.
@@ -34,20 +35,20 @@ public class MealPlanCard extends GenericCard<Day> {
         date.setText(day.getDate().toString());
         id.setText(displayedIndex + ". ");
 
-        if (!day.getMeal("breakfast").isEmpty()) {
-            breakfast.setText("Breakfast: " + day.getMeal("breakfast").getRecipe().getName().toString());
+        if (!day.getMeal(Meal.Slot.BREAKFAST).isEmpty()) {
+            breakfast.setText("Breakfast: " + day.getMeal(Meal.Slot.BREAKFAST).getRecipe().getName().toString());
         } else {
             breakfast.setText("Breakfast: No recipe");
         }
 
-        if (!day.getMeal("lunch").isEmpty()) {
-            lunch.setText("Lunch: " + day.getMeal("lunch").getRecipe().getName().toString());
+        if (!day.getMeal(Meal.Slot.LUNCH).isEmpty()) {
+            lunch.setText("Lunch: " + day.getMeal(Meal.Slot.LUNCH).getRecipe().getName().toString());
         } else {
             lunch.setText("Lunch: No recipe");
         }
 
-        if (!day.getMeal("dinner").isEmpty()) {
-            dinner.setText("Dinner: " + day.getMeal("dinner").getRecipe().getName().toString());
+        if (!day.getMeal(Meal.Slot.DINNER).isEmpty()) {
+            dinner.setText("Dinner: " + day.getMeal(Meal.Slot.DINNER).getRecipe().getName().toString());
         } else {
             dinner.setText("Dinner: No recipe");
         }

@@ -8,19 +8,18 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.ClearMealPlannerCommand;
 import seedu.souschef.logic.commands.Command;
-import seedu.souschef.logic.commands.DisplayMealPlannerCommand;
+import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.HelpCommand;
-import seedu.souschef.logic.commands.PlanMealCommand;
-import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
+import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.ui.Ui;
 
 
 /**
  * Parses user input.
  */
 public class MealPlannerParser {
+    public static final String COMMAND_WORD = "mealplanner";
     /**
      * Used for initial separation of command word and args.
      */
@@ -30,13 +29,11 @@ public class MealPlannerParser {
      * Parses userInput into command for execution.
      *
      * @param mealPlannerModel
-     * @param recipeModel
      * @param userInput
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(Model mealPlannerModel, Model recipeModel,
-            String userInput, Ui ui) throws ParseException {
+    public Command parseCommand(Model mealPlannerModel, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -46,12 +43,10 @@ public class MealPlannerParser {
         final String arguments = matcher.group("arguments").trim();
 
         switch(commandWord) {
-        case PlanMealCommand.COMMAND_WORD:
-            return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
-        case DisplayMealPlannerCommand.COMMAND_WORD:
-            return new DisplayMealPlannerCommand(ui);
         case ClearMealPlannerCommand.COMMAND_WORD:
             return new ClearMealPlannerCommand(mealPlannerModel);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

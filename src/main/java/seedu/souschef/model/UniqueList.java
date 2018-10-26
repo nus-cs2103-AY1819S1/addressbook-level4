@@ -3,6 +3,7 @@ package seedu.souschef.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -124,6 +125,10 @@ public class UniqueList<T extends UniqueType> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return internalList.iterator();
+    }
+
+    public void sortList(Comparator<T> comparator) {
+        internalList.sort(comparator);
     }
 
     @Override

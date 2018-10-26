@@ -28,6 +28,7 @@ public class TypicalRecipes {
     public static final Recipe BENSON = new RecipeBuilder().withName("Benson Meier")
             .withCooktime("PT23M")
             .withDifficulty("5")
+            .withInstruction("Mix all ingredients")
             .withTags("owesMoney", "friends").build();
     public static final Recipe CARL = new RecipeBuilder().withName("Carl Kurz").withCooktime("PT23M")
             .withDifficulty("5").build();

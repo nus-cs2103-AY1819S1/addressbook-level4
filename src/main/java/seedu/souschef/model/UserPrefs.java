@@ -15,6 +15,7 @@ public class UserPrefs {
     private Path recipeFilePath = Paths.get("data" , "recipe.xml");
     private Path ingredientPath = Paths.get("data" , "ingredient.xml");
     private Path healthplanPath = Paths.get("data" , "healthplan.xml");
+    private Path mealPlanPath = Paths.get("data", "mealplan.xml");
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
     }
@@ -39,6 +40,9 @@ public class UserPrefs {
     }
     public Path getHealthplanPath() {
         return healthplanPath;
+    }
+    public Path getMealPlanPath() {
+        return mealPlanPath;
     }
 
     public void setRecipeFilePath(Path recipeFilePath) {

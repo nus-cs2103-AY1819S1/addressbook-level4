@@ -25,6 +25,7 @@ import seedu.souschef.model.ingredient.Ingredient;
  * Parses user input.
  */
 public class IngredientParser {
+    public static final String COMMAND_WORD = "ingredientmanager";
     /**
      * Used for initial separation of command word and args.
      */

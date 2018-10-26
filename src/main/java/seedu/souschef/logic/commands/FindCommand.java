@@ -1,10 +1,11 @@
 package seedu.souschef.logic.commands;
 
+import java.util.function.Predicate;
+
 import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all recipes in address book whose name contains any of the argument keywords.
@@ -15,9 +16,9 @@ public class FindCommand<T extends UniqueType> extends Command {
     public static final String COMMAND_WORD = "find";
 
     private final Model<T> model;
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate predicate;
 
-    public FindCommand(Model model, NameContainsKeywordsPredicate predicate) {
+    public FindCommand(Model model, Predicate predicate) {
         this.model = model;
         this.predicate = predicate;
     }
@@ -27,7 +28,7 @@ public class FindCommand<T extends UniqueType> extends Command {
         model.updateFilteredList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, model.getFilteredList().size(),
-                        history.getContext().toLowerCase()));
+                        history.getContext().toString().toLowerCase()));
     }
 
     @Override

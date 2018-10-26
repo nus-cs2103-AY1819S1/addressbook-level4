@@ -2,6 +2,7 @@ package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
@@ -16,6 +17,7 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +42,10 @@ import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.ingredient.IngredientAmount;
+import seedu.souschef.model.ingredient.IngredientDate;
+import seedu.souschef.model.ingredient.IngredientName;
+import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
@@ -103,9 +109,70 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         return new EditCommand<>(model, toEdit, edited);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditCommand
+     * and returns an EditCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public EditCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
-        return null;
+        requireNonNull(model);
+        requireNonNull(args);
+
+        List<Ingredient> lastShownList = model.getFilteredList();
+        String[] tokens = args.trim().split("\\s+");
+        int index;
+        try {
+            index = Integer.parseInt(tokens[0]) - 1;
+            if (index >= lastShownList.size() || tokens.length % 2 == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
+        }
+
+        Ingredient toEdit = lastShownList.get(index);
+
+        IngredientName name = toEdit.getName();
+        IngredientAmount amount = toEdit.getAmount();
+        IngredientServingUnit unit = toEdit.getUnit();
+        IngredientDate date = toEdit.getDate();
+
+        for (int i = 1; i < tokens.length; i += 2) {
+            if (tokens[i].equals("name")) {
+                name = new IngredientName(tokens[i + 1]);
+                if (!name.isValid()) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_EDIT_INGREDIENT_USAGE));
+                }
+            } else if (tokens[i].equals("amount")) {
+                try {
+                    amount = new IngredientAmount(tokens[i + 1]);
+                } catch (NumberFormatException e) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_EDIT_INGREDIENT_USAGE));
+                }
+            } else if (tokens[i].equals("unit")) {
+                unit = new IngredientServingUnit(tokens[i + 1]);
+                if (!unit.isValid()) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_EDIT_INGREDIENT_USAGE));
+                }
+            } else if (tokens[i].equals("date")) {
+                try {
+                    date = new IngredientDate(tokens[i + 1]);
+                } catch (java.text.ParseException pe) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_EDIT_INGREDIENT_USAGE));
+                }
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
+            }
+        }
+
+        Ingredient edited = new Ingredient(name, amount, unit, date);
+
+        return new EditCommand<>(model, toEdit, edited);
     }
 
     /**
@@ -209,7 +276,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         CookTime updatedEmail = editRecipeDescriptor.getCooktime().orElse(toEdit.getCookTime());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Recipe(updatedName, updatedPhone, updatedEmail, new ArrayList<>(), updatedTags);
     }
 
     /**

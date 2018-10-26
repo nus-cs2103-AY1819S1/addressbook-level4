@@ -97,6 +97,11 @@ public class Messages {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_DELETE_MEALPLANNER_USAGE = DeleteCommand.COMMAND_WORD
+        + ": Deletes a day from your Meal Planner. "
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
+
     // Edit command messages
     public static final String MESSAGE_EDIT_RECIPE_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the recipe identified "

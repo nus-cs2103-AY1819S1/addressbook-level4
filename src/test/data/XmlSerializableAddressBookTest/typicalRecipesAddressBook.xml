@@ -6,6 +6,9 @@
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
         <tagged>friends</tagged>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Benson Meier</name>
@@ -13,31 +16,49 @@
         <cooktime>PT23M</cooktime>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <instructions>
+        <instruction>Mix all ingredients</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Carl Kurz</name>
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Daniel Meier</name>
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
         <tagged>friends</tagged>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Elle Meyer</name>
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Fiona Kunz</name>
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>George Best</name>
         <difficulty>5</difficulty>
         <cooktime>PT23M</cooktime>
+        <instructions>
+        <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
 </souschef>

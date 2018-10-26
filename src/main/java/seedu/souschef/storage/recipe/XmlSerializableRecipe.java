@@ -73,7 +73,7 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
     }
 
     /**
-     * Converts this addressbook into the recipeModel's {@code AppContent} object.
+     * Converts this souschef into the recipeModel's {@code AppContent} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedRecipe}.
