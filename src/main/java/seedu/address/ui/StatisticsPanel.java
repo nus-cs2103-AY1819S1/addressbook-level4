@@ -27,8 +27,6 @@ import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 public class StatisticsPanel extends UiPart<Region> {
     private static final String FXML = "StatisticsPanel.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(StatisticsPanel.class);
-
     @FXML
     private StackPane chartArea;
 

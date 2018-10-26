@@ -29,6 +29,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Name;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
@@ -82,12 +83,13 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getExpenseStatsReturnsMapWithCorrectEntries() throws NoUserSelectedException {
+    public void getExpenseStatsReturnsMapWithCorrectSingleEntries() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().build();
         model.addExpense(validExpense);
         model.updateStatsMode(StatsMode.TIME);
-
         model.updateStatsPeriod(StatsPeriod.DAY);
+
+        //Check
         LinkedHashMap<String, Double> map = logic.getExpenseStats();
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(validExpense.getDate().toString()));
@@ -105,6 +107,34 @@ public class LogicManagerTest {
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(validExpense.getCategory().categoryName));
         assertTrue(map.get(validExpense.getCategory().categoryName) == validExpense.getCost().getCostValue());
+    }
+
+    @Test
+    public void getExpenseStatsReturnsMapWithCorrectMultipleEntries() throws NoUserSelectedException {
+        Expense validExpense = new ExpenseBuilder().build();
+        Expense validExpenseTwo = new ExpenseBuilder().withName("Food").build();
+        model.addExpense(validExpense);
+        model.addExpense(validExpenseTwo);
+        model.updateStatsMode(StatsMode.TIME);
+        model.updateStatsPeriod(StatsPeriod.DAY);
+
+        LinkedHashMap<String, Double> map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getDate().toString()));
+        assertTrue(map.get(validExpense.getDate().toString()) == (validExpense.getCost().getCostValue() * 2));
+
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
+        map = logic.getExpenseStats();
+        String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(month));
+        assertTrue(map.get(month) == (validExpense.getCost().getCostValue() * 2));
+
+        model.updateStatsMode(StatsMode.CATEGORY);
+        map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getCategory().categoryName));
+        assertTrue(map.get(validExpense.getCategory().categoryName) == (validExpense.getCost().getCostValue() * 2));
     }
 
     @Test
