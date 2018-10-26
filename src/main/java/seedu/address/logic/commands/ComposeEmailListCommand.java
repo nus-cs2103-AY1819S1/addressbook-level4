@@ -54,11 +54,6 @@ public class ComposeEmailListCommand extends Command {
         }
 
         List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (lastShownList.isEmpty()) {
-            throw new CommandException(MESSAGE_LIST_EMPTY);
-        }
-
         Email emailWithRecipient = addRecipientsToEmail(lastShownList);
         model.saveComposedEmail(emailWithRecipient);
 
@@ -70,7 +65,12 @@ public class ComposeEmailListCommand extends Command {
      * @param lastShownList Current filtered list.
      * @return Email with recipients from list.
      */
-    private Email addRecipientsToEmail(List<Person> lastShownList) {
+    private Email addRecipientsToEmail(List<Person> lastShownList) throws CommandException {
+
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_LIST_EMPTY);
+        }
+
         final Set<String> emailList = new HashSet<>();
         for (Person person : lastShownList) {
             emailList.add(person.getEmail().value);
