@@ -34,7 +34,7 @@ public class OccasionBuilder {
     public OccasionBuilder(Occasion occasionToCopy) {
         occasionName = occasionToCopy.getOccasionName();
         occasionDate = occasionToCopy.getOccasionDate();
-        occasionLocation = occasionToCopy.getLocation();
+        occasionLocation = occasionToCopy.getOccasionLocation();
         tags = occasionToCopy.getTags();
     }
 
