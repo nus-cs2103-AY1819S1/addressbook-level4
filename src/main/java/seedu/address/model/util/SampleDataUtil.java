@@ -2,11 +2,11 @@ package seedu.address.model.util;
 
 import seedu.address.model.Anakin;
 import seedu.address.model.ReadOnlyAnakin;
-import seedu.address.model.anakindeck.Answer;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.Name;
-import seedu.address.model.anakindeck.Question;
+import seedu.address.model.deck.Answer;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
+import seedu.address.model.deck.Question;
 
 /**
  * Contains utility methods for populating {@code Anakin} with sample decks.

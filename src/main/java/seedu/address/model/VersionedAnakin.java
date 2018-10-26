@@ -20,7 +20,7 @@ public class VersionedAnakin extends Anakin {
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code Anakin} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
@@ -94,7 +94,7 @@ public class VersionedAnakin extends Anakin {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of anakinState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedAnakin extends Anakin {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of anakinState list, unable to redo.");
         }
     }
 }

@@ -4,11 +4,11 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
- * API of the AddressbookLogic component
+ * API of the Logic component
  */
 public interface Logic {
     /**

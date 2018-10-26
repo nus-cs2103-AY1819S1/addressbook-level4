@@ -7,8 +7,8 @@ import static seedu.address.testutil.TypicalCards.CARD_A;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.anakindeck.Answer;
-import seedu.address.model.anakindeck.Question;
+import seedu.address.model.deck.Answer;
+import seedu.address.model.deck.Question;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCardTest {
