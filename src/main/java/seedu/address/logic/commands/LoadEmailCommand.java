@@ -23,7 +23,7 @@ public class LoadEmailCommand extends Command {
             + "Parameters SUBJECT\n"
             + "Example: " + COMMAND_WORD + " Meeting on Friday";
 
-    public static final String MESSAGE_SUCCESS = "Loading email: %s";
+    public static final String MESSAGE_SUCCESS = "Email loaded: %s";
     public static final String MESSAGE_EMAIL_DOES_NOT_EXIST = "There is no email with subject: %s.";
 
     private final Subject subject;
