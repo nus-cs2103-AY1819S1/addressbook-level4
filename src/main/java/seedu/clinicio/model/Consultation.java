@@ -1,9 +1,9 @@
-package seedu.address.model;
+package seedu.clinicio.model;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.appointment.Time;
-import seedu.address.model.doctor.Doctor;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.doctor.Doctor;
 
 /**
  * Represents a medical consultation involving a patient and doctor.
