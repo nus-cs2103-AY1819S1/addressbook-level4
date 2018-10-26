@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.index.Index.fromZeroBased;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -85,14 +87,19 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+    /**
+     * Configure notification based on existing user preferences in preferences.json
+     */
     private void setNotification(UserPrefs prefs) {
 
-        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
-        ModelManager.updateFavourite(prefs.getGuiSettings().getFavourite());
-
         if (ModelManager.getNotificationPref()) {
-            if (ModelManager.getFavourite() != null) {
-                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavourite());
+            if (ModelManager.getFavouriteEvent() != null) {
+
+                ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+                ModelManager.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
+
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavouriteEvent());
+                // delete event must clean up favourite as well!
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
             }
@@ -183,7 +190,8 @@ public class MainWindow extends UiPart<Stage> {
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(),
-                ModelManager.getNotificationPref(), ModelManager.getFavourite());
+                ModelManager.getNotificationPref(),
+                ModelManager.getFavouriteEvent());
     }
 
     /**

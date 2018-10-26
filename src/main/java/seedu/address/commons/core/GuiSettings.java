@@ -3,6 +3,8 @@ package seedu.address.commons.core;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.EventDate;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -16,23 +18,23 @@ public class GuiSettings implements Serializable {
     private Double windowHeight;
     private Point windowCoordinates;
     private Boolean notificationIsEnabled;
-    private String favourite;
+    private String favouriteEvent;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
         notificationIsEnabled = true; // default value is true
-        favourite = null;
+        favouriteEvent = null;
     }
 
     public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition,
-                       boolean notificationIsEnabled, String favourite) {
+                       boolean notificationIsEnabled, String favouriteEvent) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
         this.notificationIsEnabled = notificationIsEnabled;
-        this.favourite = favourite;
+        this.favouriteEvent = favouriteEvent;
     }
 
     public Double getWindowWidth() {
@@ -47,12 +49,10 @@ public class GuiSettings implements Serializable {
         return windowCoordinates;
     }
 
-    public Boolean getNotificationIsEnabled() {
-        return notificationIsEnabled;
-    }
+    public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
 
-    public String getFavourite() {
-        return favourite;
+    public String getFavouriteEvent() {
+        return favouriteEvent;
     }
 
     @Override
@@ -70,12 +70,13 @@ public class GuiSettings implements Serializable {
                 && Objects.equals(windowHeight, o.windowHeight)
                 && Objects.equals(windowCoordinates.x, o.windowCoordinates.x)
                 && Objects.equals(windowCoordinates.y, o.windowCoordinates.y)
-                && Objects.equals(notificationIsEnabled, o.notificationIsEnabled);
+                && Objects.equals(notificationIsEnabled, o.notificationIsEnabled)
+                && Objects.equals(favouriteEvent, o.favouriteEvent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, notificationIsEnabled);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, notificationIsEnabled,favouriteEvent);
     }
 
     @Override
@@ -84,7 +85,8 @@ public class GuiSettings implements Serializable {
         sb.append("Width : " + windowWidth + "\n");
         sb.append("Height : " + windowHeight + "\n");
         sb.append("Position : " + windowCoordinates + "\n");
-        sb.append("Notification : " + notificationIsEnabled);
+        sb.append("Notification : " + notificationIsEnabled + "\n");
+        sb.append("Favourite : " + favouriteEvent);
         return sb.toString();
     }
 }

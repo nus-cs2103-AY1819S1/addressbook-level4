@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private static boolean notificationPref;
-    private static String favourite;
+    private static String favouriteEvent;
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
@@ -63,13 +63,9 @@ public class ModelManager extends ComponentManager implements Model {
         notificationPref = set;
     }
 
-    public static String getFavourite() {
-        return favourite;
-    }
+    public static String getFavouriteEvent() { return favouriteEvent; }
 
-    public static void updateFavourite(String newFavourite) {
-        favourite = newFavourite;
-    }
+    public static void updateFavourite(String newEvent) { favouriteEvent = newEvent; }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
