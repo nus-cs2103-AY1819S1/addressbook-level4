@@ -181,6 +181,8 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             enqueueIntoMainQueue(patient);
         }
+
+        patient.setIsQueuing();
     }
 
     /**
