@@ -15,13 +15,13 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ViewStatusCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.ViewAllCommand;
 import seedu.address.logic.commands.ViewCommand;
+import seedu.address.logic.commands.ViewAllCommand;
+import seedu.address.logic.commands.ViewStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -78,20 +78,20 @@ public class ThaneParkParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommandParser().parse(arguments);
 
-        case ViewStatusCommand.COMMAND_WORD:
-            return new ViewStatusCommandParser().parse(arguments);
-
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
+
         case ViewAllCommand.COMMAND_WORD:
             return new ViewAllCommand();
 
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
+        case ViewStatusCommand.COMMAND_WORD:
+            return new ViewStatusCommandParser().parse(arguments);
 
         default:
             SuggestCommand command = new SuggestCommand(commandWord);

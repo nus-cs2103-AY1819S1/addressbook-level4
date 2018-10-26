@@ -21,7 +21,9 @@ public class ViewStatusCommand extends Command {
 
     private final RideStatusPredicate predicate;
 
-    public ViewStatusCommand(RideStatusPredicate predicate) { this.predicate = predicate; }
+    public ViewStatusCommand(RideStatusPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

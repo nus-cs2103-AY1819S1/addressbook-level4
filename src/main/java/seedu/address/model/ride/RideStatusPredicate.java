@@ -2,7 +2,9 @@ package seedu.address.model.ride;
 
 import java.util.function.Predicate;
 
-
+/**
+ * Tests that a {@code Ride}'s attributes matches the status given.
+ */
 public class RideStatusPredicate implements Predicate<Ride> {
     private final Status status;
 
