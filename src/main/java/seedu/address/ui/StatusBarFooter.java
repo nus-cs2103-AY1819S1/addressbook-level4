@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.UserPrefsChangeEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -79,5 +80,14 @@ public class StatusBarFooter extends UiPart<Region> {
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+    }
+
+    @Subscribe
+    public void handleFilePathChangedEvent(UserPrefsChangeEvent upce) {
+        String oldFilePath = upce.oldPath.toString();
+        String newFilePath = upce.newPath.toString();
+        logger.info(LogsCenter.getEventHandlingLogMessage(upce, "File path changed from " + oldFilePath
+            + " to " + newFilePath));
+        setSaveLocation(Paths.get(".").resolve(upce.newPath).toString());
     }
 }

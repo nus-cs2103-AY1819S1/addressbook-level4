@@ -14,7 +14,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.shared.Description;
 import seedu.address.model.shared.Title;
 
-
+// @@author Derek-Hardy
 /**
  * Represents a Group for participants in the address book.
  * The person will be able to have a list of groups that he/she has enrolled.
@@ -211,6 +211,18 @@ public class Group {
     }
 
     /**
+     * Set up the member connections for this group.
+     */
+    public void setUpMembers() {
+        // enhanced for loop to set up the member connection of this group
+        for (Person member : this.members) {
+            if (!member.hasGroup(this)) {
+                member.addGroup(this);
+            }
+        }
+    }
+
+    /**
      * Create a copy of this group.
      */
     public Group copy() {
@@ -247,8 +259,7 @@ public class Group {
         Group otherGroup = (Group) other;
         return otherGroup.getTitle().equals(getTitle())
                 && otherGroup.description.equals(this.description)
-                && otherGroup.meeting.equals(this.meeting)
-                && otherGroup.getMembersView().equals(getMembersView());
+                && otherGroup.meeting.equals(this.meeting);
     }
 
     @Override

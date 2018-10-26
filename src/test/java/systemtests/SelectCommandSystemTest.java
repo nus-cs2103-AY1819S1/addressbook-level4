@@ -31,12 +31,12 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " p/" + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON);
+        assertCommandSuccess(command, INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON);
 
         /* Case: select the last card in the person list -> selected */
         Index personCount = getPersonLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " p/" + personCount.getOneBased();
-        assertCommandSuccess(command, personCount, SelectCommand.SELECT_TYPE_PERSON);
+        assertCommandSuccess(command, personCount, SelectCommand.SelectCommandType.PERSON);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -51,10 +51,10 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the middle card in the person list -> selected */
         Index middleIndex = getPersonMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " p/" + middleIndex.getOneBased();
-        assertCommandSuccess(command, middleIndex, SelectCommand.SELECT_TYPE_PERSON);
+        assertCommandSuccess(command, middleIndex, SelectCommand.SelectCommandType.PERSON);
 
         /* Case: select the current selected person card -> selected */
-        assertCommandSuccess(command, middleIndex, SelectCommand.SELECT_TYPE_PERSON);
+        assertCommandSuccess(command, middleIndex, SelectCommand.SelectCommandType.PERSON);
 
         /* --------------------- Perform select operations on the shown filtered person list ------------------------ */
 
@@ -69,7 +69,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " p/" + validIndex.getOneBased();
-        assertCommandSuccess(command, validIndex, SelectCommand.SELECT_TYPE_PERSON);
+        assertCommandSuccess(command, validIndex, SelectCommand.SelectCommandType.PERSON);
 
         /* -------------------------------- Perform invalid select person operations -------------------------------- */
 
@@ -102,12 +102,12 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          * -> selected
          */
         command = "   " + SelectCommand.COMMAND_WORD + " g/" + INDEX_FIRST_GROUP.getOneBased() + "    ";
-        assertCommandSuccess(command, INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+        assertCommandSuccess(command, INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         /* Case: select the last card in the group list -> selected */
         Index groupCount = getGroupLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " g/" + groupCount.getOneBased();
-        assertCommandSuccess(command, groupCount, SelectCommand.SELECT_TYPE_GROUP);
+        assertCommandSuccess(command, groupCount, SelectCommand.SelectCommandType.GROUP);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -122,10 +122,10 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the middle card in the group list -> selected */
         middleIndex = getGroupMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " g/" + middleIndex.getOneBased();
-        assertCommandSuccess(command, middleIndex, SelectCommand.SELECT_TYPE_GROUP);
+        assertCommandSuccess(command, middleIndex, SelectCommand.SelectCommandType.GROUP);
 
         /* Case: select the current selected group card -> selected */
-        assertCommandSuccess(command, middleIndex, SelectCommand.SELECT_TYPE_GROUP);
+        assertCommandSuccess(command, middleIndex, SelectCommand.SelectCommandType.GROUP);
 
         /* --------------------- Perform select operations on the shown filtered group list ------------------------- */
         // TODO implement find group
@@ -145,19 +145,20 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedPersonCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex, int selectType) {
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex,
+                                      SelectCommand.SelectCommandType selectType) {
         Model expectedModel = getModel();
-        String expectedResultMessage = (selectType == SelectCommand.SELECT_TYPE_GROUP)
+        String expectedResultMessage = (selectType == SelectCommand.SelectCommandType.GROUP)
                 ? String.format(MESSAGE_SELECT_GROUP_SUCCESS, expectedSelectedCardIndex.getOneBased())
                 : String.format(MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = (selectType == SelectCommand.SELECT_TYPE_GROUP)
+        int preExecutionSelectedCardIndex = (selectType == SelectCommand.SelectCommandType.GROUP)
                 ? getGroupListPanel().getSelectedCardIndex()
                 : getPersonListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (selectType == SelectCommand.SELECT_TYPE_PERSON) {
+        if (selectType == SelectCommand.SelectCommandType.PERSON) {
             assertPersonListDisplaysExpected(expectedModel);
             if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
                 assertSelectedPersonCardUnchanged();

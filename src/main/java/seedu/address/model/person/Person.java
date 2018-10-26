@@ -179,6 +179,18 @@ public class Person {
     }
 
     /**
+     * Set up the group connection for the person.
+     */
+    public void setUpMembership() {
+        // enhanced for loop to set up the person's group connections
+        for (Group group : this.groups) {
+            if (!group.hasMember(this)) {
+                group.addMember(this);
+            }
+        }
+    }
+
+    /**
      * Returns an immutable tag set that indicate which groups the person is in.
      * It throws {@code UnsupportedOperationException} if modification is attempted.
      */
@@ -209,6 +221,13 @@ public class Person {
     @Deprecated
     public void setGroupTag(Tag group) {
         this.groupTags.add(group);
+    }
+
+    /**
+     * Create a copy of this person.
+     */
+    public Person copy() {
+        return new Person(name, phone, email, address, tags, groups);
     }
 
     // @@author

@@ -3,8 +3,9 @@ package seedu.address.model.shared;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+// @@author Derek-Hardy
 /**
- * Represents a Group's name in the address book.
+ * Represents a Group's or a Meeting's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  *
  * {@author Derek-Hardy}

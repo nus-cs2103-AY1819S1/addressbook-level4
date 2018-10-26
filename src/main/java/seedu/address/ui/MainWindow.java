@@ -34,8 +34,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private GroupListPanel groupListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -47,10 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane groupListPanelPlaceholder;
+    private StackPane informationDisplayPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -119,11 +114,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
-        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        InformationDisplay informationDisplay = new InformationDisplay(logic);
+        informationDisplayPlaceholder.getChildren().add(informationDisplay.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -185,10 +177,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     void releaseResources() {

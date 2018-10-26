@@ -9,6 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  *
  * {@author Derek-Hardy}
  */
+@Deprecated
 public class Place {
 
     public static final String MESSAGE_PLACE_CONSTRAINTS =

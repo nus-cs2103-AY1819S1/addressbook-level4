@@ -1,18 +1,19 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
-import seedu.address.model.group.UniqueGroupTagList;
-import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.shared.Title;
 
 /**
  * Wraps all data at the address-book level
@@ -21,8 +22,6 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
-    private final UniqueGroupTagList groupTags;
 
     // @@author Derek-Hardy
     private final UniqueGroupList groups;
@@ -36,7 +35,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        groupTags = new UniqueGroupTagList();
         groups = new UniqueGroupList();
     }
     // @@author
@@ -61,18 +59,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    /**
-     * Replaces the contents of the group list with {@code groups}.
-     * {@code groups} must not contain duplicate groups.
-     *
-     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
-     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
-     * and will be deprecated progressively when Group implementation is updated.
-     */
-    @Deprecated
-    public void setGroupTags(List<Tag> groups) {
-        this.groupTags.setGroups(groups);
-    }
 
     // @@author Derek-Hardy
     /**
@@ -92,7 +78,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setGroups(newData.getGroupList());
-        setGroupTags(newData.getGroupTagList());
     }
 
     //// person-level operations
@@ -113,19 +98,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(group);
         return groups.contains(group);
     }
+
+    /**
+     * Returns a group that matches the given title. {@code null} is returned if the group is not found.
+     */
+    public Group getGroupByTitle(Title title) {
+        requireNonNull(title);
+        return groups.getGroupByTitle(title);
+    }
+
+    /**
+     * Returns a person that matches the given name. {@code null} is returned if the person is not found.
+     */
+    public Person getPersonByName(Name name) {
+        requireNonNull(name);
+        return persons.getPersonByName(name);
+    }
     // @@author
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
+     *
+     * Note: The tag field is deprecated. When indicating a group, use the
+     * Group class instead
      */
     public void addPerson(Person p) {
         persons.add(p);
-        if (p.getGroupTags() != null && !p.getGroupTags().isEmpty()) {
-            for (Tag t : p.getGroupTags()) {
-                groupTags.add(t);
-            }
-        }
     }
 
     // @@author Derek-Hardy
@@ -142,12 +141,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      *
-     * The method is not yet stable. (under construction)
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
+
         // clear membership of target & set up membership for editedPerson
-        // TODO
+        target.clearMembership();
+        editedPerson.setUpMembership();
+
         persons.setPerson(target, editedPerson);
     }
 
@@ -156,15 +157,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
      *
-     * The method is not yet stable. (under construction)
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
-        if (!hasGroup(target)) {
-            throw new GroupNotFoundException();
-        }
+      
         // clear members of target & set up members for editedGroup
-        // TODO
+        target.clearMembers();
+        editedGroup.setUpMembers();
+
         groups.setGroup(target, editedGroup);
     }
 
@@ -188,6 +188,37 @@ public class AddressBook implements ReadOnlyAddressBook {
         group.clearMembers();
         groups.remove(group);
     }
+
+    /**
+     * Join a person in the {@code AddressBook} to an existing {@code group} in the {@code AddressBook}.
+     */
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.addMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+
+        group.addMember(person); // to satisfy the test on the input parameter
+    }
+
+    /**
+     * Remove an existing member from a existing {@code group} in {@code AddressBook}.
+     */
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        Person personCopy = person.copy();
+        Group groupCopy = group.copy();
+
+        groupCopy.removeMember(personCopy);
+
+        updatePerson(person, personCopy);
+        updateGroup(group, groupCopy);
+    }
+
     // @@author
 
     //// util methods
@@ -204,11 +235,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    @Override
-    @Deprecated
-    public ObservableList<Tag> getGroupTagList() {
-        return groupTags.asUnmodifiableObservableList();
-    }
 
     // @@author Derek-Hardy
     @Override
@@ -216,6 +242,35 @@ public class AddressBook implements ReadOnlyAddressBook {
         return groups.asUnmodifiableObservableList();
     }
     // @@author
+
+    /**
+     * Merge another MeetingBook into current MeetingBook.
+     */
+    public void merge(ReadOnlyAddressBook imported) {
+        // If Both book contains same entries
+        if (equals(imported)) {
+            return;
+        }
+        if (imported instanceof AddressBook) {
+            AddressBook importedBook = (AddressBook) imported;
+            Iterator<Person> personItr = importedBook.persons.iterator();
+            while (personItr.hasNext()) {
+                Person importPerson = personItr.next();
+                if (!hasPerson(importPerson)) {
+                    addPerson(importPerson);
+                }
+            }
+
+            Iterator<Group> groupItr = importedBook.groups.iterator();
+            while (groupItr.hasNext()) {
+                Group importGroup = groupItr.next();
+                if (!hasGroup(importGroup)) {
+                    addGroup(importGroup);
+                }
+            }
+
+        }
+    }
 
     @Override
     public boolean equals(Object other) {

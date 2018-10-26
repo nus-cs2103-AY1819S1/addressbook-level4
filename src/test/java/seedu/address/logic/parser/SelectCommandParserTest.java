@@ -20,12 +20,14 @@ public class SelectCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, " p/1", new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON));
+        assertParseSuccess(parser, " p/1",
+            new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SelectCommandType.PERSON));
     }
 
     @Test
     public void parse_validArgs_returnsSelectGroupCommand() {
-        assertParseSuccess(parser, " g/1", new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP));
+        assertParseSuccess(parser, " g/1",
+            new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP));
     }
 
     @Test
