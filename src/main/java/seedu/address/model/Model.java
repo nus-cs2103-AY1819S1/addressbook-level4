@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
 
 /**
@@ -60,6 +61,11 @@ public interface Model {
      * {@code target} and {@code updatedTask} have the same identity but different status.
      */
     void updateTaskStatus(Task target, Task updatedTask);
+
+    /**
+     * Returns a copy of the {@code AchievementRecord} of the task manager.
+     */
+    AchievementRecord getAchievementRecord();
 
     /**
      * Returns an unmodifiable view of the filtered task list
