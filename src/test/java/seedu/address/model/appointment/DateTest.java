@@ -11,7 +11,8 @@ public class DateTest {
     public void newDate() {
         //valid args
         Date toCompare = new Date(2, 2, 2222);
-        toCompare.equals(Date.newDate("02 02 2002"));
+        assertTrue(toCompare.equals(Date.newDate("02 02 2222")));
+        assertFalse(toCompare.equals(Date.newDate("02 02 2002")));
     }
 
     @Test
