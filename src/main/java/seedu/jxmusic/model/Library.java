@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -20,6 +20,7 @@ public class Library implements ReadOnlyLibrary {
     public static final String LIBRARYDIR = "library/";
     private final UniquePlaylistList playlists;
     private final ObservableSet<Track> tracks;
+    private final ObservableList<Track> trackList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +32,8 @@ public class Library implements ReadOnlyLibrary {
     {
         playlists = new UniquePlaylistList();
         tracks = FXCollections.observableSet(new HashSet<>());
+        trackList = FXCollections.observableList(new ArrayList<>());
+
     }
 
     public Library() {}
@@ -58,9 +61,7 @@ public class Library implements ReadOnlyLibrary {
 
     @Override
     public ObservableList<Track> getObservableTrackList() {
-        List<Track> trackList = new ArrayList<>(tracks);
-        return FXCollections.observableArrayList(trackList);
-
+        return trackList;
     }
 
     /**
@@ -82,12 +83,24 @@ public class Library implements ReadOnlyLibrary {
     }
 
     /**
+     * Replaces the contents of the track list with {@code tracks}.
+     * @param tracks the new track ObservableSet. Cannot be null but can be empty.
+     */
+    public void setTrackList(ObservableSet<Track> tracks) {
+        requireNonNull(tracks);
+        this.trackList.clear();
+        this.trackList.addAll(tracks);
+    }
+
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
         setPlaylists(newData.getPlaylistList());
         setTracks(newData.getTracks());
+        setTrackList(newData.getTracks());
     }
 
     //// playlist-level operations

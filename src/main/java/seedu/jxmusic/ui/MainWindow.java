@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private BrowserPanel browserPanel;
     private PlaylistListPanel playlistListPanel;
     private TrackListPanel trackListPanel;
     private Config config;
@@ -126,11 +126,11 @@ public class MainWindow extends UiPart<Stage> {
         //browserPanel = new BrowserPanel();
         //browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        trackListPanel = new TrackListPanel(logic.getFilteredTrackList()); //todo: check the name of the method
-        trackListPanelPlaceholder.getChildren().add(trackListPanel.getRoot());
-
         playlistListPanel = new PlaylistListPanel(logic.getFilteredPlaylistList());
         playlistListPanelPlaceholder.getChildren().add(playlistListPanel.getRoot());
+
+        trackListPanel = new TrackListPanel(logic.getFilteredTrackList());
+        trackListPanelPlaceholder.getChildren().add(trackListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -202,9 +202,9 @@ public class MainWindow extends UiPart<Stage> {
         return trackListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
+//    void releaseResources() {
+//        browserPanel.freeResources();
+//    }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
