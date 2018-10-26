@@ -13,10 +13,12 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
+import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
@@ -185,13 +187,17 @@ public class StorageManager extends ComponentManager implements Storage {
         return calendarStorage.loadCalendar(calendarName);
     }
 
-    /*
     @Override
     @Subscribe
     public void handleCalendarCreatedEvent(CalendarCreatedEvent event) {
-
+        try {
+            createCalendar(event.calendar, event.calendarName);
+        } catch (IOException e) {
+            logger.warning("Failed to save calendar(ics) file : " + StringUtil.getDetails(e));
+        }
     }
 
+    /*
     @Override
     @Subscribe
     public void handleAllDayEventAddedEvent(AllDayEventAddedEvent event) {

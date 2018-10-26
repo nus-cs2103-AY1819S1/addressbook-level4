@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -297,8 +298,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Raises an event to indicate the calendar model has changed
      */
-    private void indicateCalendarModelChanged() {
-        raise(new CalendarCreatedEvent(calendarModel));
+    private void indicateCalendarModelChanged(Calendar calendar, String calendarName) {
+        raise(new CalendarCreatedEvent(calendar, calendarName));
     }
 
     /**
@@ -352,9 +353,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void createCalendar(Year year, Month month) {
         try {
-            calendarModel.createCalendar(year, month);
+            Calendar calendar = calendarModel.createCalendar(year, month);
             updateExistingCalendar();
-            indicateCalendarModelChanged();
+            String calendarName = month + "-" + year;
+            indicateCalendarModelChanged(calendar, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to save calendar(ics) file : " + StringUtil.getDetails(e));
         }

@@ -122,9 +122,8 @@ public class CalendarModel {
     }
 
     /** Creates the calendar file. */
-    public void createCalendar(Year year, Month month) throws IOException {
+    public Calendar createCalendar(Year year, Month month) throws IOException {
         // Initialize the calendar
-        String calendarName = month + "-" + year;
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
         calendar.getProperties().add(Version.VERSION_2_0);
@@ -142,9 +141,6 @@ public class CalendarModel {
         christmas.getProperties().add(ug.generateUid());
         calendar.getComponents().add(christmas);
 
-        // Create the calendar
-        calendarStorage.createCalendar(calendar, calendarName);
-
         // Update existing calendar map
         Set<Month> yearOfCal = existingCalendar.get(year);
         if (yearOfCal == null) {
@@ -154,6 +150,8 @@ public class CalendarModel {
         } else {
             yearOfCal.add(month);
         }
+
+        return calendar;
     }
 
     /** Load and parse the requested calendar file. */
