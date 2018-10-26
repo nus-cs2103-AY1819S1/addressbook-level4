@@ -33,7 +33,7 @@ public class LoginCommand extends Command {
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
-    public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
+    public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
     public static final String MESSAGE_NO_DOCTOR_FOUND = "No doctor found.";
     public static final String MESSAGE_NO_RECEPTIONIST_FOUND = "No receptionist found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
