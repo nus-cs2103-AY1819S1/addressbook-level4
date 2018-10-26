@@ -19,4 +19,10 @@ public interface ReadOnlyLibrary {
      * @return the set of tracks
      */
     ObservableSet<Track> getTracks();
+
+    /**
+     * Returns an unmodifiable view of the track list.
+     * This list will not contain any duplicate tracks.
+     */
+    ObservableList<Track> getObservableTrackList();
 }

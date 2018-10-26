@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private BrowserPanel browserPanel;
+    private BrowserPanel browserPanel;
     private PlaylistListPanel playlistListPanel;
     private TrackListPanel trackListPanel;
     private Config config;
@@ -202,9 +202,9 @@ public class MainWindow extends UiPart<Stage> {
         return trackListPanel;
     }
 
-    //void releaseResources() {
-    //    browserPanel.freeResources();
-    //}
+    void releaseResources() {
+        browserPanel.freeResources();
+    }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
