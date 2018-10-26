@@ -62,7 +62,7 @@ public class LoginCommand extends Command {
 
             Doctor retrievedDoctor = model.getDoctor(authenticatedDoctor);
 
-            boolean isCorrectPassword = Password.checkPassword(
+            boolean isCorrectPassword = Password.verifyPassword(
                     authenticatedDoctor.getPassword().toString(),
                     retrievedDoctor.getPassword().toString());
 
@@ -77,7 +77,7 @@ public class LoginCommand extends Command {
 
             Receptionist retrievedReceptionist = model.getReceptionist(authenticatedReceptionist);
 
-            boolean isCorrectPassword = Password.checkPassword(
+            boolean isCorrectPassword = Password.verifyPassword(
                     authenticatedReceptionist.getPassword().toString(),
                     retrievedReceptionist.getPassword().toString());
 

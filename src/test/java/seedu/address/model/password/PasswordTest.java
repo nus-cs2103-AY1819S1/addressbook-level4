@@ -83,19 +83,19 @@ public class PasswordTest {
     public void isSameAsHashPassword() {
         String password = "peter12";
         //null password
-        Assert.assertThrows(NullPointerException.class, () -> Password.checkPassword(password, null));
+        Assert.assertThrows(NullPointerException.class, () -> Password.verifyPassword(password, null));
 
         //empty string
-        Assert.assertThrows(IllegalArgumentException.class, () -> Password.checkPassword(password, ""));
+        Assert.assertThrows(IllegalArgumentException.class, () -> Password.verifyPassword(password, ""));
 
         //invalid password
-        assertFalse(Password.checkPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.checkPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.checkPassword("peter12", " ")); //Only spaces password hash string
-        assertFalse(Password.checkPassword("", " ")); //Empty string and only spaces password hash string
+        assertFalse(Password.verifyPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.verifyPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.verifyPassword("peter12", " ")); //Only spaces password hash string
+        assertFalse(Password.verifyPassword("", " ")); //Empty string and only spaces password hash string
 
         //valid password
-        assertTrue(Password.checkPassword(password, HashUtil.hashToString(password)));
+        assertTrue(Password.verifyPassword(password, HashUtil.hashToString(password)));
 
     }
 }
