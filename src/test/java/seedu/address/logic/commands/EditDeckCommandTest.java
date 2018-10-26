@@ -10,9 +10,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
+import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
-import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 
 import org.junit.Test;
 

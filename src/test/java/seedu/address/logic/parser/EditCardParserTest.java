@@ -9,10 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CARD_ANSWER_ARG
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARD_QUESTION_ARGS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_A;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_B;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
