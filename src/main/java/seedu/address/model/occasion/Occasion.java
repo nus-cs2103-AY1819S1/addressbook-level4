@@ -21,7 +21,7 @@ public class Occasion extends Inanimate {
     // Identity fields
     private final OccasionName occasionName;
     private final OccasionDate occasionDate;
-    private final OccasionLocation location;
+    private final OccasionLocation occasionLocation;
     private final UniquePersonList attendanceList;
 
     // Date fields
@@ -30,12 +30,12 @@ public class Occasion extends Inanimate {
     /**
      * Every field must be present and not null.
      */
-    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation occasionLocation,
                     Set<Tag> tags, TypeUtil type) {
         requireAllNonNull(occasionName, occasionDate, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
-        this.location = location;
+        this.occasionLocation = occasionLocation;
         this.attendanceList = new UniquePersonList();
         this.tags.addAll(tags);
         this.type = type;
@@ -58,8 +58,8 @@ public class Occasion extends Inanimate {
         return attendanceList;
     }
 
-    public OccasionLocation getLocation() {
-        return location;
+    public OccasionLocation getOccasionLocation() {
+        return occasionLocation;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Occasion extends Inanimate {
         return otherOccasion != null
                 && otherOccasion.getOccasionName().equals(getOccasionName())
                 && otherOccasion.getOccasionDate().equals(getOccasionDate())
-                && otherOccasion.getLocation().equals(getLocation());
+                && otherOccasion.getOccasionLocation().equals(getOccasionLocation());
     }
 
     /**

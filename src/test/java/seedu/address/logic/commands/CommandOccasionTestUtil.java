@@ -37,8 +37,8 @@ public class CommandOccasionTestUtil {
     public static final String OCCASIONDATE_DESC_TWO = " " + PREFIX_OCCASION_DATE + VALID_OCCASIONDATE_TWO;
     public static final String OCCASIONLOCATION_DESC_ONE = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_ONE;
     public static final String OCCASIONLOCATION_DESC_TWO = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_TWO;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_STUDY;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_SLEEP;
+    public static final String TAG_DESC_STUDY = " " + PREFIX_TAG + VALID_TAG_STUDY;
+    public static final String TAG_DESC_SLEEP = " " + PREFIX_TAG + VALID_TAG_SLEEP;
 
     public static final String INVALID_OCCASIONNAME_DESC =
             " " + PREFIX_OCCASION_NAME + "Exam!"; // '!' not allowed in names
