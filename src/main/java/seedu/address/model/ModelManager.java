@@ -90,6 +90,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasReceptionist(Receptionist receptionist) {
+        requireNonNull(receptionist);
+        return versionedAddressBook.hasReceptionist(receptionist);
+    }
+
+    @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
     }

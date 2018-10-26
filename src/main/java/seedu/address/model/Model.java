@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.receptionist.Receptionist;
 
 /**
  * The API of the Model component.
@@ -35,6 +36,11 @@ public interface Model {
      * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
      */
     boolean hasDoctor(Doctor doctor);
+
+    /**
+     * Returns true if a receptionist with the same identity as {@code receptionist} exists in ClinicIO.
+     */
+    boolean hasReceptionist(Receptionist receptionist);
 
     /**
      * Deletes the given person.
