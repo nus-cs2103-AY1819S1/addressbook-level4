@@ -11,7 +11,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_COOKTIME = new Prefix("c/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
-
     //prefix for healthplan
     public static final Prefix PREFIX_HPNAME = new Prefix("n/");
     public static final Prefix PREFIX_TWEIGHT = new Prefix("t/");
@@ -20,7 +19,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_AGE = new Prefix("a/");
     public static final Prefix PREFIX_DURATION = new Prefix("d/");
     public static final Prefix PREFIX_SCHEME = new Prefix("s/");
-
-
 
 }
