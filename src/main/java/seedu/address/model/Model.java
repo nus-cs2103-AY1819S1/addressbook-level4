@@ -22,11 +22,11 @@ public interface Model {
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /** {@code Predicate} that always evaluates to true */
-    Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
+    Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
         if (!(person instanceof Patient)) {
             return false;
         }
-        return ((Patient) person).isQueing();
+        return ((Patient) person).isQueuing();
     };
 
     /** Clears existing backing model and replaces with the provided new data. */
