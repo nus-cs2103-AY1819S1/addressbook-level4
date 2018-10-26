@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,6 +20,14 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluates to true */
+    Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
+        if (!(person instanceof Patient)) {
+            return false;
+        }
+        return ((Patient) person).isQueing();
+    };
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
