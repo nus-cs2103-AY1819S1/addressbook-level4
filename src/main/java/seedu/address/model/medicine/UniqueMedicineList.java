@@ -13,6 +13,7 @@ import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
+import seedu.address.model.medicine.exceptions.InsufficientStockException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
 /**
@@ -119,8 +120,17 @@ public class UniqueMedicineList implements Iterable<Medicine> {
                 .findFirst();
         toDispense.ifPresent(i -> {
             Medicine updatedMedicine = internalList.remove(i);
-            updatedMedicine.dispense(quantityToDispense);
-            internalList.add(i, updatedMedicine);
+            try {
+                // Try to dispense medicine
+                updatedMedicine.dispense(quantityToDispense);
+            } catch (InsufficientStockException ise) {
+                // Catch exception if insufficient stock, but we want to throw it back up to the calling method.
+                throw ise;
+            } finally {
+                // This executes whether there is an exception thrown or not.
+                // This line prevents the Medicine from disappearing from the list if there is insufficient stock.
+                internalList.add(i, updatedMedicine);
+            }
         });
         return internalList.get(toDispense.getAsInt());
     }
