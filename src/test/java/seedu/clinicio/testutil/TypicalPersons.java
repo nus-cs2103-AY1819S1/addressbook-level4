@@ -25,6 +25,7 @@ import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.patient.Patient;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -64,6 +65,25 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    // Manually added (Patient)
+    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+            .build();
+    public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
+            .build();
+    public static final Patient CARL_AS_PATIENT = PatientBuilder.buildFromPerson(CARL)
+            .build();
+    public static final Patient DANIEL_AS_PATIENT = PatientBuilder.buildFromPerson(DANIEL)
+            .build();
+    public static final Patient ELLE_AS_PATIENT = PatientBuilder.buildFromPerson(ELLE)
+            .build();
+    public static final Patient FIONA_AS_PATIENT = PatientBuilder.buildFromPerson(FIONA)
+            .build();
+    public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
+            .build();
+    public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
+            .build();
+
+    // Manually added (Doctor)
     public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
     public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)

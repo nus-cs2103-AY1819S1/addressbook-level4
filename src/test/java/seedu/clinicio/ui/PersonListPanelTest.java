@@ -105,7 +105,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</clinicio>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
+        Path manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();
