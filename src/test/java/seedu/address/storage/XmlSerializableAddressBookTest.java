@@ -25,6 +25,7 @@ public class XmlSerializableAddressBookTest {
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
     private static final Path INVALID_EVENT_FILE = TEST_DATA_FOLDER.resolve("invalidEventAddressBook.xml");
     private static final Path DUPLICATE_EVENT_FILE = TEST_DATA_FOLDER.resolve("duplicateEventAddressBook.xml");
+    private static final Path CLASHING_EVENT_FILE = TEST_DATA_FOLDER.resolve("clashingEventAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -69,6 +70,15 @@ public class XmlSerializableAddressBookTest {
                 XmlSerializableAddressBook.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_EVENT);
+        dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_clashingEvents_throwsIllegalValueException() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(CLASHING_EVENT_FILE,
+                XmlSerializableAddressBook.class);
+        thrown.expect(IllegalValueException.class);
+        thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_CLASHING_EVENT);
         dataFromFile.toModelType();
     }
 

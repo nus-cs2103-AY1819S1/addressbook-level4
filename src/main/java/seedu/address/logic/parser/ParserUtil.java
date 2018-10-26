@@ -117,6 +117,15 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /*public static Set parseSet(String set) throws ParseException {
+        requireNonNull(set);
+        String trimmedSet = set.trim();
+        if (!Set.isValidSet(trimmedSet)) {
+            throw new ParseException(Tag.MESSAGE_SET_CONSTRAINTS);
+        }
+        return new Set(trimmedSet);
+    }*/
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -214,6 +223,18 @@ public class ParserUtil {
             throw new ParseException(EventAddress.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new EventAddress(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code Collection<String> indices} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndices(Collection<String> indices) throws ParseException {
+        requireNonNull(indices);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String index : indices) {
+            indexSet.add(parseIndex(index));
+        }
+        return indexSet;
     }
 
     /**

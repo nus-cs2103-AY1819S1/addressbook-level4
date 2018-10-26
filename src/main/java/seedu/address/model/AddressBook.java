@@ -127,8 +127,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds an event to the address book.
-     * The event must not already exist in the address book.
+     * The event must not already exist in the address book, and must not clash any of the existing events in the
+     * address book.
      */
+    //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
+    // ask the
+    // user (by raising an event which brings up a message and prompts user for further input - enter to add anyway
+    // or esc to delete) for confirmation before adding.
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);

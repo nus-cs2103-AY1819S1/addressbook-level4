@@ -60,7 +60,8 @@ public interface Model {
 
     /**
      * Adds the given event into the address book.
-     * {@code event} must not already exist in the address book.
+     * {@code event} must not already exist in the address book and must not clash with any of the existing events in
+     * the address book.
      */
     void addEvent(Event event);
 

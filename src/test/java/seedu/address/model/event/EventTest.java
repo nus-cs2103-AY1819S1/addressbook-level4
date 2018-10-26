@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_MEETING;
@@ -9,11 +10,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MEET
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_MEETING;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.ScheduledEventBuilder;
 
@@ -22,8 +29,16 @@ public class EventTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
+    // cannot modify the immutable list of tags
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        Event event = new ScheduledEventBuilder().withEventContacts(ALICE).build();
+        thrown.expect(UnsupportedOperationException.class);
+        event.getEventContacts().remove(0);
+    }
+
+    @Test
     // equality criteria testing for two Event objects
-    public void equals() {
+    public void isSameEvent() {
         // same values -> returns true
         Event doctorApptCopy = new ScheduledEventBuilder(DOCTORAPPT).build();
         assertTrue(DOCTORAPPT.equals(doctorApptCopy));
@@ -34,10 +49,7 @@ public class EventTest {
         // null -> returns false
         assertFalse(DOCTORAPPT.equals(null));
 
-        // different type -> returns false
-        assertFalse(DOCTORAPPT.equals(5));
-
-        // different person -> returns false
+        // different event -> returns false
         assertFalse(DOCTORAPPT.equals(MEETING));
 
         // different name -> returns false
@@ -60,6 +72,73 @@ public class EventTest {
         // different address -> returns false
         editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventAddress(VALID_EVENT_ADDRESS_MEETING).build();
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+    }
+
+    @Test
+    // equality criteria testing for two Event objects
+    public void equals() {
+        // same values -> returns true
+        Event doctorApptCopy = new ScheduledEventBuilder(DOCTORAPPT).build();
+        assertTrue(DOCTORAPPT.equals(doctorApptCopy));
+
+        // same object -> returns true
+        assertTrue(DOCTORAPPT.equals(DOCTORAPPT));
+
+        // null -> returns false
+        assertFalse(DOCTORAPPT.equals(null));
+
+        // different type -> returns false
+        assertFalse(DOCTORAPPT.equals(5));
+
+        // different event -> returns false
+        assertFalse(DOCTORAPPT.equals(MEETING));
+
+        // different name -> returns false
+        Event editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventName(VALID_EVENT_NAME_MEETING).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+
+        // different event description -> returns false
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventDescription(VALID_EVENT_DESC_MEETING).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+
+        // different date -> returns false
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventDate(VALID_EVENT_DATE_MEETING).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+
+        // different time -> returns false
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventStartTime(VALID_EVENT_START_TIME_MEETING).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+
+        // different address -> returns false
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventAddress(VALID_EVENT_ADDRESS_MEETING).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+
+        // different event contacts -> returns false
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts(BOB).build();
+        assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
+    }
+
+    @Test
+    public void setEventContacts() {
+        // null list
+        Event event = new ScheduledEventBuilder().build();
+        Assert.assertThrows(NullPointerException.class, () -> event.setEventContacts(null));
+
+        // null objects in list
+        Set<Person> contactListWithNull = new HashSet<>();
+        contactListWithNull.add(ALICE);
+        contactListWithNull.add(null);
+        Assert.assertThrows(NullPointerException.class, () -> event.setEventContacts(contactListWithNull));
+
+        // non-null list - successfully added
+        Set<Person> validContactList = new HashSet<>();
+        validContactList.add(ALICE);
+        event.setEventContacts(validContactList);
+
+        Event expectedEvent = new ScheduledEventBuilder().withEventContacts(ALICE).build();
+
+        assertEquals(event, expectedEvent);
     }
 
     @Test

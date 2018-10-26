@@ -6,11 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
@@ -36,7 +39,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE,
-                        PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_ADDRESS);
+                        PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_ADDRESS, PREFIX_INDEX);
 
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_START_TIME,
@@ -52,6 +55,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         EventTime eventStartTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME).get());
         EventTime eventEndTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME).get());
         EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Index> contactIndexList = ParserUtil.parseIndices(argMultimap.getAllValues(PREFIX_INDEX));
 
         if (eventEndTime.compareTo(eventStartTime) < 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_START_END_TIME, eventStartTime.toString(),
@@ -59,7 +63,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         }
 
         Event newEvent = new Event(eventName, eventDesc, eventDate, eventStartTime, eventEndTime, eventAddress);
-        return new AddEventCommand(newEvent);
+        return new AddEventCommand(newEvent, contactIndexList);
     }
 
     /**
