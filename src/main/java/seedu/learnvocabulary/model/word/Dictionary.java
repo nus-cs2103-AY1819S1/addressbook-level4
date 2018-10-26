@@ -35,18 +35,13 @@ public class Dictionary {
     }
 
     public String getWordOfTheDay() {
-        try {
-            wordOfTheDay = fetchWordOfTheDay();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return wordOfTheDay;
     }
 
     /**
      * Parses the wordOfTheDay document if Dictionary.com is available.
      */
-    private String fetchWordOfTheDay() throws ParseException {
+    public Dictionary fetchWordOfTheDay() throws ParseException {
         if (!isConnectedToInternet()) {
             throw new ParseException(MESSAGE_NO_INTERNET);
         }
@@ -59,10 +54,10 @@ public class Dictionary {
                 .attr("content");
         wordOfTheDay = wordOfTheDay.replace("Get the Word of the Day - ", "");
         wordOfTheDay = wordOfTheDay.replace(" | Dictionary.com", "");
+        args = wordOfTheDay;
+        this.invoke();
         System.out.println(wordOfTheDay);
-        return wordOfTheDay;
-
-
+        return this;
     }
 
     /**
