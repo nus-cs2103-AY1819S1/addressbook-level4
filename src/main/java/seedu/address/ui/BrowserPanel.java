@@ -22,7 +22,7 @@ import seedu.address.ui.browser.BrowserRelatedUiPart;
 public class BrowserPanel extends BrowserRelatedUiPart<Region> {
 
     public static final FilePathToUrl RIDE_PAGE_PATH =
-        new FilePathToUrl("src/main/resources/docs/ride.html");
+        new FilePathToUrl("data/ride.html");
     private static final String RIDE_PAGE_TITLE = "Ride information";
     private static final String TEXT_REPLACEMENT_JAVASCRIPT =
         "function updateRide(listOfFields) {"
