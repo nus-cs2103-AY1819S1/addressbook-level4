@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIESEASE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISEASE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
@@ -38,7 +38,7 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
     public AddMedicalRecordCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_BLOODTYPE, PREFIX_DRUGALLERGY, PREFIX_DIESEASE, PREFIX_NOTE);
+                ArgumentTokenizer.tokenize(args, PREFIX_BLOODTYPE, PREFIX_DRUGALLERGY, PREFIX_DISEASE, PREFIX_NOTE);
 
         Index index;
 
@@ -55,8 +55,8 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         }
 
         List<Disease> diseaseList = new ArrayList<>();
-        if (argMultimap.getValue(PREFIX_DIESEASE).isPresent()) {
-            String diseaseRawString = argMultimap.getValue(PREFIX_DIESEASE).get();
+        if (argMultimap.getValue(PREFIX_DISEASE).isPresent()) {
+            String diseaseRawString = argMultimap.getValue(PREFIX_DISEASE).get();
             List<Disease> diseasesToAdd = parseDiseaseForAddMedicalCommand(diseaseRawString);
             diseaseList.addAll(diseasesToAdd);
         }
@@ -72,19 +72,13 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             String noteRawString = argMultimap.getValue(PREFIX_NOTE).get();
 
-            // TODO: the following is just fake medicine and quantity map, we need to update this
             Map<SerialNumber, Quantity> test = new HashMap<>();
-            test.put(new SerialNumber("11111"), new Quantity("5"));
-            test.put(new SerialNumber("22222"), new Quantity("6"));
-            test.put(new SerialNumber("33333"), new Quantity("7"));
 
             Note note = new Note(new Message(noteRawString), test);
             noteList.add(note);
         }
 
         MedicalRecord medicalRecord = new MedicalRecord(bloodType, drugAllergyList, diseaseList, noteList);
-
-        System.out.println(medicalRecord);
 
         return new AddMedicalRecordCommand(index, medicalRecord);
     }
