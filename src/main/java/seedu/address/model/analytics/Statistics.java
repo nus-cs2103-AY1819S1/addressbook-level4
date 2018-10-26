@@ -20,6 +20,7 @@ public abstract class Statistics {
 
     protected Map<String, Integer> summaryStatistics;
     protected Map<String, Integer> visualizationStatistics;
+    protected StatData statData;
 
     /**
      * Initializes maps to store statistic names as keys and their corresponding values.
@@ -27,22 +28,23 @@ public abstract class Statistics {
     public Statistics() {
         summaryStatistics = new HashMap<>();
         visualizationStatistics = new HashMap<>();
+        statData = new StatData();
     }
 
     /**
      *
      */
     public void resetAllStatistics() {
-        resetSummaryStatistics();
-        resetVisualizationStatistics();
+        statData.resetSummaryStatistics();
+        statData.resetVisualizationStatistics();
     }
 
     /**
      * Resets all summary statistics to 0.
      */
     public void resetSummaryStatistics() {
-        summaryStatistics.clear();
-        summaryStatistics.replaceAll((key, value) -> 0);
+        statData.resetSummaryStatistics();
+
     }
 
     /**

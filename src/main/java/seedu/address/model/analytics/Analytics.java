@@ -4,13 +4,14 @@ import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.doctor.Doctor;
 
 //@@author arsalanc-v2
 
 /**
  * Wrapper for all analytics functionality.
- *
+ * Makes use of the delegation design pattern.
  */
 public class Analytics {
 
@@ -36,6 +37,13 @@ public class Analytics {
 
     public void setDoctors(ObservableList<Doctor> doctors) {
         doctorStatistics.setDoctors(doctors);
+    }
+
+    /**
+     * Sets consultations for all types of statistics that require it.
+     */
+    public void setConsultations(ObservableList<Consultation> consultations) {
+        doctorStatistics.setConsultations(consultations);
     }
 
     /**

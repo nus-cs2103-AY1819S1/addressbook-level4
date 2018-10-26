@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,21 +10,32 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.commons.events.model.AnalyticsDisplayEvent;
+import seedu.address.model.analytics.StatData;
+import seedu.address.model.analytics.data.Tuple;
 
 //@@author arsalanc-v2
 
-// hierarchial data structure
+// hierarchial data structure  {summaryLabel, list(Tuple)}
+
+//      root
+//     /    \
+// summary  visualizations
+//     /               \
+// summaryLabel        {chart title, xtitle, ytitle, xlabels, ylabels, (x, y) values}
+//      /
+// {key, value}
+
 // patient, medicine
 
 /**
  * A ui for displaying statistics and visualizations.
- *
  */
 public class AnalyticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "Analytics.fxml";
+    private static final int NUM_SUMMARY_ELEMENTS = 4;
+    private static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
     @FXML
     private Label summaryBar;
@@ -49,54 +58,49 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     @FXML
     private AnchorPane analyticsPane;
-    @FXML
-    private StackPane browserPlaceholder;
 
-    private Map<Integer, Label> summaryTextLabels;
-    private Map<Integer, Label> summaryValueLabels;
+
+
+    private List<Tuple<Label, Label>> summaryLabels;
 
     public AnalyticsDisplay() {
         super(FXML);
         analyticsPane.setVisible(false);
         registerAsAnEventHandler(this);
 
-        summaryTextLabels = new HashMap<>() {{
-            put(1, summaryTextOne);
-            put(2, summaryTextTwo);
-            put(3, summaryTextThree);
-            put(4, summaryTextFour);
-        }};
-
-        summaryValueLabels = new HashMap<>() {{
-            put(1, summaryValueOne);
-            put(2, summaryValueTwo);
-            put(3, summaryValueThree);
-            put(4, summaryValueFour);
-        }};
+        summaryLabels = Arrays.asList(new Tuple(summaryTextOne, summaryValueOne), new Tuple(summaryTextTwo,
+            summaryValueTwo), new Tuple(summaryTextThree, summaryValueThree), new Tuple(summaryTextFour,
+            summaryValueFour));
     }
 
     @Subscribe
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        //browserPlaceholder.getChildren().clear();
-
-        //browserPlaceholder.getChildren().add(this.getRoot());
-        updateSummary(event.getAllStatistics());
+        Map<String, List> allDataToDisplay = event.getAllData();
+        updateSummary(allDataToDisplay.get("summary"));
+        updateVisualization(allDataToDisplay.get("visualization"));
         analyticsPane.setVisible(true);
     }
 
     /**
      *
+     * @param visualizationData
      */
-    public void updateSummary(Map<String, Map<String, Integer>> allStats) {
-        summaryBar.setText(summaryBar.getText() + " appointments per day");
+    public void updateVisualization(List<StatData.VisualizationData> visualizationData) {
 
-        Map<String, Integer> summaryStats = allStats.get("summary");
+    }
 
-        int i = 1;
-        for (Map.Entry<String, Integer> stat : summaryStats.entrySet()) {
-            System.out.println(stat.getKey() + " " + stat.getValue());
-            summaryTextLabels.get(i).setText(stat.getKey());
-            summaryValueLabels.get(i).setText(stat.getValue().toString());
+    /**
+     *
+     */
+    public void updateSummary(List<Tuple<String, Integer>> summaryData) {
+        summaryBar.setText("Number of appointments per day");
+
+        int i = 0;
+        for (Tuple summaryElement : summaryData) {
+            // set text for summary text label
+            summaryLabels.get(i).getKey().setText(summaryElement.getKey().toString());
+            // set text for summary value label
+            summaryLabels.get(i).getValue().setText(summaryElement.getValue().toString());
             i++;
         }
     }

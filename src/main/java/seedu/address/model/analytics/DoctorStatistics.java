@@ -19,7 +19,7 @@ import seedu.address.model.doctor.Doctor;
 //@@author arsalanc-v2
 
 /**
- *
+ * Responsible for all statistics related to Doctors.
  */
 public class DoctorStatistics extends Statistics {
 

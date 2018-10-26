@@ -364,6 +364,7 @@ public class ModelManager extends ComponentManager implements Model {
      *
      */
     public void updateAnalytics(StatisticType type) {
+        analytics.setConsultations(versionedAddressBook.getConsultationList());
         switch (type) {
         case APPOINTMENT:
             analytics.setAppointments(versionedAddressBook.getAppointmentList());

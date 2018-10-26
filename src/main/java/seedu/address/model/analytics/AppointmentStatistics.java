@@ -9,15 +9,17 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.consultation.Consultation;
 
 //@@author arsalanc-v2
 
 /**
- * @@author arsalanc-v2
+ * Responsible for all statistics related to appointments.
  */
 public class AppointmentStatistics extends Statistics {
 
     private ObservableList<Appointment> appointments;
+    private ObservableList<Consultation> consultations;
 
 //    public AppointmentStatistics(ObservableList<Appointment> appointments) {
 //        this.appointments = appointments;
@@ -25,10 +27,19 @@ public class AppointmentStatistics extends Statistics {
 //    }
 
     /**
+     * Enables the latest list of appointments to be kept.
      * @param appointments An updated list of appointments.
      */
     public void setAppointments(ObservableList<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    /**
+     *
+     * @param consultations
+     */
+    public void setConsultations(ObservableList<Consultation> consultations) {
+        this.consultations = consultations;
     }
 
     /**
@@ -80,7 +91,7 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     *
+     * Updates {@code summaryStatistics} with the latest values.
      */
     @Override
     public void computeSummaryStatistics() {

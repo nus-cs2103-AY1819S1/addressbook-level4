@@ -21,7 +21,7 @@
                         <Font name="Avenir Roman" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryValueOne" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="37.0" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueOne" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="37.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Baskerville" size="72.0" />
                      </font>
@@ -30,7 +30,7 @@
             </AnchorPane>
             <AnchorPane fx:id="totalsSummaryTwo" prefHeight="200.0" prefWidth="200.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="summaryValueTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="26.0" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Baskerville" size="72.0" />
                      </font>
@@ -44,7 +44,7 @@
             </AnchorPane>
             <AnchorPane fx:id="totalsSummaryThree" prefHeight="200.0" prefWidth="200.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="summaryValueThree" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="26.0" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueThree" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Baskerville" size="72.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Font name="Avenir Roman" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryValueFour" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="26.0" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueFour" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Baskerville" size="72.0" />
                      </font>

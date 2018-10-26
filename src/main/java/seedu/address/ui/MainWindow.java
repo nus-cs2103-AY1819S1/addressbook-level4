@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AnalyticsDisplay analyticsDisplay;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -125,8 +126,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        //@@author arsalanc-v2
+        analyticsDisplay = new AnalyticsDisplay();
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

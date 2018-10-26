@@ -1,139 +1,77 @@
 package seedu.address.model.analytics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import seedu.address.model.analytics.data.SummaryData;
+import seedu.address.model.analytics.data.Tuple;
+import seedu.address.model.analytics.data.VisualizationData;
 
 //@@author arsalanc-v2
 
 /**
  * A data structure for statistics.
  * Exposes data to be displayed through convenient methods.
- * Employs the Factory Method design pattern.
  */
 public class StatData {
 
     public static final int NUM_SUMMARY_ELEMENTS = 4;
-    public static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
-    // lists are used to indicate ordering
-    private List<Tuple<String, Integer>> summaryData;
-    private List<VisualizationSeptuple> visualizationData;
+
+    // lists are used to indicate ordering and avoid mutating hashmap keys
+    // a list of lists is used to allow multiple summary statistics for v2.0 and beyond
+    private List<SummaryData> allSummaryData;
+    private List<VisualizationData> allVisualizationData;
 
     public StatData() {
-        summaryData = new ArrayList<>();
-        visualizationData = new ArrayList<>();
-    }
-
-    private class VisualizationSeptuple<T, U> {
-        private String chartTitle;
-        private String xTitle;
-        private String yTitle;
-        private List<T> xLabels;
-        private List<U> yLabels;
-        private List<Tuple<T, U>> dataPoints;
-
-        private VisualizationSeptuple(String chartTitle, String xTitle, String yTitle, List<T> xLabels, List<U>
-            yLabels, List<Tuple<T, U>> dataPoints) {
-            this.chartTitle = chartTitle;
-            this.xTitle = xTitle;
-            this.yTitle = yTitle;
-            this.xLabels = xLabels;
-            this.yLabels = yLabels;
-            this.dataPoints = dataPoints;
-        }
-
-        private VisualizationSeptuple(List visualizationElements) {
-            assert visualizationElements.size() == NUM_VISUALIZATION_ELEMENTS : "There must be six visualization " +
-                "elements";
-            this.chartTitle = chartTitle;
-            this.xTitle = xTitle;
-            this.yTitle = yTitle;
-            this.xLabels = xLabels;
-            this.yLabels = yLabels;
-            this.dataPoints = dataPoints;
-        }
-
-        public String getChartTitle() {
-            return chartTitle;
-        }
-
-        public String getxTitle() {
-            return xTitle;
-        }
-
-        public String getyTitle() {
-            return yTitle;
-        }
-
-        public List<T> getxLabels() {
-            return xLabels;
-        }
-
-        public List<U> getyLabels() {
-            return yLabels;
-        }
-
-        public List<Tuple<T, U>> getDataPoints() {
-            return dataPoints;
-        }
-
-    }
-
-    private class Tuple<K, V> {
-        private K key;
-        private V value;
-
-        private Tuple(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public K getKey() {
-            return key;
-        }
-
-        public V getValue() {
-            return value;
-        }
-
-        public void setKey(K newKey) {
-            key = newKey;
-        }
-
-        public void setValue(V newValue) {
-            value = newValue;
-        }
-    }
-
-    public void setSummaryValues(List<Integer> summaryValues) {
-        assert summaryValues.size() == NUM_SUMMARY_ELEMENTS : "There must be four summary elements";
-
-       for (int i = 0; i < 4; i++) {
-           summaryData.get(i).setValue(summaryValues.get(i));
-       }
+        allSummaryData = new ArrayList<>();
+        allVisualizationData = new ArrayList<>();
     }
 
     /**
-     * factory
+     *
+     * @param summaryValues
+     */
+    public void addSummary(String title, List<String> summaryTexts, List<Integer> summaryValues) {
+        assert summaryValues.size() == NUM_SUMMARY_ELEMENTS : "There must be four summary texts";
+        assert summaryValues.size() == NUM_SUMMARY_ELEMENTS : "There must be four summary values";
+
+        List<Tuple<String, Integer>> newSummaryElements = new ArrayList<>();
+       for (int i = 0; i < NUM_SUMMARY_ELEMENTS; i++) {
+           // create a pair of text and value, and add it to the list
+           newSummaryElements.add(new Tuple<String, Integer>(summaryTexts.get(i), summaryValues.get(i)));
+       }
+
+        allSummaryData.add(new SummaryData(title, newSummaryElements));
+    }
+
+    /**
+     *
      * @param visualizationElements
      */
-    public void addVisualization(List visualizationElements) {
-        visualizationData.add(new VisualizationSeptuple(visualizationElements));
+    public void addVisualization(String chartTitle, String xTitle, String yTitle, List<T> xLabels, List<?>
+        yLabels, List<Tuple<?, ?>> dataPoints) {
+        assert
+
+            xLabels.getClass();
+        allVisualizationData.add(new VisualizationData<, yLabels.getClass()>(chartTitle, xTitle,
+            yTitle, xLabels, yLabels, dataPoints));
     }
 
-    public List<Tuple<String, Integer>> getSummaryData() {
-        return summaryData;
+    public List<SummaryData> getAllSummaryData() {
+        return allSummaryData;
     }
 
-    public List<VisualizationSeptuple> getVisualizationData() {
-        return visualizationData;
+    public List<VisualizationData> getVisualizationData() {
+        return allVisualizationData;
     }
 
-    public HashMap<String, List> getAllData() {
-        return new HashMap<>() {{
-            put("summary", summaryData);
-            put("visualization", visualizationData);
-        }};
-    }
+//    public Map<String, List> getAllData() {
+//        return new HashMap<>() {{
+//            put("summary", summaryData);
+//            put("visualization", visualizationData);
+//        }};
+//    }
+
+
 }
