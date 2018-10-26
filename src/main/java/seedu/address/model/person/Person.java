@@ -5,10 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +23,6 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Optional<Doctor> preferredDoctor = Optional.empty();
 
     /**
      * Every field must be present and not null.
@@ -55,13 +52,6 @@ public class Person {
         return address;
     }
 
-    /**
-     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
-     * @return an Optional {@link Doctor}.
-     */
-    public Optional<Doctor> getPrefferedDoctor() {
-        return preferredDoctor;
-    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
