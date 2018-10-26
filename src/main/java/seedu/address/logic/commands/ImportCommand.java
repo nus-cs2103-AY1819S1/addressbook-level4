@@ -22,6 +22,8 @@ import org.xml.sax.SAXException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.imports.ImportAddressBook;
+import seedu.address.logic.commands.imports.ImportCcaList;
 import seedu.address.model.Model;
 import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.Email;
@@ -76,12 +78,12 @@ public class ImportCommand extends Command {
         Document doc = parseFile();
 
         if (doc.getElementsByTagName("persons").getLength() != 0) {
-            importContacts(doc, model);
+            new ImportAddressBook(doc, model).execute();
         } else {
-            importCca(doc, model);
+            new ImportCcaList(doc, model).execute();
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, path.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, path.getFileName()));
     }
 
     @Override
@@ -111,91 +113,5 @@ public class ImportCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_EMPTY_FILE);
         }
-    }
-
-    /**
-     * Imports XML file as CCA list to update database.
-     * @param doc
-     * @param model
-     */
-    private void importCca(Document doc, Model model) {
-        List<Person> originalList = new ArrayList<>();
-        List<Person> editedList = new ArrayList<>();
-        NodeList nList = doc.getElementsByTagName("CCA");
-        for (int i = 0; i < nList.getLength(); i++) {
-            List<Person> fullList = model.getAddressBook().getPersonList();
-            originalList.clear();
-            editedList.clear();
-            roomsList.clear();
-            Node node = nList.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                this.cca = element.getAttribute("cca");
-                NodeList nodeList = element.getElementsByTagName("room");
-                for (int j = 0; j < nodeList.getLength(); j++) {
-                    roomsList.add(nodeList.item(j).getTextContent());
-                }
-            }
-            ContactContainsRoomPredicate predicate = new ContactContainsRoomPredicate(roomsList);
-            for (Person p : fullList) {
-                if (predicate.test(p)) {
-                    originalList.add(p);
-                    editedList.add(addCcaToPerson(this.cca, p));
-                }
-            }
-            if (!originalList.isEmpty()) {
-                model.updateMultiplePersons(originalList, editedList);
-            }
-        }
-    }
-
-    /**
-     * Imports XML file as contacts list to update database.
-     * @param doc
-     * @param model
-     */
-    private void importContacts(Document doc, Model model) {
-        List<Person> fullList = model.getAddressBook().getPersonList();
-        personList.clear();
-        NodeList nList = doc.getElementsByTagName("persons");
-        for (int i = 0; i < nList.getLength(); i++) {
-            Node node = nList.item(i);
-            tags.clear();
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-
-                Name name = new Name(element.getElementsByTagName("name").item(0).getTextContent());
-                Phone phone = new Phone(element.getElementsByTagName("phone").item(0).getTextContent());
-                Email email = new Email(element.getElementsByTagName("email").item(0).getTextContent());
-                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
-                School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
-                NodeList tagged = element.getElementsByTagName("tagged");
-                if (tagged.getLength() != 0) {
-                    for (int j = 0; j < tagged.getLength(); j++) {
-                        tags.add(new Tag(tagged.item(j).getTextContent()));
-                    }
-                }
-                Person temp = new Person(name, phone, email, room, school, tags);
-                if (!fullList.contains(temp)) {
-                    personList.add(temp);
-                }
-            }
-        }
-        model.addMultiplePersons(personList);
-    }
-
-    /**
-     * Adds specified cca to specified person.
-     * @param cca
-     * @param p
-     * @return Edited person with updated ccas.
-     */
-    private Person addCcaToPerson(String cca, Person p) {
-        Set<Tag> newTags = new HashSet<>();
-        newTags.addAll(p.getTags());
-        newTags.add(new Tag(cca));
-        Person editedPerson = new Person(p.getName(), p.getPhone(), p.getEmail(), p.getRoom(),
-                p.getSchool(), newTags);
-        return editedPerson;
     }
 }
