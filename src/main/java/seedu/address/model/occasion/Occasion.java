@@ -72,6 +72,19 @@ public class Occasion {
     }
 
     /**
+     * Returns true if both occasion have the same name and date.
+     * This defines a weaker notion of equality between two modules.
+     */
+    public boolean isSameOccasion (Occasion otherOccasion) {
+        if (otherOccasion == this) {
+            return true;
+        }
+
+        return otherOccasion.getOccasionName().equals(this.getOccasionName())
+                && otherOccasion.getOccasionDate().equals(this.getOccasionDate());
+    }
+
+    /**
      * Check the equality of two occasions. This defines a stronger notion of
      * equality between two occasions.
      *

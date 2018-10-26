@@ -19,9 +19,9 @@ public class OccasionLocation {
      * The location of an occasion should consist of any number of alphanumeric
      * characters and spaces.
      * The location should not start or end with spaces.
-     * Length of the location should be restricted between 3 - 20.
+     * Length of the location should be restricted between 3 - 30.
      */
-    public static final String OCCASIONLOCATION_VALIDATION_REGEX = "(?! )(?!.*? $)[a-zA-Z0-9 ]{3,20}";
+    public static final String OCCASIONLOCATION_VALIDATION_REGEX = "(?! )(?!.*? $)[a-zA-Z0-9 ]{3,30}";
 
     public final String fullOccasionLocation;
 
