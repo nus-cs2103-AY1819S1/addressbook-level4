@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Anakin;
 import seedu.address.model.ReadOnlyAnakin;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Deck;
 
 /**
  * An Immutable Anakin that is serializable to XML format

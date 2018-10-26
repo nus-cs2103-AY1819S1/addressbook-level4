@@ -9,8 +9,8 @@ import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.DeckCardHandle;
 import guitests.guihandles.DeckListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

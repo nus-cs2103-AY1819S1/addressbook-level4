@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Deck;
 import seedu.address.storage.XmlSerializableAnakin;
 
 public class DeckListPanelTest extends GuiUnitTest {

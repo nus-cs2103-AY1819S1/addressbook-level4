@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.anakincommands.CommandTestUtil.VALID_CARD_LIST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CARD_LIST;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
 import static seedu.address.testutil.TypicalDecks.getTypicalAnakin;
 
@@ -18,9 +18,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.anakinexceptions.DuplicateDeckException;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 import seedu.address.testutil.DeckBuilder;
 
 public class AnakinTest {

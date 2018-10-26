@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Contains helper methods to set up {@code AddressbookModel} for testing.

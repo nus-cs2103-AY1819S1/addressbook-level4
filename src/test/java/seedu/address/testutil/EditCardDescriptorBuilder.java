@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.anakincommands.EditCardCommand;
-import seedu.address.logic.anakincommands.EditCardCommand.EditCardDescriptor;
-import seedu.address.model.anakindeck.Answer;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Question;
+import seedu.address.logic.commands.EditCardCommand;
+import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
+import seedu.address.model.deck.Answer;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Question;
 
 /**
  * A utility class to help with building EditCardDescriptor objects.

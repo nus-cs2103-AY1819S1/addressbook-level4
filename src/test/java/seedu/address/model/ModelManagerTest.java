@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.anakindeck.DeckNameContainsKeywordsPredicate;
+import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.testutil.AnakinBuilder;
 
 public class ModelManagerTest {

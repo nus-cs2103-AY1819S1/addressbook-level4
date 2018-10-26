@@ -9,7 +9,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertDeckCardDisplaysDeck
 import org.junit.Test;
 
 import guitests.guihandles.DeckCardHandle;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.DeckBuilder;
 
 
