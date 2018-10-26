@@ -1153,6 +1153,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |JCRC member |compose emails |ease the process of sending emails to groups of hall residents
 
+|`* * *` |JCRC member |delete emails |remove email files that I no longer need
+
+|`* * *` |JCRC member |list all emails |see what emails exist
+
+|`* * *` |JCRC member |view emails |see the contents of an email
+
 |`* * *` |JCRC member |publish calenders |prevent clashes between events and inform hall residents of upcoming events
 
 |`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
@@ -1303,16 +1309,85 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Compose email
+=== Use case: Compose email (index)
 
 *MSS*
 
-1. JCRC member requests to compose email
-2. Hallper requests for all details of email (Sender, recipient, subject, content, attachment)
-3. JCRC member enters all details
-4. Hallper saves an output file in the computer
+1. JCRC member requests to list persons.
+2. Hallper shows list of persons.
+3. JCRC member requests to compose an email to specific people in the list
+4. Hallper requests for all details of email (Sender, indexes, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. Hallper shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Compose email (list)
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of persons
+3. JCRC member requests to compose an email to the current list of persons
+4. Hallper requests for all details of email (Sender, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: List emails
+
+*MSS*
+
+1. JCRC member requests to list emails
+2. Hallper shows list of all emails
++
+Use case ends.
+
+[discrete]
+=== Use case: View email
+
+*MSS*
+
+1. JCRC member requests to view an email
+2. Hallper requests for email subject
+3. JCRC member enters subject
+4. Hallper displays email with given subject
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Email with given subject does not exist.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Select person
