@@ -420,8 +420,7 @@ Figure 3.5.3 Activity Diagram of user pressing tab
 ** Cons: Difficult to implement.
 * **Alternative 2:** Handle everything in `CommandBox`.
 ** Pros: Easy to implement.
-** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
-for result listing of results in `ResultDisplay`.
+** Cons: Difficult to extend.
 
 == Documentation
 
