@@ -221,6 +221,12 @@ public class AddressBookTest {
         addressBook.getDoctorList().remove(0);
     }
 
+    @Test
+    public void getReceptionistList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getReceptionistList().remove(0);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list and doctors list can violate interface constraints.
      */
