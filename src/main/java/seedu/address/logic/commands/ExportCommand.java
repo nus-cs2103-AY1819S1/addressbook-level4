@@ -3,16 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 
@@ -32,10 +25,6 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported to %1$s.";
 
     private final Path path;
-    private final List<Person> personList;
-    private final Set<Tag> tags;
-    private final List<String> roomsList;
-    private String cca;
 
 
     /**
@@ -44,14 +33,10 @@ public class ExportCommand extends Command {
     public ExportCommand(Path path) {
         requireNonNull(path);
         this.path = path;
-        this.personList = new ArrayList<>();
-        this.tags = new HashSet<>();
-        this.roomsList = new ArrayList<>();
-        this.cca = null;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.exportAddressBook(path);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path));
