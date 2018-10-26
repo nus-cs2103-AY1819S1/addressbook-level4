@@ -53,6 +53,7 @@ public class AddMedicalRecordCommandTest {
         MedicalRecord medicalRecord = new MedicalRecordBuilder().withBloodType(VALID_BLOOD_TYPE_BOB)
                 .withDrugAllergies(VALID_DRUG_ALLERGY_BOB).withDiseaseHistory(VALID_DISEASE_BOB)
                 .withNotes(VALID_NOTE_BOB).build();
+        patient.addMedicalRecord(medicalRecord);
         AddMedicalRecordCommand addMedicalRecordCommand =
                 new AddMedicalRecordCommand(INDEX_FIRST_PERSON, medicalRecord);
 
@@ -61,6 +62,10 @@ public class AddMedicalRecordCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), patient);
         expectedModel.commitAddressBook();
+
+
+        System.out.println(model.getFilteredPersonList());
+        System.out.println(expectedModel.getFilteredPersonList());
 
         assertCommandSuccess(addMedicalRecordCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -71,6 +76,7 @@ public class AddMedicalRecordCommandTest {
         Patient patient = new PersonBuilder(ALICE).build();
         MedicalRecord medicalRecord = new MedicalRecordBuilder().withBloodType(VALID_BLOOD_TYPE_AMY)
                 .withDiseaseHistory(VALID_DISEASE_AMY).build();
+        patient.addMedicalRecord(medicalRecord);
         AddMedicalRecordCommand addMedicalRecordCommand =
                 new AddMedicalRecordCommand(INDEX_FIRST_PERSON, medicalRecord);
 
@@ -89,6 +95,7 @@ public class AddMedicalRecordCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         Patient patient = new PersonBuilder(ALICE).build();
         MedicalRecord medicalRecord = new MedicalRecordBuilder().build();
+        patient.addMedicalRecord(medicalRecord);
         AddMedicalRecordCommand addMedicalRecordCommand =
                 new AddMedicalRecordCommand(INDEX_FIRST_PERSON, medicalRecord);
 

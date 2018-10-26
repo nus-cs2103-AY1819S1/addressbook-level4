@@ -47,6 +47,13 @@ public class MedicineCard extends UiPart<Region> {
         pricePerUnit.setText("Price/Unit: " + medicine.getPricePerUnit().value);
         minStockQuantity.setText("Minimum Qty: " + medicine.getMinimumStockQuantity().value);
         stock.setText("Stock: " + medicine.getStock().value);
+
+        if (medicine.getStock().value < medicine.getMinimumStockQuantity().value) {
+            // Need to restock! Let's colour it red!
+            System.out.println("hi");
+            stock.setStyle("-fx-text-fill: rgba(255,56,34,0.87)");
+            System.out.println("hello");
+        }
     }
 
     @Override

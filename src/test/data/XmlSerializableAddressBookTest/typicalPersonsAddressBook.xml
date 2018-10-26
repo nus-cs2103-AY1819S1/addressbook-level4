@@ -9,7 +9,7 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -21,7 +21,7 @@
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -31,7 +31,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -42,7 +42,7 @@
         <address>10th street</address>
         <tagged>friends</tagged>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -52,7 +52,7 @@
         <email>werner@example.com</email>
         <address>michegan ave</address>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -62,7 +62,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
     <patients>
@@ -72,7 +72,7 @@
         <email>anna@example.com</email>
         <address>4th street</address>
         <medicalRecord>
-            <bloodType>A+</bloodType>
+            <bloodType></bloodType>
         </medicalRecord>
     </patients>
 </addressbook>
