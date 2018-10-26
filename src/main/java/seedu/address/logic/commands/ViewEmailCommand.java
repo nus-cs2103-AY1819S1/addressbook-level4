@@ -14,9 +14,9 @@ import seedu.address.model.email.Subject;
 /**
  * Loads an email from the computer
  */
-public class LoadEmailCommand extends Command {
+public class ViewEmailCommand extends Command {
 
-    public static final String COMMAND_WORD = "load_email";
+    public static final String COMMAND_WORD = "view_email";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Loads the email identified by its subject.\n"
@@ -28,7 +28,7 @@ public class LoadEmailCommand extends Command {
 
     private final Subject subject;
 
-    public LoadEmailCommand(Subject subject) {
+    public ViewEmailCommand(Subject subject) {
         this.subject = subject;
     }
 
