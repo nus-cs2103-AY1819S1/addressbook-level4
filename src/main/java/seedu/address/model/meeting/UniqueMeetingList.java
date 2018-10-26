@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
 /**
@@ -35,13 +34,10 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Adds a meeting to the list.
      * The meeting can be already exist in the list but they belong to different groups.
-     * To identify, we need to check who owns the meeting.
+     * TODO find a way to identify meetings of same fields but belong to different groups
      */
     public void add(Meeting toAdd) {
         requireAllNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateMeetingException();
-        }
         internalList.add(toAdd);
     }
 
@@ -60,9 +56,10 @@ public class UniqueMeetingList implements Iterable<Meeting> {
 
         if (editedMeeting != null) {
             if (index == -1) {
-                index = internalList.size() - 1;
+                internalList.add(editedMeeting);
+            } else {
+                internalList.add(index, editedMeeting);
             }
-            internalList.add(index, editedMeeting);
         }
     }
 

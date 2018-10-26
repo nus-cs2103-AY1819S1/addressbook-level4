@@ -121,6 +121,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addGroup(Group group) {
         groups.add(group);
+        if (group.getMeeting() != null) {
+            meetings.add(group.getMeeting());
+        }
     }
 
     /**
@@ -174,7 +177,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeGroup(Group group) {
         requireNonNull(group);
         group.clearMembers();
-        meetings.remove(group.getMeeting());
+        if (group.getMeeting() != null) {
+            meetings.remove(group.getMeeting());
+        }
         groups.remove(group);
     }
     // @@author
