@@ -118,9 +118,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Medicine dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
+    public void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
         requireAllNonNull(medicine, quantityToDispense);
-        return versionedAddressBook.dispenseMedicine(medicine, quantityToDispense);
+        versionedAddressBook.dispenseMedicine(medicine, quantityToDispense);
+        indicateAddressBookChanged(); // <-- This needs to be called in order to update stock in file.
     }
 
     @Override
