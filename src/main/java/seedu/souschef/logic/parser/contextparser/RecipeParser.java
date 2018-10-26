@@ -29,6 +29,7 @@ import seedu.souschef.storage.Storage;
  * Parses user input.
  */
 public class RecipeParser {
+    public static final String COMMAND_WORD = "recipe";
     /**
      * Used for initial separation of command word and args.
      */
