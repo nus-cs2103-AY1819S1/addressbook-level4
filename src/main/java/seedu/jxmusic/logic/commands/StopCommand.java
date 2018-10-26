@@ -16,7 +16,7 @@ public class StopCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new PlayerManager().stop();
+        PlayerManager.getInstance().stop();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

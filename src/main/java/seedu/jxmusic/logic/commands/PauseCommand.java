@@ -15,7 +15,7 @@ public class PauseCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new PlayerManager().pause();
+        PlayerManager.getInstance().pause();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

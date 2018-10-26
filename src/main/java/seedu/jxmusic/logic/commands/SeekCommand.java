@@ -26,7 +26,7 @@ public class SeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new PlayerManager().seek(time);
+        PlayerManager.getInstance().seek(time);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
