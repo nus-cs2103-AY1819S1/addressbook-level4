@@ -27,7 +27,7 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
     @Override
     public CommandResult execute(CommandHistory history) {
 
-
+        //this if else is to determine messages to show
         if (mode.equals("show")) {
             ui.showMealPlanListPanel();
             return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext()));
