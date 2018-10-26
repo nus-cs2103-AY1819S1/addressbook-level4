@@ -30,6 +30,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.receptionist.Receptionist;
 
@@ -71,6 +72,25 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    // Manually added (Patient)
+    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+            .build();
+    public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
+            .build();
+    public static final Patient CARL_AS_PATIENT = PatientBuilder.buildFromPerson(CARL)
+            .build();
+    public static final Patient DANIEL_AS_PATIENT = PatientBuilder.buildFromPerson(DANIEL)
+            .build();
+    public static final Patient ELLE_AS_PATIENT = PatientBuilder.buildFromPerson(ELLE)
+            .build();
+    public static final Patient FIONA_AS_PATIENT = PatientBuilder.buildFromPerson(FIONA)
+            .build();
+    public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
+            .build();
+    public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
+            .build();
+
+    // Manually added (Doctor)
     public static final Doctor ADAM = new DoctorBuilder().withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
     public static final Doctor BEN = new DoctorBuilder().withName(VALID_NAME_BEN)

@@ -16,15 +16,18 @@ public class AppointmentBuilder {
     public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
     public static final Time DEFAULT_TIME = new Time(16, 30);
     public static final Person DEFAULT_PATIENT = ALICE;
+    public static final int DEFAULT_TYPE = 0;
 
     private Date date;
     private Time time;
     private Person patient;
+    private int type;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
         time = DEFAULT_TIME;
         patient = DEFAULT_PATIENT;
+        type = DEFAULT_TYPE;
     }
 
     /**
@@ -34,6 +37,7 @@ public class AppointmentBuilder {
         date = appointmentToCopy.getAppointmentDate();
         time = appointmentToCopy.getAppointmentTime();
         patient = appointmentToCopy.getPatient();
+        type = appointmentToCopy.getAppointmentType();
     }
 
     /**
@@ -61,6 +65,6 @@ public class AppointmentBuilder {
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient);
+        return new Appointment(date, time, patient, type);
     }
 }
