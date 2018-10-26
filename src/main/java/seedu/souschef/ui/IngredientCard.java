@@ -32,7 +32,7 @@ public class IngredientCard extends GenericCard<Ingredient> {
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
         name.setText(ingredient.getName().toString());
-        amount.setText(ingredient.getAmount().toString());
+        amount.setText(ingredient.getIngredientAmount().toString());
         unit.setText(ingredient.getUnit().toString());
         date.setText(ingredient.getDate().toString());
     }

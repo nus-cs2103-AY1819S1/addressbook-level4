@@ -15,7 +15,7 @@ public class IngredientPortion extends IngredientDefinition {
         this.unit = unit;
     }
 
-    public IngredientAmount getAmount() {
+    public IngredientAmount getIngredientAmount() {
         return amount;
     }
 
@@ -62,12 +62,12 @@ public class IngredientPortion extends IngredientDefinition {
 
         return otherIngredient != null
                 && otherIngredient.getName().equals(getName())
-                && otherIngredient.getAmount().equals(getAmount())
+                && otherIngredient.getIngredientAmount().equals(getIngredientAmount())
                 && otherIngredient.getUnit().equals(getUnit());
     }
 
     @Override
     public String toString() {
-        return super.toString() + " Amount: " + getAmount().toString() + " " + getUnit();
+        return super.toString() + " Amount: " + getIngredientAmount().toString() + " " + getUnit();
     }
 }

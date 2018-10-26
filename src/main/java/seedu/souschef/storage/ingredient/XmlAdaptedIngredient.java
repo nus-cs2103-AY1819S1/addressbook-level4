@@ -43,7 +43,7 @@ public class XmlAdaptedIngredient {
 
     public XmlAdaptedIngredient(Ingredient source) {
         name = source.getName().toString();
-        amount = source.getAmount().toString();
+        amount = source.getIngredientAmount().toString();
         unit = source.getUnit().toString();
         date = source.getDate().toString();
     }
