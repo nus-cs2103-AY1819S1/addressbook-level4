@@ -1,10 +1,13 @@
 package seedu.scheduler.logic.commands;
 
+import static java.lang.Thread.sleep;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -12,9 +15,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.EventDateTime;
+
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.util.CollectionUtil;
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
@@ -50,6 +57,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
 
@@ -80,7 +89,59 @@ public class EditCommand extends Command {
         model.updateEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
+
+        Calendar service = connectToGoogleCalendar.getCalendar();
+        String gEventId = String.valueOf(eventToEdit.getUuid()).replaceAll("-","");
+
+        com.google.api.services.calendar.model.Event gEvent = null;
+
+        //retireve event
+        try {
+            gEvent = service.events().get("primary",gEventId).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        gEvent.setSummary(String.valueOf(editedEvent.getEventName()));
+        gEvent.setLocation(String.valueOf(editedEvent.getVenue()));
+        gEvent.setDescription(String.valueOf(editedEvent.getDescription()));
+
+        String startDateTime = convertStartDateTimeToGoogleFormat(editedEvent);
+
+        gEvent.setStart(new EventDateTime()
+                .setDateTime(com.google.api.client.util.DateTime.parseRfc3339(startDateTime)));
+
+        String endDateTime = convertEndDateTimeToGoogleFormat(editedEvent);
+
+        gEvent.setEnd(new EventDateTime().setDateTime(com.google.api.client.util.DateTime.parseRfc3339(endDateTime)));
+
+        com.google.api.services.calendar.model.Event updatedgEvent = null;
+        try {
+            updatedgEvent = service.events().update("primary", gEventId, gEvent).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updatedgEvent.getUpdated();
+
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
+    }
+
+    private String convertStartDateTimeToGoogleFormat(Event e) {
+        //local format:2018-10-20 17:00:00
+        //target :2018-10-21T22:30:00+08:00
+        return e.getStartDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ","T")
+                +"+08:00";
+    }
+
+    private String convertEndDateTimeToGoogleFormat(Event e) {
+        return e.getEndDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ","T")
+                +"+08:00";
     }
 
     /**
