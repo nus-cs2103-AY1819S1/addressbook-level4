@@ -7,7 +7,6 @@ import java.util.Objects;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.QuantityToDispense;
-import seedu.address.model.medicine.SerialNumber;
 
 /**
  * Represents a note object belonging to a patient.

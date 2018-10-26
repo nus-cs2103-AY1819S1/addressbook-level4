@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.model.medicine.MedicineName;
-import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.person.medicalrecord.Quantity;

@@ -17,7 +17,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddMedicalRecordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.MedicineName;
-import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.person.medicalrecord.BloodType;
 import seedu.address.model.person.medicalrecord.Disease;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
