@@ -12,7 +12,6 @@ import seedu.jxmusic.logic.commands.DeleteCommand;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
-import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
