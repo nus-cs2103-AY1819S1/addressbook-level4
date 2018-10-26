@@ -1,5 +1,6 @@
 package seedu.souschef.model.ingredient;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.souschef.model.UniqueType;
@@ -12,8 +13,13 @@ public class Ingredient extends IngredientPortion {
     private final IngredientDate date;
 
     public Ingredient(IngredientName name, IngredientAmount amount, IngredientServingUnit unit, IngredientDate date) {
-        super(name, amount, unit);
+        super(name, unit, amount);
         this.date = date;
+    }
+
+    public Ingredient(String name, Double amount, Date date) {
+        super(name, amount);
+        this.date = new IngredientDate(date);
     }
 
     public IngredientDate getDate() {
@@ -36,7 +42,10 @@ public class Ingredient extends IngredientPortion {
         Ingredient otherIngredient = (Ingredient) other;
 
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName());
+                && otherIngredient.getName().equals(getName())
+                && otherIngredient.getAmount().equals(getAmount())
+                && otherIngredient.getUnit().equals(getUnit())
+                && otherIngredient.getDate().equals(getDate());
     }
 
     /**

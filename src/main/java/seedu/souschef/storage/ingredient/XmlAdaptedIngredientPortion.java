@@ -30,9 +30,9 @@ public class XmlAdaptedIngredientPortion {
     public XmlAdaptedIngredientPortion(){}
 
     public XmlAdaptedIngredientPortion(String name, String amount, String unit) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.amount = amount;
-        this.unit = unit;
+        this.unit = unit.toLowerCase();
     }
 
     public XmlAdaptedIngredientPortion(IngredientPortion source) {
@@ -80,7 +80,7 @@ public class XmlAdaptedIngredientPortion {
         }
 
         //TODO: Search and link to existing ingredient
-        return new IngredientPortion(modelName, modelAmount, modelUnit);
+        return new IngredientPortion(modelName, modelUnit, modelAmount);
     }
 
     @Override

@@ -84,12 +84,14 @@ public class AddCommandParser implements CommandParser<AddCommand> {
     @Override
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
+        requireNonNull(args);
+
         String[] tokens = args.trim().split("\\s+");
         if (tokens.length != 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        IngredientName name = new IngredientName(tokens[0]);
+        IngredientName name = new IngredientName(tokens[0].replaceAll("_", " "));
         IngredientAmount amount;
         IngredientServingUnit unit = new IngredientServingUnit(tokens[2]);
         IngredientDate date;
