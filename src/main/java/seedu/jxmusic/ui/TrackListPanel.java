@@ -32,14 +32,21 @@ public class TrackListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Track> tracks) {
+        trackListView.setItems(tracks);
+        trackListView.setCellFactory(listView -> new TrackListViewCell());
+        setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setEventHandlerForSelectionChangeEvent() {
         trackListView.getSelectionModel().selectedItemProperty()
-                .addListener(((observable, oldValue, newValue) -> {
+                .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in track list panel changed to : '" + newValue + "'");
-                        raise( new TrackListPanelSelectionChangedEvent(newValue));
+                        raise(new TrackListPanelSelectionChangedEvent(newValue));
                     }
-                }));
+                });
     }
+
 
     /**
      *  Scrolls to the {@code TrackCard} at the {@code index} and selects it.
@@ -60,7 +67,7 @@ public class TrackListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Track} using a {@code TrackCard}.
      */
-    class PlaylistViewCell extends ListCell<Track> {
+    class TrackListViewCell extends ListCell<Track> {
         @Override
         protected void updateItem(Track track, boolean empty) {
             super.updateItem(track, empty);
