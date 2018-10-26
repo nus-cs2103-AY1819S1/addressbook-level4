@@ -228,7 +228,7 @@ public class NewDeckCommandTest {
     }
 
     /**
-     * A AddressbookModel stub that always accept the person being added.
+     * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Deck> decksAdded = new ArrayList<>();
