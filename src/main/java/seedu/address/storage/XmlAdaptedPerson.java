@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -35,6 +39,12 @@ public class XmlAdaptedPerson {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private boolean isQueuing = false;
+    @XmlElement
+    private Optional<Doctor> preferredDoctor = Optional.empty();
+    @XmlElement
+    private Optional<Appointment> appointment = Optional.empty();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -68,6 +78,13 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+
+        // more data is converted if the person is a patient.
+        if (source instanceof Patient) {
+            isQueuing = ((Patient) source).isQueuing();
+            preferredDoctor = ((Patient) source).getPreferredDoctor();
+            appointment = ((Patient) source).getAppointment();
+        }
     }
 
     /**
@@ -114,7 +131,14 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        Patient patient = new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        appointment.ifPresent((appointment) -> patient.setAppointment(appointment));
+        preferredDoctor.ifPresent((doctor -> patient.setPreferredDoctor(doctor)));
+        if (isQueuing) {
+            patient.setIsQueuing();
+        }
+
+        return patient;
     }
 
     @Override

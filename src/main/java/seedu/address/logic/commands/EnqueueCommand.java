@@ -59,6 +59,6 @@ public class EnqueueCommand extends Command {
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue));
+        return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue.getName()));
     }
 }

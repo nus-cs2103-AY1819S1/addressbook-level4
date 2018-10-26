@@ -174,7 +174,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void enqueue(Patient patient) throws CommandException {
         if (patient.isQueuing()) {
-            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING, patient.getName()));
+            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING,
+                    patient.getName()));
         }
         if (patient.hasPreferredDoctor()) {
             enqueueIntoPreferenceQueue(patient);
