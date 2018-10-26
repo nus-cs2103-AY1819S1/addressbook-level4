@@ -74,30 +74,18 @@ public class Occasion extends Inanimate {
     }
 
     /**
-<<<<<<< HEAD
      * Returns true if both modules have the same code, academic year and semester.
      * This defines a weaker notion of equality between two modules.
      */
     public boolean isSameOccasion(Occasion otherOccasion) {
-=======
-     * Returns true if both occasion have the same name and date.
-     * This defines a weaker notion of equality between two modules.
-     */
-    public boolean isSameOccasion (Occasion otherOccasion) {
->>>>>>> 812fc39e34c10ae5f61bfefcbff5fcbe19f4bd92
         if (otherOccasion == this) {
             return true;
         }
 
-<<<<<<< HEAD
         return otherOccasion != null
                 && otherOccasion.getOccasionName().equals(getOccasionName())
                 && otherOccasion.getOccasionDate().equals(getOccasionDate())
                 && otherOccasion.getLocation().equals(getLocation());
-=======
-        return otherOccasion.getOccasionName().equals(this.getOccasionName())
-                && otherOccasion.getOccasionDate().equals(this.getOccasionDate());
->>>>>>> 812fc39e34c10ae5f61bfefcbff5fcbe19f4bd92
     }
 
     /**

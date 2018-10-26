@@ -10,11 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-<<<<<<< HEAD
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddCommand;
-=======
->>>>>>> 812fc39e34c10ae5f61bfefcbff5fcbe19f4bd92
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
