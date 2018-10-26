@@ -67,6 +67,12 @@ public interface Model {
     void addDoctor(Doctor doctor);
 
     /**
+     * Adds the given receptionist.
+     * {@code receptionist} must not already exist in the address book.
+     */
+    void addReceptionist(Receptionist receptionist);
+
+    /**
      * Retrieve the given doctor
      * {@code doctor} must exist in ClinicIO.
      */

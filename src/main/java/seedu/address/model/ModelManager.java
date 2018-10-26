@@ -169,6 +169,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addReceptionist(Receptionist receptionist) {
+        versionedAddressBook.addReceptionist(receptionist);
+        updatefilteredReceptionistList(PREDICATE_SHOW_ALL_RECEPTIONISTS);
+        indicateAddressBookChanged();
+    }    
+
     //@@author gingivitiss
     @Override
     public void addAppointment(Appointment appt) {
@@ -256,7 +263,9 @@ public class ModelManager extends ComponentManager implements Model {
     public Doctor getDoctor(Doctor doctor) {
         return versionedAddressBook.getDoctor(doctor);
     }
-
+    
+    //=========== Filtered Receptionist List Accessors =============================================================
+    
     @Override
     public Receptionist getReceptionist(Receptionist receptionist) {
         return versionedAddressBook.getReceptionist(receptionist);
