@@ -241,8 +241,8 @@ Composes a *`.eml`* file that can be used to send emails to residents specified 
 Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT`
 
 ****
-* FROM must be valid email addresses e.g. johndoe@example.com
-* INDEXES refer to the index number shown in the displayed person list.
+* FROM must be a valid email address e.g. johndoe@example.com
+* INDEXES refer to the index numbers shown in the displayed person list.
 * INDEXES *must be positive integers* 1, 2, 3, ...
 * SUBJECT has no word limit.
 * CONTENT has no word limit.
@@ -261,7 +261,7 @@ Composes a *`.eml`* file that can be used to send emails to currently listed res
 Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
 
 ****
-* FROM must be valid email addresses e.g. johndoe@example.com
+* FROM must be a valid email address e.g. johndoe@example.com
 * SUBJECT has no word limit.
 * CONTENT has no word limit.
 ****
