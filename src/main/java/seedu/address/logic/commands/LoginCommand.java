@@ -53,7 +53,7 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
 
-        // TODO:Attempt to modularise method below 
+        // TODO:Attempt to modularise method below
         if (toAuthenticate instanceof Doctor) {
             Doctor authenticatedDoctor = (Doctor) toAuthenticate;
             if (!model.hasDoctor(authenticatedDoctor)) {

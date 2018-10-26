@@ -289,7 +289,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
     }
-    
+
     @Override
     public ObservableList<Receptionist> getReceptionistList() {
         return receptionists.asUnmodifiableObservableList();

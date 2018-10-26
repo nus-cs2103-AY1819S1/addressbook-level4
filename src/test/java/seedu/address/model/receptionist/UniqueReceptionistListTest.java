@@ -101,8 +101,9 @@ public class UniqueReceptionistListTest {
     @Test
     public void setReceptionist_editedReceptionistHasSameIdentity_success() {
         uniqueReceptionistList.add(ALAN);
-        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withPassword(HashUtil.hashToString(VALID_PASSWORD_ALAN), true)
-                .build();
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withPassword(
+                HashUtil.hashToString(VALID_PASSWORD_ALAN),
+                true).build();
         uniqueReceptionistList.setReceptionist(ALAN, editedAlan);
         UniqueReceptionistList expectedUniqueReceptionistList = new UniqueReceptionistList();
         expectedUniqueReceptionistList.add(editedAlan);

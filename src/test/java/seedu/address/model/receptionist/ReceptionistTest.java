@@ -1,15 +1,18 @@
 package seedu.address.model.receptionist;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+
 import static seedu.address.testutil.TypicalPersons.ALAN;
 import static seedu.address.testutil.TypicalPersons.FRANK;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.testutil.ReceptionistBuilder;
 
 public class ReceptionistTest {

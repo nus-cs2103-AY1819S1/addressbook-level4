@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Name;
 import seedu.address.model.receptionist.Receptionist;
