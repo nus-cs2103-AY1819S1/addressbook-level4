@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class CommandModuleTestUtil {
     public static final String VALID_MODULETITLE_ST2131 = "Probability";
     public static final String VALID_ACADEMICYEAR_CS2100 = "1617";
     public static final String VALID_ACADEMICYEAR_ST2131 = "1011";
+    public static final String VALID_SEMESTER_CS2100 = "1";
+    public static final String VALID_SEMESTER_ST2131 = "2";
     public static final String VALID_TAG_BINARY = "binary";
     public static final String VALID_TAG_CALCULUS = "needs calculus";
 
@@ -38,6 +41,8 @@ public class CommandModuleTestUtil {
     public static final String MODULETITLE_DESC_ST2131 = " " + PREFIX_MODULETITLE + VALID_MODULETITLE_ST2131;
     public static final String ACADEMICYEAR_DESC_CS2100 = " " + PREFIX_ACADEMICYEAR + VALID_ACADEMICYEAR_CS2100;
     public static final String ACADEMICYEAR_DESC_ST2131 = " " + PREFIX_ACADEMICYEAR + VALID_ACADEMICYEAR_ST2131;
+    public static final String SEMESTER_DESC_ONE = " " + PREFIX_SEMESTER + VALID_SEMESTER_CS2100;
+    public static final String SEMESTER_DESC_TWO = " " + PREFIX_SEMESTER + VALID_SEMESTER_ST2131;
     public static final String TAG_DESC_BINARY = " " + PREFIX_TAG + VALID_TAG_BINARY;
     public static final String TAG_DESC_CALCULUS = " " + PREFIX_TAG + VALID_TAG_CALCULUS;
 
