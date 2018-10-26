@@ -16,6 +16,10 @@ public class IngredientAmount {
         this.amount = Double.parseDouble(amount);
     }
 
+    public double getValue() {
+        return amount;
+    }
+
     public String toString() {
         return Double.toString(amount);
     }
