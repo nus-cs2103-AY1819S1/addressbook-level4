@@ -15,7 +15,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.QuickViewCommand;
+import seedu.address.logic.commands.ViewStatusCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -78,8 +78,8 @@ public class ThaneParkParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommandParser().parse(arguments);
 
-        case QuickViewCommand.COMMAND_WORD:
-            return new QuickViewCommand();
+        case ViewStatusCommand.COMMAND_WORD:
+            return new ViewStatusCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
