@@ -50,8 +50,8 @@ public class LibraryParser {
         final String arguments = matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
         switch (commandWord) {
 
-        case PlayCommand.COMMAND_WORD:
-            return new PlayCommand(); // todo parse (argument)
+        case PlayCommand.COMMAND_PHRASE:
+            return new PlayCommandParser().parse(arguments);
 
         case PauseCommand.COMMAND_WORD:
             return new PauseCommand(); // todo parse (argument)
