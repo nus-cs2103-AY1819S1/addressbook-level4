@@ -18,37 +18,37 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.healthplan.HealthPlan;
-import seedu.souschef.model.planner.Day;
-import seedu.souschef.model.planner.Meal;
 
 /**
- * command to add indexed day into index healthplan
+ * command extension to delete meal plans from health plan
  */
-public class AddMealHealthPlanCommand <T extends UniqueType> extends Command {
+public class DeleteMealHealthPlanCommand <T extends UniqueType> extends Command {
 
+    public static final String COMMAND_WORD = "deleteDay";
 
-
-    public static final String COMMAND_WORD = "addDay";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds the day identified by the index number used in the "
+            + ": Removes the day identified by the index number used in the "
             + "displayed meal plan list to the specified health plan\n"
             + "Parameters: p/PLANINDEX d/DAYINDEX(must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " p/1 d/1";
 
-    public static final String MESSAGE_SUCCESS = "added day %2$s to plan %1$s";
+    public static final String MESSAGE_SUCCESS = "removed day %2$s from plan %1$s";
 
     private static final Logger logger = LogsCenter.getLogger(AddMealHealthPlanCommand.class);
 
-    private HealthPlan planToAddTo;
-    private Day dayToAdd;
+    private HealthPlan plan;
+
     private Model<HealthPlan> model;
 
     private ArgumentMultimap argMultimap;
 
+    private int indexToRemove;
+
     private int index;
 
-    public AddMealHealthPlanCommand(Model healthPlanModel, Model mealPlanModel, String args) throws ParseException {
+    public DeleteMealHealthPlanCommand(Model healthPlanModel, String args) throws ParseException {
         this.model = healthPlanModel;
+
 
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_DURATION);
 
@@ -57,30 +57,20 @@ public class AddMealHealthPlanCommand <T extends UniqueType> extends Command {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-
-        planToAddTo = healthPlanModel.getAppContent().getObservableHealthPlanList()
-                .get(Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim()) - 1);
-
         this.index = Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim());
 
+        plan = healthPlanModel.getAppContent().getObservableHealthPlanList()
+                .get(Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim()) - 1);
 
-        logger.info(planToAddTo.getHealthPlanName().planName);
+        this.indexToRemove = Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get().trim()) - 1;
 
-
-        dayToAdd = mealPlanModel.getAppContent().getObservableMealPlanner()
-                .get(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get().trim()) - 1);
-
-        logger.info(dayToAdd.getMeal(Meal.Slot.BREAKFAST).toString());
     }
 
     @Override
     public CommandResult execute(CommandHistory history) {
 
-
-        planToAddTo.getMealPlans().add(dayToAdd);
-
-        model.update(planToAddTo, planToAddTo);
-
+        plan.getMealPlans().remove(indexToRemove);
+        model.update(plan, plan);
         model.commitAppContent();
 
         EventsCenter.getInstance().post(new BrowserUiChangedEvent("healthplanDetails", this.index));
@@ -89,10 +79,11 @@ public class AddMealHealthPlanCommand <T extends UniqueType> extends Command {
                 argMultimap.getValue(PREFIX_DURATION).get().trim()));
     }
 
+
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 
 
 }

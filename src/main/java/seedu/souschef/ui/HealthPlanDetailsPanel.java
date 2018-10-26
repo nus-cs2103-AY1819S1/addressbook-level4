@@ -88,6 +88,9 @@ public class HealthPlanDetailsPanel extends GenericListPanel<HealthPlan> {
         scrollTo(event.targetIndex);
     }
 
+
+
+
     /**
      *  cell implementation to handle the day listfor health plans details
      */
@@ -106,16 +109,6 @@ public class HealthPlanDetailsPanel extends GenericListPanel<HealthPlan> {
     }
 
 
-
-
-
-
-
-
-
 }
 
-/**
- * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
- */
 

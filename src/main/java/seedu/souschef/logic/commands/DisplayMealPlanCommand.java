@@ -1,8 +1,9 @@
 package seedu.souschef.logic.commands;
 
+import seedu.souschef.commons.core.EventsCenter;
+import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.ui.Ui;
 
 /**
  * command extension to show all meal plans logged into the system
@@ -15,12 +16,12 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
     public static final String MESSAGE_SUCCESS_SHOW = "showing all meal plans.";
     public static final String MESSAGE_SUCCESS_HIDE = "hide meal plans.";
 
-    private final Ui ui;
+
 
     private final String mode;
 
-    public DisplayMealPlanCommand(Ui ui, String mode) {
-        this.ui = ui;
+    public DisplayMealPlanCommand(String mode) {
+
         this.mode = mode;
     }
 
@@ -29,10 +30,11 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
 
         //this if else is to determine messages to show
         if (mode.equals("show")) {
-            ui.showMealPlanListPanel();
+
+            EventsCenter.getInstance().post(new BrowserUiChangedEvent("mealPlanList"));
             return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext()));
         } else {
-            ui.hideBrowserSidePanel();
+            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             return new CommandResult(String.format(MESSAGE_SUCCESS_HIDE, history.getContext()));
 
         }

@@ -10,6 +10,7 @@ import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.commands.AddMealHealthPlanCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
+import seedu.souschef.logic.commands.DeleteMealHealthPlanCommand;
 import seedu.souschef.logic.commands.DisplayMealPlanCommand;
 import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
@@ -54,9 +55,9 @@ public class HealthPlanParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case DisplayMealPlanCommand.COMMAND_WORD_SHOW:
-            return new DisplayMealPlanCommand<HealthPlan>(ui, "show");
+            return new DisplayMealPlanCommand<HealthPlan>("show");
         case DisplayMealPlanCommand.COMMAND_WORD_HIDE:
-            return new DisplayMealPlanCommand<HealthPlan>(ui, "hide");
+            return new DisplayMealPlanCommand<HealthPlan>("hide");
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parseHealthPlan(healthPlanModel, arguments);
         case EditCommand.COMMAND_WORD:
@@ -74,8 +75,9 @@ public class HealthPlanParser {
         case AddMealHealthPlanCommand.COMMAND_WORD:
             return new AddMealHealthPlanCommand<>(healthPlanModel, mealPlanModel, arguments);
         case ShowHealthPlanDetailsCommand.COMMAND_WORD:
-            return new ShowHealthPlanDetailsCommand<>(ui, arguments);
-
+            return new ShowHealthPlanDetailsCommand<>(arguments);
+        case DeleteMealHealthPlanCommand.COMMAND_WORD:
+            return new DeleteMealHealthPlanCommand<>(healthPlanModel, arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

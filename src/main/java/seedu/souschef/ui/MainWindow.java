@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.souschef.commons.core.Config;
 import seedu.souschef.commons.core.GuiSettings;
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
 import seedu.souschef.commons.events.ui.ExitAppRequestEvent;
 import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
@@ -174,17 +175,23 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
         generalListPanel = new HealthPlanDetailsPanel(logic.getFilteredHealthPlanList(), index);
         browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+
     }
 
-
+    /**
+     * function call to show meal list on the browser panel end
+     */
     protected void showMealPlanListPanel() {
         browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+
+
     }
 
     protected void hideBrowserSidePanel() {
         browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
+
     }
 
 
@@ -255,4 +262,17 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    @Subscribe
+    protected void handleBrowserUiChangedEvent(BrowserUiChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getType().equals("healthplanDetails")) {
+            showHealthPlanDetails(event.getIndex());
+        } else if (event.getType().equals("mealPlanList")) {
+            showMealPlanListPanel();
+        } else if (event.getType().equals("hide")) {
+            hideBrowserSidePanel();
+        }
+    }
+
 }
