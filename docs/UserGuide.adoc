@@ -236,23 +236,76 @@ Format: `list`
 === Email
 This section lists features related to email in Hallper.
 
-==== Composing an email: `compose`
-Composes a *`.eml`* file that can be used to send emails to residents. +
-Format: `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+==== Composing an email to selected indexes: `compose_email_index`
+Composes a *`.eml`* file that can be used to send emails to residents specified by index. +
+Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT`
 
 ****
-* FROM and TO must be valid email addresses e.g. johndoe@example.com
-* SUBJECT has a word limit of 10 words.
+* FROM must be valid email addresses e.g. johndoe@example.com
+* INDEXES refer to the index number shown in the displayed person list.
+* INDEXES *must be positive integers* 1, 2, 3, ...
+* SUBJECT has no word limit.
 * CONTENT has no word limit.
 ****
 
 Example:
 
-* `compose from/johndoe@example.com to/samsee@example.com subject/Meeting this Friday
+* `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday
 content/Hey there's a meeting this friday.` +
-Composes an email from `johndoe@example.com` to `samsee@example.com` with subject
+Composes an email from `johndoe@example.com` to people at indexes 1, 6 and 10 with subject
 `Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
 it as a *`.eml`* file.
+
+==== Composing an email to currently listed people: `compose_email_list`
+Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
+Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
+
+****
+* FROM must be valid email addresses e.g. johndoe@example.com
+* SUBJECT has no word limit.
+* CONTENT has no word limit.
+****
+
+Example:
+
+* `compose_email_list from/johndoe@example.com subject/Meeting this Friday
+content/Hey there's a meeting this friday.` +
+Composes an email from `johndoe@example.com` to currently listed people with subject
+`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
+it as a *`.eml`* file.
+
+==== Deleting an email : `delete_email`
+
+Deletes an email. +
+Format: `delete_email SUBJECT`
+****
+* SUBJECT is the subject of an existing email.
+* SUBJECT is case-sensitive.
+****
+
+Examples:
+
+* `delete_email Meeting on Friday` +
+Deletes the email with the subject `Meeting on Friday`.
+
+==== Listing all emails : `list_emails`
+
+Displays a list of all emails in Hallper. +
+Format: `list_emails`
+
+==== Viewing an email : `view_email`
+
+Displays an email. +
+Format: `view_email SUBJECT`
+****
+* SUBJECT is the subject of an existing email.
+* SUBJECT is case-sensitive.
+****
+
+Examples:
+
+* `view_email Meeting on Friday` +
+Displays the email with the subject `Meeting on Friday`.
 
 === Calendar
 This section lists features related to managing the calendar in Hallper.
@@ -481,7 +534,13 @@ e.g. `search basketball A123`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
-* *Compose* : `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+* *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
+e.g. `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday content/Hey there's a meeting this friday.`
+* *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +
+e.g. `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Hey there's a meeting this friday.`
+* *List Emails*: `list_emails`
+* *View Email*: `view_email SUBJECT` +
+e.g. `view_email Meeting this Friday`
 * *Create Calendar* : `create_calendar MONTH` +
 e.g. `create_calendar month/Feb year/2018`
 * *View Calendar* : `view_calendar MONTH` +
