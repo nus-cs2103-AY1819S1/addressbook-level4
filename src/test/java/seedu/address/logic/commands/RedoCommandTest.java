@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class UndoCommandTest {
+public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -21,25 +21,32 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        // set up of models' undo/redo history
+        // set up of both models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);
+        model.undoAddressBook();
+        model.undoAddressBook();
 
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
+        expectedModel.undoAddressBook();
+        expectedModel.undoAddressBook();
+
+        model.setClearEnabled();
+        expectedModel.setClearEnabled();
     }
 
     @Test
     public void execute() {
-        // multiple undoable states in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        // multiple redoable states in model
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single undoable state in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        // single redoable state in model
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no undoable states in model
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        // no redoable state in model
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }
