@@ -164,12 +164,23 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
+    /**
+     * method to show the details of a specified plan
+     */
+    protected void showHealthPlanDetails(int index) {
+        browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
+        generalListPanel = new HealthPlanDetailsPanel(logic.getFilteredHealthPlanList(), index);
+        browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
+
     protected void showMealPlanListPanel() {
+        browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         browserPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
-    protected void hideMealPlanListPanel(){
+    protected void hideBrowserSidePanel() {
         browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
     }
 

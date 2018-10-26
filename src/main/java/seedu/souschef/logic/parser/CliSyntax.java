@@ -21,6 +21,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DURATION = new Prefix("d/");
     public static final Prefix PREFIX_SCHEME = new Prefix("s/");
 
+    public static final Prefix PREFIX_PLAN = new Prefix("p/");
+
 
 
 }

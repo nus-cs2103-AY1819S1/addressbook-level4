@@ -1,13 +1,12 @@
 package seedu.souschef.logic.commands;
 
 import seedu.souschef.logic.CommandHistory;
-import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.ui.Ui;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
-
+/**
+ * command extension to show all meal plans logged into the system
+ */
 public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD_SHOW = "showMeal";
@@ -29,11 +28,11 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
 
 
-        if(mode.equals("show")) {
+        if (mode.equals("show")) {
             ui.showMealPlanListPanel();
             return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext().toLowerCase()));
         } else {
-            ui.hideMealPlanListPanel();
+            ui.hideBrowserSidePanel();
             return new CommandResult(String.format(MESSAGE_SUCCESS_HIDE, history.getContext().toLowerCase()));
 
         }

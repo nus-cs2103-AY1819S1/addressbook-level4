@@ -36,22 +36,27 @@ public class UniversalParser {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
         case "recipe":
+            ui.hideBrowserSidePanel();
             ui.switchToRecipeListPanel();
             return new ContextCommand("Recipe");
 
         case "ingredientmanager":
+            ui.hideBrowserSidePanel();
             ui.switchToIngredientListPanel();
             return new ContextCommand("Ingredient");
 
         case "healthplan":
+            ui.hideBrowserSidePanel();
             ui.switchToHealthPlanListPanel();
             return new ContextCommand("Health Plan");
 
         case "mealplanner":
+            ui.hideBrowserSidePanel();
             ui.switchToMealPlanListPanel();
             return new ContextCommand("Meal Planner");
 
         case "favourite":
+            ui.hideBrowserSidePanel();
             ui.switchToFavouritesListPanel();
             return new ContextCommand("Favourites");
 

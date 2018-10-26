@@ -46,6 +46,7 @@ import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
@@ -301,8 +302,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         Scheme updatedScheme = editHealthPlanDescriptor.getScheme().orElse(toEdit.getScheme());
 
+        //list of meals shouldnt be edited at edit pane
+        ArrayList<Day> mealsToSet = toEdit.getMealPlans();
+
         return new HealthPlan(updatedHealthPlanName, updatedTargetWeight, updatedCurrentWeight,
-                updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme);
+                updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme, mealsToSet);
 
     }
 

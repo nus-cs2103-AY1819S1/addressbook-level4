@@ -2,9 +2,12 @@ package seedu.souschef.model.healthplan;
 
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.souschef.model.UniqueType;
+import seedu.souschef.model.planner.Day;
 
 
 /**
@@ -21,8 +24,11 @@ public class HealthPlan extends UniqueType {
     private final Duration duration;
     private final Scheme scheme;
 
+    //list of mealPlans
+    private final ArrayList<Day> mealPlans;
+
     public HealthPlan(HealthPlanName name, TargetWeight tWeight, CurrentWeight cWeight, CurrentHeight cHeight, Age age,
-                      Duration duration, Scheme scheme) {
+                      Duration duration, Scheme scheme, List<Day> days) {
         requireAllNonNull(name, tWeight, cWeight, cHeight, age, duration, scheme);
         this.name = name;
         this.tWeight = tWeight;
@@ -31,6 +37,7 @@ public class HealthPlan extends UniqueType {
         this.age = age;
         this.duration = duration;
         this.scheme = scheme;
+        mealPlans = new ArrayList<>(days);
     }
 
     public HealthPlanName getHealthPlanName() {
@@ -60,6 +67,9 @@ public class HealthPlan extends UniqueType {
         return scheme;
     }
 
+    public ArrayList<Day> getMealPlans() {
+        return mealPlans;
+    }
 
     /**
      * check if the current plan is same as provided

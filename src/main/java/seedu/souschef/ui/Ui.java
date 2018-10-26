@@ -31,5 +31,8 @@ public interface Ui {
     /**method to show the meal plan list to add*/
     void showMealPlanListPanel();
 
-    void hideMealPlanListPanel();
+    void hideBrowserSidePanel();
+
+
+    void showHealthPlanDetails(int index);
 }

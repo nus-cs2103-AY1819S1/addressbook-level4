@@ -104,10 +104,19 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Override
-    public void showMealPlanListPanel() { this.mainWindow.showMealPlanListPanel(); }
+    public void showMealPlanListPanel() {
+        this.mainWindow.showMealPlanListPanel();
+    }
 
     @Override
-    public void hideMealPlanListPanel() { this.mainWindow.hideMealPlanListPanel(); }
+    public void hideBrowserSidePanel() {
+        this.mainWindow.hideBrowserSidePanel();
+    }
+
+    @Override
+    public void showHealthPlanDetails(int index) {
+        this.mainWindow.showHealthPlanDetails(index);
+    }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
