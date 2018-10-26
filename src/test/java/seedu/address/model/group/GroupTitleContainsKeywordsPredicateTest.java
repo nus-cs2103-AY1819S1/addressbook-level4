@@ -20,16 +20,19 @@ public class GroupTitleContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("CS2103T", "CS2101");
 
         GroupTitleContainsKeywordsPredicate firstPredicate =
-            new GroupTitleContainsKeywordsPredicate(firstPredicateKeywordList);
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), firstPredicateKeywordList,
+                    Collections.emptyList());
         GroupTitleContainsKeywordsPredicate secondPredicate =
-            new GroupTitleContainsKeywordsPredicate(secondPredicateKeywordList);
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), secondPredicateKeywordList,
+                    Collections.emptyList());
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         GroupTitleContainsKeywordsPredicate firstPredicateCopy =
-            new GroupTitleContainsKeywordsPredicate(firstPredicateKeywordList);
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), firstPredicateKeywordList,
+                    Collections.emptyList());
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -46,11 +49,13 @@ public class GroupTitleContainsKeywordsPredicateTest {
     public void test_groupContainsKeywords_returnsTrue() {
         // Matching keyword
         GroupTitleContainsKeywordsPredicate predicate =
-            new GroupTitleContainsKeywordsPredicate(Collections.singletonList("CS2103T"));
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Collections.singletonList("CS2103T"),
+                    Collections.emptyList());
         assertTrue(predicate.test(new Tag("CS2103T")));
 
         // Mixed-case keywords
-        predicate = new GroupTitleContainsKeywordsPredicate(Collections.singletonList("cS2103t"));
+        predicate = new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+                Collections.singletonList("cS2103t"), Collections.emptyList());
         assertTrue(predicate.test(new Tag("CS2103T")));
     }
 
@@ -58,11 +63,13 @@ public class GroupTitleContainsKeywordsPredicateTest {
     public void test_groupDoesNotContainKeywords_returnsFalse() {
         // No keywords
         GroupTitleContainsKeywordsPredicate predicate =
-            new GroupTitleContainsKeywordsPredicate(Collections.emptyList());
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Collections.emptyList(),
+                    Collections.emptyList());
         assertFalse(predicate.test(new Tag("CS2103T")));
 
         // Non-matching keyword
-        predicate = new GroupTitleContainsKeywordsPredicate(Arrays.asList("CS2101"));
+        predicate = new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Arrays.asList("CS2101"),
+                Collections.emptyList());
         assertFalse(predicate.test(new Tag("CS2103T")));
     }
 }

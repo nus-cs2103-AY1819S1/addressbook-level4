@@ -11,6 +11,8 @@ import static java.util.Objects.requireNonNull;
 
 public class FindGroupCommand extends FindCommand<Tag>{
 
+    public static final String FIND_GROUP_MODE = "g";
+
     public FindGroupCommand(Predicate<Tag> predicate) {
         super(predicate);
     }

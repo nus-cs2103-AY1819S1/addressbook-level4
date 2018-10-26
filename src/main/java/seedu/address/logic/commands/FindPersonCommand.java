@@ -15,6 +15,8 @@ import seedu.address.model.person.Person;
  */
 public class FindPersonCommand extends FindCommand<Person> {
 
+    public static final String FIND_PERSON_MODE = "p";
+
     public FindPersonCommand(Predicate<Person> predicate) {
         super(predicate);
     }

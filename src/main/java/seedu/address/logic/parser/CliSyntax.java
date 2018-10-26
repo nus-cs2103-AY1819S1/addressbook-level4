@@ -23,5 +23,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_ALL = new Prefix("a/");
     public static final Prefix PREFIX_SOME = new Prefix("s/");
     public static final Prefix PREFIX_NONE = new Prefix("n/");
-
 }
