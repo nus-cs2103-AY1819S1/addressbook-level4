@@ -34,6 +34,21 @@ public class StatisticsPanelTest extends GuiUnitTest {
     }
 
     @Test
+    public void correctNoExpensesTextAppearsWhenNoExpenses() {
+        setChartData(new LinkedHashMap<>(), StatsPeriod.DAY, StatsMode.CATEGORY, 1);
+        assertTrue(statisticsPanelHandle.isMatchingText("There are no recorded expenditures in the past day"));
+
+        setChartData(new LinkedHashMap<>(), StatsPeriod.DAY, StatsMode.CATEGORY, 7);
+        assertTrue(statisticsPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 days"));
+
+        setChartData(new LinkedHashMap<>(), StatsPeriod.MONTH, StatsMode.CATEGORY, 1);
+        assertTrue(statisticsPanelHandle.isMatchingText("There are no recorded expenditures in the past month"));
+
+        setChartData(new LinkedHashMap<>(), StatsPeriod.MONTH, StatsMode.CATEGORY, 7);
+        assertTrue(statisticsPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 months"));
+    }
+
+    @Test
     public void categoryChartAppearsWhenStatsModeIsCategory() {
         LinkedHashMap<String, Double> mockData = new LinkedHashMap<>();
         mockData.put("Food", 6.00);

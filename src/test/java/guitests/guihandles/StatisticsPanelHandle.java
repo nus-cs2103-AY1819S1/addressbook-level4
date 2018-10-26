@@ -34,4 +34,11 @@ public class StatisticsPanelHandle extends NodeHandle<Region> {
         return chartArea.getChildren().get(0) instanceof BarChart;
     }
 
+    public boolean isMatchingText(String matchingText) {
+        if (chartArea.getChildren().get(0) instanceof Text){
+            Text text = (Text) chartArea.getChildren().get(0);
+            return matchingText.equals(text.getText());
+        }
+        return false;
+    }
 }
