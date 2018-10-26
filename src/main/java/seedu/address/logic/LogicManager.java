@@ -76,9 +76,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
         if (statsMode == statsMode.TIME) {
             return getTimeBasedStats(expenseList, statsPeriod);
-        } else {
-            return getCategoryBasedStats(expenseList);
         }
+        return getCategoryBasedStats(expenseList);
     }
 
     private LinkedHashMap<String, Double> getTimeBasedStats(
