@@ -345,9 +345,15 @@ public class ParserUtil {
      */
     public static Integer parseEntryNum(String entryNum) throws ParseException {
         requireNonNull(entryNum);
-        if (entryNum == null || Integer.valueOf(entryNum) < 1) {
+        try {
+            int num = Integer.valueOf(entryNum);
+            if (entryNum == null || num < 1) {
+                throw new ParseException("Entry number should only be positive integer that is more than 0!");
+            }
+        } catch (NumberFormatException e) {
             throw new ParseException("Entry number should only be positive integer that is more than 0!");
         }
+
         return Integer.parseInt(entryNum);
     }
 
@@ -361,7 +367,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
     }

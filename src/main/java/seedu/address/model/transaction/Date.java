@@ -12,7 +12,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
-        "Transaction date should only contain digits and dots, and it should not be blank";
+        "Transaction date should only contain digits and dots, and it should not be blank.\n"
+            + "It should be a valid date on the calendar.";
     /*
      * The first character of the Date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -31,16 +32,14 @@ public class Date {
         this.date = date;
     }
 
-    //ToDo: Need to check that the dates are valid in the calendar
     public static boolean isValidDate(String test) {
-        String[] token = test.split(".");
-        isValidDate(token);
-        return test.matches(DATE_VALIDATION_REGEX);
+        String[] token = test.split("\\.");
+        return isValidDate(token) && test.matches(DATE_VALIDATION_REGEX);
     }
 
     public static boolean isValidDate(Entry e) {
         String date = e.getDate().date;
-        return date.matches(DATE_VALIDATION_REGEX);
+        return isValidDate(date) && date.matches(DATE_VALIDATION_REGEX);
     }
 
     /**
@@ -65,6 +64,8 @@ public class Date {
             case 2:
                 if (isLeapYear) {
                     return day < 30 && day > 0;
+                } else {
+                    return day < 29 && day > 0;
                 }
 
             default:
@@ -78,14 +79,6 @@ public class Date {
 
     public String getDate() {
         return this.date;
-    }
-
-    /**
-     * Update the date by replacing the existing date with the new date
-     * @param newDate new date to be updated
-     */
-    public void updateDate(String newDate) {
-        this.date = newDate;
     }
 
     /**
