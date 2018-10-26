@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_MODE;
+import static seedu.address.logic.commands.FindPersonCommand.FIND_PERSON_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOME;
@@ -11,21 +13,29 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindGroupCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindPersonCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+    private enum Type { PERSON, GROUP }
+
+    private Type type;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * Parses the given {@code String} of arguments in the context of the FindPersonCommand
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
+        String[] splitArgs = args.split("\\s+", 2);
+        determineType(splitArgs[0]);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(splitArgs[1], PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
 
         if (!argMultimap.areAnyPrefixesPresent(PREFIX_ALL, PREFIX_SOME, PREFIX_NONE)) {
             // the preamble will need to be changed when we add the functionality to find by group or meetings.
@@ -37,28 +47,45 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
+     *
+     * @param findGroupOrPerson
+     * @throws ParseException
+     */
+    private void determineType(String findGroupOrPerson) throws ParseException {
+        switch (findGroupOrPerson) {
+            case FIND_PERSON_MODE:
+                type = Type.PERSON;
+                break;
+            case FIND_GROUP_MODE:
+                type = Type.GROUP;
+                break;
+            default:
+                throwParseException();
+        }
+    }
+
+    private void throwParseException() throws ParseException {
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
+    }
+
+    /**
      * Parses the command when no prefix is used. It will search for results matching all keywords by default.
      * @param argMultimap the {@code ArgumentMultimap} containing the keywords.
-     * @return a {@code FindCommand} object for execution.
+     * @return a {@code FindPersonCommand} object for execution.
      */
     private FindCommand parseNoPrefixUsed(ArgumentMultimap argMultimap) throws ParseException {
         String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) { //TODO this will be changed when we add find by groups or meetings.
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        if (preamble.isEmpty()) {
+            throwParseException();
         }
-        return new FindCommand(
-            new NameContainsKeywordsPredicate(
-                Arrays.asList(preamble.split("\\s+")),
-                Collections.emptyList(),
-                Collections.emptyList()
-            )
-        );
+        return getFindPersonCommand(
+                Arrays.asList(preamble.split("\\s+")), Collections.emptyList(), Collections.emptyList());
     }
 
     /**
      * Parses the command when prefixes are used.
      * @param argMultimap the {@code ArgumentMultimap} containing the keywords.
-     * @return a {@code FindCommand} object for execution.
+     * @return a {@code FindPersonCommand} object for execution.
      */
     private FindCommand parsePrefixesUsed(ArgumentMultimap argMultimap) throws ParseException {
         List<String> allKeywords = parseStringKeywordsToList(argMultimap.getValue(PREFIX_ALL));
@@ -66,9 +93,24 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> noneKeywords = parseStringKeywordsToList(argMultimap.getValue(PREFIX_NONE));
         if (!argMultimap.getPreamble().isEmpty()
             || (allKeywords.isEmpty() && someKeywords.isEmpty() && noneKeywords.isEmpty())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throwParseException();
         }
-        return new FindCommand(new NameContainsKeywordsPredicate(allKeywords, someKeywords, noneKeywords));
+        return getFindPersonCommand(allKeywords, someKeywords, noneKeywords);
+    }
+
+    private FindCommand getFindPersonCommand(List<String> allKeywords, List<String> someKeywords,
+                                             List<String> noneKeywords) throws ParseException {
+        switch (type) {
+            case PERSON:
+                return new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+                        allKeywords, someKeywords, noneKeywords));
+            case GROUP:
+                return new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
+                        allKeywords, someKeywords, noneKeywords));
+            default:
+                throwParseException();
+        }
+        return null;
     }
 
     /**
@@ -78,6 +120,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private static List<String> parseStringKeywordsToList(Optional<String> keywords) {
         return keywords.map(string -> Arrays.asList(string.split("\\s+")))
-            .orElse(Collections.emptyList());
+                .orElse(Collections.emptyList());
     }
 }

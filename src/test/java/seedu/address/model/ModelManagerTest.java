@@ -19,6 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 import seedu.address.model.shared.Title;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -183,7 +184,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(
+        modelManager.updateFilteredPersonList(new PersonNameContainsKeywordsPredicate(
             Collections.emptyList(), Arrays.asList(keywords), Collections.emptyList()));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
