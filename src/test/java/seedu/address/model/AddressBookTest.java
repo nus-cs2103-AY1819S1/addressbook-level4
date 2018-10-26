@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
+import static seedu.address.testutil.TypicalPersons.ALAN;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -151,15 +152,21 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getDoctor_notADoctor_throwsClassCastException() {
-        thrown.expect(ClassCastException.class);
-        addressBook.getDoctor((Doctor) ALICE);
-    }
-
-    @Test
     public void getDoctor_validDoctor_returnDoctor() {
         addressBook.addDoctor(ADAM);
         assertNotNull(addressBook.getDoctor(ADAM));
+    }
+
+    @Test
+    public void getReceptionist_nullReceptionist_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.getReceptionist(null);
+    }
+
+    @Test
+    public void getReceptionist_validReceptionist_returnReceptionist() {
+        addressBook.getReceptionist(ALAN);
+        assertNotNull(addressBook.getReceptionist(ALAN));
     }
 
     @Test
