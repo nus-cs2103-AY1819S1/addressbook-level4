@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -102,12 +103,12 @@ public class SampleDataUtil {
     /**
      * Returns a map of SerialNumber to Quantity containing the list of pairs given.
      */
-    public static Map<SerialNumber, Quantity> getDispensedMedicines(Map.Entry<Integer, Integer>... entries) {
-        Map<SerialNumber, Quantity> dispensedMedicines = new HashMap<>();
+    public static Map<MedicineName, Quantity> getDispensedMedicines(Map.Entry<String, Integer>... entries) {
+        Map<MedicineName, Quantity> dispensedMedicines = new HashMap<>();
         Arrays.stream(entries).forEach((entry) -> {
-            SerialNumber serialNumber = new SerialNumber(entry.getKey().toString());
+            MedicineName medicineName = new MedicineName(entry.getKey());
             Quantity quantity = new Quantity(entry.getValue().toString());
-            dispensedMedicines.put(serialNumber, quantity);
+            dispensedMedicines.put(medicineName, quantity);
         });
         return dispensedMedicines;
     }
