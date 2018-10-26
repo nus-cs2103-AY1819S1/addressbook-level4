@@ -39,7 +39,7 @@ public class XmlSerializableTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         this();
-        achievements = new XmlAdaptedAchievementRecord(src.getAchievementRecord().get());
+        achievements = new XmlAdaptedAchievementRecord(src.getAchievementRecord());
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
