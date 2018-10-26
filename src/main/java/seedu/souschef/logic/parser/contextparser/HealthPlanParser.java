@@ -29,6 +29,7 @@ import seedu.souschef.ui.Ui;
  * Class to parse healthplan logic
  */
 public class HealthPlanParser {
+    public static final String COMMAND_WORD = "healthplan";
     /**
      * Used for initial separation of command word and args.
      */

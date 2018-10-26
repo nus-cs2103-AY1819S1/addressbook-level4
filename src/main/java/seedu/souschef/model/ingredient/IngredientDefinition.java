@@ -57,6 +57,11 @@ public class IngredientDefinition extends UniqueType {
                 && otherIngredient.getName().equals(getName());
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     public String toString() {
         return getName().toString();
     }

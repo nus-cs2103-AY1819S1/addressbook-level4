@@ -10,6 +10,7 @@ import seedu.souschef.logic.commands.ContextCommand;
 import seedu.souschef.logic.commands.ExitCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.HistoryCommand;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.ui.Ui;
 
@@ -35,30 +36,36 @@ public class UniversalParser {
     public Command parseCommand(CommandHistory history, String userInput, Ui ui) throws ParseException {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
-        case "recipe":
+
+
+
+        case RecipeParser.COMMAND_WORD:
             ui.hideBrowserSidePanel();
             ui.switchToRecipeListPanel();
-            return new ContextCommand("Recipe");
+            return new ContextCommand(Context.RECIPE);
 
-        case "ingredientmanager":
+        case IngredientParser.COMMAND_WORD:
             ui.hideBrowserSidePanel();
             ui.switchToIngredientListPanel();
-            return new ContextCommand("Ingredient");
+            return new ContextCommand(Context.INGREDIENT);
 
-        case "healthplan":
+
+        case HealthPlanParser.COMMAND_WORD:
             ui.hideBrowserSidePanel();
             ui.switchToHealthPlanListPanel();
-            return new ContextCommand("Health Plan");
+            return new ContextCommand(Context.HEALTH_PLAN);
 
-        case "mealplanner":
+
+        case MealPlannerParser.COMMAND_WORD:
             ui.hideBrowserSidePanel();
             ui.switchToMealPlanListPanel();
-            return new ContextCommand("Meal Planner");
+            return new ContextCommand(Context.MEAL_PLANNER);
 
-        case "favourite":
+
+        case FavouritesParser.COMMAND_WORD:
             ui.hideBrowserSidePanel();
             ui.switchToFavouritesListPanel();
-            return new ContextCommand("Favourites");
+            return new ContextCommand(Context.FAVOURITES);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

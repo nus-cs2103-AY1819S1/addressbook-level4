@@ -2,12 +2,13 @@ package seedu.souschef.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.commons.exceptions.DataConversionException;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 
@@ -37,12 +38,7 @@ public interface Storage extends FeatureStorage, UserPrefsStorage {
     void setMainFeatureStorage(FeatureStorage featureStorage);
 
 
-    ArrayList<FeatureStorage> getListOfFeatureStorage();
-    /**
-     * currently unused, to include a new feature storage into the list
-     * and return the new state of the storage unit
-     */
-    Storage include(FeatureStorage feature);
+    Map<Context, FeatureStorage> getListOfFeatureStorage();
 
     @Override
     void saveFeature(ReadOnlyAppContent appContent) throws IOException;
