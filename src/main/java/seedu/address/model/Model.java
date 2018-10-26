@@ -17,10 +17,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
-    
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Receptionist> PREDICATE_SHOW_ALL_RECEPTIONISTS = unused -> true;
-    
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 

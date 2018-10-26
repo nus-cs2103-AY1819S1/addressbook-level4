@@ -174,7 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addReceptionist(receptionist);
         updateFilteredReceptionistList(PREDICATE_SHOW_ALL_RECEPTIONISTS);
         indicateAddressBookChanged();
-    }    
+    }
 
     //@@author gingivitiss
     @Override
@@ -263,7 +263,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Doctor getDoctor(Doctor doctor) {
         return versionedAddressBook.getDoctor(doctor);
     }
-    
+
     //=========== Filtered Receptionist List Accessors =============================================================
 
     //@@author jjlee050
@@ -282,7 +282,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredReceptionists.setPredicate(predicate);
     }
-    
+
     @Override
     public Receptionist getReceptionist(Receptionist receptionist) {
         return versionedAddressBook.getReceptionist(receptionist);
