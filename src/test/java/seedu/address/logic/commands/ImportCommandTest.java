@@ -44,7 +44,7 @@ public class ImportCommandTest {
 
     @Test
     public void execute_nullFile_throwsFileNotFoundException() throws Exception {
-        ImportCommand importCommand = new ImportCommand(new File("./imports/notAFile.xml"));
+        ImportCommand importCommand = new ImportCommand(new File("./imports/notAFile.xml").toPath());
 
         String expectedMessage = ImportCommand.MESSAGE_FILE_NOT_FOUND;
 
@@ -55,7 +55,7 @@ public class ImportCommandTest {
     public void execute_validContactsFile_success() {
         String fileName = "contactImports.xml";
         File file = new File("./src/test/data/ImportCommandTest/" + fileName);
-        ImportCommand importCommand = new ImportCommand(file);
+        ImportCommand importCommand = new ImportCommand(file.toPath());
 
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 
@@ -76,7 +76,7 @@ public class ImportCommandTest {
     public void execute_validCcaFile_success() {
         String fileName = "ccaImports.xml";
         File file = new File("./src/test/data/ImportCommandTest/" + fileName);
-        ImportCommand importCommand = new ImportCommand(file);
+        ImportCommand importCommand = new ImportCommand(file.toPath());
 
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 

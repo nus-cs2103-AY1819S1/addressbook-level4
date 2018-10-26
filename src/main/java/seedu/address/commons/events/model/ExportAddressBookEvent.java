@@ -19,7 +19,9 @@ public class ExportAddressBookEvent extends BaseEvent {
         this.path = path;
     }
 
-    public Path getPath() { return this.path; }
+    public Path getPath() {
+        return this.path;
+    }
 
     public ReadOnlyAddressBook getAddressBook() {
         return this.addressBook;
