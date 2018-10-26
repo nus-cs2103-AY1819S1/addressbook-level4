@@ -161,11 +161,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
-      
-        // clear members of target & set up members for editedGroup
         target.clearMembers();
         editedGroup.setUpMembers();
-
         groups.setGroup(target, editedGroup);
     }
 
