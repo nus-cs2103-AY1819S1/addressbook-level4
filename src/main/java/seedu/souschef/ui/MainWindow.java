@@ -229,10 +229,6 @@ public class MainWindow extends UiPart<Stage> {
         return generalListPanel;
     }
 
-    /*void releaseResources() {
-        detailPanel.freeResources();
-    }*/
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
