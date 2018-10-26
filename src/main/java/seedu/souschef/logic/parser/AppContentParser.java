@@ -87,7 +87,7 @@ public class AppContentParser {
             // Consider to use Favorite command instead
             command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
                     modelSet.getMealPlannerModel(), userInput);
-        } else if (userInput.matches("inventory(\\s|\\S)*")) {
+        } else if (IngredientParser.isCrossContextCommand(userInput)) {
             command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
         }
         // Add other cross context command and set ur storage here.

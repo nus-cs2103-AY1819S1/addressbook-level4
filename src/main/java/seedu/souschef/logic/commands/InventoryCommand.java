@@ -80,7 +80,7 @@ public class InventoryCommand extends Command {
 
         for (Ingredient ingredient : lastShownIngredientList) {
             String key = new IngredientDefinition(ingredient.getName(), ingredient.getUnit()).toString();
-            Double amount = ingredient.getAmount().toDouble();
+            Double amount = ingredient.getAmount().getValue();
             if (must.containsKey(key)) {
                 must.replace(key, must.get(key) + amount);
             }
@@ -111,6 +111,6 @@ public class InventoryCommand extends Command {
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, recipeModel.getFilteredList().size(),
-                        history.getContext().toLowerCase()));
+                        history.getContext().toString().toLowerCase()));
     }
 }
