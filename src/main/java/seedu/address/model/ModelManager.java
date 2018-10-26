@@ -28,6 +28,7 @@ import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
@@ -472,12 +473,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deleteEmail(String fileName) {
+        emailModel.removeFromExistingEmails(fileName);
+        raise(new EmailDeleteEvent(fileName));
+    }
+
+    @Override
     public boolean hasEmail(String fileName) {
         return emailModel.hasEmail(fileName);
     }
 
     /**
-     * Raises an event to indicate the model has changed
+     * Raises an event to indicate that a new email has been saved to EmailModel.
      */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
@@ -487,7 +494,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleEmailLoadedEvent(EmailLoadedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email loaded, saving to EmailModel."));
-        emailModel.saveEmail(event.data);
+        saveEmail(event.data);
         raise(new EmailViewEvent(emailModel));
     }
 

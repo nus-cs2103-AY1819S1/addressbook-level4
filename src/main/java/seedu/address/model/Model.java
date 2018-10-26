@@ -186,14 +186,19 @@ public interface Model {
     ObservableList<Cca> getFilteredCcaList();
 
     /**
-     * Saves the email to the EmailModel
+     * Saves the email to the EmailModel.
      */
     void saveEmail(Email email);
 
     /**
-     * Saves a newly composed email to the EmailModel
+     * Saves a newly composed email to the EmailModel.
      */
     void saveComposedEmail(Email email);
+
+    /**
+     * Deletes an existing email from EmailModel.
+     */
+    void deleteEmail(String fileName);
 
     /**
      * Checks if eml file with given name exists.

@@ -80,7 +80,7 @@ public class EmailModel {
         existingEmails.add(fileName + emlExtension);
     }
 
-    private void removeFromExistingEmails(String fileName) {
+    public void removeFromExistingEmails(String fileName) {
         existingEmails.remove(fileName + emlExtension);
     }
 
