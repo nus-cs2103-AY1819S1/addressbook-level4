@@ -50,16 +50,15 @@ public class CommandBox extends UiPart<Region> {
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
             navigateToPreviousInput();
-            maskPassword();
             break;
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
-            maskPassword();
             break;
         default:
             // let JavaFx handle the keypress
         }
+        maskPassword();
     }
 
     /**
