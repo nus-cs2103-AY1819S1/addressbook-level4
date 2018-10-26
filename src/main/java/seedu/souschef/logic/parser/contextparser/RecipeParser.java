@@ -14,16 +14,13 @@ import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
-import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.parser.commandparser.AddCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
-import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.storage.Storage;
 
 /**
  * Parses user input.
@@ -44,7 +41,7 @@ public class RecipeParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command<Recipe> parseCommand(Model recipeModel,
-        Model mealPlannerModel, Storage storage, String userInput) throws ParseException {
+                                        String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -57,7 +54,7 @@ public class RecipeParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parseRecipe(recipeModel, arguments);
 
-        case "favourite":
+        case AddFavouriteCommand.COMMAND_WORD:
             return new AddFavouriteCommand<Recipe>(recipeModel, arguments);
 
         case EditCommand.COMMAND_WORD:
@@ -71,12 +68,6 @@ public class RecipeParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand<Recipe>(recipeModel);
-
-        case PlanMealCommand.COMMAND_WORD:
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
-            }
-            return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
