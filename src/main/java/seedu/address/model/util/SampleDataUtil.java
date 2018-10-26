@@ -16,6 +16,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.receptionist.Receptionist;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -56,6 +57,14 @@ public class SampleDataUtil {
                         new Password(HashUtil.hashToString("doctor2"), true))));
     }
 
+    public static List<Receptionist> getSampleReceptionists() {
+        return new ArrayList<>(Arrays.asList(
+                new Receptionist(new Name("Alan Lee"),
+                        new Password(HashUtil.hashToString("reception1"), true)),
+                new Receptionist(new Name("Frank Tay"),
+                        new Password(HashUtil.hashToString("reception2"), true))));
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -64,6 +73,9 @@ public class SampleDataUtil {
         //@@author jjlee050
         for (Doctor sampleDoctor : getSampleDoctors()) {
             sampleAb.addDoctor(sampleDoctor);
+        }
+        for (Receptionist sampleReceptionist : getSampleReceptionists()) {
+            sampleAb.addReceptionist(sampleReceptionist);
         }
         return sampleAb;
     }
