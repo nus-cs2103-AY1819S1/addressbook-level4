@@ -116,10 +116,10 @@ public class AddressBookParser {
             return new BudgetCommandParser().parse(arguments);
 
         case ComposeEmailIndexCommand.COMMAND_WORD:
-            return new EmailIndexCommandParser().parse(arguments);
+            return new ComposeEmailIndexCommandParser().parse(arguments);
 
         case ComposeEmailListCommand.COMMAND_WORD:
-            return new EmailListCommandParser().parse(arguments);
+            return new ComposeEmailListCommandParser().parse(arguments);
 
         case ViewEmailCommand.COMMAND_WORD:
             return new ViewEmailCommandParser().parse(arguments);

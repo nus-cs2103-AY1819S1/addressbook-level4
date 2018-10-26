@@ -37,6 +37,7 @@ public class ComposeEmailListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Email(List) composed: %s";
     public static final String MESSAGE_EMAIL_ALREADY_EXISTS = "Email with subject: \"%s\" already exists.";
+    public static final String MESSAGE_LIST_EMPTY = "The current list is empty.";
 
     private final Email toCompose;
 
@@ -53,6 +54,11 @@ public class ComposeEmailListCommand extends Command {
         }
 
         List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_LIST_EMPTY);
+        }
+
         Email emailWithRecipient = addRecipientsToEmail(lastShownList);
         model.saveComposedEmail(emailWithRecipient);
 
