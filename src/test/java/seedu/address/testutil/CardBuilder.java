@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.address.model.anakindeck.Answer;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Question;
+import seedu.address.model.deck.Answer;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Question;
 
 /**
  * A utility class to help with building Card objects.

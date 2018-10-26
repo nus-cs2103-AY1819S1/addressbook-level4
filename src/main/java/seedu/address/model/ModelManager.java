@@ -11,8 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Represents the in-memory model of Anakin data.

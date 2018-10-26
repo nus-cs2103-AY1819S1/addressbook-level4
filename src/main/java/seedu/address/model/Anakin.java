@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.UniqueCardList;
-import seedu.address.model.anakindeck.UniqueDeckList;
-import seedu.address.model.anakindeck.anakinexceptions.DeckNotFoundException;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.UniqueCardList;
+import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 
 /**
  * Wraps all data at the Anakin level

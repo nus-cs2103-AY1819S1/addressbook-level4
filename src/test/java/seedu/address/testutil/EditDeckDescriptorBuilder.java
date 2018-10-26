@@ -2,11 +2,11 @@ package seedu.address.testutil;
 
 import java.util.List;
 
-import seedu.address.logic.anakincommands.EditDeckCommand.EditDeckDescriptor;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.Name;
-import seedu.address.model.anakindeck.UniqueCardList;
+import seedu.address.logic.commands.EditDeckCommand.EditDeckDescriptor;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
+import seedu.address.model.deck.UniqueCardList;
 
 /**
  * A utility class to help with building EditDeckDescriptor objects.

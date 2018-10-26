@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.anakindeck.Name;
+import seedu.address.model.deck.Name;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedDeckTest {

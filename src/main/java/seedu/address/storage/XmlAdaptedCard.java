@@ -5,9 +5,9 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.anakindeck.Answer;
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Question;
+import seedu.address.model.deck.Answer;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Question;
 
 /**
  * JAXB-friendly version of the Card.

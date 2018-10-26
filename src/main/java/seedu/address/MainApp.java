@@ -82,7 +82,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code AddressbookModelManagerAddressbook} with the data
+     * Returns a {@code ModelManager} with the data
      * from {@code storage}'s anakin and {@code userPrefs}. <br>
      * The data from the sample anakin will be used instead if {@code storage}'s anakin is not found,
      * or an empty anakin will be used instead if errors occur when reading {@code storage}'s anakin.

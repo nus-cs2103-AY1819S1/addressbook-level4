@@ -1,7 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Deck;
 
 /**
  * Represents a selection change in the Deck List Panel

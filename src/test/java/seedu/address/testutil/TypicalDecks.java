@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.Anakin;
-import seedu.address.model.anakindeck.Deck;
+import seedu.address.model.deck.Deck;
 
 /**
  * A utility class containing a list of {@code Deck} objects to be used in tests.

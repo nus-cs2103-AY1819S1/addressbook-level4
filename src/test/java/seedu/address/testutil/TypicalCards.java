@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.anakindeck.Card;
-import seedu.address.model.anakindeck.Deck;
-import seedu.address.model.anakindeck.Name;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 
 /**
  * A utility class containing a list of {@code Card} objects to be used in tests.
