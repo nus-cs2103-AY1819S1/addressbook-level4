@@ -43,7 +43,7 @@ public class Recipe extends UniqueType {
         this.instructions.addAll(instructions);
         for (Instruction instruction : instructions) {
             for (IngredientPortion portion : instruction.ingredients) {
-                IngredientDefinition key = new IngredientDefinition(portion.getName());
+                IngredientDefinition key = new IngredientDefinition(portion.getName().toString());
                 Double amount = portion.getAmount().getValue();
                 if (ingredients.containsKey(key)) {
                     ingredients.replace(key, ingredients.get(key) + amount);

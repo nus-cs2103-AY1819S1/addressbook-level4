@@ -9,18 +9,18 @@ public class IngredientName {
     private final String fullName;
 
     public IngredientName(String fullName) {
-        this.fullName = fullName;
+        this.fullName = fullName.toLowerCase();
     }
 
     public boolean isValid() {
-        return fullName.matches("^(\\p{Alpha}+)(_\\p{Alpha}+)*");
+        return fullName.matches("^[a-zA-Z\\s][a-zA-Z\\s]+$");
     }
 
     /**
      * return true if the name contains given keyword.
      */
     public boolean containsKeyword(String keyword) {
-        String[] tokens = fullName.split("_");
+        String[] tokens = fullName.split("\\s+");
         for (String token : tokens) {
             if (token.equals(keyword)) {
                 return true;
@@ -39,10 +39,10 @@ public class IngredientName {
             return false;
         }
 
-        IngredientName otherIngredient = (IngredientName) other;
+        IngredientName otherName = (IngredientName) other;
 
-        return otherIngredient != null
-                && otherIngredient.fullName.equalsIgnoreCase(fullName);
+        return otherName != null
+                && this.fullName.equalsIgnoreCase(otherName.fullName);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class IngredientName {
     }
 
     public String toString() {
-        return fullName.replaceAll("_", " ");
+        return fullName;
     }
 }

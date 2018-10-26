@@ -12,7 +12,7 @@ public class IngredientServingUnit {
     private final String unit;
 
     public IngredientServingUnit(String unit) {
-        dictionary = new ArrayList<String>();
+        dictionary = new ArrayList<>();
         dictionary.add("gram");
         dictionary.add("piece");
         dictionary.add("cup");
@@ -21,7 +21,9 @@ public class IngredientServingUnit {
         dictionary.add("tablespoon");
         dictionary.add("teaspoon");
         dictionary.add("ml");
-        this.unit = unit;
+        dictionary.add("none");
+
+        this.unit = unit.toLowerCase();
     }
 
     /**
@@ -32,6 +34,22 @@ public class IngredientServingUnit {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientServingUnit)) {
+            return false;
+        }
+
+        IngredientServingUnit otherUnit = (IngredientServingUnit) other;
+
+        return otherUnit != null
+                && this.unit.equals(otherUnit.unit);
     }
 
     public String toString() {

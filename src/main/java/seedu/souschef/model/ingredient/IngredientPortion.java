@@ -7,21 +7,21 @@ import seedu.souschef.model.UniqueType;
  */
 public class IngredientPortion extends IngredientDefinition {
     private final IngredientAmount amount;
-    private final IngredientServingUnit unit;
 
-    public IngredientPortion(IngredientName name, IngredientAmount amount, IngredientServingUnit unit) {
-        super(name);
+    public IngredientPortion(IngredientName name, IngredientServingUnit unit, IngredientAmount amount) {
+        super(name, unit);
         this.amount = amount;
-        this.unit = unit;
+    }
+
+    public IngredientPortion(String name, Double amount) {
+        super(name);
+        this.amount = new IngredientAmount(amount);
     }
 
     public IngredientAmount getAmount() {
         return amount;
     }
 
-    public IngredientServingUnit getUnit() {
-        return unit;
-    }
 
     /**
      * Returns true if both ingredients of the same name have at least one other identity field that is the same.

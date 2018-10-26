@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.commands.InventoryCommand;
 import seedu.souschef.logic.parser.contextparser.FavouritesParser;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
@@ -89,6 +90,8 @@ public class AppContentParser {
             // Consider to use Favorite command instead
             setFeatureStorage(storage, Context.FAVOURITES);
             command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
+        } else if (IngredientParser.isCrossContextCommand(userInput)) {
+            command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
             setFeatureStorage(storage, Context.MEAL_PLANNER);
             command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
