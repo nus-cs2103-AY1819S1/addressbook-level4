@@ -37,7 +37,7 @@ public class XmlAdaptedIngredientPortion {
 
     public XmlAdaptedIngredientPortion(IngredientPortion source) {
         name = source.getName().toString();
-        amount = source.getIngredientAmount().toString();
+        amount = source.getAmount().toString();
         unit = source.getUnit().toString();
     }
 

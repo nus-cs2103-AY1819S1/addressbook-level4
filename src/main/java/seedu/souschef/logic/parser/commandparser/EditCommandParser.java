@@ -134,7 +134,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         Ingredient toEdit = lastShownList.get(index);
 
         IngredientName name = toEdit.getName();
-        IngredientAmount amount = toEdit.getIngredientAmount();
+        IngredientAmount amount = toEdit.getAmount();
         IngredientServingUnit unit = toEdit.getUnit();
         IngredientDate date = toEdit.getDate();
 

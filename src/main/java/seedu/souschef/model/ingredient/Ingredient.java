@@ -55,7 +55,7 @@ public class Ingredient extends IngredientPortion {
 
         Ingredient otherIngredient = (Ingredient) other;
         return otherIngredient.getName().equals(getName())
-                && otherIngredient.getIngredientAmount().equals(getIngredientAmount())
+                && otherIngredient.getAmount().equals(getAmount())
                 && otherIngredient.getUnit().equals(getUnit())
                 && otherIngredient.getDate().equals(getDate());
     }
@@ -63,7 +63,7 @@ public class Ingredient extends IngredientPortion {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(getName(), getIngredientAmount(), getUnit(), date);
+        return Objects.hash(getName(), getAmount(), getUnit(), date);
     }
 
     @Override
