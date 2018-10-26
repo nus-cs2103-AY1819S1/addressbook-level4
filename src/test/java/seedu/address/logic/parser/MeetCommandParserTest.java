@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_TITLE_D
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_TITLE_DESC_WEEKLY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import org.junit.Test;
