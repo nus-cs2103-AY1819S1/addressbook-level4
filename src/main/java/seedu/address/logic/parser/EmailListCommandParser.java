@@ -30,7 +30,8 @@ public class EmailListCommandParser implements Parser<ComposeEmailListCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeEmailListCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ComposeEmailListCommand.MESSAGE_USAGE));
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();

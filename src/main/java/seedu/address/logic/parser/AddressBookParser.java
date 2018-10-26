@@ -29,12 +29,12 @@ import seedu.address.logic.commands.ImageCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEmailsCommand;
-import seedu.address.logic.commands.ViewEmailCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.ViewEmailCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
