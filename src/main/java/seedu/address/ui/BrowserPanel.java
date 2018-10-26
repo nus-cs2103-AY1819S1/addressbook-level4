@@ -179,12 +179,6 @@ public class BrowserPanel extends UiPart<Region> {
         script += "', '";
         script += currentPatient.getPatient().getIcNumber().value;
         script += "', '";
-        script += currentPatient.getPatient().getAddress().value;
-        script += "', '";
-        script += currentPatient.getPatient().getPhone().value;
-        script += "', '";
-        script += currentPatient.getPatient().getEmail().value;
-        script += "', '";
         script += currentPatient.getPatient().getMedicalRecord().getBloodType().value;
         script += "', '";
         script += convertListToString(currentPatient.getPatient().getMedicalRecord().getDiseaseHistory());
