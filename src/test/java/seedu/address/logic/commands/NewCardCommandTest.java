@@ -247,7 +247,7 @@ public class NewCardCommandTest {
     }
 
     /**
-     * A AddressbookModel stub that contains a single person.
+     * A Model stub that contains a single person.
      */
     private class ModelStubWithCard extends ModelStub {
         private final Card card;
@@ -265,7 +265,7 @@ public class NewCardCommandTest {
     }
 
     /**
-     * A AddressbookModel stub that always accept the person being added.
+     * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingCardAdded extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();

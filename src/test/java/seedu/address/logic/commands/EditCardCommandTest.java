@@ -218,7 +218,7 @@ public class EditCardCommandTest {
         // edit -> edits second anakincard in unfiltered anakincard list / first anakincard in filtered anakincard list
         anakinEditCardCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered anakincard list to show all anakincards
+        // undo -> reverts anakin back to previous state and filtered anakincard list to show all anakincards
         expectedModel.undoAnakin();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

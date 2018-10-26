@@ -8,7 +8,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
 /**
- * API of the AddressbookLogic component
+ * API of the Logic component
  */
 public interface Logic {
     /**

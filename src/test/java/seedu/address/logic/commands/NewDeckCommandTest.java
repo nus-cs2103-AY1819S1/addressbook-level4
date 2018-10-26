@@ -210,7 +210,7 @@ public class NewDeckCommandTest {
     }
 
     /**
-     * A AddressbookModel stub that contains a single person.
+     * A Model stub that contains a single deck.
      */
     private class ModelStubWithDeck extends ModelStub {
         private final Deck deck;
