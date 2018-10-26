@@ -18,6 +18,7 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patientqueue.MainQueue;
 import seedu.address.model.patientqueue.PreferenceQueue;
 import seedu.address.model.person.Person;
+import seedu.address.model.receptionist.Receptionist;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
+    private final FilteredList<Receptionist> filteredReceptionists;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
 
@@ -46,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        filteredReceptionists = new FilteredList<>(versionedAddressBook.getReceptionistList());
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
