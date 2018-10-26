@@ -117,6 +117,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return doctors.contains(doctor);
     }
 
+    /**
+     * Returns true if a receptionist with the same identity as {@code receptionist} exists in ClinicIO.
+     */
+    public boolean hasReceptionist(Receptionist receptionist) {
+        requireNonNull(receptionist);
+        return receptionists.contains(receptionist);
+    }
+
     //@@author gingivitiss
     /**
      * Returns true if an appointment with the same identity as {@code appt} exists in the address book.
