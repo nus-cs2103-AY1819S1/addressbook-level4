@@ -38,8 +38,12 @@ public class TrackTest {
 
     @Test
     public void constructor_validTrackFile() {
-        File validFile = Paths.get(Library.LIBRARYDIR, "Service Bell Help.mp3").toFile();
+        File validFile = Paths.get(Library.LIBRARYDIR, "Marbles.mp3").toFile();
+        assertEquals(new Track(validFile), new Track(new Name("Marbles")));
+        validFile = Paths.get(Library.LIBRARYDIR, "Service Bell Help.mp3").toFile();
         assertEquals(new Track(validFile), new Track(new Name("Service Bell Help")));
+        validFile = Paths.get(Library.LIBRARYDIR, "SOS Morse Code.mp3").toFile();
+        assertEquals(new Track(validFile), new Track(new Name("SOS Morse Code")));
     }
 
 }
