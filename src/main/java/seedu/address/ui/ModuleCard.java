@@ -38,9 +38,8 @@ public class ModuleCard extends UiPart<Region> {
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ". " + module.getModuleCode().toString() + ":");
         name.setText(module.getModuleTitle().toString());
-        id.setText(module.getModuleCode().toString() + ":");
         if (module.getTags() != null) {
             module.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
         }

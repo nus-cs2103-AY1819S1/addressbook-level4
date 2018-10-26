@@ -38,7 +38,7 @@
             <MenuItem fx:id="moduleWindowItem" mnemonicParsing="false" onAction="#handleModule" text="Show Modules" />
           </Menu>
           <Menu mnemonicParsing="false" text="Occasions">
-            <MenuItem fx:id="occasionWindowItem" mnemonicParsing="false" onAction="#handleHelp" text="Show Occasions" />
+            <MenuItem fx:id="occasionWindowItem" mnemonicParsing="false" onAction="#handleOccasion" text="Show Occasions" />
           </Menu>
         </MenuBar>
 

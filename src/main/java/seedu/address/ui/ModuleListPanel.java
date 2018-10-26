@@ -29,7 +29,11 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
-        setConnections(moduleList);
+
+        if (moduleList.size() > 0) {
+            setConnections(moduleList);
+        }
+
         registerAsAnEventHandler(this);
     }
 
