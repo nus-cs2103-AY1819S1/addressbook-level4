@@ -93,7 +93,8 @@ public class AddressBookParserTest {
     public void parseCommand_findPersons() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindPersonCommand command = (FindPersonCommand) parser.parseCommand(
-                FindPersonCommand.COMMAND_WORD + " " +  + keywords.stream().collect(Collectors.joining(" ")));
+                FindPersonCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_MODE
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
             keywords, Collections.emptyList(), Collections.emptyList())), command);
     }
