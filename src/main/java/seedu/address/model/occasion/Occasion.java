@@ -2,14 +2,15 @@ package seedu.address.model.occasion;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagKey;
-import seedu.address.model.tag.TagMap;
-import seedu.address.model.tag.TagValue;
 
 /**
  * Represents an Occasion within the address book.

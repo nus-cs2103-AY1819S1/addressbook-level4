@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcademicYear;

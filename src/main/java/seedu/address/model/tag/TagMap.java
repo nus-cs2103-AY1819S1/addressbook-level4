@@ -1,13 +1,13 @@
 package seedu.address.model.tag;
 
-import seedu.address.model.tag.exceptions.HasOverlapException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import seedu.address.model.tag.exceptions.HasOverlapException;
 
 /**
  * Represents a map of key value tag pairs associated with a person, module or occasion.
@@ -67,6 +67,12 @@ public class TagMap {
         tagMap.put(key, value);
     }
 
+    /**
+     * Adds all tags within the TagMap toAdd to this TagMap's
+     * HashMap.
+     *
+     * @param toAdd The other TagMap to append to this TagMap.
+     */
     public void addAll(TagMap toAdd) {
         requireNonNull(toAdd);
         if (hasAnyOverlap(toAdd)) {
@@ -74,7 +80,7 @@ public class TagMap {
         }
 
         Iterator it = toAdd.getTagMap().entrySet().iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             tagMap.put((TagKey) pair.getKey(), (TagValue) pair.getValue());
         }
@@ -116,6 +122,13 @@ public class TagMap {
         return false;
     }
 
+    /**
+     * Returns true iff otherMap contains at least one TagKey
+     * whose hash is the same as a TagKey in this TagMap.
+     *
+     * @param otherMap The other map to compare to.
+     * @return A boolean symbolizing whether there is any overlap.
+     */
     public boolean hasAnyOverlap(Map<TagKey, TagValue> otherMap) {
         Iterator it = otherMap.entrySet().iterator();
         while (it.hasNext()) {

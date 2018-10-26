@@ -1,12 +1,16 @@
 package seedu.address.storage;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
@@ -15,11 +19,6 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagKey;
-import seedu.address.model.tag.TagMap;
-import seedu.address.model.tag.TagValue;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * JAXB-friendly version of the Module.
@@ -81,7 +80,8 @@ public class XmlAdaptedModule {
         }
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());    }
+                .collect(Collectors.toList());
+    }
 
     /**
      * Converts this jaxb-friendly adapted person object into the model's Module object.
@@ -90,8 +90,11 @@ public class XmlAdaptedModule {
      */
     public Module toModelType() throws IllegalValueException {
         final UniquePersonList loadedStudentsList = new UniquePersonList(new ArrayList<>());
-        for (XmlAdaptedPerson person : students) {
-            loadedStudentsList.add(person.toModelType());
+
+        if (students != null) {
+            for (XmlAdaptedPerson person : students) {
+                loadedStudentsList.add(person.toModelType());
+            }
         }
 
         if (moduleCode == null) {
@@ -131,9 +134,14 @@ public class XmlAdaptedModule {
         final Semester modelSemester = new Semester(semester);
 
         Set<Tag> tagMap = new HashSet<>();
-        for (XmlAdaptedTag t : tagged) {
-            tagMap.add(t.toModelType());
+
+        if (tagged != null) {
+
+            for (XmlAdaptedTag t : tagged) {
+                tagMap.add(t.toModelType());
+            }
         }
+
 
         return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester,
                 loadedStudentsList, tagMap);

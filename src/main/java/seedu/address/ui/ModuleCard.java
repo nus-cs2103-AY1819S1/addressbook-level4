@@ -33,23 +33,17 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
-        //name.setText(module.getName().fullName);
-        //phone.setText(module.getPhone().value);
-        //address.setText(module.getAddress().value);
-        //email.setText(module.getEmail().value);
-        module.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
+        name.setText(module.getModuleTitle().toString());
+        id.setText(module.getModuleCode().toString() + ":");
+        if (module.getTags() != null) {
+            module.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
+        }
     }
 
     @Override

@@ -158,7 +158,9 @@ abstract public class MainWindow extends UiPart<Stage> {
         URL moduleWindowUrl = getFxmlFileUrl("ModuleWindow.fxml");
         loadFxmlFile(moduleWindowUrl, primaryStage);
 
-        this.fillInnerParts();
+        MainWindow moduleWindow = new ModuleWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        moduleWindow.fillInnerParts();
     }
 
     /**
@@ -169,7 +171,9 @@ abstract public class MainWindow extends UiPart<Stage> {
         URL personWindowUrl = getFxmlFileUrl("PersonWindow.fxml");
         loadFxmlFile(personWindowUrl, primaryStage);
 
-        this.fillInnerParts();
+        MainWindow personWindow = new PersonWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        personWindow.fillInnerParts();
     }
 
     /**
@@ -180,7 +184,9 @@ abstract public class MainWindow extends UiPart<Stage> {
         URL occasionWindowUrl = getFxmlFileUrl("OccasionWindow.fxml");
         loadFxmlFile(occasionWindowUrl, primaryStage);
 
-        this.fillInnerParts();
+        MainWindow occasionWindow = new OccasionWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        occasionWindow.fillInnerParts();
     }
 
     abstract void fillInnerParts();
