@@ -45,6 +45,7 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 7, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String DEFAULT_MONDAY_DATE = "010118";
 
     protected Ui ui;
     protected Logic logic;
@@ -127,39 +128,35 @@ public class MainApp extends Application {
 
         logger.info("Using config file : " + configFilePathUsed);
 
-        //Only when 'rangeofweek.xml' exist then the application check for possible week description
+
+        //When user launch the application for the first time or deleted the 'rangeofweek.xml'
+        //generate the file with a default setting to allow user to use 'firstday' command
         //solution below adapted from
         //https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
         File checkFileExist = new File("rangeofweek.xml");
-        if (checkFileExist.exists()) {
-            try {
-                Config updateConfig = new Config();
-                FirstDayCommand fdc = new FirstDayCommand();
-                String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
-                rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
-
-                if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
-                    updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
-                    ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
-                } else {
-                    updateConfig.setAppTitle("Schedule Planner");
-                }
-                ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
-            } catch (IOException e) {
-                logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
-            }
-        }
-
-        //When user launch the application for the first time or deleted the 'rangeofweek.xml'
-        // generate the file to allow user to use'firstday' command
+        FirstDayCommand fdc = new FirstDayCommand();
         if (!checkFileExist.exists()) {
             try {
                 checkFileExist.createNewFile();
+                fdc.saveRangeOfWeeks(fdc.computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             } catch (java.io.IOException e) {
                 logger.warning("Filed to create rangeofweek.xml");
             }
         }
-        //end added
+        try {
+            Config updateConfig = new Config();
+            String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
+            rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
+
+            if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
+                updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
+            } else {
+                updateConfig.setAppTitle("Schedule Planner");
+            }
+            ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
+        }
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
