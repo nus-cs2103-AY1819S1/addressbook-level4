@@ -3,27 +3,28 @@
   [
     {
       "githubId": "Alvinnyk",
-      "displayName": "Alvin",
-      "authorNames": ["AeroSpectr3"]
-    },
-    {
-      "githubId": "dlworldpeace",
-      "displayName": "Delong"
+      "displayName": "ALVIN...N KIT",
+      "authorNames": ["Alvinnyk", "AeroSpectr3"]
     },
     {
       "githubId": "Lexzt",
-      "displayName": "Keith",
-      "authorNames": ["Keith Fong"]
+      "displayName": "FONG ...ZHONG",
+      "authorNames": ["Lexzt", "Keith Fong"]
     },
     {
       "githubId": "YurouTang",
-      "displayName": "Yurou",
-      "authorNames": ["Tang Yurou"]
+      "displayName": "TANG ...YUROU",
+      "authorNames": ["YurouTang", "Tang Yurou"]
+    },
+    {
+      "githubId": "dlworldpeace",
+      "displayName": "XIAO ...ELONG",
+      "authorNames": ["dlworldpeace"]
     },
     {
       "githubId": "ZhuanYu",
-      "displayName": "Zhuan Yu",
-      "authorNames": ["Zhuan Yu", "ZhuanYu", "Yeo Zhuan Yu"]
+      "displayName": "YEO Z...AN YU",
+      "authorNames": ["ZhuanYu", "Zhuan Yu", "Yeo Zhuan Yu"]
     }
   ]
 }
