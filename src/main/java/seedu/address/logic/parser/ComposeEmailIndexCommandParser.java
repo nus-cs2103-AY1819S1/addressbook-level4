@@ -21,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ComposeEmailIndexCommand object
  */
-public class EmailIndexCommandParser implements Parser<ComposeEmailIndexCommand> {
+public class ComposeEmailIndexCommandParser implements Parser<ComposeEmailIndexCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ComposeEmailIndexCommand

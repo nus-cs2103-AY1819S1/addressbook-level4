@@ -17,7 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ComposeEmailListCommand object
  */
-public class EmailListCommandParser implements Parser<ComposeEmailListCommand> {
+public class ComposeEmailListCommandParser implements Parser<ComposeEmailListCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ComposeEmailListCommand
