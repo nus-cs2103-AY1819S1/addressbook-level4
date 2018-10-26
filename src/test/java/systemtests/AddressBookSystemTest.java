@@ -28,14 +28,15 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.RideListPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ViewAllCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ThanePark;
 import seedu.address.testutil.TypicalRides;
@@ -157,7 +158,7 @@ public abstract class AddressBookSystemTest {
      * Selects the ride at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(ViewCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
