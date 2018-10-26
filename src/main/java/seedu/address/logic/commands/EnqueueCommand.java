@@ -28,7 +28,7 @@ public class EnqueueCommand extends Command {
 
     public static final String MESSAGE_PERSON_NOT_PATIENT = "Person %1$s is not a patient. ";
 
-    public static final String MESSAGE_PATIENT_IS_CURRENTLY_QUEUING = "Patient %1$s is not currently in the queue. ";
+    public static final String MESSAGE_PATIENT_IS_CURRENTLY_QUEUING = "Patient %1$s is currently in the queue. ";
 
     private final Index index;
 
@@ -52,7 +52,7 @@ public class EnqueueCommand extends Command {
         Person patientToEnqueue = lastShownList.get(index.getZeroBased());
 
         if (!(patientToEnqueue instanceof Patient)) {
-            throw new CommandException(MESSAGE_PERSON_NOT_PATIENT);
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_PATIENT, patientToEnqueue.getName()));
         }
 
         model.enqueue((Patient) patientToEnqueue);

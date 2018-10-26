@@ -150,7 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedAddressBook.addPerson(Patient.buildFromPerson(person));
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -174,7 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void enqueue(Patient patient) throws CommandException {
         if (patient.isQueuing()) {
-            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING, patient));
+            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING, patient.getName()));
         }
         if (patient.hasPreferredDoctor()) {
             enqueueIntoPreferenceQueue(patient);
