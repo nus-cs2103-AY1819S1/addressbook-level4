@@ -30,17 +30,17 @@ public class FilePathToUrl {
      * Returns the String representation of the file's Url.
      */
     public String filePathToUrlString() throws IOException {
-        File file = new File(filePath);
-        if (!file.exists() || !file.canRead()) {
-            throw new IOException(String.format(MESSAGE_FILE_ERROR, filePath));
-        }
-        return URL_HEADER + file.getAbsolutePath();
+        return filePathToUrl().toString();
     }
 
     /**
      * Returns the URL representation of the file's Url.
      */
     public URL filePathToUrl() throws IOException {
-        return new URL(filePathToUrlString());
+        File file = new File(filePath);
+        if (!file.exists() || !file.canRead()) {
+            throw new IOException(String.format(MESSAGE_FILE_ERROR, filePath));
+        }
+        return file.toURI().toURL();
     }
 }

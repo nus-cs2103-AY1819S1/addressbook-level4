@@ -74,7 +74,7 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
     }
 
     /**
-     * Loads a local resource in the browser, withh its Url decoded from FilePathToUrl
+     * Loads a local resource in the browser, with its Url decoded from FilePathToUrl
      */
     public void loadPage(FilePathToUrl filePathToUrl) {
         WebView webView = getWebView();
