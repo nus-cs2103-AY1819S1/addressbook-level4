@@ -16,6 +16,7 @@ import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
 import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
+import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
@@ -78,16 +79,16 @@ public class LibraryParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case PlaylistDelCommand.COMMAND_WORD:
+        case PlaylistDelCommand.COMMAND_PHRASE:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_PHRASE:
             return new ClearCommand();
 
-        // case FindCommand.COMMAND_WORD:
-        //     return new FindCommandParser().parse(arguments);
+        case PlaylistSearchCommand.COMMAND_PHRASE:
+             return new PlaylistSearchCommandParser().parse(arguments);
 
-        // case ListCommand.COMMAND_WORD:
+        // case ListCommand.COMMAND_PHRASE:
         //     return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
