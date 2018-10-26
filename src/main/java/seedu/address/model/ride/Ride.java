@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.swing.plaf.nimbus.State;
-
 import seedu.address.model.logging.HtmlFormattable;
 import seedu.address.model.ride.exceptions.InvalidNumericAttributeException;
 import seedu.address.model.tag.Tag;

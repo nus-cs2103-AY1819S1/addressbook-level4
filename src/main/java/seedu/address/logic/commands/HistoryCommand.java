@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.util.CommandReportGenerator;
 import seedu.address.commons.events.ui.ShowHistoryRequestEvent;
+import seedu.address.commons.util.CommandReportGenerator;
 import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;

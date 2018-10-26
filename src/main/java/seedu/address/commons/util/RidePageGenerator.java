@@ -17,7 +17,7 @@ import seedu.address.model.ride.Ride;
 /**
  * Singleton Class for generating a Html page used to display ride details.
  */
-public class RidePageGenerator extends HtmlGenerator<Ride>{
+public class RidePageGenerator extends HtmlGenerator<Ride> {
     private static RidePageGenerator instance;
 
     /**
@@ -49,7 +49,8 @@ public class RidePageGenerator extends HtmlGenerator<Ride>{
         return div(
             div(
                 p(h2().withId("name"))
-            ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px; word-wrap: break-word"),
+            ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px;"
+                + "word-wrap: break-word"),
             div(
                 img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
             ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block; right: 0px")

@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static j2html.TagCreator.attrs;
 import static j2html.TagCreator.body;
-import static j2html.TagCreator.col;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h3;

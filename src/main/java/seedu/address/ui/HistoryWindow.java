@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -23,6 +22,13 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
 
     /**
      * Creates a new HistoryWindow.
+     */
+    public HistoryWindow() {
+        this(new Stage());
+    }
+
+    /**
+     * Creates a new HistoryWindow.
      *
      * @param root Stage to use as the root of the HistoryWindow.
      */
@@ -33,13 +39,6 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
     @Override
     protected WebView getWebView() {
         return commandHistoryWindow;
-    }
-
-    /**
-     * Creates a new HistoryWindow.
-     */
-    public HistoryWindow() {
-        this(new Stage());
     }
 
     /**

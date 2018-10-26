@@ -1,7 +1,6 @@
 package seedu.address.ui.exceptions;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -25,16 +24,20 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
     protected ArrayList<String> queuedJavascript = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public BrowserRelatedUiPart(String FXML) {
-        super(FXML);
+    public BrowserRelatedUiPart(String fxml) {
+        super(fxml);
         init();
     }
 
-    public BrowserRelatedUiPart(String FXML, T root) {
-        super(FXML, root);
+    public BrowserRelatedUiPart(String fxml, T root) {
+        super(fxml, root);
         init();
     }
 
+    /**
+     * Initializes the BrowserRelatedUiPart. Enables Javascript and adds a listener to execute queued Javascript
+     * after the page loads completely.
+     */
     private void init() {
         WebView webView = getWebView();
         assert(webView != null);
@@ -56,6 +59,9 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
         return null;
     }
 
+    /**
+     * Program that runs all queued Javascript. Clears the Javascript queue if too many scripts are queued.
+     */
     private void runQueuedJavascript() {
         WebView webView = getWebView();
         if (queuedJavascript.size() > MAX_QUEUE_SIZE) {
@@ -67,6 +73,9 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
         }
     }
 
+    /**
+     * Loads a local resource in the browser, withh its Url decoded from FilePathToUrl
+     */
     public void loadPage(FilePathToUrl filePathToUrl) {
         WebView webView = getWebView();
         try {

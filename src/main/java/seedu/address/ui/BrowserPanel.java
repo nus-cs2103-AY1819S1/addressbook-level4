@@ -25,11 +25,11 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
         new FilePathToUrl("src/main/resources/docs/ride.html");
     private static final String RIDE_PAGE_TITLE = "Ride information";
     private static final String TEXT_REPLACEMENT_JAVASCRIPT =
-        "function updateRide(listOfFields) {" +
-            "for (index in listOfFields) {" +
-                "document.getElementById(listOfFields[index][0]).innerHTML = listOfFields[index][1];" +
-            "}" +
-        "}";
+        "function updateRide(listOfFields) {"
+        + "   for (index in listOfFields) {"
+        + "       document.getElementById(listOfFields[index][0]).innerHTML = listOfFields[index][1];"
+        + "   }"
+        + "}";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -58,6 +58,9 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
         return browser;
     }
 
+    /**
+     * Loads the ride information page using Javascript and BrowserRelatedUiPart.loadPage
+     */
     private void loadRidePage(Ride ride) {
         loadPage(RIDE_PAGE_PATH);
         int totalFields = ride.getFieldHeaders().size();
@@ -72,7 +75,7 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Loads the short Help file as the default HTML file.
      */
     public void loadDefaultPage() {
         loadPage(HelpWindow.SHORT_HELP_FILE_PATH);
