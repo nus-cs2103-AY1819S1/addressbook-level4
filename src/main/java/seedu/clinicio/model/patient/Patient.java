@@ -1,4 +1,4 @@
-package seedu.address.model.patient;
+package seedu.clinicio.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,16 +6,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.doctor.Doctor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
-
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.person.Address;
+import seedu.clinicio.model.person.Email;
+import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.tag.Tag;
 
 //@@author iamjackslayer
 /**

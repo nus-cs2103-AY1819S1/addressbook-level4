@@ -1,11 +1,11 @@
-package seedu.address.testutil;
+package seedu.clinicio.testutil;
 
 import java.util.Optional;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.doctor.Doctor;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
-import seedu.address.model.person.Person;
+import seedu.clinicio.model.person.Person;
 
 /**
  * A utility class to build {@link Patient} objects.

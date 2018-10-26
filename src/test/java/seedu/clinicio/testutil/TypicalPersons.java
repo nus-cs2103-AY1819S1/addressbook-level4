@@ -24,8 +24,8 @@ import java.util.List;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

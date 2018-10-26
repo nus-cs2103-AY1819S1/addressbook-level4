@@ -1,32 +1,30 @@
-package seedu.address.model.patient;
+package seedu.clinicio.model.patient;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ADAM;
-import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.AMY_APPT;
-import static seedu.address.testutil.TypicalPersons.AMY_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.BEN;
-import static seedu.address.testutil.TypicalPersons.BENSON_APPT;
-import static seedu.address.testutil.TypicalPersons.BENSON_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.CARL_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.DANIEL_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.ELLE_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.FIONA_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.GEORGE_AS_PATIENT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.AMY;
+import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.AMY_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.BEN;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.CARL_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.DANIEL_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.ELLE_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.FIONA_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.GEORGE_AS_PATIENT;
 
 import org.junit.Test;
 
-import seedu.address.testutil.PatientBuilder;
-import seedu.clinicio.model.patient.Patient;
-
+import seedu.clinicio.testutil.PatientBuilder;
 
 public class PatientTest {
     @Test
