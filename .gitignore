@@ -3,6 +3,7 @@ build/
 .checkstyle
 .settings/
 .idea/
+.vscode/
 lib/*
 *.iml
 *.log
