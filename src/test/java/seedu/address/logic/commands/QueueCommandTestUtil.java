@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.model.document.Document.DIRECTORY_PATH;
 import static seedu.address.model.document.Document.FILE_NAME_DELIMITER;
+import static seedu.address.testutil.TypicalPersons.getSamplePersonsArrayList;
 
 import java.io.File;
 
@@ -142,5 +143,13 @@ public class QueueCommandTestUtil {
      */
     public static void fileCleanUp(File file) {
         file.delete();
+    }
+
+    public static ServedPatientList getSampleServedPatientsList() {
+        ServedPatientList servedPatientList = new ServedPatientListManager();
+        getSamplePersonsArrayList().stream().forEach(patient -> servedPatientList.addServedPatient(
+                new ServedPatient(patient)));
+
+        return servedPatientList;
     }
 }

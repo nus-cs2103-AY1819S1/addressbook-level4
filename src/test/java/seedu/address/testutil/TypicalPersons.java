@@ -92,4 +92,8 @@ public class TypicalPersons {
     public static List<Patient> getSamplePersonsLinkedList() {
         return new LinkedList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    public static List<Patient> getSamplePersonsArrayList() {
+        return new ArrayList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 }
