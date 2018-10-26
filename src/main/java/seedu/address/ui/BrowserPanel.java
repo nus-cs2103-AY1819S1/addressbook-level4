@@ -66,7 +66,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads HTML text preview of email.
      * @param emailModel The emailModel containing the saved email.
      */
-    public void loadEmail(EmailModel emailModel) {
+    private void loadEmail(EmailModel emailModel) {
         Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
     }
     //@@author
