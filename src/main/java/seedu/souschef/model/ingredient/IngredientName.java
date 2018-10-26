@@ -42,7 +42,12 @@ public class IngredientName {
         IngredientName otherName = (IngredientName) other;
 
         return otherName != null
-                && this.fullName.equals(otherName.fullName);
+                && this.fullName.equalsIgnoreCase(otherName.fullName);
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.toLowerCase().hashCode();
     }
 
     public String toString() {

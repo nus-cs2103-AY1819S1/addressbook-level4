@@ -1,25 +1,26 @@
 package seedu.souschef.logic;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Tests that a {@code Recipe} includes must-be included ingredients in inventory command.
  */
 public class InventoryPredicate implements Predicate<Recipe> {
-    private final HashMap<String, Double> must;
+    private final Map<IngredientDefinition, Double> must;
 
-    public InventoryPredicate(HashMap<String, Double> must) {
+    public InventoryPredicate(Map<IngredientDefinition, Double> must) {
         this.must = must;
     }
 
     @Override
     public boolean test(Recipe recipe) {
-        HashMap<String, Double> ingredients = recipe.getIngredients();
+        Map<IngredientDefinition, Double> ingredients = recipe.getIngredients();
 
-        for (String key : must.keySet()) {
+        for (IngredientDefinition key : must.keySet()) {
             if (!ingredients.keySet().contains(key)) {
                 return false;
             }
