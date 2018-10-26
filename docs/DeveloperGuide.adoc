@@ -588,9 +588,9 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 `SetBudgetCommandParser#parse()` method.
 . `SetBudgetCommandParser#parse()` will then return a `budget` of `double` type. It will then create a
 `SetBudgetCommand` Object with `budget` as a parameter would be created and returned to `LogicManager`.
-. `LogicManager then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
+. `LogicManager` then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
  maximum budget of the expense tracker.
-. `LogicManager will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
+. `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
 . The budget is then updated.
 
 
