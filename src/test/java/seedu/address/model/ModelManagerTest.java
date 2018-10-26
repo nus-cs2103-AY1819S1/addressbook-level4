@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ADAM;
+import static seedu.address.testutil.TypicalPersons.ALAN;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -43,6 +44,12 @@ public class ModelManagerTest {
         modelManager.hasDoctor(null);
     }
 
+    @Test
+    public void hasReceptionist_nullReceptionist_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasReceptionist(null);
+    }
+
     //@@author gingivitiss
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
@@ -59,6 +66,11 @@ public class ModelManagerTest {
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasDoctor(ADAM));
+    }
+
+    @Test
+    public void hasReceptionist_receptionistNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasReceptionist(ALAN));
     }
 
     //@@author gingivitiss
@@ -83,6 +95,12 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasDoctor(ADAM));
     }
 
+    @Test
+    public void hasReceptionist_receptionistInAddressBook_returnsTrue() {
+        modelManager.addReceptionist(ALAN);
+        assertTrue(modelManager.hasReceptionist(ALAN));
+    }
+
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInAddressBook_returnsTrue() {
@@ -97,6 +115,24 @@ public class ModelManagerTest {
     public void getDoctor_doctorInClinicIO_returnsDoctor() {
         modelManager.addDoctor(ADAM);
         assertEquals(ADAM, modelManager.getDoctor(ADAM));
+    }
+
+    @Test
+    public void getDoctor_nullDoctor_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.getDoctor(null);
+    }
+
+    @Test
+    public void getReceptionist_receptionistInClinicIO_returnsReceptionist() {
+        modelManager.getReceptionist(ALAN);
+        assertEquals(ALAN, modelManager.getReceptionist(ALAN));
+    }
+
+    @Test
+    public void getReceptionist_nullReceptionist_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.getReceptionist(null);
     }
 
     @Test
