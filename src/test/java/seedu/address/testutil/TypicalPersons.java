@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
@@ -86,5 +87,13 @@ public class TypicalPersons {
 
     public static List<Patient> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Patient> getSamplePersonsLinkedList() {
+        return new LinkedList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Patient> getSamplePersonsArrayList() {
+        return new ArrayList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

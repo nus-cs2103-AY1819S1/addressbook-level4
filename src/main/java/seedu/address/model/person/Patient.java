@@ -146,7 +146,6 @@ public class Patient {
         if (!(other instanceof Patient)) {
             return false;
         }
-
         Patient otherPatient = (Patient) other;
         return otherPatient.getName().equals(getName())
                 && otherPatient.getIcNumber().equals(getIcNumber())

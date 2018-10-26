@@ -106,7 +106,6 @@ public class ServedPatientListManager implements ServedPatientList {
 
         // state check
         ServedPatientListManager other = (ServedPatientListManager) obj;
-
         return this.servedPatientList.equals(other.servedPatientList);
     }
 }
