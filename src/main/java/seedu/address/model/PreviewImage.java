@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
 import seedu.address.MainApp;
@@ -111,6 +112,14 @@ public class PreviewImage {
         }
         System.out.println("Retrieve successful");
         return imageFromCache;
+    }
+
+    /**
+     * Get the current image path from cache.
+     */
+    public Path getCurrentPath() {
+        File f = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
+        return f.toPath();
     }
 
     public TransformationSet getTransformationSet() {

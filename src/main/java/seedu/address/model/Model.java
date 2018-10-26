@@ -134,6 +134,11 @@ public interface Model {
     PreviewImage getCurrentPreviewImage();
 
     /**
+     * Retrieves the current displayed preview image.
+     */
+    Path getCurrentPreviewImagePath();
+
+    /**
      * update the preview image stored in the model
      * @param image
      * @param transformation
