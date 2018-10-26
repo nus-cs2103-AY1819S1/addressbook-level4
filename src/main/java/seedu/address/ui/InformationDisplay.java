@@ -59,10 +59,7 @@ public class InformationDisplay extends UiPart<Region> {
         personListPanel = new PersonListPanel(logic.getSortedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        List<Meeting> meetingList = logic.getFilteredGroupList().stream()
-            .map(Group::getMeeting).collect(Collectors.toList());
-        ObservableList<Meeting> meetingObservableList = FXCollections.observableList(meetingList);
-        meetingListPanel = new MeetingListPanel(meetingObservableList);
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
     }
 }
