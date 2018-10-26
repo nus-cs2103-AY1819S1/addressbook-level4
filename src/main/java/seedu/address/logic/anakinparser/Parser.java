@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.anakincommands.ChangeDeckCommand;
+import seedu.address.logic.anakincommands.ClearCommand;
 import seedu.address.logic.anakincommands.Command;
 import seedu.address.logic.anakincommands.DeleteCardCommand;
 import seedu.address.logic.anakincommands.DeleteDeckCommand;
@@ -14,9 +15,12 @@ import seedu.address.logic.anakincommands.EditCardCommand;
 import seedu.address.logic.anakincommands.EditDeckCommand;
 import seedu.address.logic.anakincommands.ExitCommand;
 import seedu.address.logic.anakincommands.HelpCommand;
+import seedu.address.logic.anakincommands.HistoryCommand;
 import seedu.address.logic.anakincommands.NewCardCommand;
 import seedu.address.logic.anakincommands.NewDeckCommand;
+import seedu.address.logic.anakincommands.RedoCommand;
 import seedu.address.logic.anakincommands.SortCommand;
+import seedu.address.logic.anakincommands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -71,6 +75,18 @@ public class Parser {
         case SortCommand.COMMAND_WORD:
             return new SortCommand();
 
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
         // TO DO
             /*
         case SelectCommand.COMMAND_WORD:
@@ -84,10 +100,7 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-    */
+*/
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

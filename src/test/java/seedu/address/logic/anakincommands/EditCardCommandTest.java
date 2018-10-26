@@ -1,6 +1,7 @@
 package seedu.address.logic.anakincommands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.anakincommands.CommandTestUtil.VALID_ANSWER_A;
 import static seedu.address.logic.anakincommands.CommandTestUtil.VALID_ANSWER_B;
@@ -18,7 +19,6 @@ import seedu.address.commons.core.AddressbookMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.anakincommands.EditCardCommand.EditCardDescriptor;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.model.Anakin;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
