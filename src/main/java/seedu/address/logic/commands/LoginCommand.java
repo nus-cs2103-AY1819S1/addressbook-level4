@@ -84,9 +84,7 @@ public class LoginCommand extends Command {
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
-        } else {
-            // TODO: Deal with neither role.
-        }
+        } 
         return new CommandResult(MESSAGE_FAILURE);
     }
 
