@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.model.user.Password;
@@ -58,11 +60,11 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     }
 
-    public void addCategoryBudget(CategoryBudget budget) {
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         this.maximumBudget.addCategoryBudget(budget);
     }
 
-    public void modifyCategoryBudget(CategoryBudget budget) {
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
         this.maximumBudget.modifyCategoryBudget(budget);
     }
 
