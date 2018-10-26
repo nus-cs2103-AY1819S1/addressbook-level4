@@ -165,14 +165,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addDoctor(Doctor doctor) {
         versionedAddressBook.addDoctor(doctor);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addReceptionist(Receptionist receptionist) {
         versionedAddressBook.addReceptionist(receptionist);
-        updatefilteredReceptionistList(PREDICATE_SHOW_ALL_RECEPTIONISTS);
+        updateFilteredReceptionistList(PREDICATE_SHOW_ALL_RECEPTIONISTS);
         indicateAddressBookChanged();
     }    
 
@@ -265,6 +265,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //=========== Filtered Receptionist List Accessors =============================================================
+
+    //@@author jjlee050
+    /**
+     * Returns an unmodifiable view of the list of {@code Receptionist} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Receptionist> getFilteredReceptionistList() {
+        return FXCollections.unmodifiableObservableList(filteredReceptionists);
+    }
+
+    //@@author jjlee050
+    @Override
+    public void updateFilteredReceptionistList(Predicate<Receptionist> predicate) {
+        requireNonNull(predicate);
+        filteredReceptionists.setPredicate(predicate);
+    }
     
     @Override
     public Receptionist getReceptionist(Receptionist receptionist) {

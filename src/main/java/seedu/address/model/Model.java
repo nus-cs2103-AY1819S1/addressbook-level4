@@ -17,7 +17,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
-
+    
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Receptionist> PREDICATE_SHOW_ALL_RECEPTIONISTS = unused -> true;
+    
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
@@ -104,6 +107,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 
+    /** Returns an unmodifiable view of the filtered receptionist list */
+    ObservableList<Receptionist> getFilteredReceptionistList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -115,6 +121,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDoctorList(Predicate<Doctor> predicate);
+
+    /**
+     * Updates the filter of the filtered receptionist list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReceptionistList(Predicate<Receptionist> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
