@@ -36,7 +36,7 @@ import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
 //import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.FindCommand;
+import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
@@ -151,7 +151,7 @@ public abstract class LibrarySystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPlaylistsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(PlaylistSearchCommand.COMMAND_PHRASE + " " + keyword);
         assertTrue(getModel().getFilteredPlaylistList().size() < getModel().getLibrary().getPlaylistList().size());
     }
 

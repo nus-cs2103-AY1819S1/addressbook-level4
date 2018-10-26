@@ -47,7 +47,7 @@ public class SelectCommandSystemTest extends LibrarySystemTest {
          */
         // showPlaylistsWithName(KEYWORD_MATCHING_SONG); // todo failing test
         int invalidIndex = getModel().getLibrary().getPlaylistList().size();
-        // assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+        // assertCommandFailure(SelectCommand.COMMAND_PHRASE + " " + invalidIndex,
         // MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
 
         /* Case: filtered playlist list, select index within bounds of library and playlist list -> selected */

@@ -68,7 +68,7 @@ public class HelpCommandSystemTest extends LibrarySystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(PlaylistDelCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
+        executeCommand(PlaylistDelCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PLAYLIST.getOneBased());
         // todo failing test
         // assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }

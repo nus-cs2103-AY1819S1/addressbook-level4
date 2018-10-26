@@ -24,7 +24,7 @@ import seedu.jxmusic.model.Playlist;
 public class CommandTestUtil {
 
     public static final String VALID_PLAYLIST_NAME_EMPTY = "Empty playlist";
-    public static final String VALID_PLAYLIST_NAME_SFX = "Sound effects";
+    public static final String VALID_PLAYLIST_NAME_SFX = "Sound effects playlist";
     public static final String VALID_PLAYLIST_NAME_ANIME = "Anime music";
 
     /** for sfx playlist */

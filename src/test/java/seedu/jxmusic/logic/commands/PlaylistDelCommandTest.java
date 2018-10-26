@@ -24,7 +24,7 @@ import seedu.jxmusic.model.UserPrefs;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code PlaylistDelCommand}.
  */
-public class DeleteCommandTest {
+public class PlaylistDelCommandTest {
 
     private Model model = new ModelManager(getTypicalLibrary(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
