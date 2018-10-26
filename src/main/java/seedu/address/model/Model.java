@@ -130,7 +130,7 @@ public interface Model {
      * Dispenses the medicine defined by {@code medicineName} with the allocated
      * amount {@code quantityToDispense}.
      */
-    Medicine dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense);
+    void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense);
 
     /**
      * Refill the medicine defined by {@code medicineName} with the allocated
