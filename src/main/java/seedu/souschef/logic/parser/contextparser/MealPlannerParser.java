@@ -11,7 +11,6 @@ import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.PlanMealCommand;
-import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -36,7 +35,7 @@ public class MealPlannerParser {
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(Model mealPlannerModel, Model recipeModel,  String userInput) throws ParseException {
+    public Command parseCommand(Model mealPlannerModel, Model recipeModel, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -51,9 +50,6 @@ public class MealPlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case PlanMealCommand.COMMAND_WORD:
-            /*if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(Context.MEAL_PLANNER));
-            }*/
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
 
         default:
