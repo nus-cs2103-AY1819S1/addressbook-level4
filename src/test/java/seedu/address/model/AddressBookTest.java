@@ -31,6 +31,7 @@ import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+import seedu.address.model.receptionist.Receptionist;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -46,6 +47,7 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         //@@author jjlee050
         assertEquals(Collections.emptyList(), addressBook.getDoctorList());
+        assertEquals(Collections.emptyList(), addressBook.getReceptionistList());
     }
 
     @Test
@@ -69,7 +71,7 @@ public class AddressBookTest {
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         //@@author jjlee050
-        AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
+        AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>(), new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -82,7 +84,7 @@ public class AddressBookTest {
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
-        AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors);
+        AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors, new ArrayList<>());
 
         thrown.expect(DuplicateDoctorException.class);
         addressBook.resetData(newData);
@@ -180,12 +182,14 @@ public class AddressBookTest {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+        private final ObservableList<Receptionist> receptionists = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Appointment> appointments, Collection<Person> persons, Collection<Doctor> doctors) {
+        AddressBookStub(Collection<Appointment> appointments, Collection<Person> persons, Collection<Doctor> doctors, Collection<Receptionist> receptionists) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             //@@author jjlee050
             this.doctors.setAll(doctors);
+            this.receptionists.setAll(receptionists);
         }
 
         @Override
@@ -202,6 +206,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
+        }
+        
+        @Override
+        public ObservableList<Receptionist> getReceptionistList() {
+            return receptionists;
         }
     }
 

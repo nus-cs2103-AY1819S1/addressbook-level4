@@ -23,6 +23,7 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.receptionist.Receptionist;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -110,6 +111,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Receptionist getReceptionist(Receptionist receptionist) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -119,8 +125,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //@@author jjlee050
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReceptionist(Receptionist receptionist) {
             throw new AssertionError("This method should not be called.");
         }
 
