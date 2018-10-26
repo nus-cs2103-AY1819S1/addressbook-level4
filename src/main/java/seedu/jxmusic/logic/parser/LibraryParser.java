@@ -15,10 +15,12 @@ import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
+import seedu.jxmusic.logic.commands.TrackListCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
 /**
@@ -27,10 +29,10 @@ import seedu.jxmusic.logic.parser.exceptions.ParseException;
 public class LibraryParser {
 
     /**
-     * Used for initial separation of command word and args.
+     * Used for initial separation of command phrase and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandPhrase>(?:\\p{Alpha}+\\s+)+|\\p{Alpha}+)(?<arguments>.*)");
+            Pattern.compile("(?<commandPhrase>(?:[a-zA-Z]+\\s+){0,1}[a-zA-Z]+(?!/))(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -46,7 +48,7 @@ public class LibraryParser {
         }
 
         final String commandWord = matcher.group("commandPhrase").trim();
-        final String arguments = " " + matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
+        final String arguments = matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
         switch (commandWord) {
 
         case PlayPlaylistCommand.COMMAND_WORD:
@@ -62,8 +64,14 @@ public class LibraryParser {
             //double time = arguments.toInt() sth like this, change the string to time in double
             //return new SeekCommand(time);
 
+        case PlaylistListCommand.COMMAND_PHRASE:
+            return new PlaylistListCommand();
+
         case PlaylistNewCommand.COMMAND_PHRASE:
             return new PlaylistNewCommandParser().parse(arguments);
+
+        case TrackListCommand.COMMAND_PHRASE:
+            return new TrackListCommand();
 
         // case EditCommand.COMMAND_PHRASE:
         //     return new EditCommandParser().parse(arguments);
@@ -80,8 +88,8 @@ public class LibraryParser {
         // case FindCommand.COMMAND_WORD:
         //     return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        // case ListCommand.COMMAND_WORD:
+        //     return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

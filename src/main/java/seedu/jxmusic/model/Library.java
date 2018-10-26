@@ -2,11 +2,14 @@ package seedu.jxmusic.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 /**
  * Wraps all data at the library level
@@ -16,7 +19,7 @@ public class Library implements ReadOnlyLibrary {
 
     public static final String LIBRARYDIR = "library/";
     private final UniquePlaylistList playlists;
-    private final Set<Track> tracks;
+    private final ObservableSet<Track> tracks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -27,7 +30,7 @@ public class Library implements ReadOnlyLibrary {
      */
     {
         playlists = new UniquePlaylistList();
-        tracks = new HashSet<>();
+        tracks = FXCollections.observableSet(new HashSet<>());
     }
 
     public Library() {}
@@ -48,8 +51,16 @@ public class Library implements ReadOnlyLibrary {
         return playlists.asUnmodifiableObservableList();
     }
 
-    public Set<Track> getTracks() {
+    @Override
+    public ObservableSet<Track> getTracks() {
         return tracks;
+    }
+
+    @Override
+    public ObservableList<Track> getObservableTrackList() {
+        List<Track> trackList = new ArrayList<>(tracks);
+        return FXCollections.observableArrayList(trackList);
+
     }
 
     /**
@@ -62,9 +73,9 @@ public class Library implements ReadOnlyLibrary {
 
     /**
      * Replaces the contents of the track set with {@code tracks}. Set is used to ensure no duplicates.
-     * @param tracks the new track set. Cannot be null but can be empty.
+     * @param tracks the new track ObservableSet. Cannot be null but can be empty.
      */
-    public void setTracks(Set<Track> tracks) {
+    public void setTracks(ObservableSet<Track> tracks) {
         requireNonNull(tracks);
         this.tracks.clear();
         this.tracks.addAll(tracks);
@@ -76,6 +87,7 @@ public class Library implements ReadOnlyLibrary {
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
         setPlaylists(newData.getPlaylistList());
+        setTracks(newData.getTracks());
     }
 
     //// playlist-level operations
@@ -94,6 +106,13 @@ public class Library implements ReadOnlyLibrary {
      */
     public void addPlaylist(Playlist p) {
         playlists.add(p);
+    }
+    /**
+     * Adds a track to the library.
+     * The track must not already exist in the library.
+     */
+    public void addTrack(Track t) {
+        tracks.add(t);
     }
 
     /**
