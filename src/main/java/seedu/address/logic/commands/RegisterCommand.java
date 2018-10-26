@@ -29,7 +29,7 @@ public class RegisterCommand extends QueueCommand {
             + "Index ";
 
     public static final String MESSAGE_SUCCESS = "Added ";
-    public static final String MESSAGE_DUPLICATE_PERSON = "Patient is already in queue!";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patient is already in queue!";
 
     private final Index targetIndex;
 
@@ -52,7 +52,7 @@ public class RegisterCommand extends QueueCommand {
         Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
         if (patientQueue.contains(patientToRegister) || currentPatient.isPatient(patientToRegister)
                 || servedPatientList.containsPatient(patientToRegister)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
         }
 
         int position = patientQueue.enqueue(patientToRegister);

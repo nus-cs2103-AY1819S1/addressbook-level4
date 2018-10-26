@@ -15,6 +15,22 @@ public class CurrentPatient {
 
     private ServedPatient patient;
 
+    public CurrentPatient() {}
+
+    /**
+     * Creates a new CurrentPatient with {@code patientToCopy}
+     */
+    public CurrentPatient(ServedPatient patientToCopy) {
+        this.patient = patientToCopy;
+    }
+
+    /**
+     * Gets Served Patient from Current Patient
+     */
+    public ServedPatient getServedPatient() {
+        return patient;
+    }
+
     /**
      * Assigns a patient to the Current Patient.
      * @param patient which is going to be served.
@@ -146,6 +162,32 @@ public class CurrentPatient {
 
     public Patient getPatient() {
         return this.patient.getPatient();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof CurrentPatient)) {
+            return false;
+        }
+
+        // state check
+        CurrentPatient other = (CurrentPatient) obj;
+
+        if (this.patient == null && other.patient == null) {
+            return true;
+        } else if (other.patient == null) {
+            return false;
+        } else if (this.patient == null) {
+            return false;
+        }
+
+        return this.patient.equals(other.patient);
     }
 
 }

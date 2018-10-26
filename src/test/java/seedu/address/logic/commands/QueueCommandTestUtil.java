@@ -82,6 +82,38 @@ public class QueueCommandTestUtil {
     }
 
     /**
+     * Executes the given {@code queueCommand}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the {@code patientQueue} remains unchanged <br>
+     * - the {@code currentPatient} remains unchanged <br>
+     * - the {@code servedPatientList} remains unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandFailure(QueueCommand queueCommand, CommandHistory actualCommandHistory,
+                                             PatientQueue patientQueue, CurrentPatient currentPatient,
+                                            ServedPatientList servedPatientList, Model model, String expectedMessage) {
+        PatientQueue expectedPatientQueue = new PatientQueueManager((patientQueue.getPatientsAsList()));
+        CurrentPatient expectedCurrentPatient = new CurrentPatient(currentPatient.getServedPatient());
+        ServedPatientList expectedServedPatientList = new ServedPatientListManager(
+                servedPatientList.getPatientsAsList());
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            queueCommand.execute(model, patientQueue, currentPatient, servedPatientList, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedPatientQueue, patientQueue);
+            assertEquals(expectedCurrentPatient, currentPatient);
+            assertEquals(expectedServedPatientList, servedPatientList);
+            assertEquals(actualCommandHistory, expectedCommandHistory);
+
+        }
+    }
+
+    /**
      * Executes the given {@code queueCommand}, confirms that there exists a file in the generated
      * documents directory
      * @param fileName the name of the file which presence is being tested in the generated document directory
