@@ -19,6 +19,7 @@ import seedu.souschef.model.Model;
  * Parses user input.
  */
 public class MealPlannerParser {
+    public static final String COMMAND_WORD = "mealplanner";
     /**
      * Used for initial separation of command word and args.
      */

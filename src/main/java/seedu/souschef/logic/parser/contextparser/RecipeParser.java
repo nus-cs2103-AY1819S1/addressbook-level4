@@ -30,6 +30,7 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses user input.
  */
 public class RecipeParser {
+    public static final String COMMAND_WORD = "recipe";
     /**
      * Used for initial separation of command word and args.
      */
