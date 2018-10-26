@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashMap;
 import java.util.Map;
 
-import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.person.medicalrecord.Quantity;
@@ -17,7 +17,7 @@ public class NoteBuilder {
     public static final String DEFAULT_MESSAGE = "This patient is crazy!";
 
     private Message message;
-    private Map<SerialNumber, Quantity> dispensedMedicines;
+    private Map<MedicineName, Quantity> dispensedMedicines;
 
     public NoteBuilder() {
         message = new Message(DEFAULT_MESSAGE);
@@ -42,9 +42,9 @@ public class NoteBuilder {
     }
 
     /**
-     * Sets the {@code Map<SerialNumber, Quantity>} of the {@code Note} that we are building.
+     * Sets the {@code Map<MedicineName, Quantity>} of the {@code Note} that we are building.
      */
-    public NoteBuilder withDispensedMedicines(Map.Entry<Integer, Integer>... dispensedMedicines) {
+    public NoteBuilder withDispensedMedicines(Map.Entry<String, Integer>... dispensedMedicines) {
         this.dispensedMedicines = SampleDataUtil.getDispensedMedicines(dispensedMedicines);
         return this;
     }

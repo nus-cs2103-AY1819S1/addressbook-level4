@@ -7,6 +7,7 @@ import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
+import seedu.address.model.person.medicalrecord.Note;
 
 /**
  * Uncompleted class, need to add more methods and fields.
@@ -102,6 +103,16 @@ public class ServedPatient {
     public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
         medicineAllocated.put(medicine, quantity);
         return medicine.toString();
+    }
+
+    /**
+     * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
+     */
+    public Patient createNewPatientWithUpdatedMedicalRecord() {
+        Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
+        Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
+        editedPatient.addNoteMedicalRecord(noteToSave);
+        return editedPatient;
     }
 
     /**

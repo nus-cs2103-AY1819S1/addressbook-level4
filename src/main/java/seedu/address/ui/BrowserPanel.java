@@ -26,6 +26,7 @@ import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
+import seedu.address.model.person.medicalrecord.Note;
 
 /**
  * The Browser Panel of the App.
@@ -165,7 +166,7 @@ public class BrowserPanel extends UiPart<Region> {
         script += "', '";
         script += convertListToString(patient.getMedicalRecord().getDrugAllergies());
         script += "', '";
-        script += convertListToString(patient.getMedicalRecord().getNotes());
+        script += convertNotesToString(patient.getMedicalRecord().getNotes());
         script += "');";
         return script;
     }
@@ -179,19 +180,13 @@ public class BrowserPanel extends UiPart<Region> {
         script += "', '";
         script += currentPatient.getPatient().getIcNumber().value;
         script += "', '";
-        script += currentPatient.getPatient().getAddress().value;
-        script += "', '";
-        script += currentPatient.getPatient().getPhone().value;
-        script += "', '";
-        script += currentPatient.getPatient().getEmail().value;
-        script += "', '";
         script += currentPatient.getPatient().getMedicalRecord().getBloodType().value;
         script += "', '";
         script += convertListToString(currentPatient.getPatient().getMedicalRecord().getDiseaseHistory());
         script += "', '";
         script += convertListToString(currentPatient.getPatient().getMedicalRecord().getDrugAllergies());
         script += "', '";
-        script += convertListToString(currentPatient.getPatient().getMedicalRecord().getNotes());
+        script += convertNotesToString(currentPatient.getPatient().getMedicalRecord().getNotes());
         script += "', '";
         script += currentPatient.getMcContent();
         script += "', '";
@@ -269,5 +264,20 @@ public class BrowserPanel extends UiPart<Region> {
             result += ", ";
         }
         return result.length() >= 2 ? result.substring(0, result.length() - 2) : "none";
+    }
+
+    /**
+     * Converts provided list of notes to a readable string.
+     * @param notes list of notes provided
+     * @return readable string
+     */
+    private String convertNotesToString(List<Note> notes) {
+        String result = "";
+        for (Note note: notes) {
+            result += "- ";
+            result += note.toString();
+            result += "<br>";
+        }
+        return result.length() >= 2 ? result.substring(0, result.length() - 4) : "none";
     }
 }
