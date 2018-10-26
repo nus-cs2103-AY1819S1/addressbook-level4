@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
 
@@ -16,7 +15,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 

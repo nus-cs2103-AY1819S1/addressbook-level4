@@ -29,7 +29,6 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
