@@ -106,8 +106,10 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     private boolean occasionsAreUnique(List<Occasion> occasions) {
         for (int i = 0; i < occasions.size(); i++) {
             for (int j = 0; j < occasions.size(); j++) {
-                if (occasions.get(i).equals(occasions.get(j))) {
-                    return false;
+                if (i != j) {
+                    if (occasions.get(i).equals(occasions.get(j))) {
+                        return false;
+                    }
                 }
             }
         }

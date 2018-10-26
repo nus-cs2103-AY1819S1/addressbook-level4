@@ -157,6 +157,14 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
+Even though the storage unit contains three types of Entities - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
+
+.Activity Diagram when user adds any entity
+image::AddActivityDiagram.png[width="800"]
+As of v1.2.1, the storage, commands, and parsers are distinct classes for each type of entity.
+The diagram above shows that although these classes are separate, they serve very similar purposes.
+Polymorphism may be implemented on some commands in later versions.
+
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -1008,8 +1016,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1108,16 +1114,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1127,23 +1129,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
