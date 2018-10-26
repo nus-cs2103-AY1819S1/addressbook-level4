@@ -53,13 +53,13 @@ public class CommandTestUtil {
     public static final String VALID_NAME_ALAN = "Alan Lee";
     public static final String VALID_NAME_FRANK = "Frank Tay";
     public static final String VALID_NAME_DAISY = "Daisy Johnson";
-    public static final String VALID_PASSWORD_ALAN = "receptionist1";
-    public static final String VALID_PASSWORD_FRANK = "receptionist2";
-    public static final String VALID_PASSWORD_DAISY = "receptionist3";
-    public static final String VALID_HASH_PASSWORD_ALAN = "$2a$08$WSN.q6D8wIjyw9rYiNd9Te6r4voaqZvpugr49aFoXwO3"
-            + "bcek.TMRe";
-    public static final String VALID_HASH_PASSWORD_FRANK = "$2a$08$ZvSXn/2wSmCk8oCy1ujmIOYUNw6O7LzTFxtqJ7z7CS"
-            + "a5WH3RFoX3y";
+    public static final String VALID_PASSWORD_ALAN = "reception1";
+    public static final String VALID_PASSWORD_FRANK = "reception2";
+    public static final String VALID_PASSWORD_DAISY = "reception3";
+    public static final String VALID_HASH_PASSWORD_ALAN = "$2a$08$L0jw35.qOdt7p5TdMQ4bIuSPvvX8D3UOGY4wCaWSWNUQ"
+            + "jsnsJWcSO";
+    public static final String VALID_HASH_PASSWORD_FRANK = "$2a$08$y9vtjkky9/YxP3WRXtgb3.7ECtblD8c0YsNXX4CrM8p49X"
+            + "jwUkwh6";
     public static final String VALID_HASH_PASSWORD_DAISY = "123";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
