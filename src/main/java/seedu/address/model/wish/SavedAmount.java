@@ -43,6 +43,12 @@ public class SavedAmount {
     }
 
     /**
+     * Returns a {@code Amount} from the savedAmount.
+     */
+    public Amount getAmount() {
+        return new Amount("" + this.value);
+    }
+    /**
      * Returns true if a given string is a valid savedAmount number.
      */
     public static boolean isValidSavedAmount(String test) {

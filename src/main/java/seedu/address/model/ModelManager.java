@@ -19,6 +19,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.WishComparator;
 import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
 
@@ -81,6 +82,11 @@ public class ModelManager extends ComponentManager implements Model {
         versionedWishBook.resetData(newData);
         versionedWishTransaction.resetData();
         indicateWishBookChanged();
+    }
+
+    @Override
+    public String getUnusedFunds() {
+        return versionedWishBook.getUnusedFunds().toString();
     }
 
     @Override

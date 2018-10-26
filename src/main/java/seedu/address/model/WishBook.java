@@ -121,6 +121,9 @@ public class WishBook implements ReadOnlyWishBook {
      * {@code key} must exist in the wish book.
      */
     public void removeWish(Wish key) {
+        if (!key.isFulfilled()) {
+            updateUnusedFunds(key.getSavedAmount().getAmount());
+        }
         wishes.remove(key);
     }
 

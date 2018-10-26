@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.amount.Amount;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -19,7 +20,10 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyWishBook newData);
 
-    /** Returns the WishBook */
+    /** Returns the unusedFunds of the WishBook. */
+    String getUnusedFunds();
+
+    /** Returns the WishBook. */
     ReadOnlyWishBook getWishBook();
 
     /**

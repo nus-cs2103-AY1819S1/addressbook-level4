@@ -107,6 +107,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getUnusedFunds() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyWishBook getWishBook() {
             throw new AssertionError("This method should not be called.");
         }
