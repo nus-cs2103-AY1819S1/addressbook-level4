@@ -16,22 +16,20 @@ import seedu.address.model.medicine.Medicine;
 public class ListStockCommand extends Command {
 
     public static final String COMMAND_WORD = "listStock";
+    public static final String MESSAGE_EMPTY = "No medicine to list!";
     public static final String MESSAGE_SUCCESS = "Listed all stock.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
-        // Temporary to print out to console. Should replace this with GUI in the future!!!
-        ObservableList<Medicine> medicineObservableList = model.getFilteredMedicineList();
-        StringBuilder medicineListStringBuilder = new StringBuilder();
-        medicineObservableList.forEach((medicine) -> {
-            medicineListStringBuilder.append(medicine.toString());
-            medicineListStringBuilder.append("\n");
-        });
 
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
-        return new CommandResult(medicineListStringBuilder.toString());
+        if (model.getFilteredMedicineList().isEmpty()) {
+            return new CommandResult(MESSAGE_EMPTY);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

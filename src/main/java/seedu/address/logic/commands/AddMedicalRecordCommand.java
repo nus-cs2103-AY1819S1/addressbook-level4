@@ -12,6 +12,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -74,6 +75,7 @@ public class AddMedicalRecordCommand extends Command {
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
