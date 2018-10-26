@@ -1,21 +1,14 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -24,13 +17,10 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
-import guitests.guihandles.CalendarEventListPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
@@ -71,7 +61,6 @@ public abstract class SchedulerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -103,20 +92,8 @@ public abstract class SchedulerSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public CalendarEventListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getCalendarEventListPanel();
-    }
-
-    public MainMenuHandle getMainMenu() {
-        return mainWindowHandle.getMainMenu();
-    }
-
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
-
-    public StatusBarFooterHandle getStatusBarFooter() {
-        return mainWindowHandle.getStatusBarFooter();
+    public CalendarPanelHandle getPersonListPanel() {
+        return mainWindowHandle.getCalendarPanel();
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -135,7 +112,6 @@ public abstract class SchedulerSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -186,15 +162,11 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code CalendarEventListPanelHandle} and {@code StatusBarFooterHandle} to
+     * Calls {@code BrowserPanelHandle}, {@code CalendarPanelHandle} and {@code StatusBarFooterHandle} to
      * remember
      * their current state.
      */
     private void rememberStates() {
-        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
-        statusBarFooterHandle.rememberSaveLocation();
-        statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
 
@@ -205,7 +177,6 @@ public abstract class SchedulerSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -215,7 +186,7 @@ public abstract class SchedulerSystemTest {
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see CalendarEventListPanelHandle#isSelectedPersonCardChanged()
+     * @see CalendarPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
@@ -226,7 +197,6 @@ public abstract class SchedulerSystemTest {
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
@@ -235,10 +205,9 @@ public abstract class SchedulerSystemTest {
      * Asserts that the browser's url and the selected card in the calendarevent list panel remain unchanged.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see CalendarEventListPanelHandle#isSelectedPersonCardChanged()
+     * @see CalendarPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
@@ -257,37 +226,12 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Asserts that the entire status bar remains the same.
-     */
-    protected void assertStatusBarUnchanged() {
-        StatusBarFooterHandle handle = getStatusBarFooter();
-        assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isSyncStatusChanged());
-    }
-
-    /**
-     * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
-     */
-    protected void assertStatusBarUnchangedExceptSyncStatus() {
-        StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, handle.getSyncStatus());
-        assertFalse(handle.isSaveLocationChanged());
-    }
-
-    /**
      * Asserts that the starting state of the application is correct.
      */
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredCalendarEventList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-            getStatusBarFooter().getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**

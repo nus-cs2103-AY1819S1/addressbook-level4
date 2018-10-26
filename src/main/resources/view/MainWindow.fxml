@@ -21,7 +21,7 @@
                 <URL value="@Extensions.css"/>
             </stylesheets>
             <SplitPane dividerPositions="0.25" prefHeight="675.0" prefWidth="1200.0">
-                <VBox prefHeight="675.0" prefWidth="300.0" SplitPane.resizableWithParent="false">
+                <VBox prefHeight="675.0" prefWidth="300.0">
                     <Label fx:id="taskListHeader" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Tasks"
                            VBox.vgrow="ALWAYS">
                         <padding>
@@ -32,11 +32,16 @@
                 </VBox>
 
                 <VBox prefHeight="675.0" prefWidth="900.0">
-                    <VBox fx:id="dayMonthYearPanelPlaceholder" prefHeight="110" prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="calendarPanelPlaceholder" prefHeight="380" prefWidth="900" VBox.vgrow="ALWAYS"/>
-                    <StackPane fx:id="calendarCommandBoxBorder" minHeight="25.0" prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="commandBoxPlaceholder" prefHeight="25" prefWidth="900" VBox.vgrow="NEVER"/>
-                    <StackPane fx:id="resultDisplayPlaceholder" minHeight="135.0" VBox.vgrow="NEVER"/>
+                    <VBox fx:id="dayMonthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                          prefHeight="85" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="calendarPanelPlaceholder" minWidth="600.0" prefHeight="380" prefWidth="900"
+                               VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="calendarCommandBoxBorder" maxHeight="-Infinity" minHeight="-Infinity"
+                               prefHeight="25.0" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25"
+                               prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                               prefHeight="135.0" prefWidth="900.0" VBox.vgrow="NEVER"/>
                 </VBox>
             </SplitPane>
         </Scene>

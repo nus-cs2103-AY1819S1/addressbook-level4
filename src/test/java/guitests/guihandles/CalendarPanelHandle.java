@@ -11,14 +11,14 @@ import seedu.address.model.calendarevent.CalendarEvent;
 /**
  * Provides a handle for {@code CalendarPanel} containing the list of {@code CalendarEventCard}.
  */
-public class CalendarEventListPanelHandle extends NodeHandle<ListView<CalendarEvent>> {
-    public static final String CALENDAR_EVENT_LIST_VIEW_ID = "#personListView";
+public class CalendarPanelHandle extends NodeHandle<ListView<CalendarEvent>> {
+    public static final String CALENDAR_VIEW_ID = "#calendarView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<CalendarEvent> lastRememberedSelectedPersonCard;
 
-    public CalendarEventListPanelHandle(ListView<CalendarEvent> personListPanelNode) {
+    public CalendarPanelHandle(ListView<CalendarEvent> personListPanelNode) {
         super(personListPanelNode);
     }
 

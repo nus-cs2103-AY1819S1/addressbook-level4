@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -35,10 +35,6 @@ public class DayMonthYearPanel extends UiPart<Region> {
     private static final int FILLER_LABEL_FRACTION = 12;
     private static final int DAY_LABEL_FRACTION = 6;
     private static final int NUMBER_OF_DAYS_IN_WEEK = 7;
-    private static final double DAY_LABEL_MIN_HEIGHT = 50.0;
-
-    private SimpleObjectProperty<LocalDateTime> startOfWeek;
-    private String monthYearLabelText;
 
     @FXML
     private Label monthYearLabel;
@@ -67,14 +63,12 @@ public class DayMonthYearPanel extends UiPart<Region> {
         monthYearLabel.setText(startOfWeek.format(MONTH_YEAR_LABEL_FORMATTER));
     }
 
-    void setDayLabelTexts(LocalDateTime startOfWeek) {
+    private void setDayLabelTexts(LocalDateTime startOfWeek) {
         for (int i = 0; i < NUMBER_OF_DAYS_IN_WEEK; i++) {
             Label dayLabel = new Label(startOfWeek.plusDays(i).format(DAY_LABEL_FORMATTER));
-            dayLabel.prefWidthProperty().bind(daysPanel.widthProperty().divide(DAY_LABEL_FRACTION));
             formatDayLabel(dayLabel);
             daysPanel.getChildren().add(dayLabel);
         }
-
     }
 
     private LocalDateTime getStartOfWeek(ObservableList<CalendarEvent> calendarEventList) {
@@ -86,22 +80,24 @@ public class DayMonthYearPanel extends UiPart<Region> {
         }
     }
 
-    void addFillerLabel() {
+    private void setFillerLabel() {
         Label fillerLabel = new Label("");
         fillerLabel.prefWidthProperty().bind(daysPanel.widthProperty().divide(FILLER_LABEL_FRACTION));
         daysPanel.getChildren().add(fillerLabel);
     }
 
-    void renderDayMonthPanel(ObservableList<CalendarEvent> calendarEventList) {
+    private void renderDayMonthPanel(ObservableList<CalendarEvent> calendarEventList) {
         LocalDateTime startOfWeek = getStartOfWeek(calendarEventList);
-        addFillerLabel();
+        setFillerLabel();
         setMonthYearLabelText(startOfWeek);
         setDayLabelTexts(startOfWeek);
     }
 
-    void formatDayLabel(Label dayLabel) {
-        dayLabel.minHeight(DAY_LABEL_MIN_HEIGHT);
+    private void formatDayLabel(Label dayLabel) {
+        dayLabel.prefWidthProperty().bind(daysPanel.widthProperty().divide(DAY_LABEL_FRACTION));
+        dayLabel.prefHeightProperty().bind(daysPanel.heightProperty());
         dayLabel.setAlignment(Pos.BOTTOM_RIGHT);
-        // optional textAlignment="RIGHT" wrapText="true"
+        dayLabel.setTextAlignment(TextAlignment.RIGHT);
+        //  wrapText="true"
     }
 }

@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import org.junit.Test;
 
 import guitests.guihandles.CalendarEventCardHandle;
-import guitests.guihandles.CalendarEventListPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -34,16 +34,16 @@ public class CalendarPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private CalendarEventListPanelHandle calendarEventListPanelHandle;
+    private CalendarPanelHandle calendarPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_CALENDAR_EVENTS);
 
         for (int i = 0; i < TYPICAL_CALENDAR_EVENTS.size(); i++) {
-            calendarEventListPanelHandle.navigateToCard(TYPICAL_CALENDAR_EVENTS.get(i));
+            calendarPanelHandle.navigateToCard(TYPICAL_CALENDAR_EVENTS.get(i));
             CalendarEvent expectedCalendarEvent = TYPICAL_CALENDAR_EVENTS.get(i);
-            CalendarEventCardHandle actualCard = calendarEventListPanelHandle.getPersonCardHandle(i);
+            CalendarEventCardHandle actualCard = calendarPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedCalendarEvent, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -57,8 +57,8 @@ public class CalendarPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         CalendarEventCardHandle expectedPerson =
-            calendarEventListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        CalendarEventCardHandle selectedPerson = calendarEventListPanelHandle.getHandleToSelectedCard();
+            calendarPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        CalendarEventCardHandle selectedPerson = calendarPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -114,7 +114,7 @@ public class CalendarPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code calendarEventListPanelHandle} with a {@code CalendarPanel} backed by {@code
+     * Initializes {@code calendarPanelHandle} with a {@code CalendarPanel} backed by {@code
      * backingList}.
      * Also shows the {@code Stage} that displays only {@code CalendarPanel}.
      */
@@ -123,7 +123,7 @@ public class CalendarPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(calendarPanel);
 
 
-        calendarEventListPanelHandle = new CalendarEventListPanelHandle(getChildNode(calendarPanel.getRoot(),
-            CalendarEventListPanelHandle.CALENDAR_EVENT_LIST_VIEW_ID));
+        calendarPanelHandle = new CalendarPanelHandle(getChildNode(calendarPanel.getRoot(),
+            CalendarPanelHandle.CALENDAR_VIEW_ID));
     }
 }

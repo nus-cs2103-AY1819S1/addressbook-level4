@@ -12,7 +12,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
  */
 public class CalendarEventCard extends UiPart<Region> {
 
-    private static final String FXML = "CalendarEventListCard.fxml";
+    private static final String FXML = "CalendarEventCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -44,6 +44,7 @@ public class CalendarEventCard extends UiPart<Region> {
         title.setText(calendarEvent.getTitle().value);
         description.setText(calendarEvent.getDescription().value);
         venue.setText(calendarEvent.getVenue().value);
+        // TODO add start date and end date (remember to update fxml file)
         calendarEvent.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

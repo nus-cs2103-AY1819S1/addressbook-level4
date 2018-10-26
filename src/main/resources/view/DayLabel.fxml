@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
-
-
-<Label fx:id="dayLabel" alignment="BOTTOM_RIGHT" graphicTextGap="0.0" minHeight="50.0" text="Label" textAlignment="RIGHT" wrapText="true" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" />
