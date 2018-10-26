@@ -44,14 +44,14 @@ public class ComposeEmailIndexCommand extends Command {
     public static final String MESSAGE_EMAIL_ALREADY_EXISTS = "Email with subject: \"%s\" already exists.";
 
     private final Email toCompose;
-    private final Set<Index> indexList;
+    private final Set<Index> indexSet;
 
-    public ComposeEmailIndexCommand(Email email, Set<Index> indexList) {
+    public ComposeEmailIndexCommand(Email email, Set<Index> indexSet) {
         requireNonNull(email);
-        requireNonNull(indexList);
+        requireNonNull(indexSet);
 
         toCompose = email;
-        this.indexList = indexList;
+        this.indexSet = indexSet;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ComposeEmailIndexCommand extends Command {
      */
     private Email addIndexesToEmail(List<Person> lastShownList) throws CommandException {
         final Set<String> emailList = new HashSet<>();
-        for (Index index : indexList) {
+        for (Index index : indexSet) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -95,6 +95,6 @@ public class ComposeEmailIndexCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ComposeEmailIndexCommand // instanceof handles nulls
                 && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose)
-                && indexList.equals(((ComposeEmailIndexCommand) other).indexList));
+                && indexSet.equals(((ComposeEmailIndexCommand) other).indexSet));
     }
 }
