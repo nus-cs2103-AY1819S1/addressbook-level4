@@ -2,71 +2,7 @@
 <xmlWishTransactions>
     <wishMap>
         <entry>
-            <key>George Best</key>
-            <value>
-                <xmlAdaptedWishes>
-                    <xmlAdaptedWishes>
-                        <name>George Best</name>
-                        <price>94.82</price>
-                        <savedAmount>0.00</savedAmount>
-                        <date>24/09/2019</date>
-                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
-                        <remark></remark>
-                        <id>32ea1ae8-f1da-435c-a6a8-ca501a9650c1</id>
-                    </xmlAdaptedWishes>
-                </xmlAdaptedWishes>
-            </value>
-        </entry>
-        <entry>
-            <key>Ida Mueller</key>
-            <value>
-                <xmlAdaptedWishes>
-                    <xmlAdaptedWishes>
-                        <name>Ida Mueller</name>
-                        <price>84.82</price>
-                        <savedAmount>0.00</savedAmount>
-                        <date>02/09/2019</date>
-                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
-                        <remark></remark>
-                        <id>c8e1624c-9d91-4c3d-85e1-dee255126944</id>
-                    </xmlAdaptedWishes>
-                </xmlAdaptedWishes>
-            </value>
-        </entry>
-        <entry>
-            <key>Fiona Kunz</key>
-            <value>
-                <xmlAdaptedWishes>
-                    <xmlAdaptedWishes>
-                        <name>Fiona Kunz</name>
-                        <price>94.82</price>
-                        <savedAmount>0.00</savedAmount>
-                        <date>24/09/2010</date>
-                        <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
-                        <remark></remark>
-                        <id>dcb605d6-af12-444d-a2ee-44b5fccfe137</id>
-                    </xmlAdaptedWishes>
-                </xmlAdaptedWishes>
-            </value>
-        </entry>
-        <entry>
-            <key>Elle Meyer</key>
-            <value>
-                <xmlAdaptedWishes>
-                    <xmlAdaptedWishes>
-                        <name>Elle Meyer</name>
-                        <price>94.82</price>
-                        <savedAmount>0.00</savedAmount>
-                        <date>19/07/2020</date>
-                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
-                        <remark></remark>
-                        <id>6387ec7d-da35-4569-a549-a8332e650429</id>
-                    </xmlAdaptedWishes>
-                </xmlAdaptedWishes>
-            </value>
-        </entry>
-        <entry>
-            <key>Carl Kurz</key>
+            <key>a758eec0-6056-4737-9c05-d3bf60f6f67d</key>
             <value>
                 <xmlAdaptedWishes>
                     <xmlAdaptedWishes>
@@ -82,7 +18,7 @@
             </value>
         </entry>
         <entry>
-            <key>Daniel Meier</key>
+            <key>a2dde843-9cde-4417-946d-40bc465462cf</key>
             <value>
                 <xmlAdaptedWishes>
                     <xmlAdaptedWishes>
@@ -99,7 +35,39 @@
             </value>
         </entry>
         <entry>
-            <key>Benson Meier</key>
+            <key>c8e1624c-9d91-4c3d-85e1-dee255126944</key>
+            <value>
+                <xmlAdaptedWishes>
+                    <xmlAdaptedWishes>
+                        <name>Ida Mueller</name>
+                        <price>84.82</price>
+                        <savedAmount>0.00</savedAmount>
+                        <date>02/09/2019</date>
+                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+                        <remark></remark>
+                        <id>c8e1624c-9d91-4c3d-85e1-dee255126944</id>
+                    </xmlAdaptedWishes>
+                </xmlAdaptedWishes>
+            </value>
+        </entry>
+        <entry>
+            <key>6387ec7d-da35-4569-a549-a8332e650429</key>
+            <value>
+                <xmlAdaptedWishes>
+                    <xmlAdaptedWishes>
+                        <name>Elle Meyer</name>
+                        <price>94.82</price>
+                        <savedAmount>0.00</savedAmount>
+                        <date>19/07/2020</date>
+                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+                        <remark></remark>
+                        <id>6387ec7d-da35-4569-a549-a8332e650429</id>
+                    </xmlAdaptedWishes>
+                </xmlAdaptedWishes>
+            </value>
+        </entry>
+        <entry>
+            <key>b38ceb7a-2cd3-48c9-860c-3918155e4fd6</key>
             <value>
                 <xmlAdaptedWishes>
                     <xmlAdaptedWishes>
@@ -117,7 +85,39 @@
             </value>
         </entry>
         <entry>
-            <key>Hoon Meier</key>
+            <key>dcb605d6-af12-444d-a2ee-44b5fccfe137</key>
+            <value>
+                <xmlAdaptedWishes>
+                    <xmlAdaptedWishes>
+                        <name>Fiona Kunz</name>
+                        <price>94.82</price>
+                        <savedAmount>0.00</savedAmount>
+                        <date>24/09/2010</date>
+                        <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
+                        <remark></remark>
+                        <id>dcb605d6-af12-444d-a2ee-44b5fccfe137</id>
+                    </xmlAdaptedWishes>
+                </xmlAdaptedWishes>
+            </value>
+        </entry>
+        <entry>
+            <key>32ea1ae8-f1da-435c-a6a8-ca501a9650c1</key>
+            <value>
+                <xmlAdaptedWishes>
+                    <xmlAdaptedWishes>
+                        <name>George Best</name>
+                        <price>94.82</price>
+                        <savedAmount>0.00</savedAmount>
+                        <date>24/09/2019</date>
+                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+                        <remark></remark>
+                        <id>32ea1ae8-f1da-435c-a6a8-ca501a9650c1</id>
+                    </xmlAdaptedWishes>
+                </xmlAdaptedWishes>
+            </value>
+        </entry>
+        <entry>
+            <key>ace52214-c1d5-4dff-a05c-b0e6ac1c5fa9</key>
             <value>
                 <xmlAdaptedWishes>
                     <xmlAdaptedWishes>

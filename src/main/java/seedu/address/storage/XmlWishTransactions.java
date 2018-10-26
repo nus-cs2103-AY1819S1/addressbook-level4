@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -21,7 +21,6 @@ import seedu.address.model.wish.Wish;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
 
-    @XmlElementWrapper
     private Map<String, XmlAdaptedWishWrapper> wishMap;
 
     /**
@@ -37,8 +36,9 @@ public class XmlWishTransactions {
      */
     public XmlWishTransactions(WishTransaction wishTransaction) {
         this();
-        for (Map.Entry<String, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
-            this.wishMap.put(entries.getKey(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
+        for (Map.Entry<UUID, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
+            this.wishMap.put(IdMarshaller.toWishmapKey(entries.getKey()),
+                    new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
         }
     }
 
@@ -56,10 +56,10 @@ public class XmlWishTransactions {
      * @return hashmap of wishes.
      * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
-    private HashMap<String, LinkedList<Wish>> toWishMap() throws IllegalValueException {
-        HashMap<String, LinkedList<Wish>> convertedMap = new HashMap<>();
+    private HashMap<UUID, LinkedList<Wish>> toWishMap() throws IllegalValueException {
+        HashMap<UUID, LinkedList<Wish>> convertedMap = new HashMap<>();
         for (Map.Entry<String, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
-            convertedMap.put(entries.getKey(), toWishList(entries.getValue()));
+            convertedMap.put(IdMarshaller.toUuid(entries.getKey()), toWishList(entries.getValue()));
         }
         return convertedMap;
     }
@@ -105,4 +105,16 @@ public class XmlWishTransactions {
         return Objects.equals(wishMap.keySet(), otherMap.wishMap.keySet());
     }
 
+    /**
+     * This class contains methods that converts non xml-compatible key (UUID) to xml-compatible key (String).
+     */
+    private static class IdMarshaller {
+        static String toWishmapKey(UUID uuid) {
+            return uuid.toString();
+        }
+
+        static UUID toUuid(String key) {
+            return UUID.fromString(key);
+        }
+    }
 }

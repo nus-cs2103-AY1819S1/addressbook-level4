@@ -45,14 +45,27 @@
      -fx-padding: 15 0 15 0;
 }
 
-.saving_amount_label {
+.detail_progress_title_label {
+     -fx-font-family: "Segoe UI Semibold";
+     -fx-font-size: 22px;
+     -fx-text-fill: #ffffff;
+     -fx-padding: 10 15 15 15;
+}
+
+.detail_progress_label {
+     -fx-font-family: "Segoe UI Bold";
+     -fx-font-size: 50px;
+     -fx-text-fill: #2EE298;
+}
+
+.detail_saving_amount_label {
      -fx-font-family: "Segoe UI Bold";
      -fx-font-size: 50px;
      -fx-text-fill: #2EE298;
      -fx-padding: 15 0 15 0;
 }
 
-.price_label {
+.detail_price_label {
      -fx-font-family: "Segoe UI Semibold";
      -fx-font-size: 20px;
      -fx-text-fill: #ffffff;
@@ -160,10 +173,17 @@
     -fx-border-width: 0;
 }
 
-.cell_big_label {
+.cell_index_label {
      -fx-font-family: "Segoe UI Bold";
      -fx-font-size: 16px;
      -fx-text-fill: #ffffff;
+}
+
+.cell_name_label {
+     -fx-font-family: "Segoe UI Bold";
+     -fx-font-size: 16px;
+     -fx-text-fill: #ffffff;
+     -fx-padding: 0 0 0 18;
 }
 
 .cell_big_green_label {

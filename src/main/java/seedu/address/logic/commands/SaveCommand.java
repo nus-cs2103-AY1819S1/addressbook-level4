@@ -1,14 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.WishDataUpdatedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -23,9 +24,9 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Channels saving amount to wish."
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_SAVING + "SAVING_AMOUNT]\n"
+            + "[SAVING_AMOUNT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SAVING + "108.50";
+            + "108.50";
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
 
@@ -74,6 +75,8 @@ public class SaveCommand extends Command {
             } else {
                 differenceString = String.format(MESSAGE_SAVE_DIFFERENCE, wishSavedDifference.getAbsoluteAmount());
             }
+
+            EventsCenter.getInstance().post(new WishDataUpdatedEvent(editedWish));
         } catch (IllegalArgumentException iae) {
             throw new CommandException(iae.getMessage());
         }
