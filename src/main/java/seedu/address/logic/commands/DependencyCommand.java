@@ -19,10 +19,10 @@ import seedu.address.model.task.Task;
  */
 public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
-    public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n%1$s \nto :\n %2$s\n"
+    public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n[%1$s] to [%2$s]\n"
             + "[NOTE] To remove dependency call command on the same tasks. \n"
             + "i.e. " + COMMAND_WORD + " 1 2";
-    public static final String MESSAGE_REMOVE_SUCCESS = "You have removed dependency for :\n%1$s \nto :\n %2$s\n";
+    public static final String MESSAGE_REMOVE_SUCCESS = "You have removed dependency for :\n[%1$s] to [%2$s]\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Dependency of dependant on dependee.\n"
             + "Parameters: Index of task dependant, Index of task dependee\n"
@@ -72,7 +72,7 @@ public class DependencyCommand extends Command {
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(message, updatedTask, taskDependee));
+        return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName()));
     }
 
     /**
