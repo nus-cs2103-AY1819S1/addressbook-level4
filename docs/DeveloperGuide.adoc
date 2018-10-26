@@ -577,7 +577,8 @@ If the user's total spending exceeds their budget in the specified time period, 
 The current implementation for budget tracking is described as below.
 
 ===== Setting a budget
-Below would be how a budget is set by the user.
+
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget
 
 .Sequence diagram of a user setting a budget.
 image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
@@ -597,8 +598,8 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 where the
-budget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, budget will be reset. Else,
+current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
 nothing will be done.
 
 * Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
@@ -606,7 +607,7 @@ be set to `currentTime` + `recurrenceFrequency`.
 * If it has already been set, the timing will be updated on the next occurence time
 //TODO: ADD DIAGRAM TO SHOW THIS
 
-Below is an example of how a user sets the recurrence time.
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.
 
 .Sequence diagram of a user setting a recurrence frequency.
 image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
