@@ -571,15 +571,31 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 === Budget
 ==== Current Implementation
+The budget feature is one whereby after a user sets a budget, if the total spendings of a user exceeds his budget
+during a period determined by the user, a warning will show up to inform the user that adding an expense results in
+him exceeding his set budget.
+
 The current implementation for budget tracking is described as below.
 
-===== Keeping spendings within budget
-The budget mechanism is facilitated by `VersionedExpenseTracker` and `AddCommand`. Whenever a user adds an expense via
-`AddCommand` if they do not have a budget set, the application will prompt them to do so. After they do so,
-application proceeds normally. If adding another expense will result in them exceeding the budget, they can still do
-so, but a warning will be given to the user.
+===== Setting a budget
+Below would be how a budget is set by the user.
+
+.Sequence diagram of a user setting a budget.
+image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
+
+. User enters command `setBudget 2.00`.
+. The command is received by `ExpenseTrackerParser`, which then creates a `SetBudgetCommandParser` Object and calls
+`SetBudgetCommandParser#parse()` method.
+. `SetBudgetCommandParser#parse()` will then return a `budget` of `double` type. It will then create a
+`SetBudgetCommand` Object with `budget` as a parameter would be created and returned to `LogicManager`.
+. `LogicManager then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
+ maximum budget of the expense tracker.
+. `LogicManager will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
+. The budget is then updated.
+
 
 ===== Recurring budget
+
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 where the
 budget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
@@ -589,6 +605,34 @@ nothing will be done.
 * Recurrence time is set by `setReccurenceFrequency()`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`.
 * If it has already been set, the timing will be updated on the next occurence time
+//TODO: ADD DIAGRAM TO SHOW THIS
+
+Below is an example of how a user sets the recurrence time.
+
+.Sequence diagram of a user setting a recurrence frequency.
+image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
+
+. User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
+
+. `ExpenseTrackerParser` will then creates a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
+
+. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+an ArgumentMultimap Object.
+
+. `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
+method. If none of the keywords are present, `ParseException` will be thrown.
+
+. From the previous step, if no exception is thrown, `ParseUtil#parseHours()`, `ParseUtil#parseMinutes()` and
+`ParseUtil#parseSeconds()` will be called to convert the number of hours in seconds, `hours`, the number of minutes in
+seconds, `minutes`,
+and seconds, `seconds`, respectively.
+
+. A `SetRecurringBudgetCommand` Object with `hours+minutes+seconds` as a parameter is created and
+returned to
+`LogicManager`.
+
+. `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
+method to update the time where the next budget is reset.
 
 ===== Notification center (Proposed)
 There is an area for the app to display notifications and additional information to the users beside the usual
