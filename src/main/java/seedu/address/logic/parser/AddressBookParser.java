@@ -12,7 +12,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.MaxScheduleCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
@@ -163,8 +162,8 @@ public class AddressBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        //case RedoCommand.COMMAND_WORD:
+            //return new RedoCommand();
 
         case MaxScheduleCommand.COMMAND_WORD:
             return new MaxScheduleCommandParser().parse(arguments);
