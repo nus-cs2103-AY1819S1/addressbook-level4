@@ -440,6 +440,7 @@ can be easily reused to create other autocomplete features.
 Event types in the application.
 * **Alternative 2:** Handle everything in `CommandBox`.
 ** Pros: Easy to implement.
+
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
 // end::autocompletesuggest[]
