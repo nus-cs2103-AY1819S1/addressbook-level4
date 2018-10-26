@@ -14,6 +14,7 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
+import seedu.address.model.receptionist.Receptionist;
 
 //@@author jjlee050
 
@@ -34,6 +35,7 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
     public static final String MESSAGE_NO_DOCTOR_FOUND = "No doctor found.";
+    public static final String MESSAGE_NO_RECEPTIONIST_FOUND = "No receptionist found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
 
     private final Person toAuthenticate;
@@ -66,8 +68,13 @@ public class LoginCommand extends Command {
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
+        } else if (toAuthenticate instanceof Receptionist) {
+            Receptionist authenticatedReceptionist = (Receptionist) toAuthenticate;
+            if (!model.hasReceptionist(authenticatedReceptionist)) {
+                throw new CommandException(MESSAGE_NO_RECEPTIONIST_FOUND);
+            }
+            //TODO: Receptionist check
         }
-        //TODO: Receptionist
         return new CommandResult(MESSAGE_FAILURE);
     }
 
