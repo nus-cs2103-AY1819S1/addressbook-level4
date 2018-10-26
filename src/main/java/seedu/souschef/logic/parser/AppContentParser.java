@@ -51,8 +51,7 @@ public class AppContentParser {
             setFeatureStorage(storage, Context.RECIPE);
             Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage);
             return optionalCommand.isPresent() ? optionalCommand.get()
-                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(),
-                    modelSet.getMealPlannerModel(), userInput);
+                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         case INGREDIENT:
             setFeatureStorage(storage, Context.INGREDIENT);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
@@ -62,7 +61,7 @@ public class AppContentParser {
         case MEAL_PLANNER:
             setFeatureStorage(storage, Context.MEAL_PLANNER);
             return new MealPlannerParser()
-                    .parseCommand(modelSet.getMealPlannerModel(), userInput);
+                    .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         case FAVOURITES:
             setFeatureStorage(storage, Context.FAVOURITES);
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
@@ -85,10 +84,14 @@ public class AppContentParser {
         Command command = null;
         if (FavouritesParser.isCrossContextCommand(userInput)) {
             // Consider to use Favorite command instead
-            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                    modelSet.getMealPlannerModel(), userInput);
+            setFeatureStorage(storage, Context.FAVOURITES);
+            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
         } else if (IngredientParser.isCrossContextCommand(userInput)) {
             command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
+        } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
+            setFeatureStorage(storage, Context.MEAL_PLANNER);
+            command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
+                    modelSet.getRecipeModel(), userInput);
         }
         // Add other cross context command and set ur storage here.
 
