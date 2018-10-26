@@ -10,27 +10,27 @@ import java.util.stream.Stream;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 
-import seedu.address.logic.commands.EmailListCommand;
+import seedu.address.logic.commands.ComposeEmailListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author EatOrBeEaten
 /**
- * Parses input arguments and creates a new EmailListCommand object
+ * Parses input arguments and creates a new ComposeEmailListCommand object
  */
-public class EmailListCommandParser implements Parser<EmailListCommand> {
+public class EmailListCommandParser implements Parser<ComposeEmailListCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EmailListCommand
-     * and returns an EmailListCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ComposeEmailListCommand
+     * and returns an ComposeEmailListCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EmailListCommand parse(String args) throws ParseException {
+    public ComposeEmailListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailListCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeEmailListCommand.MESSAGE_USAGE));
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
@@ -43,7 +43,7 @@ public class EmailListCommandParser implements Parser<EmailListCommand> {
                 .withHTMLText(content)
                 .buildEmail();
 
-        return new EmailListCommand(email);
+        return new ComposeEmailListCommand(email);
     }
 
     /**

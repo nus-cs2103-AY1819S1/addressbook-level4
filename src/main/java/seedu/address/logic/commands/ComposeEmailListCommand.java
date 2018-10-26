@@ -21,9 +21,9 @@ import seedu.address.model.person.Person;
 /**
  * Composes an email to all currently listed people.
  */
-public class EmailListCommand extends Command {
+public class ComposeEmailListCommand extends Command {
 
-    public static final String COMMAND_WORD = "email_list";
+    public static final String COMMAND_WORD = "compose_email_list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to all currently listed people. "
             + "Parameters: "
@@ -40,7 +40,7 @@ public class EmailListCommand extends Command {
 
     private final Email toCompose;
 
-    public EmailListCommand(Email email) {
+    public ComposeEmailListCommand(Email email) {
         toCompose = email;
     }
 
@@ -75,7 +75,7 @@ public class EmailListCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmailListCommand // instanceof handles nulls
-                && toCompose.equals(((EmailListCommand) other).toCompose));
+                || (other instanceof ComposeEmailListCommand // instanceof handles nulls
+                && toCompose.equals(((ComposeEmailListCommand) other).toCompose));
     }
 }

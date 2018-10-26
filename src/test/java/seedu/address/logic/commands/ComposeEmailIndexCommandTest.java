@@ -18,7 +18,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.testutil.DefaultEmailBuilder;
 
 //@@author EatOrBeEaten
-public class EmailIndexCommandTest {
+public class ComposeEmailIndexCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -32,17 +32,17 @@ public class EmailIndexCommandTest {
     @Test
     public void constructor_nullEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new EmailIndexCommand(null, null);
+        new ComposeEmailIndexCommand(null, null);
     }
 
     @Test
     public void execute_emailAccepted_composeSuccessful() throws Exception {
         Email validEmail = new DefaultEmailBuilder().build();
 
-        CommandResult commandResult = new EmailIndexCommand(validEmail, INDEX_SET)
+        CommandResult commandResult = new ComposeEmailIndexCommand(validEmail, INDEX_SET)
                 .execute(model, commandHistory);
 
-        assertEquals(String.format(EmailIndexCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
+        assertEquals(String.format(ComposeEmailIndexCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -51,14 +51,14 @@ public class EmailIndexCommandTest {
     public void equals() {
         Email meeting = new DefaultEmailBuilder().withSubject("Meeting").build();
         Email conference = new DefaultEmailBuilder().withSubject("Conference").build();
-        EmailIndexCommand composeMeetingCommand = new EmailIndexCommand(meeting, INDEX_SET);
-        EmailIndexCommand composeConferenceCommand = new EmailIndexCommand(conference, INDEX_SET);
+        ComposeEmailIndexCommand composeMeetingCommand = new ComposeEmailIndexCommand(meeting, INDEX_SET);
+        ComposeEmailIndexCommand composeConferenceCommand = new ComposeEmailIndexCommand(conference, INDEX_SET);
 
         // same object -> returns true
         assertTrue(composeMeetingCommand.equals(composeMeetingCommand));
 
         // same values -> returns true
-        EmailIndexCommand composeMeetingCommandCopy = new EmailIndexCommand(meeting, INDEX_SET);
+        ComposeEmailIndexCommand composeMeetingCommandCopy = new ComposeEmailIndexCommand(meeting, INDEX_SET);
         assertTrue(composeMeetingCommand.equals(composeMeetingCommandCopy));
 
         // different types -> returns false

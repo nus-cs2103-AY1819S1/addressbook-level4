@@ -24,9 +24,9 @@ import seedu.address.model.person.Person;
 /**
  * Composes an email to specified indexes.
  */
-public class EmailIndexCommand extends Command {
+public class ComposeEmailIndexCommand extends Command {
 
-    public static final String COMMAND_WORD = "email_index";
+    public static final String COMMAND_WORD = "compose_email_index";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to specified index(es). "
             + "Parameters: "
@@ -46,7 +46,7 @@ public class EmailIndexCommand extends Command {
     private final Email toCompose;
     private final Set<Index> indexList;
 
-    public EmailIndexCommand(Email email, Set<Index> indexList) {
+    public ComposeEmailIndexCommand(Email email, Set<Index> indexList) {
         requireNonNull(email);
         requireNonNull(indexList);
 
@@ -93,8 +93,8 @@ public class EmailIndexCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmailIndexCommand // instanceof handles nulls
-                && toCompose.equals(((EmailIndexCommand) other).toCompose)
-                && indexList.equals(((EmailIndexCommand) other).indexList));
+                || (other instanceof ComposeEmailIndexCommand // instanceof handles nulls
+                && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose)
+                && indexList.equals(((ComposeEmailIndexCommand) other).indexList));
     }
 }

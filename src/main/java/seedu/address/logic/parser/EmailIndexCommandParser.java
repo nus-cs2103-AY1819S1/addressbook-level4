@@ -15,26 +15,26 @@ import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EmailIndexCommand;
+import seedu.address.logic.commands.ComposeEmailIndexCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EmailIndexCommand object
+ * Parses input arguments and creates a new ComposeEmailIndexCommand object
  */
-public class EmailIndexCommandParser implements Parser<EmailIndexCommand> {
+public class EmailIndexCommandParser implements Parser<ComposeEmailIndexCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EmailIndexCommand
-     * and returns an EmailIndexCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ComposeEmailIndexCommand
+     * and returns an ComposeEmailIndexCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EmailIndexCommand parse(String args) throws ParseException {
+    public ComposeEmailIndexCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_TO, PREFIX_SUBJECT, PREFIX_CONTENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM, PREFIX_TO, PREFIX_SUBJECT, PREFIX_CONTENT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailIndexCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeEmailIndexCommand.MESSAGE_USAGE));
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
@@ -48,7 +48,7 @@ public class EmailIndexCommandParser implements Parser<EmailIndexCommand> {
                 .withHTMLText(content)
                 .buildEmail();
 
-        return new EmailIndexCommand(email, indexList);
+        return new ComposeEmailIndexCommand(email, indexList);
     }
 
     /**
