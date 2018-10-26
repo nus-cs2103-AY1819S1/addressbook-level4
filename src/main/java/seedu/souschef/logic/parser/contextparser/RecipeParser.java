@@ -49,7 +49,6 @@ public class RecipeParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        final String args = arguments.trim();
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parseRecipe(recipeModel, arguments);
