@@ -57,7 +57,7 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
         return html(
             head(
                 title(title),
-                link().withRel("stylesheet").withHref("../docs/stylesheets/asciidoctor.css")
+                link().withRel("stylesheet").withHref("stylesheets/asciidoctor.css")
             ),
             body(
                 generateHeader(title),

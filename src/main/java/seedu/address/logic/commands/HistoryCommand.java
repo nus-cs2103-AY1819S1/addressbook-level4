@@ -28,7 +28,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_HISTORY_WINDOW_FAILURE = "Failed to generate Html report.";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
-    private static final FilePathToUrl REPORT_PAGE_PATH = new FilePathToUrl("data/report.html");
+    private static final FilePathToUrl REPORT_PAGE_PATH = new FilePathToUrl("src/main/resources/docs/report.html");
     private static final String COMMAND_ENTRY_REPORT_TITLE = "Command History Report";
 
     private static final String[] ARGUMENTS_BLANK = {""};
