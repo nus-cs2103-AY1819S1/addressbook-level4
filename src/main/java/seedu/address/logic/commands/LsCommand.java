@@ -43,6 +43,7 @@ public class LsCommand extends Command {
                     }
                 }
             }
+
             return new CommandResult(fileNames.toString());
         } catch (Exception ex) {
             return new CommandResult(MESSAGE_FAILURE);

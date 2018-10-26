@@ -24,7 +24,7 @@ public class Transformation {
     public String toString() {
         String result = operation;
         for (int i = 0; i < args.length; i++) {
-            result += "\n -" + args[i];
+            result += " " + args[i];
         }
         return result; //whoever is in charge do this
     }

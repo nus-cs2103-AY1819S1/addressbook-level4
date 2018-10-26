@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,6 +26,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoPreviewImage();
+        EventsCenter.getInstance().post(new TransformationEvent(true));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
