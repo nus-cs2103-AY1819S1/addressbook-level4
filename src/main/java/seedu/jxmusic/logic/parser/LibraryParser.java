@@ -8,13 +8,12 @@ import java.util.regex.Pattern;
 
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
-import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
-import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
