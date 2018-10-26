@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALAN;
@@ -33,8 +34,10 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 import seedu.address.model.receptionist.Receptionist;
+import seedu.address.model.receptionist.exceptions.DuplicateReceptionistException;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ReceptionistBuilder;
 
 public class AddressBookTest {
 
@@ -92,6 +95,18 @@ public class AddressBookTest {
     }
 
     @Test
+    public void resetData_withDuplicateReceptionists_throwsDuplicateReceptionistException() {
+        // Two receptionists with the same identity fields
+        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
+        List<Receptionist> newReceptionists = Arrays.asList(ALAN, editedAlan);
+        AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), new ArrayList<>(), newReceptionists);
+
+        thrown.expect(DuplicateReceptionistException.class);
+        addressBook.resetData(newData);
+    }
+
+    @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.hasPerson(null);
@@ -105,6 +120,12 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasReceptionist_nullReceptionist_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasReceptionist(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
     }
@@ -113,6 +134,11 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasDoctor(ADAM));
+    }
+
+    @Test
+    public void hasReceptionist_receptionistNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasReceptionist(ALAN));
     }
 
     @Test
@@ -129,6 +155,12 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasReceptionist_receptionistInAddressBook_returnsTrue() {
+        addressBook.addReceptionist(ALAN);
+        assertTrue(addressBook.hasReceptionist(ALAN));
+    }
+
+    @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
@@ -142,6 +174,13 @@ public class AddressBookTest {
         addressBook.addDoctor(ADAM);
         Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         assertTrue(addressBook.hasDoctor(editedAdam));
+    }
+
+    @Test
+    public void hasReceptionist_receptionistWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addReceptionist(ALAN);
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
+        assertTrue(addressBook.hasReceptionist(editedAlan));
     }
 
     //@@author jjlee050
