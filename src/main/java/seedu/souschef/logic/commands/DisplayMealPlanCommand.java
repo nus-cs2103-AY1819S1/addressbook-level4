@@ -30,10 +30,10 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
 
         if (mode.equals("show")) {
             ui.showMealPlanListPanel();
-            return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext().toLowerCase()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext()));
         } else {
             ui.hideBrowserSidePanel();
-            return new CommandResult(String.format(MESSAGE_SUCCESS_HIDE, history.getContext().toLowerCase()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_HIDE, history.getContext()));
 
         }
     }
