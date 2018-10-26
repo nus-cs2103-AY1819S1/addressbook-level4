@@ -4,7 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_FRANK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
 
 import static seedu.address.testutil.TypicalPersons.ALAN;
 import static seedu.address.testutil.TypicalPersons.FRANK;
@@ -28,8 +30,8 @@ public class ReceptionistTest {
         assertFalse(ALAN.isSameReceptionist(null));
 
         // different password and name -> returns false
-        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN)
-                .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_FRANK)
+                .withPassword(VALID_HASH_PASSWORD_FRANK, true).build();
         assertFalse(ALAN.isSameReceptionist(editedAlan));
 
         // same password, different attributes -> returns true
@@ -46,8 +48,8 @@ public class ReceptionistTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Receptionist adamCopy = new ReceptionistBuilder(ALAN).build();
-        assertTrue(ALAN.equals(adamCopy));
+        Receptionist alanCopy = new ReceptionistBuilder(ALAN).build();
+        assertTrue(ALAN.equals(alanCopy));
 
         // same object -> returns true
         assertTrue(ALAN.equals(ALAN));
@@ -62,11 +64,11 @@ public class ReceptionistTest {
         assertFalse(ALAN.equals(FRANK));
 
         // different name -> returns false
-        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
+        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_FRANK).build();
         assertFalse(ALAN.equals(editedAlan));
 
         // different password -> returns false
-        editedAlan = new ReceptionistBuilder(ALAN).withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+        editedAlan = new ReceptionistBuilder(ALAN).withPassword(VALID_HASH_PASSWORD_FRANK, true).build();
         assertFalse(ALAN.equals(editedAlan));
 
     }

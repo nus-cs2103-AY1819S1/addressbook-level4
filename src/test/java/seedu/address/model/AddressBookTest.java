@@ -207,7 +207,7 @@ public class AddressBookTest {
 
     @Test
     public void getReceptionist_validReceptionist_returnReceptionist() {
-        addressBook.getReceptionist(ALAN);
+        addressBook.addReceptionist(ALAN);
         assertNotNull(addressBook.getReceptionist(ALAN));
     }
 

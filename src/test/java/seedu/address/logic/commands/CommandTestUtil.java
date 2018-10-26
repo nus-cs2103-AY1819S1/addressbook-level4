@@ -56,10 +56,10 @@ public class CommandTestUtil {
     public static final String VALID_PASSWORD_ALAN = "receptionist1";
     public static final String VALID_PASSWORD_FRANK = "receptionist2";
     public static final String VALID_PASSWORD_DAISY = "receptionist3";
-    public static final String VALID_HASH_PASSWORD_ALAN = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
-            + ".ri/9bF3ti";
-    public static final String VALID_HASH_PASSWORD_FRANK = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
-            + "hQrCLGvUW";
+    public static final String VALID_HASH_PASSWORD_ALAN = "$2a$08$WSN.q6D8wIjyw9rYiNd9Te6r4voaqZvpugr49aFoXwO3"
+            + "bcek.TMRe";
+    public static final String VALID_HASH_PASSWORD_FRANK = "$2a$08$ZvSXn/2wSmCk8oCy1ujmIOYUNw6O7LzTFxtqJ7z7CS"
+            + "a5WH3RFoX3y";
     public static final String VALID_HASH_PASSWORD_DAISY = "123";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;

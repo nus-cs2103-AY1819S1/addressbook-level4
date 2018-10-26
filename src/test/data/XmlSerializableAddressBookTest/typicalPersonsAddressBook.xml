@@ -57,4 +57,12 @@
         <name>Ben Hill</name>
         <password>$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUzhQrCLGvUW</password>
     </doctors>
+    <receptionists>
+        <name>Alan Lee</name>
+        <password>$2a$08$WSN.q6D8wIjyw9rYiNd9Te6r4voaqZvpugr49aFoXwO3bcek.TMRe</password>
+    </receptionists>
+    <receptionists>
+        <name>Frank Tay</name>
+        <password>$2a$08$ZvSXn/2wSmCk8oCy1ujmIOYUNw6O7LzTFxtqJ7z7CSa5WH3RFoX3y</password>
+    </receptionists>
 </addressbook>
