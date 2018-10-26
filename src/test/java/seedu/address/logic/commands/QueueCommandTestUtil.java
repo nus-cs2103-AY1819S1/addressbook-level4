@@ -3,11 +3,16 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import seedu.address.model.AddressBook;
+import seedu.address.model.ModelManager;
 import static seedu.address.model.document.Document.DIRECTORY_PATH;
 import static seedu.address.model.document.Document.FILE_NAME_DELIMITER;
+import seedu.address.model.medicine.Medicine;
 import static seedu.address.testutil.TypicalPersons.getSamplePersonsArrayList;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -85,6 +90,40 @@ public class QueueCommandTestUtil {
 
     /**
      * Executes the given {@code queueCommand}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualPatientQueue} matches {@code expectedPatientQueue} <br>
+     * - the {@code actualCurrentPatient} matches {@code expectedCurrentPatient} <br>
+     * - the {@code actualServedPatientList} matches {@code actualServedPatientList} <br>
+     * - the {@code actualCommandHistory} remains unchanged <br>
+     * - the {@code actualModel} matches {@code expectedModel}.
+     */
+    public static void assertCommandSuccess(QueueCommand queueCommand, CommandHistory actualCommandHistory,
+                                            PatientQueue actualPatientQueue, CurrentPatient actualCurrentPatient,
+                                            ServedPatientList actualServedPatientList, Model actualModel,
+                                            PatientQueue expectedPatientQueue, CurrentPatient expectedCurrentPatient,
+                                            ServedPatientList expectedServedPatientList, Model expectedModel,
+                                            String expectedMessage) {
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            CommandResult result = queueCommand.execute(actualModel, actualPatientQueue, actualCurrentPatient,
+                    actualServedPatientList, actualCommandHistory);
+
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedPatientQueue, actualPatientQueue);
+            assertEquals(expectedCurrentPatient, actualCurrentPatient);
+            assertEquals(expectedServedPatientList, actualServedPatientList);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            System.out.println(ce.getMessage());
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code queueCommand}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the {@code patientQueue} remains unchanged <br>
@@ -99,6 +138,9 @@ public class QueueCommandTestUtil {
         CurrentPatient expectedCurrentPatient = new CurrentPatient(currentPatient.getServedPatient());
         ServedPatientList expectedServedPatientList = new ServedPatientListManager(
                 servedPatientList.getPatientsAsList());
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        List<Patient> expectedFilteredPatientList = new ArrayList<>(model.getFilteredPersonList());
+        List<Medicine> expectedFilteredMedicineList = new ArrayList<>(model.getFilteredMedicineList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -110,6 +152,9 @@ public class QueueCommandTestUtil {
             assertEquals(expectedPatientQueue, patientQueue);
             assertEquals(expectedCurrentPatient, currentPatient);
             assertEquals(expectedServedPatientList, servedPatientList);
+            assertEquals(expectedAddressBook, model.getAddressBook());
+            assertEquals(expectedFilteredPatientList, model.getFilteredPersonList());
+            assertEquals(expectedFilteredMedicineList, model.getFilteredMedicineList());
             assertEquals(actualCommandHistory, expectedCommandHistory);
 
         }
