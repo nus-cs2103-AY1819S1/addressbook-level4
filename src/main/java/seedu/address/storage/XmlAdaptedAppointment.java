@@ -2,12 +2,13 @@ package seedu.address.storage;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
 
-import java.util.Objects;
 
 /**
  * JAXB-friendly version of the Appointment.
@@ -65,7 +66,7 @@ public class XmlAdaptedAppointment {
         int min = source.getAppointmentTime().getMinute();
 
         time = String.valueOf(hour) + " " + String.valueOf(min);
-        ic = "TODO: Get ic string of patient";  //TODO
+        ic = "TODO: Get ic string of patient";
         status = source.getAppointmentStatus();
         type = source.getAppointmentType();
         doctor = source.getAssignedDoctor().toString();
