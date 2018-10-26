@@ -324,6 +324,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors)
-                && filteredAppointments.equals(other.filteredAppointments);
+                && filteredAppointments.equals(other.filteredAppointments)
+                && filteredReceptionists.equals(other.filteredReceptionists);
     }
 }
