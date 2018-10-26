@@ -125,7 +125,7 @@ public class ModelManagerTest {
 
     @Test
     public void getReceptionist_receptionistInClinicIO_returnsReceptionist() {
-        modelManager.getReceptionist(ALAN);
+        modelManager.addReceptionist(ALAN);
         assertEquals(ALAN, modelManager.getReceptionist(ALAN));
     }
 
