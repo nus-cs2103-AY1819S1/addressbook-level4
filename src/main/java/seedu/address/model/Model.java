@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.Patient;
 
 /**
@@ -129,11 +130,11 @@ public interface Model {
      * Dispenses the medicine defined by {@code medicineName} with the allocated
      * amount {@code quantityToDispense}.
      */
-    Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense);
+    void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense);
 
     /**
      * Refill the medicine defined by {@code medicineName} with the allocated
      * amount {@code quantityToRefill}.
      */
-    void refillMedicine(Medicine medicine, int quantityToRefill);
+    void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill);
 }

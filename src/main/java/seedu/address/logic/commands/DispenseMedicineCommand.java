@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT_TO_DISPENSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 import java.util.List;
 
@@ -17,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.exceptions.InsufficientStockException;
 import seedu.address.model.person.CurrentPatient;
 
@@ -30,8 +30,8 @@ public class DispenseMedicineCommand extends QueueCommand {
     public static final String COMMAND_ALIAS = "dm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dispenses the medicine to the current patient. "
-            + "Parameters: "
-            + PREFIX_MEDICINE_NAME + "MEDICINE NAME "
+            + "Existing medicine will be overriden with input values.\n"
+            + "Parameters: MEDICINE INDEX (must be a positive integer) "
             + PREFIX_AMOUNT_TO_DISPENSE + "AMOUNT ";
 
     public static final String MESSAGE_SUCCESS = "%d x %s dispensed!";
@@ -41,9 +41,9 @@ public class DispenseMedicineCommand extends QueueCommand {
             + "use the serve command first.";
 
     private final Index index;
-    private final int quantityToDispense;
+    private final QuantityToDispense quantityToDispense;
 
-    public DispenseMedicineCommand(Index targetIndex, int quantityToDispense) {
+    public DispenseMedicineCommand(Index targetIndex, QuantityToDispense quantityToDispense) {
         requireAllNonNull(targetIndex, quantityToDispense);
         this.index = targetIndex;
         this.quantityToDispense = quantityToDispense;
@@ -80,7 +80,8 @@ public class DispenseMedicineCommand extends QueueCommand {
             model.commitAddressBook();
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
             EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
-            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense, medicine.getMedicineName()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(),
+                    medicine.getMedicineName()));
         } catch (InsufficientStockException ise) {
             throw new CommandException(String.format(MESSAGE_MEDICINE_STOCK_INSUFFICIENT, medicine.getMedicineName()));
         }

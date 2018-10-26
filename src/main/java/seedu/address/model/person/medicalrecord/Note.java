@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.QuantityToDispense;
 
 /**
  * Represents a note object belonging to a patient.
@@ -13,9 +15,9 @@ public class Note {
 
     // Items belonging to a note object
     private Message message;
-    private Map<SerialNumber, Quantity> dispensedMedicines;
+    private Map<MedicineName, Quantity> dispensedMedicines;
 
-    public Note(Message message, Map<SerialNumber, Quantity> dispensedMedicines) {
+    public Note(Message message, Map<MedicineName, Quantity> dispensedMedicines) {
         this.message = message;
         this.dispensedMedicines = dispensedMedicines;
     }
@@ -23,6 +25,15 @@ public class Note {
     public Note(String message) {
         this.message = new Message(message);
         this.dispensedMedicines = new HashMap<>();
+    }
+
+    public Note(String message, Map<Medicine, QuantityToDispense> dispensedMedicines) {
+        this.message = new Message(message);
+        this.dispensedMedicines = new HashMap<>();
+        for (Map.Entry<Medicine, QuantityToDispense> entry: dispensedMedicines.entrySet()) {
+            this.dispensedMedicines.put(entry.getKey().getMedicineName(),
+                    new Quantity(entry.getValue().value.toString()));
+        }
     }
 
     public Message getMessage() {
@@ -33,22 +44,22 @@ public class Note {
         this.message = message;
     }
 
-    public Map<SerialNumber, Quantity> getDispensedMedicines() {
+    public Map<MedicineName, Quantity> getDispensedMedicines() {
         return dispensedMedicines;
     }
 
-    public void setDispensedMedicines(Map<SerialNumber, Quantity> dispensedMedicines) {
+    public void setDispensedMedicines(Map<MedicineName, Quantity> dispensedMedicines) {
         this.dispensedMedicines = dispensedMedicines;
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[Message: ")
-                .append(getMessage())
-                .append(", Dispensed Medicines: ")
+        builder.append(getMessage())
+                .append(" [Presciption: ")
                 .append(convertDispensedMedicinesToPrettyString())
                 .append("]");
+        System.out.println(builder.toString());
         return builder.toString();
     }
 
@@ -64,13 +75,29 @@ public class Note {
      */
     private String convertDispensedMedicinesToPrettyString() {
         String result = "";
-        for (Map.Entry<SerialNumber, Quantity> entry: dispensedMedicines.entrySet()) {
-            result += "<";
-            result += entry.getKey();
+        for (Map.Entry<MedicineName, Quantity> entry: dispensedMedicines.entrySet()) {
+            result += "";
+            result += entry.getKey().fullName;
+            result += " x";
+            result += entry.getValue().value;
             result += ", ";
-            result += entry.getValue();
-            result += ">, ";
         }
         return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Note)) {
+            return false;
+        }
+
+        Note otherNote = (Note) other;
+        return otherNote != null
+                && otherNote.getMessage().equals(message)
+                && otherNote.getDispensedMedicines().equals(dispensedMedicines);
     }
 }

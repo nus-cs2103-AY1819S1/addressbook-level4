@@ -7,10 +7,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
+import seedu.address.model.medicine.exceptions.InsufficientStockException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
 /**
@@ -110,14 +113,26 @@ public class UniqueMedicineList implements Iterable<Medicine> {
      * @param medicine The medicine to dispense.
      * @param quantityToDispense The amount to dispense to patient, also to deduct from stock.
      */
-    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+    public Medicine dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
         requireAllNonNull(medicine, quantityToDispense);
-        Optional<Medicine> toDispense = internalList
-                .stream()
-                .filter(med -> med.equals(medicine))
+        OptionalInt toDispense = IntStream.range(0, internalList.size())
+                .filter(i -> internalList.get(i).equals(medicine))
                 .findFirst();
-        toDispense.ifPresent(med -> med.dispense(quantityToDispense));
-        return toDispense.get();
+        toDispense.ifPresent(i -> {
+            Medicine updatedMedicine = internalList.remove(i);
+            try {
+                // Try to dispense medicine
+                updatedMedicine.dispense(quantityToDispense);
+            } catch (InsufficientStockException ise) {
+                // Catch exception if insufficient stock, but we want to throw it back up to the calling method.
+                throw ise;
+            } finally {
+                // This executes whether there is an exception thrown or not.
+                // This line prevents the Medicine from disappearing from the list if there is insufficient stock.
+                internalList.add(i, updatedMedicine);
+            }
+        });
+        return internalList.get(toDispense.getAsInt());
     }
 
     /**
@@ -125,13 +140,13 @@ public class UniqueMedicineList implements Iterable<Medicine> {
      * @param medicine The medicine to refill.
      * @param quantityToRefill The amount to refill.
      */
-    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+    public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
         requireAllNonNull(medicine, quantityToRefill);
         Optional<Medicine> toDispense = internalList
                 .stream()
                 .filter(med -> med.equals(medicine))
                 .findFirst();
-        toDispense.ifPresent(med -> med.refill(quantityToRefill));
+        toDispense.ifPresent(med -> med.refill(quantityToRefill.getValue()));
     }
 
     /**

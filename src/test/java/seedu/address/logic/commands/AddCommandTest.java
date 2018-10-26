@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.Patient;
 import seedu.address.testutil.PersonBuilder;
 
@@ -191,12 +192,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+        public void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void refillMedicine(Medicine medicine, int quantityToRefill) {
+        public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
             throw new AssertionError("This method should nto be called.");
         }
     }

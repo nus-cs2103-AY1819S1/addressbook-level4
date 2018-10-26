@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIESEASE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISEASE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -32,12 +32,12 @@ public class AddMedicalRecordCommand extends Command {
             + "medical record of specified patient to the address book. \n"
             + "Parameters: "
             + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
-            + "[" + PREFIX_DIESEASE + "PAST DISEASE]... "
+            + "[" + PREFIX_DISEASE + "PAST DISEASE]... "
             + "[" + PREFIX_DRUGALLERGY + "DRUG ALLERGY]... "
             + "[" + PREFIX_NOTE + "NOTE]... "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BLOODTYPE + "A+ "
-            + PREFIX_DIESEASE + "Breast Cancer "
+            + PREFIX_DISEASE + "Breast Cancer "
             + PREFIX_DRUGALLERGY + "Everything "
             + PREFIX_NOTE + "This guy is allergic to every damn thing! ";
 
@@ -87,6 +87,7 @@ public class AddMedicalRecordCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddMedicalRecordCommand // instanceof handles nulls
-                && toAdd.equals(((AddMedicalRecordCommand) other).toAdd));
+                && toAdd.equals(((AddMedicalRecordCommand) other).toAdd)
+                && index.equals(((AddMedicalRecordCommand) other).index));
     }
 }

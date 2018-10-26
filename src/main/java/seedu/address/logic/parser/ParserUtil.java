@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.MinimumStockQuantity;
 import seedu.address.model.medicine.PricePerUnit;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.medicine.Stock;
 import seedu.address.model.person.Address;
@@ -27,7 +28,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_AMOUNT_TO_DISPENSE = "Can only dispense positive integer of medicine.";
+    public static final String MESSAGE_INVALID_QUANTITY_TO_DISPENSE = "Can only dispense positive integer of medicine.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -224,13 +225,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amountToDispense} is invalid ie not a positive integer.
      */
-    public static Integer parseAmountToDispense(String amountToDispense) throws ParseException {
+    public static QuantityToDispense parseQuantityToDispense(String amountToDispense) throws ParseException {
         requireNonNull(amountToDispense);
         Integer amount = Integer.parseInt(amountToDispense);
         if (amount < 0) {
-            throw new ParseException(MESSAGE_INVALID_AMOUNT_TO_DISPENSE);
+            throw new ParseException(MESSAGE_INVALID_QUANTITY_TO_DISPENSE);
         }
 
-        return amount;
+        return new QuantityToDispense(amount);
     }
 }

@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.medicalrecord.MedicalRecord;
+import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -107,12 +108,15 @@ public class Patient {
     }
 
     /**
-     * Add a new medical record to the patient. Patient's current medical record must be null.
-     * @param medicalRecord
+     * Add a new Note to patient's MedicalRecord.
+     * A new default empty MedicalRecord will be created if there isn't already one.
+     * @param note note to be added.
      */
-    public void addMedicalRecord(MedicalRecord medicalRecord) {
-        assert(this.medicalRecord == null);
-        this.medicalRecord = medicalRecord;
+    public void addNoteMedicalRecord(Note note) {
+        if (this.medicalRecord == null) {
+            this.medicalRecord = new MedicalRecord();
+        }
+        this.medicalRecord.addNote(note);
     }
 
     /**
