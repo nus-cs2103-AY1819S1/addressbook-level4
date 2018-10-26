@@ -181,8 +181,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public Doctor getDoctor(Doctor doctor) {
         requireNonNull(doctor);
-
         return doctors.getDoctor(doctor);
+    }
+
+    /**
+     * Retrieve a receptionist from ClinicIO
+     * This receptionist must exist inside ClinicIO.
+     */
+    public Receptionist getReceptionist(Receptionist receptionist) {
+        requireNonNull(receptionist);
+        return receptionists.getReceptionist(receptionist);
     }
 
     /**

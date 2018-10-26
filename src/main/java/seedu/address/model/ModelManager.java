@@ -257,6 +257,10 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getDoctor(doctor);
     }
 
+    @Override
+    public Receptionist getReceptionist(Receptionist receptionist) {
+        return versionedAddressBook.getReceptionist(receptionist);
+    }
     //=========== Undo/Redo =================================================================================
     //=========== Filtered Appointment List Accessors ========================================================
 

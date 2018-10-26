@@ -73,7 +73,16 @@ public class LoginCommand extends Command {
             if (!model.hasReceptionist(authenticatedReceptionist)) {
                 throw new CommandException(MESSAGE_NO_RECEPTIONIST_FOUND);
             }
-            //TODO: Receptionist check
+
+            Receptionist retrievedReceptionist = model.getReceptionist(authenticatedReceptionist);
+
+            boolean isCorrectPassword = Password.checkPassword(
+                    authenticatedReceptionist.getPassword().toString(),
+                    retrievedReceptionist.getPassword().toString());
+
+            if (isCorrectPassword) {
+                return new CommandResult(MESSAGE_SUCCESS);
+            }
         }
         return new CommandResult(MESSAGE_FAILURE);
     }
