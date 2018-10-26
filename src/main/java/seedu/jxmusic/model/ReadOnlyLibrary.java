@@ -1,6 +1,7 @@
 package seedu.jxmusic.model;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 /**
  * Unmodifiable view of an jxmusic book
@@ -13,4 +14,9 @@ public interface ReadOnlyLibrary {
      */
     ObservableList<Playlist> getPlaylistList();
 
+    /**
+     * Get the tracks in library
+     * @return the set of tracks
+     */
+    ObservableSet<Track> getTracks();
 }

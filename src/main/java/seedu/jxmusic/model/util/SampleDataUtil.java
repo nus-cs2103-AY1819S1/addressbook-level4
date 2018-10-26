@@ -14,6 +14,15 @@ import seedu.jxmusic.model.Track;
  * Contains utility methods for populating {@code Library} with sample data.
  */
 public class SampleDataUtil {
+    public static Track[] getSampleTracks() {
+        return new Track[] {
+            new Track(new Name("aliez")),
+            new Track(new Name("acyort")),
+            new Track(new Name("scarborough fair")),
+            new Track(new Name("Ihojin no Yaiba"))
+        };
+    }
+
     public static Playlist[] getSamplePlaylists() {
         return new Playlist[] {
             new Playlist(new Name("Aldnoah Zero"), getTrackList("aliez", "acyort")),
@@ -25,6 +34,9 @@ public class SampleDataUtil {
         Library sampleAb = new Library();
         for (Playlist samplePlaylist : getSamplePlaylists()) {
             sampleAb.addPlaylist(samplePlaylist);
+        }
+        for (Track sampleTrack : getSampleTracks()) {
+            sampleAb.addTrack(sampleTrack);
         }
         return sampleAb;
     }
