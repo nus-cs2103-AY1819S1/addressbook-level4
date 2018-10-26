@@ -14,12 +14,14 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishBook;
 import seedu.address.model.WishTransaction;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 
@@ -121,6 +123,11 @@ public class AddCommandTest {
 
         @Override
         public void updateWish(Wish target, Wish editedWish) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateUnusedFunds(Amount change) {
             throw new AssertionError("This method should not be called.");
         }
 

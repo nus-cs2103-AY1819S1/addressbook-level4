@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.WishDataUpdatedEvent;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.model.wish.Wish;
 
@@ -26,6 +26,11 @@ public class WishDetailSavingAmount extends UiPart<Region> {
 
     @FXML
     private Label savedAmount;
+
+    @FXML
+    private Label progress;
+
+    private String id;
 
     public WishDetailSavingAmount() {
         super(FXML);
@@ -48,6 +53,16 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     private void loadWishDetails(Wish wish) {
         savedAmount.setText("$" + wish.getSavedAmount().toString());
         price.setText("/ $" + wish.getPrice().toString());
+        progress.setText(getProgressInString(wish));
+        this.id = wish.getId().toString();
+    }
+
+    /**
+     * Returns the progress String (in percentage) for {@code wish}.
+     */
+    private String getProgressInString(Wish wish) {
+        Double progress = wish.getProgress() * 100;
+        return String.format("%d", progress.intValue()) + "%";
     }
 
     @Subscribe
@@ -57,7 +72,10 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        logger.info("test" + event.message);
+    private void handleWishDataUpdatedEvent(WishDataUpdatedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (this.id.equals(event.getNewData().getId().toString())) {
+            loadWishDetails(event.getNewData());
+        }
     }
 }

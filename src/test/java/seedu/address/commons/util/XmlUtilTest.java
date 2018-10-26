@@ -2,12 +2,14 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -166,7 +168,7 @@ public class XmlUtilTest {
                 .getDataFromFile(VALID_WISHTRANSACTION_FILE, XmlWishTransactions.class)
                 .toModelType();
         Wish containedWish = getWish();
-        String key = containedWish.getName().fullName;
+        UUID key = containedWish.getId();
         assertTrue(retrievedWishTransaction.getWishMap().containsKey(key));
         assertTrue(retrievedWishTransaction.getWishMap().get(key).contains(containedWish));
     }
@@ -199,6 +201,12 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_WISHTRANSACTION_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class);
         assertEquals(dataToWrite, dataFromFile);
+
+        WishTransaction typicalWishTransaction = getTypicalWishTransaction();
+        XmlUtil.saveDataToFile(TEMP_WISHTRANSACTION_FILE, new XmlWishTransactions(typicalWishTransaction));
+        WishTransaction retrieved = XmlUtil.getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class)
+                .toModelType();
+        assertEquals(typicalWishTransaction, retrieved);
     }
 
     /**

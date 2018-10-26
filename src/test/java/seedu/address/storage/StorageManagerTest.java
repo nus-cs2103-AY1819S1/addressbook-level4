@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.events.model.WishBookChangedEvent;
@@ -29,6 +30,8 @@ public class StorageManagerTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private StorageManager storageManager;
 
@@ -98,10 +101,10 @@ public class StorageManagerTest {
          * {@link XmlWishTransactionStorage} class.
          * More extensive testing of WishTransaction saving/reading is done in {@link XmlWishTransactionStorageTest}.
          */
-        WishTransaction original = getTypicalWishTransaction();
-        storageManager.saveWishTransaction(original);
+        WishTransaction typicalWishTransaction = getTypicalWishTransaction();
+        storageManager.saveWishTransaction(typicalWishTransaction);
         WishTransaction retrieved = storageManager.readWishTransaction().get();
-        assertEquals(original, retrieved);
+        assertEquals(typicalWishTransaction, retrieved);
     }
 
     @Test

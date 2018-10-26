@@ -30,6 +30,7 @@ public class WishListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(wishList);
         registerAsAnEventHandler(this);
+        scrollTo(0);
         // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
     }
 
