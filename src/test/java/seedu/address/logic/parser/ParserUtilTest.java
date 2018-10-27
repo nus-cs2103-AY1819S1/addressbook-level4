@@ -34,7 +34,6 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_FILE = " ";
-    private static final String INVALID_PATH = " ";
     private static final String INVALID_CONTENT = " ";
     private static final String INVALID_SUBJECT = " ";
 
