@@ -31,7 +31,7 @@ public class EventCard extends UiPart<Region> {
      */
 
     public final Event event;
-    private final String PERSON_DELETED_MESSAGE = "This person no longer exists in the addressbook.";
+    private static final String PERSON_DELETED_MESSAGE = "This person no longer exists in the addressbook.";
     private final List<Person> personList;
 
     @FXML
