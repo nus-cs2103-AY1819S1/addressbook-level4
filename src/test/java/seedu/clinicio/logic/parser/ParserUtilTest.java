@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
@@ -35,6 +37,15 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String INVALID_DATE = "23 12 20 2";
+    private static final String INVALID_DATE_2 = "22 222 2222";
+    private static final String INVALID_DATE_3 = "222 22 2222";
+    private static final String INVALID_DATE_4 = "$2 fj eiow";
+
+    private static final String INVALID_TIME = "222 22";
+    private static final String INVALID_TIME_2 = "22 222";
+    private static final String INVALID_TIME_3 = "2j @@";
+
     private static final String INVALID_ROLE = "abc";
     private static final String INVALID_PASSWORD = "";
 
@@ -44,11 +55,14 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-    
+
     private static final String VALID_ROLE_DOCTOR = "doctor";
     private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";
-
+  
+  private static final String VALID_DATE = "02 02 2222";
+    private static final String VALID_TIME = "22 22";
+  
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
@@ -308,5 +322,107 @@ public class ParserUtilTest {
     public void parsePassword_validValueWithoutWhitespace_returnsPassword() throws Exception {
         Password expectedPassword = new Password(VALID_PASSWORD, false);
         assertEquals(expectedPassword, ParserUtil.parsePassword(VALID_PASSWORD));
+    }
+
+    @Test
+    public void parseDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
+    }
+
+    @Test
+    public void parseDate_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        Date expectedDate = Date.newDate("02 02 2222");
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
+        Date expectedDate = Date.newDate("02 02 2222");
+        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_invalidFieldsWithoutWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid month
+        ParserUtil.parseDate(INVALID_DATE_2);
+
+        //invalid day
+        ParserUtil.parseDate(INVALID_DATE_3);
+
+        //invalid alphanumerics
+        ParserUtil.parseDate(INVALID_DATE_4);
+    }
+
+    @Test
+    public void parseDate_invalidFieldsWithWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid month
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_2 + WHITESPACE);
+
+        //invalid day
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_3 + WHITESPACE);
+
+        //invalid alphanumerics
+        ParserUtil.parseDate(WHITESPACE + INVALID_DATE_4 + WHITESPACE);
+    }
+
+    @Test
+    public void parseTime_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((String) null));
+    }
+
+    @Test
+    public void parseTime_validValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTime(INVALID_TIME));
+    }
+
+    @Test
+    public void parseTime_validValueWithoutWhitespace_returnsTime() throws Exception {
+        Time expectedTime = Time.newTime("22 22");
+        assertEquals(expectedTime, ParserUtil.parseTime(VALID_TIME));
+    }
+
+    @Test
+    public void parseTime_validValueWithWhitespace_returnsTrimmedTime() throws Exception {
+        String timeWithWhitespace = WHITESPACE + VALID_TIME + WHITESPACE;
+        Time expectedTime = Time.newTime("22 22");
+        assertEquals(expectedTime, ParserUtil.parseTime(timeWithWhitespace));
+    }
+
+    @Test
+    public void parseTime_invalidFieldsWithoutWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid hour
+        ParserUtil.parseTime(INVALID_TIME);
+
+        //invalid minute
+        ParserUtil.parseTime(INVALID_TIME_2);
+
+        //invalid alphanumerics
+        ParserUtil.parseTime(INVALID_TIME_3);
+    }
+
+    @Test
+    public void parseTime_invalidFieldsWithWhitespace_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+
+        //invalid hour
+        ParserUtil.parseTime(WHITESPACE + INVALID_TIME + WHITESPACE);
+
+        //invalid minute
+        ParserUtil.parseTime(WHITESPACE + INVALID_TIME_2 + WHITESPACE);
+
+        //invalid alphanumerics
+        ParserUtil.parseDate(WHITESPACE + INVALID_TIME_3 + WHITESPACE);
     }
 }
