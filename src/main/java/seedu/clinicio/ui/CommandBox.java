@@ -44,21 +44,27 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
+        
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
-            keyEvent.consume();
             navigateToPreviousInput();
+            maskPassword(true, false);
             break;
         case DOWN:
-            keyEvent.consume();
             navigateToNextInput();
+            maskPassword(true, false);
+            break;
+        case BACK_SPACE:
+            maskPassword(false, true);
             break;
         default:
             // let JavaFx handle the keypress
+            maskPassword(false, false);
+            break;
         }
-        maskPassword();
+
     }
 
     /**
@@ -102,20 +108,37 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    public void maskPassword() {
+    public void maskPassword(boolean isHistory, boolean isBackSpace) {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
             StringBuilder maskedPassword = new StringBuilder();
 
-            for (int i = 0; i < password.length(); i++) {
+            int passwordLength = password.length();
+            if (isHistory) {
+                passwordLength -= 1;
+            }
+            for (int i = 0; i < passwordLength; i++) {
                 if (password.charAt(i) != '-') {
                     tempPassword.append(password.charAt(i));
                 }
                 maskedPassword.append("-");
             }
 
+            if (isHistory) {
+                maskedPassword.append(password.charAt(password.length() - 1));
+            } else if (isBackSpace) {
+                if (tempPassword.length() > 0) {
+                    char lastPasswordChar = tempPassword.charAt(tempPassword.length() - 1);
+                    tempPassword.deleteCharAt(tempPassword.length() - 1);
+                    maskedPassword.replace(maskedPassword.length() - 1, maskedPassword.length(), String.valueOf(lastPasswordChar));
+                }
+            }
+
+            System.out.println(maskedPassword);
+            System.out.println(tempPassword);
+            
             replaceText(otherCommand + "pass/" + maskedPassword.toString());
         }
     }
