@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_LIST_EMPTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
@@ -37,11 +38,11 @@ public class ComposeEmailListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Email(List) composed: %s";
     public static final String MESSAGE_DUPLICATE_EMAIL = "Email with subject: \"%s\" already exists.";
-    public static final String MESSAGE_LIST_EMPTY = "The current list is empty.";
 
     private final Email toCompose;
 
     public ComposeEmailListCommand(Email email) {
+        requireNonNull(email);
         toCompose = email;
     }
 
@@ -54,6 +55,11 @@ public class ComposeEmailListCommand extends Command {
         }
 
         List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_LIST_EMPTY);
+        }
+
         Email emailWithRecipient = addRecipientsToEmail(lastShownList);
         model.saveComposedEmail(emailWithRecipient);
 
@@ -65,11 +71,7 @@ public class ComposeEmailListCommand extends Command {
      * @param lastShownList Current filtered list.
      * @return Email with recipients from list.
      */
-    private Email addRecipientsToEmail(List<Person> lastShownList) throws CommandException {
-
-        if (lastShownList.isEmpty()) {
-            throw new CommandException(MESSAGE_LIST_EMPTY);
-        }
+    private Email addRecipientsToEmail(List<Person> lastShownList) {
 
         final Set<String> emailList = new HashSet<>();
         for (Person person : lastShownList) {
