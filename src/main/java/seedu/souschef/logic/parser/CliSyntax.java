@@ -10,6 +10,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DIFFICULTY = new Prefix("d/");
     public static final Prefix PREFIX_COOKTIME = new Prefix("c/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_INGREDIENT = new Prefix("#");
 
     //prefix for healthplan
     public static final Prefix PREFIX_HPNAME = new Prefix("n/");

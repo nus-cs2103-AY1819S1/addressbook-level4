@@ -4,7 +4,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Optional;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.InventoryCommand;
 import seedu.souschef.logic.parser.contextparser.FavouritesParser;
@@ -34,7 +34,7 @@ public class AppContentParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
+    public Command parseCommand(ModelSet modelSet, String userInput, History history,
                                 Storage storage, Ui ui) throws ParseException {
         Context context = history.getContext();
 
@@ -49,9 +49,9 @@ public class AppContentParser {
         switch (context) {
         case RECIPE:
             setFeatureStorage(storage, Context.RECIPE);
-            Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage);
+            Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage, history);
             return optionalCommand.isPresent() ? optionalCommand.get()
-                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput, history);
         case INGREDIENT:
             setFeatureStorage(storage, Context.INGREDIENT);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
@@ -79,13 +79,13 @@ public class AppContentParser {
     /**
      * Based on user input, get cross context command.
      */
-    private Optional<Command> getCrossContextCommand(String userInput, ModelSet modelSet, Storage storage)
+    private Optional<Command> getCrossContextCommand(String userInput, ModelSet modelSet, Storage storage, History history)
         throws ParseException {
         Command command = null;
         if (FavouritesParser.isCrossContextCommand(userInput)) {
-            // Consider to use Favorite command instead
+            // Consider to use Favorite command instead and remove history from param
             setFeatureStorage(storage, Context.FAVOURITES);
-            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
+            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput, history);
         } else if (IngredientParser.isCrossContextCommand(userInput)) {
             command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
