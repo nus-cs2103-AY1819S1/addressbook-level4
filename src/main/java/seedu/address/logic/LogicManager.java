@@ -70,7 +70,7 @@ public class LogicManager extends ComponentManager implements Logic {
         //Make sure it's valid
         if (!Username.isValidUsername(loginEvent.getUsername())
             || !Password.isValidPassword(loginEvent.getPassword())) {
-            raise(new FailedLoginEvent("Invalid username or password"));
+            raise(new FailedLoginEvent(FailedLoginEvent.NON_CONFORMING_INPUTS));
             return;
         }
 
@@ -95,7 +95,7 @@ public class LogicManager extends ComponentManager implements Logic {
                     model.setLoggedInUser(loggedInUser);
                     raise(new SuccessfulLoginEvent(loggedInUser));
                 } else {
-                    raise(new FailedLoginEvent("Invalid password"));
+                    raise(new FailedLoginEvent(FailedLoginEvent.INVALID_PASSWORD));
                 }
                 someoneFound = true;
                 break;
@@ -103,7 +103,7 @@ public class LogicManager extends ComponentManager implements Logic {
         }
 
         if (!someoneFound) {
-            raise(new FailedLoginEvent("No such user!"));
+            raise(new FailedLoginEvent(FailedLoginEvent.INVALID_USERNAME));
         }
     }
 }

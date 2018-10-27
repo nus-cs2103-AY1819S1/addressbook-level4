@@ -6,6 +6,10 @@ import seedu.address.commons.events.BaseEvent;
  * Indicates that there has been an unsuccessful login.
  */
 public class FailedLoginEvent extends BaseEvent {
+    public static final String INVALID_USERNAME = "No such user found";
+    public static final String INVALID_PASSWORD = "Wrong password!";
+    public static final String NON_CONFORMING_INPUTS = "Invalid username or password";
+
     private String message;
 
     public FailedLoginEvent(String reason) {

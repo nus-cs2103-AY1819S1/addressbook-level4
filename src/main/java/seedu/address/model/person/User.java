@@ -36,6 +36,10 @@ public class User {
         return adminUser;
     }
 
+    public Person getPerson() {
+        return loggedInPerson;
+    }
+
     public Name getName() {
         return loggedInPerson.getName();
     }
