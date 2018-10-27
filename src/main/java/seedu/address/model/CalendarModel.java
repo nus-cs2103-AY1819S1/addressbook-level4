@@ -37,7 +37,6 @@ import seedu.address.storage.CalendarStorage;
  */
 public class CalendarModel {
 
-    private CalendarStorage calendarStorage;
     private Map<Year, Set<Month>> existingCalendar;
     // Field to store calendar loaded by user if any.
     // User can only load at most one calendar at any point of time.
@@ -46,8 +45,7 @@ public class CalendarModel {
     private VEvent eventToBeRemoved;
     private Map<Month, Integer> monthToConstantMap;
 
-    public CalendarModel(CalendarStorage calendarStorage, Map<Year, Set<Month>> existingCalendar) {
-        this.calendarStorage = calendarStorage;
+    public CalendarModel(Map<Year, Set<Month>> existingCalendar) {
         this.existingCalendar = existingCalendar;
         this.loadedCalendar = null;
         this.loadedCalendarName = null;
@@ -309,8 +307,7 @@ public class CalendarModel {
     }
 
     /** Checks if this specific event exists in the loaded Calendar. */
-    public boolean isExistingEvent(int startDate, int endDate, String title) throws IOException,
-            ParserException {
+    public boolean isExistingEvent(int startDate, int endDate, String title) {
         // Store the event into private field eventToBeRemoved
         VEvent eventToRemove = retrieveEvent(startDate, endDate, title);
         this.eventToBeRemoved = eventToRemove;
@@ -327,14 +324,12 @@ public class CalendarModel {
      * Deletes an event in the loaded Calendar.
      * A call to the public isExistingEvent method has to precede this method call.
      */
-    public void deleteEvent(Year year, Month month) throws IOException {
+    public Calendar deleteEvent() {
         if (isExistingEvent(this.eventToBeRemoved)) {
             loadedCalendar.getComponents().remove(this.eventToBeRemoved);
         }
 
-        String calendarName = month + "-" + year;
-        // Save the updated calendar to storage
-        calendarStorage.createCalendar(loadedCalendar, calendarName);
+        return loadedCalendar;
     }
 
     /** Returns the updated Map: existingCalendar. */
@@ -365,12 +360,11 @@ public class CalendarModel {
 
         CalendarModel o = (CalendarModel) other;
 
-        return calendarStorage.equals(o.calendarStorage)
-                && existingCalendar.equals(o.existingCalendar);
+        return existingCalendar.equals(o.existingCalendar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(calendarStorage, existingCalendar);
+        return Objects.hash(existingCalendar);
     }
 }

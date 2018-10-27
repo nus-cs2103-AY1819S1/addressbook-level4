@@ -103,11 +103,12 @@ public class AddEventCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_VALID_TIME, endHour + ":" + endMin));
         }
 
-        // Check whether start date and end date is a valid time frame.
+        // Check whether start date and end date is a valid time frame
         if (!model.isValidTimeFrame(startDate, startHour, startMin, endDate, endHour, endMin)) {
             throw new CommandException(MESSAGE_NOT_VALID_TIMEFRAME);
         }
 
+        // Check whether calendar is already loaded
         if (!model.isLoadedCalendar(year, month)) {
             model.loadCalendar(year, month);
         }

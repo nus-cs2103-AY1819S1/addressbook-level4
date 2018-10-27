@@ -59,6 +59,7 @@ public class AddAllDayEventCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_VALID_DATE, month + " - " + year));
         }
 
+        // Check whether calendar is already loaded
         if (!model.isLoadedCalendar(year, month)) {
             model.loadCalendar(year, month);
         }

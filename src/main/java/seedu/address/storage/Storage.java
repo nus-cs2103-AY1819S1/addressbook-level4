@@ -11,6 +11,7 @@ import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
+import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
@@ -82,6 +83,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     @Override
     void createCalendar(Calendar calendar, String calendarName) throws IOException;
 
+    @Override
+    Calendar loadCalendar(String calendarName) throws IOException, ParserException;
+
     void handleCalendarCreatedEvent(CalendarCreatedEvent event);
 
     void handleLoadCalendarEvent(LoadCalendarEvent event);
@@ -90,7 +94,6 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     void handleCalendarEventAddedEvent(CalendarEventAddedEvent event);
 
-    @Override
-    Calendar loadCalendar(String calendarName) throws IOException, ParserException;
+    void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event);
 
 }

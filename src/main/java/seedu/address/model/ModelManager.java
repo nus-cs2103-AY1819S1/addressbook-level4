@@ -52,26 +52,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs and calendarStorage.
-     */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
-                        CalendarStorage calendarStorage) {
-        super();
-        requireAllNonNull(addressBook, userPrefs, calendarStorage);
-
-        logger.fine("Initializing with address book: " + addressBook + " , user prefs " + userPrefs
-            + " and calendar: " + calendarStorage);
-
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
-        this.userPrefs = userPrefs;
-        this.emailModel = new EmailModel();
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
-    }
-
-    /**
      * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
@@ -86,8 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.emailModel = new EmailModel();
         this.userPrefs = userPrefs;
-        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
 
     }
 
@@ -102,8 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         emailModel = new EmailModel();
         this.userPrefs = userPrefs;
-        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
     }
 
     @Override
@@ -334,8 +312,9 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Raises an event to indicate that an event was deleted
      */
-    private void indicateCalendarEventDeleted(Year year, Month month, int startDate, int endDate, String title) {
-        raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title));
+    private void indicateCalendarEventDeleted(Year year, Month month, int startDate, int endDate, String title,
+                                              Calendar updatedCalendar) {
+        raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title, updatedCalendar));
     }
 
     @Override
@@ -419,24 +398,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title) {
-        try {
-            requireAllNonNull(year, month, startDate, endDate, title);
-            loadCalendar(year, month);
-            return calendarModel.isExistingEvent(startDate, endDate, title);
-        } catch (IOException | ParserException e) {
-            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
-            return false;
-        }
+        requireAllNonNull(year, month, startDate, endDate, title);
+        return calendarModel.isExistingEvent(startDate, endDate, title);
+
     }
 
     @Override
     public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
-        try {
-            calendarModel.deleteEvent(year, month);
-            indicateCalendarEventDeleted(year, month, startDate, endDate, title);
-        } catch (IOException e) {
-            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
-        }
+        Calendar updatedCalender = calendarModel.deleteEvent();
+        indicateCalendarEventDeleted(year, month, startDate, endDate, title, updatedCalender);
     }
 
     @Override

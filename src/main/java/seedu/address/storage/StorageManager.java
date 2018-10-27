@@ -16,6 +16,7 @@ import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
+import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.CalendarLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
@@ -241,12 +242,15 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    /*
     @Override
     @Subscribe
-    public void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event) {{
-
+    public void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event) {
+        try {
+            String calendarName = event.month + "-" + event.year;
+            createCalendar(event.calendar, calendarName);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
-    */
 
 }
