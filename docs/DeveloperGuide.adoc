@@ -571,7 +571,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 === Budget
 ==== Current Implementation
-The budget feature allows the user to set a budget for a specific time period. 
+The budget feature allows the user to set a budget for a specific time period.
 If the user's total spending exceeds their budget in the specified time period, a warning will be shown to the user.
 
 The current implementation for budget tracking is described as below.
