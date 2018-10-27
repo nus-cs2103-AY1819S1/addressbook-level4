@@ -54,7 +54,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
      */
     public boolean clashes(Appointment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameSlot);
+        return internalList.stream().anyMatch(toCheck::isOverlapAppointment);
     }
 
     /**

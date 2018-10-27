@@ -14,6 +14,7 @@ import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
@@ -29,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
+    private final FilteredList<Consultation> filteredConsultations;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
 
@@ -46,6 +48,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
         filteredDoctors = new FilteredList<>(versionedClinicIo.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
+        filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
+
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
@@ -115,6 +119,12 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasAppointmentClash(appt);
     }
 
+    //@@author arsalanc-v2
+    @Override
+    public boolean hasConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return versionedClinicIo.hasConsultation(consultation);
+    }
     //========== Delete ======================================================================================
 
     @Override
@@ -143,6 +153,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author arsalanc-v2
+    @Override
+    public void deleteConsultation(Consultation target) {
+        versionedClinicIo.removeConsultation(target);
+    }
     //========== Add =========================================================================================
 
     @Override
@@ -167,6 +182,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
+    //@author arsalanc-v2
+    @Override
+    public void addConsultation(Consultation consultation) {
+        versionedClinicIo.add(consultation);
+        updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
+    }
     //========== Update ======================================================================================
 
     @Override
@@ -206,6 +227,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author arsalanc-v2
+    @Override
+    public void updateConsultation(Consultation target, Consultation editedConsultation) {
+        requireAllNonNull(target, editedConsultation);
+        versionedClinicIo.updateConsultation(target, editedConsultation);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -222,7 +249,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-
     //=========== Filtered Doctor List Accessors =============================================================
 
     //@@author jjlee050
@@ -261,6 +287,23 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments.setPredicate(predicate);
     }
 
+    //=========== Filtered Consultation List Accessors ========================================================
+    //@@author arsalanc-v2
+    /**
+     * Returns an unmodifiable view of the list of {@code Consultation} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Consultation> getFilteredConsultationList() {
+        return FXCollections.unmodifiableObservableList(filteredConsultations);
+    }
+
+    //@@author arsalanc-v2
+    @Override
+    public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
+        requireNonNull(predicate);
+        filteredConsultations.setPredicate(predicate);
+    }
     //=========== Undo/Redo ==================================================================================
 
     @Override

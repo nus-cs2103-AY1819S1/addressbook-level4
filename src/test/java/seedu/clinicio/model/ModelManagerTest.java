@@ -6,6 +6,7 @@ import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
+import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON;
 
@@ -65,7 +66,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE, 0);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -87,7 +88,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE, 0);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
     }

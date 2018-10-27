@@ -1,5 +1,6 @@
 package seedu.clinicio.model.appointment;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -20,7 +21,10 @@ public class Date {
                     + "It should not be blank.";
     public static final String MESSAGE_YEAR_CONSTRAINTS =
             "The month should be numeric and it should not be blank.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "The date should be in dd mm yyyy format and it should not be blank.";
     public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
+    public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\s+)(\\d{1,2})(\\s+)(\\d{4})";
 
     private final int day;
     private final int month;
@@ -42,6 +46,17 @@ public class Date {
         this.year = year;
     }
 
+    /**
+     * Constructs a {@code Date} from String.
+     * @param date A valid date.
+     */
+    public static Date newDate(String date) {
+        requireNonNull(date);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        String[] splitDate = date.split("\\s+");
+        return new Date(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[2]));
+    }
+
     public int getDay() {
         return day;
     }
@@ -52,6 +67,10 @@ public class Date {
 
     public int getYear() {
         return year;
+    }
+
+    public static boolean isValidDate(String string) {
+        return string.matches(DATE_VALIDATION_REGEX);
     }
 
     /**

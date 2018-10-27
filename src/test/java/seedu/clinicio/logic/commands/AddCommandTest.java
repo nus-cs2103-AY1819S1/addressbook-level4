@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.ClinicIo;
@@ -21,6 +22,7 @@ import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ReadOnlyClinicIo;
 import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.testutil.PersonBuilder;
@@ -217,6 +219,36 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasConsultation(Consultation consultation) {
+            return false;
+        }
+
+        @Override
+        public void deleteConsultation(Consultation target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addConsultation(Consultation consultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateConsultation(Consultation target, Consultation editedConsultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Consultation> getFilteredConsultationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
