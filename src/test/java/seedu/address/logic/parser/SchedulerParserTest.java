@@ -15,8 +15,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteToDoCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -30,9 +32,12 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
+import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ToDoListEventBuilder;
+import seedu.address.testutil.ToDoListEventUtil;
 
 public class SchedulerParserTest {
     @Rule
@@ -139,5 +144,19 @@ public class SchedulerParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_addToDo() throws Exception {
+        ToDoListEvent toDoListEvent = new ToDoListEventBuilder().build();
+        AddToDoCommand commandToDo = (AddToDoCommand) parser.parseCommandToDo(ToDoListEventUtil.getAddToDoCommand(toDoListEvent));
+        assertEquals(new AddToDoCommand(toDoListEvent), commandToDo);
+    }
+
+    @Test
+    public void parseCommand_deleteToDo() throws Exception {
+        DeleteToDoCommand commandToDo = (DeleteToDoCommand) parser.parseCommandToDo(
+                DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteToDoCommand(INDEX_FIRST_PERSON), commandToDo);
     }
 }
