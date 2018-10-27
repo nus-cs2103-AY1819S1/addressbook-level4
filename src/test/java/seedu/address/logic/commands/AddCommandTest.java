@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
@@ -123,6 +124,16 @@ public class AddCommandTest {
         @Override
         public void setRecurrenceFrequency(long seconds) {
             throw new AssertionError("setRecurrenceFrequency should not be called");
+        }
+        @Override
+        public void modifyCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("modifyCategoryBudget should not be called");
+
+        }
+        @Override
+        public void addCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("addCategoryBudget should not be called");
+
         }
         @Override
         public void resetData(ReadOnlyExpenseTracker newData) {
