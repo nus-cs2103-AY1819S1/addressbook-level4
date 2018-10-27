@@ -13,7 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path schedulerFilePath = Paths.get("data", "scheduler.xml");
-    private Path toDoListFilePath = Paths.get("date", "toDoList.xml");
+    private Path toDoListFilePath = Paths.get("data", "toDoList.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
