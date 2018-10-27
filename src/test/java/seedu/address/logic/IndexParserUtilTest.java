@@ -1,11 +1,12 @@
 package seedu.address.logic;
 
-import org.junit.Test;
-import seedu.address.commons.core.index.Index;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import seedu.address.commons.core.index.Index;
 
 public class IndexParserUtilTest {
     private static final String VALID_INDEX = "1";
