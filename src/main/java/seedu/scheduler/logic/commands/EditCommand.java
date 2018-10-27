@@ -1,11 +1,9 @@
 package seedu.scheduler.logic.commands;
 
-import static java.lang.Thread.sleep;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-
 
 import java.io.IOException;
 import java.util.Collections;
@@ -63,7 +61,7 @@ public class EditCommand extends Command {
     private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param index of the event in the filtered event list to edit
+     * @param index               of the event in the filtered event list to edit
      * @param editEventDescriptor details to edit the event with
      */
     public EditCommand(Index index, EditEventDescriptor editEventDescriptor) {
@@ -91,13 +89,13 @@ public class EditCommand extends Command {
         model.commitScheduler();
 
         Calendar service = connectToGoogleCalendar.getCalendar();
-        String gEventId = String.valueOf(eventToEdit.getUuid()).replaceAll("-","");
+        String gEventId = String.valueOf(eventToEdit.getUuid()).replaceAll("-", "");
 
         com.google.api.services.calendar.model.Event gEvent = null;
 
         //retireve event
         try {
-            gEvent = service.events().get("primary",gEventId).execute();
+            gEvent = service.events().get("primary", gEventId).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,22 +124,36 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
+    /**
+     * Converts a local Event's starting data and time to Google format.
+     *
+     * @param e a local Event.
+     *
+     * @return a String in Google format.
+     */
     private String convertStartDateTimeToGoogleFormat(Event e) {
         //local format:2018-10-20 17:00:00
         //target :2018-10-21T22:30:00+08:00
         return e.getStartDateTime()
                 .getPrettyString()
                 .substring(0, 19)
-                .replaceFirst(" ","T")
-                +"+08:00";
+                .replaceFirst(" ", "T")
+                + "+08:00";
     }
 
+    /**
+     * Converts a local Event's ending data and time to Google format.
+     *
+     * @param e a local Event.
+     *
+     * @return a String in Google format.
+     */
     private String convertEndDateTimeToGoogleFormat(Event e) {
         return e.getEndDateTime()
                 .getPrettyString()
                 .substring(0, 19)
-                .replaceFirst(" ","T")
-                +"+08:00";
+                .replaceFirst(" ", "T")
+                + "+08:00";
     }
 
     /**
@@ -203,7 +215,8 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private ReminderDurationList reminderDurationList;
 
-        public EditEventDescriptor() {}
+        public EditEventDescriptor() {
+        }
 
         /**
          * Copy constructor.
