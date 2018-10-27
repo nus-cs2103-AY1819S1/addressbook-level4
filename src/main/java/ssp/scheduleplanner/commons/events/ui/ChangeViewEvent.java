@@ -7,6 +7,9 @@ import ssp.scheduleplanner.commons.events.BaseEvent;
  */
 public class ChangeViewEvent extends BaseEvent {
 
+    /**
+     * Types of views to display
+     */
     public enum View {
         NORMAL, ARCHIVE, CALENDAR
     }

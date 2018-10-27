@@ -218,14 +218,16 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     public void handleChangeView(ChangeViewEvent event) {
         switch(event.getView()) {
-            case NORMAL:
-                showTasks();
-                break;
-            case ARCHIVE:
-                showArchived();
-                break;
-            case CALENDAR:
-                break;
+        case NORMAL:
+            showTasks();
+            break;
+        case ARCHIVE:
+            showArchived();
+            break;
+        case CALENDAR:
+            break;
+        default:
+            break;
         }
     }
 
