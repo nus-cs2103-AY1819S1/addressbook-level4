@@ -78,8 +78,8 @@ public class FavouriteCommand extends Command {
                 + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
                 + "\nEvent Details: " + favouriteEvent.getEventDescription());
 
-        return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS +
-                favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
+        return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS
+                + favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
     }
 
 }
