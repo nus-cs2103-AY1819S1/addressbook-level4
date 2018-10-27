@@ -66,7 +66,7 @@ public class CommandTestUtil {
             + "jwUkwh6";
     public static final String VALID_HASH_PASSWORD_DAISY = "123";
 
-  public static final String VALID_DATE_AMY = "02 10 2018";
+    public static final String VALID_DATE_AMY = "02 10 2018";
     public static final String VALID_DATE_BENSON = "03 10 2018";
     public static final String VALID_TIME_AMY = "13 00";
     public static final String VALID_TIME_BENSON = "15 00";
