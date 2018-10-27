@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -36,8 +35,6 @@ import seedu.address.testutil.DefaultEmailBuilder;
 
 //@@author EatOrBeEaten
 public class ComposeEmailIndexCommandTest {
-
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -125,18 +122,6 @@ public class ComposeEmailIndexCommandTest {
 
         assertCommandFailure(composeEmailIndexCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_emailAndIndexSetAccepted_composeSuccessful() throws Exception {
-        Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
-
-        CommandResult commandResult = new ComposeEmailIndexCommand(validEmail, INDEX_SET)
-                .execute(model, commandHistory);
-
-        assertEquals(String.format(ComposeEmailIndexCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
-                commandResult.feedbackToUser);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test

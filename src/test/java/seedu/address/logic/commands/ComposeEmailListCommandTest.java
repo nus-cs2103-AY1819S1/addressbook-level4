@@ -29,8 +29,6 @@ import seedu.address.testutil.DefaultEmailBuilder;
 //@@author EatOrBeEaten
 public class ComposeEmailListCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
