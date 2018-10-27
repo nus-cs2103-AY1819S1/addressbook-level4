@@ -1,6 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.UniqueType;
 
@@ -16,6 +16,6 @@ public abstract class Command<T extends UniqueType> {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(CommandHistory history) throws CommandException;
+    public abstract CommandResult execute(History history) throws CommandException;
 
 }

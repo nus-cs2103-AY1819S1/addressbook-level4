@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -26,7 +26,7 @@ public class FindCommandTest {
     private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private Model<Recipe> expectedModel =
             new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     @Test
     public void equals() {
@@ -61,7 +61,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand<Recipe> command = new FindCommand<Recipe>(model, predicate);
         expectedModel.updateFilteredList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, history, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredList());
     }
 

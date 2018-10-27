@@ -1,6 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
 
@@ -21,7 +21,7 @@ public class ClearMealPlannerCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         this.mealPlanner.resetList();
         mealPlanner.commitAppContent();
         return new CommandResult(String.format(MESSAGE_CLEAR_PLANNER_SUCCESS));
