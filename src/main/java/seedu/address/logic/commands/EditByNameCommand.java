@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Arrays;
@@ -19,7 +18,7 @@ import seedu.address.model.person.Person;
 
 //@@author zioul123
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the address book using their name.
  */
 public class EditByNameCommand extends EditCommand {
 
@@ -40,7 +39,7 @@ public class EditByNameCommand extends EditCommand {
         try {
             person = findPerson(model);
         } catch (ParseException pe) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new CommandException(MESSAGE_NO_EDIT_IDENTIFIER);
         }
         Person editedPerson = EditCommand.createEditedPerson(person, editPersonDescriptor);
 
@@ -60,8 +59,7 @@ public class EditByNameCommand extends EditCommand {
     private Person findPerson(Model model) throws ParseException, CommandException {
         String trimmedArgs = personIdentifier.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_NO_EDIT_IDENTIFIER);
         }
         String[] nameKeywords = trimmedArgs.split("\\s+");
         NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(Arrays.asList(nameKeywords));
