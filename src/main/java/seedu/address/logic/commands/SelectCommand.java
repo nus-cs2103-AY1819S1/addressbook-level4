@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects the image identified by the index number in the current batch.
  */
 public class SelectCommand extends Command {
 
