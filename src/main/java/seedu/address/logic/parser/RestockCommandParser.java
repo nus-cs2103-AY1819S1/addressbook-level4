@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new RestockCommand object
  */
-public class RestockCommandParser implements Parser<RestockCommand>{
+public class RestockCommandParser implements Parser<RestockCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RestockCommand
