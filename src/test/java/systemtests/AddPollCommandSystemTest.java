@@ -1,6 +1,6 @@
 //@@theJrLinguist
 package systemtests;
-/*
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
@@ -18,15 +18,13 @@ import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
-import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalIndexes;
-*/
-/*
+
 public class AddPollCommandSystemTest extends AddressBookSystemTest {
 
     private static final String POLLNAME = "Activity poll";
@@ -46,19 +44,18 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_NO_USER_LOGGED_IN);
 
         // Case: no event selected -> NoEventSelectedException
-        executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
-
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
         assertCommandFailure(command, Messages.MESSAGE_NO_EVENT_SELECTED);
 
         // Case: user is not event organiser -> NotEventOrganiserException
         executeCommand(SelectEventCommand.COMMAND_WORD + " 2");
-        executeCommand(SelectUserCommand.COMMAND_WORD + " 2");
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
         assertCommandFailure(command, Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         // Case: add a poll with generic poll name
         //  -> poll added
 
-        executeCommand(SelectUserCommand.COMMAND_WORD + " 1");
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
         assertAddPollCommandSuccess(command, POLLNAME);
 
         // ----------------------------------- Perform add poll option operations -----------------------------------
@@ -92,7 +89,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         command = AddPollCommand.COMMAND_WORD + INVALID_NAME_DESC;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
-    }*/
+    }
 
 
     /**
@@ -100,7 +97,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
-    /*
+
     private void assertAddPollCommandSuccess(String command, String pollName) throws NoEventSelectedException,
             NoUserLoggedInException, NotEventOrganiserException {
 
@@ -112,14 +109,13 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = String.format(AddPollCommand.MESSAGE_SUCCESS, pollName, event);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
-    */
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
-    /*
+
     private void assertAddOptionCommandSuccess(String command, Index index, String option) {
 
         Model expectedModel = getModel();
@@ -127,7 +123,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
     }
-    */
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Person)} except asserts that
@@ -137,7 +132,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedModel}.<br>
      * @see AddUserCommandSystemTest#assertCommandSuccess(String, Person)
      */
-    /*
+
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -145,7 +140,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
     }
-    */
+
 
     /**
      * Executes {@code command} and asserts that the,<br>
@@ -158,7 +153,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    /*
+
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
 
@@ -171,4 +166,3 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
     }
 
 }
-*/
