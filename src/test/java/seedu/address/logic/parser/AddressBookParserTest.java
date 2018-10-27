@@ -21,8 +21,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -32,15 +34,20 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.JoinCommand;
+import seedu.address.logic.commands.LeaveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MeetCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.GroupBuilder;
+import seedu.address.testutil.GroupUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -58,6 +65,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addGroup() throws Exception {
+        Group group = new GroupBuilder().build();
+        AddGroupCommand command = (AddGroupCommand) parser.parseCommand(GroupUtil.getAddGroupCommand(group));
+        assertEquals(new AddGroupCommand(group), command);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
@@ -68,6 +82,37 @@ public class AddressBookParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_deleteGroup() throws Exception {
+        Group group = new GroupBuilder().build();
+        DeleteGroupCommand command = (DeleteGroupCommand) parser.parseCommand(GroupUtil.getDeleteGroupCommand(group));
+        assertEquals(new DeleteGroupCommand(group), command);
+    }
+
+    @Test
+    public void parseCommand_joinGroup() throws Exception {
+        Group group = new GroupBuilder().build();
+        Person person = new PersonBuilder().build();
+        String groupName = GroupUtil.getGroupAsTitle(group);
+        String personName = PersonUtil.getPersonName(person);
+
+        JoinCommand command = (JoinCommand) parser.parseCommand(
+                JoinCommand.COMMAND_WORD + " " + personName + groupName);
+        assertEquals(new JoinCommand(person, group), command);
+    }
+
+    @Test
+    public void parseCommand_leaveGroup() throws Exception {
+        Group group = new GroupBuilder().build();
+        Person person = new PersonBuilder().build();
+        String groupName = GroupUtil.getGroupAsTitle(group);
+        String personName = PersonUtil.getPersonName(person);
+
+        LeaveCommand command = (LeaveCommand) parser.parseCommand(
+                LeaveCommand.COMMAND_WORD + " " + personName + groupName);
+        assertEquals(new LeaveCommand(person, group), command);
     }
 
     @Test

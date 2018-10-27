@@ -11,6 +11,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_GROUP_DISPLAYED_INDEX = "The group index provided is invalid";
     public static final String MESSAGE_INVALID_MEETING_DISPLAYED_INDEX = "The meeting index provided is invalid";
     public static final String MESSAGE_GROUP_NOT_FOUND = "The specified group does not exists";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "The specified person does not exist";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_PERSONS_SORTED_OVERVIEW = "List sorted by %s!";
 
