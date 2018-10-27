@@ -13,8 +13,6 @@ import java.nio.file.Paths;
  */
 public class Picture {
 
-    public static final String CURRENT_PATH = Picture.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
     // https://www.stubbornjava.com/posts/reading-file-resources-with-guava
     public static final URL DEFAULT_PICTURE_URL = com.google.common.io.Resources
         .getResource("images/placeholder_image.jpg");
@@ -50,8 +48,8 @@ public class Picture {
      * Returns true if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
-        return test.matches(PICTURE_URL_VALIDATION_REGEX) ||
-            (test.matches(PICTURE_PATH_VALIDATION_REGEX) && Files.exists(Paths.get(test)));
+        return test.matches(PICTURE_URL_VALIDATION_REGEX)
+            || (test.matches(PICTURE_PATH_VALIDATION_REGEX) && Files.exists(Paths.get(test)));
     }
 
     @Override
