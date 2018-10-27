@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.imports;
+/*package seedu.address.logic.commands.imports;
 
 //@@author kengwoon
 
@@ -18,7 +18,7 @@ import seedu.address.model.cca.Cca;
 /**
  * Imports XML file as budgetbook to update database.
  */
-public class ImportTransaction {
+/*public class ImportTransaction {
 
     private Document doc;
     private Model model;
@@ -35,9 +35,9 @@ public class ImportTransaction {
     /**
      * Execute ImportTransaction
      */
-    public void execute() {
+    /*public void execute() {
         ccaList.clear();
         NodeList nList = doc.getElementsByTagName("transactions");
     }
 
-}
+}*/

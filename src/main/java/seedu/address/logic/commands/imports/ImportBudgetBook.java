@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.imports;
+/*package seedu.address.logic.commands.imports;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ import seedu.address.model.cca.Cca;
 /**
  * Imports XML file as budgetbook to update database.
  */
-public class ImportBudgetBook {
+/*public class ImportBudgetBook {
 
     private Document doc;
     private Model model;
@@ -37,7 +37,7 @@ public class ImportBudgetBook {
      * Executes ImportBudgetBook
      */
 
-    public void execute() {
+    /*public void execute() {
         //List<Cca> fullList = model.getBudgetBook().getCcaList();
         ccaList.clear();
         NodeList nList = doc.getElementsByTagName("ccas");
@@ -78,4 +78,4 @@ public class ImportBudgetBook {
         }
         //model.addMultipleCcas(ccaList);
     }
-}
+}*/
