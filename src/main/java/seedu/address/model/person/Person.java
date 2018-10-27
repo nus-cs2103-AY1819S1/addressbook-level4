@@ -22,20 +22,25 @@ public class Person {
     private Email email;
 
     // Data fields
+    private Password password;
     private Address address;
     private Schedule schedule;
     private Set<Interest> interests = new HashSet<>();
     private Set<Tag> tags = new HashSet<>();
     private Set<Friend> friends = new HashSet<>();
 
+    private boolean isLoggedIn = false;
+
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, interests, tags);
+    public Person(Name name, Phone phone, Email email, Password password, Address address, Set<Interest> interests,
+                  Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, password, address, interests, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.interests.addAll(interests);
         this.tags.addAll(tags);
@@ -46,12 +51,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests,
+    public Person(Name name, Phone phone, Email email, Password password, Address address, Set<Interest> interests,
                   Set<Tag> tags, Schedule schedule) {
-        requireAllNonNull(name, phone, email, address, interests, tags);
+        requireAllNonNull(name, phone, email, password, address, interests, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.interests.addAll(interests);
         this.tags.addAll(tags);
@@ -62,12 +68,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests,
+    public Person(Name name, Phone phone, Email email, Password password, Address address, Set<Interest> interests,
                   Set<Tag> tags, Schedule schedule, Set<Friend> friends) {
-        requireAllNonNull(name, phone, email, address, interests, tags);
+        requireAllNonNull(name, phone, email, password, address, interests, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.interests.addAll(interests);
         this.tags.addAll(tags);
@@ -82,11 +89,21 @@ public class Person {
         this.name = other.name;
         this.phone = other.phone;
         this.email = other.email;
+        this.password = other.password;
         this.address = other.address;
         this.interests = other.interests;
         this.schedule = other.schedule;
         this.tags = other.tags;
         this.friends = new HashSet<>(other.friends);
+    }
+
+    /**
+     * Stub user used in user login process.
+     */
+    public Person(Name name, Password password) {
+        requireAllNonNull(name, password);
+        this.name = name;
+        this.password = password;
     }
 
     public Name getName() {
@@ -105,6 +122,10 @@ public class Person {
         return email;
     }
 
+    public Password getPassword() {
+        return password;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -112,6 +133,7 @@ public class Person {
     public Schedule getSchedule() {
         return schedule;
     }
+
 
     /**
      * Returns an immutable interest set, which throws {@code UnsupportedOperationException}
@@ -143,6 +165,7 @@ public class Person {
         name = newPerson.getName();
         address = newPerson.getAddress();
         phone = newPerson.getPhone();
+        password = newPerson.getPassword();
         tags = newPerson.getTags();
         email = newPerson.getEmail();
         interests = newPerson.getInterests();
@@ -164,6 +187,19 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    /**
+     * Returns true if both users of the same name and password.
+     * This defines a weaker notion of similarity of two persons.
+     */
+    public boolean isSameUser(Person otherPerson) {
+        return otherPerson != null
+                && otherPerson.getName().equals(getName())
+                && (otherPerson.getPassword().equals(getPassword()));
+    }
+
+    public boolean isStubUser() {
+        return phone == null;
+    }
     /**
      * Returns true if this person has the other person in the friends list.
      */
@@ -188,6 +224,27 @@ public class Person {
     }
 
     /**
+     *  Logs in a user
+     */
+    public void login() {
+        this.isLoggedIn = true;
+    }
+
+    /**
+     *  Logs out a user
+     */
+    public void logout() {
+        this.isLoggedIn = false;
+    }
+
+    /**
+     *  Gets the login status of a user
+     */
+    public boolean getLoginStatus() {
+        return isLoggedIn;
+    }
+
+    /**
      * Returns true if both persons have the same primary attributes
      * that consist of name, phone, email, address
      */
@@ -203,15 +260,16 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress());
+                && (this.phone == null || otherPerson.getPhone().equals(getPhone()))
+                && (this.email == null || otherPerson.getEmail().equals(getEmail()))
+                && otherPerson.getPassword().equals(getPassword())
+                && (this.address == null || otherPerson.getAddress().equals(getAddress()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address);
+        return Objects.hash(name, phone, email, password, address);
     }
 
     @Override
@@ -222,6 +280,8 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Password: ")
+                .append(getPassword())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Schedule: ")
