@@ -1,5 +1,6 @@
 package ssp.scheduleplanner;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -41,9 +42,10 @@ import ssp.scheduleplanner.ui.UiManager;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(0, 7, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String DEFAULT_MONDAY_DATE = "010118";
 
     protected Ui ui;
     protected Logic logic;
@@ -126,16 +128,28 @@ public class MainApp extends Application {
 
         logger.info("Using config file : " + configFilePathUsed);
 
-        //added to update based on date range
+
+        //When user launch the application for the first time or deleted the 'rangeofweek.xml'
+        //generate the file with a default setting to allow user to use 'firstday' command
+        //solution below adapted from
+        //https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
+        File checkFileExist = new File("rangeofweek.xml");
+        FirstDayCommand fdc = new FirstDayCommand();
+        if (!checkFileExist.exists()) {
+            try {
+                checkFileExist.createNewFile();
+                fdc.saveRangeOfWeeks(fdc.computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+            } catch (java.io.IOException e) {
+                logger.warning("Filed to create rangeofweek.xml");
+            }
+        }
         try {
             Config updateConfig = new Config();
-            FirstDayCommand fdc = new FirstDayCommand();
             String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
             rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
 
             if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
                 updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
-                ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
             } else {
                 updateConfig.setAppTitle("Schedule Planner");
             }
@@ -143,7 +157,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to update config file : " + StringUtil.getDetails(e));
         }
-        //end added
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
