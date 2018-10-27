@@ -74,7 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs, and emailNamesSet.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
                         Set<String> emailNamesSet) {
