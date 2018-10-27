@@ -154,6 +154,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up person list panel.
+     */
+    void fillPersonListPanel() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void userLogin() {
