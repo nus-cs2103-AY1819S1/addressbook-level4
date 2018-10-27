@@ -10,7 +10,7 @@ import seedu.address.model.Context;
 import seedu.address.model.Model;
 
 /**
- * Adds a person to the address book.
+ * Adds a volunteer to the address book.
  */
 public class SwitchCommand extends Command {
 

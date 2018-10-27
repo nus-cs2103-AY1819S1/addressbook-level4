@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * Represents a volunteer's event record in application.
@@ -13,17 +13,29 @@ import seedu.address.model.person.PersonId;
  */
 public class Record {
     private final EventId eventId;
-    private final PersonId volunteerId;
+    private final VolunteerId volunteerId;
     private final Hour hour;
     private final Remark remark;
+
+    private int localIndex;
+    private String volunteerName;
+    private String phoneNo;
 
     /**
      * Every field must be present and not null.
      */
-    public Record(EventId eventId, PersonId volunteerId, Hour hour, Remark remark) {
+    public Record(EventId eventId, VolunteerId volunteerId, Hour hour, Remark remark) {
         requireAllNonNull(eventId, volunteerId, hour, remark);
         this.eventId = eventId;
         this.volunteerId = volunteerId;
+        this.hour = hour;
+        this.remark = remark;
+    }
+
+    public Record(Hour hour, Remark remark) {
+        requireAllNonNull(hour, remark);
+        this.eventId = null;
+        this.volunteerId = null;
         this.hour = hour;
         this.remark = remark;
     }
@@ -32,7 +44,7 @@ public class Record {
         return eventId;
     }
 
-    public PersonId getVolunteerId() {
+    public VolunteerId getVolunteerId() {
         return volunteerId;
     }
 
@@ -42,6 +54,30 @@ public class Record {
 
     public Remark getRemark() {
         return remark;
+    }
+
+    public int getLocalIndex() {
+        return localIndex;
+    }
+
+    public String getVolunteerName() {
+        return volunteerName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setLocalIndex(int index) {
+        this.localIndex = index;
+    }
+
+    public void setVolunteerName(String name) {
+        this.volunteerName = name;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     /**

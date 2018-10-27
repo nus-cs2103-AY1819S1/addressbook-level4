@@ -4,8 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * The API of the Model component.
@@ -14,7 +14,8 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Volunteer> PREDICATE_SHOW_ALL_VOLUNTEERS = unused -> true;
+
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -57,43 +58,54 @@ public interface Model {
      */
     String getContextName();
 
-    //===========  Person Methods =============================================================
-
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Sets the currently selected event
      */
-    boolean hasPerson(Person person);
+    void setSelectedEvent(Event eventId);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns the event of the selected event.
      */
-    void deletePerson(Person target);
+    Event getSelectedEvent();
+
+    //===========  Volunteer Methods =============================================================
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Returns true if a volunteer with the same identity as {@code volunteer} exists in the address book.
      */
-    void addPerson(Person person);
+    boolean hasVolunteer(Volunteer volunteer);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Deletes the given volunteer.
+     * The volunteer must exist in the address book.
+     */
+    void deleteVolunteer(Volunteer target);
+
+    /**
+     * Adds the given volunteer.
+     * {@code volunteer} must not already exist in the address book.
+     */
+    void addVolunteer(Volunteer volunteer);
+
+    /**
+     * Replaces the given volunteer {@code target} with {@code editedVolunteer}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The volunteer identity of {@code editedVolunteer} must not be the same as another existing volunteer in
+     * the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateVolunteer(Volunteer target, Volunteer editedVolunteer);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered volunteer list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Volunteer> getFilteredVolunteerList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered volunteer list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredVolunteerList(Predicate<Volunteer> predicate);
 
     //===========  Event Methods =============================================================
 

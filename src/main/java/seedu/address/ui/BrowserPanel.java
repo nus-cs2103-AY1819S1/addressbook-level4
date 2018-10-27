@@ -13,8 +13,8 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.ui.VolunteerPanelSelectionChangedEvent;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * The Browser Panel of the App.
@@ -34,7 +34,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel() {
         super(FXML);
-
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
@@ -46,8 +45,8 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(SEARCH_PAGE_URL + event.getName().fullName);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadVolunteerPage(Volunteer volunteer) {
+        loadPage(SEARCH_PAGE_URL + volunteer.getName().fullName);
     }
 
     public void loadPage(String url) {
@@ -76,8 +75,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleVolunteerPanelSelectionChangedEvent(VolunteerPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        loadVolunteerPage(event.getNewSelection());
     }
 }

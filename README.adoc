@@ -13,13 +13,14 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop social welfare event and volunteer management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* The target audience is social welfare organisations that want to better manage their volunteers & events, and gain further statistical insights from the data.
-** Manage contacts and events faster than a typical mouse/GUI driven app
-** Use tags to categorize events and volunteers
-** Support more fields for volunteers, such as number of volunteer hours
-** View volunteer and event statistics and derive insights from them
+* SocialCare is a social welfare event and volunteer management system. It is a desktop application and  has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
+* This application is intended for social welfare organisations that want to better manage their volunteers & events, and gain further statistical insights from the data.
+* SocialCare allow users to:
+** Manage contacts and events faster than a typical mouse/GUI driven app.
+** Use tags to categorize events and volunteers.
+** Manage additional volunteer data, such as number of service hours per volunteer.
+** View volunteer and event statistics and derive insights from them.
 
 
 == Site Map

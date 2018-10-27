@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Remark;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * A utility class to help with building Person objects.
@@ -16,13 +16,13 @@ public class RecordBuilder {
     public static final String DEFAULT_REMARK = "Emcee for event";
 
     private EventId eventId;
-    private PersonId volunteerId;
+    private VolunteerId volunteerId;
     private Hour hour;
     private Remark remark;
 
     public RecordBuilder() {
         eventId = new EventId(DEFAULT_EVENTID);
-        volunteerId = new PersonId(DEFAULT_VOLUNTEERID);
+        volunteerId = new VolunteerId(DEFAULT_VOLUNTEERID);
         hour = new Hour(DEFAULT_HOUR);
         remark = new Remark(DEFAULT_REMARK);
     }
@@ -49,7 +49,7 @@ public class RecordBuilder {
      * Sets the {@code VolunteerId} of the {@code Record} that we are building.
      */
     public RecordBuilder withVolunteerId(int volunteerId) {
-        this.volunteerId = new PersonId(volunteerId);
+        this.volunteerId = new VolunteerId(volunteerId);
         return this;
     }
 
