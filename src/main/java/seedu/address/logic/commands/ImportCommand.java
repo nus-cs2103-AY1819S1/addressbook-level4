@@ -20,7 +20,9 @@ import org.xml.sax.SAXException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.imports.ImportAddressBook;
+import seedu.address.logic.commands.imports.ImportBudgetBook;
 import seedu.address.logic.commands.imports.ImportCcaList;
+import seedu.address.logic.commands.imports.ImportTransaction;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -44,23 +46,19 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_CONFIG_ERR = "Configuration error.";
     public static final String MESSAGE_PARSE_ERR = "Error parsing XML file.";
 
-    private final Path path;
-    private final List<Person> personList;
-    private final Set<Tag> tags;
-    private final List<String> roomsList;
-    private String cca;
+    public static final String IMPORT_ADDRESSBOOK = "addressbook";
+    public static final String IMPORT_CCA_LIST = "list";
+    public static final String IMPORT_BUDGETBOOK = "ccabook";
+    public static final String IMPORT_TRANSACTION = "transactions";
 
+    private final Path path;
 
     /**
-     * Creates an ImportCommand to import the specified file.
+     * Creates an ImportCommand to import the file in specified path.
      */
     public ImportCommand(Path path) {
         requireNonNull(path);
         this.path = path;
-        this.personList = new ArrayList<>();
-        this.tags = new HashSet<>();
-        this.roomsList = new ArrayList<>();
-        this.cca = null;
     }
 
     @Override
@@ -68,11 +66,24 @@ public class ImportCommand extends Command {
         requireNonNull(model);
         Document doc = parseFile();
 
-        if (doc.getElementsByTagName("persons").getLength() != 0) {
-            new ImportAddressBook(doc, model).execute();
-        } else {
-            new ImportCcaList(doc, model).execute();
+        String rootName = doc.getDocumentElement().getNodeName();
+        switch (rootName) {
+            case IMPORT_ADDRESSBOOK:
+                new ImportAddressBook(doc, model).execute();
+                break;
+            case IMPORT_CCA_LIST:
+                new ImportCcaList(doc, model).execute();
+                break;
+            case IMPORT_BUDGETBOOK:
+                new ImportBudgetBook(doc, model).execute();
+                break;
+            case IMPORT_TRANSACTION:
+                new ImportTransaction(doc, model).execute();
+                break;
+            default:
+                throw new CommandException(MESSAGE_PARSE_ERR);
         }
+
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, path.getFileName()));
     }

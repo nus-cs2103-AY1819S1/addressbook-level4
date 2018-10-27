@@ -39,7 +39,7 @@ public class ImportCcaList {
     public void execute() {
         List<Person> originalList = new ArrayList<>();
         List<Person> editedList = new ArrayList<>();
-        NodeList nList = doc.getElementsByTagName("CCA");
+        NodeList nList = doc.getElementsByTagName("cca");
         for (int i = 0; i < nList.getLength(); i++) {
             List<Person> fullList = model.getAddressBook().getPersonList();
             originalList.clear();
@@ -48,7 +48,7 @@ public class ImportCcaList {
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                this.cca = element.getAttribute("cca");
+                this.cca = element.getAttribute("name");
                 NodeList nodeList = element.getElementsByTagName("room");
                 for (int j = 0; j < nodeList.getLength(); j++) {
                     roomsList.add(nodeList.item(j).getTextContent());
