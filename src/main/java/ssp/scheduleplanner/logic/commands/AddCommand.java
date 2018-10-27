@@ -2,6 +2,8 @@ package ssp.scheduleplanner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.logic.parser.CliSyntax;
@@ -52,6 +54,7 @@ public class AddCommand extends Command {
 
         model.addTask(toAdd);
         model.commitSchedulePlanner();
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
