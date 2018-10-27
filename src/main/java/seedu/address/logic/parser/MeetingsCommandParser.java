@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.MeetingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.SameMeetingDayPredicate;
 
 //@@author AyushChatto
 /**
@@ -17,15 +18,17 @@ public class MeetingsCommandParser implements Parser<MeetingsCommand> {
         Meeting meeting;
 
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MeetingsCommand.MESSAGE_USAGE);
-            )
+            return new MeetingsCommand(new SameMeetingDayPredicate(new Meeting(Meeting.NO_MEETING)));
         }
 
         String paddedArgs = args + "0000";
 
         try {
-             meeting =
+            meeting = ParserUtil.parseMeeting(paddedArgs);
+            return new MeetingsCommand(new SameMeetingDayPredicate(meeting));
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MeetingsCommand.MESSAGE_USAGE), pe);
         }
     }
 }

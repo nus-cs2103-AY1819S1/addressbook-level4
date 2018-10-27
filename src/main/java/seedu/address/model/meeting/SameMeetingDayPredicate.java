@@ -18,6 +18,10 @@ public class SameMeetingDayPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return meeting.isSameDay(person.getMeeting());
+        if (meeting.value.equals(Meeting.NO_MEETING)) {
+            return !person.getMeeting().value.equals(Meeting.NO_MEETING);
+        } else {
+            return meeting.isSameDay(person.getMeeting());
+        }
     }
 }

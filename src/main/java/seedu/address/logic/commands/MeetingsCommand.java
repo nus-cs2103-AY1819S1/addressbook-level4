@@ -16,9 +16,9 @@ public class MeetingsCommand extends Command {
     public static final String COMMAND_WORD = "meetings";
     public static final String COMMAND_ALIAS = "mtngs";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays all persons who have meetings "
-            + "scheduled on the same day. \n"
-            + "Parameters: DD/MM/YY"
-            + "Example: " + COMMAND_WORD + "23/02/18";
+            + "scheduled on the same day, if it is provided. Lists all meetings scheduled otherwise. \n"
+            + "Parameters: [DD/MM/YY] \n"
+            + "Example: " + COMMAND_WORD + " 23/02/18";
 
     private final SameMeetingDayPredicate predicate;
 
