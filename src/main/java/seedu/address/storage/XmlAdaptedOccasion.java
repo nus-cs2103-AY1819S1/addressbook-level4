@@ -91,11 +91,16 @@ public class XmlAdaptedOccasion {
         for (XmlAdaptedPerson person : this.attendanceList) {
             attendanceList.add(person.toModelType());
         }
+
         Set<Tag> tags = new HashSet<>();
         OccasionLocation location = new OccasionLocation(this.location);
-        for (XmlAdaptedTag t : tagMap) {
-            tags.add(t.toModelType());
+
+        if (tagMap != null && tagMap.size() > 0) {
+            for (XmlAdaptedTag t : tagMap) {
+                tags.add(t.toModelType());
+            }
         }
+
 
         return new Occasion(occasionName, occasionDate, location, tags, TypeUtil.OCCASION);
     }

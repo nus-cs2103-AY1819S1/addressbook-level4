@@ -99,11 +99,19 @@ public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public ModuleCardHandle getModuleCardHandle(int index) {
+//        return getAllCardNodes().stream()
+//                .map(ModuleCardHandle::new)
+//                .filter(handle -> handle.equals(getModule(index)))
+//                .findFirst()
+//                .orElseThrow(IllegalStateException::new);
+
         return getAllCardNodes().stream()
-                .map(ModuleCardHandle::new)
-                .filter(handle -> handle.equals(getModule(index)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
+                  .map((node) -> {
+                      ModuleCardHandle card = new ModuleCardHandle(node);
+                      return card;
+                  }).filter(handle -> handle.equals(getModule(index)))
+                    .findFirst()
+                    .orElseThrow(IllegalStateException::new);
     }
 
     private Module getModule(int index) {

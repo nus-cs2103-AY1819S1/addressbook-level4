@@ -56,6 +56,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
         assertEquals(expectedModule.getModuleTitle().toString(), actualCard.getName());
+        assertEquals(expectedModule.getModuleCode().toString() + ":", actualCard.getCode());
         assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

@@ -94,10 +94,10 @@ public class ModuleListPanelTest extends GuiUnitTest {
         builder.append("<addressbook>\n");
         for (int i = 0; i < moduleCount; i++) {
             builder.append("<modules>\n");
-            builder.append("<moduleCode>").append(i).append("a</moduleCode>\n");
-            builder.append("<moduleTitle>000</moduleTitle>\n");
-            builder.append("<academicYear>a@aa</academicYear>\n");
-            builder.append("<semester>a</semester>\n");
+            builder.append("<moduleCode>").append("CS1231").append("a</moduleCode>\n");
+            builder.append("<moduleTitle>00" + i + "</moduleTitle>\n");
+            builder.append("<academicYear>1718</academicYear>\n");
+            builder.append("<semester>2</semester>\n");
             builder.append("</modules>\n");
         }
         builder.append("</addressbook>\n");

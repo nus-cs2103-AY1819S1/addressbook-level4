@@ -94,7 +94,7 @@ public class OccasionListPanelTest extends GuiUnitTest {
         builder.append("<addressbook>\n");
         for (int i = 0; i < occasionCount; i++) {
             builder.append("<occasions>\n");
-            builder.append("<occasionName>").append(i).append("a</occasionName>\n");
+            builder.append("<occasionName>").append(i).append("ab</occasionName>\n");
             builder.append("<occasionDateTime>2018-01-09</occasionDateTime>\n");
             builder.append("<location>SOC</location>\n");
             builder.append("</occasions>\n");

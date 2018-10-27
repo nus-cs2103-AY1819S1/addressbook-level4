@@ -12,8 +12,8 @@ import seedu.address.model.occasion.Occasion;
 public class OccasionCardHandle extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String DATE_FIELD_ID = "#date";
+    private static final String NAME_FIELD_ID = "#occasionName";
+    private static final String DATE_FIELD_ID = "#occasionDate";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;

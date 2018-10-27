@@ -29,16 +29,19 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label code;
     @FXML
     private Label id;
+    @FXML
+    private Label name;
     @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
-        id.setText(displayedIndex + ". " + module.getModuleCode().toString() + ":");
+        id.setText(displayedIndex + ". ");
+        code.setText(module.getModuleCode().toString() + ":");
         name.setText(module.getModuleTitle().toString());
         if (module.getTags() != null) {
             module.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
