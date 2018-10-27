@@ -167,6 +167,11 @@ public class AddCommandTest {
         public void commitSchedulePlanner() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sort() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

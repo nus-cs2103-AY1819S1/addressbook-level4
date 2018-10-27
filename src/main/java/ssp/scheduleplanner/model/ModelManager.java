@@ -64,6 +64,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedSchedulePlanner.hasTask(task);
     }
 
+    public void sort() {
+        versionedSchedulePlanner.sort();
+    }
+
+
     @Override
     public boolean hasArchivedTask(Task archivedTask) {
         requireAllNonNull(archivedTask);

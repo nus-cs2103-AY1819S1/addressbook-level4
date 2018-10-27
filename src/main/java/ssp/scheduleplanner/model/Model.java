@@ -95,4 +95,9 @@ public interface Model {
      * Saves the current Schedule Planner state for undo/redo.
      */
     void commitSchedulePlanner();
+
+    /**
+     * Sort existing tasks in current Schedule Planner.
+     */
+    void sort();
 }

@@ -158,4 +158,8 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     public int hashCode() {
         return tasks.hashCode();
     }
+
+    public void sort() {
+        tasks.sort();
+    }
 }

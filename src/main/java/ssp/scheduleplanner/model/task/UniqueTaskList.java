@@ -37,6 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public void sort() {
         SortedList<Task> sortedList = internalList.sorted((a, b) -> Task.compare(a, b));
+        internalList = sortedList;
     }
 
     /**

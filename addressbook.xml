@@ -43,6 +43,27 @@
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>111018</date>
+        <priority>2</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>111018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>n</name>
+        <date>111018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
     <archivedTasks>
         <name>Alex Yeoh</name>
         <date>121107</date>
