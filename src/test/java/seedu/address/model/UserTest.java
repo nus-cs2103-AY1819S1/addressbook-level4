@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 public class UserTest {
