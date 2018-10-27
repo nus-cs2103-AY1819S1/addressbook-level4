@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         WishTransaction transaction = logic.getWishTransaction(); // Access to WishTransaction
 
-        wishDetailPanel = new WishDetailPanel();
+        wishDetailPanel = new WishDetailPanel(transaction);
         wishDetailPlaceholder.getChildren().add(wishDetailPanel.getRoot());
 
         wishListPanel = new WishListPanel(logic.getFilteredWishList());
