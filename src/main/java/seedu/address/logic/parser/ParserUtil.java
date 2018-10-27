@@ -158,7 +158,7 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag) || trimmedTag.equals("")) {
+        if (trimmedTag.equals("") || !Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
