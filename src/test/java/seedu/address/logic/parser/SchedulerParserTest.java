@@ -149,7 +149,8 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_addToDo() throws Exception {
         ToDoListEvent toDoListEvent = new ToDoListEventBuilder().build();
-        AddToDoCommand commandToDo = (AddToDoCommand) parser.parseCommandToDo(ToDoListEventUtil.getAddToDoCommand(toDoListEvent));
+        AddToDoCommand commandToDo = (AddToDoCommand) parser
+                .parseCommandToDo(ToDoListEventUtil.getAddToDoCommand(toDoListEvent));
         assertEquals(new AddToDoCommand(toDoListEvent), commandToDo);
     }
 

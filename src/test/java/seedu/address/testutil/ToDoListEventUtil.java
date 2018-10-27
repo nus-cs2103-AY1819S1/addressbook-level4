@@ -1,14 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.AddToDoCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.todolist.ToDoListEvent;
-
-import java.util.Set;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+
+import seedu.address.logic.commands.AddToDoCommand;
+import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * A utility class for ToDoListEvent.

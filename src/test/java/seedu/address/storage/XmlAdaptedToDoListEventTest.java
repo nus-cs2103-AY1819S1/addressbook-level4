@@ -58,7 +58,8 @@ public class XmlAdaptedToDoListEventTest {
     public void toModelType_nullDescription_throwsIllegalValueException() {
         XmlAdaptedToDoListEvent toDoListEvent = new XmlAdaptedToDoListEvent(VALID_TITLE, null,
                 VALID_PRIORITY);
-        String expectedMessage = String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
+        String expectedMessage =
+                String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, toDoListEvent::toModelType);
     }
 

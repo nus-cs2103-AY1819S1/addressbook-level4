@@ -30,7 +30,8 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualToDoListCard} displays the same values as {@code expectedToDoListCard}.
      */
-    public static void assertToDoListCardEquals(ToDoListEventCardHandle expectedCard, ToDoListEventCardHandle actualCard) {
+    public static void assertToDoListCardEquals(
+            ToDoListEventCardHandle expectedCard, ToDoListEventCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getPriority(), actualCard.getPriority());
         assertEquals(expectedCard.getTitle(), actualCard.getTitle());
