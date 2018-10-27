@@ -28,6 +28,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
@@ -148,7 +149,7 @@ public class ConnectToGoogleCalendar {
     /**
      * Pushes the event(s) to Google Calendar.
      */
-    public void pushToGoogleCal(List <Event> toAddList) {
+    public void pushToGoogleCal(List<Event> toAddList) {
 
         logger.info("Starting to push events Google Calendar");
         Calendar service = getCalendar();
@@ -173,6 +174,85 @@ public class ConnectToGoogleCalendar {
                 service.events().insert("primary", gEvent).execute();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Edits the details of an existing event in the Google Calendar.
+     *
+     * @param eventToEdit a local Event.
+     * @param editedEvent an edited local Event.
+     */
+    public void updateGoogleEvent(Event eventToEdit, Event editedEvent) {
+        assert eventToEdit != null;
+        assert editedEvent != null;
+        Calendar service = getCalendar();
+        String gEventId = String.valueOf(eventToEdit.getUuid()).replaceAll("-", "");
+
+        com.google.api.services.calendar.model.Event gEvent = null;
+
+        //retrieve event
+        boolean found = false;
+        try {
+
+            Events events = null;
+            DateTime now = new DateTime(System.currentTimeMillis());
+
+            events = service.events().list("primary")//set the source calendar on google
+                    .setMaxResults(99) //set upper limit for number of events
+                    .setTimeMin(now)//set the starting time
+                    .setOrderBy("startTime")//if not specified, stable order
+                    //TODO: further development can be done for repeated event, more logic must be written
+                    .setSingleEvents(true)//not the repeated ones
+                    //TODO: how to use setSynctoken, to prevent adding the same event multiples times
+                    .execute();
+            List<com.google.api.services.calendar.model.Event> eventsItems = events.getItems();
+            for (com.google.api.services.calendar.model.Event tempGEvent : eventsItems) {
+                if (tempGEvent.getId() == gEventId) {
+                    found = true;
+                }
+            }
+            if (found == true) {
+                gEvent = service.events().get("primary", gEventId).execute();
+            }
+
+        } catch (IOException e3) {
+            e3.printStackTrace();
+        }
+
+        if (found) {
+            assert found;
+            assert gEvent != null;
+            gEvent.setSummary(String.valueOf(editedEvent.getEventName()));
+            gEvent.setLocation(String.valueOf(editedEvent.getVenue()));
+            gEvent.setDescription(String.valueOf(editedEvent.getDescription()));
+
+            String startDateTime = convertStartDateTimeToGoogleFormat(editedEvent);
+
+            gEvent.setStart(new EventDateTime()
+                    .setDateTime(com.google.api.client.util.DateTime.parseRfc3339(startDateTime)));
+
+            String endDateTime = convertEndDateTimeToGoogleFormat(editedEvent);
+
+            gEvent.setEnd(
+                    new EventDateTime().setDateTime(com.google.api.client.util.DateTime.parseRfc3339(endDateTime)));
+
+            com.google.api.services.calendar.model.Event updatedgEvent = null;
+            com.google.api.services.calendar.model.Event event = null;
+            try {
+                event = service.events().get("primary", gEventId).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (event != null) {
+                try {
+                    updatedgEvent = service.events().update("primary", gEventId, gEvent).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert updatedgEvent != null;
+                DateTime updated = updatedgEvent.getUpdated();
             }
         }
     }

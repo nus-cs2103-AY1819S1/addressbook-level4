@@ -5,16 +5,12 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.EventDateTime;
 
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
@@ -87,40 +83,7 @@ public class EditCommand extends Command {
         model.updateEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
-
-        Calendar service = connectToGoogleCalendar.getCalendar();
-        String gEventId = String.valueOf(eventToEdit.getUuid()).replaceAll("-", "");
-
-        com.google.api.services.calendar.model.Event gEvent = null;
-
-        //retireve event
-        try {
-            gEvent = service.events().get("primary", gEventId).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        gEvent.setSummary(String.valueOf(editedEvent.getEventName()));
-        gEvent.setLocation(String.valueOf(editedEvent.getVenue()));
-        gEvent.setDescription(String.valueOf(editedEvent.getDescription()));
-
-        String startDateTime = convertStartDateTimeToGoogleFormat(editedEvent);
-
-        gEvent.setStart(new EventDateTime()
-                .setDateTime(com.google.api.client.util.DateTime.parseRfc3339(startDateTime)));
-
-        String endDateTime = convertEndDateTimeToGoogleFormat(editedEvent);
-
-        gEvent.setEnd(new EventDateTime().setDateTime(com.google.api.client.util.DateTime.parseRfc3339(endDateTime)));
-
-        com.google.api.services.calendar.model.Event updatedgEvent = null;
-        try {
-            updatedgEvent = service.events().update("primary", gEventId, gEvent).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        updatedgEvent.getUpdated();
-
+        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
