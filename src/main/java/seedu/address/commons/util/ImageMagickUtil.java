@@ -4,6 +4,7 @@ package seedu.address.commons.util;
 //import com.sun.javafx.PlatformUtil;
 //@@author j-lum
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +28,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.storage.JsonConvertArgsStorage;
 
+import javax.crypto.Mac;
+
 //import com.sun.javafx.PlatformUtil;
 
 //import seedu.address.model.VersionedAddressBook;
@@ -35,13 +38,15 @@ import seedu.address.storage.JsonConvertArgsStorage;
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
  */
 public class ImageMagickUtil {
-    public static final String IMAGEMAGIC_PATH = ImageMagickUtil.class.getResource("/imageMagic").getPath();
-    public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get(
-            IMAGEMAGIC_PATH + "/commandTemplate.json");
-    public static final String TMPPATH = IMAGEMAGIC_PATH + "/tmp";
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
+    public static final String IMAGEMAGIC_PATH = ImageMagickUtil.class.getResource("/imageMagic").getPath();
+    public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get(
+            (getPlatform() == WINDOWS ? IMAGEMAGIC_PATH.substring(1) : IMAGEMAGIC_PATH) + "/commandTemplate.json");
+    //public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get("D:/Projects/main/out/production/resources/imageMagic/commandTemplate.json");
+    public static final String TMPPATH = IMAGEMAGIC_PATH + "/tmp";
+
     /**
      * @return path an string to the location of the ImageMagick executable for a supported platform.
      */
@@ -88,18 +93,13 @@ public class ImageMagickUtil {
      * @throws NoSuchElementException
      */
     public static String getImageMagicPackagePath() throws NoSuchElementException {
-        /*
-        if (PlatformUtil.isMac()) {
-            return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/mac/";
-        } else if (PlatformUtil.isWindows()) {
-            return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/win/";
-        } else if (PlatformUtil.isLinux()) {
-            return "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/resources/imageMagic/package/linux";
-        } else {
-            throw new NoSuchElementException("unrecongnized OS");
+        switch(getPlatform()) {
+            case MAC:
+                return IMAGEMAGIC_PATH + "/package/mac/";
+            case WINDOWS:
+                return IMAGEMAGIC_PATH + "/package/win";
         }
-        */
-        return MainApp.MAIN_PATH + "/src/main/resources/imageMagic/package/mac/";
+        return "";
     }
 
     /**
@@ -197,7 +197,12 @@ public class ImageMagickUtil {
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
             if (file.isDirectory()) {
-                return file.getAbsolutePath() + "/bin/magick";
+                switch (getPlatform()) {
+                    case MAC:
+                        return file.getAbsolutePath() + "/bin/magick";
+                    case WINDOWS:
+                        return file.getAbsolutePath() + "/magick.exe";
+                }
             }
         }
         throw new NoSuchElementException("cannot find the file");
@@ -244,8 +249,10 @@ public class ImageMagickUtil {
         args.add(modifiedFile.getAbsolutePath());
         pb = new ProcessBuilder(args);
         //set the environment of the processbuilder
-        Map<String, String> mp = pb.environment();
-        mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
+        if(getPlatform() == MAC) {
+            Map<String, String> mp = pb.environment();
+            mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
+        }
         Process process = pb.start();
         process.waitFor();
         FileInputStream inputstream = new FileInputStream(TMPPATH + "/modified.png");
