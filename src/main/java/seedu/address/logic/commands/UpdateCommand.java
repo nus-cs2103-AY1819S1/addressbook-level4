@@ -77,6 +77,10 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the budget book.";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
+    private static final String MESSAGE_INVALID_HEAD_NAME = "There is no such person in the address book to add as " +
+        "head" ;
+    private static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add " +
+        "as vice-head" ;
 
     private final CcaName cca;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -115,6 +119,14 @@ public class UpdateCommand extends Command {
 
         if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
+        }
+
+        if (!editedCca.getHeadName().equals("-") && !model.hasPerson(editedCca.getHead())) {
+            throw new CommandException(MESSAGE_INVALID_HEAD_NAME);
+        }
+
+        if (!editedCca.getViceHeadName().equals("-") && !model.hasPerson(editedCca.getViceHead())) {
+            throw new CommandException(MESSAGE_INVALID_VICE_HEAD_NAME);
         }
 
         editedCca = TransactionMath.updateDetails(editedCca);

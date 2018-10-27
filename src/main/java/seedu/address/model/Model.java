@@ -10,6 +10,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -46,27 +47,28 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+    //@@author ericyjw
+    /**
+     * Returns true if a person with the same name as {@code person} exists in the address book.
+     */
+    boolean hasPerson(Name person);
+
     /**
      * Returns true if a CCA with the same CCA name as {@code Cca} exists in the budget book.
-     *
-     * @author ericyjw
      */
     boolean hasCca(CcaName ccaName);
 
     /**
      * Returns true if a CCA with the same identity as {@code cca} exists in the budget book.
-     *
-     * @author ericyjw
      */
     boolean hasCca(Cca cca);
 
     /**
      * Returns true if a person's CCA tag has the same name as the {@code cca} that exists in the budget book.
-     *
-     * @author ericyjw
      */
     boolean hasCca(Person toAdd);
 
+    //@@author
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -110,6 +112,7 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    //@@author ericyjw
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -143,6 +146,7 @@ public interface Model {
      */
     void updateFilteredCcaList(Predicate<Cca> predicate);
 
+    //@@author
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -168,6 +172,7 @@ public interface Model {
      */
     void commitAddressBook();
 
+    //@@author ericyjw
     /**
      * Saves the current budget book state for undo/redo.
      */
@@ -178,6 +183,7 @@ public interface Model {
      */
     ObservableList<Cca> getFilteredCcaList();
 
+    //@@author
     /**
      * Saves the email to the email model
      */
@@ -241,6 +247,7 @@ public interface Model {
      */
     void updateExistingCalendar();
 
+    //@@author ericyjw
     /**
      * Deletes an existing CCA in the CCA list.
      */

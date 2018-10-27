@@ -28,6 +28,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.storage.CalendarStorage;
 import seedu.address.storage.IcsCalendarStorage;
@@ -135,6 +136,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return versionedAddressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPerson(Name person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
