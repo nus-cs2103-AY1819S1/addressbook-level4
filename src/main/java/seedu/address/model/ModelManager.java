@@ -17,6 +17,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
@@ -100,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireAllNonNull(target, editedGroup);
 
         versionedAddressBook.updateGroup(target, editedGroup);

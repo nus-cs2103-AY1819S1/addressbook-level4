@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
@@ -226,6 +227,13 @@ public class AddressBookParserTest {
                 + VALID_MEETING_DESC_WEEKLY);
 
         MeetCommand expectedCommand = new MeetCommand(GROUP_2101, WEEKLY);
+    }
+
+    @Test
+    public void parseCommand_cancelCommand() throws Exception {
+        parser.parseCommand(CancelCommand.COMMAND_WORD + " " + GROUP_2101.getTitle());
+
+        CancelCommand expectedCommand = new CancelCommand(GROUP_2101);
     }
 
     @Test

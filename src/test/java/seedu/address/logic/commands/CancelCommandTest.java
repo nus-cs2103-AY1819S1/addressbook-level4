@@ -5,11 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.MeetCommand.MESSAGE_MEETING_CANCELLED;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
-import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 
 import org.junit.Test;
 
@@ -19,8 +17,9 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.shared.Title;
 
+
 // @@author NyxF4ll
-public class MeetCommandTest {
+public class CancelCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private Title groupTitle1 = new Title("Group1");
@@ -30,48 +29,41 @@ public class MeetCommandTest {
     private Group group2 = new Group(groupTitle2);
 
     @Test
-    public void execute_meetingSpecified_success() {
-        Model model = new ModelStubWithSingleGroup(group1);
+    public void execute_validGroupSpecified_success() {
+        Group groupWithMeeting = new Group(groupTitle1);
+        groupWithMeeting.setMeeting(DISCUSSION);
+        Model model = new ModelStubWithSingleGroup(groupWithMeeting);
 
-        Group expectedGroup = new Group(groupTitle1);
-        expectedGroup.setMeeting(DISCUSSION);
-        Model expectedModel = new ModelStubWithSingleGroup(expectedGroup);
+        Model expectedModel = new ModelStubWithSingleGroup(group1);
 
-        MeetCommand command = new MeetCommand(group1, DISCUSSION);
+        CancelCommand command = new CancelCommand(group1);
         assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
-                String.format(MeetCommand.MESSAGE_MEET_COMMAND_SUCCESS, groupTitle1.toString(),
-                        DISCUSSION.getTitle().toString()),
-                expectedModel);
+                String.format(CancelCommand.MESSAGE_CANCEL_COMMAND_SUCCESS, groupTitle1.toString()), expectedModel);
     }
 
     @Test
     public void execute_invalidGroup_failure() {
         Model model = new ModelStubWithSingleGroup(group1);
 
-        MeetCommand command = new MeetCommand(group2, DISCUSSION);
+        CancelCommand command = new CancelCommand(group2);
         assertCommandFailure(command, model, EMPTY_COMMAND_HISTORY, Messages.MESSAGE_GROUP_NOT_FOUND);
     }
 
     @Test
-    public void execute_noMeetingSpecified_meetingCleared() {
-        Group editedGroup1 = new Group(groupTitle1);
-        editedGroup1.setMeeting(REHEARSAL);
-        Model model = new ModelStubWithSingleGroup(editedGroup1);
+    public void execute_groupHasNoMeeting_failure() {
+        Model model = new ModelStubWithSingleGroup(group1);
 
-        Model expectedModel = new ModelStubWithSingleGroup(group1);
-
-        MeetCommand command = new MeetCommand(group1, null);
-        assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
-                String.format(MESSAGE_MEETING_CANCELLED, groupTitle1), expectedModel);
-
+        CancelCommand command = new CancelCommand(group1);
+        assertCommandFailure(command, model, EMPTY_COMMAND_HISTORY, CancelCommand.MESSAGE_GROUP_HAS_NO_MEETING);
     }
+
 
     @Test
     public void equals() {
-        final MeetCommand standardCommand = new MeetCommand(PROJECT_2103T, DISCUSSION);
+        final CancelCommand standardCommand = new CancelCommand(PROJECT_2103T);
 
         // same values -> returns true
-        MeetCommand commandWithSameValues = new MeetCommand(PROJECT_2103T, DISCUSSION);
+        CancelCommand commandWithSameValues = new CancelCommand(PROJECT_2103T);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -84,9 +76,7 @@ public class MeetCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different group -> returns false
-        assertFalse(standardCommand.equals(new MeetCommand(GROUP_2101, DISCUSSION)));
-
-        // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new MeetCommand(PROJECT_2103T, REHEARSAL)));
+        assertFalse(standardCommand.equals(new CancelCommand(GROUP_2101)));
     }
+    // @@author
 }
