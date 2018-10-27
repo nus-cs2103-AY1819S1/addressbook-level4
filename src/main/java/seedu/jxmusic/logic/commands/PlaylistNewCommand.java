@@ -2,13 +2,14 @@ package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
 
 /**
- * Adds a playlist to the jxmusic book.
+ * Adds a playlist to the library.
  */
 public class PlaylistNewCommand extends Command {
 
@@ -17,9 +18,12 @@ public class PlaylistNewCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Creates a new empty playlist and saves it into the "
             + "library."
             + "Parameters: "
-            + PREFIX_PLAYLIST + "PLAYLIST\n"
+            + PREFIX_PLAYLIST + "PLAYLIST "
+            + "[" + PREFIX_TRACK + "TRACK]...\n"
             + "Example: " + COMMAND_PHRASE + " "
-            + PREFIX_PLAYLIST + "Favourites";
+            + PREFIX_PLAYLIST + "Favourites "
+            + PREFIX_TRACK + "Ihojin no Yaiba "
+            + PREFIX_TRACK + "acyort";
 
     public static final String MESSAGE_SUCCESS = "New playlist added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLAYLIST = "This playlist already exists in the library";

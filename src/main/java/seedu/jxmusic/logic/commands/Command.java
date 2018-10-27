@@ -2,11 +2,15 @@ package seedu.jxmusic.logic.commands;
 
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Model;
+import seedu.jxmusic.player.Player;
+import seedu.jxmusic.player.PlayerManager;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
+
+    protected Player player = PlayerManager.getInstance();
 
     /**
      * Executes the command and returns the result message.
