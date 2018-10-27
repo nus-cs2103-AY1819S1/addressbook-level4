@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Logger;
 
@@ -44,42 +43,39 @@ public class AchievementPanel extends UiPart<Region> {
         int displayOption = achievements.getDisplayOption();
         levelValueLabel.setText(level);
         switch (displayOption) {
-            case 1:
-                timeSpanLabel.setText("All-time achievements:");
-                String xp = Integer.toString(achievements.getXpValue());
-                xpValueLabel.setText(xp + " / " + achievements.getLevelMaxXp());
-                numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompleted()));
-                break;
-            case 2:
-                timeSpanLabel.setText("Achievements since " +
-                        getLastDayBreakPoint(achievements.getNextDayBreakPoint()) + " :");
-                xpValueLabel.setText(Integer.toString(achievements.getXpValueByDay()));
-                numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByDay()));
-                break;
-            case 3:
-                timeSpanLabel.setText("Achievements since " +
-                        getLastWeekBreakPoint(achievements.getNextWeekBreakPoint()) + " :");
-                xpValueLabel.setText(Integer.toString(achievements.getXpValueByWeek()));
-                numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByWeek()));
-                break;
-            default:
-                assert false;
+        case 1:
+            timeSpanLabel.setText("All-time achievements:");
+            String xp = Integer.toString(achievements.getXpValue());
+            xpValueLabel.setText(xp + " / " + achievements.getLevelMaxXp());
+            numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompleted()));
+            break;
+        case 2:
+            timeSpanLabel.setText("Achievements since "
+                    + getLastDayBreakPoint(achievements.getNextDayBreakPoint()) + " :");
+            xpValueLabel.setText(Integer.toString(achievements.getXpValueByDay()));
+            numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByDay()));
+            break;
+        case 3:
+            timeSpanLabel.setText("Achievements since "
+                    + getLastWeekBreakPoint(achievements.getNextWeekBreakPoint()) + " :");
+            xpValueLabel.setText(Integer.toString(achievements.getXpValueByWeek()));
+            numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByWeek()));
+            break;
+        default:
+            assert false;
         }
-        
     }
 
     private String getLastDayBreakPoint(Calendar nextDayBreakPoint) {
         Calendar copy = (GregorianCalendar) nextDayBreakPoint.clone();
         copy.add(Calendar.DAY_OF_MONTH, -1);
         return DateFormatUtil.FORMAT_MINIMAL.format(copy.getTime());
-        
     }
 
     private String getLastWeekBreakPoint(Calendar nextWeekBreakPoint) {
         Calendar copy = (GregorianCalendar) nextWeekBreakPoint.clone();
         copy.add(Calendar.DAY_OF_MONTH, -7);
         return DateFormatUtil.FORMAT_MINIMAL.format(copy.getTime());
-
     }
 
     @Subscribe

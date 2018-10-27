@@ -1,6 +1,5 @@
 package seedu.address.model.achievement;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represent the level of achievement in reached by the user.

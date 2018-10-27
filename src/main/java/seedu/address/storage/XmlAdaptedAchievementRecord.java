@@ -22,10 +22,10 @@ public class XmlAdaptedAchievementRecord {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is missing!";
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is invalid!";
-    
+
     private static final String DISPLAY_OPTION_FIELD = "displayOption";
     private static final String NUM_TASK_COMPLETED_FIELD = "numTaskCompleted";
-    
+
     private static final String NEXT_DAY_BREAK_POINT_FIELD = "nextDayBreakPoint";
     private static final String NUM_TASK_COMPLETED_BY_DAY_FIELD = "numTaskCompletedByDay";
     private static final String XP_VALUE_BY_DAY_FIELD = "xpValueByDay";
@@ -130,19 +130,29 @@ public class XmlAdaptedAchievementRecord {
                 NUM_TASK_COMPLETED_BY_WEEK_FIELD);
         final int modelXpValueByWeek = stringToIntModelField(xpValueByWeek, XP_VALUE_BY_WEEK_FIELD);
 
-        return new AchievementRecord(modelDisplayOption, modelXp, modelLevel, modelNumTaskCompleted, modelNextDayBreakPoint,
-                modelNumTaskCompletedByDay, modelXpValueByDay, modelNextWeekBreakPoint, modelNumTaskCompletedByWeek,
-                modelXpValueByWeek);
+        return new AchievementRecord(modelDisplayOption, modelXp, modelLevel, modelNumTaskCompleted,
+                modelNextDayBreakPoint, modelNumTaskCompletedByDay, modelXpValueByDay, modelNextWeekBreakPoint,
+                modelNumTaskCompletedByWeek, modelXpValueByWeek);
     }
 
+    /**
+     * Converts the jaxb-friendly {@code source} string into the model's {@code displayOption} field.
+     *
+     * @throws IllegalValueException if the string cannot be convert to valid {@code displayOption}.
+     */
     private int stringToDisplayOptionModelField(String source) throws IllegalValueException {
-        final int result = stringToIntModelField(displayOption, DISPLAY_OPTION_FIELD);
+        final int result = stringToIntModelField(source, DISPLAY_OPTION_FIELD);
         if (!AchievementRecord.isValidDisplayOption(result)) {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, DISPLAY_OPTION_FIELD));
         }
         return result;
     }
 
+    /**
+     * Converts the jaxb-friendly {@code source} string into the model's {@code Xp} object.
+     *
+     * @throws IllegalValueException if the string cannot be convert to valid {@code Xp}.
+     */
     private Xp stringToXpModelField(String source) throws IllegalValueException {
         if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Xp.class.getSimpleName()));
@@ -159,6 +169,11 @@ public class XmlAdaptedAchievementRecord {
         return new Xp(xpValue);
     }
 
+    /**
+     * Converts the jaxb-friendly {@code source} string into the model's {@code Level} object.
+     *
+     * @throws IllegalValueException if the string cannot be convert to valid {@code Level}.
+     */
     private Level stringToLevelModelField(String source) throws IllegalValueException {
         if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Level.class.getSimpleName()));
@@ -169,8 +184,13 @@ public class XmlAdaptedAchievementRecord {
         return Level.fromString(source);
     }
 
+    /**
+     * Converts the jaxb-friendly {@code source} string into integer type to be used as values of model's fields.
+     *
+     * @throws IllegalValueException if the string cannot be convert to valid integer.
+     */
     private int stringToIntModelField(String source, String fieldName) throws IllegalValueException {
-        if(source == null) {
+        if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldName));
         }
         final int result;
@@ -185,6 +205,11 @@ public class XmlAdaptedAchievementRecord {
         return result;
     }
 
+    /**
+     * Converts the jaxb-friendly {@code source} string into the model's {@code Calendar} object.
+     *
+     * @throws IllegalValueException if the string cannot be convert to valid {@code Calendar}.
+     */
     private GregorianCalendar stringToCalendarModelField(String source, String fieldName) throws IllegalValueException {
         if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldName));

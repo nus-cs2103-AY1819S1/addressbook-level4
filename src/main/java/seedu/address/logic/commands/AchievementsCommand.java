@@ -8,14 +8,14 @@ import seedu.address.model.Model;
 import seedu.address.model.achievement.AchievementRecord;
 
 /**
- * Set achievement record's display preference: 
+ * Set achievement record's display preference:
  * display all-time's, today's or this week's achievements on achievement panel.
  */
 public class AchievementsCommand extends Command {
     public static final String ALL_TIME_OPTION = "all-time";
     public static final String TODAY_OPTION = "today";
     public static final String THIS_WEEK_OPTION = "this week";
-    
+
     public static final String COMMAND_WORD = "achievements";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -25,9 +25,9 @@ public class AchievementsCommand extends Command {
 
     public static final String MESSAGE_DISPLAY_ACHIEVEMENT_SUCCESS = "%s's achievements successfully displayed!";
 
-    
+
     private final String displayTimeSpan;
-    
+
     private final int displayOption;
 
     /**
@@ -37,7 +37,7 @@ public class AchievementsCommand extends Command {
         this.displayTimeSpan = displayTimeSpan;
         this.displayOption = getDisplayOptionFromTimeSpan(displayTimeSpan);
     }
-    
+
 
     private int getDisplayOptionFromTimeSpan(String displayTimeSpan) {
         switch (displayTimeSpan) {

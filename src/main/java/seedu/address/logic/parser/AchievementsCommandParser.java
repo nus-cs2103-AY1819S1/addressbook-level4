@@ -25,6 +25,10 @@ public class AchievementsCommandParser implements Parser<AchievementsCommand> {
 
         return new AchievementsCommand(trimmedArg);
     }
+
+    /**
+     * Checks if the {@code arg} matches any of the three valid argument strings: all-time, today or this week.
+     */
     private boolean isValidAchievementCommandArg(String arg) {
         return !arg.isEmpty()
                 && (arg.equals(AchievementsCommand.ALL_TIME_OPTION)

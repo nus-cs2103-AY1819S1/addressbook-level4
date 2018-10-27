@@ -13,7 +13,7 @@ import seedu.address.model.util.DateFormatUtil;
  * A utility class to help with building AchievementRecord objects.
  */
 public class AchievementRecordBuilder {
-    
+
     public static final String DEFAULT_NEXT_DAY_BREAK_POINT = "13-10-19 0000";
     public static final String DEFAULT_NEXT_WEEK_BREAK_POINT = "19-10-19 0000";
 
@@ -108,9 +108,12 @@ public class AchievementRecordBuilder {
         return this;
     }
 
+    /**
+     * Constructs an {@code AchievementRecord} with the current attributes of this {@code TaskBuilder}.
+     */
     public AchievementRecord build() {
-        return new AchievementRecord(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
-                xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
+        return new AchievementRecord(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint,
+                numTaskCompletedByDay, xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
     }
 }
 

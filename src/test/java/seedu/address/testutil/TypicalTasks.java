@@ -26,7 +26,7 @@ import seedu.address.model.task.Task;
  */
 public class TypicalTasks {
 
-    public static final AchievementRecord achievements = new AchievementRecordBuilder()
+    public static final AchievementRecord ACHIEVEMENT = new AchievementRecordBuilder()
             .withNextDayBreakPoint("13-10-19").withNextWeekBreakPoint("19-10-19").build();
     public static final Task A_TASK = new TaskBuilder().withName("Address CS2103 email")
             .withDescription("Reply to Damith").withPriorityValue("1")
@@ -83,7 +83,7 @@ public class TypicalTasks {
      */
     public static TaskManager getTypicalTaskManager() {
         TaskManager tm = new TaskManager();
-        tm.setAchievements(achievements);
+        tm.setAchievements(ACHIEVEMENT);
         for (Task task : getTypicalTasks()) {
             tm.addTask(task);
         }

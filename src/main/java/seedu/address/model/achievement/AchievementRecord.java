@@ -4,21 +4,25 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-
-import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * Represents a record of the user's achievements while using the task manager.
- * Achievements include the experience points(xp) earned by completing the task and the level a user has reached.
+ * Achievements include the experience points(xp) earned by completing the task across all time, today, and this week,
+ * number of tasks a user has completed across all time, today and this week and the level a user has reached.
+ *
+ * Keeps two date breakpoints at which today's or this week's achievements is cleared and the breakpoints are reset.
+ *
+ * Records the the achievement record's display preference set by user, such preference is set by
+ * {@link seedu.address.logic.commands.AchievementsCommand}.
+ *
  * Guarantees: details are present and not null.
  */
 public class AchievementRecord {
 
-    public static int DISPLAY_ALL_TIME = 1;
-    public static int DISPLAY_TODAY = 2;
-    public static int DISPLAY_THIS_WEEK = 3;
+    public static final int DISPLAY_ALL_TIME = 1;
+    public static final int DISPLAY_TODAY = 2;
+    public static final int DISPLAY_THIS_WEEK = 3;
 
     private int displayOption;
 
@@ -46,36 +50,36 @@ public class AchievementRecord {
 
     /**
      * Constructs a {@code AchievementRecord}.
-     * Both fields must be present.
+     * All fields must be present.
      */
     public AchievementRecord(int displayOption, Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
                              int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
                              int numTaskCompletedByWeek, int xpValueByWeek) {
-        requireAllNonNull(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay, xpValueByDay,
-                nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
+        requireAllNonNull(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
+                xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
         this.displayOption = displayOption;
         this.xp = xp;
         this.level = level;
         this.numTaskCompleted = numTaskCompleted;
-        
+
         this.nextDayBreakPoint = nextDayBreakPoint;
         this.numTaskCompletedByDay = numTaskCompletedByDay;
         this.xpValueByDay = xpValueByDay;
-        
+
         this.nextWeekBreakPoint = nextWeekBreakPoint;
         this.numTaskCompletedByWeek = numTaskCompletedByWeek;
         this.xpValueByWeek = xpValueByWeek;
     }
 
     /**
-     * Provide a direct accesses of the max xp value of the current level.
+     * Provides a direct accesses of the max xp value of the current level.
      */
     public int getLevelMaxXp() {
         return level.getMaxXp();
     }
 
     /**
-     * Provide a direct accesses of the current xp value.
+     * Provides a direct accesses of the current xp value.
      */
     public int getXpValue() {
         return xp.getXp();
@@ -88,7 +92,7 @@ public class AchievementRecord {
     public Level getLevel() {
         return level;
     }
-    
+
     public int getNumTaskCompleted() {
         return numTaskCompleted;
     }
@@ -133,7 +137,7 @@ public class AchievementRecord {
         this.level = Level.LEVEL_1;
         this.numTaskCompleted = 0;
     }
-    
+
     private void setUpAchievementByDay() {
         assert nextDayBreakPoint == null;
         Calendar date = new GregorianCalendar();
@@ -158,7 +162,7 @@ public class AchievementRecord {
 
     /**
      * Checks if given displayOption is valid.
-     * A valid {@param displayOption} may only take the vale of {@code DISPLAY_ALL_TIME},
+     * A valid {@code displayOption} may only take the vale of {@code DISPLAY_ALL_TIME},
      * {@code DISPLAY_TODAY} or {@code DISPLAY_THIS_WEEK}.
      */
     public static boolean isValidDisplayOption(int displayOption) {
@@ -192,15 +196,15 @@ public class AchievementRecord {
     public void updateAchievementsWithNewXp(Integer newXp) {
         requireNonNull(newXp);
 
-        updateAllTimeAchievementWithNewXP(newXp);
+        updateAllTimeAchievementWithNewXp(newXp);
         updateAchievementByDayWithNewXp(newXp);
-        updateAchievementByWeekWithNewXp(newXp); 
+        updateAchievementByWeekWithNewXp(newXp);
     }
 
     /**
      * Updates the xp, level, numTaskCompleted fields of this {@code AchievementRecord} with new xp value.
      */
-    private void updateAllTimeAchievementWithNewXP(int newXp) {
+    private void updateAllTimeAchievementWithNewXp(int newXp) {
         Integer updatedXpValue = this.getXpValue() + newXp;
         this.xp = new Xp(updatedXpValue);
 
@@ -232,6 +236,10 @@ public class AchievementRecord {
         }
     }
 
+    /**
+     * Check if the current time has passed the previously set {@code nextDayBreakPoint}
+     * Increment xp and number of tasks completed.
+     */
     private void updateAchievementByDayWithNewXp(int newXp) {
         dayBreakPointChecknSet();
 
@@ -240,6 +248,10 @@ public class AchievementRecord {
         xpValueByDay += newXp;
     }
 
+    /**
+     * Check if the current time has passed the previously set {@code nextWeekBreakPoint}
+     * Increment xp and number of tasks completed.
+     */
     private void updateAchievementByWeekWithNewXp(int newXp) {
         weekBreakPointChecknSet();
 
@@ -255,7 +267,9 @@ public class AchievementRecord {
      */
     private void dayBreakPointChecknSet() {
         Calendar date = new GregorianCalendar();
-        if (date.before(nextDayBreakPoint)) return;
+        if (date.before(nextDayBreakPoint)) {
+            return;
+        }
         nextDayBreakPoint = null;
         setUpAchievementByDay();
     }
@@ -267,11 +281,16 @@ public class AchievementRecord {
      */
     private void weekBreakPointChecknSet() {
         Calendar date = new GregorianCalendar();
-        if (date.before(nextWeekBreakPoint)) return;
+        if (date.before(nextWeekBreakPoint)) {
+            return;
+        }
         nextWeekBreakPoint = null;
         setUpAchievementByWeek();
     }
 
+    /**
+     * Only check date for equality, ignore hour, minute, second and other fields of calendar.
+     */
     private boolean areDatesEqual(Calendar date1, Calendar date2) {
         return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR)
                 && date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH)
