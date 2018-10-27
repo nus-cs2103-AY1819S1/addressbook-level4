@@ -12,11 +12,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
-<<<<<<< HEAD
- * A utility class to help with building Module objects.
-=======
  * A utility class to help with building Occasion objects.
->>>>>>> main
  */
 public class OccasionBuilder {
     public static final String DEFAULT_OCCASIONNAME = "meeting";

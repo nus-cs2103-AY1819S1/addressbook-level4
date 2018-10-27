@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete n/John Doe` : deletes the person John Doe from TheTracker.
-* *`exit`* : exits the app
+* `listmodules` : lists all modules
+* `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* `deleteoccasion 2` : deletes the 2nd entry in your occasion list
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,6 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
+* Commands with `[]` after them will include either `person`,`module` or `occasion` e.g. `add[]` refers to `addperson`, `addmodule` or `addoccasion`.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -55,32 +56,29 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `add[]`
 
-Adds a person, module or an event to the address book +
-Format to add person: `add n/NAME t/VALUE OF TAG ONE t/VALUE OF TAG TWO t/VALUE OF TAG THREE [x/TAG VALUE]...`
+Adds a person, module or an occasion to the address book. +
+
+Format to add person: `addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...` +
+Format to add module: `addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+Format to add occasion: `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
 
 [TIP]
-A person, module or an event can have any number of tags (including 0) and in no particular order.
-
-The values a `x` can take: +
-* n: Name of person to be added. +
-* m: Name/Code of the module to be added. +
-* e: Name of the event to be added. +
-* t: Keyword to tag the person, event or module with.
+A person, module or an occasion can have any number of tags (including 0) and in no particular order.
 
 Examples:
 
-* `add n/Betsy Crowe t/friend t/betsycrowe@example.com t/criminal` +
-* `add m/CS2103 t/Software Engineering t/Dr. Damith` +
-* `add e/Birthday t/My friend's Birthday!`
+* `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/AY1718 sem/1 t/gg` +
+* `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 
-=== Listing all persons : `list`
+=== Listing all persons : `list[]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of all persons/modules/occasions in the address book. +
+Format: `list[]`
 
-=== Editing a person : `edit`
+=== Editing a person : `edit[]`
 
 Edits an existing person in the address book. +
 Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...`
@@ -121,28 +119,23 @@ Returns `john` and `John Doe`
 * `find n/Betsy n/Tim n/John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting a person : `delete[]`
 
-Deletes the specified person, event or module from the address book. +
-Format: `delete x/VALUE`
-
-The value of `x` is:
-* n: Represents that a person will be deleted. +
-* m: Represents that a module will be deleted. +
-* e: Represents that an event will be deleted.
+Deletes the specified person, module or occasion from the address book. +
+Format: `delete[] INDEX`
 
 ****
-* Deletes the person, module or event at with the specified `VALUE`. +
+* Deletes the person, module or occasion at with the specified `INDEX`. +
 ****
 
 Examples:
 
-* `delete n/John Doe` +
-Deletes the person whose name is John Doe.
-* `delete m/CS2103` +
-Deletes the module whose value is CS2103. +
-* `delete e/Birthday` +
-Deletes the event whose value is Birthday.
+* `deleteperson 2` +
+Deletes the 2nd person. +
+* `deletemodule 1` +
+Deletes the 1st module. +
+* `deleteoccasion 5` +
+Deletes the 5th occasion.
 
 === Listing entered commands : `history`
 
@@ -226,15 +219,6 @@ keyword: n/NAME The name of the person you want to put in this group.
 A command to allow the user to see the history of commands used within the address book.+
 Command Syntax: `history`
 
-=== Import information from external platform: `import`
-A command to allow the user to see the history of commands used within the address book.+
-Command Syntax: `import [keyword]` +
-keyword: One of either: IVLE, NUSMODS, MYISIS.
-
-=== Autocomplete
-A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
-
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -245,11 +229,14 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Autocomplete (coming in v 1.4)
+A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Import information from external platform: `import` (coming in v 2.0)
+A command to allow the user to see the history of commands used within the address book.+
+Command Syntax: `import [keyword]` +
+keyword: One of either: IVLE, NUSMODS, MYISIS.
+
 
 == FAQ
 
@@ -258,16 +245,15 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME t/VALUE ONE t/VALUE TWO t/VALUE THREE [t/VALUE]...` +
-e.g. `add n/James Ho t/22224444 t/jamesho@example.com t/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add[]* e.g. `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 * *Clear* : `clear`
-* *Delete* : `delete x/VALUE` +
-e.g. `delete n/James Ho`
-* *Edit* : `edit INDEX [x/VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...` +
+* *Delete[]* : `delete[] INDEX` +
+e.g. `deleteperson 3`
+* *Edit[]* : `edit INDEX [x/VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...` +
 e.g. `edit 2 n/James Lee t/jameslee@example.com | johndoe@example.com`
 * *Find* : `find KEYWORD x/VALUE t/VALUE ONE t/VALUE TWO` +
 e.g. `find n/James Jake`
-* *List* : `list`
+* *List[]* : `list`
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo [NUMBER]` +

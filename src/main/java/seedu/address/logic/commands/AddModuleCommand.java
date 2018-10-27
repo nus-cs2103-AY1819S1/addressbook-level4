@@ -23,9 +23,9 @@ public class AddModuleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the address book. \n"
             + "Parameters: "
-            + PREFIX_MODULECODE + "OCCASION_NAME "
-            + PREFIX_MODULETITLE + "OCCASION_DATE "
-            + PREFIX_ACADEMICYEAR + "ORGANIZER "
+            + PREFIX_MODULECODE + "MODULE_CODE "
+            + PREFIX_MODULETITLE + "MODULE_TITLE "
+            + PREFIX_ACADEMICYEAR + "ACADEMIC_YEAR "
             + PREFIX_SEMESTER + "SEMESTER"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
