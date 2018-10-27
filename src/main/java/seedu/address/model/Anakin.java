@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -77,7 +78,7 @@ public class Anakin implements ReadOnlyAnakin {
 
         setDecks(newData.getDeckList());
         setCards(newData.getCardList());
-        setDisplayedCards(cards);
+        updateDisplayedCards();
     }
 
     /**
@@ -86,7 +87,7 @@ public class Anakin implements ReadOnlyAnakin {
     public void sort() {
         if (isInsideDeck()) {
             cards.sort();
-            displayedCards.setCards(cards);
+            updateDisplayedCards();
         } else {
             decks.sort();
         }
@@ -96,8 +97,8 @@ public class Anakin implements ReadOnlyAnakin {
         isInsideDeck = set;
     }
 
-    public void setDisplayedCards(UniqueCardList cards) {
-        displayedCards = cards;
+    public void updateDisplayedCards() {
+        displayedCards.setCards(cards);
     }
 
     //// navigating operations
@@ -109,7 +110,7 @@ public class Anakin implements ReadOnlyAnakin {
         requireNonNull(deck);
         isInsideDeck = true;
         cards = deck.getCards();
-        displayedCards.setCards(deck.getCards());
+        updateDisplayedCards();
     }
 
     /**
@@ -118,7 +119,7 @@ public class Anakin implements ReadOnlyAnakin {
     public void getOutOfDeck() {
         isInsideDeck = false;
         cards = new UniqueCardList();
-        displayedCards.clear();
+        updateDisplayedCards();
     }
 
 
@@ -189,7 +190,7 @@ public class Anakin implements ReadOnlyAnakin {
             throw new DeckNotFoundException();
         }
         cards.add(c);
-        displayedCards.setCards(cards);
+        updateDisplayedCards();
     }
 
     /**
@@ -203,7 +204,7 @@ public class Anakin implements ReadOnlyAnakin {
             throw new DeckNotFoundException();
         }
         cards.setCard(target, editedCard);
-        displayedCards.setCards(cards);
+        updateDisplayedCards();
     }
 
     /**
@@ -215,15 +216,26 @@ public class Anakin implements ReadOnlyAnakin {
             throw new DeckNotFoundException();
         }
         cards.remove(key);
-        displayedCards.setCards(cards);
+        updateDisplayedCards();
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return decks.asUnmodifiableObservableList().size() + " decks";
-        // TODO: refine later
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(decks.asUnmodifiableObservableList().size() + " decks\n");
+        Iterator<Deck> iterator = decks.iterator();
+        while (iterator.hasNext()) {
+            Deck cur = iterator.next();
+            stringBuilder.append(cur.toString() + ": ");
+            Iterator<Card> cardIterator = cur.getCards().iterator();
+            while (cardIterator.hasNext()) {
+                stringBuilder.append(cardIterator.next().toString() + ", ");
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     @Override
