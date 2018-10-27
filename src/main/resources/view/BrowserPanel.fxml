@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
-  <WebView fx:id="browser"/>
+  <VBox minHeight="400" GridPane.columnIndex="0">
+    <padding>
+      <Insets top="5" bottom="5" />
+    </padding>
+    <Label styleClass="detail_sub_title_label">
+      Product
+    </Label>
+    <WebView fx:id="browser"/>
+  </VBox>
 </StackPane>

@@ -21,8 +21,7 @@ import seedu.address.model.wish.Wish;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String SEARCH_PAGE_URL = "https://www.google.com";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -33,16 +32,18 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel() {
         super(FXML);
-
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
+
+        browser.getEngine().setJavaScriptEnabled(true);
+        browser.getEngine().setUserAgent("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3");
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
     private void loadWishPage(Wish wish) {
-        loadPage(SEARCH_PAGE_URL + wish.getName().fullName);
+        loadPage(wish.getUrl().toString());
     }
 
     public void loadPage(String url) {
@@ -53,8 +54,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+        loadPage(SEARCH_PAGE_URL);
     }
 
     /**
