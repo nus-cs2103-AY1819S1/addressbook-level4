@@ -3,6 +3,7 @@
     <achievements>
         <xp>0</xp>
         <level>lvl.1</level>
+        <numTaskCompleted>0</numTaskCompleted>
         <nextDayBreakPoint>13-10-19 0000</nextDayBreakPoint>
         <xpValueByDay>0</xpValueByDay>
         <numTaskCompletedByDay>0</numTaskCompletedByDay>

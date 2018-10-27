@@ -3,11 +3,11 @@
     <achievements>
         <xp>0</xp>
         <level>lvl.1</level>
-        <numTaskCompleted>5</numTaskCompleted>
-        <nextDayBreakPoint>28-10-13 0000</nextDayBreakPoint>
+        <numTaskCompleted>0</numTaskCompleted>
+        <nextDayBreakPoint>13-10-19 0000</nextDayBreakPoint>
         <xpValueByDay>0</xpValueByDay>
         <numTaskCompletedByDay>0</numTaskCompletedByDay>
-        <nextWeekBreakPoint>28-10-19 0000</nextWeekBreakPoint>
+        <nextWeekBreakPoint>19-10-19 0000</nextWeekBreakPoint>
         <xpValueByWeek>0</xpValueByWeek>
         <numTaskCompletedByWeek>0</numTaskCompletedByWeek>
     </achievements>

@@ -88,7 +88,23 @@ public class AchievementRecordBuilder {
         this.level = level;
         return this;
     }
-    
+
+    /**
+     * Sets the {@code nextDayBreakPoint} of the {@code AchievementRecord} that we are building.
+     */
+    public AchievementRecordBuilder withNextDayBreakPoint(String dateString) {
+        this.nextDayBreakPoint = getCalendarFromString(dateString);
+        return this;
+    }
+
+    /**
+     * Sets the {@code nextWeekBreakPoint} of the {@code AchievementRecord} that we are building.
+     */
+    public AchievementRecordBuilder withNextWeekBreakPoint(String dateString) {
+        this.nextWeekBreakPoint = getCalendarFromString(dateString);
+        return this;
+    }
+
     public AchievementRecord build() {
         return new AchievementRecord(xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
                 xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
