@@ -76,7 +76,8 @@ public class ExampleCommand extends Command {
         case 1:
             Transformation transformation = new Transformation("blur", "0x8");
             transformationDone = transformation;
-            return ImageMagickUtil.processImage(imagePath, transformation);
+            BufferedImage tmp = ImageMagickUtil.processImage(imagePath, transformation);
+            return tmp;
         case 2:
             transformation = new Transformation("rotate", "50");
             transformationDone = transformation;
