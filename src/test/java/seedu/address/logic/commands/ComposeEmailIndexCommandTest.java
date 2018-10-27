@@ -3,20 +3,35 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalEmails.EXCURSION_EMAIL;
+import static seedu.address.testutil.TypicalEmails.getTypicalExistingEmails;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SET;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.DefaultEmailBuilder;
 
 //@@author EatOrBeEaten
@@ -29,7 +44,8 @@ public class ComposeEmailIndexCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
+            getTypicalExistingEmails());
 
     @Test
     public void constructor_nullEmail_throwsNullPointerException() {
@@ -45,7 +61,74 @@ public class ComposeEmailIndexCommandTest {
     }
 
     @Test
-    public void execute_emailAccepted_composeSuccessful() throws Exception {
+    public void execute_validIndexUnfilteredList_success() {
+        Email emailToSaveWithoutTo = new DefaultEmailBuilder().buildWithoutTo();
+        Email emailToSave = addIndexesToEmail(emailToSaveWithoutTo, INDEX_SET, model.getFilteredPersonList());
+
+        ComposeEmailIndexCommand composeEmailIndexCommand = new ComposeEmailIndexCommand(emailToSaveWithoutTo,
+                INDEX_SET);
+
+        String expectedMessage = String.format(ComposeEmailIndexCommand.MESSAGE_SUCCESS,
+                emailToSaveWithoutTo.getSubject());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
+                model.getExistingEmails());
+        expectedModel.saveComposedEmail(emailToSave);
+
+        assertCommandSuccess(composeEmailIndexCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
+        ComposeEmailIndexCommand composeEmailIndexCommand =
+                new ComposeEmailIndexCommand(validEmail, Set.of(outOfBoundIndex));
+
+        assertCommandFailure(composeEmailIndexCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        Email emailToSaveWithoutTo = new DefaultEmailBuilder().buildWithoutTo();
+        Email emailToSave = addIndexesToEmail(emailToSaveWithoutTo, Set.of(INDEX_FIRST_PERSON),
+                model.getFilteredPersonList());
+
+        ComposeEmailIndexCommand composeEmailIndexCommand = new ComposeEmailIndexCommand(emailToSaveWithoutTo,
+                Set.of(INDEX_FIRST_PERSON));
+
+        String expectedMessage = String.format(ComposeEmailIndexCommand.MESSAGE_SUCCESS,
+                emailToSaveWithoutTo.getSubject());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
+                model.getExistingEmails());
+        expectedModel.saveComposedEmail(emailToSave);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+
+        assertCommandSuccess(composeEmailIndexCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+
+        Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
+        ComposeEmailIndexCommand composeEmailIndexCommand =
+                new ComposeEmailIndexCommand(validEmail, Set.of(outOfBoundIndex));
+
+        assertCommandFailure(composeEmailIndexCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_emailAndIndexSetAccepted_composeSuccessful() throws Exception {
         Email validEmail = new DefaultEmailBuilder().buildWithoutTo();
 
         CommandResult commandResult = new ComposeEmailIndexCommand(validEmail, INDEX_SET)
@@ -54,6 +137,16 @@ public class ComposeEmailIndexCommandTest {
         assertEquals(String.format(ComposeEmailIndexCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateEmail_throwsCommandException() throws Exception {
+        model.saveComposedEmail(EXCURSION_EMAIL);
+        ComposeEmailIndexCommand composeEmailIndexCommand = new ComposeEmailIndexCommand(EXCURSION_EMAIL, INDEX_SET);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(ComposeEmailIndexCommand.MESSAGE_DUPLICATE_EMAIL,
+                EXCURSION_EMAIL.getSubject()));
+        composeEmailIndexCommand.execute(model, commandHistory);
     }
 
     @Test
@@ -78,6 +171,22 @@ public class ComposeEmailIndexCommandTest {
 
         // different email -> returns false
         assertFalse(composeMeetingCommand.equals(composeConferenceCommand));
+    }
+
+    /**
+     * Creates an {@code Email} to selected recipients in the list.
+     * @param toCopy Email to copy data from.
+     * @param indexSet Set of indexes to select recipients.
+     * @param personList Current list of people.
+     * @return Email with recipients from list.
+     */
+    private Email addIndexesToEmail(Email toCopy, Set<Index> indexSet, List<Person> personList) {
+        final Set<String> toList = new HashSet<>();
+        for (Index index : indexSet) {
+            Person toPerson = personList.get(index.getZeroBased());
+            toList.add(toPerson.getEmail().value);
+        }
+        return EmailBuilder.copying(toCopy).toMultiple(toList).buildEmail();
     }
 
 }

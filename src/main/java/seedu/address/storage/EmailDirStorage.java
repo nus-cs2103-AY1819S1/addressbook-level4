@@ -88,13 +88,7 @@ public class EmailDirStorage implements EmailStorage {
 
         File emailDir = new File(dirPath.toString());
 
-        FilenameFilter emlFilter = (dir, name) -> {
-            if (name.endsWith(emlExtension)) {
-                return true;
-            } else {
-                return false;
-            }
-        };
+        FilenameFilter emlFilter = (dir, name) -> name.endsWith(emlExtension);
 
         String[] nameArray = emailDir.list(emlFilter);
         return new HashSet<>(Arrays.asList(nameArray));

@@ -24,7 +24,8 @@ public class EmailModel {
     }
 
     public EmailModel(Set<String> emailNamesSet) {
-        existingEmails = emailNamesSet;
+        existingEmails = new HashSet<>();
+        existingEmails.addAll(emailNamesSet);
     }
 
     /**
