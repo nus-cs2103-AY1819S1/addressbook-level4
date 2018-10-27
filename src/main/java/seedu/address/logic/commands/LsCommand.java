@@ -25,6 +25,7 @@ public class LsCommand extends Command {
         StringBuffer fileNames = new StringBuffer();
 
         File dir = new File(model.getCurrDirectory().toString());
+        int count = 0;
 
         try {
             File[] fileList = dir.listFiles();
@@ -33,15 +34,16 @@ public class LsCommand extends Command {
                     // only list if is image
                     if (ImageIO.read(file) != null) {
                         fileNames.append(file.getName());
-                        fileNames.append("\t");
+                        fileNames.append("   \n");
                     }
                 } else if (file.isDirectory()) {
-                    // do not list system directories
-                    if (!(file.getName()).startsWith(".")) {
-                        fileNames.append(file.getName());
-                        fileNames.append("\t");
-                    }
+                    fileNames.append(file.getName());
+                    fileNames.append("   \n");
                 }
+            }
+
+            if (fileNames.toString().isEmpty()) {
+                fileNames.append("No images or folders to display!");
             }
 
             return new CommandResult(fileNames.toString());
