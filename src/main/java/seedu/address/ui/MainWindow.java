@@ -177,7 +177,7 @@ abstract public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opesn up the occasions window on this primaryStage.
+     * Opens up the occasions window on this primaryStage.
      */
     @FXML
     private void handleOccasion() {
