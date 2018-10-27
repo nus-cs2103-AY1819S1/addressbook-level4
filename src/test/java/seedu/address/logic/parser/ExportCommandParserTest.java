@@ -7,14 +7,15 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import java.io.File;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.ExportCommand;
 
 public class ExportCommandParserTest {
 
-    private ExportCommandParser parser = new ExportCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+
+    private ExportCommandParser parser = new ExportCommandParser();
 
     @Test
     public void parse_missingPrefix_throwsParseException() {

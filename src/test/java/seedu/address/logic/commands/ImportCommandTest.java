@@ -53,7 +53,8 @@ public class ImportCommandTest {
 
     @Test
     public void execute_invalidFileFormat() {
-        ImportCommand importCommand = new ImportCommand(new File("./src/test/data/ImportCommandTest/invalidFormat.xml").toPath());
+        ImportCommand importCommand = new ImportCommand(
+                new File("./src/test/data/ImportCommandTest/invalidFormat.xml").toPath());
 
         String expectedMessage = ImportCommand.MESSAGE_PARSE_ERR;
 
