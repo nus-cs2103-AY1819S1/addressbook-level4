@@ -15,7 +15,8 @@ public class LoginCommand extends Command {
 
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Re-directs user to log into Google Photos (requires an internet connection). ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Re-directs user " +
+            "to log into Google Photos (requires an internet connection). ";
 
     private static final String MESSAGE_LOGGED_IN = "Logged in as %s.";
 
