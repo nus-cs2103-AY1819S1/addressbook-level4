@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Logger;
 import java.util.ListIterator;
+import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -56,7 +56,8 @@ public class WishDetailSavingHistory extends UiPart<Region> {
         ListIterator<Wish> entry = wishTransaction.getWishMap().get(wish.getId()).listIterator(1);
 
         while (entry.hasNext()) {
-            double prevAmount = wishTransaction.getWishMap().get(wish.getId()).get(entry.previousIndex()).getSavedAmount().value;
+            Wish prevWish = wishTransaction.getWishMap().get(wish.getId()).get(entry.previousIndex());
+            double prevAmount = prevWish.getSavedAmount().value;
             double nextAmount = entry.next().getSavedAmount().value;
             double diff = nextAmount - prevAmount;
             savingHistoryList.add("Saved $" + String.format("%.2f", diff));

@@ -25,16 +25,19 @@ public class BrowserPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private String agent = "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en)  Version/3.0 Mobile/1A543a Safari/419.3";
+
     @FXML
     private WebView browser;
 
     public BrowserPanel() {
         super(FXML);
         // To prevent triggering events for typing inside the loaded Web page.
+
         getRoot().setOnKeyPressed(Event::consume);
 
         browser.getEngine().setJavaScriptEnabled(true);
-        browser.getEngine().setUserAgent("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3");
+        browser.getEngine().setUserAgent(agent);
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
