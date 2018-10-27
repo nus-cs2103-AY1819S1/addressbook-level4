@@ -1,16 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.simplejavamail.email.EmailBuilder;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.email.Content;
 import seedu.address.model.email.Subject;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
 /**
