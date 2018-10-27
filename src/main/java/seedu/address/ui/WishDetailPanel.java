@@ -40,7 +40,7 @@ public class WishDetailPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public WishDetailPanel() {
+    public WishDetailPanel(WishTransaction wishTransaction) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
@@ -49,24 +49,11 @@ public class WishDetailPanel extends UiPart<Region> {
         wishDetailSavingAmount = new WishDetailSavingAmount();
         wishSavingAmountPlaceholder.getChildren().add(wishDetailSavingAmount.getRoot());
 
-        wishDetailSavingHistory = new WishDetailSavingHistory();
+        wishDetailSavingHistory = new WishDetailSavingHistory(wishTransaction);
         wishSavingHistoryPlaceholder.getChildren().add(wishDetailSavingHistory.getRoot());
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
-
-        // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
-    }
-
-    public WishDetailPanel(WishTransaction wishTransaction) {
-        super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
-
-        loadDefaultPage();
-        registerAsAnEventHandler(this);
-        // TODO: [Jiho] Utilize wishTransaction's data in the WishDetailPanel (if wanted).
     }
 
     /**
