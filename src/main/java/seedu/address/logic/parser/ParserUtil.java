@@ -12,6 +12,8 @@ import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
@@ -162,4 +164,51 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return Date.newDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        return Time.newTime(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String ic} into an {@code Patient}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ic} is invalid.
+     */
+    //TODO: Implement when IC is available
+    /*public static Patient parseIc(String ic) throws ParseException {
+        requireNonNull(ic);
+        String trimmedIc = ic.trim();
+        if (!Patient.isValidIc(ic)) {
+            throw new ParseException(Patient.MESSAGE_PATIENT_IC_CONSTRAINTS);
+        }
+        Patient
+        return patient;
+    }*/
 }

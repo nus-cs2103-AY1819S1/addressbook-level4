@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -65,7 +66,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -87,7 +88,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInAddressBook_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
     }

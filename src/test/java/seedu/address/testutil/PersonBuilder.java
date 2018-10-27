@@ -86,8 +86,13 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Contructs a Person based on the PersonBuilder.
+     * @return a person.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
-    }
+        Person person = new Person(name, phone, email, address, tags);
 
+        return person;
+    }
 }

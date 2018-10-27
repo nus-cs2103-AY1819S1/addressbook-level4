@@ -34,6 +34,32 @@ public class TimeTest {
     }
 
     @Test
+    public void isValidTime() {
+        //valid time
+        assertTrue(Time.isValidTime("02 03"));
+
+        //invalid hours
+        assertFalse(Time.isValidTime("222 20"));
+        assertFalse(Time.isValidTime("ee 20"));
+        assertFalse(Time.isValidTime("   39"));
+
+        //invalid minutes
+        assertFalse(Time.isValidTime("33 ee"));
+        assertFalse(Time.isValidTime("22 222"));
+        assertFalse(Time.isValidTime("21    "));
+    }
+
+    @Test
+    public void subtractMinutes() {
+        Time time = new Time(0, 15);
+        Time time2 = new Time(14, 9);
+
+        assertTrue(time.subtractMinutes(time2) == (15 - (14 * 60 + 9)));
+        assertTrue(time2.subtractMinutes(time) == (14 * 60 + 9 - 15));
+        assertTrue(time2.subtractMinutes(time2) == 0);
+    }
+
+    @Test
     public void equals() {
         Time time = new Time(23, 17);
         Time time2 = new Time(23, 17);

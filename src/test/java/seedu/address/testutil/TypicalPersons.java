@@ -24,6 +24,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -64,6 +65,25 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    // Manually added (Patient)
+    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+            .build();
+    public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
+            .build();
+    public static final Patient CARL_AS_PATIENT = PatientBuilder.buildFromPerson(CARL)
+            .build();
+    public static final Patient DANIEL_AS_PATIENT = PatientBuilder.buildFromPerson(DANIEL)
+            .build();
+    public static final Patient ELLE_AS_PATIENT = PatientBuilder.buildFromPerson(ELLE)
+            .build();
+    public static final Patient FIONA_AS_PATIENT = PatientBuilder.buildFromPerson(FIONA)
+            .build();
+    public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
+            .build();
+    public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
+            .build();
+
+    // Manually added (Doctor)
     public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
     public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)
@@ -71,11 +91,11 @@ public class TypicalPersons {
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withPerson(AMY).build();
+            .withTime(13, 00).withPatient(AMY_AS_PATIENT).withDoctor(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withPerson(BENSON).build();
+            .withTime(17, 45).withPatient(BENSON_AS_PATIENT).withDoctor(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withPerson(CARL).build();
+            .withTime(18, 00).withPatient(CARL_AS_PATIENT).withDoctor(ADAM).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

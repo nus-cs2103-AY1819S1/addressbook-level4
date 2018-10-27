@@ -1,8 +1,12 @@
 package seedu.address.model.appointment;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Objects;
 
 /**
@@ -17,7 +21,10 @@ public class Date {
                     + "It should not be blank.";
     public static final String MESSAGE_YEAR_CONSTRAINTS =
             "The month should be numeric and it should not be blank.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "The date should be in dd mm yyyy format and it should not be blank.";
     public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
+    public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\s+)(\\d{1,2})(\\s+)(\\d{4})";
 
     private final int day;
     private final int month;
@@ -39,6 +46,17 @@ public class Date {
         this.year = year;
     }
 
+    /**
+     * Constructs a {@code Date} from String.
+     * @param date A valid date.
+     */
+    public static Date newDate(String date) {
+        requireNonNull(date);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        String[] splitDate = date.split("\\s+");
+        return new Date(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[2]));
+    }
+
     public int getDay() {
         return day;
     }
@@ -49,6 +67,10 @@ public class Date {
 
     public int getYear() {
         return year;
+    }
+
+    public static boolean isValidDate(String string) {
+        return string.matches(DATE_VALIDATION_REGEX);
     }
 
     /**
@@ -108,6 +130,24 @@ public class Date {
     public static boolean isValidYear(int year) {
         String string = String.valueOf(year);
         return string.matches(YEAR_VALIDATION_REGEX);
+    }
+
+    /**
+     * Checks if this {@code Date} falls in the current real life week.
+     * @return {@code true} if date is after or equals to current week's Monday AND before next week's monday.
+     * {@code false} otherwise.
+     * @@author arsalanc-v2
+     */
+    public boolean isCurrentWeek() {
+        LocalDate today = LocalDate.now();
+        // get this week's Monday's date
+        LocalDate currentWeekMonday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        // get next week's Monday's date
+        LocalDate nextWeekMonday = today.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        LocalDate targetDate = LocalDate.of(this.year, this.month, this.day);
+
+        return (targetDate.isEqual(currentWeekMonday) || targetDate.isAfter(currentWeekMonday))
+            && targetDate.isBefore(nextWeekMonday);
     }
 
     @Override

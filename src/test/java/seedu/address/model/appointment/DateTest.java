@@ -8,6 +8,14 @@ import org.junit.Test;
 public class DateTest {
 
     @Test
+    public void newDate() {
+        //valid args
+        Date toCompare = new Date(2, 2, 2222);
+        assertTrue(toCompare.equals(Date.newDate("02 02 2222")));
+        assertFalse(toCompare.equals(Date.newDate("02 02 2002")));
+    }
+
+    @Test
     public void isValidDay() {
         //valid day
         assertTrue(Date.isValidDay(2, 2, 2018));
@@ -58,6 +66,21 @@ public class DateTest {
         //invalid year
         assertFalse(Date.isValidYear(-1000));
         assertFalse(Date.isValidYear(1));
+    }
+
+    @Test
+    public void isValidDate() {
+        //valid date
+        assertTrue(Date.isValidDate("12 08 2019"));
+
+        //invalid day
+        assertFalse(Date.isValidDate("123 03 2019"));
+
+        //invalid month
+        assertFalse(Date.isValidDate("12 033 2019"));
+
+        //invalid year
+        assertFalse(Date.isValidDate("12 03 222222"));
     }
 
     @Test
