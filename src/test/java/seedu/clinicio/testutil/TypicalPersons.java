@@ -91,11 +91,11 @@ public class TypicalPersons {
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withPerson(AMY).build();
+            .withTime(13, 00).withPatient(AMY_AS_PATIENT).withDoctor(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withPerson(BENSON).build();
+            .withTime(17, 45).withPatient(BENSON_AS_PATIENT).withDoctor(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withPerson(CARL).build();
+            .withTime(18, 00).withPatient(CARL_AS_PATIENT).withDoctor(ADAM).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
