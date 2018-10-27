@@ -194,6 +194,7 @@ public class Appointment {
                 .append(assignedDoctor.toString())
                 .append("\n")
                 .append(statusToString())
+                .append("\n")
                 .append(typeToString());
         return builder.toString();
     }
