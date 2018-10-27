@@ -21,13 +21,14 @@ public class ViewStatusCommandParser implements Parser<ViewStatusCommand> {
     @Override
     public ViewStatusCommand parse(String args) throws ParseException {
         Status status;
-        String trimmedArgs = args.trim();
-        if (!trimmedArgs.isEmpty()) {
-            if (StringUtil.containsStringIgnoreCase(trimmedArgs, "open")) {
+        String[] trimmedArgs = args.trim().split(" ");
+        String arg = trimmedArgs[0];
+        if (!arg.isEmpty() && (trimmedArgs.length == 1)) {
+            if (StringUtil.containsStringIgnoreCase(arg, "open")) {
                 status = Status.OPEN;
-            } else if (StringUtil.containsStringIgnoreCase(trimmedArgs, "shutdown")) {
+            } else if (StringUtil.containsStringIgnoreCase(arg, "shutdown")) {
                 status = Status.SHUTDOWN;
-            } else if (StringUtil.containsStringIgnoreCase(trimmedArgs, "maintenance")) {
+            } else if (StringUtil.containsStringIgnoreCase(arg, "maintenance")) {
                 status = Status.MAINTENANCE;
             } else {
                 throw new ParseException(

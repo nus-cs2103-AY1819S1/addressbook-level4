@@ -17,4 +17,11 @@ public class RideStatusPredicate implements Predicate<Ride> {
         return status.equals(ride.getStatus());
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RideStatusPredicate // instanceof handles nulls
+                && (status.equals(((RideStatusPredicate) other).status))); // state check
+    }
+
 }
