@@ -554,14 +554,27 @@ Given below is the execution flow of `Add Tag Command`.
 7. `Model` Component will then add the list of tags to an internal list of tags using the `addTags` method.
 
 ==== Delete Tag Command
-
 To be updated.
 
 ==== List Tag Command
-
 To be updated.
 
 {more to be updated}
+
+// end::addDeleteListTag[]
+
+
+// tag::commandAliasing[]
+=== Command Aliasing
+
+
+//end::commandAliasing[]
+
+// tag::autoComplete[]
+=== Auto-Completion of Commands
+
+
+// end::autoComplete[]
 
 
 == Documentation
