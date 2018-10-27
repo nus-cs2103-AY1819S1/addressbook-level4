@@ -44,7 +44,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        
+
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
@@ -132,13 +132,12 @@ public class CommandBox extends UiPart<Region> {
                 if (tempPassword.length() > 0) {
                     char lastPasswordChar = tempPassword.charAt(tempPassword.length() - 1);
                     tempPassword.deleteCharAt(tempPassword.length() - 1);
-                    maskedPassword.replace(maskedPassword.length() - 1, maskedPassword.length(), String.valueOf(lastPasswordChar));
+                    maskedPassword.replace(maskedPassword.length() - 1,
+                            maskedPassword.length(),
+                            String.valueOf(lastPasswordChar));
                 }
             }
 
-            System.out.println(maskedPassword);
-            System.out.println(tempPassword);
-            
             replaceText(otherCommand + "pass/" + maskedPassword.toString());
         }
     }
