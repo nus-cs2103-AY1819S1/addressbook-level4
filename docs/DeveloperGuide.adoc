@@ -566,14 +566,29 @@ To be updated.
 
 // tag::commandAliasing[]
 === Command Aliasing
+==== Current Implementation
+- For the `add` command, typing `add`, `ad` or even simply `a` with the appropriate parameters can add an event. +
+- Similarly, for the 'delete' command, typing one of the following -- `delete`, `delet`, dele`, `del`, `de` or `d` with the appropriate parameters can delete an event. +
+- Because of technical restrictions in programming, if there are multiple (2 or more) commands that start with the same alphabetical letter, for e.g. `history` and `help`, in that case: +
+-> We have chosen to prioritize `help` over the `history` command. It is as follows: `history` can be invoked with `history`, `histor` ... all the way to `hi`. However, `help` can be called with `help`, `he` ... `h`.
+- The same logic applies to the `edit` and `exit` command.
+-> We have chosen to prioritize `exit` over the `edit` command. `exit` can be invoked with `exit` down to `e` while `edit` can be invoked down till `ed` with the appropriate parameters specified.
+- The alias(es) of each command go through the same logic as the actual command itself. They are parsed through the `parseCommand()` method in the {repoURL}/src/main/java/seedu/scheduler/logic/parser/SchedulerParser.java[`SchedulerParser.java`] class. +
 
+**Final notes:** +
+- The current implementation may not be the most efficient. We create constants of `public static final String` type and name them as `COMMAND_ALIAS_ONE`, `COMMAND_ALIAS_TWO`, etc... in the affected commands' respective classes.  +
+=> A suggestion would be to create a suitable `CommandAlias` class and/or use data structures like `enums`, `HashMap`, `TreeMap` etc... for the command aliases. +
+- Also, this feature may be replaced by another feature in the future. See <<proposed-auto-completion-of-commands, [Proposed]Auto-Completion of Commands>> below for more. +
+- An activity diagram (a _swimlane diagram_) showing how an alias of the `history` command would work is shown below: +
 
+image::HistoryCommandAliasActivityDiagram.png[width="800"]
 //end::commandAliasing[]
 
+
 // tag::autoComplete[]
-=== Auto-Completion of Commands
-
-
+=== [Proposed] Auto-Completion of Commands
+==== Future Implementation
+How this feature could possibly be implemented would be using the auto-complete feature available in the https://bitbucket.org/controlsfx/controlsfx/[ControlsFX] library.
 // end::autoComplete[]
 
 
