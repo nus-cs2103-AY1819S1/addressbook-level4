@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
- * @author lancelotwillow
+ * @@author lancelotwillow
  * the class to create the convert command
  */
 public class CreateConvertCommand extends Command {
