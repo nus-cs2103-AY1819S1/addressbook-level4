@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
 
-    private static final String[] NAME_COLOR_STYLES = { "cell_big_label_white", "cell_big_label_green" };
+    private static final String[] NAME_COLOR_STYLES = { "cell_big_label", "cell_big_label_green" };
     private static final String FXML = "PersonListCard.fxml";
 
     /**
