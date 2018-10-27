@@ -68,6 +68,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane previewImagePlaceholder;
 
+    @FXML
+    private StackPane historyListPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
@@ -147,6 +150,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic, prefs);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        HistoryListPanel historyList = new HistoryListPanel();
+        historyListPlaceholder.getChildren().add(historyList.getRoot());
     }
 
     void hide() {
