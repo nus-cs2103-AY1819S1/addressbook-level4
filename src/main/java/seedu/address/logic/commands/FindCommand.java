@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.WishUpdatedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.wish.NameContainsKeywordsPredicate;
@@ -31,6 +33,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredWishList(predicate);
+        EventsCenter.getInstance().post(new WishUpdatedEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_WISHES_LISTED_OVERVIEW, model.getFilteredSortedWishList().size()));
     }
