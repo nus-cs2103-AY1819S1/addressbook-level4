@@ -48,8 +48,13 @@ public class History {
         recipeBuilder.addInstruction(instruction);
     }
 
+    /**
+     * Create an actual instance of recipe from the builder.
+     */
     public Recipe buildRecipe() {
-        return recipeBuilder.build();
+        Recipe recipe = recipeBuilder.build();
+        recipeBuilder = null;
+        return recipe;
     }
 
     /**
