@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import seedu.parking.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Carpark} has night parking.
+ * Tests that a {@code Carpark} met all the filtering criteria.
  */
 public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
@@ -22,6 +22,9 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
     }
 
     // Todo: Javadoc Comment
+    /**
+     * Checks if the car park has free parking from the given starting to ending time on the specified day.
+     */
     private boolean checkFreeParking(String day, String startTime, String endTime, String timePeriod) {
         boolean hasFreeParkingTiming = !timePeriod.equals("NO");
         boolean hasDay = false;
@@ -60,26 +63,29 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         return hasFreeParkingTiming && hasDay && afterStart && beforeEnd;
     }
 
+    /**
+     * Checks if the car park is of the specified car park type.
+     */
     private boolean checkCarParkType(String selectedCarparkType, String carparkType) {
         switch (selectedCarparkType) {
-            case "SURFACE":
-                return carparkType.contains("SURFACE");
+        case "SURFACE":
+            return carparkType.contains("SURFACE");
 
-            case "MULTISTOREY":
-                return carparkType.contains("MULTI-STOREY");
+        case "MULTISTOREY":
+            return carparkType.contains("MULTI-STOREY");
 
-            case "BASEMENT":
-                return carparkType.contains("BASEMENT");
+        case "BASEMENT":
+            return carparkType.contains("BASEMENT");
 
-            case "MECHANISED":
-                return carparkType.contains("MECHANISED");
+        case "MECHANISED":
+            return carparkType.contains("MECHANISED");
 
-            case "COVERED":
-                return carparkType.contains("COVERED");
+        case "COVERED":
+            return carparkType.contains("COVERED");
 
-            default:
-                // should catch invalid input instead (to be implemented)
-                return carparkType.contains("CAR PARK");
+        default:
+            // should catch invalid input instead (to be implemented)
+            return carparkType.contains("CAR PARK");
         }
     }
 
