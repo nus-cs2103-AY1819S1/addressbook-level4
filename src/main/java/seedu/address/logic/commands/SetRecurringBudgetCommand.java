@@ -14,7 +14,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
  * Command that sets the recurrence time for the current {@code Budget}
  */
 public class SetRecurringBudgetCommand extends Command {
-    public static final String COMMAND_WORD = "setRecurringFrequency";
+    public static final String COMMAND_WORD = "setRecurrenceFrequency";
     public static final String COMMAND_ALIAS = "srf";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a frequency for budget to reset "

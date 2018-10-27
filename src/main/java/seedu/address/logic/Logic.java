@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
@@ -49,6 +50,18 @@ public interface Logic {
      * @throws NoUserSelectedException
      */
     StatsMode getStatsMode() throws NoUserSelectedException;
+
+    /**
+     * @return a StatsPeriod representing the current period of statistics
+     * @throws NoUserSelectedException
+     */
+    StatsPeriod getStatsPeriod() throws NoUserSelectedException;
+
+    /**
+     * @return an int representing the user selected number of days or months
+     * @throws NoUserSelectedException
+     */
+    int getPeriodAmount() throws NoUserSelectedException;
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
