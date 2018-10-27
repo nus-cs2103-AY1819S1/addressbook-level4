@@ -66,17 +66,18 @@ public class ReceiptCommandTest {
     public void execute_servedPatientListEmpty_commandExceptionThrown() throws Exception {
         thrown.expect(CommandException.class);
         servedPatientList = generateServedPatientList();
-        new ReceiptCommand(INDEX_FIRST_PERSON).execute(model, patientQueue,
+        new ReceiptCommand(INDEX_SECOND_PERSON).execute(model, patientQueue,
                 currentPatient, servedPatientList, commandHistory);
     }
 
     @Test
     public void execute_receiptFileName_receiptGenerationSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
+        servedPatientList = generateServedPatientList(TypicalPersons.TYPO_IN_NAME_ALICE
+                , TypicalPersons.BOB);
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         receiptCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
         String fileType = receiptCommand.getReceipt().FILE_TYPE;
-        String fileName = generateFileName(fileType, TypicalPersons.ALICE);
+        String fileName = generateFileName(fileType, TypicalPersons.TYPO_IN_NAME_ALICE);
         assertUniqueFileInFilteredFileList(fileName);
     }
 
