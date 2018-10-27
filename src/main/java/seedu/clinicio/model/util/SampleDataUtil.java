@@ -56,7 +56,7 @@ public class SampleDataUtil {
                 new Doctor(new Name("Chip Dale"),
                         new Password(HashUtil.hashToString("doctor2"), true))));
     }
-    
+
     public static List<Receptionist> getSampleReceptionists() {
         return new ArrayList<>(Arrays.asList(
                 new Receptionist(new Name("Alan Lee"),

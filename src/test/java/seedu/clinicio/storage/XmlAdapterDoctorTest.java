@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 
-import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.person.Name;
 
 import seedu.clinicio.testutil.Assert;
 

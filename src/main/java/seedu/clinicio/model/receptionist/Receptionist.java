@@ -1,16 +1,16 @@
-package seedu.address.model.receptionist;
+package seedu.clinicio.model.receptionist;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Objects;
 
-import seedu.address.model.password.Password;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.person.Address;
+import seedu.clinicio.model.person.Email;
+import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.person.Phone;
 
 //@@author jjlee050
 /**

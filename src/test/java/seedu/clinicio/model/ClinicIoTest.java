@@ -95,7 +95,7 @@ public class ClinicIoTest {
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
                 newDoctors, new ArrayList<>());
-        
+
         thrown.expect(DuplicateDoctorException.class);
         clinicIo.resetData(newData);
     }
@@ -131,7 +131,7 @@ public class ClinicIoTest {
         thrown.expect(NullPointerException.class);
         clinicIo.hasReceptionist(null);
     }
-    
+
     //@@author gingivitiss
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
@@ -178,7 +178,7 @@ public class ClinicIoTest {
         clinicIo.addReceptionist(ALAN);
         assertTrue(clinicIo.hasReceptionist(ALAN));
     }
-    
+
     @Test
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
@@ -253,7 +253,7 @@ public class ClinicIoTest {
         clinicIo.addReceptionist(ALAN);
         assertNotNull(clinicIo.getReceptionist(ALAN));
     }
-    
+
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

@@ -1,9 +1,10 @@
-package seedu.address.model.password;
+package seedu.clinicio.model.password;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.commons.util.HashUtil;
+import static seedu.clinicio.commons.util.AppUtil.checkArgument;
+
+import seedu.clinicio.commons.util.HashUtil;
 
 //@@author jjlee050
 /**

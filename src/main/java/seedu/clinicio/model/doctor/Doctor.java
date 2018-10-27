@@ -5,12 +5,12 @@ import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashSet;
 import java.util.Objects;
 
+import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
-import seedu.clinicio.model.password.Password;
 
 //@@author jjlee050
 /**

@@ -1,15 +1,15 @@
-package seedu.address.model.receptionist;
+package seedu.clinicio.model.receptionist;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
-import static seedu.address.testutil.TypicalPersons.ALAN;
-import static seedu.address.testutil.TypicalPersons.DAISY;
-import static seedu.address.testutil.TypicalPersons.FRANK;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
+import static seedu.clinicio.testutil.TypicalPersons.DAISY;
+import static seedu.clinicio.testutil.TypicalPersons.FRANK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,11 +19,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.util.HashUtil;
+import seedu.clinicio.commons.util.HashUtil;
 
-import seedu.address.model.receptionist.exceptions.DuplicateReceptionistException;
-import seedu.address.model.receptionist.exceptions.ReceptionistNotFoundException;
-import seedu.address.testutil.ReceptionistBuilder;
+import seedu.clinicio.model.receptionist.exceptions.DuplicateReceptionistException;
+import seedu.clinicio.model.receptionist.exceptions.ReceptionistNotFoundException;
+import seedu.clinicio.testutil.ReceptionistBuilder;
 
 //@@author jjlee050
 public class UniqueReceptionistListTest {

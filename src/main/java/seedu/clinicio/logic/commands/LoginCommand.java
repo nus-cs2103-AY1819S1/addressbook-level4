@@ -84,7 +84,7 @@ public class LoginCommand extends Command {
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
-        } 
+        }
         return new CommandResult(MESSAGE_FAILURE);
     }
 

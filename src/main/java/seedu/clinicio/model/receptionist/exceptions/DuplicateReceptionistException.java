@@ -1,4 +1,4 @@
-package seedu.address.model.receptionist.exceptions;
+package seedu.clinicio.model.receptionist.exceptions;
 
 //@@author jjlee050
 /**

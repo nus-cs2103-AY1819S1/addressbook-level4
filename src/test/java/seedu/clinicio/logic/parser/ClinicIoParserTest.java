@@ -40,7 +40,7 @@ import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.PersonUtil;
 
 public class ClinicIoParserTest {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

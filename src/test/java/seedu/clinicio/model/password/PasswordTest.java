@@ -1,12 +1,12 @@
-package seedu.address.model.password;
+package seedu.clinicio.model.password;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.commons.util.HashUtil;
-import seedu.address.testutil.Assert;
+import seedu.clinicio.commons.util.HashUtil;
+import seedu.clinicio.testutil.Assert;
 
 //@@author jjlee050
 public class PasswordTest {

@@ -17,10 +17,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 import seedu.clinicio.model.tag.Tag;
@@ -44,7 +44,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-    
+
     private static final String VALID_ROLE_DOCTOR = "doctor";
     private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";

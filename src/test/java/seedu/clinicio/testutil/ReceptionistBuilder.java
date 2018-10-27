@@ -1,7 +1,7 @@
-package seedu.address.testutil;
+package seedu.clinicio.testutil;
 
 import seedu.clinicio.model.password.Password;
-import seedu.address.model.person.Name;
+import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.receptionist.Receptionist;
 
 //@@author jjlee050

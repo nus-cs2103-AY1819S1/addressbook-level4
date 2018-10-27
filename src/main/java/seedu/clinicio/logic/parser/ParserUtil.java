@@ -13,10 +13,10 @@ import seedu.clinicio.commons.util.StringUtil;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
 import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 import seedu.clinicio.model.receptionist.Receptionist;

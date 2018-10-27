@@ -7,7 +7,6 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
-
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 

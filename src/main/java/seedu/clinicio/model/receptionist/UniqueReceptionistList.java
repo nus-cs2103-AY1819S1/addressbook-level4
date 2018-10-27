@@ -1,8 +1,8 @@
-package seedu.address.model.receptionist;
+package seedu.clinicio.model.receptionist;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.receptionist.exceptions.DuplicateReceptionistException;
-import seedu.address.model.receptionist.exceptions.ReceptionistNotFoundException;
+import seedu.clinicio.model.receptionist.exceptions.DuplicateReceptionistException;
+import seedu.clinicio.model.receptionist.exceptions.ReceptionistNotFoundException;
 
 //@@author jjlee050
 /**

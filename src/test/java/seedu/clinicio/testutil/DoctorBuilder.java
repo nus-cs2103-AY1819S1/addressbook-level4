@@ -1,8 +1,8 @@
 package seedu.clinicio.testutil;
 
 import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.person.Name;
 
 //@@author jjlee050
 /**

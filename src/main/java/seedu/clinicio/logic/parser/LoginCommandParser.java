@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
-import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 
 //@@author jjlee050

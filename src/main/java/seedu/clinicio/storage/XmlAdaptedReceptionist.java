@@ -1,14 +1,14 @@
-package seedu.address.storage;
+package seedu.clinicio.storage;
 
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.clinicio.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.password.Password;
-import seedu.address.model.person.Name;
-import seedu.address.model.receptionist.Receptionist;
+import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.receptionist.Receptionist;
 
 //@@author jjlee050
 
