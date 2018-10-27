@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ToDoList;
 import seedu.address.model.ReadOnlyToDoList;
+import seedu.address.model.ToDoList;
 
 /**
  * Represents a storage for {@link ToDoList}.

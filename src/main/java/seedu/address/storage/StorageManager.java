@@ -27,7 +27,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private ToDoListStorage toDoListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(SchedulerStorage schedulerStorage, ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(SchedulerStorage schedulerStorage,
+                          ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.schedulerStorage = schedulerStorage;
         this.toDoListStorage = toDoListStorage;

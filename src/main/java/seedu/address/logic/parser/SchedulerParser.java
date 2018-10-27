@@ -110,14 +110,14 @@ public class SchedulerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case AddToDoCommand.COMMAND_WORD:
-                return new AddToDoCommandParser().parse(arguments);
+        case AddToDoCommand.COMMAND_WORD:
+            return new AddToDoCommandParser().parse(arguments);
 
-            case DeleteToDoCommand.COMMAND_WORD:
-                return new DeleteToDoCommandParser().parse(arguments);
+        case DeleteToDoCommand.COMMAND_WORD:
+            return new DeleteToDoCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

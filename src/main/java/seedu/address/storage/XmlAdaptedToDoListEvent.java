@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import java.util.Objects;
+
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendarevent.Description;
@@ -61,7 +61,8 @@ public class XmlAdaptedToDoListEvent {
     public ToDoListEvent toModelType() throws IllegalValueException {
 
         if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+            throw new IllegalValueException
+                    (String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
         if (!Title.isValid(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
