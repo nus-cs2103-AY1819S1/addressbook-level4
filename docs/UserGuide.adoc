@@ -20,15 +20,15 @@ By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 
 = About this guide
 
-This guide provides an overview of ClinicIO and shows you how to install ClinicIO.
-In addition, this guide provides an in-depth documentation for all the features.
+This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features.
 
-This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues. 
+This guide does not assume any prior technical knowledge. Check the <<FAQ>> section for frequent user issues.
 
 == Introduction
 
-ClinicIO is a desktop app to help you manage clinic with ease, efficient and simplicity.
-You can use ClinicIO to manage patient record, manage the clinic queue, manage clinic's medical inventory, manage clinic appointment and provide statistics on ClinicIO. +
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
+You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
 Go to the <<Installation Guide>> to get started on install ClinicIO.
 
@@ -37,7 +37,7 @@ Go to the <<Installation Guide>> to get started on install ClinicIO.
 This section is designed to help you to setup ClinicIO with 3 simple steps.
 
 [NOTE]
-You can move on to <<User Interface Walkthrough>> if you have install ClinicIO.
+You can move on to <<User Interface Walkthrough>> if you have installed ClinicIO.
 
 [IMPORTANT]
 Ensure you have Java version `9` or later installed in your Computer. +
@@ -46,13 +46,12 @@ Ensure you have Java version `9` or later installed in your Computer. +
 
 .  Download the latest `clinicio.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ClinicIO.
-.  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below. 
+.  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below.
 +
 image::Ui.png[width="1200"]
 _Figure 1 Startup Window_
 +
 
- 
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
