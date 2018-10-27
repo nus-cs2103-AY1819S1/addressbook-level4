@@ -8,6 +8,7 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
 
 //@@author arsalanc-v2
 
@@ -17,6 +18,7 @@ import seedu.clinicio.model.doctor.Doctor;
 public class Consultation {
 
     // information fields
+    private final Patient patient;
     private final Doctor doctor;
     private Optional<Appointment> appointment;
     private String description;
@@ -29,7 +31,7 @@ public class Consultation {
 
     // fields to be changed
     private String prescription;
-    private final String patient;
+
 
     /**
      * Initializes a {@code Consultation} object with an {@code Appointment}.
@@ -41,7 +43,7 @@ public class Consultation {
      * @param arrivalTime The arrival time of the patient at the clinic.
      * @param appointment The appointment tied to this {@code Consultation} .
      */
-    public Consultation(Doctor doctor, String patient, Date date, Time arrivalTime, Appointment appointment) {
+    public Consultation(Doctor doctor, Patient patient, Date date, Time arrivalTime, Appointment appointment) {
         requireAllNonNull(doctor, patient, date, arrivalTime, appointment);
         this.doctor = doctor;
         this.patient = patient;
@@ -59,7 +61,7 @@ public class Consultation {
      * @param date The date.
      * @param arrivalTime The arrival time of the patient at the clinic.
      */
-    public Consultation(Doctor doctor, String patient, Date date, Time arrivalTime) {
+    public Consultation(Doctor doctor, Patient patient, Date date, Time arrivalTime) {
         requireAllNonNull(doctor, patient, date, arrivalTime);
         this.doctor = doctor;
         this.patient = patient;
@@ -128,7 +130,7 @@ public class Consultation {
         return doctor;
     }
 
-    public String getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 
