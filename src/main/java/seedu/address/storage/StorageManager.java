@@ -17,11 +17,12 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
-import seedu.address.commons.events.model.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.EmailModel;
@@ -168,6 +169,7 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to file"));
         try {
             saveEmail(event.data);
+            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
             raise(new EmailViewEvent(event.data));
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

@@ -1,4 +1,4 @@
-package seedu.address.commons.events.model;
+package seedu.address.commons.events.storage;
 
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.BaseEvent;

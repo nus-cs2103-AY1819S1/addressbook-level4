@@ -24,9 +24,11 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
-import seedu.address.commons.events.model.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
+import seedu.address.commons.events.ui.CalendarViewEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -314,10 +316,19 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title, updatedCalendar));
     }
 
+    /**
+     * Raises an event to display calendar on ui
+     */
+    private void indicateViewCalendar(Calendar calendar, String calendarName) {
+        raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.CALENDAR_PANEL));
+        raise(new CalendarViewEvent(calendar, calendarName));
+    }
+
     @Override
     @Subscribe
     public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
         calendarModel.loadCalendar(event.calendar, event.calendarName);
+        indicateViewCalendar(event.calendar, event.calendarName);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.events.model.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
