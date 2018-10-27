@@ -3,7 +3,11 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.Test;
+
+import com.google.common.base.Charsets;
 
 import seedu.address.testutil.Assert;
 
@@ -35,9 +39,7 @@ public class PictureTest {
         assertFalse(Picture.isValidPicture("/images/test.jpg"));
         assertFalse(Picture.isValidPicture("/images/test.png"));
 
-        // valid pictures
+        // valid picture
         assertTrue(Picture.isValidPicture(Picture.DEFAULT_PICTURE_URL.getPath()));
-        assertTrue(Picture.isValidPicture("https://cdn.business2community.com"
-            + "/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")); // url image
     }
 }

@@ -17,14 +17,14 @@ public class Picture {
     public static final URL DEFAULT_PICTURE_URL = com.google.common.io.Resources
         .getResource("images/placeholder_image.jpg");
     public static final String MESSAGE_PICTURE_CONSTRAINTS =
-        "Picture should be a valid file path or a URL";
+        "Picture should be a valid file path";
 
     /*
-     * Can either be a URL or a path.
+     * Regular expression validation for path.
      */
-    public static final String PICTURE_URL_VALIDATION_REGEX =
-        "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-    public static final String PICTURE_PATH_VALIDATION_REGEX =
+    public static final String PICTURE_PATH_WIN_VALIDATION_REGEX =
+        "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
+    public static final String PICTURE_PATH_MAC_VALIDATION_REGEX =
         "^((?!.*//.*)(?!.*/ .*)/{1}([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jpg|png))$";
 
     public final String picture;
@@ -48,16 +48,8 @@ public class Picture {
      * Returns true if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
-        return test.matches(PICTURE_URL_VALIDATION_REGEX)
-            || (test.matches(PICTURE_PATH_VALIDATION_REGEX) && Files.exists(Paths.get(test)));
-    }
-
-    /**
-     * Returns true if a given string is a valid picture in the current directory.
-     */
-    public static boolean isValidPictureInDirectory(String test) {
-        String directoryPath = System.getProperty("user.dir") + "/" + test;
-        return Files.exists(Paths.get(directoryPath));
+        return ((test.matches(PICTURE_PATH_WIN_VALIDATION_REGEX) || test.matches(PICTURE_PATH_MAC_VALIDATION_REGEX))
+            && Files.exists(Paths.get(test)));
     }
 
     @Override
