@@ -55,12 +55,12 @@ public class Document {
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
+    private static String documentFilePath;
+    private static String documentWindowPath;
     private File file;
     private Name name;
     private String fileType;
     private IcNumber icNumber;
-    private static String documentFilePath;
-    private static String documentWindowPath;
 
     //variables specific to receipt but here because of checkstyle issues
     private float totalPrice = 0;
@@ -90,7 +90,7 @@ public class Document {
     public void generateDocument() {
         String fileName = makeFileName();
         makeFile(fileName, writeContentsIntoDocument());
-//        showDocument();
+//      showDocument();
     }
 
     /**

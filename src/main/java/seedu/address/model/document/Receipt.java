@@ -1,6 +1,7 @@
 package seedu.address.model.document;
 
 import java.util.ArrayList;
+
 import seedu.address.model.person.ServedPatient;
 
 /**
