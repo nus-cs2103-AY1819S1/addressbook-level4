@@ -76,7 +76,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveWishTransaction(WishTransaction wishTransaction, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
+        logger.info("Attempting to write Wish Transaction to data file: " + filePath);
         wishTransactionStorage.saveWishTransaction(wishTransaction, filePath);
     }
 
