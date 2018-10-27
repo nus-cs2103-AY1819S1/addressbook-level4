@@ -19,7 +19,7 @@ public class Consultation {
 
     // information fields
     private final Patient patient;
-    private final Doctor doctor;
+    private Doctor doctor;
     private Optional<Appointment> appointment;
     private String description;
 
@@ -32,20 +32,17 @@ public class Consultation {
     // fields to be changed
     private String prescription;
 
-
     /**
      * Initializes a {@code Consultation} object with an {@code Appointment}.
      * This consultation is the result of a requisite appointment.
      * All parameters are required.
-     * @param doctor The doctor assigned.
      * @param patient The patient to be examined.
      * @param date The date.
      * @param arrivalTime The arrival time of the patient at the clinic.
      * @param appointment The appointment tied to this {@code Consultation} .
      */
-    public Consultation(Doctor doctor, Patient patient, Date date, Time arrivalTime, Appointment appointment) {
-        requireAllNonNull(doctor, patient, date, arrivalTime, appointment);
-        this.doctor = doctor;
+    public Consultation(Patient patient, Date date, Time arrivalTime, Appointment appointment) {
+        requireAllNonNull(patient, date, arrivalTime, appointment);
         this.patient = patient;
         this.date = date;
         this.arrivalTime = arrivalTime;
@@ -56,18 +53,20 @@ public class Consultation {
      * Initializes a {@code Consultation} object without an {@code Appointment}.
      * This consultation is a walk-in.
      * All parameters are required.
-     * @param doctor The doctor assigned.
      * @param patient The patient to be examined.
      * @param date The date.
      * @param arrivalTime The arrival time of the patient at the clinic.
      */
-    public Consultation(Doctor doctor, Patient patient, Date date, Time arrivalTime) {
-        requireAllNonNull(doctor, patient, date, arrivalTime);
-        this.doctor = doctor;
+    public Consultation(Patient patient, Date date, Time arrivalTime) {
+        requireAllNonNull(patient, date, arrivalTime);
         this.patient = patient;
         this.date = date;
         this.arrivalTime = arrivalTime;
         this.appointment = Optional.empty();
+    }
+
+    public void updateDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public void updateConsultationTime(Time time) {
