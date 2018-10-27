@@ -1,13 +1,12 @@
 package seedu.address.logic;
 
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.Optional;
-
 //@@author zioul123
-
 /**
  * Contains a utility method used for parsing a {@code String} for an Index, without throwing ParseExceptions.
  */
