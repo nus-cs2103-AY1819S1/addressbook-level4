@@ -120,6 +120,13 @@ public class Group {
     }
 
     // @@author NyxF4ll
+
+    /**
+     * Returns true if the group has a meeting associated with it.
+     */
+    public boolean hasMeeting() {
+        return meeting.isPresent();
+    }
     /**
      * Set this group's meeting to {@code meeting}.
      */
