@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +23,7 @@ public class XmlAdaptedAchievementRecord {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is missing!";
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is invalid!";
     
+    private static final String DISPLAY_OPTION_FIELD = "displayOption";
     private static final String NUM_TASK_COMPLETED_FIELD = "numTaskCompleted";
     
     private static final String NEXT_DAY_BREAK_POINT_FIELD = "nextDayBreakPoint";
@@ -34,6 +34,8 @@ public class XmlAdaptedAchievementRecord {
     private static final String NUM_TASK_COMPLETED_BY_WEEK_FIELD = "numTaskCompletedByWeek";
     private static final String XP_VALUE_BY_WEEK_FIELD = "xpValueByWeek";
 
+    @XmlElement(required = true)
+    private String displayOption;
     @XmlElement(required = true)
     private String xp;
     @XmlElement(required = true)
@@ -69,6 +71,7 @@ public class XmlAdaptedAchievementRecord {
     public XmlAdaptedAchievementRecord(AchievementRecord source) {
         requireNonNull(source);
 
+        displayOption = Integer.toString(source.getDisplayOption());
         xp = Integer.toString(source.getXpValue());
         level = source.getLevel().toString();
         numTaskCompleted = Integer.toString(source.getNumTaskCompleted());
@@ -87,9 +90,10 @@ public class XmlAdaptedAchievementRecord {
     /**
      * Constructs an {@code XmlAdaptedAchievementRecord} with the given achievement details.
      */
-    public XmlAdaptedAchievementRecord(String xp, String level, String numTaskCompleted, String nextDayBreakPoint, 
-                                       String xpValueByDay, String numTaskCompletedByDay, String nextWeekBreakPoint, 
-                                       String xpValueByWeek, String numTaskCompletedByWeek) {
+    public XmlAdaptedAchievementRecord(String displayOption, String xp, String level, String numTaskCompleted,
+                                       String nextDayBreakPoint, String xpValueByDay, String numTaskCompletedByDay,
+                                       String nextWeekBreakPoint, String xpValueByWeek, String numTaskCompletedByWeek) {
+        this.displayOption = displayOption;
         this.xp = xp;
         this.level = level;
         this.numTaskCompleted = numTaskCompleted;
@@ -108,6 +112,8 @@ public class XmlAdaptedAchievementRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted achievement record.
      */
     public AchievementRecord toModelType() throws IllegalValueException {
+
+        final int modelDisplayOption = stringToDisplayOptionModelField(displayOption);
         final Xp modelXp = stringToXpModelField(xp);
         final Level modelLevel = stringToLevelModelField(level);
         final int modelNumTaskCompleted = stringToIntModelField(numTaskCompleted, NUM_TASK_COMPLETED_FIELD);
@@ -124,11 +130,19 @@ public class XmlAdaptedAchievementRecord {
                 NUM_TASK_COMPLETED_BY_WEEK_FIELD);
         final int modelXpValueByWeek = stringToIntModelField(xpValueByWeek, XP_VALUE_BY_WEEK_FIELD);
 
-        return new AchievementRecord(modelXp, modelLevel, modelNumTaskCompleted, modelNextDayBreakPoint,
+        return new AchievementRecord(modelDisplayOption, modelXp, modelLevel, modelNumTaskCompleted, modelNextDayBreakPoint,
                 modelNumTaskCompletedByDay, modelXpValueByDay, modelNextWeekBreakPoint, modelNumTaskCompletedByWeek,
                 modelXpValueByWeek);
     }
-    
+
+    private int stringToDisplayOptionModelField(String source) throws IllegalValueException {
+        final int result = stringToIntModelField(displayOption, DISPLAY_OPTION_FIELD);
+        if (!AchievementRecord.isValidDisplayOption(result)) {
+            throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, DISPLAY_OPTION_FIELD));
+        }
+        return result;
+    }
+
     private Xp stringToXpModelField(String source) throws IllegalValueException {
         if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Xp.class.getSimpleName()));
@@ -165,6 +179,9 @@ public class XmlAdaptedAchievementRecord {
         } catch (NumberFormatException nfex) {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, fieldName));
         }
+        if (result < 0) {
+            throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, fieldName));
+        }
         return result;
     }
 
@@ -191,7 +208,8 @@ public class XmlAdaptedAchievementRecord {
         }
 
         XmlAdaptedAchievementRecord otherRecord = (XmlAdaptedAchievementRecord) other;
-        return Objects.equals(xp, otherRecord.xp)
+        return Objects.equals(displayOption, otherRecord.displayOption)
+                && Objects.equals(xp, otherRecord.xp)
                 && Objects.equals(level, otherRecord.level)
                 && Objects.equals(numTaskCompleted, otherRecord.numTaskCompleted)
                 && Objects.equals(nextDayBreakPoint, otherRecord.nextDayBreakPoint)

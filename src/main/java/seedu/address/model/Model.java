@@ -63,6 +63,14 @@ public interface Model {
     void updateTaskStatus(Task target, Task updatedTask);
 
     /**
+     * Updates the displayOption of the achievement record of the task manager.
+     * 
+     * @param displayOption may take the value of 1, 2 or 3,
+     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     */
+    void updateAchievementDisplayOption(int displayOption);
+ 
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     AchievementRecord getAchievementRecord();

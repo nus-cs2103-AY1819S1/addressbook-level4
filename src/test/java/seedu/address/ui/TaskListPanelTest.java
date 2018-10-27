@@ -95,6 +95,7 @@ public class TaskListPanelTest extends GuiUnitTest {
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<taskmanager>\n");
         builder.append("<achievements>\n");
+        builder.append("<displayOption>1</displayOption>\n");
         builder.append("<xp>0</xp>\n");
         builder.append("<level>lvl.1</level>\n");
         builder.append("<numTaskCompleted>0</numTaskCompleted>\n");

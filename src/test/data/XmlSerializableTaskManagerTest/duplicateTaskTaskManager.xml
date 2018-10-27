@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <achievements>
+        <displayOption>1</displayOption>
         <xp>0</xp>
         <level>lvl.1</level>
         <numTaskCompleted>0</numTaskCompleted>

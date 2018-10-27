@@ -2,6 +2,7 @@
 <!-- TaskManager save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <taskmanager>
     <achievements>
+        <displayOption>1</displayOption>
         <xp>0</xp>
         <level>lvl.1</level>
         <numTaskCompleted>0</numTaskCompleted>

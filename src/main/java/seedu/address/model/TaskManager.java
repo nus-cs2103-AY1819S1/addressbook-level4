@@ -45,7 +45,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(toBeCopied);
     }
 
-    //// list and achievement overwrite operations
+    //// task list and achievement overwrite operations
 
     /**
      * Replaces the contents of the task list with {@code tasks}.
@@ -112,6 +112,18 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     //// achievement related operation
+
+    /**
+     * Updates the displayOption of the achievement record of the task manager.
+     *
+     * @param displayOption may take the value of 1, 2 or 3,
+     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     */
+    public void updateAchievementDisplayOption(int displayOption) {
+        assert AchievementRecord.isValidDisplayOption(displayOption);
+
+        achievements.setDisplayOption(displayOption);
+    }
 
     /**
      * @return the {@code int} value representing the Xp.

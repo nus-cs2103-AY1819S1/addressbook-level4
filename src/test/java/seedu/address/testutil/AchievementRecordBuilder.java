@@ -17,6 +17,7 @@ public class AchievementRecordBuilder {
     public static final String DEFAULT_NEXT_DAY_BREAK_POINT = "13-10-19 0000";
     public static final String DEFAULT_NEXT_WEEK_BREAK_POINT = "19-10-19 0000";
 
+    private int displayOption;
     private Xp xp;
     private Level level;
     private int numTaskCompleted;
@@ -30,6 +31,7 @@ public class AchievementRecordBuilder {
     private int numTaskCompletedByWeek;
 
     public AchievementRecordBuilder() {
+        this.displayOption = AchievementRecord.DISPLAY_ALL_TIME;
         this.xp = new Xp();
         this.level = Level.LEVEL_1;
         this.numTaskCompleted = 0;
@@ -47,6 +49,7 @@ public class AchievementRecordBuilder {
     public AchievementRecordBuilder(AchievementRecord newData) {
         requireNonNull(newData);
 
+        displayOption = newData.getDisplayOption();
         xp = newData.getXp();
         level = newData.getLevel();
         numTaskCompleted = newData.getNumTaskCompleted();
@@ -106,7 +109,7 @@ public class AchievementRecordBuilder {
     }
 
     public AchievementRecord build() {
-        return new AchievementRecord(xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
+        return new AchievementRecord(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
                 xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
     }
 }

@@ -16,6 +16,12 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class AchievementRecord {
 
+    public static int DISPLAY_ALL_TIME = 1;
+    public static int DISPLAY_TODAY = 2;
+    public static int DISPLAY_THIS_WEEK = 3;
+
+    private int displayOption;
+
     private Xp xp;
     private Level level;
     private int numTaskCompleted;
@@ -42,11 +48,12 @@ public class AchievementRecord {
      * Constructs a {@code AchievementRecord}.
      * Both fields must be present.
      */
-    public AchievementRecord(Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
+    public AchievementRecord(int displayOption, Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
                              int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
                              int numTaskCompletedByWeek, int xpValueByWeek) {
-        requireAllNonNull(xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay, xpValueByDay,
+        requireAllNonNull(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay, xpValueByDay,
                 nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
+        this.displayOption = displayOption;
         this.xp = xp;
         this.level = level;
         this.numTaskCompleted = numTaskCompleted;
@@ -100,7 +107,18 @@ public class AchievementRecord {
         return numTaskCompletedByWeek;
     }
 
+    public int getDisplayOption() {
+        return displayOption;
+    }
+
+    public void setDisplayOption(int displayOption) {
+        dayBreakPointChecknSet();
+        weekBreakPointChecknSet();
+        this.displayOption = displayOption;
+    }
+
     private void setUpAchievementRecord() {
+        this.displayOption = DISPLAY_ALL_TIME;
         this.xp = new Xp();
         this.level = Level.LEVEL_1;
         this.numTaskCompleted = 0;
@@ -129,11 +147,23 @@ public class AchievementRecord {
     }
 
     /**
+     * Checks if given displayOption is valid.
+     * A valid {@param displayOption} may only take the vale of {@code DISPLAY_ALL_TIME},
+     * {@code DISPLAY_TODAY} or {@code DISPLAY_THIS_WEEK}.
+     */
+    public static boolean isValidDisplayOption(int displayOption) {
+        return (displayOption == AchievementRecord.DISPLAY_ALL_TIME
+                || displayOption == AchievementRecord.DISPLAY_TODAY
+                || displayOption == AchievementRecord.DISPLAY_THIS_WEEK);
+    }
+
+    /**
      * Resets the existing data of this {@code AchievementRecord} with {@code newData}.
      */
     public void resetData(AchievementRecord newData) {
         requireNonNull(newData);
 
+        displayOption = newData.displayOption;
         xp = newData.xp;
         level = newData.level;
         numTaskCompleted = newData.numTaskCompleted;
@@ -242,6 +272,7 @@ public class AchievementRecord {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AchievementRecord // instanceof handles nulls
+                && displayOption == ((AchievementRecord) other).displayOption
                 && xp.equals(((AchievementRecord) other).xp))
                 && level.equals(((AchievementRecord) other).level)
                 && numTaskCompleted == ((AchievementRecord) other).numTaskCompleted
