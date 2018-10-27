@@ -61,8 +61,8 @@ public class XmlAdaptedToDoListEvent {
     public ToDoListEvent toModelType() throws IllegalValueException {
 
         if (title == null) {
-            throw new IllegalValueException
-                    (String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_TODOLIST_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
         if (!Title.isValid(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
