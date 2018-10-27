@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -98,6 +99,35 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Meetings =================================================================================
+
+    /**
+     * Returns true if a meeting with the same timing as {@code meeting} exists in the address book.
+     */
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return versionedAddressBook.hasMeeting(meeting);
+    }
+
+    /**
+     * Deletes the given meeting.
+     * The meeting must exist in the address book.
+     */
+    public void deleteMeeting(Meeting target) {
+        versionedAddressBook.removeMeeting(target);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Adds the given meeting.
+     * {@code meeting} must not already exist in the address book.
+     */
+    public void addMeeting(Meeting meeting) {
+        versionedAddressBook.addMeeting(meeting);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
     }
 
     //=========== Undo/Redo =================================================================================

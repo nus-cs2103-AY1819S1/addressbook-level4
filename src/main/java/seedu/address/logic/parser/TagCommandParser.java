@@ -28,7 +28,15 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         String[] tagKeywords = trimmedArgs.split("\\s+");
 
-        return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)));
+        TagCommand.Action action;
+        if (tagKeywords[tagKeywords.length - 1].equalsIgnoreCase("delete")) {
+            action = TagCommand.Action.DELETE;
+        } else {
+            action = TagCommand.Action.FIND;
+        }
+
+        return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)), action,
+                Arrays.asList(tagKeywords));
     }
 
 }

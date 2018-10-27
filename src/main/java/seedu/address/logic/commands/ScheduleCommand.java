@@ -37,7 +37,7 @@ public class ScheduleCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)"
             + "[" + PREFIX_MEETING + "MEETING TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEETING + "3112181630";
+            + PREFIX_MEETING + "31/12/18 1630";
 
     private final Index index;
     private final Meeting meeting;
@@ -58,7 +58,20 @@ public class ScheduleCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (model.hasMeeting(meeting)) {
+            throw new CommandException(Messages.MESSAGE_CLASHING_MEETINGS);
+        }
+
         Person personToSchedule = lastShownList.get(index.getZeroBased());
+
+        if (!personToSchedule.getMeeting().value.equals(Meeting.NO_MEETING)) {
+            model.deleteMeeting(personToSchedule.getMeeting());
+        }
+
+        if (!meeting.value.equals(Meeting.NO_MEETING)) {
+            model.addMeeting(meeting);
+        }
+
         Person scheduledPerson = createScheduledPerson(personToSchedule, meeting);
 
         model.updatePerson(personToSchedule, scheduledPerson);

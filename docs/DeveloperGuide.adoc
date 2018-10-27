@@ -244,7 +244,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:editbyname[]
+// tag::editByName[]
 === Edit By Name feature
 ==== Current Implementation
 
@@ -307,6 +307,7 @@ change many parts to add this additional feature. It also makes sense, because a
 ** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
 // end::editByName[]
 
+// tag::schedule[]
 === Schedule feature
 ==== Current Implementation
 The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
@@ -319,25 +320,25 @@ Given below is an example usage scenario and how the Schedule mechanism behaves 
 
 Step 1. The user launches the application and already has at least one client's contact in InsuRen.
 
-image::ScheduleCommand1StateDiagram.png[width="800"]
+image::ScheduleCommand1StateDiagram.png[width="300"]
 
 Step 2. The user executes `schedule 1 m/16/10/18 1800` to schedule a meeting with the person in the first index at 1800 hours on 16th October, 2018. However, there is already a meeting scheduled at this time, so it is flagged out to the user.
 [NOTE]
 No meetings are scheduled if there is a clash
 
-image::ScheduleCommand2StateDiagram.png[width="800"]
+image::ScheduleCommand2StateDiagram.png[width="300"]
 
 Step 3. The user executes `schedule 1 m/32/10/18 1830` but since this is not a valid date, InsuRen flags it out to the user.
 
-image::ScheduleCommand3StateDiagram.png[width="800"]
+image::ScheduleCommand3StateDiagram.png[width="700"]
 
 Step 4. The user executes `schedule 1 m/16/10/18 1830`. The meeting is schedule and the person card is changed to reflect the same accordingly.
 
-image::ScheduleCommand4StateDiagram.png[width="800"]
+image::ScheduleCommand4StateDiagram.png[width="300"]
 
 The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
 
-image::ScheduleCommand5StateDiagram.png[width="800"]
+image::ScheduleCommand5StateDiagram.png[width="400"]
 
 ==== Design Considerations
 
@@ -364,7 +365,7 @@ image::ScheduleCommand5StateDiagram.png[width="800"]
 * **Alternative 2:** The date and time is stored as a `DateAndTime` object.
 ** Pros: Ability to use Java API functions for dates.
 ** Cons: Less flexible as all dates entered must be valid.
-
+// end::schedule[]
 
 
 // tag::undoredo[]
@@ -446,6 +447,89 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+// tag::undoredo[]
+
+=== Import feature
+==== Current Implementation
+The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file
+to `AddressBook`. The rules pertaining to accepted formatting of csv files can be found in the user guide. Additionally, it
+implements the following operations:
+
+* `getFileFromUserInput(String)` -- gets a File from the path indicated by a user's text input.
+* `getFileFromFileBrowser()` -- gets a File via a file browser.
+* `parseFile(File) and parseLinesFromFile(BufferedReader)` -- parses the file from either of the above two methods. Prepares an
+arrayList of Persons to add to the contact list.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+Step 1. The user launches an application and there is either a list of existing contacts or the list is empty.
+
+Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up.
+If the user includes a file path, InsuRen will attempt to retrieve the file from the given path.
+
+image::import.png[width="800"]
+
+image::import_user_input.png[width="800"]
+
+Step 3. If no such file exists, InsuRen will report an error.
+
+image::import_user_input_fail.png[width="800"]
+
+Step 4. If the file is successfully loaded (regardless of method), InsuRen checks for duplicates and incomplete contacts.
+Insuren compiles a list of contacts and runs the `add` Command on all of them, adding them to the list of existing contacts.
+
+Step 5. A relevant message will be displayed, depending on whether there were successful imports, duplicate contacts etc.
+
+image::import_success.png[width="800"]
+
+image::import_duplicates.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How import executes
+
+* **Alternative 1 (current choice):** Build from `Add` command:
+Import makes use of the `hasPerson` method of `Model` to check for duplicate contacts in the csv file being imported.
+It also manually checks if any entry in the csv file is incomplete in that it has no name value.
+Lastly, the import command also utilizes the format checking methods in `Name`, `Email`, `Address` etc. to catch any
+entries with invalid formats
+** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
+not cause import to crash.
+** Cons: Higher coupling.
+
+// tag::addpicture[]
+=== Add Picture feature
+==== Current Implementation
+
+The picture mechanism is facilitated by the new `PictureCommand`.
+It extends `Command` with an execution to set a picture, stored internally in `Person` as `picture`.
+
+Given below is an example usage scenario and how the picture mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::PictureCommand1StateDiagram.png[width="800"]
+
+Step 2. The user executes `pic 4 l//images/david.jpg` to add a picture for David. The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4. It then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l//images/david.jpg` command executes to be saved.
+
+image::PictureCommand2StateDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
+
+image::PictureCommandActivityDiagram.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: How picture is stored
+
+* **Alternative 1 (current choice):** `Person` has a picture field.
+** Pros: `Picture` can have it's own `Picture#isValidPicture()` method to validate the input. It is consistent with the other fields within `Person`.
+** Cons: More memory is used as there is a need to store an object. A new `Picture` class has to be made and implemented.
+* **Alternative 2:** `Person` will store a `Path` or `String` instead.
+** Pros: Will use less memory (do not have to implement a new class and store an object).
+** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
+
+// end:: addpicture[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1305,11 +1389,14 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  InsuRen should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  InsuRen should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  InsuRen should process a user command in 1 second or less, without any noticeable delay.
+.  All data entries are backed-up regularly.
+.  A user should be able to learn and use the product without any form of training.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The product should be self-explanatory and intuitive such that an insurance agent is able to adapt to it within the first 10 minutes of using the product for the first time.
+.  When the program crashes, all data up till the point of crash will still be available upon relaunch of the program.
 
 [appendix]
 == Glossary
