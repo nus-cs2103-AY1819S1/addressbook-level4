@@ -64,77 +64,37 @@ public class AchievementRecord {
         return level;
     }
 
-//    public void setLevel(Level level) {
-//        this.level = level;
-//    }
-
     public int getXpValue() {
         return xp.getXp();
     }
 
-//    public Xp getXp() {
-//        return xp;
-//    }
-//
-//    public void setXp(Xp xp) {
-//        this.xp = xp;
-//    }
-//
     public int getNumTaskCompleted() {
         return numTaskCompleted;
     }
-//
-//    public void setNumTaskCompleted(int numTaskCompleted) {
-//        this.numTaskCompleted = numTaskCompleted;
-//    }
-//
+
     public Calendar getNextDayBreakPoint() {
         return nextDayBreakPoint;
     }
-//
-//    public void setNextDayBreakPoint(Calendar nextDayBreakPoint) {
-//        this.nextDayBreakPoint = nextDayBreakPoint;
-//    }
-//
+
     public int getXpValueByDay() {
         return xpValueByDay;
     }
-//
-//    public void setXpValueByDay(int xpValueByDay) {
-//        this.xpValueByDay = xpValueByDay;
-//    }
-//
+
     public int getNumTaskCompletedByDay() {
         return numTaskCompletedByDay;
     }
-//
-//    public void setNumTaskCompletedByDay(int numTaskCompletedByDay) {
-//        this.numTaskCompletedByDay = numTaskCompletedByDay;
-//    }
-//
+
     public Calendar getNextWeekBreakPoint() {
         return nextWeekBreakPoint;
     }
-//
-//    public void setNextWeekBreakPoint(Calendar nextWeekBreakPoint) {
-//        this.nextWeekBreakPoint = nextWeekBreakPoint;
-//    }
-//
+
     public int getXpValueByWeek() {
         return xpValueByWeek;
     }
-//
-//    public void setXpValueByWeek(int xpValueByWeek) {
-//        this.xpValueByWeek = xpValueByWeek;
-//    }
-//
+
     public int getNumTaskCompletedByWeek() {
         return numTaskCompletedByWeek;
     }
-//
-//    public void setNumTaskCompletedByWeek(int numTaskCompletedByWeek) {
-//        this.numTaskCompletedByWeek = numTaskCompletedByWeek;
-//    }
 
     private void setUpAchievementRecord() {
         this.xp = new Xp();
@@ -169,8 +129,6 @@ public class AchievementRecord {
     public void resetData(AchievementRecord newData) {
         requireNonNull(newData);
 
-//        setXp(newData.getXp());
-//        setLevel(newData.getLevel());
         xp = newData.xp;
         level = newData.level;
         numTaskCompleted = newData.numTaskCompleted;
@@ -231,7 +189,7 @@ public class AchievementRecord {
 
     private void updateAchievementByDayWithNewXp(int newXp) {
         dayBreakPointChecknSet();
-        
+
         // one task is completed each time xp is awarded
         numTaskCompletedByDay++;
         xpValueByDay += newXp;
@@ -239,7 +197,7 @@ public class AchievementRecord {
 
     private void updateAchievementByWeekWithNewXp(int newXp) {
         weekBreakPointChecknSet();
-        
+
         // one task is completed each time xp is awarded
         numTaskCompletedByWeek++;
         xpValueByWeek += newXp;
