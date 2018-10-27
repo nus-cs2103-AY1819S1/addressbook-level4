@@ -9,6 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.commons.events.ui.LoginEvent;
+import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -105,5 +106,10 @@ public class LogicManager extends ComponentManager implements Logic {
         if (!someoneFound) {
             raise(new FailedLoginEvent(FailedLoginEvent.INVALID_USERNAME));
         }
+    }
+
+    @Subscribe
+    public void processLogout(LogoutEvent logoutEvent) {
+        model.setLoggedInUser(null);
     }
 }
