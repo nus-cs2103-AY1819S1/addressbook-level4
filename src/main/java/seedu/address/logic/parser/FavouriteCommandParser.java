@@ -25,13 +25,16 @@ public class FavouriteCommandParser implements Parser<FavouriteCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_INDEX);
+
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavouriteCommand.MESSAGE_USAGE));
         }
+
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
         Index eventIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+
         return new FavouriteCommand(eventDate, eventIndex);
     }
     /**

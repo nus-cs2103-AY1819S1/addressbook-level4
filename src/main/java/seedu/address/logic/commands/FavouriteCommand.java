@@ -35,7 +35,7 @@ public class FavouriteCommand extends Command {
             + PREFIX_DATE + "2018-09-18 "
             + PREFIX_INDEX + "1";
 
-    public static final String MESSAGE_FAVOURITE_EVENT_SUCCESS = "Favorite Event: %1$s";
+    public static final String MESSAGE_FAVOURITE_EVENT_SUCCESS = "Favorite Event: ";
 
     private final EventDate targetDate;
     private final Index targetIndex;
@@ -75,9 +75,10 @@ public class FavouriteCommand extends Command {
         ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName() +
                 "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay() +
                 "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime() +
-                "\n Event Details: " + favouriteEvent.getEventDescription());
+                "\nEvent Details: " + favouriteEvent.getEventDescription());
 
-        return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS +
+                favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
     }
 
 }
