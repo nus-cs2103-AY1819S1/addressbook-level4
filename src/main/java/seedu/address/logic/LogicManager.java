@@ -111,5 +111,6 @@ public class LogicManager extends ComponentManager implements Logic {
     @Subscribe
     public void processLogout(LogoutEvent logoutEvent) {
         model.setLoggedInUser(null);
+        model.restartAddressBook();
     }
 }

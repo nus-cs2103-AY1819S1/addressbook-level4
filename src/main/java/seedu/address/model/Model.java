@@ -88,4 +88,9 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.
+     */
+    void restartAddressBook();
 }
