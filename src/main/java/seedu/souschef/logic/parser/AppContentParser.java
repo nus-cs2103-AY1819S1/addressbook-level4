@@ -79,7 +79,8 @@ public class AppContentParser {
     /**
      * Based on user input, get cross context command.
      */
-    private Optional<Command> getCrossContextCommand(String userInput, ModelSet modelSet, Storage storage, History history)
+    private Optional<Command> getCrossContextCommand(String userInput,
+                                                     ModelSet modelSet, Storage storage, History history)
         throws ParseException {
         Command command = null;
         if (FavouritesParser.isCrossContextCommand(userInput)) {

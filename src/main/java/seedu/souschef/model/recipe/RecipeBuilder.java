@@ -49,6 +49,9 @@ public class RecipeBuilder {
         instructions.add(instruction);
     }
 
+    /**
+     * Build a actual instance of a recipe from the builder.
+     */
     public Recipe build() {
         // Clear after build
         return new Recipe(name, difficulty, cookTime, instructions, tags);
