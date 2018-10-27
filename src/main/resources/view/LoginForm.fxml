@@ -25,6 +25,6 @@
 		<Button fx:id="loginButton" text="Sign In" />
 	</HBox>
 
-	<Label fx:id="signInResult" styleClass="label-bright"
+	<Label fx:id="signInResult" styleClass="label-bright, error"
 		  GridPane.columnIndex="0" GridPane.rowIndex="7"/>
 </GridPane>
