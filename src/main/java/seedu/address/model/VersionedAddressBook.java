@@ -69,6 +69,16 @@ public class VersionedAddressBook extends AddressBook {
         return currentStatePointer < addressBookStateList.size() - 1;
     }
 
+    /**
+     * Restarts the versioned address book as if the application was just restarted (i.e. with no history
+     * or redo functionality kept)
+     * @return The new address book, with the current state as the blank state. The current address book
+     * is not modified
+     */
+    public VersionedAddressBook restart() {
+        return new VersionedAddressBook(addressBookStateList.get(currentStatePointer));
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

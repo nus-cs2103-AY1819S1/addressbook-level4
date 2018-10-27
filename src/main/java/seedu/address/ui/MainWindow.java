@@ -19,6 +19,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LoginEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SuccessfulLoginEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -160,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param loginEvent The login information
      */
     @Subscribe
-    void processLogin(LoginEvent loginEvent) {
+    void processLogin(SuccessfulLoginEvent loginEvent) {
         removeLoginWindow();
         fillInnerParts();
     }
