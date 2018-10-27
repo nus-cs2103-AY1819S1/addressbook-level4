@@ -54,7 +54,6 @@ public class XmlAdaptedModule {
     public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear,
                             String semester, List<XmlAdaptedPerson> students,
                             List<XmlAdaptedTag> tagged) {
-        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, students, tagged);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
