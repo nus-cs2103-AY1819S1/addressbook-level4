@@ -183,7 +183,7 @@ public class AchievementRecord {
     }
 
     /**
-     * Updates the Xp field of this {@code AchievementRecord} with new xp value.
+     * Updates all fields of this {@code AchievementRecord} with new xp value.
      * Triggers the update of Level with xp.
      */
     public void updateAchievementsWithNewXp(Integer newXp) {
@@ -230,13 +230,43 @@ public class AchievementRecord {
     }
 
     private void updateAchievementByDayWithNewXp(int newXp) {
+        dayBreakPointChecknSet();
+        
+        // one task is completed each time xp is awarded
         numTaskCompletedByDay++;
         xpValueByDay += newXp;
     }
 
     private void updateAchievementByWeekWithNewXp(int newXp) {
+        weekBreakPointChecknSet();
+        
+        // one task is completed each time xp is awarded
         numTaskCompletedByWeek++;
         xpValueByWeek += newXp;
+    }
+
+    /**
+     * Check if the current day has elapsed and the next day is reached.
+     * If true, reset {@code nextDayBreakPoint} to be the start of next day and reset the cumulative achievements
+     * from the previous day to 0.
+     */
+    private void dayBreakPointChecknSet() {
+        Calendar date = new GregorianCalendar();
+        if (date.before(nextDayBreakPoint)) return;
+        nextDayBreakPoint = null;
+        setUpAchievementByDay();
+    }
+
+    /**
+     * Check if the current week has elapsed and the next week is reached.
+     * If true, reset {@code nextWeekBreakPoint} to be the start of next week and reset the cumulative achievements
+     * from the previous week to 0.
+     */
+    private void weekBreakPointChecknSet() {
+        Calendar date = new GregorianCalendar();
+        if (date.before(nextWeekBreakPoint)) return;
+        nextWeekBreakPoint = null;
+        setUpAchievementByWeek();
     }
 
     @Override
