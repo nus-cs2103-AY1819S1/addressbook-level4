@@ -6,8 +6,9 @@ import java.util.Optional;
 
 //@@uthor ericyjw
 /**
- * Represents a Transaction Entry in the budget book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Transaction Entry in the cca book.
+ * Guarantees: details are present and not null, field values are validated.
+ *
  * @author ericyjw
  */
 public class Entry {
@@ -21,6 +22,14 @@ public class Entry {
     private Amount amount;
     private Remarks remarks;
 
+    /**
+     * Creates a transaction {@code Entry} for a specific Cca.
+     *
+     * @param entryNum the entry number for this transaction entry
+     * @param date the date of the transaction
+     * @param amount the amount in the transaction
+     * @param remarks the remarks given for this transaction
+     */
     public Entry(int entryNum, Date date, Amount amount, Remarks remarks) {
         requireAllNonNull(entryNum, date, amount, remarks);
         this.entryNum = entryNum;
@@ -29,6 +38,15 @@ public class Entry {
         this.remarks = remarks;
     }
 
+    /**
+     * Creates a transaction {@code Entry} for a specific Cca.
+     * Used to convert from xml to {@code Entry} object.
+     *
+     * @param entryNum the entry number for this transaction entry
+     * @param date the date of the transaction
+     * @param amount the amount in the transaction
+     * @param remarks the remarks given for this transaction
+     */
     public Entry(String entryNum, String date, String amount, String remarks) {
         requireAllNonNull(entryNum, date, amount, remarks);
         this.entryNum = Integer.valueOf(entryNum);
@@ -66,8 +84,9 @@ public class Entry {
     }
 
     /**
-     * Update the Transaction Date of a specific transaction entry in a specific CCA
-     * @param toUpdate the new date to be updated
+     * Update the transaction date of a specific transaction entry in a specific Cca.
+     *
+     * @param toUpdate the {@code Optional} new date to be updated
      */
     public void updateDate(Optional<Date> toUpdate) {
         Date date = toUpdate.get();
@@ -75,8 +94,9 @@ public class Entry {
     }
 
     /**
-     * Update the Transaction Amount of a specific transaction entry in a specific CCA
-     * @param toUpdate the new amount to be updated
+     * Update the transaction amount of a specific transaction entry in a specific Cca.
+     *
+     * @param toUpdate the {@code Optional} new amount to be updated
      */
     public void updateAmount(Optional<Amount> toUpdate) {
         Amount amount = toUpdate.get();
@@ -84,8 +104,9 @@ public class Entry {
     }
 
     /**
-     * Update the Transaction Remark of a specific transaction remark in a specific CCA
-     * @param toUpdate the new amount to be updated
+     * Update the transaction remark of a specific transaction remark in a specific Cca.
+     *
+     * @param toUpdate the {@code Optional} new amount to be updated
      */
     public void updateRemarks(Optional<Remarks> toUpdate) {
         Remarks remarks = toUpdate.get();
@@ -93,29 +114,18 @@ public class Entry {
     }
 
     /**
-     * Returns true if both Entry are the same.
+     * Check the if the parameters given to create an {@code Entry} object are valid.
+     * Return true if all of the parameters are valid.
+     *
+     * @param entryNum the entry number for this transaction entry
+     * @param date the date of the transaction
+     * @param amount the amount in the transaction
+     * @param remarks the remarks given for this transaction
      */
-    public boolean isSameEntry(Entry otherEntry) {
-        if (otherEntry == this) {
-            return true;
-        }
-
-        return false;
-    }
-
     public static boolean isValidEntry(String entryNum, String date, String amount, String remarks) {
         return entryNum.matches(ENTRY_NUM_VALIDATION_REGEX)
             && Date.isValidDate(date)
             && Amount.isValidAmount(amount)
             && Remarks.isValidRemark(remarks);
     }
-
-    public static boolean isValidEntry(Entry e) {
-        return String.valueOf(e.getEntryNum()).matches(ENTRY_NUM_VALIDATION_REGEX)
-            && Date.isValidDate(e)
-            && Amount.isValidAmount(e)
-            && Remarks.isValidRemark(e);
-    }
 }
-
-

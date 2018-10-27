@@ -5,14 +5,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 //@@author ericyjw
 /**
- * Represents a Transaction Entry Remarks in the budget book.
+ * Represents a transaction entry remarks in the cca book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
+ *
  * @author ericyjw
  */
 public class Remarks {
     public static final String MESSAGE_REMARKS_CONSTRAINTS =
         "Transaction Remarks should only contain alphanumeric characters and spaces, and it should not be blank";
-
     /*
      * The first character of the Date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -21,10 +21,10 @@ public class Remarks {
 
     private String remarks;
 
-    public Remarks() {
-        this.remarks = null;
-    }
-
+    /**
+     * Creates a {@code Remarks}.
+     * @param remarks a valid string of remarks
+     */
     public Remarks(String remarks) {
         requireNonNull(remarks);
         checkArgument(isValidRemark(remarks), MESSAGE_REMARKS_CONSTRAINTS);

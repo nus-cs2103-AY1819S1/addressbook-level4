@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 //@@author ericyjw
 /**
- * Represents a transaction entry amount in the Cca book.
+ * Represents a transaction entry amount in the cca book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  *
  * @author ericyjw
@@ -19,8 +19,13 @@ public class Amount {
      */
     public static final String AMOUNT_VALIDATION_REGEX = "[-][0-9]{1,9}||[0-9]{1,9}";
 
-    private Integer amount;
+    private final Integer amount;
 
+    /**
+     * Create an {@code Amount}.
+     *
+     * @param amount a valid amount
+     */
     public Amount(Integer amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(String.valueOf(amount)), MESSAGE_AMOUNT_CONSTRAINTS);

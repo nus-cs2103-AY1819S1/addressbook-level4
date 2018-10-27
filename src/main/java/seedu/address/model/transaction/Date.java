@@ -1,11 +1,12 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.deepEquals;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 //@@author ericyjw
 /**
- * Represents a transaction entry date in the Cca book.
+ * Represents a transaction entry date in the cca book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  *
  * @author ericyjw
@@ -20,12 +21,13 @@ public class Date {
      */
     public static final String DATE_VALIDATION_REGEX = "[0-9]{1,2}[.]\\d{1,2}[.]\\d{4}";
 
-    private String date;
+    private final String date;
 
-    public Date() {
-        this.date = null;
-    }
-
+    /**
+     * Creates a {@code Date}.
+     *
+     * @param date a valid string of date
+     */
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
@@ -57,9 +59,7 @@ public class Date {
 
         switch (month) {
             case 4: case 6: case 9: case 11:
-                if(day > 30 || day < 1) {
-                    return false;
-                }
+                return day < 31 && day > 0;
 
             case 2:
                 if (isLeapYear) {
@@ -68,13 +68,12 @@ public class Date {
                     return day < 29 && day > 0;
                 }
 
-            default:
-                if (day <= 31 && day > 1) {
-                    return false;
-                }
-        }
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                return day <= 31 && day > 0;
 
-        return true;
+            default:
+                return false;
+        }
     }
 
     public String getDate() {
