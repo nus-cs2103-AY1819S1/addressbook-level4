@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEAD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
@@ -44,10 +45,12 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update details of an existing CCA\n"
         + "Parameters: "
         + PREFIX_TAG + "CCA "
+        + PREFIX_NAME + "NEW CCA NAME"
         + PREFIX_HEAD + "NAME OF HEAD "
         + PREFIX_VICE_HEAD + "NAME OF VICE-HEAD \n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "Basketball "
+        + PREFIX_NAME + "Basketball M"
         + PREFIX_HEAD + "John "
         + PREFIX_VICE_HEAD + "Alex \n"
         + "or\n"

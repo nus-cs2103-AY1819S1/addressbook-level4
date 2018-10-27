@@ -166,6 +166,23 @@ public class Cca {
         return budget;
     }
 
+    /**
+     * Returns the number of transaction entries in the Cca.
+     */
+    public int getEntrySize() {
+        return this.transactionEntries.size();
+    }
+
+    /**
+     * Adds a {@code newEntry} to the transaction list in the Cca.
+     *
+     * @param newEntry the new transaction entry to be added
+     */
+    public Cca addNewTransaction(Entry newEntry) {
+        this.transactionEntries.add(newEntry);
+
+        return this;
+    }
 
     /**
      * Returns true if both Ccas have the same name
