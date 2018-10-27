@@ -39,7 +39,7 @@ public class AchievementPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AchievementsUpdatedEvent event) {
+    public void handleAchievementsUpdatedEvent(AchievementsUpdatedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setLabelValues(event.data);
     }
