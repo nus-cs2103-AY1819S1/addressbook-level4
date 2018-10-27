@@ -108,6 +108,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Task> getFilteredArchivedTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredArchivedTasks);
+    }
+
+    @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
