@@ -77,7 +77,7 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case LoginCommand.COMMAND_ALIAS:
+        //case LoginCommand.COMMAND_ALIAS:
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
 
@@ -135,8 +135,8 @@ public class AddressBookParser {
         case DeleteUserCommand.COMMAND_WORD:
             return new DeleteUserCommandParser().parse(arguments);
 
-        case ClearUserCommand.COMMAND_WORD:
-            return new ClearUserCommand();
+        //case ClearUserCommand.COMMAND_WORD:
+            //return new ClearUserCommand();
 
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
@@ -159,8 +159,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+        //case UndoCommand.COMMAND_WORD:
+            //return new UndoCommand();
 
         //case RedoCommand.COMMAND_WORD:
             //return new RedoCommand();
