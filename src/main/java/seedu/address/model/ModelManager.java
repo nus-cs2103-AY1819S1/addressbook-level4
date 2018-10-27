@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private Person currentUser;
     private Event currentEvent;
+    private boolean clearEnabled;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         currentUser = null;
+        clearEnabled = false;
     }
 
     public ModelManager() {
@@ -80,6 +83,17 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserLoggedInException();
         }
         return currentUser;
+    }
+
+    /**
+     * Enable clear command, only for testing purposes.
+     */
+    public void setClearEnabled() {
+        clearEnabled = true;
+    }
+
+    public boolean getClearEnabled() {
+        return clearEnabled;
     }
 
     public void setSelectedEvent(Event currentEvent) {
@@ -268,6 +282,39 @@ public class ModelManager extends ComponentManager implements Model {
         updateEvent(currentEvent, currentEvent);
         return poll;
     }
+
+    @Override
+    public void setDate(LocalDate date) throws NoEventSelectedException, NoUserLoggedInException,
+            NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        currentEvent.setDate(date);
+        updateEvent(currentEvent, currentEvent);
+    }
+
+    @Override
+    public void setTime(LocalTime startTime, LocalTime endTime) throws NoEventSelectedException,
+            NoUserLoggedInException, NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        currentEvent.setTime(startTime, endTime);
+        updateEvent(currentEvent, currentEvent);
+    }
+
 
     @Override
     public void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException {
