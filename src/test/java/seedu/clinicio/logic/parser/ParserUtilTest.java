@@ -59,10 +59,10 @@ public class ParserUtilTest {
     private static final String VALID_ROLE_DOCTOR = "doctor";
     private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";
-  
-  private static final String VALID_DATE = "02 02 2222";
+
+    private static final String VALID_DATE = "02 02 2222";
     private static final String VALID_TIME = "22 22";
-  
+
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
