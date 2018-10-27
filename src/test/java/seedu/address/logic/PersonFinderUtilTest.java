@@ -20,6 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalPersons;
 
+//@@author zioul123
 public class PersonFinderUtilTest {
     private static final String COMMON_SURNAME = "Meier";
     private static final String BENSON_FIRSTNAME = "Benson";

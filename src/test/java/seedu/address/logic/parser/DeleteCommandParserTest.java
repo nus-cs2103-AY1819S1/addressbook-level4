@@ -21,6 +21,7 @@ public class DeleteCommandParserTest {
 
     private DeleteCommandParser parser = new DeleteCommandParser();
 
+    //@@author zioul123
     @Test
     public void parse_noArgs_throwsParseException() {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -29,11 +30,13 @@ public class DeleteCommandParserTest {
                 DeleteCommand.MESSAGE_USAGE));
     }
 
+    //@@author
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
     }
 
+    //@@author zioul123
     @Test
     public void parse_validArgs_returnsDeleteByNameCommand() {
         assertParseSuccess(parser, "Alice", new DeleteByNameCommand("Alice"));
@@ -46,4 +49,5 @@ public class DeleteCommandParserTest {
         assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
+    //@@author
 }
