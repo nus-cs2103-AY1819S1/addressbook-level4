@@ -31,6 +31,8 @@ public class RemoveCommand extends QueueCommand {
     private final Index targetIndex;
 
     public RemoveCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 

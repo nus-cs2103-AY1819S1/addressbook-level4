@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
+
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
@@ -26,8 +28,8 @@ public class InsertCommand extends QueueCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a patient into the queue. "
             + "Parameters: "
-            + "Index "
-            + "Position ";
+            + "INDEX (must be a positive integer) "
+            + PREFIX_POSITION + "POSITION ";
 
     public static final String MESSAGE_SUCCESS = "Inserted ";
     public static final String MESSAGE_INVALID_POSITION = "Invalid position!";
@@ -75,6 +77,14 @@ public class InsertCommand extends QueueCommand {
 
         return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
                 + " with Queue Number: " + actualPosition + "\n" + patientQueue.displayQueue());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof InsertCommand // instanceof handles nulls
+                && targetIndex.equals(((InsertCommand) other).targetIndex)
+                && targetPosition.equals(((InsertCommand) other).targetPosition));
     }
 }
 

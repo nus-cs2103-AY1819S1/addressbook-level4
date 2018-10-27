@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.MedicineName;
-import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.person.medicalrecord.Quantity;
@@ -34,12 +33,12 @@ public class XmlAdaptedNote {
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
      */
-    public XmlAdaptedNote(String noteMessage, Map<SerialNumber, Quantity> dispensedMedicines) {
+    public XmlAdaptedNote(String noteMessage, Map<MedicineName, Quantity> dispensedMedicines) {
         this.noteMessage = noteMessage;
         if (dispensedMedicines != null) {
             this.dispensedMedicines = new HashMap<>();
-            dispensedMedicines.forEach(((serialNumber, quantity) -> {
-                this.dispensedMedicines.put(serialNumber.value, quantity.value);
+            dispensedMedicines.forEach(((medicineName, quantity) -> {
+                this.dispensedMedicines.put(medicineName.fullName, quantity.value);
             }));
         }
     }
