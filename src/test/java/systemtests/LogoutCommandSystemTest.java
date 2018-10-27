@@ -23,6 +23,8 @@ public class LogoutCommandSystemTest extends AddressBookSystemTest {
     private void assertLogout() {
         assert getBrowserPlaceholder().getChildren().size() == 0;
         assert getModel().getLoggedInUser() == null;
+        assert !getModel().canRedoAddressBook();
+        assert !getModel().canUndoAddressBook();
     }
 
 }

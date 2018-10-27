@@ -102,7 +102,9 @@ public class LoginTest {
     }
 
     private void assertLastEventLoginSuccessful() {
-        assert eventsCollectorRule.eventsCollector.getMostRecent() instanceof SuccessfulLoginEvent;
+        BaseEvent lastEvent = eventsCollectorRule.eventsCollector.getMostRecent();
+        assert lastEvent instanceof SuccessfulLoginEvent;
+        assert ((SuccessfulLoginEvent) lastEvent).getLoggedInPerson() != null;
         assert model.getLoggedInUser() != null;
     }
 
