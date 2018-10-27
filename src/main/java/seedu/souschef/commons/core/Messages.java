@@ -7,12 +7,15 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import seedu.souschef.logic.commands.AddCommand;
+import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
@@ -43,6 +46,18 @@ public class Messages {
             + PREFIX_COOKTIME + "PT1H20M "
             + PREFIX_TAG + "asian "
             + PREFIX_TAG + "chinese";
+
+    public static final String MESSAGE_CONT_RECIPE_USAGE = BuildRecipeInstructionCommand.COMMAND_WORD
+            + ": Adds a recipe's instruction to the sous chef. "
+            + "Parameters: "
+            + PREFIX_INSTRUCTION + "INSTRUCTION "
+            + "[" + PREFIX_INGREDIENT + "INGREDIENT AMOUNT UNIT]... "
+            + "[" + PREFIX_COOKTIME + "TIME]\n"
+            + "Example: " + BuildRecipeInstructionCommand.COMMAND_WORD + " "
+            + PREFIX_INSTRUCTION + "Pour "
+            + PREFIX_INGREDIENT + "chicken stock 300 ml "
+            + "into pot and heat it up."
+            + PREFIX_COOKTIME + "PT10M";
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
