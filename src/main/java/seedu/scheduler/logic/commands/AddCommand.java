@@ -7,12 +7,7 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.io.IOException;
 import java.util.logging.Logger;
-
-import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.EventDateTime;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
@@ -75,71 +70,7 @@ public class AddCommand extends Command {
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
 
-        logger.info("Starting to push events Google Calendar");
-        pushToGoogleCal();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    /**
-     * Pushes the even to Google Calendar.
-     */
-    private void pushToGoogleCal() {
-        Calendar service = connectToGoogleCalendar.getCalendar();
-
-        com.google.api.services.calendar.model.Event gEvent = new com.google.api.services.calendar.model.Event();
-
-        gEvent.setId(String.valueOf(toAdd.getUuid()).replaceAll("-", ""));
-        gEvent.setSummary(String.valueOf(toAdd.getEventName()));
-        gEvent.setLocation(String.valueOf(toAdd.getVenue()));
-        gEvent.setDescription(String.valueOf(toAdd.getDescription()));
-
-        String startDateTime = convertStartDateTimeToGoogleFormat(toAdd);
-
-        gEvent.setStart(new EventDateTime()
-                .setDateTime(DateTime.parseRfc3339(startDateTime)));
-
-        String endDateTime = convertEndDateTimeToGoogleFormat(toAdd);
-
-        gEvent.setEnd(new EventDateTime().setDateTime(DateTime.parseRfc3339(endDateTime)));
-
-        try {
-            service.events().insert("primary", gEvent).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Converts a local Event's starting data and time to Google format.
-     *
-     * @param event a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertStartDateTimeToGoogleFormat(Event event) {
-        //local format:2018-10-20 17:00:00
-        //target :2018-10-21T22:30:00+08:00
-        return event.getStartDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
-    }
-
-    /**
-     * Converts a local Event's ending data and time to Google format.
-     *
-     * @param event a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertEndDateTimeToGoogleFormat(Event event) {
-        return event.getEndDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
     }
 
     @Override

@@ -12,6 +12,7 @@ import java.net.URLConnection;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -22,11 +23,16 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.EventDateTime;
 
+import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
+import seedu.scheduler.model.event.Event;
+import seedu.scheduler.ui.UiManager;
 
 /**
  * Methods related to the connection with Google Calendar.
@@ -38,6 +44,7 @@ public class ConnectToGoogleCalendar {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private boolean googleCalendarEnabled = false;
 
@@ -136,5 +143,69 @@ public class ConnectToGoogleCalendar {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    /**
+     * Pushes the event(s) to Google Calendar.
+     */
+    public void pushToGoogleCal(List <Event> toAddList) {
+
+        logger.info("Starting to push events Google Calendar");
+        Calendar service = getCalendar();
+
+        com.google.api.services.calendar.model.Event gEvent = new com.google.api.services.calendar.model.Event();
+        for (Event toAddEvent : toAddList) {
+            gEvent.setId(String.valueOf(toAddEvent.getUuid()).replaceAll("-", ""));
+            gEvent.setSummary(String.valueOf(toAddEvent.getEventName()));
+            gEvent.setLocation(String.valueOf(toAddEvent.getVenue()));
+            gEvent.setDescription(String.valueOf(toAddEvent.getDescription()));
+
+            String startDateTime = convertStartDateTimeToGoogleFormat(toAddEvent);
+
+            gEvent.setStart(new EventDateTime()
+                    .setDateTime(DateTime.parseRfc3339(startDateTime)));
+
+            String endDateTime = convertEndDateTimeToGoogleFormat(toAddEvent);
+
+            gEvent.setEnd(new EventDateTime().setDateTime(DateTime.parseRfc3339(endDateTime)));
+
+            try {
+                service.events().insert("primary", gEvent).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Converts a local Event's starting data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    private String convertStartDateTimeToGoogleFormat(Event event) {
+        //local format:2018-10-20 17:00:00
+        //target :2018-10-21T22:30:00+08:00
+        return event.getStartDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
+    }
+
+    /**
+     * Converts a local Event's ending data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    private String convertEndDateTimeToGoogleFormat(Event event) {
+        return event.getEndDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
     }
 }
