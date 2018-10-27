@@ -13,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.scheduler.commons.core.ComponentManager;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.events.model.SchedulerChangedEvent;
-import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.tag.Tag;
 
@@ -22,8 +21,6 @@ import seedu.scheduler.model.tag.Tag;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private final ConnectToGoogleCalendar connectToGoogleCalendar =
-            new ConnectToGoogleCalendar();
     private final VersionedScheduler versionedScheduler;
     private final FilteredList<Event> filteredEvents;
 
@@ -93,7 +90,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addEvents(List<Event> events) {
         versionedScheduler.addEvents(events);
-        connectToGoogleCalendar.pushToGoogleCal(events);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateSchedulerChanged();
     }

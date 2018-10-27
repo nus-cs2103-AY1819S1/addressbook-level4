@@ -69,6 +69,7 @@ public class AddCommand extends Command {
 
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
+        connectToGoogleCalendar.pushToGoogleCal(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
