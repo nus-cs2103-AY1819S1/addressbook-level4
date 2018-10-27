@@ -67,7 +67,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyScheduler> readScheduler(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
+        logger.fine("Attempting to read data from scheduler file: " + filePath);
         return schedulerStorage.readScheduler(filePath);
     }
 
@@ -78,7 +78,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveScheduler(ReadOnlyScheduler scheduler, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
+        logger.fine("Attempting to write to data scheduler file: " + filePath);
         schedulerStorage.saveScheduler(scheduler, filePath);
     }
 
@@ -86,7 +86,8 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleSchedulerChangedEvent(SchedulerChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage
+                (event, "Local data changed, saving to scheduler file"));
         try {
             saveScheduler(event.data);
         } catch (IOException e) {
@@ -108,7 +109,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyToDoList> readToDoList(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
+        logger.fine("Attempting to read data from todolist file: " + filePath);
         return toDoListStorage.readToDoList(filePath);
     }
 
@@ -119,14 +120,15 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveToDoList(ReadOnlyToDoList toDoList, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
+        logger.fine("Attempting to write to data todolist file: " + filePath);
         toDoListStorage.saveToDoList(toDoList, filePath);
     }
 
     @Override
     @Subscribe
     public void handleToDoListChangedEvent(ToDoListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage
+                (event, "Local data changed, saving to todolist file"));
         try {
             saveToDoList(event.data);
         } catch (IOException e) {
