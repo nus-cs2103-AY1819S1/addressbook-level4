@@ -43,4 +43,28 @@ class DictionaryTest {
         dictionary.invoke();
         assertNotNull(Dictionary.isWordInOnlineDictionary(dictionary.getWordToLearn()));
     }
+
+    @Test
+    void getWordOfTheDay() {
+        Dictionary dictionary = new Dictionary("");
+        assertNotNull(dictionary);
+
+        //testing with a user input afterwards. SHould have no effect.
+        dictionary = new Dictionary("horse");
+        assertNotNull(dictionary);
+    }
+
+    @Test
+    void fetchWordOfTheDay() throws ParseException {
+        Dictionary dictionary = new Dictionary("");
+        dictionary.fetchWordOfTheDay();
+        assertNotNull(dictionary.getWordOfTheDay());
+    }
+
+    @Test
+    void doesWordOfTheDayExist() throws ParseException {
+        Dictionary dictionary = new Dictionary("");
+        dictionary.invoke();
+        assertNotNull(Dictionary.doesWordOfTheDayExist());
+    }
 }
