@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.NUS_BASKETBALL;
 import static seedu.address.testutil.TypicalGroups.NUS_COMPUTING;
-import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
