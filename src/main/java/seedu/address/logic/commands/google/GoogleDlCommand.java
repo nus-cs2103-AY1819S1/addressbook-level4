@@ -22,10 +22,11 @@ public class GoogleDlCommand extends GoogleCommand {
     public static final String MESSAGE_USAGE = "Usage of google dl (requires an internet connection): "
             + "\n- " + COMMAND_WORD + " dl <IMAGE_NAME>: " + "Downloads specified image from Google Photos"
             + "\n\tExample: " + COMMAND_WORD + " dl " + "<mountain.png>, usage inclusive of <> "
-            + "\n- " + COMMAND_WORD + " dl /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image from specified album"
-            + "album in Google Photos"
+            + "\n- " + COMMAND_WORD + " dl /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
+            + "from specified album in Google sPhotos"
             + "\n\tExample: " + COMMAND_WORD + " dl /a<Vacation> <mountain.png>, usage inclusive of <>"
-            + "\n- " + COMMAND_WORD + " dl all <ALBUM_NAME>: " + "Downloads all images from specified album, takes a longer time depending on number of images"
+            + "\n- " + COMMAND_WORD + " dl all <ALBUM_NAME>: " + "Downloads all images from specified album, "
+            + "takes a longer time depending on number of images"
             + "\n\tExample: " + COMMAND_WORD + " dl all " + "<Vacation>, usage inclusive of <> \n\n"
             + "!!WARNING: Any files with duplicate naming existing in the folder WILL be replaced";
 
