@@ -13,15 +13,14 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.model.group.Group;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.shared.Description;
 import seedu.address.model.shared.Title;
 import seedu.address.testutil.Assert;
 
 
 
-
-// @@author Derek-Hardy
 public class XmlAdaptedGroupTest {
     private static final String INVALID_TITLE = "@$#!&@"; // Invalid characters.
     private static final String INVALID_DESCRIPTION = ""; // Description must not be a blank string.
@@ -67,27 +66,29 @@ public class XmlAdaptedGroupTest {
     }
 
     @Test
-    public void toModelType_nullDescription_throwsIllegalValueException() {
+    public void toModelType_nullDescription_success() throws Exception {
         XmlAdaptedGroup group =
                 new XmlAdaptedGroup(
                         VALID_TITLE, null, VALID_MEETING, VALID_MEMBERS);
-
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Description.class.getSimpleName());
-
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, group::toModelType);
+        UniquePersonList upl = new UniquePersonList();
+        for (XmlAdaptedPerson p: VALID_MEMBERS) {
+            upl.add(p.toModelType());
+        }
+        Group expectedGroup = new Group(new Title(VALID_TITLE), VALID_MEETING.toModelType(), upl);
+        assertEquals(expectedGroup, group.toModelType());
     }
 
     @Test
-    public void toModelType_nullMeeting_throwsIllegalValueException() {
+    public void toModelType_nullMeeting_success() throws Exception {
         XmlAdaptedGroup group =
                 new XmlAdaptedGroup(
                         VALID_TITLE, VALID_DESCRIPTION, null, VALID_MEMBERS);
-
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Meeting.class.getSimpleName());
-
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, group::toModelType);
+        UniquePersonList upl = new UniquePersonList();
+        for (XmlAdaptedPerson p: VALID_MEMBERS) {
+            upl.add(p.toModelType());
+        }
+        Group expectedGroup = new Group(new Title(VALID_TITLE), new Description(VALID_DESCRIPTION), upl);
+        assertEquals(expectedGroup, group.toModelType());
     }
 
     @Test

@@ -74,6 +74,22 @@ public class Group {
     }
 
     /**
+     * Constructor for a simple group, where title, meeting and members
+     * must be present. description field is initialised to be empty.
+     *
+     * @param title The name of the group
+     * @param meeting The upcoming meeting for people in this group
+     * @param members The list of members of the group
+     */
+    public Group(Title title, Meeting meeting, UniquePersonList members) {
+        requireAllNonNull(title, meeting, members);
+        this.title = title;
+        this.description = Optional.empty();
+        this.meeting = Optional.of(meeting);
+        this.members = members;
+    }
+
+    /**
      * Constructor for a simple group, where all details
      * must be present. Members field is initialised to an existing list of members.
      *
