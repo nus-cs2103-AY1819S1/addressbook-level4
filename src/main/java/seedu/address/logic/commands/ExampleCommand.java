@@ -48,7 +48,7 @@ public class ExampleCommand extends Command {
         requireNonNull(model);
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         try {
-            imagePath = model.getCurrentPreviewImagePath();
+            imagePath = model.getCurrentOriginalImage();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
             model.updateCurrentPreviewImage(modifiedImage, transformationDone);
             EventsCenter.getInstance().post(
@@ -76,7 +76,8 @@ public class ExampleCommand extends Command {
         case 1:
             Transformation transformation = new Transformation("blur", "0x8");
             transformationDone = transformation;
-            return ImageMagickUtil.processImage(imagePath, transformation);
+            BufferedImage tmp = ImageMagickUtil.processImage(imagePath, transformation);
+            return tmp;
         case 2:
             transformation = new Transformation("rotate", "50");
             transformationDone = transformation;
