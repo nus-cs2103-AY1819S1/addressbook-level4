@@ -41,7 +41,7 @@ public class ComposeEmailIndexCommand extends Command {
             + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
 
     public static final String MESSAGE_SUCCESS = "Email(Index) composed: %s";
-    public static final String MESSAGE_EMAIL_ALREADY_EXISTS = "Email with subject: \"%s\" already exists.";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "Email with subject: \"%s\" already exists.";
 
     private final Email toCompose;
     private final Set<Index> indexSet;
@@ -59,7 +59,7 @@ public class ComposeEmailIndexCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEmail(toCompose.getSubject())) {
-            throw new CommandException(String.format(MESSAGE_EMAIL_ALREADY_EXISTS, toCompose.getSubject()));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_EMAIL, toCompose.getSubject()));
         }
 
         List<Person> lastShownList = model.getFilteredPersonList();
