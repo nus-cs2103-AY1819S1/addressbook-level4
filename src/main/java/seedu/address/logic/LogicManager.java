@@ -102,7 +102,7 @@ public class LogicManager extends ComponentManager implements Logic {
             }
         }
 
-        if(!someoneFound) {
+        if (!someoneFound) {
             raise(new FailedLoginEvent("No such user!"));
         }
     }
