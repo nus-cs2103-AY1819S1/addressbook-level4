@@ -80,4 +80,11 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
+    /*
+     * Resets selection
+     */
+    //    public void resetSelection() {
+    //        personListView.getSelectionModel().clearSelection();
+    //    }
+
 }

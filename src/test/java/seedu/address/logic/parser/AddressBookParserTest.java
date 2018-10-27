@@ -5,13 +5,23 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +35,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
@@ -41,11 +49,11 @@ import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
-import seedu.address.logic.commands.personcommands.ClearUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
+import seedu.address.logic.commands.personcommands.FindUserByNameCommand;
+import seedu.address.logic.commands.personcommands.FindUserByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
@@ -54,9 +62,11 @@ import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
+import seedu.address.model.person.UserContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.StubUserBuilder;
 
 public class AddressBookParserTest {
     @Rule
@@ -66,7 +76,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_login() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new StubUserBuilder().build();
         LoginCommand command = (LoginCommand) parser.parseCommand(PersonUtil.getLoginCommand(person));
         assertEquals(new LoginCommand(person), command);
     }
@@ -172,11 +182,11 @@ public class AddressBookParserTest {
                 INDEX_SECOND.getOneBased())), command);
     }
 
-    @Test
+    /*@Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD) instanceof ClearUserCommand);
         assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD + " 3") instanceof ClearUserCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_delete() throws Exception {
@@ -201,19 +211,41 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findUserByName() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindUserByNameCommand command = (FindUserByNameCommand) parser.parseCommand(
+                FindUserByNameCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindUserByNameCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findUser() throws Exception {
+        List<String> nameKeywordList = Arrays.asList("Bob", "Choo");
+        List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_BOB);
+        List<String> addressKeywordList = Arrays.asList("Block", "123,", "Bobby", "Street", "3");
+        List<String> emailKeywordList = Collections.singletonList(VALID_EMAIL_BOB);
+        List<String> interestsKeywordList = Collections.singletonList(VALID_INTEREST_STUDY);
+        List<String> tagsKeywordList = Collections.singletonList(VALID_TAG_FRIEND);
+        UserContainsKeywordsPredicate predicate =
+                new UserContainsKeywordsPredicate(nameKeywordList,
+                        phoneKeywordList,
+                        addressKeywordList,
+                        emailKeywordList,
+                        interestsKeywordList,
+                        tagsKeywordList);
+
         FindUserCommand command = (FindUserCommand) parser.parseCommand(
-                FindUserCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindUserCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindUserCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND);
+        assertEquals(new FindUserCommand(predicate), command);
     }
 
     @Test
     public void parseCommand_findByPhone() throws Exception {
         List<String> keywords = Arrays.asList("98765432", "54321");
-        FindByPhoneCommand command = (FindByPhoneCommand) parser.parseCommand(
-                FindByPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindByPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
+        FindUserByPhoneCommand command = (FindUserByPhoneCommand) parser.parseCommand(
+                FindUserByPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindUserByPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -248,7 +280,7 @@ public class AddressBookParserTest {
         assertEquals(new SelectUserCommand(INDEX_FIRST), command);
     }
 
-    @Test
+    /*@Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
@@ -258,7 +290,7 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

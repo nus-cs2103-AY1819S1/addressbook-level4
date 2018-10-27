@@ -16,6 +16,8 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -67,7 +69,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
 
-
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
@@ -97,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -151,6 +153,14 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void userLogin() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     void hide() {
         primaryStage.hide();
     }
@@ -176,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     /**
@@ -215,5 +225,25 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    //    @Subscribe
+    //    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    //        if (event.getNewSelection() == null) {
+    //            personListPanel.resetSelection();
+    //            eventListPanel.resetSelection();
+    //        }
+    //    }
+    //
+    //    @Subscribe
+    //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+    //        if (event.getNewSelection() == null) {
+    //            personListPanel.resetSelection();
+    //            eventListPanel.resetSelection();
+    //        }
+    //    }
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        raise (new PersonToEventPopulateEvent(event.getNewSelection(), eventListPanel.getModel()));
     }
 }

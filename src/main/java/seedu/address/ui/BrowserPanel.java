@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -26,7 +26,8 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String PERSON_PAGE = "browse.html";
+    public static final String PERSON_PAGE = "browsePerson.html";
+    public static final String EVENT_PAGE = "browseEvent.html";
     public static final String SEARCH_PAGE_URL =
         "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -52,7 +53,7 @@ public class BrowserPanel extends UiPart<Region> {
      *
      * @param person
      */
-    private void loadPersonPage(Person person) {
+    private void loadPersonPage(Person person, ObservableList<seedu.address.model.event.Event> events) {
 
         StringBuilder sb = new StringBuilder();
         URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + PERSON_PAGE);
@@ -78,6 +79,8 @@ public class BrowserPanel extends UiPart<Region> {
             person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
             person.getFriends().stream()
                 .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
+            events.filtered((i) -> i.getPersonList().contains(person))
+                .stream().map(u -> u.getName().fullName).collect(Collectors.joining(", ")),
             person.getSchedule().prettyPrint(),
         };
         String html = MessageFormat.format(sb.toString(), params);
@@ -90,6 +93,47 @@ public class BrowserPanel extends UiPart<Region> {
 
         //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
+
+    //    /**
+    //     * Load Person into browser panel
+    //     *
+    //     * @param event
+    //     */
+    //    private void loadEventPage(seedu.address.model.event.Event event) {
+    //
+    //        StringBuilder sb = new StringBuilder();
+    //        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + EVENT_PAGE);
+    //        try {
+    //            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
+    //            byte[] contents = new byte[1024];
+    //            int bytesRead = 0;
+    //            while ((bytesRead = bin.read(contents)) != -1) {
+    //                sb.append(new String(contents, 0, bytesRead));
+    //            }
+    //            bin.close();
+    //        } catch (IOException e) {
+    //            e.printStackTrace();
+    //        }
+    //
+    //        // replace the template with person stuff
+    //        Object[] params = new Object[] {
+    //            event.getName(),
+    //            event.getOrganiser().getName(),
+    //            event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
+    //            event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
+    //            event.getDate() == null ? "No date time" : event.getDate().toString()
+    //        };
+    //        String html = MessageFormat.format(sb.toString(), params);
+    //
+    //        Platform.runLater(() -> {
+    //                browser.getEngine().loadContent(html);
+    //            }
+    //        );
+    //
+    //
+    //        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    //    }
+
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -110,9 +154,34 @@ public class BrowserPanel extends UiPart<Region> {
         browser = null;
     }
 
+    //    @Subscribe
+    //    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    //        if (event.getNewSelection() == null) {
+    //            loadDefaultPage();
+    //        } else {
+    //            loadPersonPage(event.getNewSelection());
+    //        }
+    //
+    //    }
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PersonToEventPopulateEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        if (event.getNewSelection() == null) {
+            loadDefaultPage();
+        } else {
+            loadPersonPage(event.getNewSelection(), event.getEventModel());
+        }
+
     }
+
+    //    @Subscribe
+    //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    //        if (event.getNewSelection() == null) {
+    //            loadDefaultPage();
+    //        } else {
+    //            loadEventPage(event.getNewSelection());
+    //        }
+    //    }
 }

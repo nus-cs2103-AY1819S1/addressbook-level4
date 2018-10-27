@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
@@ -29,6 +30,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
@@ -48,12 +50,14 @@ public class EditUserCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_PASSWORD + "PASSWORD] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TIMETABLE + "TIMETABLE] "
         + "[" + PREFIX_INTEREST + "INTEREST] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
+        + PREFIX_PASSWORD + "password"
         + PREFIX_EMAIL + "johndoe@example.com "
         + PREFIX_TIMETABLE + "http://modsn.us/H4v8s";
 
@@ -110,6 +114,7 @@ public class EditUserCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Password updatedPassword = editPersonDescriptor.getPassword().orElse(personToEdit.getPassword());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
@@ -119,8 +124,8 @@ public class EditUserCommand extends Command {
             updatedSchedule.xor(x);
         });
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,
-                updatedSchedule, updatedFriends);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedPassword, updatedAddress, updatedInterests,
+                updatedTags, updatedSchedule, updatedFriends);
     }
 
     @Override
@@ -154,6 +159,7 @@ public class EditUserCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Password password;
         private Address address;
         private Schedule schedule;
         private Set<Interest> interests;
@@ -172,6 +178,7 @@ public class EditUserCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setPassword(toCopy.password);
             setAddress(toCopy.address);
             setInterests(toCopy.interests);
             setTags(toCopy.tags);
@@ -184,7 +191,7 @@ public class EditUserCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, schedule, updateSchedule);
+            return CollectionUtil.isAnyNonNull(name, phone, email, password, address, tags, schedule, updateSchedule);
         }
 
         public void setName(Name name) {
@@ -209,6 +216,14 @@ public class EditUserCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setPassword(Password password) {
+            this.password = password;
+        }
+
+        public Optional<Password> getPassword() {
+            return Optional.ofNullable(password);
         }
 
         public void setAddress(Address address) {

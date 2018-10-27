@@ -12,7 +12,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.MaxScheduleCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
@@ -32,7 +31,8 @@ import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.ClearUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
-import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
+import seedu.address.logic.commands.personcommands.FindUserByNameCommand;
+import seedu.address.logic.commands.personcommands.FindUserByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
@@ -141,9 +141,11 @@ public class AddressBookParser {
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
 
-        case FindByPhoneCommand.COMMAND_WORD_ALIAS:
-        case FindByPhoneCommand.COMMAND_WORD:
-            return new FindByPhoneCommandParser().parse(arguments);
+        case FindUserByNameCommand.COMMAND_WORD:
+            return new FindUserByNameCommandParser().parse(arguments);
+
+        case FindUserByPhoneCommand.COMMAND_WORD:
+            return new FindUserByPhoneCommandParser().parse(arguments);
 
         case ListUserCommand.COMMAND_WORD:
             return new ListUserCommand();
@@ -160,8 +162,8 @@ public class AddressBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        //case RedoCommand.COMMAND_WORD:
+            //return new RedoCommand();
 
         case MaxScheduleCommand.COMMAND_WORD:
             return new MaxScheduleCommandParser().parse(arguments);

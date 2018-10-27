@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.personcommands;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +18,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -42,13 +40,15 @@ public class AddFriendCommandTest {
                 INDEX_THIRD.getZeroBased()));
         String expectedMessage = String.format(AddFriendCommand.MESSAGE_ADD_FRIEND_SUCCESS,
                 person1.getName(), person2.getName());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        String actualMessage = addFriendCommand.execute(expectedModel, commandHistory).feedbackToUser;
-        expectedModel.updatePerson(person1, person1, person2, person2);
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Person person1copy = new Person(person1);
+        person1copy.addFriendInList(person2);
+        Person person2copy = new Person(person2);
+        person2copy.addFriendInList(person1);
+        expectedModel.updatePerson(person1, person1copy, person2, person2copy);
         expectedModel.commitAddressBook();
+        String actualMessage = addFriendCommand.execute(model, commandHistory).feedbackToUser;
         assertEquals(expectedMessage, actualMessage);
-
-        //assertCommandSuccess(addFriendCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
