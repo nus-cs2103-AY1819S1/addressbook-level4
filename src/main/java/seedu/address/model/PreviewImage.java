@@ -11,7 +11,7 @@ import seedu.address.model.transformation.Transformation;
 import seedu.address.model.transformation.TransformationSet;
 
 
-//@author Ivan
+//@@author ihwk1996
 
 /**
  * Wraps the image and transformation set for preview.

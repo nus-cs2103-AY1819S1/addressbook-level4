@@ -18,7 +18,7 @@ import seedu.address.model.transformation.Transformation;
 
 
 /**
- * @author lancelotwillow
+ * @@author lancelotwillow
  * the class to execute the convert command that do the modification of the image
  */
 public class ConvertCommand extends Command {

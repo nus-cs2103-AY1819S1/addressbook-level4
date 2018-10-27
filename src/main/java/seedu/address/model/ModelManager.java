@@ -261,7 +261,7 @@ public class ModelManager extends ComponentManager implements Model {
         return currentPreviewImage.getCurrentPath();
     }
 
-    //author lancelotwillow
+    //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
         currentPreviewImage.commit(image);
