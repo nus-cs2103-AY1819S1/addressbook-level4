@@ -15,10 +15,16 @@ import seedu.address.testutil.AchievementRecordBuilder;
 
 public class AchievementPanelTest extends GuiUnitTest {
 
+    private static final Level OLD_LEVEL = Level.LEVEL_1;
     private static final String OLD_XP_VALUE = "100";
-    private static final String OLD_LEVEL_VALUE = "lvl.1";
+    private static final String OLD_LEVEL_VALUE = OLD_LEVEL.toString();
+    private static final String OLD_LEVEL_MAX_XP = Integer.toString(OLD_LEVEL.getMaxXp());
+
+    private static final Level NEW_LEVEL = Level.LEVEL_2;
     private static final String NEW_XP_VALUE = "200";
-    private static final String NEW_LEVEL_VALUE = "lvl.2";
+    private static final String NEW_LEVEL_VALUE = NEW_LEVEL.toString();
+    private static final String NEW_LEVEL_MAX_XP = Integer.toString(NEW_LEVEL.getMaxXp());
+
 
     private static final AchievementRecord OLD_ACHIEVEMENT_STUB =
             new AchievementRecordBuilder().withXpValue(Integer.valueOf(OLD_XP_VALUE))
@@ -54,23 +60,23 @@ public class AchievementPanelTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertAchievementPanelContent(OLD_XP_VALUE, OLD_LEVEL_VALUE);
+        assertAchievementPanelContent(OLD_XP_VALUE + " / " + OLD_LEVEL_MAX_XP, OLD_LEVEL_VALUE);
 
         // none of xp and level is updated
         postNow(getAchievementsUpdatedEventStub(OLD_XP_VALUE, OLD_LEVEL_VALUE));
-        assertAchievementPanelContent(OLD_XP_VALUE, OLD_LEVEL_VALUE);
+        assertAchievementPanelContent(OLD_XP_VALUE + " / " + OLD_LEVEL_MAX_XP, OLD_LEVEL_VALUE);
 
         // only xp is updated
         postNow(getAchievementsUpdatedEventStub(NEW_XP_VALUE, OLD_LEVEL_VALUE));
-        assertAchievementPanelContent(NEW_XP_VALUE, OLD_LEVEL_VALUE);
+        assertAchievementPanelContent(NEW_XP_VALUE + " / " + OLD_LEVEL_MAX_XP, OLD_LEVEL_VALUE);
 
         // only level is updated
         postNow(getAchievementsUpdatedEventStub(NEW_XP_VALUE, NEW_LEVEL_VALUE));
-        assertAchievementPanelContent(NEW_XP_VALUE, NEW_LEVEL_VALUE);
+        assertAchievementPanelContent(NEW_XP_VALUE + " / " + NEW_LEVEL_MAX_XP, NEW_LEVEL_VALUE);
 
         // both xp and level are updated
         postNow(getAchievementsUpdatedEventStub(OLD_XP_VALUE, OLD_LEVEL_VALUE));
-        assertAchievementPanelContent(OLD_XP_VALUE, OLD_LEVEL_VALUE);
+        assertAchievementPanelContent(OLD_XP_VALUE + " / " + OLD_LEVEL_MAX_XP, OLD_LEVEL_VALUE);
     }
 }
 
