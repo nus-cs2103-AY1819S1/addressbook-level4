@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -12,11 +14,10 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ToDoList;
 import seedu.address.testutil.TypicalTodoListEvents;
 
-import static org.junit.Assert.assertEquals;
-
 public class XmlSerializableToDoListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableToDoListTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "XmlSerializableToDoListTest");
     private static final Path TYPICAL_TODOLIST_EVENTS_FILE = TEST_DATA_FOLDER
             .resolve("typicalToDoListEventsToDoList" + ".xml");
     private static final Path INVALID_TODOLIST_EVENTS_FILE = TEST_DATA_FOLDER
