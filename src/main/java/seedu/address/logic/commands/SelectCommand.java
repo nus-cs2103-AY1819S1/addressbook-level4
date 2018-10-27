@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.util.GroupContainsMeetingPredicate;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
@@ -69,6 +70,7 @@ public class SelectCommand extends Command {
             Group group = filteredGroupList.get(targetIndex.getZeroBased());
             final String[] keywords = { group.getTitle().fullTitle };
             model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+            model.updateFilteredMeetingList(new GroupContainsMeetingPredicate(Arrays.asList(group)));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
         } else if (selectType == SelectCommandType.PERSON) {
             List<Person> filteredPersonList = model.getFilteredPersonList();
