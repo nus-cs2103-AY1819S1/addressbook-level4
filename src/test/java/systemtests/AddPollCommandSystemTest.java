@@ -49,13 +49,11 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         // Case: user is not event organiser -> NotEventOrganiserException
         executeCommand(SelectEventCommand.COMMAND_WORD + " 2");
         executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
-        command = "   " + AddPollCommand.COMMAND_WORD + "  " + PREFIX_NAME + POLLNAME;
         assertCommandFailure(command, Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         // Case: add a poll with generic poll name
         //  -> poll added
         executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
-        command = "   " + AddPollCommand.COMMAND_WORD + "  " + PREFIX_NAME + POLLNAME;
         assertAddPollCommandSuccess(command, POLLNAME);
 
         // ----------------------------------- Perform add poll option operations -----------------------------------
