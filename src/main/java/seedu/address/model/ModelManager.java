@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -39,8 +41,11 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Expense> filteredExpenses;
     private Username username;
 
+    //Stats related variables
+    private StatsPeriod statsPeriod;
     private StatsMode statsMode;
     private Predicate<Expense> expenseStatPredicate;
+    private int periodAmount;
 
     private final Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
 
@@ -55,6 +60,10 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = null;
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
+        this.statsPeriod = defaultStatsPeriod();
+        this.statsMode = defaultStatsMode();
+        this.expenseStatPredicate = defaultExpensePredicate();
+        this.periodAmount = defaultPeriodAmount();
     }
 
     public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
@@ -67,6 +76,9 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = expenseTracker.getUsername();
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
+        this.statsPeriod = defaultStatsPeriod();
+        this.statsMode = defaultStatsMode();
+        this.expenseStatPredicate = defaultExpensePredicate();
         try {
             loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword());
         } catch (NonExistentUserException e) {
@@ -233,11 +245,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException {
+    public void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException {
         if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
         expenseStatPredicate = predicate;
+    }
+
+    @Override
+    public void updateStatsPeriod(StatsPeriod period) {
+        this.statsPeriod = period;
+    }
+
+    @Override
+    public StatsPeriod getStatsPeriod() {
+        return this.statsPeriod;
     }
 
     @Override
@@ -248,6 +270,34 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public StatsMode getStatsMode() {
         return this.statsMode;
+    }
+
+    @Override
+    public void updatePeriodAmount(int periodAmount) {
+        this.periodAmount = periodAmount;
+    }
+
+    @Override
+    public int getPeriodAmount() {
+        return this.periodAmount;
+    }
+
+    private StatsPeriod defaultStatsPeriod() {
+        return StatsPeriod.DAY;
+    }
+
+    private StatsMode defaultStatsMode() {
+        return StatsMode.TIME;
+    }
+
+    private int defaultPeriodAmount() {
+        return 7;
+    }
+
+    private Predicate <Expense> defaultExpensePredicate() {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.DAY_OF_MONTH, 7 * -1);
+        return e -> e.getDate().fullDate.after(now);
     }
 
     //@@author JasonChong96
