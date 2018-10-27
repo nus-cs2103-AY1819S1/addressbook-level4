@@ -68,8 +68,6 @@ public class SaveCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString()));
         }
 
-        requireNonNull(this.noWishSpecified);
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
         }
@@ -105,7 +103,6 @@ public class SaveCommand extends Command {
         } catch (IllegalArgumentException iae) {
             throw new CommandException(iae.getMessage());
         }
-
 
         return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, amountToSave.toString(),
                 index.getOneBased(), differenceString));
