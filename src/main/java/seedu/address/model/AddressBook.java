@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Name;
@@ -167,10 +168,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
      *
      */
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
-
-        // clear members of target & set up members for editedGroup
         target.clearMembers();
         editedGroup.setUpMembers();
 

@@ -27,7 +27,7 @@ public class TimeStamp implements Comparable<TimeStamp> {
             + "1. TimeStamp String must be of the format DD-MM-YYYY@HH:MM\n"
             + "2. Year must be between 0001 and 9999\n"
             + "3. Date must be consistent with the month's length\n"
-            + "4. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes"
+            + "4. Time of day must be between 0 hour 0 minute to 23 hours 59 minutes\n"
             + "5. Month must be between 1 and 12";
 
     private final Year year;

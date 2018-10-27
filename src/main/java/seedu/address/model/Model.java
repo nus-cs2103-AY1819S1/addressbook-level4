@@ -6,13 +6,12 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.shared.Title;
-
-
 
 /**
  * The API of the Model component.
@@ -72,7 +71,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
      */
-    void updateGroup(Group target, Group editedGroup);
+    void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException;
 
     // @@author Derek-Hardy
     /**
