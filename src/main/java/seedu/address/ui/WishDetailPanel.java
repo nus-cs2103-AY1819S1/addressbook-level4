@@ -27,6 +27,7 @@ public class WishDetailPanel extends UiPart<Region> {
 
     private WishDetailSavingAmount wishDetailSavingAmount;
     private WishDetailSavingHistory wishDetailSavingHistory;
+    private BrowserPanel wishBrowserPanel;
 
     @FXML
     private StackPane wishSavingAmountPlaceholder;
@@ -35,14 +36,19 @@ public class WishDetailPanel extends UiPart<Region> {
     private StackPane wishSavingHistoryPlaceholder;
 
     @FXML
+    private StackPane wishBrowserPlaceHolder;
+
+    @FXML
     private Label name;
+
+    @FXML
+    private Label remarks;
 
     @FXML
     private FlowPane tags;
 
     public WishDetailPanel(WishTransaction wishTransaction) {
         super(FXML);
-
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
@@ -51,6 +57,9 @@ public class WishDetailPanel extends UiPart<Region> {
 
         wishDetailSavingHistory = new WishDetailSavingHistory(wishTransaction);
         wishSavingHistoryPlaceholder.getChildren().add(wishDetailSavingHistory.getRoot());
+
+        wishBrowserPanel = new BrowserPanel();
+        wishBrowserPlaceHolder.getChildren().add(wishBrowserPanel.getRoot());
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
@@ -69,6 +78,12 @@ public class WishDetailPanel extends UiPart<Region> {
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
         initTags(wish);
+
+        if (wish.getRemark().toString().equals("")) {
+            remarks.setText("Save by: " + wish.getDate().toString());
+        } else {
+            remarks.setText("Save by: " + wish.getDate().toString() + " - " + wish.getRemark());
+        }
     }
 
     /**
