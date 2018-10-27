@@ -3,7 +3,7 @@ package seedu.clinicio.model.consultation;
 //@@author arsalanc-v2
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
