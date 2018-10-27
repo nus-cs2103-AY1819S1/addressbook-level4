@@ -38,11 +38,11 @@ public class Messages {
             + PREFIX_COOKTIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Chicken Rice "
             + PREFIX_DIFFICULTY + "5 "
             + PREFIX_COOKTIME + "PT1H20M "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "asian "
+            + PREFIX_TAG + "chinese";
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
