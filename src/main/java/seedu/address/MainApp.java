@@ -33,8 +33,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSchedulerStorage;
-import seedu.address.storage.toDoListStorage.ToDoListStorage;
-import seedu.address.storage.toDoListStorage.XmlToDoListStorage;
+import seedu.address.storage.ToDoListStorage;
+import seedu.address.storage.XmlToDoListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
