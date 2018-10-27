@@ -1,5 +1,7 @@
 package seedu.address.model.document;
 
+import java.util.ArrayList;
+
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -18,5 +20,6 @@ public class Receipt extends Document {
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
         setAllocatedMedicine(servedPatient.getMedicineAllocated());
+        setServicesRendered(new ArrayList<>());
     }
 }
