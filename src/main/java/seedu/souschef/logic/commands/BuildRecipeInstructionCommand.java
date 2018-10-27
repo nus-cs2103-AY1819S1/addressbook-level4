@@ -12,7 +12,7 @@ public class BuildRecipeInstructionCommand extends Command {
 
     public static final String COMMAND_WORD = "cont";
 
-    public static final String MESSAGE_ADD_SUCCESS = "New %1$s contributed: %2$s";
+    public static final String MESSAGE_ADD_SUCCESS = "Add instruction: %1$s";
 
     private final Instruction toAdd;
 
@@ -27,8 +27,7 @@ public class BuildRecipeInstructionCommand extends Command {
     @Override
     public CommandResult execute(History history) {
         history.contributeRecipe(toAdd);
-        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
-                history.getContext().toString().toLowerCase(), toAdd));
+        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
     }
 
     @Override

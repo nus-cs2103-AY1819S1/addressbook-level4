@@ -12,7 +12,7 @@ public class CreateRecipeBuildCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_ADD_SUCCESS = "New %1$s built: %2$s";
+    public static final String MESSAGE_ADD_SUCCESS = "Constructing %1$s: %2$s";
 
     private final RecipeBuilder toAdd;
 

@@ -53,5 +53,19 @@ public class RecipeBuilder {
         // Clear after build
         return new Recipe(name, difficulty, cookTime, instructions, tags);
     }
-}
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(name)
+                .append(" CookTime: ")
+                .append(cookTime)
+                .append(" Difficulty: ")
+                .append(difficulty)
+                .append(" Tags: ");
+        tags.forEach(builder::append);
+        builder.append(" Instructions: ");
+        instructions.forEach(builder::append);
+        return builder.toString();
+    }
+}
