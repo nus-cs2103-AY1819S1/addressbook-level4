@@ -20,7 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
@@ -194,11 +194,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@author winsonhys
-    //========== Budget ====================================================================
+    //========== TotalBudget ====================================================================
 
     @Override
-    public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
-        this.versionedExpenseTracker.modifyMaximumBudget(budget);
+    public void modifyMaximumBudget(TotalBudget totalBudget) throws NoUserSelectedException {
+        this.versionedExpenseTracker.modifyMaximumBudget(totalBudget);
         indicateExpenseTrackerChanged();
     }
 
@@ -222,8 +222,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Budget getMaximumBudget() {
-        return this.versionedExpenseTracker.getMaximumBudget();
+    public TotalBudget getMaximumBudget() {
+        return this.versionedExpenseTracker.getMaximumTotalBudget();
     }
 
     //@@author jonathantjm
@@ -322,10 +322,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Checks if budget is required to restart due to recurrence
+     * Checks if totalBudget is required to restart due to recurrence
      */
     protected void checkBudgetRestart() {
-        this.versionedExpenseTracker.getMaximumBudget().checkBudgetRestart();
+        this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
     }
 
 

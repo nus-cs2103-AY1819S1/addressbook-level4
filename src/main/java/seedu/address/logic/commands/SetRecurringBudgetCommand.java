@@ -11,25 +11,25 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 
 
 /**
- * Command that sets the recurrence time for the current {@code Budget}
+ * Command that sets the recurrence time for the current {@code TotalBudget}
  */
 public class SetRecurringBudgetCommand extends Command {
     public static final String COMMAND_WORD = "setRecurrenceFrequency";
     public static final String COMMAND_ALIAS = "srf";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a frequency for budget to reset "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a frequency for totalBudget to reset "
         + "Parameters: "
         + "[" + PREFIX_HOURS + "HOURS] "
         + "[" + PREFIX_MINUTES + "MINUTES]"
         + "[" + PREFIX_SECONDS + "SECONDS]\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_HOURS + "3";
 
-    public static final String MESSAGE_SUCCESS = "Budget recurrence is set at %s";
+    public static final String MESSAGE_SUCCESS = "TotalBudget recurrence is set at %s";
 
     private long toSet;
 
     /**
-     * Creates an AddCommand to add the specified {@code Budget}
+     * Creates an AddCommand to add the specified {@code TotalBudget}
      */
 
     public SetRecurringBudgetCommand(long recurrenceFrequency) {

@@ -9,22 +9,23 @@ import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetTest;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.budget.TotalBudgetTest;
+import seedu.address.storage.budget.XmlAdaptedBudget;
 
 
-public class XmlAdaptedBudgetTest {
+public class XmlAdaptedTotalBudgetTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
 
     @Test
     public void testEquals() {
-        XmlAdaptedBudget validXmlAdaptedBudget = new XmlAdaptedBudget(new Budget(BudgetTest.VALID_BUDGET));
+        XmlAdaptedBudget validXmlAdaptedBudget = new XmlAdaptedBudget(new TotalBudget(TotalBudgetTest.VALID_BUDGET));
 
         String anotherValidBudgetString = "3.00";
         assertNotEquals(validXmlAdaptedBudget,
-            new XmlAdaptedBudget(new Budget(anotherValidBudgetString)));
+            new XmlAdaptedBudget(new TotalBudget(anotherValidBudgetString)));
         assertEquals(validXmlAdaptedBudget, validXmlAdaptedBudget);
         assertNotEquals(validXmlAdaptedBudget, new Object());
     }

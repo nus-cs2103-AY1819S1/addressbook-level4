@@ -6,9 +6,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import seedu.address.model.expense.Category;
 
 /**
- * Represents maximum budget of a category in the expense tracker
- * Guarantees: details are present and not null, field values are validated, mutable. Budget here never exceeds the
- * total budget of the expense tracker
+ * Represents maximum totalBudget of a category in the expense tracker
+ * Guarantees: details are present and not null, field values are validated, mutable. TotalBudget here never exceeds the
+ * total totalBudget of the expense tracker
  */
 public class CategoryBudget extends Budget {
 
@@ -16,7 +16,6 @@ public class CategoryBudget extends Budget {
 
 
     public CategoryBudget (String category, String budget) {
-        //TODO: Refactor Budget out as an abstract class as this violates Liskov
         super(budget);
         checkArgument(Category.isValidCategory(category), Category.MESSAGE_CATEGORY_CONSTRAINTS);
         this.belongsToCategory = new Category(category);

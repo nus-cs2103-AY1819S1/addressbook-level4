@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,21 +12,23 @@ import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
- * Adds a Category Budget into the expense tracker.
+ * Adds a Category TotalBudget into the expense tracker.
  */
 
 public class AddCategoryBudgetCommand extends Command {
-    public static final String COMMAND_WORD = "setBudget";
-    public static final String COMMAND_ALIAS = "sb";
+    public static final String COMMAND_WORD = "addCategoryBudget";
+    public static final String COMMAND_ALIAS = "acb";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a Category budget cap for one of the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Category totalBudget cap for one of the "
         + "Categories in the expense tracker "
-        + "Parameters: CATEGORY MONEY (Must be a positive float with 2 decimal places)\n"
-        + "Example " + COMMAND_WORD + " 130.00";
+        + "Parameters: " + PREFIX_CATEGORY + "CATEGORY " + PREFIX_BUDGET + "MONEY (Must be a positive float with 2 " +
+        "decimal " +
+    "places)\n"
+        + "Example " + COMMAND_WORD + " " + PREFIX_CATEGORY + "School " + PREFIX_BUDGET + "130.00";
 
-    public static final String MESSAGE_SUCCESS = "%s Budget set to %1$s";
+    public static final String MESSAGE_SUCCESS = "%s TotalBudget set to %1$s";
 
-    public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total budget";
+    public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total totalBudget";
 
     private CategoryBudget toSet;
 

@@ -1,16 +1,16 @@
-package seedu.address.storage;
+package seedu.address.storage.budget;
 
 import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.storage.storageutil.LocalDateTimeAdapter;
 
 
 //@author winsonhys
 /**
- * JAXB-friendly adapted version of the Budget.
+ * JAXB-friendly adapted version of the TotalBudget.
  */
 
 public class XmlAdaptedBudget {
@@ -26,6 +26,8 @@ public class XmlAdaptedBudget {
     private long numberOfSecondsToRecurAgain;
 
 
+
+
     /**
      * Constructs an XmlAdaptedBudget.
      * This is the no-arg constructor that is required by JAXB.
@@ -34,11 +36,11 @@ public class XmlAdaptedBudget {
     }
 
     /**
-     * Converts a given Budget into this class for JAXB use.
+     * Converts a given TotalBudget into this class for JAXB use.
      *
-     * @param source source budget
+     * @param source source totalBudget
      */
-    public XmlAdaptedBudget(Budget source) {
+    public XmlAdaptedBudget(TotalBudget source) {
         this.budgetCap = source.getBudgetCap();
         this.currentExpenses = source.getCurrentExpenses();
         this.nextRecurrence = source.getNextRecurrence();
@@ -48,8 +50,8 @@ public class XmlAdaptedBudget {
     /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.
      */
-    public Budget toModelType() {
-        return new Budget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain);
+    public TotalBudget toModelType() {
+        return new TotalBudget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain);
     }
 
 
