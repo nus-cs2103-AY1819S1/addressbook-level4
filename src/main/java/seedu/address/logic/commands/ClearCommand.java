@@ -12,6 +12,7 @@ import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Room;
+import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 /**
@@ -37,6 +38,7 @@ public class ClearCommand extends Command {
     private ArrayList<Person> toClear;
     private boolean clearAll;
     private boolean clearRoom;
+    private boolean clearTag;
 
     public ClearCommand(List<String> target) {
         this.predicateTag = new ContactContainsTagPredicate(target);
@@ -44,6 +46,7 @@ public class ClearCommand extends Command {
         this.target = target;
         this.clearAll = false;
         this.clearRoom = false;
+        this.clearTag = false;
         this.toClear = new ArrayList<>();
     }
 
@@ -57,7 +60,9 @@ public class ClearCommand extends Command {
             }
             if (Room.isValidRoom(s)) {
                 this.clearRoom = true;
-                break;
+            }
+            if (Tag.isValidTagName(s)) {
+                this.clearTag = true;
             }
         }
 
@@ -88,8 +93,15 @@ public class ClearCommand extends Command {
         toClear.clear();
         List<Person> fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
-            if (clearRoom ? predicateRoom.test(p) : predicateTag.test(p)) {
-                toClear.add(p);
+            if (clearRoom) {
+                if (predicateRoom.test(p)) {
+                    toClear.add(p);
+                }
+            }
+            if (clearTag) {
+                if (predicateTag.test(p)) {
+                    toClear.add(p);
+                }
             }
         }
 
