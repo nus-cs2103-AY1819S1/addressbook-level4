@@ -30,8 +30,8 @@ import seedu.address.testutil.PersonBuilder;
 //@@author zioul123
 public class EditByNameCommandTest {
 
-    public static final String UNUSED_NAME = "ABCDE HIJ";
-    public static final String COMMON_SURNAME = "Meier";
+    private static final String UNUSED_NAME = "ABCDE HIJ";
+    private static final String COMMON_SURNAME = "Meier";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
