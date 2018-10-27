@@ -2,7 +2,6 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,35 +41,35 @@ public class ContactContainsTagPredicateTest {
 
     @Test
     public void test_contactContainsTags_returnTrue() {
-        // One keyword
+        // One tag
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(Collections
                 .singletonList("Basketball"));
         assertTrue(predicate.test(new PersonBuilder().withTags("Basketball").build()));
 
-        // Multiple keywords
+        // Multiple tags
         predicate = new ContactContainsTagPredicate(Arrays.asList("Basketball", "Golf"));
         assertTrue(predicate.test(new PersonBuilder().withTags("Basketball", "Golf").build()));
 
-        // Only one matching keyword
+        // Only one matching tags
         predicate = new ContactContainsTagPredicate(Arrays.asList("Golf", "Swimming"));
         assertTrue(predicate.test(new PersonBuilder().withTags("Basketball", "Golf").build()));
 
-        // Mixed-case keywords
+        // Mixed-case tags
         predicate = new ContactContainsTagPredicate(Arrays.asList("BasKEtBall", "goLf"));
         assertTrue(predicate.test(new PersonBuilder().withTags("basketball", "golf").build()));
     }
 
     @Test
     public void test_contactsDoNotContainTags_returnsFalse() {
-        // Zero keywords
+        // Zero tags
         FieldsContainsKeywordsPredicate predicate = new FieldsContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withTags("Basketball").build()));
 
-        // Non-matching keyword
+        // Non-matching tags
         predicate = new FieldsContainsKeywordsPredicate(Arrays.asList("Swimming"));
         assertFalse(predicate.test(new PersonBuilder().withTags("Basketball", "Golf").build()));
 
-        // Keywords match name, phone, email, but does not match other fields
+        // Tags match name, phone, email, but do not match other fields
         predicate = new FieldsContainsKeywordsPredicate(Arrays.asList("Alice", "alice@email.com", "987654"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("987654")
                 .withEmail("alice@email.com").withTags("Basketball").build()));
