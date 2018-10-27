@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class ModuleBuilder {
         moduleTitle = new ModuleTitle(DEFAULT_MODULETITLE);
         academicYear = new AcademicYear(DEFAULT_ACADEMICYEAR);
         semester = new Semester(DEFAULT_SEMESTER);
-        students = new UniquePersonList();
+        students = new UniquePersonList(new ArrayList<>());
         tags = new HashSet<>();
     }
 
@@ -105,7 +106,7 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(moduleCode, moduleTitle, academicYear, semester,
-                students, tags, TypeUtil.MODULE);
+                students, tags);
     }
 
 }

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.*;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
@@ -35,6 +35,25 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedModule}
+     */
+    public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
+        assertEquals(expectedModule.getModuleTitle().toString(), actualCard.getName());
+        assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedOccasion}
+     */
+    public static void assertCardDisplaysOccasion(Occasion expectedOccasion, OccasionCardHandle actualCard) {
+        assertEquals(expectedOccasion.getOccasionName().toString(), actualCard.getName());
+        assertEquals(expectedOccasion.getOccasionDate().toString(), actualCard.getDate());
+        assertEquals(expectedOccasion.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
