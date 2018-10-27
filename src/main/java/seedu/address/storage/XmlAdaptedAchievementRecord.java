@@ -38,7 +38,7 @@ public class XmlAdaptedAchievementRecord {
     public XmlAdaptedAchievementRecord(AchievementRecord source) {
         requireNonNull(source);
 
-        xp = source.getXp().getXp().toString();
+        xp = Integer.toString(source.getXpValue());
         level = source.getLevel().toString();
     }
 
