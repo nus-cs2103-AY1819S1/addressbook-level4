@@ -98,9 +98,9 @@ public class XmlAdaptedModule {
         }
 
         final UniquePersonList loadedStudentsList = new UniquePersonList();
-        for (XmlAdaptedPerson person : students) {
-            loadedStudentsList.add(person.toModelType());
-        }
+        // for (XmlAdaptedPerson person : students) {
+        // loadedStudentsList.add(person.toModelType());
+        // }
 
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
