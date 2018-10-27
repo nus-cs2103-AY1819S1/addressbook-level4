@@ -92,7 +92,9 @@ public class TypicalPersons {
     }
 
     public static List<Patient> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE,
-                FIONA, GEORGE, TYPO_IN_NAME_ALICE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+
 }
+
