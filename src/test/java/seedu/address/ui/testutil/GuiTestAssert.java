@@ -40,6 +40,9 @@ public class GuiTestAssert {
                 actualCard.getTags());
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
+     */
     public static void assertCardDisplaysMedicine(Medicine expectedMedicine, MedicineCardHandle actualCard) {
         assertEquals(expectedMedicine.getMedicineName().fullName, actualCard.getMedicineName());
         assertEquals(expectedMedicine.getSerialNumber().value, actualCard.getSerialNumber());
@@ -48,7 +51,7 @@ public class GuiTestAssert {
         assertEquals(expectedMedicine.getStock().value.toString(), actualCard.getStock());
     }
 
-                                                  /**
+    /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code patients} correctly and
      * in the correct order.
      */

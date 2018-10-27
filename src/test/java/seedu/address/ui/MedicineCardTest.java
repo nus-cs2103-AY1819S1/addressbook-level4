@@ -9,9 +9,7 @@ import org.junit.Test;
 
 import guitests.guihandles.MedicineCardHandle;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.person.Patient;
 import seedu.address.testutil.MedicineBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class MedicineCardTest extends GuiUnitTest {
 

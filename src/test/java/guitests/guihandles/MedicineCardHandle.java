@@ -9,6 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.address.model.medicine.Medicine;
 
+/**
+ * Provides a handle to a medicine card in the medicine list panel.
+ */
 public class MedicineCardHandle extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";
