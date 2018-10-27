@@ -1,4 +1,4 @@
-package seedu.address.storage.toDoListStorage;
+package seedu.address.storage;
 
 import javax.xml.bind.annotation.XmlElement;
 

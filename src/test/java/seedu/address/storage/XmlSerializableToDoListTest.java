@@ -1,4 +1,4 @@
-package seedu.address.storage.toDoListStorage;
+package seedu.address.storage;
 
 import org.junit.Rule;
 import org.junit.Test;

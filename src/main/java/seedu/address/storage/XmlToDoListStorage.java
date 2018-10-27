@@ -1,4 +1,4 @@
-package seedu.address.storage.toDoListStorage;
+package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
@@ -16,7 +16,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyToDoList;
-import seedu.address.storage.XmlFileStorage;
 
 /**
  * A class to access ToDoList data stored as an xml file on the hard disk.

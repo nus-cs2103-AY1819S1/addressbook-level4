@@ -23,7 +23,6 @@ import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.Scheduler;
 import seedu.address.model.ToDoList;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.toDoListStorage.XmlToDoListStorage;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {

@@ -1,7 +1,7 @@
-package seedu.address.storage.toDoListStorage;
+package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.toDoListStorage.XmlAdaptedToDoListEvent.MISSING_TODOLIST_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.XmlAdaptedToDoListEvent.MISSING_TODOLIST_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalTodoListEvents.LECTURE;
 
 import org.junit.Test;

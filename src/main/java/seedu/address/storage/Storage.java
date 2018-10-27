@@ -11,7 +11,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.toDoListStorage.ToDoListStorage;
 
 /**
  * API of the Storage component
