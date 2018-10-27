@@ -1,21 +1,23 @@
-package seedu.address.logic.parser;
+package seedu.clinicio.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.IC_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_IC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_AMY;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.IC_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.TIME_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_IC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TIME_AMY;
+import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddApptCommand;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.appointment.Time;
+import seedu.clinicio.logic.commands.AddApptCommand;
+import seedu.clinicio.logic.parser.AddApptCommandParser;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.logic.commands.AddApptCommand;
 
 public class AddApptCommandParserTest {
     private AddApptCommandParser parser = new AddApptCommandParser();

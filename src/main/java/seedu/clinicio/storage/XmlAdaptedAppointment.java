@@ -1,13 +1,13 @@
-package seedu.address.storage;
+package seedu.clinicio.storage;
 
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.appointment.Time;
+import seedu.clinicio.commons.exceptions.IllegalValueException;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
 
 
 /**
