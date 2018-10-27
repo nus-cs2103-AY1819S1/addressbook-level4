@@ -269,17 +269,17 @@ Given below is an example usage scenario and how the queue-related operations be
 Step 1: The user lists all the patients using the `list` command. All patients in the ClinicIO record are be displayed. +
 
 Step 2: The user executes `enqueuepatient 5` command to assign the 5th patient in the list into the queue. This patient has no preferred doctor. Now the queue has 1 patient. Underlying the queue, the patient is assigned into `patientQueue`. The `preferenceQueue` remains empty. +
-image::q1 +
-image::q2 +
+image::q1.png +
+image::q2.png +
 Step 3: The user finds all patients with names `Damith` using `find Damith` command. All patients with names `Damith` in the ClinicIO record will be displayed. +
 
 Step 4: The user executes `enqueuepatient 2` to assign the 2nd patient whose name contains `Damith` into the queue. This patient has a preferred doctor. Now the queue has 2 patients. Underlying the queue, this patient is assigned into `preferenceQueue`. +
-image::q3 +
-image::q4 +
+image::q3.png +
+image::q4.png +
 Step 5: The user keeps adding patients until there are 5 patients in the queue. The `patientQueue` and `preferenceQueue` underneath look like this: +
-image::q5 +
+image::q5.png +
 The end user only sees one queue: +
-image::q6 +
+image::q6.png +
 Step 6: The user lists all patients in the queue by using `showqueue` command. All patients currently waiting in the queue are displayed.
 
 ==== Design Considerations
