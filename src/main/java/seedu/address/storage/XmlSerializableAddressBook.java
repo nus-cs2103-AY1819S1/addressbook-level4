@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -48,6 +49,7 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         modules.addAll(src.getModuleList().stream().map(XmlAdaptedModule::new).collect(Collectors.toList()));
+        occasions.addAll(src.getOccasionList().stream().map(XmlAdaptedOccasion::new).collect(Collectors.toList()));
     }
 
     /**
@@ -71,6 +73,13 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
             addressBook.addModule(module);
+        }
+        for (XmlAdaptedOccasion o : occasions) {
+            Occasion occasion = o.toModelType();
+            if (addressBook.hasOccasion(occasion)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_OCCASION);
+            }
+            addressBook.addOccasion(occasion);
         }
         return addressBook;
     }
