@@ -538,7 +538,7 @@ save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeOfW
 Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
 weeks, the `UI` would display the corresponding week description to the user.
 
-image::FirstDayCommand_UG_Before.png[width="600"]
+image::FirstDayCommand_UG_Bef.png[width="600"]
 
 Step 9. When user launch the application, `MainApp` will check if `rangeOfWeek.xml` exists. Should it be the first
 time user launch the application or if user deleted the file, it will create a default file that would not affect the
@@ -548,7 +548,7 @@ If the file exist, `FirstDayCommand#retrieveRangeOfWeeks` will be called to retr
  calendar weeks data from `rangeOfWeek.xml`. `FirstDayCommand#isWithinDateRange` would then be called to check if
  current system date lies within the academic calendar weeks and update the application title correspondly if necessary.
 
-image::FirstDayCommand_UG_After.png[width="400"]
+image::FirstDayCommand_UG_Aft.png[width="400"]
 
 [NOTE]
 `CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does

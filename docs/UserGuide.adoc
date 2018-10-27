@@ -235,12 +235,12 @@ The [blue]`ddmmyy` refers to the date format of day, month and year.
 
 Before:
 ====
-image::FirstDayCommand_UG_Before.png[width="600"]
+image::FirstDayCommand_UG_Bef.png[width="600"]
 ====
 
 After:
 ====
-image::FirstDayCommand_UG_After.png[width="400"]
+image::FirstDayCommand_UG_Aft.png[width="400"]
 ====
 
 === Listing Overdue Tasks (Coming in v1.3)
