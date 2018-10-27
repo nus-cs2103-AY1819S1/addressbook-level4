@@ -464,7 +464,7 @@ e.g. `select 2`
 * *Averages* : `averages`
 * *Totals* : `totals`
 
-=== `MedicineInventory` Commands
+=== Medicine Inventory Commands
 * *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
 e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
 * *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
