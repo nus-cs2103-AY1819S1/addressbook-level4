@@ -7,9 +7,12 @@ import java.util.Optional;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
+import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.EmailModel;
@@ -80,6 +83,12 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     void createCalendar(Calendar calendar, String calendarName) throws IOException;
 
     void handleCalendarCreatedEvent(CalendarCreatedEvent event);
+
+    void handleLoadCalendarEvent(LoadCalendarEvent event);
+
+    void handleAllDayEventAddedEvent(AllDayEventAddedEvent event);
+
+    void handleCalendarEventAddedEvent(CalendarEventAddedEvent event);
 
     @Override
     Calendar loadCalendar(String calendarName) throws IOException, ParserException;

@@ -59,6 +59,10 @@ public class AddAllDayEventCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_VALID_DATE, month + " - " + year));
         }
 
+        if (!model.isLoadedCalendar(year, month)) {
+            model.loadCalendar(year, month);
+        }
+
         model.createAllDayEvent(year, month, date, title);
         return new CommandResult(String.format(MESSAGE_SUCCESS, date + "/" + month + "/" + year + " - " + title));
     }

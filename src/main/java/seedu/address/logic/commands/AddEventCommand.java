@@ -108,6 +108,10 @@ public class AddEventCommand extends Command {
             throw new CommandException(MESSAGE_NOT_VALID_TIMEFRAME);
         }
 
+        if (!model.isLoadedCalendar(year, month)) {
+            model.loadCalendar(year, month);
+        }
+
         model.createEvent(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
         return new CommandResult(String.format(MESSAGE_SUCCESS, startDate + "/" + month + "/" + year
                 + " - " + endDate + "/" + month + "/" + year + " [" + title + "]"));

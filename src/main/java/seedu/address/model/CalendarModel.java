@@ -42,6 +42,7 @@ public class CalendarModel {
     // Field to store calendar loaded by user if any.
     // User can only load at most one calendar at any point of time.
     private Calendar loadedCalendar;
+    private String loadedCalendarName;
     private VEvent eventToBeRemoved;
     private Map<Month, Integer> monthToConstantMap;
 
@@ -49,6 +50,7 @@ public class CalendarModel {
         this.calendarStorage = calendarStorage;
         this.existingCalendar = existingCalendar;
         this.loadedCalendar = null;
+        this.loadedCalendarName = null;
         this.eventToBeRemoved = null;
         this.monthToConstantMap = initializeMonthToStringMap();
 
@@ -87,6 +89,16 @@ public class CalendarModel {
         return false;
     }
 
+    /** Checks if calendar to be edited is already loaded. */
+    public boolean isLoadedCalendar(Year year, Month month) {
+        String calendarName = month + "-" + year;
+        if (this.loadedCalendar == null) {
+            return false;
+        } else {
+            return (this.loadedCalendarName.compareTo(calendarName) == 0);
+        }
+    }
+
     /** Checks if date is valid in a particular month. */
     public boolean isValidDate(Year year, Month month, int date) {
         java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -116,9 +128,9 @@ public class CalendarModel {
     }
 
     /** Setter method for loadedCalendar field. */
-    private void setLoadedCalendar(Calendar calendar) {
+    private void setLoadedCalendar(Calendar calendar, String calendarName) {
         this.loadedCalendar = calendar;
-
+        this.loadedCalendarName = calendarName;
     }
 
     /** Creates the calendar file. */
@@ -155,18 +167,12 @@ public class CalendarModel {
     }
 
     /** Load and parse the requested calendar file. */
-    public void loadCalendar(Year year, Month month) throws IOException, ParserException {
-        String calendarName = month + "-" + year;
-        Calendar calendarToBeLoaded = calendarStorage.loadCalendar(calendarName);
-        setLoadedCalendar(calendarToBeLoaded);
-
+    public void loadCalendar(Calendar calendarToBeLoaded, String calendarName) {
+        setLoadedCalendar(calendarToBeLoaded, calendarName);
     }
 
     /** Creates a new all day event in the loaded Calendar. */
-    public void createAllDayEvent(Year year, Month month, int date, String title) throws IOException, ParserException {
-        // Load the calendar
-        loadCalendar(year, month);
-
+    public Calendar createAllDayEvent(Year year, Month month, int date, String title) throws IOException, ParserException {
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         TimeZone timezone = registry.getTimeZone("Asia/Singapore");
@@ -205,18 +211,14 @@ public class CalendarModel {
         newEvent.getProperties().add(ug.generateUid());
         loadedCalendar.getComponents().add(newEvent);
 
-        String calendarName = month + "-" + year;
-        // Save the updated calendar to storage
-        calendarStorage.createCalendar(loadedCalendar, calendarName);
+        // Return the updated calendar
+        return loadedCalendar;
 
     }
 
     /** Creates an event in the loaded Calendar with the specified time frame. */
-    public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
+    public Calendar createEvent(Year year, Month month, int startDate, int startHour, int startMin,
                             int endDate, int endHour, int endMin, String title) throws IOException, ParserException {
-        // Load the calendar
-        loadCalendar(year, month);
-
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         TimeZone timezone = registry.getTimeZone("Asia/Singapore");
@@ -255,9 +257,8 @@ public class CalendarModel {
         newEvent.getProperties().add(ug.generateUid());
         loadedCalendar.getComponents().add(newEvent);
 
-        String calendarName = month + "-" + year;
-        // Save the updated calendar to storage
-        calendarStorage.createCalendar(loadedCalendar, calendarName);
+        // Return the updated calendar
+        return loadedCalendar;
     }
 
     /**
@@ -308,11 +309,8 @@ public class CalendarModel {
     }
 
     /** Checks if this specific event exists in the loaded Calendar. */
-    public boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title) throws IOException,
+    public boolean isExistingEvent(int startDate, int endDate, String title) throws IOException,
             ParserException {
-        // Load the calendar
-        loadCalendar(year, month);
-
         // Store the event into private field eventToBeRemoved
         VEvent eventToRemove = retrieveEvent(startDate, endDate, title);
         this.eventToBeRemoved = eventToRemove;

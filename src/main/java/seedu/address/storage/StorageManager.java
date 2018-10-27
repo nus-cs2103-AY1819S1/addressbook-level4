@@ -12,9 +12,13 @@ import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
+import seedu.address.commons.events.model.CalendarEventAddedEvent;
+import seedu.address.commons.events.model.CalendarLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -177,6 +181,13 @@ public class StorageManager extends ComponentManager implements Storage {
         return calendarStorage.getCalendarPath();
     }
 
+    /**
+     * Raises an event to indicate that a calendar has been loaded.
+     */
+    private void indicateCalendarLoaded(Calendar calendarToBeLoaded, String calendarName) {
+        raise(new CalendarLoadedEvent(calendarToBeLoaded, calendarName));
+    }
+
     @Override
     public void createCalendar(Calendar calendar, String calendarName) throws IOException {
         calendarStorage.createCalendar(calendar, calendarName);
@@ -193,23 +204,44 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             createCalendar(event.calendar, event.calendarName);
         } catch (IOException e) {
-            logger.warning("Failed to save calendar(ics) file : " + StringUtil.getDetails(e));
+            raise(new DataSavingExceptionEvent(e));
         }
     }
 
-    /*
+    @Override
+    @Subscribe
+    public void handleLoadCalendarEvent(LoadCalendarEvent event) {
+        try {
+            Calendar calendarToBeLoaded = loadCalendar(event.calendarName);
+            indicateCalendarLoaded(calendarToBeLoaded, event.calendarName);
+        } catch (IOException | ParserException e){
+            logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
+        }
+    }
+
     @Override
     @Subscribe
     public void handleAllDayEventAddedEvent(AllDayEventAddedEvent event) {
-
+        try {
+            String calendarName = event.month + "-" + event.year;
+            createCalendar(event.calendar, calendarName);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
     @Override
     @Subscribe
     public void handleCalendarEventAddedEvent(CalendarEventAddedEvent event) {
-
+        try {
+            String calendarName = event.month + "-" + event.year;
+            createCalendar(event.calendar, calendarName);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
+    /*
     @Override
     @Subscribe
     public void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event) {{
