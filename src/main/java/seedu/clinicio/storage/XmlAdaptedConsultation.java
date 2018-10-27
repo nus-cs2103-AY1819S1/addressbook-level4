@@ -50,8 +50,8 @@ public class XmlAdaptedConsultation {
     /**
      * Constructs an {@code XmlAdaptedConsultation} with the given consultation details.
      */
-    public XmlAdaptedConsultation(Patient patient, Doctor doctor, Appointment appointment, String description, Date date, Time
-        arrivalTime, Time consultationTime, Time endTime, String prescription) {
+    public XmlAdaptedConsultation(Patient patient, Doctor doctor, Appointment appointment, String description,
+        Date date, Time arrivalTime, Time consultationTime, Time endTime, String prescription) {
         this.patient = patient.toString();
         this.doctor = new XmlAdaptedDoctor(doctor);
         this.appointment = new XmlAdaptedAppointment(appointment);
