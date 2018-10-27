@@ -13,14 +13,21 @@ public class LogoutCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void attemptLogout() {
+        assert getModel().getLoggedInUser() != null;
         //use command box
         executeCommand(LogoutCommand.COMMAND_WORD);
         assertLogout();
 
     }
 
+    /**
+     * Verifies that a logout is successful and all the variants are met.
+     */
     private void assertLogout() {
         assert getBrowserPlaceholder().getChildren().size() == 0;
+        assert getModel().getLoggedInUser() == null;
+        assert !getModel().canRedoAddressBook();
+        assert !getModel().canUndoAddressBook();
     }
 
 }

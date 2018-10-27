@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 public class LoginHandle extends StageHandle {
 
     public static final String LOGIN_BUTTON_ID = "#loginButton";
+    public static final String USERNAME_FIELD_ID = "#usernameField";
+    public static final String PASSWORD_FIELD_ID = "#passwordField";
 
     public LoginHandle(Stage helpWindowStage) {
         super(helpWindowStage);

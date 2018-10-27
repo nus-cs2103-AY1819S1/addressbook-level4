@@ -10,6 +10,8 @@ import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -68,6 +70,14 @@ public abstract class StageHandle {
     protected void attemptLogIn() {
         Optional<? extends Node> loginNode = guiRobot.from(stage.getScene().getRoot())
                                                     .lookup(LoginHandle.LOGIN_BUTTON_ID).tryQuery();
+        Optional<? extends Node> usernameNode = guiRobot.from(stage.getScene().getRoot())
+                                                    .lookup(LoginHandle.USERNAME_FIELD_ID).tryQuery();
+        Optional<? extends Node> passwordNode = guiRobot.from(stage.getScene().getRoot())
+                                                    .lookup(LoginHandle.PASSWORD_FIELD_ID).tryQuery();
+        TextField usernameField = (TextField) usernameNode.orElseThrow(NodeNotFoundException::new);
+        usernameField.setText("Admin");
+        PasswordField passwordField = (PasswordField) passwordNode.orElseThrow(NodeNotFoundException::new);
+        passwordField.setText("Pa55w0rd");
         Button loginButton = (Button) loginNode.orElseThrow(NodeNotFoundException::new);
         loginButton.fire();
     }
