@@ -6,7 +6,7 @@ import seedu.address.commons.events.BaseEvent;
  * Indicates that there has been an unsuccessful login.
  */
 public class FailedLoginEvent extends BaseEvent {
-    String message;
+    private String message;
 
     public FailedLoginEvent(String reason) {
         message = reason;

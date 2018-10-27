@@ -68,8 +68,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Subscribe
     public void processLogin(LoginEvent loginEvent) {
         //Make sure it's valid
-        if(!Username.isValidUsername(loginEvent.getUsername()) ||
-            !Password.isValidPassword(loginEvent.getPassword())) {
+        if (!Username.isValidUsername(loginEvent.getUsername())
+            || !Password.isValidPassword(loginEvent.getPassword())) {
             raise(new FailedLoginEvent("Invalid username or password"));
             return;
         }
@@ -77,7 +77,7 @@ public class LogicManager extends ComponentManager implements Logic {
         Username username = new Username(loginEvent.getUsername());
         Password password = new Password(loginEvent.getPassword());
 
-        if(username.equals(User.ADMIN_USERNAME) && password.equals(User.ADMIN_PASSWORD)) {
+        if (username.equals(User.ADMIN_USERNAME) && password.equals(User.ADMIN_PASSWORD)) {
             User admin = User.getAdminUser();
             model.setLoggedInUser(admin);
             raise(new SuccessfulLoginEvent(admin));
@@ -89,8 +89,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
         boolean someoneFound = false;
         for (Person p : people) {
-            if(p.getUsername().equals(username)) {
-                if(p.getPassword().equals(password)) {
+            if (p.getUsername().equals(username)) {
+                if (p.getPassword().equals(password)) {
                     User loggedInUser = new User(p);
                     model.setLoggedInUser(loggedInUser);
                     raise(new SuccessfulLoginEvent(loggedInUser));

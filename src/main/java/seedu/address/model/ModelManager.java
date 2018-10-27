@@ -6,22 +6,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.FailedLoginEvent;
-import seedu.address.commons.events.ui.LoginEvent;
-import seedu.address.commons.events.ui.SuccessfulLoginEvent;
-import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
-import seedu.address.model.person.Username;
 
 /**
  * Represents the in-memory model of the address book data.

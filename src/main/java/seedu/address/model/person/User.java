@@ -22,7 +22,7 @@ public class User {
     private static User adminUser;
 
     private Person loggedInPerson;
-    boolean isAdminUser;
+    private boolean isAdminUser;
 
     public User(Person p) {
         loggedInPerson = p;
@@ -127,7 +127,7 @@ public class User {
 
     @Override
     public String toString() {
-        if(isAdminUser) {
+        if (isAdminUser) {
             return "Logged in person: Admin";
         } else {
             return "Logged in person: " + loggedInPerson.toString();
