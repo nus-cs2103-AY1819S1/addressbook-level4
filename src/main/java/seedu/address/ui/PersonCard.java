@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,8 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Picture;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -21,6 +26,8 @@ public class PersonCard extends UiPart<Region> {
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};
+
+    private static final Logger logger = LogsCenter.getLogger(PersonCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -75,7 +82,19 @@ public class PersonCard extends UiPart<Region> {
 
         //@@author denzelchung
         // set profile picture
-        Image image = new Image(person.getPicture().picture);
+        Image image;
+
+        if (!Picture.isValidPicture(person.getPicture().picture)) {
+            try {
+                image = new Image(Picture.DEFAULT_PICTURE_URL.openStream());
+            } catch (IOException io) {
+                logger.warning("Unable to load default picture");
+                image = new Image(Picture.DEFAULT_PICTURE_URL.getPath());
+            }
+        } else {
+            image = new Image("file:" + person.getPicture().picture);
+        }
+
         picture.setImage(image);
         picture.setCache(true);
 

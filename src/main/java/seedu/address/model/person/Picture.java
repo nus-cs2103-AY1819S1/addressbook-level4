@@ -1,7 +1,10 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 //@@author denzelchung
 /**
@@ -10,7 +13,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Picture {
 
-    public static final String DEFAULT_PICTURE = "/images/placeholder_image.jpg";
+    public static final String CURRENT_PATH = Picture.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
+    // https://www.stubbornjava.com/posts/reading-file-resources-with-guava
+    public static final URL DEFAULT_PICTURE_URL = com.google.common.io.Resources
+        .getResource("images/placeholder_image.jpg");
     public static final String MESSAGE_PICTURE_CONSTRAINTS =
         "Picture should be a valid file path or a URL";
 
@@ -31,15 +38,20 @@ public class Picture {
      */
     public Picture(String picture) {
         requireNonNull(picture);
-        checkArgument(isValidPicture(picture), MESSAGE_PICTURE_CONSTRAINTS);
-        this.picture = picture;
+
+        if (!isValidPicture(picture)) {
+            this.picture = DEFAULT_PICTURE_URL.getPath();
+        } else {
+            this.picture = picture;
+        }
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
-        return test.matches(PICTURE_URL_VALIDATION_REGEX) || test.matches(PICTURE_PATH_VALIDATION_REGEX);
+        return test.matches(PICTURE_URL_VALIDATION_REGEX) ||
+            (test.matches(PICTURE_PATH_VALIDATION_REGEX) && Files.exists(Paths.get(test)));
     }
 
     @Override
