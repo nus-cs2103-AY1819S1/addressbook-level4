@@ -17,15 +17,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIMESTAMP = new Prefix("t/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
-
+    public static final Prefix PREFIX_PERSON = new Prefix("p/");
+    public static final Prefix PREFIX_MEETING = new Prefix("m/");
 
     /* Prefix definitions for FindCommandParser */
     public static final Prefix PREFIX_ALL = new Prefix("a/");
     public static final Prefix PREFIX_SOME = new Prefix("s/");
     public static final Prefix PREFIX_NONE = new Prefix("n/");
-
-    /* Prefix definitions for SelectCommandParser */
-    public static final Prefix PREFIX_PERSON = new Prefix("p/");
-    public static final Prefix PREFIX_GROUP = new Prefix("g/");
-    public static final Prefix PREFIX_MEETING = new Prefix("m/");
 }
