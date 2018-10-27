@@ -18,15 +18,15 @@ public class IndexParserUtilTest {
 
     @Test
     public void validIndex() {
-        assertEquals(IndexParserUtil.getIndex(VALID_INDEX), Optional.of(Index.fromOneBased(1)));
-        assertEquals(IndexParserUtil.getIndex(VALID_INDEX_LARGER), Optional.of(Index.fromOneBased(1000)));
-        assertEquals(IndexParserUtil.getIndex(VALID_INDEX_WITHSPACES), Optional.of(Index.fromOneBased(10)));
+        assertEquals(Optional.of(Index.fromOneBased(1)), IndexParserUtil.getIndex(VALID_INDEX));
+        assertEquals(Optional.of(Index.fromOneBased(1000)), IndexParserUtil.getIndex(VALID_INDEX_LARGER));
+        assertEquals(Optional.of(Index.fromOneBased(10)), IndexParserUtil.getIndex(VALID_INDEX_WITHSPACES));
     }
 
     @Test
     public void invalidIndex() {
-        assertEquals(IndexParserUtil.getIndex((INVALID_INDEX)), Optional.empty());
-        assertEquals(IndexParserUtil.getIndex((INVALID_NEGATIVE_INDEX)), Optional.empty());
-        assertEquals(IndexParserUtil.getIndex((INVALID_INDEX_WITHSPACES)), Optional.empty());
+        assertEquals(Optional.empty(), IndexParserUtil.getIndex((INVALID_INDEX)));
+        assertEquals(Optional.empty(), IndexParserUtil.getIndex((INVALID_NEGATIVE_INDEX)));
+        assertEquals(Optional.empty(), IndexParserUtil.getIndex((INVALID_INDEX_WITHSPACES)));
     }
 }
