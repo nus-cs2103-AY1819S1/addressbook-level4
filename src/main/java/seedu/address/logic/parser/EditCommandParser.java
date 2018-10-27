@@ -16,6 +16,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.IndexParserUtil;
 import seedu.address.logic.commands.EditByNameCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -64,14 +65,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        Optional<Index> index = getIndex(preamble);
+        Optional<Index> index = IndexParserUtil.getIndex(preamble);
         // The command used an index and not a string, but the index was rejected.
         if (!index.isPresent() && StringUtil.isInteger(preamble)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         // Decide which command to use based on whether the user input was an index or a string
-        return index.<EditCommand>map(idx -> new EditCommand(idx, editPersonDescriptor))
+        return index.map(idx -> new EditCommand(idx, editPersonDescriptor))
                 .orElseGet(() -> new EditByNameCommand(preamble, editPersonDescriptor));
         //@@author
     }
@@ -90,21 +91,4 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
-
-    //@@author zioul123
-    /**
-     * Attempts to parse an index from the provided preamble to a command.
-     * @param preamble The preamble of the command typed.
-     * @return An Optional of the index if the specified index is valid, an empty optional otherwise
-     */
-    private Optional<Index> getIndex(String preamble) {
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(preamble);
-        } catch (ParseException pe) {
-            return Optional.empty();
-        }
-        return Optional.of(index);
-    }
-    //@@author
 }
