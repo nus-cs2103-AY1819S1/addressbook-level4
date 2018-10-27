@@ -28,6 +28,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_MC_CONTENT = new Prefix("mc/");
     public static final Prefix PREFIX_REFERRAL_CONTENT = new Prefix("r/");
     public static final Prefix PREFIX_AMOUNT_TO_DISPENSE = new Prefix("amt/");
+    public static final Prefix PREFIX_AMOUNT_TO_RESTOCK = new Prefix("amt/");
 
     public static final Prefix PREFIX_POSITION = new Prefix("p/");
 }
