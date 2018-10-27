@@ -310,6 +310,39 @@ Step 4. The user executes `cd ..` command to navigate out of the second deck. Th
 ** Pros: Looks more impressive in UI-wise,
 ** Cons: Have to implement a switch event to toggle items inside StackPane
 
+=== Keep cards panel updated by UI
+
+==== Problem with the old design
+
+The UI (MainWindow) constructs the cards panel by obtaining an `ObservableList` of cards from Model,
+this list is assigned when UI starts, and will never be re-assigned.
+The UI "observes" the list and updates when it is modified.
+
+This approach works well for the deck list because Anakin contains only 1 list of decks.
+However, the card list can not be updated in the same manner because Model component will
+change its card list's reference when user enters another deck.
+
+In this case, the card list in UI will not be updated because the card list of which UI has
+reference to is actually not changed, but it is the wrong card list.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Have a `displayedCards` list in Model and keep it updated with the current list of cards
+
+** Explanation: The UI needs only 1 reference to this `displayedCards` list, each time user enters another deck,
+`displayedCards` list is cleared and the new deck's list of cards is copy to the `displayedCards` list
+** Pros: The structure of Model and UI component needs not be changed
+** Cons: Need to keep a copy of the current card list, copying the whole list of cards
+ for each `cd` operation has bad effect on performance
+
+* *Alternative 2:* Model component raises an event when its current card list's reference is changed
+
+** Explanation: When user `cd` (enters) a new deck, Model will raise
+an event (CardListChangedEvent), which is subscribed by UI, then UI can re-assign its list of cards
+and update the cards panel accordingly
+** Pros: Better performance
+** Cons: Need to re-design Model and UI components
+
 [appendix]
 == Product Scope
 
