@@ -101,6 +101,9 @@ public class LoginTest {
         assertLastEventLogoutUnsuccessful(FailedLoginEvent.INVALID_PASSWORD);
     }
 
+    /**
+     * Verifies that the last login is successful.
+     */
     private void assertLastEventLoginSuccessful() {
         BaseEvent lastEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assert lastEvent instanceof SuccessfulLoginEvent;

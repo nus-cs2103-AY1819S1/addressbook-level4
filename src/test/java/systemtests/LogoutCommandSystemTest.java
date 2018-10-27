@@ -20,6 +20,9 @@ public class LogoutCommandSystemTest extends AddressBookSystemTest {
 
     }
 
+    /**
+     * Verifies that a logout is successful and all the variants are met.
+     */
     private void assertLogout() {
         assert getBrowserPlaceholder().getChildren().size() == 0;
         assert getModel().getLoggedInUser() == null;
