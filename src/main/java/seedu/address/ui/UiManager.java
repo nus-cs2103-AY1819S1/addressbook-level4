@@ -120,9 +120,8 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleUserLoggedInEvent(UserLoggedInEvent event) throws Exception{
+    private void handleUserLoggedInEvent(UserLoggedInEvent event) {
         logger.info("=============================[ New User logged in ]===========================");
-
         mainWindow.fillInnerParts();
     }
 }

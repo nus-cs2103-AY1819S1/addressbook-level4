@@ -66,6 +66,7 @@ import seedu.address.model.person.UserContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.StubUserBuilder;
 
 public class AddressBookParserTest {
     @Rule
@@ -75,7 +76,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_login() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new StubUserBuilder().build();
         LoginCommand command = (LoginCommand) parser.parseCommand(PersonUtil.getLoginCommand(person));
         assertEquals(new LoginCommand(person), command);
     }
