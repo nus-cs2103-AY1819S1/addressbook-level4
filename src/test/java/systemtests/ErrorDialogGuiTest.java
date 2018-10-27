@@ -1,10 +1,10 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postLater;
-import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE;
-import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE;
-import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
+//import static org.junit.Assert.assertEquals;
+//import static seedu.address.testutil.EventsUtil.postLater;
+//import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE;
+//import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE;
+//import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
 
 import java.io.IOException;
 
@@ -21,14 +21,14 @@ public class ErrorDialogGuiTest extends AddressBookSystemTest {
 
     @Test
     public void showErrorDialogs() {
-//        postLater(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
-//
-//        guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
-//
-//        AlertDialogHandle alertDialog = new AlertDialogHandle(guiRobot.getStage(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
-//        assertEquals(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, alertDialog.getHeaderText());
-//        assertEquals(FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE + ":\n" + IO_EXCEPTION_STUB.toString(),
-//            alertDialog.getContentText());
+    //        postLater(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
+    //
+    //        guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
+    //
+    //        AlertDialogHandle alertDialog = new AlertDialogHandle(guiRobot.getStage(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
+    //        assertEquals(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, alertDialog.getHeaderText());
+    //        assertEquals(FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE + ":\n" + IO_EXCEPTION_STUB.toString(),
+    //            alertDialog.getContentText());
     }
 
 }
