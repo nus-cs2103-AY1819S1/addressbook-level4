@@ -168,8 +168,12 @@ public class GetGoogleCalendarEventsCommand extends Command {
                     .execute();
         } catch (UnknownHostException e) {
             throw e;
-        } catch (IOException e2) {
+        } catch (java.net.SocketException e2) {
+            new CommandResult(MESSAGE_INTERNET_ERROR);
             e2.printStackTrace();
+        } catch (IOException e3) {
+            new CommandResult(MESSAGE_INTERNET_ERROR);
+            e3.printStackTrace();
         }
         return events;
     }
