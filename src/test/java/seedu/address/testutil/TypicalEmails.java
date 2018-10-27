@@ -24,6 +24,14 @@ public class TypicalEmails {
     public static final Email OUTING_EMAIL = new DefaultEmailBuilder().withFrom("carl@example.com")
             .withTo("daniel@example.com").withSubject("Outing").withContent("We have an outing on Sunday").build();
 
+    // Manually added
+    public static final Email EXCURSION_EMAIL = new DefaultEmailBuilder().withFrom("daniel@example.com")
+            .withTo("elle@example.com").withSubject("Excursion").withContent("We have an excursion on Monday").build();
+
+    public static final Email EXCURSION_EMAIL_WITHOUT_TO = new DefaultEmailBuilder().withFrom("daniel@example.com")
+            .withTo("elle@example.com").withSubject("Excursion").withContent("We have an excursion on Monday")
+            .buildWithoutTo();
+
     // prevents instantiation
     private TypicalEmails() {}
 
