@@ -42,6 +42,10 @@ public class Card {
             return true;
         }
 
+        if (otherCard == null) {
+            return false;
+        }
+
         return otherCard.getQuestion().equals(question);
     }
 
