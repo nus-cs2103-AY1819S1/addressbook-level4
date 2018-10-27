@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -62,7 +63,9 @@ public class CommandTestUtil {
     public static final String TAG_DESC_PROJECT = " " + PREFIX_GROUPTAG + VALID_GROUPTAG_PROJECT;
 
     public static final String VALID_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_NAME + "group";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_GROUP + "group";
     public static final String VALID_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_NAME + "CS2101";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_GROUP + "CS2101";
 
     public static final String VALID_GROUP_TITLE_GROUP_0 = "group";
 
@@ -87,6 +90,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_GROUPTAG_DESC = " " + PREFIX_GROUPTAG + "CS123*"; // '*' not allowed in groupTags
+    public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "CS*123";
 
     // @@author NyxF4ll
     // '#' not allowed in title

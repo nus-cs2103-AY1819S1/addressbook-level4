@@ -17,8 +17,12 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
+import seedu.address.model.shared.Title;
+
 
 
 /**
@@ -97,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireAllNonNull(target, editedGroup);
 
         versionedAddressBook.updateGroup(target, editedGroup);
@@ -121,6 +125,19 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removeGroup(group);
         indicateAddressBookChanged();
     }
+
+    @Override
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.joinGroup(person, group);
+    }
+
+    @Override
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.leaveGroup(person, group);
+    }
+
     // @@author
 
     // @@author NyxF4ll
@@ -134,6 +151,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getGroupList();
     }
     // @@author
+
+    @Override
+    public Group getGroupByTitle(Title title) {
+        return versionedAddressBook.getGroupByTitle(title);
+    }
+
+    @Override
+    public Person getPersonByName(Name name) {
+        return versionedAddressBook.getPersonByName(name);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 

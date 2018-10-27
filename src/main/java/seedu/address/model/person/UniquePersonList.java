@@ -104,6 +104,23 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Find an existing person that matches the given {@code name}.
+     * If the person is found, returns the matched person. Else returns {@code null}.
+     */
+    public Person getPersonByName(Name name) {
+        requireNonNull(name);
+
+        for (Person person : internalList) {
+            Name personName = person.getName();
+            if (name.equals(personName)) {
+                return person.copy();
+            }
+        }
+        // if no match is found, returns null
+        return null;
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asUnmodifiableObservableList() {

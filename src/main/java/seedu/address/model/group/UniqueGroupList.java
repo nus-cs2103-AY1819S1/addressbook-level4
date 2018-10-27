@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.shared.Title;
 
 
 /**
@@ -104,6 +105,23 @@ public class UniqueGroupList implements Iterable<Group> {
         }
 
         internalList.setAll(groups);
+    }
+
+    /**
+     * Find an existing group that matches the given {@code title}.
+     * If the group is found, returns the matched group. Else returns {@code null}.
+     */
+    public Group getGroupByTitle(Title title) {
+        requireNonNull(title);
+
+        for (Group group : internalList) {
+            Title groupTitle = group.getTitle();
+            if (title.equals(groupTitle)) {
+                return group.copy();
+            }
+        }
+        // if no match, returns null
+        return null;
     }
 
     /**

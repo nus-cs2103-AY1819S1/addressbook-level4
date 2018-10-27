@@ -25,9 +25,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -132,7 +135,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnTrue() {
+    public void hasGroup_groupIsUpdated_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
@@ -140,11 +143,34 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnFalse() {
+    public void hasGroup_groupIsUpdated_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
         assertFalse(addressBook.hasGroup(GROUP_2101));
+    }
+
+    @Test
+    public void joinGroup_personInGroup_returnsTrue() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        //assertTrue(group.hasMember(person));
+        assertTrue(person.hasGroup(group));
+    }
+
+    @Test
+    public void joinGroup_groupHasPerson_returnsTrue() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        assertTrue(group.hasMember(person));
     }
 
     @Test
@@ -153,6 +179,28 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
+    }
+
+    @Test
+    public void getPersonByName_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Pakorn").build();
+        Name name = new Name("Pakorn");
+
+        addressBook.addPerson(person);
+        Person match = addressBook.getPersonByName(name);
+
+        assertTrue(match.equals(person));
+    }
+
+    @Test
+    public void getGroupByTitle_equals_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("tutorial").build();
+        Title title = new Title("tutorial");
+
+        addressBook.addGroup(group);
+        Group match = addressBook.getGroupByTitle(title);
+
+        assertTrue(match.equals(group));
     }
 
     @Test

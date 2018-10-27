@@ -6,10 +6,12 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-
+import seedu.address.model.shared.Title;
 
 /**
  * The API of the Model component.
@@ -69,7 +71,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
      */
-    void updateGroup(Group target, Group editedGroup);
+    void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException;
 
     // @@author Derek-Hardy
     /**
@@ -87,6 +89,21 @@ public interface Model {
      * @param group The group to be removed from address book
      */
     void removeGroup(Group group);
+
+    /**
+     * Join a {@code person} into a {@code group}.
+     * Both person and group must exist in the {@code AddressBook}.
+     *
+     */
+    void joinGroup(Person person, Group group);
+
+
+    /**
+     * Remove a {@code person} from a {@code group}.
+     * The person must exist in the group.
+     */
+    void leaveGroup(Person person, Group group);
+
     // @@author
 
 
@@ -99,6 +116,12 @@ public interface Model {
     /** Returns an unmodifiable view of the group list */
     ObservableList<Group> getGroupList();
     // @@author
+
+    /** Returns an existing group that matches the {@code title} */
+    Group getGroupByTitle(Title title);
+
+    /** Returns an existing person that matches the {@code name} */
+    Person getPersonByName(Name name);
 
     /**
      * Returns an unmodifiable view of the filtered person list
