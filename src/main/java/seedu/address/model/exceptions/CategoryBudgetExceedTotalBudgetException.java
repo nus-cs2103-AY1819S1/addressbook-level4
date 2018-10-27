@@ -9,7 +9,8 @@ import seedu.address.model.budget.CategoryBudget;
  */
 public class CategoryBudgetExceedTotalBudgetException extends Exception {
     public CategoryBudgetExceedTotalBudgetException (CategoryBudget categoryBudget, Budget totalBudget) {
-        super(String.format("The category budget of %.2f exceeds the total budget of #.2f ", categoryBudget.getBudgetCap(),
+        super(String.format("The category budget of %.2f exceeds the total budget of %.2f ",
+            categoryBudget.getBudgetCap(),
             totalBudget.getBudgetCap()));
     }
 }

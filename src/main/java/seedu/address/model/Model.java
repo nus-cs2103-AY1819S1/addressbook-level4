@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -141,6 +144,24 @@ public interface Model {
      * Returns the existing maximum budget for the current user
      */
     Budget getMaximumBudget();
+
+    /**
+     * Adds Category budget into the expense tracker
+     * @param budget a valid {@code CategoryBudget}
+     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category budget results in the sum of
+     * all category budgets exceeding the total budget.
+     */
+    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+        NoUserSelectedException;
+
+    /**
+     * Modifies an existing Category Budget in the expense tracker
+     * @param budget a valid {@code CategoryBudget}
+     * @throws CategoryBudgetDoesNotExist Throws this if attempting to modify a {@code CategoryBudget} that does not
+     * exist
+     */
+    void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+        NoUserSelectedException;
 
     /**
      * Sets the budget to reset and store spending data after a certain amount of time

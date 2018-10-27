@@ -199,7 +199,7 @@ public class Budget {
 
     @Override
     public String toString() {
-        return String.format("$%f", this.budgetCap);
+        return String.format("$%.2f", this.budgetCap);
     }
 
     /**

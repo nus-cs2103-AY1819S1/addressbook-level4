@@ -21,6 +21,9 @@ import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -205,6 +208,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateExpenseTrackerChanged();
     }
 
+    @Override
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException, NoUserSelectedException {
+        this.versionedExpenseTracker.addCategoryBudget(budget);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+        NoUserSelectedException {
+        this.versionedExpenseTracker.modifyCategoryBudget(budget);
+        indicateExpenseTrackerChanged();
+    }
 
     @Override
     public Budget getMaximumBudget() {

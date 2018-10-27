@@ -60,17 +60,33 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     }
 
+    /**
+     * Adds a new category budget to the expense tracker.
+     * @param budget
+     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category budget will result in the
+     * sum of category budgets exceeding the total Budget
+     */
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         this.maximumBudget.addCategoryBudget(budget);
     }
 
+    /**
+     * Modifies an existing category budget.
+     * @param budget
+     * @throws CategoryBudgetDoesNotExist Throws this if category budget does not exist
+     */
     public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
         this.maximumBudget.modifyCategoryBudget(budget);
     }
 
+    /**
+     * Sets the recurrence frequency for resetting the budget and spending.
+     * @param seconds
+     */
     public void setRecurrenceFrequency(long seconds) {
         this.maximumBudget.setRecurrenceFrequency(seconds);
     }
+
 
 
     //// list overwrite operaticons
