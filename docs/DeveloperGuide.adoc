@@ -421,47 +421,166 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::viewarangeoftasks[]
 === View Day/Week
 
-In order to enable users to better manage their tasks in *Student Schedule Planner*, we added two more variations of
- the `list` command. The `listday` command supports viewing tasks due the current date whereas `listweek` command
- supports viewing tasks from the current date till the closest Sunday.
+In order to enable users to better manage their tasks in the schedule planner, we added two more variations of
+ the `list` command.
+
+The `listday` command supports viewing tasks due the current date whereas `listweek` command supports viewing tasks
+from the current date till the closest Sunday.
 
 ==== Current Implementation
 
-The `listday`/`listweek` mechanism utilise `DateSamePredicate`/`DateWeekSamePredicate` respectively.
+`listday`/`listweek` mechanism utilise the same implementation used by the
+`list` command:
 
-When the `listday` command was executed, `DateSamePredicate` will use the current
-system date as a 'filter' and
-retrieve all tasks with deadline that match the system date.
+* `Model#updateFilteredTaskList()` - Take in a predicate parameter and update the model
+according to the predicate.
 
-Whereas for the `listweek` command, `DateWeekSamePredicate` will use the range of dates from current system date until
-Sunday and retrieve all tasks with deadline that match the range of dates.
+`listday`/`listweek` uses `DateSamePredicate`/`DateWeekSamePredicate` as the predicate respectively for
+`Model#updateFilteredTaskList()`.
 
-Given below is an example usage scenario and how the `listday`/`listweek` mechanism behaves at each step:
+When `listday` command was executed, `DateSamePredicate` will use the current
+system date as a 'filter'. `model#updateFilteredTaskList()` which uses `DateSamePredicate`
+will update the list of tasks with deadline that match the system date.
+
+Whereas for `listweek` command, `DateWeekSamePredicate` will use all dates from current system date
+until the closest Sunday as the 'filter'. `model#updateFilteredTaskList()` which uses `DateWeekSamePredicate`
+will update the list of tasks with deadline that matches any of those dates.
+
+As both `listday`/`listweek` are similar, we would only illustrate how `listweek` works.
+Given below is an example usage scenario and how `listweek` mechanism behaves at each step:
 
 Step 1. The user entered the command `listweek`.
 
-Step 2. `ListWeekCommand#appendDateList()` will generate the "list of days" in "ddmmyy" format.
+Step 2. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will generate the `dateList` in
+`ddmmyy` format after retrieving the result from `numDaysTillSunday()` method.
 
 Step 3. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
-as the parameter. `DateWeekSamePredicate` itself would take "list of days" in Step 2 as the paramter.
+as the parameter. `DateWeekSamePredicate` itself would take `dateList` in Step 2 as the paramter.
 
 Step 4. The updated task list would be reflected on the UI to be displayed to the user.
 
+The following sequence diagram illustrates how the mechanism works:
+
+image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
-{to be added}
+===== Aspect: How does listday and listweek function
+
+* **Alternative 1 (current choice):** Filter accordingly based on the command itself
+** Pros: It is easy to implement and use.
+** Cons: It restrict to view all tasks from current date or from current date till Sunday only.
+* **Alternative 2:** Allow the commands to receive argument for which date(s) to filter.
+** Pros: It allows viewing for different date(s).
+** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks[]
 
 // tag::generateacademiccalendar[]
 === Generate academic calendar weeks
 
+In order to enable users to better monitor their tasks in the schedule planner, we added `firstday` command.
+
+The `firstday` command will generate the academic calendar weeks and whenever the user launch the application within
+either academic week, description for the particular week will append to the application title to allow user
+to know the current academic week.
+
 ==== Current Implementation
 
-{to be added. Placeholder to avoid possible merge conflict}
+`firstday` mechanism is faciliated by `FirstDayCommand` and implements the following operations:
+
+* `FirstDayCommand#isWithinDateRange(firstDayOfSem, lastDayOfSem)` -- Check if current system date is within the
+`firstDayOfSem` and `lastDayOfSem` and return true or false.
+
+* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- Return the description of a particular week
+
+* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- Save the academic calendar weeks data into `rangeOfWeek.xml`
+
+* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- Retrieved the saved academic calendar weeks data from
+`rangeOfWeek.xml`
+
+* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- Generate the academic calendar weeks data based on the `firstDay`
+ parameter.
+
+* `FirstDayCommand#addDescription` -- Append description for each academic calendar weeks.
+
+* `FirstDayCommand#isMonday(inputDate)` -- Check if inputDate is Monday and return true or false.
+
+Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
+
+Step 1. The user enter the command `firstday 130818`
+
+Step 2. `FirstDayCommandParser` will be activated as the command word `firstday` is used. It will then trimmed the
+remaining argument into `trimmedArgs`.
+
+Step 3. Methods `onlyOneSetArgument`, `Date.isValidDate` and `isMonday` are to be used to check if `trimmedArgs` is
+valid.
+
+[NOTE]
+If either method in Step 3 failed, `ParseException` with respective message will be thrown to inform user what had
+gone wrong. `FirstDayCommand` would then not be called.
+
+Step 4. `FirstDayCommand` will be called with the validated `trimmedArgs` as its parameter.
+
+Step 5. `FirstDayCommand#execute` will be activated by the `LogicManager`.
+
+Step 6. `FirstDayCommand#computeRangeOfWeeks(trimmedArgs)` will be activated and generate the academic calendar weeks
+. This method will further call `FirstDayCommand#addDescriptionForWeeks` to add description for each of the academic
+calendar weeks. The academic calendar weeks will be stored in a `2D String array` named `rangeOfWeek`.
+
+Step 7. `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` will be activated. It will create a
+`XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow the `rangeOfWeek` data to be
+converted into `Xml` format to be easily saved. Next, this method would call `XmlFileStorage#saveWeekDataToFile` to
+save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeOfWeek.xml`
+
+[NOTE]
+`CommandException` will be thrown if `rangeOfWeek.xml` does not exist.
+
+Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
+weeks, the `UI` would display the corresponding week description to the user.
+
+image::FirstDayCommand_UG_Before.png[width="600"]
+
+Step 9. When user launch the application, `MainApp` will check if `rangeOfWeek.xml` exists. Should it be the first
+time user launch the application or if user deleted the file, it will create a default file that would not affect the
+ user experiences.
+
+If the file exist, `FirstDayCommand#retrieveRangeOfWeeks` will be called to retrieve the academic
+ calendar weeks data from `rangeOfWeek.xml`. `FirstDayCommand#isWithinDateRange` would then be called to check if
+ current system date lies within the academic calendar weeks and update the application title correspondly if necessary.
+
+image::FirstDayCommand_UG_After.png[width="400"]
+
+[NOTE]
+`CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
+not exist.
+
+The following sequence diagram illustrates how the mechanism works:
+
+image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
+
+image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
+
 
 ==== Design Considerations
 
-{to be added. Placeholder to avoid possible merge conflict}
+===== Aspect: How firstday functions
+
+* **Alternative 1 (current choice):** Generate entire academic calendar weeks by input the first academic monday date.
+** Pros: It would only need one set of date.
+** Cons: It would require many methods to validate, generate the data.
+* **Alternative 2:** Allow user to create their own academic calendar such as having customised number of weeks and
+description for each weeks.
+** Pros: It would allow customisation.
+** Cons: It would be time and effort consuming for the user and also to validate the data.
+
+===== Aspect: Data structure to support the firstday method
+
+* **Alternative 1 (current choice):** `2D String array` is used.
+** Pros: It would allow easy data retrieval.
+** Cons: It could cause confusion especially if magic numbers were used instead of constant.
+* **Alternative 2:** `Arraylist` is used.
+** Pros: It would not require sequential memory for storage.
+** Cons: It would not allow data retrieval at any specific index which requires traversing the `arraylist`.
 
 // end::generateacademiccalendar[]
 
@@ -1043,7 +1162,7 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 
 [discrete]
 === Use case: List Task
@@ -1063,7 +1182,7 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 2a1. The list is empty.
 +
@@ -1089,7 +1208,7 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 2a1. The list is empty.
 +
@@ -1138,7 +1257,7 @@ Use case ends.
 [none]
 ** 3b1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 3.
+Use case ends.
 
 [discrete]
 === Use case: Search Task
@@ -1159,7 +1278,7 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 3a. The filtered task list is empty and thus display empty list.
 +
@@ -1184,7 +1303,7 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 3a. The filtered task list is empty and thus display empty list.
 +
@@ -1209,10 +1328,49 @@ Use case ends.
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 3a. The filtered task list is empty and thus display empty list.
 +
+Use case ends.
+
+[discrete]
+=== Use case: Generate academic calendar weeks
+
+*MSS*
+
+1.  User request to key in a specific date to generate the academic calendar weeks.
+2.  Student Schedule Planner generate the academic calendar weeks.
+3.  Student Schedule Planner save the academic calendar weeks.
+4.  Student Schedule Planner display to user the command result.
+5.  User launch the Student Schedule Planner at any time after Step 1 - 4.
+6.  Student Schedule Planner retrieve data saved.
+7.  Student Schedule Planner display the updated application title based on the retrieved data.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specific date did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The data could not be saved.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 5a. The data could not be retrieved.
++
+[none]
+** 5a1. Student Schedule Planner shows an error message.
 Use case ends.
 
 _{More to be added}_
