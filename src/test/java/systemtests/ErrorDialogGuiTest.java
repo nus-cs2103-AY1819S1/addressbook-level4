@@ -11,8 +11,8 @@ import java.io.IOException;
 import org.junit.Test;
 
 import guitests.GuiRobot;
-import guitests.guihandles.AlertDialogHandle;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+//import guitests.guihandles.AlertDialogHandle;
+//import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 
 public class ErrorDialogGuiTest extends AddressBookSystemTest {
 
