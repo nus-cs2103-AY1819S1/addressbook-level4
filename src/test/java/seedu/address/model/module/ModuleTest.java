@@ -18,7 +18,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.ModuleBuilder;
 
-
 public class ModuleTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
