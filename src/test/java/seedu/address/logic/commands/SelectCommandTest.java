@@ -6,13 +6,17 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showGroupAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_GROUP;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_GROUP;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import java.util.Arrays;
@@ -25,6 +29,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToMeetingListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -105,6 +110,48 @@ public class SelectCommandTest {
 
         // different person -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
+
+        selectFirstCommand = new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
+        selectSecondCommand =
+            new SelectCommand(INDEX_SECOND_GROUP, SelectCommand.SelectCommandType.GROUP);
+
+        // same object -> returns true
+        assertTrue(selectFirstCommand.equals(selectFirstCommand));
+
+        // same values -> returns true
+        selectFirstCommandCopy =
+            new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
+        assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(selectFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(selectFirstCommand.equals(null));
+
+        // different group -> returns false
+        assertFalse(selectFirstCommand.equals(selectSecondCommand));
+
+        selectFirstCommand = new SelectCommand(INDEX_FIRST_MEETING, SelectCommand.SelectCommandType.MEETING);
+        selectSecondCommand =
+            new SelectCommand(INDEX_SECOND_MEETING, SelectCommand.SelectCommandType.MEETING);
+
+        // same object -> returns true
+        assertTrue(selectFirstCommand.equals(selectFirstCommand));
+
+        // same values -> returns true
+        selectFirstCommandCopy =
+            new SelectCommand(INDEX_FIRST_MEETING, SelectCommand.SelectCommandType.MEETING);
+        assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(selectFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(selectFirstCommand.equals(null));
+
+        // different meeting -> returns false
+        assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     @Test
@@ -154,27 +201,41 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void equalsGroup() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
-        SelectCommand selectSecondCommand =
-            new SelectCommand(INDEX_SECOND_GROUP, SelectCommand.SelectCommandType.GROUP);
+    public void execute_validIndexUnfilteredMeetingList_success() {
+        Index lastMeetingIndex = Index.fromOneBased(model.getFilteredMeetingList().size());
 
-        // same object -> returns true
-        assertTrue(selectFirstCommand.equals(selectFirstCommand));
+        assertExecutionSuccess(INDEX_FIRST_MEETING, SelectCommand.SelectCommandType.MEETING);
+        assertExecutionSuccess(INDEX_THIRD_MEETING, SelectCommand.SelectCommandType.MEETING);
+        assertExecutionSuccess(lastMeetingIndex, SelectCommand.SelectCommandType.MEETING);
+    }
 
-        // same values -> returns true
-        SelectCommand selectFirstCommandCopy =
-            new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
-        assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
+    @Test
+    public void execute_invalidIndexUnfilteredMeetingList_failure() {
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredMeetingList().size() + 1);
 
-        // different types -> returns false
-        assertFalse(selectFirstCommand.equals(1));
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.MEETING,
+            Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+    }
 
-        // null -> returns false
-        assertFalse(selectFirstCommand.equals(null));
+    @Test
+    public void execute_validIndexFilteredMeetingList_success() {
+        showMeetingAtIndex(model, INDEX_FIRST_MEETING);
+        showMeetingAtIndex(expectedModel, INDEX_FIRST_MEETING);
 
-        // different group -> returns false
-        assertFalse(selectFirstCommand.equals(selectSecondCommand));
+        assertExecutionSuccess(INDEX_FIRST_MEETING, SelectCommand.SelectCommandType.MEETING);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredMeetingList_failure() {
+        showMeetingAtIndex(model, INDEX_FIRST_MEETING);
+        showMeetingAtIndex(expectedModel, INDEX_FIRST_MEETING);
+
+        Index outOfBoundsIndex = INDEX_THIRD_MEETING;
+
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getMeetingList().size());
+
+        assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.MEETING,
+            Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
 
     /**
@@ -183,9 +244,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index, SelectCommand.SelectCommandType selectType) {
         SelectCommand selectCommand = new SelectCommand(index, selectType);
-        String expectedMessage = (selectType == SelectCommand.SelectCommandType.PERSON)
-                ? String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased())
-                : String.format(SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(getExpectedMessage(selectType), index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
@@ -193,9 +252,25 @@ public class SelectCommandTest {
         if (selectType == SelectCommand.SelectCommandType.PERSON) {
             JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) baseEvent;
             assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
-        } else {
+        } else if (selectType == SelectCommand.SelectCommandType.GROUP) {
             JumpToGroupListRequestEvent lastEvent = (JumpToGroupListRequestEvent) baseEvent;
             assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+        } else {
+            JumpToMeetingListRequestEvent lastEvent = (JumpToMeetingListRequestEvent) baseEvent;
+            assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+        }
+    }
+
+    private String getExpectedMessage(SelectCommand.SelectCommandType selectType) {
+        switch (selectType) {
+        case GROUP:
+            return SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS;
+        case MEETING:
+            return SelectCommand.MESSAGE_SELECT_MEETING_SUCCESS;
+        case PERSON:
+            return SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+        default:
+            return SelectCommand.MESSAGE_USAGE;
         }
     }
 

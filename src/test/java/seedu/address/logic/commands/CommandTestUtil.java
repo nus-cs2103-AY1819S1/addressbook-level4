@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -26,6 +27,8 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -177,6 +180,24 @@ public class CommandTestUtil {
             Collections.emptyList(), Arrays.asList(splitName[0]), Collections.emptyList()));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered meeting list to show only the meeting at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMeetingAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMeetingList().size());
+
+        Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
+
+        /**
+         * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
+         * the issue is rectified
+         */
+        assertNotEquals(0, model.getFilteredMeetingList().size());
     }
 
     /**
