@@ -68,8 +68,7 @@ public class SelectCommand extends Command {
 
             EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
             Group group = filteredGroupList.get(targetIndex.getZeroBased());
-            final String[] keywords = { group.getTitle().fullTitle };
-            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
             model.updateFilteredMeetingList(new GroupContainsMeetingPredicate(Arrays.asList(group)));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
         } else if (selectType == SelectCommandType.PERSON) {

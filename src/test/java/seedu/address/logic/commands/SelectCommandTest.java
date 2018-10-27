@@ -112,18 +112,15 @@ public class SelectCommandTest {
         Index lastGroupIndex = Index.fromOneBased(model.getFilteredGroupList().size());
 
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
-        final String[] keywords = { group.getTitle().fullTitle };
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
         assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         group = expectedModel.getFilteredGroupList().get(INDEX_THIRD_GROUP.getZeroBased());
-        keywords[0] = group.getTitle().fullTitle;
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
         assertExecutionSuccess(INDEX_THIRD_GROUP, SelectCommand.SelectCommandType.GROUP);
 
         group = expectedModel.getFilteredGroupList().get(lastGroupIndex.getZeroBased());
-        keywords[0] = group.getTitle().fullTitle;
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
         assertExecutionSuccess(lastGroupIndex, SelectCommand.SelectCommandType.GROUP);
     }
 

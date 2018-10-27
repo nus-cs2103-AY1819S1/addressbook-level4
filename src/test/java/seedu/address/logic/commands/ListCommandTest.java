@@ -63,7 +63,7 @@ public class ListCommandTest {
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
         final String[] groupTitle = { group.getTitle().fullTitle };
         expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
 
         assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,
             ListCommand.MESSAGE_SUCCESS_GROUP, expectedModel);
@@ -83,6 +83,6 @@ public class ListCommandTest {
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
         final String[] groupTitle = { group.getTitle().fullTitle };
         expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
     }
 }
