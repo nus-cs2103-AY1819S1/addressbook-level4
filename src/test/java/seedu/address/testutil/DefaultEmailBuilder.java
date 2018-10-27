@@ -1,10 +1,16 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.simplejavamail.email.EmailBuilder;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.email.Content;
 import seedu.address.model.email.Subject;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
 /**
@@ -14,8 +20,8 @@ public class DefaultEmailBuilder {
 
     public static final String DEFAULT_FROM = "alice@gmail.com";
     public static final String DEFAULT_TO = "billy@gmail.com";
-    public static final String DEFAULT_SUBJECT = "Meeting on Friday";
-    public static final String DEFAULT_CONTENT = "Dear Billy<br /><br />See you tomorrow!<br /><br />Alice";
+    public static final String DEFAULT_SUBJECT = "Example Subject";
+    public static final String DEFAULT_CONTENT = "Dear Billy<br><br>See you tomorrow!<br><br>Alice";
 
     private Email from;
     private Email to;
@@ -34,6 +40,30 @@ public class DefaultEmailBuilder {
      */
     public DefaultEmailBuilder withSubject(String subject) {
         this.subject = new Subject(subject);
+        return this;
+    }
+
+    /**
+     * Sets the 'from' of the {@code Email} that we are building.
+     */
+    public DefaultEmailBuilder withFrom(String from) {
+        this.from = new Email(from);
+        return this;
+    }
+
+    /**
+     * Sets the 'to' of the {@code Email} that we are building.
+     */
+    public DefaultEmailBuilder withTo(String to) {
+        this.to = new Email(to);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Content} of the {@code Email} that we are building.
+     */
+    public DefaultEmailBuilder withContent(String content) {
+        this.content = new Content(content);
         return this;
     }
 
