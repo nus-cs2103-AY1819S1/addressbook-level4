@@ -8,9 +8,8 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarEventListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.ToDoListEventCardHandle;
+
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
