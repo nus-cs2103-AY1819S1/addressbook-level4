@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.google;
 
 //@@author chivent
-// TODO: Add help message_usage
 // TODO: Add test cases
 
 import static java.util.Objects.requireNonNull;
@@ -17,9 +16,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Handles listing of files in Google Photos
+ * Handles listing of files from Google Photos
  */
 public class GoogleLsCommand extends GoogleCommand {
+
+    public static final String MESSAGE_USAGE = "Usage of google ls (requires an internet connection): "
+            + "\n- " + COMMAND_WORD + " ls: " + "Lists all photos in Google Photos"
+            + "\n- " + COMMAND_WORD + " ls /a: " + "Lists all albums in Google Photos"
+            + "\n- " + COMMAND_WORD + " ls <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
+            + "\n\tExample: " + COMMAND_WORD + " ls " + "<Vacation>, usage inclusive of <>";
 
     public GoogleLsCommand(String parameter) {
         super(parameter);
@@ -36,14 +41,21 @@ public class GoogleLsCommand extends GoogleCommand {
             if (parameter.isEmpty()) {
                 printTarget = model.getPhotoHandler().returnAllImagesList();
                 //Retrieve all names and call
-            } else if (parameter.equals("-albums")) {
+            } else if (parameter.equals("/a")) {
                 printTarget = model.getPhotoHandler().returnAllAlbumsList();
             } else {
+                parameter = parameter.substring(1, parameter.length() - 1);
                 printTarget = model.getPhotoHandler().returnAllImagesinAlbum(parameter);
             }
 
             for (String name : printTarget) {
-                toPrint.append(name + " \t");
+                toPrint.append(name + " \n");
+            }
+
+            if (toPrint.toString().isEmpty()) {
+                if (!parameter.equals("/a")) {
+                    toPrint.append("Empty! No images to be displayed");
+                }
             }
         } catch (Exception ex) {
 
@@ -51,10 +63,10 @@ public class GoogleLsCommand extends GoogleCommand {
             if (ex instanceof ApiException) {
                 message = MESSAGE_CONNECTION_FAILURE;
             }
-
-            throw new CommandException(message);
+            throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
         }
         //Save all entries into temporary space and only refresh on new ls/retrieval - for PhotoHandler
+
         return new CommandResult(toPrint.toString());
     }
 }
