@@ -89,6 +89,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getUnfilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getUnfilteredPersonList().remove(0);
+    }
+
+    @Test
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredEventList().add(new ScheduledEventBuilder().build());
