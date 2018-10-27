@@ -29,12 +29,13 @@ public class SaveCommand extends Command {
             + "108.50";
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
-
+    public static final String MESSAGE_SAVE_UNUSED_FUNDS = "Saved $%1$s to Unused Funds. Unused Funds now contains $%2$s.";
     public static final String MESSAGE_SAVE_EXCESS = " with $%1$s in excess. Unused Funds now contains $%2$s";
     public static final String MESSAGE_SAVE_DIFFERENCE = " with $%1$s left to completion";
 
     private final Index index;
     private final Amount amountToSave;
+    private final boolean noWishSpecified;
 
     public SaveCommand(Index index, Amount amountToSave) {
         requireNonNull(index);
@@ -42,11 +43,32 @@ public class SaveCommand extends Command {
 
         this.index = index;
         this.amountToSave = amountToSave;
+        this.noWishSpecified = false;
+    }
+
+    /**
+     * This constructor is for a {@Code SaveCommand} that directs the amount to unusedFunds.
+     * @param amountToSave
+     */
+    public SaveCommand(Amount amountToSave) {
+        requireNonNull(amountToSave);
+
+        this.index = null;
+        this.amountToSave = amountToSave;
+        this.noWishSpecified = true;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         List<Wish> lastShownList = model.getFilteredSortedWishList();
+
+        if (this.noWishSpecified) {
+            model.updateUnusedFunds(this.amountToSave);
+            model.commitWishBook();
+            return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString()));
+        }
+
+        requireNonNull(this.noWishSpecified);
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
@@ -100,7 +122,15 @@ public class SaveCommand extends Command {
         }
 
         SaveCommand saveCommand = (SaveCommand) other;
+
+        if (this.noWishSpecified) {
+            return (this.index == null)
+                    && this.amountToSave.equals(saveCommand.amountToSave)
+                    && (this.noWishSpecified == saveCommand.noWishSpecified);
+        }
+
         return this.index.equals(saveCommand.index)
-                && this.amountToSave.equals(saveCommand.amountToSave);
+                && this.amountToSave.equals(saveCommand.amountToSave)
+                && (this.noWishSpecified == saveCommand.noWishSpecified);
     }
 }
