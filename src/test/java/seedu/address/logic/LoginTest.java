@@ -70,7 +70,7 @@ public class LoginTest {
         boolean nonMatchingUsername;
         do {
             username = "";
-            for(int i = 0; i < 12; i++) {
+            for (int i = 0; i < 12; i++) {
                 int randomBreakpoint = (int) (Math.random() * values.length());
                 username += values.substring(randomBreakpoint, randomBreakpoint + 1);
             }
@@ -78,8 +78,8 @@ public class LoginTest {
             //verify that it doesn't match
             ObservableList<Person> personList = model.getAddressBook().getPersonList();
             nonMatchingUsername = true;
-            for(Person p : personList) {
-                if(p.getUsername().username.equals(username)) {
+            for (Person p : personList) {
+                if (p.getUsername().username.equals(username)) {
                     nonMatchingUsername = false;
                 }
             }
@@ -106,6 +106,10 @@ public class LoginTest {
         assert model.getLoggedInUser() != null;
     }
 
+    /**
+     * Verifies that the login was unsuccessful, and for a certain reason
+     * @param reason The logout Event's message
+     */
     private void assertLastEventLogoutUnsuccessful(String reason) {
         BaseEvent lastEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assert lastEvent instanceof FailedLoginEvent;
