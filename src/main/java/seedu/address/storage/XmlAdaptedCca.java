@@ -146,7 +146,7 @@ public class XmlAdaptedCca {
         for (XmlAdaptedEntry entry : transaction) {
             transactionEntries.add(entry.toModelType());
         }
-//        final Set<Entry> modelTransaction = new HashSet<>(transactionEntries);
+
         final Set<Entry> modelTransaction = new LinkedHashSet<>(transactionEntries);
 
         return new Cca(modelName, modelHeadName, modelViceHeadName, modelBudget, modelSpent, modelOutstanding,

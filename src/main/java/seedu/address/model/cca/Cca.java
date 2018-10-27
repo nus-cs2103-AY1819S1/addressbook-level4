@@ -7,6 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.person.Name;
 
@@ -180,6 +183,46 @@ public class Cca {
      */
     public Cca addNewTransaction(Entry newEntry) {
         this.transactionEntries.add(newEntry);
+
+        return this;
+    }
+
+    /**
+     * Returns a specific transaction entry of the Cca.
+     *
+     * @param entryIndex the entry index to be deleted
+     */
+    public Entry getEntry(Integer entryIndex) throws CommandException {
+        Entry[] transactionsArr = new Entry[transactionEntries.size()];
+        this.transactionEntries.toArray(transactionsArr);
+
+        if (entryIndex > transactionsArr.length || entryIndex < 1) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_INDEX);
+        }
+
+        return transactionsArr[entryIndex - 1];
+    }
+
+    /**
+     * Removes the specified transaction entry from the Cca.
+     * Reorder the existing transaction entries in the Cca.
+     *
+     * @param entryToBeDeleted the entry to be deleted
+     */
+    public Cca removeTransaction(Entry entryToBeDeleted) throws CommandException {
+        if(!transactionEntries.contains(entryToBeDeleted)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_ENTRY);
+        }
+
+        transactionEntries.remove(entryToBeDeleted);
+        Entry[] transactionArr = new Entry[transactionEntries.size()];
+        transactionEntries.toArray(transactionArr);
+
+        int index = 1;
+        for(Entry e: transactionEntries) {
+            e.updateEntryNum(index);
+            index++;
+        }
 
         return this;
     }

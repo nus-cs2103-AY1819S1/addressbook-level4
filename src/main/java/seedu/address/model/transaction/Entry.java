@@ -84,6 +84,15 @@ public class Entry {
     }
 
     /**
+     * Update the transaction entry number of a specific transaction entry in a specific Cca.
+     *
+     * @param index the {@code Optional} new date to be updated
+     */
+    public void updateEntryNum(int index) {
+        this.entryNum = index;
+    }
+
+    /**
      * Update the transaction date of a specific transaction entry in a specific Cca.
      *
      * @param toUpdate the {@code Optional} new date to be updated
@@ -127,5 +136,25 @@ public class Entry {
             && Date.isValidDate(date)
             && Amount.isValidAmount(amount)
             && Remarks.isValidRemark(remarks);
+    }
+
+    /**
+     * Returns true if both transaction entries have the same identity and data fields.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Entry)) {
+            return false;
+        }
+
+        Entry otherEntry = (Entry) other;
+        return otherEntry.entryNum.equals(this.entryNum)
+            && otherEntry.date.equals(this.date)
+            && otherEntry.amount.equals(this.amount)
+            && otherEntry.remarks.equals(this.remarks);
     }
 }

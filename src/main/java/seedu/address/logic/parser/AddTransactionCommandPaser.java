@@ -3,16 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HEAD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
 
 import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.UpdateCommand.EditCcaDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.transaction.Amount;
@@ -20,7 +15,6 @@ import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Remarks;
 
 //@author ericyjw
-
 /**
  * Parses input arguments and creates a new AddTransactionCommand object
  *

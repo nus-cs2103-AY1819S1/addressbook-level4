@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteTransactionCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EraseCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -139,6 +140,9 @@ public class AddressBookParser {
 
         case AddTransactionCommand.COMMAND_WORD:
             return new AddTransactionCommandPaser().parse(arguments);
+
+        case DeleteTransactionCommand.COMMAND_WORD:
+            return new DeleteTransactionCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
