@@ -18,9 +18,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.Scheduler;
+import seedu.address.model.ToDoList;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
+import seedu.address.model.todolist.TitleToDoContainsKeywordsPredicate;
+import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -29,7 +33,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_TITLE_LECTURE = "CS2103 Lecture";
-    public static final String VALID_TITLE_TUTORIAL = "CS2104 Tutorial";
+    public static final String VALID_TITLE_TUTORIAL = "JS1011 Tutorial";
     public static final String VALID_DESCRIPTION_LECTURE = "Abstraction, IntelliJ, Gradle";
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
     public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
@@ -104,6 +108,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Executes the given {@code commandToDo}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandToDoSuccess(CommandToDo commandToDo, ModelToDo actualModel,
+                                                CommandHistory actualCommandHistory,
+                                                String expectedMessage, ModelToDo expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = commandToDo.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of commandToDo should not fail.", ce);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
@@ -131,6 +155,33 @@ public class CommandTestUtil {
     }
 
     /**
+     * Executes the given {@code commandToDo}, confirms that <br>
+     * - a {@code CommandToDoException} is thrown <br>
+     * - the CommandToDoException message matches {@code expectedMessage} <br>
+     * - the todolist and the filtered todolistevent list in the {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandToDoHistory} remains unchanged.
+     */
+    public static void assertCommandToDoFailure(CommandToDo commandToDo, ModelToDo actualModel,
+                                                CommandHistory actualCommandHistory, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        ToDoList expectedToDoList = new ToDoList(actualModel.getToDoList());
+        List<ToDoListEvent> expectedFilteredList = new ArrayList<>(actualModel.getFilteredToDoListEventList());
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            commandToDo.execute(actualModel, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedToDoList, actualModel.getToDoList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredToDoListEventList());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        }
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the calendar event at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
@@ -142,6 +193,22 @@ public class CommandTestUtil {
         model.updateFilteredCalendarEventList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
         assertEquals(1, model.getFilteredCalendarEventList().size());
+    }
+
+    /**
+     * Updates {@code modelToDo}'s filtered list to show only the todolist event at the given {@code targetIndex} in the
+     * {@code modelToDo}'s todolist.
+     */
+    public static void showToDoListEventAtIndex(ModelToDo modelToDo, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < modelToDo.getFilteredToDoListEventList().size());
+
+        ToDoListEvent toDoListEvent = modelToDo.getFilteredToDoListEventList().get(targetIndex.getZeroBased());
+        //System.out.printf(toDoListEvent.toString());
+        final String[] splitTitle = toDoListEvent.getTitle().value.split("\\s+");
+        //System.out.printf(splitTitle[0]);
+        modelToDo.updateFilteredToDoListEventList(new TitleToDoContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        assertEquals(1, modelToDo.getFilteredToDoListEventList().size());
     }
 
     /**

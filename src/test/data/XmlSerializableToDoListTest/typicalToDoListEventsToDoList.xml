@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- ToDoList save file which contains the same ToDoListEvent values as in TypicalTodoListEvents#getTypicalToDoListEvents() -->
+<toDoList>
+    <toDoListEvents>
+        <title>CS2103 Midterm</title>
+        <description>cover all materials from week 1 to week 7</description>
+        <priority>H</priority>
+    </toDoListEvents>
+    <toDoListEvents>
+        <title>JS1011 Tutorial</title>
+        <description>Monadic parsers</description>
+        <priority>L</priority>
+    </toDoListEvents>
+    <toDoListEvents>
+        <title>Interview workshop</title>
+        <description>will be helpful for interview</description>
+        <priority>L</priority>
+    </toDoListEvents>
+    <toDoListEvents>
+        <title>Daniel's birthday party</title>
+        <description>remember to buy gifts</description>
+        <priority>M</priority>
+    </toDoListEvents>
+</toDoList>

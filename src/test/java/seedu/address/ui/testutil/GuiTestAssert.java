@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarEventListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.ToDoListEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -26,6 +28,17 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualToDoListCard} displays the same values as {@code expectedToDoListCard}.
+     */
+    public static void assertToDoListCardEquals(
+            ToDoListEventCardHandle expectedCard, ToDoListEventCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getPriority(), actualCard.getPriority());
+        assertEquals(expectedCard.getTitle(), actualCard.getTitle());
+        assertEquals(expectedCard.getDescription(), actualCard.getDescription());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedCalendarEvent}.
      */
     public static void assertCardDisplaysPerson(CalendarEvent expectedCalendarEvent,
@@ -35,6 +48,16 @@ public class GuiTestAssert {
         assertEquals(expectedCalendarEvent.getVenue().value, actualCard.getVenue());
         assertEquals(expectedCalendarEvent.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
             actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedToDoListEvent}.
+     */
+    public static void assertCardDisplaysToDoListEvent(ToDoListEvent expectedToDoListEvent,
+                                                       ToDoListEventCardHandle actualCard) {
+        assertEquals(expectedToDoListEvent.getTitle().value, actualCard.getTitle());
+        assertEquals(expectedToDoListEvent.getDescription().value, actualCard.getDescription());
+        assertEquals(expectedToDoListEvent.getPriority().value, actualCard.getPriority());
     }
 
     /**

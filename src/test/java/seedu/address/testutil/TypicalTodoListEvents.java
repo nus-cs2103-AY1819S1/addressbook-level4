@@ -18,7 +18,7 @@ public class TypicalTodoListEvents {
     public static final ToDoListEvent MIDTERM = new ToDoListEventBuilder().withTitle("CS2103 Midterm")
             .withDescription("cover all materials from week 1 to week 7")
             .withPriority("H").build();
-    public static final ToDoListEvent TUTORIAL = new ToDoListEventBuilder().withTitle("CS2104 Tutorial")
+    public static final ToDoListEvent TUTORIAL = new ToDoListEventBuilder().withTitle("JS1011 Tutorial")
             .withDescription("Monadic parsers")
             .withPriority("L").build();
     public static final ToDoListEvent WORKSHOP = new ToDoListEventBuilder().withTitle("Interview workshop")
