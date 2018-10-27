@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import static seedu.address.commons.core.index.Index.fromZeroBased;
-
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
