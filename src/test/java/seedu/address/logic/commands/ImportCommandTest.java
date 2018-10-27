@@ -43,10 +43,19 @@ public class ImportCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_nullFile_throwsFileNotFoundException() throws Exception {
+    public void execute_nullFile_throwsFileNotFoundException() {
         ImportCommand importCommand = new ImportCommand(new File("./imports/notAFile.xml").toPath());
 
         String expectedMessage = ImportCommand.MESSAGE_FILE_NOT_FOUND;
+
+        assertCommandFailure(importCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_invalidFileFormat() {
+        ImportCommand importCommand = new ImportCommand(new File("./src/test/data/ImportCommandTest/invalidFormat.xml").toPath());
+
+        String expectedMessage = ImportCommand.MESSAGE_PARSE_ERR;
 
         assertCommandFailure(importCommand, model, commandHistory, expectedMessage);
     }
@@ -85,7 +94,7 @@ public class ImportCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person original = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
         PersonBuilder personInFile = new PersonBuilder(original);
-        Person edited = personInFile.withTags("golf").build();
+        Person edited = personInFile.withTags("Golf").build();
         expectedModel.updatePerson(original, edited);
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         expectedModel.commitAddressBook();
