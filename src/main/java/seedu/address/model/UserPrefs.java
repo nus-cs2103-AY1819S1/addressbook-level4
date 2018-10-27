@@ -16,7 +16,7 @@ public class UserPrefs {
     private Path toDoListFilePath = Paths.get("data", "toDoList.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(1200, 675, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {

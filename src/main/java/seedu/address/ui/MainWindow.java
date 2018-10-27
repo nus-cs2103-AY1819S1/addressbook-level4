@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -35,13 +36,16 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private CalendarEventListPanel calendarEventListPanel;
+    private CalendarPanel calendarPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,13 +54,11 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane calendarEventListPanelPlaceholder;
+    private StackPane calendarPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private VBox dayMonthYearPanelPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -71,7 +73,8 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
-        setAccelerators();
+        // TODO decide if setAccelerators is necessary
+        // setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
@@ -116,21 +119,22 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        TaskListPanel taskListPanel = new TaskListPanel();
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        calendarEventListPanel = new CalendarEventListPanel(logic.getFilteredCalendarEventList());
-        calendarEventListPanelPlaceholder.getChildren().add(calendarEventListPanel.getRoot());
+        DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFilteredCalendarEventList());
+        dayMonthYearPanelPlaceholder.getChildren().add(dayMonthYearPanel.getRoot());
+
+        CalendarPanel calendarPanel = new CalendarPanel(logic.getFilteredCalendarEventList());
+        calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getSchedulerFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -188,10 +192,11 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public CalendarEventListPanel getCalendarEventListPanel() {
-        return calendarEventListPanel;
+    public CalendarPanel getCalendarPanel() {
+        return calendarPanel;
     }
 
+    // TODO remove method if not using browserPanel anymore
     void releaseResources() {
         browserPanel.freeResources();
     }
