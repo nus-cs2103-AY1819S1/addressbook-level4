@@ -102,11 +102,11 @@ public class DeleteByNameCommandTest {
         DeleteByNameCommand deleteByNameCommand = new DeleteByNameCommand(UNUSED_NAME);
 
         assertCommandFailure(deleteByNameCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validNameUnfilteredList_success() throws Exception {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteByNameCommand deleteByNameCommand = new DeleteByNameCommand(personToDelete.getName().toString());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -126,12 +126,12 @@ public class DeleteByNameCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+    public void executeUndoRedo_invalidNameUnfilteredList_failure() {
         DeleteByNameCommand deleteByNameCommand = new DeleteByNameCommand(UNUSED_NAME);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteByNameCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_PERSON_NOT_FOUND);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -146,7 +146,7 @@ public class DeleteByNameCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the person object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validNameFilteredList_samePersonDeleted() throws Exception {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
@@ -177,7 +177,7 @@ public class DeleteByNameCommandTest {
         assertTrue(deleteAliceCommand.equals(deleteAliceCommand));
 
         // same values -> returns true
-        DeleteCommand deleteAliceCommandCopy = new DeleteByNameCommand("Alice");
+        DeleteByNameCommand deleteAliceCommandCopy = new DeleteByNameCommand("Alice");
         assertTrue(deleteAliceCommand.equals(deleteAliceCommandCopy));
 
         // different types -> returns false
