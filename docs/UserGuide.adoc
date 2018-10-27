@@ -522,6 +522,7 @@ There is no need to save manually.
 
 == Command Summary
 
+=== User commands
 * *Login*  `login n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 e.g. `login n/John Doe p/98765432 e/johnd@example.com a/123, Clementi Rd, 1234665`
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
@@ -540,8 +541,37 @@ e.g. `find James Jake`
 * *Select User* : `selectUser INDEX` +
 e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
 e.g. `maxSchedule 0 1 2 3`
-​
+
+=== Event organiser commands
+​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
+e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
+​* *Delete Event* : `deleteEvent INDEX` +
+e.g. `deleteEvent 1`
+* *Add Poll* : `addPoll n/POLL_NAME` +
+e.g. `addPoll n/Activity`
+* *Add Option* : `addOption i/POLL_INDEX o/POLL_OPTION` +
+e.g. `addOption i/1 o/Play games`
+* *Add Time Poll* : `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR` +
+e.g. `addTimePoll d1/01-12-2018 d2/02-12-2018`
+* *Display Poll* : `displayPoll INDEX` +
+e.g. `displayPoll 1`
+* *Set event date* : `setDate d/DAY-MONTH-YEAR` +
+e.g. `setDate d/12-12-2018`
+* *Set event time* : `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE` +
+e.g. `setTime t1/12:30 t2/13:45`
+
+=== Event participant commands
+* *Select Event* : `selectEvent INDEX` +
+e.g. `selectEvent 1`
+* *Join Event* : `joinEvent INDEX` +
+e.g. `joinEvent 1`
+* *Vote* : `vote i/POLL_INDEX o/POLL_OPTION` +
+e.g. `vote i/1 o/Play games`
+* *Find Event with attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
+[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
+e.g. `findEvent t1/12-12-2018 pn/John Doe`
+e.g. `findEvent a/SoC Canteen on/Alice Tan`
+* *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
+e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`

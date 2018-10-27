@@ -32,7 +32,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void addPoll() throws NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
-
         Model model = getModel();
 
         // ------------------------ Perform add operations on the shown unfiltered list -----------------------------
@@ -54,7 +53,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
 
         // Case: add a poll with generic poll name
         //  -> poll added
-
         executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
         assertAddPollCommandSuccess(command, POLLNAME);
 
@@ -97,7 +95,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
-
     private void assertAddPollCommandSuccess(String command, String pollName) throws NoEventSelectedException,
             NoUserLoggedInException, NotEventOrganiserException {
 
@@ -115,7 +112,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
-
     private void assertAddOptionCommandSuccess(String command, Index index, String option) {
 
         Model expectedModel = getModel();
@@ -132,7 +128,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedModel}.<br>
      * @see AddUserCommandSystemTest#assertCommandSuccess(String, Person)
      */
-
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -140,7 +135,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
     }
-
 
     /**
      * Executes {@code command} and asserts that the,<br>
@@ -153,7 +147,6 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
 
@@ -162,7 +155,5 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
-
     }
-
 }
