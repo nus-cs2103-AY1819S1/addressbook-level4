@@ -21,7 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.testutil.PersonBuilder;
 
@@ -45,7 +44,6 @@ public class VisitorInCommandTest {
     public void contructor_nullPatientNric_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
 
-        Person validPerson = new PersonBuilder().withVisitorList(SampleDataUtil.getSampleVisitorList()).build();
         Visitor validPersonRecord = new Visitor("JACK");
         new VisitorinCommand(null, validPersonRecord);
     }

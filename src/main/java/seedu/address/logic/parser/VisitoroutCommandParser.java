@@ -11,7 +11,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Nric;
 import seedu.address.model.visitor.Visitor;
 
-public class VisitoroutCommandParser implements Parser<VisitoroutCommand>{
+/**
+ * Parses input arguments and creates a new VisitorOutCommand object
+ */
+public class VisitoroutCommandParser implements Parser<VisitoroutCommand> {
 
     @Override
     public VisitoroutCommand parse(String args) throws ParseException {

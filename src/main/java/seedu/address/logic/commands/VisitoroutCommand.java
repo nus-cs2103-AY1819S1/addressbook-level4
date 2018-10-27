@@ -22,7 +22,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.model.visitor.VisitorList;
 
-
+/**
+ * Visitorout command to check out visitor for patient's visitor list
+ */
 public class VisitoroutCommand extends Command {
     public static final String COMMAND_WORD = "visitorout";
 
@@ -67,7 +69,7 @@ public class VisitoroutCommand extends Command {
             return new CommandResult(String.format(MESSAGE_NO_VISITORS, patientNric));
         }
 
-        if(!patientVisitorList.contains(visitorName)) {
+        if (!patientVisitorList.contains(visitorName)) {
             return new CommandResult(String.format(MESSAGE_NO_REQUIRED_VISITOR, patientNric));
         }
 
@@ -86,11 +88,18 @@ public class VisitoroutCommand extends Command {
                 && visitorName.equals(((VisitoroutCommand) other).visitorName));
     }
 
-    private static Person removeVisitorForPatient(Person patientToEdit, Visitor newVisitor) {
-        requireAllNonNull(patientToEdit, newVisitor);
+    /**
+     * Updates a patient to remove a visitor from the patient's visitor list
+     *
+     * @param patientToEdit The patient to update.
+     * @param visitor visitor needs to be removed
+     * @return An updated patient with an updated visitorList.
+     */
+    private static Person removeVisitorForPatient(Person patientToEdit, Visitor visitor) {
+        requireAllNonNull(patientToEdit, visitor);
 
         VisitorList updatedVisitorList = patientToEdit.getVisitorList();
-        updatedVisitorList.remove(newVisitor);
+        updatedVisitorList.remove(visitor);
 
         Nric nric = patientToEdit.getNric();
         Name name = patientToEdit.getName();
