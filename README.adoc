@@ -41,5 +41,7 @@ endif::[]
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], https://github.com/patrickfav/bcrypt[BCrypt]
 * This project was built off from AddressBook-Level4 project created by https://github.com/se-edu/[SE-EDU] initiative.
+* Clinic Icon was made by https://www.flaticon.com/authors/freepik[Freepik] from https://www.flaticon.com[FlatIcon]
+
 
 == Licence : link:LICENSE[MIT]
