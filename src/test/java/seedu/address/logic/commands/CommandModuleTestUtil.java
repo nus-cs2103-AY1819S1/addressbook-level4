@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
+import seedu.address.testutil.EditModuleDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -55,6 +56,18 @@ public class CommandModuleTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final EditModuleCommand.EditModuleDescriptor DESC_CS2100;
+    public static final EditModuleCommand.EditModuleDescriptor DESC_ST2131;
+
+    static {
+        DESC_CS2100 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
+                .withModuleCode(VALID_MODULECODE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100).withSemester(VALID_SEMESTER_CS2100)
+                .withTags(VALID_TAG_BINARY).build();
+        DESC_ST2131 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131)
+                .withModuleCode(VALID_MODULECODE_ST2131).withAcademicYear(VALID_ACADEMICYEAR_ST2131).withSemester(VALID_SEMESTER_ST2131)
+                .withTags(VALID_TAG_CALCULUS).build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -97,7 +110,7 @@ public class CommandModuleTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
