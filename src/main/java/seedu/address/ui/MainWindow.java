@@ -191,6 +191,18 @@ abstract public class MainWindow extends UiPart<Stage> {
 
     abstract void fillInnerParts();
 
+    /**
+     * Sets the default size based on user preferences.
+     */
+    protected void setWindowDefaultSize(UserPrefs prefs) {
+        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
+        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
+            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        }
+    }
+
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
