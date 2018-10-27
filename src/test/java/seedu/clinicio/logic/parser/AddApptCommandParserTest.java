@@ -14,10 +14,8 @@ import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseFailu
 import org.junit.Test;
 
 import seedu.clinicio.logic.commands.AddApptCommand;
-import seedu.clinicio.logic.parser.AddApptCommandParser;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.logic.commands.AddApptCommand;
 
 public class AddApptCommandParserTest {
     private AddApptCommandParser parser = new AddApptCommandParser();
