@@ -11,6 +11,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CCAS;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.TransactionMath;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
@@ -91,6 +92,7 @@ public class AddTransactionCommand extends Command {
         int entryNum = ccaToUpdate.getEntrySize() + 1;
         Entry newEntry = new Entry (entryNum, this.date, this.amount, this.remarks);
         Cca updatedCca = ccaToUpdate.addNewTransaction(newEntry);
+        updatedCca = TransactionMath.updateDetails(updatedCca);
 
         model.updateCca(ccaToUpdate, updatedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);

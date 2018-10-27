@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.person.Name;
@@ -214,17 +214,19 @@ public class Cca {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_ENTRY);
         }
 
-        transactionEntries.remove(entryToBeDeleted);
-        Entry[] transactionArr = new Entry[transactionEntries.size()];
-        transactionEntries.toArray(transactionArr);
+        Set<Entry> deletableSet = transactionEntries.stream().collect(Collectors.toSet());
+        deletableSet.remove(entryToBeDeleted);
+        Entry[] transactionArr = new Entry[deletableSet.size()];
+        deletableSet.toArray(transactionArr);
+
 
         int index = 1;
-        for(Entry e: transactionEntries) {
+        for(Entry e: deletableSet) {
             e.updateEntryNum(index);
             index++;
         }
 
-        return this;
+        return new Cca (name, head, viceHead, budget, spent, outstanding, deletableSet);
     }
 
     /**

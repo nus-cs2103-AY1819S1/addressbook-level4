@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.address.commons.util;
 
 import java.io.File;
 import java.io.FileOutputStream;

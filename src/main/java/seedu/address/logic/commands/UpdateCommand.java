@@ -20,6 +20,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.TransactionMath;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Amount;
@@ -115,6 +116,8 @@ public class UpdateCommand extends Command {
         if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
+
+        editedCca = TransactionMath.updateDetails(editedCca);
 
         model.updateCca(ccaToEdit, editedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
