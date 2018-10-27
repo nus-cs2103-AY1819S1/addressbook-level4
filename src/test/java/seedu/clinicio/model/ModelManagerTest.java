@@ -2,22 +2,13 @@ package seedu.clinicio.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ADAM;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
-import static seedu.address.testutil.TypicalPersons.BEN;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-=======
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
+import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON;
->>>>>>> master:src/test/java/seedu/clinicio/model/ModelManagerTest.java
 
 import java.nio.file.Paths;
 import java.util.Arrays;
