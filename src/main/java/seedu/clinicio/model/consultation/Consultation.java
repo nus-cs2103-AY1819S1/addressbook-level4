@@ -65,6 +65,33 @@ public class Consultation {
         this.appointment = Optional.empty();
     }
 
+    /**
+     * Initializes a {@code Consultation} object with all fields.
+     * Used at post-consultation time.
+     * This consultation may or may not be the result of a requisite appointment.
+     * All parameters are required.
+     * @param patient The patient to be examined.
+     * @param doctor The doctor examining the patient.
+     * @param appointment The appointment tied to this {@code Consultation} .
+     * @param date The date.
+     * @param arrivalTime The arrival time of the patient at the clinic.
+
+     */
+    public Consultation(Patient patient, Doctor doctor, Appointment appointment, String description, Date date, Time
+        arrivalTime, Time consultationTime, Time endTime, String prescription) {
+        requireAllNonNull(patient, doctor, appointment, description, date, arrivalTime, consultationTime,
+            endTime, prescription);
+        this.patient = patient;
+        this.doctor = doctor;
+        this.appointment = Optional.of(appointment);
+        this.description = description;
+        this.date = date;
+        this.arrivalTime = arrivalTime;
+        this.consultationTime = consultationTime;
+        this.endTime = endTime;
+        this.prescription = prescription;
+    }
+
     public void updateDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
