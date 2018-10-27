@@ -12,7 +12,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.MaxScheduleCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
@@ -77,7 +76,6 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        //case LoginCommand.COMMAND_ALIAS:
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
 
@@ -114,6 +112,9 @@ public class AddressBookParser {
         case AddPollOptionCommand.COMMAND_WORD:
             return new AddPollOptionCommandParser().parse(arguments);
 
+        case ClearUserCommand.COMMAND_WORD:
+            return new ClearUserCommand();
+
         case DisplayPollCommand.COMMAND_WORD:
             return new DisplayPollCommandParser().parse(arguments);
 
@@ -135,9 +136,6 @@ public class AddressBookParser {
         case DeleteUserCommand.COMMAND_WORD:
             return new DeleteUserCommandParser().parse(arguments);
 
-        //case ClearUserCommand.COMMAND_WORD:
-            //return new ClearUserCommand();
-
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
 
@@ -158,12 +156,6 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        //case UndoCommand.COMMAND_WORD:
-            //return new UndoCommand();
-
-        //case RedoCommand.COMMAND_WORD:
-            //return new RedoCommand();
 
         case MaxScheduleCommand.COMMAND_WORD:
             return new MaxScheduleCommandParser().parse(arguments);
