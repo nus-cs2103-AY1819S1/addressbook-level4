@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.commands.InsertCommand.MESSAGE_INVALID_POSITION;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -221,7 +223,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String amountToDispense} into an {@code Integer}.
+     * Parses a {@code String amountToDispense} into an {@code QuantityToDispense}.
      *
      * @throws ParseException if the given {@code amountToDispense} is invalid ie not a positive integer.
      */
@@ -233,5 +235,20 @@ public class ParserUtil {
         }
 
         return new QuantityToDispense(amount);
+    }
+
+    /**
+     * Parses a {@code String position} into an {@code int}.
+     *
+     * @throws ParseException if the given {@code position} is invalid ie not a positive integer.
+     */
+    public static int parsePosition(String position) throws ParseException {
+        requireNonNull(position);
+        int amount = Integer.parseInt(position);
+        if (amount < 0) {
+            throw new ParseException(MESSAGE_INVALID_POSITION);
+        }
+
+        return amount;
     }
 }

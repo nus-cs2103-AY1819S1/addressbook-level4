@@ -11,6 +11,11 @@ import seedu.address.model.medicine.Medicine;
  */
 public class MedicineCard extends UiPart<Region> {
 
+    public static final String SERIAL_NUMBER_PREFIX = "S/N: ";
+    public static final String PRICE_PER_UNIT_PREFIX = "Price/Unit: ";
+    public static final String MIN_STOCK_QUANTITY_PREFIX = "Minimum Qty: ";
+    public static final String STOCK_PREFIX = "Stock: ";
+
     private static final String FXML = "MedicineListCard.fxml";
 
     /**
@@ -43,10 +48,15 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         medicineName.setText(medicine.getMedicineName().fullName);
-        serialNumber.setText("S/N: " + medicine.getSerialNumber().value);
-        pricePerUnit.setText("Price/Unit: " + medicine.getPricePerUnit().value);
-        minStockQuantity.setText("Minimum Qty: " + medicine.getMinimumStockQuantity().value);
-        stock.setText("Stock: " + medicine.getStock().value);
+        serialNumber.setText(SERIAL_NUMBER_PREFIX + medicine.getSerialNumber().value);
+        pricePerUnit.setText(PRICE_PER_UNIT_PREFIX + medicine.getPricePerUnit().value);
+        minStockQuantity.setText(MIN_STOCK_QUANTITY_PREFIX + medicine.getMinimumStockQuantity().value);
+        stock.setText(STOCK_PREFIX + medicine.getStock().value);
+
+        if (medicine.getStock().value < medicine.getMinimumStockQuantity().value) {
+            // Need to restock! Let's colour it red!
+            stock.setStyle("-fx-text-fill: rgba(255,56,34,0.87)");
+        }
     }
 
     @Override

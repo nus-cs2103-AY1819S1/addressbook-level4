@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.MedicineCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -36,6 +38,17 @@ public class GuiTestAssert {
         assertEquals(expectedPatient.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPatient.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
+     */
+    public static void assertCardDisplaysMedicine(Medicine expectedMedicine, MedicineCardHandle actualCard) {
+        assertEquals(expectedMedicine.getMedicineName().fullName, actualCard.getMedicineName());
+        assertEquals(expectedMedicine.getSerialNumber().value, actualCard.getSerialNumber());
+        assertEquals(expectedMedicine.getPricePerUnit().value, actualCard.getPricePerUnit());
+        assertEquals(expectedMedicine.getMinimumStockQuantity().value.toString(), actualCard.getMinStockQuantity());
+        assertEquals(expectedMedicine.getStock().value.toString(), actualCard.getStock());
     }
 
     /**

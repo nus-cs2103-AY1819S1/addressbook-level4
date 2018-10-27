@@ -13,19 +13,18 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
-    // TODO: Need to add tests for invalid IC number!!
     private static final String INVALID_ICNUMBER = "1234";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    // TODO: Need to add tests for invalid Medical Record!!
-    private static final String INVALID_MEDICALRECORD = "lol hi";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -59,6 +58,23 @@ public class XmlAdaptedPatientTest {
         XmlAdaptedPerson person = new XmlAdaptedPerson(null, VALID_ICNUMBER, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, VALID_MEDICALRECORD, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidIc_throwsIllegalValueException() {
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, INVALID_ICNUMBER, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                        VALID_MEDICALRECORD, VALID_TAGS);
+        String expectedMessage = IcNumber.MESSAGE_ICNUMBER_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullIc_throwsIllegalValueException() {
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, null, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_MEDICALRECORD, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, IcNumber.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -123,4 +139,11 @@ public class XmlAdaptedPatientTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
+    @Test
+    public void toModelType_nullMedicalRecord_throwsIllegalValueException() {
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_ICNUMBER, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, null, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, MedicalRecord.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
 }

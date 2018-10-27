@@ -5,16 +5,21 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.model.document.Document.DIRECTORY_PATH;
 import static seedu.address.model.document.Document.FILE_NAME_DELIMITER;
+import static seedu.address.testutil.TypicalPersons.getSamplePersonsArrayList;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
@@ -77,6 +82,41 @@ public class QueueCommandTestUtil {
             assertEquals(expectedServedPatientList, actualServedPatientList);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
+            System.out.println(ce.getMessage());
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code queueCommand}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualPatientQueue} matches {@code expectedPatientQueue} <br>
+     * - the {@code actualCurrentPatient} matches {@code expectedCurrentPatient} <br>
+     * - the {@code actualServedPatientList} matches {@code actualServedPatientList} <br>
+     * - the {@code actualCommandHistory} remains unchanged <br>
+     * - the {@code actualModel} matches {@code expectedModel}.
+     */
+    public static void assertCommandSuccess(QueueCommand queueCommand, CommandHistory actualCommandHistory,
+                                            PatientQueue actualPatientQueue, CurrentPatient actualCurrentPatient,
+                                            ServedPatientList actualServedPatientList, Model actualModel,
+                                            PatientQueue expectedPatientQueue, CurrentPatient expectedCurrentPatient,
+                                            ServedPatientList expectedServedPatientList, Model expectedModel,
+                                            String expectedMessage) {
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            CommandResult result = queueCommand.execute(actualModel, actualPatientQueue, actualCurrentPatient,
+                    actualServedPatientList, actualCommandHistory);
+
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedPatientQueue, actualPatientQueue);
+            assertEquals(expectedCurrentPatient, actualCurrentPatient);
+            assertEquals(expectedServedPatientList, actualServedPatientList);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            System.out.println(ce.getMessage());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -97,6 +137,9 @@ public class QueueCommandTestUtil {
         CurrentPatient expectedCurrentPatient = new CurrentPatient(currentPatient.getServedPatient());
         ServedPatientList expectedServedPatientList = new ServedPatientListManager(
                 servedPatientList.getPatientsAsList());
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        List<Patient> expectedFilteredPatientList = new ArrayList<>(model.getFilteredPersonList());
+        List<Medicine> expectedFilteredMedicineList = new ArrayList<>(model.getFilteredMedicineList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -108,6 +151,9 @@ public class QueueCommandTestUtil {
             assertEquals(expectedPatientQueue, patientQueue);
             assertEquals(expectedCurrentPatient, currentPatient);
             assertEquals(expectedServedPatientList, servedPatientList);
+            assertEquals(expectedAddressBook, model.getAddressBook());
+            assertEquals(expectedFilteredPatientList, model.getFilteredPersonList());
+            assertEquals(expectedFilteredMedicineList, model.getFilteredMedicineList());
             assertEquals(actualCommandHistory, expectedCommandHistory);
 
         }
@@ -131,8 +177,10 @@ public class QueueCommandTestUtil {
      * @param patient the patient for whom the file is being generated for
      */
     public static String generateFileName(String fileType, Patient patient) {
-        return fileType + FILE_NAME_DELIMITER + patient.toNameAndIc().replaceAll("\\s", "")
-                .replace("[", "_").replace("]", "");
+        return (fileType + FILE_NAME_DELIMITER + patient.toNameAndIc()
+                .replace("[", "_").replace("]", ""))
+                .replaceAll("\\s", "_")
+                .replaceAll("(_)+", "_");
     }
 
     /**
@@ -141,5 +189,13 @@ public class QueueCommandTestUtil {
      */
     public static void fileCleanUp(File file) {
         file.delete();
+    }
+
+    public static ServedPatientList getSampleServedPatientsList() {
+        ServedPatientList servedPatientList = new ServedPatientListManager();
+        getSamplePersonsArrayList().stream().forEach(patient -> servedPatientList.addServedPatient(
+                new ServedPatient(patient)));
+
+        return servedPatientList;
     }
 }

@@ -108,6 +108,16 @@ public class Patient {
     }
 
     /**
+     * Adds a medical record to the patient. Read: merges with existing.
+     * @param medicalRecord
+     */
+    public void addMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = this.medicalRecord == null
+                ? medicalRecord
+                : MedicalRecord.combineMedicalRecords(this.medicalRecord, medicalRecord);
+    }
+
+    /**
      * Add a new Note to patient's MedicalRecord.
      * A new default empty MedicalRecord will be created if there isn't already one.
      * @param note note to be added.
@@ -146,14 +156,16 @@ public class Patient {
         if (!(other instanceof Patient)) {
             return false;
         }
-
         Patient otherPatient = (Patient) other;
+        System.out.println(otherPatient.getMedicalRecord());
+        System.out.println(getMedicalRecord());
         return otherPatient.getName().equals(getName())
                 && otherPatient.getIcNumber().equals(getIcNumber())
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getEmail().equals(getEmail())
                 && otherPatient.getAddress().equals(getAddress())
-                && otherPatient.getTags().equals(getTags());
+                && otherPatient.getTags().equals(getTags())
+                && otherPatient.getMedicalRecord().equals(getMedicalRecord());
     }
 
     @Override

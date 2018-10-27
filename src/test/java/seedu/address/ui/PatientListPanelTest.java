@@ -37,11 +37,6 @@ public class PatientListPanelTest extends GuiUnitTest {
     private PersonListPanelHandle personListPanelHandle;
 
     @Test
-
-
-
-
-
     public void display() {
         initUi(TYPICAL_PATIENTS);
 

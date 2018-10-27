@@ -62,6 +62,13 @@ public class RegisterCommand extends QueueCommand {
         return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
                 + " with Queue Number: " + position + "\n" + patientQueue.displayQueue());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RegisterCommand // instanceof handles nulls
+                && targetIndex.equals(((RegisterCommand) other).targetIndex));
+    }
 }
 
 
