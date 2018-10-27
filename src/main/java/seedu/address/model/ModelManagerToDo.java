@@ -35,7 +35,7 @@ public class ModelManagerToDo extends ComponentManager implements ModelToDo {
         logger.fine("Initializing with scheduler: " + toDoList + " and user prefs " + userPrefs);
 
         versionedToDoList = new VersionedToDoList(toDoList);
-        filteredToDoListEvents = new FilteredList<>(toDoList.getToDoList());
+        filteredToDoListEvents = new FilteredList<>(versionedToDoList.getToDoList());
     }
 
     public ModelManagerToDo() {

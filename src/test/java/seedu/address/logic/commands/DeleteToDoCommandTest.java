@@ -25,7 +25,7 @@ public class DeleteToDoCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() { //CANNOT PASS
+    public void execute_validIndexUnfilteredList_success() {
         ToDoListEvent toDoListEventToDelete =
                 model.getFilteredToDoListEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteToDoCommand deleteToDoCommand = new DeleteToDoCommand(INDEX_FIRST_PERSON);
@@ -50,7 +50,7 @@ public class DeleteToDoCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() { //CANNOT PASS
+    public void execute_validIndexFilteredList_success() {
         showToDoListEventAtIndex(model, INDEX_FIRST_PERSON);
 
         ToDoListEvent toDoListEventToDelete =

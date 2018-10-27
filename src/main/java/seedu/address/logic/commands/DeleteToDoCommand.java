@@ -42,6 +42,7 @@ public class DeleteToDoCommand extends CommandToDo {
 
         ToDoListEvent toDoListEventToDelete = lastShownList.get(targetIndex.getZeroBased());
         modelToDo.deleteToDoListEvent(toDoListEventToDelete);
+        modelToDo.commitToDoList();
         return new CommandResult(String.format(MESSAGE_DELETE_TODOLIST_EVENT_SUCCESS, toDoListEventToDelete));
     }
 
