@@ -45,7 +45,7 @@ public class ConnectToGoogleCalendar {
      * Global instance of the scopes required.
      */
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
+    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
