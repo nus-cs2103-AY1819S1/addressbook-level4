@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
  * The API of the Model component.
@@ -57,6 +58,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCarparkList(Predicate<Carpark> predicate);
+
+
+    // Todo: Location based filtering
+    public void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate);
+    // Todo: Location based filtering
+    public CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand();
 
     /**
      * Returns true if the model has previous car park finder states to restore.
