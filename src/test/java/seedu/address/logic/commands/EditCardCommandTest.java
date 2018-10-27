@@ -216,7 +216,7 @@ public class EditCardCommandTest {
         expectedModel.commitAnakin();
 
        // edit -> edits second anakincard in unfiltered anakincard list / first anakincard in filtered anakincard list
-       anakinEditCardCommand.execute(model, commandHistory);
+        anakinEditCardCommand.execute(model, commandHistory);
 
         // undo -> reverts anakin back to previous state and filtered anakincard list to show all anakincards
         expectedModel.undoAnakin();
