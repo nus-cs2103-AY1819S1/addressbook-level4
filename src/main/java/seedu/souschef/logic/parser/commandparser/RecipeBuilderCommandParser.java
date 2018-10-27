@@ -2,20 +2,16 @@ package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_RECIPE_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_CONT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
@@ -40,8 +36,8 @@ import seedu.souschef.model.tag.Tag;
  */
 public class RecipeBuilderCommandParser {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CreateRecipeBuildCommand
+     * and returns an CreateRecipeBuildCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateRecipeBuildCommand parseRecipe(Model<Recipe> model, String args) throws ParseException {
@@ -71,36 +67,29 @@ public class RecipeBuilderCommandParser {
         return new CreateRecipeBuildCommand(recipeBuilder);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the BuildRecipeInstructionCommand
+     * and returns an BuildRecipeInstructionCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public BuildRecipeInstructionCommand parseInstruction(String args) throws ParseException {
         requireNonNull(args);
-//        CookTime cookTime;
-//        Set<IngredientPortion> ingredients = new HashSet<>();
-//        ArrayList<String> words = Arrays.asList(args.split("\\s"));
-//
-//        // Parse cooktime, if available
-//        List<String> cookTimes = words.stream()
-//                .filter(word -> word.matches("^c\\\\(\\p{Alnum})+")).collect(Collectors.toList());
-//        if (cookTimes.size() > 1) {
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_RECIPE_USAGE));
-//        } else {
-//            cookTime = ParserUtil.parseCooktime(cookTimes.get(0));
-//        }
-//
-//        // Parse ingredient(s), if available
-//        for (int i = 0; i < words.size(); i++) {
-//            if (!words.get(i).matches("^#(\\p{Alnum})+")) {
-//                break;
-//            }
-//
-//            if (i + 2 < words.size()) {
-//                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_RECIPE_USAGE));
-//            }
-//            String name = words.get(i).replace("#", "");
-//            String amt = words.get(i+1);
-//            String unit = words.get(i+2);
-//        }
 
-        return new BuildRecipeInstructionCommand(new Instruction("builder instruction test123."));
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_INSTRUCTION, PREFIX_COOKTIME);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_INSTRUCTION)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_CONT_RECIPE_USAGE));
+        }
+
+        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).orElse("PT0M"));
+        String unparsedtext = argMultimap.getValue(PREFIX_INSTRUCTION).orElse("");
+        String instruction = ParserUtil.parseInstructionText(unparsedtext);
+        Set<IngredientPortion> ingredients = ParserUtil.parseIngredients(unparsedtext);
+
+        return new BuildRecipeInstructionCommand(new Instruction(instruction, cookTime, ingredients));
     }
 
     /**
