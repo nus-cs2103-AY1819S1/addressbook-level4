@@ -18,8 +18,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ExportCommandParser implements Parser<ExportCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ImportCommand
-     * and returns an ImportCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the Exportommand
+     * and returns an ExportCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExportCommand parse(String args) throws ParseException {
