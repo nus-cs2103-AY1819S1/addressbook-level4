@@ -72,8 +72,8 @@ public class ReceiptCommandTest {
 
     @Test
     public void execute_receiptFileName_receiptGenerationSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.TYPO_IN_NAME_ALICE
-                , TypicalPersons.BOB);
+        servedPatientList = generateServedPatientList(TypicalPersons.TYPO_IN_NAME_ALICE,
+                TypicalPersons.BOB);
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         receiptCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
         String fileType = receiptCommand.getReceipt().FILE_TYPE;
