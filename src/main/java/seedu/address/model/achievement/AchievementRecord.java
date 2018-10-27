@@ -60,6 +60,10 @@ public class AchievementRecord {
         this.xpValueByWeek = xpValueByWeek;
     }
 
+    public Xp getXp() {
+        return xp;
+    }
+
     public Level getLevel() {
         return level;
     }
@@ -123,6 +127,7 @@ public class AchievementRecord {
         numTaskCompletedByWeek = 0;
         xpValueByWeek = 0;
     }
+
     /**
      * Resets the existing data of this {@code AchievementRecord} with {@code newData}.
      */
@@ -227,6 +232,12 @@ public class AchievementRecord {
         setUpAchievementByWeek();
     }
 
+    private boolean areDatesEqual(Calendar date1, Calendar date2) {
+        return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR)
+                && date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH)
+                && date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -234,10 +245,10 @@ public class AchievementRecord {
                 && xp.equals(((AchievementRecord) other).xp))
                 && level.equals(((AchievementRecord) other).level)
                 && numTaskCompleted == ((AchievementRecord) other).numTaskCompleted
-                && nextDayBreakPoint.equals(((AchievementRecord) other).nextDayBreakPoint)
+                && areDatesEqual(nextDayBreakPoint, ((AchievementRecord) other).nextDayBreakPoint)
                 && numTaskCompletedByDay == ((AchievementRecord) other).numTaskCompletedByDay
                 && xpValueByDay == ((AchievementRecord) other).xpValueByDay
-                && nextWeekBreakPoint.equals(((AchievementRecord) other).nextWeekBreakPoint)
+                && areDatesEqual(nextWeekBreakPoint, ((AchievementRecord) other).nextWeekBreakPoint)
                 && numTaskCompletedByWeek == ((AchievementRecord) other).numTaskCompletedByWeek
                 && xpValueByWeek == ((AchievementRecord) other).xpValueByWeek;
     }

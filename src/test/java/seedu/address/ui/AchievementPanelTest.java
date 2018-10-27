@@ -11,6 +11,7 @@ import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
 import seedu.address.model.achievement.Xp;
+import seedu.address.testutil.AchievementRecordBuilder;
 
 public class AchievementPanelTest extends GuiUnitTest {
 
@@ -20,7 +21,8 @@ public class AchievementPanelTest extends GuiUnitTest {
     private static final String NEW_LEVEL_VALUE = "lvl.2";
 
     private static final AchievementRecord OLD_ACHIEVEMENT_STUB =
-            new AchievementRecord(new Xp(Integer.valueOf(OLD_XP_VALUE)), Level.fromString(OLD_LEVEL_VALUE));
+            new AchievementRecordBuilder().withXpValue(Integer.valueOf(OLD_XP_VALUE))
+                    .withLevel(Level.fromString(OLD_LEVEL_VALUE)).build();
 
     private AchievementPanelHandle achievementPanelHandle;
 
@@ -35,7 +37,8 @@ public class AchievementPanelTest extends GuiUnitTest {
     private AchievementsUpdatedEvent getAchievementsUpdatedEventStub(String xp, String level) {
         Xp xpField = new Xp(Integer.valueOf(xp));
         Level levelField = Level.fromString(level);
-        AchievementRecord achievementRecordStub = new AchievementRecord(xpField, levelField);
+        AchievementRecord achievementRecordStub = new AchievementRecordBuilder()
+                .withXp(xpField).withLevel(levelField).build();
         return new AchievementsUpdatedEvent(achievementRecordStub);
     }
 

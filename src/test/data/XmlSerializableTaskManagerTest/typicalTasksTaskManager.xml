@@ -4,6 +4,12 @@
     <achievements>
         <xp>0</xp>
         <level>lvl.1</level>
+        <nextDayBreakPoint>28-10-13 0000</nextDayBreakPoint>
+        <xpValueByDay>0</xpValueByDay>
+        <numTaskCompletedByDay>0</numTaskCompletedByDay>
+        <nextWeekBreakPoint>28-10-19 0000</nextWeekBreakPoint>
+        <xpValueByWeek>0</xpValueByWeek>
+        <numTaskCompletedByWeek>0</numTaskCompletedByWeek>
     </achievements>
     <tasks>
         <name>Address CS2103 email</name>
