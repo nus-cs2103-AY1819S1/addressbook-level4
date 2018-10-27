@@ -55,15 +55,13 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox prefWidth="340">
-            <padding>
-            </padding>
+          <VBox minWidth="400">
           <StackPane fx:id="browserPlaceholder">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
-            <GridPane fx:id="achievementPlaceholder">
+            <GridPane fx:id="achievementPlaceholder" prefWidth="340">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>

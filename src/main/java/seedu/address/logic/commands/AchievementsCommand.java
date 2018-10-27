@@ -11,7 +11,7 @@ import seedu.address.model.achievement.AchievementRecord;
  * Set achievement record's display preference: 
  * display all-time's, today's or this week's achievements on achievement panel.
  */
-public class AchievementCommand extends Command {
+public class AchievementsCommand extends Command {
     public static final String ALL_TIME_OPTION = "all-time";
     public static final String TODAY_OPTION = "today";
     public static final String THIS_WEEK_OPTION = "this week";
@@ -31,9 +31,9 @@ public class AchievementCommand extends Command {
     private final int displayOption;
 
     /**
-     * Create an {@code AchievementCommand} to display the achievements in the specified {@param displayTimeSpan}.
+     * Create an {@code AchievementsCommand} to display the achievements in the specified {@param displayTimeSpan}.
      */
-    public AchievementCommand(String displayTimeSpan) {
+    public AchievementsCommand(String displayTimeSpan) {
         this.displayTimeSpan = displayTimeSpan;
         this.displayOption = getDisplayOptionFromTimeSpan(displayTimeSpan);
     }
@@ -66,7 +66,7 @@ public class AchievementCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AchievementCommand // instanceof handles nulls
-                && displayTimeSpan.equals(((AchievementCommand) other).displayTimeSpan));
+                || (other instanceof AchievementsCommand // instanceof handles nulls
+                && displayTimeSpan.equals(((AchievementsCommand) other).displayTimeSpan));
     }
 }

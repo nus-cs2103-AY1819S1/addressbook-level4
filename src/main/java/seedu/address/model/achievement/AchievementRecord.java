@@ -67,6 +67,20 @@ public class AchievementRecord {
         this.xpValueByWeek = xpValueByWeek;
     }
 
+    /**
+     * Provide a direct accesses of the max xp value of the current level.
+     */
+    public int getLevelMaxXp() {
+        return level.getMaxXp();
+    }
+
+    /**
+     * Provide a direct accesses of the current xp value.
+     */
+    public int getXpValue() {
+        return xp.getXp();
+    }
+
     public Xp getXp() {
         return xp;
     }
@@ -74,11 +88,7 @@ public class AchievementRecord {
     public Level getLevel() {
         return level;
     }
-
-    public int getXpValue() {
-        return xp.getXp();
-    }
-
+    
     public int getNumTaskCompleted() {
         return numTaskCompleted;
     }

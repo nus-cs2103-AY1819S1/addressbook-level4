@@ -1,5 +1,7 @@
 package seedu.address.model.achievement;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represent the level of achievement in reached by the user.
  * There are only 5 valid levels, LEVEL_1 to LEVEL_5.
