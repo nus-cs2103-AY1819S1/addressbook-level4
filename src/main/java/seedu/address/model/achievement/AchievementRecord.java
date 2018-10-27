@@ -186,29 +186,36 @@ public class AchievementRecord {
      * Updates the Xp field of this {@code AchievementRecord} with new xp value.
      * Triggers the update of Level with xp.
      */
-    public void updateXp(Integer xp) {
-        requireNonNull(xp);
+    public void updateAchievementsWithNewXp(Integer newXp) {
+        requireNonNull(newXp);
 
-        Integer newXpValue = this.getXpValue() + xp;
-        this.xp = new Xp(newXpValue);
-        updateLevelWithXp(newXpValue);
+        updateAllTimeAchievementWithNewXP(newXp);
+        updateAchievementByDayWithNewXp(newXp);
+        updateAchievementByWeekWithNewXp(newXp); 
     }
 
     /**
-     * Updates the Level field of this {@code AchievementRecord} with new xp value.
+     * Updates the xp, level, numTaskCompleted fields of this {@code AchievementRecord} with new xp value.
      */
-    public void updateLevelWithXp(Integer xp) {
-        Level newLevel = getMatchingLevel(xp);
+    private void updateAllTimeAchievementWithNewXP(int newXp) {
+        Integer updatedXpValue = this.getXpValue() + newXp;
+        this.xp = new Xp(updatedXpValue);
+
+        // recalculate level based on updated xp and update level field if necessary
+        Level newLevel = getMatchingLevel(updatedXpValue);
         if (!this.level.equals(newLevel)) {
             level = newLevel;
         }
+
+        // one task is completed each time xp is awarded
+        numTaskCompleted++;
     }
 
     /**
      * Returns the corresponding {@code Level} of the current Xp value.
      * Maximum level is level 5.
      */
-    public Level getMatchingLevel(Integer xp) {
+    private Level getMatchingLevel(Integer xp) {
         if (xp < Level.LEVEL_1.getMaxXp()) {
             return Level.LEVEL_1;
         } else if (xp < Level.LEVEL_2.getMaxXp()) {
@@ -220,6 +227,16 @@ public class AchievementRecord {
         } else {
             return Level.LEVEL_5;
         }
+    }
+
+    private void updateAchievementByDayWithNewXp(int newXp) {
+        numTaskCompletedByDay++;
+        xpValueByDay += newXp;
+    }
+
+    private void updateAchievementByWeekWithNewXp(int newXp) {
+        numTaskCompletedByWeek++;
+        xpValueByWeek += newXp;
     }
 
     @Override

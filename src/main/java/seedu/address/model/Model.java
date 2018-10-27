@@ -56,7 +56,7 @@ public interface Model {
 
     /**
      * Replaces the given task {@code target} with {@code updatedTask}.
-     * Update the xp field in achievement record of the task manager according to task status change.
+     * Update the achievement record of the task manager according to task status change.
      * {@code target} must exist in the task manager.
      * {@code target} and {@code updatedTask} have the same identity but different status.
      */
