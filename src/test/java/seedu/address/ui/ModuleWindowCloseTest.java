@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
-import guitests.guihandles.StageHandle;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
+
+import guitests.guihandles.StageHandle;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.LogicManager;
@@ -14,9 +17,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-import static org.junit.Assert.assertTrue;
-
 public class ModuleWindowCloseTest extends GuiUnitTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -69,7 +71,8 @@ public class ModuleWindowCloseTest extends GuiUnitTest {
         }
 
         /**
-         * Closes the {@code ModuleWindow} through an external request {@code ModuleWindow} (e.g pressing the 'X' button on
+         * Closes the {@code ModuleWindow} through an external request {@code ModuleWindow}
+         * (e.g pressing the 'X' button on
          * the {@code ModuleWindow} or closing the app through the taskbar).
          */
         private void closeMainWindowExternally() {

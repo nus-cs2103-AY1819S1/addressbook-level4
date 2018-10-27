@@ -1,13 +1,16 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import seedu.address.model.occasion.Occasion;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import seedu.address.model.occasion.Occasion;
+
+/**
+ * Represents a List of OccasionCards within this addressbook.
+ */
 public class OccasionListPanelHandle extends NodeHandle<ListView<Occasion>> {
     public static final String OCCASION_LIST_VIEW_ID = "#occasionListView";
 

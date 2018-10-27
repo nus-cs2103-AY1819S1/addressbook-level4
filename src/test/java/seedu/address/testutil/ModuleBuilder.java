@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;

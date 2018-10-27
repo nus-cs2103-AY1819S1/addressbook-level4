@@ -1,17 +1,21 @@
 package seedu.address.storage;
 
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.TagKey;
 import seedu.address.model.tag.TagMap;
 import seedu.address.model.tag.TagValue;
 
-import javax.xml.bind.annotation.XmlValue;
-import java.util.Map;
-
+/**
+ * An xml storage representation for a TagMap within this address book.
+ */
 public class XmlAdaptedTagMap {
 
     @XmlValue
-    private Map<TagKey, TagValue> tagMap; // Todo may have to create additional TagKey and TagValue Xmls.
+    private Map<TagKey, TagValue> tagMap;
 
     public XmlAdaptedTagMap() {}
 

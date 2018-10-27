@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_ONE;
 import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_TWO;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.util.ArrayList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,7 +18,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.ModuleBuilder;
 
-import java.util.ArrayList;
 
 public class ModuleTest {
     @Rule

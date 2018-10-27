@@ -2,10 +2,13 @@ package seedu.address.ui;
 
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
+/**
+ * The occasionWindow that allows a user to interact with an occasion
+ * within this addressbook.
+ */
 public class OccasionWindow extends MainWindow {
     private static final String FXML = "OccasionWindow.fxml";
 
@@ -41,19 +44,19 @@ public class OccasionWindow extends MainWindow {
     @Override
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
-        occasionListPanelPlaceholder.getChildren().add(occasionListPanel.getRoot());
+        getOccasionListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        getResultDisplayPlaceholder().getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        getStatusbarPlaceholder().getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        getCommandBoxPlaceholder().getChildren().add(commandBox.getRoot());
     }
 
     private void setTitle(String appTitle) {

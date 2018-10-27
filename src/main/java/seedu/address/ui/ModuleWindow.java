@@ -1,13 +1,17 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
-import java.util.logging.Logger;
-
+/**
+ * The moduleWindow that allows the user to interact with modules
+ * within this addressbook.
+ */
 public class ModuleWindow extends MainWindow {
 
     private static final String FXML = "ModuleWindow.fxml";
@@ -46,19 +50,19 @@ public class ModuleWindow extends MainWindow {
     @Override
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        getModuleListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        getResultDisplayPlaceholder().getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        getStatusbarPlaceholder().getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        getCommandBoxPlaceholder().getChildren().add(commandBox.getRoot());
     }
 
 

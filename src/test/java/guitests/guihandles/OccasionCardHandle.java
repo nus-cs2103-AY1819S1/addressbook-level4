@@ -1,14 +1,19 @@
 package guitests.guihandles;
 
-import com.google.common.collect.ImmutableMultiset;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableMultiset;
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import seedu.address.model.occasion.Occasion;
 
+/**
+ * Represents an OccasionCard which contains information pertaining
+ * to a single occasion within this address book.
+ */
 public class OccasionCardHandle extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";

@@ -73,7 +73,8 @@ public class PersonWindowCloseTest extends GuiUnitTest {
         }
 
         /**
-         * Closes the {@code PersonWindow} through an external request {@code PersonWindow} (e.g pressing the 'X' button on
+         * Closes the {@code PersonWindow} through an external request {@code PersonWindow}
+         * (e.g pressing the 'X' button on
          * the {@code PersonWindow} or closing the app through the taskbar).
          */
         private void closeMainWindowExternally() {

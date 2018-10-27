@@ -1,14 +1,15 @@
 package seedu.address.ui;
 
-import guitests.guihandles.OccasionCardHandle;
-import org.junit.Test;
-import seedu.address.model.occasion.Occasion;
-import seedu.address.testutil.OccasionBuilder;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysOccasion;
+
+import org.junit.Test;
+
+import guitests.guihandles.OccasionCardHandle;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.testutil.OccasionBuilder;
 
 public class OccasionCardTest extends GuiUnitTest {
     @Test
@@ -62,7 +63,7 @@ public class OccasionCardTest extends GuiUnitTest {
         OccasionCardHandle occasionCardHandle = new OccasionCardHandle(occasionCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", occasionCardHandle.getId()); // TODO may be incorrect. Fix if so.
+        assertEquals(Integer.toString(expectedId) + ". ", occasionCardHandle.getId());
 
         // verify person details are displayed correctly
         assertCardDisplaysOccasion(expectedOccasion, occasionCardHandle);

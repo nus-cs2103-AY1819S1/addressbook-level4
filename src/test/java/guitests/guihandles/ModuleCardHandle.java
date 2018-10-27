@@ -1,14 +1,18 @@
 package guitests.guihandles;
 
-import com.google.common.collect.ImmutableMultiset;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableMultiset;
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import seedu.address.model.module.Module;
 
+/**
+ * Represents a singular ModuleCard within this addressbook.
+ */
 public class ModuleCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
@@ -64,5 +68,4 @@ public class ModuleCardHandle extends NodeHandle<Node> {
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList())));
     }
-
 }

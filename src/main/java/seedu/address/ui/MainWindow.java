@@ -1,6 +1,10 @@
 package seedu.address.ui;
 
+import java.net.URL;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -12,58 +16,64 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.*;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowModuleRequestEvent;
+import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
+import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
-import java.net.URL;
-import java.util.logging.Logger;
+/**
+ * The MainWindow parent class from which children entity windows are spawned from.
+ */
+abstract class MainWindow extends UiPart<Stage> {
 
-abstract public class MainWindow extends UiPart<Stage> {
+    public final Logger logger = LogsCenter.getLogger(getClass());
 
     private UserPrefs prefs;
     private Stage primaryStage;
     private HelpWindow helpWindow;
 
-    public final Logger logger = LogsCenter.getLogger(getClass());
-
-    public BrowserPanel browserPanel;
-    public PersonListPanel personListPanel;
-    public Config config;
-    public Logic logic;
+    private BrowserPanel browserPanel;
+    private PersonListPanel personListPanel;
+    private Config config;
+    private Logic logic;
 
     @FXML
-    public StackPane browserPlaceholder;
+    private StackPane personListPanelPlaceholder;
 
     @FXML
-    public StackPane commandBoxPlaceholder;
+    private StackPane moduleListPanelPlaceholder;
 
     @FXML
-    public MenuItem helpMenuItem;
+    private StackPane occasionListPanelPlaceholder;
 
     @FXML
-    public MenuItem personMenuItem;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
-    public MenuItem moduleWindowItem;
+    private StackPane statusbarPlaceholder;
 
     @FXML
-    public MenuItem occasionWindowItem;
+    private StackPane browserPlaceholder;
 
     @FXML
-    StackPane personListPanelPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
-    StackPane moduleListPanelPlaceholder;
+    private MenuItem helpMenuItem;
 
     @FXML
-    StackPane occasionListPanelPlaceholder;
+    private MenuItem personMenuItem;
 
     @FXML
-    StackPane resultDisplayPlaceholder;
+    private MenuItem moduleWindowItem;
 
     @FXML
-    StackPane statusbarPlaceholder;
+    private MenuItem occasionWindowItem;
+
+
 
     MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(fxml, primaryStage);
@@ -225,5 +235,49 @@ abstract public class MainWindow extends UiPart<Stage> {
     private void handleShowOccasionEvent(ShowOccasionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleOccasion();
+    }
+
+    public StackPane getPersonListPanelPlaceholder() {
+        return personListPanelPlaceholder;
+    }
+
+    public StackPane getModuleListPanelPlaceholder() {
+        return moduleListPanelPlaceholder;
+    }
+
+    public StackPane getOccasionListPanelPlaceholder() {
+        return occasionListPanelPlaceholder;
+    }
+
+    public StackPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
+    }
+
+    public StackPane getStatusbarPlaceholder() {
+        return statusbarPlaceholder;
+    }
+
+    public StackPane getBrowserPlaceholder() {
+        return browserPlaceholder;
+    }
+
+    public StackPane getCommandBoxPlaceholder() {
+        return commandBoxPlaceholder;
+    }
+
+    public MenuItem getPersonMenuItem() {
+        return personMenuItem;
+    }
+
+    public MenuItem getModuleWindowItem() {
+        return moduleWindowItem;
+    }
+
+    public void setModuleWindowItem(MenuItem moduleWindowItem) {
+        this.moduleWindowItem = moduleWindowItem;
+    }
+
+    public MenuItem getOccasionWindowItem() {
+        return occasionWindowItem;
     }
 }

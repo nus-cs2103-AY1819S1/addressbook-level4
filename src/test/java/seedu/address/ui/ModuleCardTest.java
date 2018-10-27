@@ -5,10 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 
-import guitests.guihandles.ModuleCardHandle;
 import org.junit.Test;
-import seedu.address.testutil.ModuleBuilder;
+
+import guitests.guihandles.ModuleCardHandle;
 import seedu.address.model.module.Module;
+import seedu.address.testutil.ModuleBuilder;
 
 public class ModuleCardTest extends GuiUnitTest {
 
@@ -63,7 +64,7 @@ public class ModuleCardTest extends GuiUnitTest {
         ModuleCardHandle moduleCardHandle = new ModuleCardHandle(moduleCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", moduleCardHandle.getId()); // TODO may be incorrect. Fix if so.
+        assertEquals(Integer.toString(expectedId) + ". ", moduleCardHandle.getId());
 
         // verify person details are displayed correctly
         assertCardDisplaysModule(expectedModule, moduleCardHandle);

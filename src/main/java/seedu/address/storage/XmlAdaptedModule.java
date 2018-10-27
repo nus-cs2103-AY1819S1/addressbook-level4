@@ -1,13 +1,12 @@
 package seedu.address.storage;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;

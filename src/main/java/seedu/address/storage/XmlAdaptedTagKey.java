@@ -1,9 +1,12 @@
 package seedu.address.storage;
 
-import seedu.address.model.tag.TagKey;
-
 import javax.xml.bind.annotation.XmlValue;
 
+import seedu.address.model.tag.TagKey;
+
+/**
+ * XML storage for a TagKey representation within this addressbook.
+ */
 public class XmlAdaptedTagKey {
 
     @XmlValue

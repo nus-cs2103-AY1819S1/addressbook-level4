@@ -5,9 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.*;
-import seedu.address.model.occasion.Occasion;
+import guitests.guihandles.ModuleCardHandle;
+import guitests.guihandles.OccasionCardHandle;
+import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -26,12 +30,18 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
     public static void assertCardEquals(ModuleCardHandle expectedCard, ModuleCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
     public static void assertCardEquals(OccasionCardHandle expectedCard, OccasionCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getName(), actualCard.getName());

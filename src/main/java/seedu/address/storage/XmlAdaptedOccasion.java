@@ -1,6 +1,13 @@
 package seedu.address.storage;
 
-import java.util.*;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -12,14 +19,7 @@ import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagKey;
-import seedu.address.model.tag.TagMap;
-import seedu.address.model.tag.TagValue;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 
 /**
