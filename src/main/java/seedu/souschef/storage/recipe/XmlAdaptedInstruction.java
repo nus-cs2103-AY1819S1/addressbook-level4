@@ -85,11 +85,12 @@ public class XmlAdaptedInstruction {
         if (cooktime != null && !CookTime.isValidCookTime(cooktime)) {
             throw new IllegalValueException(CookTime.MESSAGE_COOKTIME_CONSTRAINTS);
         }
+        CookTime ct = new CookTime(cooktime);
 
-        if (cooktime == null) {
+        if (ct == null) {
             return new Instruction(instruction, ingredientPortions);
         } else {
-            return new Instruction(instruction, cooktime, ingredientPortions);
+            return new Instruction(instruction, ct, ingredientPortions);
         }
     }
 
