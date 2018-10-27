@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,6 +16,10 @@ import seedu.address.model.project.Project;
 public class User {
     public static final Username ADMIN_USERNAME = new Username("Admin");
     public static final Password ADMIN_PASSWORD = new Password("Pa55w0rd");
+    public static final Person ADMIN = new Person(new Name("Admin"), new Phone("999"),
+        new Email("admin@admin.com"), new Address("Admin Address"), new Salary("0"), ADMIN_USERNAME,
+        ADMIN_PASSWORD, new HashSet<>());
+    private static User adminUser;
 
     private Person loggedInPerson;
     boolean isAdminUser;
@@ -24,9 +29,11 @@ public class User {
     }
 
     public static User getAdminUser() {
-        User user = new User(null);
-        user.isAdminUser = true;
-        return user;
+        if (adminUser == null) {
+            adminUser = new User(ADMIN);
+            adminUser.isAdminUser = true;
+        }
+        return adminUser;
     }
 
     public Name getName() {
@@ -83,6 +90,15 @@ public class User {
      */
     public List<LeaveApplication> getLeaveApplications() {
         return loggedInPerson.getLeaveApplications();
+    }
+
+    /**
+     * Gets whether this user is an admin user.
+     * An admin user is not an actual user in the system, but is a fake user to allow for logins even
+     * when there are no employees in the system.
+     */
+    public boolean isAdminUser() {
+        return isAdminUser;
     }
 
     /**
