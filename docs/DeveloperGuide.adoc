@@ -581,7 +581,7 @@ To be updated.
 - Also, this feature may be replaced by another feature in the future. See <<proposed-auto-completion-of-commands, [Proposed]Auto-Completion of Commands>> below for more. +
 - An activity diagram (a _swimlane diagram_) showing how an alias of the `history` command would work is shown below: +
 
-image::HistoryCommandAliasActivityDiagram.png[width="800"]
+image::HistoryCommandAliasActivityDiagram.png[width="500"]
 //end::commandAliasing[]
 
 
