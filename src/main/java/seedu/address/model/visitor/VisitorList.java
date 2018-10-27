@@ -48,6 +48,10 @@ public class VisitorList {
         visitorList.add(visitor);
     }
 
+    public void remove(Visitor visitor) {
+        this.visitorList.remove(visitor);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
