@@ -27,6 +27,7 @@ public class WishDetailPanel extends UiPart<Region> {
 
     private WishDetailSavingAmount wishDetailSavingAmount;
     private WishDetailSavingHistory wishDetailSavingHistory;
+    private BrowserPanel wishBrowserPanel;
 
     @FXML
     private StackPane wishSavingAmountPlaceholder;
@@ -35,38 +36,33 @@ public class WishDetailPanel extends UiPart<Region> {
     private StackPane wishSavingHistoryPlaceholder;
 
     @FXML
+    private StackPane wishBrowserPlaceHolder;
+
+    @FXML
     private Label name;
+
+    @FXML
+    private Label remarks;
 
     @FXML
     private FlowPane tags;
 
-    public WishDetailPanel() {
+    public WishDetailPanel(WishTransaction wishTransaction) {
         super(FXML);
-
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
         wishDetailSavingAmount = new WishDetailSavingAmount();
         wishSavingAmountPlaceholder.getChildren().add(wishDetailSavingAmount.getRoot());
 
-        wishDetailSavingHistory = new WishDetailSavingHistory();
+        wishDetailSavingHistory = new WishDetailSavingHistory(wishTransaction);
         wishSavingHistoryPlaceholder.getChildren().add(wishDetailSavingHistory.getRoot());
 
-        loadDefaultPage();
-        registerAsAnEventHandler(this);
-
-        // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
-    }
-
-    public WishDetailPanel(WishTransaction wishTransaction) {
-        super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+        wishBrowserPanel = new BrowserPanel();
+        wishBrowserPlaceHolder.getChildren().add(wishBrowserPanel.getRoot());
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
-        // TODO: [Jiho] Utilize wishTransaction's data in the WishDetailPanel (if wanted).
     }
 
     /**
@@ -82,6 +78,12 @@ public class WishDetailPanel extends UiPart<Region> {
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
         initTags(wish);
+
+        if (wish.getRemark().toString().equals("")) {
+            remarks.setText("Save by: " + wish.getDate().toString());
+        } else {
+            remarks.setText("Save by: " + wish.getDate().toString() + " - " + wish.getRemark());
+        }
     }
 
     /**
