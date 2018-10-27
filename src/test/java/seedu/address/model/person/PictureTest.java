@@ -3,11 +3,7 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.junit.Test;
-
-import com.google.common.base.Charsets;
 
 import seedu.address.testutil.Assert;
 
