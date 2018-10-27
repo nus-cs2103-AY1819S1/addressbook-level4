@@ -92,12 +92,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setNotification(UserPrefs prefs) {
 
+        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+        ModelManager.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
+
         if (ModelManager.getNotificationPref()) {
             if (ModelManager.getFavouriteEvent() != null) {
-
-                ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
-                ModelManager.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
-
                 NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavouriteEvent());
                 // delete event must clean up favourite as well!
             } else {
