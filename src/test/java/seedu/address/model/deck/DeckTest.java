@@ -4,13 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARD_LIST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DECK_A;
-import static seedu.address.testutil.TypicalCards.CARD_A;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
 import static seedu.address.testutil.TypicalDecks.DECK_B;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.DeckBuilder;
 
