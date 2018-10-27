@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seedu.address.model.PreviewImage;
 
 
-//@author Jeffry
+//@@author j-lum
 /**
  * Represents a working canvas.
  * Guarantees that there is at least one layer remaining on the canvas

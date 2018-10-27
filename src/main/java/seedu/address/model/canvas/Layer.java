@@ -1,6 +1,6 @@
 package seedu.address.model.canvas;
 
-//@author Jeffry
+//@@author j-lum
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.PreviewImage;

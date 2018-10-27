@@ -29,7 +29,7 @@ public class Transformation {
         return result; //whoever is in charge do this
     }
 
-    //@author lancelotwillow
+    //@@author lancelotwillow
     /**
      * return a list of String that contains all the arguments and the operation
      * @return

@@ -1,4 +1,4 @@
-//@author benedictcss
+//@@author benedictcss
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;

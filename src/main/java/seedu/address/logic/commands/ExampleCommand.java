@@ -20,7 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.transformation.Transformation;
 
 
-//author lancelotwillow
+//@@author lancelotwillow
 /**
  * give an example for the convert commadnd
  */
