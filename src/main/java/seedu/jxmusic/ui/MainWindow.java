@@ -202,9 +202,9 @@ public class MainWindow extends UiPart<Stage> {
         return trackListPanel;
     }
 
-//    void releaseResources() {
-//        browserPanel.freeResources();
-//    }
+    //void releaseResources() {
+        //browserPanel.freeResources();
+    //}
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {

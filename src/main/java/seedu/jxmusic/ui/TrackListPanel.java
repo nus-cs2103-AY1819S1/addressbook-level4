@@ -72,7 +72,7 @@ public class TrackListPanel extends UiPart<Region> {
         protected void updateItem(Track track, boolean empty) {
             super.updateItem(track, empty);
 
-            if( empty || track == null) {
+            if (empty || track == null) {
                 setGraphic(null);
                 setText(null);
             } else {
