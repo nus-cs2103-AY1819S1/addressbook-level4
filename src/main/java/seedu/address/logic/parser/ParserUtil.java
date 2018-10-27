@@ -152,6 +152,11 @@ public class ParserUtil {
     public static Picture parseFileLocation(String fileLocation) throws ParseException {
         requireNonNull(fileLocation);
         String trimmedFileLocation = fileLocation.trim();
+
+        if (Picture.isValidPictureInDirectory(trimmedFileLocation)) {
+            return new Picture(System.getProperty("user.dir") + "/" + trimmedFileLocation);
+        }
+
         if (!Picture.isValidPicture(trimmedFileLocation)) {
             throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
         }

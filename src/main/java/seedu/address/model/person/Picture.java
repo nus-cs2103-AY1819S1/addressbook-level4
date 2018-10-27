@@ -52,6 +52,14 @@ public class Picture {
             || (test.matches(PICTURE_PATH_VALIDATION_REGEX) && Files.exists(Paths.get(test)));
     }
 
+    /**
+     * Returns true if a given string is a valid picture in the current directory.
+     */
+    public static boolean isValidPictureInDirectory(String test) {
+        String directoryPath = System.getProperty("user.dir") + "/" + test;
+        return Files.exists(Paths.get(directoryPath));
+    }
+
     @Override
     public String toString() {
         return picture;
