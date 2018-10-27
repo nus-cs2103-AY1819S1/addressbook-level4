@@ -7,16 +7,12 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.logging.Logger;
-
-import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
-import seedu.scheduler.ui.UiManager;
 
 /**
  * Adds an event to the scheduler.
@@ -44,7 +40,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
-    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
