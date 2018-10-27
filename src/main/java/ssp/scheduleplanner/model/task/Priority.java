@@ -72,4 +72,28 @@ public class Priority {
         return value.hashCode();
     }
 
+    /**
+     * @return Integer value of this priority.
+     */
+    public int toInt() {
+        return Integer.parseInt(value);
+    }
+
+    /**
+     * @param a
+     * @param b
+     * @return -1 if a has smaller integer value than b,
+     * 0 if integer value of a equals to b.
+     * 1 if integer value of a is larger than b.
+     */
+    public static int compare(Priority a, Priority b) {
+        if (a.toInt() < b.toInt()) {
+            return -1;
+        } else if (a.toInt() == b.toInt()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
 }

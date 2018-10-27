@@ -125,4 +125,12 @@ public class Task {
         return builder.toString();
     }
 
+    public static int compare(Task a, Task b) {
+        int result = Priority.compare(a.getPriority(), b.getPriority());
+        if (result == 0) {
+            result = Name.compare(a.getName(), b.getName());
+        }
+        return result;
+    }
+
 }

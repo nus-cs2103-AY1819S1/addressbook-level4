@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import ssp.scheduleplanner.model.task.exceptions.DuplicateTaskException;
 import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
 
@@ -24,7 +25,7 @@ import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -32,6 +33,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean contains(Task toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTask);
+    }
+
+    public void sort() {
+        SortedList<Task> sortedList = internalList.sorted((a, b) -> Task.compare(a, b));
     }
 
     /**
