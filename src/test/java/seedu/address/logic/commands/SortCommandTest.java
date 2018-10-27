@@ -22,7 +22,7 @@ public class SortCommandTest {
     }
 
     @Test
-    void execute_sortCardList() {
+    public void execute_sortCardList() {
         Deck deck = getTypicalDeck();
         Anakin anakin = new AnakinBuilder().withDeck(deck).build();
         anakin.getIntoDeck(deck);
