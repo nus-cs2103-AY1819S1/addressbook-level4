@@ -21,10 +21,11 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalPersons;
 
 public class PersonFinderUtilTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private static final String UNUSED_NAME = "ABCDE HIJ";
     private static final String COMMON_SURNAME = "Meier";
     private static final String BENSON_FIRSTNAME = "Benson";
+    private static final String UNUSED_NAME = "ABCDE HIJ";
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void noIdentifierProvided() {

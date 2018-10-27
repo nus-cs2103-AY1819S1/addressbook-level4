@@ -1,7 +1,5 @@
 package seedu.address.commons.core;
 
-import seedu.address.logic.commands.EditCommand;
-
 /**
  * Container for user visible messages.
  */
