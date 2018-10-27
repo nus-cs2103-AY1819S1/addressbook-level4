@@ -69,7 +69,6 @@ public class AddCommand extends Command {
 
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
