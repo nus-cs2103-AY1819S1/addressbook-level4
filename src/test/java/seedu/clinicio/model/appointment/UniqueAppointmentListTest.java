@@ -102,20 +102,27 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void setAppointment_editedAppointmentHasNonUniqueIdentity_throwsDuplicateAppointmentException() {
-        uniqueAppointmentList.add(BENSON_APPT);
+        uniqueAppointmentList.add(AMY_APPT);
         uniqueAppointmentList.add(CARL_APPT);
         thrown.expect(DuplicateAppointmentException.class);
-        uniqueAppointmentList.setAppointment(BENSON_APPT, CARL_APPT);
+        uniqueAppointmentList.setAppointment(CARL_APPT, AMY_APPT);
     }
 
     @Test
-    public void setAppointment_editedAppointmentHasClash_throwsAppointmentClashException() {
+    public void setAppointment_editedAppointmentHasClash1_throwsAppointmentClashException() {
         uniqueAppointmentList.add(AMY_APPT);
         uniqueAppointmentList.add(CARL_APPT);
         Appointment editedAppt = new AppointmentBuilder(CARL_APPT)
                 .withTime(13, 00).build();
         thrown.expect(AppointmentClashException.class);
         uniqueAppointmentList.setAppointment(CARL_APPT, editedAppt);
+    }
+
+    @Test
+    public void setAppointment_editedAppointmentHasClash2_throwsAppointmentClashException() {
+        uniqueAppointmentList.add(BENSON_APPT);
+        thrown.expect(AppointmentClashException.class);
+        uniqueAppointmentList.add(CARL_APPT);
     }
 
     @Test
@@ -147,8 +154,10 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(CARL_APPT);
+
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
-        uniqueAppointmentList.add(BENSON_APPT);
+        uniqueAppointmentList.add(AMY_APPT);
+
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
