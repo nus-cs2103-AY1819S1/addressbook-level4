@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.commons.core.index.Index;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
@@ -40,6 +42,7 @@ public class ArchiveCommand extends Command {
 
         Task taskToArchive = lastShownList.get(targetIndex.getZeroBased());
         model.archiveTask(taskToArchive);
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         model.commitSchedulePlanner();
         return new CommandResult(String.format(MESSAGE_ARCHIVE_TASK_SUCCESS, taskToArchive));
     }
