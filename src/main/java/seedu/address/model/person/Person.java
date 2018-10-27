@@ -144,8 +144,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getMeeting().equals(getMeeting())
-                && otherPerson.getPicture().equals(getPicture());
+                && otherPerson.getMeeting().equals(getMeeting());
     }
 
     @Override

@@ -96,9 +96,5 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different picture -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPicture(VALID_PICTURE_AMY).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 }
