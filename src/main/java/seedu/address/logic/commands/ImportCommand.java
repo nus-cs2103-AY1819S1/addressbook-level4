@@ -5,10 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,8 +20,6 @@ import seedu.address.logic.commands.imports.ImportBudgetBook;
 import seedu.address.logic.commands.imports.ImportCcaList;
 import seedu.address.logic.commands.imports.ImportTransaction;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 /**
@@ -68,20 +62,20 @@ public class ImportCommand extends Command {
 
         String rootName = doc.getDocumentElement().getNodeName();
         switch (rootName) {
-            case IMPORT_ADDRESSBOOK:
-                new ImportAddressBook(doc, model).execute();
-                break;
-            case IMPORT_CCA_LIST:
-                new ImportCcaList(doc, model).execute();
-                break;
-            case IMPORT_BUDGETBOOK:
-                new ImportBudgetBook(doc, model).execute();
-                break;
-            case IMPORT_TRANSACTION:
-                new ImportTransaction(doc, model).execute();
-                break;
-            default:
-                throw new CommandException(MESSAGE_PARSE_ERR);
+        case IMPORT_ADDRESSBOOK:
+            new ImportAddressBook(doc, model).execute();
+            break;
+        case IMPORT_CCA_LIST:
+            new ImportCcaList(doc, model).execute();
+            break;
+        case IMPORT_BUDGETBOOK:
+            new ImportBudgetBook(doc, model).execute();
+            break;
+        case IMPORT_TRANSACTION:
+            new ImportTransaction(doc, model).execute();
+            break;
+        default:
+            throw new CommandException(MESSAGE_PARSE_ERR);
         }
 
         model.commitAddressBook();
