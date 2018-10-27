@@ -21,9 +21,9 @@ import seedu.scheduler.model.tag.Tag;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
     private final VersionedScheduler versionedScheduler;
     private final FilteredList<Event> filteredEvents;
-
 
     /**
      * Initializes a ModelManager with the given scheduler and userPrefs.

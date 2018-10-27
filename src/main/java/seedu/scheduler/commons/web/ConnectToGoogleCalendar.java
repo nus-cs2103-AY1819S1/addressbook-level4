@@ -1,5 +1,7 @@
 package seedu.scheduler.commons.web;
 
+import static com.google.api.client.util.DateTime.parseRfc3339;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -164,11 +166,11 @@ public class ConnectToGoogleCalendar {
             String startDateTime = convertStartDateTimeToGoogleFormat(toAddEvent);
 
             gEvent.setStart(new EventDateTime()
-                    .setDateTime(DateTime.parseRfc3339(startDateTime)));
+                    .setDateTime(parseRfc3339(startDateTime)));
 
             String endDateTime = convertEndDateTimeToGoogleFormat(toAddEvent);
 
-            gEvent.setEnd(new EventDateTime().setDateTime(DateTime.parseRfc3339(endDateTime)));
+            gEvent.setEnd(new EventDateTime().setDateTime(parseRfc3339(endDateTime)));
 
             try {
                 service.events().insert("primary", gEvent).execute();
@@ -213,7 +215,7 @@ public class ConnectToGoogleCalendar {
                     found = true;
                 }
             }
-            if (found == true) {
+            if (found) {
                 gEvent = service.events().get("primary", gEventId).execute();
             }
 
@@ -231,12 +233,12 @@ public class ConnectToGoogleCalendar {
             String startDateTime = convertStartDateTimeToGoogleFormat(editedEvent);
 
             gEvent.setStart(new EventDateTime()
-                    .setDateTime(com.google.api.client.util.DateTime.parseRfc3339(startDateTime)));
+                    .setDateTime(parseRfc3339(startDateTime)));
 
             String endDateTime = convertEndDateTimeToGoogleFormat(editedEvent);
 
             gEvent.setEnd(
-                    new EventDateTime().setDateTime(com.google.api.client.util.DateTime.parseRfc3339(endDateTime)));
+                    new EventDateTime().setDateTime(parseRfc3339(endDateTime)));
 
             com.google.api.services.calendar.model.Event updatedgEvent = null;
             com.google.api.services.calendar.model.Event event = null;
@@ -252,7 +254,7 @@ public class ConnectToGoogleCalendar {
                     e.printStackTrace();
                 }
                 assert updatedgEvent != null;
-                DateTime updated = updatedgEvent.getUpdated();
+                updatedgEvent.getUpdated();
             }
         }
     }

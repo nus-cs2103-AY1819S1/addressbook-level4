@@ -88,38 +88,6 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Converts a local Event's starting data and time to Google format.
-     *
-     * @param e a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertStartDateTimeToGoogleFormat(Event e) {
-        //local format:2018-10-20 17:00:00
-        //target :2018-10-21T22:30:00+08:00
-        return e.getStartDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
-    }
-
-    /**
-     * Converts a local Event's ending data and time to Google format.
-     *
-     * @param e a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertEndDateTimeToGoogleFormat(Event e) {
-        return e.getEndDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
-    }
-
-    /**
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
