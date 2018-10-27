@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -72,10 +73,10 @@ public class FavouriteCommand extends Command {
 
         Event favouriteEvent = listToFavouriteFrom.get(targetIndex.getZeroBased());
 
-        ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName() +
-                "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay() +
-                "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime() +
-                "\nEvent Details: " + favouriteEvent.getEventDescription());
+        ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName()
+                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
+                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
+                + "\nEvent Details: " + favouriteEvent.getEventDescription());
 
         return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS +
                 favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));

@@ -3,8 +3,6 @@ package seedu.address.commons.core;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.event.EventDate;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -51,9 +49,7 @@ public class GuiSettings implements Serializable {
 
     public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
 
-    public String getFavouriteEvent() {
-        return favouriteEvent;
-    }
+    public String getFavouriteEvent() { return favouriteEvent; }
 
     @Override
     public boolean equals(Object other) {
@@ -76,7 +72,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, notificationIsEnabled,favouriteEvent);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, notificationIsEnabled, favouriteEvent);
     }
 
     @Override
