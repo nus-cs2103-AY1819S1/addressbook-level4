@@ -15,7 +15,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
@@ -34,8 +33,6 @@ import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.storage.CalendarStorage;
-import seedu.address.storage.IcsCalendarStorage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -378,7 +375,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             Calendar calendarToBeLoaded = calendarModel.createAllDayEvent(year, month, date, title);
             indicateAllDayEventCreated(year, month, date, title, calendarToBeLoaded);
-        } catch (IOException | ParserException e) {
+        } catch (IOException e) {
             logger.warning("Failed to create all day event : " + StringUtil.getDetails(e));
         }
     }
@@ -391,7 +388,7 @@ public class ModelManager extends ComponentManager implements Model {
                     startHour, startMin, endDate, endHour, endMin, title);
             indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title,
                     calendarToBeLoaded);
-        } catch (IOException | ParserException e) {
+        } catch (IOException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));
         }
     }

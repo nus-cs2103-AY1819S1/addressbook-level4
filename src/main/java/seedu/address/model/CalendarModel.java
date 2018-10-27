@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.ComponentList;
@@ -29,7 +28,6 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
-import seedu.address.storage.CalendarStorage;
 
 //@@author GilgameshTC
 /**
@@ -170,7 +168,7 @@ public class CalendarModel {
     }
 
     /** Creates a new all day event in the loaded Calendar. */
-    public Calendar createAllDayEvent(Year year, Month month, int date, String title) throws IOException, ParserException {
+    public Calendar createAllDayEvent(Year year, Month month, int date, String title) throws IOException {
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         TimeZone timezone = registry.getTimeZone("Asia/Singapore");
@@ -216,7 +214,7 @@ public class CalendarModel {
 
     /** Creates an event in the loaded Calendar with the specified time frame. */
     public Calendar createEvent(Year year, Month month, int startDate, int startHour, int startMin,
-                            int endDate, int endHour, int endMin, String title) throws IOException, ParserException {
+                                int endDate, int endHour, int endMin, String title) throws IOException {
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         TimeZone timezone = registry.getTimeZone("Asia/Singapore");

@@ -2,7 +2,6 @@ package seedu.address.commons.events.model;
 
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.CalendarModel;
 
 //@@author GilgameshTC
 /** Indicates a calendar has been created*/

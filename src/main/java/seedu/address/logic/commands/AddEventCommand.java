@@ -51,6 +51,7 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_NOT_VALID_DATE = "This is not a valid date %s";
     public static final String MESSAGE_NOT_VALID_TIME = "This is not a valid time %s";
     public static final String MESSAGE_NOT_VALID_TIMEFRAME = "End Date should not be earlier than Start Date";
+    public static final String MESSAGE_EXISTING_EVENT = "This event already exist in the calendar: %s";
 
     private final Month month;
     private final Year year;
@@ -111,6 +112,11 @@ public class AddEventCommand extends Command {
         // Check whether calendar is already loaded
         if (!model.isLoadedCalendar(year, month)) {
             model.loadCalendar(year, month);
+        }
+
+        // Check whether event exists in calendar
+        if (model.isExistingEvent(year, month, startDate, endDate, title)) {
+            return new CommandResult(String.format(MESSAGE_EXISTING_EVENT, month + "-" + year));
         }
 
         model.createEvent(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);

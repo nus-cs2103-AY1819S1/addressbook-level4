@@ -215,7 +215,7 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             Calendar calendarToBeLoaded = loadCalendar(event.calendarName);
             indicateCalendarLoaded(calendarToBeLoaded, event.calendarName);
-        } catch (IOException | ParserException e){
+        } catch (IOException | ParserException e) {
             logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
         }
     }
