@@ -55,26 +55,16 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Chicken Rice`.
-* Items in square brackets are optional e.g `-search KEYWORD... [xx KEYWORD...]` can be used as `-search Japanese xx Dairy` or as `-search Japanese`.
+* Items in square brackets are optional.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Japanese`, `t/Halal t/Seafood` etc.
 
 ====
 === Universal Commands
-==== View help: `-help [local]`
+==== View help: `-help`
 To view the help menu containing all the universal commands. +
-`local` flag display local commands unique to an application page. +
 
 Format: +
-`-help [local]`
-
-==== Navigate pages: `-back [TIMES]`/`-forward [TIMES]`
-Navigate between past pages. +
-****
-* `TIMES` must be a positive integer.
-* If integer exceeds history, navigate to the next navigable history.
-****
-Format: +
-`-back [TIMES]`/`-forward [TIMES]`
+`-help`
 
 ==== Display recipes database: `-recipe`
 Display all recipes records. +
@@ -116,17 +106,31 @@ Format: +
 `-exit`
 
 === Recipes/Favourite List Commands
-==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... i/INSTRUCTION... end`
+==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]...  cont i/INSTRUCTION... [c/TIME] end`
 Add new recipe. +
 ****
-* Multi-line command that ends with `end`.
+* This is a multi-line command.
+** Command starts with `add` and should include name, cook time, difficulty and optional tags.
+** Subsequence lines must start with `cont` and should only include details on one instructional step each.
+*** Details
+ to be included are instruction text, instruction exclusive cook time (optional) and ingredients (optional).
+ *** Ingredients can be embedded into instruction text via `#INGREDIENT_NAME AMOUNT UNIT`.
+ **** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
+ **** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
+ **** UNIT should only come as a single word. e.g. gram, g, ml.
+ ** Action will only be completed with a new line command `end`.
 * TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
 * DIFFICULTY should range from 1 to 5.
 * `i` is to be replaced with running numbers for listing of instructions in order.
-* Ingredients can be included in each instruction via `#INGREDIENT, QUANTITY UNIT_OF_MEASUREMENT`.
 ****
 Format: +
-`add n/NAME c/TIME d/DIFFICULTY [t/TAG]... i/INSTRUCTION... end`
+`add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
+cont i/INSTRUCTION... [c/TIME] +
+cont... +
+end` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT UNIT]...`
 
 ==== Display recipe details: `select INDEX`
 View a recipe and its details from the list. +
@@ -144,21 +148,19 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 Format: +
 `cook INDEX`
 
-==== Search and display recipes: `search KEYWORD...`
+==== Search and display recipes: `find KEYWORD...`
 Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
 dietary types (vegan, Keto),
 ingredients (egg, broccoli),
 preparation time (quick, 30mins)
 and difficulty (easy, simple, challenging). +
-Recipes with keyword(s) after `x/` are restricted.
 ****
 * `KEYWORD` is case insensitive.
 * The order of keywords does not matter.
-* However, restrictive keywords must be provided behind `x/`.
 ****
 Format: +
-`-search KEYWORD... [x/KEYWORD]...`
+`find KEYWORD...`
 
 === Recipe Details Commands
 ==== Add recipe to favourite: `favourite`
@@ -179,7 +181,7 @@ Add a specified recipe to meal plan. +
 Format: +
 `plan INDEX DATE MEAL`
 
-==== Active cook-mode: `cook`
+==== Active cook-mode [coming in V2.0]: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
 Format: +
 `cook`
@@ -272,36 +274,6 @@ Clears all the meal slots of the meal planner.
 Format: `clear`
 
 // end::mealplanner[]
-=== Cook-Mode Commands
-==== Next Instruction
-Proceed to next instruction. +
-Format: +
-Hit kbd:[Enter] key
-
-==== Previous Instruction: `b`
-Revert to previous instruction. +
-Format: +
-`b`/`back`
-
-==== Start timer: `s`
-Begin countdown timer. +
-Format: +
-`s`/`start`
-
-==== Pause timer: `p`
-Pause countdown timer. +
-Format: +
-`p`/`pause`
-
-==== Reset timer: `r`
-End/Reset countdown timer. +
-Format: +
-`r`/`reset`
-
-==== End cook-mode: `end`
-To end step-by-step instruction of cook-mode. +
-Format: +
-`end`
 
 === Health-planner Command
 
@@ -365,6 +337,36 @@ User enters command to compare against set health plan. +
 Format: +
 `compareIntake PLAN_ID`
 
+=== Cook-Mode Commands [coming in V2.0]
+==== Next Instruction
+Proceed to next instruction. +
+Format: +
+Hit kbd:[Enter] key
+
+==== Previous Instruction: `b`
+Revert to previous instruction. +
+Format: +
+`b`/`back`
+
+==== Start timer: `s`
+Begin countdown timer. +
+Format: +
+`s`/`start`
+
+==== Pause timer: `p`
+Pause countdown timer. +
+Format: +
+`p`/`pause`
+
+==== Reset timer: `r`
+End/Reset countdown timer. +
+Format: +
+`r`/`reset`
+
+==== End cook-mode: `end`
+To end step-by-step instruction of cook-mode. +
+Format: +
+`end`
 
 == FAQ
 
@@ -375,10 +377,9 @@ Format: +
 
 *Universal Commands*
 
-* View help: `-help [local]`
-* Navigate pages: `-back [TIMES]`/ `-forward [TIMES]`
-* Search and display recipes: `-search KEYWORD...`
-* Display all recipe: '-recipe'
+* View help: `-help`
+* Search and display recipes: `find KEYWORD...`
+* Display all recipe: `-recipe`
 * Display recipe suggestion: `-suggest`
 * Display new recipe: `-surprise`
 * Display favorites: `-favourite`
@@ -388,9 +389,13 @@ Format: +
 
 *Recipes/Favourite List*
 
-* Add a recipe: `add n/NAME c/TIME [t/TAG]... i/INSTRUCTION... end`
+* Add a recipe: `add n/NAME c/TIME [t/TAG]... +
+cont i/INSTRUCTION [c/TIME] +
+cont... +
+end`
+** Instruction: `[TEXT]... [#INGREDIENT_NAME AMOUNT UNIT]...`
 * Display recipe details: `select INDEX`
-* Activate cook-mode: `cook INDEX`
+* Activate cook-mode [coming in V2.0]: `cook INDEX`
 
 *Recipe Details Commands*
 
@@ -412,7 +417,7 @@ Format: +
 * Delete recipe: `delete DATE TIME`
 * Clear planner: `clearall`
 
-*Cook-Mode Commands*
+*Cook-Mode Commands [coming in V2.0]*
 
 * Next Instruction: Hit kbd:[Enter] key
 * Previous Instruction: `b`
