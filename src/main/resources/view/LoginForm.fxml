@@ -11,7 +11,7 @@
 	<Label fx:id="usernameLabel" text="User Name:" styleClass="label-bright"
 		   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
-	<TextField fx:id="usernameField" styleClass="text-field"
+	<TextField fx:id="usernameField" styleClass="text-field" onAction="#onPasswordEnter"
 			GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
 	<Label fx:id="passwordLabel" text="Password:" styleClass="label-bright"
