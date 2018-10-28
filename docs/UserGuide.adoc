@@ -494,18 +494,33 @@ The figure above shows how the screen looks like before executing the commands b
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
-Expected screen is shown in the figure below.
+Expected display box is shown in the figure below.
 
 .Output of `add 1`
 image::command_record_add_after1.png[add command, 800]
 
 
 * `add 1 r/Driver` +
-Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'.
+Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Driver'.
+Expected display box is shown in the figure below.
 
+.Output of `add 1 r/Driver`
+image::command_record_add_after2.png[add command, 800]
 
 * `add 1 h/5` +
-Adds a volunteer at index 1 to the event with 5 hours.
+Adds a volunteer at index 1 to the event with 5 hours. +
+Expected display box is shown in the figure below.
+
+.Output of `add 1 h/5`
+image::command_record_add_after3.png[add command, 800]
+
+* `add 1 h/5 r/Driver` +
+Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
+Expected display box is shown in the figure below.
+
+.Output of `add 1 h/5 r/Driver`
+image::command_record_add_after4.png[add command, 800]
+
 
 ==== Updating volunteer hours: `edit [coming in v1.3]`
 
