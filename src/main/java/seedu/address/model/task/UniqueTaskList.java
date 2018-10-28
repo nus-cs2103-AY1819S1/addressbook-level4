@@ -119,6 +119,30 @@ public class UniqueTaskList implements Iterable<Task> {
 
         internalList.setAll(tasks);
     }
+    //==============Check overdue state of tasks =============================
+    /**
+     * Checks overdue state of task and updates all relevant tasks
+     */
+    public void updateOverdue() {
+        for (int i = 0; i < internalList.size(); i++) {
+            Task task = internalList.get(i);
+            if (task.isOverdue()) {
+                Task updatedTask = createOverdueTask(task);
+                setTask(task, updatedTask);
+            }
+        }
+    }
+
+    /**
+     * Creates a task with an OVERDUE status
+     * @param taskToEdit
+     * @return
+     */
+    private Task createOverdueTask(Task taskToEdit) {
+        return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
+                taskToEdit.getDescription(), taskToEdit.getLabels(), Status.OVERDUE,
+                taskToEdit.getDependency());
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
