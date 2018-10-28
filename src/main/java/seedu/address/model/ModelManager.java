@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
-        allPatientsInQueue = m
+        allPatientsInQueue
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
@@ -246,6 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
     public ObservableList<Person> getAllPatientsInQueue() {
         return FXCollections.unmodifiableObservableList(allPatientsInQueue);
     }
