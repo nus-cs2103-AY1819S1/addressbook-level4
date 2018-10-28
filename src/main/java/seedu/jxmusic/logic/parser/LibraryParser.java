@@ -79,6 +79,15 @@ public class LibraryParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        // case ListCommand.COMMAND_PHRASE:
+        //     return new ListCommand();
+
         case PlaylistDelCommand.COMMAND_PHRASE:
             return new DeleteCommandParser().parse(arguments);
 
@@ -86,16 +95,7 @@ public class LibraryParser {
             return new ClearCommand();
 
         case PlaylistSearchCommand.COMMAND_PHRASE:
-             return new PlaylistSearchCommandParser().parse(arguments);
-
-        // case ListCommand.COMMAND_PHRASE:
-        //     return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new PlaylistSearchCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
