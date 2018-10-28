@@ -213,7 +213,7 @@ public class Document {
                 .append(numMcDays)
                 .append(" day(s), from ")
                 .append(LocalDate.now().format(formatter))
-                .append(" to " )
+                .append(" to ")
                 .append(LocalDate.now().plusDays(numMcDays - 1).format(formatter))
                 .append(" inclusive.<br><br>")
                 .append("This certificate is not valid for absence from court attendance.<br><br>");
