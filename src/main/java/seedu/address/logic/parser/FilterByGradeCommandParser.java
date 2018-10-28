@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * FilterByGradeCommandParser
  */
-public class FilterByGradeCommandParser {
+public class FilterByGradeCommandParser implements Parser<FilterByGradeCommand> {
     /**
      * FilterByGradeCommand
      *
@@ -23,6 +23,6 @@ public class FilterByGradeCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByGradeCommand.MESSAGE_USAGE));
         }
 
-        return new FilterByGradeCommand(Double.parseDouble(stringCommand[0]), Double.parseDouble(stringCommand[1]));
+        return new FilterByGradeCommand(args.trim());
     }
 }

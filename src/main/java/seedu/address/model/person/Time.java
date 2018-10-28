@@ -26,6 +26,7 @@ public class Time {
      * then the start time followed by a -,
      * and lastly the end time of the tutorial.
      */
+
     public static final String DAY_PART_REGEX = "[a-w]{3}";
     public static final String START_TIME_REGEX = "\\d{4}";
     public static final String END_TIME_REGEX = "\\d{4}";

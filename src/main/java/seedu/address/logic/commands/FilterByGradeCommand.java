@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.GradeFilterPredicate;
 import seedu.address.model.person.Person;
 
+
 /**
  * Finds and lists the list of person whose grade is between A to B.
  */
@@ -33,12 +34,12 @@ public class FilterByGradeCommand extends FilterCommand {
     /**
      * filter by grade command
      *
-     * @param maxLimit
-     * @param minLimit
+     * @param args
      */
-    public FilterByGradeCommand(Double minLimit, Double maxLimit) {
-        this.minLimit = minLimit;
-        this.maxLimit = maxLimit;
+    public FilterByGradeCommand(String args) {
+        String[] stringCommand = args.trim().split(" ");
+        this.minLimit = Integer.parseInt(stringCommand[0]);
+        this.maxLimit = Integer.parseInt(stringCommand[1]);
     }
 
     @Override
@@ -64,5 +65,13 @@ public class FilterByGradeCommand extends FilterCommand {
 
         return new CommandResult("The person whose grade between " + minLimit + " and "
                 + maxLimit + " : " + personNameList.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterByGradeCommand
+                    && minLimit == ((FilterByGradeCommand) other).minLimit
+                    && maxLimit == ((FilterByGradeCommand) other).maxLimit);
     }
 }
