@@ -22,6 +22,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.patientqueue.MainQueue;
 import seedu.address.model.patientqueue.PreferenceQueue;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.PatientComparator;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -249,7 +250,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Person> getAllPatientsInQueue() {
         ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
         allPatientsInQueue.addAll(preferenceQueue.getList());
-        allPatientsInQueue.sort();
+
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        allPatientsInQueue.sort(comparator);
         return FXCollections.unmodifiableObservableList(
                 new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
     }
