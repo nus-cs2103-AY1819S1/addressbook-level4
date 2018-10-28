@@ -51,20 +51,20 @@ respectively.</blockquote>
  color="#000000"> "test_image_anim.gif" may be appended horizontally
 with the resulting image written to the file <kbd>appended_image.miff</kbd>:</font></p>
 <pre class="code">
-#include &lt;list> 
-#include &lt;Magick++.h> 
-using namespace std; 
+#include &lt;list>
+#include &lt;Magick++.h>
+using namespace std;
 using namespace Magick;
 
-int main(int /*argc*/,char **/*argv*/) 
-{ 
-   list&lt;Image> imageList; 
+int main(int /*argc*/,char **/*argv*/)
+{
+   list&lt;Image> imageList;
    readImages( &amp;imageList, "test_image_anim.gif" );
 
-   Image appended; 
-   appendImages( &amp;appended, imageList.begin(), imageList.end() ); 
-   appended.write( "appended_image.miff" ); 
-   return 0; 
+   Image appended;
+   appendImages( &amp;appended, imageList.begin(), imageList.end() );
+   appended.write( "appended_image.miff" );
+   return 0;
 }
 </pre>
 <p>The available Magick++ specific STL algorithms for operating on
@@ -1158,9 +1158,9 @@ or_each()</tt>. </p>
 <p>The following code is an example of how the color 'red' may be set
 to transparent in a GIF animation: </p>
 <pre class="code">
-list&lt;image> images; 
-readImages( &amp;images, "animation.gif" ); 
-for_each ( images.begin(), images.end(), transparentImage( "red" )  ); 
+list&lt;image> images;
+readImages( &amp;images, "animation.gif" );
+for_each ( images.begin(), images.end(), transparentImage( "red" )  );
 writeImages( images.begin(), images.end(), "animation.gif" );
 </pre>
 <p>The available function objects for setting image attributes are <br />
@@ -1778,60 +1778,60 @@ deciding which output format to write based on support within the
 ImageMagick build.</p>
 <p>The definition of coderInfoList is: </p>
 <pre class="code">
-class CoderInfo 
-  { 
+class CoderInfo
+  {
   public:
 
-    enum MatchType { 
-      AnyMatch,  // match any coder 
-      TrueMatch, // match coder if true 
-      FalseMatch // match coder if false 
+    enum MatchType {
+      AnyMatch,  // match any coder
+      TrueMatch, // match coder if true
+      FalseMatch // match coder if false
     };
 
     [ remaining CoderInfo methods ]
 
    }
 
-  template &lt;class Container > 
-  void coderInfoList( Container *container_, 
-                      CoderInfo::MatchType isReadable_   = CoderInfo::AnyMatch, 
-                      CoderInfo::MatchType isWritable_   = CoderInfo::AnyMatch, 
-                      CoderInfo::MatchType isMultiFrame_ = CoderInfo::AnyMatch 
+  template &lt;class Container >
+  void coderInfoList( Container *container_,
+                      CoderInfo::MatchType isReadable_   = CoderInfo::AnyMatch,
+                      CoderInfo::MatchType isWritable_   = CoderInfo::AnyMatch,
+                      CoderInfo::MatchType isMultiFrame_ = CoderInfo::AnyMatch
                       );
 </pre>
 <p>The following example shows how to retrieve a list of all of the
 coders which support reading images and print the coder attributes (all
 listed formats will be readable): </p>
 <pre class="code">
-  list&lt;CoderInfo> coderList; 
-  coderInfoList( &amp;coderList,           // Reference to output list 
-                 CoderInfo::TrueMatch, // Match readable formats 
-                 CoderInfo::AnyMatch,  // Don't care about writable formats 
-                 CoderInfo::AnyMatch); // Don't care about multi-frame support 
-  list&lt;CoderInfo>::iterator entry = coderList.begin(); 
-  while( entry != coderList.end() ) 
-  { 
-    cout &lt;&lt; entry->name() &lt;&lt; ": (" &lt;&lt; entry->description() &lt;&lt; ") : "; 
-    cout &lt;&lt; "Readable = "; 
-    if ( entry->isReadable() ) 
-      cout &lt;&lt; "true"; 
-    else 
-      cout &lt;&lt; "false"; 
-    cout &lt;&lt; ", "; 
-    cout &lt;&lt; "Writable = "; 
-    if ( entry->isWritable() ) 
-      cout &lt;&lt; "true"; 
-    else 
-      cout &lt;&lt; "false"; 
-    cout &lt;&lt; ", "; 
-    cout &lt;&lt; "Multiframe = "; 
-    if ( entry->isMultiframe() ) 
-      cout &lt;&lt; "true"; 
-    else 
-      cout &lt;&lt; "false"; 
+  list&lt;CoderInfo> coderList;
+  coderInfoList( &amp;coderList,           // Reference to output list
+                 CoderInfo::TrueMatch, // Match readable formats
+                 CoderInfo::AnyMatch,  // Don't care about writable formats
+                 CoderInfo::AnyMatch); // Don't care about multi-frame support
+  list&lt;CoderInfo>::iterator entry = coderList.begin();
+  while( entry != coderList.end() )
+  {
+    cout &lt;&lt; entry->name() &lt;&lt; ": (" &lt;&lt; entry->description() &lt;&lt; ") : ";
+    cout &lt;&lt; "Readable = ";
+    if ( entry->isReadable() )
+      cout &lt;&lt; "true";
+    else
+      cout &lt;&lt; "false";
+    cout &lt;&lt; ", ";
+    cout &lt;&lt; "Writable = ";
+    if ( entry->isWritable() )
+      cout &lt;&lt; "true";
+    else
+      cout &lt;&lt; "false";
+    cout &lt;&lt; ", ";
+    cout &lt;&lt; "Multiframe = ";
+    if ( entry->isMultiframe() )
+      cout &lt;&lt; "true";
+    else
+      cout &lt;&lt; "false";
     cout &lt;&lt; endl;
     entry ++;
-   } 
+   }
 </pre>
 <tt><font color="#000066">&#160;&#160; }</font></tt>&#160;<!-- p -->
 <h3 style="text-align: center;">Obtaining A Color Histogram&#160; </h3>
