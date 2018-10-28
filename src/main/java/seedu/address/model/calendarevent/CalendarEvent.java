@@ -2,18 +2,22 @@ package seedu.address.model.calendarevent;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Calendar Event in the scheduler.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class CalendarEvent {
+public class CalendarEvent extends Agenda.AppointmentImplLocal {
 
     // Identity fields
     private final Title title;
@@ -23,6 +27,8 @@ public class CalendarEvent {
     private final Venue venue;
     private final DateTimeInfo dateTimeInfo;
     private final Set<Tag> tags = new HashSet<>();
+
+    private boolean isWholeDay;
 
     /**
      * Every field must be present and not null.
@@ -34,13 +40,76 @@ public class CalendarEvent {
         this.dateTimeInfo = dateTimeInfo;
         this.venue = venue;
         this.tags.addAll(tags);
+
+        // Appointment variables
+        this.isWholeDay = false;
     }
 
     public Title getTitle() {
         return title;
     }
 
-    public Description getDescription() {
+    @Override
+    public Boolean isWholeDay() {
+        return false;
+    }
+
+    @Override
+    public void setWholeDay(Boolean b) {
+        this.isWholeDay = b;
+    }
+
+    @Override
+    public String getSummary() {
+        return null;
+    }
+
+    @Override
+    public void setSummary(String s) {
+
+    }
+
+    @Override
+    public String getDescription() {
+        return description.toString();
+    }
+
+    @Override
+    public void setDescription(String s) {
+
+    }
+
+    @Override
+    public String getLocation() {
+        return this.venue.toString();
+    }
+
+    @Override
+    public void setLocation(String s) {
+
+    }
+
+    // TODO: set up appointment groups
+    @Override
+    public Agenda.AppointmentGroup getAppointmentGroup() {
+        return null;
+    }
+
+    @Override
+    public void setAppointmentGroup(Agenda.AppointmentGroup s) {
+
+    }
+
+    public LocalDateTime getStartLocalDateTime() {
+        return this.dateTimeInfo.start.localDateTime;
+    }
+
+    @Override
+    public LocalDateTime getEndLocalDateTime() {
+        return this.dateTimeInfo.end.localDateTime;
+    }
+
+    public Description getDescriptionObject() {
         return description;
     }
 
@@ -95,7 +164,7 @@ public class CalendarEvent {
 
         CalendarEvent otherCalendarEvent = (CalendarEvent) other;
         return otherCalendarEvent.getTitle().equals(getTitle())
-            && otherCalendarEvent.getDescription().equals(getDescription())
+            && otherCalendarEvent.getDescriptionObject().equals(getDescriptionObject())
             && otherCalendarEvent.getStart().equals(getStart())
             && otherCalendarEvent.getEnd().equals(getEnd())
             && otherCalendarEvent.getVenue().equals(getVenue())
@@ -114,7 +183,7 @@ public class CalendarEvent {
         builder.append(" Title: ")
             .append(getTitle())
             .append(" Description: ")
-            .append(getDescription())
+            .append(getDescriptionObject())
             .append(" Start Date & Time: ")
             .append(getStart())
             .append(" End Date & Time: ")

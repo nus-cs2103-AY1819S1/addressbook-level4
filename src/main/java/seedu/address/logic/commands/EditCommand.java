@@ -101,7 +101,7 @@ public class EditCommand extends Command {
 
         Title updatedName = editCalendarEventDescriptor.getTitle().orElse(calendarEventToEdit.getTitle());
         Description updatedDescription =
-            editCalendarEventDescriptor.getDescription().orElse(calendarEventToEdit.getDescription());
+            editCalendarEventDescriptor.getDescription().orElse(calendarEventToEdit.getDescriptionObject());
 
         DateTime updatedStart = editCalendarEventDescriptor.getStart().orElse(calendarEventToEdit.getStart());
         DateTime updatedEnd = editCalendarEventDescriptor.getEnd().orElse(calendarEventToEdit.getEnd());

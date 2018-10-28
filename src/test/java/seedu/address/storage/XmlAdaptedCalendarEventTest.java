@@ -26,7 +26,7 @@ public class XmlAdaptedCalendarEventTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_TITLE = BENSON.getTitle().toString();
-    private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
+    private static final String VALID_DESCRIPTION = BENSON.getDescriptionObject().toString();
     private static final String VALID_START = BENSON.getStart().toInputFormat();
     private static final String VALID_END = BENSON.getEnd().toInputFormat();
     private static final String VALID_LOCATION = BENSON.getVenue().toString();

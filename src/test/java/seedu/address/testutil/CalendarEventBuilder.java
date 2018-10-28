@@ -44,7 +44,7 @@ public class CalendarEventBuilder {
      */
     public CalendarEventBuilder(CalendarEvent calendarEventToCopy) {
         title = calendarEventToCopy.getTitle();
-        description = calendarEventToCopy.getDescription();
+        description = calendarEventToCopy.getDescriptionObject();
         start = calendarEventToCopy.getStart();
         end = calendarEventToCopy.getEnd();
         venue = calendarEventToCopy.getVenue();
