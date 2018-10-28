@@ -15,9 +15,9 @@ import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.testutil.CalendarEventBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddEventCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddEventCommandIntegrationTest {
 
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
@@ -35,15 +35,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addCalendarEvent(validCalendarEvent);
         expectedModel.commitScheduler();
 
-        assertCommandSuccess(new AddCommand(validCalendarEvent), model, commandHistory,
-            String.format(AddCommand.MESSAGE_SUCCESS, validCalendarEvent), expectedModel);
+        assertCommandSuccess(new AddEventCommand(validCalendarEvent), model, commandHistory,
+            String.format(AddEventCommand.MESSAGE_SUCCESS, validCalendarEvent), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         CalendarEvent calendarEventInList = model.getScheduler().getCalendarEventList().get(0);
-        assertCommandFailure(new AddCommand(calendarEventInList), model, commandHistory,
-            AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
+        assertCommandFailure(new AddEventCommand(calendarEventInList), model, commandHistory,
+            AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
     }
 
 }

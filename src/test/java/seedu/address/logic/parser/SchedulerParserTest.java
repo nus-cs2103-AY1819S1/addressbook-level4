@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -48,8 +48,8 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         CalendarEvent calendarEvent = new CalendarEventBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(calendarEvent));
-        assertEquals(new AddCommand(calendarEvent), command);
+        AddEventCommand command = (AddEventCommand) parser.parseCommand(PersonUtil.getAddCommand(calendarEvent));
+        assertEquals(new AddEventCommand(calendarEvent), command);
     }
 
     @Test

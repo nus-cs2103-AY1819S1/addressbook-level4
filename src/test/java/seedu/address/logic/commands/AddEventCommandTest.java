@@ -22,7 +22,7 @@ import seedu.address.model.Scheduler;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.testutil.CalendarEventBuilder;
 
-public class AddCommandTest {
+public class AddEventCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -34,7 +34,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddEventCommand(null);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validCalendarEvent).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEventCommand(validCalendarEvent).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCalendarEvent), commandResult.feedbackToUser);
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validCalendarEvent), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validCalendarEvent), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -52,26 +52,26 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
-        AddCommand addCommand = new AddCommand(validCalendarEvent);
+        AddEventCommand addEventCommand = new AddEventCommand(validCalendarEvent);
         ModelStub modelStub = new ModelStubWithPerson(validCalendarEvent);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
+        addEventCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         CalendarEvent alice = new CalendarEventBuilder().withTitle("Alice").build();
         CalendarEvent bob = new CalendarEventBuilder().withTitle("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddEventCommand addAliceCommand = new AddEventCommand(alice);
+        AddEventCommand addBobCommand = new AddEventCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddEventCommand addAliceCommandCopy = new AddEventCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -192,7 +192,7 @@ public class AddCommandTest {
 
         @Override
         public void commitScheduler() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddEventCommand#execute()}
         }
 
         @Override

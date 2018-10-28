@@ -35,7 +35,7 @@ import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
@@ -44,7 +44,7 @@ import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CalendarEventBuilder;
 
-public class AddCommandParserTest {
+public class AddEventCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
@@ -54,39 +54,39 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
-            + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+            + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple titles - last title accepted
         assertParseSuccess(parser, TITLE_DESC_LECTURE + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL
-            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple descriptions - last descriptions accepted
         assertParseSuccess(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_LECTURE + DESCRIPTION_DESC_TUTORIAL
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL
-            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple venues - last venue accepted
         assertParseSuccess(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_LECTURE
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL
-            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+            + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple start date/times - last start date/time accepted
         assertParseSuccess(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
                 + START_DESC_LECTURE + START_DESC_TUTORIAL + END_DESC_TUTORIAL
-                + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+                + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple end date/times - last end date/times accepted
         assertParseSuccess(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
                 + START_DESC_TUTORIAL + END_DESC_LECTURE + END_DESC_TUTORIAL
-                + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEvent));
+                + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEvent));
 
         // multiple tags - all accepted
         CalendarEvent expectedCalendarEventMultipleTags =
                 new CalendarEventBuilder(TUTORIAL).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         assertParseSuccess(parser, TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
-            + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCalendarEventMultipleTags));
+            + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddEventCommand(expectedCalendarEventMultipleTags));
     }
 
     @Test
@@ -94,12 +94,12 @@ public class AddCommandParserTest {
         // zero tags
         CalendarEvent expectedCalendarEvent = new CalendarEventBuilder(AMY).withTags().build();
         assertParseSuccess(parser, TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE
-                        + END_DESC_LECTURE + VENUE_DESC_LECTURE, new AddCommand(expectedCalendarEvent));
+                        + END_DESC_LECTURE + VENUE_DESC_LECTURE, new AddEventCommand(expectedCalendarEvent));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE);
 
         // missing title prefix
         assertParseFailure(parser, VALID_TITLE_TUTORIAL + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL
@@ -167,6 +167,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL
             + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
     }
 }

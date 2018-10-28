@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.tag.Tag;
@@ -23,7 +23,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code calendarevent}.
      */
     public static String getAddCommand(CalendarEvent calendarEvent) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(calendarEvent);
+        return AddEventCommand.COMMAND_WORD + " " + getPersonDetails(calendarEvent);
     }
 
     /**
