@@ -198,11 +198,13 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Event editedEvent,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateEvent(expectedModel.getFilteredEventList().get(toEdit.getZeroBased()), editedEvent);
+        Event eventToEdit = expectedModel.getFilteredEventList().get(toEdit.getZeroBased());
+        expectedModel.updateEvent(eventToEdit, editedEvent);
         expectedModel.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()),
+                expectedSelectedCardIndex);
     }
 
     /**

@@ -57,7 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 : new DateTime(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(1));
         DateTime endDateTime = argMultimap.getValue(PREFIX_END_DATE_TIME).isPresent()
                 ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE_TIME).get())
-                : new DateTime(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(2));
+                : new DateTime(startDateTime.value.plusHours(1));
         Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
                 ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
                 : new Description("");

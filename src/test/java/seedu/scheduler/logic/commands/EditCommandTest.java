@@ -41,7 +41,8 @@ public class EditCommandTest {
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EVENT, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS,
+                model.getFilteredEventList().get(0).getEventName());
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         expectedModel.updateEvent(model.getFilteredEventList().get(0), editedEvent);
@@ -63,7 +64,7 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(indexLastEvent, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, lastEvent.getEventName());
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         expectedModel.updateEvent(lastEvent, editedEvent);
@@ -77,7 +78,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EVENT, new EditEventDescriptor());
         Event editedEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent.getEventName());
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         expectedModel.commitScheduler();
@@ -94,7 +95,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EVENT,
                 new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS,
+                eventInFilteredList.getEventName());
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         expectedModel.updateEvent(model.getFilteredEventList().get(0), editedEvent);
