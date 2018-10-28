@@ -2,12 +2,14 @@ package seedu.souschef.logic;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.souschef.commons.util.CollectionUtil;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.tag.Tag;
 
@@ -20,6 +22,7 @@ public class EditRecipeDescriptor {
     private Difficulty difficulty;
     private CookTime cookTime;
     private Set<Tag> tags;
+    private List<Instruction> instructions;
 
     public EditRecipeDescriptor() {}
 
@@ -32,6 +35,7 @@ public class EditRecipeDescriptor {
         setDifficulty(toCopy.difficulty);
         setCooktime(toCopy.cookTime);
         setTags(toCopy.tags);
+
     }
 
     /**
