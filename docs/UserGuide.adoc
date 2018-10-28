@@ -86,14 +86,18 @@ Examples:
 
 ==== Delete attractions: `delete`
 
-Deletes the specified attraction from the ThanePark. +
+Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
+
+====
 
 * Deletes the ride at the specified index.
 
 * The index refers to the index number shown in the list of displayed rides.
 
 * The index must be a positive integer 1, 2, 3, …​
+
+====
 
 Examples:
 
@@ -107,17 +111,17 @@ Examples:
 
 ==== Update information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<name>`. +
-Format: `update <attraction> <tag> <value>`
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+Format: `update <index> <tag> <value>`
 
 ==== Shutdown attraction: `shutdown`
 
-Close the ride for the day. Display statistics for the ride on that day. +
+Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <attraction>`
 
 ==== Open attraction: `open`
 
-Open the ride for the day. Display statistics for the ride on that day. +
+Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <attraction>`
 
 === User help and accessibility
@@ -272,9 +276,9 @@ Finds and displays the list of attractions with addresses that contain the word 
 * *Redo*: `redo`
 
 === Added
-* *Update*: `update <attraction> <tag> <value>`
-* *Open*: `open <attraction>`
-* *Shutdown*: `shutdown <attraction>`
+* *Update*: `update <index> <tag> <value>`
+* *Open*: `open <index>`
+* *Shutdown*: `shutdown <index>`
 * *View*: `view <name>`
 * *Quickview*: `quickview`
 * *Filter*: `filter <tag> <condition>`
