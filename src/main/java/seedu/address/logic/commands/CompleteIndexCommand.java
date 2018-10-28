@@ -14,11 +14,10 @@ import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
- * Completes command given by an {@code Index} or {@code Task<Predicate>}
+ * Completes command given by an {@code Index}
  */
 public class CompleteIndexCommand extends CompleteCommand {
 
-    // Execution of completion of tasks will differ based on whether it is intended to be a batch operation
     private final Index targetIndex;
 
     /**
