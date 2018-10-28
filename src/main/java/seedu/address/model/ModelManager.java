@@ -391,7 +391,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void createAllDayEvent(Year year, Month month, int date, String title) {
         try {
             Calendar calendarToBeLoaded = calendarModel.createAllDayEvent(year, month, date, title);
+            String calendarName = month + "-" + year;
             indicateAllDayEventCreated(year, month, date, title, calendarToBeLoaded);
+            indicateViewCalendar(calendarToBeLoaded, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to create all day event : " + StringUtil.getDetails(e));
         }
@@ -403,8 +405,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             Calendar calendarToBeLoaded = calendarModel.createEvent(year, month, startDate,
                     startHour, startMin, endDate, endHour, endMin, title);
+            String calendarName = month + "-" + year;
             indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title,
                     calendarToBeLoaded);
+            indicateViewCalendar(calendarToBeLoaded, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));
         }
@@ -420,7 +424,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
         Calendar updatedCalender = calendarModel.deleteEvent();
+        String calendarName = month + "-" + year;
         indicateCalendarEventDeleted(year, month, startDate, endDate, title, updatedCalender);
+        indicateViewCalendar(updatedCalender, calendarName);
     }
 
     @Override
