@@ -3,9 +3,9 @@ package seedu.address.ui;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +18,7 @@ import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 
+import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -27,13 +28,11 @@ import seedu.address.model.calendarevent.CalendarEvent;
  */
 public class CalendarDisplay extends UiPart<Region> {
     private static final String FXML = "CalendarDisplay.fxml";
-    private final Logger logger = LogsCenter.getLogger(CalendarEventListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(CalendarDisplay.class);
 
-    // the actual Calendar control
+    private ObservableList<CalendarEvent> calendarEventList;
+
     private Agenda agenda;
-
-    // TODO: group CalendarEvents by week and add to this Map
-    private HashMap<String, Agenda.AppointmentGroup> appointmentGroups = new HashMap<>();
 
     // keeps track of which week calendar is showing
     private LocalDateTime currentDateTime = LocalDateTime.now()
@@ -46,9 +45,8 @@ public class CalendarDisplay extends UiPart<Region> {
         super(FXML);
         // registerAsAnEventHandler(this); // I don't think this is needed as of now
 
-        // set up agenda internally
-        initAgenda();
-
+        this.calendarEventList = calendarEventList;
+        initAgenda(); // set up agenda internally
         setConnections(calendarEventList);
         setControls();
     }
@@ -61,9 +59,9 @@ public class CalendarDisplay extends UiPart<Region> {
         agenda = new Agenda();
 
         // register actionCallBack, to be executed when user double click on appointment
-        agenda.actionCallbackProperty().set(new Callback<Agenda.Appointment, Void>() {
+        agenda.actionCallbackProperty().set(new Callback<Appointment, Void>() {
             @Override
-            public Void call(Agenda.Appointment param) {
+            public Void call(Appointment param) {
                 // can add more functionality here
                 logger.info("User double clicked on " + param.toString());
                 return null;
@@ -91,53 +89,48 @@ public class CalendarDisplay extends UiPart<Region> {
      * @param calendarEventList
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {
-        /**
-         * init appointment group
-         * appointment group is a way to sub-divide a bunch of appointments
-         * then can apply separate styles, and also make memory more efficient
-         * TODO: split appointments into weekly groups
-         */
-        Agenda.AppointmentGroupImpl apptGroup = new Agenda.AppointmentGroupImpl().withStyleClass("group1");
+        // populate the calendar by adding all the events to the calendar
+        agenda.appointments().addAll(calendarEventList);
 
-        /**
-         * populate the calendar by adding all the events to the calendar
-         * But when user updates the events using the CLI, need to somehow update this list as well
-         * TODO: connect this list and calendarEventList, so that changes in calendarEventList will update this
-         */
-        for (CalendarEvent calendarEvent : calendarEventList) {
-            Agenda.AppointmentImplLocal myAppt = new Agenda.AppointmentImplLocal()
-                    .withStartLocalDateTime(calendarEvent.getStart().localDateTime)
-                    .withEndLocalDateTime(calendarEvent.getEnd().localDateTime)
-                    .withDescription(calendarEvent.getDescription().toString())
-                    .withAppointmentGroup(apptGroup); // right now, putting everything into 1 group
-
-            agenda.appointments().add(myAppt);
-        }
-
-        // Set connections...
+        // TODO: fix weird add/remove all items bug for first command
+        this.calendarEventList.addListener(new ListChangeListener<CalendarEvent>() {
+            @Override
+            public void onChanged(Change<? extends CalendarEvent> c) {
+                while (c.next()) {
+                    if (c.wasRemoved()) {
+                        for (CalendarEvent removedEvent : c.getRemoved()) {
+                            agenda.appointments().remove(removedEvent);
+                            System.out.println("REMOVED: " + removedEvent.getTitle());
+                        }
+                    }
+                    if (c.wasAdded()) {
+                        for (CalendarEvent addedEvent : c.getAddedSubList()) {
+                            agenda.appointments().add(addedEvent);
+                            System.out.println("ADDED: " + addedEvent.getTitle());
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /**
      * Temporary convienience method to test navigation
      * The calendarDisplay must be in focus for this to work, i.e. must click on the calendar
+     * TODO: get help with the down key problem
      */
     public void setControls() {
-        calendarDisplayBox.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
+        agenda.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                /**
-                 * Right now, when toggling, the focus will reset
-                 * So need to click on the calendar again
-                 * This won't be a problem if we using CLI to navigate
-                 * In the meantime I'll try to think of a fix
-                 * TODO: fix window losing focus when toggling
-                 */
                 if (event.getCode() == KeyCode.T) { // toggle between day and week view
+                    logger.info("Toggle Pressed");
                     if (agenda.getSkin() instanceof AgendaDaySkin) {
                         setViewToWeeklyView();
                     } else if (agenda.getSkin() instanceof AgendaWeekSkin) {
                         setViewToDailyView();
                     }
+                    agenda.requestFocus();
                 } else if (event.getCode() == KeyCode.LEFT) {
                     logger.info("LEFT arrow Pressed");
                     if (agenda.getSkin() instanceof AgendaDaySkin) {
@@ -170,7 +163,6 @@ public class CalendarDisplay extends UiPart<Region> {
     public void setViewToDailyView() {
         agenda.setSkin(new AgendaDaySkin(agenda)); // skin for viewing by day
     }
-
     /**
      * Navigation method
      */

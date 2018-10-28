@@ -68,7 +68,7 @@ public class XmlAdaptedCalendarEvent {
      */
     public XmlAdaptedCalendarEvent(CalendarEvent source) {
         title = source.getTitle().value;
-        description = source.getDescription().value;
+        description = source.getDescriptionObject().value;
         start = source.getStart().toInputFormat();
         end = source.getEnd().toInputFormat();
         venue = source.getVenue().value;

@@ -27,13 +27,6 @@
                         <padding>
                             <Insets left="5.0"/>
                         </padding>
-
-                    <!--<StackPane fx:id="calendarDisplayPlaceholder" prefWidth="340">-->
-                        <!--<padding>-->
-                            <!--<Insets top="10" right="10" bottom="10" left="10"/>-->
-                        <!--</padding>-->
-                    <!--</StackPane>-->
-
                     </Label>
                     <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="NEVER"/>
                 </VBox>
@@ -41,6 +34,11 @@
                 <VBox prefHeight="675.0" prefWidth="900.0">
                     <VBox fx:id="dayMonthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
                           prefHeight="85" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="calendarDisplayPlaceholder" prefWidth="340">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </StackPane>
                     <StackPane fx:id="calendarPanelPlaceholder" minWidth="600.0" prefHeight="380" prefWidth="900"
                                VBox.vgrow="ALWAYS"/>
                     <StackPane fx:id="calendarCommandBoxBorder" maxHeight="-Infinity" minHeight="-Infinity"
