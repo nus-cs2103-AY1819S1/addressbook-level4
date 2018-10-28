@@ -12,10 +12,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.events.ui.CrossRecipePanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.shop.CrossRecipe;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
@@ -25,6 +27,7 @@ public class DetailPanel extends UiPart<Region> {
     private static final String FXML = "DetailPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private Recipe recipe;
+    private CrossRecipe crossRecipe;
 
     @FXML
     private Label name;
@@ -32,6 +35,10 @@ public class DetailPanel extends UiPart<Region> {
     private Label ingredientLabel;
     @FXML
     private Label ingredients;
+    @FXML
+    private Label ingredientToShopLabel;
+    @FXML
+    private Label ingredientsToShop;
     @FXML
     private Label instructionLabel;
     @FXML
@@ -41,15 +48,23 @@ public class DetailPanel extends UiPart<Region> {
         super(FXML);
         getRoot().setOnKeyPressed(Event::consume);
 
-        loadDefaultPage();
+        loadDefaultRecipePage();
         registerAsAnEventHandler(this);
     }
 
     /**
      * Loads a placeholders into details panel.
      */
-    public void loadDefaultPage() {
+    public void loadDefaultRecipePage() {
         name.setText("Select a recipe for viewing...");
+        loadEmptyFields();
+    }
+
+    /**
+     * Loads a placeholders into details panel.
+     */
+    public void loadDefaultICrossPage() {
+        name.setText("Select recipe to view needed ingredients and its amount...");
         loadEmptyFields();
     }
 
@@ -67,6 +82,8 @@ public class DetailPanel extends UiPart<Region> {
     private void loadEmptyFields() {
         ingredientLabel.setText("");
         ingredients.setText("");
+        ingredientToShopLabel.setText("");
+        ingredientsToShop.setText("");
         instructionLabel.setText("");
         instructions.setText("");
     }
@@ -81,6 +98,23 @@ public class DetailPanel extends UiPart<Region> {
         instructionLabel.setText("Instruction: ");
         ingredients.setText(ingredientsDisplay(recipe.getIngredients()));
         instructions.setText(instructionsDisplay(recipe.getInstructions()));
+    }
+
+    /**
+     * Loads a result of inventory command into details panel.
+     */
+    private void loadCrossDetail(CrossRecipe crossRecipe) {
+        this.crossRecipe = crossRecipe;
+        Recipe targetRecipe = crossRecipe.getRecipe();
+        Map<IngredientDefinition, Double> neededIngredients = crossRecipe.getNeededIngredients();
+        name.setText(targetRecipe.getName().fullName);
+        ingredientLabel.setText("Ingredients: ");
+        ingredientToShopLabel.setText("Ingredients to shop");
+        instructionLabel.setText("Instruction: ");
+        ingredients.setText(ingredientsDisplay(targetRecipe.getIngredients()));
+        ingredientsToShop.setText(ingredientsDisplay(neededIngredients));
+        instructions.setText(instructionsDisplay(targetRecipe.getInstructions()));
+
     }
 
     /**
@@ -121,6 +155,12 @@ public class DetailPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(RecipePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadRecipeDetail(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(CrossRecipePanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCrossDetail(event.getNewSelection());
     }
 
     @Override
