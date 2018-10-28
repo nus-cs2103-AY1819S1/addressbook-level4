@@ -102,12 +102,12 @@ public class ThaneParkParser {
             return new ViewCommandParser().parse(arguments);
 
         default:
-        SuggestCommand command = new SuggestCommand(commandWord);
-        if (!command.isPrefixValid()) {
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
+            SuggestCommand command = new SuggestCommand(commandWord);
+            if (!command.isPrefixValid()) {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
             return command;
+        }
     }
-}
 
 }
