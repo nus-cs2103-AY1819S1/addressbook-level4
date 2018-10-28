@@ -32,9 +32,9 @@ public class ShutDownCommand extends Command{
 
     public static final String COMMAND_WORD = "shutdown";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Open the ride identified by name.\n "
-            + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD + " Battlestar";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Open the ride identified by index.\n "
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_SHUTDOWN_RIDE_SUCCESS = "Ride is shut down: %1$s";
     public static final String MESSAGE_DUPLICATE_RIDE = "This ride is already shut down.";
