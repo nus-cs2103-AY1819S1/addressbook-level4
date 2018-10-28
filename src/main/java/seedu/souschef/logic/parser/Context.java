@@ -1,11 +1,11 @@
 package seedu.souschef.logic.parser;
 
+import seedu.souschef.logic.parser.contextparser.CrossParser;
 import seedu.souschef.logic.parser.contextparser.FavouritesParser;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
 import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
-import seedu.souschef.logic.parser.contextparser.CrossParser;
 
 /**
  * Pre-defined set of context for sous chef.

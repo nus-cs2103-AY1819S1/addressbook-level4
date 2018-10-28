@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
-import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.CrossRecipe;
+import seedu.souschef.model.recipe.Recipe;
 
 
 /**

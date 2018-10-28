@@ -5,6 +5,10 @@ import java.util.Map;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 
+/**
+ * Represents a Recipe with its needed ingredient information.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class CrossRecipe extends Recipe {
     private final Map<IngredientDefinition, Double> neededIngredients;
 

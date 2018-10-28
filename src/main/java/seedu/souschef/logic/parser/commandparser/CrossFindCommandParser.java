@@ -13,8 +13,8 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
-import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.CrossRecipe;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Parses input arguments and creates a new CrossFindCommand object

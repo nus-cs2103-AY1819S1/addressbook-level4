@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.souschef.commons.core.Messages;
-import seedu.souschef.logic.History;
 import seedu.souschef.logic.CrossFilterPredicate;
 import seedu.souschef.logic.CrossSortComparator;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.IngredientDefinition;
-import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.CrossRecipe;
+import seedu.souschef.model.recipe.Recipe;
 
 
 /**
@@ -23,7 +23,7 @@ import seedu.souschef.model.recipe.CrossRecipe;
 public class CrossFindCommand extends Command {
     public static final String COMMAND_WORD = "recipe";
 
-    public static final String MESSAGE_USAGE = "Usage to be added later";//
+    public static final String MESSAGE_USAGE = "Usage to be added later."; //
 
     private final Model<CrossRecipe> crossRecipeModel;
     private final CrossSortComparator comparator;
@@ -66,7 +66,7 @@ public class CrossFindCommand extends Command {
                 double neededAmount;
                 if (!matchedIngredients.containsKey(key)) {
                     neededAmount = totalAmount;
-                } else if (totalAmount > matchedIngredients.get(key)){
+                } else if (totalAmount > matchedIngredients.get(key)) {
                     neededAmount = totalAmount - matchedIngredients.get(key);
                 } else {
                     neededAmount = 0;

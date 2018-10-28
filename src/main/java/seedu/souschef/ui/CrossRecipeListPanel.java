@@ -15,7 +15,7 @@ import seedu.souschef.model.recipe.CrossRecipe;
 /**
  * Panel containing the list of cross recipes.
  */
-public class CrossRecipeListPanel extends GenericListPanel<CrossRecipe>{
+public class CrossRecipeListPanel extends GenericListPanel<CrossRecipe> {
     private static final String FXML = "RecipeListPanel.fxml";
     @javafx.fxml.FXML
     protected ListView<CrossRecipe> recipeListView;
