@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "zenious",
+      "displayName": "KOH Z...G WEI",
+      "authorNames": ["zenious", "Zheng Wei"]
+    },
+    {
+      "githubId": "jeffreyooi",
+      "displayName": "OOI H... SENG",
+      "authorNames": ["jeffreyooi", "jeffrey"]
+    },
+    {
+      "githubId": "NyxF4ll",
+      "displayName": "PAKOR...RAKUL",
+      "authorNames": ["NyxF4ll", "NyxF4ll_"]
+    },
+    {
+      "githubId": "betakuwe",
+      "displayName": "TAN K...JAMIN",
+      "authorNames": ["betakuwe"]
+    },
+    {
+      "githubId": "Derek-Hardy",
+      "displayName": "ZHUAN...INJIE",
+      "authorNames": ["Derek-Hardy"]
+    }
+  ]
+}
