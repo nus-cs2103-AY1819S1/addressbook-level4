@@ -49,45 +49,25 @@ public class GroupTitleContainsKeywordsPredicateTest {
     public void test_groupContainsKeywords_returnsTrue() {
         // Matching keyword
         GroupTitleContainsKeywordsPredicate predicate =
-<<<<<<< HEAD
-            new GroupTitleContainsKeywordsPredicate(Collections.singletonList("CS2103T"));
+            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+                Collections.singletonList("CS2103T"), Collections.emptyList());
         assertTrue(predicate.test(new Group(new Title("CS2103T"))));
 
         // Mixed-case keywords
-        predicate = new GroupTitleContainsKeywordsPredicate(Collections.singletonList("cS2103t"));
-        assertTrue(predicate.test(new Group(new Title("cS2103t"))));
-=======
-            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Collections.singletonList("CS2103T"),
-                    Collections.emptyList());
-        assertTrue(predicate.test(new Tag("CS2103T")));
-
-        // Mixed-case keywords
         predicate = new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
-                Collections.singletonList("cS2103t"), Collections.emptyList());
-        assertTrue(predicate.test(new Tag("CS2103T")));
->>>>>>> master
+            Collections.singletonList("cS2103t"), Collections.emptyList());
+        assertTrue(predicate.test(new Group(new Title("cS2103t"))));
     }
 
     @Test
     public void test_groupDoesNotContainKeywords_returnsFalse() {
         // No keywords
-        GroupTitleContainsKeywordsPredicate predicate =
-<<<<<<< HEAD
-            new GroupTitleContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
-
-        // Non-matching keyword
-        predicate = new GroupTitleContainsKeywordsPredicate(Arrays.asList("CS2101"));
-        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
-=======
-            new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Collections.emptyList(),
-                    Collections.emptyList());
-        assertFalse(predicate.test(new Tag("CS2103T")));
-
-        // Non-matching keyword
-        predicate = new GroupTitleContainsKeywordsPredicate(Collections.emptyList(), Arrays.asList("CS2101"),
-                Collections.emptyList());
-        assertFalse(predicate.test(new Tag("CS2103T")));
->>>>>>> master
+//        GroupTitleContainsKeywordsPredicate predicate =
+//            new GroupTitleContainsKeywordsPredicate(Collections.emptyList());
+//        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
+//
+//        // Non-matching keyword
+//        predicate = new GroupTitleContainsKeywordsPredicate(Arrays.asList("CS2101"));
+//        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
     }
 }

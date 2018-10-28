@@ -9,7 +9,9 @@ import java.util.Collections;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -23,26 +25,74 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_noPrefixUsage_defaultToAllPrefixBehaviour() {
+    public void parse_findPerson_noPrefixUsage_defaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
         FindPersonCommand expectedFindPersonCommand =
                 new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Collections.emptyList(), Collections.emptyList()));
-        assertParseSuccess(parser, "Alice Bob", expectedFindPersonCommand);
+
+        // long form
+        assertParseSuccess(parser, "person Alice Bob", expectedFindPersonCommand);
+        // short form
+        assertParseSuccess(parser, "p Alice Bob", expectedFindPersonCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindPersonCommand);
+        // long form
+        assertParseSuccess(parser, "\nperson \n Alice \n \t Bob  \t", expectedFindPersonCommand);
+        // short form
+        assertParseSuccess(parser, " p \n Alice \n \t Bob  \t", expectedFindPersonCommand);
     }
 
     @Test
-    public void parse_prefixUsage() {
+    public void parse_findPerson_prefixUsage() {
         // no leading and trailing whitespaces
         FindPersonCommand expectedFindPersonCommand =
                 new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"),
                         Arrays.asList("Charlie", "David"),
                         Arrays.asList("Earl", "Grey")));
-        assertParseSuccess(parser, " a/Alice Bob s/Charlie David n/Earl Grey", expectedFindPersonCommand);
+
+        // long form
+        assertParseSuccess(parser, "person a/Alice Bob s/Charlie David n/Earl Grey",
+            expectedFindPersonCommand);
+        // short form
+        assertParseSuccess(parser, "p a/Alice Bob s/Charlie David n/Earl Grey", expectedFindPersonCommand);
+    }
+
+
+    @Test
+    public void parse_findGroup_noPrefixUsage_defaultToAllPrefixBehaviour() {
+        // no leading and trailing whitespaces
+        FindGroupCommand expectedFindGroupCommand =
+            new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
+                Arrays.asList("Alpha", "Beta"), Collections.emptyList(), Collections.emptyList()));
+
+        // long form
+        assertParseSuccess(parser, "group Alpha Beta", expectedFindGroupCommand);
+        // short form
+        assertParseSuccess(parser, "g Alpha Beta", expectedFindGroupCommand);
+
+        // multiple whitespaces between keywords
+        // long form
+        assertParseSuccess(parser, "group \n Alpha \n \t Beta  \t", expectedFindGroupCommand);
+        // short form
+        assertParseSuccess(parser, "g \n Alpha \n \t Beta  \t", expectedFindGroupCommand);
+    }
+
+    @Test
+    public void parse_findGroup_prefixUsage() {
+        // no leading and trailing whitespaces
+        FindPersonCommand expectedFindPersonCommand =
+            new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+                Arrays.asList("Alpha", "Beta"),
+                Arrays.asList("Caviar", "Delta"),
+                Arrays.asList("Echo", "Greek")));
+
+        // long form
+        assertParseSuccess(parser, "group a/Alpha Beta s/Caviar Delta n/Echo Greek",
+            expectedFindPersonCommand);
+        // short form
+        assertParseSuccess(parser, "g a/Alpha Beta s/Caviar Delta n/Echo Greek", expectedFindPersonCommand);
     }
 
     /**

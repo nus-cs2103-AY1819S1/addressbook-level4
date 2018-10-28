@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +63,8 @@ public class ListCommandTest {
         // expectedModel's person list.
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
         final String[] groupTitle = { group.getTitle().fullTitle };
-        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(groupTitle[0]), Collections.emptyList()));
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
 
         assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,

@@ -35,8 +35,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String[] splitArgs = args.split("\\s+", 2);
-        determineType(splitArgs[0]);
+        String[] splitArgs = args.split("\\s*(?=\\s)", 2);
+        determineType(splitArgs[0].trim());
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(splitArgs[1], PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
 
         if (!argMultimap.areAnyPrefixesPresent(PREFIX_ALL, PREFIX_SOME, PREFIX_NONE)) {
