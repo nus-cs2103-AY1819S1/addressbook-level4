@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CAM;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -21,14 +22,22 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.EditByNameCommandTest.UNUSED_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -49,6 +58,8 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
+
+    private static final String INVALID_NAME = "_ab$";
 
     @Test
     public void edit() {
@@ -211,6 +222,201 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void editByName() {
+        Model model = getModel();
+
+        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+
+        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
+         * -> edited
+         */
+        String firstPerson = ALICE.getName().toString();
+        Index index = INDEX_FIRST_PERSON;
+        String command = " " + EditCommand.COMMAND_WORD + "  " + firstPerson + "  " + NAME_DESC_BOB + "  "
+                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: undo editing the last person in the list -> last person restored */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: redo editing the last person in the list -> last person edited again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        model.updatePerson(
+                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: edit a person with new values same as existing values -> edited */
+        firstPerson = VALID_NAME_BOB; // first person's name is currently Bob
+        command = EditCommand.COMMAND_WORD + " " + firstPerson + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandSuccess(command, index, BOB);
+
+        /* Case: edit a person with new values same as another person's values but with different name -> edited */
+        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        index = INDEX_SECOND_PERSON;
+        String secondPerson = BENSON.getName().toString();
+        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: edit a person with new values same as another person's values but with different phone and email
+         * -> edited
+         */
+        index = INDEX_SECOND_PERSON;
+        secondPerson = VALID_NAME_AMY; // Second person's name is currently Amy, with every other field matching Bob's.
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Undo so that names are unique */
+        command = UndoCommand.COMMAND_WORD;
+        executeCommand(command);
+
+        /* Case: clear tags -> cleared */
+        index = INDEX_FIRST_PERSON;
+        firstPerson = VALID_NAME_BOB;
+        command = EditCommand.COMMAND_WORD + " " + firstPerson + " " + PREFIX_TAG.getPrefix();
+        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+
+        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        index = INDEX_FIRST_PERSON;
+        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        firstPerson = DANIEL.getName().toString();
+        command = EditCommand.COMMAND_WORD + " " + firstPerson + " " + NAME_DESC_CAM;
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_CAM).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: filtered person list, edit a person in the address book but not in the filtered list
+         * -> edited
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        index = INDEX_THIRD_PERSON; // Of the unfiltered list
+        String personNotInList = CARL.getName().toString();
+        command = EditCommand.COMMAND_WORD + " " + personNotInList + " " + PREFIX_ADDRESS + CARL.getAddress().get();
+        personToEdit = getModel().getAddressBook().getPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).build();
+        assertCommandSuccess(command, personToEdit, editedPerson);
+
+        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
+
+        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
+         * browser url changes
+         */
+        showAllPersons();
+        index = INDEX_FIRST_PERSON;
+        firstPerson = VALID_NAME_BOB;
+        selectPerson(index);
+        command = EditCommand.COMMAND_WORD + " " + firstPerson + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        // this can be misleading: card selection actually remains unchanged but the
+        // browser's url is updated to reflect the new person's name
+        assertCommandSuccess(command, index, AMY, index);
+
+        /* Undo so that there is only one Amy */
+        command = UndoCommand.COMMAND_WORD;
+        executeCommand(command);
+
+        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+
+        /* Case: unused name identifier -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + UNUSED_NAME + NAME_DESC_BOB,
+                Messages.MESSAGE_PERSON_NOT_FOUND);
+
+        /* Case: invalid name identifier -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INVALID_NAME + NAME_DESC_BOB,
+                Messages.MESSAGE_PERSON_NOT_FOUND);
+
+        /* Case: missing identifier -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        /* Case: missing all fields -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName(),
+                EditCommand.MESSAGE_NOT_EDITED);
+
+        /* Case: invalid name -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName() + INVALID_NAME_DESC,
+                Name.MESSAGE_NAME_CONSTRAINTS);
+
+        /* Case: invalid phone -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName() + INVALID_PHONE_DESC,
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        /* Case: invalid email -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName() + INVALID_EMAIL_DESC,
+                Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        /* Case: invalid address -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName() + INVALID_ADDRESS_DESC,
+                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        /* Case: invalid tag -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + CARL.getName() + INVALID_TAG_DESC,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+
+        /* Case: edit a person with new values same as another person's values -> rejected */
+        executeCommand(EditCommand.COMMAND_WORD + " " + VALID_NAME_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND);
+        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        index = INDEX_SECOND_PERSON;
+        secondPerson = VALID_NAME_AMY;
+        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + secondPerson + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
+     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+     * 2. Asserts that the model related components are updated to reflect the person {@code toEdit} being
+     * updated to values specified {@code editedPerson}.<br>
+     * @param toEdit the person to be edited
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     */
+    private void assertCommandSuccess(String command, Person toEdit, Person editedPerson) {
+        Model expectedModel = getModel();
+        expectedModel.updatePerson(toEdit, editedPerson);
+        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        assertCommandSuccess(command, expectedModel,
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), null);
     }
 
     /**

@@ -137,7 +137,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Picture.class.getSimpleName()));
         }
         if (!Picture.isValidPicture(picture)) {
-            throw new IllegalValueException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
+            picture = Picture.DEFAULT_PICTURE_URL.getPath();
         }
         final Picture modelPicture = new Picture(picture);
 

@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 
 //@@author zioul123
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the address book using their name.
  */
 public class EditByNameCommand extends EditCommand {
 
@@ -35,7 +35,7 @@ public class EditByNameCommand extends EditCommand {
         try {
             person = PersonFinderUtil.findPerson(model, personIdentifier);
         } catch (ParseException pe) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new CommandException(MESSAGE_NO_EDIT_IDENTIFIER);
         }
         Person editedPerson = EditCommand.createEditedPerson(person, editPersonDescriptor);
 
