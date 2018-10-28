@@ -2,7 +2,7 @@ package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
 
@@ -20,7 +20,7 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         requireNonNull(model);
         model.resetData(new AppContent());
         model.commitAppContent();

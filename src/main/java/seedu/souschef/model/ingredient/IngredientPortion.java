@@ -6,6 +6,10 @@ import seedu.souschef.model.UniqueType;
  * ingredient class that stores ingredient name, amount, serving unit.
  */
 public class IngredientPortion extends IngredientDefinition {
+    public static final String MESSAGE_INGREDIENTPORTION_CONSTRAINTS =
+            "Ingredient portion should have \"#ingredient name amount unit\", where amount should be a number.";
+    public static final String INGREDIENTPORTION_VALIDATION_REGEX =
+            "^(?<name>(\\p{Alpha}|\\s)+)(?<amt>(((\\d)+.(\\d)+)|((\\d)+)))\\s(?<unit>(\\p{Alpha})+)(?<ins>(.*))";
     private final IngredientAmount amount;
 
     public IngredientPortion(IngredientName name, IngredientServingUnit unit, IngredientAmount amount) {

@@ -96,8 +96,9 @@ public class DetailPanel extends UiPart<Region> {
             } else {
                 builder.append(amount.intValue());
             }
+            builder.append(" ");
+            builder.append(def.getUnit());
             builder.append("\n");
-            // To append unit too
         });
         return builder.toString();
     }
