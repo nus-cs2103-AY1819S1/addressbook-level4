@@ -37,7 +37,7 @@ div.crt {
   color: white;
   background: #000044;
   font-family: monospace;
-  margin: 1.33em 0em; 
+  margin: 1.33em 0em;
   padding: .66em 1.33em .66em 1.33em;
 }
 
@@ -58,8 +58,8 @@ div.doc-section {
 }
 
 div.eastbar {
-  right: 0.2em; 
-  position: absolute; 
+  right: 0.2em;
+  position: absolute;
 }
 
 div.eqn {
@@ -67,7 +67,7 @@ div.eqn {
   }
 
 div.footer {
-  margin-left: 160px; 
+  margin-left: 160px;
   background: white;
 }
 
@@ -139,7 +139,7 @@ div.sponsbox {
 }
 
 div.sub {
-  background: #f5f5f5; 
+  background: #f5f5f5;
   color: black;
   padding-left: 1.66em;
   padding-top: .15em;
@@ -168,13 +168,13 @@ div.titlebar {
 }
 
 div.westbar {
-  width: 160px; 
-  left: 0em; 
-  position: absolute; 
+  width: 160px;
+  left: 0em;
+  position: absolute;
   /* height: 100%; */
   font-size: 9pt;
   border-right-style: solid;
-  border-right-color: #d0d0d0; 
+  border-right-color: #d0d0d0;
   border-right-width: 1px;
 }
 
@@ -188,12 +188,12 @@ div.info img {
   padding: 0em 1em 0em 0em;
 }
 
-dl.doc { 
+dl.doc {
   padding: .833em 1.33em 1.33em 1.33em;
   border-spacing: 0px;
   width: 85%;
   text-align: left;
-  margin: 1.33em 40px; 
+  margin: 1.33em 40px;
   border-style: solid;
   border-color: #d0d0d0;
   border-width: 1px;
@@ -205,7 +205,7 @@ dt {
   margin-top: 2em;
   margin-bottom: .5em;
 }
-  
+
 dd {
   margin: .5em .5em .5em 5em;
 }
@@ -226,7 +226,7 @@ em.emergency {
 }
 
 em.option {
-  color:  #8b0000; 
+  color:  #8b0000;
   font-weight: normal;
 }
 
@@ -327,7 +327,7 @@ img.map {
 }
 
 kbd {
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 li {
@@ -364,7 +364,7 @@ p.code {
   font-family: monospace;
   font-size: 8pt;
   white-space: pre;
-  margin: 1.33em 40px; 
+  margin: 1.33em 40px;
   padding: .66em 1.33em;
 }
 
@@ -377,7 +377,7 @@ p.crt {
   background: #000044;
   font-family: monospace;
   font-size: 9pt;
-  margin: 1.33em 40px; 
+  margin: 1.33em 40px;
   padding: .66em 1.33em;
 }
 
@@ -385,7 +385,7 @@ p.crtsnip {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1.33em; 
+  margin-top: 1.33em;
   margin-bottom: 1.33em;
   width: 50%;
   white-space: nowrap;
@@ -465,7 +465,7 @@ p.text {
 }
 
 p.warn {
-  padding: .66em 3em; 
+  padding: .66em 3em;
   background: #ffeedd;
 }
 
@@ -541,7 +541,7 @@ span.crtout {
 
 span.crtprompt {
   padding-right: 0;
-  text-indent:-1.33em; 
+  text-indent:-1.33em;
 }
 
 span.different {
@@ -572,12 +572,12 @@ span.path {
 
 span.size-mod-title { }
 
-table.doc { 
+table.doc {
   padding: 1.33em;
   border-spacing: 0px;
   width: 91%;
   text-align: left;
-  margin: 1.33em 40px; 
+  margin: 1.33em 40px;
   border-style: solid;
   border-color: #d0d0d0;
   border-width: 1px;
@@ -626,7 +626,7 @@ th.size-norm, tr.size-norm, td.size-norm {
   padding: 20px;
 }
 
-#header { 
+#header {
   background-color: #ADD8E6; /* lightblue; */
   position: fixed;
   top: 0px;
@@ -635,7 +635,7 @@ th.size-norm, tr.size-norm, td.size-norm {
   height: 4em;
   border-bottom: solid 1px;
   z-index: 10;
-} 
+}
 
 #linkbar, #navigation-bar {
   clear: both;
@@ -646,7 +646,7 @@ th.size-norm, tr.size-norm, td.size-norm {
   padding: 5px 5px 5px 10px;
   font-weight: bold;
   text-align: center;
-  margin-left:0px; 
+  margin-left:0px;
 }
 
 #linkbar-east {

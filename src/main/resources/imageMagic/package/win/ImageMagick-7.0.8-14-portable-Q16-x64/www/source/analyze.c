@@ -32,7 +32,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 */
-
+
 /*
   Include declarations.
 */
@@ -43,7 +43,7 @@
 #include <assert.h>
 #include <math.h>
 #include "magick/MagickCore.h"
-
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                             %
@@ -56,7 +56,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  analyzeImage() computes the brightness and saturation mean,  standard
-%  deviation, kurtosis and skewness and stores these values as attributes 
+%  deviation, kurtosis and skewness and stores these values as attributes
 %  of the image.
 %
 %  The format of the analyzeImage method is:
