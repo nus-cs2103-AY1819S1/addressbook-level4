@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> allPatientsInQueue;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
     private final MainQueue mainQueue;
@@ -49,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        allPatientsInQueue = m
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
@@ -242,6 +244,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    public ObservableList<Person> getAllPatientsInQueue() {
+        return FXCollections.unmodifiableObservableList(allPatientsInQueue);
     }
 
     //=========== Filtered Doctor List Accessors =============================================================
