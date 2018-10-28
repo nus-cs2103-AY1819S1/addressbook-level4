@@ -39,7 +39,9 @@ public class SelectCommandParser implements CommandParser<SelectCommand> {
      * for the Meal Planner and returns a SelectCommand object for execution.
      * @throws ParseException
      */
-    public SelectCommand parseMealRecipe(Model mealPlannerModel, Model recipeModel, String args) throws ParseException, MealRecipeNotFoundException {
+    public SelectCommand parseMealRecipe(Model mealPlannerModel,
+        Model recipeModel, String args) throws ParseException, MealRecipeNotFoundException {
+
         String[] arguments = args.split("\\s+");
         List<Recipe> recipeList = recipeModel.getFilteredList();
         List<Day> mealPlannerList = mealPlannerModel.getFilteredList();
