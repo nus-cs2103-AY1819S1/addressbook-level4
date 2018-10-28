@@ -4,6 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ssp.scheduleplanner.logic.CommandHistory;
+import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
 
@@ -23,18 +24,7 @@ public class AddRepeatCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddRepeatCommand(null);
+        new AddRepeatCommand(null, new Repeat("3"));
     }
 
-    @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validTask).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
 }

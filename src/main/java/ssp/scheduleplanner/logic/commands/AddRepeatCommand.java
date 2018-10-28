@@ -61,7 +61,7 @@ public class AddRepeatCommand extends Command {
         for (int i = 0; i < Integer.parseInt(repeat.value); i++) {
             Calendar baseDate = toAdd.getDate().calendar;
             baseDate.add(Calendar.DAY_OF_YEAR, 7 * i);
-            String newDate = schedulerFormat.format(baseDate);
+            String newDate = schedulerFormat.format(baseDate.getTime());
             Date date = new Date(newDate);
             Task newTask = new Task(toAdd.getName(), date,
                     toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
