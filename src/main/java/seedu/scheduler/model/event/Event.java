@@ -89,8 +89,15 @@ public class Event {
                 venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
     }
 
-
-
+    /**
+     * Does not take in reminderDurationList and uid and uuid
+     */
+    public Event(EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
+        this(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
+    }
 
     public UUID getUid() {
         return uid;
