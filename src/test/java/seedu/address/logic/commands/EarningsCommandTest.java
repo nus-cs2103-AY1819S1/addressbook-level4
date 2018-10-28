@@ -22,7 +22,7 @@ public class EarningsCommandTest {
 
     @Test
     public void constructor_nullDate_throwsNullPointerException() {
-       thrown.expect(NullPointerException.class);
+        thrown.expect(NullPointerException.class);
         new EarningsCommand(null, null);
     }
 }
