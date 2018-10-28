@@ -15,7 +15,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.testutil.Assert;
 
 
 public class AddCategoryBudgetCommandTest {
@@ -37,8 +36,9 @@ public class AddCategoryBudgetCommandTest {
         expectedModel.addCategoryBudget(toAdd);
         expectedModel.commitExpenseTracker();
         AddCategoryBudgetCommand addCategoryBudgetCommand = new AddCategoryBudgetCommand(toAdd);
-        String expectedMessage = String.format(String.format(AddCategoryBudgetCommand.MESSAGE_SUCCESS,
-            toAdd.getCategory(), toAdd));
+        String expectedMessage = String.format(AddCategoryBudgetCommand.MESSAGE_SUCCESS,
+            toAdd.getCategory(), toAdd);
+
         assertCommandSuccess(addCategoryBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
 
     }

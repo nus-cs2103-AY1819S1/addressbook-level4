@@ -111,6 +111,8 @@ public class TotalBudget extends Budget {
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         double sumOfCurrentCategoryBudgets =
             this.categoryBudgets.stream().mapToDouble(categoryBudget -> categoryBudget.getBudgetCap()).sum();
+        System.out.println(sumOfCurrentCategoryBudgets);
+        System.out.println(budget.getBudgetCap());
         if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
@@ -131,7 +133,7 @@ public class TotalBudget extends Budget {
     }
 
     public HashSet<CategoryBudget> getCategoryBudgets() {
-        return this.categoryBudgets;
+        return new HashSet<>(this.categoryBudgets);
     }
 
     @Override

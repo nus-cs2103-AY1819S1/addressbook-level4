@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.storage.storageutil.LocalDateTimeAdapter;
 
@@ -59,14 +60,26 @@ public class XmlAdaptedTotalBudget extends XmlAdaptedBudget {
     /**
      * Converts this jaxb-friendly totalBudget tag object into the model's TotalBudget object.
      */
-    public TotalBudget toModelType() {
-        if (this.categoryBudgets != null) {
-            return new TotalBudget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain,
-                this.categoryBudgets.stream()
-                    .map(xmlBudget -> xmlBudget.toModelType())
-                    .collect(Collectors.toCollection(HashSet::new)));
+    public TotalBudget toModelType() throws IllegalValueException {
+        try {
+            if (this.categoryBudgets != null) {
+                return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses), this.nextRecurrence,
+                    this.numberOfSecondsToRecurAgain,
+                    this.categoryBudgets.stream()
+                        .map(xmlBudget -> {
+                            try {
+                                return xmlBudget.toModelType();
+                            } catch (IllegalValueException e) {
+                                throw new RuntimeException();
+                            }
+                        })
+                        .collect(Collectors.toCollection(HashSet::new)));
+            }
+            return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses), this.nextRecurrence,
+                this.numberOfSecondsToRecurAgain);
+        } catch (RuntimeException e) {
+            throw new IllegalValueException("Some values in TotalBudget are not valid");
         }
-        return new TotalBudget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain);
 
     }
 

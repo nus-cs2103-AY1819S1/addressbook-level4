@@ -2,6 +2,7 @@ package seedu.address.storage.budget;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.budget.Budget;
 
 /**
@@ -10,10 +11,10 @@ import seedu.address.model.budget.Budget;
 
 public abstract class XmlAdaptedBudget {
     @XmlElement
-    protected double budgetCap;
+    protected String budgetCap;
 
     @XmlElement
-    protected double currentExpenses;
+    protected String currentExpenses;
 
     /**
      * Constructs an XmlAdaptedBudget.
@@ -22,13 +23,26 @@ public abstract class XmlAdaptedBudget {
     public XmlAdaptedBudget() {
     }
 
+    public XmlAdaptedBudget(String budget) {
+        this.budgetCap = budget;
+        this.currentExpenses = "0";
+
+    }
+
+    public XmlAdaptedBudget(String budget, String currentExpenses) throws IllegalValueException {
+
+        this.budgetCap = budget;
+        this.currentExpenses = currentExpenses;
+
+    }
+
     public XmlAdaptedBudget(Budget source) {
-        this.budgetCap = source.getBudgetCap();
-        this.currentExpenses = source.getCurrentExpenses();
+        this.budgetCap = String.format("%.2f", source.getBudgetCap());
+        this.currentExpenses = String.format("%.2f", source.getCurrentExpenses());
     }
 
     /**
      * Converts this jaxb-friendly adapted budget object into the model's Budget object.
      */
-    public abstract Budget toModelType();
+    public abstract Budget toModelType() throws IllegalValueException;
 }
