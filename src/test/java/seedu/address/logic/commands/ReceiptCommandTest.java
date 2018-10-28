@@ -26,7 +26,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
-import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.testutil.TypicalPersons;
@@ -45,14 +44,13 @@ public class ReceiptCommandTest {
     public void setUp() {
         patientQueue = new PatientQueueManager();
         currentPatient = new CurrentPatient();
-        servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
     }
 
     @Test
     public void execute_validServedPatient_receiptMessageSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = ReceiptCommand.MESSAGE_GENERATE_RECEIPT_SUCCESS;
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         CommandResult commandResult = receiptCommand.execute(model, patientQueue,
@@ -83,7 +81,6 @@ public class ReceiptCommandTest {
 
     @Test
     public void equals() {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReceiptCommand receiptAliceCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         ReceiptCommand receiptBobCommand = new ReceiptCommand(INDEX_SECOND_PERSON);
 

@@ -64,11 +64,6 @@ public class Document {
     private String fileType;
     private IcNumber icNumber;
 
-    //variables specific to receipt but here because of checkstyle issues
-    private float totalPrice = 0;
-    private Map<Medicine, QuantityToDispense> allocatedMedicine;
-    private ArrayList<Service> servicesRendered;
-
     /**
      * Opens a preview of the document in a document window or focuses on it if it's already opened.
      */
@@ -193,13 +188,14 @@ public class Document {
      * Formats all the relevant information of a receipt in HTML for the served patient.
      */
     String formatReceiptInformation() {
+        Receipt receipt = (Receipt) this;
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append(RECEIPT_HEADER)
                 .append(RECEIPT_HEADER_CONTENT)
-                .append(unpackTypesOfServices(servicesRendered))
-                .append(unpackMedicineAllocation(this.allocatedMedicine))
+                .append(unpackTypesOfServices(receipt.getServicesRendered()))
+                .append(unpackMedicineAllocation(receipt.getAllocatedMedicine()))
                 .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
-                .append(String.format("%.02f", this.totalPrice))
+                .append(String.format("%.02f", receipt.getTotalPrice()))
                 .append(RECEIPT_END);
         return stringbuilder.toString();
     }
@@ -208,14 +204,19 @@ public class Document {
      * Formats all the relevant information of a MC in HTML for the served patient.
      */
     String formatMcInformation() {
+        MedicalCertificate mc = (MedicalCertificate) this;
+        int numMcDays = mc.getMcDays();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("This is to certify that the above-named is unfit for duty for a period of X day(s)"
-                + " from " + LocalDate.now().format(formatter) + " to " + LocalDate.now().plusDays(7).format(formatter)
-                + " inclusive.<br><br>")
-                .append("This certificate is not valid for absence from court attendance.<br><br>")
-                .append("<b>Issuing Doctor:<b>" + "<br><br>");
+        stringbuilder.append("This is to certify that the above-named patient is unfit for duty for a period of ")
+                .append(numMcDays)
+                .append(" day(s), from ")
+                .append(LocalDate.now().format(formatter))
+                .append(" to ")
+                .append(LocalDate.now().plusDays(numMcDays - 1).format(formatter))
+                .append(" inclusive.<br><br>")
+                .append("This certificate is not valid for absence from court attendance.<br><br>");
         return stringbuilder.toString();
     }
 
@@ -235,13 +236,14 @@ public class Document {
      * a table to be reflected in the HTML file.
      */
     private String unpackTypesOfServices(ArrayList<Service> servicesRendered) {
+        Receipt receipt = (Receipt) this;
         StringBuilder stringBuilder = new StringBuilder();
         String serviceName;
         int servicePrice;
         for (Service s : servicesRendered) {
             serviceName = s.toString();
             servicePrice = Integer.parseInt(s.getPrice().toString());
-            this.totalPrice += servicePrice;
+            receipt.increaseTotalPriceBy(servicePrice);
 
             stringBuilder.append("<tr><td>")
                     .append(serviceName)
@@ -264,6 +266,7 @@ public class Document {
      *                          and their individual respective quantities
      */
     private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
+        Receipt receipt = (Receipt) this;
         StringBuilder stringBuilder = new StringBuilder();
         int quantity;
         int pricePerUnit;
@@ -275,7 +278,7 @@ public class Document {
             quantity = entry.getValue().getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
-            this.totalPrice += totalPriceForSpecificMedicine;
+            receipt.increaseTotalPriceBy(totalPriceForSpecificMedicine);
 
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
@@ -300,14 +303,6 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
-    }
-
-    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
-        this.allocatedMedicine = allocatedMedicine;
-    }
-
-    public void setServicesRendered (ArrayList<Service> services) {
-        this.servicesRendered = services;
     }
 
     public File getFile() {

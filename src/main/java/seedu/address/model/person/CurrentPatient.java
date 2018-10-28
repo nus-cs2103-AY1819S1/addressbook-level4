@@ -139,7 +139,7 @@ public class CurrentPatient {
         StringBuilder sb = new StringBuilder();
         sb.append("\nNotes: ")
                 .append(getNoteContent())
-                .append("\nMC Content: ")
+                .append("\nDay(s) of MC: ")
                 .append(getMcContent())
                 .append("\nReferral Content: ")
                 .append(getReferralContent());
