@@ -26,6 +26,11 @@ public class EarningsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "You've earned a total of $%.2f between %s and %s";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the total tuition fees earned "
+            + "between a range of date, inclusive of the beginning date and ending date.\n"
+            + "The dates should be in the format \"ddmm\", separated by a whitespace in between.\n"
+            + "Example: " + COMMAND_WORD + " 0305 1911 ";
+
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -36,6 +41,9 @@ public class EarningsCommand extends Command {
     private int[] daysOfWeek;
 
     public EarningsCommand(LocalDate inputStartDate, LocalDate inputEndDate) {
+        requireNonNull(inputStartDate);
+        requireNonNull(inputEndDate);
+
         startDate = inputStartDate;
         endDate = inputEndDate;
         daysOfWeek = setDaysOfWeek();
@@ -145,5 +153,13 @@ public class EarningsCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalFeesEarned,
                 startDate.toString(), endDate.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || ((other instanceof EarningsCommand)
+                && (startDate.equals(((EarningsCommand) other).startDate))
+                && (endDate.equals(((EarningsCommand) other).endDate)));
     }
 }

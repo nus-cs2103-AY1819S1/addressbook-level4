@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Year;
@@ -11,6 +14,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EarningsCommand object
  */
 public class EarningsCommandParser implements Parser<EarningsCommand> {
+
+    public static final String MESSAGE_INVALID_DATE = "The given start date is later than the end date";
+
 
     public LocalDate getLocalDateFromString(String date) throws DateTimeException {
         int day = Integer.parseInt(date.substring(0, 2));
@@ -25,10 +31,11 @@ public class EarningsCommandParser implements Parser<EarningsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EarningsCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format("Enter error message here"));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EarningsCommand.MESSAGE_USAGE));
         }
 
         LocalDate startDate;
@@ -37,8 +44,11 @@ public class EarningsCommandParser implements Parser<EarningsCommand> {
         try {
             startDate = getLocalDateFromString(trimmedArgs.substring(0, 4));
             endDate = getLocalDateFromString(trimmedArgs.substring(5, 9));
+            if (startDate.isAfter(endDate)) {
+                throw new ParseException(MESSAGE_INVALID_DATE);
+            }
         } catch (DateTimeException | IllegalArgumentException | StringIndexOutOfBoundsException e) {
-            throw new ParseException("Wrong date format.");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EarningsCommand.MESSAGE_USAGE));
         }
 
         return new EarningsCommand(startDate, endDate);
