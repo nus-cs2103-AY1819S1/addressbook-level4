@@ -559,28 +559,85 @@ Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupLi
 // tag::meeting[]
 === Meeting
 
-.Sequence diagram for the meet command
-image::MeetCommandSequenceDiagram.png[width="500"]
+`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`. 
 
-A `Meeting` can be assigned and remove from a `Group` using the `meet` and `cancel` command, respectively.
+[NOTE]
+A `Group` can only have a maximum of one `Meeting` at any given time.
 
-In order to for these commands to function, we have implemented the following methods:
-* `Group#setMeeting(Meeting meeting)` which set the `meeting` field of the `Group` class to `Optional` of `meeting`
-* `Group#cancelMeeting()` which set the `meeting` field of the `Group` class to an empty `Optional`
+==== Current implementation
 
-This allows us to modify the `Group` in the `UniqueGroupList` by using the `Model#updateGroup(Group target, Group editedGroup)` method.
+In the current implementation, `Meeting` is related to `Group` by composition. To facilitate the meeting feature, `Group` implements the following operations:
 
-==== Design Consideration
+* `Group#hasMeeting` -- This returns `true` if there is a meeting associated with the group
+* `Group#getMeeting()` -- This group's meeting or `null` if the group has no meeting.
+* `Group#setMeeting(Meeting meeting)` -- This assigns `meeting` to the group.
+* `Group#cancelMeeting()` -- This removes the meeting associated witht the group.
 
-===== Aspect: Specifying the Group to add the Meeting to
+These operations can be accessed by retreiving the list of groups using `Model#getGroupList()` and performing these operations on its members.
 
-* **Alternative 1 (current choice):** Directly specify the group name when invoking the command.
-** Pros: The command syntax becomes natural and intuitive.
-** Cons: The user have to manually find the group name which might be difficult when the number of groups is high (~20+ groups).
-* **Alternative 2 :** Specify the group with it's index.
-** Pros: Easier to use when the number of groups is high (~20+ groups).
-** Cons: The command syntax becomes unnatural and the program becomes more suspectible to bugs for a benefit that is dubious at best.
+**Given below is an example usage scenario and how the model behaves at each step.**
 
+Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the meeting book. None of these groups have a meeting scheduled.
+
+image::meetCommandStep1Diagram.png[width="600"]
+
+[NOTE]
+Meeting field in a group without a meeting is an empty `Optional`
+
+Step 2. The user executes `meet FrisbeeTeam n/Sunday Practice t/28-10-2018@10:00 l/UTown Green d/Practice for Inter-College Games` to schedule a meeting named `Sunday Practice` associated with the group `FrisbeeTeam`.
+
+image::meetCommandStep2Diagram.png[width="600"]
+
+Step 3. The user then executes `meet Project2103 n/Weekly Meeting...` to schedule a meeting called `Weekly Meeting` with the `Project2103` Group.
+
+image::meetCommandStep3Diagram.png[width="600"]
+
+Step 4. The user then found out that the meeting `Sunday Practice` with `FrisbeeTeam` has been cancelled. Thus, the user calls `cancel FrisbeeTeam` to cancel meeting with the `FrisbeeTeam` group.
+
+image::meetCommandStep4Diagram.png[width="600"]
+
+[NOTE]
+Calling `cancel` on a group without meeting returns an error
+
+[NOTE] 
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
+
+Step 5. The user then discovers that the topic of the meeting with `Project2103` changed to rehearsal for the upcoming software demo. Therefore, the user calls `meet Project2103 n/Demo Preparation...` to change the detail of the meeting This overwrites the meeting `Weekly Meeting` with the new meeting `Demo Preparation`.
+
+image::meetCommandStep5Diagram.png[width="600"]
+
+[NOTE]
+This operation creates a new `Meeting` object which replaces the old one.
+
+**The following sequence diagrams show how the meet and cancel command function.**
+
+.Sequence diagram for meet command
+image::meetCommandSequenceDiagram.png[width="300"]
+
+.Sequence diagram for cancel command
+image::cancelCommandSequenceDiagram.png[width="300"]
+
+==== Design Considerations
+
+===== Aspect: Storage of meetings
+
+* **Alternative 1 (current choice):** Storing meetings inside groups
+** Pros: This design simplifies the source code by not requiring a separate class to store meetings.
+** Cons: This design requires iterating through all groups to retreive the list of meetings
+
+* **Alternative 2:** Storing meetings in a separate uniqueMeetingList class
+** Pros: This design simplifies retreival of the list of meetings.
+** Cons: This design causes the code becomes more complicated and more difficult to test.
+
+===== Aspect: Specification of target group for meet and cancel commands
+
+* **Alternative 1 (current choice):** Specifying the group using its name.
+** Pros: This design makes the command syntax natural and intuitive.
+** Cons: This design forces the user have to manually type in the group name.
+
+* **Alternative 2:** Specifying the group using its index.
+** Pros: This design is easier to use when the number of groups is high.
+** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
 
 === Logging
