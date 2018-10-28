@@ -32,15 +32,15 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_CLEAR_NOTHING = "No persons found under %1$s in Hallper";
 
     private final List<String> target;
-    private boolean clearAll;
-    private boolean clearRoom;
-    private boolean clearTag;
+    private boolean isClearAll;
+    private boolean isClearRoom;
+    private boolean isClearTag;
 
     public ClearCommand(List<String> target) {
         this.target = target;
-        this.clearAll = false;
-        this.clearRoom = false;
-        this.clearTag = false;
+        this.isClearAll = false;
+        this.isClearRoom = false;
+        this.isClearTag = false;
     }
 
     @Override
@@ -48,18 +48,18 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         for (String s : target) {
             if (s.toLowerCase().equals("all")) {
-                this.clearAll = true;
+                this.isClearAll = true;
                 break;
             }
             if (Room.isValidRoom(s)) {
-                this.clearRoom = true;
+                this.isClearRoom = true;
             }
             if (Tag.isValidTagName(s)) {
-                this.clearTag = true;
+                this.isClearTag = true;
             }
         }
 
-        if (clearAll) {
+        if (isClearAll) {
             return clearAll(model);
         } else {
             return clearSpecific(model);
@@ -88,10 +88,10 @@ public class ClearCommand extends Command {
         List<Person> toClear = new ArrayList<>();
         List<Person> fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
-            if (clearRoom && predicateRoom.test(p)) {
+            if (isClearRoom && predicateRoom.test(p)) {
                 toClear.add(p);
             }
-            if (clearTag && predicateTag.test(p)) {
+            if (isClearTag && predicateTag.test(p)) {
                 toClear.add(p);
             }
         }
