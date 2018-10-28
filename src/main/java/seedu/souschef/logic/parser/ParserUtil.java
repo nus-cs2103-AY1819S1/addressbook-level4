@@ -197,8 +197,8 @@ public class ParserUtil {
     }
 
     /**
-     * parseIndex plan names for commands
-     * parseIndex plan name
+     * parseRecipe plan names for commands
+     * parseRecipe plan name
      */
     public static HealthPlanName parseHpName(String name) throws ParseException {
         requireNonNull(name);
@@ -209,8 +209,8 @@ public class ParserUtil {
         return new HealthPlanName(trimmedName);
     }
     /**
-     * parseIndex target weight for commands
-     * parseIndex tweight
+     * parseRecipe target weight for commands
+     * parseRecipe tweight
      */
     public static TargetWeight parseTWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -222,8 +222,8 @@ public class ParserUtil {
     }
 
     /**
-     * parseIndex current weight for commands
-     * parseIndex cweight
+     * parseRecipe current weight for commands
+     * parseRecipe cweight
      */
     public static CurrentWeight parseCWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -236,8 +236,8 @@ public class ParserUtil {
 
 
     /**
-     * parseIndex current height for commands
-     * parseIndex cheight
+     * parseRecipe current height for commands
+     * parseRecipe cheight
      */
     public static CurrentHeight parseCHeight(String height) throws ParseException {
         requireNonNull(height);
@@ -250,7 +250,7 @@ public class ParserUtil {
 
 
     /**
-     * parseIndex age for commands
+     * parseRecipe age for commands
      */
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
@@ -263,7 +263,7 @@ public class ParserUtil {
     }
 
     /**
-     * parseIndex duration for commands
+     * parseRecipe duration for commands
      */
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
@@ -276,7 +276,7 @@ public class ParserUtil {
     }
 
     /**
-     * parseIndex scheme
+     * parseRecipe scheme
      */
     public static Scheme parseScheme(String scheme) throws ParseException {
         requireNonNull(scheme);

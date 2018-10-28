@@ -19,7 +19,7 @@ import seedu.souschef.model.recipe.Recipe;
 
 
 /**
- * Class to parseIndex favourite logic
+ * Class to parseRecipe favourite logic
  */
 public class FavouritesParser {
     public static final String COMMAND_WORD = "favourite";

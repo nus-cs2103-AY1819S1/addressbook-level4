@@ -5,7 +5,7 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 
 /**
- * Represents a Parser that is able to parseIndex user input into a {@code Command} of type {@code T}.
+ * Represents a Parser that is able to parseRecipe user input into a {@code Command} of type {@code T}.
  */
 public interface CommandParser<T extends Command> {
 
