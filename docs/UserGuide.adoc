@@ -460,7 +460,7 @@ Example(s):
 View the list of volunteers assigned to event at index 1.
 
 .Panel of events
-image::command_switch_after.png[view events, 200]
+image::command_switch_after.png[view events, 300]
 
 The figure above shows the 'event' panel that you will see before executing the `manage` command.
 
@@ -492,7 +492,7 @@ Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 ****
 
 .The VOLUNTEER_INDEX
-image::command_record_add_volunteerIndex.png[volunteer index, 200]
+image::command_record_add_volunteerIndex.png[volunteer index, 300]
 
 The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
 
