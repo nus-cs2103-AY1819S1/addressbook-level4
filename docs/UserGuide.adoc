@@ -536,7 +536,7 @@ Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 .The VOLUNTEER_INDEX
 image::command_record_edit_volunteerIndex.png[volunteer index, 800]
 
-The highlighted column from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
+The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
 
 Example(s):
 
@@ -547,11 +547,11 @@ Updates amount of hours volunteered for volunteer at index 3 to 5 hours with rem
 image::command_record_edit.png[edit command, 800]
 
 .Output of `edit 2 h/5 r/Emcee`
-image::command_record_edit_after.png[add command, 800]
+image::command_record_edit_after.png[edit command, 800]
 
 The figures above show the display box before and after editing a record.
 
-==== Deleting volunteer record from event: `delete [coming in v1.3]`
+==== Deleting volunteer record from event: `delete`
 
 Deletes the volunteer record from the event that is currently being managed. +
 
@@ -561,14 +561,24 @@ Format: `delete VOLUNTEER_INDEX`
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 ****
 
-.Deleting a record
-image::command_record_edit.png[delete record, 800]
+.The VOLUNTEER_INDEX
+image::command_record_edit_volunteerIndex.png[delete record, 800]
+
+The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
 
 
 Example(s):
 
 * `delete 1` +
-Deletes the volunteer record of the volunteer at index 1.
+Deletes the volunteer record at index 1.
+
+.Before deleting the volunteer record
+image::command_record_edit_after.png[delete command, 800]
+
+.Output of `delete 1`
+image::command_record_delete.png[delete command, 800]
+
+The figures above show the display box before and after deleting a record.
 
 === Miscellaneous
 
