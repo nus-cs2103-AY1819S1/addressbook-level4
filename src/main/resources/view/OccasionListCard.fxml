@@ -26,9 +26,9 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="occasionName" text="\$name" styleClass="cell_big_label" />
-                <Label fx:id="occasionDate" text="\$name" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <Label fx:id="occasionDate" styleClass="cell_small_label" text="\$date" />
         </VBox>
     </GridPane>
 </HBox>

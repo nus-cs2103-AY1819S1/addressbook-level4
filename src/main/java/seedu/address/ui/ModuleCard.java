@@ -35,6 +35,10 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label academicYear;
+    @FXML
+    private Label semester;
+    @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
@@ -43,6 +47,8 @@ public class ModuleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         code.setText(module.getModuleCode().toString() + ":");
         name.setText(module.getModuleTitle().toString());
+        academicYear.setText("Academic Year: " + module.getAcademicYear().toString());
+        semester.setText("Semester: " + module.getSemester().toString());
         if (module.getTags() != null) {
             module.getTags().forEach((value) -> tags.getChildren().add(new Label(value.tagName)));
         }

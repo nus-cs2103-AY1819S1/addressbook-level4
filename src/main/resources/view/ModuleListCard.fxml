@@ -29,6 +29,8 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
+      <Label fx:id="academicYear" styleClass="cell_small_label" text="\$year" />
+      <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
     </VBox>
   </GridPane>
 </HBox>
