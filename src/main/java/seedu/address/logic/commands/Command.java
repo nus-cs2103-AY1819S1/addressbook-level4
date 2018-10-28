@@ -10,16 +10,8 @@ import seedu.address.model.Model;
 public abstract class Command {
 
     /**
-     * Execution primitive that is used
-     *
-     * @param model   {@code Model} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
-     */
-    public abstract CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException;
-    /**
      * Executes the command and returns the result message.
+     * Implementation of command depends on executePrimitive.
      *
      * @param model   {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
@@ -31,4 +23,14 @@ public abstract class Command {
         return executePrimitive(model, history);
     }
 
+    /**
+     * Execution primitive used be execution command. Inherited commands need to implement this method
+     * to define the implementation of the function.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public abstract CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException;
 }
