@@ -149,5 +149,4 @@ public class FindCommandTest {
     private CardQuestionContainsKeywordsPredicate prepareCardPredicate(String userInput) {
         return new CardQuestionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
-
 }
