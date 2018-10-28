@@ -54,6 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
+Displays a popup window showing all the commands a user can use in `WishBook`.
 
 Format: `help`
 
@@ -62,8 +63,13 @@ Adds a wish to the wish list +
 Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 
 [TIP]
-* `[END_DATE]`: Specified in _ddmmyyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
+* `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
 * `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+
+[NOTE]
+====
+If an invalid date is provided, a warning message will be displayed to prompt the user to reenter a valid date. Until all fields provided are valid, the wish will not be added to `WishBook`.
+====
 
 Examples:
 
@@ -78,6 +84,7 @@ Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
 
 ****
 * Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
+* `INDEX` is labelled at the side of each wish.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the wish will be removed i.e. adding of tags is not cumulative.
@@ -121,6 +128,11 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Shows a history of savings you have allocated, from newest to oldest. +
 Format: `history -s`
+
+[NOTE]
+====
+Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will no longer be tracked.)
+====
 
 === Locating wishes by name: `find`
 
@@ -171,7 +183,7 @@ Selects the wish identified by the index number used in the displayed wish list.
 Format: `select INDEX`
 
 ****
-* Selects the wish and loads the Google search page for the wish at the specified `INDEX`.
+* Selects the wish and loads the webpage at the `url` specific to that wish at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed wish list.
 * `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -201,10 +213,10 @@ Format: `save [INDEX] s/AMOUNT`
 
 Examples: +
 
-* `save 1 s/1000` +
+* `save 1 1000` +
 Attempt to save $1000 for the wish at index 1.
 
-* `save 1 s/-100.50` +
+* `save 1 -100.50` +
  Attempt to remove $100.50 from the savings for the wish at index 1.
 
 === Editing a remark for a wish : `remark`
