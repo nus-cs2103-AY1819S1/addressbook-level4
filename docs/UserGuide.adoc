@@ -226,10 +226,10 @@ Updates the panel to display the list of events.
 --
 [.left]
 .Before: Panel displaying volunteers
-image::command_switch_before.png[switch bef, 200]
+image::command_switch_before.png[switch bef, 300]
 [.left]
 .After: Panel displaying events
-image::command_switch_after.png[switch aft, 200]
+image::command_switch_after.png[switch aft, 300]
 --
 
 The figures above show the 2 different panels. +
