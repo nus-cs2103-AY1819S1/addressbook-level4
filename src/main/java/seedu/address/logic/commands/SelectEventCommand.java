@@ -7,11 +7,12 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.record.RecordContainsEventIdPredicate;
 
 /**
  * Selects an event identified using it's displayed index from the application.
@@ -43,7 +44,11 @@ public class SelectEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
+                filteredEventList.get(targetIndex.getZeroBased()).getEventId()
+        ));
+
+        EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex.getOneBased()));
 
     }

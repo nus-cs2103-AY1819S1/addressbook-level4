@@ -57,6 +57,13 @@ public class VolunteerListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Clears the selection in the ListView.
+     */
+    public void clearSelection() {
+        volunteerListView.getSelectionModel().clearSelection();
+    }
+
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
