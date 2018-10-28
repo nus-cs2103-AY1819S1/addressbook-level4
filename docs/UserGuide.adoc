@@ -55,7 +55,7 @@ users will see upon startup.
 
 2. _Panel_:  Displays volunteers or events, depending on which item you are managing.
 
-3. _Display_: Shows more information for the selected item from the panel.
+3. _Display Box_: Shows more information for the selected item from the panel.
 
 4. _Command Box_: Allows you to input commands for execution.
 
@@ -460,11 +460,14 @@ The number displayed next to the event name is the EVENT_INDEX that you have to 
 .Managing the selected event
 image::command_manage_view.png[manage, 800]
 
-The figure above shows how the UI might look like after selecting to manage it. +
+The figure above shows the screen you will see after executing the `manage` command successfully.
 
-The left panel displays the list of volunteers while the right panel displays the event name and volunteers currently registered for the event.
+The following changes are observed:
 
-==== Adding volunteer to event: `add [coming in v1.3]`
+* Panel displays the list of volunteers that you can assign to an event.
+* Display box shows the event name, total number of volunteers for the event and the list of volunteers registered.
+
+==== Adding volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
 
