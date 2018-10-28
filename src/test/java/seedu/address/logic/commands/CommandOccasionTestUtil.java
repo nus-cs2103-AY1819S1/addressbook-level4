@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.testutil.EditOccasionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,18 +38,31 @@ public class CommandOccasionTestUtil {
     public static final String OCCASIONDATE_DESC_TWO = " " + PREFIX_OCCASION_DATE + VALID_OCCASIONDATE_TWO;
     public static final String OCCASIONLOCATION_DESC_ONE = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_ONE;
     public static final String OCCASIONLOCATION_DESC_TWO = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_TWO;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_STUDY;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_SLEEP;
+    public static final String TAG_DESC_STUDY = " " + PREFIX_TAG + VALID_TAG_STUDY;
+    public static final String TAG_DESC_SLEEP = " " + PREFIX_TAG + VALID_TAG_SLEEP;
 
     public static final String INVALID_OCCASIONNAME_DESC =
             " " + PREFIX_OCCASION_NAME + "Exam!"; // '!' not allowed in names
     public static final String INVALID_OCCASIONDATE_DESC =
-            " " + PREFIX_OCCASION_DATE + "2015-20-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
+            " " + PREFIX_OCCASION_DATE + "2015-201-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
+    // TODO: OccasionDate can not detect invalid month.
     public static final String INVALID_OCCASIONLOCATION_DESC = " " + PREFIX_OCCASION_LOCATION + "SR"; // not 3-20 chars
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "HOORAY!"; // '!' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final EditOccasionCommand.EditOccasionDescriptor DESC_ONE;
+    public static final EditOccasionCommand.EditOccasionDescriptor DESC_TWO;
+
+    static {
+        DESC_ONE = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_ONE)
+                .withOccasionDate(VALID_OCCASIONDATE_ONE).withOccasionLocation(VALID_OCCASIONLOCATION_ONE)
+                .withTags(VALID_TAG_STUDY).build();
+        DESC_TWO = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
+                .withOccasionDate(VALID_OCCASIONDATE_TWO).withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
+                .withTags(VALID_TAG_SLEEP).build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -73,7 +87,7 @@ public class CommandOccasionTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the address book and the filtered occasion list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -91,7 +105,7 @@ public class CommandOccasionTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredOccasionList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

@@ -36,6 +36,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListModuleCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
@@ -169,6 +170,76 @@ public abstract class AddressBookSystemTest {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
+
+    /**
+     * Displays all modules in the address book.
+     */
+    protected void showAllModules() {
+        executeCommand(ListModuleCommand.COMMAND_WORD);
+        assertEquals(getModel().getAddressBook().getModuleList().size(), getModel().getFilteredModuleList().size());
+    }
+
+    /**
+     * Displays all modules with any parts of their titles matching {@code keyword} (case-insensitive).
+     */
+    protected void showModulesWithTitle(String keyword) {
+        // TODO: -> FindModuleCommand
+        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredModuleList().size() < getModel().getAddressBook().getModuleList().size());
+    }
+
+    /**
+     * Selects the module at {@code index} of the displayed list.
+     */
+    protected void selectModule(Index index) {
+        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        // TODO: -> getModuleListPanel implemented.
+        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Deletes all moduless in the address book.
+     */
+    protected void deleteAllModules() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getAddressBook().getModuleList().size());
+    }
+
+    /**
+     * Displays all occasions in the address book.
+     */
+    protected void showAllOccasions() {
+        // TODO: -> ListOccasionCommand
+        executeCommand(ListPersonCommand.COMMAND_WORD);
+        assertEquals(getModel().getAddressBook().getOccasionList().size(), getModel().getFilteredOccasionList().size());
+    }
+
+    /**
+     * Displays all occasions with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showOccasionsWithName(String keyword) {
+        // TODO: -> FindOccasionCommand
+        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredOccasionList().size() < getModel().getAddressBook().getOccasionList().size());
+    }
+
+    /**
+     * Selects the occasion at {@code index} of the displayed list.
+     */
+    protected void selectOccasion(Index index) {
+        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        // TODO: -> getOccasionListPanel implemented.
+        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Deletes all occasions in the address book.
+     */
+    protected void deleteAllOccasions() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getAddressBook().getOccasionList().size());
+    }
+
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
