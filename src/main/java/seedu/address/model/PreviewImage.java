@@ -22,7 +22,7 @@ public class PreviewImage {
     private int height;
     private int width;
     private int currentIndex;
-    private int currentSize; // num of saved images
+    private int currentSize; // Number of saved images
 
     public PreviewImage(BufferedImage image) {
         this.currentSize = 0;
@@ -85,9 +85,20 @@ public class PreviewImage {
     }
 
     /**
-     * Increment size and current index, then cache the image.
+     * Determine if history needs to be purged before committing.
      */
     public void commit(BufferedImage image) {
+        if (currentIndex == currentSize - 1) {
+            normalCommit(image);
+        } else {
+            purgeAndCommit(image);
+        }
+    }
+
+    /**
+     * Increment size and current index, then cache the image.
+     */
+    public void normalCommit(BufferedImage image) {
         try {
             currentSize++;
             currentIndex++;
@@ -97,6 +108,22 @@ public class PreviewImage {
             System.out.println("Exception occ :" + e.getMessage());
         }
         System.out.println("Caching successful");
+    }
+
+    /**
+     * Purge redundant images, then do a normal commit.
+     */
+    public void purgeAndCommit(BufferedImage image) {
+        int numDeleted = 0;
+        for (int i = currentIndex + 1; i < currentSize; i++) {
+            File toDelete = new File(TESTPATH + "/Layer0-" + i + ".png");
+            toDelete.delete();
+            numDeleted++;
+        }
+        // Reduce the current size depending on the number of images deleted.
+        currentSize = currentSize - numDeleted;
+
+        normalCommit(image);
     }
 
     /**
