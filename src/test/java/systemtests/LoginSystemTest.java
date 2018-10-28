@@ -9,7 +9,6 @@ import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * A system test class for the login scenario, which contains interaction with other UI components.
