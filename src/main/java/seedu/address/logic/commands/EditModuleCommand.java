@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -18,7 +17,6 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,8 +48,7 @@ public class EditModuleCommand extends Command {
             + "[" + PREFIX_SEMESTER + "SEMESTER] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MODULECODE + "CS1101S "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_MODULECODE + "CS1101S ";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -110,7 +107,7 @@ public class EditModuleCommand extends Command {
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
         return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
-                updatedStudents, updatedTags, TypeUtil.MODULE);
+                updatedStudents, updatedTags);
     }
 
     @Override

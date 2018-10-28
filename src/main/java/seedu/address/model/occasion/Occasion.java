@@ -56,7 +56,7 @@ public class Occasion {
         return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
     }
 
-    public OccasionLocation getLocation() {
+    public OccasionLocation getOccasionLocation() {
         return location;
     }
 

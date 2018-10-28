@@ -1,5 +1,16 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_BINARY;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCULUS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +22,14 @@ import seedu.address.model.module.Module;
  * A utility class containing a list of {@code Module} objects to be used in tests.
  */
 public class TypicalModules {
-
+    // Manually added - Module's details found in {@code CommandModuleTestUtil}
+    public static final Module CS2100 = new ModuleBuilder().withModuleCode(VALID_MODULECODE_CS2100)
+            .withModuleTitle(VALID_MODULETITLE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
+            .withSemester(VALID_SEMESTER_CS2100).withTags(VALID_TAG_BINARY).build();
+    public static final Module ST2131 = new ModuleBuilder().withModuleCode(VALID_MODULECODE_ST2131)
+            .withModuleTitle(VALID_MODULETITLE_ST2131).withAcademicYear(VALID_ACADEMICYEAR_ST2131)
+            .withSemester(VALID_SEMESTER_ST2131)
+            .withTags(VALID_TAG_CALCULUS).build();
     public static final Module TYPICAL_MODULE_ONE = new ModuleBuilder().withModuleCode("CS1101S")
             .withModuleTitle("Programming Methodology I").withAcademicYear("1819")
             .withSemester("1").build();
@@ -35,6 +53,8 @@ public class TypicalModules {
             .withModuleTitle("Quantitative Reasoning").withAcademicYear("1516")
             .withSemester("2")
             .withTags("Statistics").build();
+
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalModules() {} // prevents instantiation
 

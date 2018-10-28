@@ -46,7 +46,8 @@ public class EditOccasionCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_OCCASION_NAME + "Barbecue "
-            + PREFIX_OCCASION_DATE + "2019-6-17";
+            + PREFIX_OCCASION_DATE + "2019-6-17 "
+            + PREFIX_OCCASION_LOCATION + "NUS";
 
     public static final String MESSAGE_EDIT_OCCASION_SUCCESS = "Edited Occasion: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

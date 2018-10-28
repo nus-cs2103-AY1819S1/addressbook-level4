@@ -72,7 +72,7 @@ public class XmlAdaptedOccasion {
                 .collect(Collectors.toList());
         occasionName = source.getOccasionName().toString();
         occasionDateTime = source.getOccasionDate().toString();
-        location = source.getLocation().toString();
+        location = source.getOccasionLocation().toString();
         attendanceList = source.getAttendanceList().asNormalList().stream()
                             .map(XmlAdaptedPerson::new)
                             .collect(Collectors.toList());
