@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -154,7 +155,11 @@ public class Group {
     /**
      * Set this group's meeting to be an empty optional.
      */
-    public void cancelMeeting() {
+    public void cancelMeeting() throws GroupHasNoMeetingException {
+        if (!this.meeting.isPresent()) {
+            throw new GroupHasNoMeetingException();
+        }
+
         this.meeting = Optional.empty();
     }
     // @@author
