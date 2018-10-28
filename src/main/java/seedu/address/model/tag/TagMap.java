@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import seedu.address.model.tag.exceptions.HasOverlapException;
+
 /**
  * Represents a map of key value tag pairs associated with a person, module or occasion.
  * TODO phase out the old tagging system with the new one.
@@ -35,6 +37,18 @@ public class TagMap {
         oldMap.getTagMap().forEach((key, value) -> tagMap.put(key, value));
     }
 
+    /**
+     * An overloaded constructor that enables to create a TagMap with the values
+     * from another raw Map of TagKey and TagValue pairs.
+     *
+     * @param oldMap The other raw map to insert into this TagMap.
+     */
+    public TagMap(Map<TagKey, TagValue> oldMap) {
+        requireNonNull(oldMap);
+        checkArgument(hasAnyOverlap(oldMap), MESSAGE_MAP_INSERT_CONSTRAINT);
+        oldMap.forEach((key, value) -> tagMap.put(key, value));
+    }
+
     public HashMap<TagKey, TagValue> getTagMap() {
         return this.tagMap;
     }
@@ -52,6 +66,26 @@ public class TagMap {
         checkArgument(contains(key), MESSAGE_MAP_DUPLICATE_CONSTRAINT);
         tagMap.put(key, value);
     }
+
+    /**
+     * Adds all tags within the TagMap toAdd to this TagMap's
+     * HashMap.
+     *
+     * @param toAdd The other TagMap to append to this TagMap.
+     */
+    public void addAll(TagMap toAdd) {
+        requireNonNull(toAdd);
+        if (hasAnyOverlap(toAdd)) {
+            throw new HasOverlapException();
+        }
+
+        Iterator it = toAdd.getTagMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            tagMap.put((TagKey) pair.getKey(), (TagValue) pair.getValue());
+        }
+    }
+
 
     /**
      * Removes the designated key from this TagMap
@@ -79,6 +113,24 @@ public class TagMap {
      */
     private boolean hasAnyOverlap(TagMap otherMap) {
         Iterator it = otherMap.getTagMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (tagMap.containsKey(pair.getKey())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true iff otherMap contains at least one TagKey
+     * whose hash is the same as a TagKey in this TagMap.
+     *
+     * @param otherMap The other map to compare to.
+     * @return A boolean symbolizing whether there is any overlap.
+     */
+    public boolean hasAnyOverlap(Map<TagKey, TagValue> otherMap) {
+        Iterator it = otherMap.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             if (tagMap.containsKey(pair.getKey())) {

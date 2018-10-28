@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,13 @@ public class UniquePersonList implements Iterable<Person> {
     public void resetData(ObservableList<Person> newData) {
         requireNonNull(newData);
         setPersons(newData);
+    }
+
+    public UniquePersonList(List<Person> otherList) {
+        requireNonNull(otherList);
+        if (personsAreUnique(otherList)) {
+            internalList.addAll(otherList);
+        }
     }
 
     /**
@@ -122,6 +130,13 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    /**
+     * Returns the backing list as a normal modifiable list {@code List}.
+     */
+    public List<Person> asNormalList() {
+        return internalList.stream().collect(Collectors.toList());
     }
 
     @Override

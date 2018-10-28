@@ -7,15 +7,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person extends Entity {
+public class Person {
 
     // Identity fields
     private final Name name;
@@ -29,14 +27,13 @@ public class Person extends Entity {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, TypeUtil type) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.type = type;
     }
 
     public Name getName() {
@@ -59,7 +56,6 @@ public class Person extends Entity {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }

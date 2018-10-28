@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_ONE;
 import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_TWO;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.util.ArrayList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -56,7 +58,7 @@ public class ModuleTest {
         assertFalse(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
 
         // different students list -> return true
-        UniquePersonList validStudents = new UniquePersonList();
+        UniquePersonList validStudents = new UniquePersonList(new ArrayList<>());
         validStudents.add(ALICE);
         editedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withStudents(validStudents).build();
         assertTrue(TYPICAL_MODULE_ONE.isSameModule(editedModuleOne));
@@ -103,7 +105,7 @@ public class ModuleTest {
         assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
         // different students list -> returns false
-        UniquePersonList validStudents = new UniquePersonList();
+        UniquePersonList validStudents = new UniquePersonList(new ArrayList<>());
         validStudents.add(ALICE);
         copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withStudents(validStudents).build();
         assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
