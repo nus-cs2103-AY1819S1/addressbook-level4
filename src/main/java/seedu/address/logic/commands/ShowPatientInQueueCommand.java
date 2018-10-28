@@ -17,7 +17,7 @@ public class ShowPatientInQueueCommand extends Command {
             + "currently in the queue. ";
     public static final String MESSAGE_SHOW_PATIENTS_IN_QUEUE_SUCCESS = "Patients currently "
             + "in the queue successfully displayed. ";
-
+    public static final String MESSAGE_NO_PATIENT_IN_QUEUE = "No patient in the queue. ";
     /**
      * Constructs the command.
      */
@@ -29,6 +29,11 @@ public class ShowPatientInQueueCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SHOW_PATIENTS_IN_QUEUE_SUCCESS));
+
+        if (model.hasPatientInPatientQueue()) {
+            return new CommandResult(String.format(MESSAGE_SHOW_PATIENTS_IN_QUEUE_SUCCESS));
+        } else {
+            return new CommandResult(String.format(MESSAGE_NO_PATIENT_IN_QUEUE));
+        }
     }
 }
