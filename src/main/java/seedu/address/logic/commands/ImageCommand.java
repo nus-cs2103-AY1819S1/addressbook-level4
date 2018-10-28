@@ -2,14 +2,16 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonProfileViewEvent;
+import seedu.address.commons.events.model.NewImageEvent;
+import seedu.address.commons.events.ui.ProfileViewEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -22,8 +24,6 @@ import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
-import seedu.address.ui.FileChooser;
-
 
 /**
  * Updates the profile picture of a person to the address book.
@@ -39,12 +39,14 @@ public class ImageCommand extends Command {
             + "Example: " + COMMAND_WORD + " r/A123 f/C://Users/Documents/FILENAME.jpg";
 
     public static final String MESSAGE_SUCCESS = "Profile picture uploaded for %1$s";
+    public static final String MESSAGE_FILE_ERROR = "Image path is invalid.";
     public static final String MESSAGE_NO_SUCH_PERSON = "There is no resident occupying that room.";
     public static final String MESSAGE_DUPLICATE_UPLOAD = "This resident already has that profile picture.";
 
     private final Room number;
     private final File filePath;
 
+    private BufferedImage image;
     private List<Person> fullList;
     private List<String> roomNumber;
 
@@ -76,9 +78,10 @@ public class ImageCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_PERSON);
         }
 
+        EventsCenter.getInstance().post(new NewImageEvent(filePath, number));
 
         EditPersonProfilePicture editPersonProfilePicture = new EditPersonProfilePicture();
-        editPersonProfilePicture.setProfilePicture(new ProfilePicture(filePath));
+        editPersonProfilePicture.setProfilePicture(new ProfilePicture(Paths.get(number.value + ".jpg")));
 
         Person editedPerson = createEditedProfilePicturePerson(resident, editPersonProfilePicture);
 
@@ -88,7 +91,7 @@ public class ImageCommand extends Command {
 
         model.updatePerson(resident, editedPerson);
         model.commitAddressBook();
-        EventsCenter.getInstance().post(new PersonProfileViewEvent(editedPerson));
+        EventsCenter.getInstance().post(new ProfileViewEvent(editedPerson));
         return new CommandResult(String.format(MESSAGE_SUCCESS, resident));
     }
 
