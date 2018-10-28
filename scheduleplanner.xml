@@ -75,4 +75,16 @@
         <priority>1</priority>
         <venue>home</venue>
     </tasks>
+    <tasks>
+        <name>groceries</name>
+        <date>291018</date>
+        <priority>2</priority>
+        <venue>abd</venue>
+    </tasks>
+    <tasks>
+        <name>groceries</name>
+        <date>051118</date>
+        <priority>2</priority>
+        <venue>abd</venue>
+    </tasks>
 </scheduleplanner>
