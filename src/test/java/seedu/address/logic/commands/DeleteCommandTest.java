@@ -38,7 +38,8 @@ public class DeleteCommandTest {
         Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete, model.getUnusedFunds());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete,
+                model.getUnusedFunds());
 
         ModelManager expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
         expectedModel.deleteWish(wishToDelete);
@@ -62,7 +63,8 @@ public class DeleteCommandTest {
         Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete, model.getUnusedFunds());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS, wishToDelete,
+                model.getUnusedFunds());
 
         Model expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
         expectedModel.deleteWish(wishToDelete);

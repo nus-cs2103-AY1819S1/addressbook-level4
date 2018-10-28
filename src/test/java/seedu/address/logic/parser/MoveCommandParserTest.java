@@ -23,20 +23,20 @@ public class MoveCommandParserTest {
 
     @Test
     public void parse_indexSpecified_success() {
-        final String userInputWishToWish = fromIndex.getOneBased() + " " + toIndex.getOneBased() +
-                " " + amountToMove.toString();
+        final String userInputWishToWish = fromIndex.getOneBased() + " " + toIndex.getOneBased()
+                + " " + amountToMove.toString();
         final MoveCommand expectedCommandWishToWish = new MoveCommand(fromIndex, toIndex, amountToMove,
                 MoveCommand.MoveType.WISH_TO_WISH);
         assertParseSuccess(moveCommandParser, userInputWishToWish, expectedCommandWishToWish);
 
-        final String userInputUnusedFundsToWish = unusedFundsIndex + " " + toIndex.getOneBased() +
-                " " + amountToMove.toString();
+        final String userInputUnusedFundsToWish = unusedFundsIndex + " " + toIndex.getOneBased()
+                + " " + amountToMove.toString();
         final MoveCommand expectedCommandUnusedFundsToWish = new MoveCommand(null, toIndex, amountToMove,
                 MoveCommand.MoveType.WISH_FROM_UNUSED_FUNDS);
         assertParseSuccess(moveCommandParser, userInputUnusedFundsToWish, expectedCommandUnusedFundsToWish);
 
-        final String userInputWishToUnusedFunds = fromIndex.getOneBased() + " " + unusedFundsIndex + " " +
-                amountToMove.toString();
+        final String userInputWishToUnusedFunds = fromIndex.getOneBased() + " " + unusedFundsIndex + " "
+                + amountToMove.toString();
         final MoveCommand expectedCommandWishToUnusedFunds = new MoveCommand(fromIndex, null, amountToMove,
                 MoveCommand.MoveType.WISH_TO_UNUSED_FUNDS);
         assertParseSuccess(moveCommandParser, userInputWishToUnusedFunds, expectedCommandWishToUnusedFunds);

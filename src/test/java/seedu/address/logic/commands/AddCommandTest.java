@@ -21,7 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishBook;
 import seedu.address.model.WishTransaction;
-import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 

@@ -3,7 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.showWishAtIndex;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_DIFFERENCE;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_EXCESS;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_SUCCESS;
@@ -205,7 +209,8 @@ public class SaveCommandTest {
 
         Wish firstWish = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
 
-        Amount amountToFulfilFirstWish = new Amount(firstWish.getSavedAmountToPriceDifference().getAbsoluteAmount().value.toString());
+        Amount amountToFulfilFirstWish = new Amount(firstWish.getSavedAmountToPriceDifference()
+                .getAbsoluteAmount().value.toString());
         Amount excess = new Amount("" + 1.0);
         Amount excessAmountFirstWish = new Amount("" + (amountToFulfilFirstWish.value + excess.value));
 
