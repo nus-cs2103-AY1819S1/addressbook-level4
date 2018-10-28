@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Remark;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * JAXB-friendly version of the Person.
@@ -67,10 +67,10 @@ public class XmlAdaptedRecord {
         }
         final EventId modelEventId = new EventId(eventId);
 
-        if (!PersonId.isValidId(volunteerId)) {
-            throw new IllegalValueException(PersonId.MESSAGE_NAME_CONSTRAINTS);
+        if (!VolunteerId.isValidId(volunteerId)) {
+            throw new IllegalValueException(VolunteerId.MESSAGE_NAME_CONSTRAINTS);
         }
-        final PersonId modelVolunteerId = new PersonId(volunteerId);
+        final VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 
         if (hour == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));

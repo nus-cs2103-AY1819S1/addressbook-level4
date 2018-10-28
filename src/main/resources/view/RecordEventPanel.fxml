@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="recordEventPanel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER_LEFT" fx:id="eventNameBox">
         <Label fx:id="eventNameLabel">
             Event Name
@@ -20,6 +20,9 @@
     </HBox>
     <VBox VBox.vgrow="ALWAYS">
         <TableView fx:id="volunteerRecordTableView" prefWidth="900" VBox.vgrow="ALWAYS">
+            <placeholder>
+                <Label fx:id="emptyTable" text="To begin, enter 'add volunteer_index'.&#10;e.g add 1 "></Label>
+            </placeholder>
             <columns>
                 <TableColumn prefWidth="50" fx:id="indexColumn" text="#"/>
                 <TableColumn prefWidth="430" fx:id="nameColumn" text="Name"/>

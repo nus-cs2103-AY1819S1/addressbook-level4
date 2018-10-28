@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.EventId;
-import seedu.address.model.person.PersonId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Remark;
+import seedu.address.model.volunteer.VolunteerId;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedRecordTest {
@@ -43,7 +43,7 @@ public class XmlAdaptedRecordTest {
     public void toModelType_invalidVolunteerId_throwsIllegalValueException() {
         XmlAdaptedRecord record =
                 new XmlAdaptedRecord(VALID_EVENTID, INVALID_VOLUNTEERID, VALID_HOUR, VALID_REMARK);
-        String expectedMessage = PersonId.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = VolunteerId.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
 

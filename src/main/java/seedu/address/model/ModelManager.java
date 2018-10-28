@@ -13,8 +13,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,7 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Context context;
 
-    private final FilteredList<Person> filteredPersons;
+    private Event selectedEvent;
+
+    private final FilteredList<Volunteer> filteredVolunteers;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Record> filteredRecords;
 
@@ -43,7 +45,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         context = new Context(Context.VOLUNTEER_CONTEXT_ID, Context.VOLUNTEER_CONTEXT_NAME);
 
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        selectedEvent = null;
+
+        filteredVolunteers = new FilteredList<>(versionedAddressBook.getVolunteerList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
     }
@@ -92,49 +96,61 @@ public class ModelManager extends ComponentManager implements Model {
         return context.getContextName();
     }
 
-    //===========  Person List Methods =============================================================
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public void setSelectedEvent(Event event) {
+        requireNonNull(event);
+        selectedEvent = event;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+
+    //===========  Volunteer List Methods =============================================================
+    @Override
+    public boolean hasVolunteer(Volunteer volunteer) {
+        requireNonNull(volunteer);
+        return versionedAddressBook.hasVolunteer(volunteer);
+    }
+
+    @Override
+    public void deleteVolunteer(Volunteer target) {
+        versionedAddressBook.removeVolunteer(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addVolunteer(Volunteer volunteer) {
+        versionedAddressBook.addVolunteer(volunteer);
+        updateFilteredVolunteerList(PREDICATE_SHOW_ALL_VOLUNTEERS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateVolunteer(Volunteer target, Volunteer editedVolunteer) {
+        requireAllNonNull(target, editedVolunteer);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updateVolunteer(target, editedVolunteer);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person Accessors =============================================================
+    //=========== Filtered Volunteer Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Volunteer} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Volunteer> getFilteredVolunteerList() {
+        return FXCollections.unmodifiableObservableList(filteredVolunteers);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredVolunteerList(Predicate<Volunteer> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredVolunteers.setPredicate(predicate);
     }
 
 
@@ -272,7 +288,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons)
+                && filteredVolunteers.equals(other.filteredVolunteers)
                 && filteredEvents.equals(other.filteredEvents);
     }
 

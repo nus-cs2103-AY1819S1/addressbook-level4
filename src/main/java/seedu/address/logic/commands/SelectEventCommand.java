@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Selects an event identified using it's displayed index from the address book.
+ * Selects an event identified using it's displayed index from the application.
  */
 public class SelectEventCommand extends Command {
 
