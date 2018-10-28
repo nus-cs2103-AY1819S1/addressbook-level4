@@ -29,7 +29,7 @@ public class ShutDownCommand extends Command {
 
     public static final String COMMAND_WORD = "shutdown";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Open the ride identified by index.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shutdown the ride identified by index.\n "
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " 3";
 
