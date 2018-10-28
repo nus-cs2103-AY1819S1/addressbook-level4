@@ -225,10 +225,10 @@ Updates the panel to display the list of events.
 [.clearfix]
 --
 [.left]
-.Before: Panel displaying volunteers
+.Before panel displaying volunteers
 image::command_switch_before.png[switch bef, 300]
 [.left]
-.After: Panel displaying events
+.After panel displaying events
 image::command_switch_after.png[switch aft, 300]
 --
 
@@ -631,7 +631,7 @@ This section contains a summary of the commands available.
 
 === Record Management
 
-width="100%",cols="10%, 30%, 30%, 30%",options="header",]
+[width="100%",cols="10%, 30%, 30%, 30%",options="header",]
 |=======================================================================
 | Command | Format | Example | Section Link
 | *Add* | `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]` | `add 1 h/1` | <<command-record-add>>
