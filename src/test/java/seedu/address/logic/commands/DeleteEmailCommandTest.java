@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEmails.getTypicalExistingEmails;
@@ -67,4 +69,27 @@ public class DeleteEmailCommandTest {
         assertCommandFailure(deleteEmailCommand, modelWithoutEmailToDelete, commandHistory, expectedMessage);
     }
 
+    @Test
+    public void equals() {
+        Subject meetingSubject = new Subject("Meeting");
+        Subject conferenceSubject = new Subject("Conference");
+        DeleteEmailCommand deleteMeetingCommand = new DeleteEmailCommand(meetingSubject);
+        DeleteEmailCommand deleteConferenceCommand = new DeleteEmailCommand(conferenceSubject);
+
+        // same object -> returns true
+        assertTrue(deleteMeetingCommand.equals(deleteMeetingCommand));
+
+        // same values -> returns true
+        DeleteEmailCommand deleteMeetingCommandCopy = new DeleteEmailCommand(meetingSubject);
+        assertTrue(deleteMeetingCommand.equals(deleteMeetingCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteMeetingCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteMeetingCommand.equals(null));
+
+        // different subject -> returns false
+        assertFalse(deleteMeetingCommand.equals(deleteConferenceCommand));
+    }
 }
