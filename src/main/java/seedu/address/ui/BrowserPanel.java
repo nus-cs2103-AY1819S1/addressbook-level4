@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -9,6 +10,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
+import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
@@ -18,9 +20,9 @@ import seedu.address.model.person.Person;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String DEFAULT_PAGE = "https://maps.google.com/";
-
-    public static final String SEARCH_PAGE_URL = "https://www.google.com/maps/search/?api=1&query=NUS+";
+    public static final String DEFAULT_PAGE = "default.html";
+    public static final String SEARCH_PAGE_URL =
+            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -40,7 +42,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getFaculty().toString());
+        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
 
     public void loadPage(String url) {
@@ -51,11 +53,8 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file.
      */
     private void loadDefaultPage() {
-        try {
-            loadPage(DEFAULT_PAGE);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        loadPage(defaultPage.toExternalForm());
     }
 
     /**

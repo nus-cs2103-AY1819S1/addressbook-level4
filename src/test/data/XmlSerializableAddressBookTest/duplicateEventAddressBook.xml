@@ -8,6 +8,14 @@
 		<eventStartTime>1200</eventStartTime>
 		<eventEndTime>1200</eventEndTime>
 		<eventAddress>abc road</eventAddress>
+		<eventContacts>
+			<name>Alex Yeoh</name>
+			<phone>87438807</phone>
+			<email>alexyeoh@example.com</email>
+			<address>Blk 30 Geylang Street 29, #06-40</address>
+			<tagged>friends</tagged>
+			<faculty>SCI</faculty>
+		</eventContacts>
     </events>
 
     <!-- Event with same identity as Class -->
