@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 
 //@@author jjlee050
 /**
- * A formatter class responsible to handle 
+ * A formatter class responsible to handle
  * masking and unmasking password for password prefix.
  */
 public class PasswordPrefixFormatter {

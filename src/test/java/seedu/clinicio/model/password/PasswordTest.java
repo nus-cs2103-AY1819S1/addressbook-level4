@@ -94,7 +94,7 @@ public class PasswordTest {
         assertFalse(Password.verifyPassword("peter12", " ")); //Only spaces password hash string
         assertFalse(Password.verifyPassword("", " ")); //Empty string and only spaces password hash string
         assertFalse(Password.verifyPassword("\\s", " ")); //Empty string and only spaces password hash string
-        
+
         //valid password
         assertTrue(Password.verifyPassword(password, HashUtil.hashToString(password)));
 
