@@ -13,19 +13,11 @@ import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 
 import org.junit.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Person;
 import seedu.address.model.shared.Title;
-import seedu.address.testutil.ModelStub;
-
 
 // @@author NyxF4ll
 public class MeetCommandTest {
@@ -69,7 +61,8 @@ public class MeetCommandTest {
         Model expectedModel = new ModelStubWithSingleGroup(group1);
 
         MeetCommand command = new MeetCommand(group1, null);
-        assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY, MESSAGE_MEETING_CANCELLED, expectedModel);
+        assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
+                String.format(MESSAGE_MEETING_CANCELLED, groupTitle1), expectedModel);
 
     }
 
@@ -95,66 +88,5 @@ public class MeetCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new MeetCommand(PROJECT_2103T, REHEARSAL)));
-    }
-
-    private class ModelStubWithSingleGroup extends ModelStub {
-
-        private Group group;
-
-        ModelStubWithSingleGroup(Group group) {
-            this.group = group;
-        }
-
-        public void setMeeting(Meeting meeting) {
-            group.setMeeting(meeting);
-        }
-
-        public void cancelMeeting() {
-            group.cancelMeeting();
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            // This method is called by AssertCommandFailure
-            return FXCollections.observableArrayList();
-        }
-
-        @Override
-        public boolean hasGroup(Group group) {
-            return group.isSameGroup(this.group);
-        }
-
-        @Override
-        public ObservableList<Group> getGroupList() {
-            return FXCollections.observableArrayList(group);
-        }
-
-        @Override
-        public void updateGroup(Group target, Group editedGroup) {
-            this.group = editedGroup;
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code MeetCommand#execute()}
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (this == other) {
-                return true;
-            }
-
-            if (!(other instanceof ModelStubWithSingleGroup)) {
-                return false;
-            }
-
-            return this.group.equals(((ModelStubWithSingleGroup) other).group);
-        }
     }
 }

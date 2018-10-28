@@ -17,9 +17,13 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.shared.Title;
+
 
 
 /**
@@ -30,7 +34,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Tag> filteredGroupTags;
+    private final FilteredList<Group> filteredGroups;
+    private final FilteredList<Meeting> filteredMeetings;
     private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
@@ -45,7 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
+        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
+        filteredMeetings = new FilteredList<>(versionedAddressBook.getMeetingList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
@@ -98,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateGroup(Group target, Group editedGroup) {
+    public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireAllNonNull(target, editedGroup);
 
         versionedAddressBook.updateGroup(target, editedGroup);
@@ -113,13 +119,28 @@ public class ModelManager extends ComponentManager implements Model {
     public void addGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void removeGroup(Group group) {
         requireNonNull(group);
         versionedAddressBook.removeGroup(group);
+        indicateAddressBookChanged();
     }
+
+    @Override
+    public void joinGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.joinGroup(person, group);
+    }
+
+    @Override
+    public void leaveGroup(Person person, Group group) {
+        requireAllNonNull(person, group);
+        versionedAddressBook.leaveGroup(person, group);
+    }
+
     // @@author
 
     // @@author NyxF4ll
@@ -133,6 +154,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getGroupList();
     }
     // @@author
+
+    @Override
+    public Group getGroupByTitle(Title title) {
+        return versionedAddressBook.getGroupByTitle(title);
+    }
+
+    @Override
+    public Person getPersonByName(Name name) {
+        return versionedAddressBook.getPersonByName(name);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -154,14 +185,14 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Group List Accessors =============================================================
 
     @Override
-    public ObservableList<Tag> getFilteredGroupList() {
-        return FXCollections.unmodifiableObservableList(filteredGroupTags);
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
         requireNonNull(predicate);
-        filteredGroupTags.setPredicate(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 
     //=========== Sorted Person List Accessors ==============================================================
@@ -175,6 +206,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
         requireNonNull(personPropertyComparator);
         sortedPersons.setComparator(personPropertyComparator.getComparator());
+    }
+
+    @Override
+    public ObservableList<Meeting> getFilteredMeetingList() {
+        return FXCollections.unmodifiableObservableList(filteredMeetings);
+    }
+
+    @Override
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+        requireNonNull(predicate);
+        filteredMeetings.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -223,6 +265,12 @@ public class ModelManager extends ComponentManager implements Model {
         Path currentPath = userPrefs.getAddressBookFilePath();
         userPrefs.setAddressBookFilePath(filepath);
         raise(new UserPrefsChangeEvent(userPrefs, versionedAddressBook, currentPath, filepath));
+    }
+
+    @Override
+    public void importAddressBook(ReadOnlyAddressBook importedAddressBook, boolean overwrite) {
+        versionedAddressBook.merge(importedAddressBook, overwrite);
+        indicateAddressBookChanged();
     }
 
     @Override

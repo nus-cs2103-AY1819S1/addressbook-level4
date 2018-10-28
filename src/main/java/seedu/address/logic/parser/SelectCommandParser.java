@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPTAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -23,29 +23,56 @@ public class SelectCommandParser implements Parser<SelectCommand> {
      */
     public SelectCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_GROUPTAG, PREFIX_PERSON);
+                ArgumentTokenizer.tokenize(args, PREFIX_GROUP, PREFIX_PERSON, PREFIX_MEETING);
 
-        if (!isOneOfThePrefixesPresent(argMultimap, PREFIX_GROUPTAG, PREFIX_PERSON)
+        if (!isOneOfThePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_PERSON, PREFIX_MEETING)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         try {
-            Optional<String> option = argMultimap.getValue(PREFIX_GROUPTAG);
-            String indexString;
-            int selectOption;
-            if (option.isPresent()) {
-                indexString = option.get();
-                selectOption = SelectCommand.SELECT_TYPE_GROUP;
-            } else {
-                indexString = argMultimap.getValue(PREFIX_PERSON).get();
-                selectOption = SelectCommand.SELECT_TYPE_PERSON;
-            }
-            Index index = ParserUtil.parseIndex(indexString);
+            SelectCommand.SelectCommandType selectOption = parseSelectCommandType(argMultimap);
+            Index index = parseSelectIndex(argMultimap, selectOption);
             return new SelectCommand(index, selectOption);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    /**
+     * Returns the {@code SelectCommand.SelectCommandType} from user input.
+     * @throws ParseException if the prefix does not exist
+     */
+    private SelectCommand.SelectCommandType parseSelectCommandType(ArgumentMultimap argumentMultimap)
+        throws ParseException {
+
+        if (argumentMultimap.getValue(PREFIX_GROUP).isPresent()) {
+            return SelectCommand.SelectCommandType.GROUP;
+        } else if (argumentMultimap.getValue(PREFIX_MEETING).isPresent()) {
+            return SelectCommand.SelectCommandType.MEETING;
+        } else if (argumentMultimap.getValue(PREFIX_PERSON).isPresent()) {
+            return SelectCommand.SelectCommandType.PERSON;
+        } else {
+            throw new ParseException("Unknown prefix");
+        }
+    }
+
+    /**
+     * Returns the index from user input based on the {@code selectType}
+     * @throws ParseException if the prefix does not exist
+     */
+    private Index parseSelectIndex(ArgumentMultimap argumentMultimap, SelectCommand.SelectCommandType selectType)
+        throws ParseException {
+        switch (selectType) {
+        case GROUP:
+            return ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_GROUP).get());
+        case MEETING:
+            return ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_MEETING).get());
+        case PERSON:
+            return ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_PERSON).get());
+        default:
+            throw new ParseException("Unknown prefix");
         }
     }
 

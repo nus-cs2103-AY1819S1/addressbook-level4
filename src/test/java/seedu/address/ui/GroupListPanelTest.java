@@ -4,8 +4,8 @@ import static java.time.Duration.ofMillis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
+import static seedu.address.testutil.TypicalGroups.getTypicalGroups;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_GROUP;
-import static seedu.address.testutil.TypicalPersons.getTypicalGroups;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysGroup;
 import static seedu.address.ui.testutil.GuiTestAssert.assertGroupCardEquals;
 
@@ -21,11 +21,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class GroupListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Tag> TYPICAL_GROUPS =
+    private static final ObservableList<Group> TYPICAL_GROUPS =
         FXCollections.observableList(getTypicalGroups());
 
     private static final JumpToGroupListRequestEvent JUMP_TO_SECOND_EVENT =
@@ -43,7 +43,7 @@ public class GroupListPanelTest extends GuiUnitTest {
 
         for (int i = 0; i < TYPICAL_GROUPS.size(); i++) {
             groupListPanelHandle.navigateToCard(TYPICAL_GROUPS.get(i));
-            Tag expectedGroup = TYPICAL_GROUPS.get(i);
+            Group expectedGroup = TYPICAL_GROUPS.get(i);
             GroupCardHandle actualCard = groupListPanelHandle.getGroupCardHandle(i);
 
             assertCardDisplaysGroup(expectedGroup, actualCard);
@@ -68,7 +68,7 @@ public class GroupListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Tag> backingList = createBackingList(10000);
+        ObservableList<Group> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
@@ -80,7 +80,7 @@ public class GroupListPanelTest extends GuiUnitTest {
      * Initializes {@code groupListPanelHandle} with a {@code GroupListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code GroupListPanel}
      */
-    private void initUi(ObservableList<Tag> backingList) {
+    private void initUi(ObservableList<Group> backingList) {
         GroupListPanel groupListPanel = new GroupListPanel(backingList);
         uiPartRule.setUiPart(groupListPanel);
 
@@ -92,11 +92,11 @@ public class GroupListPanelTest extends GuiUnitTest {
      * Returns a list of groups containing {@code groupCount} groups that is used to populate the
      * {@code GroupListPanel}
      */
-    private ObservableList<Tag> createBackingList(int groupCount) throws Exception {
+    private ObservableList<Group> createBackingList(int groupCount) throws Exception {
         Path xmlFile = createXmlFileWithGroups(groupCount);
         XmlSerializableAddressBook xmlAddressBook =
             XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupTagList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupList());
     }
 
     /**

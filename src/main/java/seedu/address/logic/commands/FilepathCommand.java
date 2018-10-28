@@ -15,17 +15,17 @@ import seedu.address.model.Model;
  */
 public class FilepathCommand extends Command {
     public static final String COMMAND_WORD = "filepath";
-    public static final String COMMAND_SHOW = "show";
+    public static final String OPTION_SHOW = "--show";
 
     public static final String MESSAGE_CHANGEPATH_SUCCESS = "Addressbook now will be saved at: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change current saving location of addressbook "
             + "to the new specific location. "
             + "Parameters: "
-            + PREFIX_PATH + "FilePath or " + COMMAND_SHOW + "\n"
+            + PREFIX_PATH + "FilePath or " + OPTION_SHOW + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATH + "newHome.xml\n"
             + "Example: " + COMMAND_WORD + " "
-            + COMMAND_SHOW + " : Show the current storage path.";
+            + OPTION_SHOW + " : Show the current storage path.";
     public static final String MESSAGE_SHOWPATH_SUCCESS = "Addressbook is stored at %s";
     private Path filepath;
 

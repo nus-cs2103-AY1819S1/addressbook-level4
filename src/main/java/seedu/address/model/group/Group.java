@@ -17,9 +17,9 @@ import seedu.address.model.shared.Title;
 // @@author Derek-Hardy
 /**
  * Represents a Group for participants in the address book.
- * The person will be able to have a list of groups that he/she has enrolled.
+ * The person will be able to keep a list of groups that he/she has enrolled.
  * The group will also keep track of a list of its members.
- * Every group will contain one and only one meeting. The new meeting will always
+ * Every group will contain one and only one meeting. The newly added meeting will always
  * overwrite the old one.
  *
  * Meeting can be {@code null} if no meeting is required for members of this group.
@@ -40,12 +40,10 @@ public class Group {
     private final UniquePersonList members;
 
     /**
-     * Constructor for a simple group which requires no meeting details.
-     * Members field is initialised to be empty.
+     * Constructor for a simple group with user-input title.
+     * Description, meeting and members fields are initialised to be empty.
      *
      * Title is guaranteed to be present and non-null.
-     *
-     * However, the meeting can be null and update later.
      *
      * @param title The name of the group
      */
@@ -74,8 +72,24 @@ public class Group {
     }
 
     /**
-     * Constructor for a simple group, where all details
-     * must be present. Members field is initialised to an existing list of members.
+     * Constructor for a simple group, where title, meeting and members
+     * must be present. Description field is initialised to be empty.
+     *
+     * @param title The name of the group
+     * @param meeting The upcoming meeting for people in this group
+     * @param members The list of members of the group
+     */
+    public Group(Title title, Meeting meeting, UniquePersonList members) {
+        requireAllNonNull(title, meeting, members);
+        this.title = title;
+        this.description = Optional.empty();
+        this.meeting = Optional.of(meeting);
+        this.members = members;
+    }
+
+    /**
+     * Constructor for a simple group with meeting initialised to be empty.
+     * Members field is initialised to an existing list of members.
      *
      * @param title The name of the group
      * @param description The description of the group or the agenda of meeting
@@ -90,7 +104,8 @@ public class Group {
     }
 
     /**
-     * Constructor for a full description of group, Members field is initialised to an existing list of members.
+     * Constructor for a full description of group. All fields must be present and non-null.
+     * Members field is initialised to an existing list of members.
      *
      * @param title The name of the group
      * @param description The description of the group or the agenda of meeting
@@ -120,6 +135,13 @@ public class Group {
     }
 
     // @@author NyxF4ll
+
+    /**
+     * Returns true if the group has a meeting associated with it.
+     */
+    public boolean hasMeeting() {
+        return meeting.isPresent();
+    }
     /**
      * Set this group's meeting to {@code meeting}.
      */
@@ -136,6 +158,9 @@ public class Group {
     }
     // @@author
 
+    /**
+     * Return a UniquePersonList view of all members in this group.
+     */
     public UniquePersonList getMembers() {
         UniquePersonList toList = new UniquePersonList();
         toList.setPersons(members);
@@ -161,6 +186,7 @@ public class Group {
 
     /**
      * Add a person to be the member of this group.
+     * The person will be updated with the new group relation. (bi-directional)
      */
     public void addMember(Person toAdd) {
         requireNonNull(toAdd);
@@ -173,6 +199,7 @@ public class Group {
 
     /**
      * Remove a person from this group.
+     * The person will be updated with the new group relation. (bi-directional)
      */
     public void removeMember(Person toRemove) {
         requireNonNull(toRemove);
@@ -182,8 +209,7 @@ public class Group {
     }
 
     /**
-     * This method is reserved to be called only from
-     * {@link seedu.address.model.person.Person#removeGroup(Group)}
+     * This method is reserved to be called only from {@link seedu.address.model.person.Person#removeGroup(Group)}
      * and {@link Person#clearMembership()} methods.
      */
     public void removeMemberHelper(Person person) {
@@ -192,6 +218,7 @@ public class Group {
 
     /**
      * Remove all the members in this group.
+     * The people will be updated with the new group relation. (bi-directional)
      */
     public void clearMembers() {
         // enhanced for loop to remove the group from person
@@ -205,6 +232,7 @@ public class Group {
 
     /**
      * Set up the member connections for this group.
+     * The people will be updated with the new group relation. (bi-directional)
      */
     public void setUpMembers() {
         // enhanced for loop to set up the member connection of this group
@@ -217,6 +245,7 @@ public class Group {
 
     /**
      * Create a copy of this group.
+     * The returned copy should return {@code true} for method {@code equals()} with the original group.
      */
     public Group copy() {
         return new Group(title, description, meeting, members);

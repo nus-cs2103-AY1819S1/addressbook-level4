@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertGroupTagListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertGroupListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.nio.file.Path;
@@ -35,7 +35,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalAddressBook;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -78,7 +78,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalAddressBook.getTypicalAddressBook();
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_PERSON);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
@@ -184,7 +184,7 @@ public abstract class AddressBookSystemTest {
      * Asserts that the group list panel displays the groups in the model correctly.
      */
     protected void assertGroupListDisplaysExpected(Model expectedModel) {
-        assertGroupTagListMatching(getGroupListPanel(), expectedModel.getFilteredGroupList());
+        assertGroupListMatching(getGroupListPanel(), expectedModel.getFilteredGroupList());
     }
 
     /**

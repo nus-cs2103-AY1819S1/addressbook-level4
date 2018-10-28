@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.shared.Title;
 import seedu.address.testutil.GroupBuilder;
 
 
@@ -193,6 +194,34 @@ public class UniqueGroupListTest {
         List<Group> listWithDuplicateGroups = Arrays.asList(PROJECT_2103T, PROJECT_2103T);
         thrown.expect(DuplicateGroupException.class);
         uniqueGroupList.setGroups(listWithDuplicateGroups);
+    }
+
+    @Test
+    public void getPersonByName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueGroupList.getGroupByTitle(null);
+    }
+
+    @Test
+    public void getGroupByTitle_equals_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("project").build();
+        Title title = new Title("project");
+
+        uniqueGroupList.add(group);
+        Group match = uniqueGroupList.getGroupByTitle(title);
+
+        assertTrue(match.equals(group));
+    }
+
+    @Test
+    public void getGroupByTitle_noMatch_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("Demo").build();
+        Title title = new Title("not demo");
+
+        uniqueGroupList.add(group);
+        Group match = uniqueGroupList.getGroupByTitle(title);
+
+        assertTrue(match == null);
     }
 
     @Test

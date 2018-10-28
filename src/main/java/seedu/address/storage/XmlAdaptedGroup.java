@@ -32,7 +32,7 @@ public class XmlAdaptedGroup {
     private XmlAdaptedMeeting meeting;
 
     @XmlElement
-    private List<XmlAdaptedPerson> members;
+    private List<XmlAdaptedPerson> members = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedGroup.
@@ -48,9 +48,7 @@ public class XmlAdaptedGroup {
         this.title = title;
         this.description = description;
         this.meeting = meeting;
-        if (members != null) {
-            this.members = new ArrayList<>(members);
-        }
+        this.members.addAll(members);
     }
 
     /**
@@ -60,8 +58,12 @@ public class XmlAdaptedGroup {
      */
     public XmlAdaptedGroup(Group source) {
         title = source.getTitle().fullTitle;
-        description = source.getDescription().statement;
-        meeting = new XmlAdaptedMeeting(source.getMeeting());
+        if (source.getDescription() != null) {
+            description = source.getDescription().statement;
+        }
+        if (source.getMeeting() != null) {
+            meeting = new XmlAdaptedMeeting(source.getMeeting());
+        }
         members = source.getMembersView().stream()
                 .map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
@@ -87,23 +89,24 @@ public class XmlAdaptedGroup {
         }
         final Title modelTitle = new Title(title);
 
+        Optional<Description> modelDescription;
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+            modelDescription = Optional.empty();
+        } else {
+            if (!Description.isValidDescription(description)) {
+                throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+            }
+            modelDescription = Optional.of(new Description(description));
         }
-        if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
-        }
-        final Description modelDescription = new Description(description);
 
+        Optional<Meeting> modelMeeting;
         if (meeting == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Meeting.class.getSimpleName()));
+            modelMeeting = Optional.empty();
+        } else {
+            modelMeeting = Optional.of(meeting.toModelType());
         }
-        final Meeting modelMeeting = meeting.toModelType();
-
-        return new Group(modelTitle, Optional.of(modelDescription),
-                Optional.of(modelMeeting), modelMembers);
+        return new Group(modelTitle, modelDescription,
+                modelMeeting, modelMembers);
     }
 
 

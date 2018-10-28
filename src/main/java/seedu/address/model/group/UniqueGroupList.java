@@ -11,10 +11,12 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.shared.Title;
 
 
 /**
- * A list of groups that enforces uniqueness between its elements and does not allow nulls.
+ * A list of groups that enforces uniqueness between its elements and does not allow {@code null}.
+ *
  * A list is considered unique by comparing using {@code Group#isSameGroup(Group)}. As such, adding and updating of
  * groups uses Group#isSameGroup(Group) for equality so as to ensure that the group being added or updated is
  * unique in terms of identity in the UniqueGroupList. However, the removal of a group uses Group#equals(Object) so
@@ -88,6 +90,9 @@ public class UniqueGroupList implements Iterable<Group> {
         }
     }
 
+    /**
+     * Replace all the groups in this UniqueGroupList with a new set of groups.
+     */
     public void setGroups(UniqueGroupList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -104,6 +109,23 @@ public class UniqueGroupList implements Iterable<Group> {
         }
 
         internalList.setAll(groups);
+    }
+
+    /**
+     * Find an existing group that matches the given {@code title}.
+     * If the group is found, returns the matched group. Else returns {@code null}.
+     */
+    public Group getGroupByTitle(Title title) {
+        requireNonNull(title);
+
+        for (Group group : internalList) {
+            Title groupTitle = group.getTitle();
+            if (title.equals(groupTitle)) {
+                return group.copy();
+            }
+        }
+        // if no match, returns null
+        return null;
     }
 
     /**
