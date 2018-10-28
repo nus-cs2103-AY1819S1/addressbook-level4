@@ -1,6 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.Context;
 
@@ -16,7 +16,7 @@ public class ContextCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
         history.setContext(context);
         return new CommandResult(String.format(MESSAGE_SUCCESS, context.command.toLowerCase()));
     }

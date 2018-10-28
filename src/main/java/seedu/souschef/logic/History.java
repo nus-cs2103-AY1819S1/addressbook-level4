@@ -6,22 +6,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 import seedu.souschef.logic.parser.Context;
+import seedu.souschef.model.recipe.Instruction;
+import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeBuilder;
 
 /**
  * Stores the history of commands executed.
  */
-public class CommandHistory {
+public class History {
     private LinkedList<String> userInputHistory;
-
     private Context context;
+    private RecipeBuilder recipeBuilder;
 
-    public CommandHistory() {
+    public History() {
         userInputHistory = new LinkedList<>();
         context = Context.RECIPE;
     }
 
-    public CommandHistory(CommandHistory commandHistory) {
-        userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
+    public History(History history) {
+        userInputHistory = new LinkedList<>(history.userInputHistory);
         context = Context.RECIPE;
     }
 
@@ -34,6 +37,24 @@ public class CommandHistory {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    // Recipe builder to support multi-line command for partial building up.
+    public void createRecipeBuilder(RecipeBuilder recipeBuilder) {
+        this.recipeBuilder = recipeBuilder;
+    }
+
+    public void contributeRecipe(Instruction instruction) {
+        recipeBuilder.addInstruction(instruction);
+    }
+
+    /**
+     * Create an actual instance of recipe from the builder.
+     */
+    public Recipe buildRecipe() {
+        Recipe recipe = recipeBuilder.build();
+        recipeBuilder = null;
+        return recipe;
     }
 
     /**
@@ -59,12 +80,12 @@ public class CommandHistory {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof CommandHistory)) {
+        if (!(obj instanceof History)) {
             return false;
         }
 
         // state check
-        CommandHistory other = (CommandHistory) obj;
+        History other = (History) obj;
         return userInputHistory.equals(other.userInputHistory);
     }
 

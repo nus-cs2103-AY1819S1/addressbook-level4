@@ -4,7 +4,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Pattern;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.ContextCommand;
 import seedu.souschef.logic.commands.ExitCommand;
@@ -33,7 +33,7 @@ public class UniversalParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(CommandHistory history, String userInput, Ui ui) throws ParseException {
+    public Command parseCommand(History history, String userInput, Ui ui) throws ParseException {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
 

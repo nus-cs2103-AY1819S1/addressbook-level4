@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.souschef.commons.core.Messages;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.InventoryComparator;
 import seedu.souschef.logic.InventoryPredicate;
 import seedu.souschef.logic.commands.exceptions.CommandException;
@@ -38,7 +38,7 @@ public class InventoryCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
         String[] tokens = userInput.split("\\s+");
         double numberOfServings;
         try {

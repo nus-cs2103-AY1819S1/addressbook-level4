@@ -4,12 +4,12 @@ import static seedu.souschef.logic.commands.CommandTestUtil.assertCommandSuccess
 
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 
 public class HistoryCommandTest {
-    private CommandHistory history = new CommandHistory();
+    private History history = new History();
     private Model model = new ModelSetCoordinator().getRecipeModel();
     private Model expectedModel = new ModelSetCoordinator().getRecipeModel();
 
