@@ -26,13 +26,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private WishTransactionStorage wishTransactionStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
-    public StorageManager(WishBookStorage wishBookStorage, UserPrefsStorage userPrefsStorage) {
-        super();
-        this.wishBookStorage = wishBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
-    }
-
     public StorageManager(WishBookStorage wishBookStorage, WishTransactionStorage wishTransactionStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
@@ -83,7 +76,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveWishTransaction(WishTransaction wishTransaction, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
+        logger.info("Attempting to write Wish Transaction to data file: " + filePath);
         wishTransactionStorage.saveWishTransaction(wishTransaction, filePath);
     }
 
@@ -144,6 +137,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleWishBookChangedEvent(WishBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
+            saveWishTransaction(event.wishTransaction);
             backupWishBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

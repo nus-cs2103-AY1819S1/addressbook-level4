@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateWishBookChanged() {
-        raise(new WishBookChangedEvent(versionedWishBook));
+        raise(new WishBookChangedEvent(versionedWishBook, versionedWishTransaction));
     }
 
     @Override
