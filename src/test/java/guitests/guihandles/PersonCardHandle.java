@@ -20,7 +20,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
-    private static final String FACULTY_FIELD_ID ="#faculty";
+    private static final String FACULTY_FIELD_ID = "#faculty";
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -69,7 +69,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     public String getFaculty() {
-        return  facultyLabel.getText();
+        return facultyLabel.getText();
     }
 
     public List<String> getTags() {
