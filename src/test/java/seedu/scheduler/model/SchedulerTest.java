@@ -12,6 +12,7 @@ import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -105,6 +106,11 @@ public class SchedulerTest {
         @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public Event getFirstInstanceOfEvent(Predicate<Event> predicate) {
+            return events.filtered(predicate).get(0);
         }
     }
 

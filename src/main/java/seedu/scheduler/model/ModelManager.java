@@ -62,6 +62,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public Event getFirstInstanceOfEvent(Predicate<Event> predicate) {
+        return versionedScheduler.getFirstInstanceOfEvent(predicate);
+    }
+
+    @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return versionedScheduler.hasEvent(event);
@@ -99,6 +104,24 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedEvent);
 
         versionedScheduler.updateEvent(target, editedEvent);
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void updateRepeatingEvents(Event target, List<Event> editedEvents) {
+        requireAllNonNull(target, editedEvents);
+
+        versionedScheduler.updateEvents(target, editedEvents, event -> event.getUuid().equals(target.getUuid()));
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void updateUpcomingEvents(Event target, List<Event> editedEvents) {
+        requireAllNonNull(target, editedEvents);
+
+        versionedScheduler.updateEvents(target, editedEvents, event ->
+                event.getUuid().equals(target.getUuid())
+                && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
         indicateSchedulerChanged();
     }
 
