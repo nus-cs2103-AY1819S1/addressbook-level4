@@ -7,9 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandToDo;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteToDoCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -23,6 +26,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
+ * Both Scheduler and ToDoList Parser
  */
 public class SchedulerParser {
 
@@ -83,6 +87,34 @@ public class SchedulerParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into commandToDo for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public CommandToDo parseCommandToDo(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case AddToDoCommand.COMMAND_WORD:
+            return new AddToDoCommandParser().parse(arguments);
+
+        case DeleteToDoCommand.COMMAND_WORD:
+            return new DeleteToDoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

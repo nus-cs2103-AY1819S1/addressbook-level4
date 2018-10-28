@@ -22,6 +22,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
@@ -30,8 +31,10 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.ToDoListStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSchedulerStorage;
+import seedu.address.storage.XmlToDoListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -48,6 +51,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected ModelToDo modelToDo;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -63,13 +67,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         SchedulerStorage schedulerStorage = new XmlSchedulerStorage(userPrefs.getSchedulerFilePath());
-        storage = new StorageManager(schedulerStorage, userPrefsStorage);
+        ToDoListStorage toDoListStorage = new XmlToDoListStorage(userPrefs.getToDoListFilePath());
+        storage = new StorageManager(schedulerStorage, toDoListStorage, userPrefsStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(model, modelToDo);
 
         ui = new UiManager(logic, config, userPrefs);
 

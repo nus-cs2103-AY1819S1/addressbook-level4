@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<toDoList>
+    <!-- Valid ToDoListEvent -->
+    <toDoListEvents>
+        <title>CS2100 final</title>
+        <description isPrivate="false">can bring calculator</description>
+        <priority isPrivate="false">H</priority>
+    </toDoListEvents>
+    <!-- ToDoListEvent with invalid description field -->
+    <toDoListEvents>
+        <title>CS2100 final</title>
+        <description isPrivate="false"></description>
+        <priority isPrivate="false">H</priority>
+    </toDoListEvents>
+</toDoList>
