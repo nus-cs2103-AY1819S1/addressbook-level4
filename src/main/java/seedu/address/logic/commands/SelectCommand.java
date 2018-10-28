@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +13,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToMeetingListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.util.GroupContainsMeetingPredicate;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,11 +39,13 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: [" + PREFIX_GROUP + " or " + PREFIX_MEETING + " or "
+                            + PREFIX_PERSON + "]INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " g/1";
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
     public static final String MESSAGE_SELECT_GROUP_SUCCESS = "Selected Group: %1$s";
+    public static final String MESSAGE_SELECT_MEETING_SUCCESS = "Selected Meeting: %1$s";
 
     private final Index targetIndex;
     private final SelectCommandType selectType;
@@ -60,10 +68,10 @@ public class SelectCommand extends Command {
 
             EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
             Group group = filteredGroupList.get(targetIndex.getZeroBased());
-            final String[] keywords = { group.getTitle().fullTitle };
-            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
+            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
+            model.updateFilteredMeetingList(new GroupContainsMeetingPredicate(Arrays.asList(group)));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
-        } else {
+        } else if (selectType == SelectCommandType.PERSON) {
             List<Person> filteredPersonList = model.getFilteredPersonList();
 
             if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
@@ -72,6 +80,15 @@ public class SelectCommand extends Command {
 
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
             return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        } else {
+            List<Meeting> filteredMeetingList = model.getFilteredMeetingList();
+
+            if (targetIndex.getZeroBased() >= filteredMeetingList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+            }
+
+            EventsCenter.getInstance().post(new JumpToMeetingListRequestEvent(targetIndex));
+            return new CommandResult(String.format(MESSAGE_SELECT_MEETING_SUCCESS, targetIndex.getOneBased()));
         }
     }
 

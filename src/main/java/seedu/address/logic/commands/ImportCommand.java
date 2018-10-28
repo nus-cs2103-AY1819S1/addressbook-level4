@@ -20,27 +20,39 @@ import seedu.address.storage.XmlAddressBookStorage;
  */
 public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
+    public static final String OPTION_OVERWRITE = "--force";
     public static final String MESSAGE_SUCCESS = "%s have been imported into MeetingBook.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Import XML File to Meetingbook."
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Import XML File to Meetingbook. Default behaviour "
+            + "is to ignore any conflicting Person/Group entries unless "
+            + OPTION_OVERWRITE + " is provided.\n"
+            + "Parameters: [Options] "
             + PREFIX_PATH + "FilePath\n"
+            + "Options: "
+            + OPTION_OVERWRITE + " overwrite any conflicting Person/Group"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PATH + "backup";
+            + PREFIX_PATH + "backup\n";
     public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. ";
     public static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
+    private boolean overwrite;
+
     private Path importPath;
 
     public ImportCommand(Path filepath) {
         importPath = filepath;
+        this.overwrite = false;
+    }
+
+    public ImportCommand(Path filepath, boolean overwrite) {
+        importPath = filepath;
+        this.overwrite = overwrite;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        // TODO: Support Meeting
         XmlAddressBookStorage importedXmlAddressStorage = new XmlAddressBookStorage(importPath);
         Optional<ReadOnlyAddressBook> importedAddressBook;
         try {
@@ -56,7 +68,7 @@ public class ImportCommand extends Command {
             return new CommandResult(MESSAGE_FAIL_NOFILE);
         }
 
-        model.importAddressBook(importedAddressBook.get());
+        model.importAddressBook(importedAddressBook.get(), overwrite);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, importPath.toString()));
     }

@@ -2,9 +2,12 @@ package seedu.address.model.group;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_PROJECT;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
+import static seedu.address.testutil.TypicalGroups.NUS_BASKETBALL;
+import static seedu.address.testutil.TypicalGroups.NUS_COMPUTING;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,8 +21,8 @@ public class GroupContainsPersonPredicateTest {
 
     @Test
     public void equals() {
-        List<String> firstPredicateKeywordList = Collections.singletonList(VALID_GROUPTAG_CCA);
-        List<String> secondPredicateKeywordList = Arrays.asList(VALID_GROUPTAG_CCA, VALID_GROUPTAG_PROJECT);
+        List<Group> firstPredicateKeywordList = Collections.singletonList(GROUP_2101);
+        List<Group> secondPredicateKeywordList = Arrays.asList(NUS_BASKETBALL, NUS_COMPUTING);
 
         GroupContainsPersonPredicate firstPredicate = new GroupContainsPersonPredicate(firstPredicateKeywordList);
         GroupContainsPersonPredicate secondPredicate = new GroupContainsPersonPredicate(secondPredicateKeywordList);
@@ -43,25 +46,24 @@ public class GroupContainsPersonPredicateTest {
 
     @Test
     public void test_groupContainsPerson_returnsTrue() {
-        // Matching keyword
+        // Person in group
         GroupContainsPersonPredicate predicate =
-            new GroupContainsPersonPredicate(Collections.singletonList(VALID_GROUPTAG_CCA));
-        assertTrue(predicate.test(BOB));
+            new GroupContainsPersonPredicate(Collections.singletonList(NUS_BASKETBALL));
+        assertTrue(predicate.test(CARL));
     }
 
     @Test
     public void test_groupDoesNotContainPerson_returnsFalse() {
-        // No keywords
+        // No group
         GroupContainsPersonPredicate predicate =
             new GroupContainsPersonPredicate(Collections.emptyList());
         assertFalse(predicate.test(BOB));
 
-        // Different case keywords (should we assume false)?
-        predicate = new GroupContainsPersonPredicate(Collections.singletonList(VALID_GROUPTAG_CCA.toLowerCase()));
+        // Person not in any group
+        predicate = new GroupContainsPersonPredicate(Arrays.asList(NUS_COMPUTING));
         assertFalse(predicate.test(BOB));
 
-        // Non-matching keyword
-        predicate = new GroupContainsPersonPredicate(Arrays.asList(VALID_GROUPTAG_PROJECT));
-        assertFalse(predicate.test(BOB));
+        // Person in another group
+        assertFalse(predicate.test(ALICE));
     }
 }

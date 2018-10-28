@@ -45,7 +45,7 @@ public class GroupCard extends UiPart<Region> {
         String descriptionString = description != null ? description.statement : "";
         groupDescription.setText(descriptionString);
         Meeting meeting = group.getMeeting();
-        String meetingString = meeting != null ? meeting.getTitle().fullTitle : "null";
+        String meetingString = meeting != null ? meeting.getTitle().fullTitle : "";
         groupMeeting.setText(meetingString);
         int membersCount = group.getMembersView().size();
         memberCount.setText(String.format("%d", membersCount));
