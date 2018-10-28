@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -129,19 +130,18 @@ public class ParserUtil {
         return new Date(trimmedDate);
     }
 
+    /**
+     * Parses a {@code String period} into a {@code Period}.
+     */
     public static Period parsePeriod(String period) throws ParseException {
         requireNonNull(period);
-
-        return Period.ofDays(0);
-    }
-
-    private static boolean isValidPeriod(String periodString) {
-        requireNonNull(periodString);
+        String trimmedPeriod = period.trim();
         try {
-            Period.parse(periodString);
+            Period.parse("P" + trimmedPeriod);
         } catch (DateTimeParseException e) {
-            return false;
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, period));
         }
-        return true;
+
+        return Period.parse("P" + trimmedPeriod);
     }
 }
