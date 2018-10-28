@@ -170,14 +170,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the volunteers or events, depending on context. +
+Clears all data from the application.
 
 Format: `clear`
 
 Example(s):
 
 * `clear` +
-Resets the application to a clean state.
+Resets the application to a clean state. The panel is also updated to reflect the changes.
 
 [.clearfix]
 --
@@ -204,15 +204,15 @@ Example(s):
 Exits from the application and return to the user's desktop.
 
 [[command-switch]]
-==== Switching context : `switch`
+==== Switching panels: `switch`
 
-Switches context to volunteers or events +
+Switches the panel to display to volunteers or events +
 
 Format: `switch -CONTEXT_ID`
 
 ****
-* The application will always start up in the 'volunteer' context.
-* Switch would switch the data view and allow the user to switch between two distinct entities: volunteers and events.
+* The application will always display the 'volunteer' panel upon startup .
+* This command allows you to switch the panel between two distinct entities: 'volunteers' and 'events'.
 * CONTEXT_ID for events is 'e'.
 * CONTEXT_ID for volunteers is 'v'.
 ****
@@ -220,20 +220,20 @@ Format: `switch -CONTEXT_ID`
 Example(s):
 
 * `switch -e` +
-Switch to the 'event' context when in 'volunteer' context.
+Updates the panel to display the list of events.
 
 [.clearfix]
 --
 [.left]
-.Before (Volunteer context)
+.Before: Panel displaying volunteers
 image::command_switch_before.png[switch bef, 450]
 [.left]
-.After (Event context)
+.After: Panel displaying events
 image::command_switch_after.png[switch aft, 450]
 --
 
-The figures above shows the 2 different contexts. +
-Application will start up in the 'volunteer' context and users can switch to the event context via the `switch` command.
+The figures above shows the 2 different panels. +
+Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
 
 === Volunteer Management
 
@@ -407,7 +407,7 @@ image::command_edit_event_before.png[Before add, 800]
 image::command_edit_event_after.png[After add, 800]
 --
 
-==== Deleting event details : `delete`
+==== Deleting event: `delete`
 
 Deletes details of an existing event in the system when in the 'event' context. +
 
@@ -434,7 +434,7 @@ This section contains commands related to managing a volunteering record.
 
 
 ****
-* The `manage` command can only be accessed after switching to the 'event' context. (see <<command-switch>>) +
+* The `manage` command can only be accessed after switching to the 'event' panel. (see <<command-switch>>) +
 * The other commands under this section can only be accessed after executing the `manage` command.
 ****
 
