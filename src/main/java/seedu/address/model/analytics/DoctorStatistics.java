@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import java.util.AbstractMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -23,9 +24,15 @@ import seedu.address.model.doctor.Doctor;
  */
 public class DoctorStatistics extends Statistics {
 
+    private final String SUMMARY_TITLE_1 = "Average number of consultations per doctor";
+
     private ObservableList<Doctor> doctors;
     private ObservableList<Consultation> consultations;
     private ObservableList<Object> patients;
+
+    public DoctorStatistics() {
+        initializeSummaryValues(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS);
+    }
 
     public void setDoctors(ObservableList<Doctor> doctors) {
         this.doctors = doctors;
@@ -55,17 +62,20 @@ public class DoctorStatistics extends Statistics {
         int consultationsYear = DateTimeCount.currentYear(consultationDates);
 
         int numberOfDoctors = doctors.size();
-        // calculate averages
-        int consultationsTodayPerDoctor = consultationsToday / numberOfDoctors;
-        int consultationsWeekPerDoctor = consultationsWeek / numberOfDoctors;
-        int consultationsMonthPerDoctor = consultationsMonth / numberOfDoctors;
-        int consultationsYearPerDoctor = consultationsYear / numberOfDoctors;
 
-        // update map with calculated values
-        summaryStatistics.put(SUMMARY_TODAY, consultationsTodayPerDoctor);
-        summaryStatistics.put(SUMMARY_WEEK, consultationsWeekPerDoctor);
-        summaryStatistics.put(SUMMARY_MONTH, consultationsMonthPerDoctor);
-        summaryStatistics.put(SUMMARY_YEAR, consultationsYearPerDoctor);
+        if (numberOfDoctors > 0) {
+            // calculate averages
+            int consultationsTodayPerDoctor = consultationsToday / numberOfDoctors;
+            int consultationsWeekPerDoctor = consultationsWeek / numberOfDoctors;
+            int consultationsMonthPerDoctor = consultationsMonth / numberOfDoctors;
+            int consultationsYearPerDoctor = consultationsYear / numberOfDoctors;
+
+            List<Integer> values = Arrays.asList(consultationsTodayPerDoctor, consultationsWeekPerDoctor,
+                consultationsMonthPerDoctor, consultationsYearPerDoctor);
+
+            // update store of calculated values
+            statData.updateSummary(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS, values);
+        }
     }
 
     @Override
