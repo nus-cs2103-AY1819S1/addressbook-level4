@@ -16,13 +16,16 @@ import seedu.address.model.task.exceptions.GraphCycleException;
  */
 public class DependencyGraph {
     private Map<String, Set<String>> adjacencyList = new HashMap<>();
+    private List<Task> taskList;
 
     public DependencyGraph(List<Task> taskList) {
+        this.taskList = taskList;
         for (Task task: taskList) {
             String hash = Integer.toString(task.hashCode());
             Set<String> edges = task.getDependency().getHashes();
             adjacencyList.put(hash, edges);
         }
+        //TODO: Remove cycle check
         if (checkPresenceOfCycle()) {
             throw new GraphCycleException();
         }
@@ -60,6 +63,7 @@ public class DependencyGraph {
      * @return list of hashes of tasks sorted by topological order
      */
     public List<String> topologicalSort() {
+        pruneCompletedTasks();
         Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
         Set<String> stack = new HashSet<>();
         List<String> visited = new ArrayList<>();
@@ -71,6 +75,26 @@ public class DependencyGraph {
             }
         }
         return visited;
+    }
+
+    /**
+     * Prunes away tasks where the dependency is completed.
+     * Used in topological sort as we do not want tasks that are completed to be considered in topological sort
+     */
+    public void pruneCompletedTasks() {
+        for (Task task: this.taskList) {
+            if (task.isStatusCompleted()) {
+                String hash = Integer.toString(task.hashCode());
+                //Prune away task dependencies of tasks where the dependee is completed
+                for (Set<String> set: adjacencyList.values()) {
+                    if (set.contains(hash)) {
+                        set.remove(hash);
+                    }
+                }
+                //Remove the task dependency itself from consideration
+                adjacencyList.remove(hash);
+            }
+        }
     }
 
     /**

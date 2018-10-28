@@ -1,6 +1,13 @@
 package seedu.address.model.achievement;
 
 /**
+ * Enums are virtually singletons in Java applications, as such
+ * should remain immutable (No mutable fields) to prevent
+ * it's value from changing globally throughout the application.
+ *
+ * At the same time, it should remain immutable as a mutable singleton
+ * in a multi-threaded application can have unforeseen implications.
+ *
  * Represent the level of achievement in reached by the user.
  * There are only 5 valid levels, LEVEL_1 to LEVEL_5.
  * Each level has a name and a range of xp that the level corresponds to.
