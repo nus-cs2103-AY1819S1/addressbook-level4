@@ -99,7 +99,7 @@ public class StorageManager extends ComponentManager implements Storage {
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                if (!file.isDirectory()) {
+                if (!file.getName().equals("dummy.txt")) {
                     file.delete();
                 }
             }

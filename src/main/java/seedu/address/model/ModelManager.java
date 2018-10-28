@@ -34,14 +34,12 @@ import seedu.address.model.transformation.Transformation;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    // private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private ArrayList<Path> dirImageList;
     private Path currentOriginalImage;
     private PhotoHandler photoLibrary;
     private PreviewImage currentPreviewImage;
-    private Path currentPreviewImagePath;
     private Canvas canvas;
 
     private final UserPrefs userPrefs;
@@ -185,7 +183,6 @@ public class ModelManager extends ComponentManager implements Model {
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         currentPreviewImage = selectedImage;
-        currentPreviewImagePath = currentPreviewImage.getCurrentPath();
         canvas.addLayer(selectedImage);
     }
     //=========== GoogleClient Accessors =============================================================
@@ -265,7 +262,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
         currentPreviewImage.commit(image);
-        currentPreviewImagePath = currentPreviewImage.getCurrentPath();
         currentPreviewImage.addTransformation(transformation);
     }
 
