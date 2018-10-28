@@ -268,8 +268,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void importAddressBook(ReadOnlyAddressBook importedAddressBook) {
-        versionedAddressBook.merge(importedAddressBook);
+    public void importAddressBook(ReadOnlyAddressBook importedAddressBook, boolean overwrite) {
+        versionedAddressBook.merge(importedAddressBook, overwrite);
         indicateAddressBookChanged();
     }
 

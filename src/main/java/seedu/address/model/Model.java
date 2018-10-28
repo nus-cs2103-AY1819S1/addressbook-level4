@@ -201,7 +201,7 @@ public interface Model {
     /**
      * Import the current address book.
      */
-    void importAddressBook(ReadOnlyAddressBook importAddressBook);
+    void importAddressBook(ReadOnlyAddressBook importAddressBook, boolean overwrite);
 
     /**
      * Change User Preferences.
