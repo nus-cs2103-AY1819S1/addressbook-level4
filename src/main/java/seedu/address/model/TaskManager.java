@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.game.GameManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -71,7 +71,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
-        setAchievements(newData.getAchievementRecord().get());
+        setAchievements(newData.getAchievementRecord());
     }
 
     //// task-level operations
@@ -123,6 +123,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// achievement related operation
 
     /**
+     * @return  the user's current level to the user.
+     */
+    public Level getLevel() {
+        return achievements.getLevel();
+    }
+
+    /**
      * @return the {@code int} value representing the Xp.
      */
     public int getXpValue() {
@@ -132,7 +139,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Updates the Xp in the {@code AchievementRecord} of the {@code TaskManager} with the new xp value.
      */
-    public void updateXp(Integer xp) {
+    public void addXp(Integer xp) {
         requireNonNull(xp);
 
         achievements.updateXp(xp);
@@ -156,8 +163,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
-        return achievements.asSimpleObjectProperty();
+    public AchievementRecord getAchievementRecord() {
+        AchievementRecord copy = new AchievementRecord();
+        copy.resetData(achievements);
+        return copy;
     }
 
     @Override

@@ -19,14 +19,16 @@ import seedu.address.model.task.Task;
  */
 public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
-    public static final String MESSAGE_SUCCESS = "You have added dependency for :\n%1$s";
-    public static final String MESSAGE_ALREADY_DEPENDANT =
-            "The dependee task is already dependent on the dependant task";
+    public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n[%1$s] to [%2$s]\n"
+            + "[NOTE] To remove dependency call command on the same tasks. \n"
+            + "i.e. " + COMMAND_WORD + " 1 2";
+    public static final String MESSAGE_REMOVE_SUCCESS = "You have removed dependency for :\n[%1$s] to [%2$s]\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Dependency of dependant on dependee.\n"
             + "Parameters: Index of task dependant, Index of task dependee\n"
             + "Example: " + COMMAND_WORD + " 1 2";
-    public static final String MESSAGE_CYCLIC_DEPENDENCY = "New dependency will introduce a cyclic dependency";
+    public static final String MESSAGE_CYCLIC_DEPENDENCY = "Dependency rejected as new dependency will introduce"
+            + " a cyclic dependency";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
@@ -46,27 +48,36 @@ public class DependencyCommand extends Command {
                 || dependeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        //Checking if dependant or dependee already contains dependency
+        //Creating a different task depending on whether the task dependency currently exists
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
-        if (taskDependant.getDependency().containsDependency(taskDependee)) {
-            throw new CommandException(MESSAGE_ALREADY_DEPENDANT);
-        }
-        //Checking if introducing dependency will create a cyclic dependency
-        Task updatedTask = createDependantTask(taskDependant, taskDependee);
-        DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
-        if (dg.checkCyclicDependency(updatedTask)) {
-            throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);
+
+        Task updatedTask;
+        String message;
+        //Toggle dependency
+        if (taskDependant.isDependentOn(taskDependee)) {
+            //If taskDependant is already dependant on dependee, remove dependency
+            updatedTask = createUndependantTask(taskDependant, taskDependee);
+            message = MESSAGE_REMOVE_SUCCESS;
+        } else {
+            //If taskDependant is not dependent on dependee, add dependency
+            updatedTask = createDependantTask(taskDependant, taskDependee);
+            DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
+            //Checking if introducing dependency will create a cyclic dependency
+            if (dg.checkCyclicDependency(updatedTask)) {
+                throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);
+            }
+            message = MESSAGE_ADD_SUCCESS;
         }
         //Passes all checks
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedTask));
+        return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName()));
     }
 
     /**
-     * Returns a {@code Task} with it's the additional dependency added.
+     * Returns a {@code Task} with the additional dependency added.
      * @param dependantTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependantTask but with additional dependency
      */
@@ -81,6 +92,23 @@ public class DependencyCommand extends Command {
                 dependantTask.getDependency().addDependency(dependeeTask)
         );
     }
+    /**
+     * Returns a {@code Task} with the dependency removed.
+     * @param dependantTask An immutable task passed to have its attributes copied
+     * @return A new immutable task similar to dependantTask but without dependency to dependee
+     */
+    public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
+        return new Task(
+                dependantTask.getName(),
+                dependantTask.getDueDate(),
+                dependantTask.getPriorityValue(),
+                dependantTask.getDescription(),
+                dependantTask.getLabels(),
+                dependantTask.getStatus(),
+                dependantTask.getDependency().removeDependency(dependeeTask)
+        );
+    }
+
 
     @Override
     public boolean equals(Object obj) {

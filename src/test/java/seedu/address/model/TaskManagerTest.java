@@ -17,7 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
@@ -111,7 +110,7 @@ public class TaskManagerTest {
         }
 
         @Override
-        public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
+        public AchievementRecord getAchievementRecord() {
             throw new AssertionError("This method should not be called.");
         }
     }

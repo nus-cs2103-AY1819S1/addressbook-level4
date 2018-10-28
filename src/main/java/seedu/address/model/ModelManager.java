@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
@@ -41,6 +44,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public Level getLevel() {
+        return versionedTaskManager.getLevel();
+    }
+
+    @Override
     public int getXpValue() {
         return versionedTaskManager.getXpValue();
     }
@@ -61,6 +69,13 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(versionedTaskManager));
+    }
+
+    /**
+     * Raises an event to indicate the achievements reflected on UI should be updated
+     */
+    private void indicateAchievementsUpdated() {
+        raise(new AchievementsUpdatedEvent(versionedTaskManager.getAchievementRecord()));
     }
 
     @Override
@@ -103,9 +118,18 @@ public class ModelManager extends ComponentManager implements Model {
         int xpDiff = newXp - oldXp;
 
         // Update with new XP difference
-        versionedTaskManager.updateXp(xpDiff);
+        versionedTaskManager.addXp(xpDiff);
 
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
+    }
+
+    /**
+     * Returns a copy of the {@code AchievementRecord} of the task manager.
+     */
+    @Override
+    public AchievementRecord getAchievementRecord() {
+        return versionedTaskManager.getAchievementRecord();
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -141,12 +165,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoTaskManager() {
         versionedTaskManager.undo();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     @Override
     public void redoTaskManager() {
         versionedTaskManager.redo();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     @Override
