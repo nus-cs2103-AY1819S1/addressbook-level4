@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RIDES;
-
-
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -28,7 +25,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Open an existing ride in the address book.
  */
-public class OpenCommand extends Command{
+public class OpenCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
 
