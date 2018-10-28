@@ -24,7 +24,7 @@ public class EventCard extends UiPart<Region> {
 
     public final Event event;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label name;

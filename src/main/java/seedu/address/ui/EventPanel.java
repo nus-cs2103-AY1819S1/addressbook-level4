@@ -7,11 +7,13 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordContainsEventIdPredicate;
 
 /**
  * Panel containing the event details.
@@ -36,6 +38,8 @@ public class EventPanel extends UiPart<Region> {
     private Label eventEndTimeLabel;
     @FXML
     private Label eventDescriptionLabel;
+    @FXML
+    private FlowPane tags;
 
     private ObservableList<Record> recordList;
 
@@ -57,8 +61,12 @@ public class EventPanel extends UiPart<Region> {
         eventStartTimeLabel.setText(event.getStartTime().value);
         eventEndTimeLabel.setText("to " + event.getEndTime().value);
 
-        numOfVolunteersLabel.setText("Total Number of Volunteers: " + String.valueOf(recordList.size()));
+        numOfVolunteersLabel.setText("Total Number of Volunteers: "
+                + String.valueOf(recordList.filtered(new RecordContainsEventIdPredicate(event.getEventId())).size()));
         eventDescriptionLabel.setText(event.getDescription().description);
+
+        tags.getChildren().clear();
+        event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Subscribe
@@ -79,6 +87,8 @@ public class EventPanel extends UiPart<Region> {
         eventStartTimeLabel.setText("");
         eventEndTimeLabel.setText("");
         eventDescriptionLabel.setText("");
+
+        tags.getChildren().clear();
     }
 
 }
