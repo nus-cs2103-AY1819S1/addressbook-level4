@@ -212,7 +212,7 @@ public class Document {
 
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append("This is to certify that the above-named is unfit for duty for a period of X day(s)"
-                + " from " + LocalDate.now().format(formatter) +  " to " + LocalDate.now().plusDays(7).format(formatter)
+                + " from " + LocalDate.now().format(formatter) + " to " + LocalDate.now().plusDays(7).format(formatter)
                 + " inclusive.<br><br>")
                 .append("This certificate is not valid for absence from court attendance.<br><br>")
                 .append("<b>Issuing Doctor:<b>" + "<br><br>");
