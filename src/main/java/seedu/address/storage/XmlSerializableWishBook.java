@@ -72,6 +72,7 @@ public class XmlSerializableWishBook {
         if (!(other instanceof XmlSerializableWishBook)) {
             return false;
         }
-        return wishes.equals(((XmlSerializableWishBook) other).wishes);
+        return wishes.equals(((XmlSerializableWishBook) other).wishes)
+                && xmlAdaptedSavedAmount.equals(((XmlSerializableWishBook)other).xmlAdaptedSavedAmount);
     }
 }

@@ -98,7 +98,7 @@ public class MoveCommandTest {
 
         String expectedMessage = String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS, amountToMove.toString(),
                 toIndex.getOneBased(), expectedModel.getUnusedFunds());
-        assertCommandSuccess(moveCommandToTest, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(moveCommandToTest, model, commandHistory, expectedMessage, model);
     }
 
     @Test

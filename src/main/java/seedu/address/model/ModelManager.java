@@ -134,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateUnusedFunds(Amount change) {
         versionedWishBook.updateUnusedFunds(change);
+        indicateWishBookChanged();
     }
 
     /**
@@ -209,6 +210,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return versionedWishBook.equals(other.versionedWishBook)
                 && filteredSortedWishes.equals(other.filteredSortedWishes);
     }

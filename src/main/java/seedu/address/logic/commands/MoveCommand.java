@@ -102,9 +102,9 @@ public class MoveCommand extends Command {
 
                 Amount wishSavedDifference = editedToWish.getSavedAmountToPriceDifference();
 
+                model.updateUnusedFunds(amountToMove.getNegatedAmount());
                 /* Transfer excess amount from unused funds. */
                 if (wishSavedDifference.value > 0) {
-                    model.updateUnusedFunds(amountToMove.getNegatedAmount());
                     editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
                             toWish.getUrl(), toWish.getSavedAmount()
                             .incrementSavedAmount(toWish.getSavedAmountToPriceDifference().getAbsoluteAmount()),
@@ -114,7 +114,6 @@ public class MoveCommand extends Command {
                             wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
                 } else {
-                    model.updateUnusedFunds(amountToMove.getNegatedAmount());
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS,
                             amountToMove.toString(), this.toIndex.getOneBased(), model.getUnusedFunds()));
                 }
