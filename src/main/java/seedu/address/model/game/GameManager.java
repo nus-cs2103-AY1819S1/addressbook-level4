@@ -3,7 +3,6 @@ package seedu.address.model.game;
 // @@author chikchengyao
 
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 /**
@@ -14,8 +13,7 @@ import seedu.address.model.task.Task;
 public class GameManager {
 
     // Stores an instance of the currently chosen game mode.
-    GameMode gameMode;
-
+    private GameMode gameMode;
 
     public GameManager() {
         this.gameMode = new FlatMode();
@@ -35,7 +33,7 @@ public class GameManager {
      * @return Returns the XP the supplied task is worth at present
      */
     public int appraiseXpChange(Task taskFrom, Task taskTo) {
-        if (taskFrom == null || taskTo == null ) {
+        if (taskFrom == null || taskTo == null) {
             throw new NullPointerException();
         }
 

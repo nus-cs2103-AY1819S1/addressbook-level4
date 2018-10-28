@@ -3,7 +3,12 @@ package seedu.address.model.game;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
+/**
+ * A GameMode is a procedure for determining the exact XP amount gained when completing tasks.
+ * Each particular method extends GameMode to describe its particular method of calculation.
+ */
 public abstract class GameMode {
+
     /**
      * Checks that the two supplied tasks are the same task, i.e., they are identical except
      * for completion status.
@@ -44,8 +49,8 @@ public abstract class GameMode {
         }
 
         if (taskFrom.getStatus() == Status.COMPLETED) {
-            throw new XpEvaluationException("Task cannot regress after being completed," +
-                    " except by undo.");
+            throw new XpEvaluationException("Task cannot regress after being completed,"
+                    + " except by undo.");
         }
 
         if (taskTo.getStatus() == Status.COMPLETED) {

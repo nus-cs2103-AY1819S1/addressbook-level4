@@ -1,8 +1,8 @@
 package seedu.address.model.game;
 
-import seedu.address.model.task.Task;
-
 import java.util.Date;
+
+import seedu.address.model.task.Task;
 
 /**
  * Offers a mode where full XP is awarded for tasks done more than a certain time period

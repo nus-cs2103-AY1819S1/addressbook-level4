@@ -137,8 +137,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         achievements.updateXp(xp);
     }
 
+    /**
+     * Calculates the amount of XP that would be gained by changing taskFrom into taskTo.
+     * @param taskFrom The initial task.
+     * @param taskTo The resultant task.
+     * @return The XP gained.
+     */
     public int appraiseXpChange(Task taskFrom, Task taskTo) {
-        if (taskFrom == null || taskTo == null ) {
+        if (taskFrom == null || taskTo == null) {
             throw new NullPointerException();
         }
 
