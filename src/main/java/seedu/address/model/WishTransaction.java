@@ -155,7 +155,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * Changes the key for the entry of {@code existing} to key of {@code newWish}.
      * Assumption: {@code existing} must be an existing wish in the map.
      *
-     * @param existing existing wish in the wishmap.
+     * @param existing existing wish in the {@code wishmap}.
      * @param newWish wish to be changed to.
      */
     private void changeKey(Wish existing, Wish newWish) {

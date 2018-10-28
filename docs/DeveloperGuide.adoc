@@ -152,7 +152,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeleteWish.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `WishBookChangedEvent` when the Wish Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `WishBookChangedEvent` when the Wish Book data is changed, instead of asking the `Storage` to save the updates to the hard disk. This event also triggers the save of wish histories to disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -214,6 +214,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Wish Book data.
+* stores the data of wish histories.
 * exposes an unmodifiable `ObservableList<Wish>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change. The elements of the `ObservableList<Wish>` can also
 be filtered and sorted to suit the needs of specific commands.
@@ -394,6 +395,8 @@ These operations are exposed in the `Model` interface as `Model#commitWishBook()
 
 `VersionedWishTransaction`, `WishTransaction` can be easily converted to and from xml using  `XmlWishTransactions`. `XmlWishTransactions` is saved as an xml file when the user explicitly closes the window, thereby invoking `MainApp#stop()` which saves the current state of `VersionedWishTransaction` in the `wishStateList` to hard disk.
 
+If the user's command triggers a change in the state of the `WishBook`, a `WishBookChangedEvent` will be raised, causing the subscribed `StorageManager` to respond by saving both the current state of the `WishBook` and `WishTransaction` to disk.
+
 Given below is an example usage scenario and how the savings history mechanism behaves at each step.
 
 Step 1. The user launches the application. The default file path storing the previous state of the `WishTransaction` will be retrieved, unless otherwise specified by the user, and the contents from the xml file will be parsed and converted into a `WishTransaction` object via the `XmlWishTransactions` object. If the file at the specified location is behind the current state of the `WishBook`, content of the `WishTransaction` will be overwritten by the `WishBook`.
@@ -438,13 +441,19 @@ The UI is also prompted to refresh through a `WishBookChangedEvent`.
 
 Given below is an example usage scenario and how an AddCommand is carried out.
 
-Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200`, and the current date is 2nd October 2017 (2/10/2017).
+Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200d`, and the current date is 2nd October 2017 (2/10/2017).
+
+[NOTE]
+* The Date format should be `dd/mm/yyyy` where the specified date should be a valid date in the future.
+* If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
+* If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.
+
 The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
 `Date` attribute which follows `d/` in the command will be discussed below.
 
-During the computation of wish expiry date is handled internally in the `ParserUtil` class,
-which is able to take days, months, and years as input to generate a proper `Date` with the current time the user executes the command.
-Internally, `ParserUtil#parseDate()` converts the input time into number of days, and adds it to the current date to get the desired `Date`.
+The computation of wish expiry date is handled internally in the `ParserUtil` class,
+which is able to take days, months, and years as input to generate a proper `Date` with the current date that the user executes the command.
+Internally, `ParserUtil#parseDate()` converts the input date specified, and adds it to the current date to get the desired `Date`.
 
 The resultant wish will have the following properties:
 
@@ -482,10 +491,13 @@ After adding a saving, the `filteredSortedWishes` is also updated to reflect the
 
 Given below is an example usage scenario and how the SaveCommand behaves at each step:
 
-Step 1. The user executes `save 1 s/10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. The $10 is
+Step 1. The user executes `save 1 10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. The $10 is
 wrapped in an `Amount` and a `SaveCommand` instance is created with the `Amount`. `Amount` is then used to make an updated
 instance of the `Wish` at index 1 whose `SavedAmount` will be updated. `Model#updateWish` is then called to update this
 wish with the old one in `WishBook`.
+
+[NOTE]
+The `Index` of each `Wish` is labelled at the side of the app.
 
 The resultant wish will have the following properties:
 
@@ -507,7 +519,7 @@ The resultant wish will have the following properties:
 `SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
 to be negative.
 
-Step 3. The user decides to execute save 1 s/10 again. However, SaveCommand checks that `savedAmount` > `price`.
+Step 3. The user decides to execute save 1 10 again. However, SaveCommand checks that `savedAmount` > `price`.
 SaveCommand#execute creates a new updated `Wish` with `savedAmount = wish.getPrice()`.
 
 The resultant wish will have the following properties:
@@ -530,7 +542,7 @@ In WishBook, the result would be:
 
 * spareFunds: 5.00
 
-Step 5. The user tries to execute `save 1 s/10` again. However, since the value for `fulfilled` is true,
+Step 5. The user tries to execute `save 1 10` again. However, since the value for `fulfilled` is true,
 
 _{TO-DO: Sequence Diagram here}_
 
