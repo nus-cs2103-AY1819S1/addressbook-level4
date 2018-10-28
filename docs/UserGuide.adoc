@@ -522,29 +522,34 @@ Expected display box is shown in the figure below.
 image::command_record_add_after4.png[add command, 800]
 
 
-==== Updating volunteer hours: `edit [coming in v1.3]`
+==== Updating volunteer record: `edit`
 
-Updates a volunteering record for volunteer in the event that is currently being managed. +
+Updates a volunteer record in the event that is currently being managed. +
 
-Format: `edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]`
+Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 
 ****
 * VOLUNTEER_INDEX comes from the volunteers currently registered for the event.
-* VOLUNTEER_INDEX has to be specified if '-a' is not entered.
-* Entering just `r/` will save the remarks with the default value of '-'.
+* Just entering `r/` will save the remarks with the default value of '-'.
 ****
 
-.Editing a record
-image::command_record_edit.png[edit record, 800]
+.The VOLUNTEER_INDEX
+image::command_record_edit_volunteerIndex.png[volunteer index, 800]
 
-The highlighted column from the figure above indicate the VOLUNTEER_INDEX for each volunteer.
+The highlighted column from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
 
 Example(s):
 
-* `edit -a h/5` +
-Updates amount of hours volunteered for all existing volunteers in the event to 5 hours.
-* `edit 3 h/5 r/Emcee` +
+* `edit 2 h/5 r/Emcee` +
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
+
+.Before updating the volunteer record
+image::command_record_edit.png[edit command, 800]
+
+.Output of `edit 2 h/5 r/Emcee`
+image::command_record_edit_after.png[add command, 800]
+
+The figures above show the display box before and after editing a record.
 
 ==== Deleting volunteer record from event: `delete [coming in v1.3]`
 
