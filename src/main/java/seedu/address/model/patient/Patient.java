@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.Consultation;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Address;
@@ -27,6 +28,7 @@ public class Patient extends Person {
     private boolean isQueuing = false;
     private Optional<Doctor> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
+    private Consultation consultation;
 
     /**
      * Every field must be present and not null.
@@ -96,6 +98,15 @@ public class Patient extends Person {
         requireNonNull(appointment);
 
         this.appointment = Optional.of(appointment);
+    }
+
+    /**
+     * Sets a consultation for the patient. A consultation must be set whenever a Patient obj is created.
+     * @param consultation
+     */
+    public void setConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        this.consultation = consultation;
     }
 
     /**
