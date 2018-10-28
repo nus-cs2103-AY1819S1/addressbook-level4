@@ -24,7 +24,7 @@ import seedu.address.model.task.Task;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code CompleteCommand}.
+ * {@code CompleteIndexCommand}.
  */
 public class CompleteIndexCommandTest {
 
