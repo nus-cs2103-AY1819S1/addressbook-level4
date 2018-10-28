@@ -106,6 +106,7 @@ public class MainApp extends Application {
             initialData = new WishBook();
         }
 
+        seedWishTransaction(initialData);
         return new ModelManager(initialData, wishTransaction, userPrefs);
     }
 
