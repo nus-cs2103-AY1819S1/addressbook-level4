@@ -1,5 +1,9 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.google.GoogleDlCommand;
+import seedu.address.logic.commands.google.GoogleLsCommand;
+import seedu.address.logic.commands.google.GoogleUploadCommand;
+
 /**
  * Container for user visible messages.
  */
@@ -15,12 +19,16 @@ public class Messages {
     public static final String MESSAGE_CURRENT_IMAGES_IN_BATCH = "Current number of images in batch: %d\n";
     public static final String MESSAGE_NO_MORE_IMAGES = "No more images in the current directory.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+
+    public static final String MESSAGE_LOGIN_FAILURE = "Login unsuccessful";
+    public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
     public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid.";
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
     public static final String MESSAGE_GOOGLE_INVALID_FORMAT = "Please enter a valid google command format.";
-    public static final String MESSAGE_LOGIN_FAILURE = "Login unsuccessful";
-    public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
-
+    public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n------------------------\n\n"
+            + GoogleLsCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + GoogleDlCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + GoogleUploadCommand.MESSAGE_USAGE;
 
 
 }

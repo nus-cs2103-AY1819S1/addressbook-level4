@@ -19,19 +19,20 @@ import seedu.address.model.Model;
  */
 public class GoogleDlCommand extends GoogleCommand {
 
-    public static final String MESSAGE_USAGE = "Usage of google dl (requires an internet connection): "
-            + "\n- " + COMMAND_WORD + " dl <IMAGE_NAME>: " + "Downloads specified image from Google Photos"
-            + "\n\tExample: " + COMMAND_WORD + " dl " + "<mountain.png>, usage inclusive of <> "
-            + "\n- " + COMMAND_WORD + " dl /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
-            + "from specified album in Google sPhotos"
-            + "\n\tExample: " + COMMAND_WORD + " dl /a<Vacation> <mountain.png>, usage inclusive of <>"
-            + "\n- " + COMMAND_WORD + " dl all <ALBUM_NAME>: " + "Downloads all images from specified album, "
-            + "takes a longer time depending on number of images"
-            + "\n\tExample: " + COMMAND_WORD + " dl all " + "<Vacation>, usage inclusive of <> \n\n"
-            + "!!WARNING: Any files with duplicate naming existing in the folder WILL be replaced";
-
     public static final String MESSAGE_SUCCESS = "%s downloaded into %s";
     public static final String MESSAGE_FAILURE = "%s failed to download.";
+
+    private static final String TYPE = COMMAND_WORD + " dl";
+    public static final String MESSAGE_USAGE = "Usage of google download (requires an internet connection): "
+            + "\n- " + TYPE + " <IMAGE_NAME>: " + "Downloads specified image from Google Photos"
+            + "\n\tExample: " + TYPE + " <mountain.png>, usage inclusive of <> "
+            + "\n- " + TYPE + " /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
+            + "from specified album in Google sPhotos"
+            + "\n\tExample: " + TYPE + " /a<Vacation> <mountain.png>, usage inclusive of <>"
+            + "\n- " + TYPE + " all <ALBUM_NAME>: " + "Downloads all images from specified album, "
+            + "takes a longer time depending on number of images"
+            + "\n\tExample: " + TYPE + " all " + "<Vacation>, usage inclusive of <> \n\n"
+            + "!!WARNING: Any files with duplicate naming existing in the folder WILL be replaced";
 
     public GoogleDlCommand(String parameter) {
         super(parameter);
@@ -40,7 +41,6 @@ public class GoogleDlCommand extends GoogleCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
 
         String org = parameter;
         try {
@@ -67,6 +67,9 @@ public class GoogleDlCommand extends GoogleCommand {
                 throw new CommandException(MESSAGE_CONNECTION_FAILURE);
             }
 
+            if (parameter.isEmpty()) {
+                parameter = org;
+            }
             throw new CommandException(String.format(MESSAGE_FAILURE, parameter) + "\n\n" + MESSAGE_USAGE);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, parameter, model.getCurrDirectory().toString()));

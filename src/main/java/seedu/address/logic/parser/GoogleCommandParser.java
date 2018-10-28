@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.ENTIRE_GOOGLE_MESSAGE;
 import static seedu.address.commons.core.Messages.MESSAGE_GOOGLE_INVALID_FORMAT;
 
 import seedu.address.logic.commands.google.GoogleCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
+import seedu.address.logic.commands.google.GoogleUploadCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author chivent
@@ -28,19 +30,24 @@ public class GoogleCommandParser {
 
         String commandParam = parseArgumentString(args);
 
-        //TODO: add upload command
         switch (type) {
         case "ls": {
             return new GoogleLsCommand(commandParam);
         }
         case "dl": {
             if (commandParam.isEmpty()) {
-                throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT);
+                throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT + "\n\n" + GoogleDlCommand.MESSAGE_USAGE);
             }
             return new GoogleDlCommand(commandParam);
         }
+        case "ul": {
+            if (commandParam.isEmpty()) {
+                throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT + "\n\n" + GoogleUploadCommand.MESSAGE_USAGE);
+            }
+            return new GoogleUploadCommand(commandParam);
+        }
         default:
-            throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT);
+            throw new ParseException(ENTIRE_GOOGLE_MESSAGE);
         }
     }
 
@@ -66,7 +73,7 @@ public class GoogleCommandParser {
                 return "";
             }
         } else {
-            throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT);
+            throw new ParseException(ENTIRE_GOOGLE_MESSAGE);
         }
     }
 }

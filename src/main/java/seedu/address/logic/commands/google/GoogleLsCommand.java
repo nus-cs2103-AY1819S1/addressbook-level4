@@ -20,11 +20,13 @@ import seedu.address.model.Model;
  */
 public class GoogleLsCommand extends GoogleCommand {
 
-    public static final String MESSAGE_USAGE = "Usage of google ls (requires an internet connection): "
-            + "\n- " + COMMAND_WORD + " ls: " + "Lists all photos in Google Photos"
-            + "\n- " + COMMAND_WORD + " ls /a: " + "Lists all albums in Google Photos"
-            + "\n- " + COMMAND_WORD + " ls <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
-            + "\n\tExample: " + COMMAND_WORD + " ls " + "<Vacation>, usage inclusive of <>";
+    private static final String TYPE = COMMAND_WORD + " ls";
+    public static final String MESSAGE_USAGE = "Usage of google list (requires an internet connection): "
+            + "\n- " + TYPE + " Lists all photos in Google Photos, "
+            + "takes a longer amount of time depending on number of images in Google Photos."
+            + "\n- " + TYPE + " /a: " + "Lists all albums in Google Photos"
+            + "\n- " + TYPE + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
+            + "\n\tExample: " + TYPE + " <Vacation>, usage inclusive of <>";
 
     public GoogleLsCommand(String parameter) {
         super(parameter);
