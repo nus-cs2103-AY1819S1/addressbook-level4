@@ -464,8 +464,9 @@ The figure above shows the screen you will see after executing the `manage` comm
 
 The following changes are observed:
 
-* Panel displays the list of volunteers that you can assign to an event.
-* Display box shows the event name, total number of volunteers for the event and the list of volunteers registered.
+1. Panel displays the list of volunteers that you can assign to an event.
+2. Name of event being managed and total number of volunteers assigned to event shown in the upper portion of the display box.
+3. List of volunteers currently assigned to the event.
 
 ==== Adding volunteer to event: `add`
 
@@ -474,24 +475,37 @@ Adds a volunteer to the event that is currently being managed. +
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
 ****
-* VOLUNTEER_INDEX comes from the list of all volunteers.
+* VOLUNTEER_INDEX comes from the list of all volunteers shown in the panel.
 * Default value for HOURS is '0'.
 * Default value for REMARKS is '-'.
 ****
 
-.Adding a record
-image::command_record_add.png[add record, 800]
+.The VOLUNTEER_INDEX
+image::command_record_add_volunteerIndex.png[volunteer index, 800]
 
-The circled numbers from the figure above indicate the VOLUNTEER_INDEX.
+The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
 
 Example(s):
 
+.Before adding a volunteer
+image::command_record_add.png[add command, 800]
+
+The figure above shows how the screen looks like before executing the commands below.
+
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
-* `add 1 r/Vegetarian` +
+Expected screen is shown in the figure below.
+
+.Output of `add 1`
+image::command_record_add_after1.png[add command, 800]
+
+
+* `add 1 r/Driver` +
 Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'.
-* `add 3 h/5` +
-Adds a volunteer at index 3 to the event with 5 hours.
+
+
+* `add 1 h/5` +
+Adds a volunteer at index 1 to the event with 5 hours.
 
 ==== Updating volunteer hours: `edit [coming in v1.3]`
 
