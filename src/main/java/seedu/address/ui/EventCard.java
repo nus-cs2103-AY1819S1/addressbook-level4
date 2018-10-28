@@ -51,10 +51,10 @@ public class EventCard extends UiPart<Region> {
         eventLocation.setText(event.getLocation().value);
         startDate.setText(event.getStartDate().value);
         if (!event.getStartDate().equals(event.getEndDate())) {
-            endDate.setText("- " + event.getEndDate().value);
+            endDate.setText("to " + event.getEndDate().value);
         }
         startTime.setText(event.getStartTime().value);
-        endTime.setText("- " + event.getEndTime().value);
+        endTime.setText("to " + event.getEndTime().value);
 
         event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

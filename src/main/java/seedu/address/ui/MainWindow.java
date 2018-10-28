@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private ContextIndicator contextIndicator;
     private VolunteerListPanel volunteerListPanel;
     private EventListPanel eventListPanel;
+    private EventPanel eventPanel;
     private RecordEventPanel recordEventPanel;
     private Config config;
     private UserPrefs prefs;
@@ -139,6 +140,7 @@ public class MainWindow extends UiPart<Stage> {
         volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
+        eventPanel = new EventPanel(logic.getFilteredRecordList());
         recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
         contextIndicator = new ContextIndicator(Context.VOLUNTEER_CONTEXT_ID);
@@ -209,9 +211,12 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().clear();
 
         if (contextId.equals(EVENT_CONTEXT_ID)) {
+            eventListPanel.clearSelection();
+            eventPanel.clearDetails();
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            volunteerListPanel.clearSelection();
             listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {

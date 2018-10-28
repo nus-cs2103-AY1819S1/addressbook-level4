@@ -27,7 +27,6 @@ public class ContextIndicator extends UiPart<Region> {
 
     @Subscribe
     private void handleContextChangeEvent(ContextChangeEvent event) {
-        System.out.println(event.getNewContext());
         setContextName(event.getNewContext());
     }
 
