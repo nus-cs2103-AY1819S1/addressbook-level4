@@ -13,6 +13,7 @@ import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
 import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
+import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Venue;
 
 /**
@@ -48,6 +49,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String repeat} into a {@code Repeat}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code repeat} is invalid.
+     */
+    public static Repeat parseRepeat(String repeat) throws ParseException {
+        requireNonNull(repeat);
+        String trimmedRepeat = repeat.trim();
+        if (!Repeat.isValidRepeat(trimmedRepeat)) {
+            throw new ParseException(Repeat.MESSAGE_REPEAT_CONSTRAINTS);
+        }
+        return new Repeat(trimmedRepeat);
     }
 
     /**
