@@ -42,6 +42,7 @@ public class VersionedAnakin extends Anakin {
         }
         currentStatePointer--;
         resetData(anakinStateList.get(currentStatePointer));
+        updateDisplayedCards();
     }
 
     /**
@@ -53,6 +54,7 @@ public class VersionedAnakin extends Anakin {
         }
         currentStatePointer++;
         resetData(anakinStateList.get(currentStatePointer));
+        updateDisplayedCards();
     }
 
     /**
