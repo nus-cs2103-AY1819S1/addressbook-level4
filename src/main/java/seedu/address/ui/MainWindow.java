@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private CalendarDisplay calendarDisplay;
     private CalendarPanel calendarPanel;
     private Config config;
     private UserPrefs prefs;
@@ -46,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane calendarDisplayPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -126,6 +130,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         TaskListPanel taskListPanel = new TaskListPanel();
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        calendarDisplay = new CalendarDisplay(logic.getFilteredCalendarEventList());
+        calendarDisplayPlaceholder.getChildren().add(calendarDisplay.getRoot());
 
         DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFilteredCalendarEventList());
         dayMonthYearPanelPlaceholder.getChildren().add(dayMonthYearPanel.getRoot());

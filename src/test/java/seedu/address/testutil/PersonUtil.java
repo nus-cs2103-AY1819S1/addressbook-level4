@@ -32,7 +32,7 @@ public class PersonUtil {
     public static String getPersonDetails(CalendarEvent calendarEvent) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TITLE + calendarEvent.getTitle().value + " ");
-        sb.append(PREFIX_DESCRIPTION + calendarEvent.getDescription().value + " ");
+        sb.append(PREFIX_DESCRIPTION + calendarEvent.getDescriptionObject().value + " ");
         sb.append(PREFIX_START + calendarEvent.getStart().toInputFormat() + " ");
         sb.append(PREFIX_END + calendarEvent.getEnd().toInputFormat() + " ");
         sb.append(PREFIX_VENUE + calendarEvent.getVenue().value + " ");

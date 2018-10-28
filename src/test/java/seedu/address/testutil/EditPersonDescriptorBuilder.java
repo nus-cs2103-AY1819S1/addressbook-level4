@@ -33,7 +33,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(CalendarEvent calendarEvent) {
         descriptor = new EditCalendarEventDescriptor();
         descriptor.setTitle(calendarEvent.getTitle());
-        descriptor.setDescription(calendarEvent.getDescription());
+        descriptor.setDescription(calendarEvent.getDescriptionObject());
         descriptor.setStart(calendarEvent.getStart());
         descriptor.setEnd(calendarEvent.getEnd());
         descriptor.setVenue(calendarEvent.getVenue());
