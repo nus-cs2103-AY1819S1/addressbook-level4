@@ -666,7 +666,7 @@ This operation creates a new `Meeting` object which replaces the old one.
 **The following sequence diagrams show how the meet and cancel command function.**
 
 .Sequence diagram for meet command
-image::meetCommandSequenceDiagram.png[width="300"]
+image::MeetCommandSequenceDiagram.png[width="300"]
 
 .Sequence diagram for cancel command
 image::cancelCommandSequenceDiagram.png[width="300"]
