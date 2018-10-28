@@ -27,17 +27,27 @@ public class DependencyGraphTest {
     @Before
     public void setUp() {
         //Initializing task lists
-        Task a = new TaskBuilder().withName("A").build();
+        Task completed1 = new TaskBuilder().withName("E").withStatus(Status.COMPLETED).build();
+        Task completed2 = new TaskBuilder().withName("F").withStatus(Status.COMPLETED).build();
+        Task a = new TaskBuilder().withName("A").withDependency(completed1).withDependency(completed2).build();
         Task b = new TaskBuilder().withName("B").withDependency(a).build();
         Task c = new TaskBuilder().withName("C").withDependency(b).withDependency(a).build();
+        Task completed3 = new TaskBuilder().withName("D").withDependency(c).withStatus(Status.COMPLETED).build();
+
+
 
         //preSortedTasks
         preSortedTasks.add(a);
         preSortedTasks.add(c);
         preSortedTasks.add(b);
+        //Should not be contained in final topological sort as they are completed
+        preSortedTasks.add(completed1);
+        preSortedTasks.add(completed2);
+        preSortedTasks.add(completed3);
+
 
         //SortedTasks
-        sortedTasks.add(a);
+        sortedTasks.add(a); //a should be first as completed1 and completed2 are completed tasks and dependency removed
         sortedTasks.add(b);
         sortedTasks.add(c);
 

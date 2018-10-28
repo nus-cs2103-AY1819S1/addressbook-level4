@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
@@ -17,8 +16,8 @@ public interface ReadOnlyTaskManager {
     ObservableList<Task> getTaskList();
 
     /**
-     * Returns an unmodifiable view of the achievement record.
+     * Returns a copy of the task manager's {@code AchievementRecord}.
      */
-    SimpleObjectProperty<AchievementRecord> getAchievementRecord();
+    AchievementRecord getAchievementRecord();
 
 }
