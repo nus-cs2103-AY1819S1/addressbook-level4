@@ -1,32 +1,19 @@
 package seedu.address.storage.budget;
 
-import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import seedu.address.model.budget.TotalBudget;
-import seedu.address.storage.storageutil.LocalDateTimeAdapter;
+import seedu.address.model.budget.Budget;
 
-
-//@author winsonhys
 /**
- * JAXB-friendly adapted version of the TotalBudget.
+ * JAXB-friendly adapted version of the Budget. Used as a base class for other Budget types
  */
 
-public class XmlAdaptedBudget {
+public abstract class XmlAdaptedBudget {
+    @XmlElement
+    protected double budgetCap;
 
     @XmlElement
-    private double budgetCap;
-    @XmlElement
-    private double currentExpenses;
-    @XmlElement
-    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
-    private LocalDateTime nextRecurrence;
-    @XmlElement
-    private long numberOfSecondsToRecurAgain;
-
-
-
+    protected double currentExpenses;
 
     /**
      * Constructs an XmlAdaptedBudget.
@@ -35,25 +22,13 @@ public class XmlAdaptedBudget {
     public XmlAdaptedBudget() {
     }
 
-    /**
-     * Converts a given TotalBudget into this class for JAXB use.
-     *
-     * @param source source totalBudget
-     */
-    public XmlAdaptedBudget(TotalBudget source) {
+    public XmlAdaptedBudget(Budget source) {
         this.budgetCap = source.getBudgetCap();
         this.currentExpenses = source.getCurrentExpenses();
-        this.nextRecurrence = source.getNextRecurrence();
-        this.numberOfSecondsToRecurAgain = source.getNumberOfSecondsToRecurAgain();
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     * Converts this jaxb-friendly adapted budget object into the model's Budget object.
      */
-    public TotalBudget toModelType() {
-        return new TotalBudget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain);
-    }
-
-
-
+    public abstract Budget toModelType();
 }

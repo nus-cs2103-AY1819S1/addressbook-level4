@@ -67,7 +67,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * sum of category budgets exceeding the total TotalBudget
      */
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+
         this.maximumTotalBudget.addCategoryBudget(budget);
+        System.out.println("Expense tracker class");
+        System.out.println(this.maximumTotalBudget.getCategoryBudgets());
     }
 
     /**
@@ -154,7 +157,8 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     public TotalBudget getMaximumTotalBudget() {
         return new TotalBudget(this.maximumTotalBudget.getBudgetCap(), this.maximumTotalBudget.getCurrentExpenses(),
-            this.maximumTotalBudget.getNextRecurrence(), this.maximumTotalBudget.getNumberOfSecondsToRecurAgain());
+            this.maximumTotalBudget.getNextRecurrence(), this.maximumTotalBudget.getNumberOfSecondsToRecurAgain(),
+            this.maximumTotalBudget.getCategoryBudgets());
     }
 
     @Override

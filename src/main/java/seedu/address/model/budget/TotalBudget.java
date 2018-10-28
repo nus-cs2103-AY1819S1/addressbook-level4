@@ -47,6 +47,21 @@ public class TotalBudget extends Budget {
     }
 
     /**
+     * Constructs a {@code TotalBudget} with modified current expenses, recurrence and category budgets
+     * @param budget
+     * @param currentExpenses
+     * @param nextRecurrence
+     * @param numberOfSecondsToRecurAgain
+     */
+    public TotalBudget(double budget, double currentExpenses, LocalDateTime nextRecurrence,
+                       long numberOfSecondsToRecurAgain, HashSet<CategoryBudget> categoryBudgets) {
+        super(budget, currentExpenses);
+        this.nextRecurrence = nextRecurrence;
+        this.numberOfSecondsToRecurAgain = numberOfSecondsToRecurAgain;
+        this.categoryBudgets = categoryBudgets;
+    }
+
+    /**
      * Constructs a {@code TotalBudget} with modified current expenses
      * @param budget
      * @param currentExpenses
@@ -100,6 +115,8 @@ public class TotalBudget extends Budget {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
         this.categoryBudgets.add(budget);
+        System.out.println("Category budget added");
+        System.out.println(this.getCategoryBudgets());
     }
 
     /**
@@ -111,6 +128,10 @@ public class TotalBudget extends Budget {
             throw new CategoryBudgetDoesNotExist(budget);
         }
         this.categoryBudgets.add(budget);
+    }
+
+    public HashSet<CategoryBudget> getCategoryBudgets() {
+        return this.categoryBudgets;
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.budget.TotalBudgetTest;
-import seedu.address.storage.budget.XmlAdaptedBudget;
+import seedu.address.storage.budget.XmlAdaptedTotalBudget;
 
 
 public class XmlAdaptedTotalBudgetTest {
@@ -21,13 +21,13 @@ public class XmlAdaptedTotalBudgetTest {
 
     @Test
     public void testEquals() {
-        XmlAdaptedBudget validXmlAdaptedBudget = new XmlAdaptedBudget(new TotalBudget(TotalBudgetTest.VALID_BUDGET));
+        XmlAdaptedTotalBudget validXmlAdaptedTotalBudget = new XmlAdaptedTotalBudget(new TotalBudget(TotalBudgetTest.VALID_BUDGET));
 
         String anotherValidBudgetString = "3.00";
-        assertNotEquals(validXmlAdaptedBudget,
-            new XmlAdaptedBudget(new TotalBudget(anotherValidBudgetString)));
-        assertEquals(validXmlAdaptedBudget, validXmlAdaptedBudget);
-        assertNotEquals(validXmlAdaptedBudget, new Object());
+        assertNotEquals(validXmlAdaptedTotalBudget,
+            new XmlAdaptedTotalBudget(new TotalBudget(anotherValidBudgetString)));
+        assertEquals(validXmlAdaptedTotalBudget, validXmlAdaptedTotalBudget);
+        assertNotEquals(validXmlAdaptedTotalBudget, new Object());
     }
 
 }

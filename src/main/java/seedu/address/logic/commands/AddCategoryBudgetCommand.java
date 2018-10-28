@@ -49,4 +49,12 @@ public class AddCategoryBudgetCommand extends Command {
         }
     }
 
+    @Override
+
+    public boolean equals (Object budget) {
+        AddCategoryBudgetCommand cBudgetCommand = (AddCategoryBudgetCommand) budget;
+        return this.toSet.equals(cBudgetCommand.toSet);
+    }
+
+
 }
