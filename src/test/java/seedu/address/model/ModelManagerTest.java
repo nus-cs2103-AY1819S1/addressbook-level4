@@ -4,12 +4,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
+import static seedu.address.testutil.TypicalTags.MEETING_TAG;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -42,6 +45,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasEventTag_nullTag_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasEventTag(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
@@ -54,6 +63,11 @@ public class ModelManagerTest {
     @Test
     public void hasClashingEvent_clashingEventNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasClashingEvent(DOCTORAPPT));
+    }
+
+    @Test
+    public void hasEventTag_tagNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasEventTag(APPOINTMENT_TAG));
     }
 
     @Test
@@ -83,6 +97,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasEventTag_tagInAddressBook_returnsTrue() {
+        modelManager.addEventTag(APPOINTMENT_TAG);
+        assertTrue(modelManager.hasEventTag(APPOINTMENT_TAG));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
@@ -98,6 +118,12 @@ public class ModelManagerTest {
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredEventList().add(new ScheduledEventBuilder().build());
+    }
+
+    @Test
+    public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getEventTagList().add(MEETING_TAG);
     }
 
     @Test

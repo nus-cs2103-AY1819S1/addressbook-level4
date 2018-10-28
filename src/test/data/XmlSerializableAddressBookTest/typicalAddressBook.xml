@@ -95,4 +95,6 @@
         <eventEndTime>2015</eventEndTime>
         <eventAddress>NUS</eventAddress>
     </events>
+    <eventTags>Appointment</eventTags>
+    <eventTags>Meeting</eventTags>
 </addressbook>

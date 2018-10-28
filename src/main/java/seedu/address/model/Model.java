@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -70,6 +71,17 @@ public interface Model {
      */
     void addEvent(Event event);
 
+    /**
+     * Returns true if an event tag with the same identity as {@code eventTag} exists in the address book.
+     */
+    boolean hasEventTag(Tag eventTag);
+
+    /**
+     * Adds the given event tag into the address book.
+     * {@code eventTag} must not already exist in the address book.
+     */
+    void addEventTag(Tag eventTag);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -93,6 +105,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of lists of events (grouped by date) */
     ObservableList<List<Event>> getFilteredEventListByDate();
+
+    /** Returns an unmodifiable view of the unfiltered event tag list */
+    ObservableList<Tag> getEventTagList();
 
     /**
      * Returns true if the model has previous address book states to restore.

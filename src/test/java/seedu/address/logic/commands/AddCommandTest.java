@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -140,6 +141,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasEventTag(Tag eventTag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEventTag(Tag eventTag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -173,6 +184,12 @@ public class AddCommandTest {
         public void updateFilteredEventList(Predicate<Event> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Tag> getEventTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean canUndoAddressBook() {
