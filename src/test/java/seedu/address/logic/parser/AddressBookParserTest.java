@@ -5,10 +5,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DATE_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_APPOINTMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -23,6 +26,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddEventTagCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
@@ -43,6 +47,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -221,6 +226,14 @@ public class AddressBookParserTest {
         assertEquals(new AddEventCommand(event,
                 new HashSet<>(Arrays.asList(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1))))),
                 command);
+    }
+
+    @Test
+    public void parseCommand_addEventTag() throws Exception {
+        AddEventTagCommand command =
+                (AddEventTagCommand) parser.parseCommand(AddEventTagCommand.COMMAND_WORD
+                        + TAG_DESC_APPOINTMENT);
+        assertEquals(new AddEventTagCommand(new HashSet<>(Arrays.asList(APPOINTMENT_TAG))), command);
     }
 
     @Test
