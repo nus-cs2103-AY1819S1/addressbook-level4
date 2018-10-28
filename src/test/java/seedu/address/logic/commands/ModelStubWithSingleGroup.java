@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
@@ -23,12 +24,22 @@ public class ModelStubWithSingleGroup extends ModelStub {
         this.group = group;
     }
 
-    public void setMeeting(Meeting meeting) {
-        group.setMeeting(meeting);
+    @Override
+    public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        if (!this.group.isSameGroup(group)) {
+            throw new GroupNotFoundException();
+        }
+
+        this.group.setMeeting(meeting);
     }
 
-    public void cancelMeeting() {
-        group.cancelMeeting();
+    @Override
+    public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        if (!this.group.isSameGroup(group)) {
+            throw new GroupNotFoundException();
+        }
+
+        this.group.cancelMeeting();
     }
 
     @Override
@@ -62,7 +73,7 @@ public class ModelStubWithSingleGroup extends ModelStub {
 
     @Override
     public void commitAddressBook() {
-        // called by {@code MeetCommand#execute()}
+        // called by {@code MeetCommand#execute()} and several others.
     }
 
     @Override
