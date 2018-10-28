@@ -323,9 +323,7 @@ public class EditUserCommand extends Command {
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
-                && getInterests().equals(e.getInterests())
-                && getTags().equals(e.getTags());
+                && getAddress().equals(e.getAddress());
         }
     }
 }

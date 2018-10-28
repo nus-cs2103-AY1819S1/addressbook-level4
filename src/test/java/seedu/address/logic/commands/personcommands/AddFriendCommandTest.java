@@ -46,6 +46,7 @@ public class AddFriendCommandTest {
         Person person1Copy = new Person(person1);
         Person person2Copy = new Person(person2);
         AddFriendCommand.addFriendEachOther(person1Copy, person2Copy);
+
         expectedModel.updatePerson(person1, person1Copy, person2, person2Copy);
         expectedModel.commitAddressBook();
         assertCommandSuccess(addFriendCommand, model, commandHistory, expectedMessage, expectedModel);
