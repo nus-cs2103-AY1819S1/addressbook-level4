@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.encryption.EncryptedExpense;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
 
@@ -42,11 +44,11 @@ public class XmlSerializableExpenseTracker {
     /**
      * Conversion
      */
-    public XmlSerializableExpenseTracker(ReadOnlyExpenseTracker src) {
+    public XmlSerializableExpenseTracker(EncryptedExpenseTracker src) {
         this();
         this.username = new XmlAdaptedUsername(src.getUsername());
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
-        expenses.addAll(src.getExpenseList().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
+        expenses.addAll(src.getEncryptedExpenses().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
         this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
     }
 
@@ -56,18 +58,16 @@ public class XmlSerializableExpenseTracker {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedExpense}.
      */
-    public ExpenseTracker toModelType() throws IllegalValueException {
+    public EncryptedExpenseTracker toModelType() throws IllegalValueException {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
-        ExpenseTracker expenseTracker = new ExpenseTracker(username.toModelType(), passwordOptional);
+        EncryptedExpenseTracker expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional,
+                budget.toModelType());
         for (XmlAdaptedExpense p : expenses) {
-            Expense expense = p.toModelType();
+            EncryptedExpense expense = p.toModelType();
             if (expenseTracker.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
             expenseTracker.addExpense(expense);
-        }
-        if (this.budget != null) {
-            expenseTracker.modifyMaximumBudget(this.budget.toModelType());
         }
         return expenseTracker;
     }

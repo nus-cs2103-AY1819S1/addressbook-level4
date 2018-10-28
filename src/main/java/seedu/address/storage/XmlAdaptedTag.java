@@ -3,6 +3,7 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.encryption.EncryptedTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,8 +32,8 @@ public class XmlAdaptedTag {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName;
+    public XmlAdaptedTag(EncryptedTag source) {
+        tagName = source.getEncryptedString();
     }
 
     /**
@@ -40,11 +41,8 @@ public class XmlAdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense
      */
-    public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
-        }
-        return new Tag(tagName);
+    public EncryptedTag toModelType() throws IllegalValueException {
+        return new EncryptedTag(tagName);
     }
 
     @Override
