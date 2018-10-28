@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.*;
@@ -56,7 +56,7 @@ public class FindPersonCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, 0);
         PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
@@ -66,7 +66,7 @@ public class FindPersonCommandTest {
 
     @Test
     public void execute_multipleKeywords_somePrefix() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, 3);
         PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ",
                 "Kurz Elle Kunz", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
@@ -77,7 +77,7 @@ public class FindPersonCommandTest {
 
     @Test
     public void execute_multipleKeywords_allPrefix() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, 2);
         PersonNameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
@@ -87,7 +87,7 @@ public class FindPersonCommandTest {
 
     @Test
     public void execute_multipleKeywords_nonePrefix() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
+        String expectedMessage = String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, 5);
         PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
         FindPersonCommand command = new FindPersonCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
