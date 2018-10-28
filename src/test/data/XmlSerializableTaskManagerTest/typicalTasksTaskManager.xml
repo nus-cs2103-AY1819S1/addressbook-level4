@@ -2,8 +2,16 @@
 <!-- TaskManager save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <taskmanager>
     <achievements>
+        <displayOption>1</displayOption>
         <xp>0</xp>
         <level>lvl.1</level>
+        <numTaskCompleted>0</numTaskCompleted>
+        <nextDayBreakPoint>13-10-19 0000</nextDayBreakPoint>
+        <xpValueByDay>0</xpValueByDay>
+        <numTaskCompletedByDay>0</numTaskCompletedByDay>
+        <nextWeekBreakPoint>19-10-19 0000</nextWeekBreakPoint>
+        <xpValueByWeek>0</xpValueByWeek>
+        <numTaskCompletedByWeek>0</numTaskCompletedByWeek>
     </achievements>
     <tasks>
         <name>Address CS2103 email</name>
