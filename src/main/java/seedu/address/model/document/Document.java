@@ -63,6 +63,8 @@ public class Document {
     private Name name;
     private String fileType;
     private IcNumber icNumber;
+    private String mcDuration;
+    private String referralContent;
 
     //variables specific to receipt but here because of checkstyle issues
     private float totalPrice = 0;
@@ -209,13 +211,15 @@ public class Document {
      */
     String formatMcInformation() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        int numberOfDays = Integer.parseInt(this.mcDuration);
 
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("This is to certify that the above-named is unfit for duty for a period of X day(s)"
-                + " from " + LocalDate.now().format(formatter) + " to " + LocalDate.now().plusDays(7).format(formatter)
+        stringbuilder.append("This is to cerdtify that the above-named is unfit for duty for a period of "
+                + numberOfDays + " day(s)"
+                + " from " + LocalDate.now().format(formatter) + " to " + LocalDate.now().plusDays(numberOfDays - 1).format(formatter)
                 + " inclusive.<br><br>")
                 .append("This certificate is not valid for absence from court attendance.<br><br>")
-                .append("<b>Issuing Doctor:<b>" + "<br><br>");
+                .append("<b>Issuing Doctor:<b> DR CHESTER SNG" + "<br><br>");
         return stringbuilder.toString();
     }
 
@@ -224,9 +228,10 @@ public class Document {
      */
     String formatRlInformation() {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br><br>")
+        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
+                .append(referralContent + "<br><br>")
                 .append("Kindly do accept him under your care. Thank you very much.<br><br>")
-                .append("<b>Issuing Doctor:<b> " + "<br><br>");
+                .append("<b>Issuing Doctor:<b> DR CHESTER SNG" + "<br><br>");
         return stringbuilder.toString();
     }
 
@@ -300,6 +305,14 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public void setMcContent(String mcDuration) {
+        this.mcDuration = mcDuration;
+    }
+
+    public void setReferralContent(String referralContent) {
+        this.referralContent = referralContent;
     }
 
     public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
