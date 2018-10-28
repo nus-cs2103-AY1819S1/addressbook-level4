@@ -13,7 +13,7 @@ public class PasswordPrefixFormatter {
 
     private TextField commandTextField;
     private StringBuilder tempPassword;
-    
+
     public PasswordPrefixFormatter(TextField commandTextField) {
         tempPassword = new StringBuilder();
         this.commandTextField = commandTextField;
@@ -36,10 +36,10 @@ public class PasswordPrefixFormatter {
 
         int passwordPrefixIndex = commandTextField.getText().indexOf(PREFIX_PASSWORD.getPrefix());
         int spaceAfterPasswordIndex = commandTextField.getText().indexOf(' ', passwordPrefixIndex);
-        
+
         String prefixesBeforePasswordPrefix = commandTextField.getText().substring(0, passwordPrefixIndex);
         String password = findPassword(passwordPrefixIndex, spaceAfterPasswordIndex);
-        
+
         StringBuilder maskedPassword = appendMaskedPassword(isHistory, password);
 
         return prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix()
@@ -63,9 +63,9 @@ public class PasswordPrefixFormatter {
         String commandText = prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix();
         commandText = comparePasswordWithTempPassword(password, commandText)
                 + getPrefixesAfterPasswordPrefix(spaceAfterPasswordIndex);
-        
+
         resetTempPassword();
-        
+
         return commandText;
     }
 
@@ -99,7 +99,7 @@ public class PasswordPrefixFormatter {
         }
         return commandTextField.getText().substring(passwordPrefixIndex + 5);
     }
-    
+
     public StringBuilder storePasswordCharacters(String password, int passwordLength) {
         StringBuilder maskedPassword = new StringBuilder();
 
@@ -111,7 +111,7 @@ public class PasswordPrefixFormatter {
         }
         return maskedPassword;
     }
-    
+
     public StringBuilder unmaskLastCharacter(StringBuilder maskedPassword) {
         if (tempPassword.length() <= 0) {
             return maskedPassword;
@@ -122,13 +122,14 @@ public class PasswordPrefixFormatter {
                 maskedPassword.length(), String.valueOf(lastPasswordChar));
         return maskedPassword;
     }
-    
+
     public String getPrefixesAfterPasswordPrefix(int spaceAfterPasswordIndex) {
         if (spaceAfterPasswordIndex <= 0) {
             return "";
         }
         return commandTextField.getText().substring(spaceAfterPasswordIndex);
     }
+
     /**
      * Reset the temporary password in the command text field.
      */
