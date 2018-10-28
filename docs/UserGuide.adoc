@@ -94,7 +94,7 @@ tracking of existing ingredient available at home. +
 Format: +
 `-ingredientmanager`
 
-==== Display meal planner: `-plannerlist`
+==== Display meal planner: `-mealplanner`
 Display current meal plan. shows the planned meals for breakfast,
 lunch and dinner. Displays the calorie count for each meal, as well as the total calorie count
  for the entire day. +
@@ -255,23 +255,24 @@ Format: +
 * DATE should be entered in the format *yyyy-mm-dd*
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
 ****
-==== Display MealPlanner: `display`
-
-Lists the dates which currently have allotted recipes at any meal slot, and shows the saved recipes at their respective meal slots.
-
-Format: `display`
 
 ==== Delete recipe: `delete`
 
-After displaying the meal planner, deletes the recipe at the specified meal slot.
+After displaying the meal planner, deletes the specified day.
 
-Format: `delete INDEX MEAL`
+Format: `delete INDEX`
 
 ==== Clear planner: `clear`
 
 Clears all the meal slots of the meal planner.
 
 Format: `clear`
+
+==== Select recipe: `select`
+
+Selects and views the details of a recipe at a specified meal slot of a specified day.
+
+Format: `select INDEX MEAL`
 
 // end::mealplanner[]
 
@@ -384,7 +385,7 @@ Format: +
 * Display new recipe: `-surprise`
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredientmanager`
-* Display meal planner: `-plannerlist`
+* Display meal planner: `-mealplanner`
 * Exit application: `-exit`
 
 *Recipes/Favourite List*
@@ -400,7 +401,7 @@ end`
 *Recipe Details Commands*
 
 * Add recipe to favourite: `favourite`
-* Add to meal plan: `plan DATE TIME`
+* Add to meal plan: `plan INDEX DATE MEAL`
 * Active cook-mode: `cook`
 
 *Ingredient Manager Commands*
@@ -414,8 +415,9 @@ end`
 
 *Meal Planner Commands*
 
-* Delete recipe: `delete DATE TIME`
-* Clear planner: `clearall`
+* Delete day: `delete INDEX`
+* Clear planner: `clear`
+* View recipe details: `select INDEX`
 
 *Cook-Mode Commands [coming in V2.0]*
 
