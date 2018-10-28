@@ -106,7 +106,14 @@ public class MainApp extends Application {
             initialData = new WishBook();
         }
 
-        return new ModelManager(initialData, wishTransaction, userPrefs);
+        return new ModelManager(initialData, seedWishTransaction(initialData), userPrefs);
+    }
+
+    /**
+     * Seeds {@code wishTransaction} with data from wishbook if {@code wishTransaction} is empty.
+     */
+    private WishTransaction seedWishTransaction(ReadOnlyWishBook initialData) {
+        return wishTransaction.isEmpty() ? new WishTransaction(initialData) : wishTransaction;
     }
 
     /**
