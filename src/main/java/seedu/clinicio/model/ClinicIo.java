@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
+import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.consultation.UniqueConsultationList;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.doctor.UniqueDoctorList;
 import seedu.clinicio.model.person.Person;
@@ -28,9 +30,10 @@ public class ClinicIo implements ReadOnlyClinicIo {
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
+    private final UniqueReceptionistList receptionists;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
-    private final UniqueReceptionistList receptionists;
+    private final UniqueConsultationList consultations;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -45,9 +48,10 @@ public class ClinicIo implements ReadOnlyClinicIo {
         persons = new UniquePersonList();
         //@@author jjlee050
         doctors = new UniqueDoctorList();
+        receptionists = new UniqueReceptionistList();
         //@@author gingivitiss
         appointments = new UniqueAppointmentList(analytics);
-        receptionists = new UniqueReceptionistList();
+        consultations = new UniqueConsultationList();
     }
 
     public ClinicIo() {}
@@ -142,6 +146,15 @@ public class ClinicIo implements ReadOnlyClinicIo {
         return appointments.clashes(appt);
     }
 
+    //@@author arsalanc-v2
+    /**
+     * Returns true if a consultation with the same identity as {@code consultation} exists in the address book.
+     */
+    public boolean hasConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return consultations.contains(consultation);
+    }
+
     /**
      * Adds a person to the ClinicIO.
      * The person must not already exist in the ClinicIO.
@@ -173,6 +186,15 @@ public class ClinicIo implements ReadOnlyClinicIo {
      */
     public void addAppointment(Appointment appt) {
         appointments.add(appt);
+    }
+
+    //@@author arsalanc-v2
+    /**
+     * Adds a consultation to the address book.
+     * The consultation must not already exist in the address book.
+     */
+    public void add(Consultation consultation) {
+        consultations.add(consultation);
     }
 
     /**
@@ -226,6 +248,18 @@ public class ClinicIo implements ReadOnlyClinicIo {
         appointments.setAppointment(target, editedAppt);
     }
 
+    //@@author arsalanc-v2
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code editedConsultation}.
+     * {@code target} must exist in the address book.
+     * The consultation identity of {@code editedConsultation} must not be the same as another existing consultation
+     * in the address book.
+     */
+    public void updateConsultation(Consultation target, Consultation editedConsultation) {
+        requireNonNull(editedConsultation);
+        consultations.setConsultation(target, editedConsultation);
+    }
+
     /**
      * Removes {@code key} from this {@code ClinicIo}.
      * {@code key} must exist in the ClinicIO.
@@ -262,6 +296,14 @@ public class ClinicIo implements ReadOnlyClinicIo {
         appointments.cancelAppointment(key);
     }
 
+    //@@author arsalanc-v2
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeConsultation(Consultation key) {
+        consultations.remove(key);
+    }
     //========== Util methods ================================================================================
 
     @Override
@@ -288,6 +330,11 @@ public class ClinicIo implements ReadOnlyClinicIo {
     @Override
     public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
+    }
+
+    //@@author arsalanc-v2
+    public ObservableList<Consultation> getConsultationList() {
+        return consultations.asUnmodifiableObservableList();
     }
 
     @Override
