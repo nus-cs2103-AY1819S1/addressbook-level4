@@ -2,7 +2,12 @@ package seedu.address.storage;
 
 import static seedu.address.logic.parser.AddEventCommandParser.MESSAGE_INVALID_START_END_TIME;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -13,6 +18,7 @@ import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
+import seedu.address.model.person.Person;
 
 /**
  * JAXB-friendly version of the Event.
@@ -34,6 +40,10 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private String eventAddress;
 
+    @XmlElement
+    // eventContacts in XML format should be an ordered list
+    private List<XmlAdaptedPerson> eventContacts = new ArrayList<>();
+
     /**
      * Constructs an XmlAdaptedEvent.
      * This is the no-arg constructor that is required by JAXB.
@@ -44,13 +54,16 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
     public XmlAdaptedEvent(String eventName, String eventDescription, String eventDate, String eventStartTime,
-                           String eventEndTime, String eventAddress) {
+                           String eventEndTime, String eventAddress, List<XmlAdaptedPerson> eventContacts) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
+        if (eventContacts != null) {
+            this.eventContacts = new ArrayList<>(eventContacts);
+        }
     }
 
     /**
@@ -65,6 +78,9 @@ public class XmlAdaptedEvent {
         eventStartTime = source.getEventStartTime().toString();
         eventEndTime = source.getEventEndTime().toString();
         eventAddress = source.getEventAddress().eventAddress;
+        eventContacts = source.getEventContacts().stream()
+                .map(XmlAdaptedPerson::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -73,6 +89,11 @@ public class XmlAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event
      */
     public Event toModelType() throws IllegalValueException {
+        final List<Person> personList = new ArrayList<>();
+        for (XmlAdaptedPerson person : eventContacts) {
+            personList.add(person.toModelType());
+        }
+
         if (eventName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     EventName.class.getSimpleName()));
@@ -133,7 +154,10 @@ public class XmlAdaptedEvent {
         }
         final EventAddress modelAddress = new EventAddress(eventAddress);
 
-        return new Event(modelName, modelDescription, modelDate, modelStartTime, modelEndTime, modelAddress);
+        final Set<Person> modelContacts = new HashSet<>(personList);
+
+        return new Event(modelName, modelDescription, modelDate, modelStartTime, modelEndTime,
+                modelAddress, modelContacts);
     }
 
     @Override
@@ -152,6 +176,7 @@ public class XmlAdaptedEvent {
                 && Objects.equals(eventDate, otherEvent.eventDate)
                 && Objects.equals(eventStartTime, otherEvent.eventStartTime)
                 && Objects.equals(eventEndTime, otherEvent.eventEndTime)
-                && Objects.equals(eventAddress, otherEvent.eventAddress);
+                && Objects.equals(eventAddress, otherEvent.eventAddress)
+                && eventContacts.equals(otherEvent.eventContacts);
     }
 }

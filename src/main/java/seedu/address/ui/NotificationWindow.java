@@ -35,7 +35,6 @@ public class NotificationWindow {
         layout.getChildren().addAll(label);
         layout.setAlignment(Pos.CENTER);
 
-
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
@@ -44,6 +43,5 @@ public class NotificationWindow {
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> window.close());
         delay.play();
-
     }
 }

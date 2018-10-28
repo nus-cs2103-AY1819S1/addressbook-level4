@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -27,6 +28,9 @@ import seedu.address.model.person.Person;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private static boolean notificationPref;
+    private static String favourite;
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
@@ -49,6 +53,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public static boolean getNotificationPref() {
+        return notificationPref;
+    }
+
+    public static void updateNotificationPref(boolean set) {
+        notificationPref = set;
+    }
+
+    public static String getFavourite() {
+        return favourite;
+    }
+
+    public static void updateFavourite(String newFavourite) {
+        favourite = newFavourite;
     }
 
     @Override

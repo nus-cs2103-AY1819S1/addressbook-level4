@@ -19,6 +19,7 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -26,6 +27,10 @@ import seedu.address.model.UserPrefs;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -72,11 +77,26 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        setNotification(prefs);
 
         setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setNotification(UserPrefs prefs) {
+
+        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+        ModelManager.updateFavourite(prefs.getGuiSettings().getFavourite());
+
+        if (ModelManager.getNotificationPref()) {
+            if (ModelManager.getFavourite() != null) {
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavourite());
+            } else {
+                NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+            }
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -162,7 +182,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                ModelManager.getNotificationPref(), ModelManager.getFavourite());
     }
 
     /**
@@ -194,7 +215,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        tabPanel.freeResources();
     }
 
     @Subscribe
