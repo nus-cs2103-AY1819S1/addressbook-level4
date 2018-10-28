@@ -38,6 +38,11 @@ public class AddFriendCommand extends Command {
         this.indexes = indexes;
     }
 
+    public static void addFriendEachOther(Person person1, Person person2) throws CommandException {
+        person1.addFriendInList(person2);
+        person2.addFriendInList(person1);
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -51,15 +56,11 @@ public class AddFriendCommand extends Command {
 
         Person person1 = lastShownList.get(indexes.getZeroBased());
         Person person2 = lastShownList.get(indexes.getZeroBased2());
-        if (person1.hasFriendInList(person2) || person2.hasFriendInList(person1)) {
-            throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
-        }
-        Person newPerson1 = new Person(person1);
-        Person newPerson2 = new Person(person2);
-        newPerson1.addFriendInList(person2);
-        newPerson2.addFriendInList(person1);
+        Person person1Copy = new Person(person1);
+        Person person2Copy = new Person(person2);
+        addFriendEachOther(person1Copy, person2Copy);
 
-        model.updatePerson(person1, newPerson1, person2, newPerson2);
+        model.updatePerson(person1, person1Copy, person2, person2Copy);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
                 person2.getName()));
