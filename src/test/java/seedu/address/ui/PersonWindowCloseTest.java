@@ -18,13 +18,13 @@ import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
- * Contains tests for closing of the {@code MainWindow}.
+ * Contains tests for closing of the {@code PersonWindow}.
  */
-public class MainWindowCloseTest extends GuiUnitTest {
+public class PersonWindowCloseTest extends GuiUnitTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private MainWindow mainWindow;
+    private PersonWindow personWindow;
     private EmptyMainWindowHandle mainWindowHandle;
     private Stage stage;
 
@@ -32,10 +32,10 @@ public class MainWindowCloseTest extends GuiUnitTest {
     public void setUp() throws Exception {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
+            personWindow = new PersonWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
 
-            stage.setScene(mainWindow.getRoot().getScene());
+            stage.setScene(personWindow.getRoot().getScene());
             mainWindowHandle.focus();
         });
         FxToolkit.showStage();
@@ -56,7 +56,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     /**
-     * A handle for an empty {@code MainWindow}. The components in {@code MainWindow} are not initialized.
+     * A handle for an empty {@code PersonWindow}. The components in {@code PersonWindow} are not initialized.
      */
     private class EmptyMainWindowHandle extends StageHandle {
 
@@ -65,7 +65,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         }
 
         /**
-         * Closes the {@code MainWindow} by clicking on the menu bar's exit button.
+         * Closes the {@code PersonWindow} by clicking on the menu bar's exit button.
          */
         private void clickOnMenuExitButton() {
             guiRobot.clickOn("File");
@@ -73,8 +73,9 @@ public class MainWindowCloseTest extends GuiUnitTest {
         }
 
         /**
-         * Closes the {@code MainWindow} through an external request {@code MainWindow} (e.g pressing the 'X' button on
-         * the {@code MainWindow} or closing the app through the taskbar).
+         * Closes the {@code PersonWindow} through an external request {@code PersonWindow}
+         * (e.g pressing the 'X' button on
+         * the {@code PersonWindow} or closing the app through the taskbar).
          */
         private void closeMainWindowExternally() {
             guiRobot.interact(() -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));

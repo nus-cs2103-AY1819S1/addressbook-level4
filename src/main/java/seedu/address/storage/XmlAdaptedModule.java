@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
@@ -39,9 +38,8 @@ public class XmlAdaptedModule {
     private String semester;
     @XmlElement(required = true)
     private List<XmlAdaptedPerson> students;
-
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private List<XmlAdaptedTag> tagged;
 
     /**
      * Constructs an XmlAdaptedModule.
@@ -59,12 +57,9 @@ public class XmlAdaptedModule {
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
-        if (students != null) {
-            this.students = new ArrayList<>(students);
-        }
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
+        this.students = new ArrayList<>(students);
+        this.tagged = tagged;
+
     }
 
     /**
@@ -92,15 +87,13 @@ public class XmlAdaptedModule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted module
      */
     public Module toModelType() throws IllegalValueException {
-        final List<Tag> moduleTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            moduleTags.add(tag.toModelType());
-        }
+        final UniquePersonList loadedStudentsList = new UniquePersonList(new ArrayList<>());
 
-        final UniquePersonList loadedStudentsList = new UniquePersonList();
-        // for (XmlAdaptedPerson person : students) {
-        // loadedStudentsList.add(person.toModelType());
-        // }
+        if (students != null) {
+            for (XmlAdaptedPerson person : students) {
+                loadedStudentsList.add(person.toModelType());
+            }
+        }
 
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -138,10 +131,18 @@ public class XmlAdaptedModule {
         }
         final Semester modelSemester = new Semester(semester);
 
-        final Set<Tag> modelTags = new HashSet<>(moduleTags);
-        final TypeUtil modelType = TypeUtil.MODULE;
+        Set<Tag> tagMap = new HashSet<>();
+
+        if (tagged != null) {
+
+            for (XmlAdaptedTag t : tagged) {
+                tagMap.add(t.toModelType());
+            }
+        }
+
+
         return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester,
-                loadedStudentsList, modelTags, modelType);
+                loadedStudentsList, tagMap);
     }
 
     @Override

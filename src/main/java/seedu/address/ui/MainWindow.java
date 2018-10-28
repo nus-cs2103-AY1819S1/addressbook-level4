@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,28 +18,42 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowModuleRequestEvent;
+import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
+import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The MainWindow parent class from which children entity windows are spawned from.
  */
-public class MainWindow extends UiPart<Stage> {
+abstract class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    public final Logger logger = LogsCenter.getLogger(getClass());
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
+    private UserPrefs prefs;
     private Stage primaryStage;
-    private Logic logic;
+    private HelpWindow helpWindow;
 
-    // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
-    private UserPrefs prefs;
-    private HelpWindow helpWindow;
+    private Logic logic;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane occasionListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -50,38 +65,38 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem personMenuItem;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private MenuItem moduleWindowItem;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private MenuItem occasionWindowItem;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        super(FXML, primaryStage);
 
-        // Set dependencies
+
+    MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(fxml, primaryStage);
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        helpWindow = new HelpWindow();
         this.config = config;
         this.prefs = prefs;
+        this.logic = logic;
+    }
 
-        // Configure the UI
-        setTitle(config.getAppTitle());
-        setWindowDefaultSize(prefs);
+    void hide() {
+        primaryStage.hide();
+    }
 
-        setAccelerators();
-        registerAsAnEventHandler(this);
-
-        helpWindow = new HelpWindow();
+    void show() {
+        primaryStage.show();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private void setAccelerators() {
+    void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
@@ -116,51 +131,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
-     */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    void hide() {
-        primaryStage.hide();
-    }
-
-    private void setTitle(String appTitle) {
-        primaryStage.setTitle(appTitle);
-    }
-
-    /**
-     * Sets the default size based on user preferences.
-     */
-    private void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
-    }
-
-    /**
      * Returns the current size and the position of the main Window.
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+
+    abstract void releaseResources();
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        raise(new ExitAppRequestEvent());
     }
 
     /**
@@ -175,29 +160,124 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens up the module window on this primaryStage.
+     */
+    @FXML
+    private void handleModule() {
+        URL moduleWindowUrl = getFxmlFileUrl("ModuleWindow.fxml");
+        loadFxmlFile(moduleWindowUrl, primaryStage);
+
+        MainWindow moduleWindow = new ModuleWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        moduleWindow.fillInnerParts();
     }
 
     /**
-     * Closes the application.
+     * Opens up the persons window on this primaryStage.
      */
     @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
+    private void handlePerson() {
+        URL personWindowUrl = getFxmlFileUrl("PersonWindow.fxml");
+        loadFxmlFile(personWindowUrl, primaryStage);
+
+        MainWindow personWindow = new PersonWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        personWindow.fillInnerParts();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Opens up the occasions window on this primaryStage.
+     */
+    @FXML
+    private void handleOccasion() {
+        URL occasionWindowUrl = getFxmlFileUrl("OccasionWindow.fxml");
+        loadFxmlFile(occasionWindowUrl, primaryStage);
+
+        MainWindow occasionWindow = new OccasionWindow(this.primaryStage, this.config, this.prefs, this.logic);
+
+        occasionWindow.fillInnerParts();
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
+    abstract void fillInnerParts();
+
+    /**
+     * Sets the default size based on user preferences.
+     */
+    protected void setWindowDefaultSize(UserPrefs prefs) {
+        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
+        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
+            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        }
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowModuleEvent(ShowModuleRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleModule();
+    }
+
+    @Subscribe
+    private void handleShowPersonEvent(ShowPersonRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handlePerson();
+    }
+
+    @Subscribe
+    private void handleShowOccasionEvent(ShowOccasionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleOccasion();
+    }
+
+    public StackPane getPersonListPanelPlaceholder() {
+        return personListPanelPlaceholder;
+    }
+
+    public StackPane getModuleListPanelPlaceholder() {
+        return moduleListPanelPlaceholder;
+    }
+
+    public StackPane getOccasionListPanelPlaceholder() {
+        return occasionListPanelPlaceholder;
+    }
+
+    public StackPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
+    }
+
+    public StackPane getStatusbarPlaceholder() {
+        return statusbarPlaceholder;
+    }
+
+    public StackPane getBrowserPlaceholder() {
+        return browserPlaceholder;
+    }
+
+    public StackPane getCommandBoxPlaceholder() {
+        return commandBoxPlaceholder;
+    }
+
+    public MenuItem getPersonMenuItem() {
+        return personMenuItem;
+    }
+
+    public MenuItem getModuleWindowItem() {
+        return moduleWindowItem;
+    }
+
+    public void setModuleWindowItem(MenuItem moduleWindowItem) {
+        this.moduleWindowItem = moduleWindowItem;
+    }
+
+    public MenuItem getOccasionWindowItem() {
+        return occasionWindowItem;
     }
 }

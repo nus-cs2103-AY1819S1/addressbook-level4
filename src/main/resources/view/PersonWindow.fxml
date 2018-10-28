@@ -31,6 +31,15 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu mnemonicParsing="false" text="Person">
+            <MenuItem mnemonicParsing="false" onAction="#handlePerson" text="Show Persons" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Modules">
+            <MenuItem fx:id="moduleWindowItem" mnemonicParsing="false" onAction="#handleModule" text="Show Modules" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Occasions">
+            <MenuItem fx:id="occasionWindowItem" mnemonicParsing="false" onAction="#handleOccasion" text="Show Occasions" />
+          </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

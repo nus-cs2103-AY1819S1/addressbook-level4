@@ -2,13 +2,13 @@ package seedu.address.model.occasion;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Represents an Occasion within the address book.
  * @author KongZijin
  */
-public class Occasion extends Inanimate {
+public class Occasion {
 
     // Identity fields
     private final OccasionName occasionName;
@@ -24,7 +24,6 @@ public class Occasion extends Inanimate {
     private final OccasionLocation location;
     private final UniquePersonList attendanceList;
 
-    // Date fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -36,14 +35,13 @@ public class Occasion extends Inanimate {
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
-        this.attendanceList = new UniquePersonList();
+        this.attendanceList = new UniquePersonList(new ArrayList<>());
         this.tags.addAll(tags);
-        this.type = type;
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
-                    Set<Tag> tags, TypeUtil type) {
-        this(occasionName, occasionDate, null, tags, type);
+                    Set<Tag> tags) {
+        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION);
     }
 
     public OccasionName getOccasionName() {
@@ -55,7 +53,7 @@ public class Occasion extends Inanimate {
     }
 
     public UniquePersonList getAttendanceList() {
-        return attendanceList;
+        return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
     }
 
     public OccasionLocation getLocation() {
@@ -68,7 +66,7 @@ public class Occasion extends Inanimate {
      * @return An immutable tag set, which throws {@code
      * UnsupportedOperationException} if modification is attempted.
      */
-    @Override
+    // TODO change the implementation of all the places that use this method.
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }

@@ -5,9 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.ModuleCardHandle;
+import guitests.guihandles.OccasionCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,6 +31,25 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(ModuleCardHandle expectedCard, ModuleCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getTags(), actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(OccasionCardHandle expectedCard, OccasionCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
+        assertEquals(expectedCard.getTags(), actualCard.getTags());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
@@ -35,6 +58,28 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedModule}
+     */
+    public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
+        assertEquals(expectedModule.getModuleTitle().toString(), actualCard.getName());
+        assertEquals(expectedModule.getModuleCode().toString() + ":", actualCard.getCode());
+        assertEquals("Academic Year: " + expectedModule.getAcademicYear().toString(), actualCard.getAcademicYear());
+        assertEquals("Semester: " + expectedModule.getSemester().toString(), actualCard.getSemester());
+        assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedOccasion}
+     */
+    public static void assertCardDisplaysOccasion(Occasion expectedOccasion, OccasionCardHandle actualCard) {
+        assertEquals(expectedOccasion.getOccasionName().toString(), actualCard.getName());
+        assertEquals("Date: " + expectedOccasion.getOccasionDate().toString(), actualCard.getDate());
+        assertEquals(expectedOccasion.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 

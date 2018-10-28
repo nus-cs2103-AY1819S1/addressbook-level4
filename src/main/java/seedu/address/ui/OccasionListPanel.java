@@ -29,6 +29,7 @@ public class OccasionListPanel extends UiPart<Region> {
     public OccasionListPanel(ObservableList<Occasion> occasionList) {
         super(FXML);
         setConnections(occasionList);
+
         registerAsAnEventHandler(this);
     }
 

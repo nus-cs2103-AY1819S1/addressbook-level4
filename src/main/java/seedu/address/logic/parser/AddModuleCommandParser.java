@@ -7,10 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcademicYear;
@@ -47,10 +47,10 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         ModuleTitle moduleTitle = ParserUtil.parseModuleTitle(argMultimap.getValue(PREFIX_MODULETITLE).get());
         AcademicYear academicYear = ParserUtil.parseAcademicYear(argMultimap.getValue(PREFIX_ACADEMICYEAR).get());
         Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
-        UniquePersonList students = new UniquePersonList();
+        UniquePersonList students = new UniquePersonList(new ArrayList<>());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, students, tagList, TypeUtil.MODULE);
+        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, students, tagList);
         return new AddModuleCommand(module);
     }
 
