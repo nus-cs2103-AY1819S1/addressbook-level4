@@ -172,19 +172,66 @@ Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a 
 * If `select [Person]` is entered, only the person that is in the filtered person list will be selected.
 ****
 
-=== Adding Meeting to Group: `meet`
+=== Schedule meetings: `meet`
 
-Add a meeting to the group specified by its name.
+To schedule a meeting, use the `meet` command.
 
-Format: `meet [Group Name] n/[Meeting Name] t/[Meeting Time] l/[Meeting Location] d/[Meeting Description]`
+Format: `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
 
-Meeting time is specified in the format `dd-mm-yyyy@hh:mm`
+* Schedules a meeting with the group `GROUP_NAME`
+* Either all or none of the fields must be provided.
+* In case that none of the fields is provided, the command will cancel the meeting associated with the group.
+* Scheduling a new meeting to the same group overwrites the old meeting.
 
-Not specifying any fields will cancel the meeting associated with the group.
+[NOTE]
+`MEETING_TIME` is specified in the format `dd-mm-yyyy@hh:mm`
+
+Examples:
+
+* Example 1:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays the list of meetings)
+
+* Example 2:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays `Demo Rehearsal` as the meeting associated with `Presentation 2101`) +
++
+3. `meet Presentation2101 n/Discussion on Slides t/26-10-2018@12:30 l/COM1-0218 d/Some slides are wrong` +
+(This overwrites `Demo Rehearsal` with `Discussion on Slides`) +
++
+4. `list meeting` (`Emergency Meeting` is displayed instead of `Demo Rehearsal`)
+
+* Example 3:
+1. `meet OtherGroup ...` +
+(This fails because `OtherGroup` is not in the MeetingBook)
+
+[NOTE]
+It is assumed that the group `Presentation2101` is present and is the only group in the MeetingBook and has no meeting as of the moment before each example starts.
+
+=== Cancel meetings: `cancel`
+
+To cancel a meeting, use the `cancel` command.
+
+Format: `cancel GROUP_NAME`
 
 Example:
-* `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
-* `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
+
+* `cancel Project2103` (This cancels the meeting with `Project2103`)
+
+* `cancel Project2103` +
+`cancel Project2103` (This fails because the meeting is already cancelled)
+
+[NOTE]
+It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
+
+[NOTE]
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
 
 === Joining a person to group: `join`
 
@@ -283,16 +330,17 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `addMember Derek p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
 * *Editing a person* : `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]` +
 e.g. `edit 2 n/Jeffrey`
+* *Schedule a meeting* : `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
+* *Cancel a meeting* : `cancel GROUP_NAME`
 * *Deleting a person* : `delete` +
-
 * *Adding a new group* : `addGroup n/[Name]` +
-e.g. `addGroup CS2103T`
+e.g. `addGroup n/CS2103T`
 * *Deleting a new group* : `deleteGroup n/[Name]` +
-e.g. `deleteGroup CS2101`
+e.g. `deleteGroup n/CS2101`
 * *Joining a person to group* : `join n/[Name] g/[Group]` +
-e.g. `join Derek CS2103T`
+e.g. `join n/Derek g/CS2103T`
 * *Removing a person from group* : `leave n/[Name] g/[Group]` +
-e.g. `leave Derek CS2101`
+e.g. `leave n/Derek g/CS2101`
 * *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
 * *Selecting a group / person* : `select [group|person]` +
 e.g. `select g/1`
