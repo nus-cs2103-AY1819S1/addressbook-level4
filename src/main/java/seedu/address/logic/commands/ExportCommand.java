@@ -13,7 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-
+/**
+ * Exports current state of InsuRen as a .csv file whose name is specified by the user.
+ */
 public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
     public static final String COMMAND_ALIAS = "x";
@@ -25,7 +27,9 @@ public class ExportCommand extends Command {
     public ExportCommand(String fileName) {
         this.fileName = fileName;
     }
-
+    /**
+     * Writes current InsuRen data into .csv file.
+     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         FileOutputStream fos = null;
         try {
@@ -39,7 +43,9 @@ public class ExportCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
+    /**
+     * Gets list of persons from a ReadOnlyAddressBook and populates the .csv file
+     */
     private void populateFile(PrintWriter pw, Model model) {
         ObservableList<Person> bufferList = model.getAddressBook().getPersonList();
         pw.println("Name, Phone, Email, Address, Meeting, Tags");
@@ -47,7 +53,9 @@ public class ExportCommand extends Command {
             insertPersonIntoCsv(current, pw);
         }
     }
-
+    /**
+     * Insert Persons one by one, cleaning up their entries in the process.
+     */
     private void insertPersonIntoCsv(Person current, PrintWriter pw) {
         String name;
         String phone;
@@ -89,7 +97,9 @@ public class ExportCommand extends Command {
         }
         pw.println();
     }
-
+    /**
+     * Removes commas and Optional[] bracketing from a Person's contact fields.
+     */
     private String cleanEntry(String oldStr) {
         String newStr = oldStr.replaceAll(",", "");
         newStr = newStr.replaceAll("Optional", "");
