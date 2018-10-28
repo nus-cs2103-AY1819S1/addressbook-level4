@@ -440,7 +440,7 @@ This section contains commands related to managing a volunteering record.
 
 ==== Viewing event's volunteer records: `manage`
 
-Switches to the 'manage' context and display volunteers at the left panel. +
+The panel updates to show the list of volunteers while the display area shows the volunteers currently registered for the selected event. +
 
 Format: `manage EVENT_INDEX`
 
@@ -449,12 +449,15 @@ Example(s):
 * `manage 1` +
 View the list of volunteers assigned to event at index 1.
 
-.Viewing of events
+.Panel of events
 image::command_switch_after.png[view events, 800]
 
-The figure above shows the 'event' context that the user has to be in before executing the `manage` command.
+The figure above shows the 'event' panel that you will see before executing the `manage` command.
 
-.Sample display
+[NOTE]
+The number displayed next to the event name is the EVENT_INDEX that you have to enter.
+
+.Managing the selected event
 image::command_manage_view.png[manage, 800]
 
 The figure above shows how the UI might look like after selecting to manage it. +
