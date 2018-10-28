@@ -44,7 +44,7 @@ public class AddRecordCommandParser implements Parser<AddRecordCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_RECORD_REMARK).isPresent()) {
-            remark = ParserRecordUtil.parseRemark((argMultimap.getValue(PREFIX_RECORD_HOUR).get()));
+            remark = ParserRecordUtil.parseRemark((argMultimap.getValue(PREFIX_RECORD_REMARK).get()));
         } else {
             remark = new Remark("-");
         }
