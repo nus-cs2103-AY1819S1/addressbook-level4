@@ -11,8 +11,10 @@ import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.PlanMealCommand;
+import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
+import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 
@@ -51,7 +53,8 @@ public class MealPlannerParser {
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case PlanMealCommand.COMMAND_WORD:
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
-
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parseMealRecipe(mealPlannerModel, recipeModel, arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
