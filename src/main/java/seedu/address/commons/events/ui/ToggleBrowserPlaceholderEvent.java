@@ -18,6 +18,6 @@ public class ToggleBrowserPlaceholderEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Toggle BrowserPlaceholder to have " + view + " as top view";
+        return "Check if BrowserPlaceholder needs to be toggled to have " + view + " as top view";
     }
 }

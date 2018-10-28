@@ -13,13 +13,10 @@ import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.ComponentList;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.TimeZone;
-import net.fortuna.ical4j.model.TimeZoneRegistry;
-import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.Categories;
 import net.fortuna.ical4j.model.property.DtEnd;
 import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.ProdId;
@@ -34,6 +31,9 @@ import seedu.address.model.calendar.Year;
  * Wraps Calendar Data
  */
 public class CalendarModel {
+
+    // Light Blue
+    public static final String EVENT_COLOR_IN_CAL = "group13";
 
     private Map<Year, Set<Month>> existingCalendar;
     // Field to store calendar loaded by user if any.
@@ -119,7 +119,15 @@ public class CalendarModel {
         if (startDate < endDate) {
             return true;
         } else {
-            return startDate == endDate && startHour <= endHour && startMinute <= endMinute;
+            if (startDate > endDate) {
+                return false;
+            } else if (startHour < endHour) {
+                return true;
+            } else if (startHour > endHour) {
+                return false;
+            } else {
+                return startMinute < endMinute;
+            }
         }
     }
 
@@ -137,17 +145,41 @@ public class CalendarModel {
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
-        // Dummy Event
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.set(java.util.Calendar.MONTH, java.util.Calendar.DECEMBER);
-        cal.set(java.util.Calendar.DAY_OF_MONTH, 25);
+        // ----- Create dummy Christmas event -----
+        // Start Date
+        java.util.Calendar sDate = new GregorianCalendar();
+        sDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        sDate.set(java.util.Calendar.MONTH, java.util.Calendar.NOVEMBER);
+        sDate.set(java.util.Calendar.DAY_OF_MONTH, 25);
+        sDate.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        sDate.set(java.util.Calendar.MINUTE, 0);
+        sDate.set(java.util.Calendar.SECOND, 0);
 
-        // Initialise as an all day event
-        VEvent christmas = new VEvent(new net.fortuna.ical4j.model.Date(cal.getTime()), "Christmas Day");
+        // End Date
+        java.util.Calendar eDate = new GregorianCalendar();
+        eDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        eDate.set(java.util.Calendar.MONTH, java.util.Calendar.NOVEMBER);
+        eDate.set(java.util.Calendar.DAY_OF_MONTH, 25);
+        eDate.set(java.util.Calendar.HOUR_OF_DAY, 23);
+        eDate.set(java.util.Calendar.MINUTE, 59);
+        eDate.set(java.util.Calendar.SECOND, 59);
+
+        // Create the event
+        DateTime start = new DateTime(sDate.getTime());
+        DateTime end = new DateTime(eDate.getTime());
+        VEvent christmas = new VEvent(start, end, "Christmas Day");
+
+        // Add Category Color to event
+        Categories categories = new Categories();
+        // light blue color in iCalendarAgenda
+        categories.setValue(EVENT_COLOR_IN_CAL);
+        christmas.getProperties().add(categories);
+
         // Generate a UID for the event
         UidGenerator ug = new FixedUidGenerator("1");
         christmas.getProperties().add(ug.generateUid());
         calendar.getComponents().add(christmas);
+        // ------------------------------
 
         // Update existing calendar map
         Set<Month> yearOfCal = existingCalendar.get(year);
@@ -169,14 +201,8 @@ public class CalendarModel {
 
     /** Creates a new all day event in the loaded Calendar. */
     public Calendar createAllDayEvent(Year year, Month month, int date, String title) throws IOException {
-        // Create a TimeZone
-        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
-        TimeZone timezone = registry.getTimeZone("Asia/Singapore");
-        VTimeZone tz = timezone.getVTimeZone();
-
         // Start Date
         java.util.Calendar sDate = new GregorianCalendar();
-        sDate.setTimeZone(timezone);
         sDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         sDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         sDate.set(java.util.Calendar.DAY_OF_MONTH, date);
@@ -186,7 +212,6 @@ public class CalendarModel {
 
         // End Date
         java.util.Calendar eDate = new GregorianCalendar();
-        eDate.setTimeZone(timezone);
         eDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         eDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         eDate.set(java.util.Calendar.DAY_OF_MONTH, date);
@@ -199,8 +224,11 @@ public class CalendarModel {
         DateTime end = new DateTime(eDate.getTime());
         VEvent newEvent = new VEvent(start, end, title);
 
-        // Add timezone info
-        newEvent.getProperties().add(tz.getTimeZoneId());
+        // Add Category Color to event
+        Categories categories = new Categories();
+        // light blue color in iCalendarAgenda
+        categories.setValue(EVENT_COLOR_IN_CAL);
+        newEvent.getProperties().add(categories);
 
         // Generate a UID for the event
         UidGenerator ug = new FixedUidGenerator("1");
@@ -215,14 +243,8 @@ public class CalendarModel {
     /** Creates an event in the loaded Calendar with the specified time frame. */
     public Calendar createEvent(Year year, Month month, int startDate, int startHour, int startMin,
                                 int endDate, int endHour, int endMin, String title) throws IOException {
-        // Create a TimeZone
-        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
-        TimeZone timezone = registry.getTimeZone("Asia/Singapore");
-        VTimeZone tz = timezone.getVTimeZone();
-
         // Start Date
         java.util.Calendar sDate = new GregorianCalendar();
-        sDate.setTimeZone(timezone);
         sDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         sDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         sDate.set(java.util.Calendar.DAY_OF_MONTH, startDate);
@@ -232,7 +254,6 @@ public class CalendarModel {
 
         // End Date
         java.util.Calendar eDate = new GregorianCalendar();
-        eDate.setTimeZone(timezone);
         eDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         eDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         eDate.set(java.util.Calendar.DAY_OF_MONTH, endDate);
@@ -245,8 +266,11 @@ public class CalendarModel {
         DateTime end = new DateTime(eDate.getTime());
         VEvent newEvent = new VEvent(start, end, title);
 
-        // Add timezone info
-        newEvent.getProperties().add(tz.getTimeZoneId());
+        // Add Category Color to event
+        Categories categories = new Categories();
+        // light blue color in iCalendarAgenda
+        categories.setValue(EVENT_COLOR_IN_CAL);
+        newEvent.getProperties().add(categories);
 
         // Generate a UID for the event
         UidGenerator ug = new FixedUidGenerator("1");

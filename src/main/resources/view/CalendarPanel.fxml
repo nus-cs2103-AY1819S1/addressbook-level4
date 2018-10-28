@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
-<?import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda?>
+<?import javafx.scene.layout.BorderPane?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
-    <ICalendarAgenda fx:id="calendar"/>
+    <BorderPane fx:id="borderPane"/>
 </StackPane>

@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.CalendarViewEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -193,17 +192,20 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         switch(view) {
-            case ToggleBrowserPlaceholderEvent.BROWSER_PANEL:
-                return topPanel.equals(ToggleBrowserPlaceholderEvent.BROWSER_PANEL);
+        case ToggleBrowserPlaceholderEvent.BROWSER_PANEL:
+            return topPanel.equals(ToggleBrowserPlaceholderEvent.BROWSER_PANEL);
 
-            case ToggleBrowserPlaceholderEvent.CALENDAR_PANEL:
-                return topPanel.equals(ToggleBrowserPlaceholderEvent.CALENDAR_PANEL);
+        case ToggleBrowserPlaceholderEvent.CALENDAR_PANEL:
+            return topPanel.equals(ToggleBrowserPlaceholderEvent.CALENDAR_PANEL);
 
-            default:
-                return false;
+        default:
+            return false;
         }
     }
 
+    /**
+     * Push the top Node in browserPlaceholder to the back.
+     */
     private void toggleTopPanel() {
         ObservableList<Node> children = browserPlaceholder.getChildren();
 
@@ -275,9 +277,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (!isCorrectPanelOnTopBrowserPlaceholder(event.view)) {
+            logger.info("BrowserPlaceholder toggled");
             setTopPanel(event.view);
             toggleTopPanel();
         }
 
     }
+
 }
