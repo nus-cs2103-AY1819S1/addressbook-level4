@@ -2,12 +2,14 @@ package seedu.address.model.analytics;
 
 //@@author arsalanc-v2
 
+import static java.lang.Math.toIntExact;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -15,11 +17,14 @@ import java.util.stream.Collectors;
 
 import javax.print.Doc;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.analytics.data.Tuple;
 import seedu.address.model.consultation.Consultation;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Id;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 
@@ -37,6 +42,9 @@ public class DoctorStatistics extends Statistics {
     private ObservableList<Patient> patients;
 
     public DoctorStatistics() {
+        doctors = FXCollections.observableArrayList();
+        consultations = FXCollections.observableArrayList();
+        patients = FXCollections.observableArrayList();
         initializeSummaryValues(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS);
     }
 
@@ -86,6 +94,10 @@ public class DoctorStatistics extends Statistics {
 
     @Override
     public void computeVisualizationStatistics() {
+//        doctors.add(new Doctor(new Id(1), new Name("a"), new Password("a", true)));
+//        doctors.add(new Doctor(new Id(1), new Name("b"), new Password("b", true)));
+//        doctors.add(new Doctor(new Id(1), new Name("c"), new Password("c", true)));
+
         plotPreferencesPerDoctorCount();
     }
 
@@ -116,9 +128,9 @@ public class DoctorStatistics extends Statistics {
     public void plotPreferencesPerDoctorCount() {
         List<Tuple<String, Integer>> preferencesDataPoints = getTupleDataPointsCategorical(preferencesPerDoctorCount());
 
-        statData.addCategoricalVisualization(ChartType.VERTICAL_BAR, "Number of patient preferences for each " +
-            "doctor", "Number of patients", "Doctor", getAllDoctorNames(), Arrays.asList(preferencesDataPoints),
-            new ArrayList<>());
+        statData.addCategoricalVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR, "Number of patient " +
+            "preferences for each doctor", "Number of patients", "Doctor", getAllDoctorNames(),
+            Arrays.asList(preferencesDataPoints), Arrays.asList(""));
     }
 
     /**
@@ -126,8 +138,15 @@ public class DoctorStatistics extends Statistics {
      * @return
      */
     public Map<String, Integer> preferencesPerDoctorCount() {
-        return patients.stream()
-            .map(patient -> patient.getPreferredDoctor().toString())
-            .collect(groupingBy(Function.identity(), summingInt(doctor -> 1)));
+        Map<String, Integer> prefCounts = new HashMap<String, Integer>();
+        for (Doctor doctor : doctors) {
+            long count = patients.stream()
+                .filter(patient -> patient.getPreferredDoctor().equals(doctor))
+                .count();
+
+            prefCounts.put(doctor.getName().toString(), toIntExact(count));
+        }
+
+        return prefCounts;
     }
 }

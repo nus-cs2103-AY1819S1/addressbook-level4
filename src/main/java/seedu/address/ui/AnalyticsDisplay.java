@@ -2,17 +2,23 @@ package seedu.address.ui;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.events.model.AnalyticsDisplayEvent;
 import seedu.address.model.analytics.StatData;
+import seedu.address.model.analytics.data.SummaryData;
 import seedu.address.model.analytics.data.Tuple;
+import seedu.address.model.analytics.data.VisualizationData;
 
 //@@author arsalanc-v2
 
@@ -27,6 +33,10 @@ import seedu.address.model.analytics.data.Tuple;
 // {key, value}
 
 // patient, medicine
+// charts ui adjustment
+// 1d 1w 1m 1y
+// consultation tests
+// 0 data points tests
 
 /**
  * A ui for displaying statistics and visualizations.
@@ -34,8 +44,6 @@ import seedu.address.model.analytics.data.Tuple;
 public class AnalyticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "Analytics.fxml";
-    private static final int NUM_SUMMARY_ELEMENTS = 4;
-    private static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
     @FXML
     private Label summaryBar;
@@ -58,8 +66,10 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     @FXML
     private AnchorPane analyticsPane;
-
-
+    @FXML
+    private AnchorPane visualizationPane;
+    @FXML
+    private AnchorPane chartPane;
 
     private List<Tuple<Label, Label>> summaryLabels;
 
@@ -75,33 +85,10 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     @Subscribe
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        Map<String, List> allDataToDisplay = event.getAllData();
-        updateSummary(allDataToDisplay.get("summary"));
-        updateVisualization(allDataToDisplay.get("visualization"));
+        StatData allDataToDisplay = event.getAllData();
+        chartPane.getChildren().clear();
+       Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
+       Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);
-    }
-
-    /**
-     *
-     * @param visualizationData
-     */
-    public void updateVisualization(List<StatData.VisualizationData> visualizationData) {
-
-    }
-
-    /**
-     *
-     */
-    public void updateSummary(List<Tuple<String, Integer>> summaryData) {
-        summaryBar.setText("Number of appointments per day");
-
-        int i = 0;
-        for (Tuple summaryElement : summaryData) {
-            // set text for summary text label
-            summaryLabels.get(i).getKey().setText(summaryElement.getKey().toString());
-            // set text for summary value label
-            summaryLabels.get(i).getValue().setText(summaryElement.getValue().toString());
-            i++;
-        }
     }
 }

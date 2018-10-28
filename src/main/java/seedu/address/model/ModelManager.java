@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AnalyticsDisplayEvent;
 import seedu.address.model.analytics.Analytics;
+import seedu.address.model.analytics.StatData;
 import seedu.address.model.analytics.StatisticType;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.consultation.Consultation;
@@ -355,7 +356,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      *
      */
-    public Map<String, Map<String, Integer>> retrieveAnalytics(StatisticType type) {
+    public StatData retrieveAnalytics(StatisticType type) {
         updateAnalytics(type);
         return analytics.getAllStatisticsOfType(type);
     }

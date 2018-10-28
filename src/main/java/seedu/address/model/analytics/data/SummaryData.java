@@ -2,6 +2,8 @@ package seedu.address.model.analytics.data;
 
 import java.util.List;
 
+//@@author arsalanc-v2
+
 /**
  *
  */
@@ -21,5 +23,18 @@ public class SummaryData {
 
     public List<Tuple<String, Integer>> getSummaryElements() {
         return summaryElements;
+    }
+
+    public Tuple<String, Integer> getSummaryElement(int i) {
+        return summaryElements.get(i);
+    }
+
+    /**
+     *
+     */
+    public void resetSummaryValues() {
+        for (Tuple<String, Integer> summaryElement : summaryElements) {
+            summaryElement.setValue(0);
+        }
     }
 }

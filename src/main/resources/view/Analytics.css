@@ -17,6 +17,36 @@
     -fx-text-fill: #6593F5;
 }
 
-.visualization-pane {
+#apptSupplyDemand {
+    -fx-text-fill: #fff;
+    -fx-font-family: "Avenir";
+}
+
+#apptSupplyDemand .chart-title {
+    -fx-text-fill: #fff;
+}
+
+#apptSupplyDemand .chart-legend {
     -fx-background-color: #fff;
+}
+
+#apptSupplyDemand .axis-label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+}
+
+#apptSupplyDemand .chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+#apptSupplyDemand .series0.chart-bar {
+    -fx-background-color: #CA3433;
+}
+
+#apptSupplyDemand .series1.chart-bar {
+    -fx-background-color: #00A572;
+}
+
+.visualization-pane {
+    -fx-background-color: #6593F5;
 }

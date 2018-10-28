@@ -2,11 +2,17 @@ package seedu.address.model.analytics;
 
 import static java.lang.Math.toIntExact;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.analytics.data.Tuple;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.consultation.Consultation;
@@ -18,13 +24,16 @@ import seedu.address.model.consultation.Consultation;
  */
 public class AppointmentStatistics extends Statistics {
 
+    private static final int NUM_APPOINTMENTS_DAY = 24;
+
     private ObservableList<Appointment> appointments;
     private ObservableList<Consultation> consultations;
 
-//    public AppointmentStatistics(ObservableList<Appointment> appointments) {
-//        this.appointments = appointments;
-//        updateSummaryStatistics();
-//    }
+    private final String SUMMARY_TITLE_1 = "Number of appointments";
+
+    public AppointmentStatistics() {
+        this.appointments = FXCollections.observableArrayList();
+    }
 
     /**
      * Enables the latest list of appointments to be kept.
@@ -91,6 +100,43 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
+     *
+     */
+    public void plotAppointmentSupplyDemand() {
+        // get the subset of appointments that are scheduled for next week.
+        List<Date> scheduledSlotsDates = appointments.stream()
+            .map(appt -> appt.getAppointmentDate())
+            .filter(date -> DateTimeCount.isNextWeek(date))
+            .collect(Collectors.toList());
+
+        // get a list of the dates for next week
+        List<Date> nextWeekDates = DateTimeCount.getNextWeekDates();
+        // get a list of all days next week
+        List<String> nextWeekDays = DateTimeCount.getDaysOfWeek();
+
+        List<Date> availableSlotsDates = new ArrayList<>();
+        // for each day of next week, find the number of slots not scheduled yet.
+        for (Date nextWeekDate : nextWeekDates) {
+            // find the number of scheduled slots for a particular day in the following week
+            long scheduledSlots = scheduledSlotsDates.stream()
+                .filter(scheduledDate -> scheduledDate == nextWeekDate)
+                .count();
+
+            // find the number of available slots for a particular day in the following week
+            int availableSlots = NUM_APPOINTMENTS_DAY - toIntExact(scheduledSlots);
+            availableSlotsDates.addAll(Collections.nCopies(availableSlots, nextWeekDate));
+        }
+
+        List<List<Tuple<String, Integer>>> appointmentGroupsData = overNextWeekData(Arrays.asList
+            (scheduledSlotsDates, availableSlotsDates));
+        List<String> appointmentGroupsLabels = Arrays.asList("scheduled", "available");
+
+        statData.addCategoricalVisualization("apptSupplyDemand", ChartType.STACKED_BAR,
+            "Appointments Next Week", "Day of week", "Number of appointments", nextWeekDays,
+            appointmentGroupsData, appointmentGroupsLabels);
+    }
+
+    /**
      * Updates {@code summaryStatistics} with the latest values.
      */
     @Override
@@ -99,21 +145,21 @@ public class AppointmentStatistics extends Statistics {
             .map(appt -> appt.getAppointmentDate())
             .collect(Collectors.toList());
 
-        // calculate appointment numbers
+        // calculate appointment numbers - TO ABSTRACT
         int appointmentsToday = DateTimeCount.today(appointmentDates);
         int appointmentsWeek = DateTimeCount.currentWeek(appointmentDates);
         int appointmentsMonth = DateTimeCount.currentMonth(appointmentDates);
         int appointmentsYear = DateTimeCount.currentYear(appointmentDates);
 
-        // update map with calculated values
-        summaryStatistics.put(SUMMARY_TODAY, appointmentsToday);
-        summaryStatistics.put(SUMMARY_WEEK, appointmentsWeek);
-        summaryStatistics.put(SUMMARY_MONTH, appointmentsMonth);
-        summaryStatistics.put(SUMMARY_YEAR, appointmentsYear);
+        List<Integer> values = Arrays.asList(appointmentsToday, appointmentsWeek, appointmentsWeek, appointmentsMonth);
+
+        // update data with calculated values
+        statData.updateSummary(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS, values);
     }
 
     @Override
     public void computeVisualizationStatistics() {
+        plotAppointmentSupplyDemand();
 
     }
 }

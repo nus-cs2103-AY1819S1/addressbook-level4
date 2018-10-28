@@ -51,7 +51,7 @@ public class Analytics {
      * @param type
      * @return
      */
-    public Map getAllStatisticsOfType(StatisticType type) {
+    public StatData getAllStatisticsOfType(StatisticType type) {
         switch (type) {
         case PATIENT:
             return patientStatistics.getAllStatistics();

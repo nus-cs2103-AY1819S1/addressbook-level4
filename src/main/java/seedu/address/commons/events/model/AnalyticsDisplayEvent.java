@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.analytics.StatData;
 import seedu.address.model.analytics.StatisticType;
 
 /**
@@ -15,14 +16,14 @@ public class AnalyticsDisplayEvent extends BaseEvent {
     // the type of statistic to display data for
     private StatisticType type;
     // the data for the statistic to be displayed
-    private Map<String, List> allData;
+    private StatData allData;
 
-    public AnalyticsDisplayEvent(StatisticType type, Map<String, List> allData) {
+    public AnalyticsDisplayEvent(StatisticType type, StatData allData) {
         this.type = type;
         this.allData = allData;
     }
 
-    public Map<String, List> getAllData() {
+    public StatData getAllData() {
         return allData;
     }
 

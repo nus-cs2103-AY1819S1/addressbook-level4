@@ -2,59 +2,102 @@ package seedu.address.model.analytics.data;
 
 import java.util.List;
 
-public class VisualizationData<T, U> {
+import seedu.address.model.analytics.ChartType;
+
+//@@author arsalanc-v2
+
+/**
+ *
+ */
+public class VisualizationData<T> {
 
     public static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
+    // fields for a chart
+    private String id;
+    private ChartType type;
     private String chartTitle;
     private String xTitle;
     private String yTitle;
-    private List<T> xLabels;
-    private List<U> yLabels;
-    private List<Tuple<T, U>> dataPoints;
+    private List<String> xLabels;
+    private List<List<Tuple<T, Integer>>> dataGroups;
+    private List<String> dataGroupsLabels;
 
-    public VisualizationData(String chartTitle, String xTitle, String yTitle, List<T> xLabels, List<U>
-        yLabels, List<Tuple<T, U>> dataPoints) {
+    /**
+     * Categorical
+     * @param type
+     * @param chartTitle
+     * @param xTitle
+     * @param yTitle
+     * @param xLabels
+     * @param dataGroups
+     */
+    public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle, List<String>
+        xLabels,
+        List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
+
+        this.id = id;
+        this.type = type;
         this.chartTitle = chartTitle;
         this.xTitle = xTitle;
         this.yTitle = yTitle;
         this.xLabels = xLabels;
-        this.yLabels = yLabels;
-        this.dataPoints = dataPoints;
+        this.dataGroups = dataGroups;
+        this.dataGroupsLabels = dataGroupsLabels;
     }
 
-    public VisualizationData(List visualizationElements) {
-        assert visualizationElements.size() == NUM_VISUALIZATION_ELEMENTS : "There must be six visualization " +
-            "elements";
-        this.chartTitle = chartTitle;
-        this.xTitle = xTitle;
-        this.yTitle = yTitle;
-        this.xLabels = xLabels;
-        this.yLabels = yLabels;
-        this.dataPoints = dataPoints;
+    /**
+     * Continuous
+     * @param type
+     * @param chartTitle
+     * @param xTitle
+     * @param yTitle
+     * @param dataGroups
+     */
+    public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
+        List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
+
+            this.id = id;
+            this.type = type;
+            this.chartTitle = chartTitle;
+            this.xTitle = xTitle;
+            this.yTitle = yTitle;
+            this.dataGroups = dataGroups;
+            this.dataGroupsLabels = dataGroupsLabels;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public ChartType getChartType() {
+        return type;
     }
 
     public String getChartTitle() {
         return chartTitle;
     }
 
-    public String getxTitle() {
+    public String getXTitle() {
         return xTitle;
     }
 
-    public String getyTitle() {
+    public String getYTitle() {
         return yTitle;
     }
 
-    public List<T> getxLabels() {
+    public List<?> getXLabels() {
         return xLabels;
     }
 
-    public List<U> getyLabels() {
-        return yLabels;
+    /**
+     *
+     */
+    public List<String> getDataGroupsLabels() {
+        return dataGroupsLabels;
     }
 
-    public List<Tuple<T, U>> getDataPoints() {
-        return dataPoints;
+    public List<List<Tuple<T, Integer>>> getDataGroups() {
+        return dataGroups;
     }
 }
