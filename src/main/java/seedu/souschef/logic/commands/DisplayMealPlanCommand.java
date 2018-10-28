@@ -2,7 +2,7 @@ package seedu.souschef.logic.commands;
 
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -24,7 +24,7 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
 
         //this if else is to determine messages to show
         if (mode.equals("show")) {

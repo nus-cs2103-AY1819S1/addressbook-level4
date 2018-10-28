@@ -2,7 +2,7 @@ package seedu.souschef.logic.commands;
 
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.UniqueType;
 
 
@@ -25,7 +25,7 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
 
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         EventsCenter.getInstance().post(new BrowserUiChangedEvent("healthplanDetails",
                 Integer.parseInt(this.index)));
 

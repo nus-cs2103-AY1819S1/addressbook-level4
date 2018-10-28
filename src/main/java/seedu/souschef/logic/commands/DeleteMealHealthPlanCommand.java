@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.healthplan.HealthPlan;
@@ -46,7 +46,7 @@ public class DeleteMealHealthPlanCommand <T extends UniqueType> extends Command 
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
 
         plan.getMealPlans().remove(dayIndex - 1);
         model.update(plan, plan);
