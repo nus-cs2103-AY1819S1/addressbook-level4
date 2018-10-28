@@ -202,6 +202,7 @@ public class Person {
     public boolean isStubUser() {
         return phone == null;
     }
+
     /**
      * Returns true if this person has the other person in the friends list.
      */
