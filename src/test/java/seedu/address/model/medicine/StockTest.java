@@ -21,7 +21,6 @@ public class StockTest {
         Assert.assertThrows(NullPointerException.class, () -> Stock.isValidStock(null));
 
         // invalid stock numbers
-        assertFalse(Stock.isValidStock(0)); // cannot be zero
         assertFalse(Stock.isValidStock(-1)); // cannot be negative
 
         // valid stock numbers

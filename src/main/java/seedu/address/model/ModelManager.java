@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.Patient;
 
 /**
@@ -113,17 +114,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
         versionedAddressBook.updateMedicine(target, editedMedicine);
+        indicateAddressBookChanged();
 
     }
 
     @Override
-    public Medicine dispenseMedicine(Medicine medicine, Integer quantityToDispense) {
+    public void dispenseMedicine(Medicine medicine, QuantityToDispense quantityToDispense) {
         requireAllNonNull(medicine, quantityToDispense);
-        return versionedAddressBook.dispenseMedicine(medicine, quantityToDispense);
+        versionedAddressBook.dispenseMedicine(medicine, quantityToDispense);
+        indicateAddressBookChanged(); // <-- This needs to be called in order to update stock in file.
     }
 
     @Override
-    public void refillMedicine(Medicine medicine, int quantityToRefill) {
+    public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
         requireAllNonNull(medicine, quantityToRefill);
         versionedAddressBook.refillMedicine(medicine, quantityToRefill);
     }

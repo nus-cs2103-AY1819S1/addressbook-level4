@@ -33,7 +33,7 @@ public class Stock {
      * Returns true if a given string is a valid number.
      */
     public static boolean isValidStock(Integer test) {
-        return test > 0;
+        return test >= 0;
     }
 
     @Override

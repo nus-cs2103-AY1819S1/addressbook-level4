@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -26,6 +28,8 @@ public class PaymentCommand extends QueueCommand {
 
     public static final String MESSAGE_SUCCESS = "Payment successful! ";
     public static final String MESSAGE_INVALID_POSITION = "Invalid position! ";
+    public static final String MESSAGE_EMPTY_SERVED_PATIENT_LIST = "Served Patient List is empty. "
+            + "Use finish command first.";
 
     private final Index targetPosition;
 
@@ -37,6 +41,10 @@ public class PaymentCommand extends QueueCommand {
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
+        if (servedPatientList.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_SERVED_PATIENT_LIST);
+        }
+
         if (targetPosition.getZeroBased() >= servedPatientList.size()) {
             throw new CommandException(MESSAGE_INVALID_POSITION);
         }
@@ -45,6 +53,15 @@ public class PaymentCommand extends QueueCommand {
 
         //Do document processing, saving all documents to the patient before evicting him from the clinic.
 
+        EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
+
         return new CommandResult(MESSAGE_SUCCESS + servedPatient.toNameAndIc());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PaymentCommand // instanceof handles nulls
+                && targetPosition.equals(((PaymentCommand) other).targetPosition));
     }
 }

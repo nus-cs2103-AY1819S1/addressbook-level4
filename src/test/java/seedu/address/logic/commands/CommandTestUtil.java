@@ -3,11 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISEASE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ICNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MINIMUM_STOCK_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_PER_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
@@ -81,6 +85,15 @@ public class CommandTestUtil {
     public static final String VALID_DRUG_ALLERGY_BOB = "Zyrtec";
     public static final String VALID_DISEASE_BOB = "Cough";
     public static final String VALID_NOTE_BOB = "Bob is very sick, send help.";
+
+    public static final String BLOOD_TYPE_DESC_AMY = " " + PREFIX_BLOODTYPE + VALID_BLOOD_TYPE_AMY;
+    public static final String BLOOD_TYPE_DESC_BOB = " " + PREFIX_BLOODTYPE + VALID_BLOOD_TYPE_BOB;
+    public static final String DRUG_ALLERGY_DESC_AMY = " " + PREFIX_DRUGALLERGY + VALID_DRUG_ALLERGY_AMY;
+    public static final String DRUG_ALLERGY_DESC_BOB = " " + PREFIX_DRUGALLERGY + VALID_DRUG_ALLERGY_BOB;
+    public static final String DISEASE_DESC_AMY = " " + PREFIX_DISEASE + VALID_DISEASE_AMY;
+    public static final String DISEASE_DESC_BOB = " " + PREFIX_DISEASE + VALID_DISEASE_BOB;
+    public static final String NOTE_DESC_AMY = " " + PREFIX_NOTE + VALID_NOTE_AMY;
+    public static final String NOTE_DESC_BOB = " " + PREFIX_NOTE + VALID_NOTE_BOB;
 
     public static final String VALID_MEDICINE_NAME_PANADOL = "Panadol";
     public static final String VALID_MEDICINE_NAME_ZYRTEC = "Zyrtec";

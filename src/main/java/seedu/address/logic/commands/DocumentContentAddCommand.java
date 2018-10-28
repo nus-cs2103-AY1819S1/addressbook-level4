@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MC_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REFERRAL_CONTENT;
 
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,7 +32,7 @@ public class DocumentContentAddCommand extends QueueCommand {
             + "[" + PREFIX_REFERRAL_CONTENT + "Referral] "
             + "[" + PREFIX_MC_CONTENT + " MC]";
 
-    public static final String MESSAGE_DOCUMENT_ADD_SUCCESS = "Patient document Updated: ";
+    public static final String MESSAGE_SUCCESS = "Patient document Updated: ";
     public static final String MESSAGE_NO_CURRENT_PATIENT = "There is no Current Patient. Use the serve command first.";
 
 
@@ -53,7 +56,9 @@ public class DocumentContentAddCommand extends QueueCommand {
 
         updateCurrentPatientDocument(currentPatient, documentContentDescriptor);
 
-        return new CommandResult(MESSAGE_DOCUMENT_ADD_SUCCESS + currentPatient.toNameAndIc()
+        EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
+
+        return new CommandResult(MESSAGE_SUCCESS + currentPatient.toNameAndIc()
                 + currentPatient.toDocumentInformation());
     }
 
@@ -80,6 +85,13 @@ public class DocumentContentAddCommand extends QueueCommand {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DocumentContentAddCommand // instanceof handles nulls
+                && documentContentDescriptor.equals(((DocumentContentAddCommand) other).documentContentDescriptor));
+    }
+
     /**
      * Stores the details to edit the patient with. Each non-empty field value will replace the
      * corresponding field value of the patient.
@@ -93,7 +105,7 @@ public class DocumentContentAddCommand extends QueueCommand {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code toCopy} is used internally.
          */
         public DocumentContentDescriptor(DocumentContentDescriptor toCopy) {
             setMcContent(toCopy.mcContent);

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 
 /**
  * Represents a patient that is currently consulting the doctor in the address book.
@@ -13,6 +14,22 @@ import seedu.address.model.medicine.Medicine;
 public class CurrentPatient {
 
     private ServedPatient patient;
+
+    public CurrentPatient() {}
+
+    /**
+     * Creates a new CurrentPatient with {@code patientToCopy}
+     */
+    public CurrentPatient(ServedPatient patientToCopy) {
+        this.patient = patientToCopy;
+    }
+
+    /**
+     * Gets Served Patient from Current Patient
+     */
+    public ServedPatient getServedPatient() {
+        return patient;
+    }
 
     /**
      * Assigns a patient to the Current Patient.
@@ -62,7 +79,7 @@ public class CurrentPatient {
      * @param quantity of medicinet to be added.
      * @return string representation of medicine added.
      */
-    public String addMedicine(Medicine medicine, int quantity) {
+    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
         return patient.addMedicine(medicine, quantity);
     }
 
@@ -93,7 +110,7 @@ public class CurrentPatient {
     /**
      * Returns the allocated medicine for the patient.
      */
-    public Map<Medicine, Integer> getMedicineAllocated() {
+    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
         return patient.getMedicineAllocated();
     }
 
@@ -145,6 +162,32 @@ public class CurrentPatient {
 
     public Patient getPatient() {
         return this.patient.getPatient();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof CurrentPatient)) {
+            return false;
+        }
+
+        // state check
+        CurrentPatient other = (CurrentPatient) obj;
+
+        if (this.patient == null && other.patient == null) {
+            return true;
+        } else if (other.patient == null) {
+            return false;
+        } else if (this.patient == null) {
+            return false;
+        }
+
+        return this.patient.equals(other.patient);
     }
 
 }

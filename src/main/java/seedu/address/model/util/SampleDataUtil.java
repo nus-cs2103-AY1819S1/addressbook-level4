@@ -1,12 +1,15 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IcNumber;
@@ -16,6 +19,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.medicalrecord.Disease;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
 import seedu.address.model.person.medicalrecord.Note;
+import seedu.address.model.person.medicalrecord.Quantity;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +97,19 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Note::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a map of SerialNumber to Quantity containing the list of pairs given.
+     */
+    public static Map<MedicineName, Quantity> getDispensedMedicines(Map.Entry<String, Integer>... entries) {
+        Map<MedicineName, Quantity> dispensedMedicines = new HashMap<>();
+        Arrays.stream(entries).forEach((entry) -> {
+            MedicineName medicineName = new MedicineName(entry.getKey());
+            Quantity quantity = new Quantity(entry.getValue().toString());
+            dispensedMedicines.put(medicineName, quantity);
+        });
+        return dispensedMedicines;
     }
 
 }

@@ -8,15 +8,20 @@ import java.io.FileReader;
 //import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.fxml.FXML;
 import seedu.address.MainApp;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
+import seedu.address.model.services.Service;
+import seedu.address.ui.DocumentWindow;
 
 /**
  * The document class takes in all the information from the classes that extends it to generate a HTML file
@@ -27,6 +32,7 @@ public class Document {
 
     //Formatting the path to the directory all documents should be saved in
     public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
+    public static final String DOCUMENT_WINDOW_PATH = "/view/Documents/";
     public static final String FILE_NAME_DELIMITER = "_For_";
     private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
     private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
@@ -49,15 +55,30 @@ public class Document {
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
+    private static String documentFilePath;
+    private static String documentWindowPath;
     private File file;
     private Name name;
-    private String fileName;
     private String fileType;
     private IcNumber icNumber;
 
     //variables specific to receipt but here because of checkstyle issues
     private float totalPrice = 0;
-    private Map<Medicine, Integer> allocatedMedicine;
+    private Map<Medicine, QuantityToDispense> allocatedMedicine;
+    private ArrayList<Service> servicesRendered;
+
+    /**
+     * Opens a preview of the document in a document window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void showDocument() {
+        DocumentWindow documentWindow = new DocumentWindow(documentWindowPath);
+        if (!documentWindow.isShowing()) {
+            documentWindow.show();
+        } else {
+            documentWindow.focus();
+        }
+    }
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -67,16 +88,18 @@ public class Document {
      * actual writing of the bytes into a file.
      */
     public void generateDocument() {
-        makeFileName();
-        makeFile(writeContentsIntoDocument());
+        String fileName = makeFileName();
+        makeFile(fileName, writeContentsIntoDocument());
+        //showDocument();
     }
 
     /**
      * Formats the file name of the object that extends document.
      * */
-    private void makeFileName() {
-        fileName = fileType + FILE_NAME_DELIMITER + name.toString().replaceAll("\\s", "")
-                + "_" + icNumber.toString();
+    private String makeFileName() {
+        return (fileType + FILE_NAME_DELIMITER + name.toString() + "_" + icNumber.toString())
+                .replaceAll("\\s", "_")
+                .replaceAll("(_)+", "_");
     }
 
     /**
@@ -120,7 +143,7 @@ public class Document {
         if (this instanceof Receipt) {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
         } else {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet.");
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Patient is excused from work/school for 4 days.");
         }
         return informationFieldPairs;
     }
@@ -128,8 +151,10 @@ public class Document {
     /**
      * The actual generation of the file representing the document using the updated HTML code.
      */
-    private void makeFile(String htmlContent) {
-        file = new File(DIRECTORY_PATH + fileName + ".html");
+    private void makeFile(String fileName, String htmlContent) {
+        documentFilePath = DIRECTORY_PATH + fileName + ".html";
+        documentWindowPath = DOCUMENT_WINDOW_PATH + fileName + ".html";
+        file = new File(documentFilePath);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bos.write(htmlContent.getBytes());
@@ -167,7 +192,7 @@ public class Document {
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append(RECEIPT_HEADER)
                 .append(RECEIPT_HEADER_CONTENT)
-                .append(unpackTypesOfServices())
+                .append(unpackTypesOfServices(servicesRendered))
                 .append(unpackMedicineAllocation(this.allocatedMedicine))
                 .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
                 .append(String.format("%.02f", this.totalPrice))
@@ -179,11 +204,27 @@ public class Document {
      * Extracts all the types of services rendered by the clinic for the served patient and formats it into
      * a table to be reflected in the HTML file.
      */
-    private String unpackTypesOfServices() {
-        //placeholder
-        //private String unpackConsultationInformation(Map<String, Integer> treatmentsReceived) {
-        return "<tr><td>Consultation" + HTML_TABLE_DATA_DIVIDER + "1" + HTML_TABLE_DATA_DIVIDER + "30.00"
-                + HTML_TABLE_DATA_DIVIDER + "30.00</td></tr>";
+    private String unpackTypesOfServices(ArrayList<Service> servicesRendered) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String serviceName;
+        int servicePrice;
+        for (Service s : servicesRendered) {
+            serviceName = s.toString();
+            servicePrice = Integer.parseInt(s.getPrice().toString());
+            this.totalPrice += servicePrice;
+
+            stringBuilder.append("<tr><td")
+                    .append(serviceName)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(1)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(servicePrice)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(servicePrice)
+                    .append("</td></tr>");
+
+        }
+        return stringBuilder.toString();
     }
 
     /**
@@ -192,16 +233,16 @@ public class Document {
      * @param medicineAllocated Hashmap containing all the medicine dispensed to the served patient
      *                          and their individual respective quantities
      */
-    private String unpackMedicineAllocation(Map<Medicine, Integer> medicineAllocated) {
+    private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
         int quantity;
         int pricePerUnit;
         int totalPriceForSpecificMedicine;
         String medicineName;
-        for (Map.Entry<Medicine, Integer> entry : medicineAllocated.entrySet()) {
+        for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
             Medicine medicine = entry.getKey();
             medicineName = medicine.getMedicineName().toString();
-            quantity = entry.getValue();
+            quantity = entry.getValue().getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
             this.totalPrice += totalPriceForSpecificMedicine;
@@ -231,9 +272,14 @@ public class Document {
         this.fileType = fileType;
     }
 
-    public void setAllocatedMedicine(Map<Medicine, Integer> allocatedMedicine) {
+    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
         this.allocatedMedicine = allocatedMedicine;
     }
+
+    public void setServicesRendered (ArrayList<Service> services) {
+        this.servicesRendered = services;
+    }
+
     public File getFile() {
         return file;
     }

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.QuantityToDispense;
+import seedu.address.model.person.medicalrecord.Note;
 
 /**
  * Uncompleted class, need to add more methods and fields.
@@ -18,7 +20,7 @@ public class ServedPatient {
     private String noteContent;
     private String referralContent;
     private String mcContent;
-    private Map<Medicine, Integer> medicineAllocated;
+    private Map<Medicine, QuantityToDispense> medicineAllocated;
     // add more fields as required
 
     /**
@@ -67,7 +69,7 @@ public class ServedPatient {
     /**
      * Returns the medicine and quantity allocated for the {@code served patient}.
      */
-    public Map<Medicine, Integer> getMedicineAllocated() {
+    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
         return medicineAllocated;
     }
 
@@ -98,9 +100,19 @@ public class ServedPatient {
      * @param quantity of medicine to be added.
      * @return string representation of medicine added.
      */
-    public String addMedicine(Medicine medicine, int quantity) {
+    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
         medicineAllocated.put(medicine, quantity);
         return medicine.toString();
+    }
+
+    /**
+     * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
+     */
+    public Patient createNewPatientWithUpdatedMedicalRecord() {
+        Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
+        Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
+        editedPatient.addNoteMedicalRecord(noteToSave);
+        return editedPatient;
     }
 
     /**
@@ -120,5 +132,27 @@ public class ServedPatient {
 
     public Patient getPatient() {
         return this.patient;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ServedPatient)) {
+            return false;
+        }
+
+        // state check
+        ServedPatient other = (ServedPatient) obj;
+
+        return this.patient.equals(other.patient)
+                && this.mcContent.equals(other.mcContent)
+                && this.referralContent.equals(other.referralContent)
+                && this.noteContent.equals(other.noteContent)
+                && this.medicineAllocated.equals(other.medicineAllocated);
     }
 }

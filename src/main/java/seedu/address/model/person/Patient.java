@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.medicalrecord.MedicalRecord;
+import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -107,12 +108,25 @@ public class Patient {
     }
 
     /**
-     * Add a new medical record to the patient. Patient's current medical record must be null.
+     * Adds a medical record to the patient. Read: merges with existing.
      * @param medicalRecord
      */
     public void addMedicalRecord(MedicalRecord medicalRecord) {
-        assert(this.medicalRecord == null);
-        this.medicalRecord = medicalRecord;
+        this.medicalRecord = this.medicalRecord == null
+                ? medicalRecord
+                : MedicalRecord.combineMedicalRecords(this.medicalRecord, medicalRecord);
+    }
+
+    /**
+     * Add a new Note to patient's MedicalRecord.
+     * A new default empty MedicalRecord will be created if there isn't already one.
+     * @param note note to be added.
+     */
+    public void addNoteMedicalRecord(Note note) {
+        if (this.medicalRecord == null) {
+            this.medicalRecord = new MedicalRecord();
+        }
+        this.medicalRecord.addNote(note);
     }
 
     /**
@@ -142,14 +156,16 @@ public class Patient {
         if (!(other instanceof Patient)) {
             return false;
         }
-
         Patient otherPatient = (Patient) other;
+        System.out.println(otherPatient.getMedicalRecord());
+        System.out.println(getMedicalRecord());
         return otherPatient.getName().equals(getName())
                 && otherPatient.getIcNumber().equals(getIcNumber())
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getEmail().equals(getEmail())
                 && otherPatient.getAddress().equals(getAddress())
-                && otherPatient.getTags().equals(getTags());
+                && otherPatient.getTags().equals(getTags())
+                && otherPatient.getMedicalRecord().equals(getMedicalRecord());
     }
 
     @Override

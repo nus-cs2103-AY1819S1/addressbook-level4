@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Patient View</title>
+    <link rel="stylesheet" type="text/css" href="CurrentPatientView.css">
+    <script>
+        function loadCurrentPatientDetails(name, ic, blood, diseases, drugs, notes,
+                                           mcContent, referralContent, noteContent, allocatedMedicine) {
+            document.getElementById("name").innerHTML=name;
+            document.getElementById("ic").innerHTML=ic;
+            document.getElementById("blood").innerHTML=blood;
+            document.getElementById("diseases").innerHTML=diseases;
+            document.getElementById("drugs").innerHTML=drugs;
+            document.getElementById("notes").innerHTML=notes;
+            document.getElementById("mcContent").innerHTML=mcContent;
+            document.getElementById("referralContent").innerHTML=referralContent;
+            document.getElementById("noteContent").innerHTML=noteContent;
+            document.getElementById("allocatedMedicine").innerHTML=allocatedMedicine;
+        }
+    </script>
+</head>
+<body>
+<div class="heading-container">
+    <div class="page-heading">Current Patient: <strong><span id="name"></span> [<span id="ic"></span>]</strong></div>
+</div>
+<div class="left-table-container">
+    <div class="table-title">Medical Records</div>
+    <table class="blue-alt-cols">
+        <tr>
+            <td class="left-table-cols">Blood Type</td>
+            <td><span id="blood"></span></td>
+        </tr>
+        <tr>
+            <td class="left-table-cols">Disease History</td>
+            <td><span id="diseases"></span></td>
+        </tr>
+        <tr>
+            <td class="left-table-cols">Drug Allergies</td>
+            <td><span id="drugs"></span></td>
+        </tr>
+        <tr>
+            <td class="left-table-cols">Notes</td>
+            <td><span id="notes"></span></td>
+        </tr>
+    </table>
+</div>
+<div class="right-table-container">
+    <div class="table-title">Today</div>
+    <table class="blue-alt-cols">
+        <tr>
+            <td class="right-table-cols">Prescriptions:</td>
+            <td><span id="allocatedMedicine"></span></td>
+        </tr>
+        <tr>
+            <td class="right-table-cols">Notes:</td>
+            <td><span id="noteContent"></span></td>
+        </tr>
+        <tr>
+            <td class="right-table-cols">MC:</td>
+            <td><span id="mcContent"></span></td>
+        </tr>
+        <tr>
+            <td class="right-table-cols">Referral:</td>
+            <td><span id="referralContent"></span></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

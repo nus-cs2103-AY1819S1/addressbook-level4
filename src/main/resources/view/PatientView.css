@@ -27,6 +27,7 @@ html {
 
 table {
     width: 100%;
+    table-layout: fixed;
 }
 
 table, th, td {
@@ -35,11 +36,11 @@ table, th, td {
 }
 
 .col-personal-details {
-    width: 150px;
+    width: 100px;
 }
 
 .col-medical-records {
-    width: 200px;
+    width: 120px;
 }
 
 .blue-alt-cols {

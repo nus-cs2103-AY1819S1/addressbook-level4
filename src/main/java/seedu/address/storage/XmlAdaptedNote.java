@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.person.medicalrecord.Quantity;
@@ -33,27 +33,27 @@ public class XmlAdaptedNote {
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
      */
-    public XmlAdaptedNote(String noteMessage, Map<SerialNumber, Quantity> dispensedMedicines) {
+    public XmlAdaptedNote(String noteMessage, Map<MedicineName, Quantity> dispensedMedicines) {
         this.noteMessage = noteMessage;
         if (dispensedMedicines != null) {
             this.dispensedMedicines = new HashMap<>();
-            dispensedMedicines.forEach(((serialNumber, quantity) -> {
-                this.dispensedMedicines.put(serialNumber.value, quantity.value);
+            dispensedMedicines.forEach(((medicineName, quantity) -> {
+                this.dispensedMedicines.put(medicineName.fullName, quantity.value);
             }));
         }
     }
 
     /**
-     * Converts a given Tag into this class for JAXB use.
+     * Converts a given Note into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedNote(Note source) {
         noteMessage = source.getMessage().value;
-        Map<SerialNumber, Quantity> map = source.getDispensedMedicines();
+        Map<MedicineName, Quantity> map = source.getDispensedMedicines();
         this.dispensedMedicines = new HashMap<>();
-        map.forEach(((serialNumber, quantity) -> {
-            dispensedMedicines.put(serialNumber.value, quantity.value);
+        map.forEach(((medicineName, quantity) -> {
+            dispensedMedicines.put(medicineName.fullName, quantity.value);
         }));
     }
 
@@ -73,9 +73,9 @@ public class XmlAdaptedNote {
         }
         final Message modelMessage = new Message(noteMessage);
 
-        final Map<SerialNumber, Quantity> modelDispensedMedicines = new HashMap<>();
-        this.dispensedMedicines.forEach((serialNumber, quantity) -> {
-            modelDispensedMedicines.put(new SerialNumber(serialNumber), new Quantity(quantity));
+        final Map<MedicineName, Quantity> modelDispensedMedicines = new HashMap<>();
+        this.dispensedMedicines.forEach((medicineName, quantity) -> {
+            modelDispensedMedicines.put(new MedicineName(medicineName), new Quantity(quantity));
         });
 
         return new Note(modelMessage, modelDispensedMedicines);
