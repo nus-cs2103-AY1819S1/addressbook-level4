@@ -21,7 +21,7 @@ public class ServicePrice {
     public ServicePrice(String number) {
         requireNonNull(number);
         checkArgument(isValidServicePrice(number), MESSAGE_SERVICE_PRICE_CONSTRAINTS);
-        price = number;
+        this.price = number;
     }
 
     /**
