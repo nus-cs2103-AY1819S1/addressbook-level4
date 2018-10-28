@@ -16,8 +16,8 @@ public class ViewStatusCommandSystemTest extends AddressBookSystemTest {
         String command;
         String invalid = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewStatusCommand.MESSAGE_USAGE);
 
-        /* Case:  */
-        command = "viewstatus open";
+        /* Case:  lower case command word, mixed case argument -> success */
+        command = "viewstatus oPen";
         assertCommandSuccess(command, getModel());
 
         /* Case: multiple arguments -> rejected */
