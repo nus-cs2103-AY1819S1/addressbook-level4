@@ -179,7 +179,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         if (patient.hasPreferredDoctor()) {
             enqueueIntoPreferenceQueue(patient);
-            enqueueIntoPreferenceQueue(patient);
         } else {
             enqueueIntoMainQueue(patient);
         }

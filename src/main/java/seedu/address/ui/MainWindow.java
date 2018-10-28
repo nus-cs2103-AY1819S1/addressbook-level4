@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -143,6 +145,10 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
+    }
+
+    public void setPersonListPanel(ObservableList<Person> list) {
+        personListPanel = new PersonListPanel(logic.getAllPatientsInQueue());
     }
 
     private void setTitle(String appTitle) {
