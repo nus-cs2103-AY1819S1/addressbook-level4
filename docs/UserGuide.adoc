@@ -67,7 +67,11 @@ users will see upon startup.
 To ensure that everything is running, you can try entering commands into the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+
 [NOTE]
+SocialCare allows you to manage both volunteers and events. The panel will update to show the relevant items. See
+<<command-switch>> for more details.
+
 You can refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -108,7 +112,9 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 Example(s):
-* `history`
+
+* `history` +
+The command result box will display the commands that you have entered in reverse chronological order.
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
@@ -188,14 +194,14 @@ The figures above shows the before and after state of clearing the entries of th
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+Exits the application. +
 
 Format: `exit`
 
 Example(s):
 
 * `exit` +
-Exists from the program and return to the user's desktop.
+Exits from the application and return to the user's desktop.
 
 [[command-switch]]
 ==== Switching context : `switch`
