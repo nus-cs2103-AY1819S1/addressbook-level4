@@ -32,28 +32,28 @@ import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_TUTORIAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ELEMENT;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
+import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.EditEventCommand.EditCalendarEventDescriptor;
 import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditEventCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -63,7 +63,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_TITLE_LECTURE, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditEventCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -115,28 +115,28 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_ELEMENT;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_LECTURE + TAG_DESC_HUSBAND
             + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TITLE_DESC_LECTURE + TAG_DESC_FRIEND;
 
-        EditCalendarEventDescriptor descriptor = new EditPersonDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
+        EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
             .withDescription(VALID_DESCRIPTION_LECTURE).withStart(VALID_START_DATETIME_LECTURE)
             .withEnd(VALID_END_DATETIME_LECTURE).withVenue(VALID_VENUE_LECTURE)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TUTORIAL;
 
         EditCalendarEventDescriptor descriptor =
-            new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
+            new EditCalendarEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
             .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -144,58 +144,58 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // title
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_ELEMENT;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_LECTURE;
         EditCalendarEventDescriptor descriptor =
-            new EditPersonDescriptorBuilder().withTitle(VALID_TITLE_LECTURE).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+            new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_LECTURE).build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_LECTURE;
-        descriptor = new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_LECTURE).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCalendarEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_LECTURE).build();
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // start date/time
         userInput = targetIndex.getOneBased() + START_DESC_LECTURE;
-        descriptor = new EditPersonDescriptorBuilder().withStart(VALID_START_DATETIME_LECTURE).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCalendarEventDescriptorBuilder().withStart(VALID_START_DATETIME_LECTURE).build();
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // end date/time
         userInput = targetIndex.getOneBased() + END_DESC_LECTURE;
-        descriptor = new EditPersonDescriptorBuilder().withEnd(VALID_END_DATETIME_LECTURE).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCalendarEventDescriptorBuilder().withEnd(VALID_END_DATETIME_LECTURE).build();
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // venue
         userInput = targetIndex.getOneBased() + VENUE_DESC_LECTURE;
-        descriptor = new EditPersonDescriptorBuilder().withVenue(VALID_VENUE_LECTURE).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCalendarEventDescriptorBuilder().withVenue(VALID_VENUE_LECTURE).build();
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCalendarEventDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
             + TAG_DESC_FRIEND + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
             + VENUE_DESC_LECTURE + START_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
             + TAG_DESC_HUSBAND + END_DESC_TUTORIAL;
 
         EditCalendarEventDescriptor descriptor =
-            new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
+            new EditCalendarEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
             .withStart(VALID_START_DATETIME_TUTORIAL).withEnd(VALID_END_DATETIME_TUTORIAL)
             .withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
             .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -203,29 +203,29 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + INVALID_DESCRIPTION_DESC + DESCRIPTION_DESC_TUTORIAL;
-        EditCommand.EditCalendarEventDescriptor descriptor =
-            new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditEventCommand.EditCalendarEventDescriptor descriptor =
+            new EditCalendarEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INVALID_DESCRIPTION_DESC + VENUE_DESC_TUTORIAL
             + DESCRIPTION_DESC_TUTORIAL;
-        descriptor = new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
+        descriptor = new EditCalendarEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
             .withVenue(VALID_VENUE_TUTORIAL).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_ELEMENT;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditCalendarEventDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder().withTags().build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

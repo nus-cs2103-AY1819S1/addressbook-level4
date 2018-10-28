@@ -8,17 +8,17 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddToDoCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearCalendarCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandToDo;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteToDoCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -33,7 +33,8 @@ public class SchedulerParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>(\\w+\\s?(?!\\w/))+)"
+    // TODO improve regex or modify parse procedure
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>(\\w+\\s?(?!\\w/|[0-9])){1,2})"
         + "(?<arguments>.*)");
 
     /**
@@ -49,31 +50,30 @@ public class SchedulerParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        System.out.println(commandWord);
+        final String commandWord = matcher.group("commandWord").trim();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         case AddEventCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditEventCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearCalendarCommand.COMMAND_WORD:
+            return new ClearCalendarCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FindEventCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

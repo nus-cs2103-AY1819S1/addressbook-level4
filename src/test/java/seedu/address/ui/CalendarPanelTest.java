@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalEvents.getTypicalCalendarEvents;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -28,7 +28,7 @@ public class CalendarPanelTest extends GuiUnitTest {
     private static final ObservableList<CalendarEvent> TYPICAL_CALENDAR_EVENTS =
         FXCollections.observableList(getTypicalCalendarEvents());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ELEMENT);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -57,7 +57,7 @@ public class CalendarPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         CalendarEventCardHandle expectedPerson =
-            calendarPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+            calendarPanelHandle.getPersonCardHandle(INDEX_SECOND_ELEMENT.getZeroBased());
         CalendarEventCardHandle selectedPerson = calendarPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }

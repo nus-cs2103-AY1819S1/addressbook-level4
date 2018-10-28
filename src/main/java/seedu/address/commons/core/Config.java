@@ -15,6 +15,7 @@ public class Config {
     // Config values customizable through config file
     private String appTitle = "U-Schedule";
     private Level logLevel = Level.INFO;
+    // TODO review preferences, scheduler.xml could probably be renamed to calendar.xml
     private Path userPrefsFilePath = Paths.get("preferences.json");
 
     public String getAppTitle() {

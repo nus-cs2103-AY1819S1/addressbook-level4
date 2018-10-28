@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.tag.Tag;
 
@@ -45,7 +45,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditCalendarEventDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditCalendarEventDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditEventCommand.EditCalendarEventDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getTitle().ifPresent(name -> sb.append(PREFIX_TITLE).append(name.value).append(" "));
         descriptor.getDescription().ifPresent(phone -> sb.append(PREFIX_DESCRIPTION).append(phone.value).append(" "));

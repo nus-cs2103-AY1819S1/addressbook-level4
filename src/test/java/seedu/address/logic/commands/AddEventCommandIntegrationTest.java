@@ -28,7 +28,7 @@ public class AddEventCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newCalendarEvent_success() {
         CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
 
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
@@ -40,7 +40,7 @@ public class AddEventCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateCalendarEvent_throwsCommandException() {
         CalendarEvent calendarEventInList = model.getScheduler().getCalendarEventList().get(0);
         assertCommandFailure(new AddEventCommand(calendarEventInList), model, commandHistory,
             AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);

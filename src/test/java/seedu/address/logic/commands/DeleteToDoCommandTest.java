@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandToDoFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandToDoSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showToDoListEventAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.address.testutil.TypicalTodoListEvents.getTypicalToDoList;
 
 import org.junit.Test;
@@ -27,8 +27,8 @@ public class DeleteToDoCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         ToDoListEvent toDoListEventToDelete =
-                model.getFilteredToDoListEventList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteToDoCommand deleteToDoCommand = new DeleteToDoCommand(INDEX_FIRST_PERSON);
+                model.getFilteredToDoListEventList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        DeleteToDoCommand deleteToDoCommand = new DeleteToDoCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DeleteToDoCommand.MESSAGE_DELETE_TODOLIST_EVENT_SUCCESS,
                 toDoListEventToDelete);
@@ -51,11 +51,11 @@ public class DeleteToDoCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showToDoListEventAtIndex(model, INDEX_FIRST_PERSON);
+        showToDoListEventAtIndex(model, INDEX_FIRST_ELEMENT);
 
         ToDoListEvent toDoListEventToDelete =
-                model.getFilteredToDoListEventList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteToDoCommand deleteToDoCommand = new DeleteToDoCommand(INDEX_FIRST_PERSON);
+                model.getFilteredToDoListEventList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        DeleteToDoCommand deleteToDoCommand = new DeleteToDoCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DeleteToDoCommand.MESSAGE_DELETE_TODOLIST_EVENT_SUCCESS,
                 toDoListEventToDelete);
@@ -71,9 +71,9 @@ public class DeleteToDoCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showToDoListEventAtIndex(model, INDEX_FIRST_PERSON);
+        showToDoListEventAtIndex(model, INDEX_FIRST_ELEMENT);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_ELEMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getToDoList().getToDoList().size());
 
@@ -85,14 +85,14 @@ public class DeleteToDoCommandTest {
 
     @Test
     public void equals() {
-        DeleteToDoCommand deleteFirstToDoCommand = new DeleteToDoCommand(INDEX_FIRST_PERSON);
-        DeleteToDoCommand deleteSecondToDoCommand = new DeleteToDoCommand(INDEX_SECOND_PERSON);
+        DeleteToDoCommand deleteFirstToDoCommand = new DeleteToDoCommand(INDEX_FIRST_ELEMENT);
+        DeleteToDoCommand deleteSecondToDoCommand = new DeleteToDoCommand(INDEX_SECOND_ELEMENT);
 
         // same object -> returns true
         assertTrue(deleteFirstToDoCommand.equals(deleteFirstToDoCommand));
 
         // same values -> returns true
-        DeleteToDoCommand deleteFirstToDoCommandCopy = new DeleteToDoCommand(INDEX_FIRST_PERSON);
+        DeleteToDoCommand deleteFirstToDoCommandCopy = new DeleteToDoCommand(INDEX_FIRST_ELEMENT);
         assertTrue(deleteFirstToDoCommand.equals(deleteFirstToDoCommandCopy));
 
         // different types -> returns false

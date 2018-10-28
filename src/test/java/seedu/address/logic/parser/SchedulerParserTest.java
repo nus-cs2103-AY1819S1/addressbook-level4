@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,16 +16,16 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddToDoCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ClearCalendarCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteToDoCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
+import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.EditEventCommand.EditCalendarEventDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -34,7 +34,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.CalendarEventBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.ToDoListEventBuilder;
 import seedu.address.testutil.ToDoListEventUtil;
@@ -54,24 +54,24 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD) instanceof ClearCalendarCommand);
+        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD + " 3") instanceof ClearCalendarCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+            DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new DeleteEventCommand(INDEX_FIRST_ELEMENT), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         CalendarEvent calendarEvent = new CalendarEventBuilder().build();
-        EditCalendarEventDescriptor descriptor = new EditPersonDescriptorBuilder(calendarEvent).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder(calendarEvent).build();
+        EditEventCommand command = (EditEventCommand) parser.parseCommand(EditEventCommand.COMMAND_WORD + " "
+            + INDEX_FIRST_ELEMENT.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditEventCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
     @Test
@@ -83,9 +83,9 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new TitleContainsKeywordsPredicate(keywords)), command);
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+            FindEventCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindEventCommand(new TitleContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -109,15 +109,15 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD) instanceof ListEventCommand);
+        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD + " 3") instanceof ListEventCommand);
     }
 
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_ELEMENT), command);
     }
 
     @Test
@@ -157,7 +157,7 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_deleteToDo() throws Exception {
         DeleteToDoCommand commandToDo = (DeleteToDoCommand) parser.parseCommandToDo(
-                DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteToDoCommand(INDEX_FIRST_PERSON), commandToDo);
+                DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new DeleteToDoCommand(INDEX_FIRST_ELEMENT), commandToDo);
     }
 }

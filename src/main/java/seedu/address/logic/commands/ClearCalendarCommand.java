@@ -7,12 +7,12 @@ import seedu.address.model.Model;
 import seedu.address.model.Scheduler;
 
 /**
- * Clears the scheduler.
+ * Clears the calendar.
  */
-public class ClearCommand extends Command {
+public class ClearCalendarCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Scheduler has been cleared!";
+    public static final String COMMAND_WORD = "clear calendar";
+    public static final String MESSAGE_SUCCESS = "Calendar has been cleared!";
 
 
     @Override

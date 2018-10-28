@@ -20,7 +20,7 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "add event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the scheduler. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the calendar. "
         + "Parameters: "
         + PREFIX_TITLE + "TITLE "
         + PREFIX_DESCRIPTION + "DESCRIPTION "

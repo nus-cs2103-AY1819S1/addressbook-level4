@@ -32,28 +32,28 @@ public class AddEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullCalendarEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddEventCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_calendarEventAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCalendarEventAdded modelStub = new ModelStubAcceptingCalendarEventAdded();
         CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
 
         CommandResult commandResult = new AddEventCommand(validCalendarEvent).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validCalendarEvent), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validCalendarEvent), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validCalendarEvent), modelStub.calendarEventsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateCalendarEvent_throwsCommandException() throws Exception {
         CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
         AddEventCommand addEventCommand = new AddEventCommand(validCalendarEvent);
-        ModelStub modelStub = new ModelStubWithPerson(validCalendarEvent);
+        ModelStub modelStub = new ModelStubWithEvent(validCalendarEvent);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
@@ -62,26 +62,26 @@ public class AddEventCommandTest {
 
     @Test
     public void equals() {
-        CalendarEvent alice = new CalendarEventBuilder().withTitle("Alice").build();
-        CalendarEvent bob = new CalendarEventBuilder().withTitle("Bob").build();
-        AddEventCommand addAliceCommand = new AddEventCommand(alice);
-        AddEventCommand addBobCommand = new AddEventCommand(bob);
+        CalendarEvent lecture = new CalendarEventBuilder().withTitle("Lecture").build();
+        CalendarEvent tutorial = new CalendarEventBuilder().withTitle("Tutorial").build();
+        AddEventCommand addLectureCommand = new AddEventCommand(lecture);
+        AddEventCommand addTutorialCommand = new AddEventCommand(tutorial);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addLectureCommand.equals(addLectureCommand));
 
         // same values -> returns true
-        AddEventCommand addAliceCommandCopy = new AddEventCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddEventCommand addAliceCommandCopy = new AddEventCommand(lecture);
+        assertTrue(addLectureCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addLectureCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addLectureCommand.equals(null));
 
         // different calendarevent -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addLectureCommand.equals(addTutorialCommand));
     }
 
     /**
@@ -155,12 +155,12 @@ public class AddEventCommandTest {
     }
 
     /**
-     * A Model stub that contains a single calendarevent.
+     * A Model stub that contains a single calendar event.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithEvent extends ModelStub {
         private final CalendarEvent calendarEvent;
 
-        ModelStubWithPerson(CalendarEvent calendarEvent) {
+        ModelStubWithEvent(CalendarEvent calendarEvent) {
             requireNonNull(calendarEvent);
             this.calendarEvent = calendarEvent;
         }
@@ -173,21 +173,21 @@ public class AddEventCommandTest {
     }
 
     /**
-     * A Model stub that always accept the calendarevent being added.
+     * A Model stub that always accepts the calendar event being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<CalendarEvent> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCalendarEventAdded extends ModelStub {
+        final ArrayList<CalendarEvent> calendarEventsAdded = new ArrayList<>();
 
         @Override
         public boolean hasCalendarEvent(CalendarEvent calendarEvent) {
             requireNonNull(calendarEvent);
-            return personsAdded.stream().anyMatch(calendarEvent::isSameCalendarEvent);
+            return calendarEventsAdded.stream().anyMatch(calendarEvent::isSameCalendarEvent);
         }
 
         @Override
         public void addCalendarEvent(CalendarEvent calendarEvent) {
             requireNonNull(calendarEvent);
-            personsAdded.add(calendarEvent);
+            calendarEventsAdded.add(calendarEvent);
         }
 
         @Override

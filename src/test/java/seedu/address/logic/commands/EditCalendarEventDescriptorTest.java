@@ -11,15 +11,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_TUTORIAL;
 
 import org.junit.Test;
 
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 
 public class EditCalendarEventDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditCalendarEventDescriptor descriptorWithSameValues =
-            new EditCommand.EditCalendarEventDescriptor(DESC_LECTURE);
+        EditEventCommand.EditCalendarEventDescriptor descriptorWithSameValues =
+            new EditEventCommand.EditCalendarEventDescriptor(DESC_LECTURE);
         assertTrue(DESC_LECTURE.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,20 +35,20 @@ public class EditCalendarEventDescriptorTest {
         assertFalse(DESC_LECTURE.equals(DESC_TUTORIAL));
 
         // different title -> returns false
-        EditCommand.EditCalendarEventDescriptor editedAmy =
-            new EditPersonDescriptorBuilder(DESC_LECTURE).withTitle(VALID_TITLE_TUTORIAL).build();
+        EditEventCommand.EditCalendarEventDescriptor editedAmy =
+            new EditCalendarEventDescriptorBuilder(DESC_LECTURE).withTitle(VALID_TITLE_TUTORIAL).build();
         assertFalse(DESC_LECTURE.equals(editedAmy));
 
         // different description -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        editedAmy = new EditCalendarEventDescriptorBuilder(DESC_LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
         assertFalse(DESC_LECTURE.equals(editedAmy));
 
         // different venue -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_LECTURE).withVenue(VALID_VENUE_TUTORIAL).build();
+        editedAmy = new EditCalendarEventDescriptorBuilder(DESC_LECTURE).withVenue(VALID_VENUE_TUTORIAL).build();
         assertFalse(DESC_LECTURE.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_LECTURE).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditCalendarEventDescriptorBuilder(DESC_LECTURE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_LECTURE.equals(editedAmy));
     }
 }
