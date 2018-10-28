@@ -105,4 +105,11 @@ public class ClearCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ClearCommand // instance of handles null
+                && target.equals(((ClearCommand) other).target));
+    }
 }
