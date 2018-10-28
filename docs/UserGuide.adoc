@@ -45,15 +45,11 @@ To begin, follow the steps below:
 .  Copy the file to the folder you want to use as the home folder for SocialCare.
 .  Double-click the file to start the app. The Graphic User Interface (GUI) should appear in a few seconds.
 
-.A screenshot illustrating the screen that users will see on startup
-image::Ui.png[width="790"]
-
-The figure above displays the list of volunteers in the application.
-
 .A labelled screenshot of the parts of the application
 image::UiLabelled.png[width="790"]
 
-The figure above shows the typical arrangement of the parts of the application.
+The figure above shows the typical arrangement of the parts of the application. It is currently showing the screen that
+users will see upon startup.
 
 1. _Toolbar_: Provides quick access to exit the application or to open the user guide.
 
@@ -235,7 +231,7 @@ Application will start up in the 'volunteer' context and users can switch to the
 
 === Volunteer Management
 
-==== Register new volunteer: `add`
+==== Registering new volunteer: `add`
 
 Adds a volunteer to the system when in the volunteers context +
 Format: `add n/NAME b/BIRTHDAY g/GENDER a/ADDRESS e/EMAIL p/PHONE_NUMBER [t/TAG]...`
@@ -312,7 +308,7 @@ image::VolunteerCert.png[width="600"]
 
 The following commands can only be accessed after switching to the 'event' context. (see <<command-switch>>)
 
-==== Add new event: `add`
+==== Adding new event: `add`
 
 Adds an event to the system when in the 'event' context. +
 
@@ -436,7 +432,7 @@ This section contains commands related to managing a volunteering record.
 * The other commands under this section can only be accessed after executing the `manage` command.
 ****
 
-==== View event's volunteer records: `manage`
+==== Viewing event's volunteer records: `manage`
 
 Switches to the 'manage' context and display volunteers at the left panel. +
 
@@ -459,7 +455,7 @@ The figure above shows how the UI might look like after selecting to manage it. 
 
 The left panel displays the list of volunteers while the right panel displays the event name and volunteers currently registered for the event.
 
-==== Add volunteer to event: `add [coming in v1.3]`
+==== Adding volunteer to event: `add [coming in v1.3]`
 
 Adds a volunteer to the event that is currently being managed. +
 
@@ -485,7 +481,7 @@ Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetaria
 * `add 3 h/5` +
 Adds a volunteer at index 3 to the event with 5 hours.
 
-==== Update volunteer hours: `edit [coming in v1.3]`
+==== Updating volunteer hours: `edit [coming in v1.3]`
 
 Updates a volunteering record for volunteer in the event that is currently being managed. +
 
@@ -509,7 +505,7 @@ Updates amount of hours volunteered for all existing volunteers in the event to 
 * `edit 3 h/5 r/Emcee` +
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
 
-==== Delete volunteer record from event: `delete [coming in v1.3]`
+==== Deleting volunteer record from event: `delete [coming in v1.3]`
 
 Deletes the volunteer record from the event that is currently being managed. +
 
