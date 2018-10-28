@@ -45,14 +45,13 @@ public class ReceiptCommandTest {
     public void setUp() {
         patientQueue = new PatientQueueManager();
         currentPatient = new CurrentPatient();
-        servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
     }
 
     @Test
     public void execute_validServedPatient_receiptMessageSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = ReceiptCommand.MESSAGE_GENERATE_RECEIPT_SUCCESS;
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         CommandResult commandResult = receiptCommand.execute(model, patientQueue,
@@ -83,7 +82,6 @@ public class ReceiptCommandTest {
 
     @Test
     public void equals() {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReceiptCommand receiptAliceCommand = new ReceiptCommand(INDEX_FIRST_PERSON);
         ReceiptCommand receiptBobCommand = new ReceiptCommand(INDEX_SECOND_PERSON);
 
