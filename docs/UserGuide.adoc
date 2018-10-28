@@ -199,7 +199,17 @@ Format: `editMedicine index sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRI
 Example:
 
 * `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
-Edits the information of the medicine based on the inputs.
+Edits the information of the medicine at index 1 based on the inputs.
+
+==== Restock a medicine : `restock`
+
+Restocks the medicine in the current records. +
+Format: `restock index amt/<AMOUNT>`
+
+Example:
+
+* `restock 2 amt/123` +
+Adds 123 to the current stock of medicine at index 2.
 
 ==== Listing all medicine in stock : `listStock`
 
