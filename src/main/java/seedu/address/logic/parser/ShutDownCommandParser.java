@@ -14,8 +14,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 public class ShutDownCommandParser implements Parser<ShutDownCommand>{
     /**
-     * Parses the given {@code String} of arguments in the context of the OpenCommand
-     * and returns an OpenCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ShutDownCommand
+     * and returns an ShutDownCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
 
