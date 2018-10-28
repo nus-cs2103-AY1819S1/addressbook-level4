@@ -96,7 +96,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_findPhone() throws Exception {
+    public void parseCommandFindPhone() throws Exception {
         List<String> keywords = Arrays.asList("12345678");
         FindPhoneCommand command = (FindPhoneCommand) parser.parseCommand(
                 FindPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));

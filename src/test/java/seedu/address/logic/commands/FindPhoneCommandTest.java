@@ -50,14 +50,14 @@ public class FindPhoneCommandTest {
         assertFalse(findFirstPhoneCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstPhoneCommand.equals(null));
+        assertFalse(findFirstPhoneCommand == null);
 
         // different person -> returns false
         assertFalse(findFirstPhoneCommand.equals(findSecondPhoneCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PhoneContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindPhoneCommand command = new FindPhoneCommand(predicate);
@@ -67,7 +67,7 @@ public class FindPhoneCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void executeMultipleKeywordsMultiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PhoneContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindPhoneCommand command = new FindPhoneCommand(predicate);

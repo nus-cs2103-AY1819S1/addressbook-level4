@@ -50,14 +50,14 @@ public class FindEmailCommandTest {
         assertFalse(findFirstEmailCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstEmailCommand.equals(null));
+        assertFalse(findFirstEmailCommand == null);
 
         // different person -> returns false
         assertFalse(findFirstEmailCommand.equals(findSecondEmailCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         EmailContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindEmailCommand command = new FindEmailCommand(predicate);
@@ -67,7 +67,7 @@ public class FindEmailCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void executeMultipleKeywordsMultiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         EmailContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindEmailCommand command = new FindEmailCommand(predicate);

@@ -16,13 +16,13 @@ public class FindPhoneCommandParserTest {
     private FindPhoneCommandParser parser = new FindPhoneCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
+    public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FindPhoneCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validArgs_returnsFindPhoneCommand() {
+    public void parseValidArgsReturnsFindPhoneCommand() {
         // no leading and trailing whitespaces
         FindPhoneCommand expectedFindPhoneCommand =
                 new FindPhoneCommand(new PhoneContainsKeywordsPredicate(Arrays.asList("12345678")));
