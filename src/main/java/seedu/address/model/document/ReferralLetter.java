@@ -8,7 +8,6 @@ import seedu.address.model.person.ServedPatient;
  */
 public class ReferralLetter extends Document {
     public static final String FILE_TYPE = "Referral Letter";
-    private final String referralContent;
 
     /**
      * Creates a ReferralLetter object for the specified servedPatient.
@@ -18,6 +17,5 @@ public class ReferralLetter extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        this.referralContent = servedPatient.getReferralContent();
     }
 }

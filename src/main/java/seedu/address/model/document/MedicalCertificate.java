@@ -8,7 +8,6 @@ import seedu.address.model.person.ServedPatient;
  */
 public class MedicalCertificate extends Document {
     public static final String FILE_TYPE = "Medical Certificate";
-    private final String mcContent;
 
     /**
      * Creates a MedicalCertificate object for the specified servedPatient.
@@ -18,6 +17,5 @@ public class MedicalCertificate extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        this.mcContent = servedPatient.getMcContent();
     }
 }
