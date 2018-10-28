@@ -19,7 +19,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.LabelMatchesKeywordPredicate;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -29,9 +28,6 @@ import seedu.address.model.task.Task;
  */
 public class CompleteIndexCommandTest {
 
-    private static final LabelMatchesKeywordPredicate PREDICATE_FRIENDS = new LabelMatchesKeywordPredicate("friends");
-    private static final LabelMatchesKeywordPredicate PREDICATE_NONSENSE = new LabelMatchesKeywordPredicate(
-            "AOSDIJPQWEOIDJPQWOiodj120349871238493qw");
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
