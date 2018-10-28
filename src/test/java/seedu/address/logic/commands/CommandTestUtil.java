@@ -78,6 +78,10 @@ public class CommandTestUtil {
             + "School of Computing"; // spacing no allowed for school
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_FROM_DESC = " " + PREFIX_FROM + "excursion!yahoo"; // missing '@' symbol
+    public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT; // empty string not allowed for subjects
+    public static final String INVALID_CONTENT_DESC = " " + PREFIX_CONTENT; // empty string not allowed for contents
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
