@@ -17,7 +17,7 @@ import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
- * Completes command given by an {@code Index} or {@code Task<Predicate>}
+ * Completes command given by a {@code Task<Predicate>}
  */
 public class CompleteLabelCommand extends CompleteCommand {
 
