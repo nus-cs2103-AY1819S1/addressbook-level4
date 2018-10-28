@@ -134,7 +134,7 @@ public class CompleteCommand extends Command {
     private String completeOneTaskReturnStringOfTask(Task taskToComplete, Model modelToUpdate)
             throws CommandException {
 
-        if (taskToComplete.isCompleted()) {
+        if (taskToComplete.isStatusCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 
@@ -164,7 +164,7 @@ public class CompleteCommand extends Command {
         Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
         Task completedTask = createCompletedTask(taskToComplete);
 
-        if (taskToComplete.isCompleted()) {
+        if (taskToComplete.isStatusCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 
@@ -181,7 +181,7 @@ public class CompleteCommand extends Command {
 
         // Add all of the completable tasks to setOfTasks
         Set<Task> setOfTasks = new HashSet<>();
-        model.updateFilteredTaskList(pred.and(task -> !task.isCompleted()));
+        model.updateFilteredTaskList(pred.and(task -> !task.isStatusCompleted()));
         List<Task> filteredList = model.getFilteredTaskList();
         setOfTasks.addAll(filteredList);
 

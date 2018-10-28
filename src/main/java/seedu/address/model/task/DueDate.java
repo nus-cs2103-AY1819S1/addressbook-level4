@@ -52,7 +52,7 @@ public class DueDate {
     /**
      * Returns true if a given {@code DueDate} is overdue.
      */
-    public boolean isOverDue() {
+    public boolean isOverdue() {
         return new Date().compareTo(valueDate) > 0;
     }
 
