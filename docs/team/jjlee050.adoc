@@ -9,7 +9,7 @@
 
 == Overview
 
-ClinicIO is a clinic management desktop application so that user can manage a clinic with ease and efficiency.
+ClinicIO is a clinic management desktop application so that a receptionist can manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
 == Summary of contributions
