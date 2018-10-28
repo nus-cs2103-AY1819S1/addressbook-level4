@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.task.DueDateIsBeforeEndOfWeekPredicate;
 import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
 import seedu.address.model.task.Task;
 
@@ -50,7 +51,7 @@ public class ListCommand extends Command {
             this.predicate = new DueDateIsBeforeTodayPredicate();
             break;
         case DUE_END_OF_WEEK:
-            this.predicate = new DueDateIsBeforeTodayPredicate();
+            this.predicate = new DueDateIsBeforeEndOfWeekPredicate();
             break;
         case DUE_END_OF_MONTH:
             this.predicate = new DueDateIsBeforeTodayPredicate();
