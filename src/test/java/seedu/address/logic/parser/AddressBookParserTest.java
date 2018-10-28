@@ -32,6 +32,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FilepathCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -45,6 +46,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -155,9 +157,19 @@ public class AddressBookParserTest {
     public void parseCommand_findPersons() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindPersonCommand command = (FindPersonCommand) parser.parseCommand(
-                FindPersonCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM
+                FindPersonCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+            keywords, Collections.emptyList(), Collections.emptyList())), command);
+    }
+
+    @Test
+    public void parseCommand_findGroups() throws Exception {
+        List<String> keywords = Arrays.asList("school", "work", "friends");
+        FindGroupCommand command = (FindGroupCommand) parser.parseCommand(
+            FindGroupCommand.COMMAND_WORD + " " + FindGroupCommand.FIND_GROUP_PARAM + " "
+                + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
             keywords, Collections.emptyList(), Collections.emptyList())), command);
     }
 
