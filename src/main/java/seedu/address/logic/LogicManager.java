@@ -33,8 +33,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            return command.execute(model, history);
+            Command command = taskManagerParser.parseCommand(commandText);
+            CommandResult result = command.execute(model, history);
+            model.checkOverdue();
+            return result;
         } finally {
             history.add(commandText);
         }
