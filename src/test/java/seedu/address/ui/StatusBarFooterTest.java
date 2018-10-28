@@ -20,13 +20,15 @@ import org.junit.Test;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.WishBook;
+import seedu.address.model.WishTransaction;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final WishBookChangedEvent EVENT_STUB = new WishBookChangedEvent(new WishBook());
+    private static final WishBookChangedEvent EVENT_STUB =
+            new WishBookChangedEvent(new WishBook(), new WishTransaction());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
