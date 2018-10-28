@@ -40,6 +40,7 @@ public class UserPrefs {
     }
 
     public Path getToDoListFilePath() {
+        System.out.printf("file = %s\n",toDoListFilePath);
         return toDoListFilePath;
     }
 
@@ -64,14 +65,15 @@ public class UserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, schedulerFilePath);
+        return Objects.hash(guiSettings, schedulerFilePath, toDoListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + schedulerFilePath);
+        sb.append("\nLocal scheduler data file location : " + schedulerFilePath);
+        sb.append("\nLocal todolist data file locattion: " + toDoListFilePath);
         return sb.toString();
     }
 
