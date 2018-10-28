@@ -40,7 +40,7 @@ This section contains information on how you can run SocialCare on your desktop.
 
 To begin, follow the steps below:
 
-.  Check you have Java version `9` or later installed in your Computer.
+.  Check that you have Java version `9` or later installed in your Computer.
 .  Download the latest `socialcare.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for SocialCare.
 .  Double-click the file to start the app. The Graphic User Interface (GUI) should appear in a few seconds.
@@ -182,15 +182,12 @@ Example(s):
 * `clear` +
 Resets the application to a clean state. The panel is also updated to reflect the changes.
 
-[.clearfix]
---
-[.left]
+
 .Before clearing entries
-image::command_clear_before.png[clear bef, 450]
-[.left]
+image::command_clear_before.png[clear bef, 800]
+
 .After clearing entries
-image::command_clear_after.png[clear aft, 450]
---
+image::command_clear_after.png[clear aft, 800]
 
 The figures above shows the before and after state of clearing the entries of the application.
 
@@ -229,13 +226,13 @@ Updates the panel to display the list of events.
 --
 [.left]
 .Before: Panel displaying volunteers
-image::command_switch_before.png[switch bef, 450]
+image::command_switch_before.png[switch bef, 200]
 [.left]
 .After: Panel displaying events
-image::command_switch_after.png[switch aft, 450]
+image::command_switch_after.png[switch aft, 200]
 --
 
-The figures above shows the 2 different panels. +
+The figures above show the 2 different panels. +
 Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
 
 === Volunteer Management
@@ -463,7 +460,7 @@ Example(s):
 View the list of volunteers assigned to event at index 1.
 
 .Panel of events
-image::command_switch_after.png[view events, 800]
+image::command_switch_after.png[view events, 200]
 
 The figure above shows the 'event' panel that you will see before executing the `manage` command.
 
@@ -495,7 +492,7 @@ Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 ****
 
 .The VOLUNTEER_INDEX
-image::command_record_add_volunteerIndex.png[volunteer index, 800]
+image::command_record_add_volunteerIndex.png[volunteer index, 200]
 
 The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
 
@@ -513,27 +510,12 @@ Expected display box is shown in the figure below.
 .Output of `add 1`
 image::command_record_add_after1.png[add command, 800]
 
-
-* `add 1 r/Driver` +
-Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Driver'.
-Expected display box is shown in the figure below.
-
-.Output of `add 1 r/Driver`
-image::command_record_add_after2.png[add command, 800]
-
-* `add 1 h/5` +
-Adds a volunteer at index 1 to the event with 5 hours. +
-Expected display box is shown in the figure below.
-
-.Output of `add 1 h/5`
-image::command_record_add_after3.png[add command, 800]
-
 * `add 1 h/5 r/Driver` +
 Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1 h/5 r/Driver`
-image::command_record_add_after4.png[add command, 800]
+image::command_record_add_after2.png[add command, 800]
 
 [[command-record-edit]]
 ==== Updating volunteer record: `edit`
@@ -641,7 +623,7 @@ This section contains a summary of the commands available.
 [width="100%",cols="10%, 30%, 30%, 30%",options="header",]
 |=======================================================================
 | Command | Format | Example | Section Link
-| *Add* | `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE d/DESCRIPTION [t/TAG]...` | `add n/Fundraising l/Tampines S sd/31-09-2018 ed/31-09-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser | <<command-event-add>>                                                                                   t/charity`
+| *Add* | `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE d/DESCRIPTION [t/TAG]...` | `add n/Fundraising l/Tampines S sd/31-09-2018 ed/31-09-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser t/charity` | <<command-event-add>>
 | *Delete* | `delete EVENT_INDEX`  | `delete 3` | <<command-event-delete>>
 | *Edit* | `edit EVENT_INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [d/DESCRIPTION] [t/TAG]...` | `edit 2 n/Fundraiser` | <<command-event-edit>>
 | *List* | `list` | `list` | <<command-event-list>>
