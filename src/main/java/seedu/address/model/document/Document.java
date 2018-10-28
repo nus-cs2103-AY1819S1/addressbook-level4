@@ -66,6 +66,11 @@ public class Document {
     private String mcDuration;
     private String referralContent;
 
+    //variables specific to receipt but here because of checkstyle issues
+    private float totalPrice = 0;
+    private Map<Medicine, QuantityToDispense> allocatedMedicine;
+    private ArrayList<Service> servicesRendered;
+
     /**
      * Opens a preview of the document in a document window or focuses on it if it's already opened.
      */
