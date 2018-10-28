@@ -45,10 +45,28 @@ To begin, follow the steps below:
 .  Copy the file to the folder you want to use as the home folder for SocialCare.
 .  Double-click the file to start the app. The Graphic User Interface (GUI) should appear in a few seconds.
 
-.GUI
+.A screenshot illustrating the screen that users will see on startup
 image::Ui.png[width="790"]
 
-The figure above is a sample display of the application.
+The figure above displays the list of volunteers in the application.
+
+.A labelled screenshot of the parts of the application
+image::UiLabelled.png[width="790"]
+
+The figure above shows the typical arrangement of the parts of the application.
+
+1. _Toolbar_: Provides quick access to exit the application or to open the user guide.
+
+2. _Panel_:  Displays volunteers or events, depending on which item you are managing.
+
+3. _Display_: Shows more information for the selected item from the panel.
+
+4. _Command Box_: Allows you to input commands for execution.
+
+5. _Command Result Box_: Displays status of executed commands.
+
+6. _Status Bar_: Provides further information of application.
+
 
 To ensure that everything is running, you can try entering commands into the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
