@@ -69,7 +69,7 @@ public interface Model {
      * Reads contacts info in the given file reader.
      * {@code fileReader} must be have a valid file.
      */
-    void readImportContactsFile(FileReader fileReader);
+    void importContacts(FileReader fileReader);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

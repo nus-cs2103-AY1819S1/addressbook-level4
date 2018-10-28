@@ -2,13 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.filereader.FileReader;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -144,8 +147,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Reads contacts info in the given file reader.
      */
-    public void readImportContactsFile(FileReader fileReader) {
-        fileReader.readImportContactsFile();
+    public void importContacts(FileReader fileReader) {
+        ArrayList<String> contacts = fileReader.getContacts();
+        for (String s : contacts) {
+            String[] parts = s.split(",");
+            String nameString = parts[fileReader.getNameIndex()];
+            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+
+            if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString))) {
+                continue;
+            }
+
+            /*
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+            Faculty faculty = ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get());
+            */
+            Name name = new Name(nameString);
+            Phone phone = new Phone(phoneString);
+        }
     }
 
     //// util methods

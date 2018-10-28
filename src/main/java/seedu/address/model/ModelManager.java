@@ -142,8 +142,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== File Reader methods ========================================================================
     @Override
-    public void readImportContactsFile(FileReader fileReader) {
-        versionedAddressBook.readImportContactsFile(fileReader);
+    public void importContacts(FileReader fileReader) {
+        versionedAddressBook.importContacts(fileReader);
     }
 
     //=========== Filtered Person List Accessors =============================================================

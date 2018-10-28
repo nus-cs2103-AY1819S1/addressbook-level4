@@ -23,13 +23,17 @@ public class ImportContactsCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "~/Downloads/contacts1.csv ";
 
+    public static final String MESSAGE_WRONG_FILE_FORMAT = "File must be csv format and contain "
+            + FileReader.CSV_HEADER_NAME
+            + " and "
+            + FileReader.CSV_HEADER_PHONE
+            + " as header for contact name and contact number field";
+
     public static final String MESSAGE_SUCCESS = "Contacts imported";
     public static final String MESSAGE_EMPTY_FILE_EXCEPTION = "File is empty";
     public static final String MESSAGE_TEST_EXCEPTION = "Exception for testing";
 
     private final FileReader toImport;
-    private int nameIndex = -1;
-    private int phoneIndex = -1;
 
     /**
      * Creates an ImportContactsCommand to add the specified {@code String}
@@ -43,7 +47,7 @@ public class ImportContactsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            model.readImportContactsFile(toImport);
+            model.importContacts(toImport);
         } catch (EmptyFileException e) {
             throw new CommandException(MESSAGE_EMPTY_FILE_EXCEPTION);
         }

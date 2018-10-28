@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -19,18 +20,25 @@ public class FileReader {
 
     private final File csvFile;
     private final FilePath csvFilePath;
+    private boolean isValidFile = false;
 
     private int nameIndex = -1;
     private int phoneIndex = -1;
+    private ArrayList<String> contacts = new ArrayList<>();
 
     public FileReader(FilePath csvFilePath) {
         requireAllNonNull(csvFilePath);
         this.csvFilePath = csvFilePath;
         this.csvFile = new File(csvFilePath.toString());
+        readImportContactsFile();
     }
 
     public FilePath getCsvFilePath() {
         return csvFilePath;
+    }
+
+    public boolean isValidFile() {
+        return isValidFile;
     }
 
     public int getNameIndex() {
@@ -39,6 +47,10 @@ public class FileReader {
 
     public int getPhoneIndex() {
         return phoneIndex;
+    }
+
+    public ArrayList<String> getContacts() {
+        return contacts;
     }
 
     /**
@@ -52,7 +64,13 @@ public class FileReader {
             }
             String header = sc.nextLine();
             String[] parts = header.split(",");
-            boolean isValidIndex = setIndex(parts);
+            isValidFile = setIndex(parts);
+            if (isValidFile) {
+                while (sc.hasNextLine()) {
+                    contacts.add(sc.nextLine());
+                }
+            }
+            sc.close();
         } catch (FileNotFoundException e) {
             // will never happen, toImport is validated by parser
         }
