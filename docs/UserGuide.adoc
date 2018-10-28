@@ -357,16 +357,6 @@ Selects the 1st Cassandra as displayed in the list resulting from the `find Cass
 // tag::datacommands[]
 === Data Commands
 
-==== Displaying average statistics : `averages`
-
-Displays all the statistics that are averages. +
-Format: `averages`
-
-==== Displaying total statistics : `totals`
-
-Displays all the statistics that are totals. +
-Format: `totals`
-
 === Displaying patient statistics : `patientstats`
 Displays the following information about patients:
 ****
