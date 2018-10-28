@@ -279,6 +279,13 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         return wishMap;
     }
 
+    /**
+     * Checks if this object has any values stored in it.
+     */
+    public boolean isEmpty() {
+        return wishMap.isEmpty();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WishTransaction) {

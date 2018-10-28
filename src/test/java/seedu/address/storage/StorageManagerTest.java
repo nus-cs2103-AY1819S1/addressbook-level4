@@ -93,6 +93,8 @@ public class StorageManagerTest {
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
+    //todo add test for wishbookchanged event (wishtransaction)
+
     // ================ WishTransaction tests ==============================
 
     @Test
