@@ -204,7 +204,7 @@ Example:
 [NOTE]
 It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
 
-[NOTE] 
+[NOTE]
 calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
 
 === Listing all persons : `list`

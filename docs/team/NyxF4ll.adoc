@@ -37,7 +37,7 @@ MeetingBook is a desktop scheduler application targeted at university students i
 === Contributions to the User Guide
 
 |===
-|_Shown below are my contributions to the User Guide. They demonstrates my ability to write documentation and manuals targeting end-users._ 
+|_Shown below are my contributions to the User Guide. They demonstrates my ability to write documentation and manuals targeting end-users._
 |===
 
 ==== Schedule meetings: `meet`
@@ -98,18 +98,18 @@ Example:
 [NOTE]
 It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
 
-[NOTE] 
+[NOTE]
 calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
 
 === Contributions to the Developer Guide
 
 |===
-|_Shown below are my contributions to the Developer Guide. They demonstrates my ability to write technical documentation and highlights the depth and technical details of my contributions to the software engineering project MeetingBook._ 
+|_Shown below are my contributions to the Developer Guide. They demonstrates my ability to write technical documentation and highlights the depth and technical details of my contributions to the software engineering project MeetingBook._
 |===
 
 === Meeting Feature
 
-`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`. 
+`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`.
 
 [NOTE]
 A `Group` can only have a maximum of one `Meeting` at any given time.
@@ -149,7 +149,7 @@ image::meetCommandStep4Diagram.png[width="600"]
 [NOTE]
 Calling `cancel` on a group without meeting returns an error
 
-[NOTE] 
+[NOTE]
 calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
 
 Step 5. The user then discovers that the topic of the meeting with `Project2103` changed to rehearsal for the upcoming software demo. Therefore, the user calls `meet Project2103 n/Demo Preparation...` to change the detail of the meeting This overwrites the meeting `Weekly Meeting` with the new meeting `Demo Preparation`.

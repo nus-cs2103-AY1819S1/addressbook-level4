@@ -559,7 +559,7 @@ Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupLi
 // tag::meeting[]
 === Meeting
 
-`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`. 
+`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`.
 
 [NOTE]
 A `Group` can only have a maximum of one `Meeting` at any given time.
@@ -568,7 +568,7 @@ A `Group` can only have a maximum of one `Meeting` at any given time.
 
 In the current implementation, `Meeting` is related to `Group` by composition. To facilitate the meeting feature, `Group` implements the following operations:
 
-* `Group#hasMeeting` -- This returns `true` if there is a meeting associated with the group
+* `Group#hasMeeting` -- This returns `true` if there is a meeting associated with the group.
 * `Group#getMeeting()` -- This group's meeting or `null` if the group has no meeting.
 * `Group#setMeeting(Meeting meeting)` -- This assigns `meeting` to the group.
 * `Group#cancelMeeting()` -- This removes the meeting associated witht the group.
@@ -599,7 +599,7 @@ image::meetCommandStep4Diagram.png[width="600"]
 [NOTE]
 Calling `cancel` on a group without meeting returns an error
 
-[NOTE] 
+[NOTE]
 calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
 
 Step 5. The user then discovers that the topic of the meeting with `Project2103` changed to rehearsal for the upcoming software demo. Therefore, the user calls `meet Project2103 n/Demo Preparation...` to change the detail of the meeting This overwrites the meeting `Weekly Meeting` with the new meeting `Demo Preparation`.
