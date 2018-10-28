@@ -392,6 +392,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         versionedExpenseTracker.password = Optional.ofNullable(password);
         expenseTrackers.replace(this.username, this.versionedExpenseTracker);
+        indicateExpenseTrackerChanged();
     }
     //@@author
 
