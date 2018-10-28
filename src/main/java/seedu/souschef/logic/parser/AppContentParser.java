@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
-import seedu.souschef.logic.commands.InventoryCommand;
+import seedu.souschef.logic.parser.contextparser.CrossParser;
 import seedu.souschef.logic.parser.contextparser.FavouritesParser;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
@@ -55,6 +55,9 @@ public class AppContentParser {
         case INGREDIENT:
             setFeatureStorage(storage, Context.INGREDIENT);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
+        case CROSS:
+            return new CrossParser().parseCommand(modelSet.getCrossRecipeModel(), modelSet.getIngredientModel(),
+                    userInput);
         case HEALTH_PLAN:
             setFeatureStorage(storage, Context.HEALTH_PLAN);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
@@ -86,8 +89,6 @@ public class AppContentParser {
             // Consider to use Favorite command instead
             setFeatureStorage(storage, Context.FAVOURITES);
             command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
-        } else if (IngredientParser.isCrossContextCommand(userInput)) {
-            command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
             setFeatureStorage(storage, Context.MEAL_PLANNER);
             command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),

@@ -5,6 +5,7 @@ import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
 import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
+import seedu.souschef.logic.parser.contextparser.CrossParser;
 
 /**
  * Pre-defined set of context for sous chef.
@@ -12,6 +13,7 @@ import seedu.souschef.logic.parser.contextparser.RecipeParser;
 public enum Context {
     RECIPE(RecipeParser.COMMAND_WORD),
     INGREDIENT(IngredientParser.COMMAND_WORD),
+    CROSS(CrossParser.COMMAND_WORD),
     HEALTH_PLAN(HealthPlanParser.COMMAND_WORD),
     MEAL_PLANNER(MealPlannerParser.COMMAND_WORD),
     FAVOURITES(FavouritesParser.COMMAND_WORD);
