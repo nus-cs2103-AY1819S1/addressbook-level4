@@ -140,7 +140,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addXp(Integer xp) {
         requireNonNull(xp);
 
-        achievements.updateAchievementsWithNewXp(xp);
+        achievements.incrementAchievementsWithNewXp(xp);
     }
 
     public int appraiseTaskXp(Task task) {

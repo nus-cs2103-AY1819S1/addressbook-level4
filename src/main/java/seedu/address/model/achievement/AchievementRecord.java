@@ -126,8 +126,8 @@ public class AchievementRecord {
     }
 
     public void setDisplayOption(int displayOption) {
-        dayBreakPointChecknSet();
-        weekBreakPointChecknSet();
+        checkDayBreakPoint();
+        checkWeekBreakPoint();
         this.displayOption = displayOption;
     }
 
@@ -190,32 +190,14 @@ public class AchievementRecord {
     }
 
     /**
-     * Updates all fields of this {@code AchievementRecord} with new xp value.
-     * Triggers the update of Level with xp.
+     * Updates all fields of this {@code AchievementRecord} with new xp being awarded.
      */
-    public void updateAchievementsWithNewXp(Integer newXp) {
+    public void incrementAchievementsWithNewXp(Integer newXp) {
         requireNonNull(newXp);
 
-        updateAllTimeAchievementWithNewXp(newXp);
-        updateAchievementByDayWithNewXp(newXp);
-        updateAchievementByWeekWithNewXp(newXp);
-    }
-
-    /**
-     * Updates the xp, level, numTaskCompleted fields of this {@code AchievementRecord} with new xp value.
-     */
-    private void updateAllTimeAchievementWithNewXp(int newXp) {
-        Integer updatedXpValue = this.getXpValue() + newXp;
-        this.xp = new Xp(updatedXpValue);
-
-        // recalculate level based on updated xp and update level field if necessary
-        Level newLevel = getMatchingLevel(updatedXpValue);
-        if (!this.level.equals(newLevel)) {
-            level = newLevel;
-        }
-
-        // one task is completed each time xp is awarded
-        numTaskCompleted++;
+        incrementAllTimeAchievementWithNewXp(newXp);
+        incrementAchievementByDayWithNewXp(newXp);
+        incrementAchievementByWeekWithNewXp(newXp);
     }
 
     /**
@@ -237,11 +219,29 @@ public class AchievementRecord {
     }
 
     /**
+     * Increments the xp, numTaskCompleted fields of this {@code AchievementRecord} with the new xp value.
+     * Recalculates level with the new xp value and increments if necessary.
+     */
+    private void incrementAllTimeAchievementWithNewXp(int newXp) {
+        Integer updatedXpValue = this.getXpValue() + newXp;
+        this.xp = new Xp(updatedXpValue);
+
+        // recalculate level based on updated xp and update level field if necessary
+        Level newLevel = getMatchingLevel(updatedXpValue);
+        if (!this.level.equals(newLevel)) {
+            level = newLevel;
+        }
+
+        // one task is completed each time xp is awarded
+        numTaskCompleted++;
+    }
+
+    /**
      * Check if the current time has passed the previously set {@code nextDayBreakPoint}
      * Increment xp and number of tasks completed.
      */
-    private void updateAchievementByDayWithNewXp(int newXp) {
-        dayBreakPointChecknSet();
+    private void incrementAchievementByDayWithNewXp(int newXp) {
+        checkDayBreakPoint();
 
         // one task is completed each time xp is awarded
         numTaskCompletedByDay++;
@@ -252,8 +252,8 @@ public class AchievementRecord {
      * Check if the current time has passed the previously set {@code nextWeekBreakPoint}
      * Increment xp and number of tasks completed.
      */
-    private void updateAchievementByWeekWithNewXp(int newXp) {
-        weekBreakPointChecknSet();
+    private void incrementAchievementByWeekWithNewXp(int newXp) {
+        checkWeekBreakPoint();
 
         // one task is completed each time xp is awarded
         numTaskCompletedByWeek++;
@@ -265,7 +265,7 @@ public class AchievementRecord {
      * If true, reset {@code nextDayBreakPoint} to be the start of next day and reset the cumulative achievements
      * from the previous day to 0.
      */
-    private void dayBreakPointChecknSet() {
+    private void checkDayBreakPoint() {
         Calendar date = new GregorianCalendar();
         if (date.before(nextDayBreakPoint)) {
             return;
@@ -279,7 +279,7 @@ public class AchievementRecord {
      * If true, reset {@code nextWeekBreakPoint} to be the start of next week and reset the cumulative achievements
      * from the previous week to 0.
      */
-    private void weekBreakPointChecknSet() {
+    private void checkWeekBreakPoint() {
         Calendar date = new GregorianCalendar();
         if (date.before(nextWeekBreakPoint)) {
             return;
@@ -291,7 +291,7 @@ public class AchievementRecord {
     /**
      * Only check date for equality, ignore hour, minute, second and other fields of calendar.
      */
-    private boolean areDatesEqual(Calendar date1, Calendar date2) {
+    private boolean areSameDates(Calendar date1, Calendar date2) {
         return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR)
                 && date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH)
                 && date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH);
@@ -305,10 +305,10 @@ public class AchievementRecord {
                 && xp.equals(((AchievementRecord) other).xp))
                 && level.equals(((AchievementRecord) other).level)
                 && numTaskCompleted == ((AchievementRecord) other).numTaskCompleted
-                && areDatesEqual(nextDayBreakPoint, ((AchievementRecord) other).nextDayBreakPoint)
+                && areSameDates(nextDayBreakPoint, ((AchievementRecord) other).nextDayBreakPoint)
                 && numTaskCompletedByDay == ((AchievementRecord) other).numTaskCompletedByDay
                 && xpValueByDay == ((AchievementRecord) other).xpValueByDay
-                && areDatesEqual(nextWeekBreakPoint, ((AchievementRecord) other).nextWeekBreakPoint)
+                && areSameDates(nextWeekBreakPoint, ((AchievementRecord) other).nextWeekBreakPoint)
                 && numTaskCompletedByWeek == ((AchievementRecord) other).numTaskCompletedByWeek
                 && xpValueByWeek == ((AchievementRecord) other).xpValueByWeek;
     }
