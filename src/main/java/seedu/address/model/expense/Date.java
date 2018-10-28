@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
  * Represents the date the Expense was added into the Expense tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class Date extends ExpenseField {
     public static final String DATE_FORMAT_CONSTRAINTS =
             "Date should be valid. Format dd-MM-yyyy";
 
@@ -26,7 +26,7 @@ public class Date {
      * @param date A valid date.
      */
     public Date(String date) {
-        requireNonNull(date);
+        super(date);
         checkArgument(isValidDate(date), DATE_FORMAT_CONSTRAINTS);
         String [] parsedDate = date.split("-");
         fullDate.set(Integer.parseInt(parsedDate[2]),
@@ -38,7 +38,9 @@ public class Date {
      * Constructs a {@code Date} with current date.
      *
      */
-    public Date() {}
+    public Date() {
+        super(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
+    }
 
     /**
      * return true is the given date is in the valid format.
@@ -98,12 +100,6 @@ public class Date {
         }
 
         return false;
-    }
-
-    @Override
-    public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(fullDate.getTime());
     }
 
     /**

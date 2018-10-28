@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Expense's category in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Category {
+public class Category extends ExpenseField {
 
 
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
@@ -21,7 +21,7 @@ public class Category {
      * @param category A valid category number.
      */
     public Category(String category) {
-        requireNonNull(category);
+        super(category);
         checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
         categoryName = category;
     }
@@ -31,12 +31,6 @@ public class Category {
      */
     public static boolean isValidCategory(String test) {
         return test.matches(CATEGORY_VALIDATION_REGEX);
-    }
-
-
-    @Override
-    public String toString() {
-        return categoryName;
     }
 
     @Override
