@@ -8,6 +8,8 @@ import java.io.FileReader;
 //import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,10 +18,12 @@ import java.util.Map;
 
 import javafx.fxml.FXML;
 import seedu.address.MainApp;
+import seedu.address.logic.commands.DocumentContentAddCommand;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.ServedPatient;
 import seedu.address.model.services.Service;
 import seedu.address.ui.DocumentWindow;
 
@@ -142,8 +146,12 @@ public class Document {
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
-        } else {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Patient is excused from work/school for 4 days.");
+        }
+        else if (this instanceof MedicalCertificate) {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatMCInformation());
+        }
+        else if (this instanceof ReferralLetter) {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatRLInformation());
         }
         return informationFieldPairs;
     }
@@ -201,6 +209,32 @@ public class Document {
     }
 
     /**
+     * Formats all the relevant information of a MC in HTML for the served patient.
+     */
+    String formatMCInformation() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append("This is to certify that the above-named is unfit for duty for a period of X day(s)" +
+                " from " + LocalDate.now().format(formatter) +  " to " + LocalDate.now().plusDays(7).format(formatter) +
+                " inclusive.<br><br>")
+                .append("This certificate is not valid for absence from court attendance.<br><br>")
+                .append("<b>Issuing Doctor:<b> " + "<br><br>");
+        return stringbuilder.toString();
+    }
+
+    /**d
+     * Formats all the relevant information of a RL in HTML for the served patient.
+     */
+    String formatRLInformation() {
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br><br>")
+                .append("Kindly do accept him under your care. Thank you very much.<br><br>")
+                .append("<b>Issuing Doctor:<b> " + "<br><br>");
+        return stringbuilder.toString();
+    }
+
+    /**
      * Extracts all the types of services rendered by the clinic for the served patient and formats it into
      * a table to be reflected in the HTML file.
      */
@@ -213,7 +247,7 @@ public class Document {
             servicePrice = Integer.parseInt(s.getPrice().toString());
             this.totalPrice += servicePrice;
 
-            stringBuilder.append("<tr><td")
+            stringBuilder.append("<tr><td>")
                     .append(serviceName)
                     .append(HTML_TABLE_DATA_DIVIDER)
                     .append(1)
