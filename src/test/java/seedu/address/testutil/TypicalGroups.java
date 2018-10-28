@@ -23,7 +23,7 @@ import seedu.address.model.group.Group;
  */
 public class TypicalGroups {
 
-    public static final Group PROJECT_2103T = new GroupBuilder().withTitle("CS2103T")
+    public static final Group PROJECT_2103T = new GroupBuilder().withTitle("CS2103T Project Team")
             .withDescription("Project group for module CS2103T").withMeeting(WEEKLY)
             .withNewPerson(ALICE).build();
 

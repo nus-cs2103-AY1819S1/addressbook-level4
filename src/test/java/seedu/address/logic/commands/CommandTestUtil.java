@@ -198,7 +198,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
 
         Group group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
-        final String[] splitGroupTitle = { group.getTitle().fullTitle };
+        final String[] splitGroupTitle = group.getTitle().fullTitle.split("\\s+");
         model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
             Arrays.asList(splitGroupTitle[0]), Collections.emptyList()));
         model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(splitGroupTitle[0])));

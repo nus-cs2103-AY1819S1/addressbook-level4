@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_GROUPS_FOUND_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.*;
@@ -20,10 +19,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
-import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindGroupCommand}.
  */
 public class FindGroupCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -66,23 +64,23 @@ public class FindGroupCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
-//
+
 //    @Test
 //    public void execute_multipleKeywords_somePrefix() {
-//        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-//        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ",
-//            "Kurz Elle Kunz", " ");
-//        FindPersonCommand command = new FindPersonCommand(predicate);
-//        expectedModel.updateFilteredPersonList(predicate);
+//        String expectedMessage = String.format(MESSAGE_GROUPS_FOUND_OVERVIEW, 3);
+//        GroupTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
+//            "NUSHackers", " ");
+//        FindGroupCommand command = new FindGroupCommand(predicate);
+//        expectedModel.updateFilteredGroupList(predicate);
 //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 //        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
 //    }
-//
+
 //    @Test
 //    public void execute_multipleKeywords_allPrefix() {
 //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
 //        PersonNameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
-//        FindPersonCommand command = new FindPersonCommand(predicate);
+//        FindGroupCommand command = new FindGroupCommand(predicate);
 //        expectedModel.updateFilteredPersonList(predicate);
 //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 //        assertEquals(Arrays.asList(BENSON, DANIEL), model.getFilteredPersonList());
@@ -92,7 +90,7 @@ public class FindGroupCommandTest {
 //    public void execute_multipleKeywords_nonePrefix() {
 //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
 //        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
-//        FindPersonCommand command = new FindPersonCommand(predicate);
+//        FindGroupCommand command = new FindGroupCommand(predicate);
 //        expectedModel.updateFilteredPersonList(predicate);
 //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 //        assertEquals(Arrays.asList(ALICE, CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());

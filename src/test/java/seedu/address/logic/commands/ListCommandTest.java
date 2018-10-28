@@ -62,7 +62,7 @@ public class ListCommandTest {
         // Because when a group is selected, the person list will change, hence this needs to be called to filter
         // expectedModel's person list.
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
-        final String[] groupTitle = { group.getTitle().fullTitle };
+        final String[] groupTitle = group.getTitle().fullTitle.split("\\s+");
         expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
             Arrays.asList(groupTitle[0]), Collections.emptyList()));
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
