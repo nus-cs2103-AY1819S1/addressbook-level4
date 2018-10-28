@@ -3,17 +3,18 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.tag.Tag;
 
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
-public class FindGroupCommand extends FindCommand<Tag>{
+public class FindGroupCommand extends FindCommand<Group>{
 
     public static final String FIND_GROUP_MODE = "g";
 
-    public FindGroupCommand(Predicate<Tag> predicate) {
+    public FindGroupCommand(Predicate<Group> predicate) {
         super(predicate);
     }
 
