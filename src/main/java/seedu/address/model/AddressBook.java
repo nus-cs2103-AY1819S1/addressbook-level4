@@ -6,11 +6,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -27,6 +30,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     // @@author Derek-Hardy
     private final UniqueGroupList groups;
 
+    private final UniqueMeetingList meetings;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -37,6 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
+        meetings = new UniqueMeetingList();
     }
     // @@author
 
@@ -60,7 +66,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-
     // @@author Derek-Hardy
     /**
      * Replaces the contents of the group list with {@code groups}.
@@ -68,6 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
+        meetings.setMeetings(groups.stream().map(Group::getMeeting).collect(Collectors.toList()));
     }
     // @@author
 
@@ -135,6 +141,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addGroup(Group group) {
         groups.add(group);
+        if (group.getMeeting() != null) {
+            meetings.add(group.getMeeting());
+        }
     }
 
     /**
@@ -163,6 +172,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedGroup);
         target.clearMembers();
         editedGroup.setUpMembers();
+
+        meetings.setMeeting(target.getMeeting(), editedGroup.getMeeting());
         groups.setGroup(target, editedGroup);
     }
 
@@ -184,6 +195,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeGroup(Group group) {
         requireNonNull(group);
         group.clearMembers();
+        if (group.getMeeting() != null) {
+            meetings.remove(group.getMeeting());
+        }
         groups.remove(group);
     }
 
@@ -224,7 +238,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons, "
-                + groups.asUnmodifiableObservableList().size() + " groups";
+                + groups.asUnmodifiableObservableList().size() + " groups, "
+                + meetings.asUnmodifiableObservableList().size() + " meetings";
         // TODO: refine later
     }
 
@@ -233,13 +248,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-
     // @@author Derek-Hardy
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
     }
     // @@author
+
+
+    @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return meetings.asUnmodifiableObservableList();
+    }
 
     /**
      * Merge another MeetingBook into current MeetingBook.

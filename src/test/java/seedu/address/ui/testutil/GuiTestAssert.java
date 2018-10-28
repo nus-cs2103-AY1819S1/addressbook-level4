@@ -73,7 +73,7 @@ public class GuiTestAssert {
         if (expectedGroup.getMeeting() != null) {
             assertEquals(expectedGroup.getMeeting().getTitle().fullTitle, actualCard.getGroupMeeting());
         } else {
-            assertEquals("null", actualCard.getGroupMeeting());
+            assertEquals("", actualCard.getGroupMeeting());
         }
         assertEquals(String.format("%d", expectedGroup.getMembersView().size()), actualCard.getMemberCount());
     }

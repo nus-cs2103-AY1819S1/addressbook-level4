@@ -63,9 +63,26 @@ public class ListCommandTest {
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
         final String[] groupTitle = { group.getTitle().fullTitle };
         expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
 
         assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,
             ListCommand.MESSAGE_SUCCESS_GROUP, expectedModel);
+    }
+
+    @Test
+    public void execute_meetingListIsNotFiltered_showsSameMeetingList() {
+        assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.MEETING), model, commandHistory,
+            ListCommand.MESSAGE_SUCCESS_MEETING, expectedModel);
+    }
+
+    @Test
+    public void execute_meetingListIsFiltered_showsEverything() {
+        // One way to filter the meeting list is to select the group
+        showGroupAtIndex(model, INDEX_FIRST_GROUP);
+
+        Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
+        final String[] groupTitle = { group.getTitle().fullTitle };
+        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
     }
 }

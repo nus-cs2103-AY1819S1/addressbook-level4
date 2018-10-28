@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
@@ -120,6 +121,16 @@ public class ModelStub implements Model {
 
     @Override
     public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Meeting> getFilteredMeetingList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

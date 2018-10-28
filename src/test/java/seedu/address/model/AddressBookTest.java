@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -237,6 +239,12 @@ public class AddressBookTest {
         @Override
         public ObservableList<Group> getGroupList() {
             return groups;
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            List<Meeting> meetingList = groups.stream().map(Group::getMeeting).collect(Collectors.toList());
+            return FXCollections.observableArrayList(meetingList);
         }
     }
 

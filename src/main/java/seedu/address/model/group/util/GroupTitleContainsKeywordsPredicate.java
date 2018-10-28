@@ -8,7 +8,6 @@ import seedu.address.model.group.Group;
 
 /**
  * Tests that a {@code Group}'s {@code Title} matches any of the keywords given.
- * TODO: change to Group class instead of Tag when group is properly implemented
  * {@author jeffreyooi}
  */
 public class GroupTitleContainsKeywordsPredicate implements Predicate<Group> {

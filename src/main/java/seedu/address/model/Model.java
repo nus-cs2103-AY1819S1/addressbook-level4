@@ -150,6 +150,18 @@ public interface Model {
      */
     ObservableList<Person> getSortedPersonList();
 
+
+    /**
+     * Updates the filter of the filtered meeting list to filter by the given {@code predicate}
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
+
+    /**
+     * @return An unmodifiable view of the filtered meeting list
+     */
+    ObservableList<Meeting> getFilteredMeetingList();
+
     /**
      * Updates the sorting of the sorted person list to sort by the given {@code comparator}.
      * @param personPropertyComparator The comparator to sort the list by.
