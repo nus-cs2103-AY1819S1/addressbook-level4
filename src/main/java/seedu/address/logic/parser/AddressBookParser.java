@@ -88,7 +88,7 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
-            
+
         case ExportCommand.COMMAND_WORD:
         case ExportCommand.COMMAND_ALIAS:
             return new ExportCommandParser().parse(arguments);

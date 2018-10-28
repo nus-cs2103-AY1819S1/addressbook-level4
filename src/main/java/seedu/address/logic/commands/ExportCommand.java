@@ -1,3 +1,4 @@
+//@@author chantca95
 package seedu.address.logic.commands;
 
 import java.io.FileNotFoundException;
@@ -18,9 +19,9 @@ public class ExportCommand extends Command {
     public static final String COMMAND_ALIAS = "x";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " destinationFilename.csv";
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported.";
-    
+
     private String fileName;
-    
+
     public ExportCommand(String fileName) {
         this.fileName = fileName;
     }
@@ -35,7 +36,7 @@ public class ExportCommand extends Command {
         PrintWriter pw = new PrintWriter(fos);
         populateFile(pw, model);
         pw.close();
-        
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
@@ -48,37 +49,41 @@ public class ExportCommand extends Command {
     }
 
     private void insertPersonIntoCsv(Person current, PrintWriter pw) {
-        String name, phone, email, address, meeting;
+        String name;
+        String phone;
+        String email;
+        String address;
+        String meeting;
         Set<Tag> tags;
         ArrayList<String> stringTags = new ArrayList<>();
-        
+
         name = cleanEntry(current.getName().toString());
-        if(current.getPhone().isPresent()) {
+        if (current.getPhone().isPresent()) {
             phone = cleanEntry(current.getPhone().toString());
         } else {
             phone = "";
         }
-        if(current.getEmail().isPresent()) {
+        if (current.getEmail().isPresent()) {
             email = cleanEntry(current.getEmail().toString());
         } else {
             email = "";
         }
-        if(current.getAddress().isPresent()) {
+        if (current.getAddress().isPresent()) {
             address = cleanEntry(current.getAddress().toString());
         } else {
             address = "";
         }
         meeting = current.getMeeting().toString();
         tags = current.getTags();
-        for(Tag currentTag : tags) {
+        for (Tag currentTag : tags) {
             String currString = currentTag.toString();
             currString = cleanEntry(currString);
             stringTags.add(currString);
         }
-        
+
         //write this person to the printwriter
         pw.print(name + "," + phone + "," + email + "," + address + "," + meeting + ",");
-        for(String currentTag : stringTags) {
+        for (String currentTag : stringTags) {
             pw.print(currentTag);
             pw.print(",");
         }

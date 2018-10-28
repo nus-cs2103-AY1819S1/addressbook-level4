@@ -1,3 +1,4 @@
+//@@author chantca95
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -10,14 +11,12 @@ import seedu.address.logic.commands.ExportCommand;
 
 public class ExportCommandParserTest {
     private ExportCommandParser parser = new ExportCommandParser();
-    
+
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
-    
+
     private static final String NO_USER_INPUT = "";
     private static final String NO_DOT_CSV = "contacts";
     private static final String PROPER_CSV = "contacts.csv";
-
 
     @Test
     public void parse_no_input() {

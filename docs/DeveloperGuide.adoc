@@ -499,7 +499,7 @@ not cause import to crash.
 
 === Export feature
 ==== Current Implementation
-The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen 
+The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen
 and exports it as a csv file, whose file name is given by the user and MUST end with .csv. The exported contact list will be
 saved in the root directory of the project. `export` implements the following operations:
 
@@ -512,7 +512,7 @@ Given below is an example usage scenario and how the export mechanism behaves at
 
 Step 1. The user launches an application and there is either a list of existing contacts or the list is empty.
 
-Step 2. The user executes export command (x for shorthand), followed by FILE_NAME. If no file name is given or the file name 
+Step 2. The user executes export command (x for shorthand), followed by FILE_NAME. If no file name is given or the file name
 does not end with .csv, InsuRen throws an error message.
 
 Step 3. InsuRen fetches the current contact list, creates a new .csv file and copies all contacts into it.
@@ -522,7 +522,7 @@ Step 3. InsuRen fetches the current contact list, creates a new .csv file and co
 ===== Aspect: How export executes
 
 * **Alternative 1 (current choice):** Read contacts from a ReadOnlyAddressBook:
-Export makes use of model.getAddressBook() and the getPersonList method within. 
+Export makes use of model.getAddressBook() and the getPersonList method within.
 ** Pros: Easy to implement. Since we are only dealing with a ReadOnlyAddressBook, the state of InsuRen will not be altered.
 ** Cons: Only able to capture snapshots of the contact list. Not dynamically updated.
 
