@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -30,6 +31,14 @@ public class GroupTest {
         Group group = new GroupBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
         group.getMembersView().remove(0);
+    }
+
+    @Test
+    public void getMembers_memberInGroup_returnsTrue() {
+        Group group = new GroupBuilder().withNewPerson(ALICE).build();
+        UniquePersonList list = group.getMembers();
+
+        assertTrue(list.contains(ALICE));
     }
 
     @Test
@@ -58,6 +67,14 @@ public class GroupTest {
     }
 
     @Test
+    public void removeMemberHelper_personNotInGroup_returnsFalse() {
+        Group group = new GroupBuilder().withNewPerson(ALICE).build();
+        group.removeMemberHelper(ALICE);
+
+        assertFalse(group.hasMember(ALICE));
+    }
+
+    @Test
     public void clearMembers_personNotInGroup_returnsFalse() {
         Person derrick = new PersonBuilder().withName("Derrick").build();
         Person peter = new PersonBuilder().withName("Peter").build();
@@ -82,6 +99,14 @@ public class GroupTest {
         person.removeGroupHelper(group);
         group.setUpMembers();
         assertTrue(person.hasGroup(group));
+    }
+
+    @Test
+    public void copy_equals_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("copy").withDescription("This is used to be copied").build();
+        Group groupCopy = group.copy();
+
+        assertTrue(groupCopy.equals(group));
     }
 
     @Test

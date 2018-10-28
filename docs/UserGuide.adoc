@@ -57,7 +57,7 @@ Format: `help`
 
 === Adding a new member: `addMember`
 
-Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook.
+Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook. +
 Format: `addMember n/[Name] p/[Phone] e/[Email] a/[Address] t/[Tag] g/[Group Tag]`
 
 .Required person parameters:
@@ -102,7 +102,33 @@ Deletes the second person in the person list.
 * `del 4` +
 Deletes the fourth person in the person list.
 
-=== Find a group / person / meeting: `find`
+=== Adding a new group: `addGroup`
+
+Add a new group with user input title into MeetingBook. +
+
+Format: `addGroup n/[Name]` +
+
+Examples:
+
+* `addGroup n/CS2103T` +
+Adds a new group with title 'CS2103T' into the MeetingBook.
+* `addGroup n/Discussion Group 1` +
+Adds a new group with title 'Discussion Group 1' into the MeetingBook.
+
+=== Deleting a group: `deleteGroup`
+
+Remove the group that matches use input title. +
+
+Format: `deleteGroup n/[Name]` +
+
+Examples:
+
+* `deleteGroup n/CS2103T` +
+Removes the group with title 'CS2103T', which is added previously, from MeetingBook.
+* `deleteGroup n/Discussion Group 1` +
+Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
+
+=== Finding a group / person / meeting: `find`
 
 The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
 the panel. +
@@ -146,7 +172,7 @@ Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a 
 * If `select [Person]` is entered, only the person that is in the filtered person list will be selected.
 ****
 
-=== Add Meeting to Group: `meet`
+=== Adding Meeting to Group: `meet`
 
 Add a meeting to the group specified by its name.
 
@@ -160,16 +186,45 @@ Example:
 * `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
 * `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
 
+=== Joining a person to group: `join`
+
+Add a person, specified by name, into a group, specified by the group title. +
+
+Format: `join n/[Name] g/[Group]` +
+
+Example:
+
+* `join n/Derek g/CS2103T` +
+Makes the person 'Derek' to be a member of group 'CS2103T'.
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+
+=== Removing a person from group: `leave`
+
+Remove a person, specified by name, from a group, specified by the group title. +
+
+Format: `leave n/[Name] g/[Group]` +
+
+Example:
+
+* `leave n/Derek g/CS2101` +
+Removes the person 'Derek' from the group 'CS2101'.
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+The person should also be an existing member of the group.
+
 === Listing all persons : `list`
 
 Display all existing persons on the person list display.
 
-=== Import data : `import`
+=== Importing data : `import`
 
 User is able to import other data. +
 Format: `import <relative filepath>`
 
-=== Export data : `export`
+=== Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
 Format: +
@@ -181,7 +236,7 @@ Format: +
 Example:
 `export f/backup.xml` : Export MeetingBook as `backup.xml`.
 
-=== Change Storage Location: `filepath`
+=== Changing Storage Location: `filepath`
 
 Change the storage location of MeetingBook. +
 Format: +
@@ -228,7 +283,16 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `addMember Derek p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
 * *Editing a person* : `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]` +
 e.g. `edit 2 n/Jeffrey`
-* *Delete a person* : `delete`
+* *Deleting a person* : `delete` +
+
+* *Adding a new group* : `addGroup n/[Name]` +
+e.g. `addGroup CS2103T`
+* *Deleting a new group* : `deleteGroup n/[Name]` +
+e.g. `deleteGroup CS2101`
+* *Joining a person to group* : `join n/[Name] g/[Group]` +
+e.g. `join Derek CS2103T`
+* *Removing a person from group* : `leave n/[Name] g/[Group]` +
+e.g. `leave Derek CS2101`
 * *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
 * *Selecting a group / person* : `select [group|person]` +
 e.g. `select g/1`
