@@ -197,8 +197,8 @@ public class ParserUtil {
     }
 
     /**
-     * parseRecipe plan names for commands
-     * parseRecipe plan name
+     * parse plan names for commands
+     * parse plan name
      */
     public static HealthPlanName parseHpName(String name) throws ParseException {
         requireNonNull(name);
@@ -209,8 +209,8 @@ public class ParserUtil {
         return new HealthPlanName(trimmedName);
     }
     /**
-     * parseRecipe target weight for commands
-     * parseRecipe tweight
+     * parse target weight for commands
+     * parse tweight
      */
     public static TargetWeight parseTWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -222,8 +222,8 @@ public class ParserUtil {
     }
 
     /**
-     * parseRecipe current weight for commands
-     * parseRecipe cweight
+     * parse current weight for commands
+     * parse cweight
      */
     public static CurrentWeight parseCWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -236,8 +236,8 @@ public class ParserUtil {
 
 
     /**
-     * parseRecipe current height for commands
-     * parseRecipe cheight
+     * parse current height for commands
+     * parse cheight
      */
     public static CurrentHeight parseCHeight(String height) throws ParseException {
         requireNonNull(height);
@@ -250,7 +250,7 @@ public class ParserUtil {
 
 
     /**
-     * parseRecipe age for commands
+     * parse age for commands
      */
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
@@ -263,7 +263,7 @@ public class ParserUtil {
     }
 
     /**
-     * parseRecipe duration for commands
+     * parse duration for commands
      */
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
@@ -276,7 +276,7 @@ public class ParserUtil {
     }
 
     /**
-     * parseRecipe scheme
+     * parse scheme
      */
     public static Scheme parseScheme(String scheme) throws ParseException {
         requireNonNull(scheme);

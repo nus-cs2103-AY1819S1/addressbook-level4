@@ -22,7 +22,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.healthplan.HealthPlan;
 
 /**
- * Class to parseRecipe healthplan logic
+ * Class to parse healthplan logic
  */
 public class HealthPlanParser {
     public static final String COMMAND_WORD = "healthplan";

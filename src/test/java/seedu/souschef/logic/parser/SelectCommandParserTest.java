@@ -27,7 +27,7 @@ public class SelectCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         try {
-            parser.parseRecipe(recipeModel, "a");
+            parser.parseIndex(recipeModel, "a");
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

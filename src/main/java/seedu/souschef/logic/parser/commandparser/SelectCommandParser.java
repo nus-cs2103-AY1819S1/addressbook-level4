@@ -24,7 +24,7 @@ public class SelectCommandParser {
      * and returns an SelectCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SelectCommand parseRecipe(Model model, String args) throws ParseException {
+    public SelectCommand parseIndex(Model model, String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SelectCommand(model, index);
