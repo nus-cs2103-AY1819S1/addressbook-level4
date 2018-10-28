@@ -57,7 +57,7 @@ public class EditCommand extends Command {
     private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param index               of the event in the filtered event list to edit
+     * @param index of the event in the filtered event list to edit
      * @param editEventDescriptor details to edit the event with
      */
     public EditCommand(Index index, EditEventDescriptor editEventDescriptor) {
@@ -146,8 +146,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private ReminderDurationList reminderDurationList;
 
-        public EditEventDescriptor() {
-        }
+        public EditEventDescriptor() {}
 
         /**
          * Copy constructor.
