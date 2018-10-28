@@ -1,4 +1,4 @@
-= SocialCare - User Guide
+U= SocialCare - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,9 +19,17 @@ By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-SocialCare morphs the given AB4 application into a volunteer management system that allows Social Welfare Organisations to better manage their volunteers & events, and gain further statistical insights from the data. +
+Non-profit organizations rely on volunteer work to maintain parts of their operations. A volunteer management system is
+essential in helping to retain volunteers by ensuring that there is a large enough pool of volunteers who are motivated
+to support the various events. Therefore, it is critical that a organization is able
+to source the right person for the right activity.
 
-SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers.* More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps.
+SocialCare is an application that is designed to help your organization manage your volunteers effectively.
+You will be able to:
+
+* Manage volunteer information such as contact details.
+* Manage events for your organization.
+* Create volunteering records for your volunteers.
 
 Interested? Jump to <<Quick Start>> to get started.
 
