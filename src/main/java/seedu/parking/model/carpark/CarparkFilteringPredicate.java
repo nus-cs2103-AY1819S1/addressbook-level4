@@ -21,7 +21,6 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         this.flagList = flagList;
     }
 
-    // Todo: Javadoc Comment
     /**
      * Checks if the car park has free parking from the given starting to ending time on the specified day.
      */
@@ -84,7 +83,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             return carparkType.contains("COVERED");
 
         default:
-            // should catch invalid input instead (to be implemented)
+            // Todo: should catch invalid input instead
             return carparkType.contains("CAR PARK");
         }
     }
@@ -110,7 +109,6 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         if (flagList.contains("f/")) {
             int index = flagList.indexOf("f/");
 
-            // Can accept small letters too
             String day = flagList.get(index + 1).toUpperCase();
             String startTime = flagList.get(index + 2);
             String endTime = flagList.get(index + 3);

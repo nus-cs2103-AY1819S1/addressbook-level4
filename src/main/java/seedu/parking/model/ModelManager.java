@@ -25,7 +25,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedCarparkFinder versionedCarparkFinder;
     private final FilteredList<Carpark> filteredCarparks;
 
-    // Todo: double check
     private CarparkContainsKeywordsPredicate lastPredicateUsedByFindCommand;
 
     /**
@@ -95,6 +94,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateCarparkFinderChanged();
     }
 
+    // Todo: Calculate command
+    @Override
+    public Carpark getCarparkFromFilteredList(int index) {
+        return filteredCarparks.get(index);
+    }
+
     //=========== Filtered Car Park List Accessors ============================================================
 
     /**
@@ -112,17 +117,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCarparks.setPredicate(predicate);
     }
 
-    // Todo: Location based filtering
+    //=========== Last Predicate Used by FindCommand ============================================================
+
     @Override
     public void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate) {
-        System.out.println("last predicate stored: " + predicate);
         lastPredicateUsedByFindCommand = predicate;
     }
 
-    // Todo: Location based filtering
     @Override
     public CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand() {
-        System.out.println("last predicate retrieved: " + lastPredicateUsedByFindCommand);
         return lastPredicateUsedByFindCommand;
     }
 

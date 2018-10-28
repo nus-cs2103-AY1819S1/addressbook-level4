@@ -51,7 +51,7 @@ public class FilterCommand extends Command {
         // Todo: Location based filtering
         // Get last findCommand predicate
         CarparkContainsKeywordsPredicate locationPredicate = model.getLastPredicateUsedByFindCommand();
-        List<String> locationKeywords = locationPredicate.getKeywords();
+        List<String> locationKeywords = locationPredicate.getKeywords(); // find command must be executed first.
 
         this.predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
         model.updateFilteredCarparkList(predicate);
