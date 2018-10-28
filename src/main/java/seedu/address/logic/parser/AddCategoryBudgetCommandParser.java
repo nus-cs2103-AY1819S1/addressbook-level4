@@ -27,7 +27,8 @@ public class AddCategoryBudgetCommandParser implements Parser<AddCategoryBudgetC
 
             if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_BUDGET)
                 || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryBudgetCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCategoryBudgetCommand.MESSAGE_USAGE));
             }
 
             String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
@@ -35,7 +36,8 @@ public class AddCategoryBudgetCommandParser implements Parser<AddCategoryBudgetC
 
             return new AddCategoryBudgetCommand(new CategoryBudget(categoryName, budget));
         } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryBudgetCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddCategoryBudgetCommand.MESSAGE_USAGE));
         }
     }
 }

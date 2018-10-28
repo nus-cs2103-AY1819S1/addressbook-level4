@@ -11,7 +11,7 @@ import seedu.address.model.budget.CategoryBudget;
 
 public class XmlAdaptedCategoryBudget extends XmlAdaptedBudget {
 
-    public static String MESSAGE_INVALID_FIELDS = "Either cateogry or budget have invalid values";
+    public static final String MESSAGE_INVALID_FIELDS = "Either category or budget have invalid values";
 
     @XmlElement(required = true)
     private String category;

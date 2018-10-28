@@ -163,7 +163,8 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Changes the colors of the expenseDisplay and totalBudget bar to red if overbudget, and green in below totalBudget.
+     * Changes the colors of the expenseDisplay and totalBudget bar to red if over budget, and green in below
+     * totalBudget.
      */
     public void setBudgetUiColors(double budgetCap, double currentExpenses) {
         if (budgetCap < currentExpenses) {

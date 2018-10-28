@@ -21,7 +21,8 @@ public class XmlAdaptedTotalBudgetTest {
 
     @Test
     public void testEquals() {
-        XmlAdaptedTotalBudget validXmlAdaptedTotalBudget = new XmlAdaptedTotalBudget(new TotalBudget(TotalBudgetTest.VALID_BUDGET));
+        XmlAdaptedTotalBudget validXmlAdaptedTotalBudget =
+            new XmlAdaptedTotalBudget(new TotalBudget(TotalBudgetTest.VALID_BUDGET));
 
         String anotherValidBudgetString = "3.00";
         assertNotEquals(validXmlAdaptedTotalBudget,

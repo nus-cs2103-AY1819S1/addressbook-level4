@@ -21,9 +21,8 @@ public class AddCategoryBudgetCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Category totalBudget cap for one of the "
         + "Categories in the expense tracker "
-        + "Parameters: " + PREFIX_CATEGORY + "CATEGORY " + PREFIX_BUDGET + "MONEY (Must be a positive float with 2 " +
-        "decimal " +
-    "places)\n"
+        + "Parameters: " + PREFIX_CATEGORY + "CATEGORY " + PREFIX_BUDGET + "MONEY (Must be a positive float with 2 "
+        + "decimal places)\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_CATEGORY + "School " + PREFIX_BUDGET + "130.00";
 
     public static final String MESSAGE_SUCCESS = "%s TotalBudget set to %1$s";

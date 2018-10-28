@@ -16,7 +16,7 @@ import seedu.address.testutil.Assert;
 public class CategoryBudgetTest {
     @Test
     public void constructor_validCategoryInvalidBudget_illegalArgumentExceptionThrown() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> new CategoryBudget(VALID_CATEGORY, INVALID_BUDGET) );
+        Assert.assertThrows(IllegalArgumentException.class, () -> new CategoryBudget(VALID_CATEGORY, INVALID_BUDGET));
     }
 
     @Test

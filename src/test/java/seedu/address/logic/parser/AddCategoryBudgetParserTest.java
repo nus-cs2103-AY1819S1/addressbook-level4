@@ -30,7 +30,8 @@ public class AddCategoryBudgetParserTest {
     @Test
     public void parse_invalidCategoryValidBudget_throwsParseError() {
         assertParseFailure(parser, " " + PREFIX_CATEGORY + INVALID_CATEGORY
-            + " " + PREFIX_BUDGET + VALID_BUDGET , String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryBudgetCommand.MESSAGE_USAGE));
+            + " " + PREFIX_BUDGET + VALID_BUDGET , String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            AddCategoryBudgetCommand.MESSAGE_USAGE));
     }
 
     @Test

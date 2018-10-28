@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
-import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -169,8 +169,8 @@ public interface Model {
     /**
      * Adds Category totalBudget into the expense tracker
      * @param budget a valid {@code CategoryBudget}
-     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category totalBudget results in the sum of
-     * all category budgets exceeding the total totalBudget.
+     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a
+     * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
      */
     void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException;

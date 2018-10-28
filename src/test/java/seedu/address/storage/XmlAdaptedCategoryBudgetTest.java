@@ -11,9 +11,7 @@ import static seedu.address.model.expense.CategoryTest.VALID_CATEGORY;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.CategoryBudget;
-import seedu.address.model.expense.Category;
 import seedu.address.storage.budget.XmlAdaptedCategoryBudget;
 import seedu.address.testutil.Assert;
 
@@ -42,7 +40,7 @@ public class XmlAdaptedCategoryBudgetTest {
 
     @Test
     public void toModelType_invalidCategory_throwsIllegalValueException() {
-        XmlAdaptedCategoryBudget cBudget=
+        XmlAdaptedCategoryBudget cBudget =
             new XmlAdaptedCategoryBudget(INVALID_CATEGORY, VALID_BUDGET);
         String expectedMessage = XmlAdaptedCategoryBudget.MESSAGE_INVALID_FIELDS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cBudget::toModelType);
@@ -50,7 +48,7 @@ public class XmlAdaptedCategoryBudgetTest {
 
     @Test
     public void toModelType_invalidBudget_throwsIllegalValueException() {
-        XmlAdaptedCategoryBudget cBudget=
+        XmlAdaptedCategoryBudget cBudget =
             new XmlAdaptedCategoryBudget(VALID_CATEGORY, INVALID_BUDGET);
         String expectedMessage = XmlAdaptedCategoryBudget.MESSAGE_INVALID_FIELDS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cBudget::toModelType);

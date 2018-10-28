@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;

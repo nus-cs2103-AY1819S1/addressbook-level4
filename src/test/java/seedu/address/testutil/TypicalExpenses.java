@@ -116,7 +116,8 @@ public class TypicalExpenses {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();
         }
-        ab.modifyMaximumBudget(new TotalBudget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"), 50000));
+        ab.modifyMaximumBudget(new TotalBudget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"),
+            50000));
 
         return ab;
     }

@@ -150,14 +150,14 @@ public class TotalBudget extends Budget {
     public void checkBudgetRestart() {
         if (this.nextRecurrence == null) {
             //TODO: Notifies user that totalBudget recurrence has not been set
-            logger.info("Recurrence has not been set");
+            LOGGER.info("Recurrence has not been set");
             return;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
             //TODO: Notifies user that totalBudget has been restarted
-            logger.info("TotalBudget has been restarted");
+            LOGGER.info("TotalBudget has been restarted");
         }
 
     }

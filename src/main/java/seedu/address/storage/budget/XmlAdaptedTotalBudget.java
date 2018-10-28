@@ -63,7 +63,8 @@ public class XmlAdaptedTotalBudget extends XmlAdaptedBudget {
     public TotalBudget toModelType() throws IllegalValueException {
         try {
             if (this.categoryBudgets != null) {
-                return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses), this.nextRecurrence,
+                return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses),
+                    this.nextRecurrence,
                     this.numberOfSecondsToRecurAgain,
                     this.categoryBudgets.stream()
                         .map(xmlBudget -> {
@@ -75,7 +76,8 @@ public class XmlAdaptedTotalBudget extends XmlAdaptedBudget {
                         })
                         .collect(Collectors.toCollection(HashSet::new)));
             }
-            return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses), this.nextRecurrence,
+            return new TotalBudget(Double.parseDouble(this.budgetCap), Double.parseDouble(this.currentExpenses),
+                this.nextRecurrence,
                 this.numberOfSecondsToRecurAgain);
         } catch (RuntimeException e) {
             throw new IllegalValueException("Some values in TotalBudget are not valid");

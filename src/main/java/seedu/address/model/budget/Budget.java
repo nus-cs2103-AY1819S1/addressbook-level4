@@ -1,21 +1,28 @@
 package seedu.address.model.budget;
+//@@author winsonhys
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
-import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
+/**
+ * Represents the budget of an expense tracker
+ * Guarantees: details are present and not null, field values are validated, mutable.
+ * This class is used as a base class for all other budget types
+ */
 public class Budget {
     public static final String MESSAGE_BUDGET_CONSTRAINTS =
         "Cost should only take values in the following format: {int}.{digit}{digit}";
 
     public static final String BUDGET_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
 
-    protected static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    protected static final Logger LOGGER = LogsCenter.getLogger(StorageManager.class);
 
 
     protected double budgetCap;
