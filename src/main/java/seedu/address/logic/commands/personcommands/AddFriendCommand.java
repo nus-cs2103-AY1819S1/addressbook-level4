@@ -64,7 +64,8 @@ public class AddFriendCommand extends Command {
         Person person2Copy = new Person(person2);
         addFriendEachOther(person1Copy, person2Copy);
 
-        model.updatePerson(person1, person1Copy, person2, person2Copy);
+        model.updatePerson(person1, person1Copy);
+        model.updatePerson(person2, person2Copy);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
                 person2.getName()));

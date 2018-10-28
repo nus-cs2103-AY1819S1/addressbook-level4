@@ -174,13 +174,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
-        requireAllNonNull(target1, editedPerson1, target2, editedPerson2);
-        versionedAddressBook.updatePerson(target1, editedPerson1, target2, editedPerson2);
-        indicateAddressBookChanged();
-    }
-
     public Person getPerson(Index targetIndex) {
         return filteredPersons.get(targetIndex.getZeroBased());
     }

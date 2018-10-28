@@ -96,6 +96,8 @@ public class EditUserCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        updateFriendListsDueToEditedPerson(model, lastShownList, personToEdit, editedPerson);
+
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
@@ -124,6 +126,26 @@ public class EditUserCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedPassword, updatedAddress, updatedInterests,
                 updatedTags, updatedSchedule, updatedFriends);
+    }
+
+    /**
+     * After the current user's details are edited, this function will search through
+     * the user list, and updates the {@code Friend} attribute of the persons with this
+     * current user in their friend list
+     */
+    private void updateFriendListsDueToEditedPerson(Model model, List<Person> personList, Person originalPerson,
+                                                   Person updatedPerson) throws CommandException {
+        for (Person currentPerson : personList) {
+            if (currentPerson.hasFriendInList(originalPerson)) {
+                Person currentPersonCopy = new Person(currentPerson);
+                currentPersonCopy.deleteFriendInList(originalPerson);
+                currentPersonCopy.addFriendInList(updatedPerson);
+
+                model.updatePerson(currentPerson, currentPersonCopy);
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+                model.commitAddressBook();
+            }
+        }
     }
 
     @Override
