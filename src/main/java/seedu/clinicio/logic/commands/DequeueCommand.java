@@ -16,27 +16,27 @@ import seedu.clinicio.model.person.Person;
 
 
 /**
- * Enqueues a given patient (for consultation).
+ * Removes a given patient from the queue.
  */
-public class EnqueueCommand extends Command {
-    public static final String COMMAND_WORD = "enqueuepatient";
+public class DequeueCommand extends Command {
+    public static final String COMMAND_WORD = "dequeuepatient";
 
-    public static final String COMMAND_USAGE = COMMAND_WORD + ": Enqueues the selected patient "
+    public static final String COMMAND_USAGE = COMMAND_WORD + ": Removes (from the queue) the selected patient "
             + "by the index number used in the displayed person list. "
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_ENQUEUE_PATIENT_SUCCESS = "Patient %1$s successfully assigned to the queue. ";
+    public static final String MESSAGE_DEQUEUE_PATIENT_SUCCESS = "Patient %1$s successfully removed from the queue. ";
 
     public static final String MESSAGE_PERSON_NOT_PATIENT = "Person %1$s is not a patient. ";
 
-    public static final String MESSAGE_PATIENT_IS_CURRENTLY_QUEUING = "Patient %1$s is currently in the queue. ";
+    public static final String MESSAGE_PATIENT_IS_NOT_CURRENTLY_QUEUING = "Patient %1$s is not currently in the queue. ";
 
     private final Index index;
 
     /**
      * @param index The index of the patient as in the displayed patient list.
      */
-    public EnqueueCommand(Index index) {
+    public DequeueCommand(Index index) {
         requireNonNull(index);
         this.index = index;
     }
@@ -50,16 +50,16 @@ public class EnqueueCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person patientToEnqueue = lastShownList.get(index.getZeroBased());
+        Person patientToDequeue = lastShownList.get(index.getZeroBased());
 
-        if (!(patientToEnqueue instanceof Patient)) {
-            throw new CommandException(String.format(MESSAGE_PERSON_NOT_PATIENT, patientToEnqueue.getName()));
+        if (!(patientToDequeue instanceof Patient)) {
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_PATIENT, patientToDequeue.getName()));
         }
 
-        model.enqueue((Patient) patientToEnqueue);
+        model.dequeue((Patient) patientToDequeue);
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitClinicIo();
-        return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue.getName()));
+        return new CommandResult(String.format(MESSAGE_DEQUEUE_PATIENT_SUCCESS, patientToDequeue.getName()));
     }
 }

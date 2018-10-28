@@ -184,6 +184,13 @@ public interface Model {
     void enqueue(Patient patient) throws CommandException;
 
     /**
+     * Removes the given patient from the queue.
+     * @param patient
+     * @throws CommandException
+     */
+    void dequeue(Patient patient) throws CommandException;
+
+    /**
      * Enqueues the given patient into main queue.
      * @param patient
      */

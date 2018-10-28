@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.appointment.Appointment;
@@ -206,6 +207,25 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         patient.setIsQueuing();
+    }
+
+    @Override
+    public void dequeue(Patient patient) throws CommandException {
+        if (!patient.isQueuing()) {
+            throw new CommandException(String.format(DequeueCommand.MESSAGE_PATIENT_IS_NOT_CURRENTLY_QUEUING,
+                    patient.getName()));
+        }
+
+        // makes sure patient is not in both mainQueue and preferenceQueue.
+        assert(!(mainQueue.getList().contains(patient) && preferenceQueue.getList().contains(patient)));
+
+        if (mainQueue.getList().contains(patient)) {
+            mainQueue.getList().remove(patient);
+        } else if (preferenceQueue.getList().contains(patient)) {
+            preferenceQueue.getList().remove(patient);
+        }
+
+        patient.setIsNotQueuing();
     }
 
     /**

@@ -208,6 +208,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void dequeue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void enqueueIntoMainQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
