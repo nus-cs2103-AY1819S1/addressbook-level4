@@ -11,6 +11,7 @@ import seedu.clinicio.logic.commands.AveragesCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
@@ -99,6 +100,9 @@ public class ClinicIoParser {
 
         case EnqueueCommand.COMMAND_WORD:
             return new EnqueueCommandParser().parse(arguments);
+
+        case DequeueCommand.COMMAND_WORD:
+            return new DequeueCommandParser().parse(arguments);
 
         case ShowPatientInQueueCommand
                 .COMMAND_WORD:
