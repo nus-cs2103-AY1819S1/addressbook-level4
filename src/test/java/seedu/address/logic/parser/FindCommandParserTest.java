@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_COST_KEYWORDS_FORMAT;
 import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_DATE_KEYWORDS_FORMAT;
 import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_RANGE;
+import static seedu.address.logic.commands.FindCommand.MESSAGE_MULTIPLE_KEYWORDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -52,10 +53,16 @@ public class FindCommandParserTest {
         //invalid name keywords
         assertParseFailure(parser, " n/Have Lunch@KFC ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
+        assertParseFailure(parser, " n/school n/lunch",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_MULTIPLE_KEYWORDS));
 
         //invalid category keywords
         assertParseFailure(parser, " c/Lunch@KFC  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
+        assertParseFailure(parser, " c/school c/lunch",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_MULTIPLE_KEYWORDS));
 
         //invalid tag keywords
         assertParseFailure(parser, " t/Lunch@KFC  ",
@@ -70,6 +77,9 @@ public class FindCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_RANGE));
         assertParseFailure(parser, " $/1.00:2.00:3.00",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+        assertParseFailure(parser, " $/1.00:2.00 $/3.00",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_MULTIPLE_KEYWORDS));
 
         //invalid date keywords
         assertParseFailure(parser, " d/60-02-2019",
@@ -80,6 +90,9 @@ public class FindCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_RANGE));
         assertParseFailure(parser, " d/01-01-2018:02-02-2018:02-03-2018",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+        assertParseFailure(parser, " d/01-01-2018:03-01-2018 d/01-05-2018",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_MULTIPLE_KEYWORDS));
 
         //missing prefix or keywords
         assertParseFailure(parser, " n/ ",
