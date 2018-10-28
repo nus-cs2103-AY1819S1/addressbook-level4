@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.CrossRecipePanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 /**
  * Panel containing the list of cross recipes.

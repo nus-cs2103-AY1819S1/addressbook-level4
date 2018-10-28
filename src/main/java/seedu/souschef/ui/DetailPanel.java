@@ -17,7 +17,7 @@ import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 /**
  * An UI component that displays information of a {@code Recipe}.

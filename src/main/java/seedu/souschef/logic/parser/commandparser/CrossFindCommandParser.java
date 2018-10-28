@@ -14,7 +14,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 /**
  * Parses input arguments and creates a new CrossFindCommand object

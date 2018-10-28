@@ -5,7 +5,7 @@ import java.util.Map;
 
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 /**
  * Comparator class for Recipe which compares Recipe objects by Number of optional ingredients in it.

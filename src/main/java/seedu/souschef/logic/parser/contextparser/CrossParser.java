@@ -16,7 +16,7 @@ import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 /**
  * Parses user input.

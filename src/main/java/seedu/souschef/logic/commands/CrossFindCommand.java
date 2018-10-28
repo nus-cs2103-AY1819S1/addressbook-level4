@@ -14,7 +14,7 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.shop.CrossRecipe;
+import seedu.souschef.model.recipe.CrossRecipe;
 
 
 /**
@@ -23,7 +23,7 @@ import seedu.souschef.model.shop.CrossRecipe;
 public class CrossFindCommand extends Command {
     public static final String COMMAND_WORD = "recipe";
 
-    public static final String MESSAGE_USAGE = null;
+    public static final String MESSAGE_USAGE = "Usage to be added later";//
 
     private final Model<CrossRecipe> crossRecipeModel;
     private final CrossSortComparator comparator;
