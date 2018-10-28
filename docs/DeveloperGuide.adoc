@@ -473,6 +473,48 @@ Step 4. The filtered lessons is then converted into an arraylist of Slot before 
 
 // end:::timetable[]
 
+//tag::addFriend[]
+=== Add Friend feature
+
+==== Current implementation
+This section explains the implementation of the adding of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
+
+* `AddFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other
+
+The following sequence diagram for AddFriendCommand is illustrated below:
+
+image::TimeTableScheduleDiagram.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Bilateral friendships
+
+Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.
+
+To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.
+
+===== Aspect: Friend class
+
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string that combines the 4 main attributes of Person (name, phone, email, address), since these attributes act as the primary key for a Person. In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time addFriend command is called, a Friend object will be created and added into the set.
+
+===== Aspect: Friendships can only be added once
+
+Each person can only be added as a friend once by another person. Hence if two persons are already friends, calling the addFriend command for both these persons will trigger the warning that prevents each of their friend list from adding each other again.
+
+Also, once two persons are added as friends of each other, they remain as friends and the friendship cannot be deleted.
+
+===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
+
+The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).
+
+Person A gets deleted from the Event Organizer:
+This triggers the function which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), it will further trigger the function which removes person A (Friend object) from the friend list.
+
+Person A's attributes gets modified (eg change name/phone):
+This triggers the function which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), it will further trigger the function that creates a new Friend object with the new attributes and replace the original object in B's friend list.
+
+// end:::addFriend[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

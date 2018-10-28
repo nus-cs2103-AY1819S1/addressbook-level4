@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.tag.Tag;
 
@@ -91,9 +93,9 @@ public class Person {
         this.email = other.email;
         this.password = other.password;
         this.address = other.address;
-        this.interests = other.interests;
+        this.interests = new HashSet<>(other.interests);
+        this.tags = new HashSet<>(other.tags);
         this.schedule = other.schedule;
-        this.tags = other.tags;
         this.friends = new HashSet<>(other.friends);
     }
 
@@ -209,9 +211,14 @@ public class Person {
 
     /**
      * Adds a new person into the friends list.
+     * throws {@code CommandException} if the new person is already in the list
      */
-    public void addFriendInList(Person otherPerson) {
-        friends.add(new Friend(otherPerson));
+    public void addFriendInList(Person otherPerson) throws CommandException {
+        if (hasFriendInList(otherPerson)) {
+            throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
+        } else {
+            friends.add(new Friend(otherPerson));
+        }
     }
 
     /**
