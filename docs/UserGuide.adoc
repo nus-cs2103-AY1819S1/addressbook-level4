@@ -133,6 +133,23 @@ Returns `John Doe` whose email address is `John@example.com`
 * `find/e tim@exmple.Com` +
 Returns `Tim` whose email address is `tim@example.com`
 
+=== Locating persons by email address: `find/p`
+
+Finds a person through his/her phone number. +
+Format: `find/p PHONE_NUMBER`
+
+****
+* Only the phone number is searched.
+* Only full words will be matched. e.g. `123456` will not match `12345678`
+* Person matching the phone number will be returned.
+****
+
+Examples:
+
+* `find/p 98765432` +
+Returns `John Doe` whose phone number is `98765432`
+
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
