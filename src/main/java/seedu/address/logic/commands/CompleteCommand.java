@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -26,6 +27,9 @@ public class CompleteCommand extends Command {
     public static final String COMMAND_WORD = "complete";
     public static final String MESSAGE_SUCCESS = "Good job! Your points have changed by %1$d.\n"
             + "You have completed your task(s):\n%2$s";
+    public static final String MESSAGE_SUCCESS_WITH_LEVEL = "Congratulations you are now %1$s \n"
+            + "Your points have changed by %2$d.\n"
+            + "You have completed your task(s):\n%3$s";
     public static final String MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL = "There are no tasks to "
             + "be found via your given label";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task has already been completed";
@@ -67,6 +71,7 @@ public class CompleteCommand extends Command {
 
         // gets oldXp before updating tasks.
         int oldXp = model.getXpValue();
+        Level oldLevel = model.getLevel();
 
         if (isPredicateBasedBatchComplete) {
             completedTasksOutput = completeAllTasksReturnStringOfTasks(model);
@@ -79,12 +84,20 @@ public class CompleteCommand extends Command {
         // calculate change in xp to report to the user.
         int newXp = model.getXpValue();
         int changeInXp = newXp - oldXp;
+        Level newLevel = model.getLevel();
+
+        // Comparison with != operator is valid since Level is an enum.
+        boolean levelHasChanged = newLevel != oldLevel;
 
         // model related operations
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
+        if (levelHasChanged) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_LEVEL, newLevel, changeInXp, completedTasksOutput));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
+        }
     }
 
     /**
