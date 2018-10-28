@@ -30,7 +30,7 @@ MeetingBook is a desktop scheduler application targeted at university students i
 *** Reorganized files in the Model folder to increase consistency: https://github.com/CS2103-AY1819S1-W17-3/main/pull/107[#107]
 ** Documentation:
 *** Modified Readme.adoc: https://github.com/CS2103-AY1819S1-W17-3/main/pull/34[#34]
-*** Updated User Guide and Developer Guide
+*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/137[#137]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-3/main/pull/120[#120], https://github.com/CS2103-AY1819S1-W17-3/main/pull/126[#126], https://github.com/CS2103-AY1819S1-W17-3/main/pull/128[#128]
 
