@@ -6,36 +6,52 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GameManagerTest {
 
-    private GameManager flatGameManager;
+    private GameManager gm;
+
+    static class GameModeStub implements GameMode {
+
+        @Override
+        public int appraiseTaskXp(Task task) {
+            if (task.isCompleted()) {
+                return 50;
+            }
+
+            // If execution reaches here, the task has not been completed
+            return 0;
+        }
+    }
 
     @Before
     public void setUp() {
         // using flat mode as default for predictable behaviour
-        flatGameManager = new GameManager(new FlatMode());
+        gm = new GameManager(new GameModeStub());
     }
 
     @Test
     public void null_appraiseTaskXp() {
-        assertThrows(NullPointerException.class, () -> flatGameManager.appraiseTaskXp(null));
+        assertThrows(NullPointerException.class, () -> gm.appraiseTaskXp(null));
     }
 
     @Test
     public void null_forecastTaskXp() {
-        assertThrows(NullPointerException.class, () -> flatGameManager.forecastTaskXp(null));
+        assertThrows(NullPointerException.class, () -> gm.forecastTaskXp(null));
     }
 
     @Test
     public void appraiseTaskXp() {
         // check that method appraiseTaskXp is callable
         // checking of results is deferred to specific game modes
-        Task exampleTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
+        Task inProgressTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
+        Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
 
-        flatGameManager.appraiseTaskXp(exampleTask);
+        assertEquals(gm.appraiseTaskXp(inProgressTask), 0);
+        assertEquals(gm.appraiseTaskXp(completedTask), 50);
     }
 
     @Test
@@ -45,8 +61,8 @@ public class GameManagerTest {
         Task inProgressTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
         Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
 
-        int inProgressXp = flatGameManager.forecastTaskXp(inProgressTask);
-        int completedXp = flatGameManager.forecastTaskXp(completedTask);
+        int inProgressXp = gm.forecastTaskXp(inProgressTask);
+        int completedXp = gm.forecastTaskXp(completedTask);
 
         assertNotEquals(inProgressXp, completedXp);
 
