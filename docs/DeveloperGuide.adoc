@@ -582,6 +582,8 @@ To be updated.
 - An activity diagram (a _swimlane diagram_) showing how an alias of the `history` command would work is shown below: +
 
 image::HistoryCommandAliasActivityDiagram.png[width="500"]
+
+_Note: The above swimlane diagram is a simplified activity diagram which omits details of interactions with interfaces such as {repoURL}/src/main/java/seedu/scheduler/model/Model.java[`Model.java`] and/or other relevant classes._
 //end::commandAliasing[]
 
 
