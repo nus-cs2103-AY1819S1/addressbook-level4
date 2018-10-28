@@ -117,12 +117,12 @@ Format: `update <index> <tag> <value>`
 ==== Shutdown attraction: `shutdown`
 
 Closes the ride for the day. Display statistics for the ride on that day. +
-Format: `shutdown <attraction>`
+Format: `shutdown <index>`
 
 ==== Open attraction: `open`
 
 Opens the ride for the day. Display statistics for the ride on that day. +
-Format: `open <attraction>`
+Format: `open <index>`
 
 === User help and accessibility
 
