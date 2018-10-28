@@ -91,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(budgetMenuItem, KeyCombination.keyCombination("F2"));
     }
 
     /**
@@ -184,13 +185,29 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleBudget() {
+        if (!Optional.ofNullable(budgetWindow).isPresent()) {
+            budgetWindow = new BudgetWindow(logic, prefs, this);
+        }
+
+        if (!budgetWindow.isShowing()) {
+            budgetWindow.show(null);
+        } else {
+            budgetWindow.focus(null);
+        }
+    }
+
+    /**
      * Opens the budget window or focuses on it if it's already opened.
      * @param ccaName
      */
     @FXML
     public void handleBudget(CcaName ccaName) {
         if (!Optional.ofNullable(budgetWindow).isPresent()) {
-            budgetWindow = new BudgetWindow(logic, prefs);
+            budgetWindow = new BudgetWindow(logic, prefs, this);
         }
 
         if (!budgetWindow.isShowing()) {
@@ -202,6 +219,20 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Returns true if the help window is currently being shown.
+     */
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Focuses on the help window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
     }
 
     /**
