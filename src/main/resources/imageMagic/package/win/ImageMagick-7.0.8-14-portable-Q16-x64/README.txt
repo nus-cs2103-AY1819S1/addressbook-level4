@@ -6,7 +6,7 @@ Introduction to ImageMagick
   PDF, and SVG. Use ImageMagick to resize, flip, mirror, rotate, distort,
   shear and transform images, adjust image colors, apply various special
   effects, or draw text, lines, polygons, ellipses and Bézier curves.
-  
+
   The functionality of ImageMagick is typically utilized from the command
   line or you can use the features from programs written in your favorite
   language. Choose from these interfaces: G2F (Ada), MagickCore (C),
@@ -19,12 +19,12 @@ Introduction to ImageMagick
 
   ImageMagick utilizes multiple computational threads to increase performance
   and can read, process, or write mega-, giga-, or tera-pixel image sizes.
-  
+
   ImageMagick is free software delivered as a ready-to-run binary distribution
   or as source code that you may use, copy, modify, and distribute in both open
   and proprietary applications. It is distributed under a derived Apache 2.0
   license.
-  
+
   The ImageMagick development process ensures a stable API and ABI. Before
   each ImageMagick release, we perform a comprehensive security assessment
   that includes memory error and thread data race detection to prevent
@@ -42,9 +42,9 @@ Introduction to ImageMagick
 
 
 Features and Capabilities
-  
+
   Here are just a few examples of what ImageMagick can do:
-  
+
       * Format conversion: convert an image from one format to another (e.g.
         PNG to JPEG).
       * Transform: resize, rotate, deskew, crop, flip or trim an image.
@@ -54,7 +54,7 @@ Features and Capabilities
       * Special effects: blur, sharpen, threshold, or tint an image.
       * Animation: create a GIF animation sequence from a group of images.
       * Text & comments: insert descriptive or artistic text in an image.
-      * Image gradients: create a gradual blend of one color whose shape is 
+      * Image gradients: create a gradual blend of one color whose shape is
         horizontal, vertical, circular, or ellipical.
       * Image identification: describe the format and attributes of an image.
       * Composite: overlap one image over another.
@@ -98,7 +98,7 @@ Features and Capabilities
         other processors.
       * ImageMagick on the iPhone: convert, edit, or compose images on your
         iPhone or iPad.
-  
+
   Examples of ImageMagick Usage * https://imagemagick.org/Usage/
   shows how to use ImageMagick from the command-line to accomplish any
   of these tasks and much more. Also, see Fred's ImageMagick Scripts @
