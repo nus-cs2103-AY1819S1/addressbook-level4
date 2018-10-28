@@ -1,5 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_CAMP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_EXCURSION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_CAMP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_EXCURSION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_CAMP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_EXCURSION;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,11 +32,20 @@ public class TypicalEmails {
             .withTo("daniel@example.com").withSubject("Outing").withContent("We have an outing on Sunday").build();
 
     // Manually added
-    public static final Email EXCURSION_EMAIL = new DefaultEmailBuilder().withFrom("daniel@example.com")
-            .withTo("elle@example.com").withSubject("Excursion").withContent("We have an excursion on Monday").build();
+    public static final Email EXCURSION_EMAIL = new DefaultEmailBuilder().withFrom(VALID_EMAIL_EXCURSION)
+            .withTo(VALID_EMAIL_CAMP).withSubject(VALID_SUBJECT_EXCURSION)
+            .withContent(VALID_CONTENT_EXCURSION).build();
 
-    public static final Email EXCURSION_EMAIL_WITHOUT_TO = new DefaultEmailBuilder().withFrom("daniel@example.com")
-            .withTo("elle@example.com").withSubject("Excursion").withContent("We have an excursion on Monday")
+    public static final Email EXCURSION_EMAIL_WITHOUT_TO = new DefaultEmailBuilder().withFrom(VALID_EMAIL_EXCURSION)
+            .withTo(VALID_EMAIL_CAMP).withSubject(VALID_SUBJECT_EXCURSION).withContent(VALID_CONTENT_EXCURSION)
+            .buildWithoutTo();
+
+    public static final Email CAMP_EMAIL = new DefaultEmailBuilder().withFrom(VALID_EMAIL_CAMP)
+            .withTo(VALID_EMAIL_EXCURSION).withSubject(VALID_SUBJECT_CAMP)
+            .withContent(VALID_CONTENT_CAMP).build();
+
+    public static final Email CAMP_EMAIL_WITHOUT_TO = new DefaultEmailBuilder().withFrom(VALID_EMAIL_CAMP)
+            .withTo(VALID_EMAIL_EXCURSION).withSubject(VALID_SUBJECT_CAMP).withContent(VALID_CONTENT_CAMP)
             .buildWithoutTo();
 
     // prevents instantiation

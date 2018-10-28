@@ -30,6 +30,16 @@ public class DefaultEmailBuilder {
     }
 
     /**
+     * Initialises the DefaultEmailBuilder with the data of {@code emailToCopy}.
+     */
+    public DefaultEmailBuilder(org.simplejavamail.email.Email emailToCopy) {
+        from = new Email(emailToCopy.getFromRecipient().getAddress());
+        to = new Email(emailToCopy.getRecipients().get(0).getAddress());
+        subject = new Subject(emailToCopy.getSubject());
+        content = new Content(emailToCopy.getHTMLText());
+    }
+
+    /**
      * Sets the {@code Subject} of the {@code Email} that we are building.
      */
     public DefaultEmailBuilder withSubject(String subject) {

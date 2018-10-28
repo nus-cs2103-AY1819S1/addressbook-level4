@@ -126,11 +126,14 @@ public class ComposeEmailIndexCommandTest {
 
     @Test
     public void execute_duplicateEmail_throwsCommandException() throws Exception {
-        model.saveComposedEmail(EXCURSION_EMAIL);
-        ComposeEmailIndexCommand composeEmailIndexCommand = new ComposeEmailIndexCommand(EXCURSION_EMAIL, INDEX_SET);
+        Email emailToSave = new DefaultEmailBuilder(EXCURSION_EMAIL).buildWithoutTo();
+        Email emailToAddToModel = new DefaultEmailBuilder(EXCURSION_EMAIL).build();
+        model.saveComposedEmail(emailToAddToModel);
+        ComposeEmailIndexCommand composeEmailIndexCommand = new ComposeEmailIndexCommand(emailToSave,
+                INDEX_SET);
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(ComposeEmailIndexCommand.MESSAGE_DUPLICATE_EMAIL,
-                EXCURSION_EMAIL.getSubject()));
+                emailToAddToModel.getSubject()));
         composeEmailIndexCommand.execute(model, commandHistory);
     }
 
