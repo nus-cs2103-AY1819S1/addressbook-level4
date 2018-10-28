@@ -19,7 +19,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.WishComparator;
 import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
-import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
 

@@ -73,6 +73,6 @@ public class XmlSerializableWishBook {
             return false;
         }
         return wishes.equals(((XmlSerializableWishBook) other).wishes)
-                && xmlAdaptedSavedAmount.equals(((XmlSerializableWishBook)other).xmlAdaptedSavedAmount);
+                && xmlAdaptedSavedAmount.equals(((XmlSerializableWishBook) other).xmlAdaptedSavedAmount);
     }
 }

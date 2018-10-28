@@ -132,7 +132,8 @@ public class MoveCommand extends Command {
             checkWishFulfilled(fromWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(), fromWish.getUrl(),
+                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
+                        fromWish.getUrl(),
                         fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
                         fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
 
