@@ -204,7 +204,9 @@ public class MainWindow extends UiPart<Stage> {
         return calendarPanel;
     }
 
-    public TaskListPanel getTaskListPanel() { return taskListPanel; }
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
+    }
 
     // TODO remove method if not using browserPanel anymore
     void releaseResources() {

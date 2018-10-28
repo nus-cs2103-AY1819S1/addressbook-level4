@@ -86,6 +86,9 @@ public class DayMonthYearPanel extends UiPart<Region> {
         daysPanel.getChildren().add(fillerLabel);
     }
 
+    /**
+     * renderDayMonthPanel.
+     */
     private void renderDayMonthPanel(ObservableList<CalendarEvent> calendarEventList) {
         LocalDateTime startOfWeek = getStartOfWeek(calendarEventList);
         setFillerLabel();
@@ -93,6 +96,9 @@ public class DayMonthYearPanel extends UiPart<Region> {
         setDayLabelTexts(startOfWeek);
     }
 
+    /**
+     * formatDayLabel.
+     */
     private void formatDayLabel(Label dayLabel) {
         dayLabel.prefWidthProperty().bind(daysPanel.widthProperty().divide(DAY_LABEL_FRACTION));
         dayLabel.prefHeightProperty().bind(daysPanel.heightProperty());

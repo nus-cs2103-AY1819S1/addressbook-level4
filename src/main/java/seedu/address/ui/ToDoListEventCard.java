@@ -55,4 +55,5 @@ public class ToDoListEventCard extends UiPart<Region> {
         ToDoListEventCard card = (ToDoListEventCard) other;
         return id.getText().equals(card.id.getText())
                 && toDoListEvent.equals(card.toDoListEvent);
-    }}
+    }
+}

@@ -60,18 +60,18 @@ public class SampleDataUtil {
 
     public static ToDoListEvent[] getSampleToDoListEvents() {
         return new ToDoListEvent[]{
-                new ToDoListEvent(new Title("CS3230 Homework"), new Description("divide and conquer"),
-                    new Priority("M")),
-                new ToDoListEvent(new Title("CS3241 Lab4"), new Description("draw curve"),
-                    new Priority("H")),
-                new ToDoListEvent(new Title("JS1011 Homework"), new Description("watch Akira movie"),
-                    new Priority("L")),
-                new ToDoListEvent(new Title("CS2103 Project"), new Description("finish UI design"),
-                    new Priority("H")),
-                new ToDoListEvent(new Title("CS2106 Lab5"), new Description("final lab"),
-                    new Priority("M")),
-                new ToDoListEvent(new Title("Modify resume"), new Description("activities"),
-                    new Priority("L"))
+            new ToDoListEvent(new Title("CS3230 Homework"), new Description("divide and conquer"),
+                new Priority("M")),
+            new ToDoListEvent(new Title("CS3241 Lab4"), new Description("draw curve"),
+                new Priority("H")),
+            new ToDoListEvent(new Title("JS1011 Homework"), new Description("watch Akira movie"),
+                new Priority("L")),
+            new ToDoListEvent(new Title("CS2103 Project"), new Description("finish UI design"),
+                new Priority("H")),
+            new ToDoListEvent(new Title("CS2106 Lab5"), new Description("final lab"),
+                new Priority("M")),
+            new ToDoListEvent(new Title("Modify resume"), new Description("activities"),
+                new Priority("L"))
         };
     }
 

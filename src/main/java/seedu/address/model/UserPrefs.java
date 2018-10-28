@@ -40,7 +40,6 @@ public class UserPrefs {
     }
 
     public Path getToDoListFilePath() {
-        System.out.printf("file = %s\n",toDoListFilePath);
         return toDoListFilePath;
     }
 
