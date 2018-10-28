@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import javax.xml.bind.annotation.XmlValue;
 
-import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wish.SavedAmount;
 

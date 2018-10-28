@@ -29,19 +29,21 @@ public class MoveCommand extends Command {
             + "108.50";
 
     public static final String MESSAGE_MOVE_WISH_SUCCESS = "Moved %1$s from wish %2$s to wish %3$s.";
-    public static final String MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS = "Moved %1$s from unused funds to wish %2$s. " +
-            "Unused Funds now contains $%3$s.";
+    public static final String MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS = "Moved %1$s from unused funds to wish %2$s. "
+            + "Unused Funds now contains $%3$s.";
     public static final String MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS = "Moved %1$s from unused funds to wish %2$s, with"
             + " %3$s in excess. Unused Funds now contains $%4$s.";
-    public static final String MESSAGE_MOVE_TO_UNUSED_FUNDS_SUCCESS = "Moved %1$s from wish %2$s to unused funds. " +
-            "Unused Funds now contains $%3$s.";
-    public static final String MESSAGE_MOVE_EXCESS_TO_WISH = "Moved %1$s from wish %2$s to wish %3$s," +
-            " with %4$s in excess. Unused Funds now contains $%5$s.";
+    public static final String MESSAGE_MOVE_TO_UNUSED_FUNDS_SUCCESS = "Moved %1$s from wish %2$s to unused funds. "
+            + "Unused Funds now contains $%3$s.";
+    public static final String MESSAGE_MOVE_EXCESS_TO_WISH = "Moved %1$s from wish %2$s to wish %3$s,"
+            + " with %4$s in excess. Unused Funds now contains $%5$s.";
     public static final String MOVE_INVALID_SAME_INDEX = "Cannot move from and to the same index.";
     public static final String MOVE_INVALID_AMOUNT = "Amount to move must be greater than zero.";
 
-    /* Types of Move Commands */
-    public enum MoveType { WISH_FROM_UNUSED_FUNDS, WISH_TO_UNUSED_FUNDS, WISH_TO_WISH}
+    /**
+     * Represents the types of move commands.
+     */
+    public enum MoveType { WISH_FROM_UNUSED_FUNDS, WISH_TO_UNUSED_FUNDS, WISH_TO_WISH }
 
     private final Index fromIndex;
     private final Index toIndex;
@@ -123,9 +125,8 @@ public class MoveCommand extends Command {
             } catch (IllegalArgumentException iae) {
                 throw new CommandException(iae.getMessage());
             }
-        }
-        /* Transfer from wish to unused funds. */
-        else if (this.moveType.equals(MoveType.WISH_TO_UNUSED_FUNDS)) {
+        } else if (this.moveType.equals(MoveType.WISH_TO_UNUSED_FUNDS)) {
+            /* Transfer from wish to unused funds. */
             checkValidIndex(lastShownList, this.fromIndex);
             Wish fromWish = lastShownList.get(fromIndex.getZeroBased());
             checkWishFulfilled(fromWish);
@@ -145,9 +146,8 @@ public class MoveCommand extends Command {
             } catch (IllegalArgumentException iae) {
                 throw new CommandException(iae.getMessage());
             }
-        }
-        /* Transfer from wish to wish. */
-        else {
+        } else {
+            /* Transfer from wish to wish. */
             /* Cannot transfer from and to same index. */
             if (this.fromIndex.equals(this.toIndex)) {
                 throw new CommandException(MOVE_INVALID_SAME_INDEX);
@@ -163,7 +163,8 @@ public class MoveCommand extends Command {
             checkWishFulfilled(toWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(), fromWish.getUrl(),
+                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
+                        fromWish.getUrl(),
                         fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
                         fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
                 Wish editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),

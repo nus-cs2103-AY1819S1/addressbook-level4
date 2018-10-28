@@ -25,7 +25,8 @@ public class HistoryCommand extends Command {
             + ": Lists a history of savings that you have allocated, from newest to oldest.\n";
 
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
-    public static final String MESSAGE_SUCCESS_SAVE_COMMANDS = "Entered save commands (from most recent to earliest):\n%1$s";
+    public static final String MESSAGE_SUCCESS_SAVE_COMMANDS = "Entered save commands " +
+            "(from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
     public static final String MESSAGE_NO_SAVINGS_HISTORY = "You have not yet entered any save commands";
 

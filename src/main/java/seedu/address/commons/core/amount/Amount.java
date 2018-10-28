@@ -49,7 +49,9 @@ public class Amount {
         return new Amount(Double.toString(Math.abs(value)));
     }
 
-    public Amount getNegatedAmount() { return new Amount(Double.toString(-this.value)); }
+    public Amount getNegatedAmount() {
+        return new Amount(Double.toString(-this.value));
+    }
 
     @Override
     public String toString() {

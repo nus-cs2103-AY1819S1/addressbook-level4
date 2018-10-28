@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.amount.Amount;
-import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 
 /**
