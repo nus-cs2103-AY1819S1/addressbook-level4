@@ -1,8 +1,6 @@
 //@@author iamjackslayer
 package seedu.address.model.patientqueue;
 
-import java.util.Comparator;
-
 import seedu.address.model.person.Person;
 /**
  * Represents the "normal" patient queue in the clinic.
@@ -10,7 +8,7 @@ import seedu.address.model.person.Person;
  * the uniqueness is enforced by PatientList.
  * No two patients are identical after registration.
  */
-public class MainQueue extends PatientQueue<Person> implements Comparator<Person> {
+public class MainQueue extends PatientQueue<Person> {
     @Override
     public void add(Person person) {
         list.add(person);

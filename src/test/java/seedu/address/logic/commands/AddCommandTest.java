@@ -153,6 +153,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Person> getAllPatientsInQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author jjlee050
         @Override
         public ObservableList<Doctor> getFilteredDoctorList() {

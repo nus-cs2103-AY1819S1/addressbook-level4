@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShowPatientInQueueCommand;
 import seedu.address.logic.commands.TotalsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -100,6 +101,9 @@ public class AddressBookParser {
         case EnqueueCommand.COMMAND_WORD:
             return new EnqueueCommandParser().parse(arguments);
 
+        case ShowPatientInQueueCommand
+                .COMMAND_WORD:
+            return new ShowPatientInQueueCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
