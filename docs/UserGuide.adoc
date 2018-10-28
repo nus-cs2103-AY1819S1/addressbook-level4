@@ -230,6 +230,7 @@ Quick view information of the top 5 most frequented rides in the park. +
 Format: `quickview`
 # end::view[]
 
+// tag::filter[]
 === Filter the list of rides
 
 This section contains all commands related to filtering and finding rides.
@@ -259,6 +260,7 @@ Finds and displays the list of attractions in ThanePark with the name "accelerat
 
 * `find a/ street` +
 Finds and displays the list of attractions with addresses that contain the word "street".
+// end::filter[]
 
 == FAQ
 
