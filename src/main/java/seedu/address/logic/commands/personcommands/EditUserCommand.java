@@ -133,13 +133,13 @@ public class EditUserCommand extends Command {
      * the user list, and updates the {@code Friend} attribute of the persons with this
      * current user in their friend list
      */
-    private void updateFriendListsDueToEditedPerson(Model model, List<Person> personList, Person originalPerson,
-                                                   Person updatedPerson) throws CommandException {
+    private void updateFriendListsDueToEditedPerson(Model model, List<Person> personList, Person personToEdit,
+                                                   Person editedPerson) throws CommandException {
         for (Person currentPerson : personList) {
-            if (currentPerson.hasFriendInList(originalPerson)) {
+            if (currentPerson.hasFriendInList(personToEdit)) {
                 Person currentPersonCopy = new Person(currentPerson);
-                currentPersonCopy.deleteFriendInList(originalPerson);
-                currentPersonCopy.addFriendInList(updatedPerson);
+                currentPersonCopy.deleteFriendInList(personToEdit);
+                currentPersonCopy.addFriendInList(editedPerson);
 
                 model.updatePerson(currentPerson, currentPersonCopy);
                 model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
