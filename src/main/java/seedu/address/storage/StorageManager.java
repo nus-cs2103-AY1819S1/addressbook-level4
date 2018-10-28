@@ -18,6 +18,7 @@ import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
@@ -148,6 +149,24 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+
+    //@@author kengwoon
+    // ================ Export and Import methods =========================
+    @Override
+    @Subscribe
+    public void handleExportAddressBookEvent(ExportAddressBookEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Exporting address book data"));
+        try {
+            exportAddressBook(event.getAddressBook(), event.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException {
+        addressBookStorage.exportAddressBook(addressBook, path);
     }
 
     //@@author EatOrBeEaten
