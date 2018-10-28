@@ -75,7 +75,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo editing the last ride in the list -> last ride edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updatePerson(
+        model.updateRide(
                 getModel().getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased()), editedRide);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -86,7 +86,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a ride with new values same as another ride's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
+        assertTrue(getModel().getThanePark().getRideList().contains(BOB));
         index = INDEX_SECOND_RIDE;
         assertNotEquals(getModel().getFilteredRideList().get(index.getZeroBased()), BOB);
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
@@ -130,7 +130,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRideList().size();
+        int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
@@ -199,7 +199,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a ride with new values same as another ride's values -> rejected */
         executeCommand(RideUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
+        assertTrue(getModel().getThanePark().getRideList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredRideList().get(index.getZeroBased()).equals(BOB));
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
@@ -253,7 +253,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Ride editedRide,
             Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
-        expectedModel.updatePerson(expectedModel.getFilteredRideList().get(toEdit.getZeroBased()), editedRide);
+        expectedModel.updateRide(expectedModel.getFilteredRideList().get(toEdit.getZeroBased()), editedRide);
         expectedModel.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
 
         assertCommandSuccess(command, expectedModel,

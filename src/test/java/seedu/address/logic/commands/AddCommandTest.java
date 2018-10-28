@@ -89,7 +89,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Ride ride) {
+        public void addRide(Ride ride) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -99,22 +99,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyThanePark getAddressBook() {
+        public ReadOnlyThanePark getThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Ride target) {
+        public void deleteRide(Ride target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Ride target, Ride editedRide) {
+        public void updateRide(Ride target, Ride editedRide) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,27 +129,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitThanePark() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -166,7 +166,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             requireNonNull(ride);
             return this.ride.isSameRide(ride);
         }
@@ -179,24 +179,24 @@ public class AddCommandTest {
         final ArrayList<Ride> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             requireNonNull(ride);
             return personsAdded.stream().anyMatch(ride::isSameRide);
         }
 
         @Override
-        public void addPerson(Ride ride) {
+        public void addRide(Ride ride) {
             requireNonNull(ride);
             personsAdded.add(ride);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitThanePark() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyThanePark getAddressBook() {
+        public ReadOnlyThanePark getThanePark() {
             return new ThanePark();
         }
     }

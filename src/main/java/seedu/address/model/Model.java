@@ -16,31 +16,31 @@ public interface Model {
     void resetData(ReadOnlyThanePark newData);
 
     /** Returns the ThanePark */
-    ReadOnlyThanePark getAddressBook();
+    ReadOnlyThanePark getThanePark();
 
     /**
      * Returns true if a ride with the same identity as {@code ride} exists in the address book.
      */
-    boolean hasPerson(Ride ride);
+    boolean hasRide(Ride ride);
 
     /**
      * Deletes the given ride.
      * The ride must exist in the address book.
      */
-    void deletePerson(Ride target);
+    void deleteRide(Ride target);
 
     /**
      * Adds the given ride.
      * {@code ride} must not already exist in the address book.
      */
-    void addPerson(Ride ride);
+    void addRide(Ride ride);
 
     /**
      * Replaces the given ride {@code target} with {@code editedRide}.
      * {@code target} must exist in the address book.
      * The ride identity of {@code editedRide} must not be the same as another existing ride in the address book.
      */
-    void updatePerson(Ride target, Ride editedRide);
+    void updateRide(Ride target, Ride editedRide);
 
     /** Returns an unmodifiable view of the filtered ride list */
     ObservableList<Ride> getFilteredRideList();
@@ -54,25 +54,25 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoThanePark();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoThanePark();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undoThanePark();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoThanePark();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitThanePark();
 }

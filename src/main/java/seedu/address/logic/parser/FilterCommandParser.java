@@ -44,14 +44,14 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         List<AttributePredicate> predicates = new ArrayList<>();
         if (maintenanceStrings.isPresent()) {
             for (String s : maintenanceStrings.get()) {
-                Pair<Character, String> maintenanceCondition = getOperatorAndValues(s);
+                Pair<String, String> maintenanceCondition = getOperatorAndValues(s);
                 predicates.add(new AttributePredicate(maintenanceCondition.getKey(),
                         new Maintenance(maintenanceCondition.getValue())));
             }
         }
         if (waitingTimeStrings.isPresent()) {
             for (String s : waitingTimeStrings.get()) {
-                Pair<Character, String> waitingTimeConditions = getOperatorAndValues(s);
+                Pair<String, String> waitingTimeConditions = getOperatorAndValues(s);
                 predicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
                         new WaitTime(waitingTimeConditions.getValue())));
             }
@@ -63,11 +63,26 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Returns a Pair object with the operator and input value from the user input string.
      */
-    private Pair<Character, String> getOperatorAndValues(String string) {
+    private Pair<String, String> getOperatorAndValues(String string) {
         String predicateString = string.trim();
-        char operator = predicateString.charAt(0);
-        StringBuilder sb = new StringBuilder(predicateString);
-        String resultString = sb.deleteCharAt(0).toString().trim();
-        return new Pair<>(operator, resultString);
+        char[] array = predicateString.toCharArray();
+        String operator = "";
+        String value = "";
+        for (char c : array) {
+            if (c == ' ') {
+                continue;
+            }
+            if (isOperator(c)) {
+                operator = operator.concat(Character.toString(c));
+            }
+            if (Character.isDigit(c)) {
+                value = value.concat(Character.toString(c));
+            }
+        }
+        return new Pair<>(operator, value);
+    }
+
+    private boolean isOperator(char c) {
+        return c == '<' || c == '>' || c == '=';
     }
 }

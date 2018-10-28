@@ -373,10 +373,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+//tag::filter[]
 === Filter Feature
 ==== Current Implementation
 .Activity Diagram for the Filter Feature
 image::FilterActivityDiagram.png[width="800"]
+
+The following diagram will show how the filter diagram works: +
+
+.Sequence Diagram for the Filter Feature
+image::FilterSequenceDiagram.png[width="800"]
+
 The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
 `ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
 parse the arguments from the user input.
@@ -405,7 +412,7 @@ would be returned after each ride is tested with the predicate.
 AttributePredicate to test the attribute
 ** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
 ** Cons: Need to implement more classes to handle
-
+// end::filter[]
 
 // tag::autocompletesuggest[]
 === Autocomplete/Suggest feature

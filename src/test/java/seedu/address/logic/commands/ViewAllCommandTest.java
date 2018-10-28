@@ -25,7 +25,7 @@ public class ViewAllCommandTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalThanePark(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
     }
 
     @Test

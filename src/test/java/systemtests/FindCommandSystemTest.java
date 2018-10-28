@@ -85,7 +85,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same rides in thane park after deleting 1 of them -> 1 ride found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getRideList().contains(BIG));
+        assertFalse(getModel().getThanePark().getRideList().contains(BIG));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);

@@ -78,13 +78,13 @@ public class UpdateCommand extends Command {
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
         Ride editedRide = createUpdatedRide(rideToEdit, updateRideDescriptor);
 
-        if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
+        if (!rideToEdit.isSameRide(editedRide) && model.hasRide(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
-        model.updatePerson(rideToEdit, editedRide);
+        model.updateRide(rideToEdit, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
-        model.commitAddressBook();
+        model.commitThanePark();
         return new CommandResult(String.format(MESSAGE_UPDATE_RIDE_SUCCESS, editedRide));
     }
 

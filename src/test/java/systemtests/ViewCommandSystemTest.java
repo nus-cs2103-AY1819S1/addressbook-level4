@@ -60,7 +60,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRideList().size();
+        int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */

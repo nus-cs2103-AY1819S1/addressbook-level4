@@ -142,7 +142,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ViewAllCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getRideList().size(), getModel().getFilteredRideList().size());
+        assertEquals(getModel().getThanePark().getRideList().size(), getModel().getFilteredRideList().size());
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRideList().size() < getModel().getAddressBook().getRideList().size());
+        assertTrue(getModel().getFilteredRideList().size() < getModel().getThanePark().getRideList().size());
     }
 
     /**
@@ -166,7 +166,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getRideList().size());
+        assertEquals(0, getModel().getThanePark().getRideList().size());
     }
 
     /**
@@ -178,7 +178,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new ThanePark(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new ThanePark(expectedModel.getThanePark()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredRideList());
     }
 

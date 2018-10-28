@@ -30,9 +30,11 @@ public class FilterCommandParserTest {
     public void parse_validArgs_returnsFilterCommand() {
         List<AttributePredicate> predicates = new ArrayList<>();
 
+        final String leftShiftOperator = "<";
+        final String rightShiftOperator = ">";
         // Tests with 2 attributes of same type for waiting time
-        predicates.add(new AttributePredicate('<', new WaitTime("100")));
-        predicates.add(new AttributePredicate('>', new WaitTime("5")));
+        predicates.add(new AttributePredicate(leftShiftOperator, new WaitTime("100")));
+        predicates.add(new AttributePredicate(rightShiftOperator, new WaitTime("5")));
         FilterCommand expectedFilterCommand = new FilterCommand(new RideContainsConditionPredicate(predicates));
         String userInput = " " + PREFIX_WAITING_TIME + " < 100 " + PREFIX_WAITING_TIME + " > 5";
         assertParseSuccess(parser, userInput, expectedFilterCommand);
@@ -40,8 +42,8 @@ public class FilterCommandParserTest {
         predicates.clear();
 
         // Tests with Maintenance
-        predicates.add(new AttributePredicate('<', new Maintenance("100")));
-        predicates.add(new AttributePredicate('>', new Maintenance("5")));
+        predicates.add(new AttributePredicate(leftShiftOperator, new Maintenance("100")));
+        predicates.add(new AttributePredicate(rightShiftOperator, new Maintenance("5")));
         expectedFilterCommand = new FilterCommand(new RideContainsConditionPredicate(predicates));
         userInput = " " + PREFIX_MAINTENANCE + " < 100 " + PREFIX_MAINTENANCE + " > 5";
         assertParseSuccess(parser, userInput, expectedFilterCommand);
@@ -49,8 +51,8 @@ public class FilterCommandParserTest {
         predicates.clear();
 
         // Test with 2 different types
-        predicates.add(new AttributePredicate('<', new Maintenance("100")));
-        predicates.add(new AttributePredicate('>', new WaitTime("5")));
+        predicates.add(new AttributePredicate(leftShiftOperator, new Maintenance("100")));
+        predicates.add(new AttributePredicate(rightShiftOperator, new WaitTime("5")));
         expectedFilterCommand = new FilterCommand(new RideContainsConditionPredicate(predicates));
         userInput = " " + PREFIX_MAINTENANCE + " < 100 " + PREFIX_WAITING_TIME + " > 5";
         assertParseSuccess(parser, userInput, expectedFilterCommand);

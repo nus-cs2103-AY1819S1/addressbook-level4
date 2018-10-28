@@ -25,18 +25,18 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasRide(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ACCELERATOR));
+        assertFalse(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ACCELERATOR);
-        assertTrue(modelManager.hasPerson(ACCELERATOR));
+        modelManager.addRide(ACCELERATOR);
+        assertTrue(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test

@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code ThanePark} with sample data.
  */
 public class SampleDataUtil {
-    public static Ride[] getSamplePersons() {
+    public static Ride[] getSampleRides() {
         return new Ride[] {
             new Ride(new Name("Accelerator"), new Maintenance("87438807"), new WaitTime("1"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -40,9 +40,9 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyThanePark getSampleAddressBook() {
+    public static ReadOnlyThanePark getSampleThanePark() {
         ThanePark sampleAb = new ThanePark();
-        for (Ride sampleRide : getSamplePersons()) {
+        for (Ride sampleRide : getSampleRides()) {
             sampleAb.addRide(sampleRide);
         }
         return sampleAb;
