@@ -72,7 +72,9 @@ This section is designed to provide a list of features that are implemented/work
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ================
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Viewing help : `help`
 
 You can view ClinicIO tutorial. +
 Format: `help`
@@ -82,229 +84,7 @@ in a new window. +
 
 image::user-guide-help-window-after.png[width="500"]
 
-=== Login : `login`
-
-Log in to ClinicIO. +
-Format: `login r/ROLE n/NAME pass/PASSWORD` +
-
-****
-* Roles available to login: Doctor and Receptionist
-* The roles are in lowercase.
-* Password will be censored when you entered.
-* Password can only be 6 to 12 characters long.
-****
-
-Examples:
-
-* `login r/doctor n/Adam Bell pass/-------` +
-* `login r/receptionist n/Mary Jane pass/-------` +
-
-=== Adding a patient: `addpatient` `[coming in v2.0]`
-
-// tag::loginReceptionist[]
-[WARNING]
-You must login as an receptionist in order to use this feature. +
-// end::loginReceptionist[]
-
-Adds a patient to the clinic record. +
-Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
-
-[TIP]
-A patient can have any number of medical problems, medications, allergies (including 0) +
-
-[TIP]
-A patient does not need to choose a preferred doctor.
-
-Examples:
-
-* `addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
-* `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
-
-=== Listing all patients : `listpatient` `[coming in v2.0]`
-
-Shows a list of all patients in the clinic record. +
-Format: `listpatient`
-
-=== Editing a patient : `editpatient` `[coming in v2.0]`
-
-Edits an existing patient in the clinic record. +
-Format: `editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
-
-****
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing medical problems/medications/allergies/preferred doctor, the existing medical problems/medications/allergies/preferred doctor of the patient will be removed i.e adding of medical problems/medications/allergies/preferred doctor is not cumulative.
-* You can remove all the patient's medical problems by typing `medProb/` without specifying any medical problems after it.
-* You can remove all the patient's medications by typing `medList/` without specifying any medications after it.
-* You can remove all the patient's allergies by typing `allergies/` without specifying any allergies after it.
-* You can remove all the patient's preferred doctor by typing `preferredDoc/` without specifying any preferred doctor after it.
-****
-
-Examples:
-
-* `editpatient 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
-* `editpatient 2 n/Betsy Crower t/` +
-Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
-
-=== Locating patients by name: `findpatient` `[coming in v2.0]`
-
-Finds patients whose names contain any of the given keywords. +
-Format: `findpatient KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `findpatient John` +
-Returns `john` and `John Doe`
-* `findpatient Betsy Tim John` +
-Returns any patient having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a patient : `deletepatient` `[coming in v2.0]`
-
-Deletes the specified patient from the clinic record. +
-Format: `deletepatient INDEX`
-
-****
-* Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`deletepatient 2` +
-Deletes the 2nd patient in the clinic record.
-* `find Betsy` +
-`deletepatient 1` +
-Deletes the 1st patient in the results of the `find` command.
-
-=== Selecting a patient : `selectpatient` `[coming in v2.0]`
-
-Selects the patient identified by the index number used in the displayed patient list. +
-Format: `selectpatient INDEX`
-
-****
-* Selects the patient and loads the Google search page the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`selectpatient 2` +
-Selects the 2nd patient in the clinic record.
-* `find Betsy` +
-`selectpatient 1` +
-Selects the 1st patient in the results of the `find` command.
-
-=== Assign a patient into the queue : `enqueuepatient`
-
-Assigns the patient based on the index number used in the displayed patient list. +
-Format: `enqueuepatient INDEX`
-
-****
-* Assigns the patient into the queue (first in first out manner)
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-The command is typically used in combination with other commands. +
-Examples:
-
-* `list` +
-`enqueuepatient 7` +
-Selects the 7th patient in the displayed list of patients resulting from the `list` command and assigns the patient into the queue.
-
-* `find Logan` +
-`enqueuepatient 1` +
-Assigns the 1st patient in the displayed list of patients whose names contain *Logan* (case insensitive) resulting from the `find Logan` command and assigns the patient into the queue.
-
-=== Show all patients in the queue : `showqueue`
-
-Lists all patients in the queue.
-Format: `showqueue` +
-
-Example:
-
-* `showqueue`
-
-=== Removing a patient from the queue: `dequeuepatient INDEX`
-
-Pulls out the patient based on the index number used in the displayed patient list.
-
-Examples:
-
-* `dequeuepatient 9` +
-Removes the 9th patient in the ClinicIO record from the queue.
-
-The command can also be used in combination with other commands such as `list` and `find`.
-
-Examples:
-
-* `list` +
-`dequeuepatient 3` +
-Removes the 3rd patient in the displayed list of patients from the queue.
-
-* `find Cassandra` +
-`dequeue 1` +
-Selects the 1st Cassandra as displayed in the list resulting from the `find Cassandra` command and removes her from the queue.
-
-=== Adding a medicine: `add medicine`
-
-Adds a medicine to the medicine inventory +
-Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
-
-[TIP]
-A medicine can have any number of tags (including 0)
-
-Example:
-
-* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
-
-=== Finding a medicine by name: `find medicine`
-
-Find a medicine in the medicine inventory +
-Format: `find medicine MEDICINE_NAME`
-
-****
-* The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
-* Only the name is searched.
-* Only full words will be matched. e.g. `Ibu` will not match `Ibuprofen`
-* Medicine with the matching name will be returned.
-****
-
-Example:
-
-* `find ibuprofen` +
-Returns `Ibuprofen`
-
-=== Removing a medicine by name : `remove medicine`
-
-Removes the specified medicine from the medicine inventory. +
-Format: `remove medicine MEDICINE_NAME`
-
-****
-* The medicine name is case insensitive.
-* Medicine with the matching name will be removed.
-****
-
-Example:
-
-* `remove medicine Paracetemol` +
-Removes the Paracetemol entry from the medicine inventory.
-
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -314,8 +94,13 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+==== Clearing all entries : `clear`
+
+Clears all entries from the clinic record. +
+Format: `clear`
+
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the clinic record to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -341,7 +126,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `deletepatient 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -364,7 +149,310 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Adding appointments: `addappt`
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+// tag::authenticationcommands[]
+=== User Authentication Commands
+
+==== Login : `login`
+
+Log in to ClinicIO. +
+Format: `login r/ROLE n/NAME pass/PASSWORD` +
+
+****
+* Roles available to login: Doctor and Receptionist
+* The roles are in lowercase.
+* Password will be censored when you entered.
+* Password can only be 6 to 12 characters long.
+****
+
+Examples:
+
+* `login r/doctor n/Adam Bell pass/-------` +
+* `login r/receptionist n/Mary Jane pass/-------` +
+
+==== Log out of the program : `logout` `[coming in v2.0]`
+
+// tag::loginUser[]
+[WARNING]
+You must login in order to use this feature. +
+// end::loginUser[]
+
+Log out of the program. +
+Format: `logout`
+// end::authenticationcommands[]
+
+// tag::patientcommands[]
+=== Patient Management Commands
+
+==== Adding a patient: `addpatient` `[coming in v2.0]`
+
+// tag::loginReceptionist[]
+[WARNING]
+You must login as an receptionist in order to use this feature. +
+// end::loginReceptionist[]
+
+Adds a patient to the clinic record. +
+Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
+
+[TIP]
+A patient can have any number of medical problems, medications, allergies (including 0) +
+
+[TIP]
+A patient does not need to choose a preferred doctor.
+
+Examples:
+
+* `addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
+* `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
+
+==== Listing all patients : `listpatient` `[coming in v2.0]`
+
+Shows a list of all patients in the clinic record. +
+Format: `listpatient`
+
+==== Editing a patient : `editpatient` `[coming in v2.0]`
+
+Edits an existing patient in the clinic record. +
+Format: `editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
+
+****
+* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing medical problems/medications/allergies/preferred doctor, the existing medical problems/medications/allergies/preferred doctor of the patient will be removed i.e adding of medical problems/medications/allergies/preferred doctor is not cumulative.
+* You can remove all the patient's medical problems by typing `medProb/` without specifying any medical problems after it.
+* You can remove all the patient's medications by typing `medList/` without specifying any medications after it.
+* You can remove all the patient's allergies by typing `allergies/` without specifying any allergies after it.
+* You can remove all the patient's preferred doctor by typing `preferredDoc/` without specifying any preferred doctor after it.
+****
+
+Examples:
+
+* `editpatient 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
+* `editpatient 2 n/Betsy Crower t/` +
+Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+
+==== Locating patients by name: `findpatient` `[coming in v2.0]`
+
+Finds patients whose names contain any of the given keywords. +
+Format: `findpatient KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `findpatient John` +
+Returns `john` and `John Doe`
+* `findpatient Betsy Tim John` +
+Returns any patient having names `Betsy`, `Tim`, or `John`
+
+==== Deleting a patient : `deletepatient` `[coming in v2.0]`
+
+Deletes the specified patient from the clinic record. +
+Format: `deletepatient INDEX`
+
+****
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`deletepatient 2` +
+Deletes the 2nd patient in the clinic record.
+* `find Betsy` +
+`deletepatient 1` +
+Deletes the 1st patient in the results of the `find` command.
+
+==== Selecting a patient : `selectpatient` `[coming in v2.0]`
+
+Selects the patient identified by the index number used in the displayed patient list. +
+Format: `selectpatient INDEX`
+
+****
+* Selects the patient and loads the Google search page the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`selectpatient 2` +
+Selects the 2nd patient in the clinic record.
+* `find Betsy` +
+`selectpatient 1` +
+Selects the 1st patient in the results of the `find` command.
+// end::patientcommands[]
+
+// tag::queuecommands[]
+=== Queue Commands
+
+==== Assign a patient into the queue : `enqueuepatient`
+
+Assigns the patient based on the index number used in the displayed patient list. +
+Format: `enqueuepatient INDEX`
+
+****
+* Assigns the patient into the queue (first in first out manner)
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+The command is typically used in combination with other commands. +
+Examples:
+
+* `list` +
+`enqueuepatient 7` +
+Selects the 7th patient in the displayed list of patients resulting from the `list` command and assigns the patient into the queue.
+
+* `find Logan` +
+`enqueuepatient 1` +
+Assigns the 1st patient in the displayed list of patients whose names contain *Logan* (case insensitive) resulting from the `find Logan` command and assigns the patient into the queue.
+
+==== Show all patients in the queue : `showqueue`
+
+Lists all patients in the queue.
+Format: `showqueue` +
+
+Example:
+
+* `showqueue`
+
+==== Removing a patient from the queue: `dequeuepatient INDEX`
+
+Pulls out the patient based on the index number used in the displayed patient list.
+
+Examples:
+
+* `dequeuepatient 9` +
+Removes the 9th patient in the ClinicIO record from the queue.
+
+The command can also be used in combination with other commands such as `list` and `find`.
+
+Examples:
+
+* `list` +
+`dequeuepatient 3` +
+Removes the 3rd patient in the displayed list of patients from the queue.
+
+* `find Cassandra` +
+`dequeue 1` +
+Selects the 1st Cassandra as displayed in the list resulting from the `find Cassandra` command and removes her from the queue.
+// end::queuecommands[]
+
+// tag::datacommands[]
+=== Data Commands
+
+==== Displaying patient statistics : `patientstats`
+Displays the following information about patients:
+****
+* A summary of the number of patients over various time periods.
+* The number of patients segmented by each day of the week.
+* The number of patients segmented by different time periods within a day.
+****
+Format: `patientstats`
+
+==== Displaying appointment statistics : `appointmentstats`
+
+Displays the following information about appointments:
+****
+* A summary of the number of scheduled appointments over various time periods.
+* The availability of appointment slots as compared to the number of scheduled appointments.
+* The proportion of appointments that are follow-ups, as opposed to walk-in.
+****
+Format: `appointmentstats`
+
+==== Displaying doctor statistics : `doctorstats`
+
+Displays the following information about doctors:
+****
+* A summary of the average number of consultations per doctor over various time periods.
+* The number of patient preferences for each doctor.
+****
+Format: `doctorstats`
+
+==== Displaying medicine statistics : `medstats`
+
+Displays the following information about medicines:
+****
+* A summary of the quantity of medicines prescribed over various time periods.
+* The average spending on medicines per patient.
+* A breakdown of medicines by their quantity issued.
+****
+Format: `medstats`
+
+==== Exporting patient records : `export`
+
+Exports patient data. +
+Format: `exportpatient`
+// end::datacommands[]
+
+// tag::medicinecommands[]
+=== Medicine Inventory Commands
+
+==== Adding a medicine: `add medicine`
+
+Adds a medicine to the medicine inventory +
+Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
+
+[TIP]
+A medicine can have any number of tags (including 0)
+
+Example:
+
+* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
+
+==== Finding a medicine by name: `find medicine`
+
+Find a medicine in the medicine inventory +
+Format: `find medicine MEDICINE_NAME`
+
+****
+* The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
+* Only the name is searched.
+* Only full words will be matched. e.g. `Ibu` will not match `Ibuprofen`
+* Medicine with the matching name will be returned.
+****
+
+Example:
+
+* `find ibuprofen` +
+Returns `Ibuprofen`
+
+==== Removing a medicine by name : `remove medicine`
+
+Removes the specified medicine from the medicine inventory. +
+Format: `remove medicine MEDICINE_NAME`
+
+****
+* The medicine name is case insensitive.
+* Medicine with the matching name will be removed.
+****
+
+Example:
+
+* `remove medicine Paracetemol` +
+Removes the Paracetemol entry from the medicine inventory.
+// end::medicinecommands[]
+
+// tag::appointmentcommands[]
+=== Appointment Commands
+
+==== Adding appointments: `addappt`
 
 Adds an appointment to the appointment schedule. +
 Format: `addappt d/DATE tm/TIME id/PATIENTID` [TODO: PATIENTID] +
@@ -380,7 +468,7 @@ Adds appointment scheduled on 3 April 2018 at 4.45pm for patient 38920. +
 * `addappt d/12122013 tm/1300 id/100` +
 Adds appointment scheduled on 12 December 2013 at 1.00pm for patient 100. +
 
-=== Listing Appointments by Day: `listapptday`
+==== Listing Appointments by Day: `listapptday`
 
 Shows a list of all the appointments for the specified day. +
 Format: `listapptday d/DATE` +
@@ -393,7 +481,7 @@ Lists all appointments on 2 March 2017. +
 * `listapptday d/01012000` +
 Lists all appointments on 1 January 2000.
 
-=== Cancelling Appointments: `cancelappt`
+==== Cancelling Appointments: `cancelappt`
 
 Cancels an appointment from the appointment schedule. +
 Format: `cancelappt INDEX` +
@@ -414,81 +502,7 @@ Cancels the 1st appointment in the list.
 `cancelappt 4` +
 Cancels the 4th appointment in the list.
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the clinic record. +
-Format: `clear`
-
-=== Displaying patient statistics : `patientstats`
-
-Displays the following information about patients:
-****
-* A summary of the number of patients over various time periods.
-* The number of patients segmented by each day of the week.
-* The number of patients segmented by different time periods within a day.
-****
-
-Format: `patientstats`
-
-=== Displaying appointment statistics : `appointmentstats`
-
-Displays the following information about appointments:
-****
-* A summary of the number of scheduled appointments over various time periods.
-* The availability of appointment slots as compared to the number of scheduled appointments.
-* The proportion of appointments that are follow-ups, as opposed to walk-in.
-****
-Format: `appointmentstats`
-
-=== Displaying doctor statistics : `doctorstats`
-
-Displays the following information about doctors:
-****
-* A summary of the average number of consultations per doctor over various time periods.
-* The number of patient preferences for each doctor.
-****
-Format: `doctorstats`
-
-=== Displaying medicine statistics : `medstats`
-
-Displays the following information about medicines:
-****
-* A summary of the quantity of medicines prescribed over various time periods.
-* The average spending on medicines per patient.
-* A breakdown of medicines by their quantity issued.
-****
-Format: `medstats`
-
-=== Exporting patient records : `export`
-
-Exports patient data. +
-Format: `exportpatient`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-ClinicIO data is saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-=== Log out of the program : `logout` `[coming in v2.0]`
-
-// tag::loginUser[]
-[WARNING]
-You must login in order to use this feature. +
-// end::loginUser[]
-
-Log out of the program. +
-Format: `logout`
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+// end::appointmentcommands[]
 
 == FAQ
 
@@ -496,6 +510,10 @@ This section is designed to help you answer any issues that are frequently asked
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
+
+*Q*: How to save data in ClinicIO? +
+*A*: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
+
 
 == Command Summary
 
@@ -546,7 +564,8 @@ e.g. `dequeuepatient 4`
 * *Medicine Statistics* : `medstats`
 * *Export Patient Records* : `exportpatient`
 
-=== Medicine inventory Commands
+=== Medicine Inventory Commands
+
 * *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
 e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
 * *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
