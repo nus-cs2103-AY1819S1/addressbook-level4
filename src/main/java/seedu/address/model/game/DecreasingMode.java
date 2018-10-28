@@ -50,12 +50,13 @@ public class DecreasingMode extends GameMode {
      * Gives how early the completion date is relative to the due date, as a fraction of
      * to the interval supplied (in days). If completion date precedes the due date by
      * more than the interval, the fraction is capped at 1.
+     *
      * @param completed The completion date. Cannot be after due date.
-     * @param due The due date. Cannot be before completion date.
-     * @param days The interval (in days) to compare against.
+     * @param due       The due date. Cannot be before completion date.
+     * @param days      The interval (in days) to compare against.
      * @return How early the completion date is, as a fraction of the interval, capped at 1.
      */
-    public double interpolateDate (Date completed, Date due, int days) {
+    public double interpolateDate(Date completed, Date due, int days) {
         double earlyByMilliseconds = (due.getTime() - completed.getTime());
         double windowMilliseconds = days * 24 * 60 * 60 * 1000;
 
