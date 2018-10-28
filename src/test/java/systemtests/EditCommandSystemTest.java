@@ -3,52 +3,52 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.clinicio.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.clinicio.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.clinicio.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.clinicio.testutil.TypicalPersons.AMY;
+import static seedu.clinicio.testutil.TypicalPersons.BOB;
+import static seedu.clinicio.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.logic.commands.EditCommand;
+import seedu.clinicio.logic.commands.RedoCommand;
+import seedu.clinicio.logic.commands.UndoCommand;
+import seedu.clinicio.model.Model;
+import seedu.clinicio.model.person.Address;
+import seedu.clinicio.model.person.Email;
+import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.tag.Tag;
+import seedu.clinicio.testutil.PersonBuilder;
+import seedu.clinicio.testutil.PersonUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends ClinicIoSystemTest {
 
     @Test
     public void edit() {
@@ -83,7 +83,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getClinicIo().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
+        /* Case: filtered person list, edit index within bounds of ClinicIO and person list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
@@ -118,11 +118,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, edit index within bounds of ClinicIO but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getClinicIo().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -175,7 +175,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid clinicio -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
@@ -185,7 +185,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getClinicIo().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -197,7 +197,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
+        /**
+         *  Case: edit a person with new values same as another person's values
+         *  but with different clinicio -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
@@ -259,9 +262,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ClinicIoSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ClinicIoSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ClinicIoSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -284,8 +287,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ClinicIoSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ClinicIoSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
