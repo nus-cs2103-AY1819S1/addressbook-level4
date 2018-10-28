@@ -147,6 +147,8 @@ public interface Model {
 
     /**
      * Update the current displayed original image.
+     * @param img
+     * @param imgPath
      */
     void updateCurrentOriginalImage(Image img, Path imgPath);
 
