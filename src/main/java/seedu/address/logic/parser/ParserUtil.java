@@ -154,6 +154,9 @@ public class ParserUtil {
         String trimmedFileLocation = fileLocation.trim();
 
         if (!Picture.isValidPicture(trimmedFileLocation)) {
+            if (Picture.isValidPictureInDirectory(trimmedFileLocation)) {
+                return new Picture(Picture.getDirectoryPath(trimmedFileLocation));
+            }
             throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
         }
         return new Picture(trimmedFileLocation);

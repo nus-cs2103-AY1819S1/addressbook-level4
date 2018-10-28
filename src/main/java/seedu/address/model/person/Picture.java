@@ -47,6 +47,13 @@ public class Picture {
     }
 
     /**
+     * Returns the current directory concatenated with the given path.
+     */
+    public static String getDirectoryPath(String path) {
+        return System.getProperty("user.dir") + "/" + path;
+    }
+
+    /**
      * Returns true if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
@@ -55,6 +62,14 @@ public class Picture {
         }
         return ((test.matches(PICTURE_PATH_WIN_VALIDATION_REGEX) || test.matches(PICTURE_PATH_MAC_VALIDATION_REGEX))
             && Files.exists(Paths.get(test)));
+    }
+
+    /**
+     * Returns true if a given string is a valid picture in the current directory.
+     */
+    public static boolean isValidPictureInDirectory(String test) {
+        String directoryPath = getDirectoryPath(test);
+        return Files.exists(Paths.get(directoryPath));
     }
 
     @Override
