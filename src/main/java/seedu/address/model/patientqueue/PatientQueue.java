@@ -19,4 +19,8 @@ public abstract class PatientQueue<E> {
         return !list.isEmpty();
     }
 
+    public ArrayList<E> getList() {
+        return list;
+    }
+
 }
