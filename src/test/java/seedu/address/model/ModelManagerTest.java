@@ -157,6 +157,7 @@ public class ModelManagerTest {
         assertFalse(watson.hasGroup(game));
     }
 
+    // @@author NyxF4ll
     @Test
     public void setMeeting_groupExists_success() {
         modelManager.addGroup(GROUP_2101.copy());
@@ -196,6 +197,7 @@ public class ModelManagerTest {
         modelManager.addGroup(groupWithoutMeeting);
         modelManager.cancelMeeting(groupWithoutMeeting);
     }
+    // @@author
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
