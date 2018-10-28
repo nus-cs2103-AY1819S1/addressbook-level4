@@ -5,12 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.task.Repeat;
-import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.testutil.TaskBuilder;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
 
 public class AddRepeatCommandTest {
 
