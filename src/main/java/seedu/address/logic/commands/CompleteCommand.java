@@ -4,7 +4,11 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 /**
- * Completes command given by an {@code Index} or {@code Task<Predicate>}
+ * Completes command given with it's target identified by:
+ * 1.{@code Index} or
+ * 2.{@code Task<Predicate>}
+ *
+ * This abstract class can allow for more inputs depending on the implementations of the subclasses.
  */
 public abstract class CompleteCommand extends Command {
 
