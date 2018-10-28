@@ -76,6 +76,15 @@ public class UniqueTaskList implements Iterable<Task> {
 
         internalList.set(index, editedTask);
     }
+
+    /**
+     * When a task is edited, a similar task with a new hashcode is generated. Tasks that are dependant
+     * on the edited task should have their task dependency hashcode updated.
+     * @param taskToEdit task with dependency to be updated to that of the new hash
+     * @param oldHash old hash of task
+     * @param newHash new hash of task
+     * @return new task with dependency updated
+     */
     private Task createUpdatedHashReferenceTask(Task taskToEdit, String oldHash, String newHash) {
         return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
                 taskToEdit.getDescription(), taskToEdit.getLabels(), taskToEdit.getStatus(),
