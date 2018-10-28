@@ -214,7 +214,7 @@ public class Document {
         int numberOfDays = Integer.parseInt(this.mcDuration);
 
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("This is to cerdtify that the above-named is unfit for duty for a period of "
+        stringbuilder.append("This is to certify that the above-named is unfit for duty for a period of "
                 + numberOfDays + " day(s)"
                 + " from " + LocalDate.now().format(formatter) + " to " + LocalDate.now().plusDays(numberOfDays - 1).format(formatter)
                 + " inclusive.<br><br>")
