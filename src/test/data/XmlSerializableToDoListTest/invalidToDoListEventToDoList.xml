@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<toDoList>
+    <!--ToDoListEvent with invalid priority field -->
+    <toDoListEvents>
+        <title>CS2106 LAB4</title>
+        <description isPrivate="false">write mymalloc() and myfree()</description>
+        <priority isPrivate="false"></priority>
+    </toDoListEvents>
+</toDoList>

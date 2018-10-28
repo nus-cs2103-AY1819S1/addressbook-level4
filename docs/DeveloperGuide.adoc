@@ -11,6 +11,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:experimental:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
@@ -46,6 +47,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -239,6 +244,23 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::toDoList
+=== ToDoList  feature
+==== Current implementation
+
+The ToDoList mechanism is facilatated by 'ToDoList', which is a differrent but similar class form 'Schedule'.
+Inside the 'ToDoList', there are UnDuplicated 'ToDoListEvent' which include 'Title', 'Description' and 'Priority'.
+User can add events to ToDoList with 'Title', 'Description' and 'Priority'.
+The toDoList will display events in priority-decreassing order.
+Also, if click the completed event, it will be deleted from toDoList.
+
+Model for toDoList feature:
+* `Priority` -- Represents the priority of a todoList event.
+* `ToDoListEvent` -- The structure of single event in toDoList.
+* `TodoList` -- Wraps all data at the toDoList level. uplicates are not allowed.
+* `UniqueToDoEventList` -- A list of todoEvents that enforces uniqueness between its elements and does not allow nulls.
+* `ReadOnlyToDoList` -- Unmodifiable view of a ToDoList.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -319,6 +341,42 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Calendar Model
+==== Implementation
+
+The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
+
+`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the
+calendar, such as the title, description, start and end date/time, venue and tags.
+
+`DateTime` stores and validates the input start and end date/time of each event in the calendar.
+
+`DateTimeInfo` validates that the start date/time are not after the end date/time.
+
+`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
+New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
+
+Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
+
+Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
+
+Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
+
+Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
+
+Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
+
+Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the list of calendar events in the GUI.
+
+
+==== Design Considerations
+
+===== Aspect: GUI
+
+The calendar events are currently only fully visible via the console. Further enhancement would be needed to display the events in an appropriate Calendar GUI.
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -345,6 +403,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App title, logging level) through the configuration file (default: `config.json`).
+
+=== Calendar Navigation Feature
+==== Planned Implementation
+
+The navigation mechanism will be facilitated by `ModelManager#updateFilteredCalendarEventList`.
+
+Given below is an example usage scenario and how the navigation mechanism behaves at each step.
+
+Step 1. The user is viewing the events for one week.
+
+Step 2. The user executes `next week` to view the events in the following week. The command is parsed by `schedulerParser#parseCommand`, returning `ChangePeriodCommand`
+
+Step 3. `ChangePeriodCommand#executes` called with `EventIsInThisPeriodPredicate`.
+
+Step 4. `filteredCalendarEvents` is updated.
+
+Step 5. `CalendarPanel#filteredCalendarEventsListener` repopulates the calendar UI.
 
 == Documentation
 

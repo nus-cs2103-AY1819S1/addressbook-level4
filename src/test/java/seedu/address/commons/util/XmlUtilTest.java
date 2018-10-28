@@ -40,6 +40,8 @@ public class XmlUtilTest {
 
     private static final String VALID_TITLE = "Hans Muster";
     private static final String VALID_DESCRIPTION = "9482424";
+    private static final String VALID_START = "2018-10-16 14:00";
+    private static final String VALID_END = "2018-10-16 16:00";
     private static final String VALID_VENUE = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
@@ -81,7 +83,7 @@ public class XmlUtilTest {
         XmlAdaptedCalendarEvent actualCalendarEvent = XmlUtil.getDataFromFile(
             MISSING_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
         XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
-            null, VALID_DESCRIPTION, VALID_VENUE, VALID_TAGS);
+            null, VALID_DESCRIPTION, VALID_START, VALID_END, VALID_VENUE, VALID_TAGS);
         assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 
@@ -90,7 +92,7 @@ public class XmlUtilTest {
         XmlAdaptedCalendarEvent actualCalendarEvent =
             XmlUtil.getDataFromFile(INVALID_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
         XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
-            VALID_TITLE, INVALID_DESCRIPTION, VALID_VENUE, VALID_TAGS);
+            VALID_TITLE, INVALID_DESCRIPTION, VALID_START, VALID_END, VALID_VENUE, VALID_TAGS);
         assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 
@@ -99,7 +101,7 @@ public class XmlUtilTest {
         XmlAdaptedCalendarEvent actualCalendarEvent = XmlUtil.getDataFromFile(
             VALID_CALENDAR_EVENT_FILE, XmlAdaptedCalendarEventWithRootElement.class);
         XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
-            VALID_TITLE, VALID_DESCRIPTION, VALID_VENUE, VALID_TAGS);
+            VALID_TITLE, VALID_DESCRIPTION, VALID_START, VALID_END, VALID_VENUE, VALID_TAGS);
         assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 

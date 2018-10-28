@@ -21,15 +21,17 @@ public class CalendarEvent {
     // Data fields
     private final Description description;
     private final Venue venue;
+    private final DateTimeInfo dateTimeInfo;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public CalendarEvent(Title title, Description description, Venue venue, Set<Tag> tags) {
+    public CalendarEvent(Title title, Description description, DateTimeInfo dateTimeInfo, Venue venue, Set<Tag> tags) {
         requireAllNonNull(title, description, venue, tags);
         this.title = title;
         this.description = description;
+        this.dateTimeInfo = dateTimeInfo;
         this.venue = venue;
         this.tags.addAll(tags);
     }
@@ -40,6 +42,14 @@ public class CalendarEvent {
 
     public Description getDescription() {
         return description;
+    }
+
+    public DateTime getStart() {
+        return dateTimeInfo.start;
+    }
+
+    public DateTime getEnd() {
+        return dateTimeInfo.end;
     }
 
     public Venue getVenue() {
@@ -55,7 +65,7 @@ public class CalendarEvent {
     }
 
     /**
-     * Returns true if both calendar events of the same title have at least one other identity field that is the same.
+     * Returns true if both calendar events of the same title also have the same start and end times.
      * This defines a weaker notion of equality between two calendar events.
      */
     public boolean isSameCalendarEvent(CalendarEvent otherCalendarEvent) {
@@ -65,8 +75,8 @@ public class CalendarEvent {
 
         return otherCalendarEvent != null
             && otherCalendarEvent.getTitle().equals(getTitle())
-            && otherCalendarEvent.getDescription().equals(getDescription())
-            && otherCalendarEvent.getVenue().equals(getVenue());
+            && otherCalendarEvent.getStart().equals(getStart())
+            && otherCalendarEvent.getEnd().equals(getEnd());
     }
 
     /**
@@ -86,6 +96,8 @@ public class CalendarEvent {
         CalendarEvent otherCalendarEvent = (CalendarEvent) other;
         return otherCalendarEvent.getTitle().equals(getTitle())
             && otherCalendarEvent.getDescription().equals(getDescription())
+            && otherCalendarEvent.getStart().equals(getStart())
+            && otherCalendarEvent.getEnd().equals(getEnd())
             && otherCalendarEvent.getVenue().equals(getVenue())
             && otherCalendarEvent.getTags().equals(getTags());
     }
@@ -103,6 +115,10 @@ public class CalendarEvent {
             .append(getTitle())
             .append(" Description: ")
             .append(getDescription())
+            .append(" Start Date & Time: ")
+            .append(getStart())
+            .append(" End Date & Time: ")
+            .append(getEnd())
             .append(" Venue: ")
             .append(getVenue())
             .append(" Tags: ");

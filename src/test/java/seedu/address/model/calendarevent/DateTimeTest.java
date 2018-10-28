@@ -4,11 +4,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
 
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
+
 
 public class DateTimeTest {
 
@@ -19,13 +19,13 @@ public class DateTimeTest {
         int validDay = 1;
         int validHour = 1;
         int validMinute = 1;
-        LocalDateTime invalidDate = LocalDateTime.of(invalidYear, validMonth, validDay, validHour, validMinute);
-        Assert.assertThrows(DateTimeException.class, () -> new DateTime(invalidDate));
+        Assert.assertThrows(DateTimeException.class, () ->
+                        new DateTime(invalidYear, validMonth, validDay, validHour, validMinute));
     }
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new DateTime(null));
+        Assert.assertThrows(NullPointerException.class, () -> new DateTime((String) null));
     }
 
 

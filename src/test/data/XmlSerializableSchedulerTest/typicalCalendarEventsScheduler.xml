@@ -4,14 +4,16 @@
     <calendarEvents>
         <title>Alice Pauline</title>
         <description>94351253</description>
-        <email>alice@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>123, Jurong West Ave 6, #08-111</venue>
         <tagged>friends</tagged>
     </calendarEvents>
     <calendarEvents>
         <title>Benson Meier</title>
         <description>98765432</description>
-        <email>johnd@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>311, Clementi Ave 2, #02-25</venue>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
@@ -19,32 +21,37 @@
     <calendarEvents>
         <title>Carl Kurz</title>
         <description>95352563</description>
-        <email>heinz@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>wall street</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Daniel Meier</title>
         <description>87652533</description>
-        <email>cornelia@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>10th street</venue>
         <tagged>friends</tagged>
     </calendarEvents>
     <calendarEvents>
         <title>Elle Meyer</title>
         <description>9482224</description>
-        <email>werner@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>michegan ave</venue>
     </calendarEvents>
     <calendarEvents>
         <title>Fiona Kunz</title>
         <description>9482427</description>
-        <email>lydia@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>little tokyo</venue>
     </calendarEvents>
     <calendarEvents>
         <title>George Best</title>
         <description>9482442</description>
-        <email>anna@example.com</email>
+        <start>2018-10-16 14:00</start>
+        <end>2018-10-16 16:00</end>
         <venue>4th street</venue>
     </calendarEvents>
 </scheduler>

@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -31,6 +33,8 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TITLE + calendarEvent.getTitle().value + " ");
         sb.append(PREFIX_DESCRIPTION + calendarEvent.getDescription().value + " ");
+        sb.append(PREFIX_START + calendarEvent.getStart().toInputFormat() + " ");
+        sb.append(PREFIX_END + calendarEvent.getEnd().toInputFormat() + " ");
         sb.append(PREFIX_VENUE + calendarEvent.getVenue().value + " ");
         calendarEvent.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -45,6 +49,8 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getTitle().ifPresent(name -> sb.append(PREFIX_TITLE).append(name.value).append(" "));
         descriptor.getDescription().ifPresent(phone -> sb.append(PREFIX_DESCRIPTION).append(phone.value).append(" "));
+        descriptor.getStart().ifPresent(start -> sb.append(PREFIX_START).append(start.toInputFormat()).append(" "));
+        descriptor.getEnd().ifPresent(end -> sb.append(PREFIX_END).append(end.toInputFormat()).append(" "));
         descriptor.getVenue().ifPresent(address -> sb.append(PREFIX_VENUE).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

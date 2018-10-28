@@ -25,11 +25,15 @@ public class ParserUtilTest {
     private static final String INVALID_TITLE = " ";
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_LOCATION = " ";
+    private static final String INVALID_START_DATETIME = "2018-09-31 16:00";
+    private static final String INVALID_END_DATETIME = "0000-13-45 26:09";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_TITLE = "CS2103 Lecture";
     private static final String VALID_DESCRIPTION = "Abstraction, IntelliJ, Gradle";
     private static final String VALID_LOCATION = "i3-AUD";
+    private static final String VALID_START_DATETIME = "2018-10-16 14:00";
+    private static final String VALID_END_DATETIME = "2018-10-16 16:00";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 

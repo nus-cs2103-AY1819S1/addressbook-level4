@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.CalendarEventCardHandle;
-import guitests.guihandles.CalendarEventListPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
@@ -38,33 +39,33 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents}
+     * Asserts that the list in {@code calendarPanelHandle} displays the details of {@code calendarEvents}
      * correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle,
+    public static void assertListMatching(CalendarPanelHandle calendarPanelHandle,
                                           CalendarEvent... calendarEvents) {
         for (int i = 0; i < calendarEvents.length; i++) {
-            calendarEventListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(calendarEvents[i], calendarEventListPanelHandle.getPersonCardHandle(i));
+            calendarPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(calendarEvents[i], calendarPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents}
+     * Asserts that the list in {@code calendarPanelHandle} displays the details of {@code calendarEvents}
      * correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle,
+    public static void assertListMatching(CalendarPanelHandle calendarPanelHandle,
                                           List<CalendarEvent> calendarEvents) {
-        assertListMatching(calendarEventListPanelHandle, calendarEvents.toArray(new CalendarEvent[0]));
+        assertListMatching(calendarPanelHandle, calendarEvents.toArray(new CalendarEvent[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code calendarEventListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code calendarPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(CalendarEventListPanelHandle calendarEventListPanelHandle, int size) {
-        int numberOfPeople = calendarEventListPanelHandle.getListSize();
+    public static void assertListSize(CalendarPanelHandle calendarPanelHandle, int size) {
+        int numberOfPeople = calendarPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

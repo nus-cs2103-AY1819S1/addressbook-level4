@@ -3,15 +3,25 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.END_DESC_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.END_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_END_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TITLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.START_DESC_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.START_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_LECTURE;
@@ -31,6 +41,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
+import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
@@ -76,8 +87,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS); // invalid title
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid
-        // description
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
+                                            Description.MESSAGE_CONSTRAINTS); // invalid description
+        assertParseFailure(parser, "1" + INVALID_START_DESC,
+                                            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid start
+        assertParseFailure(parser, "1" + INVALID_END_DESC,
+                                            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid end
         assertParseFailure(parser, "1" + INVALID_VENUE_DESC, Venue.MESSAGE_CONSTRAINTS); // invalid venue
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
@@ -102,10 +117,11 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_LECTURE + TAG_DESC_HUSBAND
-            + VENUE_DESC_LECTURE + TITLE_DESC_LECTURE + TAG_DESC_FRIEND;
+            + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TITLE_DESC_LECTURE + TAG_DESC_FRIEND;
 
         EditCalendarEventDescriptor descriptor = new EditPersonDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
-            .withDescription(VALID_DESCRIPTION_LECTURE).withVenue(VALID_VENUE_LECTURE)
+            .withDescription(VALID_DESCRIPTION_LECTURE).withStart(VALID_START_DATETIME_LECTURE)
+            .withEnd(VALID_END_DATETIME_LECTURE).withVenue(VALID_VENUE_LECTURE)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -141,6 +157,18 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // start date/time
+        userInput = targetIndex.getOneBased() + START_DESC_LECTURE;
+        descriptor = new EditPersonDescriptorBuilder().withStart(VALID_START_DATETIME_LECTURE).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // end date/time
+        userInput = targetIndex.getOneBased() + END_DESC_LECTURE;
+        descriptor = new EditPersonDescriptorBuilder().withEnd(VALID_END_DATETIME_LECTURE).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // venue
         userInput = targetIndex.getOneBased() + VENUE_DESC_LECTURE;
         descriptor = new EditPersonDescriptorBuilder().withVenue(VALID_VENUE_LECTURE).build();
@@ -158,11 +186,13 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
-            + TAG_DESC_FRIEND + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND
-            + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND;
+            + TAG_DESC_FRIEND + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
+            + VENUE_DESC_LECTURE + START_DESC_TUTORIAL + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
+            + TAG_DESC_HUSBAND + END_DESC_TUTORIAL;
 
         EditCalendarEventDescriptor descriptor =
             new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
+            .withStart(VALID_START_DATETIME_TUTORIAL).withEnd(VALID_END_DATETIME_TUTORIAL)
             .withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
             .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

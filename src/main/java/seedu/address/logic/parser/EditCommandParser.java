@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -32,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION, PREFIX_VENUE, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION,
+                                        PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_TAG);
 
         Index index;
 
@@ -49,6 +52,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editCalendarEventDescriptor.setDescription(ParserUtil
                 .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_START).isPresent()) {
+            editCalendarEventDescriptor.setStart(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START)
+                .get()));
+        }
+        if (argMultimap.getValue(PREFIX_END).isPresent()) {
+            editCalendarEventDescriptor.setEnd(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END)
+                .get()));
         }
         if (argMultimap.getValue(PREFIX_VENUE).isPresent()) {
             editCalendarEventDescriptor.setVenue(ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE)
