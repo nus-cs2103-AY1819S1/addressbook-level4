@@ -30,9 +30,9 @@
 
   Specifying only one table in this xml file has two effects when used with
   the ImageMagick option
-
+  
     -define jpeg:q-table=PATH/TO/THIS/FILE
-
+  
   1) This quantization table is automatically used for all three channels;
 
   2) Only one copy is embedded in the JPG file, which saves a few bits

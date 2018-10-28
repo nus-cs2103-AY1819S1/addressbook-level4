@@ -23,9 +23,9 @@ entire sequence of code that processes one image (including
 instantiating the image object), you can minimize the overhead of
 error checking while ensuring that all objects created to deal with
 that object are safely destroyed (C++ exceptions unroll the stack
-until the enclosing try block, destroying any created objects).
+until the enclosing try block, destroying any created objects). 
 </p>
-<p>The pseudo code for the main loop of your program may look like:
+<p>The pseudo code for the main loop of your program may look like: 
 </p>
 <div class="viewport">
 using namespace std;
@@ -35,7 +35,7 @@ for infile in list
     // Construct an image instance first so that we don't have to worry
     // about object construction failure due to a minor warning exception
     // being thrown.
-    Magick::Image image;
+    Magick::Image image; 
     try {
       // Try reading image file
       image.read(infile);
@@ -54,8 +54,8 @@ for infile in list
       // Handle any other Magick++ warning.
       cerr &lt;&lt; "Warning: " &lt;&lt; warning.what() &lt;&lt; endl;
     }
-    catch( Magick::ErrorFileOpen &amp;error )
-    {
+    catch( Magick::ErrorFileOpen &amp;error ) 
+    { 
       // Process Magick++ file open error
       cerr &lt;&lt; "Error: " &lt;&lt; error.what() &lt;&lt; endl;
       continue; // Try next image.
@@ -70,13 +70,13 @@ for infile in list
        cerr &lt;&lt; "Caught Magick++ exception: " &lt;&lt; error.what() &lt;&lt; endl;
     }
   }
-  catch( std::exception &amp; error )
-  {
+  catch( std::exception &amp; error ) 
+  { 
      // Process any other exceptions derived from standard C++ exception
      cerr &lt;&lt; "Caught C++ STD exception: " &lt;&lt; error.what() &lt;&lt; endl;
-  }
-  catch( ... )
-  {
+  } 
+  catch( ... ) 
+  { 
     // Process *any* exception (last-ditch effort). There is not a lot
     // you can do here other to retry the operation that failed, or exit
   }
@@ -89,12 +89,12 @@ programs may use just one try/catch block.</p>
 exception class. This means that it contains a C++ string containing
 additional information about the error (e.g to display to the user).
 Obtain access to this string via the what() method.&#160; For
-example:
+example: 
 </p>
 <pre class="code">
-catch( Exception &amp; error_ )
-    {
-      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl;
+catch( Exception &amp; error_ ) 
+    { 
+      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl; 
     }
 </pre>
 <p>The classes <i>Warning</i> and <i>Error</i> derive from the
@@ -106,10 +106,10 @@ exception may be ignored by catching it immediately, processing it
 (e.g. printing a diagnostic) and continuing on. Exceptions derived
 from <i>Error</i> are thrown to represent fatal errors that can not
 produce a valid result (e.g. attempting to read a file which does not
-exist).
+exist). 
 </p>
 <p style="margin-bottom: 0in">The specific derived exception classes
-are shown in the following tables:
+are shown in the following tables: 
 </p>
 <p align="center" style="margin-bottom: 0in"><b>Warning Sub-Classes</b></p>
 <ul><table width="100%" border="1" cellpadding="2" cellspacing="3">

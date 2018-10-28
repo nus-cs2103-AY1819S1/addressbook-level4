@@ -137,7 +137,7 @@ TD.indexvalue {
 	border: 1px solid #CCCCCC;
 }
 TR.memlist {
-   background-color: #f0f0f0;
+   background-color: #f0f0f0; 
 }
 P.formulaDsp { text-align: center; }
 IMG.formulaDsp { }
@@ -300,8 +300,8 @@ HR { height: 1px;
   color: #606060;
   font-weight: normal;
   margin-left: 3px;
-}
-.memnav {
+} 
+.memnav { 
   background-color: #e8eef2;
   border: 1px solid #84b0c7;
   text-align: center;
