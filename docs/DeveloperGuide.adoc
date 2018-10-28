@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
-By: `Team CS2103T-AY1819S1-W17-3`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team CS2103T-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -1256,7 +1256,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Flashbook` and the *Actor* is the `student`, unless specified otherwise)
+(For all use cases below, the *System* is the `MeetingBook` and the *Actor* is the `student`, unless specified otherwise)
 
 [discrete]
 === Use case: Add task
@@ -1264,8 +1264,8 @@ _{More to be added}_
 *MSS*
 
 1.  Student enters add command with relevant parameters such as name, description, deadline of the tasks.
-2.  Flashbook updates the task list.
-3.  Flashbook informs the student that the task has been successfully added, and refreshes the main page to reflect the newly updated task list.
+2.  MeetingBook updates the task list.
+3.  MeetingBook informs the student that the task has been successfully added, and refreshes the main page to reflect the newly updated task list.
 +
 Use case ends.
 
@@ -1274,7 +1274,7 @@ Use case ends.
 [none]
 * 2a. Student enters invalid parameter.
 [none]
-** 2a1. Flashbook informs the student that he/she has entered invalid parameters.
+** 2a1. MeetingBook informs the student that he/she has entered invalid parameters.
 +
 Use case ends.
 
@@ -1284,7 +1284,7 @@ Use case ends.
 *MSS*
 
 1.  Student enters command and keyword of task on command field.
-2.  Flashbook returns a list of tasks that matches the keyword.
+2.  MeetingBook returns a list of tasks that matches the keyword.
 +
 Use case ends.
 
@@ -1293,7 +1293,7 @@ Use case ends.
 [none]
 * 2a. Student enters keyword that does not exist in the database.
 [none]
-** 2a1. Flashbook informs the student that there are no tasks that match the keyword entered.
+** 2a1. MeetingBook informs the student that there are no tasks that match the keyword entered.
 +
 Use case ends.
 
@@ -1303,8 +1303,8 @@ Use case ends.
 *MSS*
 
 1.  Student enters command and the task to check as done on command field.
-2.  Flashbook returns a feedback to inform student that the task has been marked as done successfully.
-3.  Flashbook updates the task list to remove the task that is marked as done.
+2.  MeetingBook returns a feedback to inform student that the task has been marked as done successfully.
+3.  MeetingBook updates the task list to remove the task that is marked as done.
 +
 Use case ends.
 
@@ -1327,8 +1327,8 @@ Use case ends.
 *MSS*
 
 1.  Student enters command and the task with relevant fields that he/she wishes to edit.
-2.  Flashbook returns a feedback to inform user that the task has been successfully edited.
-3.  Flashbook updates the task list with updated information.
+2.  MeetingBook returns a feedback to inform user that the task has been successfully edited.
+3.  MeetingBook updates the task list with updated information.
 +
 Use case ends.
 
@@ -1353,8 +1353,8 @@ Use case ends.
 *MSS*
 
 1.  Student enters command to add task with an additional parameter [parent task] and press enter.
-2.  Flashbook returns feedback to inform user that the task has been added and attached to parent task.
-3.  Flashbook updates the task list with newly added task.
+2.  MeetingBook returns feedback to inform user that the task has been added and attached to parent task.
+3.  MeetingBook updates the task list with newly added task.
 +
 Use case ends.
 
@@ -1379,8 +1379,8 @@ Use case ends.
 *MSS*
 
 1.  Student enters command to create a new category with a [module code] parameter.
-2.  Flashbook creates the category.
-3.  Flashbook feedbacks that the category had been successfully created.
+2.  MeetingBook creates the category.
+3.  MeetingBook feedbacks that the category had been successfully created.
 +
 Use case ends.
 
@@ -1389,7 +1389,7 @@ Use case ends.
 [none]
 * 1a. Student enters category that already exists.
 [none]
-** 1a1.  Flashbook informs the student that the category already exists.
+** 1a1.  MeetingBook informs the student that the category already exists.
 +
 Use case ends.
 
@@ -1400,8 +1400,8 @@ Use case ends.
 
 1.  Student copies out the storage file from the exporting machine.
 2.  Student pastes the storage file on the importing machine.
-3.  Student starts the Flashbook.
-4.  Flashbook scans and imports the data.
+3.  Student starts the MeetingBook.
+4.  MeetingBook scans and imports the data.
 +
 Use case ends.
 
@@ -1410,7 +1410,7 @@ Use case ends.
 [none]
 * 4a. The storage file is invalid / corrupted.
 [none]
-** 4a1. Flashbook will show an error telling the student that the file is corrupted.
+** 4a1. MeetingBook will show an error telling the student that the file is corrupted.
 +
 Use case ends.
 
@@ -1430,7 +1430,7 @@ Use case ends.
 
 1.  Student types part of the command on command field.
 2.  Student uses tab to scroll through available commands.
-3.  Flashbook updates the command field with the highlighted command from the suggestion list.
+3.  MeetingBook updates the command field with the highlighted command from the suggestion list.
 +
 Use case ends.
 
