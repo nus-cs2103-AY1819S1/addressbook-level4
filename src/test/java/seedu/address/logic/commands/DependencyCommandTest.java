@@ -100,7 +100,7 @@ public class DependencyCommandTest {
         expectedModel.updateTask(dependantTask, newTask);
         expectedModel.commitTaskManager();
         // add dependency
-        dependencyCommand.execute(model, commandHistory);
+        dependencyCommand.executePrimitive(model, commandHistory);
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks
         expectedModel.undoTaskManager();
@@ -140,7 +140,7 @@ public class DependencyCommandTest {
         expectedModel.commitTaskManager();
         // dependency -> dependency for second task in unfiltered task list / first task in filtered task
         // list
-        dependencyCommand.execute(model, commandHistory);
+        dependencyCommand.executePrimitive(model, commandHistory);
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);

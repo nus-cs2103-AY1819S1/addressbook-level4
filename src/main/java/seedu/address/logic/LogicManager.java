@@ -34,9 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = taskManagerParser.parseCommand(commandText);
-            CommandResult result = command.execute(model, history);
-            model.checkOverdue();
-            return result;
+            return command.execute(model, history);
         } finally {
             history.add(commandText);
         }

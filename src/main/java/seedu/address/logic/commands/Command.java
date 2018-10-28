@@ -10,6 +10,15 @@ import seedu.address.model.Model;
 public abstract class Command {
 
     /**
+     * Execution primitive that is used
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public abstract CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException;
+    /**
      * Executes the command and returns the result message.
      *
      * @param model   {@code Model} which the command should operate on.
@@ -17,6 +26,9 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
+    public final CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        model.checkOverdue();
+        return executePrimitive(model, history);
+    }
 
 }

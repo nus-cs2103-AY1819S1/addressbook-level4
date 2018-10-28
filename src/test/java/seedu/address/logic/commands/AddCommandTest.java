@@ -42,7 +42,7 @@ public class AddCommandTest {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
         Task validTask = new TaskBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validTask).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validTask).executePrimitive(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
@@ -57,7 +57,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_EXPIRED_TASK);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.executePrimitive(modelStub, commandHistory);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.executePrimitive(modelStub, commandHistory);
     }
 
     @Test
@@ -218,7 +218,7 @@ public class AddCommandTest {
 
         @Override
         public void commitTaskManager() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddCommand#executePrimitive()}
         }
 
         @Override

@@ -141,7 +141,7 @@ public class CompleteCommandTest {
         expectedModel.commitTaskManager();
 
         // complete -> first task completed
-        completeCommand.execute(model, commandHistory);
+        completeCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks
@@ -186,7 +186,7 @@ public class CompleteCommandTest {
 
         // completes -> completes second task in unfiltered task list / first task in filtered task
         // list
-        completeCommand.execute(model, commandHistory);
+        completeCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
@@ -209,7 +209,7 @@ public class CompleteCommandTest {
         expectedModel = modelStringPair.getKey();
 
         // complete -> first task completed
-        completeCommand.execute(model, commandHistory);
+        completeCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks

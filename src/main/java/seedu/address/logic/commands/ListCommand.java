@@ -56,7 +56,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult executePrimitive(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTaskList(this.predicate);
         return model.getFilteredTaskList().size() == model.getTaskManager().getTaskList().size()
