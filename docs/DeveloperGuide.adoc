@@ -310,7 +310,7 @@ change many parts to add this additional feature. It also makes sense, because a
 // tag::schedule[]
 === Schedule feature
 ==== Current Implementation
-The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
+The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to InsuRen entries, since each `Person` can have up to one `Meeting`.
 Additionally, it implements the following operations:
 
 * `ScheduleCommand#createScheduledPerson(Person personToSchedule, Meeting meeting)` - Returns a `Person` object that has a meeting scheduled according to `meeting`.
@@ -740,7 +740,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, InsuRen depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -805,7 +805,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your InsuRen application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
