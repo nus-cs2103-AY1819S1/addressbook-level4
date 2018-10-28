@@ -36,6 +36,8 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEmailCommand;
+import seedu.address.logic.commands.FindPhoneCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
@@ -151,6 +153,22 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    }
+
+    /**
+     * Displays the person with email matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsWithEmail(String keyword) {
+        executeCommand(FindEmailCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    }
+
+    /**
+     * Displays the person with phone number matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsWithPhone(String keyword) {
+        executeCommand(FindPhoneCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
