@@ -1,13 +1,15 @@
 package seedu.address.model.game;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GameManagerTest {
 
@@ -17,13 +19,6 @@ public class GameManagerTest {
 
         @Override
         public int appraiseXpChange(Task taskFrom, Task taskTo) {
-//            if (taskTo.isCompleted()) {
-//                return 50;
-//            }
-//
-//            // If execution reaches here, the task has not been completed
-//            return 0;
-
             return 50;
         }
     }

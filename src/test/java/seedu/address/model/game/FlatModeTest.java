@@ -1,13 +1,14 @@
 package seedu.address.model.game;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FlatModeTest {
     private GameManager gm;
@@ -40,7 +41,7 @@ public class FlatModeTest {
         // invalid - no change in status
         assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, overdueTask));
         assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, overdueTask));
-        assertThrows(XpEvaluationException.class, () -> gm. appraiseXpChange(completedTask, completedTask));
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(completedTask, completedTask));
 
         // invalid - regressing status
         assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, inProgressTask));
