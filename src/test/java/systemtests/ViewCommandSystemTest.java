@@ -10,6 +10,8 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -20,7 +22,7 @@ import seedu.address.model.Model;
 
 public class ViewCommandSystemTest extends AddressBookSystemTest {
     @Test
-    public void select() {
+    public void select() throws IOException {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
         /* Case: select the first card in the ride list, command with leading spaces and trailing spaces
@@ -113,7 +115,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());

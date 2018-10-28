@@ -25,15 +25,22 @@ import seedu.address.testutil.CommandEntryBuilder;
  * Contains integration tests with storage and model for {@code CommandsLogCenter}
  */
 public class CommandsLogCenterTest {
-    private static final String TEST_FILE_NAME = "testing7893h.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private File file;
+    private String logfilePathString;
+
     @Before
-    public void setup() {
+    public void setup() throws IOException {
         assert(CommandEntryBuilder.COMMAND_ENTRIES.length > 0);
-        CommandsLogCenter.init(TEST_FILE_NAME);
+
+        CommandsLogCenter.init();
+        logfilePathString = CommandsLogCenter.getFilePathString(CommandsLogCenter.LOG_FILE);
+        file = new File(logfilePathString);
+        assert(file.setWritable(true));
+        assert(file.setReadable(true));
     }
 
     @Test
@@ -57,41 +64,48 @@ public class CommandsLogCenterTest {
     @Test
     public void logUnableAccessFileTest() throws IOException, JAXBException {
         thrown.expect(IOException.class);
-        File file = new File(TEST_FILE_NAME);
         file.setWritable(false);
         CommandsLogCenter.init();
         try {
             CommandsLogCenter.log(CommandEntryBuilder.COMMAND_ENTRIES[0]);
         } catch (IOException ie) {
-            assertEquals(String.format(CommandsLogCenter.MESSAGE_LOG_INACCESSIBLE, TEST_FILE_NAME), ie.getMessage());
+            assertEquals(String.format(CommandsLogCenter.MESSAGE_LOG_INACCESSIBLE, logfilePathString), ie.getMessage());
             throw ie;
+        } finally {
+            assert(file.setWritable(true));
+            assert(file.delete());
         }
     }
 
     @Test
     public void logUnableToWriteToFileTest() throws IOException, JAXBException {
         thrown.expect(IOException.class);
-        File file = new File(TEST_FILE_NAME);
         file.setWritable(false);
         try {
             CommandsLogCenter.log(CommandEntryBuilder.COMMAND_ENTRIES[0]);
         } catch (IOException ie) {
             assertTrue(ie.getMessage().contains("denied"));
             throw ie;
+        } finally {
+            assert(file.setWritable(true));
+            assert(file.delete());
         }
     }
 
     @Test
     public void retrieveUnableAccessFileTest() throws IOException, JAXBException {
         thrown.expect(IOException.class);
-        File file = new File(TEST_FILE_NAME);
+
         file.setWritable(false);
-        CommandsLogCenter.init();
         try {
+            CommandsLogCenter.init();
             CommandsLogCenter.retrieve();
         } catch (IOException ie) {
-            assertEquals(String.format(CommandsLogCenter.MESSAGE_LOG_INACCESSIBLE, TEST_FILE_NAME), ie.getMessage());
+            assertEquals(String.format(CommandsLogCenter.MESSAGE_LOG_INACCESSIBLE, logfilePathString), ie.getMessage());
             throw ie;
+        } finally {
+            assert(file.setWritable(true));
+            assert(file.delete());
         }
     }
 
@@ -99,14 +113,19 @@ public class CommandsLogCenterTest {
     public void retrieveJaxbExceptionTest() throws IOException, JAXBException {
         thrown.expect(JAXBException.class);
         //add a CommandEntry first
+        CommandsLogCenter.init();
         CommandsLogCenter.log(CommandEntryBuilder.COMMAND_ENTRIES[0]);
 
         //Corrupt the xml file
-        File file = new File(TEST_FILE_NAME);
         FileWriter fileWriter = new FileWriter(file, true);
         fileWriter.append("<asdnjkdg>");
         fileWriter.close();
 
-        CommandsLogCenter.retrieve();
+        try {
+            CommandsLogCenter.retrieve();
+        } finally {
+            assert(file.setWritable(true));
+            assert(file.delete());
+        }
     }
 }
