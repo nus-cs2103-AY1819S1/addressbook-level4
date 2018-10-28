@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -59,6 +60,12 @@ public class AddressBookParser {
         case CdCommand.COMMAND_WORD:
             return new CdCommandParser().parse(arguments);
 
+        case NextCommand.COMMAND_WORD:
+            return new NextCommand();
+
+        case LsCommand.COMMAND_WORD:
+            return new LsCommand();
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -80,17 +87,8 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case GoogleCommand.COMMAND_WORD:
-            return new GoogleCommandParser().parse(arguments);
-
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -101,11 +99,17 @@ public class AddressBookParser {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommand();
 
-        case LsCommand.COMMAND_WORD:
-            return new LsCommand();
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
-        case NextCommand.COMMAND_WORD:
-            return new NextCommand();
+        case GoogleCommand.COMMAND_WORD:
+            return new GoogleCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
