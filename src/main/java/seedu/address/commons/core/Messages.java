@@ -12,6 +12,6 @@ public class Messages {
     public static final String MESSAGE_CCAS_LISTED_OVERVIEW = "%1$d CCAs listed!";
     public static final String MESSAGE_INVALID_RESULT = "There is no such person or CCA!";
     public static final String MESSAGE_LIST_EMPTY = "The current list is empty.";
-
+    public static final String MESSAGE_EMAIL_DOES_NOT_EXIST = "There is no email with subject: %s.";
 
 }

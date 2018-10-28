@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 //@@author EatOrBeEaten
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMAIL_DOES_NOT_EXIST;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.storage.EmailLoadEvent;
@@ -24,11 +25,11 @@ public class ViewEmailCommand extends Command {
             + "Example: " + COMMAND_WORD + " Meeting on Friday";
 
     public static final String MESSAGE_SUCCESS = "Email loaded: %s";
-    public static final String MESSAGE_EMAIL_DOES_NOT_EXIST = "There is no email with subject: %s.";
 
     private final Subject subject;
 
     public ViewEmailCommand(Subject subject) {
+        requireNonNull(subject);
         this.subject = subject;
     }
 
@@ -45,4 +46,10 @@ public class ViewEmailCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, subject.value));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewEmailCommand // instanceof handles nulls
+                && subject.equals(((ViewEmailCommand) other).subject)); // state check
+    }
 }

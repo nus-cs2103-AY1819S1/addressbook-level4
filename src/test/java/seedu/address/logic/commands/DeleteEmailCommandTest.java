@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
@@ -61,7 +62,7 @@ public class DeleteEmailCommandTest {
         ModelManager modelWithoutEmailToDelete = new ModelManager(model.getAddressBook(), new BudgetBook(),
                 new UserPrefs(), model.getExistingEmails());
 
-        String expectedMessage = String.format(DeleteEmailCommand.MESSAGE_EMAIL_DOES_NOT_EXIST, emailToDelete.getSubject());
+        String expectedMessage = String.format(Messages.MESSAGE_EMAIL_DOES_NOT_EXIST, emailToDelete.getSubject());
 
         assertCommandFailure(deleteEmailCommand, modelWithoutEmailToDelete, commandHistory, expectedMessage);
     }
