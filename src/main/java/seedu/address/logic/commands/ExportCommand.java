@@ -16,7 +16,6 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_EXPORT_SUCCESS = "Export process has been successful.";
-    public static final String MISSING_PATH = "";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the address book to specific filepath. "
             + "Parameters: "
             + PREFIX_PATH + "FilePath\n"

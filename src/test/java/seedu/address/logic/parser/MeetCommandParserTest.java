@@ -15,16 +15,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_TITLE_D
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.MeetCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.group.Group;
 import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.shared.Address;
@@ -36,14 +30,11 @@ public class MeetCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, MeetCommand.MESSAGE_USAGE);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
-
     private MeetCommandParser parser = new MeetCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
-        // no index specified
+        // no group name specified
         assertParseFailure(parser, VALID_MEETING_DESC_WEEKLY, MESSAGE_INVALID_FORMAT);
 
         // missing title field
@@ -117,7 +108,7 @@ public class MeetCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() throws ParseException {
+    public void parse_multipleRepeatedFields_acceptsLast() {
         Title targetGroupName = new Title("MA1521");
         Group targetGroup = new Group(targetGroupName);
         String userInput = targetGroupName.toString() + VALID_MEETING_TITLE_DESC_URGENT

@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -22,11 +24,13 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.NameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -61,6 +65,15 @@ public class CommandTestUtil {
     public static final String TAG_DESC_CCA = " " + PREFIX_GROUPTAG + VALID_GROUPTAG_CCA;
     public static final String TAG_DESC_PROJECT = " " + PREFIX_GROUPTAG + VALID_GROUPTAG_PROJECT;
 
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_NAME + "group";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_GROUP + "group";
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_NAME + "CS2101";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_GROUP + "CS2101";
+
+    public static final String VALID_GROUP_TITLE_GROUP_0 = "group";
+
+    public static final String INVALID_GROUP_TITLE_DESC = " " + PREFIX_NAME + "€project"; // '€' not allowed in title
+
     // @@author NyxF4ll
     public static final String VALID_MEETING_TITLE_DESC_WEEKLY = " " + PREFIX_NAME + "Weekly meetup";
     public static final String VALID_MEETING_TITLE_DESC_URGENT = " " + PREFIX_NAME + "Urgent affair";
@@ -80,6 +93,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_GROUPTAG_DESC = " " + PREFIX_GROUPTAG + "CS123*"; // '*' not allowed in groupTags
+    public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "CS*123";
 
     // @@author NyxF4ll
     // '#' not allowed in title
@@ -169,6 +183,24 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered meeting list to show only the meeting at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMeetingAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMeetingList().size());
+
+        Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
+
+        /**
+         * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
+         * the issue is rectified
+         */
+        assertNotEquals(0, model.getFilteredMeetingList().size());
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
@@ -184,10 +216,10 @@ public class CommandTestUtil {
     public static void showGroupAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
 
-        Tag group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
-        final String[] splitGroupTitle = { group.tagName };
+        Group group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
+        final String[] splitGroupTitle = { group.getTitle().fullTitle };
         model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(splitGroupTitle[0])));
-        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(splitGroupTitle[0])));
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
         assertEquals(1, model.getFilteredGroupList().size());
     }
 }

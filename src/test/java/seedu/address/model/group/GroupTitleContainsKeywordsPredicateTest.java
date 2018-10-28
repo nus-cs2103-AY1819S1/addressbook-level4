@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.shared.Title;
 
 public class GroupTitleContainsKeywordsPredicateTest {
 
@@ -47,11 +47,11 @@ public class GroupTitleContainsKeywordsPredicateTest {
         // Matching keyword
         GroupTitleContainsKeywordsPredicate predicate =
             new GroupTitleContainsKeywordsPredicate(Collections.singletonList("CS2103T"));
-        assertTrue(predicate.test(new Tag("CS2103T")));
+        assertTrue(predicate.test(new Group(new Title("CS2103T"))));
 
         // Mixed-case keywords
         predicate = new GroupTitleContainsKeywordsPredicate(Collections.singletonList("cS2103t"));
-        assertTrue(predicate.test(new Tag("CS2103T")));
+        assertTrue(predicate.test(new Group(new Title("cS2103t"))));
     }
 
     @Test
@@ -59,10 +59,10 @@ public class GroupTitleContainsKeywordsPredicateTest {
         // No keywords
         GroupTitleContainsKeywordsPredicate predicate =
             new GroupTitleContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new Tag("CS2103T")));
+        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
 
         // Non-matching keyword
         predicate = new GroupTitleContainsKeywordsPredicate(Arrays.asList("CS2101"));
-        assertFalse(predicate.test(new Tag("CS2103T")));
+        assertFalse(predicate.test(new Group(new Title("CS2103T"))));
     }
 }

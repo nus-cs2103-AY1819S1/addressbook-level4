@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.group.Group;
 
 /**
  * Tests that a {@code Group}'s {@code Title} matches any of the keywords given.
- * TODO: change to Group class instead of Tag when group is properly implemented
  * {@author jeffreyooi}
  */
-public class GroupTitleContainsKeywordsPredicate implements Predicate<Tag> {
+public class GroupTitleContainsKeywordsPredicate implements Predicate<Group> {
     private final List<String> keywords;
 
     public GroupTitleContainsKeywordsPredicate(List<String> keywords) {
@@ -19,9 +18,9 @@ public class GroupTitleContainsKeywordsPredicate implements Predicate<Tag> {
     }
 
     @Override
-    public boolean test(Tag group) {
+    public boolean test(Group group) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(group.tagName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(group.getTitle().fullTitle, keyword));
     }
 
     @Override

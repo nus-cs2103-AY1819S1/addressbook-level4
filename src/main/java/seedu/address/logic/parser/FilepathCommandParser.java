@@ -20,7 +20,7 @@ public class FilepathCommandParser implements Parser<FilepathCommand> {
     public FilepathCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PATH);
-        if (argMultimap.getPreamble().equalsIgnoreCase(FilepathCommand.COMMAND_SHOW)) {
+        if (argMultimap.getPreamble().equalsIgnoreCase(FilepathCommand.OPTION_SHOW)) {
             return new FilepathCommand(null);
         }
 

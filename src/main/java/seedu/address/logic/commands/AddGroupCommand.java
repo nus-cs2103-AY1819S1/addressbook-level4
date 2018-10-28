@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.shared.Title;
 
 // @@author Derek-Hardy
 /**
@@ -20,18 +19,15 @@ public class AddGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_MEETING + "MEETING\n"
+            + PREFIX_NAME + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "CS2103T "
-            + PREFIX_DESCRIPTION + "Discussion group "
-            + PREFIX_MEETING + "Weekly meet up in COM1";
+            + PREFIX_NAME + "CS2103T ";
 
     public static final String MESSAGE_SUCCESS = "New group added: %1$s";
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the address book";
 
     private final Group toAdd;
+    private final Title groupName;
 
     /**
      * Creates an AddGroupCommand to add the specified {@code Group}
@@ -39,6 +35,7 @@ public class AddGroupCommand extends Command {
     public AddGroupCommand(Group group) {
         requireNonNull(group);
         toAdd = group;
+        groupName = toAdd.getTitle();
     }
 
 
@@ -59,6 +56,6 @@ public class AddGroupCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddGroupCommand // instanceof handles nulls
-                && toAdd.equals(((AddGroupCommand) other).toAdd));
+                && groupName.equals(((AddGroupCommand) other).groupName));
     }
 }
