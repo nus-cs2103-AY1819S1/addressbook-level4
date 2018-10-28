@@ -39,7 +39,7 @@ public class SavedAmount {
      * @param change A valid savedAmount to increment the current savedAmount with.
      */
     public SavedAmount incrementSavedAmount(Amount change) {
-        if (this.value + change.value < 0) {
+        if (this.value + change.value < 0.0) {
             throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
         }
 
@@ -52,6 +52,7 @@ public class SavedAmount {
     public Amount getAmount() {
         return new Amount("" + this.value);
     }
+
     /**
      * Returns true if a given string is a valid savedAmount number.
      */
