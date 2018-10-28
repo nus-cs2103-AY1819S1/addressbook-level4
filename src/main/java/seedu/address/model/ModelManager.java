@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -246,8 +247,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ObservableList<Person> getAllPatientsInQueue() {
-        FilteredList<Person> allPatientsInQueue = mainQueue.getList();
-        return FXCollections.unmodifiableObservableList(allPatientsInQueue);
+        ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
+        allPatientsInQueue.addAll(preferenceQueue.getList());
+        allPatientsInQueue.sort();
+        return FXCollections.unmodifiableObservableList(
+                new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
     }
 
     //=========== Filtered Doctor List Accessors =============================================================

@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void setPersonListPanel(ObservableList<Person> list) {
-        personListPanel = new PersonListPanel(logic.getAllPatientsInQueue());
+        personListPanel = new PersonListPanel(list);
     }
 
     private void setTitle(String appTitle) {
