@@ -43,6 +43,9 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.showStage();
     }
 
+    /**
+     * just for passing checkStyle
+    */
     // @Test Bryan: I removed the exit menu bar since it's redundant
     public void close_menuBarExitButton_exitAppRequestEventPosted() {
         mainWindowHandle.clickOnMenuExitButton();
