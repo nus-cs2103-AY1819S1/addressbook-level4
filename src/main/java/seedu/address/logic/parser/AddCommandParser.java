@@ -40,7 +40,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         // TODO: include prefix for barcode
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_URL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_AGE, PREFIX_URL,
+                        PREFIX_TAG);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE)
                 || arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_AGE))
