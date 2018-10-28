@@ -236,14 +236,22 @@ Delete ingredient(s) added by user.
 Format: +
 `delete INDEX`
 
-==== Search recipes based on ingredients manager availability: `recipe`
+==== Search recipes based on ingredients: `inventory`
 
-Search for recipes based on ingredients stored in manager. User can add additional parameters to widen search result.
+By default, recipes are sorted with the ingredients in ingredient manger. That is, a recipe which uses most number of
+ ingredients in ingredient manager is located at the top
+User can add
+additional
+parameters to
+widen search result.
 Format: +
-`select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD…`
+`recipe [NUMBER_OF_SERVINGS] must KEYWORD… optional KEYWORD…`
 
 ****
-* Search result guarantees Keywords entered before “optional”.
+* "must" and "optional" keywords are optional. User can type both of them, one of them, or none of them(e.g. just key
+ in
+"inventory").
+* Search result guarantees Keywords entered after “must”.
 * Search result that aligns with keywords after “optional” are placed higher in order.
 ****
 
@@ -406,7 +414,8 @@ Format: +
 * Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
 * Search ingredient: `find KEYWORD…`
 * Delete ingredient: `delete INDEX`
-* Search recipes based on ingredients manager availability: `select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
+* Search recipes based on ingredients manager availability: `inventory [NUMBER_OF_SERVINGS] must KEYWORD… optional
+KEYWORD… end`
 
 *Meal Planner Commands*
 
