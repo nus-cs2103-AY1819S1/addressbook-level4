@@ -16,6 +16,7 @@ import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
@@ -303,6 +304,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
         requireNonNull(predicate);
         filteredConsultations.setPredicate(predicate);
+    }
+
+    //=========== Export ==================================================================================
+    //@@author arsalanc-v2
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String exportPatients() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatients.execute(patients);
     }
     //=========== Undo/Redo ==================================================================================
 

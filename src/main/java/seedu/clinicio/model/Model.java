@@ -233,4 +233,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
+
+    //@@author arsalanc-v2
+    String exportPatients();
 }

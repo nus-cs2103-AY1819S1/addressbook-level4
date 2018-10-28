@@ -2,7 +2,7 @@ package seedu.clinicio.model.util;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -38,7 +38,7 @@ public class ExportUtil {
      * @throws NullPointerException if {@code lines} is null.
      * @throws IllegalArgumentException if {@code lines} is empty.
      */
-    public static void writeLines(FileWriter writer, ArrayList<String> lines) throws IOException,
+    public static void writeLines(FileWriter writer, List<String> lines) throws IOException,
         NullPointerException, IllegalArgumentException {
         Objects.requireNonNull(lines);
 
