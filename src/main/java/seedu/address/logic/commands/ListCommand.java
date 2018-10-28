@@ -35,7 +35,9 @@ public class ListCommand extends Command {
      * Denotes the kind of filters List supports.
      */
     public enum ListFilter {
-            DUE_TODAY;
+            DUE_TODAY,
+            DUE_END_OF_WEEK,
+            DUE_END_OF_MONTH;
     }
 
     public ListCommand() {
@@ -47,7 +49,12 @@ public class ListCommand extends Command {
         case DUE_TODAY:
             this.predicate = new DueDateIsBeforeTodayPredicate();
             break;
-
+        case DUE_END_OF_WEEK:
+            this.predicate = new DueDateIsBeforeTodayPredicate();
+            break;
+        case DUE_END_OF_MONTH:
+            this.predicate = new DueDateIsBeforeTodayPredicate();
+            break;
         default:
             this.predicate = PREDICATE_SHOW_ALL_TASKS;
             break;
