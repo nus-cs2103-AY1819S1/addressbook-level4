@@ -25,6 +25,7 @@ import seedu.souschef.model.ingredient.Ingredient;
  * Parses user input.
  */
 public class IngredientParser {
+    public static final String COMMAND_WORD = "ingredientmanager";
     /**
      * Used for initial separation of command word and args.
      */
@@ -65,5 +66,17 @@ public class IngredientParser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * To check if the user input is a cross context command.
+     */
+    public static boolean isCrossContextCommand(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        final String commandWord = matcher.group("commandWord");
+        return commandWord.equals("inventory");
     }
 }

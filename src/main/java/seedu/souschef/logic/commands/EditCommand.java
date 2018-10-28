@@ -36,7 +36,8 @@ public class EditCommand<T extends UniqueType> extends Command {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, history.getContext().toLowerCase(), edited));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS,
+                history.getContext().toString().toLowerCase(), edited));
     }
 
     @Override

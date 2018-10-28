@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,8 +29,8 @@ public class Recipe extends UniqueType {
 
     // Data fields
     private final ArrayList<Instruction> instructions = new ArrayList<>();
-    private final HashMap<String, Double> ingredients = new HashMap<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final HashMap<IngredientDefinition, Double> ingredients = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -42,8 +43,8 @@ public class Recipe extends UniqueType {
         this.instructions.addAll(instructions);
         for (Instruction instruction : instructions) {
             for (IngredientPortion portion : instruction.ingredients) {
-                String key = new IngredientDefinition(portion.getName(), portion.getUnit()).toString();
-                Double amount = portion.getAmount().toDouble();
+                IngredientDefinition key = new IngredientDefinition(portion.getName().toString());
+                Double amount = portion.getAmount().getValue();
                 if (ingredients.containsKey(key)) {
                     ingredients.replace(key, ingredients.get(key) + amount);
                 } else {
@@ -70,16 +71,16 @@ public class Recipe extends UniqueType {
         return Collections.unmodifiableList(instructions);
     }
 
-    public HashMap<String, Double> getIngredients() {
-        return ingredients;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Map<IngredientDefinition, Double> getIngredients() {
+        return ingredients;
     }
 
     /**

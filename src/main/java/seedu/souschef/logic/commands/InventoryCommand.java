@@ -5,6 +5,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.CommandHistory;
@@ -50,8 +51,8 @@ public class InventoryCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        HashMap<String, Double> must = new HashMap<>();
-        HashMap<String, Double> optional = new HashMap<>();
+        HashMap<IngredientDefinition, Double> must = new HashMap<>();
+        HashMap<IngredientDefinition, Double> optional = new HashMap<>();
         List<Ingredient> lastShownIngredientList = ingredientModel.getFilteredList();
 
         int index = 2;
@@ -61,7 +62,7 @@ public class InventoryCommand extends Command {
                 if (tokens[index].equals("optional")) {
                     break;
                 }
-                String mustKey = new IngredientDefinition(tokens[index]).toString();
+                IngredientDefinition mustKey = new IngredientDefinition(tokens[index]);
                 must.put(mustKey, Double.valueOf(0));
                 index++;
             }
@@ -69,7 +70,7 @@ public class InventoryCommand extends Command {
         if (index < tokens.length && tokens[index].equals("optional")) {
             index++;
             while (index < tokens.length) {
-                String optionalKey = new IngredientDefinition(tokens[index]).toString();
+                IngredientDefinition optionalKey = new IngredientDefinition(tokens[index]);
                 if (must.containsKey(optionalKey)) {
                     throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
                 }
@@ -79,8 +80,8 @@ public class InventoryCommand extends Command {
         }
 
         for (Ingredient ingredient : lastShownIngredientList) {
-            String key = new IngredientDefinition(ingredient.getName(), ingredient.getUnit()).toString();
-            Double amount = ingredient.getAmount().toDouble();
+            IngredientDefinition key = new IngredientDefinition(ingredient.getName(), ingredient.getUnit());
+            Double amount = ingredient.getAmount().getValue();
             if (must.containsKey(key)) {
                 must.replace(key, must.get(key) + amount);
             }
@@ -93,12 +94,12 @@ public class InventoryCommand extends Command {
         }
 
         List<Recipe> lastShownRecipeList = recipeModel.getFilteredList();
-        HashMap<Recipe, HashMap<String, Double>> recipes = new HashMap<>();
+        HashMap<Recipe, HashMap<IngredientDefinition, Double>> recipes = new HashMap<>();
 
         for (Recipe recipe : lastShownRecipeList) {
-            HashMap<String, Double> ingredients = recipe.getIngredients();
-            HashMap<String, Double> matchedIngredients = new HashMap<>();
-            for (String key : optional.keySet()) {
+            Map<IngredientDefinition, Double> ingredients = recipe.getIngredients();
+            HashMap<IngredientDefinition, Double> matchedIngredients = new HashMap<>();
+            for (IngredientDefinition key : optional.keySet()) {
                 if (ingredients.containsKey(key)) {
                     matchedIngredients.put(key, optional.get(key));
                 }
@@ -111,6 +112,6 @@ public class InventoryCommand extends Command {
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, recipeModel.getFilteredList().size(),
-                        history.getContext().toLowerCase()));
+                        history.getContext().toString().toLowerCase()));
     }
 }

@@ -36,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private DetailPanel detailPanel;
     private GenericListPanel<? extends UniqueType> generalListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -121,8 +121,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailPanel = new DetailPanel();
+        browserPlaceholder.getChildren().add(detailPanel.getRoot());
 
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -148,11 +148,13 @@ public class MainWindow extends UiPart<Stage> {
     protected void switchToRecipeListPanel() {
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadDefaultPage();
     }
 
     protected void switchToIngredientListPanel() {
         generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
 
     /**
@@ -162,11 +164,13 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanel = new HealthPlanListPanel(logic.getFilteredHealthPlanList());
         logger.info(String.valueOf(logic.getFilteredHealthPlanList().size()));
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
 
     protected void switchToMealPlanListPanel() {
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
     /**
      *  method to switch to favourite list for the favourite context
@@ -174,6 +178,7 @@ public class MainWindow extends UiPart<Stage> {
     protected void switchToFavouritesListPanel() {
         generalListPanel = new FavouritesPanel(logic.getFilteredFavouritesList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
 
     /**
@@ -222,10 +227,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public GenericListPanel<? extends UniqueType> getGeneralListPanel() {
         return generalListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

@@ -2,7 +2,7 @@ package seedu.souschef.logic.parser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.regex.Pattern;
+import java.util.Optional;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
@@ -23,14 +23,10 @@ import seedu.souschef.ui.Ui;
  * Parses user input.
  */
 public class AppContentParser {
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
+     * Based on the context and command, the parser determines the specific model and storage to be modified or
+     * accessed.
      *
      * @param modelSet
      * @param userInput full user input string
@@ -40,7 +36,7 @@ public class AppContentParser {
      */
     public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
                                 Storage storage, Ui ui) throws ParseException {
-        String context = history.getContext();
+        Context context = history.getContext();
 
         if (storage == null) {
             storage = new StorageManager();
@@ -48,42 +44,58 @@ public class AppContentParser {
 
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput, ui);
-        } else if (context.equals("Meal Planner")) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
-            }
-            return new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals("Recipe")) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
-            }
-            if (userInput.matches("favourite(\\s|\\S)*")) {
-                return new RecipeParser().parseCommand(modelSet.getFavouriteModel(),
-                        modelSet.getMealPlannerModel(), userInput);
-            }
-            if (userInput.matches("inventory(\\s|\\S)*")) {
-                return new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
-            }
-            return new RecipeParser().parseCommand(modelSet.getRecipeModel(),
-                modelSet.getMealPlannerModel(), userInput);
-        } else if (context.equals("Ingredient")) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
-            }
+        }
+
+        switch (context) {
+        case RECIPE:
+            setFeatureStorage(storage, Context.RECIPE);
+            Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage);
+            return optionalCommand.isPresent() ? optionalCommand.get()
+                    : new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+        case INGREDIENT:
+            setFeatureStorage(storage, Context.INGREDIENT);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
-        } else if (context.equals("Health Plan")) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
-            }
+        case HEALTH_PLAN:
+            setFeatureStorage(storage, Context.HEALTH_PLAN);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
-        } else if (context.equals("Favourites")) {
-            if (storage.getListOfFeatureStorage().size() > 0) {
-                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
-            }
+        case MEAL_PLANNER:
+            setFeatureStorage(storage, Context.MEAL_PLANNER);
+            return new MealPlannerParser()
+                    .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
+        case FAVOURITES:
+            setFeatureStorage(storage, Context.FAVOURITES);
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
-        } else {
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private void setFeatureStorage(Storage storage, Context context) {
+        if (storage.getListOfFeatureStorage().containsKey(context)) {
+            storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(context));
+        }
+    }
+
+    /**
+     * Based on user input, get cross context command.
+     */
+    private Optional<Command> getCrossContextCommand(String userInput, ModelSet modelSet, Storage storage)
+        throws ParseException {
+        Command command = null;
+        if (FavouritesParser.isCrossContextCommand(userInput)) {
+            // Consider to use Favorite command instead
+            setFeatureStorage(storage, Context.FAVOURITES);
+            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
+        } else if (IngredientParser.isCrossContextCommand(userInput)) {
+            command = new InventoryCommand(modelSet.getRecipeModel(), modelSet.getIngredientModel(), userInput);
+        } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
+            setFeatureStorage(storage, Context.MEAL_PLANNER);
+            command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
+                    modelSet.getRecipeModel(), userInput);
+        }
+        // Add other cross context command and set ur storage here.
+
+        return Optional.ofNullable(command);
     }
 
 }
