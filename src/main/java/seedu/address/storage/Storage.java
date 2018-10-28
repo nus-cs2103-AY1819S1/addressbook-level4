@@ -9,6 +9,7 @@ import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.EmailModel;
@@ -41,6 +42,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
+    void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException;
+
+    @Override
     Path getEmailPath();
 
     @Override
@@ -61,6 +65,15 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      * @author ericyjw
      */
     void handleBudgetBookChangedEvent(BudgetBookChangedEvent bbce);
+
+    //@@author kengwoon
+
+    /**
+     * Saves the current version of Hallper to the specified path on hard disk.
+     * Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleExportAddressBookEvent(ExportAddressBookEvent eabe);
 
     //@@author EatOrBeEaten
 

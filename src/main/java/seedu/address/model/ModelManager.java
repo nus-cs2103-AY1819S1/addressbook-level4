@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -191,9 +193,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author kengwoon
     @Override
     public void addMultiplePersons(List<Person> personList) {
-        for (Person p : personList) {
-            addPerson(p);
-        }
+        versionedAddressBook.addMultiplePersons(personList);
         indicateAddressBookChanged();
     }
 
@@ -227,6 +227,12 @@ public class ModelManager extends ComponentManager implements Model {
             updatePerson(target.get(i), editedPerson.get(i));
         }
         indicateAddressBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void exportAddressBook(Path filePath) {
+        raise(new ExportAddressBookEvent(getAddressBook(), filePath));
     }
 
     //=========== Filtered Person List Accessors =============================================================

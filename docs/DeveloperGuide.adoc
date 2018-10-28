@@ -414,9 +414,12 @@ User input for email content is saved as HTML Text so that users with HTML Text 
 The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
 It creates `.ics` files and saves them onto the local computer. Calendars in Hallper are created as monthly
 calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
-It implements the following command:
+It implements the following commands:
 
 * `create_calendar` -- Creates a monthly calendar and store it in local memory.
+* `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
+* `add_event` -- Adds an event of a specified time frame into the monthly calendar.
+* `delete_event` -- Deletes an existing event in the monthly calendar.
 
 ===== Create_Calendar Command
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
@@ -428,12 +431,12 @@ It implements the following operations:
 
 These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
 
-Given below is an example usage scenario and how the create_calendar command behaves at each step:
+Given below is an example usage scenario and how the `create_calendar` command behaves at each step:
 
-. The user executes the `create_calendar` command by specifying the `Month` and `Year`.
+. The user executes the `create_calendar` command by specifying the month and year.
 The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
 calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
-calendar already exists. Else, the command will then call `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
+calendar already exists. Else, the command calls `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
 
 . Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
  to indicate that a calendar object has been initialized in the `CalendarModel`.
@@ -441,6 +444,108 @@ calendar already exists. Else, the command will then call `Model#createCalendar(
 . The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
 `StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the calendar to a specified local directory.
+
+===== Add Event Commands
+The `add_all_day_event` and `add_event` command have many similarities, they differ only by their parameters and the number of checks called to verify the validity of the event to be added. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
+Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
+
+* `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates an all day event object and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)` -- Creates an event object with the specified time frame and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isValidTime(int hour, int min)` -- Checks if the hour and minutes are valid in accordance to the 24 hour format.
+* `CalendarModel#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` -- Checks that the end date and time doesn't occur before the start date and time.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#createAllDayEvent(Year year, Month month, int date, String title)`
+* `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isValidTime(int hour, int min)`
+* `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+====== Add_All_Day_Event Command
+Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
+
+. The user executes the `add_all_day_event` command by specifying the month, year, date and title.
+The `add_all_day_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`, to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
+
+. The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleAllDayEventAddedEvent(AllDayEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+====== Add_Event Command
+Given below is an example usage scenario and how the `add_event` command behaves at each step:
+
+. The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
+The `add_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`,
+`Model#isValidTime(int hour, int min)` and `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#loadCalendar(Year year, Month month)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
+
+. The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+===== Delete_Event Command
+This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#deleteEvent(Year year, Month month)` -- Deletes an existing event in the monthly calendar.
+* `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` -- Retrieves the event object from the calendar.
+* `CalendarModel#isSameEvent(int startDate, int endDate, String title, VEvent event)` -- Checks whether the requested event to be deleted is the same event object in the calendar.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` -- Checks if an event exists in the monthly calendar.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+Given below is an example usage scenario and how the `delete_event` command behaves at each step:
+
+. The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
+The `delete_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)` and
+`Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` to perform checks on whether the request to delete event is valid.
+If it fails any one of the checks, the command does nothing and reflects to the user that the request to delete event is not valid. Else, the `Model#isExistingEvent` check will retrieve the event and load it inside the `CalendarModel`. It then calls `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`.
+
+. The `Model#isExistingEvent` check first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
+
+. The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
+
+. The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
+
+. The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
 
 ==== Design Considerations
 
@@ -476,10 +581,10 @@ Given below is an example usage scenario and how the create cca mechanism behave
 
 . The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
 
-. `create` command will check for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
-name exists, the CCA will not be created. Otherwise, it will be added into the `BudgetBook` in the `Model`.
+. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
 
-. `BudgetBook#addCca(Cca cca)` will invoke `ModelManger#indicateBudgetBookChange()` to raise a
+. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
 `BudgetBookChangedEvent`, which is handled by `EventsCenter`.
 
 . `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
@@ -499,7 +604,104 @@ storing information.
 ** Pros: Faster in parsing information.
 ** Cons: Limited in terms of what objects can be modeled.
 
-// end::undoredo[]
+// end::createcca[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+The import feature allows `.xml` files of different formats to be imported from the computer.
+
+It implements the following operations and classes:
+
+* `ImportCommand#parseFile()` -- Parses specified path into document for reading.
+* `ImportAddressBook#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update
+Hallper data.
+* `ImportCcaList#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update Hallper
+contacts' CCAs.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#addMultiplePersons()`
+and `Model#updateMultiplePersons`.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+. The user imports `.xml` file by specifying the path of the file.
+
+. `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
+format, the specified file will not be imported.
+
+. `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
+
+. `ImportCommand.execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+Model model)` to read the document.
+
+. After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
+`ModelManager#addMultiplePersons(List<Person> personList)` to update Hallper's internal list and
+`ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+. `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new contacts.
+
+==== Design Considerations
+
+===== Aspect: Choice of component to read imported file
+
+* **Alternative 1 (current choice):** Reads file in `Logic`.
+** Pros: Easy to change parsing of `.xml` file when `.xml` file format changes. New `.xml` file formats can be added
+without disrupting the existing parsers.
+** Cons: Importing from the computer is a storage-related feature but the reading of the file is located outside of
+Storage component.
+
+* **Alternative 2:** Reads file in `Storage`.
+** Pros: Proper grouping of import implementation inside related component.
+** Cons: More complicated implementation if more `.xml` file formats are added to be parsed in the future.
+
+// end::import[]
+
+// tag::export[]
+=== Export feature
+==== Current Implementation
+The export feature allows Hallper data to be exported as an `xml` file to the computer.
+
+It implements the following operation:
+
+* `ExportCommand#execute(Model model, CommandHistory history)` -- Exports current Hallper data as an `xml` file to
+the specified path.
+
+This operation is exposed in the `Model` interface as `Model#exportAddressBook(Path filePath)`.
+
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+. The user exports an 'xml' file by specifying the destination path and name of the exported file.
+
+. `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
+data will not be exported. Otherwise, path and filename will be parsed into a single, full path.
+
+. `ExportCommand#execute(Model model, CommandHistory history)` then invokes
+`ModelManager#exportAddressBook(Path filePath)` which raises an `ExportAddressBookEvent`.
+
+. `ExportAddressBookEvent` is then handled by
+`StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
+`StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
+storage data to the specified path.
+
+==== Design Considerations
+
+===== Aspect: Choice of export format
+
+* **Alternative 1 (current choice):** Export `.xml` format only.
+** Pros: Easy for user to update and re-import the `.xml` file. Standardised format for Hallper-related data files.
+** Cons: Difficult to convert/transfer data to other applications due to limited export format. Need to use external
+applications to convert `.xml` file.
+
+* **Alternative 2:** Export `.xml`, `.txt` and `.xlsx` formats.
+** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
+** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
+underused or unused.
+
+// end:export[]
 
 // tag::dataencryption[]
 === [Proposed] Data encryption
@@ -1154,10 +1356,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. JCRC member requests to clear persons with specific tag
+* 1a. JCRC member requests to clear persons with specific tag(s)
 +
 [none]
-** 1a1. Hallper clears all persons with specified tag
+** 1a1. Hallper clears all persons with specified tag(s)
 +
 Use case ends.
 
@@ -1166,10 +1368,28 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to import contacts
-2. Hallper requests for file location
-3. JCRC member enters file location
-4. Hallper imports contacts
+1. JCRC member requests to import contacts from file location
+2. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Export contacts
+
+*MSS*
+
+1. JCRC member requests to export contacts to location
+2. Hallper exports contacts to location
 +
 Use case ends.
 
@@ -1188,8 +1408,18 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to erase a specific tag
-2. Hallper erases specified tag from all persons
+1. JCRC member requests to erase specific tag(s)
+2. Hallper erases specified tag(s) from all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Tag does not exist
++
+[none]
+** 3a1. Hallper shows error message
 +
 Use case ends.
 

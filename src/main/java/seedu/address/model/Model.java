@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -123,6 +124,11 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updateMultiplePersons(List<Person> target, List<Person> editedPerson);
+
+    /**
+     * Exports current data in Hallper to given {@code filePath}.
+     */
+    void exportAddressBook(Path filePath);
 
     /**
      * Returns an unmodifiable view of the filtered person list
