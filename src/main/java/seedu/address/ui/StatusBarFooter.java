@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.LoginStatusEvent;
+import seedu.address.commons.events.ui.LogoutStatusEvent;
 
 //@@author chivent
 
@@ -77,5 +78,11 @@ public class StatusBarFooter extends UiPart<Region> {
             setDirectoryDisplay(event.directory);
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "User's current directory: " + event.directory));
         }
+    }
+
+    @Subscribe
+    public void handleLogoutStatusEvent(LogoutStatusEvent event) {
+        setLoginStatus(LOGIN_STATUS_INITIAL);
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "User logged out"));
     }
 }

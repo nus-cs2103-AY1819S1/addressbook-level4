@@ -129,12 +129,35 @@ public class PhotosLibraryClientFactory {
      * Checks if a user has storedCredentials (did not logout previously), and auto log ins user if true.
      * @return a PhotoHandler instance if user has storedCredentials, else null
      */
-    public static PhotoHandler checkUserLogin() throws IOException, GeneralSecurityException {
-        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
-        if (credentialExists) {
+    public static PhotoHandler loginUserIfPossible() throws IOException, GeneralSecurityException {
+        if (checkUserLogin()) {
             return createClient();
         }
         return null;
+    }
+
+    /**
+     * Logs user out of currently logged in account
+     */
+    public static boolean logoutUserIfPossible() throws IOException, GeneralSecurityException {
+        boolean userLoggedOut;
+        if (userLoggedOut = checkUserLogin()) {
+            File[] listFiles = DATA_STORE.listFiles();
+            for (File file : listFiles) {
+                file.delete();
+            }
+            userLoggedOut = DATA_STORE.delete();
+        }
+        return userLoggedOut;
+    }
+
+    /**
+     * Checks if a user has storedCredentials (did not logout previously).
+     * @return true if user has storedCredentials, else null
+     */
+    public static boolean checkUserLogin() {
+        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
+        return credentialExists;
     }
 }
 
