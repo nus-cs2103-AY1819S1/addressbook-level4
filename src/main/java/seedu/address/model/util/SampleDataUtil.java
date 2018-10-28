@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.Scheduler;
+import seedu.address.model.ToDoList;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.DateTimeInfo;
@@ -13,9 +15,12 @@ import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.todolist.Priority;
+import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * Contains utility methods for populating {@code Scheduler} with sample data.
+ * Contains utility methods for populating {@code ToDoList} with sample data.
  */
 public class SampleDataUtil {
     public static CalendarEvent[] getSampleCalendarEvents() {
@@ -53,12 +58,37 @@ public class SampleDataUtil {
         };
     }
 
+    public static ToDoListEvent[] getSampleToDoListEvents() {
+        return new ToDoListEvent[]{
+                new ToDoListEvent(new Title("CS3230 Homework"), new Description("divide and conquer"),
+                    new Priority("M")),
+                new ToDoListEvent(new Title("CS3241 Lab4"), new Description("draw curve"),
+                    new Priority("H")),
+                new ToDoListEvent(new Title("JS1011 Homework"), new Description("watch Akira movie"),
+                    new Priority("L")),
+                new ToDoListEvent(new Title("CS2103 Project"), new Description("finish UI design"),
+                    new Priority("H")),
+                new ToDoListEvent(new Title("CS2106 Lab5"), new Description("final lab"),
+                    new Priority("M")),
+                new ToDoListEvent(new Title("Modify resume"), new Description("activities"),
+                    new Priority("L"))
+        };
+    }
+
     public static ReadOnlyScheduler getSampleScheduler() {
         Scheduler sampleScheduler = new Scheduler();
         for (CalendarEvent sampleCalendarEvent : getSampleCalendarEvents()) {
             sampleScheduler.addCalendarEvent(sampleCalendarEvent);
         }
         return sampleScheduler;
+    }
+
+    public static ReadOnlyToDoList getSampleToDoList() {
+        ToDoList sampleToDoList = new ToDoList();
+        for (ToDoListEvent sampleToDoListEvent : getSampleToDoListEvents()) {
+            sampleToDoList.addToDoListEvent(sampleToDoListEvent);
+        }
+        return sampleToDoList;
     }
 
     /**
