@@ -126,7 +126,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void readImportContactsFile(FileReader fileReader) {
+        public void importContacts(FileReader fileReader) {
             throw new AssertionError("This method should not be called");
         }
         
