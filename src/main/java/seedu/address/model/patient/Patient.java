@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.address.model.Consultation;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -29,6 +30,7 @@ public class Patient extends Person {
     private Optional<Doctor> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
     private Consultation consultation;
+    private Time arrivalTime;
 
     /**
      * Every field must be present and not null.
@@ -107,6 +109,10 @@ public class Patient extends Person {
     public void setConsultation(Consultation consultation) {
         requireNonNull(consultation);
         this.consultation = consultation;
+    }
+
+    public Time getArrivalTime() {
+        return arrivalTime;
     }
 
     /**
