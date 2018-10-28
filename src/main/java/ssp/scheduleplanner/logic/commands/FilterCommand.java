@@ -2,7 +2,9 @@ package ssp.scheduleplanner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.core.Messages;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.TagsContainsKeywordsPredicate;
@@ -30,6 +32,7 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(
                 String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()));
     }

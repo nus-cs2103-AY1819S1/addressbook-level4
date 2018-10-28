@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import ssp.scheduleplanner.commons.core.Config;
 import ssp.scheduleplanner.commons.core.GuiSettings;
 import ssp.scheduleplanner.commons.core.LogsCenter;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.commons.events.ui.ExitAppRequestEvent;
 import ssp.scheduleplanner.commons.events.ui.ShowHelpRequestEvent;
 import ssp.scheduleplanner.logic.Logic;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SidebarPanel sidebarPanel;
     private TaskListPanel taskListPanel;
+    private TaskListPanel archivedTaskListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -136,6 +138,23 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Shows the archived task list
+     */
+    public void showArchived() {
+        archivedTaskListPanel = new TaskListPanel(logic.getFilteredArchivedTaskList());
+        taskListPanelPlaceholder.getChildren().add(archivedTaskListPanel.getRoot());
+    }
+
+    /**
+     * Shows the regular task list
+     */
+    public void showTasks() {
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+    }
+
+
     void hide() {
         primaryStage.hide();
     }
@@ -190,6 +209,26 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
+    }
+
+    /**
+     * Handles the event to change the view
+     * @param event the event raised
+     */
+    @Subscribe
+    public void handleChangeView(ChangeViewEvent event) {
+        switch(event.getView()) {
+        case NORMAL:
+            showTasks();
+            break;
+        case ARCHIVE:
+            showArchived();
+            break;
+        case CALENDAR:
+            break;
+        default:
+            break;
+        }
     }
 
     @Subscribe
