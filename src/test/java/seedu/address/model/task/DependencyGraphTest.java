@@ -32,7 +32,7 @@ public class DependencyGraphTest {
         Task a = new TaskBuilder().withName("A").withDependency(completed1).withDependency(completed2).build();
         Task b = new TaskBuilder().withName("B").withDependency(a).build();
         Task c = new TaskBuilder().withName("C").withDependency(b).withDependency(a).build();
-        Task d = new TaskBuilder().withName("D").withDependency(c).withStatus(Status.COMPLETED).build();
+        Task completed3 = new TaskBuilder().withName("D").withDependency(c).withStatus(Status.COMPLETED).build();
 
 
 
@@ -41,9 +41,9 @@ public class DependencyGraphTest {
         preSortedTasks.add(c);
         preSortedTasks.add(b);
         //Should not be contained in final topological sort as they are completed
-        preSortedTasks.add(d);
         preSortedTasks.add(completed1);
         preSortedTasks.add(completed2);
+        preSortedTasks.add(completed3);
 
 
         //SortedTasks

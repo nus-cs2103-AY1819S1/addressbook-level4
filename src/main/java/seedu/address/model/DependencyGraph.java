@@ -82,11 +82,10 @@ public class DependencyGraph {
      * Used in topological sort as we do not want tasks that are completed to be considered in topological sort
      */
     public void pruneCompletedTasks() {
-        //Prune away task dependencies that of tasks where the dependee is completed
         for (Task task: this.taskList) {
             if (task.isCompleted()) {
                 String hash = Integer.toString(task.hashCode());
-                //Remove dependency from dependant's set
+                //Prune away task dependencies of tasks where the dependee is completed
                 for (Set<String> set: adjacencyList.values()) {
                     if (set.contains(hash)) {
                         set.remove(hash);
