@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.game.GameManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -112,6 +113,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     //// achievement related operation
+
+    /**
+     * @return  the user's current level to the user.
+     */
+    public Level getLevel() {
+        return achievements.getLevel();
+    }
 
     /**
      * @return the {@code int} value representing the Xp.
