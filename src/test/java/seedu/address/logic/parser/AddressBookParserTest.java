@@ -39,9 +39,11 @@ import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskUtil;
 
 public class AddressBookParserTest {
-    private final AddressBookParser parser = new AddressBookParser();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final AddressBookParser parser = new AddressBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
