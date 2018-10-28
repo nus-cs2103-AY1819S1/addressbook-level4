@@ -12,14 +12,12 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEqualsToDo;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import org.junit.Test;
 
 import guitests.guihandles.TaskListPanelHandle;
 import guitests.guihandles.ToDoListEventCardHandle;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;

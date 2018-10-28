@@ -8,10 +8,10 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysToDo;
 
 import org.junit.Test;
 
+import guitests.guihandles.ToDoListEventCardHandle;
+
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.ToDoListEventBuilder;
-
-import guitests.guihandles.ToDoListEventCardHandle;
 
 public class ToDoListEventCardTest extends GuiUnitTest {
 
