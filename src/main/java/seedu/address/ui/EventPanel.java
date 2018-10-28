@@ -7,11 +7,14 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.event.Event;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordContainsEventIdPredicate;
 
 /**
  * Panel containing the event details.
@@ -36,6 +39,8 @@ public class EventPanel extends UiPart<Region> {
     private Label eventEndTimeLabel;
     @FXML
     private Label eventDescriptionLabel;
+    @FXML
+    private FlowPane tagsLabel;
 
     private ObservableList<Record> recordList;
 
@@ -48,17 +53,30 @@ public class EventPanel extends UiPart<Region> {
     private void setLabelText(Event event) {
         eventNameLabel.setText(event.getName().fullName);
         eventLocationLabel.setText(event.getLocation().value);
-        eventStartDateLabel.setText(event.getStartDate().value);
+        eventStartDateLabel.setText(DateTimeUtil.getFriendlyDateFromEventDate(event.getStartDate()));
+
         if (!event.getStartDate().equals(event.getEndDate())) {
-            eventEndDateLabel.setText("to " + event.getEndDate().value);
+            eventEndDateLabel.setText(" - " + DateTimeUtil.getFriendlyDateFromEventDate(event.getEndDate()));
         } else {
             eventEndDateLabel.setText("");
         }
-        eventStartTimeLabel.setText(event.getStartTime().value);
-        eventEndTimeLabel.setText("to " + event.getEndTime().value);
 
-        numOfVolunteersLabel.setText("Total Number of Volunteers: " + String.valueOf(recordList.size()));
+        String friendlyStartTime = DateTimeUtil.getFriendlyTimeFromEventTime(event.getStartTime());
+        String friendlyEndTime = DateTimeUtil.getFriendlyTimeFromEventTime(event.getEndTime());
+
+        eventStartTimeLabel.setText(friendlyStartTime);
+        if (!friendlyStartTime.equals(friendlyEndTime)) {
+            eventEndTimeLabel.setText(" - " + friendlyEndTime);
+        } else {
+            eventEndTimeLabel.setText("");
+        }
+
+        numOfVolunteersLabel.setText("Total Number of Volunteers: "
+                + String.valueOf(recordList.filtered(new RecordContainsEventIdPredicate(event.getEventId())).size()));
         eventDescriptionLabel.setText(event.getDescription().description);
+
+        tagsLabel.getChildren().clear();
+        event.getTags().forEach(tag -> tagsLabel.getChildren().add(new Label(tag.tagName)));
     }
 
     @Subscribe
@@ -79,6 +97,8 @@ public class EventPanel extends UiPart<Region> {
         eventStartTimeLabel.setText("");
         eventEndTimeLabel.setText("");
         eventDescriptionLabel.setText("");
+
+        tagsLabel.getChildren().clear();
     }
 
 }

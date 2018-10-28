@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.event.Event;
 
 /**
@@ -24,7 +25,7 @@ public class EventCard extends UiPart<Region> {
 
     public final Event event;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label name;
@@ -49,12 +50,23 @@ public class EventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().fullName);
         eventLocation.setText(event.getLocation().value);
-        startDate.setText(event.getStartDate().value);
+        startDate.setText(DateTimeUtil.getFriendlyDateFromEventDate(event.getStartDate()));
+
         if (!event.getStartDate().equals(event.getEndDate())) {
-            endDate.setText("to " + event.getEndDate().value);
+            endDate.setText(" - " + DateTimeUtil.getFriendlyDateFromEventDate(event.getEndDate()));
+        } else {
+            endDate.setText("");
         }
-        startTime.setText(event.getStartTime().value);
-        endTime.setText("to " + event.getEndTime().value);
+
+        String friendlyStartTime = DateTimeUtil.getFriendlyTimeFromEventTime(event.getStartTime());
+        String friendlyEndTime = DateTimeUtil.getFriendlyTimeFromEventTime(event.getEndTime());
+
+        startTime.setText(friendlyStartTime);
+        if (!friendlyStartTime.equals(friendlyEndTime)) {
+            endTime.setText(" - " + friendlyEndTime);
+        } else {
+            endTime.setText("");
+        }
 
         event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
