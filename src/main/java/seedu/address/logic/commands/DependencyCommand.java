@@ -27,7 +27,8 @@ public class DependencyCommand extends Command {
             + ": Dependency of dependant on dependee.\n"
             + "Parameters: Index of task dependant, Index of task dependee\n"
             + "Example: " + COMMAND_WORD + " 1 2";
-    public static final String MESSAGE_CYCLIC_DEPENDENCY = "New dependency will introduce a cyclic dependency";
+    public static final String MESSAGE_CYCLIC_DEPENDENCY = "Dependency rejected as new dependency will introduce"
+            + " a cyclic dependency";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
