@@ -87,6 +87,8 @@ public class RecordEventPanel extends UiPart<Region> {
         hourColumn.setCellValueFactory(new PropertyValueFactory<>("hour"));
         remarkColumn.setCellValueFactory(new PropertyValueFactory<>("remark"));
 
+        volunteerRecordTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         volunteerRecordTableView.setItems(recordList);
     }
 }
