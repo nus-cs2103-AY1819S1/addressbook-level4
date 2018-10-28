@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_MODE;
+import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_PARAM;
+import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_PARAM_SHORT;
+import static seedu.address.logic.commands.FindPersonCommand.FIND_PERSON_PARAM;
 import static seedu.address.logic.commands.FindPersonCommand.FIND_PERSON_PARAM_SHORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NONE;
@@ -51,10 +53,12 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private void determineType(String findTypeFromUserInput) throws ParseException {
         switch (findTypeFromUserInput) {
+            case FIND_PERSON_PARAM:
             case FIND_PERSON_PARAM_SHORT:
                 findCommandType = FindCommandType.PERSON;
                 break;
-            case FIND_GROUP_MODE:
+            case FIND_GROUP_PARAM:
+            case FIND_GROUP_PARAM_SHORT:
                 findCommandType = FindCommandType.GROUP;
                 break;
             default:

@@ -12,7 +12,8 @@ import static java.util.Objects.requireNonNull;
 
 public class FindGroupCommand extends FindCommand<Group>{
 
-    public static final String FIND_GROUP_MODE = "g";
+    public static final String FIND_GROUP_PARAM = "group";
+    public static final String FIND_GROUP_PARAM_SHORT = "g";
 
     public FindGroupCommand(Predicate<Group> predicate) {
         super(predicate);
