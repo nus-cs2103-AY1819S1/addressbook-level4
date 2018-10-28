@@ -7,7 +7,6 @@ import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GameManagerTest {
@@ -17,13 +16,15 @@ public class GameManagerTest {
     static class GameModeStub implements GameMode {
 
         @Override
-        public int appraiseTaskXp(Task task) {
-            if (task.isCompleted()) {
-                return 50;
-            }
+        public int appraiseXpChange(Task taskFrom, Task taskTo) {
+//            if (taskTo.isCompleted()) {
+//                return 50;
+//            }
+//
+//            // If execution reaches here, the task has not been completed
+//            return 0;
 
-            // If execution reaches here, the task has not been completed
-            return 0;
+            return 50;
         }
     }
 
@@ -34,37 +35,22 @@ public class GameManagerTest {
     }
 
     @Test
-    public void null_appraiseTaskXp() {
-        assertThrows(NullPointerException.class, () -> gm.appraiseTaskXp(null));
+    public void null_appraiseXpChange() {
+
+        Task task = new TaskBuilder().build();
+
+        assertThrows(NullPointerException.class, () -> gm.appraiseXpChange(null, null));
+        assertThrows(NullPointerException.class, () -> gm.appraiseXpChange(task, null));
+        assertThrows(NullPointerException.class, () -> gm.appraiseXpChange(null, task));
     }
 
     @Test
-    public void null_forecastTaskXp() {
-        assertThrows(NullPointerException.class, () -> gm.forecastTaskXp(null));
-    }
-
-    @Test
-    public void appraiseTaskXp() {
+    public void appraiseXpChange() {
         // check that method appraiseTaskXp is callable
         // checking of results is deferred to specific game modes
         Task inProgressTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
         Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
 
-        assertEquals(gm.appraiseTaskXp(inProgressTask), 0);
-        assertEquals(gm.appraiseTaskXp(completedTask), 50);
-    }
-
-    @Test
-    public void forecastTaskXp() {
-        // check that method forecastTaskXp is callable
-        // checking of results is deferred to specific game modes
-        Task inProgressTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
-        Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
-
-        int inProgressXp = gm.forecastTaskXp(inProgressTask);
-        int completedXp = gm.forecastTaskXp(completedTask);
-
-        assertNotEquals(inProgressXp, completedXp);
-
+        assertEquals(gm.appraiseXpChange(inProgressTask, completedTask), 50);
     }
 }

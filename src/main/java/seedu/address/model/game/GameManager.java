@@ -30,28 +30,16 @@ public class GameManager {
      * <p>
      * Uncompleted tasks are worth 0XP.
      *
-     * @param task The task to be evaluated
+     * @param taskFrom The task to be changed
+     * @param taskTo    The changed task
      * @return Returns the XP the supplied task is worth at present
      */
-    public int appraiseTaskXp(Task task) {
-        return gameMode.appraiseTaskXp(task);
-    }
+    public int appraiseXpChange(Task taskFrom, Task taskTo) {
+        if (taskFrom == null || taskTo == null ) {
+            throw new NullPointerException();
+        }
 
-    /**
-     * Shows the expected XP gain if the given task is completed.
-     *
-     * @param task The task to be evaluated
-     * @return Returns the XP the supplied task is worth at present
-     */
-    public int forecastTaskXp(Task task) {
-
-        // Make a copy of the task with COMPLETED status.
-        Task copy = new Task(task.getName(), task.getDueDate(), task.getPriorityValue(), task.getDescription(),
-                task.getLabels(), Status.COMPLETED, task.getDependency());
-
-        int xpDiff = appraiseTaskXp(copy) - appraiseTaskXp(task);
-
-        return xpDiff;
+        return gameMode.appraiseXpChange(taskFrom, taskTo);
     }
 
     /**

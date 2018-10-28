@@ -137,8 +137,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         achievements.updateXp(xp);
     }
 
-    public int appraiseTaskXp(Task task) {
-        return gameManager.appraiseTaskXp(task);
+    public int appraiseXpChange(Task taskFrom, Task taskTo) {
+        if (taskFrom == null || taskTo == null ) {
+            throw new NullPointerException();
+        }
+
+        return gameManager.appraiseXpChange(taskFrom, taskTo);
     }
 
     //// util methods
