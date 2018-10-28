@@ -15,7 +15,6 @@ public abstract class GameMode {
      *
      * @param task1 First task to be compared.
      * @param task2 Second task to be compared.
-     * @return Returns true if they are the same task.
      */
     void checkTaskDetails(Task task1, Task task2) throws XpEvaluationException {
         if (!task1.getName().fullName.equals(task2.getName().fullName)) {
