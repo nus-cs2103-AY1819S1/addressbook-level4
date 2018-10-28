@@ -1,7 +1,6 @@
 package seedu.address.model.encryption;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.model.expense.Name;
 
 public class EncryptedName extends EncryptedExpenseField<Name> {

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.model.tag.Tag;
 
 public class EncryptedTag {
