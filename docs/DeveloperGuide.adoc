@@ -484,7 +484,7 @@ image::implementation/FindCommandSequenceDiagram.png[width="800"]
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
 . `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
-an ArgumentMultimap Object.
+an `ArgumentMultimap` Object.
 
 . `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
 of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
@@ -571,35 +571,35 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 === Budget
 ==== Current Implementation
-The totalBudget feature is one whereby after a user sets a totalBudget, if the total spendings of a user exceeds his totalBudget
-during a period determined by the user, a warning will show up to inform the user that adding an expense results in
-him exceeding his set totalBudget.
+The budget feature allows the user to set a budget for a specific time period.
+If the user's total spending exceeds their budget in the specified time period, a warning will be shown to the user.
 
 The current implementation for totalBudget tracking is described as below.
 
-===== Setting a totalBudget
-Below would be how a totalBudget is set by the user.
+===== Setting a budget
 
-.Sequence diagram of a user setting a totalBudget.
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget
+
+.Sequence diagram of a user setting a budget.
 image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 
 . User enters command `setBudget 2.00`.
 . The command is received by `ExpenseTrackerParser`, which then creates a `SetBudgetCommandParser` Object and calls
 `SetBudgetCommandParser#parse()` method.
-. `SetBudgetCommandParser#parse()` will then return a `totalBudget` of `double` type. It will then create a
-`SetBudgetCommand` Object with `totalBudget` as a parameter would be created and returned to `LogicManager`.
-. `LogicManager then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
- maximum totalBudget of the expense tracker.
-. `LogicManager will then call `EventsCenter#post()` to update the UI, displaying the updated totalBudget.
-. The totalBudget is then updated.
+. `SetBudgetCommandParser#parse()` will then return a `budget` of `double` type. It will then create a
+`SetBudgetCommand` Object with `budget` as a parameter would be created and returned to `LogicManager`.
+. `LogicManager` then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
+ maximum budget of the expense tracker.
+. `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
+. The budget is then updated.
 
 
 ===== Recurring totalBudget
 
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 where the
-totalBudget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, totalBudget will be reset. Else,
+current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
 nothing will be done.
 
 * Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
@@ -607,17 +607,17 @@ be set to `currentTime` + `recurrenceFrequency`.
 * If it has already been set, the timing will be updated on the next occurence time
 //TODO: ADD DIAGRAM TO SHOW THIS
 
-Below is an example of how a user sets the recurrence time.
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.
 
 .Sequence diagram of a user setting a recurrence frequency.
 image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
 
 . User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
 
-. `ExpenseTrackerParser` will then creates a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
+. `ExpenseTrackerParser` will then create a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
 
 . `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
-an ArgumentMultimap Object.
+an `ArgumentMultimap` Object.
 
 . `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
 method. If none of the keywords are present, `ParseException` will be thrown.
