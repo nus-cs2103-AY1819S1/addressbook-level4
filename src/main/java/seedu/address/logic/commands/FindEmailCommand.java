@@ -41,3 +41,4 @@ public class FindEmailCommand extends Command {
                 && predicate.equals(((FindEmailCommand) other).predicate)); // state check
     }
 }
+
