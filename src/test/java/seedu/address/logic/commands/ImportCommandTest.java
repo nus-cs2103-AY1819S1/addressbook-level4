@@ -38,7 +38,7 @@ public class ImportCommandTest {
     public void execute_import_success() throws IOException, DataConversionException {
         ImportCommand importCommand = new ImportCommand(VALID_FILE);
         XmlAddressBookStorage expectedStorage = new XmlAddressBookStorage(VALID_FILE);
-        expectedModel.importAddressBook(expectedStorage.readAddressBook().get());
+        expectedModel.importAddressBook(expectedStorage.readAddressBook().get(), false);
         expectedModel.commitAddressBook();
         assertCommandSuccess(importCommand, model, commandHistory,
                 String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILE.toString()), expectedModel);

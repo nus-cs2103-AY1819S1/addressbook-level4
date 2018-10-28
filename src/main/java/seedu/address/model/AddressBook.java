@@ -243,8 +243,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Merge another MeetingBook into current MeetingBook.
+     *
      */
-    public void merge(ReadOnlyAddressBook imported) {
+    public void merge(ReadOnlyAddressBook imported, boolean overwrite) {
         // If Both book contains same entries
         if (equals(imported)) {
             return;
@@ -256,6 +257,11 @@ public class AddressBook implements ReadOnlyAddressBook {
                 Person importPerson = personItr.next();
                 if (!hasPerson(importPerson)) {
                     addPerson(importPerson);
+                } else {
+                    if (overwrite) {
+                        Person samePerson = getPersonByName(importPerson.getName());
+                        updatePerson(samePerson, importPerson);
+                    }
                 }
             }
 
@@ -264,6 +270,12 @@ public class AddressBook implements ReadOnlyAddressBook {
                 Group importGroup = groupItr.next();
                 if (!hasGroup(importGroup)) {
                     addGroup(importGroup);
+                } else {
+                    if (overwrite) {
+                        Group sameGroup = getGroupByTitle(importGroup.getTitle());
+                        updateGroup(sameGroup, importGroup);
+
+                    }
                 }
             }
 

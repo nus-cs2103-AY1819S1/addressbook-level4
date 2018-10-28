@@ -16,16 +16,21 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
     @Override
     public ImportCommand parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PATH);
+        if (argMultimap.getPreamble().equalsIgnoreCase(ImportCommand.OPTION_OVERWRITE)) {
 
+            Path filePath = ParserUtil.parsePath(argMultimap.getValue(PREFIX_PATH).get());
+            return new ImportCommand(filePath, true);
+        }
         if (!arePrefixesPresent(argMultimap, PREFIX_PATH)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
 
         Path filePath = ParserUtil.parsePath(argMultimap.getValue(PREFIX_PATH).get());
-        return new ImportCommand(filePath);
+        return new ImportCommand(filePath, false);
     }
 
     /**
