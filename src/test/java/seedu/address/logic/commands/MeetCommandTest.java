@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.MeetCommand.MESSAGE_GROUP_HAS_NO_MEETING;
 import static seedu.address.logic.commands.MeetCommand.MESSAGE_MEETING_CANCELLED;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
@@ -50,6 +51,9 @@ public class MeetCommandTest {
 
         MeetCommand command = new MeetCommand(group2, DISCUSSION);
         assertCommandFailure(command, model, EMPTY_COMMAND_HISTORY, Messages.MESSAGE_GROUP_NOT_FOUND);
+
+        command = new MeetCommand(group2, null);
+        assertCommandFailure(command, model, EMPTY_COMMAND_HISTORY, Messages.MESSAGE_GROUP_NOT_FOUND);
     }
 
     @Test
@@ -63,7 +67,14 @@ public class MeetCommandTest {
         MeetCommand command = new MeetCommand(group1, null);
         assertCommandSuccess(command, model, EMPTY_COMMAND_HISTORY,
                 String.format(MESSAGE_MEETING_CANCELLED, groupTitle1), expectedModel);
+    }
 
+    @Test
+    public void execute_noMeetingSpecifiedGroupHasNoMeeting_failure() {
+        Model model = new ModelStubWithSingleGroup(group1);
+
+        MeetCommand command = new MeetCommand(group1, null);
+        assertCommandFailure(command, model, EMPTY_COMMAND_HISTORY, MESSAGE_GROUP_HAS_NO_MEETING);
     }
 
     @Test

@@ -9,6 +9,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +61,11 @@ public class LeaveCommandTest {
     public void execute_acceptedByModel_leaveSuccessful() throws Exception {
         ModelStubAcceptingPersonLeft modelStub = new ModelStubAcceptingPersonLeft();
         Group validGroup = GROUP_2101.copy();
-        Person validPerson = ALICE.copy();
+        Person validPerson = BENSON.copy();
 
         validGroup.addMember(validPerson);
 
-        modelStub.updatePerson(ALICE, validPerson);
+        modelStub.updatePerson(BENSON, validPerson);
         modelStub.updateGroup(GROUP_2101, validGroup);
 
         CommandResult commandResult = new LeaveCommand(validPerson, validGroup).execute(modelStub, commandHistory);

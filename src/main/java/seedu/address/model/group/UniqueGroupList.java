@@ -10,7 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.shared.Title;
 
 
@@ -111,6 +113,28 @@ public class UniqueGroupList implements Iterable<Group> {
         internalList.setAll(groups);
     }
 
+    // @@author NyxF4ll
+    /**
+     * Sets meeting field of {@code group} in the group list to {@code meeting}.
+     */
+    public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        internalList.stream().filter(group::isSameGroup).findAny()
+                .ifPresentOrElse((g) -> g.setMeeting(meeting), () -> {
+                    throw new GroupNotFoundException();
+                });
+    }
+
+    /**
+     * Resets meeting field of {@code group} in the group list to an empty optional.
+     */
+    public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        internalList.stream().filter(group::isSameGroup).findAny()
+                .ifPresentOrElse(Group::cancelMeeting, () -> {
+                    throw new GroupNotFoundException();
+                });
+    }
+
+    // @@author Derek-Hardy
     /**
      * Find an existing group that matches the given {@code title}.
      * If the group is found, returns the matched group. Else returns {@code null}.
