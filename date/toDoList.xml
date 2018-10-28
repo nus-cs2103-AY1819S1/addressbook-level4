@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<toDoList>
+  <toDoListEvents>
+    <title>CS2103 Project</title>
+    <description>Finish UI design</description>
+    <priority>H</priority>
+  </toDoListEvents>
+</toDoList>
