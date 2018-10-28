@@ -23,7 +23,9 @@ public class Picture {
      * Regular expression validation for path.
      */
     public static final String PICTURE_PATH_WIN_VALIDATION_REGEX =
-        "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
+        "([a-zA-Z]:)?((\\\\|/)[a-zA-Z0-9_.-]+)+(\\\\|/)?";
+    public static final String DEFAULT_PATH_WIN_VALIDATION_REGEX =
+        "/" + PICTURE_PATH_WIN_VALIDATION_REGEX;
     public static final String PICTURE_PATH_MAC_VALIDATION_REGEX =
         "^((?!.*//.*)(?!.*/ .*)/{1}([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jpg|png))$";
 
@@ -48,6 +50,9 @@ public class Picture {
      * Returns true if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
+        if (test.matches(DEFAULT_PATH_WIN_VALIDATION_REGEX)) {
+            test = test.substring(1, test.length());
+        }
         return ((test.matches(PICTURE_PATH_WIN_VALIDATION_REGEX) || test.matches(PICTURE_PATH_MAC_VALIDATION_REGEX))
             && Files.exists(Paths.get(test)));
     }
