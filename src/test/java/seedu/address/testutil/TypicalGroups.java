@@ -27,7 +27,7 @@ public class TypicalGroups {
             .withDescription("Project group for module CS2103T").withMeeting(WEEKLY)
             .withNewPerson(ALICE).build();
 
-    public static final Group GROUP_2101 = new GroupBuilder().withTitle("CS2101")
+    public static final Group GROUP_2101 = new GroupBuilder().withTitle("CS2101 Project Team")
             .withDescription("CS2101 Presentation team").build();
 
     public static final Group NUS_COMPUTING = new GroupBuilder().withTitle("COMPUTING")
@@ -35,7 +35,7 @@ public class TypicalGroups {
             .withMeeting(DISCUSSION)
             .withNewPerson(CARL).withNewPerson(DANIEL).withNewPerson(ELLE).build();
 
-    public static final Group NUS_BASKETBALL = new GroupBuilder().withTitle("Basketball")
+    public static final Group NUS_BASKETBALL = new GroupBuilder().withTitle("Basketball Clique")
             .withDescription("NUS basketball")
             .withMeeting(URGENT)
             .withNewPerson(CARL).withNewPerson(ELLE).build();

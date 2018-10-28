@@ -6,7 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_GROUPS_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
+import static seedu.address.testutil.TypicalGroups.NUS_BASKETBALL;
+import static seedu.address.testutil.TypicalGroups.NUS_COMPUTING;
+import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +20,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 
 /**
@@ -65,36 +67,36 @@ public class FindGroupCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
-//    @Test
-//    public void execute_multipleKeywords_somePrefix() {
-//        String expectedMessage = String.format(MESSAGE_GROUPS_FOUND_OVERVIEW, 3);
-//        GroupTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
-//            "NUSHackers", " ");
-//        FindGroupCommand command = new FindGroupCommand(predicate);
-//        expectedModel.updateFilteredGroupList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
-//    }
+    @Test
+    public void execute_multipleKeywords_somePrefix() {
+        String expectedMessage = String.format(MESSAGE_GROUPS_FOUND_OVERVIEW, 3);
+        GroupTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
+            "Team Clique", " ");
+        FindGroupCommand command = new FindGroupCommand(predicate);
+        expectedModel.updateFilteredGroupList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101, NUS_BASKETBALL), model.getFilteredGroupList());
+    }
 
-//    @Test
-//    public void execute_multipleKeywords_allPrefix() {
-//        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-//        PersonNameContainsKeywordsPredicate predicate = preparePredicate(KEYWORD_MATCHING_MEIER, " ", " ");
-//        FindGroupCommand command = new FindGroupCommand(predicate);
-//        expectedModel.updateFilteredPersonList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(BENSON, DANIEL), model.getFilteredPersonList());
-//    }
-//
-//    @Test
-//    public void execute_multipleKeywords_nonePrefix() {
-//        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
-//        PersonNameContainsKeywordsPredicate predicate = preparePredicate(" ", " ", KEYWORD_MATCHING_MEIER);
-//        FindGroupCommand command = new FindGroupCommand(predicate);
-//        expectedModel.updateFilteredPersonList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(ALICE, CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
-//    }
+    @Test
+    public void execute_multipleKeywords_allPrefix() {
+        String expectedMessage = String.format(MESSAGE_GROUPS_FOUND_OVERVIEW, 2);
+        GroupTitleContainsKeywordsPredicate predicate = preparePredicate("Project Team", " ", " ");
+        FindGroupCommand command = new FindGroupCommand(predicate);
+        expectedModel.updateFilteredGroupList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101), model.getFilteredGroupList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_nonePrefix() {
+        String expectedMessage = String.format(MESSAGE_GROUPS_FOUND_OVERVIEW, 2);
+        GroupTitleContainsKeywordsPredicate predicate = preparePredicate(" ", " ", "Project");
+        FindGroupCommand command = new FindGroupCommand(predicate);
+        expectedModel.updateFilteredGroupList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(NUS_COMPUTING, NUS_BASKETBALL), model.getFilteredGroupList());
+    }
 
     /**
      * Parses {@code userInput} into a {@code GroupTitleContainsKeywordsPredicate}.
