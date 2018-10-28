@@ -37,19 +37,19 @@ public class FlatModeTest {
         Task overdueTask = new TaskBuilder().withStatus(Status.OVERDUE).build();
         Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
 
-        // no change in status
-        assertEquals(gm.appraiseXpChange(inProgressTask, inProgressTask), 0);
-        assertEquals(gm.appraiseXpChange(overdueTask, overdueTask), 0);
-        assertEquals(gm. appraiseXpChange(completedTask, completedTask), 0);
+        // invalid - no change in status
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, overdueTask));
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, overdueTask));
+        assertThrows(XpEvaluationException.class, () -> gm. appraiseXpChange(completedTask, completedTask));
 
-        // setting to overdue or reverse
+        // invalid - regressing status
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(overdueTask, inProgressTask));
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(completedTask, inProgressTask));
+        assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(completedTask, overdueTask));
+
+        // valid
         assertEquals(gm.appraiseXpChange(inProgressTask, overdueTask), 0);
-        assertEquals(gm.appraiseXpChange(overdueTask, inProgressTask), 0);
-
-        // normal course
         assertEquals(gm.appraiseXpChange(inProgressTask, completedTask), completedXp);
-        assertEquals(gm.appraiseXpChange(completedTask, inProgressTask), -completedXp);
         assertEquals(gm.appraiseXpChange(overdueTask, completedTask), overdueXp);
-        assertEquals(gm.appraiseXpChange(completedTask, overdueTask), -overdueXp);
     }
 }

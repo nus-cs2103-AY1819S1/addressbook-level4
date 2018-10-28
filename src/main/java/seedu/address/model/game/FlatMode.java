@@ -7,7 +7,7 @@ import seedu.address.model.task.Task;
 /**
  * A game mode where all completed tasks give the same XP.
  */
-public class FlatMode implements GameMode {
+public class FlatMode extends GameMode {
 
     private int overdueXp;
     private int completedXp;
@@ -24,35 +24,24 @@ public class FlatMode implements GameMode {
     @Override
     public int appraiseXpChange(Task taskFrom, Task taskTo) {
 
-        // if task status is identical, award no XP
-        if (taskFrom.getStatus() == taskTo.getStatus()) {
-            return 0;
-        }
-
+        // Check that the two tasks are the same, but with different statuses
+        checkValidTasks(taskFrom, taskTo);
 
         // if a task is moving between inProgress to Overdue, award no XP
-        if (!taskFrom.isCompleted() && !taskTo.isCompleted()) {
+        if (taskFrom.isInProgress() && taskTo.isOverdue()) {
             return 0;
         }
 
         // Else award points
-        int xpFrom = appraiseTask(taskFrom);
-        int xpTo = appraiseTask(taskTo);
-
-        int xpDiff = xpTo - xpFrom;
-
-        return xpDiff;
-    }
-
-    private int appraiseTask(Task task) {
-        if (task.isCompleted()) {
+        if (taskFrom.isInProgress() && taskTo.isCompleted()) {
             return completedXp;
         }
 
-        if (task.isOverdue()) {
-            return completedXp - overdueXp;
+        if (taskFrom.isOverdue() && taskTo.isCompleted()) {
+            return overdueXp;
         }
 
-        return 0;
+        // Should not reach here
+        throw new RuntimeException("Unexpected state in FlatMode");
     }
 }

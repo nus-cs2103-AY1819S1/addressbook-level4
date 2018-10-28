@@ -13,7 +13,7 @@ public class GameManagerTest {
 
     private GameManager gm;
 
-    static class GameModeStub implements GameMode {
+    static class GameModeStub extends GameMode {
 
         @Override
         public int appraiseXpChange(Task taskFrom, Task taskTo) {
