@@ -22,10 +22,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
@@ -80,16 +80,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
             + SCHOOL_DESC_AMY + TAG_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
+        /* Case: add to empty address book -> added */
+        deleteAllPersons();
+        assertCommandSuccess(HOON);
+
         /* Case: add a person with all fields same as another person in the address book except phone and email
          * -> added
          */
         toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
-
-        /* Case: add to empty address book -> added */
-        deleteAllPersons();
-        assertCommandSuccess(ALICE);
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(GEORGE);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
