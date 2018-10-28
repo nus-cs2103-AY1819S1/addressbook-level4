@@ -26,6 +26,7 @@ public class DeleteEmailCommand extends Command {
     private final Subject subject;
 
     public DeleteEmailCommand(Subject subject) {
+        requireNonNull(subject);
         this.subject = subject;
     }
 
