@@ -111,6 +111,7 @@ public class ImageMagickUtil {
         }
         Process process = pb.start();
         process.waitFor();
+        String s = process.getErrorStream().toString();
         FileInputStream inputstream = new FileInputStream(TMP_PATH + "/modified.png");
         Image modifiedImage = new Image(inputstream);
         return SwingFXUtils.fromFXImage(modifiedImage, null);
