@@ -82,7 +82,8 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
                 Date end = new Date(splitDate[1]);
                 result = result && (start.equals(expense.getDate())
                         || end.equals(expense.getDate())
-                        || (start.isEalierThan(expense.getDate()) && expense.getDate().isEalierThan(end)));
+                        || (Date.compare(start,expense.getDate()) == 1
+                        && Date.compare(expense.getDate(), end) == 1));
             }
         }
 

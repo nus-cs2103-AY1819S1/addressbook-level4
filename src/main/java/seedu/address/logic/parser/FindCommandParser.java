@@ -121,7 +121,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
 
             //If the ending date is earlier than the starting date
-            if (dates.length == 2 && new Date(dates[1]).isEalierThan(new Date(dates[0]))) {
+            if (dates.length == 2 && Date.compare(new Date(dates[0]) ,new Date(dates[1])) == -1) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_RANGE));
             }
