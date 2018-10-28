@@ -43,7 +43,7 @@ are made to be as intuitive as possible.
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote tests for existing features to increase coverage from 67% to 75% (Pull requests https://goo.gl/vQbh82[#109])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:

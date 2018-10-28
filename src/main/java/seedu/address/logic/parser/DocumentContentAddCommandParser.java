@@ -25,7 +25,12 @@ public class DocumentContentAddCommandParser implements Parser<DocumentContentAd
                 ArgumentTokenizer.tokenize(args, PREFIX_MC_CONTENT, PREFIX_NOTE_CONTENT, PREFIX_REFERRAL_CONTENT);
         DocumentContentDescriptor documentContentDescriptor = new DocumentContentDescriptor();
         if (argMultimap.getValue(PREFIX_MC_CONTENT).isPresent()) {
-            documentContentDescriptor.setMcContent(argMultimap.getValue(PREFIX_MC_CONTENT).get());
+            try {
+                int numMcDays = Integer.parseInt(argMultimap.getValue(PREFIX_MC_CONTENT).get());
+                documentContentDescriptor.setMcContent(String.valueOf(numMcDays));
+            } catch (NumberFormatException nfe) {
+                throw new ParseException(DocumentContentAddCommand.MESSAGE_MC_DAYS_CONSTRAINTS);
+            }
         }
         if (argMultimap.getValue(PREFIX_NOTE_CONTENT).isPresent()) {
             documentContentDescriptor.setNoteContent(argMultimap.getValue(PREFIX_NOTE_CONTENT).get());
