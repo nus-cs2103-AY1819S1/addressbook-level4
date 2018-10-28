@@ -14,6 +14,7 @@ import seedu.clinicio.logic.Logic;
 import seedu.clinicio.logic.commands.CommandResult;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.ui.util.PasswordPrefixFormatter;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -21,12 +22,13 @@ import seedu.clinicio.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
+    
     private static final String FXML = "CommandBox.fxml";
-
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private final StringBuilder tempPassword = new StringBuilder();
+    
     private ListElementPointer historySnapshot;
+    private PasswordPrefixFormatter passwordFormatter;
 
     @FXML
     private TextField commandTextField;
@@ -37,6 +39,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        passwordFormatter = new PasswordPrefixFormatter(commandTextField);
     }
 
     /**
@@ -44,30 +47,27 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-
+        String formattedText = "";
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
+            keyEvent.consume();
             navigateToPreviousInput();
-            maskPassword(true, false);
+            formattedText = passwordFormatter.maskPassword(true);
             break;
         case DOWN:
+            keyEvent.consume();
             navigateToNextInput();
-            maskPassword(true, false);
-            break;
-        case SPACE:
-            maskPassword(false, false);
-            break;
-        case BACK_SPACE:
-            maskPassword(false, true);
+            formattedText = passwordFormatter.maskPassword(true);
             break;
         default:
             // let JavaFx handle the keypress
-            maskPassword(false, false);
+            formattedText = passwordFormatter.maskPassword(false);
             break;
         }
-
+        
+        replaceText(formattedText);
     }
 
     /**
@@ -80,7 +80,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        resetTempPassword();
+        passwordFormatter.resetTempPassword();
         replaceText(historySnapshot.previous());
     }
 
@@ -94,7 +94,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        resetTempPassword();
+        passwordFormatter.resetTempPassword();
         replaceText(historySnapshot.next());
     }
 
@@ -107,112 +107,13 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
-    //@@author jjlee050
-    /**
-     * Mask the password after pass/ prefix to '-'.
-     */
-    public void maskPassword(boolean isHistory, boolean isBackspace) {
-        if (commandTextField.getText().contains("pass/")) {
-            int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
-            int spaceAfterPasswordIndex = commandTextField.getText().indexOf(' ', passwordPrefixIndex);
-            String password = commandTextField.getText()
-                    .substring(passwordPrefixIndex + 5);
-            if (spaceAfterPasswordIndex > 0) {
-                password = commandTextField.getText()
-                        .substring(passwordPrefixIndex + 5, spaceAfterPasswordIndex);
-            }
-            String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-            
-            StringBuilder maskedPassword = new StringBuilder();
-
-            int passwordLength = password.length();
-            if (isHistory) {
-                passwordLength -= 1;
-            }
-            for (int i = 0; i < passwordLength; i++) {
-                if (password.charAt(i) != '-') {
-                    tempPassword.append(password.charAt(i));
-                }
-                maskedPassword.append("-");
-            }
-
-            if (isHistory) {
-                maskedPassword.append(password.charAt(password.length() - 1));
-            } else if ((isBackspace) &&(tempPassword.length() > 0)) {
-                char lastPasswordChar = tempPassword.charAt(tempPassword.length() - 1);
-                tempPassword.deleteCharAt(tempPassword.length() - 1);
-                maskedPassword.replace(maskedPassword.length() - 1,
-                        maskedPassword.length(), String.valueOf(lastPasswordChar));
-            }
-            //System.out.println("Mask: " + maskedPassword);
-            //System.out.println("Temp: " + tempPassword);
-            if (spaceAfterPasswordIndex > 0) {
-                String anyOtherCommand = commandTextField.getText().substring(spaceAfterPasswordIndex);
-                replaceText(otherCommand + "pass/" + maskedPassword.toString() + anyOtherCommand);
-            } else {
-                replaceText(otherCommand + "pass/" + maskedPassword.toString());
-            }
-        }
-    }
-
-    //@@author jjlee050
-    /**
-     * Unmask the password that has been hidden with '-'.
-     */
-    private void unmaskPassword() {
-        if (commandTextField.getText().contains("pass/")) {
-            int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
-            int spaceAfterPasswordIndex = commandTextField.getText().indexOf(' ', passwordPrefixIndex);
-
-            String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-            String password = commandTextField.getText()
-                    .substring(passwordPrefixIndex + 5);
-            if (spaceAfterPasswordIndex > 0) {
-                password = commandTextField.getText()
-                        .substring(passwordPrefixIndex + 5, spaceAfterPasswordIndex);
-            }
-
-            String commandText = "";
-            
-            if (tempPassword.length() == password.length()) {
-                commandText += (otherCommand + "pass/"
-                        + tempPassword.toString());
-            } else if (tempPassword.length() > password.length()) {
-                commandText += (otherCommand + "pass/"
-                        + tempPassword.substring(0, password.length()));
-            } else {
-                commandText +=(otherCommand + "pass/"
-                        + tempPassword.toString()
-                        + password.substring(tempPassword.length()));
-            }
-
-            if (spaceAfterPasswordIndex > 0) {
-                String anyOtherCommand = commandTextField.getText().substring(spaceAfterPasswordIndex);
-                commandText += anyOtherCommand;
-            }
-            
-            replaceText(commandText);
-            
-            //Reset temp password.
-            resetTempPassword();
-
-        }
-    }
-
-    /**
-     * Reset the temporary password in the command text field.
-     */
-    private void resetTempPassword() {
-        tempPassword.setLength(0);
-    }
-
     /**
      * Handles the Enter button pressed event.
      */
     @FXML
     private void handleCommandEntered() {
-        unmaskPassword();
         try {
+            replaceText(passwordFormatter.unmaskPassword());
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
@@ -220,7 +121,6 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
