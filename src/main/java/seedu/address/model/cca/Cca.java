@@ -236,9 +236,9 @@ public class Cca {
      * @param toCheck name of the CCA to be checked
      */
     public boolean isSameCca(Cca toCheck) {
-        if (toCheck == this) {
-            return true;
-        }
+//        if (toCheck == this) {
+//            return true;
+//        }
 
         return toCheck != null
             && toCheck.getCcaName().equals(getCcaName());

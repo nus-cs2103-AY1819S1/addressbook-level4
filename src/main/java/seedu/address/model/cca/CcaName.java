@@ -12,12 +12,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class CcaName {
     public static final String MESSAGE_NAME_CONSTRAINTS =
-        "CCA names should only contain alphanumeric characters and spaces, and it should not be blank";
+        "CCA names should only contain alphabet characters and spaces, and it should not be blank";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     private final String ccaName;
 
