@@ -24,7 +24,7 @@ public abstract class Command {
     }
 
     /**
-     * Execution primitive used be execution command. Inherited commands need to implement this method
+     * Execution primitive used by execution command. Inherited commands need to override this method
      * to define the implementation of the function.
      *
      * @param model   {@code Model} which the command should operate on.
