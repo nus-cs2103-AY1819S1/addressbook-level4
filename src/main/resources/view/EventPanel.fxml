@@ -8,7 +8,7 @@
 <VBox fx:id="eventPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER_LEFT">
         <Label fx:id="eventNameLabel" styleClass="event-name" />
-        <FlowPane fx:id="tagsLabel" />
+        <FlowPane fx:id="tags" />
         <HBox fx:id="eventDateBox" alignment="CENTER_LEFT">
             <Label fx:id="eventStartDateLabel" styleClass="detail" />
             <Label fx:id="eventEndDateLabel" styleClass="detail" />
