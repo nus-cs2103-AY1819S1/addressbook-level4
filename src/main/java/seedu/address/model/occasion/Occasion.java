@@ -56,7 +56,7 @@ public class Occasion {
         return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
     }
 
-    public OccasionLocation getLocation() {
+    public OccasionLocation getOccasionLocation() {
         return location;
     }
 
@@ -80,7 +80,8 @@ public class Occasion {
             return true;
         }
 
-        return otherOccasion.getOccasionName().equals(this.getOccasionName())
+        return otherOccasion != null
+                && otherOccasion.getOccasionName().equals(this.getOccasionName())
                 && otherOccasion.getOccasionDate().equals(this.getOccasionDate());
     }
 
@@ -104,6 +105,7 @@ public class Occasion {
         Occasion otherOccasion = (Occasion) other;
         return otherOccasion.getOccasionName().equals(this.getOccasionName())
                 && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
+                && otherOccasion.getOccasionLocation().equals(this.getOccasionLocation())
                 && otherOccasion.getAttendanceList().equals(this.getAttendanceList())
                 && otherOccasion.getTags().equals(this.getTags());
     }
