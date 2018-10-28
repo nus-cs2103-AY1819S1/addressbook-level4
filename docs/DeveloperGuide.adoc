@@ -1356,10 +1356,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. JCRC member requests to clear persons with specific tag
+* 1a. JCRC member requests to clear persons with specific tag(s)
 +
 [none]
-** 1a1. Hallper clears all persons with specified tag
+** 1a1. Hallper clears all persons with specified tag(s)
 +
 Use case ends.
 
@@ -1368,10 +1368,28 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to import contacts
-2. Hallper requests for file location
-3. JCRC member enters file location
-4. Hallper imports contacts
+1. JCRC member requests to import contacts from file location
+2. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Export contacts
+
+*MSS*
+
+1. JCRC member requests to export contacts to location
+2. Hallper exports contacts to location
 +
 Use case ends.
 
@@ -1390,8 +1408,18 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to erase a specific tag
-2. Hallper erases specified tag from all persons
+1. JCRC member requests to erase specific tag(s)
+2. Hallper erases specified tag(s) from all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Tag does not exist
++
+[none]
+** 3a1. Hallper shows error message
 +
 Use case ends.
 
