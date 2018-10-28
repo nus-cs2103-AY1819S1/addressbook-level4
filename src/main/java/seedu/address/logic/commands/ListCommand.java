@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.ListCommandParser.DUE_TODAY_OPTION;
 import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
@@ -33,9 +32,9 @@ public class ListCommand extends Command {
             + "Parameters: "
             + "[" + PREFIX_DUE_BEFORE + "DUE BEFORE " + "]\n"
             + "Allowed values for \"DUE BEFORE\": "
-            + DUE_TODAY_OPTION  + ", "
-            + DUE_END_OF_WEEK_OPTION  + ", "
-            + DUE_END_OF_MONTH_OPTION  + ", " + "\n"
+            + DUE_TODAY_OPTION + ", "
+            + DUE_END_OF_WEEK_OPTION + ", "
+            + DUE_END_OF_MONTH_OPTION + ", " + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DUE_BEFORE + "today";
 
