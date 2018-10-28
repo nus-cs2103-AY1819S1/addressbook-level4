@@ -36,7 +36,7 @@ public class PersonBuilder {
         email = Optional.of(new Email(DEFAULT_EMAIL));
         address = Optional.of(new Address(DEFAULT_ADDRESS));
         tags = new HashSet<>();
-        picture = new Picture(Picture.DEFAULT_PICTURE);
+        picture = new Picture(Picture.DEFAULT_PICTURE_URL.getPath());
     }
 
     /**
