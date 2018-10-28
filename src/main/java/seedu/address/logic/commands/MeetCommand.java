@@ -59,10 +59,6 @@ public class MeetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasGroup(group)) {
-            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
-        }
-
         if (meeting != null) {
             handleNonEmptyArgumentMeetCommand(model);
             model.commitAddressBook();
