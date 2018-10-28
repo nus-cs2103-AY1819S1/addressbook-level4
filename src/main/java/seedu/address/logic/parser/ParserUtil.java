@@ -24,8 +24,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.Date;
-import seedu.address.model.group.Place;
 import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -235,35 +233,6 @@ public class ParserUtil {
         return new Title(trimmedTitle);
     }
 
-    /**
-     * Parses a {@code String place} into a {@code Place}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code place} is invalid.
-     */
-    public static Place parsePlace(String place) throws ParseException {
-        requireNonNull(place);
-        String trimmedPlace = place.trim();
-        if (!Place.isValidPlace(trimmedPlace)) {
-            throw new ParseException(Place.MESSAGE_PLACE_CONSTRAINTS);
-        }
-        return new Place(trimmedPlace);
-    }
-
-    /**
-     * Parses a {@code String date} into a {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code date} is invalid.
-     */
-    public static Date parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        String trimmedDate = date.trim();
-        if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
-        }
-        return new Date(trimmedDate);
-    }
 
     /**
      * Parses a {@code String description} into a {@code Description}.

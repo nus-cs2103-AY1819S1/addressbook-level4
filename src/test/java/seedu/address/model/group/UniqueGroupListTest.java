@@ -197,6 +197,12 @@ public class UniqueGroupListTest {
     }
 
     @Test
+    public void getPersonByName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueGroupList.getGroupByTitle(null);
+    }
+
+    @Test
     public void getGroupByTitle_equals_returnsTrue() {
         Group group = new GroupBuilder().withTitle("project").build();
         Title title = new Title("project");
@@ -205,6 +211,17 @@ public class UniqueGroupListTest {
         Group match = uniqueGroupList.getGroupByTitle(title);
 
         assertTrue(match.equals(group));
+    }
+
+    @Test
+    public void getGroupByTitle_noMatch_returnsTrue() {
+        Group group = new GroupBuilder().withTitle("Demo").build();
+        Title title = new Title("not demo");
+
+        uniqueGroupList.add(group);
+        Group match = uniqueGroupList.getGroupByTitle(title);
+
+        assertTrue(match == null);
     }
 
     @Test

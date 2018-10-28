@@ -15,7 +15,8 @@ import seedu.address.model.shared.Title;
 
 
 /**
- * A list of groups that enforces uniqueness between its elements and does not allow nulls.
+ * A list of groups that enforces uniqueness between its elements and does not allow {@code null}.
+ *
  * A list is considered unique by comparing using {@code Group#isSameGroup(Group)}. As such, adding and updating of
  * groups uses Group#isSameGroup(Group) for equality so as to ensure that the group being added or updated is
  * unique in terms of identity in the UniqueGroupList. However, the removal of a group uses Group#equals(Object) so
@@ -89,6 +90,9 @@ public class UniqueGroupList implements Iterable<Group> {
         }
     }
 
+    /**
+     * Replace all the groups in this UniqueGroupList with a new set of groups.
+     */
     public void setGroups(UniqueGroupList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
