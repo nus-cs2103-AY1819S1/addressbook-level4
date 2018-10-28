@@ -89,7 +89,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noDeckFound() {
+    public void executeZeroKeywordsNoDeckFound() {
         String expectedMessage = String.format(MESSAGE_DECKS_LISTED_OVERVIEW, 0);
         DeckNameContainsKeywordsPredicate deckPredicate = prepareDeckPredicate(" ");
         FindCommand command = new FindCommand(deckPredicate);
@@ -99,7 +99,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noCardFound() {
+    public void executeZeroKeywordsNoCardFound() {
         // Get into a deck in model and expectedMode
         model.getIntoDeck(THERE);
         expectedModel.getIntoDeck(THERE);
@@ -113,7 +113,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleDecksFound() {
+    public void executeMultipleKeywordsMultipleDecksFound() {
         String expectedMessage = String.format(MESSAGE_DECKS_LISTED_OVERVIEW, 3);
         DeckNameContainsKeywordsPredicate deckPredicate = prepareDeckPredicate("baby is back");
         FindCommand command = new FindCommand(deckPredicate);
@@ -123,7 +123,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleCardsFound() {
+    public void executeMultipleKeywordsMultipleCardsFound() {
         // Get into a deck in model and expectedMode
         model.getIntoDeck(THERE);
         expectedModel.getIntoDeck(THERE);
@@ -149,4 +149,5 @@ public class FindCommandTest {
     private CardQuestionContainsKeywordsPredicate prepareCardPredicate(String userInput) {
         return new CardQuestionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
+
 }

@@ -9,7 +9,8 @@ import seedu.address.model.deck.CardQuestionContainsKeywordsPredicate;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all decks or cards in the current list, which has identity field contains any of the argument keywords.
+ * Finds and lists all decks or cards in the current list, which has identity field contains
+ * any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
