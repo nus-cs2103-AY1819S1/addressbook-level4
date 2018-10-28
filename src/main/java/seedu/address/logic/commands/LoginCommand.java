@@ -14,7 +14,6 @@ import seedu.address.model.person.Person;
  * Allow a person to login to EventOrganiser.
  */
 public class LoginCommand extends Command {
-    public static final String COMMAND_ALIAS = "l";
     public static final String COMMAND_WORD = "login";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logs in a person to the address book. "
