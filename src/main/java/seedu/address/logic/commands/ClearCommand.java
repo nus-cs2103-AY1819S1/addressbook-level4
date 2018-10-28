@@ -31,17 +31,12 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_CLEAR_SPECIFIC_SUCCESS = "Cleared persons under %1$s in Hallper";
     public static final String MESSAGE_CLEAR_NOTHING = "No persons found under %1$s in Hallper";
 
-    private final ContactContainsTagPredicate predicateTag;
-    private final ContactContainsRoomPredicate predicateRoom;
-
     private final List<String> target;
     private boolean clearAll;
     private boolean clearRoom;
     private boolean clearTag;
 
     public ClearCommand(List<String> target) {
-        this.predicateTag = new ContactContainsTagPredicate(target);
-        this.predicateRoom = new ContactContainsRoomPredicate(target);
         this.target = target;
         this.clearAll = false;
         this.clearRoom = false;
@@ -88,6 +83,8 @@ public class ClearCommand extends Command {
      * @return CommandResult
      */
     private CommandResult clearSpecific(Model model) {
+        ContactContainsTagPredicate predicateTag = new ContactContainsTagPredicate(target);
+        ContactContainsRoomPredicate predicateRoom = new ContactContainsRoomPredicate(target);
         List<Person> toClear = new ArrayList<>();
         List<Person> fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {

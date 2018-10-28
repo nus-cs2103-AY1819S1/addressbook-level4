@@ -604,7 +604,104 @@ storing information.
 ** Pros: Faster in parsing information.
 ** Cons: Limited in terms of what objects can be modeled.
 
-// end::undoredo[]
+// end::createcca[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+The import feature allows `.xml` files of different formats to be imported from the computer.
+
+It implements the following operations and classes:
+
+* `ImportCommand#parseFile()` -- Parses specified path into document for reading.
+* `ImportAddressBook#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update
+Hallper data.
+* `ImportCcaList#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update Hallper
+contacts' CCAs.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#addMultiplePersons()`
+and `Model#updateMultiplePersons`.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+. The user imports `.xml` file by specifying the path of the file.
+
+. `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
+format, the specified file will not be imported.
+
+. `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
+
+. `ImportCommand.execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+Model model)` to read the document.
+
+. After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
+`ModelManager#addMultiplePersons(List<Person> personList)` to update Hallper's internal list and
+`ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+. `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new contacts.
+
+==== Design Considerations
+
+===== Aspect: Choice of component to read imported file
+
+* **Alternative 1 (current choice):** Reads file in `Logic`.
+** Pros: Easy to change parsing of `.xml` file when `.xml` file format changes. New `.xml` file formats can be added
+without disrupting the existing parsers.
+** Cons: Importing from the computer is a storage-related feature but the reading of the file is located outside of
+Storage component.
+
+* **Alternative 2:** Reads file in `Storage`.
+** Pros: Proper grouping of import implementation inside related component.
+** Cons: More complicated implementation if more `.xml` file formats are added to be parsed in the future.
+
+// end::import[]
+
+// tag::export[]
+=== Export feature
+==== Current Implementation
+The export feature allows Hallper data to be exported as an `xml` file to the computer.
+
+It implements the following operation:
+
+* `ExportCommand#execute(Model model, CommandHistory history)` -- Exports current Hallper data as an `xml` file to
+the specified path.
+
+This operation is exposed in the `Model` interface as `Model#exportAddressBook(Path filePath)`.
+
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+. The user exports an 'xml' file by specifying the destination path and name of the exported file.
+
+. `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
+data will not be exported. Otherwise, path and filename will be parsed into a single, full path.
+
+. `ExportCommand#execute(Model model, CommandHistory history)` then invokes
+`ModelManager#exportAddressBook(Path filePath)` which raises an `ExportAddressBookEvent`.
+
+. `ExportAddressBookEvent` is then handled by
+`StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
+`StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
+storage data to the specified path.
+
+==== Design Considerations
+
+===== Aspect: Choice of export format
+
+* **Alternative 1 (current choice):** Export `.xml` format only.
+** Pros: Easy for user to update and re-import the `.xml` file. Standardised format for Hallper-related data files.
+** Cons: Difficult to convert/transfer data to other applications due to limited export format. Need to use external
+applications to convert `.xml` file.
+
+* **Alternative 2:** Export `.xml`, `.txt` and `.xlsx` formats.
+** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
+** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
+underused or unused.
+
+// end:export[]
 
 // tag::dataencryption[]
 === [Proposed] Data encryption
