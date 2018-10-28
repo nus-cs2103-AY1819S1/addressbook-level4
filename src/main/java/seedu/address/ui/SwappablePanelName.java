@@ -9,7 +9,8 @@ package seedu.address.ui;
 public enum SwappablePanelName {
     BLANK("default"),
     MEDICATION("meds"),
-    APPOINTMENT("appt");
+    APPOINTMENT("appt"),
+    HISTORY("mh");
 
     private String shortForm;
 

@@ -3,6 +3,9 @@ package seedu.address.model.medicalhistory;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * The data structure that stores the medical diagnoses of a patient.
  */
@@ -37,5 +40,13 @@ public class MedicalHistory extends ArrayList<Diagnosis> {
 
         return (o instanceof MedicalHistory)
                 && super.equals(o);
+    }
+
+    /**
+     * Helper method to return a copy of the medical history.
+     * todo add on to this
+     */
+    public ObservableList<Diagnosis> getObservableCopyOfMedicalHistory() {
+        return FXCollections.observableArrayList(new ArrayList<>(this));
     }
 }
