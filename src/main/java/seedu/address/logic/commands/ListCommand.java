@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.ListCommandParser.DUE_TODAY_OPTION;
 import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
@@ -79,5 +80,12 @@ public class ListCommand extends Command {
                 ? new CommandResult(MESSAGE_SUCCESS)
                 : new CommandResult(String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW,
                     model.getFilteredTaskList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListCommand // instanceof handles nulls
+                && predicate.equals(((ListCommand) other).predicate)); // state check
     }
 }
