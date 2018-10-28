@@ -94,7 +94,7 @@ public class ComposeEmailIndexCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ComposeEmailIndexCommand // instanceof handles nulls
-                && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose)
+                && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose) // state check
                 && indexSet.equals(((ComposeEmailIndexCommand) other).indexSet));
     }
 }
