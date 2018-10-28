@@ -65,7 +65,7 @@ public class OccasionCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Occasion occasion) {
         return getName().equals(occasion.getOccasionName().toString())
-                && getDate().equals(occasion.getOccasionDate().toString())
+                && getDate().equals("Date: " + occasion.getOccasionDate().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(occasion.getTags().stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList())));

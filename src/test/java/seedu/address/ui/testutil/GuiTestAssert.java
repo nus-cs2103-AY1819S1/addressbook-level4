@@ -67,6 +67,8 @@ public class GuiTestAssert {
     public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
         assertEquals(expectedModule.getModuleTitle().toString(), actualCard.getName());
         assertEquals(expectedModule.getModuleCode().toString() + ":", actualCard.getCode());
+        assertEquals("Academic Year: " + expectedModule.getAcademicYear().toString(), actualCard.getAcademicYear());
+        assertEquals("Semester: " + expectedModule.getSemester().toString(), actualCard.getSemester());
         assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
@@ -76,7 +78,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysOccasion(Occasion expectedOccasion, OccasionCardHandle actualCard) {
         assertEquals(expectedOccasion.getOccasionName().toString(), actualCard.getName());
-        assertEquals(expectedOccasion.getOccasionDate().toString(), actualCard.getDate());
+        assertEquals("Date: " + expectedOccasion.getOccasionDate().toString(), actualCard.getDate());
         assertEquals(expectedOccasion.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
