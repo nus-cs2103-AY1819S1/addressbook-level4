@@ -17,6 +17,7 @@ public class AcademicYear {
     public static final String ACADEMICYEAR_VALIDATION_REGEX = "[0-9]{4}";
 
     public final Integer yearNumber;
+    // TODO: Should it be change to string?
 
     /**
      * Constructs a {@code AcademicYear}.
