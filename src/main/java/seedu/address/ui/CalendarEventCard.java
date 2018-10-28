@@ -42,7 +42,7 @@ public class CalendarEventCard extends UiPart<Region> {
         this.calendarEvent = calendarEvent;
         id.setText(displayedIndex + ". ");
         title.setText(calendarEvent.getTitle().value);
-        description.setText(calendarEvent.getDescription().value);
+        description.setText(calendarEvent.getDescriptionObject().value);
         venue.setText(calendarEvent.getVenue().value);
         // TODO add start date and end date (remember to update fxml file)
         calendarEvent.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -32,7 +32,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(CalendarEvent expectedCalendarEvent,
                                                 CalendarEventCardHandle actualCard) {
         assertEquals(expectedCalendarEvent.getTitle().value, actualCard.getTitle());
-        assertEquals(expectedCalendarEvent.getDescription().value, actualCard.getDescription());
+        assertEquals(expectedCalendarEvent.getDescriptionObject().value, actualCard.getDescription());
         assertEquals(expectedCalendarEvent.getVenue().value, actualCard.getVenue());
         assertEquals(expectedCalendarEvent.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
             actualCard.getTags());

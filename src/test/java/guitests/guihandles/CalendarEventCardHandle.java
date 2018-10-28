@@ -71,7 +71,7 @@ public class CalendarEventCardHandle extends NodeHandle<Node> {
     public boolean equals(CalendarEvent calendarEvent) {
         return getTitle().equals(calendarEvent.getTitle().value)
             && getVenue().equals(calendarEvent.getVenue().value)
-            && getDescription().equals(calendarEvent.getDescription().value)
+            && getDescription().equals(calendarEvent.getDescriptionObject().value)
             && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(calendarEvent.getTags().stream()
             .map(tag -> tag.tagName)
             .collect(Collectors.toList())));
