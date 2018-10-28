@@ -50,18 +50,21 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             navigateToPreviousInput();
-            maskPassword(true);
+            maskPassword(true, false);
             break;
         case DOWN:
             navigateToNextInput();
-            maskPassword(true);
+            maskPassword(true, false);
             break;
-        case SPACE: case LEFT: case RIGHT: case BACK_SPACE:
-            maskPassword(false);
+        case SPACE:
+            maskPassword(false, false);
+            break;
+        case BACK_SPACE:
+            maskPassword(false, true);
             break;
         default:
             // let JavaFx handle the keypress
-            maskPassword(false);
+            maskPassword(false, false);
             break;
         }
 
@@ -108,7 +111,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    public void maskPassword(boolean isHistory) {
+    public void maskPassword(boolean isHistory, boolean isBackspace) {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             int spaceAfterPasswordIndex = commandTextField.getText().indexOf(' ', passwordPrefixIndex);
@@ -135,6 +138,11 @@ public class CommandBox extends UiPart<Region> {
 
             if (isHistory) {
                 maskedPassword.append(password.charAt(password.length() - 1));
+            } else if ((isBackspace) &&(tempPassword.length() > 0)) {
+                char lastPasswordChar = tempPassword.charAt(tempPassword.length() - 1);
+                tempPassword.deleteCharAt(tempPassword.length() - 1);
+                maskedPassword.replace(maskedPassword.length() - 1,
+                        maskedPassword.length(), String.valueOf(lastPasswordChar));
             }
             //System.out.println("Mask: " + maskedPassword);
             //System.out.println("Temp: " + tempPassword);
