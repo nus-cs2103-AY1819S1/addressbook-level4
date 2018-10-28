@@ -138,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public int compareParkingBook() {
+    public int compareCarparkFinder() {
         return versionedCarparkFinder.compare();
     }
 

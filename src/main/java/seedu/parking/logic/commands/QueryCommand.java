@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
@@ -34,16 +37,16 @@ public class QueryCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = " Car parks updated";
-    public static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from online";
+    public static final String MESSAGE_LOADING = " Car parks updating...";
+    private static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from database";
 
     /**
      * Calls the API and load all the car parks information
      * @return An array of car parks
-     * @throws IOException If unable to load from API
      */
-    private ArrayList<Carpark> readCarpark() throws IOException {
-        ArrayList<Carpark> carparkList = new ArrayList<>();
-        for (ArrayList<String> carpark : GsonUtil.fetchCarparkInfo()) {
+    private List<Carpark> readCarpark(List<List<String>> carparkData) {
+        List<Carpark> carparkList = new ArrayList<>();
+        for (List<String> carpark : carparkData) {
             Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
@@ -58,13 +61,29 @@ public class QueryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         int numberChanged;
+
+        System.out.println("Inside : " + Thread.currentThread().getName());
+
+        System.out.println("Creating Runnable...");
+        Runnable runnable = () -> {
+            System.out.println("Inside : " + Thread.currentThread().getName());
+
+        };
+
         try {
-            model.loadCarpark(readCarpark());
+            List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchCarparkInfo());
+            List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
+            model.loadCarpark(allCarparks);
+
+            model.commitCarparkFinder();
+            numberChanged = model.compareCarparkFinder();
         } catch (IOException e) {
             throw new CommandException(MESSAGE_ERROR_CARPARK);
         }
-        model.commitCarparkFinder();
-        numberChanged = model.compareParkingBook();
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+
         return new CommandResult(numberChanged + MESSAGE_SUCCESS);
     }
 }

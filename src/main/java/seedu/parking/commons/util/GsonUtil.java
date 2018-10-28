@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 import com.google.gson.Gson;
@@ -26,11 +27,11 @@ public class GsonUtil {
      * @return A list of list of strings containing the car park information.
      * @throws IOException if unable to connect to URL.
      */
-    public static ArrayList<ArrayList<String>> fetchCarparkInfo() throws IOException {
+    public static List<List<String>> fetchCarparkInfo() throws IOException {
         getCarparkData();
         getCarparkAvailability();
 
-        ArrayList<ArrayList<String>> str = new ArrayList<>();
+        List<List<String>> str = new ArrayList<>();
         for (CarparkJson list : carparkList) {
             if (list.jsonData == null) {
                 list.addOn("0", "0");
@@ -45,6 +46,8 @@ public class GsonUtil {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
+        communicate.setConnectTimeout(30000);
+        communicate.setReadTimeout(30000);
         communicate.connect();
 
         InputStreamReader in = new InputStreamReader((InputStream) communicate.getContent());
@@ -101,6 +104,8 @@ public class GsonUtil {
         do {
             URL link = new URL(urlFull.toString());
             URLConnection communicate = link.openConnection();
+            communicate.setConnectTimeout(30000);
+            communicate.setReadTimeout(30000);
             communicate.connect();
 
             in = new InputStreamReader((InputStream) communicate.getContent());
@@ -141,7 +146,7 @@ public class GsonUtil {
         private final String type_of_parking_system;
         //CHECKSTYLE.ON: MemberNameCheck
 
-        private ArrayList<String> jsonData;
+        private List<String> jsonData;
 
         private CarparkJson(String... data) {
             short_term_parking = data[0];
