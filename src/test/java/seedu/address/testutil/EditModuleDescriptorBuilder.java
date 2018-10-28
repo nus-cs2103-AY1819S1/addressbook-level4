@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditModuleCommand.EditModuleDescriptor;
+import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
-import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 
@@ -50,24 +50,24 @@ public class EditModuleDescriptorBuilder {
     /**
      * Sets the {@code ModuleTitle} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withModuleTitle(String phone) {
-        descriptor.setModuleTitle(new ModuleTitle(phone));
+    public EditModuleDescriptorBuilder withModuleTitle(String moduleTitle) {
+        descriptor.setModuleTitle(new ModuleTitle(moduleTitle));
         return this;
     }
 
     /**
      * Sets the {@code AcademicYear} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withAcademicYear(String email) {
-        descriptor.setAcademicYear(new AcademicYear(email));
+    public EditModuleDescriptorBuilder withAcademicYear(String academicYear) {
+        descriptor.setAcademicYear(new AcademicYear(academicYear));
         return this;
     }
 
     /**
      * Sets the {@code Semester} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withSemester(String address) {
-        descriptor.setSemester(new Semester(address));
+    public EditModuleDescriptorBuilder withSemester(String semester) {
+        descriptor.setSemester(new Semester(semester));
         return this;
     }
 

@@ -102,7 +102,7 @@ public class EditOccasionCommand extends Command {
         OccasionDate updatedOccasionDate =
                 editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
         OccasionLocation updatedOccasionLocation =
-                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getLocation());
+                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
         Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
 
         return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,

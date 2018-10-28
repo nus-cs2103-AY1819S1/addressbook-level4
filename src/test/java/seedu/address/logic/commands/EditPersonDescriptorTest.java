@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_HUSBA
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {

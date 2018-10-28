@@ -41,8 +41,8 @@ public class CommandModuleTestUtil {
     public static final String MODULETITLE_DESC_ST2131 = " " + PREFIX_MODULETITLE + VALID_MODULETITLE_ST2131;
     public static final String ACADEMICYEAR_DESC_CS2100 = " " + PREFIX_ACADEMICYEAR + VALID_ACADEMICYEAR_CS2100;
     public static final String ACADEMICYEAR_DESC_ST2131 = " " + PREFIX_ACADEMICYEAR + VALID_ACADEMICYEAR_ST2131;
-    public static final String SEMESTER_DESC_ONE = " " + PREFIX_SEMESTER + VALID_SEMESTER_CS2100;
-    public static final String SEMESTER_DESC_TWO = " " + PREFIX_SEMESTER + VALID_SEMESTER_ST2131;
+    public static final String SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_SEMESTER_CS2100;
+    public static final String SEMESTER_DESC_ST2131 = " " + PREFIX_SEMESTER + VALID_SEMESTER_ST2131;
     public static final String TAG_DESC_BINARY = " " + PREFIX_TAG + VALID_TAG_BINARY;
     public static final String TAG_DESC_CALCULUS = " " + PREFIX_TAG + VALID_TAG_CALCULUS;
 
@@ -50,8 +50,9 @@ public class CommandModuleTestUtil {
             + "CS12345"; // only 4 numbers in code
     public static final String INVALID_MODULETITLE_DESC = " " + PREFIX_MODULETITLE
             + "OOP & FP"; // '&' not allowed in title
-    public static final String INVALID_ACADEMICYEAR_DESC = " " + "1234"; // years not consecutive
-    public static final String INVALID_SEMESTER_FIVE = "5";
+    public static final String INVALID_ACADEMICYEAR_DESC = " " + PREFIX_ACADEMICYEAR
+            + "1234"; // years not consecutive
+    public static final String INVALID_SEMESTER_FIVE = " " + PREFIX_SEMESTER + "5";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ":P"; // ':' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -62,11 +63,11 @@ public class CommandModuleTestUtil {
 
     static {
         DESC_CS2100 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
-                .withModuleCode(VALID_MODULECODE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100).withSemester(VALID_SEMESTER_CS2100)
-                .withTags(VALID_TAG_BINARY).build();
+                .withModuleCode(VALID_MODULECODE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
+                .withSemester(VALID_SEMESTER_CS2100).withTags(VALID_TAG_BINARY).build();
         DESC_ST2131 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131)
-                .withModuleCode(VALID_MODULECODE_ST2131).withAcademicYear(VALID_ACADEMICYEAR_ST2131).withSemester(VALID_SEMESTER_ST2131)
-                .withTags(VALID_TAG_CALCULUS).build();
+                .withModuleCode(VALID_MODULECODE_ST2131).withAcademicYear(VALID_ACADEMICYEAR_ST2131)
+                .withSemester(VALID_SEMESTER_ST2131).withTags(VALID_TAG_CALCULUS).build();
     }
 
     /**

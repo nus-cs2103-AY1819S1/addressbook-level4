@@ -144,7 +144,7 @@ public class EditModuleCommand extends Command {
         private UniquePersonList students;
 
         // Data fields
-        private Set<Tag> tags = new HashSet<>();
+        private Set<Tag> tags;
 
         public EditModuleDescriptor() {}
 

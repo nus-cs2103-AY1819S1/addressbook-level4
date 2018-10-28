@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditOccasionCommand.EditOccasionDescriptor;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.occasion.OccasionLocation;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 
 /**

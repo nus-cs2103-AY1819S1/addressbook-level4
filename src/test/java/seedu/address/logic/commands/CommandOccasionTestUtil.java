@@ -44,7 +44,8 @@ public class CommandOccasionTestUtil {
     public static final String INVALID_OCCASIONNAME_DESC =
             " " + PREFIX_OCCASION_NAME + "Exam!"; // '!' not allowed in names
     public static final String INVALID_OCCASIONDATE_DESC =
-            " " + PREFIX_OCCASION_DATE + "2015-20-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
+            " " + PREFIX_OCCASION_DATE + "2015-201-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
+    // TODO: OccasionDate can not detect invalid month.
     public static final String INVALID_OCCASIONLOCATION_DESC = " " + PREFIX_OCCASION_LOCATION + "SR"; // not 3-20 chars
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "HOORAY!"; // '!' not allowed in tags
 

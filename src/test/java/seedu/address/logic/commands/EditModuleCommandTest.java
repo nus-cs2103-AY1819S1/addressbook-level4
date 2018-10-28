@@ -5,8 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandModuleTestUtil.DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.DESC_ST2131;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCULUS;
 import static seedu.address.logic.commands.CommandModuleTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandModuleTestUtil.assertCommandSuccess;
@@ -30,7 +31,8 @@ import seedu.address.testutil.EditModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditModuleCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit
+ * tests for EditModuleCommand.
  */
 public class EditModuleCommandTest {
 
@@ -58,8 +60,8 @@ public class EditModuleCommandTest {
         Module lastModule = model.getFilteredModuleList().get(indexLastModule.getZeroBased());
 
         ModuleBuilder personInList = new ModuleBuilder(lastModule);
-        Module editedModule = personInList.withModuleTitle(VALID_MODULETITLE_ST2131).withModuleCode(VALID_MODULECODE_ST2131)
-                .withTags(VALID_TAG_CALCULUS).build();
+        Module editedModule = personInList.withModuleTitle(VALID_MODULETITLE_ST2131)
+                .withModuleCode(VALID_MODULECODE_ST2131).withTags(VALID_TAG_CALCULUS).build();
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131)
                 .withModuleCode(VALID_MODULECODE_ST2131).withTags(VALID_TAG_CALCULUS).build();
@@ -91,10 +93,10 @@ public class EditModuleCommandTest {
     public void execute_filteredList_success() {
         showModuleAtIndex(model, INDEX_FIRST_MODULE);
 
-        Module personInFilteredList = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-        Module editedModule = new ModuleBuilder(personInFilteredList).withModuleTitle(VALID_MODULETITLE_ST2131).build();
+        Module moduleInFilteredList = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
+        Module editedModule = new ModuleBuilder(moduleInFilteredList).withModuleTitle(VALID_MODULETITLE_CS2100).build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(INDEX_FIRST_MODULE,
-                new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULETITLE_ST2131).build());
+                new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100).build());
 
         String expectedMessage = String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
 
@@ -129,7 +131,8 @@ public class EditModuleCommandTest {
     @Test
     public void execute_invalidModuleIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131).build();
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+                .withModuleTitle(VALID_MODULETITLE_ST2131).build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
@@ -177,7 +180,8 @@ public class EditModuleCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131).build();
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+                .withModuleTitle(VALID_MODULETITLE_ST2131).build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
