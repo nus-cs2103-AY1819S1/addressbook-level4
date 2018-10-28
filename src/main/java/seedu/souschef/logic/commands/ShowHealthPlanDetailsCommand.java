@@ -13,9 +13,7 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
 
     public static final String COMMAND_WORD = "showDetails";
 
-    public static final String MESSAGE_SUCCESS = "showing details of plan %1$s.";
-
-    //private final Ui ui;
+    public static final String MESSAGE_SUCCESS = "Showing details of plan %1$s.";
 
     private final String index;
 

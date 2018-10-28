@@ -60,7 +60,7 @@ public class AppContentParser {
         case HEALTH_PLAN:
             setFeatureStorage(storage, Context.HEALTH_PLAN);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), modelSet.getMealPlannerModel(),
-                    userInput, ui);
+                    userInput);
         case MEAL_PLANNER:
             setFeatureStorage(storage, Context.MEAL_PLANNER);
             return new MealPlannerParser()

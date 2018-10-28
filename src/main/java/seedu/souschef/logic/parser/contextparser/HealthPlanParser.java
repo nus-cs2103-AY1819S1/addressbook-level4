@@ -18,13 +18,15 @@ import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.ShowHealthPlanDetailsCommand;
 import seedu.souschef.logic.parser.commandparser.AddCommandParser;
+import seedu.souschef.logic.parser.commandparser.AddMealHealthPlanCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
+import seedu.souschef.logic.parser.commandparser.DeleteMealHealthPlanCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
+
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.healthplan.HealthPlan;
-import seedu.souschef.ui.Ui;
 
 /**
  * Class to parse healthplan logic
@@ -45,7 +47,7 @@ public class HealthPlanParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command<HealthPlan> parseCommand(Model healthPlanModel, Model mealPlanModel,
-                                            String userInput, Ui ui) throws ParseException {
+                                            String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -73,11 +75,11 @@ public class HealthPlanParser {
             return new ListCommand<HealthPlan>(healthPlanModel);
 
         case AddMealHealthPlanCommand.COMMAND_WORD:
-            return new AddMealHealthPlanCommand<>(healthPlanModel, mealPlanModel, arguments);
+            return new AddMealHealthPlanCommandParser().parseHealthPlan(healthPlanModel, mealPlanModel, arguments);
         case ShowHealthPlanDetailsCommand.COMMAND_WORD:
             return new ShowHealthPlanDetailsCommand<>(arguments);
         case DeleteMealHealthPlanCommand.COMMAND_WORD:
-            return new DeleteMealHealthPlanCommand<>(healthPlanModel, arguments);
+            return new DeleteMealHealthPlanCommandParser().parseHealthPlan(healthPlanModel, arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -13,10 +13,8 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
     public static final String COMMAND_WORD_SHOW = "showMeal";
     public static final String COMMAND_WORD_HIDE = "hideMeal";
 
-    public static final String MESSAGE_SUCCESS_SHOW = "showing all meal plans.";
-    public static final String MESSAGE_SUCCESS_HIDE = "hide meal plans.";
-
-
+    public static final String MESSAGE_SUCCESS_SHOW = "Showing all meal plans.";
+    public static final String MESSAGE_SUCCESS_HIDE = "Hide meal plans.";
 
     private final String mode;
 
@@ -30,7 +28,6 @@ public class DisplayMealPlanCommand<T extends UniqueType> extends Command {
 
         //this if else is to determine messages to show
         if (mode.equals("show")) {
-
             EventsCenter.getInstance().post(new BrowserUiChangedEvent("mealPlanList"));
             return new CommandResult(String.format(MESSAGE_SUCCESS_SHOW, history.getContext()));
         } else {

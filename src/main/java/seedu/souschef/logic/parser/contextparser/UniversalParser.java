@@ -4,8 +4,6 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Pattern;
 
-import seedu.souschef.commons.core.EventsCenter;
-import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.ContextCommand;
@@ -41,30 +39,25 @@ public class UniversalParser {
 
 
         case RecipeParser.COMMAND_WORD:
-            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             ui.switchToRecipeListPanel();
             return new ContextCommand(Context.RECIPE);
 
         case IngredientParser.COMMAND_WORD:
-            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             ui.switchToIngredientListPanel();
             return new ContextCommand(Context.INGREDIENT);
 
 
         case HealthPlanParser.COMMAND_WORD:
-            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             ui.switchToHealthPlanListPanel();
             return new ContextCommand(Context.HEALTH_PLAN);
 
 
         case MealPlannerParser.COMMAND_WORD:
-            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             ui.switchToMealPlanListPanel();
             return new ContextCommand(Context.MEAL_PLANNER);
 
 
         case FavouritesParser.COMMAND_WORD:
-            EventsCenter.getInstance().post(new BrowserUiChangedEvent("hide"));
             ui.switchToFavouritesListPanel();
             return new ContextCommand(Context.FAVOURITES);
 
