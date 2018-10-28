@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -107,6 +108,11 @@ public class AddCommandTest {
 
         @Override
         public void resetData(ReadOnlyTaskManager newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Level getLevel() {
             throw new AssertionError("This method should not be called.");
         }
 

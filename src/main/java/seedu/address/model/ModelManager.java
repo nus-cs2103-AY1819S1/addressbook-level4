@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
@@ -40,6 +41,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
+    }
+
+    @Override
+    public Level getLevel() {
+        return versionedTaskManager.getLevel();
     }
 
     @Override

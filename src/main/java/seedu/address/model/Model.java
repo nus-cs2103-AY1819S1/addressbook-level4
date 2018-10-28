@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
@@ -24,6 +25,11 @@ public interface Model {
      * Returns the TaskManager
      */
     ReadOnlyTaskManager getTaskManager();
+
+    /**
+     * Returns the current level of the user.
+     */
+    Level getLevel();
 
     /**
      * Returns the current amount of Xp that the user has.
