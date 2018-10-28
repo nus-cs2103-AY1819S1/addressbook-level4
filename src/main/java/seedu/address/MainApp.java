@@ -22,9 +22,12 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModelManagerToDo;
 import seedu.address.model.ModelToDo;
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.Scheduler;
+import seedu.address.model.ToDoList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -74,6 +77,8 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        modelToDo = initModelManagerToDo(storage, userPrefs);
+
         logic = new LogicManager(model, modelToDo);
 
         ui = new UiManager(logic, config, userPrefs);
@@ -104,6 +109,31 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ModelManagerToDo} with the data from {@code storage}'s todolist and {@code userPrefs}. <br>
+     * The data from the sample todolist will be used instead if {@code storage}'s todolist is not found,
+     * or an empty todolist will be used instead if errors occur when reading {@code storage}'s todolist.
+     */
+    private ModelToDo initModelManagerToDo(Storage storage, UserPrefs userPrefs) {
+        Optional<ReadOnlyToDoList> toDoListOptional;
+        ReadOnlyToDoList initialData;
+        try {
+            toDoListOptional = storage.readToDoList();
+            if (!toDoListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ToDoList");
+            }
+            initialData = toDoListOptional.orElseGet(SampleDataUtil::getSampleToDoList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ToDoList");
+            initialData = new ToDoList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ToDoList");
+            initialData = new ToDoList();
+        }
+
+        return new ModelManagerToDo(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
