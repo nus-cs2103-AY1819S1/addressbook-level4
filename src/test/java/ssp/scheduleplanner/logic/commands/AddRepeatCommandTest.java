@@ -3,9 +3,9 @@ package ssp.scheduleplanner.logic.commands;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.task.Repeat;
-
 
 public class AddRepeatCommandTest {
 
