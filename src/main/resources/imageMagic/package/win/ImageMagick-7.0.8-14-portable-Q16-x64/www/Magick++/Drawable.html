@@ -16,90 +16,90 @@
  height="200" width="300" alt="example" /></font></font>
 </p>
 <div class="viewport">
-#include &lt;string>
-#include &lt;iostream>
+#include &lt;string> 
+#include &lt;iostream> 
 #include &lt;Magick++.h>
 
-using namespace std;
+using namespace std; 
 using namespace Magick;
 
-int main(int /*argc*/,char **argv)
-{
-  try {
+int main(int /*argc*/,char **argv) 
+{ 
+  try { 
     InitializeMagick(*argv);
 
-    // Create base image (white image of 300 by 200 pixels)
+    // Create base image (white image of 300 by 200 pixels) 
     Image image( Geometry(300,200), Color("white") );
 
-    // Set draw options
-    image.strokeColor("red"); // Outline color
-    image.fillColor("green"); // Fill color
+    // Set draw options 
+    image.strokeColor("red"); // Outline color 
+    image.fillColor("green"); // Fill color 
     image.strokeWidth(5);
 
-    // Draw a circle
+    // Draw a circle 
     image.draw( DrawableCircle(100,100, 50,100) );
 
-    // Draw a rectangle
+    // Draw a rectangle 
     image.draw( DrawableRectangle(200,200, 270,170) );
 
-    // Display the result
-    image.display( );
-  }
-  catch( exception &amp; error_ )
-    {
-      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl;
-      return 1;
+    // Display the result 
+    image.display( ); 
+  } 
+  catch( exception &amp; error_ ) 
+    { 
+      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl; 
+      return 1; 
     }
 
-  return 0;
+  return 0; 
 }
 </div>
 <p>Since Drawable is an object it may be saved in an array or a list for later (perhaps repeated) use. The following example shows how to draw the same figure using the list-based approach:</p>
 <div class="viewport">
-#include &lt;string>
-#include &lt;iostream>
-#include &lt;list>
+#include &lt;string> 
+#include &lt;iostream> 
+#include &lt;list> 
 #include &lt;Magick++.h>
 
-using namespace std;
+using namespace std; 
 using namespace Magick;
 
-int main(int /*argc*/,char **/*argv*/)
-{
-  try {
+int main(int /*argc*/,char **/*argv*/) 
+{ 
+  try { 
 
     InitializeMagick(*argv);
 
-    // Create base image (white image of 300 by 200 pixels)
+    // Create base image (white image of 300 by 200 pixels) 
     Image image( Geometry(300,200), Color("white") );
 
-    // Construct drawing list
+    // Construct drawing list 
     std::list&lt;Magick::Drawable> drawList;
 
-    // Add some drawing options to drawing list
-    drawList.push_back(DrawableStrokeColor("red")); // Outline color
-    drawList.push_back(DrawableStrokeWidth(5)); // Stroke width
+    // Add some drawing options to drawing list 
+    drawList.push_back(DrawableStrokeColor("red")); // Outline color 
+    drawList.push_back(DrawableStrokeWidth(5)); // Stroke width 
     drawList.push_back(DrawableFillColor("green")); // Fill color
 
-    // Add a Circle to drawing list
+    // Add a Circle to drawing list 
     drawList.push_back(DrawableCircle(100,100, 50,100));
 
-    // Add a Rectangle to drawing list
+    // Add a Rectangle to drawing list 
     drawList.push_back(DrawableRectangle(200,100, 270,170));
 
-    // Draw everything using completed drawing list
+    // Draw everything using completed drawing list 
     image.draw(drawList);
 
-    // Display the result
-    image.display( );
-  }
-  catch( exception &amp; error_ )
-    {
-      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl;
-      return 1;
+    // Display the result 
+    image.display( ); 
+  } 
+  catch( exception &amp; error_ ) 
+    { 
+      cout &lt;&lt; "Caught exception: " &lt;&lt; error_.what() &lt;&lt; endl; 
+      return 1; 
     }
 
-  return 0;
+  return 0; 
 }
 </div>
 <p>Drawable depends on the simple Coordinate structure which represents a pair of x,y coodinates. The methods provided by the Coordinate structure are shown in the following table:</p>
@@ -649,8 +649,8 @@ int main(int /*argc*/,char **/*argv*/)
 <h3><a name="cubic Bezier"></a>The cubic Bézier curve commands</h3>
 <p>The cubic Bézier commands depend on the <i>PathCurvetoArgs</i> argument class, which has the constructor signature</p>
 <pre class="code">
-  PathCurvetoArgs( double x1_, double y1_,
-                   double x2_, double y2_,
+  PathCurvetoArgs( double x1_, double y1_, 
+                   double x2_, double y2_, 
                    double x_, double y_ );
 </pre>
 <p style="margin-bottom: 0in">The commands are as follows:</p>
@@ -705,7 +705,7 @@ int main(int /*argc*/,char **/*argv*/)
 <h3><a name="quadratic Bezier"></a>The quadratic Bézier curve commands</h3>
 <p>The quadratic Bézier commands depend on the <i>PathQuadraticCurvetoArgs</i> argument class, which has the constructor signature:</p>
 <pre class="code">
-  PathQuadraticCurvetoArgs( double x1_, double y1_,
+  PathQuadraticCurvetoArgs( double x1_, double y1_, 
                             double x_, double y_ );
 </pre>
 <p style="margin-bottom: 0in">The quadratic Bézier commands are as follows:</p>
@@ -758,8 +758,8 @@ command relative to the current point. (If there is no previous command or if th
 <h3><a name="elliptical arc"></a>The elliptical arc curve commands</h3>
 <p>The elliptical arc curve commands depend on the <i>PathArcArgs</i> argument class, which has the constructor signature:</p>
 <pre class="code">
-   PathArcArgs( double radiusX_, double radiusY_,
-                double xAxisRotation_, bool largeArcFlag_,
+   PathArcArgs( double radiusX_, double radiusY_, 
+                double xAxisRotation_, bool largeArcFlag_, 
                 bool sweepFlag_, double x_, double y_ );
 </pre>
 <p style="margin-bottom: 0in">The elliptical arc commands are as follows:</p>

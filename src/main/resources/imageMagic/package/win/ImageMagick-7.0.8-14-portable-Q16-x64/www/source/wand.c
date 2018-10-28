@@ -33,7 +33,7 @@ int main(int argc,char **argv)
     Read an image.
   */
   MagickWandGenesis();
-  magick_wand=NewMagickWand();
+  magick_wand=NewMagickWand();  
   status=MagickReadImage(magick_wand,argv[1]);
   if (status == MagickFalse)
     ThrowWandException(magick_wand);
