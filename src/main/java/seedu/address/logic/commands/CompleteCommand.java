@@ -94,7 +94,8 @@ public class CompleteCommand extends Command {
         model.commitTaskManager();
 
         if (levelHasChanged) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_LEVEL, newLevel, changeInXp, completedTasksOutput));
+            return new CommandResult(
+                    String.format(MESSAGE_SUCCESS_WITH_LEVEL, newLevel, changeInXp, completedTasksOutput));
         } else {
             return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
         }
