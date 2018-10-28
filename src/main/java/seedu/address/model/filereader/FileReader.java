@@ -17,6 +17,9 @@ import seedu.address.model.filereader.exceptions.EmptyFileException;
 public class FileReader {
     public static final String CSV_HEADER_NAME = "Name";
     public static final String CSV_HEADER_PHONE = "Phone 1 - Value";
+    public static final String CSV_HEADER_ADDRESS = "Address 1 - Street";
+    public static final String CSV_HEADER_EMAIL = "E-mail 1 - Value";
+    public static final String CSV_HEADER_FACULTY = "Organization 1 - Name";
 
     private final File csvFile;
     private final FilePath csvFilePath;
@@ -24,7 +27,11 @@ public class FileReader {
 
     private int nameIndex = -1;
     private int phoneIndex = -1;
+    private int addressIndex = -1;
+    private int emailIndex = -1;
+    private int facultyIndex = -1;
     private ArrayList<String> contacts = new ArrayList<>();
+    private int failCounter = 0;
 
     public FileReader(FilePath csvFilePath) {
         requireAllNonNull(csvFilePath);
@@ -49,8 +56,32 @@ public class FileReader {
         return phoneIndex;
     }
 
+    public int getAddressIndex() {
+        return addressIndex;
+    }
+
+    public int getEmailIndex() {
+        return emailIndex;
+    }
+
+    public int getFacultyIndex() {
+        return facultyIndex;
+    }
+
     public ArrayList<String> getContacts() {
         return contacts;
+    }
+
+    public int getNumberOfContacts() {
+        return contacts.size();
+    }
+
+    public int getFailCounter() {
+        return failCounter;
+    }
+
+    public void incrementFailCounter() {
+        this.failCounter++;
     }
 
     /**
@@ -67,7 +98,9 @@ public class FileReader {
             isValidFile = setIndex(parts);
             if (isValidFile) {
                 while (sc.hasNextLine()) {
-                    contacts.add(sc.nextLine());
+                    String nextLine = sc.nextLine();
+                    nextLine += " " + sc.nextLine();
+                    contacts.add(nextLine);
                 }
             }
             sc.close();
@@ -84,9 +117,21 @@ public class FileReader {
             if (parts[i].equals(CSV_HEADER_PHONE)) {
                 phoneIndex = i;
             }
+
+            if (parts[i].equals(CSV_HEADER_ADDRESS)) {
+                addressIndex = i;
+            }
+
+            if (parts[i].equals(CSV_HEADER_EMAIL)) {
+                emailIndex = i;
+            }
+
+            if (parts[i].equals(CSV_HEADER_FACULTY)) {
+                facultyIndex = i;
+            }
         }
         // return true if nameIndex and phoneIndex is valid
-        return nameIndex != -1 && phoneIndex != -1;
+        return nameIndex != -1 && phoneIndex != -1 && addressIndex != -1 && emailIndex != -1 && facultyIndex != -1;
     }
 
     /**

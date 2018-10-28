@@ -4,15 +4,22 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.filereader.FileReader;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -153,21 +160,34 @@ public class AddressBook implements ReadOnlyAddressBook {
             String[] parts = s.split(",");
             String nameString = parts[fileReader.getNameIndex()];
             String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+            String addressString = parts[fileReader.getAddressIndex()];
+            String emailString = parts[fileReader.getEmailIndex()];
+            String facultyString = parts[fileReader.getFacultyIndex()];
 
-            if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString))) {
+            if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString)
+                    && Address.isValidAddress(addressString) && Email.isValidEmail(emailString))
+                    && Faculty.isValidFaculty(facultyString)) {
                 continue;
             }
 
-            /*
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-            Faculty faculty = ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get());
-            */
-            Name name = new Name(nameString);
-            Phone phone = new Phone(phoneString);
+            try {
+                Name name = ParserUtil.parseName(nameString);
+                Phone phone = ParserUtil.parsePhone(phoneString);
+                Email email = ParserUtil.parseEmail(emailString);
+                Address address = ParserUtil.parseAddress(addressString);
+                Set<Tag> tagList = ParserUtil.parseTags(new ArrayList<>());
+                Faculty faculty = ParserUtil.parseFaculty(facultyString);
+
+                Person person = new Person(name, phone, email, address, tagList, faculty);
+
+                if (!this.hasPerson(person)) {
+                    this.addPerson(person);
+                } else {
+                    fileReader.incrementFailCounter();
+                }
+            } catch (ParseException e) {
+                fileReader.incrementFailCounter();
+            }
         }
     }
 

@@ -25,13 +25,16 @@ public class ImportContactsCommand extends Command {
 
     public static final String MESSAGE_WRONG_FILE_FORMAT = "File must be csv format and contain "
             + FileReader.CSV_HEADER_NAME
-            + " and "
+            + ", "
             + FileReader.CSV_HEADER_PHONE
+            + ", "
+            + FileReader.CSV_HEADER_ADDRESS
+            + " and "
+            + FileReader.CSV_HEADER_EMAIL
             + " as header for contact name and contact number field";
 
     public static final String MESSAGE_SUCCESS = "Contacts imported";
     public static final String MESSAGE_EMPTY_FILE_EXCEPTION = "File is empty";
-    public static final String MESSAGE_TEST_EXCEPTION = "Exception for testing";
 
     private final FileReader toImport;
 
@@ -51,9 +54,9 @@ public class ImportContactsCommand extends Command {
         } catch (EmptyFileException e) {
             throw new CommandException(MESSAGE_EMPTY_FILE_EXCEPTION);
         }
+        model.commitAddressBook();
 
-        throw new CommandException(MESSAGE_TEST_EXCEPTION);
-        // return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
     }
 
     @Override

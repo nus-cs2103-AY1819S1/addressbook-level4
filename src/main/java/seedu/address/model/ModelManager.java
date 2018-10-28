@@ -144,6 +144,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void importContacts(FileReader fileReader) {
         versionedAddressBook.importContacts(fileReader);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
