@@ -99,8 +99,14 @@ public interface Model {
     void commitTaskManager();
 
     /**
-     * Removes all uncommited changes and rollbacks to state pointed by
+     * Removes all uncommitted changes and rollbacks to state pointed by
      * current state pointer.
      */
     void rollbackTaskManager();
+
+    /**
+     * Checks for overdue tasks and updates them
+     */
+    void checkOverdue();
+
 }

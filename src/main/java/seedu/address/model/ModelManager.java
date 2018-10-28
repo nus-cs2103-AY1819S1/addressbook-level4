@@ -159,7 +159,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
     }
+    //=========== Check overdue ==========================================================================
 
+    @Override
+    public void checkOverdue() {
+        versionedTaskManager.checkOverdue();
+    }
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
