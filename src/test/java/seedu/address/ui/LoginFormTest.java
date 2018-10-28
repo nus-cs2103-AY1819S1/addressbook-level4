@@ -58,6 +58,10 @@ public class LoginFormTest extends GuiUnitTest {
         verifySuccessful();
     }
 
+    /**
+     * Fills up the username and the password fields in the login form with the relevant data:
+     * TEST_USERNAME, TEST_PASSWORD.
+     */
     private void fillUpFields() {
         TextField usernameField = getChildNode(loginForm.getRoot(), USERNAME_ID);
         usernameField.setText(TEST_USERNAME);
@@ -67,6 +71,10 @@ public class LoginFormTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
     }
 
+    /**
+     * Verifies that a LoginEvent has been successfully raised with
+     * username = TEST_USERNAME and password = TEST_PASSWORD
+     */
     private void verifySuccessful() {
         BaseEvent baseEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assert baseEvent instanceof LoginEvent;
