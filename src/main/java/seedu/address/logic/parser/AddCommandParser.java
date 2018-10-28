@@ -67,7 +67,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             date = new Date(finalDate.getDayOfMonth() + "/" +
                     finalDate.getMonth() + "/" +
                     finalDate.getYear());
-        } else if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+        } else {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         }
 
