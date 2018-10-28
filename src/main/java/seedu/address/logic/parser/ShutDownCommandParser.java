@@ -1,18 +1,17 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ShutDownCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ShutDownCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new OpenCommand object
  */
 
-public class ShutDownCommandParser implements Parser<ShutDownCommand>{
+public class ShutDownCommandParser implements Parser<ShutDownCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ShutDownCommand
      * and returns an ShutDownCommand object for execution.
