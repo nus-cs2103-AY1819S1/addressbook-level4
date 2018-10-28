@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.logic.parser.SaveCommandParser.UNUSED_FUNDS_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 
-
 import org.junit.Test;
 
 import seedu.address.commons.core.amount.Amount;
