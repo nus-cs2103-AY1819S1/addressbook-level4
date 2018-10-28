@@ -7,20 +7,20 @@ import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Tests that a {@code Recipe} includes must-be included ingredients in inventory command.
+ * Tests that a {@code Recipe} includes include-be included ingredients in inventory command.
  */
-public class InventoryPredicate implements Predicate<Recipe> {
-    private final Map<IngredientDefinition, Double> must;
+public class CrossFilterPredicate implements Predicate<Recipe> {
+    private final Map<IngredientDefinition, Double> include;
 
-    public InventoryPredicate(Map<IngredientDefinition, Double> must) {
-        this.must = must;
+    public CrossFilterPredicate(Map<IngredientDefinition, Double> include) {
+        this.include = include;
     }
 
     @Override
     public boolean test(Recipe recipe) {
         Map<IngredientDefinition, Double> ingredients = recipe.getIngredients();
 
-        for (IngredientDefinition key : must.keySet()) {
+        for (IngredientDefinition key : include.keySet()) {
             if (!ingredients.keySet().contains(key)) {
                 return false;
             }
@@ -31,7 +31,7 @@ public class InventoryPredicate implements Predicate<Recipe> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InventoryPredicate // instanceof handles nulls
-                && must.equals(((InventoryPredicate) other).must)); // state check
+                || (other instanceof CrossFilterPredicate // instanceof handles nulls
+                && include.equals(((CrossFilterPredicate) other).include)); // state check
     }
 }
