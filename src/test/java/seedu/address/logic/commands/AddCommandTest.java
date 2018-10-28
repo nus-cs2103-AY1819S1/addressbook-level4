@@ -178,6 +178,12 @@ public class AddCommandTest {
         public void rollbackTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void checkOverdue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
