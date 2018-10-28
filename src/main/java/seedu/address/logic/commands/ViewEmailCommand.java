@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-//@@author EatOrBeEaten
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMAIL_DOES_NOT_EXIST;
 
@@ -12,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.email.Subject;
 
+//@@author EatOrBeEaten
 /**
  * Loads an email from the computer
  */
