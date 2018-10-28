@@ -2,9 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.common.hash.Hashing;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.Budget;
@@ -21,6 +23,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     protected Username username;
     protected Optional<Password> password;
+    private String encryptionKey;
     private final UniqueExpenseList expenses;
     private Budget maximumBudget;
 
@@ -28,9 +31,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an empty ExpenseTracker with the given username.
      * @param username the username of the ExpenseTracker
      */
-    public ExpenseTracker(Username username, Optional<Password> password) {
+    public ExpenseTracker(Username username, Optional<Password> password, String encryptionKey) {
         this.username = username;
         this.password = password;
+        this.encryptionKey = encryptionKey;
         this.expenses = new UniqueExpenseList();
         this.maximumBudget = new Budget("28.00");
     }
@@ -39,7 +43,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an ExpenseTracker using the Expenses in the {@code toBeCopied}
      */
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
-        this(toBeCopied.getUsername(), toBeCopied.getPassword());
+        this(toBeCopied.getUsername(), toBeCopied.getPassword(), toBeCopied.getEncryptionKey());
         this.maximumBudget = toBeCopied.getMaximumBudget();
         resetData(toBeCopied);
     }
@@ -131,6 +135,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
             this.maximumBudget.getNextRecurrence(), this.maximumBudget.getNumberOfSecondsToRecurAgain());
     }
 
+    public String getEncryptionKey() {
+        return encryptionKey;
+    }
+
+    public void setEncryptionKey(String newKey) {
+        this.encryptionKey = newKey;
+    }
+
     @Override
     public Username getUsername() {
         return username;
@@ -139,6 +151,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     @Override
     public Optional<Password> getPassword() {
         return password;
+    }
+
+    public void setPassword(Password password) {
+       this.password = Optional.ofNullable(password);
     }
 
     @Override

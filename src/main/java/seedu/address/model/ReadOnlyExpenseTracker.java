@@ -30,4 +30,6 @@ public interface ReadOnlyExpenseTracker {
      * @return true if the user has no password or if the input password matches his/her password, or else false
      */
     boolean isMatchPassword(Optional<Password> password);
+
+    String getEncryptionKey();
 }

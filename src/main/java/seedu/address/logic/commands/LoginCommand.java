@@ -29,17 +29,19 @@ public class LoginCommand extends Command {
 
     private final Username username;
     private final Optional<Password> password;
+    private String plainPassword;
 
-    public LoginCommand(Username username, Optional<Password> password) {
-        requireNonNull(username);
+    public LoginCommand(Username username, Optional<Password> password, String plainPassword) {
+        requireNonNull(username, plainPassword);
         this.username = username;
         this.password = password;
+        this.plainPassword = plainPassword;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NonExistentUserException {
         requireNonNull(model);
-        if (model.loadUserData(this.username, this.password)) {
+        if (model.loadUserData(this.username, this.password, this.plainPassword)) {
             return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, this.username.toString()));
         } else {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);

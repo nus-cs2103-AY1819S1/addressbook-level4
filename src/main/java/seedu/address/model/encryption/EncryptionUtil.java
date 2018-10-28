@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.address.model.encryption;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;

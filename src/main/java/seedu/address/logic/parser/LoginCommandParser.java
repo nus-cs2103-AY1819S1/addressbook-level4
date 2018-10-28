@@ -36,6 +36,6 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
         Optional<Password> password = plainPassword.isPresent()
                 ? Optional.of(ParserUtil.parsePassword(plainPassword.get())) : Optional.empty();
-        return new LoginCommand(username, password);
+        return new LoginCommand(username, password, plainPassword.orElse(""));
     }
 }

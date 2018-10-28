@@ -24,7 +24,8 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
         ExpenseTracker newExpenseTracker =
-                new ExpenseTracker(model.getExpenseTracker().getUsername(), model.getExpenseTracker().getPassword());
+                new ExpenseTracker(model.getExpenseTracker().getUsername(), model.getExpenseTracker().getPassword(),
+                        model.getExpenseTracker().getEncryptionKey());
         Budget clearedSpendingBudget = model.getMaximumBudget();
         model.resetData(newExpenseTracker);
         clearedSpendingBudget.clearSpending();

@@ -117,11 +117,15 @@ public interface Model {
      */
     void commitExpenseTracker() throws NoUserSelectedException;
 
+    //@@author JasonChong96
+    //=========== Login =================================================================================
+
     /**
      * Selects the ExpenseTracker of the user with the input username to be used.
      * Returns true if successful, false if the input password is incorrect.
      */
-    boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException;
+    boolean loadUserData(Username username, Optional<Password> password, String encryptionKey)
+            throws NonExistentUserException;
 
     /**
      * Logs out the user in the model.
@@ -177,8 +181,9 @@ public interface Model {
     /**
      * Sets the password of the currently logged in user as the new password given.
      * @param newPassword the new password to be set
+     * @param plainPassword the string representation of the new password to be set
      */
-    void setPassword(Password newPassword) throws NoUserSelectedException;
+    void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException;
 
     /**
      * Checks if the given password matches that of the currently logged in user. If the user does not have any password

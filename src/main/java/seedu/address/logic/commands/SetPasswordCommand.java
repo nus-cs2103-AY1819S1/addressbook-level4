@@ -30,11 +30,13 @@ public class SetPasswordCommand extends Command {
 
     private final Optional<Password> oldPassword;
     private final Password newPassword;
+    private String newPasswordPlain;
 
-    public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword) {
-        requireNonNull(newPassword);
+    public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword, String newPasswordPlain) {
+        requireNonNull(newPassword, newPasswordPlain);
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
+        this.newPasswordPlain = newPasswordPlain;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class SetPasswordCommand extends Command {
         if (!model.isMatchPassword(oldPassword)) {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
-        model.setPassword(newPassword);
+        model.setPassword(newPassword, newPasswordPlain);
         return new CommandResult(MESSAGE_SET_PASSWORD_SUCCESS);
     }
 

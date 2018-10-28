@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
 import java.util.Calendar;
 import java.util.Comparator;
@@ -20,9 +22,12 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -47,12 +52,12 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Expense> expenseStatPredicate;
     private int periodAmount;
 
-    private final Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
+    private final Map<Username, EncryptedExpenseTracker> expenseTrackers;
 
     /**
      * Initializes a ModelManager with the given expenseTrackers and userPrefs.
      */
-    public ModelManager(Map<Username, ReadOnlyExpenseTracker> expenseTrackers, UserPrefs userPrefs) {
+    public ModelManager(Map<Username, EncryptedExpenseTracker> expenseTrackers, UserPrefs userPrefs) {
         super();
         requireAllNonNull(expenseTrackers, userPrefs);
         this.expenseTrackers = expenseTrackers;
@@ -69,19 +74,19 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
         super();
         requireAllNonNull(expenseTracker, userPrefs);
-        Map<Username, ReadOnlyExpenseTracker> expenseTrackers = new TreeMap<>();
+        Map<Username, EncryptedExpenseTracker> expenseTrackers = new TreeMap<>();
         logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
         this.expenseTrackers = expenseTrackers;
-        this.expenseTrackers.put(expenseTracker.getUsername(), expenseTracker);
-        this.username = expenseTracker.getUsername();
-        this.versionedExpenseTracker = null;
-        this.filteredExpenses = null;
-        this.statsPeriod = defaultStatsPeriod();
-        this.statsMode = defaultStatsMode();
-        this.expenseStatPredicate = defaultExpensePredicate();
         try {
-            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword());
-        } catch (NonExistentUserException e) {
+            this.expenseTrackers.put(expenseTracker.getUsername(), EncryptedExpenseTracker.encryptTracker(expenseTracker));
+            this.username = expenseTracker.getUsername();
+            this.versionedExpenseTracker = null;
+            this.filteredExpenses = null;
+            this.statsPeriod = defaultStatsPeriod();
+            this.statsMode = defaultStatsMode();
+            this.expenseStatPredicate = defaultExpensePredicate();
+            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword(), expenseTracker.getEncryptionKey());
+        } catch (NonExistentUserException | IllegalValueException e) {
             throw new IllegalStateException();
         }
     }
@@ -93,7 +98,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyExpenseTracker newData) throws NoUserSelectedException {
         versionedExpenseTracker.resetData(newData);
-        expenseTrackers.replace(this.username, this.versionedExpenseTracker);
+        try {
+            expenseTrackers.replace(this.username, EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("Illegal values in reset Expense Tracker");
+        }
         indicateExpenseTrackerChanged();
     }
 
@@ -110,7 +119,11 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
+        try {
+            raise(new ExpenseTrackerChangedEvent(EncryptedExpenseTracker.encryptTracker(versionedExpenseTracker)));
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("Illegal value in expense tracker");
+        }
     }
 
     @Override
@@ -303,7 +316,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
+    public boolean loadUserData(Username username, Optional<Password> password, String plainPassword)
+            throws NonExistentUserException {
+        requireAllNonNull(username, password, plainPassword);
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
         }
@@ -311,9 +326,27 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         }
         if (hasSelectedUser()) {
-            expenseTrackers.replace(this.username, this.versionedExpenseTracker);
+            try {
+                expenseTrackers.replace(this.username,
+                        EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+            } catch (IllegalValueException e) {
+                throw new IllegalStateException("Illegal value in old expense tracker.");
+            }
         }
-        this.versionedExpenseTracker = new VersionedExpenseTracker(expenseTrackers.get(username));
+
+        EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
+        String encryptionKey;
+        if (!encryptedTracker.getPassword().isPresent()) {
+            encryptionKey = DEFAULT_KEY;
+        } else {
+            encryptionKey = EncryptionUtil.createEncryptionKey(plainPassword);
+        }
+        try {
+            this.versionedExpenseTracker = new VersionedExpenseTracker(encryptedTracker.decryptTracker(encryptionKey));
+        } catch (IllegalValueException e) {
+            // Either wrong password or invalid expense tracker data associated with the user.
+            return false;
+        }
 
         this.filteredExpenses = new FilteredList<>(versionedExpenseTracker.getExpenseList());
         this.username = username;
@@ -375,7 +408,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (expenseTrackers.putIfAbsent(newUsername, new ExpenseTracker(newUsername, Optional.empty())) != null) {
+        if (expenseTrackers.putIfAbsent(newUsername, new EncryptedExpenseTracker(newUsername, Optional.empty())) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }
@@ -386,13 +419,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setPassword(Password password) throws NoUserSelectedException {
+    public void setPassword(Password password, String plainPassword) throws NoUserSelectedException {
         if (this.versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        versionedExpenseTracker.password = Optional.ofNullable(password);
-        expenseTrackers.replace(this.username, this.versionedExpenseTracker);
+        versionedExpenseTracker.setPassword(password);
+        versionedExpenseTracker.setEncryptionKey(createEncryptionKey(plainPassword));
         indicateExpenseTrackerChanged();
+        try {
+            expenseTrackers.replace(this.username, EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("Illegal key created for current expense tracker.");
+        }
     }
     //@@author
 
