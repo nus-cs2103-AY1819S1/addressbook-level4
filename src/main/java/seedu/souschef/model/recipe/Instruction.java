@@ -27,26 +27,22 @@ public class Instruction {
      *
      * @param instruction A valid cook time.
      */
-    public Instruction(String instruction, String time, Set<IngredientPortion> ingredients) {
+    public Instruction(String instruction, CookTime time, Set<IngredientPortion> ingredients) {
         requireNonNull(instruction);
         checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
         value = instruction;
-        cookTime = new CookTime(time);
+        cookTime = time;
         this.ingredients.addAll(ingredients);
     }
 
     public Instruction(String instruction, Set<IngredientPortion> ingredients) {
-        this(instruction, "PT0M", ingredients);
+        this(instruction, new CookTime("PT0M"), ingredients);
     }
 
     public Instruction(String instruction) {
+        checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
         this.value = instruction;
         cookTime = new CookTime("PT0M");
-    }
-
-    public Instruction(String instruction, String time) {
-        this.value = instruction;
-        cookTime = new CookTime(time);
     }
 
     /**

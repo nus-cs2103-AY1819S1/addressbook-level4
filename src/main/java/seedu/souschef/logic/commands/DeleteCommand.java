@@ -1,6 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
@@ -22,7 +22,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         model.delete(toDelete);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS,

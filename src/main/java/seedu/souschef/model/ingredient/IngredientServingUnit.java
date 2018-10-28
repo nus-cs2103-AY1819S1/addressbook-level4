@@ -1,5 +1,7 @@
 package seedu.souschef.model.ingredient;
 
+import static seedu.souschef.commons.util.AppUtil.checkArgument;
+
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,8 @@ public class IngredientServingUnit {
         dictionary.add("ml");
         dictionary.add("none");
 
+
+        checkArgument(isValid(unit), MESSAGE_UNIT_CONSTRAINTS);
         this.unit = unit.toLowerCase();
     }
 
@@ -30,10 +34,11 @@ public class IngredientServingUnit {
      * checks if the serving unit is valid.
      */
     public boolean isValid() {
-        if (dictionary.contains(unit)) {
-            return true;
-        }
-        return false;
+        return dictionary.contains(unit);
+    }
+
+    public boolean isValid(String unit) {
+        return dictionary.contains(unit);
     }
 
     @Override

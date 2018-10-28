@@ -41,23 +41,23 @@ import seedu.souschef.model.tag.Tag;
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
-            new Recipe(new Name("Alex Yeoh"), new Difficulty("1"), new CookTime("PT30M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."), getTagSet("friends")),
-            new Recipe(new Name("Bernice Yu"), new Difficulty("1"), new CookTime("PT30M"),
+            new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("PT40M"),
+                    getInstructionList("Preheat the oven...", "Mix ..."), getTagSet("Asian", "Singapore", "Poultry")),
+            new Recipe(new Name("Blackpepper Chicken"), new Difficulty("2"), new CookTime("PT20M"),
                     getInstructionList("Preheat the oven...", "Mix ...") ,
-                    getTagSet("colleagues", "friends")),
-            new Recipe(new Name("Charlotte Oliveiro"), new Difficulty("1"), new CookTime("PT30M"),
+                    getTagSet("Asian", "Spicy", "Poultry")),
+            new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("PT20M"),
                     getInstructionList("Preheat the oven...", "Mix ..."),
-                    getTagSet("neighbours")),
-            new Recipe(new Name("David Li"), new Difficulty("1"), new CookTime("PT30M"),
+                    getTagSet("Asian", "Staple", "Vegetarian")),
+            new Recipe(new Name("Chilli Crab"), new Difficulty("5"), new CookTime("PT1H20M"),
                     getInstructionList("Preheat the oven...", "Mix ..."),
-                    getTagSet("family")),
-            new Recipe(new Name("Irfan Ibrahim"), new Difficulty("1"), new CookTime("PT30M"),
+                    getTagSet("Family", "Singapore", "Asian", "Seafood")),
+            new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("PT50M"),
                     getInstructionList("Preheat the oven...", "Mix ..."),
-                    getTagSet("classmates")),
-            new Recipe(new Name("Roy Balakrishnan"), new Difficulty("1"), new CookTime("PT30M"),
+                    getTagSet("Staple", "Poultry")),
+            new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("PT40M"),
                     getInstructionList("Preheat the oven...", "Mix ..."),
-                    getTagSet("colleagues"))
+                    getTagSet("Staple", "Vegetarian", "Halal"))
         };
     }
 
