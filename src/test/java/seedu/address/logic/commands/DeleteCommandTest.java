@@ -14,12 +14,15 @@ import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wish.Wish;
+import seedu.address.testutil.WishBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -143,6 +146,57 @@ public class DeleteCommandTest {
         // redo -> deletes same second wish in unfiltered wish list
         expectedModel.redoWishBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteUnfulfilledWishSavedAmountToUnusedFunds_sucess() {
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
+
+        //Put amount into wish that falls below the price
+        Amount amountToFulfillWish = wishToDelete.getSavedAmountToPriceDifference().getAbsoluteAmount();
+        Amount amountBelowWishPrice = new Amount("" + (amountToFulfillWish.value - 1));
+
+        Wish editedWishToDelete = new WishBuilder(wishToDelete)
+                .withSavedAmountIncrement(amountBelowWishPrice.toString()).build();
+        model.updateWish(wishToDelete, editedWishToDelete);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
+        Model expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
+
+        expectedModel.deleteWish(wishToDelete);
+        expectedModel.updateUnusedFunds(amountBelowWishPrice);
+        expectedModel.commitWishBook();
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WISH_SUCCESS,
+                editedWishToDelete, expectedModel.getUnusedFunds());
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteFulfilledWishSavedAmountToUnusedFunds_failure() {
+        Wish wishToDelete = model.getFilteredSortedWishList().get(INDEX_FIRST_WISH.getZeroBased());
+
+        //Put amount into wish that fulfils the wish
+        Amount amountToFulfillWish = wishToDelete.getSavedAmountToPriceDifference().getAbsoluteAmount();
+
+        Wish editedWishToDelete = new WishBuilder(wishToDelete)
+                .withSavedAmountIncrement(amountToFulfillWish.toString()).build();
+        model.updateWish(wishToDelete, editedWishToDelete);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_WISH);
+        Model wrongModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
+
+        wrongModel.deleteWish(wishToDelete);
+        wrongModel.updateUnusedFunds(amountToFulfillWish);
+        wrongModel.commitWishBook();
+
+        try {
+            deleteCommand.execute(model, commandHistory);
+        } catch (CommandException ce) {
+            ce.printStackTrace();
+        }
+
+        assertFalse(model.getUnusedFunds().equals(wrongModel.getUnusedFunds()));
     }
 
     @Test
