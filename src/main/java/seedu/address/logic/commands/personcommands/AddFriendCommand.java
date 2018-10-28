@@ -38,6 +38,10 @@ public class AddFriendCommand extends Command {
         this.indexes = indexes;
     }
 
+    /**
+     * Given two persons, add each other into their friend lists.
+     * throws {@code CommandException} if the each other is already in the list.
+     */
     public static void addFriendEachOther(Person person1, Person person2) throws CommandException {
         person1.addFriendInList(person2);
         person2.addFriendInList(person1);

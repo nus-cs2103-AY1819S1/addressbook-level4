@@ -216,8 +216,7 @@ public class Person {
     public void addFriendInList(Person otherPerson) throws CommandException {
         if (hasFriendInList(otherPerson)) {
             throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
-        }
-        else {
+        } else {
             friends.add(new Friend(otherPerson));
         }
     }
