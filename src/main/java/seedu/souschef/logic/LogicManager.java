@@ -29,7 +29,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final ModelSet modelSet;
-    private final CommandHistory history;
+    private final History history;
     private final AppContentParser appContentParser;
     private final Storage storage;
     private Ui ui;
@@ -38,7 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.modelSet = modelSet;
         this.storage = storage;
         this.ui = null;
-        history = new CommandHistory();
+        history = new History();
         appContentParser = new AppContentParser();
     }
 
@@ -46,7 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.modelSet = modelSet;
         this.storage = new StorageManager();
         this.ui = new UiManager();
-        history = new CommandHistory();
+        history = new History();
         appContentParser = new AppContentParser();
     }
 

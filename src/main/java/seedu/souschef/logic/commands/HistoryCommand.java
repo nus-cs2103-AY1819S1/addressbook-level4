@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collections;
 import java.util.List;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
@@ -17,7 +17,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         requireNonNull(history);
         List<String> previousCommands = history.getHistory();
 

@@ -8,7 +8,7 @@ import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -21,7 +21,7 @@ public class ListCommandTest {
 
     private Model<Recipe> model;
     private Model<Recipe> expectedModel;
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     @Before
     public void setUp() {
@@ -31,7 +31,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand<Recipe>(model), model, commandHistory,
+        assertCommandSuccess(new ListCommand<Recipe>(model), model, history,
                 String.format(ListCommand.MESSAGE_SUCCESS, "recipe"),
                 expectedModel);
     }
@@ -39,7 +39,7 @@ public class ListCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
-        assertCommandSuccess(new ListCommand<Recipe>(model), model, commandHistory,
+        assertCommandSuccess(new ListCommand<Recipe>(model), model, history,
                 String.format(ListCommand.MESSAGE_SUCCESS, "recipe"),
                 expectedModel);
     }

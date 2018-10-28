@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.souschef.commons.core.Messages;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.CrossFilterPredicate;
 import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.commands.exceptions.CommandException;
@@ -45,7 +45,7 @@ public class CrossFindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
 
         crossRecipeModel.sort(comparator);
         crossRecipeModel.updateFilteredList(predicate);

@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.souschef.commons.core.index.Index;
-import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.EditRecipeDescriptor;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
@@ -72,14 +72,14 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command<UniqueType> command, Model actualModel,
-                                            CommandHistory actualCommandHistory,
+                                            History actualHistory,
                                             String expectedMessage, Model expectedModel) {
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        History expectedHistory = new History(actualHistory);
         try {
-            CommandResult result = command.execute(actualCommandHistory);
+            CommandResult result = command.execute(actualHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
-            assertEquals(expectedCommandHistory, actualCommandHistory);
+            assertEquals(expectedHistory, actualHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -93,23 +93,23 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command<UniqueType> command, Model actualModel,
-                                            CommandHistory actualCommandHistory,
+                                            History actualHistory,
                                             String expectedMessage) {
         // we are unable to defensively copy the recipeModel for comparison later, so we can
         // only do so by copying its components.
         AppContent expectedAddressBook = new AppContent(actualModel.getAppContent());
         List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
 
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        History expectedHistory = new History(actualHistory);
 
         try {
-            command.execute(actualCommandHistory);
+            command.execute(actualHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAppContent());
             assertEquals(expectedFilteredList, actualModel.getFilteredList());
-            assertEquals(expectedCommandHistory, actualCommandHistory);
+            assertEquals(expectedHistory, actualHistory);
         }
     }
 

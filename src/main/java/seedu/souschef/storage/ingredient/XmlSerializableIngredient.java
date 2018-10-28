@@ -17,7 +17,7 @@ import seedu.souschef.storage.XmlSerializableGeneric;
 
 /**
  *
- * class to parse xml to model from the provided file
+ * class to parseIndex xml to model from the provided file
  * xml health ingredient
  */
 @XmlRootElement(name = "ingredients")

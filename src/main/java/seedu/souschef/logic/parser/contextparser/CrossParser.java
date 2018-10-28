@@ -50,7 +50,7 @@ public class CrossParser {
         case CrossFindCommand.COMMAND_WORD:
             return new CrossFindCommandParser().parse(crossRecipeModel, ingredientModel, arguments);
         case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(crossRecipeModel, arguments);
+            return new SelectCommandParser().parseIndex(crossRecipeModel, arguments);
         case ListCommand.COMMAND_WORD:
             return new ListCommand<CrossRecipe>(crossRecipeModel);
         default:
