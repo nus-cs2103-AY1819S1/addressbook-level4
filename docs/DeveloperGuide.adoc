@@ -565,7 +565,7 @@ This command is executed with the following syntax: +
 
 Syntax: `addGroup n/[Name]` +
 
-Example: `addGroup n/CS2103T`: This command adds a new group with title 'CS2103T' into the MeetingBook.
+Example: `addGroup n/CS2103T`: adds a new group with title 'CS2103T' into the MeetingBook.
 
 ==== `deleteGroup` command usage
 The `deleteGroup` command allows user to remove an existing group from the MeetingBook.
@@ -573,7 +573,7 @@ This command is executed with the following syntax: +
 
 Syntax: `deleteGroup n/[Name]` +
 
-Example: `deleteGroup n/CS2101`: This command removes the existing group with title 'CS2101' from the MeetingBook.
+Example: `deleteGroup n/CS2101`: removes the existing group with title 'CS2101' from the MeetingBook.
 
 ==== Implementation of `addGroup` and `deleteGroup` commands
 The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups
@@ -591,7 +591,7 @@ This command is executed with the following syntax: +
 
 Syntax: `join n/[Name] g/[Group]` +
 
-Example: `join n/Derek g/CS2101`: This command make the person 'Derek' become a member of group 'CS2101'
+Example: `join n/Derek g/CS2101`: makes the person 'Derek' become a member of group 'CS2101'
 
 ==== `leave` command usage
 The `leave` command updates relationship between person and group in the same way as the `join` command.
@@ -600,7 +600,7 @@ And the person is removed from this group. This command is executed with the fol
 
 Syntax: `leave n/[Name] g/[Group]` +
 
-Example: `leave n/Ben g/CS2103T`: This command remove the person `Ben` from the group `CS2103T`.
+Example: `leave n/Ben g/CS2103T`: removes the person `Ben` from the group `CS2103T`.
 
 ==== Implementation of `join` and `leave` commands
 The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.

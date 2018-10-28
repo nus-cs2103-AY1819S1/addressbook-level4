@@ -111,9 +111,9 @@ Format: `addGroup n/[Name]` +
 Examples:
 
 * `addGroup n/CS2103T` +
-Added a new group with title 'CS2103T' into the MeetingBook.
+Adds a new group with title 'CS2103T' into the MeetingBook.
 * `addGroup n/Discussion Group 1` +
-Added a new group with title 'Discussion Group 1' into the MeetingBook.
+Adds a new group with title 'Discussion Group 1' into the MeetingBook.
 
 === Deleting a group: `deleteGroup`
 
@@ -124,9 +124,9 @@ Format: `deleteGroup n/[Name]` +
 Examples:
 
 * `deleteGroup n/CS2103T` +
-Removed the group with title 'CS2103T', which is added previously, from MeetingBook.
+Removes the group with title 'CS2103T', which is added previously, from MeetingBook.
 * `deleteGroup n/Discussion Group 1` +
-Removed the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
+Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
 
 === Finding a group / person / meeting: `find`
 
@@ -192,6 +192,11 @@ Add a person, specified by name, into a group, specified by the group title. +
 
 Format: `join n/[Name] g/[Group]` +
 
+Example:
+
+* `join n/Derek g/CS2103T` +
+Makes the person 'Derek' to be a member of group 'CS2103T'.
+
 [NOTE]
 Both the person and group should exist in the MeetingBook.
 
@@ -200,6 +205,11 @@ Both the person and group should exist in the MeetingBook.
 Remove a person, specified by name, from a group, specified by the group title. +
 
 Format: `leave n/[Name] g/[Group]` +
+
+Example:
+
+* `leave n/Derek g/CS2101` +
+Removes the person 'Derek' from the group 'CS2101'.
 
 [NOTE]
 Both the person and group should exist in the MeetingBook.
