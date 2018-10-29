@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -122,6 +123,11 @@ public interface Model {
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);
+
+    /**
+     * Get preview image list (first 10 images in imageList)
+     */
+    List<Path> returnPreviewImageList();
 
     /**
      * Retrieves the current displayed original image.

@@ -8,12 +8,12 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="historyPanel" alignment="CENTER_LEFT">
   <VBox>
-    <Text fx:id="historyTitle">History List</Text>
+    <Text fx:id="historyTitle" styleClass="titles">History List</Text>
     <VBox.margin>
       <Insets>
         <bottom>7</bottom>
       </Insets>
     </VBox.margin>
   </VBox>
-  <ListView fx:id="historyListView" VBox.vgrow="ALWAYS" />
+  <ListView fx:id="historyListView"/>
 </VBox>

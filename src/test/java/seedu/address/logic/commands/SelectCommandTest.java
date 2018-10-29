@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_IMAGE;
+//import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_IMAGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
@@ -38,8 +38,8 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
-        //assertExecutionSuccess(INDEX_FIRST_PERSON);
-        //assertExecutionSuccess(INDEX_THIRD_PERSON);
+        //assertExecutionSuccess(INDEX_FIRST_IMAGE);
+        //assertExecutionSuccess(INDEX_THIRD_IMAGE);
         //assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -52,18 +52,18 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_IMAGE);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_IMAGE);
 
-        //assertExecutionSuccess(INDEX_FIRST_PERSON);
+        //assertExecutionSuccess(INDEX_FIRST_IMAGE);
     }
 
     //@Test
     //public void execute_invalidIndexFilteredList_failure() {
-    //    showPersonAtIndex(model, INDEX_FIRST_PERSON);
-    //    showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+    //    showPersonAtIndex(model, INDEX_FIRST_IMAGE);
+    //    showPersonAtIndex(expectedModel, INDEX_FIRST_IMAGE);
 
-    //    Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+    //    Index outOfBoundsIndex = INDEX_SECOND_IMAGE;
     //    // ensures that outOfBoundIndex is still in bounds of address book list
     //    assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
@@ -72,15 +72,14 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        // SELECT COMMAND INTERNAL GRAPHICS NOT INITIALISED
-        /*SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_IMAGE);
+        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_IMAGE);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_IMAGE);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -90,7 +89,7 @@ public class SelectCommandTest {
         assertFalse(selectFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(selectFirstCommand.equals(selectSecondCommand));*/
+        assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**

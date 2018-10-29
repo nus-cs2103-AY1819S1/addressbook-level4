@@ -6,7 +6,9 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -38,6 +40,7 @@ public class NextCommand extends Command {
         }
 
         model.updateImageList(dirImageList);
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList()));
 
         return new CommandResult((String.format(MESSAGE_NEXT_SUCCESS,
                 Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)) + "\n"
