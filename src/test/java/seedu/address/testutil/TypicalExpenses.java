@@ -24,6 +24,8 @@ import java.util.Optional;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.NotificationHandler;
+import seedu.address.model.notification.WarningNotification;
 import seedu.address.model.user.Username;
 
 /**
@@ -117,7 +119,8 @@ public class TypicalExpenses {
             expense += e.getCost().getCostValue();
         }
         ab.modifyMaximumBudget(new Budget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"), 50000));
-
+        ab.setNotificationHandler(new NotificationHandler(LocalDateTime.parse("2018-10-31T01:42:04.021756"),
+                true, true));
         return ab;
     }
 

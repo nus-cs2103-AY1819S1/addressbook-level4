@@ -19,4 +19,8 @@ public class TipNotification extends Notification {
         type = NotificationType.TIP;
     }
 
+    public TipNotification(TipNotification notification) {
+        super(notification);
+    }
+
 }

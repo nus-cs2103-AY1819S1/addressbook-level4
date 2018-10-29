@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a list of available tips.
  */
@@ -16,8 +18,8 @@ public class Tips {
      * @param tips The list to create a Tips object with
      */
     public Tips(List<Tip> tips) {
+        requireAllNonNull(tips);
         this.tips = tips;
-        System.out.println("TIPS SIZE: " + tips.size());
     }
 
     public Tips() {

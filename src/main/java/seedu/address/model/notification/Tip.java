@@ -2,6 +2,8 @@ package seedu.address.model.notification;
 
 //@@Snookerballs
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a tip that will be displayed as a notification.
  */
@@ -14,6 +16,7 @@ public class Tip {
     }
 
     public Tip(String header, String body) {
+        requireAllNonNull(header, body);
         this.header = header;
         this.body = body;
     }

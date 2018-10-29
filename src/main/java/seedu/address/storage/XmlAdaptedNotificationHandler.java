@@ -48,4 +48,19 @@ public class XmlAdaptedNotificationHandler {
         return new NotificationHandler(lastTipSentOn, isTipEnabled, isWarningEnabled);
     }
 
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedNotificationHandler)) {
+            return false;
+        }
+        return this.isWarningEnabled == ((XmlAdaptedNotificationHandler) other).isWarningEnabled
+                && this.isTipEnabled == ((XmlAdaptedNotificationHandler) other).isTipEnabled
+                && this.lastTipSentOn.getDayOfMonth() == ((XmlAdaptedNotificationHandler) other).lastTipSentOn.getDayOfMonth()
+                && this.lastTipSentOn.getMonth().equals(((XmlAdaptedNotificationHandler) other).lastTipSentOn.getMonth())
+                &&this.lastTipSentOn.getYear() == ((XmlAdaptedNotificationHandler) other).lastTipSentOn.getYear();
+    }
+
 }

@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ExpenseTracker;
+import seedu.address.model.notification.Notification;
 import seedu.address.testutil.TypicalExpenses;
 
 public class XmlSerializableExpenseTrackerTest {
@@ -34,6 +35,8 @@ public class XmlSerializableExpenseTrackerTest {
             + typicalExpensesExpenseTracker.getMaximumBudget().getNumberOfSecondsToRecurAgain());
         assertEquals(expenseTrackerFromFile, typicalExpensesExpenseTracker);
         assertEquals(expenseTrackerFromFile.getMaximumBudget(), typicalExpensesExpenseTracker.getMaximumBudget());
+        assertEquals(expenseTrackerFromFile.getNotificationHandler(),
+                typicalExpensesExpenseTracker.getNotificationHandler());
     }
 
     @Test

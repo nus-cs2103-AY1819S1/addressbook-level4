@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -142,6 +143,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     public NotificationHandler getNotificationHandler() {
         return notificationHandler;
     }
+
+    /**
+     * Modify notificationHandler {@code WarningNotification}
+     */
+    public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
+        notificationHandler = new NotificationHandler(date, isTipEnabled, isWarningEnabled);
+    }
+
     //// expense-level operations
 
     /**
@@ -230,6 +239,9 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     @Override
     public boolean equals(Object other) {
+        System.out.println("E: " + expenses.equals(((ExpenseTracker) other).expenses));
+        System.out.println("B: " + this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget));
+        System.out.println("N: " + this.notificationHandler.equals(((ExpenseTracker) other).notificationHandler));
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))

@@ -82,12 +82,10 @@ public class XmlSerializableExpenseTracker {
         if (this.notificationHandler != null) {
             expenseTracker.setNotificationHandler(notificationHandler.toModelType());
         }
-
         for (XmlAdaptedNotification n : notifications) {
             Notification notification = n.toModelType();
             expenseTracker.addNotification(notification);
         }
-
         return expenseTracker;
     }
 
@@ -100,6 +98,7 @@ public class XmlSerializableExpenseTracker {
         if (!(other instanceof XmlSerializableExpenseTracker)) {
             return false;
         }
-        return expenses.equals(((XmlSerializableExpenseTracker) other).expenses);
+        return expenses.equals(((XmlSerializableExpenseTracker) other).expenses)
+                && notificationHandler.equals(((XmlSerializableExpenseTracker) other).notificationHandler);
     }
 }

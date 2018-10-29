@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -225,4 +226,10 @@ public interface Model {
      * Returns notificationHandler.
      */
     NotificationHandler getNotificationHandler() throws NoUserSelectedException;
+
+    /**
+     * Modify NotificationHandler.
+     */
+    void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+            throws NoUserSelectedException;
 }

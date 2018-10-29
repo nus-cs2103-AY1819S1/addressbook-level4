@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -172,8 +173,8 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from list to statistics
      */
     public void swapToStat() {
-        leftPanelPlaceholder.getChildren().clear();
-        leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
+        Platform.runLater(() -> leftPanelPlaceholder.getChildren().clear());
+        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsSplitPane));
     }
 
     //@@author snookerballs
@@ -188,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getExpenseTrackerDirPath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
 

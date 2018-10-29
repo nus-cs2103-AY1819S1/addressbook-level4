@@ -20,6 +20,7 @@ public class NotificationHandler implements Iterable<Notification> {
     private static final int DAYS_BEFORE_SENDING_TIP = 1;
     private static final double WARNING_NOTIFICATION_TRESHOLD = 0.8;
     private static final int MAXIMUM_NUMBER_OF_NOTIFICATIONS = 10;
+    private static final LocalDateTime DEFAULT_LOCAL_DATE_TIME = LocalDateTime.parse("2018-10-31T01:42:04.02175");
 
     private LocalDateTime lastTipSentOn;
     private boolean isTipEnabled;
@@ -27,7 +28,7 @@ public class NotificationHandler implements Iterable<Notification> {
     private ObservableList<Notification> internalList = FXCollections.observableArrayList();
 
     public NotificationHandler() {
-        lastTipSentOn = LocalDateTime.now().minusDays(1);
+        lastTipSentOn = DEFAULT_LOCAL_DATE_TIME;
         isTipEnabled = true;
         isWarningEnabled = true;
     }
@@ -36,6 +37,11 @@ public class NotificationHandler implements Iterable<Notification> {
         this.lastTipSentOn = date;
         this.isTipEnabled = isTipEnabled;
         this.isWarningEnabled = isWarningEnabled;
+    }
+
+    public NotificationHandler(List<Notification> internalList) {
+       super();
+       this.internalList = FXCollections.observableArrayList(internalList);
     }
 
     /**
@@ -84,16 +90,6 @@ public class NotificationHandler implements Iterable<Notification> {
         return internalList.isEmpty();
     }
 
-    /**
-     * Checks if the list contains a specific notification
-     * @param toCheck The notification to check with
-     * @return true if {@code toCheck} is in the list, false otherwise.
-     */
-    public boolean contains(Notification toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameNotification);
-    }
-
     @Override
     public Iterator<Notification> iterator() {
         return internalList.iterator();
@@ -137,9 +133,20 @@ public class NotificationHandler implements Iterable<Notification> {
         }
 
         NotificationHandler handler = (NotificationHandler) obj;
+
+            for(Notification n: internalList) {
+                System.out.println("H: " + n.getHeader() + " " + n.getBody());
+            }
+
+        for(Notification n: handler.internalList) {
+            System.out.println("H: " + n.getHeader() + " " + n.getBody());
+        }
+
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled
-                && this.lastTipSentOn.equals(handler.lastTipSentOn)
+                && this.lastTipSentOn.getDayOfMonth() == handler.lastTipSentOn.getDayOfMonth()
+                && this.lastTipSentOn.getMonth().equals(handler.lastTipSentOn.getMonth())
+                &&this.lastTipSentOn.getYear() == handler.lastTipSentOn.getYear()
                 && this.internalList.equals(handler.internalList);
     }
 }

@@ -1,12 +1,12 @@
 package seedu.address.model.notification;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a notification in the expense tracker
  */
 //@@Snookerballs
 public abstract class Notification {
-    public static final String MESSAGE_COST_CONSTRAINTS =
-            "Notification header and body should not be blank";
 
     protected String header;
 
@@ -26,8 +26,16 @@ public abstract class Notification {
     }
 
     public Notification(String header, String body) {
+        requireAllNonNull(header, body);
         this.header = header;
         this.body = body;
+    }
+
+    public Notification(Notification notification) {
+        requireAllNonNull(notification);
+        this.header = notification.header;
+        this.body = notification.body;
+        this.type = notification.type;
     }
 
     public String getHeader() {
@@ -39,7 +47,7 @@ public abstract class Notification {
     }
 
     public boolean isSameNotification(Notification otherNotification) {
-        return (otherNotification.header == header) && (otherNotification.body == body);
+        return (otherNotification.header.equals(header)) && (otherNotification.body.equals(body));
     }
 
     @Override
@@ -52,6 +60,16 @@ public abstract class Notification {
 
     public NotificationType getNotificationType() {
         return type;
+    }
+
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Notification)) {
+            return false;
+        }
+        Notification notification = (Notification) obj;
+        return this.header.equals(notification.header)
+                && this.body.equals(notification.body)
+                && this.type.equals(notification.type);
     }
 
 }

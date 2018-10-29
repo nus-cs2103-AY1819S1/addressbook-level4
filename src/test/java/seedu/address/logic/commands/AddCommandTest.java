@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -298,6 +299,11 @@ public class AddCommandTest {
         @Override
         public NotificationHandler getNotificationHandler() throws NoUserSelectedException {
             throw new AssertionError("getNotificationHandler should not be called.");
+        }
+
+        @Override
+        public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled) throws NoUserSelectedException {
+            throw new AssertionError("modifyNotificationHandler should not be called.");
         }
 
         @Override

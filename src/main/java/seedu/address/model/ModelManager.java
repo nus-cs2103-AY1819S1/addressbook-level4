@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -311,6 +312,15 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedExpenseTracker.getNotificationHandler();
     }
 
+    @Override
+    public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+            throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        this.versionedExpenseTracker.modifyNotificationHandler(time, isTipEnabled, isWarningEnabled);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -428,7 +438,7 @@ public class ModelManager extends ComponentManager implements Model {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
-            addTipNotification();
+            //addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }

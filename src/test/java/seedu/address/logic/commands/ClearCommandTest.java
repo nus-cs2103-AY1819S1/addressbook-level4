@@ -29,7 +29,6 @@ public class ClearCommandTest {
         Model model = ModelUtil.modelWithTestUser();
         Model expectedModel = ModelUtil.modelWithTestUser();
         expectedModel.commitExpenseTracker();
-
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }

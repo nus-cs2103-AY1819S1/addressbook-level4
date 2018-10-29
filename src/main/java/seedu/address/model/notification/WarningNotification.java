@@ -24,6 +24,10 @@ public class WarningNotification extends Notification {
         type = NotificationType.WARNING;
     }
 
+    public WarningNotification(WarningNotification notification) {
+        super(notification);
+    }
+
     /**
     * Generates a body depending on the budget level.
     * @param budget level to check
