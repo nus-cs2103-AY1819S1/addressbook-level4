@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
+import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -28,7 +29,7 @@ public class TypicalGroups {
             .withNewPerson(ALICE).build();
 
     public static final Group GROUP_2101 = new GroupBuilder().withTitle("CS2101 Project Team")
-            .withDescription("CS2101 Presentation team").build();
+            .withDescription("CS2101 Presentation team").withMeeting(REHEARSAL).build();
 
     public static final Group NUS_COMPUTING = new GroupBuilder().withTitle("COMPUTING")
             .withDescription("Discussion group for Soc students")
