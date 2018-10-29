@@ -17,6 +17,7 @@ import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.Type;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -114,6 +115,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a string {@code type} into an {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+
+    /**
      * Parses a string {@code email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -122,7 +138,7 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (deadline.isEmpty()) {
+        if (deadline.isEmpty() || !Deadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         }
         return new Deadline(trimmedDeadline);
@@ -138,7 +154,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_GENERAL_TAG_CONSTRAINTS);
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
     }

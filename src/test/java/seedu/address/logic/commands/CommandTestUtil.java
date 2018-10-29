@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,9 +32,9 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_AMY = "Loan";
     public static final String VALID_TYPE_BOB = "Loan";
     public static final String VALID_AMOUNT_AMY = "SGD 145.60";
-    public static final String VALID_AMOUNT_BOB = "MYR 276.90";
+    public static final String VALID_AMOUNT_BOB = "SGD 42.50";
     public static final String VALID_DEADLINE_AMY = "17/11/2018";
-    public static final String VALID_DEADLINE_BOB = "25/12/2018";
+    public static final String VALID_DEADLINE_BOB = "12/11/2018";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -52,6 +55,13 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String AMOUNT_DESC_AMY = " " + PREFIX_TRANSACTION_AMOUNT + VALID_AMOUNT_AMY;
+    public static final String AMOUNT_DESC_BOB = " " + PREFIX_TRANSACTION_AMOUNT + VALID_AMOUNT_BOB;
+    public static final String TYPE_DESC_AMY = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_AMY;
+    public static final String TYPE_DESC_BOB = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_BOB;
+    public static final String DEADLINE_DESC_AMY = " " + PREFIX_TRANSACTION_DEADLINE + VALID_DEADLINE_AMY;
+    public static final String DEADLINE_DESC_BOB = " " + PREFIX_TRANSACTION_DEADLINE + VALID_DEADLINE_BOB;
+
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -84,18 +94,33 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage, Model expectedModel) {
+    public static void assertCommandSuccessWithNoModelChange(Command command, Model actualModel,
+                                                             CommandHistory actualCommandHistory,
+                                                             String expectedMessage, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        assertCommandSuccessWithModelChange(command, actualModel, actualCommandHistory, expectedMessage);
+        assertEquals(expectedModel, actualModel);
+    }
+
+    //TODO: Add a better test to handle model change
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandSuccessWithModelChange(Command command, Model actualModel,
+                                                           CommandHistory actualCommandHistory,
+                                                           String expectedMessage) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
-            assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -104,8 +129,9 @@ public class CommandTestUtil {
      * - the address book and the filtered transaction list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage) {
+    public static void assertCommandFailureWithNoModelChange(Command command, Model actualModel,
+                                                             CommandHistory actualCommandHistory,
+                                                             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         FinancialDatabase expectedAddressBook = new FinancialDatabase(actualModel.getFinancialDatabase());

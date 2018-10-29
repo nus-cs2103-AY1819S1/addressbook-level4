@@ -8,21 +8,25 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Type;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
  *
  */
 public class TransactionBuilder {
-    public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final Person DEFAULT_PERSON = TypicalPersons.AMY;
-    public static final String DEFAULT_DEADLINE = "12/11/2018";
+    private static final String DEFAULT_TYPE = "Loan";
+    private static final String DEFAULT_AMOUNT = "SGD 10.00";
+    private static final Person DEFAULT_PERSON = TypicalPersons.AMY;
+    private static final String DEFAULT_DEADLINE = "12/11/2018";
 
+    private Type type;
     private Amount amount;
     private Person person;
     private Deadline deadline;
 
     public TransactionBuilder() {
+        type = new Type(DEFAULT_TYPE);
         amount = new Amount(DEFAULT_AMOUNT);
         person = DEFAULT_PERSON;
         deadline = new Deadline(DEFAULT_DEADLINE);
@@ -32,8 +36,18 @@ public class TransactionBuilder {
      * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
     public TransactionBuilder(Transaction transactionToCopy) {
+        type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
         person = transactionToCopy.getPerson();
+        deadline = transactionToCopy.getDeadline();
+    }
+
+    /**
+     * Sets the {@code Type} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withType(String type) {
+        this.type = new Type(type);
+        return this;
     }
 
     /**
@@ -41,6 +55,14 @@ public class TransactionBuilder {
      */
     public TransactionBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Deadline} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withDeadline(String deadline) {
+        this.deadline = new Deadline(deadline);
         return this;
     }
 
@@ -98,6 +120,6 @@ public class TransactionBuilder {
     }
 
     public Transaction build() {
-        return new Transaction(amount, deadline, person);
+        return new Transaction(type, amount, deadline, person);
     }
 }

@@ -15,14 +15,15 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
-
+import seedu.address.model.transaction.Type;
 
 /**
- * JAXB-friendly version of a {@code Transaction}.
+ * JAXB-friendly version of the Person.
  */
 public class XmlAdaptedTransaction {
 
@@ -30,6 +31,8 @@ public class XmlAdaptedTransaction {
 
     @XmlElement(required = true)
     private String amount;
+    @XmlElement(required = true)
+    private String type;
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
@@ -40,9 +43,10 @@ public class XmlAdaptedTransaction {
     private String email;
     @XmlElement(required = true)
     private String address;
-
     @XmlElement(required = true)
-    private List<XmlAdaptedTag> tagged;
+    private String photo;
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
 
     /**
@@ -54,15 +58,19 @@ public class XmlAdaptedTransaction {
     /**
      * Constructs an {@code XmlAdaptedTransaction} with the given transaction details.
      */
-    public XmlAdaptedTransaction(String amount, String deadline, String name, String phone, String email,
+    public XmlAdaptedTransaction(String type, String amount, String deadline, String name, String phone, String email,
                                  String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.amount = amount;
+        this.type = type;
         this.deadline = deadline;
-        this.tagged = tagged;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+
     }
 
     /**
@@ -70,7 +78,7 @@ public class XmlAdaptedTransaction {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTransaction
      */
-    public XmlAdaptedTransaction(Transaction source) {
+    public XmlAdaptedTransaction(seedu.address.model.transaction.Transaction source) {
         name = source.getPerson().getName().fullName;
         email = source.getPerson().getEmail().value;
         phone = source.getPerson().getPhone().value;
@@ -79,8 +87,10 @@ public class XmlAdaptedTransaction {
                 .stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        amount = source.getAmount().value;
+        amount = source.getAmount().toString();
+        type = source.getType().value;
         deadline = source.getDeadline().value;
+        photo = source.getPhoto().getPicturePath();
     }
 
     /**
@@ -88,18 +98,9 @@ public class XmlAdaptedTransaction {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction
      */
-    public Transaction toModelType() throws IllegalValueException {
+    public seedu.address.model.transaction.Transaction toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
-        if (tagged == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Tag.class.getSimpleName()));
-        }
-        for (int i = 0; i < tagged.size(); i++) {
-            XmlAdaptedTag tag = tagged.get(i);
-            if (i == 0 && !(tag.equals(new XmlAdaptedTag("debtor"))
-                       || tag.equals(new XmlAdaptedTag("lender")))) {
-                throw new IllegalValueException(Tag.MESSAGE_FIRST_TAG_CONSTRAINTS);
-            }
+        for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
 
@@ -134,6 +135,9 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Address.class.getSimpleName()));
         }
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
         final Address modelAddress = new Address(address);
 
         if (amount == null) {
@@ -144,6 +148,14 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
+        if (type == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Type.class.getSimpleName()));
+        }
+        if (!Type.isValidType(type)) {
+            throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        }
+        final Type modelType = new Type(type);
         if (deadline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
@@ -156,7 +168,18 @@ public class XmlAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
 
-        return new Transaction(modelAmount, modelDeadline, modelPerson);
+        int a = 0;
+        int b = 0;
+        Photo phot = new Photo();
+        if (this.photo == null) {
+            a = 1;
+            b = 1;
+        }
+        if (a == 0 && Photo.isValidPhoto(this.photo) && b == 0) {
+            phot = new Photo(this.photo);
+        }
+
+        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson, phot);
     }
 
     @Override
@@ -170,12 +193,34 @@ public class XmlAdaptedTransaction {
         }
 
         XmlAdaptedTransaction otherTransaction = (XmlAdaptedTransaction) other;
-        return Objects.equals(amount, otherTransaction.amount)
+        return Objects.equals(type, otherTransaction.type)
+                && Objects.equals(amount, otherTransaction.amount)
                 && Objects.equals(deadline, otherTransaction.deadline)
                 && Objects.equals(name, otherTransaction.name)
                 && Objects.equals(phone, otherTransaction.phone)
                 && Objects.equals(email, otherTransaction.email)
                 && Objects.equals(address, otherTransaction.address)
-                && Objects.equals(tagged, otherTransaction.tagged);
+                && Objects.equals(photo, otherTransaction.photo)
+                && tagged.equals(otherTransaction.tagged);
+    }
+
+    @Override
+    public String toString() {
+        String tagss = "";
+        for (XmlAdaptedTag tag:tagged) {
+            try {
+                tagss += tag.toModelType().tagName + ";";
+            } catch (IllegalValueException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return "type: " + type + "\n"
+                + "amount: " + amount + "\n"
+                + "deadline: " + deadline + "\n"
+                + "name: " + name + "\n"
+                + "phone: " + phone + "\n"
+                + "email: " + email + "\n"
+                + "address: " + address + "\n"
+                + "tagged: " + tagged;
     }
 }

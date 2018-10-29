@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "debtTrackerFilePath": "debttracker.xml"
+  "addressBookFilePath" : "data/debttracker.xml"
 }
