@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NonExistentUserException;
