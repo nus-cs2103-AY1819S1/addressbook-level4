@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -21,7 +20,6 @@ import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_HUSBAN
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static ssp.scheduleplanner.logic.parser.CliSyntax.PREFIX_TAG;
 import static ssp.scheduleplanner.model.Model.PREDICATE_SHOW_ALL_TASKS;
@@ -46,7 +44,6 @@ import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.model.task.Venue;
 import ssp.scheduleplanner.testutil.TaskBuilder;
-import ssp.scheduleplanner.testutil.TaskUtil;
 
 public class EditCommandSystemTest extends SchedulePlannerSystemTest {
 

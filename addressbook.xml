@@ -1,74 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
     <tasks>
-        <name>Bernice Yu</name>
-        <date>141258</date>
-        <priority>1</priority>
-        <venue>Blk 30 Lorong 3 Serangoon Gardens, #07-18</venue>
-        <tagged>colleagues</tagged>
-        <tagged>friends</tagged>
-    </tasks>
-    <tasks>
-        <name>Charlotte Oliveiro</name>
-        <date>150983</date>
-        <priority>1</priority>
-        <venue>Blk 11 Ang Mo Kio Street 74, #11-04</venue>
-        <tagged>neighbours</tagged>
-    </tasks>
-    <tasks>
-        <name>David Li</name>
-        <date>120782</date>
-        <priority>1</priority>
-        <venue>Blk 436 Serangoon Gardens Street 26, #16-43</venue>
-        <tagged>family</tagged>
-    </tasks>
-    <tasks>
-        <name>Irfan Ibrahim</name>
-        <date>230721</date>
-        <priority>1</priority>
-        <venue>Blk 47 Tampines Street 20, #17-35</venue>
-        <tagged>classmates</tagged>
-    </tasks>
-    <tasks>
-        <name>Roy Balakrishnan</name>
-        <date>080717</date>
-        <priority>1</priority>
-        <venue>Blk 45 Aljunied Street 85, #11-31</venue>
-        <tagged>colleagues</tagged>
-    </tasks>
-    <tasks>
-        <name>CS2103T Tutorial</name>
+        <name>a Tutorial</name>
         <date>111018</date>
-        <priority>3</priority>
+        <priority>1</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
     <tasks>
-        <name>CS2103T Tutorial</name>
+        <name>z Tutorial</name>
+        <date>111018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>f Tutorial</name>
         <date>111018</date>
         <priority>2</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
     <tasks>
-        <name>CS2103T Tutorial</name>
+        <name>d Tutorial</name>
         <date>111018</date>
-        <priority>1</priority>
+        <priority>3</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
     <tasks>
-        <name>n</name>
+        <name>m Tutorial</name>
         <date>111018</date>
         <priority>1</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
-    <archivedTasks>
-        <name>Alex Yeoh</name>
-        <date>121107</date>
-        <priority>1</priority>
-        <venue>Blk 30 Geylang Street 29, #06-40</venue>
-        <tagged>friends</tagged>
-    </archivedTasks>
 </scheduleplanner>

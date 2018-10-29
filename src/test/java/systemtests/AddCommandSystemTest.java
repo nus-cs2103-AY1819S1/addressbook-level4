@@ -17,8 +17,6 @@ import static ssp.scheduleplanner.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 //import static CommandTestUtil.VALID_ADDRESS_BOB;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static CliSyntax.PREFIX_TAG;
 import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;

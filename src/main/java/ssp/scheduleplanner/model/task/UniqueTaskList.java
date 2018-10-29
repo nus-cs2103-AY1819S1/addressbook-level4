@@ -116,8 +116,8 @@ public class UniqueTaskList implements Iterable<Task> {
         if (other == this) {
             return true;
         } else if (other instanceof UniqueTaskList) {
-            SortedList<Task> otherSortedList =
-                    ((UniqueTaskList) other).internalList.sorted((a, b) -> Task.compare(a, b));
+            SortedList<Task> otherSortedList = (
+                    (UniqueTaskList) other).internalList.sorted((a, b) -> Task.compare(a, b));
             if (internalList.equals(((UniqueTaskList) other).internalList)) {
                 return true;
             } else if (sortedList.equals(otherSortedList)) {
