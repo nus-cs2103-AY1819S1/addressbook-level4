@@ -16,11 +16,17 @@ public class UpdateFilmReelEvent extends BaseEvent {
     public final List<Path> paths;
 
     /**
+     * True if command is cd or next, else false.
+     */
+    public final boolean refresh;
+
+    /**
      * Constructor for LoginStatusEvent
      *
      * @param paths List of paths to new images
      */
-    public UpdateFilmReelEvent(List<Path> paths) {
+    public UpdateFilmReelEvent(List<Path> paths, boolean refresh) {
+        this.refresh = refresh;
         this.paths = requireNonNull(paths);
     }
 
