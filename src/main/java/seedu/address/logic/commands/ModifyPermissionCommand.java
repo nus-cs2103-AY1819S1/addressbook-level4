@@ -85,7 +85,8 @@ public class ModifyPermissionCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getName(), editedPerson.getPermissionSet()));
+        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getName(),
+                editedPerson.getPermissionSet()));
     }
 
     /**
