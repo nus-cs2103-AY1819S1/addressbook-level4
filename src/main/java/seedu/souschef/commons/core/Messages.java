@@ -11,6 +11,7 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
@@ -125,12 +126,16 @@ public class Messages {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_DIFFICULTY + "PHONE] "
-            + "[" + PREFIX_COOKTIME + "EMAIL] "
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
+            + "[" + PREFIX_COOKTIME + "TIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
             + PREFIX_DIFFICULTY + "3 "
-            + PREFIX_COOKTIME + "PT1H20M";
+            + PREFIX_COOKTIME + "PT1H20M\n"
+            + "Alternative parameters: INDEX (must be a positive index) "
+            + PREFIX_STEP + "STEP "
+            + PREFIX_INSTRUCTION + "INSTRUCTION "
+            + "[" + PREFIX_COOKTIME + "TIME]";
 
     public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD;
     public static final String MESSAGE_EDIT_HEALTHPLAN_USAGE = EditCommand.COMMAND_WORD
