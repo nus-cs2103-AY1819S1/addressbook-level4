@@ -1,9 +1,11 @@
 package seedu.address.model.encryption;
 
+import static com.google.common.hash.Hashing.murmur3_128;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -16,8 +18,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.google.common.hash.Hashing;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.expense.Expense;
@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EncryptionUtil {
 
-    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     public static final String DEFAULT_ENCRYPTION_KEY = createEncryptionKey("");
 
     private static final String CIPHER_TRANSFORMATION = "AES/ECB/PKCS5PADDING";
@@ -93,7 +93,7 @@ public class EncryptionUtil {
      */
     public static String createEncryptionKey(String password) {
         requireNonNull(password);
-        return Hashing.murmur3_128().hashString(password, DEFAULT_CHARSET).toString();
+        return murmur3_128().hashString(password, DEFAULT_CHARSET).toString();
     }
 
     /**

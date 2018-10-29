@@ -44,7 +44,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private VersionedExpenseTracker versionedExpenseTracker;
     private FilteredList<Expense> filteredExpenses;
-    private Username username;
 
     //Stats related variables
     private StatsPeriod statsPeriod;
@@ -62,7 +61,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(expenseTrackers, userPrefs);
         this.expenseTrackers = expenseTrackers;
         logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
-        this.username = null;
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         this.statsPeriod = defaultStatsPeriod();
@@ -80,7 +78,6 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             this.expenseTrackers.put(expenseTracker.getUsername(),
                     EncryptionUtil.encryptTracker(expenseTracker));
-            this.username = expenseTracker.getUsername();
             this.versionedExpenseTracker = null;
             this.filteredExpenses = null;
             this.statsPeriod = defaultStatsPeriod();
@@ -101,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyExpenseTracker newData) throws NoUserSelectedException {
         versionedExpenseTracker.resetData(newData);
         try {
-            expenseTrackers.replace(this.username,
+            expenseTrackers.replace(this.versionedExpenseTracker.getUsername(),
                     EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal values in reset Expense Tracker");
@@ -111,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ReadOnlyExpenseTracker getExpenseTracker() throws NoUserSelectedException {
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         return this.versionedExpenseTracker;
@@ -119,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     protected void indicateExpenseTrackerChanged() throws NoUserSelectedException {
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         try {
@@ -132,7 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasExpense(Expense expense) throws NoUserSelectedException {
         requireNonNull(expense);
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         return versionedExpenseTracker.hasExpense(expense);
@@ -168,7 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException {
-        if (filteredExpenses == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         return FXCollections.unmodifiableObservableList(filteredExpenses);
@@ -177,7 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException {
         requireNonNull(predicate);
-        if (filteredExpenses == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         filteredExpenses.setPredicate(predicate);
@@ -187,7 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean canUndoExpenseTracker() throws NoUserSelectedException {
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         return versionedExpenseTracker.canUndo();
@@ -212,7 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void commitExpenseTracker() throws NoUserSelectedException {
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         versionedExpenseTracker.commit();
@@ -247,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Expense> getExpenseStats() throws NoUserSelectedException {
-        if (this.filteredExpenses == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         FilteredList<Expense> filteredList = new FilteredList<>(versionedExpenseTracker.getExpenseList());
@@ -262,7 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException {
-        if (filteredExpenses == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         expenseStatPredicate = predicate;
@@ -330,7 +327,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         if (hasSelectedUser()) {
             try {
-                expenseTrackers.replace(this.username,
+                expenseTrackers.replace(versionedExpenseTracker.getUsername(),
                         EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
             } catch (IllegalValueException e) {
                 throw new IllegalStateException("Illegal value in old expense tracker.");
@@ -353,7 +350,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         this.filteredExpenses = new FilteredList<>(versionedExpenseTracker.getExpenseList());
-        this.username = username;
 
         try {
             indicateUserLoggedIn();
@@ -369,7 +365,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void unloadUserData() {
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
-        this.username = null;
     }
 
     @Override
@@ -379,7 +374,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
-        if (versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         return versionedExpenseTracker.isMatchPassword(toCheck);
@@ -387,10 +382,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/
     protected void indicateUserLoggedIn() throws NoUserSelectedException {
-        if (this.username == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
-        raise(new UserLoggedInEvent(this.username));
+        raise(new UserLoggedInEvent(this.versionedExpenseTracker.getUsername()));
     }
 
     /**
@@ -406,7 +401,6 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager copy = new ModelManager(expenseTrackers, userPrefs);
         copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
         copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());
-        copy.username = this.username;
         return copy;
     }
 
@@ -420,19 +414,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasSelectedUser() {
-        return versionedExpenseTracker != null && filteredExpenses != null && username != null;
+        return versionedExpenseTracker != null && filteredExpenses != null;
     }
 
     @Override
     public void setPassword(Password password, String plainPassword) throws NoUserSelectedException {
-        if (this.versionedExpenseTracker == null) {
+        if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }
         versionedExpenseTracker.setPassword(password);
         versionedExpenseTracker.setEncryptionKey(createEncryptionKey(plainPassword));
         indicateExpenseTrackerChanged();
         try {
-            expenseTrackers.replace(this.username,
+            expenseTrackers.replace(this.versionedExpenseTracker.getUsername(),
                     EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal key created for current expense tracker.");

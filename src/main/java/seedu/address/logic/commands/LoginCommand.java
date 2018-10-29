@@ -27,7 +27,7 @@ public class LoginCommand extends Command {
 
     private final Username username;
     private final Password password;
-    private String plainPassword;
+    private final String plainPassword;
 
     public LoginCommand(Username username, Password password, String plainPassword) {
         requireNonNull(username);
