@@ -202,6 +202,7 @@ public class Person {
     public boolean isStubUser() {
         return phone == null;
     }
+
     /**
      * Returns true if this person has the other person in the friends list.
      */
@@ -223,10 +224,13 @@ public class Person {
 
     /**
      * Removes a person from the friends list if it is present.
+     * throws {@code CommandException} if the person is not yet in the list
      */
-    public void deleteFriendInList(Person otherPerson) {
+    public void deleteFriendInList(Person otherPerson) throws CommandException {
         if (hasFriendInList(otherPerson)) {
             friends.remove(new Friend(otherPerson));
+        } else {
+            throw new CommandException(Messages.MESSAGE_NOT_FRIENDS);
         }
     }
 

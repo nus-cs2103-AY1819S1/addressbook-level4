@@ -49,6 +49,7 @@ import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
@@ -179,6 +180,15 @@ public class AddressBookParserTest {
                 AddFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
                         + StringUtil.COMMA + INDEX_SECOND.getOneBased());
         assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
+                INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
+    public void parseCommandDeleteFriend() throws Exception {
+        DeleteFriendCommand command = (DeleteFriendCommand) parser.parseCommand(
+                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
+                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
+        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
                 INDEX_SECOND.getOneBased())), command);
     }
 
