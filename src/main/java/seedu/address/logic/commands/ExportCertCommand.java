@@ -7,8 +7,10 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -38,7 +40,10 @@ public class ExportCertCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to your Desktop.";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again.";
-    public static final String PDF_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+
+    private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
+
+    public static String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
 
     private final Index index;
 
@@ -48,6 +53,17 @@ public class ExportCertCommand extends Command {
     public ExportCertCommand(Index index) {
         requireNonNull(index);
         this.index = index;
+
+        // Create a folder in user's working directory to export certificates to, if possible
+        File exportDir = new File(PDF_SAVE_PATH);
+        if (!exportDir.exists()) {
+            try {
+                exportDir.mkdir();
+            } catch (SecurityException se) {
+                logger.warning("Couldn't create a relative export path next to jar file. Defaulting to user's Desktop.");
+                PDF_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+            }
+        }
     }
 
     @Override
