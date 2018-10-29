@@ -292,6 +292,8 @@ public class EditUserCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditUserCommand(INDEX_FIRST, DESC_BOB)));
+
+        assertTrue(commandWithSameValues.toString().equals(commandWithSameValues.toString()));
     }
 
 }
