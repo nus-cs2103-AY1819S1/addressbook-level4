@@ -1,7 +1,6 @@
 package seedu.parking.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -33,16 +32,10 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
-    }
-
-    @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String messageSuccess = String.format(ListCommand.MESSAGE_SUCCESS, 0);
+        assertCommandSuccess(listCommand, messageSuccess, model);
         assertHistoryCorrect(listCommand);
     }
 

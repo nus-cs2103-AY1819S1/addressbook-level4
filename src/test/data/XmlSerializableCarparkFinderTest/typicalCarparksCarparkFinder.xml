@@ -3,6 +3,7 @@
 <carparkfinder>
     <carparks>
         <address>BLK 349-355 CLEMENTI AVE 2</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>C7</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>21017.6263, 33014.2438</coordinate>
@@ -16,6 +17,7 @@
     </carparks>
     <carparks>
         <address>BLK 451 SENGKANG WEST WAY</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>SK88</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>32538.8707, 41769.3259</coordinate>
@@ -30,6 +32,7 @@
     </carparks>
     <carparks>
         <address>BLK 337-353/355-356 BUKIT BATOK ST 34</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>U25</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>18728.7311, 38350.9289</coordinate>
@@ -43,6 +46,7 @@
     </carparks>
     <carparks>
         <address>BLK 121E SENGKANG EAST WAY</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>SK23</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>36099.0459, 40907.1776</coordinate>
@@ -56,6 +60,7 @@
     </carparks>
     <carparks>
         <address>BLK 113 TO 120 POTONG PASIR AVENUE 1</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>PP5</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>31328.0300, 35388.2500</coordinate>
@@ -68,6 +73,7 @@
     </carparks>
     <carparks>
         <address>BLK 542A SERANGOON NORTH AVENUE 4</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>SE39</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>32271.7043, 39500.6075</coordinate>
@@ -80,6 +86,7 @@
     </carparks>
     <carparks>
         <address>BLK 676 WOODLANDS DRIVE 71</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>W676</carparkNumber>
         <carparkType>BASEMENT CAR PARK</carparkType>
         <coordinate>24373.6740, 46827.1390</coordinate>

@@ -49,7 +49,9 @@ public class ClearCommandSystemTest extends CarparkFinderSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: clear empty car park finder -> cleared */
-        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        command = ClearCommand.COMMAND_WORD;
+        expectedResultMessage = ClearCommand.MESSAGE_EMPTY;
+        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */

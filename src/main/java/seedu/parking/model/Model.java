@@ -86,5 +86,5 @@ public interface Model {
     /**
      * Compares the current car park finder state to its previous state.
      */
-    int compareParkingBook();
+    int compareCarparkFinder();
 }

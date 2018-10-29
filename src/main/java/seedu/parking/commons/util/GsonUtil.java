@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -29,6 +30,7 @@ import com.google.gson.JsonParser;
 public class GsonUtil {
     private static HashSet<CarparkJson> carparkList = new HashSet<>();
     private static HashMap<Long, String> postalCodeMap = new HashMap<>();
+    private static HashSet<String[]> parkingData = new HashSet<>();
 
     private static final String POSTAL_CODE_TXT = "postalcodeData.txt";
 
@@ -37,15 +39,57 @@ public class GsonUtil {
      * @return A list of list of strings containing the car park information.
      * @throws IOException if unable to connect to URL.
      */
-    public static ArrayList<ArrayList<String>> fetchCarparkInfo() throws IOException {
+    public static List<List<String>> fetchCarparkInfo() throws Exception {
+        final boolean[] hasError = {false, false, false};
         loadCarparkPostalCode();
-        getCarparkData();
-        getCarparkAvailability();
 
-        ArrayList<ArrayList<String>> str = new ArrayList<>();
+        Thread first = new Thread(() -> {
+            try {
+                getCarparkData();
+            } catch (IOException e) {
+                hasError[0] = true;
+            }
+        });
+        first.start();
+
+        if (hasError[0]) {
+            throw new IOException();
+        }
+
+        Thread second = new Thread(() -> {
+            try {
+                getCarparkAvailability();
+            } catch (IOException e) {
+                hasError[1] = true;
+            }
+        });
+        second.start();
+
+        if (hasError[1]) {
+            throw new IOException();
+        }
+
+        first.join();
+        second.join();
+
+        return saveAsList();
+    }
+
+    /**
+     * Adds in the parking lots details and convert to a list.
+     * @return A List containing all the car parks information.
+     */
+    private static List<List<String>> saveAsList() {
+        List<List<String>> str = new ArrayList<>();
+
         for (CarparkJson list : carparkList) {
-            if (list.jsonData == null) {
-                list.addOn("0", "0");
+            for (String[] data : parkingData) {
+                if (list.getNumber().contains(data[0])) {
+                    list.addOn(data[1], data[2]);
+                    break;
+                } else {
+                    list.addOn("0", "0");
+                }
             }
             String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
             if (value == null) {
@@ -53,7 +97,6 @@ public class GsonUtil {
             } else {
                 list.jsonData.add(value);
             }
-            System.out.flush();
             str.add(list.jsonData);
         }
 
@@ -68,6 +111,8 @@ public class GsonUtil {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
+        communicate.setConnectTimeout(30000);
+        communicate.setReadTimeout(30000);
         communicate.connect();
 
         InputStreamReader in = new InputStreamReader((InputStream) communicate.getContent());
@@ -98,12 +143,8 @@ public class GsonUtil {
                     .toString()
                     .split("\"");
 
-            for (CarparkJson carpark : carparkList) {
-                if (carpark.getNumber().contains(carparkNumber[1])) {
-                    carpark.addOn(totalLot[1], lotAvail[1]);
-                    break;
-                }
-            }
+            String[] lotData = {carparkNumber[1], totalLot[1], lotAvail[1]};
+            parkingData.add(lotData);
         }
 
         in.close();
@@ -176,6 +217,8 @@ public class GsonUtil {
         do {
             URL link = new URL(urlFull.toString());
             URLConnection communicate = link.openConnection();
+            communicate.setConnectTimeout(30000);
+            communicate.setReadTimeout(30000);
             communicate.connect();
 
             in = new InputStreamReader((InputStream) communicate.getContent());
@@ -360,7 +403,7 @@ public class GsonUtil {
         private final String type_of_parking_system;
         //CHECKSTYLE.ON: MemberNameCheck
 
-        private ArrayList<String> jsonData;
+        private List<String> jsonData;
 
         private CarparkJson(String... data) {
             short_term_parking = data[0];

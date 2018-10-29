@@ -8,13 +8,13 @@ import java.util.regex.Pattern;
 
 import seedu.parking.logic.commands.ClearCommand;
 import seedu.parking.logic.commands.Command;
-import seedu.parking.logic.commands.DeleteCommand;
 import seedu.parking.logic.commands.ExitCommand;
 import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.HelpCommand;
 import seedu.parking.logic.commands.HistoryCommand;
 import seedu.parking.logic.commands.ListCommand;
+import seedu.parking.logic.commands.NotifyCommand;
 import seedu.parking.logic.commands.QueryCommand;
 import seedu.parking.logic.commands.RedoCommand;
 import seedu.parking.logic.commands.SelectCommand;
@@ -52,10 +52,6 @@ public class CarparkFinderParser {
         case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -91,6 +87,10 @@ public class CarparkFinderParser {
         case QueryCommand.COMMAND_WORD:
         case QueryCommand.COMMAND_ALIAS:
             return new QueryCommand();
+
+        case NotifyCommand.COMMAND_WORD:
+        case NotifyCommand.COMMAND_ALIAS:
+            return new NotifyCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
