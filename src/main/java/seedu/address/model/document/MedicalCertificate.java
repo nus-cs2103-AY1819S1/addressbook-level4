@@ -19,6 +19,7 @@ public class MedicalCertificate extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
+        setMcContent(servedPatient.getMcContent());
         mcDays = Integer.parseInt(servedPatient.getMcContent());
     }
 

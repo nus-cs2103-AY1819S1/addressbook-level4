@@ -60,6 +60,13 @@ public class Document {
     private Name name;
     private String fileType;
     private IcNumber icNumber;
+    private String mcDuration;
+    private String referralContent;
+
+    //variables specific to receipt but here because of checkstyle issues
+    private float totalPrice = 0;
+    private Map<Medicine, QuantityToDispense> allocatedMedicine;
+    private ArrayList<Service> servicesRendered;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -208,9 +215,10 @@ public class Document {
      */
     String formatRlInformation() {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br><br>")
+        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
+                .append(referralContent + "<br><br>")
                 .append("Kindly do accept him under your care. Thank you very much.<br><br>")
-                .append("<b>Issuing Doctor:<b> " + "<br><br>");
+                .append("<b>Issuing Doctor:<b> DR CHESTER SNG" + "<br><br>");
         return stringbuilder.toString();
     }
 
@@ -286,6 +294,22 @@ public class Document {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public void setMcContent(String mcDuration) {
+        this.mcDuration = mcDuration;
+    }
+
+    public void setReferralContent(String referralContent) {
+        this.referralContent = referralContent;
+    }
+
+    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
+        this.allocatedMedicine = allocatedMedicine;
+    }
+
+    public void setServicesRendered (ArrayList<Service> services) {
+        this.servicesRendered = services;
     }
 
     public File getFile() {
