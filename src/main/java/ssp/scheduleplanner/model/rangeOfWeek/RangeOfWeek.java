@@ -38,11 +38,13 @@ public class RangeOfWeek {
     /**
      * Returns true if both object have same fields.
      */
-    public boolean isSameRangeOfWeek(RangeOfWeek otherRangeOfWeek) {
-        if (otherRangeOfWeek == this) {
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
 
+        RangeOfWeek otherRangeOfWeek = (RangeOfWeek) other;
         return otherRangeOfWeek != null
                 && otherRangeOfWeek.getStartOfWeekDate().equals(getStartOfWeekDate())
                 && otherRangeOfWeek.getEndOfWeekDate().equals(getEndOfWeekDate())
@@ -62,7 +64,8 @@ public class RangeOfWeek {
                 .append(getStartOfWeekDate())
                 .append(" End of Week: ")
                 .append(getEndOfWeekDate())
-                .append(" Description: ");
+                .append(" Description: ")
+                .append(getDescription());
         return builder.toString();
     }
 
