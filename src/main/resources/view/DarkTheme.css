@@ -115,6 +115,11 @@
     -fx-text-fill: white;
 }
 
+#imageListView .list-cell:filled:selected {
+    -fx-background-color: #525252;
+    -fx-text-fill: #1F1F1F;
+}
+
 .cell_big_label {
     -fx-font-size: 13px;
     -fx-text-fill: #d9d7d6;
