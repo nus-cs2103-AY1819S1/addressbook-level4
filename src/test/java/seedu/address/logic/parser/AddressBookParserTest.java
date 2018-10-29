@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SWITCH;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VOLUNTEER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCertCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -32,11 +31,11 @@ import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Context;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.volunteer.NameContainsKeywordsPredicate;
+import seedu.address.model.volunteer.Volunteer;
+import seedu.address.testutil.EditVolunteerDescriptorBuilder;
+import seedu.address.testutil.VolunteerBuilder;
+import seedu.address.testutil.VolunteerUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -54,11 +53,11 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
+        Volunteer volunteer = new VolunteerBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(
-                PersonUtil.getAddCommand(person),
+                VolunteerUtil.getAddCommand(volunteer),
                 Context.VOLUNTEER_CONTEXT_ID);
-        assertEquals(new AddCommand(person), command);
+        assertEquals(new AddCommand(volunteer), command);
     }
 
     @Test
@@ -73,20 +72,20 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased(),
+                        + INDEX_FIRST_VOLUNTEER.getOneBased(),
                 Context.VOLUNTEER_CONTEXT_ID);
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new DeleteCommand(INDEX_FIRST_VOLUNTEER), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Volunteer volunteer = new VolunteerBuilder().build();
+        EditCommand.EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(volunteer).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + PersonUtil.getEditPersonDescriptorDetails(descriptor),
+                        + INDEX_FIRST_VOLUNTEER.getOneBased() + " "
+                        + VolunteerUtil.getEditVolunteerDescriptorDetails(descriptor),
                 Context.VOLUNTEER_CONTEXT_ID);
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditCommand(INDEX_FIRST_VOLUNTEER, descriptor), command);
     }
 
     @Test
@@ -140,9 +139,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_VOLUNTEER.getOneBased(),
                 Context.VOLUNTEER_CONTEXT_ID);
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new SelectCommand(INDEX_FIRST_VOLUNTEER), command);
     }
 
     @Test

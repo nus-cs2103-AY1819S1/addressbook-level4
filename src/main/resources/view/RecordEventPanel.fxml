@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="recordEventPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER_LEFT" fx:id="eventNameBox">
-        <Label fx:id="eventNameLabel">
+        <Label fx:id="eventNameLabel" styleClass="event-name">
             Event Name
         </Label>
     </VBox>
@@ -20,12 +20,15 @@
     </HBox>
     <VBox VBox.vgrow="ALWAYS">
         <TableView fx:id="volunteerRecordTableView" prefWidth="900" VBox.vgrow="ALWAYS">
+            <placeholder>
+                <Label fx:id="emptyTable" text="To begin, enter 'add volunteer_index'.&#10;e.g add 1 "></Label>
+            </placeholder>
             <columns>
-                <TableColumn prefWidth="50" fx:id="indexColumn" text="#"/>
-                <TableColumn prefWidth="430" fx:id="nameColumn" text="Name"/>
-                <TableColumn prefWidth="140" fx:id="numberColumn" text="Contact Number"/>
-                <TableColumn prefWidth="50" fx:id="hourColumn" text="Hours"/>
-                <TableColumn prefWidth="230" fx:id="remarkColumn" text="Remarks"/>
+                <TableColumn fx:id="indexColumn" text="#"/>
+                <TableColumn fx:id="nameColumn" text="Name"/>
+                <TableColumn fx:id="numberColumn" text="Contact Number"/>
+                <TableColumn fx:id="hourColumn" text="Hours"/>
+                <TableColumn fx:id="remarkColumn" text="Remarks"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

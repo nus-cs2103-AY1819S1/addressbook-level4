@@ -23,6 +23,7 @@ import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.Context;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -40,8 +41,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+
+    private ContextIndicator contextIndicator;
+    private VolunteerListPanel volunteerListPanel;
     private EventListPanel eventListPanel;
+    private EventPanel eventPanel;
     private RecordEventPanel recordEventPanel;
     private Config config;
     private UserPrefs prefs;
@@ -55,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane contextIndicatorPlaceholder;
 
     @FXML
     private StackPane listPanelPlaceholder;
@@ -130,18 +137,20 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
-        recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredPersonList());
+        eventPanel = new EventPanel(logic.getFilteredRecordList());
+        recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
-        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
+        contextIndicator = new ContextIndicator(Context.VOLUNTEER_CONTEXT_ID);
+        contextIndicatorPlaceholder.getChildren().add(contextIndicator.getRoot());
+        listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
-                logic.getFilteredPersonList().size());
+                logic.getFilteredVolunteerList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -202,14 +211,17 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().clear();
 
         if (contextId.equals(EVENT_CONTEXT_ID)) {
+            eventListPanel.clearSelection();
+            eventPanel.clearDetails();
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            volunteerListPanel.clearSelection();
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
             browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }
@@ -222,8 +234,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public VolunteerListPanel getVolunteerListPanel() {
+        return volunteerListPanel;
     }
 
     public EventListPanel getEventListPanel() {

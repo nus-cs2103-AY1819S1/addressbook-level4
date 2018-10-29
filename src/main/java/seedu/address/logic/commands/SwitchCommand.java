@@ -10,7 +10,7 @@ import seedu.address.model.Context;
 import seedu.address.model.Model;
 
 /**
- * Adds a person to the address book.
+ * Adds a volunteer to the address book.
  */
 public class SwitchCommand extends Command {
 
@@ -36,6 +36,7 @@ public class SwitchCommand extends Command {
         requireNonNull(model);
 
         model.setCurrentContext(contextId);
+        model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
 
         EventsCenter.getInstance().post(new ContextChangeEvent(contextId));
         return new CommandResult(String.format(MESSAGE_SUCCESS, model.getContextName()));

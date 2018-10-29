@@ -12,7 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.model.event.Event;
 
 /**
@@ -20,7 +20,7 @@ import seedu.address.model.event.Event;
  */
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
     private ListView<Event> eventListView;
@@ -57,8 +57,15 @@ public class EventListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Clears the selection in the ListView.
+     */
+    public void clearSelection() {
+        eventListView.getSelectionModel().clearSelection();
+    }
+
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToEventListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
