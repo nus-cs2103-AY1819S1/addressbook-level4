@@ -26,7 +26,6 @@ public class XmlAdaptedCcaTest {
     private static final String INVALID_BUDGET = "$500";
     private static final String INVALID_SPENT = "-$300";
     private static final String INVALID_OUTSTANDING = "$200";
-    private static final String INVALID_TRANSACTION = "";
 
     private static final String VALID_CCA_NAME = "BASKETBALL M";
     private static final String VALID_HEAD_NAME = "Peter Parker";

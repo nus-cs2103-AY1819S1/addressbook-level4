@@ -17,10 +17,10 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports an XML file of current contacts in Hallper.\n "
-            + "Parameters: "
-            + "export "
-            + "dst/C://Users/Documents "
-            + "fn/FILENAME.xml";
+        + "Parameters: "
+        + "export "
+        + "dst/C://Users/Documents "
+        + "fn/FILENAME.xml";
 
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported to %1$s.";
 
@@ -45,8 +45,8 @@ public class ExportCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExportCommand // instanceof handles nulls
-                && path.equals(((ExportCommand) other).path));
+            || (other instanceof ExportCommand // instanceof handles nulls
+            && path.equals(((ExportCommand) other).path));
     }
 
 }

@@ -62,8 +62,10 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     //@@author EatOrBeEaten
+
     /**
      * Loads HTML text preview of email.
+     *
      * @param emailModel The emailModel containing the saved email.
      */
     private void loadEmail(EmailModel emailModel) {

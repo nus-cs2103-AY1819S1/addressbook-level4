@@ -11,7 +11,7 @@ import seedu.address.model.cca.CcaName;
  */
 public class ShowBudgetViewEvent extends BaseEvent {
 
-    private static CcaName ccaName;
+    private CcaName ccaName;
 
     public ShowBudgetViewEvent(CcaName ccaName) {
         super();

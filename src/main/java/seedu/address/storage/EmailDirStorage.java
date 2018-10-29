@@ -73,7 +73,6 @@ public class EmailDirStorage implements EmailStorage {
     }
 
     /**
-     *
      * @param dirPath Location of email directory. Cannot be null.
      * @return A set of names of the eml files or empty if no eml files exist in the directory.
      */

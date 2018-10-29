@@ -21,6 +21,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CalendarViewEvent;
 
 //@@author GilgameshTC
+
 /**
  * The Browser Panel of the App.
  */

@@ -228,7 +228,9 @@ public interface Model {
      */
     boolean isExistingCalendar(Year year, Month month);
 
-    /** Checks if calendar to be edited is already loaded. */
+    /**
+     * Checks if calendar to be edited is already loaded.
+     */
     boolean isLoadedCalendar(Year year, Month month);
 
     /**

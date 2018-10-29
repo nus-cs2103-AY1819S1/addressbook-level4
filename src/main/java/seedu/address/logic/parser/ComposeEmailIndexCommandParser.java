@@ -35,7 +35,7 @@ public class ComposeEmailIndexCommandParser implements Parser<ComposeEmailIndexC
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM, PREFIX_TO, PREFIX_SUBJECT, PREFIX_CONTENT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ComposeEmailIndexCommand.MESSAGE_USAGE));
+                ComposeEmailIndexCommand.MESSAGE_USAGE));
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();

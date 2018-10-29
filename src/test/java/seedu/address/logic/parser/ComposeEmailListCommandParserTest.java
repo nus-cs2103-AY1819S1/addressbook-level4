@@ -37,19 +37,19 @@ public class ComposeEmailListCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FROM_DESC_EXCURSION + SUBJECT_DESC_EXCURSION
-                + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
+            + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
 
         // multiple from - last from accepted
         assertParseSuccess(parser, FROM_DESC_CAMP + FROM_DESC_EXCURSION + SUBJECT_DESC_EXCURSION
-                + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
+            + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
 
         // multiple subject - last subject accepted
         assertParseSuccess(parser, FROM_DESC_EXCURSION + SUBJECT_DESC_CAMP + SUBJECT_DESC_EXCURSION
-                + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
+            + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
 
         // multiple content - last content accepted
         assertParseSuccess(parser, FROM_DESC_EXCURSION + SUBJECT_DESC_EXCURSION + CONTENT_DESC_CAMP
-                + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
+            + CONTENT_DESC_EXCURSION, new ComposeEmailListCommand(expectedEmail));
 
     }
 
@@ -59,42 +59,42 @@ public class ComposeEmailListCommandParserTest {
 
         // missing from prefix
         assertParseFailure(parser, VALID_EMAIL_EXCURSION + SUBJECT_DESC_EXCURSION + CONTENT_DESC_EXCURSION,
-                expectedMessage);
+            expectedMessage);
 
         // missing subject prefix
         assertParseFailure(parser, FROM_DESC_EXCURSION + VALID_SUBJECT_EXCURSION + CONTENT_DESC_EXCURSION,
-                expectedMessage);
+            expectedMessage);
 
         // missing content prefix
         assertParseFailure(parser, FROM_DESC_EXCURSION + SUBJECT_DESC_EXCURSION + VALID_CONTENT_EXCURSION,
-                expectedMessage);
+            expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_EMAIL_EXCURSION + VALID_SUBJECT_EXCURSION + VALID_CONTENT_EXCURSION,
-                expectedMessage);
+            expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid from
         assertParseFailure(parser, INVALID_FROM_DESC + SUBJECT_DESC_EXCURSION + CONTENT_DESC_EXCURSION,
-                seedu.address.model.person.Email.MESSAGE_EMAIL_CONSTRAINTS);
+            seedu.address.model.person.Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         // invalid subject
         assertParseFailure(parser, FROM_DESC_EXCURSION + INVALID_SUBJECT_DESC + CONTENT_DESC_EXCURSION,
-                Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+            Subject.MESSAGE_SUBJECT_CONSTRAINTS);
 
         // invalid content
         assertParseFailure(parser, FROM_DESC_EXCURSION + SUBJECT_DESC_EXCURSION + INVALID_CONTENT_DESC,
-                Content.MESSAGE_CONTENT_CONSTRAINTS);
+            Content.MESSAGE_CONTENT_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, FROM_DESC_EXCURSION + INVALID_SUBJECT_DESC + INVALID_CONTENT_DESC,
-                Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+            Subject.MESSAGE_SUBJECT_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + FROM_DESC_EXCURSION
-                        + SUBJECT_DESC_EXCURSION + CONTENT_DESC_EXCURSION,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeEmailListCommand.MESSAGE_USAGE));
+                + SUBJECT_DESC_EXCURSION + CONTENT_DESC_EXCURSION,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeEmailListCommand.MESSAGE_USAGE));
     }
 }

@@ -28,6 +28,7 @@ public interface EmailStorage {
 
     /**
      * Loads email from local directory.
+     *
      * @param emailName Name of eml file
      * @return Email object copy of selected email
      * @throws IOException if there was any problem loading the file.
@@ -36,6 +37,7 @@ public interface EmailStorage {
 
     /**
      * Delete email from local directory.
+     *
      * @param emailName Name of the eml file
      * @throws IOException if there was any problem deleting the file.
      */

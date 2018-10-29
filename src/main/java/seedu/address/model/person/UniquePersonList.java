@@ -56,6 +56,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     //@@author kengwoon
+
     /**
      * Adds a person to the list.
      * Existing persons will be ignored.

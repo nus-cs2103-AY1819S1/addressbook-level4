@@ -13,7 +13,7 @@ import seedu.address.logic.commands.ExportCommand;
 public class ExportCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
 
     private ExportCommandParser parser = new ExportCommandParser();
 
@@ -42,7 +42,7 @@ public class ExportCommandParserTest {
 
         // valid filepath and filename
         ExportCommand expectedExportCommand =
-                new ExportCommand(new File("C://path/file.xml").toPath());
+            new ExportCommand(new File("C://path/file.xml").toPath());
         assertParseSuccess(parser, " dst/C://path fn/file.xml", expectedExportCommand);
     }
 

@@ -101,7 +101,7 @@ public class BudgetWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      * @param ccaName the name of the CCA to be viewed
      */
-    void fillInnerParts(CcaName ccaName) {
+    private void fillInnerParts(CcaName ccaName) {
         if (Optional.ofNullable(ccaName).isPresent()) {
             budgetBrowserPanel = new BudgetBrowserPanel(ccaName);
         } else {

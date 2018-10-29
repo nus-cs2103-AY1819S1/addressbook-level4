@@ -35,7 +35,7 @@ public class ComposeEmailListCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
-            getTypicalExistingEmails());
+        getTypicalExistingEmails());
 
     @Test
     public void constructor_nullEmail_throwsNullPointerException() {
@@ -51,10 +51,10 @@ public class ComposeEmailListCommandTest {
         ComposeEmailListCommand composeEmailListCommand = new ComposeEmailListCommand(emailToSaveWithoutTo);
 
         String expectedMessage = String.format(ComposeEmailListCommand.MESSAGE_SUCCESS,
-                emailToSaveWithoutTo.getSubject());
+            emailToSaveWithoutTo.getSubject());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         expectedModel.saveComposedEmail(emailToSave);
 
         assertCommandSuccess(composeEmailListCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -96,6 +96,7 @@ public class ComposeEmailListCommandTest {
 
     /**
      * Creates an {@code Email} to all recipients in the list.
+     *
      * @param toCopy Email to copy data from.
      * @param lastShownList Current list of people.
      * @return Email with recipients from list.

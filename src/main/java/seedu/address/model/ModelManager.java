@@ -335,7 +335,7 @@ public class ModelManager extends ComponentManager implements Model {
                                               int endDate, int endHour, int endMin, String title,
                                               Calendar calendarToBeLoaded) {
         raise(new CalendarEventAddedEvent(year, month, startDate, startHour, startMin,
-                endDate, endHour, endMin, title, calendarToBeLoaded));
+            endDate, endHour, endMin, title, calendarToBeLoaded));
     }
 
     /**
@@ -428,10 +428,10 @@ public class ModelManager extends ComponentManager implements Model {
                             int endDate, int endHour, int endMin, String title) {
         try {
             Calendar calendarToBeLoaded = calendarModel.createEvent(year, month, startDate,
-                    startHour, startMin, endDate, endHour, endMin, title);
+                startHour, startMin, endDate, endHour, endMin, title);
             String calendarName = month + "-" + year;
             indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title,
-                    calendarToBeLoaded);
+                calendarToBeLoaded);
             indicateViewCalendar(calendarToBeLoaded, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));

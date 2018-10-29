@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
+
 /**
  * Imports XML file as CCA list to update database.
  */
@@ -69,6 +70,7 @@ public class ImportCcaList {
 
     /**
      * Adds specified cca to specified person.
+     *
      * @param cca
      * @param p
      * @return Edited person with updated ccas.
@@ -78,7 +80,7 @@ public class ImportCcaList {
         newTags.addAll(p.getTags());
         newTags.add(new Tag(cca));
         Person editedPerson = new Person(p.getName(), p.getPhone(), p.getEmail(), p.getRoom(),
-                p.getSchool(), newTags);
+            p.getSchool(), newTags);
         return editedPerson;
     }
 }

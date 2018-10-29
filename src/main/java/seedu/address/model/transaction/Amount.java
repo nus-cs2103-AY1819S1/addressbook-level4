@@ -42,7 +42,7 @@ public class Amount {
      * @param test the string to check
      */
     public static boolean isValidAmount(String test) {
-        if (test.equals("")) {
+        if ("".equals(test)) {
             return false;
         }
         return test.matches(AMOUNT_VALIDATION_REGEX);

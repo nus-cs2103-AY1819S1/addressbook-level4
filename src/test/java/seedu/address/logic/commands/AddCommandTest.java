@@ -340,9 +340,8 @@ public class AddCommandTest {
 
         @Override
         public void deleteCca(Cca ccaToDelete) {
-
+            throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**

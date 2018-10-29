@@ -20,19 +20,20 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the Exportommand
      * and returns an ExportCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExportCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESTINATION, PREFIX_FILENAME);
+            ArgumentTokenizer.tokenize(args, PREFIX_DESTINATION, PREFIX_FILENAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESTINATION, PREFIX_FILENAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
         Path path = ParserUtil.parsePath(argMultimap.getValue(PREFIX_DESTINATION).get(),
-                argMultimap.getValue(PREFIX_FILENAME).get());
+            argMultimap.getValue(PREFIX_FILENAME).get());
 
         return new ExportCommand(path);
     }

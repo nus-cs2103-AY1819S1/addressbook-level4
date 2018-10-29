@@ -195,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
             return false;
         }
 
-        switch(view) {
+        switch (view) {
         case ToggleBrowserPlaceholderEvent.BROWSER_PANEL:
             return topPanel.equals(ToggleBrowserPlaceholderEvent.BROWSER_PANEL);
 
@@ -314,6 +314,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleExitBudgetWindowRequestEvent(ExitBudgetWindowRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         primaryStage.show();
     }
 

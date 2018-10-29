@@ -45,7 +45,7 @@ public class ClearCommandTest {
         String expectedMessage = ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS;
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+            new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         expectedModel.resetData(new AddressBook());
         expectedModel.commitAddressBook();
 
@@ -61,7 +61,7 @@ public class ClearCommandTest {
         String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, '[' + target.get(0) + ']');
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
-                new BudgetBook(), new UserPrefs(), model.getExistingEmails());
+            new BudgetBook(), new UserPrefs(), model.getExistingEmails());
         List<Person> fullList = model.getFilteredPersonList();
         List<Person> clear = new ArrayList<>();
         for (Person p : fullList) {
