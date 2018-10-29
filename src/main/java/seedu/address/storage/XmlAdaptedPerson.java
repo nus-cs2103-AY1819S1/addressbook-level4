@@ -49,7 +49,8 @@ public class XmlAdaptedPerson {
     private XmlAdaptedDietCollection diets = new XmlAdaptedDietCollection();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-    //todo may need to add new list for MedicalHistory
+    @XmlElement
+    private XmlAdaptedMedicalHistory medicalHistory = new XmlAdaptedMedicalHistory();
 
     /**
      * Constructs an XmlAdaptedPerson. This is the no-arg constructor that is
@@ -112,6 +113,10 @@ public class XmlAdaptedPerson {
         this.appointments.setAppt(source.getAppointmentsList()
             .stream()
             .map(XmlAdaptedAppointment::new)
+            .collect(Collectors.toList()));
+        this.medicalHistory.setMedicalHistory(source.getMedicalHistory()
+            .stream()
+            .map(XmlAdaptedDiagnosis::new)
             .collect(Collectors.toList()));
         this.diets.setDiet(source.getDietCollection()
             .stream()
@@ -217,6 +222,7 @@ public class XmlAdaptedPerson {
             && tagged.equals(otherPerson.tagged)
             && prescriptions.equals(otherPerson.prescriptions)
             && appointments.equals(otherPerson.appointments)
+            && medicalHistory.equals(otherPerson.medicalHistory)
             && diets.equals(otherPerson.diets);
     }
 }
