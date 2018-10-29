@@ -17,9 +17,8 @@ import seedu.lostandfound.model.util.Sequence;
 public class Image {
 
     public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
-    public static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
-    public static final Sequence SEQUENCE = Sequence.getInstance();
-    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+\\.");
+    private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
+    private static final Sequence SEQUENCE = Sequence.getInstance();
 
     private final Path path;
     private String filename;
