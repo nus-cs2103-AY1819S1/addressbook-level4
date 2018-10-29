@@ -42,6 +42,7 @@ public class ExportPatientsData {
         List<String> rows = new ArrayList<>();
 
         String header = getCsvRow(NAME, ADDRESS, PHONE, EMAIL);
+        rows.add(header);
 
         for (Patient patient : patients) {
             String name = patient.getName().toString();
