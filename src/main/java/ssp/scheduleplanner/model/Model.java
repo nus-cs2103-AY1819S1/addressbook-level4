@@ -98,4 +98,5 @@ public interface Model {
      * Saves the current Schedule Planner state for undo/redo.
      */
     void commitSchedulePlanner();
+
 }

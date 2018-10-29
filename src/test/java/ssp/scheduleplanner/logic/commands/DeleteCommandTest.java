@@ -136,6 +136,7 @@ public class DeleteCommandTest {
 
         // undo -> reverts scheduleplanner back to previous state and filtered task list to show all tasks
         expectedModel.undoSchedulePlanner();
+
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(taskToDelete, model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased()));

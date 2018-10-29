@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -32,6 +33,7 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Task> taskList) {
+        SortedList<Task> sortedList = taskList.sorted((a, b) -> Task.compare(a, b));
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();

@@ -29,11 +29,11 @@ public class TypicalTasks {
             .withTags("friends").build();
     public static final Task BENSON = new TaskBuilder().withName("Benson Meier")
             .withVenue("311, Clementi Ave 2, #02-25")
-            .withPriority("2").withDate("130921")
+            .withPriority("1").withDate("130921")
             .withTags("owesMoney", "friends").build();
     public static final Task CARL = new TaskBuilder().withName("Carl Kurz")
             .withDate("110434")
-            .withPriority("3")
+            .withPriority("1")
             .withVenue("wall street")
             .withTags("owesMoney").build();
     public static final Task DANIEL = new TaskBuilder().withName("Daniel Meier")
@@ -43,11 +43,11 @@ public class TypicalTasks {
             .withTags("friends").build();
     public static final Task ELLE = new TaskBuilder().withName("Elle Meyer")
             .withDate("040602")
-            .withPriority("2")
+            .withPriority("1")
             .withVenue("michegan ave").build();
     public static final Task FIONA = new TaskBuilder().withName("Fiona Kunz")
             .withDate("030512")
-            .withPriority("3")
+            .withPriority("1")
             .withVenue("little tokyo").build();
     public static final Task GEORGE = new TaskBuilder().withName("George Best")
             .withDate("030295")
@@ -58,7 +58,7 @@ public class TypicalTasks {
     public static final Task HOON = new TaskBuilder().withName("Hoon Meier").withDate("090423")
             .withPriority("1").withVenue("little india").build();
     public static final Task IDA = new TaskBuilder().withName("Ida Mueller").withDate("121193")
-            .withPriority("2").withVenue("chicago ave").build();
+            .withPriority("1").withVenue("chicago ave").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
     public static final Task AMY = new TaskBuilder().withName(VALID_NAME_AMY).withDate(VALID_DATE_AMY)
