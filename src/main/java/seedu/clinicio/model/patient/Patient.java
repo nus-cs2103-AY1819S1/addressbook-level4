@@ -2,11 +2,14 @@ package seedu.clinicio.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
@@ -24,12 +27,16 @@ import seedu.clinicio.model.tag.Tag;
 public class Patient extends Person {
     private Optional<Doctor> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
+    private List<Appointment> appointmentHistory;
+    private List<Consultation> consultationHistory;
 
     /**
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
+        appointmentHistory = new ArrayList<>();
+        consultationHistory = new ArrayList<>();
     }
 
     /**
@@ -77,8 +84,30 @@ public class Patient extends Person {
      */
     public void setAppointment(Appointment appointment) {
         requireNonNull(appointment);
-
+        appointmentHistory.add(appointment);
         this.appointment = Optional.of(appointment);
+    }
+
+    /**
+     * Adds a {@code Consultation} to the patient's record.
+     */
+    public void addConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        consultationHistory.add(consultation);
+    }
+
+    /**
+     * @return A list of all of the patient's appointments.
+     */
+    public List<Appointment> getAllAppointments() {
+        return appointmentHistory;
+    }
+
+    /**
+     * @return A list of all of the patient's consultations.
+     */
+    public List<Consultation> getAllConsultations() {
+        return consultationHistory;
     }
 
     /**
