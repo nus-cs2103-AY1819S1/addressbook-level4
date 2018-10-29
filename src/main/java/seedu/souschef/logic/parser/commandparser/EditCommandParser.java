@@ -12,8 +12,10 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.EditHealthPlanDescriptor;
 import seedu.souschef.logic.EditRecipeDescriptor;
@@ -48,6 +51,7 @@ import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
@@ -65,7 +69,8 @@ public class EditCommandParser implements CommandParser<EditCommand> {
     public EditCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME,
+                        PREFIX_TAG, PREFIX_STEP, PREFIX_INSTRUCTION);
 
         Index index;
 
@@ -76,6 +81,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+
+        if (argMultimap.getValue(PREFIX_STEP).isPresent()) {
+            
+        }
+
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -275,8 +285,18 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         Difficulty updatedPhone = editRecipeDescriptor.getDifficulty().orElse(toEdit.getDifficulty());
         CookTime updatedEmail = editRecipeDescriptor.getCooktime().orElse(toEdit.getCookTime());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
+        List<Instruction> instructions = new ArrayList<>(toEdit.getInstructions());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, new ArrayList<>(), updatedTags);
+        Pair<Integer, Instruction> updatedInstruction = editRecipeDescriptor.getInstruction().orElse(null);
+        if (updatedInstruction != null) {
+            if (updatedInstruction.getKey() > 0 && updatedInstruction.getKey() <= instructions.size()) {
+                instructions.set(updatedInstruction.getKey() - 1, updatedInstruction.getValue());
+            } else if (updatedInstruction.getKey() == instructions.size() + 1) {
+                instructions.add(updatedInstruction.getValue());
+            }
+        }
+
+        return new Recipe(updatedName, updatedPhone, updatedEmail, instructions, updatedTags);
     }
 
     /**

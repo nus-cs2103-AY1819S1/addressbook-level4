@@ -2,10 +2,10 @@ package seedu.souschef.logic;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.souschef.commons.util.CollectionUtil;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
@@ -22,7 +22,7 @@ public class EditRecipeDescriptor {
     private Difficulty difficulty;
     private CookTime cookTime;
     private Set<Tag> tags;
-    private List<Instruction> instructions;
+    private Pair<Integer, Instruction> instruction;
 
     public EditRecipeDescriptor() {}
 
@@ -35,14 +35,13 @@ public class EditRecipeDescriptor {
         setDifficulty(toCopy.difficulty);
         setCooktime(toCopy.cookTime);
         setTags(toCopy.tags);
-
     }
 
     /**
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags);
+        return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags, instruction);
     }
 
     public void setName(Name name) {
@@ -86,6 +85,14 @@ public class EditRecipeDescriptor {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
     }
 
+    public void setInstruction(int index, Instruction instruction) {
+        this.instruction = (instruction != null && index >= 0) ? new Pair<>(index, instruction) : null;
+    }
+
+    public Optional<Pair<Integer, Instruction>> getInstruction() {
+        return (instruction != null) ? Optional.of(instruction) : Optional.empty();
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -104,6 +111,7 @@ public class EditRecipeDescriptor {
         return getName().equals(e.getName())
                 && getDifficulty().equals(e.getDifficulty())
                 && getCooktime().equals(e.getCooktime())
-                && getTags().equals(e.getTags());
+                && getTags().equals(e.getTags())
+                && getInstruction().equals(e.getInstruction());
     }
 }
