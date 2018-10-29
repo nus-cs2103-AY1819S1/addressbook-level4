@@ -15,9 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
-import seedu.address.model.module.Module;
 
 /**
  * The Browser Panel of the App.
