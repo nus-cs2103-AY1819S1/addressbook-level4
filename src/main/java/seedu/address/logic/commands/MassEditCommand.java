@@ -23,6 +23,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
 
+//@@Author jcjxwy
 public class MassEditCommand extends Command{
     public static final String COMMAND_WORD = "massedit";
     public static final String COMMAND_ALIAS = "me";
@@ -41,7 +42,7 @@ public class MassEditCommand extends Command{
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_COST + "ADDRESS] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "lunch -> "
             + PREFIX_CATEGORY + "Lunch ";
 
@@ -93,5 +94,22 @@ public class MassEditCommand extends Command{
         return new CommandResult(MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditCommand)) {
+            return false;
+        }
+
+        // state check
+        MassEditCommand e = (MassEditCommand) other;
+        return predicate.equals(e.predicate)
+                && editExpenseDescriptor.equals(e.editExpenseDescriptor);
+    }
 
 }

@@ -23,7 +23,7 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
-//@@author Jiang Chen
+//@@author jcjxwy
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
@@ -53,51 +53,102 @@ public class FindCommandParserTest {
         //invalid name keywords
         assertParseFailure(parser, " n/Have Lunch@KFC ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
+
+        //multiple name keywords
         assertParseFailure(parser, " n/school n/lunch",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_MULTIPLE_KEYWORDS));
 
+        //empty name keyword
+        assertParseFailure(parser, " n/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
+
+
         //invalid category keywords
         assertParseFailure(parser, " c/Lunch@KFC  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
+
+        //multiple category keywords
         assertParseFailure(parser, " c/school c/lunch",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_MULTIPLE_KEYWORDS));
+
+        //empty category keywords
+        assertParseFailure(parser, " c/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
+
 
         //invalid tag keywords
         assertParseFailure(parser, " t/Lunch@KFC  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
 
+        //empty tag keyword
+        assertParseFailure(parser, " t/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
+
+
         //invalid cost keywords
         assertParseFailure(parser, " $/2.320",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Cost.MESSAGE_COST_CONSTRAINTS));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Cost.MESSAGE_COST_CONSTRAINTS + "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
         assertParseFailure(parser, " $/1.00:1.203",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Cost.MESSAGE_COST_CONSTRAINTS));
+
+        //higher bound is smaller than lower bound
         assertParseFailure(parser, " $/5.00:1.00",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_RANGE));
+
+        //invalid format
         assertParseFailure(parser, " $/1.00:2.00:3.00",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+        assertParseFailure(parser, " $/1.00 => 2.00",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Cost.MESSAGE_COST_CONSTRAINTS + "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+
+        //multiple cost keywords
         assertParseFailure(parser, " $/1.00:2.00 $/3.00",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_MULTIPLE_KEYWORDS));
 
+        //empty cost keyword
+        assertParseFailure(parser, " $/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Cost.MESSAGE_COST_CONSTRAINTS+ "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+
+
         //invalid date keywords
         assertParseFailure(parser, " d/60-02-2019",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Date.DATE_FORMAT_CONSTRAINTS+ "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
         assertParseFailure(parser, " d/01-02-2019:99-02-2019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
+
+        //ending date is earlier than starting date
         assertParseFailure(parser, " d/10-01-2018:01-01-2018",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_RANGE));
+
+        //invalid format
         assertParseFailure(parser, " d/01-01-2018:02-02-2018:02-03-2018",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+        assertParseFailure(parser, " d/01-01-2018 -> 02-02-2018",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Date.DATE_FORMAT_CONSTRAINTS + "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+
+        //multiple date keywords
         assertParseFailure(parser, " d/01-01-2018:03-01-2018 d/01-05-2018",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_MULTIPLE_KEYWORDS));
 
-        //missing prefix or keywords
-        assertParseFailure(parser, " n/ ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        //empty date keyword
+        assertParseFailure(parser, " d/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Date.DATE_FORMAT_CONSTRAINTS+ "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+
+
+        //missing prefix
         assertParseFailure(parser, " /School ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
@@ -108,5 +159,7 @@ public class FindCommandParserTest {
         return ArgumentTokenizer.tokenize(" " + arg,
                 PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
     }
+
+
 
 }
