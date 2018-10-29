@@ -240,6 +240,12 @@ The delete patient and doctor features are facilitated by `DeletePatientCommand`
 `DeleteCommand` such that it is able to delete a specific class of `Person` (i.e. `Patient` or `Doctor`) instead. Additionally,
 instead of deletion by index, deletion by name is used in this implementation.
 
+.Delete Patient Sequence Diagram
+image::DeletePatientSequenceDiagram.png[width="600"]
+
+.Delete Doctor Sequence Diagram
+image::DeleteDoctorSequenceDiagram.png[width="600"]
+
 Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
 
 Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
@@ -356,26 +362,64 @@ accessible via name as this allows the receptionist to edit the remark without l
 === Add Medical History Feature
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
-command is implemented such that it is able to create a `MedicalHistory` object for a specific `Patient` specified by
-index.
+command is implemented such that it is able to add `allergies` AND/OR `conditions` to `MedicalHistory` object for a specific
+`Patient` specified by index.
 
-Step 1. The user types in `add-medical-history` in the command box followed by the parameter `INDEX al/milk c/sub
-healthy`
+.Add Medical History Sequence Diagram
+image::AddMedicalHistorySequenceDiagram.png[width="600"]
 
-Step 2. Upon hitting enter, the `MedicalHistory` will be created and added to the storage of the system
+Step 1. The user types in `add-medical-history` in the command box followed by the parameter `INDEX al/penicillin,milk
+c/sub-healthy, hyperglycemia`
+
+[NOTE]
+For multiple inputs in the same field, use comma `,` to separate.
+
+Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get added
+
+[WARNING]
+Exception will be thrown if inputs for both field are blank.
 
 ==== Design Consideration
-===== Aspect: Separate adding and editing
-* Alternative 1 (Current choice): `AddMedicalHistoryCommand` is only used for initialization of medical history. The
-editing is implemented as separated commands to facilitate easy modification of medical history.
+===== Aspect: Support different types of input
+* Alternative 1 (Current choice): `AddMedicalHistoryCommand` allow user to fill in one or more allergies and conditions
+(separated by comma). It is also supported to leave EITHER field blank.
+
+=== Delete Medical History Feature
+==== Current Implementation
+The delete medical history feature is facilitated by `DeleteMedicalHistoryCommand` and
+`DeleteMedicalHistoryCommandParser`. This command is implemented such that it is able to delete `allergy` AND/OR
+`condition` from `MedicalHistory` object for a specific `Patient` specified by index.
+
+.Delete Medical History Sequence Diagram
+image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
+
+Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `INDEX
+al/penicillin,milk c/sub-healthy, hyperglycemia`
+
+[NOTE]
+For multiple inputs in the same field, use comma `,` to separate.
+
+Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get deleted
+
+[WARNING]
+Exception will be thrown if inputs for both field are blank.
+Exception will be thrown if given input is not in the original medical history.
+
+==== Design Consideration
+===== Aspect: Support different types of input
+* Alternative 1 (Current choice): `DeleteMedicalHistoryCommand` allow user to fill in one or more allergies and
+conditions (separated by comma). It is also supported to leave EITHER field blank.
 
 === Filter Patient and Filter Doctor Feature
 ===== Current Implementation
 This feature help to filter all patients/doctors in health book
 
-Step 1. The user types `filter-patient`/`filter-doctor`in the command box
+.Filter Patient Sequence Diagram
+image::FilterPatientSequenceDiagram.png[width="600"]
 
-Step 2. Upon hitting enter, all persons who are tagged as "Patient"/"Doctor" would appear on the panel
+Step 1. The user types `filter-patient` or `filter-doctor` in the command box
+
+Step 2. Upon hitting enter, all persons who are tagged as "Patient" or "Doctor" would appear on the panel
 
 === Logging
 

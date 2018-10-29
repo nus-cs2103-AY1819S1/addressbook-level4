@@ -39,10 +39,14 @@
     -fx-max-height: 0;
 }
 
+.table-cell {
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: derive(#1d1d1d, 30%);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -90,7 +94,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d,30%);
 }
 
 .list-cell {
@@ -304,6 +308,14 @@
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
+}
+
+.titled-pane {
+    -fx-color: derive(#1d1d1d, 20%);
+}
+
+.titled-pane > .title {
+    -fx-color: derive(#1d1d1d, 20%);
 }
 
 #cardPane {

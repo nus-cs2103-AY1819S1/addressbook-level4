@@ -26,12 +26,14 @@ public class Patient extends Person {
     private List<Appointment> pastAppointments;
 
     // Constructor
+
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
                    Set<Tag> tags, String telegramId) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
         upcomingAppointments = new PriorityQueue<>();
         pastAppointments = new ArrayList<>();
+        this.medicalHistory = new MedicalHistory();
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
@@ -41,6 +43,19 @@ public class Patient extends Person {
         setTelegramId(telegramId);
         this.upcomingAppointments = upcomingAppointments;
         this.pastAppointments = pastAppointments;
+        this.medicalHistory = new MedicalHistory();
+
+    }
+
+    public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
+                   Set<Tag> tags, String telegramId, PriorityQueue<Appointment> upcomingAppointments,
+                   List<Appointment> pastAppointments, MedicalHistory medicalHistory) {
+        super(name, phone, email, address, remark, tags);
+        setTelegramId(telegramId);
+        this.upcomingAppointments = upcomingAppointments;
+        this.pastAppointments = pastAppointments;
+        this.medicalHistory = medicalHistory;
+
     }
 
     public PriorityQueue<Appointment> getUpcomingAppointments() {
