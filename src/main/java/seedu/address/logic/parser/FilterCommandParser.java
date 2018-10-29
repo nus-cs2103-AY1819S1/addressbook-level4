@@ -42,6 +42,35 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                                                     : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
 
         List<AttributePredicate> predicates = new ArrayList<>();
+        predicates = getMaintenancePredicates(maintenanceStrings, predicates);
+        predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
+
+        return new FilterCommand(new RideContainsConditionPredicate(predicates));
+    }
+
+    /**
+     * Gets a list of predicates from the list of maintenance input if any is present
+     */
+    private List<AttributePredicate> getWaitTimePredicate(Optional<List<String>> waitingTimeStrings,
+                                                          List<AttributePredicate> predicates) {
+        List<AttributePredicate> newPredicates = new ArrayList<>();
+        if (waitingTimeStrings.isPresent()) {
+            for (String s : waitingTimeStrings.get()) {
+                Pair<String, String> waitingTimeConditions = getOperatorAndValues(s);
+                newPredicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
+                        new WaitTime(waitingTimeConditions.getValue())));
+            }
+        }
+        newPredicates.addAll(predicates);
+        return newPredicates;
+    }
+
+    /**
+     * Gets a list of predicates from the list of wait time input if any is present
+     */
+    private List<AttributePredicate> getMaintenancePredicates(Optional<List<String>> maintenanceStrings,
+                                                              List<AttributePredicate> predicates) {
+        List<AttributePredicate> newPredicates = new ArrayList<>();
         if (maintenanceStrings.isPresent()) {
             for (String s : maintenanceStrings.get()) {
                 Pair<String, String> maintenanceCondition = getOperatorAndValues(s);
@@ -49,15 +78,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                         new Maintenance(maintenanceCondition.getValue())));
             }
         }
-        if (waitingTimeStrings.isPresent()) {
-            for (String s : waitingTimeStrings.get()) {
-                Pair<String, String> waitingTimeConditions = getOperatorAndValues(s);
-                predicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
-                        new WaitTime(waitingTimeConditions.getValue())));
-            }
-        }
-
-        return new FilterCommand(new RideContainsConditionPredicate(predicates));
+        newPredicates.addAll(predicates);
+        return newPredicates;
     }
 
     /**
@@ -82,6 +104,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         return new Pair<>(operator, value);
     }
 
+    /**
+     * Checks if a character is an operator, i.e. >, < or =
+     */
     private boolean isOperator(char c) {
         return c == '<' || c == '>' || c == '=';
     }
