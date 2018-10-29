@@ -50,23 +50,20 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
 
-        // TODO:Attempt to modularise method below
-        if (toAuthenticate instanceof Staff) {
-            Staff authenticatedStaff = (Staff) toAuthenticate;
-            if (!model.hasStaff(authenticatedStaff)) {
-                throw new CommandException(MESSAGE_NO_RECORD_FOUND);
-            }
-
-            Staff retrievedStaff = model.getStaff(authenticatedStaff);
-
-            boolean isCorrectPassword = Password.verifyPassword(
-                    authenticatedStaff.getPassword().toString(),
-                    retrievedStaff.getPassword().toString());
-
-            if (isCorrectPassword) {
-                return new CommandResult(MESSAGE_SUCCESS);
-            }
+        Staff authenticatedStaff = (Staff) toAuthenticate;
+        if (!model.hasStaff(authenticatedStaff)) {
+            throw new CommandException(MESSAGE_NO_RECORD_FOUND);
         }
+        
+        Staff retrievedStaff = model.getStaff(authenticatedStaff);
+        boolean isCorrectPassword = Password.verifyPassword(
+                authenticatedStaff.getPassword().toString(),
+                retrievedStaff.getPassword().toString());
+
+        if (isCorrectPassword) {
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        
         return new CommandResult(MESSAGE_FAILURE);
     }
 
