@@ -242,4 +242,32 @@ public class Document {
     public void setFile(File file) {
         this.file = file;
     }
+
+    // BELOW ARE EXTRA GETTERS FOR JAVASCRIPT PURPOSES
+    // added by @blewjy
+
+    public String getFileName() {
+        return this.fileName;
+    }
+
+    public String getHeaders() {
+        return this.generateHeaders();
+    }
+
+    public String getPatientName() {
+        return name.toString();
+    }
+
+    public String getPatientIc() {
+        return icNumber.toString();
+    }
+
+    public String getContent() {
+        if (this instanceof Receipt)
+            return this.formatReceiptInformation();
+        // TODO: update this with the other documents i.e. Referral, MC
+        else
+            return "Lorem ipsum fake news";
+    }
+
 }

@@ -6,6 +6,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
+import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -53,6 +54,7 @@ public class ReceiptCommand extends QueueCommand {
         receipt.generateDocument();
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
+        EventsCenter.getInstance().post(new ShowDocumentWindowRequestEvent(receipt));
         return new CommandResult(String.format(MESSAGE_GENERATE_RECEIPT_SUCCESS));
     }
 

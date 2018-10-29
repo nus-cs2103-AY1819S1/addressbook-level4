@@ -59,7 +59,6 @@ public class Note {
                 .append(" [Presciption: ")
                 .append(convertDispensedMedicinesToPrettyString())
                 .append("]");
-        System.out.println(builder.toString());
         return builder.toString();
     }
 
