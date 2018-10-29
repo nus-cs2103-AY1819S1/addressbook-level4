@@ -223,7 +223,7 @@ public class CommandTestUtil {
         final String[] splitGroupTitle = group.getTitle().fullTitle.split("\\s+");
         model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
             Arrays.asList(splitGroupTitle[0]), Collections.emptyList()));
-        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(splitGroupTitle[0])));
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Collections.singletonList(group)));
 
         assertEquals(1, model.getFilteredGroupList().size());
     }

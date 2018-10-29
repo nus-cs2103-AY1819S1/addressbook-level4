@@ -66,7 +66,7 @@ public class ListCommandTest {
         final String[] groupTitle = group.getTitle().fullTitle.split("\\s+");
         expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
             Arrays.asList(groupTitle[0]), Collections.emptyList()));
-        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(groupTitle[0])));
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Collections.singletonList(group)));
 
         assertCommandSuccess(new ListCommand(ListCommand.ListCommandType.GROUP), model, commandHistory,
             ListCommand.MESSAGE_SUCCESS_GROUP, expectedModel);
@@ -84,8 +84,9 @@ public class ListCommandTest {
         showGroupAtIndex(model, INDEX_FIRST_GROUP);
 
         Group group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
-        final String[] groupTitle = { group.getTitle().fullTitle };
-        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(groupTitle[0])));
+        final String[] groupTitle = group.getTitle().fullTitle.split("\\s+");
+        expectedModel.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(groupTitle), Collections.emptyList()));
         expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
     }
 }
