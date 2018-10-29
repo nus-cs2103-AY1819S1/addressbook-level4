@@ -43,4 +43,10 @@ public class SetBudgetCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet));
     }
 
+    @Override
+    public boolean equals(Object sbCommand) {
+        SetBudgetCommand sbc = (SetBudgetCommand) sbCommand;
+        return sbc.toSet.equals(this.toSet);
+    }
+
 }
