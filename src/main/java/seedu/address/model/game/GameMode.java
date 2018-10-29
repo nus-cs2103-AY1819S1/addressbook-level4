@@ -3,6 +3,8 @@ package seedu.address.model.game;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
+// @@author chikchengyao
+
 /**
  * A GameMode is a procedure for determining the exact XP amount gained when completing tasks.
  * Each particular method extends GameMode to describe its particular method of calculation.

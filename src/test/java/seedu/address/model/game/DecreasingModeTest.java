@@ -1,7 +1,6 @@
 package seedu.address.model.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,10 +9,11 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-import java.awt.event.AdjustmentEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+// @@author chikchengyao
 
 public class DecreasingModeTest {
 

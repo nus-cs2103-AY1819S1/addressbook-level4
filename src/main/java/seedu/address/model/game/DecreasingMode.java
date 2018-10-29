@@ -4,6 +4,8 @@ import java.util.Date;
 
 import seedu.address.model.task.Task;
 
+// @@author chikchengyao
+
 /**
  * Offers a mode where full XP is awarded for tasks done more than a certain time period
  * before the deadline, measured in days.

@@ -1,9 +1,9 @@
 package seedu.address.model.game;
 
-// @@author chikchengyao
-
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.task.Task;
+
+// @@author chikchengyao
 
 /**
  * Manages the gamification aspects of the task manager.
