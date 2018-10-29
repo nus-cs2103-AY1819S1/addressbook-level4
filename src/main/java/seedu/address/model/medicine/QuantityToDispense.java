@@ -1,5 +1,7 @@
 package seedu.address.model.medicine;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represent the quantity of a medicine to be dispensed.
  */
@@ -14,6 +16,7 @@ public class QuantityToDispense {
      * @param value A positive integer.
      */
     public QuantityToDispense(Integer value) {
+        requireNonNull(value);
         this.value = value;
     }
 
