@@ -18,7 +18,6 @@ import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
-import ssp.scheduleplanner.model.task.DateSamePredicate;
 import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
@@ -39,8 +38,8 @@ public class ListWeekCommandTest {
         Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").format(c.getTime())).build();
         dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
         c.add(Calendar.DATE, 1);
-        Task validTomorrow = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").
-                format(c.getTime())).build();
+        Task validTomorrow = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy")
+                .format(c.getTime())).build();
         dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
 
         model.addTask(validToday);
@@ -153,7 +152,7 @@ public class ListWeekCommandTest {
         dateList.add("131018");
         dateList.add("141018");
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
-        
+
         assertFalse(model.getFilteredTaskList().contains(validTaskMon));
         assertFalse(model.getFilteredTaskList().contains(validTaskTue));
         assertFalse(model.getFilteredTaskList().contains(validTaskWed));
