@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-//import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,14 +15,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.fxml.FXML;
 import seedu.address.MainApp;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.services.Service;
-import seedu.address.ui.DocumentWindow;
 
 /**
  * The document class takes in all the information from the classes that extends it to generate a HTML file
@@ -65,19 +62,6 @@ public class Document {
     private IcNumber icNumber;
 
     /**
-     * Opens a preview of the document in a document window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void showDocument() {
-        DocumentWindow documentWindow = new DocumentWindow(documentWindowPath);
-        if (!documentWindow.isShowing()) {
-            documentWindow.show();
-        } else {
-            documentWindow.focus();
-        }
-    }
-
-    /**
      * Method that calls the various methods that help in the generation of the HTML file
      * for the document.
      * This includes a method to make the file name, another method to update the HTML template
@@ -87,7 +71,6 @@ public class Document {
     public void generateDocument() {
         String fileName = makeFileName();
         makeFile(fileName, writeContentsIntoDocument());
-        //showDocument();
     }
 
     /**
@@ -317,7 +300,7 @@ public class Document {
     // added by @blewjy
 
     public String getFileName() {
-        return this.fileName;
+        return this.makeFileName();
     }
 
     public String getHeaders() {
