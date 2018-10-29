@@ -1,10 +1,14 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,6 +24,48 @@ import ssp.scheduleplanner.testutil.TaskBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for ListWeekCommand.
  */
 public class ListWeekCommandTest {
+
+    @Test
+    public void appendDateList_test() {
+        ListWeekCommand lwc = new ListWeekCommand();
+        List<String> dateList = new ArrayList<String>();
+        List<String> expectedDateList = new ArrayList<String>();
+
+        Calendar c = Calendar.getInstance();
+
+        //expectedDateList contains 7 values as we are appending 6 days, excluding current date
+        expectedDateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
+        for (int i = 0; i < 6; i++) {
+            c.add(Calendar.DATE, 1);
+            expectedDateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
+        }
+
+        lwc.appendDateList(dateList, 6);
+
+        assertEquals(dateList, expectedDateList);
+        assertTrue(dateList.containsAll(expectedDateList));
+        assertTrue(expectedDateList.containsAll(dateList));
+    }
+
+    @Test
+    public void numDaysTillSunday_test() {
+        ListWeekCommand lwc = new ListWeekCommand();
+        String testMonday = LocalDate.of(2018, 10, 22).getDayOfWeek().name();
+        String testTuesday = LocalDate.of(2018, 10, 23).getDayOfWeek().name();
+        String testWednesday = LocalDate.of(2018, 10, 24).getDayOfWeek().name();
+        String testThursday = LocalDate.of(2018, 10, 25).getDayOfWeek().name();
+        String testFriday = LocalDate.of(2018, 10, 26).getDayOfWeek().name();
+        String testSaturday = LocalDate.of(2018, 10, 27).getDayOfWeek().name();
+        String testSunday = LocalDate.of(2018, 10, 28).getDayOfWeek().name();
+
+        assertEquals(lwc.numDaysTillSunday(testMonday), 6);
+        assertEquals(lwc.numDaysTillSunday(testTuesday), 5);
+        assertEquals(lwc.numDaysTillSunday(testWednesday), 4);
+        assertEquals(lwc.numDaysTillSunday(testThursday), 3);
+        assertEquals(lwc.numDaysTillSunday(testFriday), 2);
+        assertEquals(lwc.numDaysTillSunday(testSaturday), 1);
+        assertEquals(lwc.numDaysTillSunday(testSunday), 0);
+    }
 
     @Test
     public void task_remain_afterFilter() {
@@ -45,6 +91,7 @@ public class ListWeekCommandTest {
         assertTrue(model.getFilteredTaskList().equals(modelCheck.getFilteredTaskList()));
         assertTrue(model.getFilteredTaskList().contains(validTaskSat));
         assertTrue(model.getFilteredTaskList().contains(validTaskSun));
+        assertEquals(model.getFilteredTaskList(), modelCheck.getFilteredTaskList());
     }
 
     @Test
@@ -70,11 +117,8 @@ public class ListWeekCommandTest {
         model.addTask(validTaskFri);
         model.addTask(validTaskSat);
         model.addTask(validTaskSun);
-        modelCheck.addTask(validTaskMon);
-        modelCheck.addTask(validTaskTue);
-        modelCheck.addTask(validTaskWed);
-        modelCheck.addTask(validTaskThu);
-        modelCheck.addTask(validTaskFri);
+        modelCheck.addTask(validTaskSat);
+        modelCheck.addTask(validTaskSun);
 
         List<String> dateList = new ArrayList<String>();
         dateList.add("131018");
@@ -90,5 +134,6 @@ public class ListWeekCommandTest {
 
         assertTrue(model.getFilteredTaskList().contains(validTaskSat));
         assertTrue(model.getFilteredTaskList().contains(validTaskSun));
+        assertEquals(model.getFilteredTaskList(), modelCheck.getFilteredTaskList());
     }
 }
