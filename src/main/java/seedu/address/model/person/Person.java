@@ -225,9 +225,11 @@ public class Person {
     /**
      * Removes a person from the friends list if it is present.
      */
-    public void deleteFriendInList(Person otherPerson) {
+    public void deleteFriendInList(Person otherPerson) throws CommandException {
         if (hasFriendInList(otherPerson)) {
             friends.remove(new Friend(otherPerson));
+        } else {
+            throw new CommandException(Messages.MESSAGE_NOT_FRIENDS);
         }
     }
 

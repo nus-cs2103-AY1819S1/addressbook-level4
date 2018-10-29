@@ -201,6 +201,15 @@ public class EditUserCommandTest {
         assertCommandFailure(editUserCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    /**
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of address book
+     */
+    @Test
+    public void checkUpdatedFriendListsDueToEditedPerson() {
+
+    }
+
     /*@Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Person editedPerson = new PersonBuilder().build();

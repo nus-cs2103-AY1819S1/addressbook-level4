@@ -57,7 +57,8 @@ public class DeleteUserCommand extends Command {
      * the user list, and updates the {@code Friend} attribute of the persons with this
      * current user in their friend list
      */
-    private void updateFriendListsDueToDeletedPerson(Model model, List<Person> personList, Person personToDelete) {
+    private void updateFriendListsDueToDeletedPerson(Model model, List<Person> personList,
+                                                     Person personToDelete) throws CommandException {
         for (Person currentPerson : personList) {
             if (currentPerson.hasFriendInList(personToDelete)) {
                 Person currentPersonCopy = new Person(currentPerson);
