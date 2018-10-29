@@ -20,7 +20,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class EncryptionUtil {
 
     public final static Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-    public final static String DEFAULT_KEY = Hashing.murmur3_128().hashString("", DEFAULT_CHARSET).toString();
+    public final static String DEFAULT_KEY = createEncryptionKey("");
 
     private static String CIPHER_TRANSFORMATION = "AES/ECB/PKCS5PADDING";
     private static String KEY_ALGORITHM = "AES";

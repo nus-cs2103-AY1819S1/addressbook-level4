@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+
 import java.util.Optional;
 
 import seedu.address.model.ExpenseTracker;
@@ -15,7 +17,7 @@ public class ExpenseTrackerBuilder {
     private ExpenseTracker expenseTracker;
 
     public ExpenseTrackerBuilder() {
-        expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
+        expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_KEY);
     }
 
     public ExpenseTrackerBuilder(ExpenseTracker expenseTracker) {

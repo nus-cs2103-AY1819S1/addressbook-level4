@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -229,7 +230,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
+        public boolean loadUserData(Username username, Optional<Password> password, String encryptionKey) throws NonExistentUserException {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -259,8 +260,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPassword(Password password) throws NoUserSelectedException {
-            throw new AssertionError("copy method should not be called.");
+        public void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException {
+            throw new AssertionError("setPassword method should not be called.");
         }
 
         @Override
@@ -326,7 +327,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_KEY);
         }
 
         @Override
@@ -359,7 +360,7 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_KEY);
         }
 
         @Override

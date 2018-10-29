@@ -34,7 +34,7 @@ public class ModelUtil {
         NoUserSelectedException {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
-        model.loadUserData(TEST_USERNAME, null);
+        model.loadUserData(TEST_USERNAME, null, null);
         model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }

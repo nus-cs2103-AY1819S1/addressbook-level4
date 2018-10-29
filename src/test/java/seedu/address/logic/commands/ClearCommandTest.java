@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.util.Optional;
@@ -39,7 +40,8 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
 
         Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
-        expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), Optional.empty()));
+        expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), Optional.empty(),
+                DEFAULT_KEY));
 
         Budget clearedBudget = model.getMaximumBudget();
         clearedBudget.clearSpending();

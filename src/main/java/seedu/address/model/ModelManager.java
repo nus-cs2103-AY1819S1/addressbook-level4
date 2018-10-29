@@ -318,7 +318,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean loadUserData(Username username, Optional<Password> password, String plainPassword)
             throws NonExistentUserException {
-        requireAllNonNull(username, password, plainPassword);
+        requireAllNonNull(username);
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
         }

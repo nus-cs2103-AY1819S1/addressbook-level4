@@ -60,8 +60,13 @@ public class XmlSerializableExpenseTracker {
      */
     public EncryptedExpenseTracker toModelType() throws IllegalValueException {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
-        EncryptedExpenseTracker expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional,
-                budget.toModelType());
+        EncryptedExpenseTracker expenseTracker;
+        if (budget == null) {
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional);
+        } else {
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional,
+                    budget.toModelType());
+        }
         for (XmlAdaptedExpense p : expenses) {
             EncryptedExpense expense = p.toModelType();
             if (expenseTracker.hasExpense(expense)) {

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
@@ -33,7 +34,8 @@ public class ExpenseTrackerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
+    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(),
+            DEFAULT_KEY);
 
     @Test
     public void constructor() {
@@ -132,6 +134,11 @@ public class ExpenseTrackerTest {
         @Override
         public boolean isMatchPassword(Optional<Password> password) {
             return true;
+        }
+
+        @Override
+        public String getEncryptionKey() {
+            return "";
         }
     }
 

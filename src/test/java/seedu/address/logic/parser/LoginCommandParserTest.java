@@ -21,7 +21,7 @@ public class LoginCommandParserTest {
     @Test
     public void parse_validUsername() {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING,
-                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null));
+                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), Optional.empty(), null));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class LoginCommandParserTest {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING
                 + " " + CliSyntax.PREFIX_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
                 new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING),
-                        Optional.of(new Password(PasswordTest.VALID_PASSWORD_STRING, true))));
+                        Optional.of(new Password(PasswordTest.VALID_PASSWORD_STRING, true)), null));
     }
 
     @Test

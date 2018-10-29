@@ -10,6 +10,7 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.testutil.TypicalExpenses;
@@ -27,7 +28,13 @@ public class SystemTestSetupHelper {
     public TestApp setupApplication(Supplier<ReadOnlyExpenseTracker> expenseTracker, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(expenseTracker, saveFileLocation));
+            FxToolkit.setupApplication(() -> {
+                try {
+                    return testApp = new TestApp(expenseTracker, saveFileLocation);
+                } catch (IllegalValueException e) {
+                    throw new IllegalStateException("Illegal value in sample test data");
+                }
+            });
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -54,7 +61,7 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME, null);
+                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME, null, null);
                 } catch (NonExistentUserException e) {
                     Assert.fail(e.getMessage());
                 }

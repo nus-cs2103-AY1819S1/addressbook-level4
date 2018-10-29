@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
 import static seedu.address.testutil.TypicalExpenses.GAMBLE;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.STOCK;
@@ -18,8 +19,10 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.testutil.ModelUtil;
 
 public class XmlExpensesStorageTest {
@@ -37,7 +40,7 @@ public class XmlExpensesStorageTest {
         readExpenseTracker(null);
     }
 
-    private java.util.Optional<ReadOnlyExpenseTracker> readExpenseTracker(String filePath) throws Exception {
+    private java.util.Optional<EncryptedExpenseTracker> readExpenseTracker(String filePath) throws Exception {
         return new XmlExpensesStorage(Paths.get(filePath)).readExpenses(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -83,27 +86,28 @@ public class XmlExpensesStorageTest {
         XmlExpensesStorage xmlExpenseTrackerStorage = new XmlExpensesStorage(filePath);
 
         //Save in new file and read back
-        xmlExpenseTrackerStorage.saveExpenses(original, filePath);
-        ReadOnlyExpenseTracker readBack = xmlExpenseTrackerStorage.readExpenses(filePath).get();
+        xmlExpenseTrackerStorage.saveExpenses(EncryptedExpenseTracker.encryptTracker(original), filePath);
+        ReadOnlyExpenseTracker readBack =
+                xmlExpenseTrackerStorage.readExpenses(filePath).get().decryptTracker(DEFAULT_KEY);
         assertEquals(original, new ExpenseTracker(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addExpense(STOCK);
         original.removeExpense(SCHOOLFEE);
-        xmlExpenseTrackerStorage.saveExpenses(original, filePath);
-        readBack = xmlExpenseTrackerStorage.readExpenses(filePath).get();
+        xmlExpenseTrackerStorage.saveExpenses(EncryptedExpenseTracker.encryptTracker(original), filePath);
+        readBack = xmlExpenseTrackerStorage.readExpenses(filePath).get().decryptTracker(DEFAULT_KEY);
         assertEquals(original, new ExpenseTracker(readBack));
 
         //Save and read without specifying file path
         original.addExpense(GAMBLE);
-        xmlExpenseTrackerStorage.saveExpenses(original); //file path not specified
-        readBack = xmlExpenseTrackerStorage.readExpenses().get(); //file path not specified
+        xmlExpenseTrackerStorage.saveExpenses(EncryptedExpenseTracker.encryptTracker(original)); //file path not specified
+        readBack = xmlExpenseTrackerStorage.readExpenses().get().decryptTracker(DEFAULT_KEY); //file path not specified
         assertEquals(original, new ExpenseTracker(readBack));
 
     }
 
     @Test
-    public void saveExpenseTracker_nullExpenseTracker_throwsNullPointerException() {
+    public void saveExpenseTracker_nullExpenseTracker_throwsNullPointerException() throws IllegalValueException {
         thrown.expect(NullPointerException.class);
         saveExpenseTracker(null, "SomeFile.xml");
     }
@@ -111,19 +115,21 @@ public class XmlExpensesStorageTest {
     /**
      * Saves {@code expenseTracker} at the specified {@code filePath}.
      */
-    private void saveExpenseTracker(ReadOnlyExpenseTracker expenseTracker, String filePath) {
+    private void saveExpenseTracker(ReadOnlyExpenseTracker expenseTracker, String filePath) throws
+            IllegalValueException {
         try {
             new XmlExpensesStorage(Paths.get(filePath))
-                    .saveExpenses(expenseTracker, addToTestDataPathIfNotNull(filePath));
+                    .saveExpenses(EncryptedExpenseTracker.encryptTracker(expenseTracker),
+                            addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveExpenseTracker_nullFilePath_throwsNullPointerException() {
+    public void saveExpenseTracker_nullFilePath_throwsNullPointerException() throws IllegalValueException {
         thrown.expect(NullPointerException.class);
-        saveExpenseTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty()), null);
+        saveExpenseTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_KEY), null);
     }
 
 

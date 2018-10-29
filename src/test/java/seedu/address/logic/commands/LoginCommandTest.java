@@ -35,17 +35,17 @@ public class LoginCommandTest {
     @Test
     public void constructor_nullUsername_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new LoginCommand(null, Optional.of(new Password("aaaaaa", true)));
+        new LoginCommand(null, Optional.of(new Password("aaaaaa", true)), "aaaaaa");
     }
 
     @Test
-    public void constructor_nullPassword_assertNoNullPointerException() {
-        new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null);
+    public void constructor_emptyPassword_assertNoNullPointerException() {
+        new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty(), null);
     }
 
     @Test
     public void execute_userAcceptedByModel_loginSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null)
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty(), null)
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
@@ -57,13 +57,14 @@ public class LoginCommandTest {
     public void execute_nonExistantUser_loginFailed() throws Exception {
         assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
         thrown.expect(NonExistentUserException.class);
-        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null).execute(model, commandHistory);
+        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), Optional.empty(), null).execute(model, commandHistory);
     }
 
     @Test
     public void execute_incorrectPassword_loginFailed() throws Exception {
-        model.setPassword(PasswordTest.VALID_PASSWORD);
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty()).execute(model,
+        model.setPassword(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD_STRING);
+        CommandResult commandResult =
+                new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty(), null).execute(model,
                 commandHistory);
         assertEquals(LoginCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
     }

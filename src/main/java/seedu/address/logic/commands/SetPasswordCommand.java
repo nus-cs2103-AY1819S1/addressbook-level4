@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class SetPasswordCommand extends Command {
     private String newPasswordPlain;
 
     public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword, String newPasswordPlain) {
-        requireNonNull(newPassword, newPasswordPlain);
+        requireAllNonNull(oldPassword, newPassword, newPasswordPlain);
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
         this.newPasswordPlain = newPasswordPlain;
