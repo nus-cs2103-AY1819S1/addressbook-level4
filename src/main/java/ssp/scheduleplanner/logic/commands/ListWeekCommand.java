@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
@@ -16,7 +18,7 @@ import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
 public class ListWeekCommand extends Command {
     public static final String COMMAND_WORD = "listweek";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all task(s) till this Sunday.\n";
-    public static final String MESSAGE_SUCCESS = "This week's task(s) are listed as followed";
+    public static final String MESSAGE_SUCCESS = "This week's task(s) are listed as follows.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -24,7 +26,7 @@ public class ListWeekCommand extends Command {
         String dateName = LocalDate.now().getDayOfWeek().name();
         appendDateList(dateList, numDaysTillSunday(dateName));
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
-
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

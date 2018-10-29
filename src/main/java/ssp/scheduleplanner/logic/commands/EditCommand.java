@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.commons.core.index.Index;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.commons.util.CollectionUtil;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
@@ -81,6 +83,7 @@ public class EditCommand extends Command {
 
         model.updateTask(taskToEdit, editedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         model.commitSchedulePlanner();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }

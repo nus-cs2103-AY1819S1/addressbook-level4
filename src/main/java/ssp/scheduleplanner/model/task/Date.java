@@ -3,6 +3,7 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
+import java.util.Calendar;
 
 /**
  * Represents a Task's date in the Schedule Planner.
@@ -13,10 +14,8 @@ public class Date {
             "Date should only contain numbers, and it should be exactly 6 digits long";
     public static final String DATE_VALIDATION_REGEX = "\\d{6}";
     public final String value;
-    public final int day;
     public final int yymmdd;
-    public final int month;
-    public final int year;
+    public final Calendar calendar;
     public final String displayDate;
     public final String[] monthNames = {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -33,11 +32,16 @@ public class Date {
         value = date;
 
         String dayString = date.substring(0, 2);
-        day = Integer.parseInt(dayString);
+        int day = Integer.parseInt(dayString);
         String monthString = date.substring(2, 4);
-        month = Integer.parseInt(monthString);
+        int month = Integer.parseInt(monthString);
         String yearString = date.substring(4, 6);
-        year = Integer.parseInt(yearString) + 2000;
+        int year = Integer.parseInt(yearString) + 2000;
+
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DATE, day);
 
         yymmdd = Integer.parseInt(yearString + monthString + dayString);
 

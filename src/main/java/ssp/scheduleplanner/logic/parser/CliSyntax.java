@@ -10,4 +10,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRIORITY = new Prefix("pl/");
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_REPEAT = new Prefix("r/");
 }

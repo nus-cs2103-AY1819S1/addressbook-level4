@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import static ssp.scheduleplanner.model.Model.PREDICATE_SHOW_ALL_ARCHIVED_TASKS;
 
+import ssp.scheduleplanner.commons.core.EventsCenter;
+import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 
@@ -21,6 +23,7 @@ public class ListArchivedCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredArchivedTaskList(PREDICATE_SHOW_ALL_ARCHIVED_TASKS);
+        EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.ARCHIVE));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
