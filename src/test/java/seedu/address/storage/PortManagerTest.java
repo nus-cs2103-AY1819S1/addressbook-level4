@@ -18,15 +18,16 @@ import seedu.address.storage.portmanager.PortManager;
 import seedu.address.testutil.DeckBuilder;
 
 public class PortManagerTest {
+
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "PortManagerTest");
+    private static final PortManager portManager = new PortManager(TEST_DATA_FOLDER);
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "PortManagerTest");
-
-    public static final PortManager portManager = new PortManager(TEST_DATA_FOLDER);
 
     private List<Card> cardList = DECK_WITH_CARDS.getCards().asUnmodifiableObservableList();
     private Deck testDeck = new DeckBuilder().withName("Valid Exported Deck").withCards(cardList).build();
@@ -42,7 +43,7 @@ public class PortManagerTest {
         portManager.exportDeck(testDeck);
         String testFilePath = deckName;
         Deck importedDeck = portManager.importDeck(testFilePath);
-        assertEquals(testDeck,importedDeck);
+        assertEquals(testDeck, importedDeck);
     }
 
 }
