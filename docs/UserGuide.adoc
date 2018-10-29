@@ -56,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add[]`
+=== Adding an entry: `add[]`
 
 Adds a person, module or an occasion to the address book. +
 
@@ -74,13 +74,13 @@ Examples:
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 
 // tag::delete[]
-=== Listing all persons : `list[]`
+=== Listing all entries : `list[]`
 
 Shows a list of all persons/modules/occasions in the address book. +
 Format: `list[]`
 // end::list[]
 
-=== Editing a person : `edit[]`
+=== Editing an entry : `edit[]`
 
 Edits an existing person in the address book. +
 Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...`
@@ -98,7 +98,7 @@ Examples:
 * `edit n/Betsy Crowe t/friend | enemy t/betsycrowe@example.com | johndoe@example.com` +
 Edits the tag of Betsy Crowe from friend to enemy, and the tag from betsycrowe@example.com to johndoe@example.com.
 
-=== Locating persons by name: `find`
+=== Locating entries by name: `find`
 
 Finds a person, module or event whose tags contain any of the given keywords. +
 Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`
@@ -122,7 +122,7 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete[]`
+=== Deleting an entry : `delete[]`
 
 Deletes the specified person, module or occasion from the address book. +
 Format: `delete[] INDEX`
