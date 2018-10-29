@@ -17,6 +17,7 @@ import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.Type;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -111,6 +112,21 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         return new Amount(trimmedTransactionAmount);
+    }
+
+    /**
+     * Parses a string {@code type} into an {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
     }
 
     /**
