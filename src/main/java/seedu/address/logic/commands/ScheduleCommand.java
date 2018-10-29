@@ -31,14 +31,14 @@ public class ScheduleCommand extends Command {
     public static final String COMMAND_ALIAS = "sch";
 
     public static final String MESSAGE_SCHEDULING_SUCCESS = "Meeting added";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedules a value with the person at the given"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedules a value with the person at the given "
             + "index number. "
             + "Existing values will be overwritten by new values. \n"
             + "Parameters: INDEX (must be a positive integer)"
             + "[" + PREFIX_MEETING + "MEETING TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEETING + "31/12/18 1630";
-
+    public static final String MESSAGE_NO_PREFIX= "No prefix " + PREFIX_MEETING + "detected.";
     private final Index index;
     private final Meeting meeting;
 
