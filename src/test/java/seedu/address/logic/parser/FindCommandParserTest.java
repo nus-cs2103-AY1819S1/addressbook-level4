@@ -10,8 +10,10 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindGroupCommand;
+import seedu.address.logic.commands.FindMeetingCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -59,7 +61,6 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, "p a/Alice Bob s/Charlie David n/Earl Grey", expectedFindPersonCommand);
     }
 
-
     @Test
     public void parse_findGroup_noPrefixUsageDefaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
@@ -82,16 +83,51 @@ public class FindCommandParserTest {
     @Test
     public void parse_findGroup_prefixUsage() {
         // no leading and trailing whitespaces
-        FindPersonCommand expectedFindPersonCommand =
-            new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+        FindGroupCommand expectedFindGroupCommand =
+            new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
                 Arrays.asList("Alpha", "Beta"),
                 Arrays.asList("Caviar", "Delta"),
                 Arrays.asList("Echo", "Greek")));
 
         // long form
         assertParseSuccess(parser, "group a/Alpha Beta s/Caviar Delta n/Echo Greek",
-            expectedFindPersonCommand);
+            expectedFindGroupCommand);
         // short form
-        assertParseSuccess(parser, "g a/Alpha Beta s/Caviar Delta n/Echo Greek", expectedFindPersonCommand);
+        assertParseSuccess(parser, "g a/Alpha Beta s/Caviar Delta n/Echo Greek", expectedFindGroupCommand);
+    }
+
+    @Test
+    public void parse_findMeeting_noPrefixUsageDefaultToAllPrefixBehaviour() {
+        // no leading and trailing whitespaces
+        FindMeetingCommand expectedFindMeetingCommand =
+            new FindMeetingCommand(new MeetingTitleContainsKeywordsPredicate(
+                Arrays.asList("Alpha", "Beta"), Collections.emptyList(), Collections.emptyList()));
+
+        // long form
+        assertParseSuccess(parser, "meeting Alpha Beta", expectedFindMeetingCommand);
+        // short form
+        assertParseSuccess(parser, "m Alpha Beta", expectedFindMeetingCommand);
+
+        // multiple whitespaces between keywords
+        // long form
+        assertParseSuccess(parser, "meeting \n Alpha \n \t Beta  \t", expectedFindMeetingCommand);
+        // short form
+        assertParseSuccess(parser, "m \n Alpha \n \t Beta  \t", expectedFindMeetingCommand);
+    }
+
+    @Test
+    public void parse_findMeeting_prefixUsage() {
+        // no leading and trailing whitespaces
+        FindMeetingCommand expectedFindMeetingCommand =
+            new FindMeetingCommand(new MeetingTitleContainsKeywordsPredicate(
+                Arrays.asList("Alpha", "Beta"),
+                Arrays.asList("Caviar", "Delta"),
+                Arrays.asList("Echo", "Greek")));
+
+        // long form
+        assertParseSuccess(parser, "meeting a/Alpha Beta s/Caviar Delta n/Echo Greek",
+            expectedFindMeetingCommand);
+        // short form
+        assertParseSuccess(parser, "m a/Alpha Beta s/Caviar Delta n/Echo Greek", expectedFindMeetingCommand);
     }
 }
