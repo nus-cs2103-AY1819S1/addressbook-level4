@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -22,6 +23,7 @@ public class Article {
 
     // Data fields
     private final Description description;
+    private final Image image;
     private final Set<Tag> tags = new HashSet<>();
 
     // Others
@@ -30,7 +32,7 @@ public class Article {
     /**
      * Every field must be present and not null.
      */
-    public Article(Name name, Phone phone, Email email, Description description, boolean isResolved, Set<Tag> tags) {
+    public Article(Name name, Phone phone, Email email, Description description, Image image, boolean isResolved, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, description, tags);
         this.name = name;
         this.phone = phone;
@@ -54,6 +56,10 @@ public class Article {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public boolean getIsResolved() {
@@ -101,6 +107,7 @@ public class Article {
                 && otherArticle.getPhone().equals(getPhone())
                 && otherArticle.getEmail().equals(getEmail())
                 && otherArticle.getDescription().equals(getDescription())
+                && otherArticle.getImage().equals(getImage())
                 && otherArticle.getIsResolved() == getIsResolved()
                 && otherArticle.getTags().equals(getTags());
     }
@@ -108,7 +115,7 @@ public class Article {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, description, isResolved, tags);
+        return Objects.hash(name, phone, email, description, image, isResolved, tags);
     }
 
     @Override
@@ -121,6 +128,8 @@ public class Article {
                 .append(getEmail())
                 .append(" Description: ")
                 .append(getDescription())
+                .append(" Image: ")
+                .append(getImage())
                 .append(" isResolved: ")
                 .append(getIsResolved())
                 .append(" Tags: ");

@@ -46,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Article article = new Article(name, phone, email, description, DEFAULT_ISRESOLVED, tagList);
+        Article article = new Article(name, phone, email, description, null, DEFAULT_ISRESOLVED, tagList);
 
         return new AddCommand(article);
     }

@@ -44,7 +44,7 @@ public class ResolveCommand extends Command {
         Article articleToEdit = lastShownList.get(targetIndex.getZeroBased());
 
         Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
-                articleToEdit.getEmail(), articleToEdit.getDescription(), SET_ISRESOLVED, articleToEdit.getTags());
+                articleToEdit.getEmail(), articleToEdit.getDescription(), null, SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);

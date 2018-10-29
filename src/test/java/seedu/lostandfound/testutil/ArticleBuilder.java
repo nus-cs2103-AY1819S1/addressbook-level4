@@ -99,7 +99,7 @@ public class ArticleBuilder {
     }
 
     public Article build() {
-        return new Article(name, phone, email, description, isResolved, tags);
+        return new Article(name, phone, email, description, null, isResolved, tags);
     }
 
 }

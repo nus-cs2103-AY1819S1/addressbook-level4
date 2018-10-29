@@ -107,7 +107,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
         return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription,
-                articleToEdit.getIsResolved(), updatedTags);
+                null, articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override

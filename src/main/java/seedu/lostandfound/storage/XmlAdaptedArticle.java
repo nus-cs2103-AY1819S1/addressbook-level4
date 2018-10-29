@@ -123,7 +123,7 @@ public class XmlAdaptedArticle {
 
         final boolean modelIsResolved = isResolved;
 
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelIsResolved, modelTags);
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, null, modelIsResolved, modelTags);
     }
 
     @Override
