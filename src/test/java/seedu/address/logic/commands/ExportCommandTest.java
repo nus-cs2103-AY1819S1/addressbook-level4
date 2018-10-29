@@ -19,7 +19,7 @@ import seedu.address.model.UserPrefs;
 public class ExportCommandTest {
 
     private static final String EXPECTED_FILE_NAME = "expectedExport.csv";
-    private static final String EXPORTED_FILE_NAME = "exportCommandTest.csv";
+    private static final String EXPORTED_FILE_NAME = "exportedCommandTest.csv";
 
     private Model model;
     private CommandHistory commandHistory;
