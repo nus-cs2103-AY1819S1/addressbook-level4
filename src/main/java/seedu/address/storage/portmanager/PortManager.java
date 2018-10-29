@@ -70,6 +70,11 @@ public class PortManager implements Porter {
         }
     }
 
+    /**
+     * Attempts to load the data from the file at filepath.
+     * Returns a XmlExportableDeck object.
+     */
+
     private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException {
         XmlExportableDeck xmlDeck;
         try {
@@ -81,6 +86,12 @@ public class PortManager implements Porter {
         }
 
     }
+
+    /**
+     * Converts the XmlExportableDeck to a Deck
+     * Returns a deck object
+     * If contents are invalid, throw DataConversionException
+     */
 
     private Deck getImportedDeck(XmlExportableDeck targetDeck) throws DataConversionException {
         try {

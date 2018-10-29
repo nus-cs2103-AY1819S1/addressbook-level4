@@ -18,7 +18,7 @@ import seedu.address.model.deck.Name;
  */
 
 @XmlRootElement(name = "deck")
-public class XmlExportableDeck{
+public class XmlExportableDeck {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deck's %s field is missing!";
 
