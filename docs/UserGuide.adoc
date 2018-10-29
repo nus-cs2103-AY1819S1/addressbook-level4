@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the InsuRen.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -61,7 +61,7 @@ Shorthand: `h`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
+Adds a person to InsuRen +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 Shorthand: `a`
@@ -78,7 +78,7 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in InsuRen. +
 Format: `list`
 
 Shorthand: `l`
@@ -86,7 +86,7 @@ Shorthand: `l`
 // tag::editByName[]
 === Editing a person : `edit`
 
-Edits an existing person in the address book by the displayed list's index or by an existing name. +
+Edits an existing person in InsuRen by the displayed list's index or by an existing name. +
 Format: `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `e`
@@ -138,7 +138,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from InsuRen. +
 Format: `delete INDEX`
 
 Shorthand: `d`
@@ -152,7 +152,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in InsuRen.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
@@ -173,7 +173,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in InsuRen.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
@@ -193,13 +193,14 @@ box.
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores InsuRen to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 Shorthand: `u`
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify InsuRen's content (`add`, `delete`, `edit`, `import`, `meetings`,
+ `pic` and `clear`).
 ====
 
 Examples:
@@ -245,7 +246,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from InsuRen. +
 Format: `clear`
 
 Shorthand: `c`
@@ -270,7 +271,6 @@ Shorthand: `i`
 * InsuRen will throw an error message if the file cannot be found from the given (typed) file path
 * InsuRen will NOT throw an error message if the formatting of the file is incorrect.
 * Improperly formatted contacts and/or duplicate contacts will be ignored.
-* Examples of properly formatted csv files are shown below.
 ****
 
 Example:
@@ -282,30 +282,34 @@ image::import.png[width="790"]
 
 Example (user gives a file path):
 
-* `import` l/D:/AddressbookCorrect.csv
+* `import l/D:/AddressbookCorrect.csv`
 * Regardless which method is used, InsuRen will load contacts from the given csv file
 * Each contact in these files must have the name, phone number, email and address fields filled up in that order.
 * Any invalid entries will be ignored.
+* Examples of properly formatted csv files are shown below.
+
 +
 image::import-acceptable-csv.png[width="790"]
 +
 image::import-acceptable-csv2.png[width="790"]
 
-=== Mass export email addresses: `export` `[coming in v2.0]`
+=== Export contact list: `export`
 
-Exports all emails into a csv file in a directory that is given as the second argument. +
-Format: `export DESTINATION_DIRECTORY`
+Exports the current contact list into a csv file whose name is given as the second argument. The export file
+ can be found in the root directory of the project. +
+Format: `export DESTINATION_FILE_NAME.csv`
 
 ****
-* Address book will extract all email addresses, compile into a csv and save it in the given destination with default
-name AB4DDMMYY.csv
-* Address book will throw an error message if path is invalid.
+* InsuRen will copy all contacts and format them into a csv file, with each row representing a unique contact.
+* InsuRen will throw an error message if given file name is invalid (has no .csv suffix).
 ****
 
 Example:
 
-* `export C:\Users\John Doe\Documents` +
-Email addresses are exported to `C:\Users\John Doe\Documents\AB4DDMMYY.csv`
+* `export contactList28Nov.csv` +
+InsuRen contacts are exported to `contactList28Nov.csv`
++
+image::exportedCsv.png[width="790"]
 
 === Add meeting time: `schedule`
 
@@ -313,13 +317,13 @@ Add a meeting at the input date and time with a specified person. +
 Format: `schedule n/PERSON d/DDMMYY [t/HHMM]`
 
 ****
-* Address book will add the meeting to your list of meetings, as well as mark the person with the meeting.
+* InsuRen will add the meeting to your list of meetings, as well as mark the person with the meeting.
 ****
 
 Example:
 
 * `schedule Jane Doe d/120319 t/0930` +
-Address book will record that Jane Doe is scheduled for a meeting on 12 March 2019, 0930.
+InsuRen will record that Jane Doe is scheduled for a meeting on 12 March 2019, 0930.
 
 === View meeting timings: `meetings` `[coming in v2.0]`
 
@@ -330,7 +334,7 @@ Format: `meetings [d/DDMMYY] [t/HHMM]`
 * If there is a meeting scheduled at the queried date and time, the details of the client the meeting is scheduled with
 are displayed.
 * If the query has no time, then all meetings scheduled on the day are displayed.
-* If the query has no date, then all meetings scheduled in the address book are displayed.
+* If the query has no date, then all meetings scheduled in InsuRen are displayed.
 * If there is no meeting scheduled on the day/time, the details of the first meeting after the queried date/time are
 displayed.
 * If there are no meetings on/at and after the scheduled date/time, you are notified that there are no upcoming
@@ -340,21 +344,21 @@ meetings.
 Example:
 
 * `meetings 23022018 1600` +
-Address book displays meetings at that time or the earliest meeting after the specified time.
+InsuRen displays meetings at that time or the earliest meeting after the specified time.
 
 === Notifications for expiring plans `[coming in v2.0]`
 
-The address book entries have an optional field for date of plan expiry. You will automatically be notified of clients
-with plans expiring within a month from the day when the address book is initialized. +
+InsuRen entries have an optional field for date of plan expiry. You will automatically be notified of clients
+with plans expiring within a month from the day when InsuRen is initialized. +
 No additional search queries are needed.
 
 === Adding a picture to contact: `pic`
 
-Adds a picture to a person in the address book. +
+Adds a picture to a person in InsuRen. +
 Format: `​pic INDEX l/FILE_LOCATION​`
 
 ****
-* Address book will add the image to the contact.
+* InsuRen will add the image to the contact.
 ****
 
 Examples:
@@ -365,14 +369,14 @@ The second person in the list will now have image `john.jpg` in his contact.
 === Allow user to add contact if duplicate contact is added
 
 Warns user about adding a contact that has the same name and same phone number or email or address field.
-Address Book allows you to add contact with the same name as an existing contact as long as one of the other fields
+InsuRen allows you to add contact with the same name as an existing contact as long as one of the other fields
 are different.
 
 Examples:
 
 * `add n/John Doe p/91234567 e/johndoe@example.com a/John street, block 123, #01-01` +
 `add n/John Doe p/98765432 e/differentemail@example.com a/Different street, block 123, #01-01` +
-Address Book will warn user that an existing contact John Doe already exists. Address Book will ask you if you would
+InsuRen will warn user that an existing contact John Doe already exists. InsuRen will ask you if you would
 like to go ahead and create a new contact, edit the existing contact, or cancel the operation.
 
 === Using tags: `tag`
@@ -385,7 +389,7 @@ Shorthand: `t`
 
 ****
 * View all contacts that belong to the same tag.
-* Address book will throw an error if an invalid `TAG_NAME` is given.
+* InsuRen will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
@@ -414,7 +418,7 @@ All contacts that were previously tagged with `Work` and `Important` have the af
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+InsuRen data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
