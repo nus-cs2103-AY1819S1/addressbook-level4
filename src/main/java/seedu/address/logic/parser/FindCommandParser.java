@@ -60,10 +60,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         case FIND_PERSON_PARAM_SHORT:
             findCommandType = FindCommandType.PERSON;
             break;
+
         case FIND_GROUP_PARAM:
         case FIND_GROUP_PARAM_SHORT:
             findCommandType = FindCommandType.GROUP;
             break;
+
         default:
             throwParseException();
         }
@@ -117,17 +119,20 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private FindCommand createFindCommand(List<String> allKeywords, List<String> someKeywords,
                                           List<String> noneKeywords) throws ParseException {
+        FindCommand findCommand = null;
         switch (findCommandType) {
         case PERSON:
-            return new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+            findCommand = new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
+            break;
         case GROUP:
-            return new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
+            findCommand = new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
+            break;
         default:
             throwParseException();
         }
-        return null;
+        return findCommand;
     }
 
     /**
