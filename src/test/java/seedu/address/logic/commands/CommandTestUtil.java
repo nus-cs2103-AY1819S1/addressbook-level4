@@ -3,7 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -56,6 +60,33 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final int VALID_APPOINTMENT_ID_FIRST = 1;
+    public static final int VALID_APPOINTMENT_ID_SECOND = 2;
+    public static final String VALID_MEDICINE_NAME_PARACETAMOL = "Paracetamol";
+    public static final String VALID_MEDICINE_NAME_VICODIN = "Vicodin";
+    public static final String VALID_DOSAGE_PARACETAMOL = "2";
+    public static final String VALID_DOSAGE_VICODIN = "1";
+    public static final String VALID_CONSUMPTION_PER_DAY_PARACETAMOL = "3";
+    public static final String VALID_CONSUMPTION_PER_DAY_VICODIN = "2";
+
+    public static final String APPOINTMENT_ID_DESC_FIRST = " " + PREFIX_INDEX + VALID_APPOINTMENT_ID_FIRST;
+    public static final String APPOINTMENT_ID_DESC_SECOND = " " + PREFIX_INDEX + VALID_APPOINTMENT_ID_SECOND;
+    public static final String MEDICINE_NAME_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINE_NAME_PARACETAMOL;
+    public static final String MEDICINE_NAME_DESC_VICODIN = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINE_NAME_VICODIN;
+    public static final String DOSAGE_DESC_PARACETAMOL = " " + PREFIX_DOSAGE + VALID_DOSAGE_PARACETAMOL;
+    public static final String DOSAGE_DESC_VICODIN = " " + PREFIX_DOSAGE + VALID_DOSAGE_VICODIN;
+    public static final String CONSUMPTION_PER_DAY_DESC_PARACETAMOL = " " + PREFIX_CONSUMPTION_PER_DAY
+            + VALID_CONSUMPTION_PER_DAY_PARACETAMOL;
+    public static final String CONSUMPTION_PER_DAY_DESC_VICODIN = " " + PREFIX_CONSUMPTION_PER_DAY
+            + VALID_CONSUMPTION_PER_DAY_VICODIN;
+
+    public static final String INVALID_APPOINTMENT_ID_DESC = " " + PREFIX_INDEX + "$"; //'$' not allowed
+    public static final String INVALID_MEDICINE_NAME_DESC = " " + PREFIX_MEDICINE_NAME + "P@n@dol"; // '@' not allowed
+    public static final String INVALID_DOSAGE_DESC = " " + PREFIX_DOSAGE + "2#"; // '#' not allowed
+    public static final String INVALID_CONSUMPTION_PER_DAY_DESC = " " + PREFIX_CONSUMPTION_PER_DAY + "-4"; // no numbers < 0
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

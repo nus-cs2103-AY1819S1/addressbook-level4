@@ -38,6 +38,7 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Prescription added: %1$s";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
+    public static final String MESSAGE_APPOINTENT_DOES_NOT_EXIST = "This appointment does not exist";
 
     private final Prescription toAdd;
 
@@ -53,6 +54,16 @@ public class AddPrescriptionCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
+
+        // Appointment List is empty
+        if (appointmentList.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+        }
+
+        // Invalid appointment
+        if (toAdd.getId() <= 0 || toAdd.getId() > model.getAppointmentCounter()) {
+            return new CommandResult(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+        }
         Appointment appointmentToEdit = appointmentList.stream()
                 .filter(appt -> appt.getAppointmentId() == toAdd.getId())
                 .findFirst()
