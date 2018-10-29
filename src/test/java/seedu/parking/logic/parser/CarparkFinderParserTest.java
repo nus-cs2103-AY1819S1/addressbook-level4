@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.parking.logic.commands.ClearCommand;
-import seedu.parking.logic.commands.DeleteCommand;
 import seedu.parking.logic.commands.ExitCommand;
 import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.HelpCommand;

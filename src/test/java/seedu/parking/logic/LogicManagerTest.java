@@ -1,7 +1,6 @@
 package seedu.parking.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
