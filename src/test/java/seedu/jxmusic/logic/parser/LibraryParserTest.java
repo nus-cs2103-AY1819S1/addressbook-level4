@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
@@ -60,7 +60,8 @@ public class LibraryParserTest {
     // @Test
     // public void parseCommand_find() throws Exception {
     //     List<String> keywords = Arrays.asList("foo", "bar", "baz");
-    //     System.out.println(PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect(Collectors.joining(" ")));
+    //     System.out.println(PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect
+    // (Collectors.joining(" ")));
     //     PlaylistSearchCommand command = (PlaylistSearchCommand) parser.parseCommand(
     //             PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect(Collectors.joining(" ")));
     //     assertEquals(new PlaylistSearchCommand(new NameContainsKeywordsPredicate(keywords)), command);

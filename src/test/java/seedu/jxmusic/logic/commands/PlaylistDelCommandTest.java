@@ -1,7 +1,6 @@
 package seedu.jxmusic.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
