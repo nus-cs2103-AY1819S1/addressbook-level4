@@ -214,12 +214,12 @@ public abstract class LearnVocabularySystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getWordListPanel().navigateToCard(getWordListPanel().getSelectedCardIndex());
         Word selectedWord = getWordListPanel().getWord(getWordListPanel().getSelectedCardIndex());
-        URL expectedUrl;
-        expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL + "?name="
+        URL expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
+        String expectedUrlInString = expectedUrl.toExternalForm() + "?name="
                 + selectedWord.getName().fullName.replaceAll(" ", "%20")
-                + "&meaning=" + selectedWord.getMeaning().fullMeaning.replaceAll(" ", "%20"));
+                + "&meaning=" + selectedWord.getMeaning().fullMeaning.replaceAll(" ", "%20");
 
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        assertEquals(expectedUrlInString, getBrowserPanel().getLoadedUrl().toExternalForm());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getWordListPanel().getSelectedCardIndex());
     }

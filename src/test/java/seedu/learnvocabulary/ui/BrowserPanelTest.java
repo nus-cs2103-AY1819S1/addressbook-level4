@@ -43,14 +43,13 @@ public class BrowserPanelTest extends GuiUnitTest {
         postNow(selectionChangedEventStub);
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        String str = browserPanelHandle.getLoadedUrl().toString();
 
-        System.out.println(str);
+        URL expectedWordUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
 
-        URL expectedWordUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL + "?name="
+        String expectedWordUrlInString = expectedWordUrl.toExternalForm() + "?name="
                 + SUMO.getName().fullName.replaceAll(" ", "%20")
-                + "&meaning=" + SUMO.getMeaning().fullMeaning.replaceAll(" ", "%20"));
+                + "&meaning=" + SUMO.getMeaning().fullMeaning.replaceAll(" ", "%20");
 
-        assertEquals(expectedWordUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedWordUrlInString, browserPanelHandle.getLoadedUrl().toExternalForm());
     }
 }
