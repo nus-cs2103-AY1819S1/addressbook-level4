@@ -14,7 +14,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.parking.commons.core.index.Index;
-import seedu.parking.logic.commands.DeleteCommand;
 import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.RedoCommand;
 import seedu.parking.logic.commands.UndoCommand;
@@ -81,15 +80,6 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
-
-        /* Case: find same car parks in car park finder after deleting 1 of them -> 1 car park found */
-        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getCarparkFinder().getCarparkList().contains(BRAVO));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
-        expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DELTA);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find car park in car park finder, keyword is same as name but of different case
          * -> 1 car park found

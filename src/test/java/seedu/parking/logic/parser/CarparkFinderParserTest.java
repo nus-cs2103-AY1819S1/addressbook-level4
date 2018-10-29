@@ -40,14 +40,6 @@ public class CarparkFinderParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_CARPARK), command);
-    }
-
-
-    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);

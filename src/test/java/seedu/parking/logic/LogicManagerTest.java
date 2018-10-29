@@ -33,16 +33,10 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
-    }
-
-    @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String messageSuccess = String.format(ListCommand.MESSAGE_SUCCESS, 0);
+        assertCommandSuccess(listCommand, messageSuccess, model);
         assertHistoryCorrect(listCommand);
     }
 

@@ -20,11 +20,15 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         int size = model.getCarparkFinder().getCarparkList().size();
 
-        if (size == 0) {
-            return new CommandResult(MESSAGE_EMPTY);
+        try {
+            if (size == 0) {
+                return new CommandResult(MESSAGE_EMPTY);
+            }
+
+            return new CommandResult(MESSAGE_SUCCESS);
+        } finally {
+            model.resetData(new CarparkFinder());
+            model.commitCarparkFinder();
         }
-        model.resetData(new CarparkFinder());
-        model.commitCarparkFinder();
-        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
