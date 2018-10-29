@@ -224,6 +224,7 @@ public class Person {
 
     /**
      * Removes a person from the friends list if it is present.
+     * throws {@code CommandException} if the person is not yet in the list
      */
     public void deleteFriendInList(Person otherPerson) throws CommandException {
         if (hasFriendInList(otherPerson)) {
