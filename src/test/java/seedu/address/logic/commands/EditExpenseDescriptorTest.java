@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 public class EditExpenseDescriptorTest {
@@ -36,7 +36,7 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_GAME.equals(DESC_IPHONE));
 
         // different name -> returns false
-        EditCommand.EditExpenseDescriptor editedAmy =
+        EditExpenseDescriptor editedAmy =
                 new EditExpenseDescriptorBuilder(DESC_GAME).withName(VALID_NAME_IPHONE).build();
         assertFalse(DESC_GAME.equals(editedAmy));
 

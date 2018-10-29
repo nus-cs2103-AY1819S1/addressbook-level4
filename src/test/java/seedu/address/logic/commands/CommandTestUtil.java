@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -79,8 +80,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_GAME;
-    public static final EditCommand.EditExpenseDescriptor DESC_IPHONE;
+    public static final EditExpenseDescriptor DESC_GAME;
+    public static final EditExpenseDescriptor DESC_IPHONE;
 
     static {
         DESC_GAME = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)

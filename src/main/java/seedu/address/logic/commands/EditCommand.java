@@ -10,7 +10,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -22,12 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing expense in the expense tracker.

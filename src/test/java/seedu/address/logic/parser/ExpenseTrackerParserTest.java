@@ -19,7 +19,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -33,6 +32,7 @@ import seedu.address.logic.commands.SignUpCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -83,7 +83,6 @@ public class ExpenseTrackerParserTest {
                 + INDEX_FIRST_EXPENSE.getOneBased() + " " + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_EXPENSE, descriptor), command);
     }
-
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);

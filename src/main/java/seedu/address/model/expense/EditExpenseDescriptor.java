@@ -1,12 +1,23 @@
 package seedu.address.model.expense;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Stores the details to edit the expense with. Each non-empty field value will replace the
@@ -103,6 +114,43 @@ public class EditExpenseDescriptor {
         Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
 
         return new Expense(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
+    }
+
+    public static EditExpenseDescriptor createEditExpenseDescriptor(ArgumentMultimap argMultimap) throws ParseException{
+        EditExpenseDescriptor editExpenseDescriptor = new EditExpenseDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editExpenseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editExpenseDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_COST).isPresent()) {
+            editExpenseDescriptor.setCost(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_COST).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editExpenseDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenseDescriptor::setTags);
+
+        if (!editExpenseDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+        return editExpenseDescriptor;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     */
+    private static Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
     @Override
