@@ -11,7 +11,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * An event that notifies StatusBarFooter regarding a login status change.
  */
-public class FilmEvent extends BaseEvent {
+public class UpdateFilmReelEvent extends BaseEvent {
 
     public final List<Path> paths;
 
@@ -20,7 +20,7 @@ public class FilmEvent extends BaseEvent {
      *
      * @param paths List of paths to new images
      */
-    public FilmEvent(List<Path> paths) {
+    public UpdateFilmReelEvent(List<Path> paths) {
         this.paths = requireNonNull(paths);
     }
 

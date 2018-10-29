@@ -6,7 +6,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.FilmEvent;
+import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -47,7 +47,7 @@ public class LsCommand extends Command {
             if (fileNames.toString().isEmpty()) {
                 fileNames.append("No images or folders to display!");
             } else {
-                EventsCenter.getInstance().post(new FilmEvent(model.returnPreviewImageList()));
+                EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList()));
             }
 
             return new CommandResult(fileNames.toString());
