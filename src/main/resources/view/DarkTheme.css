@@ -6,7 +6,6 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
@@ -96,7 +95,8 @@
 #historyPanel {
     -fx-padding: 5 5 5 5;
 }
-#historyListView .list-cell {
+
+#historyListView .list-cell, #imageListView .list-cell {
     -fx-label-padding: 1 1 1 1;
     -fx-graphic-text-gap : 0;
     -fx-padding: 1 1 1 1;
@@ -115,10 +115,14 @@
     -fx-text-fill: white;
 }
 
+#imageListView .list-cell:filled:selected {
+    -fx-background-color: #525252;
+    -fx-text-fill: #1F1F1F;
+}
+
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 13px;
+    -fx-text-fill: #d9d7d6;
 }
 
 .cell_small_label {
@@ -345,7 +349,8 @@
     -fx-font-size: 11;
 }
 
-#historyTitle {
+.titles {
+    -fx-text-fill: #d9d7d6;
+    -fx-fill: #d9d7d6;
     -fx-font-size: 15px;
-    -fx-fill: white;
 }
