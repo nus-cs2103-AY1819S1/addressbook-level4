@@ -30,7 +30,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String SEARCH_MODULE_PAGE_URL = "https://nusmods.com/modules/";
     public static final String SEARCH_OCCASION_PAGE_URL =
             "https://www.google.com/search?q=";
-    
+
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
