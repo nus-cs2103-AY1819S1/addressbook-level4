@@ -3,12 +3,14 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Month;
@@ -58,6 +60,21 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
+    //@@author EatOrBeEaten
+    /**
+     * Parses {@code String oneBasedIndexes} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final String[] indexArray = oneBasedIndexes.split(" ");
+        final Set<Index> indexSet = new HashSet<>();
+        for (String index : indexArray) {
+            indexSet.add(parseIndex(index));
+        }
+        return indexSet;
+    }
+    //@@author
 
     /**
      * Parses a {@code String name} into a {@code Name}.
@@ -160,7 +177,7 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
+        if ("".equals(trimmedTag) || !Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
@@ -193,6 +210,23 @@ public class ParserUtil {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
         return new File(trimmedFile);
+    }
+
+    /**
+     * Parses {@code String path} and {@code String filename} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code path} or {@code filename} is invalid.
+     */
+    public static Path parsePath(String path, String filename) throws ParseException {
+        requireNonNull(path);
+        requireNonNull(filename);
+        String trimmedPath = path.trim();
+        String trimmedFilename = filename.trim();
+        if (!trimmedFilename.contains(".xml")) {
+            throw new ParseException(ExportCommand.MESSAGE_USAGE);
+        }
+        return new File(trimmedPath + "/" + trimmedFilename).toPath();
     }
 
     //@@author EatOrBeEaten

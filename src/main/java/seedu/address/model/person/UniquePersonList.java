@@ -55,6 +55,20 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.add(toAdd);
     }
 
+    //@@author kengwoon
+    /**
+     * Adds a person to the list.
+     * Existing persons will be ignored.
+     */
+    public void addMultiplePersons(List<Person> toAdd) {
+        requireNonNull(toAdd);
+        for (Person p : toAdd) {
+            if (!contains(p)) {
+                internalList.add(p);
+            }
+        }
+    }
+
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.

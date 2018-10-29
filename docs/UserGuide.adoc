@@ -34,8 +34,8 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
 
-== Commands Example:
-Here are some commands that you can try out with.
+== Command Examples
+Here are some commands that you can try out with:
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com r/A110 s/FoS t/basketball` : adds a contact named `John Doe` to Hallper.
@@ -163,13 +163,14 @@ Example:
 * `clear all` +
 Clears `all` entries in Hallper.
 
-==== Uploading contact information : `import`
+==== Importing contact information : `import`
 
 Imports file containing contact information and updates Hallper accordingly. +
 Format: `import f/FILEPATH`
 
 ****
-* Allow for the mass upload of contact information.
+* Allows for the mass upload of contact information.
+* Allows for the mass upload of CCA lists.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
@@ -177,6 +178,21 @@ Example:
 
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
+
+==== Exporting contact information: `export`
+
+Exports file containing existing contact information in Hallper. +
+Formate: `export dst/PATH fn/FILENAME`
+
+****
+* The file exported will be a *`.xml`* file.
+****
+
+Example:
+
+* `export dst/C://Users/Files fn/data.xml` +
+Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
+
 
 ==== Adds a picture to resident detail : `image`
 
@@ -236,23 +252,76 @@ Format: `list`
 === Email
 This section lists features related to email in Hallper.
 
-==== Composing an email: `compose`
-Composes a *`.eml`* file that can be used to send emails to residents. +
-Format: `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+==== Composing an email to selected indexes: `compose_email_index`
+Composes a *`.eml`* file that can be used to send emails to residents specified by index. +
+Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT`
 
 ****
-* FROM and TO must be valid email addresses e.g. johndoe@example.com
-* SUBJECT has a word limit of 10 words.
+* FROM must be a valid email address e.g. johndoe@example.com
+* INDEXES refer to the index numbers shown in the displayed person list.
+* INDEXES *must be positive integers* 1, 2, 3, ...
+* SUBJECT has no word limit.
 * CONTENT has no word limit.
 ****
 
 Example:
 
-* `compose from/johndoe@example.com to/samsee@example.com subject/Meeting this Friday
+* `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday
 content/Hey there's a meeting this friday.` +
-Composes an email from `johndoe@example.com` to `samsee@example.com` with subject
+Composes an email from `johndoe@example.com` to people at indexes 1, 6 and 10 with subject
 `Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
 it as a *`.eml`* file.
+
+==== Composing an email to currently listed people: `compose_email_list`
+Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
+Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
+
+****
+* FROM must be a valid email address e.g. johndoe@example.com
+* SUBJECT has no word limit.
+* CONTENT has no word limit.
+****
+
+Example:
+
+* `compose_email_list from/johndoe@example.com subject/Meeting this Friday
+content/Hey there's a meeting this friday.` +
+Composes an email from `johndoe@example.com` to currently listed people with subject
+`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
+it as a *`.eml`* file.
+
+==== Deleting an email : `delete_email`
+
+Deletes an email. +
+Format: `delete_email SUBJECT`
+****
+* SUBJECT is the subject of an existing email.
+* SUBJECT is case-sensitive.
+****
+
+Examples:
+
+* `delete_email Meeting on Friday` +
+Deletes the email with the subject `Meeting on Friday`.
+
+==== Listing all emails : `list_emails`
+
+Displays a list of all emails in Hallper. +
+Format: `list_emails`
+
+==== Viewing an email : `view_email`
+
+Displays an email. +
+Format: `view_email SUBJECT`
+****
+* SUBJECT is the subject of an existing email.
+* SUBJECT is case-sensitive.
+****
+
+Examples:
+
+* `view_email Meeting on Friday` +
+Displays the email with the subject `Meeting on Friday`.
 
 === Calendar
 This section lists features related to managing the calendar in Hallper.
@@ -446,147 +515,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all specified tags : `erase`
-
-Clears all spcified tags from all contacts from the address book. +
-Format: `erase CCA`
-
-Example:
-
-* `erase basketball`
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Adds a picture to resident detail : `image`
-
-Uploads the image of the resident to the address book. +
-Format: `image`
-
-****
-* Allow for the upload of the profile picture of resident.
-* The image must be in *`.jpeg`*.
-****
-
-=== Uploading contact information : `import`
-
-Uploads file containing contact information of all contacts. +
-Format: `upload`
-
-****
-* Allow for the mass upload of contact information.
-* The file to be uploaded must be a *`.xml`* file.
-****
-
-=== Composing email : `compose`
-
-Composes a *`.eml`* file that can be used to send emails to residents. +
-Format: `compose`
-
-=== Creating calendar : `create_calendar`
-
-Creates a calendar file in the address book for updating of events. +
-Format: `create_calendar month/MONTH year/YEAR`
-
-****
-* Creates a calendar as a *`.ics`* file.
-* The month *must be specified as MMM*
-* The year *musst be specified as YYYY*
-****
-Example:
-
-* `create_calendar month/Feb year/2018`
-
-=== Viewing calendar : `view_calendar`
-
-Views the calendar of the specified month. +
-Format: `view_calendar MONTH`
-
-Example:
-
-* `view_calendar Feb`
-
-=== Adding event into calendar : `add_event`
-
-Adds an event into the calendar. +
-Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
-
-Example:
-
-* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
-
-=== Create new CCA : `create`
-
-Adds a CCA into the budget book with the initial given budget. +
-Format: `create n/CCA bud/BUDGET`
-
-Example:
-
-`create n/basketball bud/200`
-
-=== Viewing the budget for all CCAs : `budget`
-
-Allows for the viewing of the budgets for all the CCAs. +
-Format: `budget`
-
-****
-* BP displays the total budget allocated to the CCAs, total outstanding amount and budget information of each CCA, in alphabetical order.
-****
-
-=== Viewing CCA budget : `view_cca`
-
-Allows for the viewing of the budget and past transactions of the specified CCA. +
-Format: `view_cca CCA`
-
-Example:
-
-* `view_cca soccer`
-
-=== Adding a CCA's budget : `add_cca`
-
-Adds a CCA's budget. +
-Format: `add_cca CCA BUDGET`
-
-Example:
-
-* `add_cca badminton 500`
-
-=== Deleting a CCA's budget : `delete_cca`
-
-Deletes the CCA's exisiting budget. +
-Format: `delete_cca CCA`
-
-Example:
-
-* `delete_cca soccer`
-
-=== Modifying a CCA's budget : `modify_cca`
-
-Modifies the budget of specified CCA. +
-Format: `modify_cca CCA BUDGET`
-
-Example:
-
-* `modify_cca soccer 500`
-
-=== Adding a transaction to the budget : `add_transaction`
-
-Adds a transaction to the budget of specified CCA. +
-Format: `add_transaction CCA AMOUNT TYPE PERSON_IN_CHARGE`
-
-****
-* Adds a transaction to the budget of specifed CCA.
-* The types available are  either *`credit`* or *`debit`*.
-* The *`PERSON-IN-CHARGE`* must be a resident in the address book.
-****
-
-Example:
-
-* `add_transaction badminton 500 credit James`
-
-=== Exiting the program : `exit`
 ==== Exiting the program : `exit`
 
 Exits the program. +
@@ -622,7 +550,13 @@ e.g. `search basketball A123`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
-* *Compose* : `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+* *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
+e.g. `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday content/Hey there's a meeting this friday.`
+* *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +
+e.g. `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Hey there's a meeting this friday.`
+* *List Emails*: `list_emails`
+* *View Email*: `view_email SUBJECT` +
+e.g. `view_email Meeting this Friday`
 * *Create Calendar* : `create_calendar MONTH` +
 e.g. `create_calendar month/Feb year/2018`
 * *View Calendar* : `view_calendar MONTH` +
