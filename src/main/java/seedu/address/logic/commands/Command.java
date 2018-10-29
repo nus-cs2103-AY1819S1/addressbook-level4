@@ -4,9 +4,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.permission.PermissionSet;
+import seedu.address.model.person.User;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
+ * Set permission needed to execute the method by adding it into requiredPermission variable.
  */
 public abstract class Command {
 
@@ -34,7 +36,7 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!haveRequiredPermission()) {
+        if (!haveRequiredPermission(model.getLoggedInUser())) {
             throw new CommandException(MESSAGE_LACK_REQUIRED_PERMISSION);
         }
         return runBody(model, history);
@@ -45,9 +47,15 @@ public abstract class Command {
      *
      * @return true if have permissions, false otherwise.
      */
-    public boolean haveRequiredPermission() {
-        requiredPermission.getGrantedPermission();
-        //TODO: Add check if have requiredPermission
-        return true;
+    public boolean haveRequiredPermission(User user) {
+        if (requiredPermission.getGrantedPermission().size() == 0) {
+            return true;
+        }
+
+        if (user == null) {
+            return false;
+        }
+
+        return user.getPermissionSet().containsAll(requiredPermission);
     }
 }
