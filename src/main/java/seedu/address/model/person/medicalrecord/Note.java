@@ -82,7 +82,7 @@ public class Note {
             result += entry.getValue().value;
             result += ", ";
         }
-        return result.length() >= 2 ? result.substring(0, result.length() - 2) : result;
+        return result.length() >= 2 ? result.substring(0, result.length() - 2) : "none";
     }
 
     @Override
