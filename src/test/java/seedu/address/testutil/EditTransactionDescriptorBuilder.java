@@ -13,6 +13,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Type;
 
 /**
  * A utility class to help with building EditTransactionDescriptor objects.
@@ -35,6 +36,7 @@ public class EditTransactionDescriptorBuilder {
     public EditTransactionDescriptorBuilder(Transaction transaction) {
         descriptor = new EditTransactionDescriptor();
         descriptor.setAmount(transaction.getAmount());
+        descriptor.setType(transaction.getType());
         descriptor.setDeadline(transaction.getDeadline());
         descriptor.setAddress(transaction.getPerson().getAddress());
         descriptor.setEmail(transaction.getPerson().getEmail());
@@ -48,6 +50,14 @@ public class EditTransactionDescriptorBuilder {
      */
     public EditTransactionDescriptorBuilder withAmount(String amount) {
         descriptor.setAmount(new Amount(amount));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Type} of the {@code EditTransactionDescriptor} that we are building.
+     */
+    public EditTransactionDescriptorBuilder withType(String type) {
+        descriptor.setType(new Type(type));
         return this;
     }
 
@@ -105,3 +115,4 @@ public class EditTransactionDescriptorBuilder {
         return descriptor;
     }
 }
+
