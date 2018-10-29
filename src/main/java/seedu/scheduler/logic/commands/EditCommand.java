@@ -84,9 +84,7 @@ public class EditCommand extends Command {
         model.updateEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToEdit);
-        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
+        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
