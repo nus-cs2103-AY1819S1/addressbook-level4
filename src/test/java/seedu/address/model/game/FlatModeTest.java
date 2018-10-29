@@ -49,8 +49,9 @@ public class FlatModeTest {
         assertThrows(XpEvaluationException.class, () -> gm.appraiseXpChange(completedTask, overdueTask));
 
         // valid
-        assertEquals(gm.appraiseXpChange(inProgressTask, overdueTask), 0);
-        assertEquals(gm.appraiseXpChange(inProgressTask, completedTask), completedXp);
-        assertEquals(gm.appraiseXpChange(overdueTask, completedTask), overdueXp);
+        assertEquals(0, gm.appraiseXpChange(inProgressTask, overdueTask));
+        assertEquals(completedXp, gm.appraiseXpChange(inProgressTask, completedTask));
+        assertEquals(overdueXp, gm.appraiseXpChange(overdueTask, completedTask));
     }
+
 }

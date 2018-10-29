@@ -46,6 +46,6 @@ public class GameManagerTest {
         Task inProgressTask = new TaskBuilder().withStatus(Status.IN_PROGRESS).build();
         Task completedTask = new TaskBuilder().withStatus(Status.COMPLETED).build();
 
-        assertEquals(gm.appraiseXpChange(inProgressTask, completedTask), 50);
+        assertEquals(50, gm.appraiseXpChange(inProgressTask, completedTask));
     }
 }
