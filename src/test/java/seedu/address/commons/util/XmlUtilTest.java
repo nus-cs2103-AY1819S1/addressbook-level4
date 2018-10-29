@@ -114,7 +114,7 @@ public class XmlUtilTest {
     public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         XmlUtil.saveDataToFile(null,
-                new ExpenseTracker(new Username("aaa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY));
+                new ExpenseTracker(new Username("aaa"), null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
@@ -127,14 +127,14 @@ public class XmlUtilTest {
     public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE,
-                new ExpenseTracker(new Username("aaa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY));
+                new ExpenseTracker(new Username("aaa"), null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableExpenseTracker dataToWrite =
-                new XmlSerializableExpenseTracker(new EncryptedExpenseTracker(new Username("AA"), Optional.empty()));
+                new XmlSerializableExpenseTracker(new EncryptedExpenseTracker(new Username("AA"), null));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableExpenseTracker dataFromFile =
                 XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableExpenseTracker.class);
@@ -142,7 +142,7 @@ public class XmlUtilTest {
 
         ExpenseTrackerBuilder builder =
                 new ExpenseTrackerBuilder(
-                        new ExpenseTracker(new Username("AAA"), Optional.empty(), DEFAULT_ENCRYPTION_KEY));
+                        new ExpenseTracker(new Username("AAA"), null, DEFAULT_ENCRYPTION_KEY));
         dataToWrite = new XmlSerializableExpenseTracker(EncryptionUtil.encryptTracker(
                 builder.withExpense(new ExpenseBuilder().build()).build()));
 

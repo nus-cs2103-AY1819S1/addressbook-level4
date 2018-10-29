@@ -20,7 +20,7 @@ import seedu.address.model.user.Username;
 public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     protected Username username;
-    protected Optional<Password> password;
+    protected Password password;
     private String encryptionKey;
     private final UniqueExpenseList expenses;
     private Budget maximumBudget;
@@ -29,7 +29,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an empty ExpenseTracker with the given username.
      * @param username the username of the ExpenseTracker
      */
-    public ExpenseTracker(Username username, Optional<Password> password, String encryptionKey) {
+    public ExpenseTracker(Username username, Password password, String encryptionKey) {
         this.username = username;
         this.password = password;
         this.encryptionKey = encryptionKey;
@@ -41,7 +41,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an ExpenseTracker using the Expenses in the {@code toBeCopied}
      */
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
-        this(toBeCopied.getUsername(), toBeCopied.getPassword(), toBeCopied.getEncryptionKey());
+        this(toBeCopied.getUsername(), toBeCopied.getPassword().orElse(null), toBeCopied.getEncryptionKey());
         this.maximumBudget = toBeCopied.getMaximumBudget();
         resetData(toBeCopied);
     }
@@ -148,19 +148,16 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     @Override
     public Optional<Password> getPassword() {
-        return password;
+        return Optional.ofNullable(password);
     }
 
     public void setPassword(Password password) {
-        this.password = Optional.ofNullable(password);
+        this.password = password;
     }
 
     @Override
     public boolean isMatchPassword(Password toCheck) {
-        return this.password
-                .map(userPassword -> userPassword.equals(toCheck))
-                // if userPassword will never be equals to null if map is called
-                .orElse(true); // If the current user has no password, then anyone is allowed
+        return this.password == null || this.password.equals(toCheck);
     }
 
     public void setUsername(Username newUsername) {

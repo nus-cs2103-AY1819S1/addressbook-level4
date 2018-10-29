@@ -176,7 +176,7 @@ public class ModelManagerTest {
     public void equals() throws NoUserSelectedException {
         ExpenseTracker expenseTracker =
                 new ExpenseTrackerBuilder().withExpense(SCHOOLFEE).withExpense(ICECREAM).build();
-        ExpenseTracker differentExpenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), null);
+        ExpenseTracker differentExpenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, null, null);
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

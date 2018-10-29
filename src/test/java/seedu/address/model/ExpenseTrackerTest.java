@@ -34,7 +34,7 @@ public class ExpenseTrackerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(),
+    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, null,
             DEFAULT_ENCRYPTION_KEY);
 
     @Test

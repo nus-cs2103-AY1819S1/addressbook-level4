@@ -88,7 +88,7 @@ public class StorageManagerTest {
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleExpenseTrackerChangedEvent(
                 new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(
-                        new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(),
+                        new ExpenseTracker(ModelUtil.TEST_USERNAME, null,
                                 DEFAULT_ENCRYPTION_KEY))));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }

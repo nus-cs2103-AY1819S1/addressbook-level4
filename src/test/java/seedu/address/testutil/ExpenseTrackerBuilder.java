@@ -17,7 +17,7 @@ public class ExpenseTrackerBuilder {
     private ExpenseTracker expenseTracker;
 
     public ExpenseTrackerBuilder() {
-        expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_ENCRYPTION_KEY);
+        expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, null, DEFAULT_ENCRYPTION_KEY);
     }
 
     public ExpenseTrackerBuilder(ExpenseTracker expenseTracker) {

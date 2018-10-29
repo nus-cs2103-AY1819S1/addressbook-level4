@@ -45,7 +45,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyExpenseTracker getSampleExpenseTracker() {
-        ExpenseTracker sampleAb = new ExpenseTracker(new Username("sample"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
+        ExpenseTracker sampleAb = new ExpenseTracker(new Username("sample"), null, DEFAULT_ENCRYPTION_KEY);
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }

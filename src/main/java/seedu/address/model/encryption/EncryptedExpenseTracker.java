@@ -15,7 +15,7 @@ import seedu.address.model.user.Username;
  */
 public class EncryptedExpenseTracker {
     private Username username;
-    private final Optional<Password> password;
+    private final Password password;
     private final UniqueEncryptedExpenseList expenses;
     private final Budget maximumBudget;
 
@@ -23,11 +23,11 @@ public class EncryptedExpenseTracker {
      * Creates an empty EncryptedExpenseTracker with the given username.
      * @param username the username associated to the ExpenseTracker
      */
-    public EncryptedExpenseTracker(Username username, Optional<Password> password) {
+    public EncryptedExpenseTracker(Username username, Password password) {
         this(username, password, new Budget("28.00"));
     }
 
-    public EncryptedExpenseTracker(Username username, Optional<Password> password, Budget budget) {
+    public EncryptedExpenseTracker(Username username, Password password, Budget budget) {
         this.username = username;
         this.password = password;
         this.expenses = new UniqueEncryptedExpenseList();
@@ -58,10 +58,7 @@ public class EncryptedExpenseTracker {
      * @return true if the user has no password or if the input password matches his/her password, or else false
      */
     public boolean isMatchPassword(Password toCheck) {
-        return this.password
-                .map(userPassword -> userPassword.equals(toCheck))
-                // if userPassword will never be equals to null if map is called
-                .orElse(true); // If the current user has no password, then anyone is allowed
+        return this.password == null || this.password.equals(toCheck);
     }
 
     /**
@@ -80,7 +77,7 @@ public class EncryptedExpenseTracker {
     }
 
     public Optional<Password> getPassword() {
-        return password;
+        return Optional.ofNullable(password);
     }
 
     public Username getUsername() {

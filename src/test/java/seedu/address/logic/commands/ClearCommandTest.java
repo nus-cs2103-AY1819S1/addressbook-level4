@@ -40,7 +40,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
 
         Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
-        expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), Optional.empty(),
+        expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), null,
                 DEFAULT_ENCRYPTION_KEY));
 
         Budget clearedBudget = model.getMaximumBudget();

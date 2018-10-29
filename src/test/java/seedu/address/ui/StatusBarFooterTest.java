@@ -37,7 +37,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         try {
             EVENT_STUB = new ExpenseTrackerChangedEvent(EncryptionUtil
                         .encryptTracker(
-                                new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_ENCRYPTION_KEY)));
+                                new ExpenseTracker(ModelUtil.TEST_USERNAME, null, DEFAULT_ENCRYPTION_KEY)));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Default key is illegal");
         }

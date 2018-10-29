@@ -59,9 +59,9 @@ public class XmlSerializableExpenseTracker {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
         EncryptedExpenseTracker expenseTracker;
         if (budget == null) {
-            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional);
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null));
         } else {
-            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional,
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null),
                     budget.toModelType());
         }
         for (XmlAdaptedExpense p : expenses) {

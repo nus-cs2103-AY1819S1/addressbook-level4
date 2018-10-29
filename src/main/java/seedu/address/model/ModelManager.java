@@ -407,7 +407,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
         if (expenseTrackers.putIfAbsent(newUsername,
-                new EncryptedExpenseTracker(newUsername, Optional.empty())) != null) {
+                new EncryptedExpenseTracker(newUsername, null)) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }

@@ -112,7 +112,7 @@ public class TypicalExpenses {
      */
     public static ExpenseTracker getTypicalExpenseTracker() {
         double expense = 0;
-        ExpenseTracker ab = new ExpenseTracker(SAMPLE_USERNAME, Optional.empty(), DEFAULT_ENCRYPTION_KEY);
+        ExpenseTracker ab = new ExpenseTracker(SAMPLE_USERNAME, null, DEFAULT_ENCRYPTION_KEY);
         for (Expense e : getTypicalExpenses()) {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();

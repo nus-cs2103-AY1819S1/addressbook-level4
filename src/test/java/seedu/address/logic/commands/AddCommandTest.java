@@ -326,7 +326,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override
@@ -359,7 +359,7 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override

@@ -131,7 +131,7 @@ public class XmlExpensesStorageTest {
     @Test
     public void saveExpenseTracker_nullFilePath_throwsNullPointerException() throws IllegalValueException {
         thrown.expect(NullPointerException.class);
-        saveExpenseTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_ENCRYPTION_KEY), null);
+        saveExpenseTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, null, DEFAULT_ENCRYPTION_KEY), null);
     }
 
 
