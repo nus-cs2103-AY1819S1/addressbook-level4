@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandSuccess;
@@ -119,6 +121,21 @@ public class RegisterCommandTest {
 
         assertCommandFailure(new RegisterCommand(Index.fromOneBased(1)), commandHistory, patientQueue,
                 currentPatient, servedPatientList, model, MESSAGE_DUPLICATE_PATIENT);
+    }
+
+    @Test
+    public void equals() {
+        final RegisterCommand standardCommand = new RegisterCommand(INDEX_FIRST_PERSON);
+
+        RegisterCommand commandWithSameValues = new RegisterCommand(INDEX_FIRST_PERSON);
+
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        assertFalse(standardCommand.equals(null));
+
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        assertFalse(standardCommand.equals(new RegisterCommand(INDEX_SECOND_PERSON)));
     }
 
 }

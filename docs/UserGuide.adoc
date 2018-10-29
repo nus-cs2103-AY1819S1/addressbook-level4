@@ -27,15 +27,15 @@ You will have *all the tools* needed to manage your patient and medicine data, c
 
 Follow the steps below to get started with CLInic.
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Check that you have Java version `9` or later installed in your Computer.
 .  Download the latest `CLInic.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI will appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. type *`help`* and press kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
@@ -57,6 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `[b/BLOOD_TYPE] [da/DRUG_ALLERGY]` can be used as `b/A+ da/Panadol` or as `b/A+`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[da/DRUG_ALLERGY]...` can be used as `{nbsp}` (i.e. 0 times), `da/Panadol`, `da/Panadol da/Zyrtec` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* <INDEX> refers to the index number shown in the displayed patient or medicine list.
 ====
 
 === Patient
@@ -151,7 +152,6 @@ Alias: `s` +
 Format: `select INDEX`
 
 ****
-* Selects the patient and loads the Google search page the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -199,7 +199,17 @@ Format: `editMedicine index sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRI
 Example:
 
 * `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
-Edits the information of the medicine based on the inputs.
+Edits the information of the medicine at index 1 based on the inputs.
+
+==== Restocking a medicine : `restock`
+
+Restocks the medicine in the current records. +
+Format: `restock index amt/<AMOUNT>`
+
+Example:
+
+* `restock 2 amt/123` +
+Adds 123 to the current stock of medicine at index 2.
 
 ==== Listing all medicine in stock : `listStock`
 
@@ -226,9 +236,9 @@ Alias: `cS` +
 Format: `checkStock`
 
 
+// tag::pqms[]
 === Queue Management
 
-// tag::pqms[]
 ==== Listing all Patients in Patient Queue : `queue`
 
 Lists all patients in queue waiting to see the doctor. +
@@ -252,7 +262,6 @@ Removes someone from the queue if he/she leaves before being served. +
 Alias: `rem` +
 Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
 
-
 Examples:
 
 * `remove 5` +
@@ -264,13 +273,13 @@ Remove patient with IC Number S9382839X from the queue.
 
 Inserts a patient at specified position in the queue. +
 Alias: `ins` +
-Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION> [coming soon]`
+Format: `insert <INDEX> p/<POSITION>` or `insert <IC Number> p/<POSITION> [coming soon]`
 
 Examples:
 
-* `insert 4 5` +
+* `insert 4 p/5` +
 Insert the 4th person of the address book into the 5th index of the queue.
-* `insert S9123456A 5` +
+* `insert S9123456A p/5` +
 Insert the patient with that IC number to the 5th index of the queue.
 
 
@@ -280,10 +289,43 @@ Serves the patient first in queue. +
 Alias: `ser` +
 Format: `serve`
 
+==== Adding documents to Current Patient : `docAdd`
+
+Add documents to the Current Patient +
+Alias: `da` +
+Format: `docAdd [mc/<MC>] [n/<NOTE>] [r/<REFERRAL>]`
+
+****
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* You can remove any of the patient’s documents by typing prefix/ without specifying any document after it.
+****
+
+Examples
+
+* `docAdd mc/3 days n/fever`
+* `docAdd r/Ng Teng Fong Hospital`
+
+==== Dispensing Medicine to Current Patient : `dispenseMedicine`
+
+Add medicine to the Current Patient +
+Alias: `dm` +
+Format `dispenseMedicine <INDEX> amt/<AMOUNT`
+
+Examples:
+
+*`dispenseMedicine 1 amt/10` +
+*`dispenseMedicine 5 amt/2`
+
 ==== Finish serving the Current Patient : `finish`
 
 Transfers the current patient to the Served Patient Queue. +
 Format: `finish`
+
+[NOTE]
+====
+This command cannot be called if no note has been added to the patient. Use `docAdd` command to add notes.
+====
 
 // end::pqms[]
 ==== Generating Medical Certificate : `mc`

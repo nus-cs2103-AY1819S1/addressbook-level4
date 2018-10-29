@@ -56,7 +56,7 @@ public class Note {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getMessage())
-                .append(" [Presciption: ")
+                .append(" [Prescription: ")
                 .append(convertDispensedMedicinesToPrettyString())
                 .append("]");
         return builder.toString();

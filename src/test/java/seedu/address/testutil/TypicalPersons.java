@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
@@ -59,6 +60,13 @@ public class TypicalPersons {
     public static final Patient IDA = new PersonBuilder().withName("Ida Mueller").withIcNumber("S1234567X")
             .withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Patient TYPO_IN_NAME_ALICE = new PersonBuilder()
+            .withName("Alice       Pauline")
+            .withIcNumber("S2234567X")
+            .withAddress("124, Jurong West Ave 6, #08-211").withEmail("typoalice@example.com")
+            .withPhone("99351253")
+            .withTags("friendly")
+            .withMedicalRecord("").build();
 
     // Manually added - Patient's details found in {@code CommandTestUtil}
     public static final Patient AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -87,4 +95,13 @@ public class TypicalPersons {
     public static List<Patient> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    public static List<Patient> getSamplePersonsLinkedList() {
+        return new LinkedList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Patient> getSamplePersonsArrayList() {
+        return new ArrayList<>(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 }
+

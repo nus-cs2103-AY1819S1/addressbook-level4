@@ -122,10 +122,9 @@ public class DocumentWindow extends UiPart<Stage> {
     }
 
     /**
-     * Focuses on the receipt window.
+     * Focuses on the document window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
-
 }

@@ -30,6 +30,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first patient in the list, command with leading spaces and trailing spaces -> deleted */
+
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         Patient deletedPatient = removePerson(expectedModel, INDEX_FIRST_PERSON);

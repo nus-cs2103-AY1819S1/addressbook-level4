@@ -156,7 +156,6 @@ public class Patient {
         if (!(other instanceof Patient)) {
             return false;
         }
-
         Patient otherPatient = (Patient) other;
         System.out.println(otherPatient.getMedicalRecord());
         System.out.println(getMedicalRecord());

@@ -253,5 +253,4 @@ public class MainWindow extends UiPart<Stage> {
         listPanelPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
     }
-
 }

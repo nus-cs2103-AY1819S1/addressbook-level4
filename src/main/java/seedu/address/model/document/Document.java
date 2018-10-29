@@ -8,16 +8,22 @@ import java.io.FileReader;
 //import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.fxml.FXML;
 import seedu.address.MainApp;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
+import seedu.address.model.services.Service;
+import seedu.address.ui.DocumentWindow;
 
 /**
  * The document class takes in all the information from the classes that extends it to generate a HTML file
@@ -28,6 +34,7 @@ public class Document {
 
     //Formatting the path to the directory all documents should be saved in
     public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
+    public static final String DOCUMENT_WINDOW_PATH = "/view/Documents/";
     public static final String FILE_NAME_DELIMITER = "_For_";
     private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
     private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
@@ -50,15 +57,25 @@ public class Document {
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
+    private static String documentFilePath;
+    private static String documentWindowPath;
     private File file;
     private Name name;
-    private String fileName;
     private String fileType;
     private IcNumber icNumber;
 
-    //variables specific to receipt but here because of checkstyle issues
-    private float totalPrice = 0;
-    private Map<Medicine, QuantityToDispense> allocatedMedicine;
+    /**
+     * Opens a preview of the document in a document window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void showDocument() {
+        DocumentWindow documentWindow = new DocumentWindow(documentWindowPath);
+        if (!documentWindow.isShowing()) {
+            documentWindow.show();
+        } else {
+            documentWindow.focus();
+        }
+    }
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -68,16 +85,18 @@ public class Document {
      * actual writing of the bytes into a file.
      */
     public void generateDocument() {
-        makeFileName();
-        makeFile(writeContentsIntoDocument());
+        String fileName = makeFileName();
+        makeFile(fileName, writeContentsIntoDocument());
+        //showDocument();
     }
 
     /**
      * Formats the file name of the object that extends document.
      * */
-    private void makeFileName() {
-        fileName = fileType + FILE_NAME_DELIMITER + name.toString().replaceAll("\\s", "")
-                + "_" + icNumber.toString();
+    private String makeFileName() {
+        return (fileType + FILE_NAME_DELIMITER + name.toString() + "_" + icNumber.toString())
+                .replaceAll("\\s", "_")
+                .replaceAll("(_)+", "_");
     }
 
     /**
@@ -120,8 +139,10 @@ public class Document {
         informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
         if (this instanceof Receipt) {
             informationFieldPairs.put(CONTENT_PLACEHOLDER, formatReceiptInformation());
-        } else {
-            informationFieldPairs.put(CONTENT_PLACEHOLDER, "Lorem ipsum dolor sit amet.");
+        } else if (this instanceof MedicalCertificate) {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatMcInformation());
+        } else if (this instanceof ReferralLetter) {
+            informationFieldPairs.put(CONTENT_PLACEHOLDER, formatRlInformation());
         }
         return informationFieldPairs;
     }
@@ -129,8 +150,10 @@ public class Document {
     /**
      * The actual generation of the file representing the document using the updated HTML code.
      */
-    private void makeFile(String htmlContent) {
-        file = new File(DIRECTORY_PATH + fileName + ".html");
+    private void makeFile(String fileName, String htmlContent) {
+        documentFilePath = DIRECTORY_PATH + fileName + ".html";
+        documentWindowPath = DOCUMENT_WINDOW_PATH + fileName + ".html";
+        file = new File(documentFilePath);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bos.write(htmlContent.getBytes());
@@ -165,14 +188,46 @@ public class Document {
      * Formats all the relevant information of a receipt in HTML for the served patient.
      */
     String formatReceiptInformation() {
+        Receipt receipt = (Receipt) this;
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append(RECEIPT_HEADER)
                 .append(RECEIPT_HEADER_CONTENT)
-                .append(unpackTypesOfServices())
-                .append(unpackMedicineAllocation(this.allocatedMedicine))
+                .append(unpackTypesOfServices(receipt.getServicesRendered()))
+                .append(unpackMedicineAllocation(receipt.getAllocatedMedicine()))
                 .append(RECEIPT_END_CONTENT_WITHOUT_PRICE)
-                .append(String.format("%.02f", this.totalPrice))
+                .append(String.format("%.02f", receipt.getTotalPrice()))
                 .append(RECEIPT_END);
+        return stringbuilder.toString();
+    }
+
+    /**
+     * Formats all the relevant information of a MC in HTML for the served patient.
+     */
+    String formatMcInformation() {
+        MedicalCertificate mc = (MedicalCertificate) this;
+        int numMcDays = mc.getMcDays();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append("This is to certify that the above-named patient is unfit for duty for a period of ")
+                .append(numMcDays)
+                .append(" day(s), from ")
+                .append(LocalDate.now().format(formatter))
+                .append(" to ")
+                .append(LocalDate.now().plusDays(numMcDays - 1).format(formatter))
+                .append(" inclusive.<br><br>")
+                .append("This certificate is not valid for absence from court attendance.<br><br>");
+        return stringbuilder.toString();
+    }
+
+    /**d
+     * Formats all the relevant information of a RL in HTML for the served patient.
+     */
+    String formatRlInformation() {
+        StringBuilder stringbuilder = new StringBuilder();
+        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br><br>")
+                .append("Kindly do accept him under your care. Thank you very much.<br><br>")
+                .append("<b>Issuing Doctor:<b> " + "<br><br>");
         return stringbuilder.toString();
     }
 
@@ -180,11 +235,28 @@ public class Document {
      * Extracts all the types of services rendered by the clinic for the served patient and formats it into
      * a table to be reflected in the HTML file.
      */
-    private String unpackTypesOfServices() {
-        //placeholder
-        //private String unpackConsultationInformation(Map<String, Integer> treatmentsReceived) {
-        return "<tr><td>Consultation" + HTML_TABLE_DATA_DIVIDER + "1" + HTML_TABLE_DATA_DIVIDER + "30.00"
-                + HTML_TABLE_DATA_DIVIDER + "30.00</td></tr>";
+    private String unpackTypesOfServices(ArrayList<Service> servicesRendered) {
+        Receipt receipt = (Receipt) this;
+        StringBuilder stringBuilder = new StringBuilder();
+        String serviceName;
+        int servicePrice;
+        for (Service s : servicesRendered) {
+            serviceName = s.toString();
+            servicePrice = Integer.parseInt(s.getPrice().toString());
+            receipt.increaseTotalPriceBy(servicePrice);
+
+            stringBuilder.append("<tr><td>")
+                    .append(serviceName)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(1)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(servicePrice)
+                    .append(HTML_TABLE_DATA_DIVIDER)
+                    .append(servicePrice)
+                    .append("</td></tr>");
+
+        }
+        return stringBuilder.toString();
     }
 
     /**
@@ -194,6 +266,7 @@ public class Document {
      *                          and their individual respective quantities
      */
     private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
+        Receipt receipt = (Receipt) this;
         StringBuilder stringBuilder = new StringBuilder();
         int quantity;
         int pricePerUnit;
@@ -205,7 +278,7 @@ public class Document {
             quantity = entry.getValue().getValue();
             pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
-            this.totalPrice += totalPriceForSpecificMedicine;
+            receipt.increaseTotalPriceBy(totalPriceForSpecificMedicine);
 
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
@@ -232,9 +305,6 @@ public class Document {
         this.fileType = fileType;
     }
 
-    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
-        this.allocatedMedicine = allocatedMedicine;
-    }
     public File getFile() {
         return file;
     }

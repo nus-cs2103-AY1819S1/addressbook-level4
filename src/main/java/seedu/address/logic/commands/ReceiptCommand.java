@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowDocumentEvent;
 import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
@@ -55,6 +56,7 @@ public class ReceiptCommand extends QueueCommand {
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
         EventsCenter.getInstance().post(new ShowDocumentWindowRequestEvent(receipt));
+        // EventsCenter.getInstance().post(new ShowDocumentEvent());
         return new CommandResult(String.format(MESSAGE_GENERATE_RECEIPT_SUCCESS));
     }
 

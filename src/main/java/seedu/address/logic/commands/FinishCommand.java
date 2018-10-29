@@ -27,7 +27,7 @@ public class FinishCommand extends QueueCommand {
 
     public static final String MESSAGE_SUCCESS = "Finish Serving patient: ";
     public static final String MESSAGE_EMPTY_CURRENT_PATIENT = "There is no current patient!";
-    public static final String MESSAGE_EMPTY_NOTE_CONTENT = "No note has been added! Please add one!";
+    public static final String MESSAGE_EMPTY_NOTE = "Add a note to patient before using the finish command.";
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
@@ -38,11 +38,8 @@ public class FinishCommand extends QueueCommand {
             throw new CommandException(MESSAGE_EMPTY_CURRENT_PATIENT);
         }
 
-        // Every vist to the doctor is required to have a doctor's notes.
-        // The others (prescription, referral, MC) are not compulsory.
-        if (currentPatient.getNoteContent().equals("")) {
-            // Empty note content --> reject FinishCommand
-            throw new CommandException(MESSAGE_EMPTY_NOTE_CONTENT);
+        if (currentPatient.getNoteContent() == "") {
+            throw new CommandException(MESSAGE_EMPTY_NOTE);
         }
 
         String currentPatientNameIc = currentPatient.toNameAndIc();

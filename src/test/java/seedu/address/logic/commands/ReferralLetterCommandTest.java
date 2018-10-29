@@ -26,7 +26,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
-import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.testutil.TypicalPersons;
@@ -34,6 +33,7 @@ import seedu.address.testutil.TypicalPersons;
 public class ReferralLetterCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private PatientQueue patientQueue;
@@ -45,14 +45,13 @@ public class ReferralLetterCommandTest {
     public void setUp() {
         patientQueue = new PatientQueueManager();
         currentPatient = new CurrentPatient();
-        servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
     }
 
     @Test
     public void execute_validServedPatient_referralMessageSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = ReferralLetterCommand.MESSAGE_GENERATE_REFERRAL_SUCCESS;
         ReferralLetterCommand referralLetterCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
         CommandResult commandResult = referralLetterCommand.execute(model, patientQueue,
@@ -72,7 +71,6 @@ public class ReferralLetterCommandTest {
 
     @Test
     public void execute_mcFileName_mcGenerationSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReferralLetterCommand referralLetterCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
         referralLetterCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
         String fileType = referralLetterCommand.getRl().FILE_TYPE;
@@ -82,7 +80,6 @@ public class ReferralLetterCommandTest {
 
     @Test
     public void equals() {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         ReferralLetterCommand rlAliceCommand = new ReferralLetterCommand(INDEX_FIRST_PERSON);
         ReferralLetterCommand rlBobCommand = new ReferralLetterCommand(INDEX_SECOND_PERSON);
 
