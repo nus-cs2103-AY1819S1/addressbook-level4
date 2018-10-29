@@ -402,10 +402,10 @@ Format: `exportpatients`
 
 The personal information consists of the following fields:
 ****
-* Name
-* Address
-* Phone
-* Email
+* Name: the patient's name.
+* Address: the patient's address.
+* Phone: the patient's phone number.
+* Email: the patient's email address.
 ****
 
 ==== Exporting patients appointment records : `exportpatientsappointments`
@@ -415,15 +415,17 @@ Format: `exportpatientsappointments`
 
 Each appointment record consists of the following fields:
 ****
-* Name: The patient's name.
-* Address: The patient's address.
-* Phone: The patient's phone number.
-* Email: The patient's email address.
-* Date: The appointment's date.
-* Time: The appointment's time.
-* Status: The appointment's status. May be either `APPROVED` or `CANCELLED`.
-* Type: The type of appointment. May be either `NEW` or `FOLLOW_UP`.
+* Name: the patient's name.
+* Address: the patient's address.
+* Phone: the patient's phone number.
+* Email: the patient's email address.
+* Date: the appointment's date.
+* Time: the appointment's time.
+* Status: the appointment's status. May be either `APPROVED` or `CANCELLED`.
+* Type: the type of appointment. May be either `NEW` or `FOLLOW_UP`.
 ****
+
+Go to <<Appointment Commands>> for more details.
 
 ==== Exporting patients consultation records : `exportpatientsconsultations`
 
@@ -432,20 +434,20 @@ Format: `exportpatientsconsultations`
 
 Each consultation record consists of the following fields:
 ****
-* Name: The patient's name.
-* Address: The patient's address.
-* Phone: The patient's phone number.
-* Email: The patient's email address.
-* Date: The consultation's date.
-* Arrival Time: The arrival time of the patient at the clinic.
-* Consultation Time: The consultation's start time.
-* End time: The end time of the consultation.
-* Doctor: The doctor being consulted.
-* Prescription: The prescribed ascribed to the patient.
-* Description: The doctor's notes on the patient.
-* Appointment: Whether the consultation is the result of an appointment. May be either `YES` or `NO`.
-* Appointment Date: The date of the appointment resulting in the consultation. Empty if no appointment was made.
-* Appointment Time: The time of the appointment resulting in the consultation. Empty if no appointment was made.
+* Name: the patient's name.
+* Address: the patient's address.
+* Phone: the patient's phone number.
+* Email: the patient's email address.
+* Date: the consultation's date.
+* Arrival Time: the arrival time of the patient at the clinic.
+* Consultation Time: the consultation's start time.
+* End time: the end time of the consultation.
+* Doctor: the doctor being consulted.
+* Prescription: the prescribed ascribed to the patient.
+* Description: the doctor's notes on the patient.
+* Appointment: whether the consultation is the result of an appointment. May be either `YES` or `NO`.
+* Appointment Date: the date of the appointment resulting in the consultation. Empty if no appointment was made.
+* Appointment Time: the time of the appointment resulting in the consultation. Empty if no appointment was made.
 ****
 // end::datacommands[]
 
