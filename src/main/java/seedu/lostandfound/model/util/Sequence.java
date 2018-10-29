@@ -5,7 +5,7 @@ package seedu.lostandfound.model.util;
  */
 public class Sequence {
     private static Sequence theOne;
-    private int next;
+    private Integer next;
 
     private Sequence() {
         next = 0;
@@ -18,11 +18,11 @@ public class Sequence {
         return theOne;
     }
 
-    public int next() {
+    public Integer next() {
         return next++;
     }
 
-    public void set(int x) {
+    public void set(Integer x) {
         next = Math.max(next, x + 1);
     }
 }
