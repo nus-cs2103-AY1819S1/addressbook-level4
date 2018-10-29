@@ -61,7 +61,7 @@ public class ShutDownCommand extends Command {
         Ride rideToOpen = lastShownList.get(index.getZeroBased());
         Ride editedRide = createUpdatedRide(rideToOpen, shutdownRideDescriptor);
 
-        if (!rideToOpen.isSameRide(editedRide) && model.hasPerson(editedRide)) {
+        if (rideToOpen.isSameRide(editedRide) && rideToOpen.equals(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
