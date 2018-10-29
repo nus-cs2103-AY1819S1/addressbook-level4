@@ -44,7 +44,7 @@ public class ViewmhCommand extends Command {
         Person patientToView = getPatient(model);
         MedicalHistory patientMedicalHistory = patientToView.getMedicalHistory();
 
-        if (patientMedicalHistory.size() == 0) {
+        if (patientMedicalHistory.getObservableCopyOfMedicalHistory().size() == 0) {
             return new CommandResult(String.format(MESSAGE_NO_ENTRIES, patientNric));
         }
 
