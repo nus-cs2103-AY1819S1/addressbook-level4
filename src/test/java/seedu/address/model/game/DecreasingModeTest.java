@@ -2,6 +2,10 @@ package seedu.address.model.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,9 +13,6 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 // @@author chikchengyao
 
@@ -40,7 +41,7 @@ public class DecreasingModeTest {
     }
 
     private AdjustableTimeDecreasingMode atdm;
-    TaskBuilder tb;
+    private TaskBuilder tb;
 
     private int daysBefore = 7;
     private int overdueXp = 700;
@@ -57,7 +58,7 @@ public class DecreasingModeTest {
     }
 
     @Test
-    public void constructor_DecreasingMode() {
+    public void constructorTest() {
         DecreasingMode dm1 = new DecreasingMode();
         DecreasingMode dm2 = new DecreasingMode(7, 50, 100);
     }

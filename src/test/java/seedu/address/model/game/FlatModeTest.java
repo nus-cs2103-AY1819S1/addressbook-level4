@@ -24,7 +24,7 @@ public class FlatModeTest {
     }
 
     @Test
-    public void construtor_FlatMode() {
+    public void constructorTest() {
         FlatMode fm1 = new FlatMode();
         FlatMode fm2 = new FlatMode(50, 100);
     }

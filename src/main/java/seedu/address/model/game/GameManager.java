@@ -1,6 +1,5 @@
 package seedu.address.model.game;
 
-import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.task.Task;
 
 // @@author chikchengyao
