@@ -1,0 +1,54 @@
+= Syahiran Rafi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 4
+
+---
+
+== Overview
+
+CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application. CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the programming language and uses JavaFX, HTML and CSS for the GUI.
+
+My task in
+
+== Summary of contributions
+
+* *Major enhancement*: supported the implementation of the `*Document*` class, along with its accompanying
+                       extending classes `MedicalCertificate` and `ReferralLetter`.
+** What it does: takes in information like the duration of medical leave and referral notes by the doctor to generate the medical certificate and referral letter document respectively.
+** Justification: this feature makes it easier to generate documents that need to be frequently generated in a clinic, reducing administrative duties for clinic staff and hopefully shortening wait times for patients.
+** Highlights: this feature allows for a seamless transfer of information between doctors and clinic staff, as well as a fast retrieval of information from the application's database of `Patient` and `Medicine` information.
+
+
+* *Minor enhancement*: added *shorthand codes or aliases* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
+** Justification: Some commands like `dispenseMedicine` and `MedicalCertificate` are really long, so it can be troublesome for the user to type the whole command in order to execute the command.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Edited the language, style and tone of the User Guide: https://github.com[#14]
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=document]
+
