@@ -49,6 +49,8 @@ public class CalendarDisplay extends UiPart<Region> {
         initAgenda(); // set up agenda internally
         setConnections(calendarEventList);
         setControls();
+
+        agenda.getStylesheets().add("view/ModifiedAgenda.css"); // "src/main/resources/view/
     }
 
     /**
@@ -194,4 +196,5 @@ public class CalendarDisplay extends UiPart<Region> {
         currentDateTime = currentDateTime.minusDays(1);
         agenda.setDisplayedLocalDateTime(currentDateTime);
     }
+
 }
