@@ -17,6 +17,7 @@ import seedu.parking.model.carpark.Coordinate;
 import seedu.parking.model.carpark.FreeParking;
 import seedu.parking.model.carpark.LotsAvailable;
 import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
@@ -48,7 +49,8 @@ public class QueryCommand extends Command {
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
                     new NightParking(carpark.get(6)), new ShortTerm(carpark.get(7)),
-                    new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), null);
+                    new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), new PostalCode(carpark.get(10)),
+                    null);
             carparkList.add(c);
         }
         return carparkList;
