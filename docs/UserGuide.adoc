@@ -470,7 +470,6 @@ Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEA
 [NOTE]
 ====
 * The CCA specifed must exist in the Hallper.
-* The name of the head and vice-head may or may not exist in Hallper.
 * The transaction number specified with `trans/` must exist.
 * `undo` and `redo` command does not apply to `update`.
 ====
