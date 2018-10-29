@@ -3,8 +3,12 @@ package seedu.lostandfound.model.image;
 import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.regex.Pattern;
 
 import seedu.lostandfound.commons.util.FileUtil;
@@ -19,30 +23,40 @@ public class Image {
     public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
     private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
     private static final Sequence SEQUENCE = Sequence.getInstance();
+    private static final String IMAGE_FOLDER = Paths.get("images");
 
-    private final Path path;
-    private String filename;
+    public String filename;
+    private Path path;
     private String basename;
-    private String extension;
     private Integer id;
+
     /**
      * Constructs a {@code Image}.
      *
-     * @param path a valid path.
+     * @param file a valid image file.
      */
-    public Image(String path) {
-        requireNonNull(path);
-        checkArgument(isValid(path), MESSAGE_CONSTRAINTS);
-        this.path = Paths.get(path);
-        String[] splittedFilename = filename.split("\\.");
-        this.basename = splittedFilename[0];
-        this.extension = splittedFilename[1];
-        this.id = Integer.parseInt(basename);
+    public Image(String file) {
+        requireNonNull(file);
+        checkArgument(isValid(file), MESSAGE_CONSTRAINTS);
+        path = Paths.get(file);
+        filename = FileUtil.getFilename(path);
+        basename = FileUtil.getBasename(path);
+        id = Integer.parseInt(basename);
         SEQUENCE.set(id));
     }
 
-    public String getFilename() {
-        return this.filename;
+    public Image(Path file) {
+        this(file.toString());
+    }
+
+    public static Image create(String pathName) {
+        return Image.create(Paths.get(pathName));
+    }
+
+    public static Image create(Path path) {
+        Path target = Paths.get(IMAGE_FOLDER + SEQUENCE.next() + FileUtil.getExtension(path));
+        FileUtil.copy(path, target);
+        return new Image(target);
     }
 
     /**
