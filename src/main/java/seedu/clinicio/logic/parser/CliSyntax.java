@@ -21,7 +21,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_MEDICATIONS_LIST = new Prefix("medList/");
     public static final Prefix PREFIX_ALLERGIES = new Prefix("allergies/");
     public static final Prefix PREFIX_PREFERRED_DOCTOR = new Prefix("preferredDoc/");
-    
+
     /* Login Prefix definitions */
     public static final Prefix PREFIX_ROLE = new Prefix("r/");
     public static final Prefix PREFIX_PASSWORD = new Prefix("pass/");

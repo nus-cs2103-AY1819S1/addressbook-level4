@@ -9,7 +9,6 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATIONS_LIST;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
