@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalPersons.ELLE_UNTAGGED;
 import static seedu.address.testutil.TypicalPersons.GEORGE_UNTAGGED;
 import static seedu.address.testutil.TypicalPersons.HENRY_POSB;
 import static seedu.address.testutil.TypicalPersons.HENRY_SINGAPOREAN;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTaggedAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import seedu.address.model.tag.PersonContainsTagPredicate;
 
 //@@author A19Sean
 public class TagDeleteCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTaggedAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -35,14 +35,12 @@ public class TypicalPersons {
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street")
-            .withTags("Singaporean", "OCBC")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave")
-            .withTags("Singaporean")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo")
@@ -50,13 +48,11 @@ public class TypicalPersons {
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street")
-            .withTags("OCBC")
             .withPicture("/images/placeholder_image.jpg").build();
     // Without certain fields (still typical)
     // Without phone
     public static final Person HENRY = new PersonBuilder().withName("Henry Golding").withoutPhone()
             .withEmail("henry@example.com").withAddress("Crazy Rich Street")
-            .withTags("Singaporean", "POSB")
             .withPicture("/images/placeholder_image.jpg").build();
     // Without email
     public static final Person IANNA = new PersonBuilder().withName("Ianna Cluse").withPhone("83848586")
@@ -79,6 +75,24 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+
+    // Contacts with tags to be removed
+    public static final Person CARL_TAGGED = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
+            .withEmail("heinz@example.com").withAddress("wall street")
+            .withTags("Singaporean", "OCBC")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person ELLE_TAGGED = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+            .withEmail("werner@example.com").withAddress("michegan ave")
+            .withTags("Singaporean")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person GEORGE_TAGGED = new PersonBuilder().withName("George Best").withPhone("9482442")
+            .withEmail("anna@example.com").withAddress("4th street")
+            .withTags("OCBC")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person HENRY_TAGGED = new PersonBuilder().withName("Henry Golding").withoutPhone()
+            .withEmail("henry@example.com").withAddress("Crazy Rich Street")
+            .withTags("Singaporean", "POSB")
+            .withPicture("/images/placeholder_image.jpg").build();
 
     // Untagged persons
     public static final Person CARL_UNTAGGED = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
@@ -116,5 +130,15 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, IANNA, JENNY));
+    }
+
+    public static AddressBook getTaggedAddressBook() {
+        AddressBook ab = new AddressBook();
+        List<Person> scheduledPeople = new ArrayList<>(Arrays.asList(CARL_TAGGED, ELLE_TAGGED, GEORGE_TAGGED,
+                HENRY_TAGGED));
+        for (Person person : scheduledPeople) {
+            ab.addPerson(person);
+        }
+        return ab;
     }
 }
