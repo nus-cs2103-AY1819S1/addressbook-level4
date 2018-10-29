@@ -17,16 +17,27 @@ public class TypicalDecks {
     public static final Deck DECK_C = new DeckBuilder().withName("Calculus").build();
     public static final Deck DECK_D = new DeckBuilder().withName("Darwinian Studies").build();
     public static final Deck DECK_E = new DeckBuilder().withName("Epistemology").build();
+
+
     public static final Deck DECK_WITH_CARDS = TypicalCards.getTypicalDeck();
 
     // Manually added
     public static final Deck DECK_F = new DeckBuilder().withName("Finance").build();
     public static final Deck DECK_G = new DeckBuilder().withName("Geometry").build();
+    public static final Deck DECK_H = new DeckBuilder().withName("John GraphQL").build();
+    public static final Deck DECK_I = new DeckBuilder().withName("John History").build();
+
+
+
+
+
+
+
     public static final Deck THERE = new DeckBuilder().withName("Baby there")
             .withCards(TypicalCards.getTypicalCards()).build();
     public static final Deck NOTHING = new DeckBuilder().withName("is nothing").build();
     public static final Deck HOLDING = new DeckBuilder().withName("holding me back").build();
-    public static final String KEYWORD_MATCHING_JOHN = "JOHN";
+    public static final String KEYWORD_MATCHING_JOHN = "John";
 
     private TypicalDecks() {
     } // prevents instantiation
