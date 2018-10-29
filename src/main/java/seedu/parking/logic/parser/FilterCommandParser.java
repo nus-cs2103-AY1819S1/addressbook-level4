@@ -6,12 +6,14 @@ import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.parser.exceptions.ParseException;
 
 /**
- * To be added
+ * Parses input arguments and creates a new FilterCommand object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
-     * To be added
+     * Parses the given {@code String} of arguments in the context of the FilterCommand
+     * and returns an FilterCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public FilterCommand parse(String args) throws ParseException {
 
@@ -23,12 +25,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         String[] flags = trimmedArgs.split("\\s+");
 
-        //System.out.println(flags[0]);   // [space]
-        //System.out.println(flags[1]);   // flag 1
-        //System.out.println(flags[2]);   // flag 2
-
         return new FilterCommand(flags);
-
     }
-
 }

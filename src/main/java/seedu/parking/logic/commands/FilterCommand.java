@@ -14,25 +14,23 @@ import seedu.parking.model.Model;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.model.carpark.CarparkFilteringPredicate;
 
-
 /**
- * Filters car parks using to flags
+ * Filters the list of car parks returned by the previous find command with the use of flags
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
     public static final String COMMAND_ALIAS = "fi";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters the carpark based using flags.\n"
-            + "Flags:\n"
+            + ": Filters the list of car parks returned by the previous find command with the use of flags. Multiple flags can be used and in any order.\n"
+            + "Note: User must first find a list of car parks using the find command.\n"
+            + "Valid flags:\n"
             + "> Night Parking: n/ \n"
             + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ SUN 7.30AM 8.30PM\n"
-            + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n"
-            + "   SURFACE\n" + "   MUITISTOREY\n" + "   BASEMENT\n" + "   COVERED\n" + "   MECHANISED";
+            + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n";
 
-    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
     private Predicate predicate;
-    private String[] flags;
+    private final String[] flags;
 
     /**
      * Creates a FilterCommand with the relevant flags
@@ -44,16 +42,17 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
         requireNonNull(model);
-        List<String> flagList = Arrays.asList(flags);
 
-        // Todo: Location based filtering
-        // Get last findCommand predicate
         CarparkContainsKeywordsPredicate locationPredicate = model.getLastPredicateUsedByFindCommand();
-        List<String> locationKeywords = locationPredicate.getKeywords(); // find command must be executed first.
+        if (locationPredicate == null) {
+            throw new CommandException(Messages.MESSAGE_FINDCOMMAND_NEEDS_TO_BE_EXECUTED_FIRST);
+        }
 
-        this.predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
+        List<String> flagList = Arrays.asList(flags);
+        List<String> locationKeywords = locationPredicate.getKeywords();
+        predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
+
         model.updateFilteredCarparkList(predicate);
 
         return new CommandResult(

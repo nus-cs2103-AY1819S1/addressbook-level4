@@ -52,6 +52,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                 // Input time of user can only be of dateFormat2
                 Date inputStart = dateFormat2.parse(startTime);
                 Date inputEnd = dateFormat2.parse(endTime);
+
                 afterStart = inputStart.after(start) || inputStart.equals(start);
                 beforeEnd = inputEnd.before(end) || inputEnd.equals(end);
             }
@@ -91,6 +92,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
     @Override
     public boolean test(Carpark carpark) {
 
+        // Location filtering
         boolean correctLocation = locationKeywords.stream()
                 .anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
@@ -99,6 +101,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                                 || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().value, keyword)
                 );
 
+        // Filtering by various flags
         boolean collective = true;
 
         if (flagList.contains("n/")) {
@@ -112,8 +115,8 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             String day = flagList.get(index + 1).toUpperCase();
             String startTime = flagList.get(index + 2);
             String endTime = flagList.get(index + 3);
-
             String timePeriod = carpark.getFreeParking().value;
+
             boolean hasFreeParking = checkFreeParking(day, startTime, endTime, timePeriod);
 
             collective = collective && hasFreeParking;
@@ -122,8 +125,8 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             int index2 = flagList.indexOf("ct/");
 
             String selectedCarparkType = flagList.get(index2 + 1).toUpperCase();
-
             String carparkType = carpark.getCarparkType().value;
+
             boolean isCorrectType = checkCarParkType(selectedCarparkType, carparkType);
 
             collective = collective && isCorrectType;
