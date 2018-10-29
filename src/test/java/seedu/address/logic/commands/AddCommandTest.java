@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -105,6 +106,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getUnusedFunds() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyWishBook getWishBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -121,6 +127,11 @@ public class AddCommandTest {
 
         @Override
         public void updateWish(Wish target, Wish editedWish) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateUnusedFunds(Amount change) {
             throw new AssertionError("This method should not be called.");
         }
 

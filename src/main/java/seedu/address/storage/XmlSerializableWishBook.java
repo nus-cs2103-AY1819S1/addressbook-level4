@@ -21,6 +21,9 @@ public class XmlSerializableWishBook {
     public static final String MESSAGE_DUPLICATE_WISH = "Wish list contains duplicate wish(s).";
 
     @XmlElement
+    private XmlAdaptedSavedAmount xmlAdaptedSavedAmount;
+
+    @XmlElement
     private List<XmlAdaptedWish> wishes;
 
     /**
@@ -28,6 +31,7 @@ public class XmlSerializableWishBook {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableWishBook() {
+        xmlAdaptedSavedAmount = new XmlAdaptedSavedAmount("" + 0.0);
         wishes = new ArrayList<>();
     }
 
@@ -36,6 +40,7 @@ public class XmlSerializableWishBook {
      */
     public XmlSerializableWishBook(ReadOnlyWishBook src) {
         this();
+        xmlAdaptedSavedAmount = new XmlAdaptedSavedAmount(src.getUnusedFunds());
         wishes.addAll(src.getWishList().stream().map(XmlAdaptedWish::new).collect(Collectors.toList()));
     }
 
@@ -47,6 +52,7 @@ public class XmlSerializableWishBook {
      */
     public WishBook toModelType() throws IllegalValueException {
         WishBook wishBook = new WishBook();
+        wishBook.setUnusedFunds(xmlAdaptedSavedAmount.toSavedAmountType());
         for (XmlAdaptedWish p : wishes) {
             Wish wish = p.toModelType();
             if (wishBook.hasWish(wish)) {
@@ -66,6 +72,7 @@ public class XmlSerializableWishBook {
         if (!(other instanceof XmlSerializableWishBook)) {
             return false;
         }
-        return wishes.equals(((XmlSerializableWishBook) other).wishes);
+        return wishes.equals(((XmlSerializableWishBook) other).wishes)
+                && xmlAdaptedSavedAmount.equals(((XmlSerializableWishBook) other).xmlAdaptedSavedAmount);
     }
 }

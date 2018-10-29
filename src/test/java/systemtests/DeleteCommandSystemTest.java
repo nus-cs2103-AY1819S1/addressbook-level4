@@ -34,7 +34,8 @@ public class DeleteCommandSystemTest extends WishBookSystemTest {
 
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_WISH.getOneBased() + "       ";
         Wish deletedWish = removeWish(expectedModel, INDEX_FIRST_WISH);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish,
+                expectedModel.getUnusedFunds());
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last wish in the list -> deleted */
@@ -83,7 +84,7 @@ public class DeleteCommandSystemTest extends WishBookSystemTest {
         selectWish(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedWish = removeWish(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish);
+        expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish, expectedModel.getUnusedFunds());
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -130,7 +131,8 @@ public class DeleteCommandSystemTest extends WishBookSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Wish deletedWish = removeWish(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_WISH_SUCCESS, deletedWish,
+                expectedModel.getUnusedFunds());
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

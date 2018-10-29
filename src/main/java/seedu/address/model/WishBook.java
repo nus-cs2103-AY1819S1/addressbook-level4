@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.UniqueWishList;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
@@ -20,6 +22,7 @@ import seedu.address.model.wish.exceptions.DuplicateWishException;
 public class WishBook implements ReadOnlyWishBook {
 
     private final UniqueWishList wishes;
+    private SavedAmount unusedFunds;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,7 @@ public class WishBook implements ReadOnlyWishBook {
      */
     {
         wishes = new UniqueWishList();
+        unusedFunds = new SavedAmount("" + 0.0);
     }
 
     public WishBook() {}
@@ -59,6 +63,28 @@ public class WishBook implements ReadOnlyWishBook {
         requireNonNull(newData);
 
         setWishes(newData.getWishList());
+        setUnusedFunds(newData.getUnusedFunds());
+    }
+
+    /**
+     * Update the value of unused funds.
+     * @param change The amount to increment/decrease by.
+     */
+    public void updateUnusedFunds(Amount change) {
+        this.unusedFunds = this.unusedFunds.incrementSavedAmount(change);
+    }
+
+    /**
+     * Sets the value of the unused funds.
+     * @param amount The amount to set.
+     */
+    public void setUnusedFunds(SavedAmount amount) {
+        this.unusedFunds = amount;
+    }
+
+    @Override
+    public SavedAmount getUnusedFunds() {
+        return this.unusedFunds;
     }
 
     //// wish-level operations
@@ -95,6 +121,9 @@ public class WishBook implements ReadOnlyWishBook {
      * {@code key} must exist in the wish book.
      */
     public void removeWish(Wish key) {
+        if (!key.isFulfilled()) {
+            updateUnusedFunds(key.getSavedAmount().getAmount());
+        }
         wishes.remove(key);
     }
 
@@ -139,7 +168,8 @@ public class WishBook implements ReadOnlyWishBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WishBook // instanceof handles nulls
-                && wishes.equals(((WishBook) other).wishes));
+                && wishes.equals(((WishBook) other).wishes)
+                && unusedFunds.equals(((WishBook) other).unusedFunds));
     }
 
     @Override

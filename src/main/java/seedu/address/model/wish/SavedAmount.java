@@ -18,7 +18,7 @@ public class SavedAmount {
     public final Double value;
 
     /**
-     * Constructs a {@code Price}.
+     * Constructs a {@code SavedAmount}.
      *
      * @param savedAmount A valid savedAmount number.
      */
@@ -39,7 +39,18 @@ public class SavedAmount {
      * @param change A valid savedAmount to increment the current savedAmount with.
      */
     public SavedAmount incrementSavedAmount(Amount change) {
+        if (this.value + change.value < 0.0) {
+            throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
+        }
+
         return new SavedAmount("" + (this.value + change.value));
+    }
+
+    /**
+     * Returns a {@code Amount} from the savedAmount.
+     */
+    public Amount getAmount() {
+        return new Amount("" + this.value);
     }
 
     /**

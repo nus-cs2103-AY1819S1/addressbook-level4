@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
 import seedu.address.testutil.WishBuilder;
@@ -54,7 +55,7 @@ public class WishBookTest {
         Wish editedAlice = new WishBuilder(ALICE).withUrl(VALID_URL_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Wish> newWishes = Arrays.asList(ALICE, editedAlice);
-        WishBookStub newData = new WishBookStub(newWishes);
+        WishBookStub newData = new WishBookStub(newWishes, new SavedAmount("" + 0.0));
 
         thrown.expect(DuplicateWishException.class);
         wishBook.resetData(newData);
@@ -96,14 +97,21 @@ public class WishBookTest {
      */
     private static class WishBookStub implements ReadOnlyWishBook {
         private final ObservableList<Wish> wishes = FXCollections.observableArrayList();
+        private final SavedAmount unusedFunds;
 
-        WishBookStub(Collection<Wish> wishes) {
+        WishBookStub(Collection<Wish> wishes, SavedAmount unusedFunds) {
             this.wishes.setAll(wishes);
+            this.unusedFunds = unusedFunds;
         }
 
         @Override
         public ObservableList<Wish> getWishList() {
             return wishes;
+        }
+
+        @Override
+        public SavedAmount getUnusedFunds() {
+            return this.unusedFunds;
         }
     }
 

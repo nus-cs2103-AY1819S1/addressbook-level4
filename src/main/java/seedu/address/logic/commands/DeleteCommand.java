@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_WISH_SUCCESS = "Deleted Wish: %1$s";
+    public static final String MESSAGE_DELETE_WISH_SUCCESS = "Deleted Wish: %1$s. Unused Funds now contains $%2$s";
 
     private final Index targetIndex;
 
@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         Wish wishToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteWish(wishToDelete);
         model.commitWishBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_WISH_SUCCESS, wishToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_WISH_SUCCESS, wishToDelete, model.getUnusedFunds()));
     }
 
     @Override
