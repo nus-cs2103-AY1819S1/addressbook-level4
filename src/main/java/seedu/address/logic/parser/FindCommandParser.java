@@ -125,10 +125,12 @@ public class FindCommandParser implements Parser<FindCommand> {
             findCommand = new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
             break;
+
         case GROUP:
             findCommand = new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
             break;
+
         default:
             throwParseException();
         }
