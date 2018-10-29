@@ -38,8 +38,8 @@ public class Image {
         String[] splittedFilename = filename.split("\\.");
         this.basename = splittedFilename[0];
         this.extension = splittedFilename[1];
-        this.id = Integer.parseInt(id);
-        SEQUENCE.set(Integer.parseInt(basename));
+        this.id = Integer.parseInt(basename);
+        SEQUENCE.set(id));
     }
 
     public String getFilename() {
