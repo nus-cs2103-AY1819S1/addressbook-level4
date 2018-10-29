@@ -16,8 +16,8 @@ programming language and uses JavaFX, HTML and CSS for the GUI.
 My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
 after every enhancement or change.
 
-The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
-information and medicine information and additionally manage the clinic queue.
+The project scope for CLInic is to morph the given `addressbook-level4` into a clinic management application that allows users to manage patient
+and medicine information and additionally manage the clinic queue.
 
 The team consists of four year-2 and one year-3 student in School of Computing, NUS.
 
@@ -30,8 +30,8 @@ The team consists of four year-2 and one year-3 student in School of Computing, 
 are made to be as intuitive as possible.
 
 * *Minor enhancement*:
-** Integration of `ReceiptCommand` and PQMS.
-** Enhancement of GUI.
+** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
+** Integration of `Medicine` class and PQMS through `DispenseMedicineCommand`
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -39,16 +39,14 @@ are made to be as intuitive as possible.
 
 ** Project management:
 *** Team Lead
-
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote tests for existing features to increase coverage from 67% to 75% (Pull requests https://goo.gl/vQbh82[#109])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Enhancements to test coverage:
+*** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
+//** Documentation:
+//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+//** Community:
+//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 
 
