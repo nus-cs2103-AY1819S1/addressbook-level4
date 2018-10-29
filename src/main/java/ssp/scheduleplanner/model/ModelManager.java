@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import ssp.scheduleplanner.commons.core.ComponentManager;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
@@ -42,6 +43,15 @@ public class ModelManager extends ComponentManager implements Model {
         this(new SchedulePlanner(), new UserPrefs());
     }
 
+    /**
+     * Sort fitlered tasks.
+     * @return SortedList containing tasks sorted according to priority.
+     */
+    public SortedList<Task> sortFilteredTasks() {
+        SortedList<Task> sortedTasks = filteredTasks.sorted((a, b) -> Task.compare(a, b));
+        return sortedTasks;
+    }
+
     @Override
     public void resetData(ReadOnlySchedulePlanner newData) {
         versionedSchedulePlanner.resetData(newData);
@@ -62,10 +72,6 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasTask(Task task) {
         requireNonNull(task);
         return versionedSchedulePlanner.hasTask(task);
-    }
-
-    public void sort() {
-        versionedSchedulePlanner.sort();
     }
 
 
@@ -109,7 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return FXCollections.unmodifiableObservableList(filteredTasks);
+        return FXCollections.unmodifiableObservableList(sortFilteredTasks());
     }
 
     @Override

@@ -62,7 +62,7 @@ public class Name {
      * @return
      */
     public static int compare(Name a, Name b) {
-        if(((a.toString()).compareTo(b.toString())) < 0) {
+        if (((a.toString()).compareTo(b.toString())) < 0) {
             return -1;
         } else if (((a.toString()).compareTo(b.toString())) > 0) {
             return 1;

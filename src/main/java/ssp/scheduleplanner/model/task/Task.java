@@ -78,7 +78,7 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getName().equals(getName()) && otherTask.getDate().equals(getDate())
-                && otherTask.getPriority().equals(getPriority()) && otherTask.getVenue().equals(getVenue())
+                && otherTask.getVenue().equals(getVenue())
                 && otherTask.getTags().equals(getTags());
     }
 
@@ -99,7 +99,6 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
                 && otherTask.getDate().equals(getDate())
-                && otherTask.getPriority().equals(getPriority())
                 && otherTask.getVenue().equals(getVenue())
                 && otherTask.getTags().equals(getTags());
     }
@@ -125,6 +124,14 @@ public class Task {
         return builder.toString();
     }
 
+    /**
+     * Compare two tasks according to their priority or name.
+     * @param a
+     * @param b
+     * @return -1 if Task a has lower priority than Task b,
+     * 0 if same priority,
+     * 1 if Task a has higher priority.
+     */
     public static int compare(Task a, Task b) {
         int result = Priority.compare(a.getPriority(), b.getPriority());
         if (result == 0) {

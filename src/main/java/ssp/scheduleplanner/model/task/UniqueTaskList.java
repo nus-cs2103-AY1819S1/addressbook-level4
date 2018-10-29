@@ -35,10 +35,6 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.stream().anyMatch(toCheck::isSameTask);
     }
 
-    public void sort() {
-        SortedList<Task> sortedList = internalList.sorted((a, b) -> Task.compare(a, b));
-        internalList = sortedList;
-    }
 
     /**
      * Adds a task to the list.
@@ -116,9 +112,19 @@ public class UniqueTaskList implements Iterable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
-                        && internalList.equals(((UniqueTaskList) other).internalList));
+        SortedList<Task> sortedList = internalList.sorted((a, b) -> Task.compare(a, b));
+        if (other == this) {
+            return true;
+        } else if (other instanceof UniqueTaskList) {
+            SortedList<Task> otherSortedList =
+                    ((UniqueTaskList) other).internalList.sorted((a, b) -> Task.compare(a, b));
+            if (internalList.equals(((UniqueTaskList) other).internalList)) {
+                return true;
+            } else if (sortedList.equals(otherSortedList)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

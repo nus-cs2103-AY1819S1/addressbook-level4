@@ -96,8 +96,4 @@ public interface Model {
      */
     void commitSchedulePlanner();
 
-    /**
-     * Sort existing tasks in current Schedule Planner.
-     */
-    void sort();
 }

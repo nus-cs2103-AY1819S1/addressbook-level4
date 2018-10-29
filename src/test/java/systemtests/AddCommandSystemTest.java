@@ -80,13 +80,6 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a task with all fields same as another task in the address book except date and email
-         * -> added
-         */
-        toAdd = new TaskBuilder(AMY).withDate(VALID_DATE_BOB).withPriority(VALID_EMAIL_BOB).build();
-        command = TaskUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add to empty address book -> added */
         deleteAllTasks();
         assertCommandSuccess(ALICE);

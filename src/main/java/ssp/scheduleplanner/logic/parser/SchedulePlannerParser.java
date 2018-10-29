@@ -23,7 +23,6 @@ import ssp.scheduleplanner.logic.commands.ListOverdueCommand;
 import ssp.scheduleplanner.logic.commands.ListWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
-import ssp.scheduleplanner.logic.commands.SortCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 
@@ -109,9 +108,6 @@ public class SchedulePlannerParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-
-        case SortCommand.COMMAND_WORD:
-            return new SortCommand();
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
