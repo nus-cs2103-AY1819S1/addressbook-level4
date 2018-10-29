@@ -3,7 +3,10 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
+
+import org.simplejavamail.email.Email;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -17,11 +20,15 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
+import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.EmailDeleteEvent;
+import seedu.address.commons.events.storage.EmailLoadEvent;
+import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -183,9 +190,30 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public Email loadEmail(String emailName) throws IOException {
+        return emailStorage.loadEmail(emailName);
+    }
+
+    @Override
+    public void deleteEmail(String emailName) throws IOException {
+        emailStorage.deleteEmail(emailName);
+    }
+
+    @Override
+    public Set<String> readEmailFiles() {
+        return readEmailFiles(emailStorage.getEmailPath());
+    }
+
+    @Override
+    public Set<String> readEmailFiles(Path dirPath) {
+        logger.fine("Attempting to read eml files from directory: " + dirPath);
+        return emailStorage.readEmailFiles(dirPath);
+    }
+
+    @Override
     @Subscribe
     public void handleEmailSavedEvent(EmailSavedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to directory."));
         try {
             saveEmail(event.data);
             raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
@@ -194,6 +222,32 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+
+    @Override
+    @Subscribe
+    public void handleEmailLoadEvent(EmailLoadEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to read email from directory."));
+        try {
+            Email loadedEmail = loadEmail(event.data);
+            raise(new EmailLoadedEvent(loadedEmail));
+        } catch (IOException e) {
+            logger.warning("Email file not found: " + StringUtil.getDetails(e));
+            raise(new EmailNotFoundEvent(event.data));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleEmailDeleteEvent(EmailDeleteEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Attempting to delete email from directory."));
+        try {
+            deleteEmail(event.data);
+        } catch (IOException e) {
+            logger.warning("Email file not found: " + StringUtil.getDetails(e));
+            raise(new EmailNotFoundEvent(event.data));
+        }
+    }
+
 
     //@@author GilgameshTC
     // ================ Calendar methods ==============================

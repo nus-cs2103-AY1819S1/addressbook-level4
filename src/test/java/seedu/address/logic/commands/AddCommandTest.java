@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -17,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -129,6 +131,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Set<String> getExistingEmails() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -146,6 +153,11 @@ public class AddCommandTest {
         @Override
         public boolean hasCca(Person toAdd) {
             return false;
+        }
+
+        @Override
+        public boolean hasEmail(String fileName) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -230,11 +242,21 @@ public class AddCommandTest {
 
         @Override
         public void commitBudgetBook() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void saveEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveComposedEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEmail(String fileName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -276,6 +298,11 @@ public class AddCommandTest {
 
         @Override
         public void loadCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleEmailLoadedEvent(EmailLoadedEvent event) {
             throw new AssertionError("This method should not be called.");
         }
 

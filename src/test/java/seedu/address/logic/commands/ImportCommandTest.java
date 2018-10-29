@@ -70,7 +70,7 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs());
+                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("basketball"));
         Person newPerson = new Person(new Name(VALID_PERSON_NAME), new Phone(VALID_PERSON_PHONE),
@@ -91,7 +91,7 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs());
+                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person original = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
         PersonBuilder personInFile = new PersonBuilder(original);

@@ -5,7 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -25,11 +27,14 @@ import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
+import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.ui.CalendarViewEvent;
+import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
@@ -53,11 +58,12 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs, and emailNamesSet.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
+                        Set<String> emailNamesSet) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, emailNamesSet);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -65,14 +71,14 @@ public class ModelManager extends ComponentManager implements Model {
         versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
-        this.emailModel = new EmailModel();
+        this.emailModel = new EmailModel(emailNamesSet);
         this.userPrefs = userPrefs;
         this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
 
     }
 
     public ModelManager() {
-        this(new AddressBook(), new BudgetBook(), new UserPrefs());
+        this(new AddressBook(), new BudgetBook(), new UserPrefs(), new HashSet<>());
     }
 
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
@@ -99,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyBudgetBook getBudgetBook() {
         return versionedBudgetBook;
+    }
+
+    @Override
+    public Set<String> getExistingEmails() {
+        return emailModel.getExistingEmails();
     }
 
     /**
@@ -469,11 +480,36 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmailSaved();
     }
 
+    @Override
+    public void saveComposedEmail(Email email) {
+        emailModel.saveComposedEmail(email);
+        indicateEmailSaved();
+    }
+
+    @Override
+    public void deleteEmail(String fileName) {
+        emailModel.removeFromExistingEmails(fileName);
+        raise(new EmailDeleteEvent(fileName));
+    }
+
+    @Override
+    public boolean hasEmail(String fileName) {
+        return emailModel.hasEmail(fileName);
+    }
+
     /**
-     * Raises an event to indicate the model has changed
+     * Raises an event to indicate that a new email has been saved to EmailModel.
      */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
+    }
+
+    @Override
+    @Subscribe
+    public void handleEmailLoadedEvent(EmailLoadedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email loaded, saving to EmailModel."));
+        saveEmail(event.data);
+        raise(new EmailViewEvent(emailModel));
     }
 
 }

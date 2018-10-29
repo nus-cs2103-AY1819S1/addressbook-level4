@@ -58,6 +58,21 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    //@@author EatOrBeEaten
+    /**
+     * Parses {@code String oneBasedIndexes} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final String[] indexArray = oneBasedIndexes.split(" ");
+        final Set<Index> indexSet = new HashSet<>();
+        for (String index : indexArray) {
+            indexSet.add(parseIndex(index));
+        }
+        return indexSet;
+    }
+    //@@author
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
