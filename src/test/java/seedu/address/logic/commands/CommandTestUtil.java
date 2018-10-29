@@ -30,9 +30,7 @@ import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.util.MeetingTitleContainsKeywordPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**

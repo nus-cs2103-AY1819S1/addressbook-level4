@@ -101,8 +101,9 @@ public class FindGroupCommandTest {
     /**
      * Parses {@code userInput} into a {@code GroupTitleContainsKeywordsPredicate}.
      */
-    private GroupTitleContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
-                                   String userInputForNonePrefix) {
+    private GroupTitleContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix,
+                                                                 String userInputForSomePrefix,
+                                                                 String userInputForNonePrefix) {
         return new GroupTitleContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
             Arrays.asList(userInputForSomePrefix.split("\\s+")),
             Arrays.asList(userInputForNonePrefix.split("\\s+")));

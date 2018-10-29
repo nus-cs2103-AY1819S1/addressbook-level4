@@ -29,8 +29,8 @@ public class PersonNameContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        PersonNameContainsKeywordsPredicate firstPredicateCopy = new PersonNameContainsKeywordsPredicate(firstPredicateKeywordList,
-            secondPredicateKeywordList, thirdPredicateKeywordList);
+        PersonNameContainsKeywordsPredicate firstPredicateCopy = new PersonNameContainsKeywordsPredicate(
+            firstPredicateKeywordList, secondPredicateKeywordList, thirdPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false

@@ -25,7 +25,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_findPerson_noPrefixUsage_defaultToAllPrefixBehaviour() {
+    public void parse_findPerson_noPrefixUsageDefaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
         FindPersonCommand expectedFindPersonCommand =
                 new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
@@ -61,7 +61,7 @@ public class FindCommandParserTest {
 
 
     @Test
-    public void parse_findGroup_noPrefixUsage_defaultToAllPrefixBehaviour() {
+    public void parse_findGroup_noPrefixUsageDefaultToAllPrefixBehaviour() {
         // no leading and trailing whitespaces
         FindGroupCommand expectedFindGroupCommand =
             new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
@@ -98,10 +98,11 @@ public class FindCommandParserTest {
     /**
      * Parses {@code userInput} into a {@code PersonNameContainsKeywordsPredicate}.
      */
-    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
+    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix,
+                                                                 String userInputForSomePrefix,
                                                                  String userInputForNonePrefix) {
         return new PersonNameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
-                Arrays.asList(userInputForSomePrefix.split("\\s+")),
-                Arrays.asList(userInputForNonePrefix.split("\\s+")));
+            Arrays.asList(userInputForSomePrefix.split("\\s+")),
+            Arrays.asList(userInputForNonePrefix.split("\\s+")));
     }
 }
