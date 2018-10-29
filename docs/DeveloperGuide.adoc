@@ -218,36 +218,59 @@ directory. The `UserPrefs` class implements the following operation:
 * `UserPrefs#updateImageList(ArrayList<Path>) -- Updates `imageList` with the new `imageList`.
 
 Other operation, `Model#updateCurrentOriginalImage(Image, Path)` stores the path of the selected image
-as `currOriginalImage` and the `PreviewImage` instance of the path as `currentPreviewImage` within the `ModelManager`
-facilitating the implementation of the transmission feature.
+as `currOriginalImage` and the `PreviewImage` instance of the path as `currentPreviewImage` within the `ModelManager`.
+Additionally, the operation also creates a canvas and a layer to facilitate the transmission feature.
 
 Given below is an example usage scenario and how the select and next mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-{Diagram to be added}
-
 Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
 `Model#updateImageList()` to retrieve all the images within Desktop.
 
-{Diagram to be added}
+image::SelectNextCommand1.png[width=800]
 
 Step 3. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
 command calls `Model#getDirectoryImageList()` to retrieve all the images within Desktop. The first image is then
 retrieved and displayed on the GUI.
 
-{Diagram to be added}
+image::SelectNextCommand2.png[width=800]
 
 Step 4. The user executes `next` command to access the next batch of 10 images from the list. The next command calls
 `Model#removeImageFromList(int)` to remove the first 10 images in the current `imageList` and calls
 `Model#updateImageList(ArrayList<Path>)` to update `UserPrefs` with the new `imageList`.
 
-{Diagram to be added}
+image::SelectNextCommand3.png[width=800]
 
-The following sequence diagram shows how the cd command works:
+The following sequence diagram shows how the select command works:
 
-{Diagram to be added}
+image::SelectSequenceDiagram.png[width=800]
+
+The following sequence diagram shows how the next command works:
+
+image::NextSequenceDiagram.png[width=800]
+
+==== Design Considerations
+===== Aspect: How select executes
+
+* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
+** Pros: Easy to implement and every command can access the current directory.
+** Cons: Appends and checks if path exists after every cd command entered.
+
+* *Alternative 2* : Stores path that exists in a HashSet.
+** Pros: Do not need to append and check, and just check if it exists in HashSet.
+** Cons: Does not update existing path if user deletes a directory.
+
+===== Aspect: How next executes
+
+* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
+** Pros: Easy to implement and every command can access the current directory.
+** Cons: Appends and checks if path exists after every cd command entered.
+
+* *Alternative 2* : Stores path that exists in a HashSet.
+** Pros: Do not need to append and check, and just check if it exists in HashSet.
+** Cons: Does not update existing path if user deletes a directory.
 
 === Undo/Redo feature
 ==== Current Implementation
