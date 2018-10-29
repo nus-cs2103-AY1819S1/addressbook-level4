@@ -115,7 +115,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Updates tasks that are overdue
      */
-    public void checkOverdue() {
+    public void updateIfOverdue() {
         tasks.updateOverdue();
 
     }

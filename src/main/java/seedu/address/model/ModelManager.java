@@ -189,7 +189,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void checkOverdue() {
-        versionedTaskManager.checkOverdue();
+        versionedTaskManager.updateIfOverdue();
     }
     @Override
     public boolean equals(Object obj) {
