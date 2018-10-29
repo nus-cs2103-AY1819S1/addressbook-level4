@@ -28,11 +28,11 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_INCORRECT_PASSWORD = "Incorrect password";
 
     private final Username username;
-    private final Optional<Password> password;
+    private final Password password;
     private String plainPassword;
 
-    public LoginCommand(Username username, Optional<Password> password, String plainPassword) {
-        requireNonNull(username, plainPassword);
+    public LoginCommand(Username username, Password password, String plainPassword) {
+        requireNonNull(username);
         this.username = username;
         this.password = password;
         this.plainPassword = plainPassword;

@@ -54,12 +54,12 @@ public class EncryptedExpenseTracker {
     /**
      * Checks if the input password matches the password of the current user. If the user has no password, then true
      * is returned.
-     * @param toCheck the password to check as an optional
+     * @param toCheck the password to check
      * @return true if the user has no password or if the input password matches his/her password, or else false
      */
-    public boolean isMatchPassword(Optional<Password> toCheck) {
+    public boolean isMatchPassword(Password toCheck) {
         return this.password
-                .map(userPassword -> userPassword.equals(toCheck.orElse(null)))
+                .map(userPassword -> userPassword.equals(toCheck))
                 // if userPassword will never be equals to null if map is called
                 .orElse(true); // If the current user has no password, then anyone is allowed
     }

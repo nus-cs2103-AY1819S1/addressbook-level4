@@ -43,7 +43,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_noOldPassword_assertSetPasswordSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty(), null)
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null, null)
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
@@ -57,7 +57,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_oldPasswordInvalid_assertSetPasswordFailure() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, Optional.empty(), null)
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null, null)
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);

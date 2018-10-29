@@ -34,8 +34,9 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         }
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
+        // Optional#map(Function) is not used here as parsePassword throws a checked exception
         Optional<Password> password = plainPassword.isPresent()
                 ? Optional.of(ParserUtil.parsePassword(plainPassword.get())) : Optional.empty();
-        return new LoginCommand(username, password, plainPassword.orElse(""));
+        return new LoginCommand(username, password.orElse(null), plainPassword.orElse(null));
     }
 }

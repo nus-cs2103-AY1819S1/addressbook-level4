@@ -229,7 +229,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Optional<Password> password, String encryptionKey) {
+        public boolean loadUserData(Username username, Password password, String encryptionKey) {
             throw new AssertionError("loadUserData method should not be called.");
         }
 

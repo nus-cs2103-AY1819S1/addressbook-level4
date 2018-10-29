@@ -124,7 +124,7 @@ public interface Model {
      * Selects the ExpenseTracker of the user with the input username to be used.
      * Returns true if successful, false if the input password is incorrect.
      */
-    boolean loadUserData(Username username, Optional<Password> password, String encryptionKey)
+    boolean loadUserData(Username username, Password password, String encryptionKey)
             throws NonExistentUserException;
 
     /**

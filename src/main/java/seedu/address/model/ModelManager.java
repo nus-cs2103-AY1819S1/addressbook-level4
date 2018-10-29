@@ -86,7 +86,8 @@ public class ModelManager extends ComponentManager implements Model {
             this.statsPeriod = defaultStatsPeriod();
             this.statsMode = defaultStatsMode();
             this.expenseStatPredicate = defaultExpensePredicate();
-            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword(), expenseTracker.getEncryptionKey());
+            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword().orElse(null),
+                    expenseTracker.getEncryptionKey());
         } catch (NonExistentUserException | IllegalValueException e) {
             throw new IllegalStateException();
         }
@@ -318,7 +319,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(Username username, Optional<Password> password, String plainPassword)
+    public boolean loadUserData(Username username, Password password, String plainPassword)
             throws NonExistentUserException {
         requireAllNonNull(username);
         if (!isUserExists(username)) {
@@ -341,6 +342,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (!encryptedTracker.getPassword().isPresent()) {
             encryptionKey = DEFAULT_ENCRYPTION_KEY;
         } else {
+            requireNonNull(plainPassword);
             encryptionKey = createEncryptionKey(plainPassword);
         }
         try {
