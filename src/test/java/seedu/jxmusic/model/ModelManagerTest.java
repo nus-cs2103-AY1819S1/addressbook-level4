@@ -3,7 +3,7 @@ package seedu.jxmusic.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PLAYLISTS;
-import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
 
 import java.nio.file.Paths;
 import java.util.Arrays;

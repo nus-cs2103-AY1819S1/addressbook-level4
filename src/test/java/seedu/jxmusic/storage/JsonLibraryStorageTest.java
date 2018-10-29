@@ -2,9 +2,9 @@ package seedu.jxmusic.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
 
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
 
 import java.io.IOException;
 import java.nio.file.Path;

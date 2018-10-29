@@ -18,7 +18,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
 
 import org.junit.Test;
 

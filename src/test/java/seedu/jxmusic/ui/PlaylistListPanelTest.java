@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.jxmusic.testutil.EventsUtil.postNow;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PLAYLIST;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalPlaylists;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalPlaylistList;
 import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertCardDisplaysPlaylist;
-import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertPlaylistCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +26,7 @@ import seedu.jxmusic.storage.JsonFileStorage;
 
 public class PlaylistListPanelTest extends GuiUnitTest {
     private static final ObservableList<Playlist> TYPICAL_PLAYLISTS =
-            FXCollections.observableList(getTypicalPlaylists());
+            FXCollections.observableList(getTypicalPlaylistList());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
             new JumpToListRequestEvent(INDEX_SECOND_PLAYLIST);
@@ -60,11 +60,11 @@ public class PlaylistListPanelTest extends GuiUnitTest {
         PlaylistCardHandle expectedPlaylist = playlistListPanelHandle.getPlaylistCardHandle(
                 INDEX_SECOND_PLAYLIST.getZeroBased());
         PlaylistCardHandle selectedPlaylist = playlistListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPlaylist, selectedPlaylist);
+        assertPlaylistCardEquals(expectedPlaylist, selectedPlaylist);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PlaylistListPanel} requires lesser than
+     * Verifies that creating and deleting large number of playlists in {@code PlaylistListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -103,7 +103,6 @@ public class PlaylistListPanelTest extends GuiUnitTest {
         builder.deleteCharAt(builder.length() - 2); // delete last comma
         builder.append("]\n}\n");
 
-        // to-do: change the test data file
         Path manyPlaylistsFile = Paths.get(TEST_DATA_FOLDER + "manyPlaylists.json");
         FileUtil.createFile(manyPlaylistsFile);
         FileUtil.writeToFile(manyPlaylistsFile, builder.toString());

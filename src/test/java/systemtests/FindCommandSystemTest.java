@@ -3,10 +3,10 @@
 //import static org.junit.Assert.assertFalse;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.ANIME;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_SONG;
 //
 //import java.util.ArrayList;
 //import java.util.List;

@@ -5,10 +5,10 @@
 //import static org.junit.Assert.assertTrue;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.CLASSICS;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.CLASSICS;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalAddressBook;
 //
 //import java.util.Arrays;
 //import java.util.Collections;

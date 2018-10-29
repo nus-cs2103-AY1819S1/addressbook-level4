@@ -1,7 +1,7 @@
 //package systemtests;
 //
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_SONG;
 //
 //import org.junit.Test;
 //

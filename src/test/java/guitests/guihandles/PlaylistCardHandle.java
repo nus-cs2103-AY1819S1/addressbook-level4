@@ -14,7 +14,7 @@ import seedu.jxmusic.model.Playlist;
  * Provides a handle to a playlist card in the playlist list panel.
  */
 public class PlaylistCardHandle extends NodeHandle<Node> {
-    private static final String ID_FIELD_ID = "#id"; //not sure if we still keep the index feature or not
+    private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String TRACKS_FIELD_ID = "#tracks";
 

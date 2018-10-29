@@ -6,40 +6,41 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 
 /**
- * Provides a handle for {@code PlaylistListPanel} containing the list of {@code PlaylistCard}.
+ * Provides a handle for {@code TrackListPanel} containing the list of {@code TrackCard}.
  */
-public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
-    public static final String PLAYLIST_LIST_VIEW_ID = "#playlistListView";
+public class TrackListPanelHandle extends NodeHandle<ListView<Track>> {
+    public static final String TRACK_LIST_VIEW_ID = "trackListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Playlist> lastRememberedSelectedPlaylistCard;
+    private Optional<Track> lastRememberedSelectedTrackCard;
 
-    public PlaylistListPanelHandle(ListView<Playlist> playlistListPanelNode) {
-        super(playlistListPanelNode);
+    public TrackListPanelHandle(ListView<Track> trackListPanelNode) {
+        super(trackListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PlaylistCardHandle}.
+     * Returns a handle to the selected {@code TrackCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PlaylistCardHandle getHandleToSelectedCard() {
-        List<Playlist> selectedPlaylistList = getRootNode().getSelectionModel().getSelectedItems();
+    public TrackCardHandle getHandleToSelectedCard() {
+        List<Track> selectedTrackList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (selectedPlaylistList.size() != 1) {
-            throw new AssertionError("Playlist list size expected 1.");
+        if (selectedTrackList.size() != 1) {
+            throw new AssertionError("Track list size expected 1.");
         }
 
         return getAllCardNodes().stream()
-                .map(PlaylistCardHandle::new)
-                .filter(handle -> handle.equals(selectedPlaylistList.get(0)))
+                .map(TrackCardHandle::new)
+                .filter(handle -> handle.equals(selectedTrackList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
+
     }
 
     /**
@@ -53,7 +54,7 @@ public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
      * Returns true if a card is currently selected.
      */
     public boolean isAnyCardSelected() {
-        List<Playlist> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Track> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
             throw new AssertionError("Card list size expected 0 or 1.");
@@ -65,13 +66,13 @@ public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
     /**
      * Navigates the listview to display {@code playlist}.
      */
-    public void navigateToCard(Playlist playlist) {
-        if (!getRootNode().getItems().contains(playlist)) {
-            throw new IllegalArgumentException("Playlist does not exist.");
+    public void navigateToCard(Track track) {
+        if (!getRootNode().getItems().contains(track)) {
+            throw new IllegalArgumentException("Track does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(playlist);
+            getRootNode().scrollTo(track);
         });
         guiRobot.pauseForHuman();
     }
@@ -91,25 +92,24 @@ public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
     }
 
     /**
-     * Selects the {@code PlaylistCard} at {@code index} in the list.
+     * Selects the {@code Track} at {@code index} in the list。
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the playlist card handle of a playlist associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * Returns the track hard handle of a track associated with the {@code index} in the list.
      */
-    public PlaylistCardHandle getPlaylistCardHandle(int index) {
+    public TrackCardHandle getTrackCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PlaylistCardHandle::new)
-                .filter(handle -> handle.equals(getPlaylist(index)))
+                .map(TrackCardHandle::new)
+                .filter(handle -> handle.equals(getTrack(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Playlist getPlaylist(int index) {
+    private Track getTrack(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -123,30 +123,30 @@ public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
     }
 
     /**
-     * Remembers the selected {@code PlaylistCard} in the list.
+     * Remembers the selected {@code TrackCard} in the list.
      */
-    public void rememberSelectedPlaylistCard() {
-        List<Playlist> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public void rememberSelectedTrackCard() {
+        List<Track> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPlaylistCard = Optional.empty();
+            lastRememberedSelectedTrackCard = Optional.empty();
         } else {
-            lastRememberedSelectedPlaylistCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedTrackCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code PlaylistCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPlaylistCard()} call.
+     * Returns true of the selected {@code TrackCard} is different from the value remembered by the most recent
+     * {@code rememberSelectedTrackCard()} call.
      */
-    public boolean isSelectedPlaylistCardChanged() {
-        List<Playlist> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public boolean isSelectedTrackCardChanged() {
+        List<Track> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPlaylistCard.isPresent();
+            return lastRememberedSelectedTrackCard.isPresent();
         } else {
-            return !lastRememberedSelectedPlaylistCard.isPresent()
-                    || !lastRememberedSelectedPlaylistCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedTrackCard.isPresent()
+                    || !lastRememberedSelectedTrackCard.get().equals(selectedItems.get(0));
         }
     }
 
