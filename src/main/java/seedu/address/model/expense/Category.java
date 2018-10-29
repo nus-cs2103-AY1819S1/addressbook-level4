@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Expense's category in the address book.
+ * Represents a Expense's category in the expense tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {

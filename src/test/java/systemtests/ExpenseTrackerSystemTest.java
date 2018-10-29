@@ -129,7 +129,7 @@ public abstract class ExpenseTrackerSystemTest {
     }
 
     /**
-     * Displays all expenses in the address book.
+     * Displays all expenses in the expense tracker.
      */
     protected void showAllExpenses() throws NoUserSelectedException {
 
@@ -156,7 +156,7 @@ public abstract class ExpenseTrackerSystemTest {
     }
 
     /**
-     * Deletes all expenses in the address book.
+     * Deletes all expenses in the expense tracker.
      */
     protected void deleteAllExpenses() throws NoUserSelectedException {
         executeCommand(ClearCommand.COMMAND_WORD);

@@ -32,7 +32,7 @@ import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing expense in the address book.
+ * Edits the details of an existing expense in the expense tracker.
  */
 public class EditCommand extends Command {
 
@@ -53,7 +53,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
