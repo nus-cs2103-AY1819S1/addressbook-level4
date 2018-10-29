@@ -41,10 +41,10 @@ public class ImportDeckCommand extends Command {
             model.commitAnakin();
             return new CommandResult(String.format(MESSAGE_IMPORT_DECK_SUCCESS, importedDeck));
 
-        } catch(DeckImportException ie){
+        } catch (DeckImportException ie) {
             throw new CommandException(ie.getMessage());
 
-        } catch(DuplicateDeckException de){
+        } catch (DuplicateDeckException de) {
             throw new CommandException(MESSAGE_DUPLICATE_DECK);
         }
     }
