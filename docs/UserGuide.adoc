@@ -317,12 +317,12 @@ image::VolunteerCert.png[width="600"]
 
 === Event Management
 
-The following commands can only be accessed after switching to the 'event' context. (see <<command-switch>>)
+The following commands can only be accessed after switching to the 'event' panel. (see <<command-switch>>)
 
 [[command-event-add]]
 ==== Adding new event: `add`
 
-Adds an event to the system when in the 'event' context. +
+Adds an event to the system. +
 
 Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TIME d/DESCRIPTION [t/TAG]...`
 
@@ -333,6 +333,11 @@ Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TI
 ****
 
 Example(s):
+
+.Before adding an event
+image::command_event_add_before.png[add command, 300]
+
+The figure above shows how the panel looks like before executing the commands below.
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
 +
@@ -349,6 +354,9 @@ Adds an event with the following properties:
 |End Time   |15:00
 |Description|For the children's home
 |===
+.Output of `add`
+image::command_event_add_after1.png[add command, 300]
+
 
 * `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
 t/charity`
@@ -367,16 +375,8 @@ Adds an event with the following properties:
 |Description|Raising funds
 |Tags       |fundraiser, charity
 |===
-
-The figures below show the before and after results of an add command.
-
---
-.Before entering the add command
-image::command_add_event_before.png[Before add, 800]
-
-.A new event is added after entering the add command
-image::command_add_event_after.png[After add, 800]
---
+.Output of `add`
+image::command_event_add_after2.png[add command, 300]
 
 [[command-event-list]]
 ==== Listing all events : `list`
