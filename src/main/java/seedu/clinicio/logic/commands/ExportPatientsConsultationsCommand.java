@@ -10,16 +10,17 @@ import seedu.clinicio.model.analytics.Analytics;
 //@@author arsalanc-v2
 
 /**
- * Exports all patients' personal information to a csv file.
+ * Exports all patients' consultation records to a csv file.
  */
-public class ExportPatientsCommand extends Command {
+public class ExportPatientsConsultationsCommand extends Command {
 
-    public static final String COMMAND_WORD = "exportpatients";
+    public static final String COMMAND_WORD = "exportpatientsconsultations";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
-        String resultMessage = model.exportPatients();
+        String resultMessage = model.exportPatientsConsultations();
         return new CommandResult(resultMessage);
     }
 }
+

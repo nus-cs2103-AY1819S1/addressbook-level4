@@ -309,14 +309,36 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Export ==================================================================================
     //@@author arsalanc-v2
 
+    // TO CHANGE TO USE versionedClinicIo.getPatientsList()
+
     /**
-     *
-     * @return
+     * Exports all patients' personal information.
+     * @return A String. The feedback message for the user.
      */
     @Override
     public String exportPatients() {
         ObservableList<Patient> patients = FXCollections.observableArrayList();
-        return ExportPatients.exportPatients(patients);
+        return ExportPatientsData.exportPatients(patients);
+    }
+
+    /**
+     * Exports all patients' appointments records.
+     * @return A String. The feedback message for the user.
+     */
+    @Override
+    public String exportPatientsAppointments() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatientsData.exportAppointments(patients);
+    }
+
+    /**
+     * Exports all patients' consultation records.
+     * @return A String. The feedback message for the user.
+     */
+    @Override
+    public String exportPatientsConsultations() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatientsData.exportConsultations(patients);
     }
     //=========== Undo/Redo ==================================================================================
 

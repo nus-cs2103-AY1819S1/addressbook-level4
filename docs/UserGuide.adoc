@@ -395,10 +395,58 @@ Displays the following information about medicines:
 ****
 Format: `medstats`
 
-==== Exporting patient personal information : `exportpatient`
+==== Exporting patient personal information : `exportpatients`
 
-Exports patients' personal information. +
-Format: `exportpatient`
+Exports all patients' personal information to a csv file named `ClinicIO_patientdata.csv`. +
+Format: `exportpatients`
+
+The personal information consists of the following fields:
+****
+* Name
+* Address
+* Phone
+* Email
+****
+
+==== Exporting patients appointment records : `exportpatientsappointments`
+
+Exports all patients' appointment records to csv file named `ClinicIO_patientsappointments.csv`. +
+Format: `exportpatientsappointments`
+
+Each appointment record consists of the following fields:
+****
+* Name: The patient's name.
+* Address: The patient's address.
+* Phone: The patient's phone number.
+* Email: The patient's email address.
+* Date: The appointment's date.
+* Time: The appointment's time.
+* Status: The appointment's status. May be either `APPROVED` or `CANCELLED`.
+* Type: The type of appointment. May be either `NEW` or `FOLLOW_UP`.
+****
+
+==== Exporting patients consultation records : `exportpatientsconsultations`
+
+Exports all patients' consultation records to csv file named `ClinicIO_patientsconsultations.csv`. +
+Format: `exportpatientsconsultations`
+
+Each consultation record consists of the following fields:
+****
+* Name: The patient's name.
+* Address: The patient's address.
+* Phone: The patient's phone number.
+* Email: The patient's email address.
+* Date: The consultation's date.
+* Arrival Time: The arrival time of the patient at the clinic.
+* Consultation Time: The consultation's start time.
+* End time: The end time of the consultation.
+* Doctor: The doctor being consulted.
+* Prescription: The prescribed ascribed to the patient.
+* Description: The doctor's notes on the patient.
+* Appointment: Whether the consultation is the result of an appointment. May be either `YES` or `NO`.
+* Appointment Date: The date of the appointment resulting in the consultation. Empty if no appointment was made.
+* Appointment Time: The time of the appointment resulting in the consultation. Empty if no appointment was made.
+****
 // end::datacommands[]
 
 // tag::medicinecommands[]
@@ -562,7 +610,9 @@ e.g. `dequeuepatient 4`
 * *Appointment Statistics* : `apptstats`
 * *Doctor Statistics* : `doctorstats`
 * *Medicine Statistics* : `medstats`
-* *Export Patient Records* : `exportpatient`
+* *Export all patients' personal information* : `exportpatients`
+* *Export all patients' appointment records* : `exportpatientsappointments`
+* *Export all patients' consultation records* : `exportpatientsconsultations`
 
 === Medicine Inventory Commands
 

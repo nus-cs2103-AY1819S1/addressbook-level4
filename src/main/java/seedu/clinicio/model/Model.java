@@ -235,5 +235,20 @@ public interface Model {
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
 
     //@@author arsalanc-v2
+    /** Exports all patients' personal information.
+     * Returns feedback message for user.
+     */
     String exportPatients();
+
+    //@@author arsalanc-v2
+    /** Exports all patients' appointment records.
+     * Returns feedback message for user.
+     */
+    String exportPatientsAppointments();
+
+    //@@author arsalanc-v2
+    /** Exports all patients' consultation records.
+     * Returns feedback message for user.
+     */
+    String exportPatientsConsultations();
 }
