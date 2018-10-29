@@ -139,5 +139,4 @@ public class PersonBuilder {
         person.setPicture(picture);
         return person;
     }
-
 }
