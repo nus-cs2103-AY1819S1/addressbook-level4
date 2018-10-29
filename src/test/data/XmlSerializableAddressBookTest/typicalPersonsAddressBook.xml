@@ -26,8 +26,6 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <meeting>0000000000</meeting>
-        <tagged>Singaporean</tagged>
-        <tagged>OCBC</tagged>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
@@ -45,7 +43,6 @@
         <email>werner@example.com</email>
         <address>michegan ave</address>
         <meeting>0000000000</meeting>
-        <tagged>Singaporean</tagged>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
@@ -64,7 +61,6 @@
         <email>anna@example.com</email>
         <address>4th street</address>
         <meeting>0000000000</meeting>
-        <tagged>OCBC</tagged>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
@@ -73,8 +69,6 @@
         <email>henry@example.com</email>
         <address>Crazy Rich Street</address>
         <meeting>0000000000</meeting>
-        <tagged>Singaporean</tagged>
-        <tagged>POSB</tagged>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
