@@ -17,5 +17,6 @@ public class ReferralLetter extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
+        setReferralContent(servedPatient.getReferralContent());
     }
 }

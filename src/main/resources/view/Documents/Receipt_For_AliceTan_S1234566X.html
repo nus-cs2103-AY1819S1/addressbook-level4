@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$title</title>
+    <title>Receipt for Alice Tan</title>
     <script>
         function loadDetails(titleString, headerString, nameString, icString, contentString) {
             document.title = titleString;
@@ -14,22 +14,22 @@
     </script>
     <h1>
         <img src = "../../images/CLInicLogo.PNG" alt = "CLInic's logo" align = "right" height="70px" width="350px">
-        <div class = "header" id="headerDiv">$headers</div>
+        <div class = "header" id="headerDiv">Receipt<br>Issued On: 29/10/2018 18:18:01</div>
     </h1>
 </head>
 <div class="main">
     <table>
         <tr>
             <td><div class = information>Name:</div></td>
-            <td><div class = field id="nameDiv">$name</div></td>
+            <td><div class = field id="nameDiv">Alice Tan</div></td>
         </tr>
         <tr>
             <td><div class = information>IC Number:</div></td>
-            <td><div class = field id="icDiv">$icNumber</div></td>
+            <td><div class = field id="icDiv">S1234566X</div></td>
         </tr>
     </table>
     <br>
-    <span id="contentDiv">$content</span>
+    <span id="contentDiv"><table ID = "contentTable" width = 100%><col width = "700"><tr ID = "receiptHeader"><div class="contentHeader"><th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr><tr><td>Consultation</td><td>1</td><td>30.00</td><td>30.00</td></tr><tr ID = "receiptEnd"><td>Grand Total:</td><td>-</td><td>-</td><td>0.00</td></tr></table></span>
     <br>
     <span style=" display: block; text-align: center">Have a nice day!</span>
 </div>

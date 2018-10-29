@@ -27,15 +27,15 @@ You will have *all the tools* needed to manage your patient and medicine data, c
 
 Follow the steps below to get started with CLInic.
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Check that you have Java version `9` or later installed in your Computer.
 .  Download the latest `CLInic.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI will appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. type *`help`* and press kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
@@ -199,7 +199,17 @@ Format: `editMedicine index sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRI
 Example:
 
 * `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
-Edits the information of the medicine based on the inputs.
+Edits the information of the medicine at index 1 based on the inputs.
+
+==== Restocking a medicine : `restock`
+
+Restocks the medicine in the current records. +
+Format: `restock index amt/<AMOUNT>`
+
+Example:
+
+* `restock 2 amt/123` +
+Adds 123 to the current stock of medicine at index 2.
 
 ==== Listing all medicine in stock : `listStock`
 

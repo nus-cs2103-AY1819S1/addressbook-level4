@@ -28,10 +28,10 @@ public class DocumentContentAddCommand extends QueueCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds document content to the Current Patient "
             + "Parameters: "
-            + "[" + PREFIX_NOTE_CONTENT + "Note] "
-            + "[" + PREFIX_REFERRAL_CONTENT + "Referral] "
+            + "[" + PREFIX_NOTE_CONTENT + "Notes] "
+            + "[" + PREFIX_REFERRAL_CONTENT + "Referral notes] "
             + "[" + PREFIX_MC_CONTENT + "No. of days of Medical Leave]";
-
+    public static final String MESSAGE_MC_DAYS_CONSTRAINTS = "Number of days of MC should be a positive integer.";
     public static final String MESSAGE_SUCCESS = "Patient document Updated: ";
     public static final String MESSAGE_NO_CURRENT_PATIENT = "There is no Current Patient. Use the serve command first.";
 

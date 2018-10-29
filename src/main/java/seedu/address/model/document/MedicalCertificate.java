@@ -9,6 +9,8 @@ import seedu.address.model.person.ServedPatient;
 public class MedicalCertificate extends Document {
     public static final String FILE_TYPE = "Medical Certificate";
 
+    private int mcDays;
+
     /**
      * Creates a MedicalCertificate object for the specified servedPatient.
      * @param servedPatient the patient who has already consulted the doctor.
@@ -17,5 +19,11 @@ public class MedicalCertificate extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
+        setMcContent(servedPatient.getMcContent());
+        mcDays = Integer.parseInt(servedPatient.getMcContent());
+    }
+
+    public int getMcDays() {
+        return mcDays;
     }
 }

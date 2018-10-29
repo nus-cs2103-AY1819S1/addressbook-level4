@@ -26,7 +26,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
-import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.testutil.TypicalPersons;
@@ -45,14 +44,14 @@ public class MedicalCertificateCommandTest {
     public void setUp() {
         patientQueue = new PatientQueueManager();
         currentPatient = new CurrentPatient();
-        servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
+        servedPatientList.selectServedPatient(INDEX_FIRST_PERSON).addMcContent("4");
     }
 
     @Test
     public void execute_validServedPatient_mcMessageSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         String expectedMessage = MedicalCertificateCommand.MESSAGE_GENERATE_MC_SUCCESS;
         MedicalCertificateCommand mcCommand = new MedicalCertificateCommand(INDEX_FIRST_PERSON);
         CommandResult commandResult = mcCommand.execute(model, patientQueue,
@@ -72,7 +71,6 @@ public class MedicalCertificateCommandTest {
 
     @Test
     public void execute_mcFileName_mcGenerationSuccess() throws Exception {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         MedicalCertificateCommand mcCommand = new MedicalCertificateCommand(INDEX_FIRST_PERSON);
         mcCommand.execute(model, patientQueue, currentPatient, servedPatientList, commandHistory);
         String fileType = mcCommand.getMc().FILE_TYPE;
@@ -82,7 +80,6 @@ public class MedicalCertificateCommandTest {
 
     @Test
     public void equals() {
-        servedPatientList = generateServedPatientList(TypicalPersons.ALICE, TypicalPersons.BOB);
         MedicalCertificateCommand mcAliceCommand = new MedicalCertificateCommand(INDEX_FIRST_PERSON);
         MedicalCertificateCommand mcBobCommand = new MedicalCertificateCommand(INDEX_SECOND_PERSON);
 

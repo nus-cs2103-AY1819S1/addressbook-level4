@@ -1,0 +1,74 @@
+= Clinton Law - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CLInic
+
+---
+
+== Overview
+
+CLInic is a desktop application made to streamline and expedite operations in clinics. The application
+is aptly named CLInic as it is a wordplay on the acronym for the Command Line Interface, from which the
+application is mainly used. CLInic boasts an intuitive Graphical User Interface (GUI) to display
+information in a structured and user-friendly manner. The main features of the application is primarily
+coded in Java while the GUI is handled by JavaFX, HTML and CSS.
+
+CLInic is the culmination of semester-long efforts of a team of five students from NUS School Of
+Computing as part of the CS2103T Software Engineering module. Through the course of the module, the
+team morphed a very primitive application, which had basic add/delete functionalities akin to that of a
+ phone/contact book, into a clinic management application. The application allows users to manage patient
+ and medicine information in a user-friendly environment, all while providing intuitive workarounds to
+ normally arduous but common administrative tasks in running a clinic.
+
+I played a major role in the development of the Document class, the relevant Receipt, MedicalCertificate
+and Referral classes that extend it and the relevant patient management operations that are required for
+them to work.
+
+== Summary of contributions
+
+* *Major enhancement*: Implementation of the `*Document*` class, its accompanying HTML template and
+extending classes, which include `Receipt`, `MedicalCertificate` and `ReferralLetter`.
+** What it does: It takes in the information of a document that is to be printed by the clinic and
+generates a `HTML` file for it.
+** Justification: This functionality improves the application as it simplifies the generation of documents
+that are required by the clinic. This makes the administrative tasks in the clinic easier and faster,
+allowing for a boost in productivity for the users of the application, which translates into shorter wait
+times at the clinic for the patients.
+** Highlights: This functionality allows for seamless transfer of information from doctors to receptionists
+of the clinic during consultation, which when coupled with the fast retrieval of information from the
+application's database of `Patient` and `Medicine` information, makes for efficient generation of relevant
+documents.
+
+* *Minor enhancements*:
+** Improved and helped with the implementation of `ServedPatient` and `ServedPatientListManager`, which are intermediate
+abstractions that helped 'finalise' the information to be used for the generation of `Document`.
+** Integrated `MedicalCertificate` with the `DocumentAddContentCommand`
+** Implemented the `HTML` template which all the classes that extend `Document` use to format their own information
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote tests for existing features to increase coverage from 54% to 63% (Pull requests https://goo.gl/vQbh82[#109])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=document]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=document]
