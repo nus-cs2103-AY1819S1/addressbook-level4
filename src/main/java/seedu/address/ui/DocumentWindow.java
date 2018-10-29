@@ -36,6 +36,7 @@ public class DocumentWindow extends UiPart<Stage> {
     public DocumentWindow(Stage root) {
         super(FXML, root);
         this.documentTemplateUrl = getClass().getResource(DOCUMENT_TEMPLATE_FILE_PATH).toExternalForm();
+        this.load();
     }
 
     /**
@@ -65,9 +66,21 @@ public class DocumentWindow extends UiPart<Stage> {
      */
 
     public void show(Document document) {
-        logger.fine("Showing receipt screenshot");
+        logger.fine("Showing document screenshot");
         runScript(getScript(document), counter);
         Platform.runLater(() -> browser.getEngine().load(documentTemplateUrl));
+        getRoot().show();
+    }
+
+    private void load() {
+        browser.getEngine().load(documentTemplateUrl);
+    }
+
+    /**
+     * Default show command for testing.
+     */
+    public void showTest() {
+        logger.fine("Showing default document");
         getRoot().show();
     }
 
