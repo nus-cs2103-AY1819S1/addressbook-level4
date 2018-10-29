@@ -556,13 +556,16 @@ format.
 ==== Current Implementation
 The `ExportPatientData` class contains `static` methods for filtering and organizing the relevant data. These methods
 depend on a list of patients. It then passes the data to `ExportUtil` in order to write to a CSV file. The names and
-locations of the CSV files are predetermined by `ExportPatientData`.
+locations of the CSV files are predetermined by `ExportPatientData`. All exported filed are stored in the root folder of
+the program.
 
 The following operations are implemented: +
 
-* `exportpatients` Command - exports all patients' personal information.
-* `exportpatientsappointments` Command - exports all patients' appointment records.
-* `exportpatientsconsultations` Command - exports all patients' consultations records.
+* `exportpatients` Command - exports all patients' personal information into `ClinicIO_patientdata.csv`.
+* `exportpatientsappointments` Command - exports all patients' appointment records into `ClinicIO_patientsappointments
+.csv`.
+* `exportpatientsconsultations` Command - exports all patients' consultation records into
+`ClinicIO_patientsconsultations.csv`.
 
 ==== Design Considerations
 ===== Aspect: File format
@@ -576,7 +579,7 @@ The following operations are implemented: +
 
 ===== Aspect: File location and naming
 
-* **Alternative 1 (current choice):** Predetermined within the program to be stored in the root folder.
+* **Alternative 1 (current choice):** Predetermined within the program to be stored in the root folder with fixed names.
 ** Pros: Users can easily find it as it is in the same location as the program and has a standard name. Faster
 operation. Easier to implement.
 ** Con: Reduces flexibility, another step is required if the user needs it in another directory.
