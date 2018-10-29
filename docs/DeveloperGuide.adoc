@@ -830,6 +830,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 [appendix]
+////
 == Suggested Programming Tasks to Get Started
 
 Suggested path for new programmers:
@@ -1122,7 +1123,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * The ability to manage employees faster than typical mouse or GUI driven app
 * Still retains mouse and GUI features for users that are less proficient or less comfortable
 with text command
-
+////
 [appendix]
 == User Stories
 
