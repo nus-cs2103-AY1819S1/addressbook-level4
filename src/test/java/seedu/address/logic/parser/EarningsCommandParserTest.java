@@ -21,7 +21,7 @@ public class EarningsCommandParserTest {
     private EarningsCommandParser parser = new EarningsCommandParser();
 
     @Test
-    public void parse_valid_date() {
+    public void parseValidDate() {
         LocalDate startDate = LocalDate.of(2018, Month.JANUARY, 1);
         LocalDate endDate = LocalDate.of(2018, Month.FEBRUARY, 12);
 
@@ -31,7 +31,7 @@ public class EarningsCommandParserTest {
     }
 
     @Test
-    public void parse_invalid_date() {
+    public void parseInvalidDate() {
         String userInput = "3110 0510";
         assertParseFailure(parser, userInput, MESSAGE_INVALID_DATE);
 

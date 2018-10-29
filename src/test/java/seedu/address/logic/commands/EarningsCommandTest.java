@@ -10,7 +10,7 @@ public class EarningsCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullDate_throwsNullPointerException() {
+    public void constructorNullDateThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new EarningsCommand(null, null);
     }
