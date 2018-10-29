@@ -2,7 +2,6 @@ package seedu.scheduler.commons.web;
 
 import static com.google.api.client.util.DateTime.parseRfc3339;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +13,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -39,9 +34,9 @@ import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event.Reminders;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
-import com.google.api.services.calendar.model.Event.Reminders;
 import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
@@ -192,62 +187,43 @@ public class ConnectToGoogleCalendar {
 
             ReminderDurationList reminderDurationList = toAddEvent.getReminderDurationList();
             List<EventReminder> reminderOverrides = new ArrayList<>();
-
             Map<Duration, Boolean> reminderMap = reminderDurationList.get();
+            Reminders reminder = new Reminders();
+
+            reminder.setUseDefault(false);
             for (Duration key : reminderMap.keySet()) {
                 EventReminder eventReminder = new EventReminder();
                 eventReminder.setMethod("popup");
                 eventReminder.setMinutes(Math.toIntExact(key.toMinutes()));
                 reminderOverrides.add(eventReminder);
             }
-            Reminders reminder = new Reminders();
+
             reminder.setOverrides(reminderOverrides);
             gEvent.setReminders(reminder);
 
             if (toAddEvent.getRepeatType() == RepeatType.NONE) {
 
 
-            } else {//repeated event
+            } else { //repeated event
                 gEvent.setRecurringEventId(String.valueOf(toAddEvent.getUuid()));
                 String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
                 seedu.scheduler.model.event.DateTime eventUntilDt = toAddEvent.getRepeatUntilDateTime();
                 String eventUntilDate = eventUntilDt.getPrettyString()
                         //local:2019-01-01 18:51:52
-                        .replaceAll("-","")
+                        .replaceAll("-", "")
                         //local:20190101 18:51:52
-                        .replaceFirst(" ","T")
+                        .replaceFirst(" ", "T")
                         //local:20190101T18:51:52
-                        .replaceAll(":","")
-                //local:20190101T185152
-                .concat("Z");
+                        .replaceAll(":", "")
+                        //local:20190101T185152
+                        .concat("Z");
 
-                String temp = start.toString();
-                //temp 2018-10-29T21:00:00.000+08:00
-                String input_date=temp.substring(9,10)
-                        +"/"
-                        +temp.substring(6,7)
-                        +"/"
-                        +temp.substring(0,4);
-                         // "01/08/2012";
-                SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-                Date dt1= null;
-                try {
-                    dt1 = format1.parse(input_date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                DateFormat format2=new SimpleDateFormat("EEEE");
-                String finalDay=format2.format(dt1);
-
-String command = "RRULE:FREQ="
-        +eventRepeatType
-        +";UNTIL="
-        +eventUntilDate;        ;
+                String commandMessage = "RRULE:FREQ="
+                        + eventRepeatType
+                        + ";UNTIL="
+                        + eventUntilDate;
                 //Google format:20110701T170000Z
-                gEvent.setRecurrence(Arrays.asList(command));
-//                        +"BYDAY="
-//                        +finalDay.substring(0,1).toUpperCase()
-//                        +"\""));
+                gEvent.setRecurrence(Arrays.asList(commandMessage));
             }
 
             try {
@@ -282,9 +258,9 @@ String command = "RRULE:FREQ="
             events = service.events().list("primary")//set the source calendar on google
                     .setMaxResults(99) //set upper limit for number of events
                     .setTimeMin(now)//set the starting time
-                    .setOrderBy("startTime")//if not specified, stable order
+                    //.setOrderBy("startTime")//if not specified, stable order
                     //TODO: further development can be done for repeated event, more logic must be written
-                    .setSingleEvents(true)//not the repeated ones
+                    //.setSingleEvents(true)//not the repeated ones
                     //TODO: how to use setSynctoken, to prevent adding the same event multiples times
                     .execute();
             List<com.google.api.services.calendar.model.Event> eventsItems = events.getItems();
