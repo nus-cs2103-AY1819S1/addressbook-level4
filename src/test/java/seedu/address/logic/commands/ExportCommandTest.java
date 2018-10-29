@@ -19,11 +19,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
-    
+
     private static final String EXPORTED_FILE_NAME = "exportedCommandTest.csv";
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvTest");
     private static final Path EXPECTED_FILE_NAME = TEST_DATA_FOLDER.resolve("expectedExport.csv");
-    
+
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
