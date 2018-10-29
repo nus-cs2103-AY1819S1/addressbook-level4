@@ -91,7 +91,6 @@ public class PortManager implements Porter {
             e.printStackTrace();
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
-        return xmlDeck;
     }
 
     /**
