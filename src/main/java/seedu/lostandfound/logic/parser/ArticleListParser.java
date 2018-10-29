@@ -12,7 +12,9 @@ import seedu.lostandfound.logic.commands.Command;
 import seedu.lostandfound.logic.commands.DeleteCommand;
 import seedu.lostandfound.logic.commands.EditCommand;
 import seedu.lostandfound.logic.commands.ExitCommand;
+import seedu.lostandfound.logic.commands.FindAllCommand;
 import seedu.lostandfound.logic.commands.FindCommand;
+import seedu.lostandfound.logic.commands.FindResolvedCommand;
 import seedu.lostandfound.logic.commands.HelpCommand;
 import seedu.lostandfound.logic.commands.HistoryCommand;
 import seedu.lostandfound.logic.commands.ListCommand;
@@ -70,6 +72,12 @@ public class ArticleListParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindAllCommand.COMMAND_WORD:
+            return new FindAllCommandParser().parse(arguments);
+
+        case FindResolvedCommand.COMMAND_WORD:
+            return new FindResolvedCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

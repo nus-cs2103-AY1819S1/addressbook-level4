@@ -11,6 +11,7 @@ import seedu.lostandfound.MainApp;
 import seedu.lostandfound.commons.core.LogsCenter;
 import seedu.lostandfound.logic.commands.FindCommand;
 import seedu.lostandfound.logic.parser.exceptions.ParseException;
+import seedu.lostandfound.model.article.DescriptionContainsKeywordsPredicate;
 import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
 
 /**
@@ -36,12 +37,20 @@ public class FindCommandParser implements Parser<FindCommand> {
         logger.info((Arrays.toString(nameKeywords)));
         List<String> listKeywords = new LinkedList<>(Arrays.asList(nameKeywords));
 
-        if (listKeywords.get(0).equals("-n")) { //different operations depending on FIELD
-            listKeywords.remove(0);
+        String parameter = listKeywords.remove(0);
+
+        //different operations depending on FIELD
+        switch (parameter) {
+
+        case "-n":
             return new FindCommand(new NameContainsKeywordsPredicate(listKeywords));
-        } else {
+
+        case "-d":
+            return new FindCommand(new DescriptionContainsKeywordsPredicate(listKeywords));
+        default:
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+
     }
 }

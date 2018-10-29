@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addArticle(Article article) {
         versionedArticleList.addArticle(article);
-        updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         indicateArticleListChanged();
     }
 

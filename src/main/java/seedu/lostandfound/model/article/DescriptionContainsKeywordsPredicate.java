@@ -8,10 +8,10 @@ import seedu.lostandfound.commons.util.StringUtil;
 /**
  * Tests that a {@code Article}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Article> {
+public class DescriptionContainsKeywordsPredicate implements Predicate<Article> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public DescriptionContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -19,14 +19,14 @@ public class NameContainsKeywordsPredicate implements Predicate<Article> {
     public boolean test(Article article) { // AND operation
         return !article.getIsResolved()
                 && keywords.stream().allMatch(keyword ->
-                StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword));
+                StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof DescriptionContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((DescriptionContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

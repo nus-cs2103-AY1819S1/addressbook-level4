@@ -8,6 +8,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.lostandfound.commons.core.LogsCenter;
@@ -22,6 +24,9 @@ public class ArticleDetailsPanel extends UiPart<Region> {
     private static final String FXML = "ArticleDetailsPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private Label articleDetails;
@@ -44,6 +49,7 @@ public class ArticleDetailsPanel extends UiPart<Region> {
      */
     private void loadArticleDetails(Article article) {
         Platform.runLater(() -> {
+            image.setImage(new Image("/images/address_book_32.png"));
             articleDetails.setText(article.getName().fullName);
             tags.getChildren().clear();
             article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
