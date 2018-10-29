@@ -28,7 +28,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.util.MeetingTitleContainsKeywordPredicate;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -191,7 +191,7 @@ public class CommandTestUtil {
 
         Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
         final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         /**
          * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
