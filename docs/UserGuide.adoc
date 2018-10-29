@@ -27,7 +27,7 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
-image::UI.jpg[width:800]
+image::Ui.png[width:800]
 
 [[Features]]
 == Features
