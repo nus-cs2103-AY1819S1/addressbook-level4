@@ -259,7 +259,7 @@ public class AddCommandTest {
         public void deleteEmail(String fileName) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
             throw new AssertionError("This method should not be called.");
