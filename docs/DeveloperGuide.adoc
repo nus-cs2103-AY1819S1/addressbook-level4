@@ -139,15 +139,22 @@ _{In Progress}_ +
 This section describes some noteworthy details on how certain features are implemented.
 
 === Change Directory (Cd) feature
+The Cd feature is implemented to allow users to access images in the different directories within their home system.
+This removes the restrictions of accessing only images from one particular folder.
+
 ==== Current Implementation
-The Cd mechanism is facilitated by the `UserPrefs`. It contains the current directory the user's in, stored internally as
-`currDirectory`. It implements the following operations:
+The Cd mechanism is facilitated by the `ModelManager`. It contains the operations `Model#getCurrDirectory` and
+`Model#updateCurrDirectory(Path)` respectively.
+
+The Model calls upon `UserPrefs` within the respective operations. The `UserPrefs` class contains the current directory
+the user's in, stored internally as `currDirectory` and implements the following operations:
 
 * `UserPrefs#getCurrDirectory()` - Returns the user's current directory.
 * `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
-These operations are exposed to the Model interface as `Model#getCurrDirectory` and `Model#updateCurrDirectory(Path)`
-respectively.
+Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
+which are stored internally as `imageList`. This would facilitates the `Select` feature in our application
+(refer to 3.2).
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
 function to auto-complete the directory name if it exists.
@@ -180,6 +187,67 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 * *Alternative 2* : Stores path that exists in a HashSet.
 ** Pros: Do not need to append and check, and just check if it exists in HashSet.
 ** Cons: Does not update existing path if user deletes a directory.
+
+=== Select/Next feature
+The Select Command allow users to select the images in a batch of 10 images within the directory for image-editing.
+This command is further facilitated by the Next Command.
+
+The Next Command retrieves the next 10 images in the image list for users to select.
+The image selected will then be displayed on the GUI.
+
+==== Current Implementation
+The implementation of the Select/Next feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the following operations:
+
+Select feature:
+
+ * `Model#getDirectoryImageList` -- Retrieved the stored list of images in UserPrefs.
+ * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
+
+Next feature:
+
+ * `Model#updateImageList()` -- Retrieves the list with all the images from `UserPrefs`.
+ * `Model#updateImageList(ArrayList<Path>)` -- Updates the list with the new list of images.
+ * `Model#removeImageFromList(int)` -- Remove image from the list of images.
+
+The Model calls upon `UserPrefs` which stores and facilitates updates and retrieval of the `imageList` in the current
+directory. The `UserPrefs` class implements the following operation:
+
+* `UserPrefs#getAllImages()` -- Returns all the user's images current directory.
+* `UserPrefs#updateImageList()` -- Retrieves all the images in the current directory.
+* `UserPrefs#updateImageList(ArrayList<Path>) -- Updates `imageList` with the new `imageList`.
+
+Other operation, `Model#updateCurrentOriginalImage(Image, Path)` stores the path of the selected image
+as `currOriginalImage` and the `PreviewImage` instance of the path as `currentPreviewImage` within the `ModelManager`
+facilitating the implementation of the transmission feature.
+
+Given below is an example usage scenario and how the select and next mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+{Diagram to be added}
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+`Model#updateImageList()` to retrieve all the images within Desktop.
+
+{Diagram to be added}
+
+Step 3. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
+command calls `Model#getDirectoryImageList()` to retrieve all the images within Desktop. The first image is then
+retrieved and displayed on the GUI.
+
+{Diagram to be added}
+
+Step 4. The user executes `next` command to access the next batch of 10 images from the list. The next command calls
+`Model#removeImageFromList(int)` to remove the first 10 images in the current `imageList` and calls
+`Model#updateImageList(ArrayList<Path>)` to update `UserPrefs` with the new `imageList`.
+
+{Diagram to be added}
+
+The following sequence diagram shows how the cd command works:
+
+{Diagram to be added}
 
 === Undo/Redo feature
 ==== Current Implementation
