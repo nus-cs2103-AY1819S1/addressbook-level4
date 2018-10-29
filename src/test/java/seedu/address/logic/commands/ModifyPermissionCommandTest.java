@@ -8,7 +8,8 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,20 +19,26 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 /**
  * Test class for ModifyPermissionCommand
- * All test here use the Person in first index of model, which only contains REMOVE_PERMISSION permission.
+ * All test here use the Person in first index of model, which only contains ASSIGN_PERMISSION permission.
  */
-class ModifyPermissionCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+public class ModifyPermissionCommandTest {
+    private Model model;
     private CommandHistory commandHistory = new CommandHistory();
 
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.setLoggedInUser(User.getAdminUser());
+    }
+
     @Test
-    void execute_noModification_failure() {
-        resetEnvironment();
+    public void execute_noModification_failure() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
@@ -56,8 +63,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_addPermission_success() {
-        resetEnvironment();
+    public void execute_addPermission_success() {
         Set<Permission> toAdd = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
         toAdd.add(Permission.VIEW_PROJECT);
@@ -80,8 +86,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_addPermission_failure() {
-        resetEnvironment();
+    public void execute_addPermission_failure() {
         Set<Permission> toAdd = new HashSet<>();
         toAdd.add(Permission.REMOVE_EMPLOYEE);
         Set<Permission> toRemove = new HashSet<>();
@@ -99,8 +104,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_removePermission_success() {
-        resetEnvironment();
+    public void execute_removePermission_success() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toRemove.add(Permission.REMOVE_EMPLOYEE);
@@ -122,8 +126,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_removePermission_failure() {
-        resetEnvironment();
+    public void execute_removePermission_failure() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toRemove.add(Permission.ADD_EMPLOYEE);
@@ -141,8 +144,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_addAndRemovePermission_success() {
-        resetEnvironment();
+    public void execute_addAndRemovePermission_success() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
@@ -165,8 +167,7 @@ class ModifyPermissionCommandTest {
     }
 
     @Test
-    void execute_addAndRemovePermission_failure() {
-        resetEnvironment();
+    public void execute_addAndRemovePermission_failure() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toAdd.add(Permission.REMOVE_EMPLOYEE);
@@ -182,11 +183,6 @@ class ModifyPermissionCommandTest {
                 editedFirstPerson.getPermissionSet());
 
         assertCommandFailure(command, model, commandHistory, expectedString);
-    }
-
-    public void resetEnvironment() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        commandHistory = new CommandHistory();
     }
 
 }

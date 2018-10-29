@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.User;
 
 public class UndoCommandTest {
 
@@ -21,6 +22,8 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
+        model.setLoggedInUser(User.getAdminUser());
+
         // set up of models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);

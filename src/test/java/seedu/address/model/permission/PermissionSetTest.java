@@ -177,8 +177,6 @@ public class PermissionSetTest {
                 Permission.CREATE_PROJECT,
                 Permission.VIEW_PROJECT,
                 Permission.ASSIGN_PROJECT,
-                Permission.CREATE_DEPARTMENT,
-                Permission.ASSIGN_DEPARTMENT,
                 Permission.ASSIGN_PERMISSION
         ));
 
@@ -193,9 +191,7 @@ public class PermissionSetTest {
                 Permission.APPROVE_LEAVE,
                 Permission.CREATE_PROJECT,
                 Permission.VIEW_PROJECT,
-                Permission.ASSIGN_PROJECT,
-                Permission.CREATE_DEPARTMENT,
-                Permission.ASSIGN_DEPARTMENT
+                Permission.ASSIGN_PROJECT
         ));
 
         //Employee Preset
@@ -227,9 +223,23 @@ public class PermissionSetTest {
         //null with an existing permission -> false
         assertFalse(testPermissionSet.containsAll(null, Permission.ADD_EMPLOYEE));
         //list of not allocated permission -> false
-        assertFalse(testPermissionSet.containsAll(Permission.EDIT_EMPLOYEE, Permission.ASSIGN_DEPARTMENT));
+        assertFalse(testPermissionSet.containsAll(Permission.EDIT_EMPLOYEE, Permission.ASSIGN_PERMISSION));
         //Existing permission -> true
         assertTrue(testPermissionSet.containsAll(Permission.REMOVE_EMPLOYEE));
         assertTrue(testPermissionSet.containsAll(Permission.REMOVE_EMPLOYEE, Permission.ADD_EMPLOYEE));
+
+        PermissionSet duplicatePermissionSet = new PermissionSet();
+        duplicatePermissionSet.addAll(testPermissionSet);
+
+        PermissionSet morePermissionSet = new PermissionSet();
+        morePermissionSet.addAll(testPermissionSet);
+        morePermissionSet.addPermissions(Permission.ASSIGN_PERMISSION);
+
+        //Same permissionSet --> true
+        assertTrue(testPermissionSet.containsAll(testPermissionSet));
+        //duplicate permissionSet -> true
+        assertTrue(testPermissionSet.containsAll(duplicatePermissionSet));
+        //have permission not included --> false
+        assertFalse(testPermissionSet.containsAll(morePermissionSet));
     }
 }
