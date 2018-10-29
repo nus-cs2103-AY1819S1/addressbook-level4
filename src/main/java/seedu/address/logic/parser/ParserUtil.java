@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -134,7 +135,13 @@ public class ParserUtil {
         requireNonNull(filepath);
 
         String trimmedFilePath = filepath.trim();
-        Path dir = Paths.get(trimmedFilePath);
+        Path dir;
+        try {
+            dir = Paths.get(trimmedFilePath);
+        } catch (InvalidPathException e) {
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
+
         if (dir.toString().equals("")) {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }

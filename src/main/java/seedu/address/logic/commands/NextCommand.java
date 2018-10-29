@@ -1,6 +1,5 @@
-package seedu.address.logic.commands;
-
 //@@author benedictcss
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
