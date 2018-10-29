@@ -381,9 +381,14 @@ image::command_event_add_after2.png[add command, 300]
 [[command-event-list]]
 ==== Listing all events : `list`
 
-Lists all events in the system when in the 'event' context. +
+Lists all events in the system and display them in the panel. +
 
-Format: `list`
+Format: `list` +
+Displays all events in the system in the panel. +
+The figure below shows the expected panel after executing the `list` command.
+
+.Output of `list`
+image::command_event_list.png[list command, 300]
 
 [[command-event-edit]]
 ==== Editing event details : `edit`
