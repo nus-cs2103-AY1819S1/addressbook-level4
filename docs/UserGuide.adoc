@@ -105,23 +105,26 @@ Format: +
 Format: +
 `-exit`
 
-=== Recipes/Favourite List Commands
+=== Recipes Commands
 ==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]...  cont i/INSTRUCTION... [c/TIME] end`
 Add new recipe. +
 ****
 * This is a multi-line command.
-** Command starts with `add` and should include name, cook time, difficulty and optional tags.
-** Subsequence lines must start with `cont` and should only include details on one instructional step each.
-*** Details
+* Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
+** NAME should come with any alphanumeric characters.
+** TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
+** DIFFICULTY should range from 1 to 5.
+** TAG should come with any alphanumberic character.
+* Subsequence lines must start with `cont` and should only include details on one instructional step each.
+** Details
  to be included are instruction text, instruction exclusive cook time (optional) and ingredients (optional).
- *** Ingredients can be embedded into instruction text via `#INGREDIENT_NAME AMOUNT UNIT`.
- **** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
- **** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
- **** UNIT should only come as a single word. e.g. gram, g, ml.
- ** Action will only be completed with a new line command `end`.
-* TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
-* DIFFICULTY should range from 1 to 5.
-* `i` is to be replaced with running numbers for listing of instructions in order.
+** `i` is to be replaced with running numbers for listing of instructions in order.
+** Ingredients can be embedded into instruction text via `#INGREDIENT_NAME AMOUNT SERVING_UNIT`.
+*** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
+*** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
+*** SERVING_UNIT should only come as a single word. e.g. gram, g, ml.
+* Action will only be completed with a new line command `end`.
+
 ****
 Format: +
 `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
@@ -130,7 +133,33 @@ cont... +
 end` +
  +
 INSTRUCTION: +
-`TEXT... [#INGREDIENT_NAME AMOUNT UNIT]...`
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+
+==== Edit a recipe: `edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...`
+Edit new recipe. +
+****
+* Attributes included are to be edited on a replacement basis (not concatenation e.g. tags are being replaced and not
+ added)
+* INDEX of the recipe to be edited should reflect the displayed recipe on the panel.
+* There are 2 types of edit command.
+** First: Used to edit recipe generic information namely name, cook time, difficulty
+and tags.
+*** NAME should come with any alphanumeric characters.
+*** TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
+*** DIFFICULTY should range from 1 to 5.
+*** TAG should come with any alphanumberic character.
+** Second: Used to edit a single instruction of that recipe.
+*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command.
+*** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using
+`#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
+****
+Format: +
+`edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...` +
+or +
+`edit INDEX s/STEP i/INSTRUCTION [c/TIME]` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 
 ==== Display recipe details: `select INDEX`
 View a recipe and its details from the list. +
@@ -140,15 +169,7 @@ View a recipe and its details from the list. +
 Format: +
 `select INDEX`
 
-==== Activate cook-mode: `cook INDEX`
-A cook mode that provides step-by-step guidance to aid real-time cooking. +
-****
-* `INDEX` should be as displayed in the list.
-****
-Format: +
-`cook INDEX`
-
-==== Search and display recipes: `find KEYWORD...`
+==== Search recipes: `find KEYWORD...`
 Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
 dietary types (vegan, Keto),
@@ -162,7 +183,22 @@ and difficulty (easy, simple, challenging). +
 Format: +
 `find KEYWORD...`
 
-=== Recipe Details Commands
+==== Delete recipe: `delete INDEX`
+Delete a recipe and its details from the list. +
+****
+* `INDEX` should be as displayed in the list.
+****
+Format: +
+`delete INDEX`
+
+==== Activate cook-mode [coming in V2.0]: `cook INDEX`
+A cook mode that provides step-by-step guidance to aid real-time cooking. +
+****
+* `INDEX` should be as displayed in the list.
+****
+Format: +
+`cook INDEX`
+
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +
 ****
@@ -180,11 +216,6 @@ Add a specified recipe to meal plan. +
 ****
 Format: +
 `plan INDEX DATE MEAL`
-
-==== Active cook-mode [coming in V2.0]: `cook`
-A cook mode that provides step-by-step guidance to aid real-time cooking. +
-Format: +
-`cook`
 
 ==== Add to review [coming in V2.0]: `review [Comment] RATING`
 Add comment and rating to current recipe. +
@@ -408,7 +439,6 @@ Format: +
 *Universal Commands*
 
 * View help: `-help`
-* Search and display recipes: `find KEYWORD...`
 * Display all recipe: `-recipe`
 * Display recipe suggestion: `-suggest`
 * Display new recipe: `-surprise`
@@ -417,14 +447,21 @@ Format: +
 * Display meal planner: `-mealplanner`
 * Exit application: `-exit`
 
-*Recipes/Favourite List*
+*Recipes Commands*
 
 * Add a recipe: `add n/NAME c/TIME [t/TAG]... +
 cont i/INSTRUCTION [c/TIME] +
 cont... +
 end`
-** Instruction: `[TEXT]... [#INGREDIENT_NAME AMOUNT UNIT]...`
+** INSTRUCTION: `[TEXT]... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+* Edit a recipe: +
+`edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...` +
+or +
+`edit INDEX s/STEP i/INSTRUCTION [c/TIME]` +
+ ** INSTRUCTION: `TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 * Display recipe details: `select INDEX`
+* Search recipes: `find KEYWORD...`
+* Delete recipe details: `delete INDEX`
 * Activate cook-mode [coming in V2.0]: `cook INDEX`
 
 *Recipe Details Commands*
