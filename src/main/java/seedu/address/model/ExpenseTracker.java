@@ -125,7 +125,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     /**
      * Adds a expense into the address book
-     * @return true if expense is successfully added withouot exceeding totalBudget, else false
+     * @return true if expense is successfully added without exceeding totalBudget, else false
      */
     public boolean addExpense(Expense p) {
         this.expenses.add(p);

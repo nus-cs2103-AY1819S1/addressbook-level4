@@ -604,8 +604,7 @@ nothing will be done.
 
 * Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`.
-* If it has already been set, the timing will be updated on the next occurence time
-//TODO: ADD DIAGRAM TO SHOW THIS
+* If it has already been set, the timing will be updated on the next occurrence time
 
 Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.
 
@@ -634,6 +633,24 @@ returned to
 . `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
 method to update the time where the next totalBudget is reset.
 
+===== Budget by Category
+. User enters command `addCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
+
+. `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
+`AddCategoryBudgetCommandParser#parse()` method.
+
+. `AddCategoryBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String
+into keywords and store them in an `ArgumentMultimap` Object.
+
+. `AddCategoryBudgetCommandParser#parse()` method then calls `AddCategoryBudgetCommandParser#arePrefixesPresent()`
+method. If any of the keywords are missing, `ParseException` will be thrown.
+
+. From the previous step, if no exception is thrown, an `AddCategoryBudgetCommand` Object with `category` and `budget`
+ is created and returned to `LogicManager`.
+
+. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#addCategoryBudget()`
+method to add a `Budget` to a `Category`.
+
 ===== Notification center (Proposed)
 There is an area for the app to display notifications and additional information to the users beside the usual
 area below the command box. This is particularly useful to the *Budget* feature as budgets should not obstruct the
@@ -641,10 +658,6 @@ usage of the expense tracker, but rather provide helpful information. For exampl
  adding an expense, a warning would be displayed in the *Notification center* instead of the area below the command
  box, replacing the success message of adding an expense and confusing the user.
 
-===== Budget by Category (Proposed)
-Users can now allocate their budgets by categories. This means that within a fixed totalBudget, they can decide how big of
- a proportion a certain category of expense takes. Every `Category` will now have a `Budget` and the total totalBudget in
- `ModelManager` will never exceed the sum of all budgets in `Category`.
 
 ==== Alternatives considered
 Recurrence check was initially implemented via events. Every time `ModelManager#loadUserData()` is called, an event
