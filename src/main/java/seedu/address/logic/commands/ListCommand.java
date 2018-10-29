@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROUPS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
@@ -52,10 +53,17 @@ public class ListCommand extends Command {
             model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
             return new CommandResult(MESSAGE_SUCCESS_GROUP);
         case MEETING:
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(MESSAGE_SUCCESS_PERSON);
+            model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+            return new CommandResult(MESSAGE_SUCCESS_MEETING);
         default:
             throw new IllegalStateException();
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ListCommand // instanceof handles nulls
+            && listCommandType.equals(((ListCommand) other).listCommandType)); // state check
     }
 }

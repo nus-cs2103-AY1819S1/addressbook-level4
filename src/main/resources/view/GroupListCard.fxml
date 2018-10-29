@@ -29,7 +29,14 @@
       </HBox>
          <Label fx:id="groupDescription" styleClass="cell_small_label" text="\$description" />
          <Label fx:id="groupMeeting" styleClass="cell_small_label" text="\$meeting" />
-         <Label fx:id="memberCount" styleClass="cell_small_label" text="\$memberCount" />
+        <HBox spacing="5.0" alignment="CENTER_LEFT">
+            <Label fx:id="member" styleClass="cell_small_label" text="Group size: ">
+                <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+            <Label fx:id="memberCount" styleClass="cell_small_label" text="\$memberCount" />
+        </HBox>
        <padding>
           <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
        </padding>

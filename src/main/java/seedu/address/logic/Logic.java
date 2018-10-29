@@ -5,6 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,6 +29,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the sorted list of persons */
     ObservableList<Person> getSortedPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of meetings */
+    ObservableList<Meeting> getFilteredMeetingList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

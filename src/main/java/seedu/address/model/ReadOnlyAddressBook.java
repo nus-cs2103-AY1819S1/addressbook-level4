@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,4 +22,8 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Group> getGroupList();
 
+    /**
+     * Returns an unmodifiable view of the meeting list.
+     */
+    ObservableList<Meeting> getMeetingList();
 }
