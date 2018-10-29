@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+/**
+ * Stores the logic related to the Embedded Google Maps API.
+ */
+
 public class EmbedGoogleMaps {
 
     private static final String socPlaceId = "ChIJW-fkx_ga2jERSjkkKeJjaUM";

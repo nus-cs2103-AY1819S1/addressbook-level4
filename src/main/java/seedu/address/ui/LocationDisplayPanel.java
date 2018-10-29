@@ -10,10 +10,10 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,12 +27,12 @@ public class LocationDisplayPanel extends UiPart<Region> {
 
     private static final String API_KEY = "AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
 
-    private static String locationContentA = "<iframe width=\"600\" height=\"450\" frameborder=\"0\"" +
-            "style=\"border:0\" src=\"" +
-            "https://www.google.com/maps/embed/v1/place?q=place_id:";
+    private static String locationContentA = "<iframe width=\"600\" height=\"450\" frameborder=\"0\""
+            + "style=\"border:0\" src=\""
+            + "https://www.google.com/maps/embed/v1/place?q=place_id:";
 
-    private static String locationContentB = "&key=AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU\" " +
-            "allowfullscreen></iframe>";
+    private static String locationContentB = "&key=AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU\" "
+            + "allowfullscreen></iframe>";
 
     private static final String FXML = "LocationDisplayPanel.fxml";
 
