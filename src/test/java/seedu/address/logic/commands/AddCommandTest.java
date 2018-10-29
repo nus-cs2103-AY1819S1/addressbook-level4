@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -238,7 +239,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isExistingCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isLoadedCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
         }
 

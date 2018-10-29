@@ -4,8 +4,10 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -18,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -33,9 +36,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private String topPanel;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private CalendarPanel calendarPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -71,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.topPanel = ToggleBrowserPlaceholderEvent.BROWSER_PANEL;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -125,6 +131,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
+        calendarPanel = new CalendarPanel();
+        // The last node in the list will be the top view
+        // BrowserPanel will be the default top view
+        browserPlaceholder.getChildren().add(calendarPanel.getRoot());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -166,6 +176,43 @@ public class MainWindow extends UiPart<Stage> {
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+
+    private void setTopPanel(String newTopPanel) {
+        topPanel = newTopPanel;
+
+    }
+
+    /**
+     * Checks if the specified view is the top view in BrowserPlaceholder.
+     */
+    public boolean isCorrectPanelOnTopBrowserPlaceholder(String view) {
+        if (browserPlaceholder.getChildren().size() < 2) {
+            return false;
+        }
+
+        switch(view) {
+        case ToggleBrowserPlaceholderEvent.BROWSER_PANEL:
+            return topPanel.equals(ToggleBrowserPlaceholderEvent.BROWSER_PANEL);
+
+        case ToggleBrowserPlaceholderEvent.CALENDAR_PANEL:
+            return topPanel.equals(ToggleBrowserPlaceholderEvent.CALENDAR_PANEL);
+
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Push the top Node in browserPlaceholder to the back.
+     */
+    private void toggleTopPanel() {
+        ObservableList<Node> children = browserPlaceholder.getChildren();
+
+        if (children.size() > 1) {
+            Node topNode = children.get(children.size() - 1);
+            topNode.toBack();
+        }
     }
 
     /**
@@ -211,6 +258,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void releaseResources() {
         browserPanel.freeResources();
+        calendarPanel.freeResources();
     }
 
     @Subscribe
@@ -224,4 +272,16 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleBudget();
     }
+
+    @Subscribe
+    private void handleToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!isCorrectPanelOnTopBrowserPlaceholder(event.view)) {
+            logger.info("BrowserPlaceholder toggled");
+            setTopPanel(event.view);
+            toggleTopPanel();
+        }
+
+    }
+
 }

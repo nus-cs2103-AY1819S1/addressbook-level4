@@ -11,10 +11,12 @@ import java.util.logging.Logger;
 
 import org.simplejavamail.email.Email;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -25,14 +27,16 @@ import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
+import seedu.address.commons.events.model.LoadCalendarEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.ui.CalendarViewEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.storage.CalendarStorage;
-import seedu.address.storage.IcsCalendarStorage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -49,26 +53,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs and calendarStorage.
-     */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
-                        CalendarStorage calendarStorage) {
-        super();
-        requireAllNonNull(addressBook, userPrefs, calendarStorage);
-
-        logger.fine("Initializing with address book: " + addressBook + " , user prefs " + userPrefs
-            + " and calendar: " + calendarStorage);
-
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
-        this.userPrefs = userPrefs;
-        this.emailModel = new EmailModel();
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
-    }
-
-    /**
      * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
@@ -83,8 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.emailModel = new EmailModel();
         this.userPrefs = userPrefs;
-        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
 
     }
 
@@ -99,8 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         emailModel = new EmailModel();
         this.userPrefs = userPrefs;
-        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
     }
 
     @Override
@@ -303,37 +285,68 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Raises an event to indicate the calendar model has changed
      */
-    private void indicateCalendarModelChanged() {
-        raise(new CalendarCreatedEvent(calendarModel));
+    private void indicateCalendarModelChanged(Calendar calendar, String calendarName) {
+        raise(new CalendarCreatedEvent(calendar, calendarName));
+    }
+
+    /**
+     * Raises an event to indicate a request for calendar to be loaded
+     */
+    private void indicateLoadCalendar(String calendarName) {
+        raise(new LoadCalendarEvent(calendarName));
     }
 
     /**
      * Raises an event to indicate that an all day event was created
      */
-    private void indicateAllDayEventCreated(Year year, Month month, int date, String title) {
-        raise(new AllDayEventAddedEvent(year, month, date, title));
+    private void indicateAllDayEventCreated(Year year, Month month, int date, String title,
+                                            Calendar calendarToBeLoaded) {
+        raise(new AllDayEventAddedEvent(year, month, date, title, calendarToBeLoaded));
     }
 
     /**
      * Raises an event to indicate that an event was created
      */
     private void indicateCalendarEventCreated(Year year, Month month, int startDate, int startHour, int startMin,
-                                              int endDate, int endHour, int endMin, String title) {
+                                              int endDate, int endHour, int endMin, String title,
+                                              Calendar calendarToBeLoaded) {
         raise(new CalendarEventAddedEvent(year, month, startDate, startHour, startMin,
-                endDate, endHour, endMin, title));
+                endDate, endHour, endMin, title, calendarToBeLoaded));
     }
 
     /**
      * Raises an event to indicate that an event was deleted
      */
-    private void indicateCalendarEventDeleted(Year year, Month month, int startDate, int endDate, String title) {
-        raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title));
+    private void indicateCalendarEventDeleted(Year year, Month month, int startDate, int endDate, String title,
+                                              Calendar updatedCalendar) {
+        raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title, updatedCalendar));
+    }
+
+    /**
+     * Raises an event to display calendar on ui
+     */
+    private void indicateViewCalendar(Calendar calendar, String calendarName) {
+        raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.CALENDAR_PANEL));
+        raise(new CalendarViewEvent(calendar, calendarName));
+    }
+
+    @Override
+    @Subscribe
+    public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
+        calendarModel.loadCalendar(event.calendar, event.calendarName);
+        indicateViewCalendar(event.calendar, event.calendarName);
     }
 
     @Override
     public boolean isExistingCalendar(Year year, Month month) {
         requireAllNonNull(year, month);
         return calendarModel.isExistingCalendar(year, month);
+    }
+
+    @Override
+    public boolean isLoadedCalendar(Year year, Month month) {
+        requireAllNonNull(year, month);
+        return calendarModel.isLoadedCalendar(year, month);
     }
 
     @Override
@@ -358,9 +371,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void createCalendar(Year year, Month month) {
         try {
-            calendarModel.createCalendar(year, month);
+            Calendar calendar = calendarModel.createCalendar(year, month);
             updateExistingCalendar();
-            indicateCalendarModelChanged();
+            String calendarName = month + "-" + year;
+            indicateCalendarModelChanged(calendar, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to save calendar(ics) file : " + StringUtil.getDetails(e));
         }
@@ -368,21 +382,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void loadCalendar(Year year, Month month) {
-        try {
-            calendarModel.loadCalendar(year, month);
-            //TODO
-            //Raise load calendar event
-        } catch (IOException | ParserException e) {
-            logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
-        }
+        requireAllNonNull(year, month);
+        String calendarName = month + "-" + year;
+        indicateLoadCalendar(calendarName);
     }
 
     @Override
     public void createAllDayEvent(Year year, Month month, int date, String title) {
         try {
-            calendarModel.createAllDayEvent(year, month, date, title);
-            indicateAllDayEventCreated(year, month, date, title);
-        } catch (IOException | ParserException e) {
+            Calendar calendarToBeLoaded = calendarModel.createAllDayEvent(year, month, date, title);
+            String calendarName = month + "-" + year;
+            indicateAllDayEventCreated(year, month, date, title, calendarToBeLoaded);
+            indicateViewCalendar(calendarToBeLoaded, calendarName);
+        } catch (IOException e) {
             logger.warning("Failed to create all day event : " + StringUtil.getDetails(e));
         }
     }
@@ -391,32 +403,30 @@ public class ModelManager extends ComponentManager implements Model {
     public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
                             int endDate, int endHour, int endMin, String title) {
         try {
-            calendarModel.createEvent(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
-            indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
-        } catch (IOException | ParserException e) {
+            Calendar calendarToBeLoaded = calendarModel.createEvent(year, month, startDate,
+                    startHour, startMin, endDate, endHour, endMin, title);
+            String calendarName = month + "-" + year;
+            indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title,
+                    calendarToBeLoaded);
+            indicateViewCalendar(calendarToBeLoaded, calendarName);
+        } catch (IOException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));
         }
     }
 
     @Override
     public boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title) {
-        try {
-            requireAllNonNull(year, month, startDate, endDate, title);
-            return calendarModel.isExistingEvent(year, month, startDate, endDate, title);
-        } catch (IOException | ParserException e) {
-            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
-            return false;
-        }
+        requireAllNonNull(year, month, startDate, endDate, title);
+        return calendarModel.isExistingEvent(startDate, endDate, title);
+
     }
 
     @Override
     public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
-        try {
-            calendarModel.deleteEvent(year, month);
-            indicateCalendarEventDeleted(year, month, startDate, endDate, title);
-        } catch (IOException e) {
-            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
-        }
+        Calendar updatedCalender = calendarModel.deleteEvent();
+        String calendarName = month + "-" + year;
+        indicateCalendarEventDeleted(year, month, startDate, endDate, title, updatedCalender);
+        indicateViewCalendar(updatedCalender, calendarName);
     }
 
     @Override
