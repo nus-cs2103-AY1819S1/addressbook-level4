@@ -566,7 +566,7 @@ image::PictureCommandActivityDiagram.png[width="500"]
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
 
-// end:: addpicture[]
+// end::addpicture[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
