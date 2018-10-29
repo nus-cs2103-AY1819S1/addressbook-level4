@@ -2,8 +2,6 @@ package seedu.address.model.cca;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.model.cca.Spent.MESSAGE_SPENT_CONSTRAINTS;
 
 import org.junit.Test;
 
@@ -49,4 +47,14 @@ public class SpentTest {
         assertTrue(Spent.isValidSpent("1")); // extremely small spent amount
         assertTrue(Spent.isValidSpent("1234567890")); // extremely large spent amount
     }
+
+    @Test
+    public void getSpentValue() {
+        Spent spent = new Spent(300);
+        assertTrue(spent.getSpentValue().equals(300));
+
+        assertFalse(spent.getSpentValue().equals(100)); // different int value
+        assertFalse(spent.getSpentValue().equals("300")); // string int value
+    }
+
 }

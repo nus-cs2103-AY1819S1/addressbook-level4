@@ -12,7 +12,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ExitBudgetWindowRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -103,7 +102,7 @@ public class BudgetWindow extends UiPart<Stage> {
      * @param ccaName the name of the CCA to be viewed
      */
     void fillInnerParts(CcaName ccaName) {
-        if(Optional.ofNullable(ccaName).isPresent()) {
+        if (Optional.ofNullable(ccaName).isPresent()) {
             budgetBrowserPanel = new BudgetBrowserPanel(ccaName);
         } else {
             budgetBrowserPanel = new BudgetBrowserPanel();

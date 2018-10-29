@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 //@@author ericyjw
@@ -46,5 +45,6 @@ public class RemarksTest {
         assertTrue(Remarks.isValidRemark("Purchase of 10 Molten Basketball")); // digits in between characters
         assertTrue(Remarks.isValidRemark("Purchase of Molten Basketball - 10")); // dash in between words
     }
+
 
 }

@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARKS;
 
 import org.junit.Test;
 
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 /**

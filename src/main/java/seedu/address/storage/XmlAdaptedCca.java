@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.transaction.Entry;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.Outstanding;
 import seedu.address.model.cca.Spent;
 import seedu.address.model.person.Name;
+import seedu.address.model.transaction.Entry;
 
 /**
  * JAXB-friendly version of the CCA.
@@ -25,7 +25,7 @@ import seedu.address.model.person.Name;
  */
 public class XmlAdaptedCca {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "CCA's %s field is missing!";
+    public static final String MISSING_CCA_FIELD_MESSAGE_FORMAT = "CCA's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -90,7 +90,8 @@ public class XmlAdaptedCca {
      */
     public Cca toModelType() throws IllegalValueException {
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CcaName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
+                CcaName.class.getSimpleName()));
         }
         if (!CcaName.isValidCcaName(name)) {
             throw new IllegalValueException(CcaName.MESSAGE_NAME_CONSTRAINTS);
@@ -98,7 +99,8 @@ public class XmlAdaptedCca {
         final CcaName modelName = new CcaName(name);
 
         if (head == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName()));
         }
         if (!Name.isValidName(head)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
@@ -107,7 +109,8 @@ public class XmlAdaptedCca {
         final Name modelHeadName = new Name(head);
 
         if (viceHead == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName()));
         }
         if (!Name.isValidName(viceHead)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
@@ -116,7 +119,8 @@ public class XmlAdaptedCca {
         final Name modelViceHeadName = new Name(viceHead);
 
         if (budget == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Budget.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
+                Budget.class.getSimpleName()));
         }
         if (!Budget.isValidBudget(budget)) {
             throw new IllegalValueException(Budget.MESSAGE_BUDGET_CONSTRAINTS);
@@ -124,7 +128,8 @@ public class XmlAdaptedCca {
         final Budget modelBudget = new Budget(Integer.parseInt(budget));
 
         if (spent == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Spent.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
+                Spent.class.getSimpleName()));
         }
         if (!Spent.isValidSpent(spent)) {
             throw new IllegalValueException(Spent.MESSAGE_SPENT_CONSTRAINTS);
@@ -133,7 +138,7 @@ public class XmlAdaptedCca {
         final Spent modelSpent = new Spent(Integer.parseInt(spent));
 
         if (outstanding == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+            throw new IllegalValueException(String.format(MISSING_CCA_FIELD_MESSAGE_FORMAT,
                 Outstanding.class.getSimpleName()));
         }
         if (!Outstanding.isValidOutstanding(outstanding)) {
@@ -142,7 +147,7 @@ public class XmlAdaptedCca {
 
         final Outstanding modelOutstanding = new Outstanding(Integer.parseInt(outstanding));
 
-        final List<Entry>transactionEntries = new ArrayList<>();
+        final List<Entry> transactionEntries = new ArrayList<>();
         for (XmlAdaptedEntry entry : transaction) {
             transactionEntries.add(entry.toModelType());
         }

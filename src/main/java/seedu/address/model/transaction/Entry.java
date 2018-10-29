@@ -16,12 +16,12 @@ import java.util.Optional;
  * @author ericyjw
  */
 public class Entry {
-    public static final String MESSAGE_ENTRY_CONSTRAINTS = "Entry should contain a valid entry number, date, amount " +
-        "and remarks";
-    private static final String MESSAGE_ENTRY_NUM_CONSTRAINTS = "Entry number should contain only positive integers " +
-        "and must not be less than 1.";
+    public static final String MESSAGE_ENTRY_CONSTRAINTS = "Entry should contain a valid entry number, date, amount "
+        + "and remarks";
     public static final String ENTRY_NUM_VALIDATION_REGEX = "[1-9][0-9]*";
 
+    private static final String MESSAGE_ENTRY_NUM_CONSTRAINTS = "Entry number should contain only positive integers "
+        + "and must not be less than 1.";
 
     private Integer entryNum;
     private Date date;
@@ -152,6 +152,22 @@ public class Entry {
             && Date.isValidDate(date)
             && Amount.isValidAmount(amount)
             && Remarks.isValidRemark(remarks);
+    }
+
+    /**
+     * Check the if the given {@code Entry} object is valid.
+     * Return true if the give entry is valid.
+     *
+     * @param toCheck the entry to check
+     */
+    public static boolean isValidEntry(Entry toCheck) {
+        if (!Optional.ofNullable(toCheck).isPresent()) {
+            return false;
+        }
+        return String.valueOf(toCheck.getEntryNum()).matches(ENTRY_NUM_VALIDATION_REGEX)
+            && Date.isValidDate(toCheck.getDateValue())
+            && Amount.isValidAmount(String.valueOf(toCheck.getAmountValue()))
+            && Remarks.isValidRemark(toCheck.getRemarkValue());
     }
 
     /**

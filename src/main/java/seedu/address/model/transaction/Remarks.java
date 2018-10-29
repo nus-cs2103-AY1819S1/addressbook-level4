@@ -40,14 +40,6 @@ public class Remarks {
     }
 
     /**
-     * Update the remarks by replacing the existing remark with the new remark
-     * @param newRemarks new remarks to be updated
-     */
-    public void updateRemarks(String newRemarks) {
-        this.remarks = newRemarks;
-    }
-
-    /**
      * Returns true if both remarks are the same.
      */
     @Override

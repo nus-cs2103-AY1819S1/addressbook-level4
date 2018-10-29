@@ -7,6 +7,7 @@ import seedu.address.model.cca.Outstanding;
 import seedu.address.model.cca.Spent;
 import seedu.address.model.transaction.Entry;
 
+//@@author ericyjw
 /**
  * To update the spent and outstanding amount in a {@code Cca} when a transaction is created, transaction is updated
  * and transaction is deleted.
@@ -26,7 +27,7 @@ public class TransactionMath {
         int givenBudget = toUpdate.getBudgetAmount();
         int netAmountSpent = 0;
 
-        for(Entry e: transactionEntries) {
+        for (Entry e : transactionEntries) {
             netAmountSpent += e.getAmountValue();
         }
 

@@ -1,30 +1,16 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ImportCommand;
-import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.cca.Cca;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Date;
-import seedu.address.model.transaction.Entry;
-import seedu.address.model.transaction.Remarks;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Budget;
@@ -40,6 +26,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Remarks;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -278,7 +267,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code budget} is invalid.
-     * @author ericyjw
      */
     public static Budget parseBudget(String budget) throws ParseException {
         requireNonNull(budget);
@@ -294,7 +282,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code ccaName} is invalid.
-     * @author ericyjw
      */
     public static CcaName parseCcaName(String ccaName) throws ParseException {
         requireNonNull(ccaName);
@@ -310,7 +297,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code Spent} is invalid.
-     * @author ericyjw
      */
     public static Spent parseSpent(String spent) throws ParseException {
         requireNonNull(spent);
@@ -326,7 +312,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code Outstanding} is invalid.
-     * @author ericyjw
      */
     public static Outstanding parseOutstanding(String outstanding) throws ParseException {
         requireNonNull(outstanding);

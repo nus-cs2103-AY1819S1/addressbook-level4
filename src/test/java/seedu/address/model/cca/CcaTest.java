@@ -11,6 +11,9 @@ import static seedu.address.testutil.TypicalCcas.TRACK;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -156,5 +159,62 @@ public class CcaTest {
             .withTransaction(TRANSACTION_4_ENTRIES)
             .build();
         assertTrue(FLOORBALL.equals(editedFloorball));
+    }
+
+    @Test
+    public void getCcaName() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getCcaName().equals("JCRC"));
+        assertFalse((cca.getCcaName().equals("Basketball"))); // different cca name
+    }
+
+    @Test
+    public void getName() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getName().equals(new CcaName("JCRC")));
+        assertFalse(cca.getName().equals(new CcaName("Basketball"))); // different CcaName
+    }
+
+    @Test
+    public void getHeadName() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getHeadName().equals(CARL.getName().fullName));
+        assertFalse((cca.getHeadName().equals(ALICE.getName().fullName))); // different head name
+    }
+
+    @Test
+    public void getHead() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getHead().equals(CARL.getName()));
+        assertFalse(cca.getHead().equals(ALICE.getName())); // different Name object for head
+    }
+
+    @Test
+    public void getViceHeadName() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getViceHeadName().equals(DANIEL.getName().fullName));
+        assertFalse((cca.getViceHeadName().equals(ALICE.getName().fullName))); // different vice head name
+    }
+
+    @Test
+    public void getViceHead() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getViceHead().equals(DANIEL.getName()));
+        assertFalse(cca.getViceHead().equals(ALICE.getName())); // different Name object for vice head
+    }
+
+    @Test
+    public void getBudgetAmount() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getBudgetAmount().equals(500));
+        assertFalse(cca.getBudgetAmount().equals("500")); // string value of the budget amount
+        assertFalse(cca.getBudgetAmount().equals(200)); // different budget amount
+    }
+
+    @Test
+    public void getBudget() {
+        Cca cca = new CcaBuilder().build();
+        assertTrue(cca.getBudget().equals(new Budget(500)));
+        assertFalse(cca.getBudget().equals(new Budget(200))); // different budget amount object
     }
 }

@@ -39,7 +39,7 @@ public class Outstanding {
         return test.matches(OUTSTANDING_VALIDATION_REGEX);
     }
 
-    public int getOutstandingValue() {
+    public Integer getOutstandingValue() {
         return this.outstanding;
     }
 

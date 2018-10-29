@@ -8,7 +8,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.BudgetBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
-import seedu.address.model.transaction.Entry;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -21,7 +20,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
-
+import seedu.address.model.transaction.Entry;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -73,8 +72,8 @@ public class SampleDataUtil {
                 new Spent(500),
                 new Outstanding(100),
                 getTransactionEntrySet(
-                    new Entry("1", "13.11.2013", "-300" ,"Purchase of Equipment"),
-                    new Entry("2", "20.03.2014", "-200" ,"Competition Fund")
+                    new Entry("1", "13.11.2013", "-300", "Purchase of Equipment"),
+                    new Entry("2", "20.03.2014", "-200", "Competition Fund")
                 )
             ),
             new Cca(
@@ -115,6 +114,7 @@ public class SampleDataUtil {
     }
 
     //@@author ericyjw
+
     /**
      * Returns a transaction entry set containing the list of transaction entries given.
      */

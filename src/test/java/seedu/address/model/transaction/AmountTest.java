@@ -8,7 +8,6 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 //@@author ericyjw
-
 /**
  * To test for valid {@code Amount}.
  * Checks for null and other combinations of amount.
@@ -38,5 +37,13 @@ public class AmountTest {
         // valid date
         assertTrue(Amount.isValidAmount("100")); // valid date
         assertTrue(Amount.isValidAmount("-100")); // shorten date
+    }
+
+    @Test
+    public void getAmount() {
+        Amount amount = new Amount(-200);
+        assertTrue(amount.getAmount().equals(-200));
+        assertFalse(amount.getAmount().equals("-200")); // string value of the amount
+        assertFalse(amount.getAmount().equals(200)); // different amount value
     }
 }

@@ -1,6 +1,5 @@
 package seedu.address.model.transaction;
 
-import static java.util.Objects.deepEquals;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -34,16 +33,16 @@ public class Date {
         this.date = date;
     }
 
+    /**
+     * To test if the given string contains a valid string of {@code Date}.
+     *
+     * @param test the string to check
+     */
     public static boolean isValidDate(String test) {
         requireNonNull(test);
         String[] token = test.split("\\.");
         return isValidDate(token) && test.matches(DATE_VALIDATION_REGEX);
     }
-
-//    public static boolean isValidDate(Entry e) {
-//        String date = e.getDate().date;
-//        return isValidDate(date) && date.matches(DATE_VALIDATION_REGEX);
-//    }
 
     /**
      * To check for valid date.

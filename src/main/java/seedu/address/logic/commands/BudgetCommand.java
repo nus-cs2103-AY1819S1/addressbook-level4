@@ -32,7 +32,7 @@ public class BudgetCommand extends Command {
      * Creates a BudgetCommand to view the budget of a specific Cca
      * @param ccaName the name of the Cca to have its budget viewed
      */
-    public  BudgetCommand(CcaName ccaName) {
+    public BudgetCommand(CcaName ccaName) {
         this.ccaName = ccaName;
     }
 

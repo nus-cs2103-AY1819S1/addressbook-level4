@@ -7,7 +7,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CCAS;
 
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.TransactionMath;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -65,7 +64,7 @@ public class DeleteTransactionCommand extends Command {
 
         Cca ccaToUpdate = lastShownList.get(index);
         Entry entryToBeDeleted = ccaToUpdate.getEntry(entryIndex);
-        Cca updatedCca =  ccaToUpdate.removeTransaction(entryToBeDeleted);
+        Cca updatedCca = ccaToUpdate.removeTransaction(entryToBeDeleted);
         updatedCca = TransactionMath.updateDetails(updatedCca);
 
 

@@ -47,4 +47,13 @@ public class OutstandingTest {
         assertTrue(Outstanding.isValidOutstanding("1")); // extremely small outstanding amount
         assertTrue(Outstanding.isValidOutstanding("1234567890")); // extremely large outstanding amount
     }
+
+    @Test
+    public void getOutstandingValue() {
+        Outstanding outstanding = new Outstanding(100);
+        assertTrue(outstanding.getOutstandingValue().equals(100));
+
+        assertFalse(outstanding.getOutstandingValue().equals(200)); // different int value
+        assertFalse(outstanding.getOutstandingValue().equals("100")); // string value of outstanding amount
+    }
 }

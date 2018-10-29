@@ -1,20 +1,18 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
-import seedu.address.model.transaction.Entry;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.Outstanding;
 import seedu.address.model.cca.Spent;
 import seedu.address.model.person.Name;
+import seedu.address.model.transaction.Entry;
 
 //@@author javenseow ericyjw
 /**

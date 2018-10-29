@@ -36,6 +36,11 @@ public class Amount {
         return this.amount;
     }
 
+    /**
+     * To test is the given string contains a valid transaction {@code Amount}.
+     *
+     * @param test the string to check
+     */
     public static boolean isValidAmount(String test) {
         if (test.equals("")) {
             return false;

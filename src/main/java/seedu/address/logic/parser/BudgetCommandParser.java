@@ -22,7 +22,7 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        if(!argMultimap.getValue(PREFIX_TAG).isPresent() && !args.isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_TAG).isPresent() && !args.isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         } else if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.transaction.Entry;
 import seedu.address.model.person.Name;
+import seedu.address.model.transaction.Entry;
 
 //@@author ericyjw
 /**
@@ -57,29 +57,6 @@ public class Cca {
         this.outstanding = outstanding;
         this.transactionEntries = transactionEntries;
     }
-
-//    /**
-//     * Alternative constructor for Cca where there is a vice-head.
-//     * Every identity field must be present and not null.
-//     *
-//     * @param name name of the Cca
-//     * @param head name of the head of the Cca
-//     * @param budget budget of the Cca
-//     * @param spent amount spent by the Cca
-//     * @param outstanding outstanding amount of the Cca
-//     * @param transactionEntries transaction entries of the Cca
-//     */
-//    public Cca(CcaName name, Name head, Budget budget, Spent spent, Outstanding outstanding,
-//               Set<Entry> transactionEntries) {
-//        requireAllNonNull(name, head, budget, spent, outstanding);
-//        this.name = name;
-//        this.head = head;
-//        this.viceHead = null;
-//        this.budget = budget;
-//        this.spent = spent;
-//        this.outstanding = outstanding;
-//        this.transactionEntries = transactionEntries;
-//    }
 
     /**
      * Create a Cca object with a given {@code CcaName}.
@@ -129,11 +106,11 @@ public class Cca {
         return viceHead.fullName;
     }
 
-    public int getBudgetAmount() {
+    public Integer getBudgetAmount() {
         return budget.getBudgetValue();
     }
 
-    public int getSpentAmount() {
+    public Integer getSpentAmount() {
         return spent.getSpentValue();
     }
 
@@ -214,7 +191,7 @@ public class Cca {
      * @param entryToBeDeleted the entry to be deleted
      */
     public Cca removeTransaction(Entry entryToBeDeleted) throws CommandException {
-        if(!transactionEntries.contains(entryToBeDeleted)) {
+        if (!transactionEntries.contains(entryToBeDeleted)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_ENTRY);
         }
 
@@ -225,7 +202,7 @@ public class Cca {
 
 
         int index = 1;
-        for(Entry e: deletableSet) {
+        for (Entry e : deletableSet) {
             e.updateEntryNum(index);
             index++;
         }
@@ -240,10 +217,6 @@ public class Cca {
      * @param toCheck name of the CCA to be checked
      */
     public boolean isSameCca(Cca toCheck) {
-//        if (toCheck == this) {
-//            return true;
-//        }
-
         return toCheck != null
             && toCheck.getCcaName().equals(getCcaName());
     }

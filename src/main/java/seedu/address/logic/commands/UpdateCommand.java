@@ -23,16 +23,16 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.TransactionMath;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Date;
-import seedu.address.model.transaction.Entry;
-import seedu.address.model.transaction.Remarks;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.Outstanding;
 import seedu.address.model.cca.Spent;
 import seedu.address.model.person.Name;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Remarks;
 
 //@@author ericyjw
 /**
@@ -55,8 +55,8 @@ public class UpdateCommand extends Command {
         + PREFIX_HEAD + "John "
         + PREFIX_VICE_HEAD + "Alex \n"
         + "or\n"
-        + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA " +
-        "and a valid transaction entry number.\n"
+        + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA "
+        + "and a valid transaction entry number.\n"
         + "Parameters: "
         + PREFIX_TAG + "CCA "
         + PREFIX_TRANSACTION + "ENTRY NUMBER "
@@ -77,10 +77,10 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the budget book.";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
-    private static final String MESSAGE_INVALID_HEAD_NAME = "There is no such person in the address book to add as " +
-        "head" ;
-    private static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add " +
-        "as vice-head" ;
+    private static final String MESSAGE_INVALID_HEAD_NAME = "There is no such person in the address book to add as "
+        + "head";
+    private static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add "
+        + "as vice-head";
 
     private final CcaName cca;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -158,7 +158,7 @@ public class UpdateCommand extends Command {
         Outstanding updatedOutstanding = editCcaDescriptor.getOutstanding().orElse(ccaToEdit.getOutstanding());
 
         Set<Entry> updatedTransactions = new LinkedHashSet<>();
-        if(editCcaDescriptor.getEntryNum().isPresent()) {
+        if (editCcaDescriptor.getEntryNum().isPresent()) {
             Set<Entry> entrySet = ccaToEdit.getEntries();
             Entry[] currentCcaEntries = entrySet.toArray(new Entry[entrySet.size()]);
             int updatingEntryNum = editCcaDescriptor.getEntryNum().get() - 1;
@@ -185,7 +185,6 @@ public class UpdateCommand extends Command {
                     index++;
                 }
             }
-//            updatedTransactions = Set.of(currentCcaEntries);
         } else {
             updatedTransactions = ccaToEdit.getEntries();
         }
@@ -378,7 +377,7 @@ public class UpdateCommand extends Command {
                 && getBudget().equals(e.getBudget())
                 && getSpent().equals(e.getSpent())
                 && getOutstanding().equals(e.getOutstanding())
-                && getTransactionEntries() .equals(e.getTransactionEntries());
+                && getTransactionEntries().equals(e.getTransactionEntries());
         }
     }
 
