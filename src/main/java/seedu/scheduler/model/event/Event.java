@@ -94,9 +94,10 @@ public class Event {
      */
     public Event(EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
-        this(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
+                 ReminderDurationList reminderDurationList) {
+        this(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime,
+                description,venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 
     public UUID getUid() {

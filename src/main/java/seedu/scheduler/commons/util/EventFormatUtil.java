@@ -1,17 +1,21 @@
 package seedu.scheduler.commons.util;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.Event.Reminders;
+import com.google.api.services.calendar.model.EventReminder;
 
 import seedu.scheduler.logic.parser.ParserUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -24,7 +28,7 @@ public class EventFormatUtil {
     /**
      * Convert a List Google Event format to a list of Event in local Format.
      *
-     * @param listOfGoogleEvents  A list of Google event.
+     * @param listOfGoogleEvents A list of Google event.
      *
      * @return A list of local Event.
      */
@@ -71,36 +75,103 @@ public class EventFormatUtil {
         String newEventEndDate = newEventEnd.substring(0, 10);
         String newEventEndTime = newEventEnd.substring(11, 19);
         newEventEndTime = newEventEndTime.replaceAll(":", "");
+        String newDescription = googleEvent.getDescription() == null ? "" : googleEvent.getDescription();
+        String newVenue = googleEvent.getLocation() == null ? "" : googleEvent.getLocation();
 
 
         EventName eventName = null;
+        seedu.scheduler.model.event.DateTime startDateTime = null;
+        seedu.scheduler.model.event.DateTime endDateTime = null;
+        Description description = null;
+        Venue venue = null;
+        List<String> recurrence = new ArrayList<>();
+        seedu.scheduler.model.event.DateTime
+                repeatUntilDateTime = null;
+        ReminderDurationList reminderDurationList = new ReminderDurationList();
         try {
             eventName = ParserUtil.parseEventName(newEventname);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        seedu.scheduler.model.event.DateTime startDateTime = null;
-        try {
             startDateTime = ParserUtil.parseDateTime(newEventStartDate + " " + newEventStartTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        seedu.scheduler.model.event.DateTime endDateTime = null;
-        try {
             endDateTime = ParserUtil.parseDateTime(newEventEndDate + " " + newEventEndTime);
+            description = ParserUtil.parseDescription(newDescription);
+            venue = ParserUtil.parseVenue(newVenue);
+            recurrence = googleEvent.getRecurrence();
+            repeatUntilDateTime = endDateTime;
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        //RRULE:FREQ=WEEKLY;BYDAY=SU
+        String[] recurrenceText = null;
+        RepeatType repeatType;
+        if (recurrence == null) {
+            repeatType = RepeatType.NONE;
+        } else {
+            switch (recurrence.size()) {
+            case 1:
+                recurrenceText = recurrence.get(0).split(";");
+                break;
+            case 3:
+                recurrenceText = recurrence.get(2).split(";");
+                break;
+            default:
+                //nothing
+            }
 
-        Description description = ParserUtil.parseDescription("test description");
+            int rrulePosition = recurrenceText[0].indexOf("=") + 1;
+            String rRule = recurrenceText[0].substring(rrulePosition); //RRULE:FREQ=WEEKLY
 
-        Venue venue = ParserUtil.parseVenue("test venue");
-        RepeatType repeatType = RepeatType.NONE;
-        seedu.scheduler.model.event.DateTime
-                repeatUntilDateTime = endDateTime;
+            switch (rRule) {
+            case "YEARLY":
+                repeatType = RepeatType.YEARLY;
+                break;
+            case "MONTHLY":
+                repeatType = RepeatType.MONTHLY;
+                break;
+            case "WEEKLY":
+                repeatType = RepeatType.WEEKLY;
+                break;
+            case "DAILY":
+                repeatType = RepeatType.DAILY;
+                break;
+            default:
+                repeatType = RepeatType.NONE;
+            }
+            switch (recurrenceText.length) {
+            case 2:
+                //RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH
+                //ignore in local implementation
+                break;
+            case 3:
+                //RRULE:FREQ=WEEKLY;UNTIL=20181108T155959Z;BYDAY=MO,TU,WE,TH
+                try {
+                    //local format:2018-10-20T17:00:00
+                    //UNTIL=20181108T155959Z
+                    String newRepeatUntil = recurrenceText[1].substring(6, 19);
+                    StringBuilder newRepeatUntil2 = new StringBuilder(newRepeatUntil);
+                    newRepeatUntil2.insert(4, "-")
+                            .insert(7, "-")
+                            .insert(13, ":")
+                            .append(":00");
+                    repeatUntilDateTime = ParserUtil.parseDateTime(newRepeatUntil2.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                //nothing
+            }
+        }
+        Reminders reminder = googleEvent.getReminders();
+        if (reminder.getUseDefault()) {
+            reminderDurationList.add(Duration.ofMinutes(30));
+        } else {
+            List<EventReminder> reminderOverrides = reminder.getOverrides();
+            for (EventReminder eventReminder : reminderOverrides) {
+                reminderDurationList.add(Duration.ofMinutes(eventReminder.getMinutes()));
+            }
+        }
         Set<Tag> tags = Collections.emptySet();
         return new Event(eventName, startDateTime, endDateTime,
                 description,
-                venue, repeatType, repeatUntilDateTime, tags);
+                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 }

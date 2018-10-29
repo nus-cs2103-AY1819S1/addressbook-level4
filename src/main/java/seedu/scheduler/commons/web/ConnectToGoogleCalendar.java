@@ -276,9 +276,9 @@ public class ConnectToGoogleCalendar {
             events = service.events().list(CALENDAR_NAME)//set the source calendar on google
                     .setMaxResults(numberOfEventsToBeDownloaded) //set upper limit for number of events
                     .setTimeMin(now)//set the starting time
-                    .setOrderBy("startTime")//if not specified, stable order
+                    //.setOrderBy("startTime")//if not specified, stable order
                     //TODO: further development can be done for repeated event, more logic must be written
-                    .setSingleEvents(true)//not the repeated ones
+                    //.setSingleEvents(true)//not the repeated ones
                     //TODO: how to use setSynctoken, to prevent adding the same event multiples times
                     .execute();
         } catch (UnknownHostException e) {

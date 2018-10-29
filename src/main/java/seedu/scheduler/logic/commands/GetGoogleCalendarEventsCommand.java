@@ -10,6 +10,7 @@ import com.google.api.services.calendar.model.Events;
 import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
@@ -59,8 +60,10 @@ public class GetGoogleCalendarEventsCommand extends Command {
             eventsToadd = eventFormatUtil.convertGoogleListToLocalList(listOfGoogleEvents);
         }
         connectToGoogleCalendar.setGoogleCalendarEnabled();
-        model.addEvents(eventsToadd);
-        model.commitScheduler();
+        for (Event event : eventsToadd) {
+            model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
+            model.commitScheduler();
+        }
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
     }
 }
