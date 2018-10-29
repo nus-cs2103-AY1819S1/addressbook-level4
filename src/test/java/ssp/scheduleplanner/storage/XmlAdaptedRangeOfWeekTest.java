@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import ssp.scheduleplanner.commons.exceptions.IllegalValueException;
-import ssp.scheduleplanner.model.rangeofweek.RangeOfWeek;
+import ssp.scheduleplanner.model.rangeOfWeek.RangeOfWeek;
 import ssp.scheduleplanner.model.task.Date;
 import ssp.scheduleplanner.testutil.Assert;
 
@@ -28,8 +28,8 @@ public class XmlAdaptedRangeOfWeekTest {
     @Test
     public void toModelType_invalidStartOfWeek_throwsIllegalValueException() {
         String expectedMessage = Date.MESSAGE_DATE_CONSTRAINTS;
-        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(INVALID_START_OF_WEEK, VALID_END_OF_WEEK,
-                VALID_DESCRIPTION));
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(INVALID_START_OF_WEEK,
+                VALID_END_OF_WEEK, VALID_DESCRIPTION));
         Assert.assertThrows(IllegalValueException.class, expectedMessage, range::toModelType);
     }
 
