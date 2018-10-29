@@ -8,8 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBException;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -85,7 +83,7 @@ public class PortManager implements Porter {
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
             return xmlDeck;
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             throw new FileNotFoundException();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +110,7 @@ public class PortManager implements Porter {
 
     /**
      * Convert the string into a file path.
+     *
      * @param name The name of the file, can be the absolute or relative file path
      * @return a Path that represents the file path
      */
