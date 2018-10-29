@@ -3,16 +3,29 @@ package ssp.scheduleplanner.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ssp.scheduleplanner.commons.exceptions.DataConversionException;
+import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
+import ssp.scheduleplanner.storage.XmlFileStorage;
+import ssp.scheduleplanner.storage.XmlSerializableRangeOfWeek;
+
 public class FirstDayCommandTest {
+    private File checkFileExist = new File("testrangeofweek.xml");
+    private Path path = Paths.get("testrangeofweek.xml");
     private FirstDayCommand fds = new FirstDayCommand();
     private final String userInputDate = "130818";
     private String[][] rangeOfWeeks = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
+    private String[][] storeRangeOfWeeks = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
 
     @Before
     public void setup() {
@@ -70,6 +83,49 @@ public class FirstDayCommandTest {
     }
 
     @Test
+    public void saveRangeOfWeeks_success() throws CommandException {
+        if (!checkFileExist.exists()) {
+            try {
+                checkFileExist.createNewFile();
+                XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeeks));
+            } catch (java.io.IOException e) {
+                throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
+            }
+        }
+    }
+
+    @Test
+    public void retrieveRangeOfWeeks_success() throws CommandException {
+        if (!checkFileExist.exists()) {
+            saveRangeOfWeeks_success();
+        }
+
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
+        } catch (DataConversionException e) {
+            throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    @Test
+    public void isMonday_test() {
+        //the following tests are Monday
+        assertTrue(fds.isMonday("130818"));
+        assertTrue(fds.isMonday("200818"));
+
+        //the following tests are Tuesday to Sunday
+        assertFalse(fds.isMonday("140818"));
+        assertFalse(fds.isMonday("150818"));
+        assertFalse(fds.isMonday("160818"));
+        assertFalse(fds.isMonday("170818"));
+        assertFalse(fds.isMonday("180818"));
+        assertFalse(fds.isMonday("190818"));
+    }
+
+    @Test
     public void computeRangeOfWeekTest_success() {
         String[][] testUserRangeOfWeeks = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
         testUserRangeOfWeeks = fds.computeRangeOfWeeks(userInputDate);
@@ -77,8 +133,8 @@ public class FirstDayCommandTest {
         boolean allFieldsSame = true;
         for (int i = 0; i < FirstDayCommand.WEEKS_IN_SEMESTER; i++) {
             if (!testUserRangeOfWeeks[i][0].equals(rangeOfWeeks[i][0])
-                || !testUserRangeOfWeeks[i][1].equals(rangeOfWeeks[i][1])
-                || !testUserRangeOfWeeks[i][2].equals(rangeOfWeeks[i][2])) {
+                    || !testUserRangeOfWeeks[i][1].equals(rangeOfWeeks[i][1])
+                    || !testUserRangeOfWeeks[i][2].equals(rangeOfWeeks[i][2])) {
                 allFieldsSame = false;
             }
         }
@@ -104,6 +160,13 @@ public class FirstDayCommandTest {
 
         //system date after range
         assertFalse(isWithinDateRange("101218", "130818", "091218"));
+    }
+
+    @After
+    public void close() {
+        if (checkFileExist.exists()) {
+            checkFileExist.delete();
+        }
     }
 
     /**

@@ -5,10 +5,18 @@ import static ssp.scheduleplanner.logic.parser.CommandParserTestUtil.assertParse
 
 import org.junit.Test;
 
+import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.FirstDayCommand;
 
 public class FirstDayCommandParserTest {
     private FirstDayCommandParser parser = new FirstDayCommandParser();
+
+    @Test
+    public void parse_empty_failure() {
+
+        assertParseFailure(parser, " ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                FirstDayCommand.MESSAGE_USAGE));
+    }
 
     @Test
     public void parse_validArgument_success() {

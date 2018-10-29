@@ -1,11 +1,17 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.Test;
 
+import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
@@ -19,16 +25,36 @@ import ssp.scheduleplanner.testutil.TaskBuilder;
 public class ListDayCommandTest {
 
     @Test
+    public void execute_success() {
+        CommandHistory commandHistory = new CommandHistory();
+        Calendar c = Calendar.getInstance();
+        Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").format(c.getTime())).build();
+        Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+
+        model.addTask(validToday);
+        expectedModel.addTask(validToday);
+        expectedModel.updateFilteredTaskList(new DateSamePredicate(validToday.getDate().value));
+        System.out.println(expectedModel.getFilteredTaskList());
+        System.out.println(model.getFilteredTaskList());
+        assertCommandSuccess(new ListDayCommand(), model, commandHistory, ListDayCommand.MESSAGE_SUCCESS,
+                expectedModel);
+    }
+
+    @Test
     public void task_remain_afterFilter() {
         //after update the filteredtasklist with a specific date predicate, model would have that task remaining
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager();
         Task validTask = new TaskBuilder().withDate("111111").build();
 
         model.addTask(validTask);
         model.updateFilteredTaskList(new DateSamePredicate(validTask.getDate().value));
+        expectedModel.addTask(validTask);
 
         assertTrue(model.hasTask(validTask));
         assertTrue(model.getFilteredTaskList().contains(validTask));
+        assertEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
     }
 
     @Test
