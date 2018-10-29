@@ -21,6 +21,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -42,6 +44,12 @@ public class CommandTestUtil {
     public static final String VALID_SCHOOL_BOB = "Biz";
     public static final String VALID_TAG_AMY = "Handball";
     public static final String VALID_TAG_BOB = "Floorball";
+
+    // Calendar Fields
+    public static final Month VALID_MONTH_JAN = new Month("JAN");
+    public static final Month VALID_MONTH_FEB = new Month("FEB");
+    public static final Year VALID_YEAR_2018 = new Year("2018");
+    public static final Year VALID_YEAR_2017 = new Year("2017");
 
     public static final String VALID_EMAIL_EXCURSION = "excursion@example.com";
     public static final String VALID_EMAIL_CAMP = "camp@example.com";

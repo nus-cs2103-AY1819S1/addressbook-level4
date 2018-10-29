@@ -442,7 +442,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateExistingCalendar() {
-        userPrefs.setExistingCalendar(calendarModel.updateExistingCalendar());
+        userPrefs.setExistingCalendar(calendarModel.getExistingCalendar());
     }
 
     //@@author

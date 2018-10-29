@@ -33,6 +33,9 @@ public class CreateCalendarCommand extends Command {
     private final Year year;
 
     public CreateCalendarCommand(Month month, Year year) {
+        requireNonNull(month);
+        requireNonNull(year);
+
         this.month = month;
         this.year = year;
     }

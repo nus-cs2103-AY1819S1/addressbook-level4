@@ -182,14 +182,7 @@ public class CalendarModel {
         // ------------------------------
 
         // Update existing calendar map
-        Set<Month> yearOfCal = existingCalendar.get(year);
-        if (yearOfCal == null) {
-            Set<Month> newYearOfCal = new HashSet<>();
-            newYearOfCal.add(month);
-            existingCalendar.put(year, newYearOfCal);
-        } else {
-            yearOfCal.add(month);
-        }
+        updateExistingCalendar(year, month);
 
         return calendar;
     }
@@ -353,8 +346,20 @@ public class CalendarModel {
         return loadedCalendar;
     }
 
+    /** Updates Map:existingCalendar. */
+    public void updateExistingCalendar(Year year, Month month) {
+        Set<Month> yearOfCal = existingCalendar.get(year);
+        if (yearOfCal == null) {
+            Set<Month> newYearOfCal = new HashSet<>();
+            newYearOfCal.add(month);
+            existingCalendar.put(year, newYearOfCal);
+        } else {
+            yearOfCal.add(month);
+        }
+    }
+
     /** Returns the updated Map: existingCalendar. */
-    public Map<Year, Set<Month>> updateExistingCalendar() {
+    public Map<Year, Set<Month>> getExistingCalendar() {
         return existingCalendar;
     }
 
