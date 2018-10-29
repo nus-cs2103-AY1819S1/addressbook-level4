@@ -269,9 +269,9 @@ Delete ingredient(s) added by user.
 Format: +
 `delete INDEX`
 
-==== Clear : `clear`
+==== Clear ingredients: `clear`
 
-Clears all the meal slots of the meal planner.
+Clears all ingredients.
 
 Format: `clear`
 
