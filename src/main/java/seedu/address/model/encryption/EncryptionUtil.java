@@ -33,6 +33,7 @@ public class EncryptionUtil {
 
     private static final String CIPHER_TRANSFORMATION = "AES/ECB/PKCS5PADDING";
     private static final String KEY_ALGORITHM = "AES";
+    private static final int KEY_LENGTH = 32;
 
     /**
      * Decrypts a String with by using the given password as the encryption key.
@@ -44,7 +45,7 @@ public class EncryptionUtil {
      */
     public static String decryptString(String toDecrypt, String password) throws IllegalValueException {
         requireAllNonNull(toDecrypt, password);
-        assert password.length() == 16;
+        assert password.length() == KEY_LENGTH;
         Key key = new SecretKeySpec(password.getBytes(), KEY_ALGORITHM);
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
@@ -70,7 +71,7 @@ public class EncryptionUtil {
      */
     public static String encryptString(String toEncrypt, String password) throws IllegalValueException {
         requireAllNonNull(toEncrypt, password);
-        assert password.length() == 16;
+        assert password.length() == KEY_LENGTH;
         Key key = new SecretKeySpec(password.getBytes(), KEY_ALGORITHM);
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
@@ -104,7 +105,7 @@ public class EncryptionUtil {
      */
     public static EncryptedExpense encryptExpense(Expense src, String key) throws IllegalValueException {
         requireNonNull(src, key);
-        assert key.length() == 16;
+        assert key.length() == KEY_LENGTH;
         Set<EncryptedTag> encryptedTags = new HashSet<>();
         for (Tag tag : src.getTags()) {
             encryptedTags.add(new EncryptedTag(tag, key));
