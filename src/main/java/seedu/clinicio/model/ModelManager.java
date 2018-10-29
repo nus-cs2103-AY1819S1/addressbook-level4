@@ -316,7 +316,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public String exportPatients() {
         ObservableList<Patient> patients = FXCollections.observableArrayList();
-        return ExportPatients.execute(patients);
+        return ExportPatients.exportPatients(patients);
     }
     //=========== Undo/Redo ==================================================================================
 

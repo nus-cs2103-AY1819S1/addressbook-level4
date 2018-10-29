@@ -10,7 +10,7 @@ import seedu.clinicio.model.analytics.Analytics;
 //@@author arsalanc-v2
 
 /**
- *
+ * Exports patients' personal information to a csv file.
  */
 public class ExportPatientsCommand extends Command {
 

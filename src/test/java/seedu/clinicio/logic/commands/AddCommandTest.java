@@ -252,6 +252,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public String exportPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author gingivitiss
         @Override
         public boolean hasAppointment(Appointment appt) {

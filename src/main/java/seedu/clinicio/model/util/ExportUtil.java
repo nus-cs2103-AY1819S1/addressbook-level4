@@ -1,5 +1,7 @@
 package seedu.clinicio.model.util;
 
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +22,7 @@ public class ExportUtil {
      */
     public static void writeLine(FileWriter writer, String line) throws IOException,
         IllegalArgumentException {
+        requireAllNonNull(writer, line);
 
         if (!isValidLine(line)) {
             throw new IllegalArgumentException();
@@ -40,12 +43,9 @@ public class ExportUtil {
      */
     public static void writeLines(FileWriter writer, List<String> lines) throws IOException,
         NullPointerException, IllegalArgumentException {
-        Objects.requireNonNull(lines);
+        requireAllNonNull(writer, lines);
 
         int numLines = lines.size();
-        if (numLines < 1) {
-            throw new IllegalArgumentException();
-        }
 
         for (int i = 0; i < numLines; i++) {
             String line = lines.get(i);
