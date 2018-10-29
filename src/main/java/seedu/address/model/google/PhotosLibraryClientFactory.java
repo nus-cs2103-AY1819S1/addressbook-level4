@@ -1,8 +1,8 @@
 package seedu.address.model.google;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -48,20 +48,15 @@ public class PhotosLibraryClientFactory {
                     "email");
 
     //for storing serializable data in key-value form
-    private static final File DATA_STORE = new File(PhotosLibraryClientFactory
-            .class.getResource("/").getPath(), "user_credentials");
+    //private static final InputStream DATA_STORE = PhotosLibraryClientFactory
+    //        .class.getClassLoader().getResourceAsStream("/user_credentials");
 
-    private static File credentialFile = new File(PhotosLibraryClientFactory
-            .class.getClassLoader().getResource("client_credentials.json").getPath());
+    private static final InputStream credentialFile = PhotosLibraryClientFactory
+            .class.getClassLoader().getResourceAsStream("client_credentials.json");
+
+    private static File dataStore = new File("/user_credentials");
 
     private PhotosLibraryClientFactory() {
-        try {
-            if (!DATA_STORE.exists()) {
-                DATA_STORE.mkdir();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
@@ -72,12 +67,15 @@ public class PhotosLibraryClientFactory {
      */
     public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
 
-        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
+        if (!dataStore.exists()) {
+            dataStore.mkdirs();
+        }
+        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
 
         // load designated client secret/id
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(
-                        JSON_FACTORY, new InputStreamReader(new FileInputStream(credentialFile)));
+                        JSON_FACTORY, new InputStreamReader(credentialFile));
 
         String clientSecret = clientSecrets.getDetails().getClientSecret();
         String clientId = clientSecrets.getDetails().getClientId();
@@ -149,11 +147,11 @@ public class PhotosLibraryClientFactory {
     public static boolean logoutUserIfPossible() throws IOException, GeneralSecurityException {
         boolean userLoggedOut;
         if (userLoggedOut = checkUserLogin()) {
-            File[] listFiles = DATA_STORE.listFiles();
+            File[] listFiles = dataStore.listFiles();
             for (File file : listFiles) {
                 file.delete();
             }
-            userLoggedOut = DATA_STORE.delete();
+            userLoggedOut = dataStore.delete();
         }
         return userLoggedOut;
     }
@@ -163,7 +161,7 @@ public class PhotosLibraryClientFactory {
      * @return true if user has storedCredentials, else null
      */
     public static boolean checkUserLogin() {
-        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
+        boolean credentialExists = new File(dataStore, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
         return credentialExists;
     }
 }
