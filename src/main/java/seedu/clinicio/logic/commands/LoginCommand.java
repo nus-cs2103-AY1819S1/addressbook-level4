@@ -54,7 +54,7 @@ public class LoginCommand extends Command {
         if (!model.hasStaff(authenticatedStaff)) {
             throw new CommandException(MESSAGE_NO_RECORD_FOUND);
         }
-        
+
         Staff retrievedStaff = model.getStaff(authenticatedStaff);
         boolean isCorrectPassword = Password.verifyPassword(
                 authenticatedStaff.getPassword().toString(),
@@ -63,7 +63,7 @@ public class LoginCommand extends Command {
         if (isCorrectPassword) {
             return new CommandResult(MESSAGE_SUCCESS);
         }
-        
+
         return new CommandResult(MESSAGE_FAILURE);
     }
 

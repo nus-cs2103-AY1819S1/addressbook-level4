@@ -23,7 +23,6 @@ import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
@@ -242,23 +241,23 @@ public class ParserUtilTest {
 
     @Test
     public void parseRole_invalidRole_throwsParseException() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(ParseException.class, () ->
                 ParserUtil.parseRole(INVALID_ROLE));
     }
-    
+
     @Test
-    public void parseRole_validRole_returnsPerson() throws Exception {
-        Staff expectedStaff = new Staff(DOCTOR, new Name(VALID_NAME),
+    public void parseRole_validRole_returnsRole() throws Exception {
+        Staff expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
-        assertEquals(expectedStaff,
+        assertEquals(DOCTOR,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR));
 
         Staff expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
-        assertEquals(expectedReceptionist,
+        assertEquals(RECEPTIONIST,
                 ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST));
     }
-    
+
     @Test
     public void parsePassword_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
