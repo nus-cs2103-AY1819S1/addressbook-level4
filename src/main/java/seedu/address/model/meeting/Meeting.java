@@ -72,7 +72,7 @@ public class Meeting {
      * Returns a string representing the date of the meeting
      */
     public String getDay() {
-        return value.substring(0,6);
+        return value.substring(0, 6);
     }
     /**
      * Returns true if {@code meeting} is on the same day.
