@@ -9,6 +9,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.CompleteIndexCommand;
+import seedu.address.logic.commands.CompleteLabelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.task.LabelMatchesKeywordPredicate;
 
@@ -71,7 +73,7 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
     private CompleteCommand parseIndex(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new CompleteCommand(index);
+            return new CompleteIndexCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE), pe);
@@ -90,7 +92,7 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
     private CompleteCommand parseLabel(ArgumentMultimap argMultiMap) {
         String labelArg = argMultiMap.getValue(PREFIX_LABEL).get();
 
-        return new CompleteCommand(new LabelMatchesKeywordPredicate(labelArg));
+        return new CompleteLabelCommand(new LabelMatchesKeywordPredicate(labelArg));
     }
 
 }
