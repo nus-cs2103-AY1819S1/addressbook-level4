@@ -23,10 +23,11 @@ import seedu.address.model.transaction.Type;
 public class SampleDataUtil {
     public static seedu.address.model.transaction.Transaction[] getSampleTransactions() {
         return new seedu.address.model.transaction.Transaction[]{
-                new Transaction(new Type("debt"), new Amount("SGD 33.00"), new Deadline("15/12/2018"),
-                        new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                                new Address("Blk 30 Geylang Street 29, #06-40"),
-                                getTagSet("friends"))),
+
+        };new Transaction(new Type("debt"), new Amount("SGD 33.00"), new Deadline("15/12/2018"),
+                new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                        new Address("Blk 30 Geylang Street 29, #06-40"),
+                        getTagSet("friends"))),
                 new Transaction(new Type("loan"), new Amount("USD 55.50"), new Deadline("17/11/2018"),
                         new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
@@ -47,7 +48,6 @@ public class SampleDataUtil {
                         new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                                 getTagSet("colleagues")))
-        };
     }
 
     public static ReadOnlyFinancialDatabase getSampleFinancialDatabase() {
