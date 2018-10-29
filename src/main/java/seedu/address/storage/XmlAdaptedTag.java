@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.encryption.EncryptedTag;
-import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly adapted version of the Tag.

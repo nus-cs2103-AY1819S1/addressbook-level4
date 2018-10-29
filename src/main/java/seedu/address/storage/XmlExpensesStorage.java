@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.user.Username;
 

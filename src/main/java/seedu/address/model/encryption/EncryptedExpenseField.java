@@ -3,8 +3,12 @@ package seedu.address.model.encryption;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.ExpenseField;
 
+/**
+ * Represents a Expense's field in Expense Tracker in it's encrypted form.
+ * Guarantees: immutable;
+ */
 public abstract class EncryptedExpenseField<T extends ExpenseField> {
-    private String encryptedString;
+    private final String encryptedString;
 
     public EncryptedExpenseField(String encryptedString) {
         this.encryptedString = encryptedString;

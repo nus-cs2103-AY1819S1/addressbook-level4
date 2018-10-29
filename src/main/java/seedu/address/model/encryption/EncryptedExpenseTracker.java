@@ -6,12 +6,13 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
+/**
+ * Represents a user's Expense Tracker data in it's encrypted form.
+ */
 public class EncryptedExpenseTracker {
     private Username username;
     private final Optional<Password> password;
@@ -33,16 +34,15 @@ public class EncryptedExpenseTracker {
         this.maximumBudget = budget;
     }
 
-    public static EncryptedExpenseTracker encryptTracker(ReadOnlyExpenseTracker src) throws IllegalValueException {
-        EncryptedExpenseTracker result =  new EncryptedExpenseTracker(src.getUsername(), src.getPassword(),
-                src.getMaximumBudget());
-        for (Expense expense : src.getExpenseList()) {
-            result.addExpense(EncryptedExpense.encryptExpense(expense, src.getEncryptionKey()));
-        }
-        return result;
-    }
-
-    public ReadOnlyExpenseTracker decryptTracker(String key) throws IllegalValueException {
+    /**
+     * Decrypts the Expense Tracker represented in this instance and returns its decrypted form as a
+     * ExpenseTracker instance.
+     *
+     * @param key the encryption key needed to decrypt this Expense Tracker data
+     * @return a decrypted ExpenseTracker
+     * @throws IllegalValueException if the key is invalid or an illegal field value is detected in the data
+     */
+    public ExpenseTracker decryptTracker(String key) throws IllegalValueException {
         ExpenseTracker result = new ExpenseTracker(username, password, key);
         for (EncryptedExpense expense : expenses) {
             result.addExpense(expense.getDecryptedExpense(key));

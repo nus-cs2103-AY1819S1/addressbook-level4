@@ -2,11 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
-import com.google.common.hash.Hashing;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.Budget;
@@ -154,7 +152,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     public void setPassword(Password password) {
-       this.password = Optional.ofNullable(password);
+        this.password = Optional.ofNullable(password);
     }
 
     @Override

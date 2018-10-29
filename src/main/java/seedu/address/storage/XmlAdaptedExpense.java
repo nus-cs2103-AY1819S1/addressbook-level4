@@ -19,9 +19,7 @@ import seedu.address.model.encryption.EncryptedTag;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Expense.

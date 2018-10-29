@@ -9,11 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ExpenseTracker;
-import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.encryption.EncryptedExpense;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
 
 /**

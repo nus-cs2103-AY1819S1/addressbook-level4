@@ -6,12 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents an expense in Expense Tracker in it's encrypted form.
+ * Guarantees: immutable;
+ */
 public class EncryptedExpense {
     // Identity fields
     private final EncryptedName name;
@@ -45,18 +46,6 @@ public class EncryptedExpense {
                 date.getDecrypted(key), decryptedTags);
     }
 
-    public static EncryptedExpense encryptExpense(Expense src, String key) throws IllegalValueException {
-        Set<EncryptedTag> encryptedTags = new HashSet<>();
-        for (Tag tag : src.getTags()) {
-            encryptedTags.add(new EncryptedTag(tag, key));
-        }
-        return new EncryptedExpense(new EncryptedName(src.getName(), key),
-                new EncryptedCategory(src.getCategory(), key),
-                new EncryptedCost(src.getCost(), key),
-                new EncryptedDate(src.getDate(), key),
-                encryptedTags);
-    }
-
     public EncryptedName getName() {
         return name;
     }
@@ -82,7 +71,6 @@ public class EncryptedExpense {
      * This defines a weaker notion of equality between two expenses.
      */
     public boolean isSameExpense(EncryptedExpense otherExpense) {
-
         if (otherExpense == this) {
             return true;
         }

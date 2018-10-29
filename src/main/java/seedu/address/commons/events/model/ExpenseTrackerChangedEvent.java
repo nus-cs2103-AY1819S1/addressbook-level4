@@ -1,7 +1,6 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 
 /** Indicates the ExpenseTracker in the model has changed*/

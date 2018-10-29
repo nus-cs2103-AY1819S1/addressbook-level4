@@ -1,18 +1,13 @@
 package seedu.address.model.encryption;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.encryption.EncryptedExpense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
-import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 
 /**
  * A list of encrypted expenses that enforces uniqueness between its elements and does not allow nulls.

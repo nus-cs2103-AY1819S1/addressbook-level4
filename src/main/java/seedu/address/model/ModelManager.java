@@ -23,11 +23,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -78,7 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
         this.expenseTrackers = expenseTrackers;
         try {
-            this.expenseTrackers.put(expenseTracker.getUsername(), EncryptedExpenseTracker.encryptTracker(expenseTracker));
+            this.expenseTrackers.put(expenseTracker.getUsername(),
+                    EncryptionUtil.encryptTracker(expenseTracker));
             this.username = expenseTracker.getUsername();
             this.versionedExpenseTracker = null;
             this.filteredExpenses = null;
@@ -99,7 +100,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyExpenseTracker newData) throws NoUserSelectedException {
         versionedExpenseTracker.resetData(newData);
         try {
-            expenseTrackers.replace(this.username, EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+            expenseTrackers.replace(this.username,
+                    EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal values in reset Expense Tracker");
         }
@@ -120,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         try {
-            raise(new ExpenseTrackerChangedEvent(EncryptedExpenseTracker.encryptTracker(versionedExpenseTracker)));
+            raise(new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(versionedExpenseTracker)));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal value in expense tracker");
         }
@@ -328,7 +330,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (hasSelectedUser()) {
             try {
                 expenseTrackers.replace(this.username,
-                        EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+                        EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
             } catch (IllegalValueException e) {
                 throw new IllegalStateException("Illegal value in old expense tracker.");
             }
@@ -408,7 +410,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (expenseTrackers.putIfAbsent(newUsername, new EncryptedExpenseTracker(newUsername, Optional.empty())) != null) {
+        if (expenseTrackers.putIfAbsent(newUsername,
+                new EncryptedExpenseTracker(newUsername, Optional.empty())) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }
@@ -427,7 +430,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedExpenseTracker.setEncryptionKey(createEncryptionKey(plainPassword));
         indicateExpenseTrackerChanged();
         try {
-            expenseTrackers.replace(this.username, EncryptedExpenseTracker.encryptTracker(this.versionedExpenseTracker));
+            expenseTrackers.replace(this.username,
+                    EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal key created for current expense tracker.");
         }

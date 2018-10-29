@@ -29,6 +29,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.user.Username;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ExpensesStorage;
@@ -95,7 +96,7 @@ public class MainApp extends Application {
             ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
             if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
                 expenseTrackers.put(sampleExpenseTracker.getUsername(),
-                        EncryptedExpenseTracker.encryptTracker(sampleExpenseTracker));
+                        EncryptionUtil.encryptTracker(sampleExpenseTracker));
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
