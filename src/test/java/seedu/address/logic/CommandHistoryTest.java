@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,14 +22,21 @@ import seedu.address.model.logging.CommandEntry;
 import seedu.address.model.logging.ExecutedCommand;
 
 public class CommandHistoryTest {
-    private static final String TEST_FILE_NAME = "testing7893h.xml";
     private CommandHistory history;
+    private File file;
+    private String logfilePathString;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         assert(COMMAND_STRINGS.length > 0);
-        CommandsLogCenter.init(TEST_FILE_NAME);
         history = new CommandHistory();
+
+        logfilePathString = CommandsLogCenter.getFilePathString(CommandsLogCenter.LOG_FILE);
+        file = new File(logfilePathString);
+        assert(file.setWritable(true));
+        assert(file.setReadable(true));
+        assert(file.delete());
+        CommandsLogCenter.init();
     }
 
     @Test
@@ -94,9 +100,9 @@ public class CommandHistoryTest {
 
     @Test
     public void commandHistoryContinues_withIoExceptionTest() {
-        File file = new File(TEST_FILE_NAME);
         file.setWritable(false);
         history.add("delete 1");
+        file.setWritable(true);
     }
 
     @Test
@@ -133,7 +139,6 @@ public class CommandHistoryTest {
         }
 
         //create file problem
-        File file = new File(TEST_FILE_NAME);
         file.setWritable(false);
         CommandsLogCenter.init();
         file.setWritable(true);
@@ -143,7 +148,7 @@ public class CommandHistoryTest {
         assertEquals(0, actualCommandEntryList.size());
 
         //Compare file content
-        byte[] encoded = Files.readAllBytes(Paths.get(TEST_FILE_NAME));
+        byte[] encoded = Files.readAllBytes(CommandsLogCenter.getFilePath(CommandsLogCenter.LOG_FILE));
         String fileData = new String(encoded, CommandsLogCenter.STANDARDIZED_ENCODING);
         assertEquals(CommandsLogCenter.STANDARDIZED_XML_HEADER + "\n" + CommandsLogCenter.LIST_HEADER,
                 fileData);
@@ -157,7 +162,6 @@ public class CommandHistoryTest {
         }
 
         //Corrupt the xml file
-        File file = new File(TEST_FILE_NAME);
         FileWriter fileWriter = new FileWriter(file, true);
         fileWriter.append("<asdnjkdg>");
         fileWriter.close();
@@ -167,7 +171,7 @@ public class CommandHistoryTest {
         assertEquals(0, actualCommandEntryList.size());
 
         //Compare file content
-        byte[] encoded = Files.readAllBytes(Paths.get(TEST_FILE_NAME));
+        byte[] encoded = Files.readAllBytes(CommandsLogCenter.getFilePath(CommandsLogCenter.LOG_FILE));
         String fileData = new String(encoded, CommandsLogCenter.STANDARDIZED_ENCODING);
         assertEquals(CommandsLogCenter.STANDARDIZED_XML_HEADER + "\n" + CommandsLogCenter.LIST_HEADER,
                 fileData);

@@ -30,6 +30,7 @@ public class CommandHistory {
      */
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
+        CommandsLogCenter.init();
     }
 
     /**
@@ -37,6 +38,7 @@ public class CommandHistory {
      */
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
+        CommandsLogCenter.init();
     }
 
     /**
@@ -63,13 +65,18 @@ public class CommandHistory {
         List<CommandEntry> result = new LinkedList<>();
         try {
             List<XmlAdaptedCommandEntry> xmlAdaptedCommandEntryList = CommandsLogCenter.retrieve().getValue();
+            if (xmlAdaptedCommandEntryList == null || xmlAdaptedCommandEntryList.isEmpty()) {
+                return result;
+            }
             for (XmlAdaptedCommandEntry xmlAdaptedCommandEntry : xmlAdaptedCommandEntryList) {
                 result.add(xmlAdaptedCommandEntry.toModelType());
             }
         } catch (JAXBException | IOException | IllegalValueException e) {
             e.printStackTrace();
-            logger.warning(MESSAGE_LOG_ERROR.format(e.getClass().getSimpleName(), e.getMessage()));
-            CommandsLogCenter.delete();
+            logger.warning(String.format(MESSAGE_LOG_ERROR, e.getClass().getSimpleName(), e.getMessage()));
+            if (!CommandsLogCenter.delete()) {
+                logger.warning("Failed to recreate Commands Log file.");
+            }
             CommandsLogCenter.init();
         }
 

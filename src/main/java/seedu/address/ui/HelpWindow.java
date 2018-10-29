@@ -10,15 +10,19 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FilePathToUrl;
+import seedu.address.ui.browser.BrowserRelatedUiPart;
 import seedu.address.ui.exceptions.AccessibilityException;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+public class HelpWindow extends BrowserRelatedUiPart<Stage> {
 
-    public static final String USERGUIDE_FILE_PATH = "/docs/HelpWindow.html";
-    public static final String SHORT_HELP_FILE_PATH = "/docs/ShortHelpWindow.html";
+    public static final FilePathToUrl USER_GUIDE_FILE_PATH =
+        new FilePathToUrl("src/main/resources/docs/HelpWindow.html");
+    public static final FilePathToUrl SHORT_HELP_FILE_PATH =
+        new FilePathToUrl("src/main/resources/docs/ShortHelpWindow.html");
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -27,7 +31,7 @@ public class HelpWindow extends UiPart<Stage> {
     //https://stackoverflow.com/questions/6991494/javascript-getelementbyid-base-on-partial-string
     //https://stackoverflow.com/questions/22778241/javafx-webview-scroll-to-desired-position
     //javascript to scroll webpage to commandWord
-    private static final String SCROLL_JAVA_SCRIPT =
+    private static final String SCROLL_JAVASCRIPT =
             "function scrollToElement(commandWord) {\n"
             + "    var elem = document.querySelector('[id$= code-' + commandWord + '-code]');\n"
             + "    var x = 0;\n"
@@ -42,8 +46,6 @@ public class HelpWindow extends UiPart<Stage> {
             + "}";
 
     private int verticalScroll = 0;
-    //Variable for verifying functionality of help [commandWord].
-    private boolean isScrollCheckValid = false;
 
     @FXML
     private WebView browser;
@@ -56,14 +58,7 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
 
-        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
-        browser.getEngine().load(userGuideUrl);
-        browser.getEngine().setJavaScriptEnabled(true);
-        browser.getEngine().executeScript(SCROLL_JAVA_SCRIPT);
-
-        //When the help window is scrolled, invalidate the scroll test check
-        getVScrollBar(browser).valueProperty().addListener((unused1, unused2, unused3)
-            -> isScrollCheckValid = false);
+        loadPage(USER_GUIDE_FILE_PATH);
     }
 
     /**
@@ -71,6 +66,11 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    @Override
+    protected WebView getWebView() {
+        return browser;
     }
 
     /**
@@ -114,6 +114,7 @@ public class HelpWindow extends UiPart<Stage> {
      * Scrolls the help window to the specified commandWord.
      */
     public void scrollToCommandWord(String commandWord) throws AccessibilityException {
+        browser.getEngine().executeScript(SCROLL_JAVASCRIPT);
         browser.getEngine().executeScript("window.scrollTo(document.body.scrollLeft, 0)");
         verticalScroll = (int) browser.getEngine().executeScript("document.body.scrollTop");
         //No commandWords in the window are at the top of the window.
