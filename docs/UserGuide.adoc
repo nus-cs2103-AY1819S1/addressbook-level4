@@ -297,6 +297,23 @@ Example(s)
 
 * `exit`
 
+=== Auto complete the command line
+
+Display the full format of an executable command line. +
+Format: `COMMAND_WORD` followed by 'Tab' key.
+Function: press 'Tab' key again to move to the next parameter.
+
+Example(s)
+
+* key in `fi` in command box and then press 'Tab' key.
+
+Only available in the following commands:
+
+* `Find`
+* `Select`
+* `Filter`
+* `Sort`
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
