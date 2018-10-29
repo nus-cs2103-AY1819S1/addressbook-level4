@@ -9,7 +9,7 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author chivent
 /**
- * An event that notifies StatusBarFooter regarding a login status change.
+ * An event that updates the list of images in film reel upon call events.
  */
 public class UpdateFilmReelEvent extends BaseEvent {
 
