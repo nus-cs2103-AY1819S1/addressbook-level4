@@ -484,6 +484,10 @@ image::import_success.png[width="800"]
 
 image::import_duplicates.png[width="800"]
 
+The following activity diagram summarizes what happens when a user executes the `Import` Command:
+
+image::importActivityDiagram.png[width="400"]
+
 ==== Design Considerations
 
 ===== Aspect: How import executes
@@ -516,6 +520,10 @@ Step 2. The user executes export command (x for shorthand), followed by FILE_NAM
 does not end with .csv, InsuRen throws an error message.
 
 Step 3. InsuRen fetches the current contact list, creates a new .csv file and copies all contacts into it.
+
+The following activity diagram summarizes what happens when a user executes the `Export` Command:
+
+image::ExportActivityDiagram.png[width="400"]
 
 ==== Design Considerations
 
