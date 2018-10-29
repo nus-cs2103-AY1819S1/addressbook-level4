@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.AddCommand;
+import seedu.souschef.logic.commands.ClearCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.EditCommand;
@@ -60,6 +61,9 @@ public class IngredientParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parseIngredient(model, arguments);
 
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand<Ingredient>(model);
+            
         case ListCommand.COMMAND_WORD:
             return new ListCommand<Ingredient>(model);
 
