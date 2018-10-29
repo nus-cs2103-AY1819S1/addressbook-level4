@@ -2,12 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,21 +13,21 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.FileReaderBuilder;
 
 public class ImportContactsCommandTest {
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Test
-    public void execute_importContactsCommand() throws Exception{
+    public void execute_importContactsCommand() throws Exception {
         FileReader fileReader = new FileReaderBuilder().build();
         ModelStubAcceptingFileReaderAdded modelStub = new ModelStubAcceptingFileReaderAdded(fileReader);
 
@@ -151,7 +147,7 @@ public class ImportContactsCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingFileReaderAdded extends ModelStub {
-        FileReader fileReader;
+        private FileReader fileReader;
 
         public ModelStubAcceptingFileReaderAdded(FileReader fileReader) {
             requireNonNull(fileReader);

@@ -129,7 +129,7 @@ public class AddCommandTest {
         public void importContacts(FileReader fileReader) {
             throw new AssertionError("This method should not be called");
         }
-        
+
         @Override
         public boolean hasClashingEvent(Event event) {
             throw new AssertionError("This method should not be called.");
