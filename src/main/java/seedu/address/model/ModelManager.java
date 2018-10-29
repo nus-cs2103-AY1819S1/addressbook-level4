@@ -155,7 +155,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public Deck importDeck (String filepath) {
-        return versionedAnakin.importDeck(filepath);
+        Deck imported = versionedAnakin.importDeck(filepath);
+        addDeck(imported);
+        return imported;
     }
     //=========== Filtered Deck List Accessors =============================================================
 

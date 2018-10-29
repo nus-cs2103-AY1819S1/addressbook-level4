@@ -14,9 +14,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 import seedu.address.storage.portmanager.PortManager;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.DeckBuilder;
 
 public class PortManagerTest {
