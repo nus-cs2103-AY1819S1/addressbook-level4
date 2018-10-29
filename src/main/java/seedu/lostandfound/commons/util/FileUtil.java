@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Writes and reads files
@@ -80,4 +81,24 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    public static void copy(Path source, Path target) {
+        Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    public static String getFilename(Path path) {
+        return path.getFileName().toString();
+    }
+
+    public static String getBasename(Path path) {
+        String[] split = getFilename(path).split("\\.", 1);
+        return split[0];
+    }
+
+    public static String getExtension(Path path) {
+        String[] split = getFilename(path).split("\\.", 1);
+        if (split.length == 2) {
+            return split[1];
+        }
+        return "";
+    }
 }
