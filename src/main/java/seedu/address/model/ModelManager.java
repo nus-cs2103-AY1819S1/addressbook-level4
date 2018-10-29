@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
 import java.util.Calendar;
@@ -339,7 +339,7 @@ public class ModelManager extends ComponentManager implements Model {
         EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
         String encryptionKey;
         if (!encryptedTracker.getPassword().isPresent()) {
-            encryptionKey = DEFAULT_KEY;
+            encryptionKey = DEFAULT_ENCRYPTION_KEY;
         } else {
             encryptionKey = EncryptionUtil.createEncryptionKey(plainPassword);
         }

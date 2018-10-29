@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.io.IOException;
@@ -72,7 +72,7 @@ public class StorageManagerTest {
         ExpenseTracker original = getTypicalExpenseTracker();
         storageManager.saveExpenses(EncryptionUtil.encryptTracker(original));
         ReadOnlyExpenseTracker retrieved = storageManager.readAllExpenses(storageManager.getExpensesDirPath())
-                .get(original.getUsername()).decryptTracker(DEFAULT_KEY);
+                .get(original.getUsername()).decryptTracker(DEFAULT_ENCRYPTION_KEY);
         assertEquals(original, new ExpenseTracker(retrieved));
     }
 
@@ -89,7 +89,7 @@ public class StorageManagerTest {
         storage.handleExpenseTrackerChangedEvent(
                 new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(
                         new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(),
-                        DEFAULT_KEY))));
+                                DEFAULT_ENCRYPTION_KEY))));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 

@@ -1,6 +1,6 @@
 package seedu.address.model.util;
 
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyExpenseTracker getSampleExpenseTracker() {
-        ExpenseTracker sampleAb = new ExpenseTracker(new Username("sample"), Optional.empty(), DEFAULT_KEY);
+        ExpenseTracker sampleAb = new ExpenseTracker(new Username("sample"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }

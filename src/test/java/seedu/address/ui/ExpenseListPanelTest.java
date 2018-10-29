@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenses;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
@@ -86,7 +86,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithExpenses(expenseCount);
         XmlSerializableExpenseTracker xmlExpenseTracker =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableExpenseTracker.class);
-        return FXCollections.observableArrayList(xmlExpenseTracker.toModelType().decryptTracker(DEFAULT_KEY)
+        return FXCollections.observableArrayList(xmlExpenseTracker.toModelType().decryptTracker(DEFAULT_ENCRYPTION_KEY)
                 .getExpenseList());
     }
 
@@ -100,7 +100,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         for (int i = 0; i < expenseCount; i++) {
             builder.append("<expenses>\n");
             builder.append("<name>")
-                    .append(EncryptionUtil.encryptString(Integer.toString(i) + "a", DEFAULT_KEY))
+                    .append(EncryptionUtil.encryptString(Integer.toString(i) + "a", DEFAULT_ENCRYPTION_KEY))
                     .append("</name>\n");
             builder.append("<category>xFJXCke70UATZt3jQUqA6g==</category>\n");
             builder.append("<cost>2ft68hQdx4gIIV0ubyYq4A==</cost>\n");

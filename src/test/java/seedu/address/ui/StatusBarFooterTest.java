@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -36,7 +36,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
     static {
         try {
             EVENT_STUB = new ExpenseTrackerChangedEvent(EncryptionUtil
-                        .encryptTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_KEY)));
+                        .encryptTracker(
+                                new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_ENCRYPTION_KEY)));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Default key is illegal");
         }

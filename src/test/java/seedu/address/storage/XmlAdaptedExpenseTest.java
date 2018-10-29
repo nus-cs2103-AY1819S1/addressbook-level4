@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.storage.XmlAdaptedExpense.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalExpenses.ICECREAM;
 
@@ -33,7 +33,7 @@ public class XmlAdaptedExpenseTest {
     private static final List<XmlAdaptedTag> VALID_TAGS = ICECREAM.getTags().stream()
             .map(tag -> {
                 try {
-                    return new EncryptedTag(tag, DEFAULT_KEY);
+                    return new EncryptedTag(tag, DEFAULT_ENCRYPTION_KEY);
                 } catch (IllegalValueException e) {
                     throw new IllegalStateException("Default key is invalid");
                 }
@@ -43,8 +43,9 @@ public class XmlAdaptedExpenseTest {
 
     @Test
     public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(EncryptionUtil.encryptExpense(ICECREAM, DEFAULT_KEY));
-        assertEquals(ICECREAM, expense.toModelType().getDecryptedExpense(DEFAULT_KEY));
+        XmlAdaptedExpense expense =
+                new XmlAdaptedExpense(EncryptionUtil.encryptExpense(ICECREAM, DEFAULT_ENCRYPTION_KEY));
+        assertEquals(ICECREAM, expense.toModelType().getDecryptedExpense(DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test

@@ -29,7 +29,7 @@ import seedu.address.model.tag.Tag;
 public class EncryptionUtil {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-    public static final String DEFAULT_KEY = createEncryptionKey("");
+    public static final String DEFAULT_ENCRYPTION_KEY = createEncryptionKey("");
 
     private static final String CIPHER_TRANSFORMATION = "AES/ECB/PKCS5PADDING";
     private static final String KEY_ALGORITHM = "AES";

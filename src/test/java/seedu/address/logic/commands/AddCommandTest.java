@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -326,7 +326,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_KEY);
+            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override
@@ -359,7 +359,7 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_KEY);
+            return new ExpenseTracker(new Username("aa"), Optional.empty(), DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override

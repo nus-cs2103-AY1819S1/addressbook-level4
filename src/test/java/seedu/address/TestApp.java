@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -82,7 +82,7 @@ public class TestApp extends MainApp {
     public ExpenseTracker readStorageExpenseTracker() throws IllegalValueException {
         try {
             return new ExpenseTracker(storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath()).get(
-                    TypicalExpenses.SAMPLE_USERNAME).decryptTracker(DEFAULT_KEY));
+                    TypicalExpenses.SAMPLE_USERNAME).decryptTracker(DEFAULT_ENCRYPTION_KEY));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the ExpenseTracker format.", dce);
         } catch (IOException ioe) {

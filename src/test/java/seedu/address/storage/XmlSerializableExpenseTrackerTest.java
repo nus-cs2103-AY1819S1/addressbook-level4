@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,7 +28,7 @@ public class XmlSerializableExpenseTrackerTest {
     public void toModelType_typicalExpensesFile_success() throws Exception {
         XmlSerializableExpenseTracker dataFromFile = XmlUtil.getDataFromFile(TYPICAL_EXPENSES_FILE,
                 XmlSerializableExpenseTracker.class);
-        ExpenseTracker expenseTrackerFromFile = (ExpenseTracker) dataFromFile.toModelType().decryptTracker(DEFAULT_KEY);
+        ExpenseTracker expenseTrackerFromFile = dataFromFile.toModelType().decryptTracker(DEFAULT_ENCRYPTION_KEY);
         ExpenseTracker typicalExpensesExpenseTracker = TypicalExpenses.getTypicalExpenseTracker();
 
         System.out.println(expenseTrackerFromFile.getMaximumBudget().getNumberOfSecondsToRecurAgain() + " "
