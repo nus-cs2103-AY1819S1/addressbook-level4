@@ -11,6 +11,7 @@ import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
+import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.ui.UiManager;
@@ -47,6 +49,8 @@ public class ConnectToGoogleCalendar {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
+    private static final String CALENDAR_NAME = "primary";
+    private static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private boolean googleCalendarEnabled = false;
@@ -257,6 +261,36 @@ public class ConnectToGoogleCalendar {
                 updatedgEvent.getUpdated();
             }
         }
+    }
+
+    public Events getEvents(Calendar service) throws UnknownHostException {
+        //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
+        //max 2500 by Google
+        //default value is 250 if not specified
+        int numberOfEventsToBeDownloaded = 999;
+
+        // List the next [userinput] events from calendar name specified by CALENDAR_NAME.
+        DateTime now = new DateTime(System.currentTimeMillis());
+        Events events = null;
+        try {
+            events = service.events().list(CALENDAR_NAME)//set the source calendar on google
+                    .setMaxResults(numberOfEventsToBeDownloaded) //set upper limit for number of events
+                    .setTimeMin(now)//set the starting time
+                    .setOrderBy("startTime")//if not specified, stable order
+                    //TODO: further development can be done for repeated event, more logic must be written
+                    .setSingleEvents(true)//not the repeated ones
+                    //TODO: how to use setSynctoken, to prevent adding the same event multiples times
+                    .execute();
+        } catch (UnknownHostException e) {
+            throw e;
+        } catch (java.net.SocketException e2) {
+            new CommandResult(MESSAGE_INTERNET_ERROR);
+            e2.printStackTrace();
+        } catch (IOException e3) {
+            new CommandResult(MESSAGE_INTERNET_ERROR);
+            e3.printStackTrace();
+        }
+        return events;
     }
 
     /**
