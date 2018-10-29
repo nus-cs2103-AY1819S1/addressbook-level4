@@ -105,7 +105,7 @@ public class HistoryView extends UiPart<Region> implements Swappable, Sortable {
      * helps to refresh our reference to the currently selected {@code Person} object
      * to point to the new {@code Person} object.
      */
-    private Person getNewReferenceToPerson(Person p) {
+    private Person getNewReferenceToPerson() {
         return persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
     }
     /**
@@ -224,7 +224,7 @@ public class HistoryView extends UiPart<Region> implements Swappable, Sortable {
             return;
         }
 
-        currentSelection = getNewReferenceToPerson(currentSelection);
+        currentSelection = getNewReferenceToPerson();
         refreshView();
         sortTableView();
     }
