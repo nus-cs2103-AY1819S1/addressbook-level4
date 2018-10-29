@@ -41,7 +41,7 @@ public class XmlExpensesStorageTest {
         readExpenseTracker(null);
     }
 
-    private java.util.Optional<EncryptedExpenseTracker> readExpenseTracker(String filePath) throws Exception {
+    private Optional<EncryptedExpenseTracker> readExpenseTracker(String filePath) throws Exception {
         return new XmlExpensesStorage(Paths.get(filePath)).readExpenses(addToTestDataPathIfNotNull(filePath));
     }
 
