@@ -6,6 +6,8 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -17,10 +19,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
-
-    private static final String EXPECTED_FILE_NAME = "expectedExport.csv";
+    
     private static final String EXPORTED_FILE_NAME = "exportedCommandTest.csv";
-
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvTest");
+    private static final Path EXPECTED_FILE_NAME = TEST_DATA_FOLDER.resolve("expectedExport.csv");
+    
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
@@ -35,7 +38,7 @@ public class ExportCommandTest {
         setUp();
         CommandResult result = exportCommand.execute(model, commandHistory);
         File produced = new File(EXPORTED_FILE_NAME);
-        File expected = new File(EXPECTED_FILE_NAME);
+        File expected = EXPECTED_FILE_NAME.toFile();
         boolean isTwoEqual = compareFiles(produced, expected);
         assert(isTwoEqual);
     }
