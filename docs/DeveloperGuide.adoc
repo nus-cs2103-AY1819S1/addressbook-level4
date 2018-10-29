@@ -254,23 +254,23 @@ image::NextSequenceDiagram.png[width=800]
 ==== Design Considerations
 ===== Aspect: How select executes
 
-* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
-** Pros: Easy to implement and every command can access the current directory.
-** Cons: Appends and checks if path exists after every cd command entered.
+* *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
+** Pros: Work on a small size of images.
+** Cons: Hard to retrieve images from end of list.
 
-* *Alternative 2* : Stores path that exists in a HashSet.
-** Pros: Do not need to append and check, and just check if it exists in HashSet.
-** Cons: Does not update existing path if user deletes a directory.
+* *Alternative 2* : Select images within the `imageList` size.
+** Pros: Easy to retrieve images anywhere in the list.
+** Cons: Can be very messy if the imageList size is too large.
 
 ===== Aspect: How next executes
 
-* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
-** Pros: Easy to implement and every command can access the current directory.
-** Cons: Appends and checks if path exists after every cd command entered.
+* *Alternative 1 (current choice)*: Removes and updates `imageList` in `UserPrefs`.
+** Pros: Easy to implement and to access current batch.
+** Cons: Users unable to access previous images.
 
-* *Alternative 2* : Stores path that exists in a HashSet.
-** Pros: Do not need to append and check, and just check if it exists in HashSet.
-** Cons: Does not update existing path if user deletes a directory.
+* *Alternative 2* : Update the current start pointer for each batch.
+** Pros: Users would be able to access previous batches.
+** Cons: Harder to implement and keep track of the the current start pointer.
 
 === Undo/Redo feature
 ==== Current Implementation
