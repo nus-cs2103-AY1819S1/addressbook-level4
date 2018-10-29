@@ -1464,15 +1464,15 @@ a|*UC10:* Edit volunteer hours in volunteer profile +
 [width="100%",cols="30%,70%",options="header",]
 |=======================================================================
 | Term| Explanation
-| *Admin*| Our application’s intended target user (Most likely the volunteer manager)
-| *Application*| Refers to our system
-| *CLI* | Command Line Interface
+| *Admin*| Our application’s intended target user (Most likely the volunteer manager).
+| *Application*| Refers to our system.
+| *CLI* | Command Line Interface.
 | *Context*| A context refers to the management screen that users will see.
-| *GUI* | Graphical User Interface
-| *UCXX*| Use case with XX being the use case ID
-|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
-| *Volunteer*| A volunteer who has signed up and has a profile with the organization
-| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management
+| *GUI* | Graphical User Interface.
+| *UCXX*| Use case with XX being the use case ID.
+|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X.
+| *Volunteer*| A volunteer who has signed up and has a profile with the organization.
+| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management.
 |=======================================================================
 
 [appendix]
