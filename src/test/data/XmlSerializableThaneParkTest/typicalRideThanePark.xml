@@ -6,7 +6,7 @@
         <daysSinceMaintenanceString>9</daysSinceMaintenanceString>
         <waitingTimeString>1</waitingTimeString>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
+        <tagged>rollerCoaster</tagged>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
@@ -14,8 +14,8 @@
         <daysSinceMaintenanceString>31</daysSinceMaintenanceString>
         <waitingTimeString>16</waitingTimeString>
         <address>311, Clementi Ave 2, #02-25</address>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
+        <tagged>heightRestrictions</tagged>
+        <tagged>rollerCoaster</tagged>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
@@ -30,7 +30,7 @@
         <daysSinceMaintenanceString>87</daysSinceMaintenanceString>
         <waitingTimeString>3</waitingTimeString>
         <address>10th street</address>
-        <tagged>friends</tagged>
+        <tagged>rollerCoaster</tagged>
         <statusString>OPEN</statusString>
     </rides>
     <rides>

@@ -26,16 +26,16 @@ public class TypicalRides {
     public static final Ride ACCELERATOR = new RideBuilder().withName("Accelerator")
             .withAddress("123, Jurong West Ave 6, #08-111").withWaitTime("1")
             .withMaintenance("9")
-            .withTags("friends").build();
+            .withTags("rollerCoaster").build();
     public static final Ride BIG = new RideBuilder().withName("Big Thunder Mountain Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withWaitTime("16").withMaintenance("31")
-            .withTags("owesMoney", "friends").build();
+            .withTags("heightRestrictions", "rollerCoaster").build();
     public static final Ride CASTLE = new RideBuilder().withName("Castle Carrousel").withMaintenance("1")
             .withWaitTime("13").withAddress("wall street").build();
     public static final Ride DUMBO = new RideBuilder().withName("Dumbo The Flying Elephant Meier").withMaintenance(
             "87")
-            .withWaitTime("3").withAddress("10th street").withTags("friends").build();
+            .withWaitTime("3").withAddress("10th street").withTags("rollerCoaster").build();
     public static final Ride ENCHANTED = new RideBuilder().withName("Enchanted Airways").withMaintenance("4")
             .withWaitTime("21").withAddress("michegan ave").build();
     public static final Ride FANTASY = new RideBuilder().withName("Final Fantasy").withMaintenance("12")

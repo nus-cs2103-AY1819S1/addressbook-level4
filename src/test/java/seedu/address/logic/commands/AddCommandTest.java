@@ -39,13 +39,13 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingRideAdded modelStub = new ModelStubAcceptingRideAdded();
         Ride validRide = new RideBuilder().build();
 
         CommandResult commandResult = new AddCommand(validRide).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validRide), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validRide), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validRide), modelStub.ridesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -53,7 +53,7 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Ride validRide = new RideBuilder().build();
         AddCommand addCommand = new AddCommand(validRide);
-        ModelStub modelStub = new ModelStubWithPerson(validRide);
+        ModelStub modelStub = new ModelStubWithRide(validRide);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_RIDE);
@@ -157,10 +157,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single ride.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithRide extends ModelStub {
         private final Ride ride;
 
-        ModelStubWithPerson(Ride ride) {
+        ModelStubWithRide(Ride ride) {
             requireNonNull(ride);
             this.ride = ride;
         }
@@ -175,19 +175,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the ride being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Ride> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingRideAdded extends ModelStub {
+        final ArrayList<Ride> ridesAdded = new ArrayList<>();
 
         @Override
         public boolean hasRide(Ride ride) {
             requireNonNull(ride);
-            return personsAdded.stream().anyMatch(ride::isSameRide);
+            return ridesAdded.stream().anyMatch(ride::isSameRide);
         }
 
         @Override
         public void addRide(Ride ride) {
             requireNonNull(ride);
-            personsAdded.add(ride);
+            ridesAdded.add(ride);
         }
 
         @Override
