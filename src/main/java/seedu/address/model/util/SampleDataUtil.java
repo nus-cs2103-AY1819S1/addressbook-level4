@@ -2,13 +2,13 @@ package seedu.address.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.medicalhistory.Diagnosis;
-import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -64,7 +64,7 @@ public class SampleDataUtil {
      * Returns a {@code MedicalHistory} containing an {@code ArrayList<Diagnosis>}, made from a pre-made list of
      * Diagnoses.
      */
-    public static MedicalHistory getSampleMedicalHistory() {
+    public static List<Diagnosis> getSampleMedicalHistory() {
         Diagnosis[] records = {
             new Diagnosis("Diagnosed with acute bronchitis, drink more water", "Dr. Zhang"),
             new Diagnosis("Patient shows symptoms of dengue fever, monitor carefully", "Dr Jeff"),
@@ -72,8 +72,7 @@ public class SampleDataUtil {
         };
         ArrayList<Diagnosis> recordList = Arrays.stream(records)
                     .collect(Collectors.toCollection(ArrayList::new));
-        MedicalHistory mh = new MedicalHistory(recordList);
-        return mh;
+        return recordList;
     }
     //@@author GAO JIAXIN
     public static VisitorList getSampleVisitorList() {
