@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import javafx.util.Pair;
+import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.util.CollectionUtil;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
@@ -22,7 +23,7 @@ public class EditRecipeDescriptor {
     private Difficulty difficulty;
     private CookTime cookTime;
     private Set<Tag> tags;
-    private Pair<Integer, Instruction> instruction;
+    private Pair<Index, Instruction> instruction;
 
     public EditRecipeDescriptor() {}
 
@@ -42,6 +43,15 @@ public class EditRecipeDescriptor {
      */
     public boolean isAnyFieldEdited() {
         return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags, instruction);
+    }
+
+    public boolean isFieldEditedSpecific() {
+        if (instruction == null) {
+            return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags);
+        } else {
+            // Editing instruction, all other attribute should not be in this edit command
+            return !CollectionUtil.isAnyNonNull(name, difficulty, tags);
+        }
     }
 
     public void setName(Name name) {
@@ -85,11 +95,11 @@ public class EditRecipeDescriptor {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
     }
 
-    public void setInstruction(int index, Instruction instruction) {
-        this.instruction = (instruction != null && index >= 0) ? new Pair<>(index, instruction) : null;
+    public void setInstruction(Index index, Instruction instruction) {
+        this.instruction = (instruction != null && index.getOneBased() > 0) ? new Pair<>(index, instruction) : null;
     }
 
-    public Optional<Pair<Integer, Instruction>> getInstruction() {
+    public Optional<Pair<Index, Instruction>> getInstruction() {
         return (instruction != null) ? Optional.of(instruction) : Optional.empty();
     }
 
