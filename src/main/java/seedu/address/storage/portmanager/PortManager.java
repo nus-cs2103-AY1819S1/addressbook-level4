@@ -15,6 +15,11 @@ import seedu.address.model.deck.Name;
 import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.storage.XmlExportableDeck;
 
+
+/**
+ * Manages the import and exports of decks
+ */
+
 public class PortManager implements Porter {
 
     private static final Logger logger = LogsCenter.getLogger(PortManager.class);
@@ -24,12 +29,13 @@ public class PortManager implements Porter {
     public PortManager() {
         basefilepath = Paths.get("");
     }
-    public PortManager(Path bfp){
+
+    public PortManager(Path bfp) {
         basefilepath = bfp;
     }
 
     @Override
-    public String exportDeck(Deck deck){
+    public String exportDeck(Deck deck) {
         Name deckName = deck.getName();
         Path filePath = makeFilePath(deckName.fullName);
 
@@ -50,7 +56,7 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public Deck importDeck(String stringPath) throws DeckImportException{
+    public Deck importDeck(String stringPath) throws DeckImportException {
         Path filepath = makeFilePath(stringPath);
         try {
             XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
@@ -64,19 +70,19 @@ public class PortManager implements Porter {
         }
     }
 
-    private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException{
+    private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException {
         XmlExportableDeck xmlDeck;
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
             return xmlDeck;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
 
     }
 
-    private Deck getImportedDeck(XmlExportableDeck targetDeck) throws DataConversionException{
+    private Deck getImportedDeck(XmlExportableDeck targetDeck) throws DataConversionException {
         try {
             return targetDeck.toModelType();
         } catch (IllegalValueException e) {
@@ -88,7 +94,7 @@ public class PortManager implements Porter {
     }
 
 
-    private Path makeFilePath(String name){
+    private Path makeFilePath(String name) {
         return basefilepath.resolve(name + ".xml");
     }
 

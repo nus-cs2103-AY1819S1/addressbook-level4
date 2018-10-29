@@ -37,7 +37,7 @@ public class Anakin implements ReadOnlyAnakin {
     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
     *
     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-    *   among constructors.
+    * among constructors.
     */ {
         decks = new UniqueDeckList();
         cards = new UniqueCardList();
@@ -225,7 +225,11 @@ public class Anakin implements ReadOnlyAnakin {
         updateDisplayedCards();
     }
 
-    public String exportDeck(Deck deck){
+    /**
+     * Attempts to export {@deck}
+     * Returns the exported file location as a string.
+     */
+    public String exportDeck(Deck deck) {
         try {
             return portManager.exportDeck(deck);
 
@@ -241,9 +245,9 @@ public class Anakin implements ReadOnlyAnakin {
      * If there is an existing duplicate deck, throw DuplicateDeckException.
      */
 
-    public Deck importDeck(String filepath){
+    public Deck importDeck(String filepath) {
         Deck targetDeck = portManager.importDeck(filepath);
-        if (decks.contains(targetDeck)){
+        if (decks.contains(targetDeck)) {
             throw new DuplicateDeckException();
         }
         return targetDeck;

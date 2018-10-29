@@ -33,7 +33,7 @@ public class XmlExportableDeck{
      * This empty constructor is required for marshalling.
      */
 
-    public XmlExportableDeck(){
+    public XmlExportableDeck() {
         name = "Generic Deck Name";
         cards = new ArrayList<>();
     }
@@ -50,6 +50,7 @@ public class XmlExportableDeck{
 
     /**
      * Converts a given Deck into this class for JAXB use.
+     *
      * @param source future changes to this will not affect the created XmlExportableDeck
      */
     public XmlExportableDeck(Deck source) {
@@ -82,7 +83,7 @@ public class XmlExportableDeck{
         return new Deck(deckName, deckCards);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

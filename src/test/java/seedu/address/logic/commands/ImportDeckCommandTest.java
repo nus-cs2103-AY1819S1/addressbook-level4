@@ -6,7 +6,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
-import seedu.address.testutil.Assert;
 
 public class ImportDeckCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
