@@ -31,8 +31,6 @@ public class PermissionSet {
                 preset.add(Permission.CREATE_PROJECT);
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
-                preset.add(Permission.CREATE_DEPARTMENT);
-                preset.add(Permission.ASSIGN_DEPARTMENT);
                 preset.add(Permission.ASSIGN_PERMISSION);
                 return preset;
             }
@@ -51,8 +49,6 @@ public class PermissionSet {
                 preset.add(Permission.CREATE_PROJECT);
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
-                preset.add(Permission.CREATE_DEPARTMENT);
-                preset.add(Permission.ASSIGN_DEPARTMENT);
                 return preset;
             }
         },
@@ -216,6 +212,16 @@ public class PermissionSet {
             }
         }
         return true;
+    }
+
+    /**
+     * Check if permission set contains all permission in a {@code pSet}
+     *
+     * @param pSet the PermissionSet to check
+     * @return true if permission found, otherwise false.
+     */
+    public boolean containsAll(PermissionSet pSet) {
+        return containsAll(pSet.permissionSet.toArray(new Permission[0]));
     }
 
     /**
