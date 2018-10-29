@@ -2,11 +2,8 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
@@ -33,12 +30,11 @@ public class QueryCommand extends Command {
     public static final String COMMAND_ALIAS = "q";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets when to update the car park information.\n"
+            + ": Updates all the car park information in Car Park Finder.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = " Car parks updated";
-    public static final String MESSAGE_LOADING = " Car parks updating...";
-    private static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from database";
+    public static final String MESSAGE_SUCCESS = "%1$d Car parks updated";
+    private static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
 
     /**
      * Calls the API and load all the car parks information
@@ -60,30 +56,18 @@ public class QueryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        int numberChanged;
-
-        System.out.println("Inside : " + Thread.currentThread().getName());
-
-        System.out.println("Creating Runnable...");
-        Runnable runnable = () -> {
-            System.out.println("Inside : " + Thread.currentThread().getName());
-
-        };
+        int updated;
 
         try {
             List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchCarparkInfo());
             List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
             model.loadCarpark(allCarparks);
-
             model.commitCarparkFinder();
-            numberChanged = model.compareCarparkFinder();
-        } catch (IOException e) {
+            updated = model.compareCarparkFinder();
+        } catch (Exception e) {
             throw new CommandException(MESSAGE_ERROR_CARPARK);
         }
 
-        Thread thread = new Thread(runnable);
-        thread.start();
-
-        return new CommandResult(numberChanged + MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updated));
     }
 }

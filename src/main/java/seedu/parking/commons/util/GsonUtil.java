@@ -21,20 +21,63 @@ import com.google.gson.JsonParser;
  */
 public class GsonUtil {
     private static HashSet<CarparkJson> carparkList = new HashSet<>();
+    private static HashSet<String[]> parkingData = new HashSet<>();
 
     /**
      * Fetches car park information and returns a list of it.
      * @return A list of list of strings containing the car park information.
      * @throws IOException if unable to connect to URL.
      */
-    public static List<List<String>> fetchCarparkInfo() throws IOException {
-        getCarparkData();
-        getCarparkAvailability();
+    public static List<List<String>> fetchCarparkInfo() throws Exception {
+        final boolean[] hasError = {false, false, false};
 
+        Thread first = new Thread(() -> {
+            try {
+                getCarparkData();
+            } catch (IOException e) {
+                hasError[0] = true;
+            }
+        });
+        first.start();
+
+        if (hasError[0]) {
+            throw new IOException();
+        }
+
+        Thread second = new Thread(() -> {
+            try {
+                getCarparkAvailability();
+            } catch (IOException e) {
+                hasError[1] = true;
+            }
+        });
+        second.start();
+
+        if (hasError[1]) {
+            throw new IOException();
+        }
+
+        first.join();
+        second.join();
+
+        return saveAsList();
+    }
+
+    /**
+     * Adds in the parking lots details and convert to a list.
+     * @return A List containing all the car parks information.
+     */
+    private static List<List<String>> saveAsList() {
         List<List<String>> str = new ArrayList<>();
+
         for (CarparkJson list : carparkList) {
-            if (list.jsonData == null) {
-                list.addOn("0", "0");
+            for (String[] data : parkingData) {
+                if (list.getNumber().contains(data[0])) {
+                    list.addOn(data[1], data[2]);
+                    break;
+                } else {
+                    list.addOn("0", "0");
+                }
             }
             str.add(list.jsonData);
         }
@@ -78,12 +121,8 @@ public class GsonUtil {
                     .toString()
                     .split("\"");
 
-            for (CarparkJson carpark : carparkList) {
-                if (carpark.getNumber().contains(carparkNumber[1])) {
-                    carpark.addOn(totalLot[1], lotAvail[1]);
-                    break;
-                }
-            }
+            String[] lotData = {carparkNumber[1], totalLot[1], lotAvail[1]};
+            parkingData.add(lotData);
         }
 
         in.close();

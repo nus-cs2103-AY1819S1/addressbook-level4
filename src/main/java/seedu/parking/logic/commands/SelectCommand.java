@@ -23,11 +23,11 @@ public class SelectCommand extends Command {
     public static final String FORMAT = "select INDEX";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the carpark identified by the index number used in the displayed carpark list.\n"
+            + ": Selects the car park identified by the index number used in the displayed car park list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_CARPARK_SUCCESS = "Selected Carpark: %1$s";
+    public static final String MESSAGE_SELECT_CARPARK_SUCCESS = "Selected Car park: %1$s";
 
     private final Index targetIndex;
 
