@@ -49,11 +49,32 @@ Adds a transaction to the database. +
 Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
 n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 
+=== Uploading a photo under a person : `uploadp`
+
+Uploads a photo to a person’s contact based on the index you input.
+Format: uploadp dir/[FILE_PATH] ind/[INDEX]
+
+=== Deleting a photo under a person : `deletep`
+
+Deletes a photo to a person’s contact based on the index you input.
+Format: deletep dir/<file_path> ind/<index>
+
+=== View calendar with debt deadlines : `calendar`
+
+Displays a Google calendar showing the user's transactions and their deadlines.
+This command can only be used with any one of the following keywords: show; login; logout.
+This feature requires linking the deadlines to your Google account.
+
+Formats:
+To show calendar in the app: calendar show
+To login to your Google account: calendar login
+To logout of your Google account: calendar logout
+
 === Converting multiple currencies: `convert`
 
 Converts amounts in multiple different foreign currencies to their respective amounts in +
 the base currency, Singapore Dollars.
-Format: convert FIRST_AMOUNT [MORE_AMOUNTS}
+Format: convert FIRST_AMOUNT [MORE_AMOUNTS]
 
 === Calculating interest on transactions: `interest`
 
@@ -65,33 +86,38 @@ Format: interest SCHEME INTEREST_RATE FIRST_NAME [MORE_NAMES]
 Edit an existing transaction’s details.
 Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
 
-=== Sorting transactions : `sort`
+=== Sorting transactions : `sort` (to be implemented)
 
 Sort transactions by principal sum, deadline of payment or type of transactor (debtor/lender). +
 Format: sort [t/TAG]...
 
-=== Filtering transactions: `filter`
+=== Filtering transactions by name of person: `filter` (to be implemented)
 
-Filter transactions by name(s) or deadline(s).
-Format: filter FIRST_NAME [MORE_NAMES] or +
-        filter FIRST_DEADLINE [MORE_DEADLINES]
+Filter transactions by names of the contacts.
+Format: filter FIRST_NAME [MORE_NAMES]
 
-=== Locating transactions by transaction's name : `find`
+=== Filtering transactions by closest deadline: `nt`
 
-Finds transactions exchanged with any transaction whose name contains any of the given keywords.
+Filtering and listing out the transaction(s) which deadlines are closest to the current date.
+"nt" stands for NextTransaction.
+Format: nt
+
+=== Locating transactions by person's name : `find`
+
+Finds transactions under a person whose name contains any of the given keywords.
 Format: find NAME [MORE_NAMES]
+
+=== Locating transactions by substring : `search`
+
+Finds transactions under a person whose first name or last name contains the substring input by user.
+Format: search SUBSTRING
 
 === Deleting a transaction : `delete`
 
 Deletes the specified transaction from the address book.
 Format: delete INDEX
 
-=== Removing a debt : `remove`
-
-Remove away a number of debts from one transaction recorded in the DT using click-and-drag.
-The number of debts removed is up to the user’s selection.
-
-=== Selecting a trasaction : `select`
+=== Selecting a transaction : `select`
 
 Selects the transaction identified by the index number used in the displayed transaction list.
 Format: select INDEX
@@ -102,6 +128,11 @@ Lists all the commands that you have entered in reverse chronological order.
 
 Lists all the expenses that you have recorded in the app, in reverse chronological order.
 Format: history
+
+=== Analyzing a possible loan amount : `analytics`
+
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out.
+Format: analytics
 
 === Undoing previous command : `undo`
 
@@ -134,42 +165,61 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 
 == Command Summary
 
-Add add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
+Add : add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
 e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  d/+500.00 dl/20 09 2019 t/friend t/colleague
 
-Clear : clear
+//need to check
+Uploadp : uploadp dir/FILE_PATH ind/INDEX
+e.g. uploadp dir/Users/Photo.png ind/3
 
-Delete : delete INDEX
-e.g. delete 3
+//need to check
+Deletep : deletep dir/FILE_PATH
+
+Calendar : calendar show
+OR: calendar login
+OR: calendar logout
+
+Convert : convert FIRST_AMOUNT [MORE_AMOUNTS]
+e.g. convert USD 20.00 AUD 35.40 MYR 152.60
+
+Interest : int/INTEREST_RATE
+e.g. int/1.10
 
 Update : update INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] d/DEBT dl/DEADLINE [t/TAG]…​
 e.g. edit 2 n/James Lee e/jameslee@example.com
 
+Sort : sort [t/TAG]...
+E.g. sort t/creditor
+
+Filter : filter[t/TAG]...
+e.g. filter t/debtor
+
+Nt (NextTransaction) : nt
+
 Find : find KEYWORD [MORE_KEYWORDS]
 e.g. find James Jake
 
-Hide : hide n/NAME
-e.g. hide n/Shawn
+Search : search SUBSTRING
+e.g. search Be
 
-Sort: sort [t/TAG]...
-E.g. sort t/creditor
-
-Filter: filter[t/TAG]...
-E.g. filter t/debtor
-
-Format : interest int/INTEREST_RATE
-e.g. int/1.10
-
-List : list
-
-Help : help
+Delete : delete INDEX
+e.g. delete 3
 
 Select : select INDEX
 e.g.select 2
 
 History : history
 
+Analytics : analytics
+
 Undo : undo
 
 Redo : redo
 
+Clear : clear
+
+//confirm about HideCommand
+
+List : list
+
+Help : help
