@@ -539,9 +539,20 @@ Step 1. The user launches the application and already has at least one client's 
 
 image::PictureCommand1StateDiagram.png[width="800"]
 
-Step 2. The user executes `pic 4 l//images/david.jpg` to add a picture for David. The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4. It then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l//images/david.jpg` command executes to be saved.
+Step 2. The user executes `pic 4 l/images/invalidpath.jpg` to add a picture for David. However, the file `invalidpath.jpg` does not exist.
+`Picture#isValidPicture()` validates the given file path and InsuRen informs the user that the path given is invalid.
 
 image::PictureCommand2StateDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not pass the validation check, `Picture#isValidPicture()`, so InsuRen will not update the user's picture and instead return an error message.
+
+Step 3. The user now decides to execute `pic 4 l/images/david.jpg`, a valid image located in his drive, to add a picture for David.
+The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4.
+The `PictureCommandParser` retrieves the input from the user and validates it.
+`ParserUtil#parseFileLocation()` is called and the picture path is checked. If the path is valid, it then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l/images/david.jpg` command executes to be saved.
+
+image::PictureCommand3StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
@@ -557,6 +568,15 @@ image::PictureCommandActivityDiagram.png[width="500"]
 * **Alternative 2:** `Person` will store a `Path` or `String` instead.
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
+
+===== Aspect: Path validation
+
+* **Alternative 1 (current choice):** File location input from user is checked against a regular expression and `Files#exists()`.
+** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the regular expression checks for any ill-intended input as well as the file extension.
+** Cons: Will have to check twice.
+* **Alternative 2:** Just do `Files#exists()`.
+** Pros: Straightforward and simple.
+** Cons: Less secure, might result in an error if the file is not checked properly.
 
 // end:: addpicture[]
 
