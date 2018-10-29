@@ -185,7 +185,9 @@ public class EditCommandTest {
 
         showEventAtIndex(model, INDEX_SECOND_EVENT);
         Event eventToEdit = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
-        expectedModel.updateEvent(eventToEdit, editedEvent);
+        Event secondEditedEvent = new EventBuilder(editedEvent).withUid(eventToEdit.getUid())
+                .withUuid(eventToEdit.getUuid()).build();
+        expectedModel.updateEvent(eventToEdit, secondEditedEvent);
         expectedModel.commitScheduler();
 
         // edit -> edits second event in unfiltered event list / first event in filtered event list

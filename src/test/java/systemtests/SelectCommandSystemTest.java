@@ -7,7 +7,7 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.scheduler.logic.commands.SelectCommand.MESSAGE_SELECT_EVENT_SUCCESS;
 import static seedu.scheduler.testutil.TestUtil.getLastIndex;
 import static seedu.scheduler.testutil.TestUtil.getMidIndex;
-import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.Test;
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         /* Case: filtered event list, select index within bounds of scheduler but out of bounds of event list
          * -> rejected
          */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         int invalidIndex = getModel().getScheduler().getEventList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 

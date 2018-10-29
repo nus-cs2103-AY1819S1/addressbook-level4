@@ -11,10 +11,10 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETI
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
-import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.TRAVEL_JUNE_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.WORK_DECEMBER_12_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.ONE_TIME_JOB;
 
 import java.util.List;
 
@@ -85,14 +85,14 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the event list before adding -> added */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
-        assertCommandSuccess(TRAVEL_JUNE_1_2018_SINGLE);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
+        assertCommandSuccess(AD_HOC_WORK);
 
         /* ------------------------ Perform add operation while an event card is selected --------------------------- */
 
         /* Case: selects first card in the event list, add an event -> added, card selection remains unchanged */
         selectEvent(Index.fromOneBased(1));
-        assertCommandSuccess(WORK_DECEMBER_12_2018_SINGLE);
+        assertCommandSuccess(ONE_TIME_JOB);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
