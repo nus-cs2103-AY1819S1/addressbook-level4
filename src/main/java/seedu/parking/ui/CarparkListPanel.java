@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.parking.commons.events.ui.JumpToListRequestEvent;
+import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
 import seedu.parking.model.carpark.Carpark;
 
 /**
@@ -20,6 +21,7 @@ import seedu.parking.model.carpark.Carpark;
  */
 public class CarparkListPanel extends UiPart<Region> {
     private static final String FXML = "CarparkListPanel.fxml";
+    private static int selectIndex = -1;
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML
@@ -42,6 +44,7 @@ public class CarparkListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in car park list panel changed to : '" + newValue + "'");
+                        selectIndex = carparkListView.getSelectionModel().getSelectedIndex();
                         raise(new CarparkPanelSelectionChangedEvent(newValue));
                     }
                 });
@@ -53,6 +56,7 @@ public class CarparkListPanel extends UiPart<Region> {
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             carparkListView.scrollTo(index);
+            carparkListView.getFocusModel().focus(index);
             carparkListView.getSelectionModel().clearAndSelect(index);
         });
     }
@@ -61,6 +65,21 @@ public class CarparkListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handleNotifyCarparkRequestEvent(NotifyCarparkRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+
+    }
+
+    /**
+     * Get the selected car park from the list view.
+     * @return the index of the selected car park.
+     */
+    public static int getSelectedIndex() {
+        return selectIndex;
     }
 
     /**

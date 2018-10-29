@@ -21,7 +21,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitCarparkFinder();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_EMPTY, expectedModel);
     }
 
     @Test

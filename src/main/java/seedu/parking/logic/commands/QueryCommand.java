@@ -2,8 +2,8 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
@@ -30,20 +30,19 @@ public class QueryCommand extends Command {
     public static final String COMMAND_ALIAS = "q";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets when to update the car park information.\n"
+            + ": Updates all the car park information in Car Park Finder.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = " Car parks updated";
-    public static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from online";
+    public static final String MESSAGE_SUCCESS = "%1$d Car parks updated";
+    private static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
 
     /**
      * Calls the API and load all the car parks information
      * @return An array of car parks
-     * @throws IOException If unable to load from API
      */
-    private ArrayList<Carpark> readCarpark() throws IOException {
-        ArrayList<Carpark> carparkList = new ArrayList<>();
-        for (ArrayList<String> carpark : GsonUtil.fetchCarparkInfo()) {
+    private List<Carpark> readCarpark(List<List<String>> carparkData) {
+        List<Carpark> carparkList = new ArrayList<>();
+        for (List<String> carpark : carparkData) {
             Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
@@ -57,14 +56,18 @@ public class QueryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        int numberChanged;
+        int updated;
+
         try {
-            model.loadCarpark(readCarpark());
-        } catch (IOException e) {
+            List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchCarparkInfo());
+            List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
+            model.loadCarpark(allCarparks);
+            model.commitCarparkFinder();
+            updated = model.compareCarparkFinder();
+        } catch (Exception e) {
             throw new CommandException(MESSAGE_ERROR_CARPARK);
         }
-        model.commitCarparkFinder();
-        numberChanged = model.compareParkingBook();
-        return new CommandResult(numberChanged + MESSAGE_SUCCESS);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updated));
     }
 }

@@ -2,10 +2,11 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-import seedu.parking.commons.util.GsonUtil;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.core.index.Index;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.model.Model;
@@ -20,6 +21,7 @@ import seedu.parking.model.carpark.NightParking;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.ui.CarparkListPanel;
 
 /**
  * Notifies when to get the car park information from the API.
@@ -30,20 +32,26 @@ public class NotifyCommand extends Command {
     public static final String COMMAND_ALIAS = "n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets when to update the car park information.\n"
-            + "Example: " + COMMAND_WORD;
+            + ": Set when to update the car park information.\n"
+            + "Example: " + COMMAND_WORD + " 60";
 
-    public static final String MESSAGE_SUCCESS = "Car park information updated";
-    public static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from online";
+    public static final String MESSAGE_SUCCESS = "Notification set for car park %1$d\nInterval: every %2$ds";
+    public static final String MESSAGE_ERROR = "Cannot notify without selecting a car park first";
+    public static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
+
+    private final int targetTime;
+
+    public NotifyCommand(int targetTime) {
+        this.targetTime = targetTime;
+    }
 
     /**
      * Calls the API and load all the car parks information
      * @return An array of car parks
-     * @throws IOException If unable to load from API
      */
-    private ArrayList<Carpark> readCarpark() throws IOException {
-        ArrayList<Carpark> carparkList = new ArrayList<>();
-        for (ArrayList<String> carpark : GsonUtil.fetchCarparkInfo()) {
+    private List<Carpark> readCarpark(List<List<String>> carparkData) {
+        List<Carpark> carparkList = new ArrayList<>();
+        for (List<String> carpark : carparkData) {
             Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
@@ -57,12 +65,26 @@ public class NotifyCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        try {
-            model.loadCarpark(readCarpark());
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_ERROR_CARPARK);
+
+        int validity = CarparkListPanel.getSelectedIndex();
+        if (validity < 0) {
+            throw new CommandException(MESSAGE_ERROR);
         }
-        model.commitCarparkFinder();
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        Index notifyIndex = Index.fromZeroBased(validity);
+        List<Carpark> filteredCarparkList = model.getFilteredCarparkList();
+
+        if (notifyIndex.getZeroBased() >= filteredCarparkList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, notifyIndex.getOneBased(), targetTime));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof NotifyCommand // instanceof handles nulls
+                && targetTime == ((NotifyCommand) other).targetTime); // state check
     }
 }

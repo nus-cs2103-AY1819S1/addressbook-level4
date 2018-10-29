@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.parking.logic.commands.ClearCommand;
-import seedu.parking.logic.commands.DeleteCommand;
 import seedu.parking.logic.commands.ExitCommand;
 import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.HelpCommand;
@@ -38,14 +37,6 @@ public class CarparkFinderParserTest {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
-
-    @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_CARPARK), command);
-    }
-
 
     @Test
     public void parseCommand_exit() throws Exception {

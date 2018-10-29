@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.parking.logic.commands.DeleteCommand;
+import seedu.parking.logic.commands.ClearCommand;
 import seedu.parking.logic.commands.HelpCommand;
 import seedu.parking.logic.commands.SelectCommand;
 import seedu.parking.ui.BrowserPanel;
@@ -69,7 +69,7 @@ public class HelpCommandSystemTest extends CarparkFinderSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased());
+        executeCommand(ClearCommand.COMMAND_WORD);
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
