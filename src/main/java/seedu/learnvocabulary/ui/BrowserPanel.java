@@ -21,8 +21,7 @@ import seedu.learnvocabulary.model.word.Word;
 public class BrowserPanel extends UiPart<Region> {
     //Review russell
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String SEARCH_PAGE_URL = "WordSearchPage.html";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -42,7 +41,9 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadWordPage(Word word) {
-        loadPage(SEARCH_PAGE_URL + word.getName().fullName);
+        URL searchPage = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
+        loadPage(searchPage.toExternalForm() + "?name=" + word.getName().fullName
+                + "&meaning=" + word.getMeaning().fullMeaning);
     }
 
     public void loadPage(String url) {

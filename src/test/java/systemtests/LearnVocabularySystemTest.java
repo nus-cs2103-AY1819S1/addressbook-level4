@@ -5,12 +5,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.learnvocabulary.ui.BrowserPanel.SEARCH_PAGE_URL;
 import static seedu.learnvocabulary.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.learnvocabulary.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.learnvocabulary.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.learnvocabulary.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,8 +40,8 @@ import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
 import seedu.learnvocabulary.model.LearnVocabulary;
 import seedu.learnvocabulary.model.Model;
+import seedu.learnvocabulary.model.word.Word;
 import seedu.learnvocabulary.testutil.TypicalWords;
-import seedu.learnvocabulary.ui.BrowserPanel;
 import seedu.learnvocabulary.ui.CommandBox;
 
 /**
@@ -213,14 +213,13 @@ public abstract class LearnVocabularySystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getWordListPanel().navigateToCard(getWordListPanel().getSelectedCardIndex());
-        String selectedCardName = getWordListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        Word selectedWord = getWordListPanel().getWord(getWordListPanel().getSelectedCardIndex());
+        URL expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
+        String expectedUrlInString = expectedUrl.toExternalForm() + "?name="
+                + selectedWord.getName().fullName.replaceAll(" ", "%20")
+                + "&meaning=" + selectedWord.getMeaning().fullMeaning.replaceAll(" ", "%20");
+
+        assertEquals(expectedUrlInString, getBrowserPanel().getLoadedUrl().toExternalForm());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getWordListPanel().getSelectedCardIndex());
     }
