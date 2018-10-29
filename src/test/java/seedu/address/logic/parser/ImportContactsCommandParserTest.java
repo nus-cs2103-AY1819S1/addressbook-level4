@@ -14,8 +14,8 @@ import static seedu.address.testutil.FileReaderBuilder.INVALID_FILE;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ImportContactsCommand;
-import seedu.address.model.filereader.FileReader;
 import seedu.address.model.filereader.FilePath;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.testutil.FileReaderBuilder;
 
 public class ImportContactsCommandParserTest {
@@ -44,8 +44,11 @@ public class ImportContactsCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        String expectedMessage = String.format(MESSAGE_FILE_READER_INVALID_FORMAT,
+                ImportContactsCommand.MESSAGE_WRONG_FILE_FORMAT);
+
         // invalid file
-        assertParseFailure(parser, FILE_DESC + INVALID_FILE, MESSAGE_FILE_READER_INVALID_FORMAT);
+        assertParseFailure(parser, FILE_DESC + INVALID_FILE, expectedMessage);
 
         // empty file
         assertParseFailure(parser, FILE_DESC + FILE_DO_NOT_EXIST_PATH, FilePath.MESSAGE_FILEPATH_CONSTRAINTS);

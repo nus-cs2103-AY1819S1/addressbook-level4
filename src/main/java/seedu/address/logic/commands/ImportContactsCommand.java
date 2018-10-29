@@ -20,15 +20,12 @@ public class ImportContactsCommand extends Command {
             + PREFIX_FILE + "FILEPATH\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "~/Downloads/contacts1.csv ";
-    public static final String MESSAGE_WRONG_FILE_FORMAT = "File must be csv format and contain "
-            + FileReader.CSV_HEADER_NAME
-            + ", "
-            + FileReader.CSV_HEADER_PHONE
-            + ", "
-            + FileReader.CSV_HEADER_ADDRESS
-            + " and "
-            + FileReader.CSV_HEADER_EMAIL
-            + " as header for contact name and contact number field";
+    public static final String MESSAGE_WRONG_FILE_FORMAT = "File must be csv format and contain:\n"
+            + "'" + FileReader.CSV_HEADER_NAME + "' as header for contact name,\n"
+            + "'" + FileReader.CSV_HEADER_PHONE + "' as header for contact number,\n"
+            + "'" + FileReader.CSV_HEADER_ADDRESS + "' as header for contact address,\n"
+            + "'" + FileReader.CSV_HEADER_EMAIL + "' as header for contact email and\n"
+            + "'" + FileReader.CSV_HEADER_FACULTY + "' as header for contact faculty.";
 
     public static final String MESSAGE_SUCCESS = "Contacts imported";
     private final FileReader toImport;
