@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
@@ -41,7 +43,7 @@ import seedu.scheduler.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 1, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -68,6 +70,7 @@ public class MainApp extends Application {
         storage = new StorageManager(schedulerStorage, userPrefsStorage);
 
         initLogging(config);
+        BasicConfigurator.configure();
 
         model = initModelManager(storage, userPrefs);
 

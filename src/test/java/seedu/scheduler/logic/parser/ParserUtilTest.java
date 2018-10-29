@@ -18,6 +18,8 @@ import org.junit.rules.ExpectedException;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.RepeatType;
+import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
 import seedu.scheduler.testutil.Assert;
 
@@ -27,6 +29,8 @@ public class ParserUtilTest {
 
     private static final String VALID_EVENT_NAME = "Study with me";
     private static final String VALID_DESCRIPTION = "";
+    private static final String VALID_VENUE = "";
+    private static final String VALID_REPEAT_TYPE = "daily";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -106,6 +110,47 @@ public class ParserUtilTest {
         String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseVenue_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseVenue((String) null));
+    }
+
+    @Test
+    public void parseVenue_validValueWithoutWhitespace_returnsVenue() {
+        Venue expectedVenue = new Venue(VALID_VENUE);
+        assertEquals(expectedVenue, ParserUtil.parseVenue(VALID_VENUE));
+    }
+
+    @Test
+    public void parseVenue_validValueWithWhitespace_returnsTrimmedVenue() throws Exception {
+        String venueWithWhitespace = WHITESPACE + VALID_VENUE + WHITESPACE;
+        Venue expectedVenue = new Venue(VALID_VENUE);
+        assertEquals(expectedVenue, ParserUtil.parseVenue(venueWithWhitespace));
+    }
+
+    @Test
+    public void parseRepeatType_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseRepeatType((String) null));
+    }
+
+    @Test
+    public void parseRepeatType_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseRepeatType("z"));
+    }
+
+    @Test
+    public void parseRepeatType_validValueWithoutWhitespace_returnsRepeatType() throws Exception {
+        RepeatType expectedRepeatType = RepeatType.DAILY;
+        assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(VALID_REPEAT_TYPE));
+    }
+
+    @Test
+    public void parseRepeatType_validValueWithWhitespace_returnsTrimmedRepeatType() throws Exception {
+        String repeatTypeWithWhitespace = WHITESPACE + VALID_REPEAT_TYPE + WHITESPACE;
+        RepeatType expectedRepeatType = RepeatType.DAILY;
+        assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(repeatTypeWithWhitespace));
     }
 
     // [TODO] add more test for various parsing methods

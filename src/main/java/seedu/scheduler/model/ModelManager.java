@@ -82,6 +82,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deleteRepeatingEvents(Event target) {
+        versionedScheduler.removeEvents(target, event -> event.getUuid().equals(target.getUuid()));
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void deleteUpcomingEvents(Event target) {
+        versionedScheduler.removeEvents(target, event ->
+                event.getUuid().equals(target.getUuid())
+                && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+        indicateSchedulerChanged();
+    }
+
+    @Override
     public void addEvents(List<Event> events) {
         versionedScheduler.addEvents(events);
         popUpManager.add(events);
