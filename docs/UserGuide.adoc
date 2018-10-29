@@ -49,15 +49,18 @@ Adds a transaction to the database. +
 Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
 n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 
-=== Uploading a photo under a person : `uploadp`
+=== Uploading/Deleting a photo under a person : `uploadp`
 
-Uploads a photo to a person’s contact based on the index you input.
-Format: uploadp dir/[FILE_PATH] ind/[INDEX]
+May upload a photo to a person’s contact based on the index you input, or delete the photo from the index you input.
+For both methods the first input after the command word should be the index of the contact whose photo you wish to
+upload or delete.
+For uploading a photo, the second input after the command word should be "up/" followed by the file path to the image
+file.
+For deleting a photo, the second input after the command word should be "up/" followed by the word "delete".
 
-=== Deleting a photo under a person : `deletep`
-
-Deletes a photo to a person’s contact based on the index you input.
-Format: deletep dir/<file_path> ind/<index>
+Formats:
+To upload a photo: uploadp ind/[INDEX] up/[FILE_PATH]
+To delete a photo: uploadp ind/[INDEX] up/delete
 
 === View calendar with debt deadlines : `calendar`
 
@@ -169,11 +172,10 @@ Add : add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…�
 e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  d/+500.00 dl/20 09 2019 t/friend t/colleague
 
 //need to check
-Uploadp : uploadp dir/FILE_PATH ind/INDEX
-e.g. uploadp dir/Users/Photo.png ind/3
-
-//need to check
-Deletep : deletep dir/FILE_PATH
+Uploadp : uploadp ind/INDEX up/FILE_PATH
+e.g. uploadp ind/3 up/Users/Photo.png
+OR: uploadp ind/INDEX up/delete
+e.g. uploadp ind/1 up/delete
 
 Calendar : calendar show
 OR: calendar login
