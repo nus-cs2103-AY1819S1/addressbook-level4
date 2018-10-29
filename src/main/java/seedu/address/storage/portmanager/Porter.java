@@ -5,7 +5,7 @@ import seedu.address.model.deck.anakinexceptions.DeckImportException;
 
 public interface Porter {
 
-    void exportDeck(Deck deck);
+    String exportDeck(Deck deck);
 
     Deck importDeck(String stringPath) throws DeckImportException;
 }

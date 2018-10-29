@@ -225,14 +225,16 @@ public class Anakin implements ReadOnlyAnakin {
         updateDisplayedCards();
     }
 
-    public void exportDeck(Deck deck){
+    public String exportDeck(Deck deck){
         try {
-            portManager.exportDeck(deck);
+            return portManager.exportDeck(deck);
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
+
 
     /**
      * Attempts to import a deck at the specified file location.

@@ -23,7 +23,7 @@ public class ExportDeckCommand extends Command {
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EXPORT_DECK_SUCCESS = "Successfully Exported Deck: %1$s";
+    public static final String MESSAGE_EXPORT_DECK_SUCCESS = "Successfully Exported Deck: %1$s to %2$s";
 
     private final Index targetIndex;
 
@@ -41,9 +41,10 @@ public class ExportDeckCommand extends Command {
         }
 
         Deck deckToExport = lastShownList.get(targetIndex.getZeroBased());
-        model.exportDeck(deckToExport);
+        String exportPath = model.exportDeck(deckToExport);
+        System.out.println(exportPath);
         model.commitAnakin();
-        return new CommandResult(String.format(MESSAGE_EXPORT_DECK_SUCCESS, deckToExport));
+        return new CommandResult(String.format(MESSAGE_EXPORT_DECK_SUCCESS, deckToExport, exportPath));
     }
 
     @Override

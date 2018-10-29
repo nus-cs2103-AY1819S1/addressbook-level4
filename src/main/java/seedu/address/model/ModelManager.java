@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,10 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.storage.portmanager.PortManager;
 
 /**
@@ -153,12 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void exportDeck(Deck deck) {
-        versionedAnakin.exportDeck(deck);
+    public String exportDeck(Deck deck) {
+        return versionedAnakin.exportDeck(deck);
     }
 
     @Override
-    public Deck importDeck (Path filepath) {
+    public Deck importDeck (String filepath) {
         return versionedAnakin.importDeck(filepath);
     }
     //=========== Filtered Deck List Accessors =============================================================

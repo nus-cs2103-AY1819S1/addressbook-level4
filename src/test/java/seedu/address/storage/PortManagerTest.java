@@ -14,7 +14,9 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 import seedu.address.storage.portmanager.PortManager;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.DeckBuilder;
 
 public class PortManagerTest {
@@ -38,10 +40,11 @@ public class PortManagerTest {
 
     @Test
     public void exportImportDeck_success() throws Exception {
-        String deckName = testDeck.getName().toString();
+        String deckName = testDeck.getName().fullName;
         portManager.exportDeck(testDeck);
-        Path testFilePath = TEST_DATA_FOLDER.resolve(deckName + ".xml");
+        String testFilePath = deckName;
         Deck importedDeck = portManager.importDeck(testFilePath);
         assertEquals(testDeck,importedDeck);
     }
+
 }

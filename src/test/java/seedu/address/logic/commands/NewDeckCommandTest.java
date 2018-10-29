@@ -207,6 +207,17 @@ public class NewDeckCommandTest {
         public boolean isInsideDeck() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String exportDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Deck importDeck(String filepath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

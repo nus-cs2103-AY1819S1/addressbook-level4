@@ -29,7 +29,7 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public void exportDeck(Deck deck){
+    public String exportDeck(Deck deck){
         Name deckName = deck.getName();
         Path filePath = makeFilePath(deckName.fullName);
 
@@ -46,6 +46,7 @@ public class PortManager implements Porter {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
 
+        return filePath.toAbsolutePath().toString();
     }
 
     @Override

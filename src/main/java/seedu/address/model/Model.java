@@ -57,7 +57,7 @@ public interface Model {
 
     boolean isInsideDeck();
 
-    void exportDeck(Deck deck);
+    String exportDeck(Deck deck);
 
     Deck importDeck (String filepath);
 
