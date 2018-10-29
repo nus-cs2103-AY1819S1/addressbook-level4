@@ -7,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -166,6 +167,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void removeImageFromList(int idx) {
         this.dirImageList.remove(idx);
+    }
+
+    /**
+     * Get preview image list (first 10 images in imageList)
+     */
+    @Override
+    public List<Path> returnPreviewImageList() {
+        return userPrefs.returnPreviewImageList();
     }
 
     @Override
