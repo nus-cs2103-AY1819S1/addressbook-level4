@@ -39,8 +39,6 @@ public class Outstanding {
         return test.matches(OUTSTANDING_VALIDATION_REGEX);
     }
 
-    // TODO: To do the arithmetic
-
     public int getOutstandingValue() {
         return this.outstanding;
     }

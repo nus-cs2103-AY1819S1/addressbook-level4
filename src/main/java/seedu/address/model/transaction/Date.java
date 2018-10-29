@@ -35,14 +35,15 @@ public class Date {
     }
 
     public static boolean isValidDate(String test) {
+        requireNonNull(test);
         String[] token = test.split("\\.");
         return isValidDate(token) && test.matches(DATE_VALIDATION_REGEX);
     }
 
-    public static boolean isValidDate(Entry e) {
-        String date = e.getDate().date;
-        return isValidDate(date) && date.matches(DATE_VALIDATION_REGEX);
-    }
+//    public static boolean isValidDate(Entry e) {
+//        String date = e.getDate().date;
+//        return isValidDate(date) && date.matches(DATE_VALIDATION_REGEX);
+//    }
 
     /**
      * To check for valid date.
@@ -50,15 +51,19 @@ public class Date {
      * @param date the array of date containing the day, month and year
      */
     private static boolean isValidDate(String[] date) {
-        int day = Integer.valueOf(date[0].trim());
-        int month = Integer.valueOf(date[1].trim());
-        int year = Integer.valueOf(date[2].trim());
+        try {
+            int day = Integer.valueOf(date[0].trim());
+            int month = Integer.valueOf(date[1].trim());
+            int year = Integer.valueOf(date[2].trim());
 
-        int leapYear = 2016;
-        boolean isLeapYear = (Math.abs(leapYear-year) % 4) == 0;
+            int leapYear = 2016;
+            boolean isLeapYear = (Math.abs(leapYear - year) % 4) == 0;
 
-        switch (month) {
-            case 4: case 6: case 9: case 11:
+            switch (month) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
                 return day < 31 && day > 0;
 
             case 2:
@@ -68,11 +73,20 @@ public class Date {
                     return day < 29 && day > 0;
                 }
 
-            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
                 return day <= 31 && day > 0;
 
             default:
                 return false;
+            }
+        } catch (Exception e) {
+            return false;
         }
     }
 

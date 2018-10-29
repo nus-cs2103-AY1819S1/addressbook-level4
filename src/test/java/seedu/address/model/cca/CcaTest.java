@@ -19,7 +19,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.testutil.CcaBuilder;
 
 //@@author ericyjw
-
 /**
  * To test if 2 Ccas are the same.
  * To test if 2 Ccas are equals.
@@ -118,7 +117,7 @@ public class CcaTest {
 
         // different budget -> returns false
         Cca editedBadminton = new CcaBuilder(BADMINTON)
-            .withBudget(VALID_BUDGET)
+            .withBudget(Integer.valueOf(VALID_BUDGET))
             .build();
         assertFalse(BADMINTON.equals(editedBadminton));
 
@@ -136,7 +135,7 @@ public class CcaTest {
 
         // different budget -> return false
         editedTrack = new CcaBuilder(TRACK)
-            .withBudget(VALID_BUDGET)
+            .withBudget(Integer.valueOf(VALID_BUDGET))
             .build();
         assertFalse(TRACK.equals(editedTrack));
 

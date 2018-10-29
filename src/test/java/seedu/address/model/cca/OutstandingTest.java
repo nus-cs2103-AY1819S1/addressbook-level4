@@ -11,7 +11,7 @@ import seedu.address.testutil.Assert;
 
 /**
  * To test for valid {@code Outstanding}.
- * Checks for null, empty outstanding and other combinations of outstanding values.
+ * Checks for null, negative outstanding and other combinations of outstanding values.
  */
 public class OutstandingTest {
 
@@ -22,8 +22,8 @@ public class OutstandingTest {
 
     @Test
     public void constructor_invalidOutstanding_throwsNumberFormatException() {
-        String invalidOutstanding = "";
-        Assert.assertThrows(NumberFormatException.class, () -> new Spent(Integer.valueOf(invalidOutstanding)));
+        Integer invalidOutstanding = -1;
+        Assert.assertThrows(NumberFormatException.class, () -> new Outstanding(invalidOutstanding));
     }
 
     @Test

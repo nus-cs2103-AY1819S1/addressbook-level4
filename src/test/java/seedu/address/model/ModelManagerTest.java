@@ -26,7 +26,7 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(new Person(null));
+        modelManager.hasPerson((Person) null);
     }
 
     @Test

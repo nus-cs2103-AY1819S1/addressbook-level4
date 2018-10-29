@@ -2,6 +2,8 @@ package seedu.address.model.cca;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.cca.Spent.MESSAGE_SPENT_CONSTRAINTS;
 
 import org.junit.Test;
 
@@ -11,7 +13,7 @@ import seedu.address.testutil.Assert;
 
 /**
  * To test for valid {@code Spent}.
- * Checks for null, empty spent and other combinations of spent values.
+ * Checks for null, negative spent and other combinations of spent values.
  */
 public class SpentTest {
 
@@ -21,9 +23,9 @@ public class SpentTest {
     }
 
     @Test
-    public void constructor_invalidSpent_throwsNumberFormatException() {
-        String invalidSpent = "";
-        Assert.assertThrows(NumberFormatException.class, () -> new Spent(Integer.valueOf(invalidSpent)));
+    public void constructor_invalidSpent_throwsIllegalArgumentException() {
+        Integer invalidSpent = -1;
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Spent(invalidSpent));
     }
 
     @Test

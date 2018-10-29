@@ -1,6 +1,10 @@
 package seedu.address.model.transaction;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.transaction.Amount.MESSAGE_AMOUNT_CONSTRAINTS;
+import static seedu.address.model.transaction.Date.MESSAGE_DATE_CONSTRAINTS;
+import static seedu.address.model.transaction.Remarks.MESSAGE_REMARKS_CONSTRAINTS;
 
 import java.util.Optional;
 
@@ -14,8 +18,10 @@ import java.util.Optional;
 public class Entry {
     public static final String MESSAGE_ENTRY_CONSTRAINTS = "Entry should contain a valid entry number, date, amount " +
         "and remarks";
-
+    private static final String MESSAGE_ENTRY_NUM_CONSTRAINTS = "Entry number should contain only positive integers " +
+        "and must not be less than 1.";
     public static final String ENTRY_NUM_VALIDATION_REGEX = "[1-9][0-9]*";
+
 
     private Integer entryNum;
     private Date date;
@@ -30,7 +36,7 @@ public class Entry {
      * @param amount the amount in the transaction
      * @param remarks the remarks given for this transaction
      */
-    public Entry(int entryNum, Date date, Amount amount, Remarks remarks) {
+    public Entry(Integer entryNum, Date date, Amount amount, Remarks remarks) {
         requireAllNonNull(entryNum, date, amount, remarks);
         this.entryNum = entryNum;
         this.date = date;
@@ -49,7 +55,17 @@ public class Entry {
      */
     public Entry(String entryNum, String date, String amount, String remarks) {
         requireAllNonNull(entryNum, date, amount, remarks);
-        this.entryNum = Integer.valueOf(entryNum);
+
+        try {
+            int num = Integer.valueOf(entryNum);
+            this.entryNum = num;
+        } catch (NumberFormatException e) {
+            checkArgument(false, MESSAGE_ENTRY_NUM_CONSTRAINTS);
+        }
+
+        checkArgument(Date.isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(Amount.isValidAmount(amount), MESSAGE_AMOUNT_CONSTRAINTS);
+        checkArgument(Remarks.isValidRemark(remarks), MESSAGE_REMARKS_CONSTRAINTS);
         this.date = new Date(date);
         this.amount = new Amount(Integer.valueOf(amount));
         this.remarks = new Remarks(remarks);

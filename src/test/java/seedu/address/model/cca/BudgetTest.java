@@ -11,7 +11,7 @@ import seedu.address.testutil.Assert;
 
 /**
  * To test for valid {@code Budget}.
- * Checks for null, empty budget and other combinations of budget values.
+ * Checks for null, negative budget and other combinations of budget values.
  */
 public class BudgetTest {
 
@@ -21,9 +21,9 @@ public class BudgetTest {
     }
 
     @Test
-    public void constructor_invalidBudget_throwsNumberFormatException() {
-        String invalidBudget = "";
-        Assert.assertThrows(NumberFormatException.class, () -> new Budget(Integer.valueOf(invalidBudget)));
+    public void constructor_invalidBudget_throwsIllegalArgumentException() {
+        Integer invalidBudget = -1;
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Budget(invalidBudget));
     }
 
     @Test

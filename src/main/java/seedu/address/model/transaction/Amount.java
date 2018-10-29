@@ -37,12 +37,10 @@ public class Amount {
     }
 
     public static boolean isValidAmount(String test) {
+        if (test.equals("")) {
+            return false;
+        }
         return test.matches(AMOUNT_VALIDATION_REGEX);
-    }
-
-    public static boolean isValidAmount(Entry e) {
-        String amount = String.valueOf(e.getAmountValue());
-        return amount.matches(AMOUNT_VALIDATION_REGEX);
     }
 
     /**

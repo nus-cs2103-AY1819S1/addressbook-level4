@@ -50,7 +50,12 @@ public class CommandTestUtil {
     public static final String VALID_CCA_NAME_TRACK = "track";
     public static final String VALID_CCA_NAME_FLOORBALL = "FLOORBALL M";
     public static final String VALID_CCA_NAME_HOCKEY = "hockey f";
-    public static final Integer VALID_BUDGET = 700;
+    public static final String VALID_BUDGET = "700";
+    public static final String VALID_ENTRY_NUM = "1";
+    public static final String VALID_DATE = "12.12.2018";
+    public static final String VALID_AMOUNT = "-100";
+    public static final String VALID_REMARKS = "Purchase of Equipment";
+
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

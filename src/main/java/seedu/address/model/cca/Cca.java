@@ -1,5 +1,6 @@
 package seedu.address.model.cca;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -57,43 +58,45 @@ public class Cca {
         this.transactionEntries = transactionEntries;
     }
 
-    /**
-     * Alternative constructor for Cca where there is a vice-head.
-     * Every identity field must be present and not null.
-     *
-     * @param name name of the Cca
-     * @param head name of the head of the Cca
-     * @param budget budget of the Cca
-     * @param spent amount spent by the Cca
-     * @param outstanding outstanding amount of the Cca
-     * @param transactionEntries transaction entries of the Cca
-     */
-    public Cca(CcaName name, Name head, Budget budget, Spent spent, Outstanding outstanding,
-               Set<Entry> transactionEntries) {
-        requireAllNonNull(name, head, budget, spent, outstanding);
-        this.name = name;
-        this.head = head;
-        this.viceHead = null;
-        this.budget = budget;
-        this.spent = spent;
-        this.outstanding = outstanding;
-        this.transactionEntries = transactionEntries;
-    }
+//    /**
+//     * Alternative constructor for Cca where there is a vice-head.
+//     * Every identity field must be present and not null.
+//     *
+//     * @param name name of the Cca
+//     * @param head name of the head of the Cca
+//     * @param budget budget of the Cca
+//     * @param spent amount spent by the Cca
+//     * @param outstanding outstanding amount of the Cca
+//     * @param transactionEntries transaction entries of the Cca
+//     */
+//    public Cca(CcaName name, Name head, Budget budget, Spent spent, Outstanding outstanding,
+//               Set<Entry> transactionEntries) {
+//        requireAllNonNull(name, head, budget, spent, outstanding);
+//        this.name = name;
+//        this.head = head;
+//        this.viceHead = null;
+//        this.budget = budget;
+//        this.spent = spent;
+//        this.outstanding = outstanding;
+//        this.transactionEntries = transactionEntries;
+//    }
 
     /**
      * Create a Cca object with a given {@code CcaName}.
+     * Used to check if the Cca is present in the {@code UniqueCcaList}
      *
      * @param ccaName the name of the Cca to be create
      */
     public Cca(String ccaName) {
+        requireNonNull(ccaName);
         CcaName name = new CcaName(ccaName);
         this.name = name;
-        this.head = null;
-        this.viceHead = null;
-        this.budget = null;
-        this.spent = null;
-        this.outstanding = null;
-        this.transactionEntries = null;
+        this.head = new Name("-");
+        this.viceHead = new Name("-");
+        this.budget = new Budget(0);
+        this.spent = new Spent(0);
+        this.outstanding = new Outstanding(budget.getBudgetValue());
+        this.transactionEntries = new LinkedHashSet<>();
     }
 
     /**
@@ -104,6 +107,7 @@ public class Cca {
      * @param budget the budget given to the Cca
      */
     public Cca(CcaName ccaName, Budget budget) {
+        requireAllNonNull(ccaName, budget);
         this.name = ccaName;
         this.head = new Name("-");
         this.viceHead = new Name("-");

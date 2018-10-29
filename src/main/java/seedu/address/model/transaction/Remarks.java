@@ -17,7 +17,7 @@ public class Remarks {
      * The first character of the Date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String REMARKS_VALIDATION_REGEX = "[\\p{Alnum}-][\\p{Alnum} ]*";
+    public static final String REMARKS_VALIDATION_REGEX = "[\\p{Alnum}-][\\p{Alnum}- ]*";
 
     private String remarks;
 
@@ -33,11 +33,6 @@ public class Remarks {
 
     public static boolean isValidRemark(String test) {
         return test.matches(REMARKS_VALIDATION_REGEX);
-    }
-
-    public static boolean isValidRemark(Entry e) {
-        String remarks = e.getRemarks().remarks;
-        return remarks.matches(REMARKS_VALIDATION_REGEX);
     }
 
     public String getRemarks() {
