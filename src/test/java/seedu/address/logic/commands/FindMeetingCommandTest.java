@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -62,36 +63,36 @@ public class FindMeetingCommandTest {
     }
 
     // TODO FINISH THIS UP
-//    @Test
-//    public void execute_multipleKeywords_somePrefix() {
-//        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 3);
-//        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
-//            "Team Clique", " ");
-//        FindMeetingCommand command = new FindMeetingCommand(predicate);
-//        expectedModel.updateFilteredMeetingList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101, NUS_BASKETBALL), model.getFilteredMeetingList());
-//    }
-//
-//    @Test
-//    public void execute_multipleKeywords_allPrefix() {
-//        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
-//        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate("Project Team", " ", " ");
-//        FindMeetingCommand command = new FindMeetingCommand(predicate);
-//        expectedModel.updateFilteredMeetingList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101), model.getFilteredMeetingList());
-//    }
-//
-//    @Test
-//    public void execute_multipleKeywords_nonePrefix() {
-//        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
-//        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ", " ", "Project");
-//        FindMeetingCommand command = new FindMeetingCommand(predicate);
-//        expectedModel.updateFilteredMeetingList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(NUS_COMPUTING, NUS_BASKETBALL), model.getFilteredMeetingList());
-//    }
+    //    @Test
+    //    public void execute_multipleKeywords_somePrefix() {
+    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 3);
+    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
+    //            "Team Clique", " ");
+    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
+    //        expectedModel.updateFilteredMeetingList(predicate);
+    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    //        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101, NUS_BASKETBALL), model.getFilteredMeetingList());
+    //    }
+    //
+    //    @Test
+    //    public void execute_multipleKeywords_allPrefix() {
+    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
+    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate("Project Team", " ", " ");
+    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
+    //        expectedModel.updateFilteredMeetingList(predicate);
+    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    //        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101), model.getFilteredMeetingList());
+    //    }
+    //
+    //    @Test
+    //    public void execute_multipleKeywords_nonePrefix() {
+    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
+    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ", " ", "Project");
+    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
+    //        expectedModel.updateFilteredMeetingList(predicate);
+    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    //        assertEquals(Arrays.asList(NUS_COMPUTING, NUS_BASKETBALL), model.getFilteredMeetingList());
+    //    }
 
     /**
      * Parses {@code userInput} into a {@code MeetingTitleContainsKeywordsPredicate}.

@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
-import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
+import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
