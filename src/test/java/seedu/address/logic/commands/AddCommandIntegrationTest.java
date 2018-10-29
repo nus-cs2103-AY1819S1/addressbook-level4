@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -25,6 +26,7 @@ public class AddCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.setLoggedInUser(User.getAdminUser());
     }
 
     @Test
