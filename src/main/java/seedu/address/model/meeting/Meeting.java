@@ -69,10 +69,16 @@ public class Meeting {
     }
 
     /**
+     * Returns a string representing the date of the meeting
+     */
+    public String getDay() {
+        return value.substring(0,6);
+    }
+    /**
      * Returns true if {@code meeting} is on the same day.
      */
     public boolean isSameDay(Meeting meeting) {
-        return value.substring(0, 6).equals(meeting.value.substring(0, 6));
+        return getDay().equals(meeting.getDay());
     }
 
     @Override
