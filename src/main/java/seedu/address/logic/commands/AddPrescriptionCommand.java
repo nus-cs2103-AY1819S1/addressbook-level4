@@ -7,12 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
-import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.Prescription;
 
 /**
@@ -51,17 +52,27 @@ public class AddPrescriptionCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        HashMap<Integer, Appointment> allAppointmentsOfPatient = new HashMap<Integer, Appointment>();
+        List<Appointment> appointmentList = model.getFilteredAppointmentList();
+        Appointment appointmentToEdit = appointmentList.stream()
+                .filter(appt -> appt.getAppointmentId() == toAdd.getId())
+                .findFirst()
+                .orElse(null);
 
-        if (!allAppointmentsOfPatient.containsKey(toAdd.getId())) {
-            allAppointmentsOfPatient.get(toAdd.getId()).addPrescription(toAdd);
+        if (appointmentToEdit.getPrescriptions().contains(toAdd)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
         }
+        Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
+                appointmentToEdit.getDoctor(),
+                appointmentToEdit.getDateTime(),
+                appointmentToEdit.getStatus(),
+                appointmentToEdit.getComments(),
+                appointmentToEdit.getPrescriptions());
+        editedAppointment.addPrescription(toAdd);
 
-        //Todo Include Model Manager for update appointment and remove stub hashmap
-
+        model.updateAppointment(appointmentToEdit, editedAppointment);
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         model.commitAddressBook();
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getMedicineName()));
     }
 
     @Override

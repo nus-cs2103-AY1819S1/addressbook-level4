@@ -15,10 +15,6 @@ import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
 
-
-
-
-
 /**
  * Parses input arguments and creates a new AddPrescriptionCommand object
  */

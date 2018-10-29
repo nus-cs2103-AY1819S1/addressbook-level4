@@ -30,6 +30,10 @@ public class MedicineName {
         fullMedicineName = medicineName;
     }
 
+    public MedicineName() {
+        fullMedicineName = "";
+    }
+
     /**
      * Returns true if a given string is a valid MedicineName.
      */
