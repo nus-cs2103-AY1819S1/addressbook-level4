@@ -17,12 +17,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
+
+    private static final String EXPECTED_FILE_NAME = "expectedExport.csv";
+    private static final String EXPORTED_FILE_NAME = "exportCommandTest.csv";
+
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
-
-    private static final String EXPORTED_FILE_NAME = "exportCommandTest.csv";
-    private static final String EXPECTED_FILE_NAME = "expectedExport.csv";
 
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
