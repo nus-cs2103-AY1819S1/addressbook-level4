@@ -1,22 +1,28 @@
 package seedu.lostandfound.model.util;
 
+/**
+ * Singleton sequence
+ */
 public class Sequence {
-    private int nextId;
+    private static Sequence theOne;
+    private int next;
 
-    public Sequence() {
-        nextId = 0;
+    private Sequence() {
+        next = 0;
     }
 
-    public Sequence(int start) {
-        nextId = start;
+    public static Sequence getInstance() {
+        if (theOne == null) {
+            theOne = new Sequence();
+        }
+        return theOne;
     }
 
     public int next() {
-        return nextId++;
+        return next++;
     }
 
     public void set(int x) {
-        if (nextId > x) return;
-        nextId = x + 1;
+        next = Math.max(next, x + 1);
     }
 }
