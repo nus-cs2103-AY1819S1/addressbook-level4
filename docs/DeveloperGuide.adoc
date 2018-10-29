@@ -246,7 +246,7 @@ The flow for the `Logic` component is as follows:
 
 . `Logic` uses the `AddressBookParser` class to parse the user command.
 . The `Command` object (which is automatically created in the previous step) is executed by the `LogicManager`.
-. The executed 'Command' affects the `Model` (e.g. adding a volunteer) and/or raise events.
+. The executed `Command` affects the `Model` (e.g. adding a volunteer) and/or raise events.
 . The result of the command execution from the previous step is encapsulated as a `CommandResult` object.
 . The `CommandResult` object is passed back to the `UI` component.
 
