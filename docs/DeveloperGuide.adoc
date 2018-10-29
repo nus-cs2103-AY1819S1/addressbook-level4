@@ -554,9 +554,9 @@ The export feature allows users to extract patient related data out of the progr
 format.
 
 ==== Current Implementation
-The `ExportPatientData` class is responsible for filtering and organizing the relevant data. It then passes the data to
-`ExportUtil` in order to write to a CSV file. The names and locations of the CSV files are predetermined by
-`ExportPatientData`.
+The `ExportPatientData` class contains `static` methods for filtering and organizing the relevant data. These methods
+depend on a list of patients. It then passes the data to `ExportUtil` in order to write to a CSV file. The names and
+locations of the CSV files are predetermined by `ExportPatientData`.
 
 The following operations are implemented: +
 
