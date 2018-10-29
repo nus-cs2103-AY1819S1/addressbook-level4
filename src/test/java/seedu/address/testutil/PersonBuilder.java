@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -22,6 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_MEETING = "0000000000";
 
     private Name name;
     private Optional<Phone> phone;
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Optional<Address> address;
     private Set<Tag> tags;
     private Picture picture;
+    private Meeting meeting;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -37,6 +40,7 @@ public class PersonBuilder {
         address = Optional.of(new Address(DEFAULT_ADDRESS));
         tags = new HashSet<>();
         picture = new Picture(Picture.DEFAULT_PICTURE_URL.getPath());
+        meeting = new Meeting(DEFAULT_MEETING);
     }
 
     /**
@@ -49,6 +53,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
         picture = personToCopy.getPicture();
+        meeting = personToCopy.getMeeting();
     }
 
     /**
@@ -130,12 +135,21 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author AyushChatto
+    /**
+     * Sets the {@code Meeting} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMeeting(String meeting) {
+        this.meeting = new Meeting(meeting);
+        return this;
+    }
+
     //@@author
     /**
      * Build the person with the given fields.
      */
     public Person build() {
-        Person person = new Person(name, phone, email, address, tags);
+        Person person = new Person(name, phone, email, address, tags, meeting);
         person.setPicture(picture);
         return person;
     }

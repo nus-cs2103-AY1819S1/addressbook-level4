@@ -352,6 +352,7 @@ InsuRen entries have an optional field for date of plan expiry. You will automat
 with plans expiring within a month from the day when InsuRen is initialized. +
 No additional search queries are needed.
 
+// tag::picture[]
 === Adding a picture to contact: `pic`
 
 Adds a picture to a person in InsuRen. +
@@ -371,6 +372,8 @@ Examples:
 The second person in the list will now have image `john.jpg` in his contact.
 * `p 1 l//Users/john/Downloads/InsuRen/images/petertan.jpg` +
 The first person in the list will now have image `petertan.jpg` from the given path in his contact.
+
+// end::picture[]
 
 === Allow user to add contact if duplicate contact is added
 

@@ -33,8 +33,12 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         }
 
         try {
-            meeting = ParserUtil.parseMeeting(argMultimap.getValue(PREFIX_MEETING).get());
-            return new ScheduleCommand(index, meeting);
+            if (argMultimap.getValue(PREFIX_MEETING).isPresent()) {
+                meeting = ParserUtil.parseMeeting(argMultimap.getValue(PREFIX_MEETING).get());
+                return new ScheduleCommand(index, meeting);
+            } else {
+                throw new ParseException(ScheduleCommand.MESSAGE_NO_PREFIX);
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE), pe);
