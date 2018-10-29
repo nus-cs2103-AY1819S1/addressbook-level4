@@ -109,7 +109,7 @@ public class CompleteIndexCommandTest {
         expectedModel.commitTaskManager();
 
         // complete -> first task completed
-        completeCommand.execute(model, commandHistory);
+        completeCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all
         // tasks
@@ -154,7 +154,7 @@ public class CompleteIndexCommandTest {
 
         // completes -> completes second task in unfiltered task list / first task in filtered task
         // list
-        completeCommand.execute(model, commandHistory);
+        completeCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();

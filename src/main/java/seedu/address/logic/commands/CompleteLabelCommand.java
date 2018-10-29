@@ -33,7 +33,7 @@ public class CompleteLabelCommand extends CompleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         String completedTasksOutput;
@@ -111,7 +111,7 @@ public class CompleteLabelCommand extends CompleteCommand {
     private String completeOneTaskReturnStringOfTask(Task taskToComplete, Model modelToUpdate)
             throws CommandException {
 
-        if (taskToComplete.isCompleted()) {
+        if (taskToComplete.isStatusCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 
@@ -129,7 +129,7 @@ public class CompleteLabelCommand extends CompleteCommand {
         List<Task> originalTasks = new ArrayList<>(model.getFilteredTaskList());
 
         // Add all of the completable tasks to setOfTasks
-        model.updateFilteredTaskList(pred.and(task -> !task.isCompleted()));
+        model.updateFilteredTaskList(pred.and(task -> !task.isStatusCompleted()));
         List<Task> filteredList = model.getFilteredTaskList();
         Set<Task> setOfTasks = new HashSet<>(filteredList);
 

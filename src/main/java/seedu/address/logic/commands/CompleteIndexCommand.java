@@ -29,7 +29,7 @@ public class CompleteIndexCommand extends CompleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         String completedTasksOutput;
@@ -82,7 +82,7 @@ public class CompleteIndexCommand extends CompleteCommand {
         Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
         Task completedTask = createCompletedTask(taskToComplete);
 
-        if (taskToComplete.isCompleted()) {
+        if (taskToComplete.isStatusCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 

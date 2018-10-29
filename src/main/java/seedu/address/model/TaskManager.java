@@ -112,6 +112,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.remove(key);
     }
 
+    /**
+     * Updates tasks that are overdue
+     */
+    public void updateIfOverdue() {
+        tasks.updateOverdue();
+
+    }
+
     //// achievement related operation
 
     /**

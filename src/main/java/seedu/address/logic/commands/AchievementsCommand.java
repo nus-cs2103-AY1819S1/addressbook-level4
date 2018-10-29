@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.achievement.AchievementRecord;
 
@@ -55,7 +54,7 @@ public class AchievementsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) {
         requireNonNull(model);
 
         model.updateAchievementDisplayOption(displayOption);

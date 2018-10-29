@@ -11,12 +11,26 @@ public abstract class Command {
 
     /**
      * Executes the command and returns the result message.
+     * Implementation of command depends on executePrimitive.
      *
      * @param model   {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
+    public final CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        model.checkOverdue();
+        return executePrimitive(model, history);
+    }
 
+    /**
+     * Execution primitive used by execution command. Inherited commands need to override this method
+     * to define the implementation of the function.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public abstract CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException;
 }

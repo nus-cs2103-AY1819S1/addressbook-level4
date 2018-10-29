@@ -158,7 +158,7 @@ public class CompleteLabelCommandTest {
                     return taskToComplete
                             .getLabels()
                             .contains(new Label((labelString)))
-                            && !taskToComplete.isCompleted();
+                            && !taskToComplete.isStatusCompleted();
                 })
                 .forEach(pairOfTasks -> {
                     Task taskToComplete = pairOfTasks.getKey();

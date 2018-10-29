@@ -22,7 +22,7 @@ public class GameManager {
      * @return Returns the XP the supplied task is worth at present
      */
     public int appraiseTaskXp(Task task) {
-        if (task.isCompleted()) {
+        if (task.isStatusCompleted()) {
             return 50;
         }
 
@@ -41,7 +41,7 @@ public class GameManager {
     public int forecastTaskXp(Task task) {
 
         // If task is completed or overdue, then there is no XP to be earned.
-        if (task.isCompleted() || task.isOverdue()) {
+        if (task.isStatusCompleted() || task.isStatusOverdue()) {
             return 0;
         }
 

@@ -49,10 +49,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (toAdd.getDueDate().isOverDue()) {
+        if (toAdd.getDueDate().isOverdue()) {
             throw new CommandException(MESSAGE_EXPIRED_TASK);
         }
 

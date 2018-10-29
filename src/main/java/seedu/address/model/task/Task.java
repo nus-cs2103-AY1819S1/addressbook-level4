@@ -86,13 +86,18 @@ public class Task {
         return dependency;
     }
 
-    public boolean isCompleted() {
+    public boolean isStatusCompleted() {
         return status == Status.COMPLETED;
     }
 
-    public boolean isOverdue() {
+    public boolean isStatusOverdue() {
         return status == Status.OVERDUE;
     }
+
+    public boolean isOverdue() {
+        return this.dueDate.isOverdue();
+    }
+
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two tasks.
