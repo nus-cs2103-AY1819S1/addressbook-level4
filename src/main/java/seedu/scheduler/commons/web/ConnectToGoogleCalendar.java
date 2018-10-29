@@ -2,6 +2,7 @@ package seedu.scheduler.commons.web;
 
 import static com.google.api.client.util.DateTime.parseRfc3339;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +14,16 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -31,12 +40,17 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.EventReminder;
+import com.google.api.services.calendar.model.Event.Reminders;
 import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
+import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.event.ReminderDurationList;
+import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.ui.UiManager;
 
 /**
@@ -162,19 +176,79 @@ public class ConnectToGoogleCalendar {
 
         com.google.api.services.calendar.model.Event gEvent = new com.google.api.services.calendar.model.Event();
         for (Event toAddEvent : toAddList) {
-            gEvent.setId(String.valueOf(toAddEvent.getUuid()).replaceAll("-", ""));
             gEvent.setSummary(String.valueOf(toAddEvent.getEventName()));
             gEvent.setLocation(String.valueOf(toAddEvent.getVenue()));
             gEvent.setDescription(String.valueOf(toAddEvent.getDescription()));
+            String startDateTime = EventFormatUtil.convertStartDateTimeToGoogleFormat(toAddEvent);
 
-            String startDateTime = convertStartDateTimeToGoogleFormat(toAddEvent);
+            DateTime start = parseRfc3339(startDateTime);
+            gEvent.setStart(new EventDateTime().setDateTime(start).setTimeZone("Singapore"));
 
-            gEvent.setStart(new EventDateTime()
-                    .setDateTime(parseRfc3339(startDateTime)));
+            String endDateTime = EventFormatUtil.convertEndDateTimeToGoogleFormat(toAddEvent);
+            DateTime end = parseRfc3339(endDateTime);
+            gEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
 
-            String endDateTime = convertEndDateTimeToGoogleFormat(toAddEvent);
+            gEvent.setId(String.valueOf(toAddEvent.getUid()).replaceAll("-", ""));
 
-            gEvent.setEnd(new EventDateTime().setDateTime(parseRfc3339(endDateTime)));
+            ReminderDurationList reminderDurationList = toAddEvent.getReminderDurationList();
+            List<EventReminder> reminderOverrides = new ArrayList<>();
+
+            Map<Duration, Boolean> reminderMap = reminderDurationList.get();
+            for (Duration key : reminderMap.keySet()) {
+                EventReminder eventReminder = new EventReminder();
+                eventReminder.setMethod("popup");
+                eventReminder.setMinutes(Math.toIntExact(key.toMinutes()));
+                reminderOverrides.add(eventReminder);
+            }
+            Reminders reminder = new Reminders();
+            reminder.setOverrides(reminderOverrides);
+            gEvent.setReminders(reminder);
+
+            if (toAddEvent.getRepeatType() == RepeatType.NONE) {
+
+
+            } else {//repeated event
+                gEvent.setRecurringEventId(String.valueOf(toAddEvent.getUuid()));
+                String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
+                seedu.scheduler.model.event.DateTime eventUntilDt = toAddEvent.getRepeatUntilDateTime();
+                String eventUntilDate = eventUntilDt.getPrettyString()
+                        //local:2019-01-01 18:51:52
+                        .replaceAll("-","")
+                        //local:20190101 18:51:52
+                        .replaceFirst(" ","T")
+                        //local:20190101T18:51:52
+                        .replaceAll(":","")
+                //local:20190101T185152
+                .concat("Z");
+
+                String temp = start.toString();
+                //temp 2018-10-29T21:00:00.000+08:00
+                String input_date=temp.substring(9,10)
+                        +"/"
+                        +temp.substring(6,7)
+                        +"/"
+                        +temp.substring(0,4);
+                         // "01/08/2012";
+                SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+                Date dt1= null;
+                try {
+                    dt1 = format1.parse(input_date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                DateFormat format2=new SimpleDateFormat("EEEE");
+                String finalDay=format2.format(dt1);
+
+String command = "RRULE:FREQ="
+        +eventRepeatType
+        +";UNTIL="
+        +eventUntilDate;        ;
+                //Google format:20110701T170000Z
+                gEvent.setRecurrence(Arrays.asList(command));
+//                        +"BYDAY="
+//                        +finalDay.substring(0,1).toUpperCase()
+//                        +"\""));
+            }
 
             try {
                 service.events().insert("primary", gEvent).execute();
@@ -234,12 +308,12 @@ public class ConnectToGoogleCalendar {
             gEvent.setLocation(String.valueOf(editedEvent.getVenue()));
             gEvent.setDescription(String.valueOf(editedEvent.getDescription()));
 
-            String startDateTime = convertStartDateTimeToGoogleFormat(editedEvent);
+            String startDateTime = EventFormatUtil.convertStartDateTimeToGoogleFormat(editedEvent);
 
             gEvent.setStart(new EventDateTime()
                     .setDateTime(parseRfc3339(startDateTime)));
 
-            String endDateTime = convertEndDateTimeToGoogleFormat(editedEvent);
+            String endDateTime = EventFormatUtil.convertEndDateTimeToGoogleFormat(editedEvent);
 
             gEvent.setEnd(
                     new EventDateTime().setDateTime(parseRfc3339(endDateTime)));
@@ -293,35 +367,5 @@ public class ConnectToGoogleCalendar {
         return events;
     }
 
-    /**
-     * Converts a local Event's starting data and time to Google format.
-     *
-     * @param event a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertStartDateTimeToGoogleFormat(Event event) {
-        //local format:2018-10-20 17:00:00
-        //target :2018-10-21T22:30:00+08:00
-        return event.getStartDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
-    }
 
-    /**
-     * Converts a local Event's ending data and time to Google format.
-     *
-     * @param event a local Event.
-     *
-     * @return a String in Google format.
-     */
-    private String convertEndDateTimeToGoogleFormat(Event event) {
-        return event.getEndDateTime()
-                .getPrettyString()
-                .substring(0, 19)
-                .replaceFirst(" ", "T")
-                + "+08:00";
-    }
 }

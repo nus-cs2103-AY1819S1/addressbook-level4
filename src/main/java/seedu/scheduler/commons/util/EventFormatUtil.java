@@ -44,6 +44,38 @@ public class EventFormatUtil {
     }
 
     /**
+     * Converts a local Event's starting data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    public static String convertStartDateTimeToGoogleFormat(Event event) {
+        //local format:2018-10-20 17:00:00
+        //target :2018-10-21T22:30:00+08:00
+        return event.getStartDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
+    }
+
+    /**
+     * Converts a local Event's ending data and time to Google format.
+     *
+     * @param event a local Event.
+     *
+     * @return a String in Google format.
+     */
+    public static String convertEndDateTimeToGoogleFormat(Event event) {
+        return event.getEndDateTime()
+                .getPrettyString()
+                .substring(0, 19)
+                .replaceFirst(" ", "T")
+                + "+08:00";
+    }
+
+    /**
      * Convert the Google Event format to local Format.
      *
      * @param googleEvent The Google event.
