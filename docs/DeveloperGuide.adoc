@@ -566,7 +566,7 @@ image::PictureCommandActivityDiagram.png[width="500"]
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
 
-// end:: addpicture[]
+// end::addpicture[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1424,6 +1424,7 @@ Use case resumes at step 1.
 _{More to be added}_
 
 [appendix]
+// tag::nfr[]
 == Non Functional Requirements
 
 .  InsuRen should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1434,7 +1435,7 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The product should be self-explanatory and intuitive such that an insurance agent is able to adapt to it within the first 10 minutes of using the product for the first time.
 .  When the program crashes, all data up till the point of crash will still be available upon relaunch of the program.
-
+// end::nfr[]
 [appendix]
 == Glossary
 
