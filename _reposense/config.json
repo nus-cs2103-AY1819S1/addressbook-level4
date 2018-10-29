@@ -1,0 +1,32 @@
+{
+  "ignoreGlobList": ["**.adoc", "collate**"],
+  "formats": ["gradle", "jade", "java", "js", "md", "scss", "yml", "xml"],
+  "authors":
+  [
+    {
+      "githubId": "j-lum",
+      "displayName": "Jeffry",
+      "authorNames": ["j-lum"]
+    },
+    {
+      "githubId": "benedictcss",
+      "displayName": "Benedict",
+      "authorNames": ["benedictcss"]
+    },
+    {
+      "githubId": "chivent",
+      "displayName": "Kai Le",
+      "authorNames": ["Ong Kai Le"]
+    },
+    {
+      "githubId": "ihwk1996",
+      "displayName": "Ivan",
+      "authorNames": ["Ivan Ho Weng Kwong"]
+    },
+    {
+      "githubId": "lancelotwillow",
+      "displayName": "Tianyang",
+      "authorNames": ["ZHANG TIANYANG"]
+    }
+  ]
+}
