@@ -20,8 +20,8 @@ public class QuantityToDispense {
     /**
      * Returns true if a given quantity is a valid quantity to dispense
      */
-    public static boolean isValidQuantityToDispense(String test) {
-        return Integer.parseInt(test) > 0;
+    public static boolean isValidQuantityToDispense(Integer test) {
+        return test > 0;
     }
 
     /**

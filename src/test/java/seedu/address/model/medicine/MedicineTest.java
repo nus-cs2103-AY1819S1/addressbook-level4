@@ -1,9 +1,9 @@
-/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_ZYRTEC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MINIMUM_STOCK_QUANTITY_PANADOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MINIMUM_STOCK_QUANTITY_ZYRTEC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_PER_UNIT_ZYRTEC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_ZYRTEC;
