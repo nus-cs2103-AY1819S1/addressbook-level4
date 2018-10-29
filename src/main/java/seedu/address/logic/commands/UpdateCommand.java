@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -46,14 +47,16 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update details of an existing CCA\n"
         + "Parameters: "
         + PREFIX_TAG + "CCA "
-        + PREFIX_NAME + "NEW CCA NAME"
+        + PREFIX_NAME + "NEW CCA NAME "
         + PREFIX_HEAD + "NAME OF HEAD "
-        + PREFIX_VICE_HEAD + "NAME OF VICE-HEAD \n"
+        + PREFIX_VICE_HEAD + "NAME OF VICE-HEAD "
+        + PREFIX_BUDGET + "BUDGET \n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "Basketball "
         + PREFIX_NAME + "Basketball M"
         + PREFIX_HEAD + "John "
-        + PREFIX_VICE_HEAD + "Alex \n"
+        + PREFIX_VICE_HEAD + "Alex "
+        + PREFIX_BUDGET + "700 \n"
         + "or\n"
         + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA "
         + "and a valid transaction entry number.\n"
@@ -72,7 +75,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_UPDATE_SUCCESS = "CCA updated: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to be update must be provided.";
-    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before. "
+    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before "
         + "adding its member";
     public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the budget book.";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "

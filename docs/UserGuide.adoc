@@ -72,46 +72,29 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/C420 s/SoC t/Basketball`
 * `add n/Betsy Crowe t/Soccer e/betsycrowe@example.com p/1234567 r/B213 s/Business`
 
-==== Editing a person : `edit`
+==== Adding a picture to resident detail : `image`
 
-Edits an existing person in Hallper. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/CCA]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `c/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower c/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-
-==== Deleting a person : `delete`
-
-Deletes the specified person from Hallper. +
-Format: `delete INDEX`
+Uploads the image of resident staying in the specified room to Hallper. +
+Format: `image ROOM`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Allow for the upload of the profile picture of resident.
+* The image must be in *`.jpg`* or *`.png`*.
 ****
 
-Examples:
+==== Clearing all entries : `clear all`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in Hallper.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Clears all entries from Hallper. +
+Format: `clear all`
+
+****
+* 'all' is case-sensitive.
+****
+
+Example:
+
+* `clear all` +
+Clears `all` entries in Hallper.
 
 ==== Clearing all specified tags : `erase`
 
@@ -149,19 +132,80 @@ Clears all entries associated with CCA `basketball`.
 * `clear A123` +
 Clears all entries associated with room `A123`.
 
-==== Clearing all entries : `clear all`
+==== Editing a person : `edit`
 
-Clears all entries from Hallper. +
-Format: `clear all`
+Edits an existing person in Hallper. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/CCA]...`
 
 ****
-* 'all' is case-sensitive.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `c/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower c/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Exporting contact information: `export`
+
+Exports file containing existing contact information in Hallper. +
+Formate: `export dst/PATH fn/FILENAME`
+
+****
+* The file exported will be a *`.xml`* file.
 ****
 
 Example:
 
-* `clear all` +
-Clears `all` entries in Hallper.
+* `export dst/C://Users/Files fn/data.xml` +
+Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from Hallper. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in Hallper.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Deleting a transaction entry : `delete_trans`
+
+Deletes the specified transaction entry from the specified CCA from Hallper. +
+Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
+
+****
+* Deletes the specific transaction entry from the CCA with the specified name.
+* The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
+****
+
+[NOTE]
+====
+* The CCA specifed must exist in the Hallper.
+* The transaction entry number must exist for the specified CCA.
+====
+
+Examples:
+
+* `delete_cca c/netball trans/1`
+* `delete_cca c/Basketball F trans/3`
 
 ==== Importing contact information : `import`
 
@@ -178,31 +222,6 @@ Example:
 
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
-
-==== Exporting contact information: `export`
-
-Exports file containing existing contact information in Hallper. +
-Formate: `export dst/PATH fn/FILENAME`
-
-****
-* The file exported will be a *`.xml`* file.
-****
-
-Example:
-
-* `export dst/C://Users/Files fn/data.xml` +
-Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
-
-
-==== Adds a picture to resident detail : `image`
-
-Uploads the image of resident staying in the specified room to Hallper. +
-Format: `image ROOM`
-
-****
-* Allow for the upload of the profile picture of resident.
-* The image must be in *`.jpg`* or *`.png`*.
-****
 
 === Viewing Hallper
 This section lists features related to viewing all or specific contacts in Hallper.
@@ -373,79 +392,129 @@ the `1` st at `1500`.
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
 
-==== Viewing the budget for all CCAs : `budget`
+==== Adding a cca: `create`
 
-Allows for the viewing of the budgets for all the CCAs. +
-Format: `budget`
+Adds a CCA to Hallper. +
+Format: `create n/NAME_OF_CCA budget/500`
 
-****
-* BP displays the total budget allocated to the CCAs, total outstanding amount and budget information of each CCA, in alphabetical order.
-****
+[TIP]
+====
+You can add in the name of the head and vice-head after you create the CCA.
+====
 
-==== Viewing CCA budget : `view_cca`
+[NOTE]
+====
+`undo` and `redo` command does not apply to `create`.
+====
 
-Allows for the viewing of the budget and past transactions of the specified CCA. +
-Format: `view_cca CCA`
+Examples:
 
-Example:
+* `create n/Netball budget/500`
+* `create n/Basketball F budget/400`
 
-* `view_cca soccer` +
-Displays view of budget and past transactions for `soccer` CCA.
+==== Adding a transaction: `add_trans`
 
-==== Creating a CCA's budget : `create`
+Adds a transaction entry to the specified CCA in Hallper. +
+Format: `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS`
 
-Adds a CCA into the budget book with the initial given budget. +
-Format: `create n/CCA bud/BUDGET`
+[NOTE]
+====
+Transaction entry can only be added one at a time.
+====
 
-****
-* BUDGET currency is in SGD.
-****
+[NOTE]
+====
+`undo` and `redo` command does not apply to `add_trans`.
+====
 
-Example:
+Examples:
 
-* `create n/basketball bud/200` +
-Adds `basketball` CCA with SGD`200` budget to Hallper.
+* `add_trans c/Basketball date/31.01.2018 amount/-200 remarks/Competition Fee` +
+Adds a transaction entry to `Basketball`. The date, amount and remarks of the transaction entry are `31.01
+.2018`, `-200` and `Competition Fee` respectively.
 
+==== Deleting a cca : `delete_cca`
 
-==== Deleting a CCA's budget : `delete_cca`
-
-Deletes the CCA's existing budget. +
-Format: `delete_cca CCA`
-
-Example:
-
-* `delete_cca soccer` +
-Deletes `soccer` CCA's existing budget.
-
-==== Modifying a CCA's budget : `modify_cca`
-
-Modifies the budget of specified CCA. +
-Format: `modify_cca CCA BUDGET`
+Deletes the specified CCA from Hallper. +
+Format: `delete c/NAME_OF_CCA`
 
 ****
-* BUDGET currency is in SGD.
+Deletes the CCA with the specified name.
 ****
 
-Example:
+[NOTE]
+====
+* The CCA specifed must exist in the Hallper.
 
-* `modify_cca soccer 500` +
-Modifies `soccer` CCA's current budget to SGD `500` .
+* `undo` and `redo` command does not apply to `create`.
+====
 
-==== Adding a transaction to the budget : `add_transaction`
+Examples:
 
-Adds a transaction to the budget of specified CCA. +
-Format: `add_transaction CCA AMOUNT TYPE PERSON_IN_CHARGE`
+* `delete_cca c/netball`
+* `delete_cca c/Basketball F`
+
+==== Updating a cca : `update`
+
+Updates an existing CCA in Hallper. +
+Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEAD] [budget/BUDGET]
+[trans/ENTRY_NUMBER] [date/DATE] [amount/AMOUNT] [remarks/REMARKS]`
 
 ****
-* Adds a transaction to the budget of specifed CCA.
-* The types available are  either *`credit`* or *`debit`*.
-* The *`PERSON-IN-CHARGE`* must be a resident in Hallper.
+* Edits the CCA specified with `c/`. `c/` is required.
+* At least one of the optional fields must be provided.
+* When `trans/` is included, at least one of the fields in the transaction entry must be provided.
+* Existing values will be updated to the input values.
 ****
 
-Example:
+[NOTE]
+====
+* The CCA specifed must exist in the Hallper.
+* The name of the head and vice-head may or may not exist in Hallper.
+* The transaction number specified with `trans/` must exist.
+* `undo` and `redo` command does not apply to `update`.
+====
 
-* `add_transaction badminton 500 credit James`
-Adds a `credit` transaction of SGD `500` to `James` from `badminton` CCA.
+Examples:
+
+* `update c/basketball n/basketball m h/Alex vh/Peter budget/700` +
+Updates `basketball` to `basketball m`, budget to `700` and its head and vice-head to `Alex` and `Peter` respectively.
+* `update c/Netball trans/2 date/30.05.2018 amount/-200 remarks/Purchase of Equipment` +
+Updates the date, amount and remarks of the 2nd transaction entry of `Netball` with `30.05.2018`, `-200` and
+`Purchase of Equipment` respectively.
+* `update c/track n/Track F h/Alice vh/June Ong budget/500 trans/1 date/28.02.2018 amount/100 remarks/Fund Raising` +
+Updates `track` to `Track F`, its budget to `500` and its head and vice-head to `Alice` and `June Ong` respectively,
+and updates the date, amount and remarks of the 1st transaction entry with `28.02.2018`, `100` and `Fund Raising`
+respectively.
+
+==== Viewing all the ccas' budget : `budget`
+
+Opens up a Budget Book in a new window. +
+Format: `budget [c/CCA_NAME]`
+
+
+.Budget Window with a blank screen
+image::BudgetWindowEmpty.png[width="500"]
+
+.Budget Window showing the transaction history of Softball
+image::BudgetWindowCca.png[width=500"]
+****
+* `budget` shows the list of CCAs existing in Hallper.
+* If `c/` is used, the new window will open up, showing the transaction information of the CCA specified.
+* Otherwise, the new window will open up and show a blank screen until a CCA is selected from the CCA panel.
+****
+
+[NOTE]
+====
+The CCA specifed must exist in the Hallper.
+====
+
+Examples:
+
+* `budget` +
+Opens up the Budget Window.
+* `budget c/Softball` +
+Opens up the Budget Window, showing the transaction history of `Softball`.
 
 === Miscellaneous
 This section lists miscellaneous commands for navigating Hallper.

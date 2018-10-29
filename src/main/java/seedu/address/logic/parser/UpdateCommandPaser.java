@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -31,7 +32,7 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NAME, PREFIX_HEAD, PREFIX_VICE_HEAD,
+            ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NAME, PREFIX_HEAD, PREFIX_VICE_HEAD, PREFIX_BUDGET,
                 PREFIX_TRANSACTION, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_REMARKS);
 
         if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {
@@ -49,6 +50,10 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
         }
         if (argMultimap.getValue(PREFIX_VICE_HEAD).isPresent()) {
             editCcaDescriptor.setViceHead(ParserUtil.parseName(argMultimap.getValue(PREFIX_VICE_HEAD).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
+            editCcaDescriptor.setBudget(ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
         }
 
         if (argMultimap.getAllValues(PREFIX_TRANSACTION).size() > 1 || argMultimap.getAllValues(PREFIX_DATE).size() > 1
