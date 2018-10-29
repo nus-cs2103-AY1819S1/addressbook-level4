@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**
@@ -26,7 +26,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Optional<Doctor> preferredDoctor = Optional.empty();
+    private Optional<Staff> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
 
     /**

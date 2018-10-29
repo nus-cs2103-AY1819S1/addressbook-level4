@@ -1,10 +1,9 @@
-package seedu.clinicio.model.doctor;
+package seedu.clinicio.model.staff;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ID_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
@@ -16,45 +15,41 @@ import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
-import seedu.clinicio.testutil.DoctorBuilder;
+import seedu.clinicio.testutil.StaffBuilder;
 
 //@@author jjlee050
-public class DoctorTest {
+public class StaffTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isSameDoctor() {
+    public void isSameStaff() {
         // same object -> returns true
-        assertTrue(ADAM.isSameDoctor(ADAM));
+        assertTrue(ADAM.isSameStaff(ADAM));
 
         // null -> returns false
-        assertFalse(ADAM.isSameDoctor(null));
+        assertFalse(ADAM.isSameStaff(null));
 
-        // different password and id -> returns false
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN)
+        // different password and name -> returns false
+        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_BEN)
                 .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
-        assertFalse(ADAM.isSameDoctor(editedAdam));
+        assertFalse(ADAM.isSameStaff(editedAdam));
 
-        // different id -> returns false
-        editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).build();
-        assertFalse(ADAM.isSameDoctor(editedAdam));
+        // same password, different attributes -> returns false
+        editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_BEN).build();
+        assertFalse(ADAM.isSameStaff(editedAdam));
 
-        // same id, same password, different attributes -> returns true
-        editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BEN).build();
-        assertTrue(ADAM.isSameDoctor(editedAdam));
-
-        // same id, same name, different attributes -> returns true
-        editedAdam = new DoctorBuilder(ADAM)
+        // same name, different attributes -> returns true
+        editedAdam = new StaffBuilder(ADAM)
                 .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
-        assertTrue(ADAM.isSameDoctor(editedAdam));
+        assertTrue(ADAM.isSameStaff(editedAdam));
 
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Doctor adamCopy = new DoctorBuilder(ADAM).build();
+        Staff adamCopy = new StaffBuilder(ADAM).build();
         assertTrue(ADAM.equals(adamCopy));
 
         // same object -> returns true
@@ -70,15 +65,11 @@ public class DoctorTest {
         assertFalse(ADAM.equals(BEN));
 
         // different name -> returns false
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BOB).build();
-        assertFalse(ADAM.equals(editedAdam));
-
-        // different id -> returns false
-        editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).build();
+        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_BOB).build();
         assertFalse(ADAM.equals(editedAdam));
 
         // different password -> returns false
-        editedAdam = new DoctorBuilder(ADAM).withPassword(VALID_HASH_PASSWORD_BEN, true).build();
+        editedAdam = new StaffBuilder(ADAM).withPassword(VALID_HASH_PASSWORD_BEN, true).build();
         assertFalse(ADAM.equals(editedAdam));
 
     }

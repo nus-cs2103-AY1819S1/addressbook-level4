@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -18,16 +20,15 @@ import org.junit.rules.ExpectedException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Id;
-import seedu.clinicio.model.doctor.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 import seedu.clinicio.testutil.Assert;
+
 
 public class ParserUtilTest {
 
@@ -56,13 +57,12 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
-    private static final String VALID_DATE = "02 02 2222";
-    private static final String VALID_TIME = "22 22";
-
-    private static final int VALID_ID = 1;
     private static final String VALID_ROLE_DOCTOR = "doctor";
     private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";
+
+    private static final String VALID_DATE = "02 02 2222";
+    private static final String VALID_TIME = "22 22";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -236,77 +236,26 @@ public class ParserUtilTest {
     @Test
     public void parseRole_allNullFields_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseRole(null, null, null);
+        ParserUtil.parseRole(null);
     }
 
     @Test
-    public void parseRole_someNullFields_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-
-        // null role
-        ParserUtil.parseRole(null, new Name(VALID_NAME), new Password(VALID_PASSWORD, false));
-
-        // null password
-        ParserUtil.parseRole(VALID_ROLE_DOCTOR, new Name(VALID_NAME), null);
-
-        // null name
-        ParserUtil.parseRole(VALID_ROLE_DOCTOR, null, new Password(VALID_PASSWORD, false));
+    public void parseRole_invalidRole_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () ->
+                ParserUtil.parseRole(INVALID_ROLE));
     }
 
     @Test
-    public void parseRole_allInvalidFields_throwsParseException() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(INVALID_ROLE,
-                        new Name(INVALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-    }
-
-    @Test
-    public void parseRole_someInvalidFields_throwsParseException() {
-        // Invalid password
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(VALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-
-        // Invalid role
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(INVALID_ROLE,
-                        new Name(INVALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-
-        // Invalid name
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(INVALID_NAME),
-                        new Password(VALID_PASSWORD, false)));
-    }
-
-    @Test
-    public void parseRole_validFieldsWithoutWhitespace_returnsPerson() throws Exception {
-        Person expectedDoctor = new Doctor(new Id(VALID_ID),
-                new Name(VALID_NAME),
+    public void parseRole_validRole_returnsRole() throws Exception {
+        Staff expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
-        assertEquals(expectedDoctor,
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(VALID_NAME),
-                        new Password(VALID_PASSWORD, false)));
+        assertEquals(DOCTOR,
+                ParserUtil.parseRole(VALID_ROLE_DOCTOR));
 
-        //TODO: Receptionist
-    }
-
-    @Test
-    public void parseRole_validFieldsWithWhitespace_returnsPerson() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Person expectedDoctor = new Doctor(new Id(VALID_ID),
-                new Name(VALID_NAME),
+        Staff expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
-        assertEquals(expectedDoctor,
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        ParserUtil.parseName(nameWithWhitespace),
-                        new Password(VALID_PASSWORD, false)));
-
-        //TODO: Receptionist
+        assertEquals(RECEPTIONIST,
+                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST));
     }
 
     @Test
