@@ -172,8 +172,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void handleHelp(ShowHelpRequestEvent event) throws AccessibilityException {
         if (event.isSummarized()) {
-            String userGuideUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH).toString();
-            browserPanel.loadPage(userGuideUrl);
+            browserPanel.loadDefaultPage();
         } else {
             showHelpWindow();
         }

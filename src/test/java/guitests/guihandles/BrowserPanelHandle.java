@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import java.io.IOException;
 import java.net.URL;
 
 import guitests.GuiRobot;
@@ -60,9 +61,9 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns true if the current {@code URL} is different from the value remembered by the most recent
      * {@code rememberUrl()} call.
      */
-    public boolean isHelpUrl() {
-        String userGuideUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH).toString();
-        return getLoadedUrl().toString().equals(userGuideUrl);
+    public boolean isHelpUrl() throws IOException {
+        URL userGuideUrl = HelpWindow.SHORT_HELP_FILE_PATH.filePathToUrl();
+        return getLoadedUrl().equals(userGuideUrl);
     }
 
     /**
