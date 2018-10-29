@@ -39,11 +39,4 @@ public class GameManager {
 
         return gameMode.appraiseXpChange(taskFrom, taskTo);
     }
-
-    /**
-     * Returns the backing object as an {@code SimpleObjectProperty}.
-     */
-    public SimpleObjectProperty<GameManager> asSimpleObjectProperty() {
-        return new SimpleObjectProperty<>(this);
-    }
 }

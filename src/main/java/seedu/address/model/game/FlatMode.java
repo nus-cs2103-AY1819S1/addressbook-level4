@@ -37,11 +37,8 @@ public class FlatMode extends GameMode {
             return completedXp;
         }
 
-        if (taskFrom.isOverdue() && taskTo.isCompleted()) {
-            return overdueXp;
-        }
+        // At this point, taskFrom.isOverdue() && taskTo.isCompleted()
+        return overdueXp;
 
-        // Should not reach here
-        throw new RuntimeException("Unexpected state in FlatMode");
     }
 }

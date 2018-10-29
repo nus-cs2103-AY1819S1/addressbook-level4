@@ -39,7 +39,7 @@ public class DecreasingModeTest {
         }
     }
 
-    private AdjustableTimeDecreasingMode dm;
+    private AdjustableTimeDecreasingMode atdm;
     TaskBuilder tb;
 
     private int daysBefore = 7;
@@ -48,7 +48,7 @@ public class DecreasingModeTest {
 
     @Before
     public void setUp() {
-        dm = new AdjustableTimeDecreasingMode(daysBefore, overdueXp, completedXp);
+        atdm = new AdjustableTimeDecreasingMode(daysBefore, overdueXp, completedXp);
         tb = new TaskBuilder();
     }
 
@@ -57,38 +57,61 @@ public class DecreasingModeTest {
     }
 
     @Test
+    public void constructor_DecreasingMode() {
+        DecreasingMode dm1 = new DecreasingMode();
+        DecreasingMode dm2 = new DecreasingMode(7, 50, 100);
+    }
+
+    @Test
     public void appraiseXpChange() {
+
+        //Create three versions of one task with different statuses
         Task inProgressTask = tb.withDueDate("09-01-18 0000")
                 .withStatus(Status.IN_PROGRESS)
-                .build(); // Creates task due 9th Jan 2018
+                .build();
+
+        Task overdueTask = tb.withDueDate("09-01-18 0000")
+                .withStatus(Status.OVERDUE)
+                .build();
 
         Task completedTask = tb.withDueDate("09-01-18 0000")
                 .withStatus(Status.COMPLETED)
                 .build();
 
         // Task completed more than 7 days early
-        dm.setCurrentDate(createDate(1));
-        assertEquals(1400, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(1));
+        assertEquals(1400, atdm.appraiseXpChange(inProgressTask, completedTask));
 
         // Task completed exactly 7 days early
-        dm.setCurrentDate(createDate(2));
-        assertEquals(1400, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(2));
+        assertEquals(1400, atdm.appraiseXpChange(inProgressTask, completedTask));
 
         // Task completed less than 7 days early
-        dm.setCurrentDate(createDate(3));
-        assertEquals(1300, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(3));
+        assertEquals(1300, atdm.appraiseXpChange(inProgressTask, completedTask));
 
-        dm.setCurrentDate(createDate(8));
-        assertEquals(800, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(8));
+        assertEquals(800, atdm.appraiseXpChange(inProgressTask, completedTask));
 
         // Task completed exactly on time
-        dm.setCurrentDate(createDate(9));
-        assertEquals(700, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(9));
+        assertEquals(700, atdm.appraiseXpChange(inProgressTask, completedTask));
 
         // Task completed after due date
-        dm.setCurrentDate(createDate(10));
-        assertEquals(700, dm.appraiseXpChange(inProgressTask, completedTask));
+        atdm.setCurrentDate(createDate(10));
+        assertEquals(700, atdm.appraiseXpChange(overdueTask, completedTask));
 
+        // Task is not completed, but instead reset from "in progress" to "overdue"
+        atdm.setCurrentDate(createDate(9));
+        assertEquals(0, atdm.appraiseXpChange(inProgressTask, overdueTask));
+
+    }
+
+    @Test
+    public void getCurrentDate() {
+        // Create new DecreasingMode; cannot use AdjustableTime version to test this
+        DecreasingMode dm = new DecreasingMode();
+        dm.getCurrentDate();
     }
 
     @Test
@@ -101,19 +124,19 @@ public class DecreasingModeTest {
         Date d10 = createDate(10);
 
         // Earlier than 7 (daysBefore)
-        assertEquals(dm.interpolateDate(daysBefore, d1, d9), 1);
+        assertEquals(atdm.interpolateDate(daysBefore, d1, d9), 1);
 
         // Exactly 7 days before
-        assertEquals(dm.interpolateDate(daysBefore, d2, d9), 1);
+        assertEquals(atdm.interpolateDate(daysBefore, d2, d9), 1);
 
         // Less than 7 days before
-        assertEquals(dm.interpolateDate(daysBefore, d3, d9), 6. / 7.);
-        assertEquals(dm.interpolateDate(daysBefore, d8, d9), 1. / 7.);
+        assertEquals(atdm.interpolateDate(daysBefore, d3, d9), 6. / 7.);
+        assertEquals(atdm.interpolateDate(daysBefore, d8, d9), 1. / 7.);
 
         // Same time as deadline
-        assertEquals(dm.interpolateDate(daysBefore, d9, d9), 0);
+        assertEquals(atdm.interpolateDate(daysBefore, d9, d9), 0);
 
         // After deadline
-        assertEquals(0, dm.interpolateDate(daysBefore, d10, d9));
+        assertEquals(0, atdm.interpolateDate(daysBefore, d10, d9));
     }
 }

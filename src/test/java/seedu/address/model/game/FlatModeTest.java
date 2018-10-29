@@ -24,6 +24,12 @@ public class FlatModeTest {
     }
 
     @Test
+    public void construtor_FlatMode() {
+        FlatMode fm1 = new FlatMode();
+        FlatMode fm2 = new FlatMode(50, 100);
+    }
+
+    @Test
     public void null_appraiseXpChange() {
 
         Task task = new TaskBuilder().build();

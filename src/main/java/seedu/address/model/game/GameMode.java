@@ -28,11 +28,11 @@ public abstract class GameMode {
         }
 
         if (!task1.getPriorityValue().value.equals(task2.getPriorityValue().value)) {
-            throw new XpEvaluationException("Tasks have different due date.");
+            throw new XpEvaluationException("Tasks have different priority value.");
         }
 
         if (!task1.getDescription().value.equals(task2.getDescription().value)) {
-            throw new XpEvaluationException("Tasks have different due date.");
+            throw new XpEvaluationException("Tasks have different description.");
         }
     }
 

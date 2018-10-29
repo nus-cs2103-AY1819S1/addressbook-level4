@@ -25,8 +25,13 @@ public class GameManagerTest {
 
     @Before
     public void setUp() {
-        // using flat mode as default for predictable behaviour
         gm = new GameManager(new GameModeStub());
+    }
+
+    @Test
+    public void constructor_GameManager() {
+        GameManager gm1 = new GameManager();
+        GameManager gm2 = new GameManager(new GameModeStub());
     }
 
     @Test
