@@ -21,6 +21,17 @@ public class FileReaderBuilder {
             .resolve("EmptyImportContacts.csv")
             .toFile()
             .getAbsolutePath();
+    public static final String INVALID_FILE = Paths
+            .get("src", "test", "data", "ImportContactsTest")
+            .resolve("InvalidImportContacts.csv")
+            .toFile()
+            .getAbsolutePath();
+    public static final String FILE_DO_NOT_EXIST_PATH = Paths
+            .get("src", "test", "data", "ImportContactsTest")
+            .resolve("FileDoNotExist.csv")
+            .toFile()
+            .getAbsolutePath();
+
 
     private FileReader fileReader;
 

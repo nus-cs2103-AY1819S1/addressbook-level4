@@ -14,7 +14,7 @@ import seedu.address.model.filereader.FileReader;
 /**
  * Parses input arguments and creates a new ImportContactsCommand object
  */
-public class ImportContactsCommandParser {
+public class ImportContactsCommandParser implements Parser<ImportContactsCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ImportContactsCommand
      * and returns an ImportContactsCommand object for execution.

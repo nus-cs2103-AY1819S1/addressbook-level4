@@ -7,10 +7,13 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -23,13 +26,16 @@ import seedu.address.testutil.FileReaderBuilder;
 public class ImportContactsCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_importContactsCommand() throws Exception {
         FileReader fileReader = new FileReaderBuilder().build();
-        ModelStubAcceptingFileReaderAdded modelStub = new ModelStubAcceptingFileReaderAdded(fileReader);
+        ModelStubForFileReader modelStub = new ModelStubForFileReader(fileReader);
 
         CommandResult commandResult = new ImportContactsCommand(fileReader).execute(modelStub, commandHistory);
 
@@ -146,10 +152,10 @@ public class ImportContactsCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingFileReaderAdded extends ModelStub {
+    private class ModelStubForFileReader extends ModelStub {
         private FileReader fileReader;
 
-        public ModelStubAcceptingFileReaderAdded(FileReader fileReader) {
+        public ModelStubForFileReader(FileReader fileReader) {
             requireNonNull(fileReader);
         }
 
@@ -160,7 +166,7 @@ public class ImportContactsCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code ImportContactsCommand#execute()}
         }
     }
 }
