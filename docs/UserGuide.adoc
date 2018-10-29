@@ -290,14 +290,15 @@ Example(s):
 Deletes the details of the volunteer specified at index 1
 
 [[command-volunteer-exportcert]]
-==== Exporting volunteer certificate : `exportcert [coming in v1.3]`
+==== Exporting volunteer certificate : `exportcert`
 
-Exports a PDF document to the user's Desktop, detailing the volunteer's involvement with the organisation. This document includes:
+Exports a PDF document to a folder in the user's current working directory or desktop, detailing the volunteer's involvement with the organisation. This document includes:
 
-* Volunteer Name & NRIC
-* List of events involved in
-* Hours of service contributed
-* Organisation's logo
+* Title: 'Certificate of Recognition'
+* Date of export
+* Volunteer name
+* Volunteer ID
+* List of events involved in - Event name, hours contributed, event start and end dates
 
 Format: `exportcert VOLUNTEER_INDEX`
 
