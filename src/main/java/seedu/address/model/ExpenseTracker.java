@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -24,6 +26,8 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     private final UniqueExpenseList expenses;
     private Budget maximumBudget;
 
+    private NotificationHandler notificationHandler;
+
     /**
      * Creates an empty ExpenseTracker with the given username.
      * @param username the username of the ExpenseTracker
@@ -33,6 +37,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.password = password;
         this.expenses = new UniqueExpenseList();
         this.maximumBudget = new Budget("28.00");
+        this.notificationHandler = new NotificationHandler();
     }
 
     /**
@@ -41,6 +46,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
         this(toBeCopied.getUsername(), toBeCopied.getPassword());
         this.maximumBudget = toBeCopied.getMaximumBudget();
+        this.notificationHandler = toBeCopied.getNotificationHandler();
         resetData(toBeCopied);
     }
     //// budget operations
@@ -79,11 +85,63 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void resetData(ReadOnlyExpenseTracker newData) {
         requireNonNull(newData);
-
         this.setExpenses(newData.getExpenseList());
         this.maximumBudget = newData.getMaximumBudget();
+        this.setNotifications(newData.getNotificationList());
     }
 
+    /// notification-level operations
+    public void addNotification(Notification notification) {
+        this.notificationHandler.add(notification);
+    }
+
+    /**
+     * Replaces the contents of the notification list with {@code expenses}.
+     * {@code expenses} must not contain duplicate notification lists.
+     */
+    public void setNotifications(List<Notification> notifications) {
+        notifications.forEach(notification -> this.notificationHandler.add(notification));
+    }
+
+    public void setNotificationHandler(NotificationHandler notificationHandler) {
+        this.notificationHandler = notificationHandler;
+    }
+
+    /**
+     * Checks if a {@code WarningNotification} object should be added to the list.
+     * @return true if {@code WarningNotification} should be added, false otherwise.
+     */
+    public boolean checkIfAddWarningNotification(Budget budget) {
+        return notificationHandler.isTimeToSendWarning(budget);
+    }
+
+    /**
+     * Checks if a {@code TipNotification} object should be added to the list.
+     * @return true if {@code TipNotification} should be added, false otherwise.
+     */
+    public boolean checkIfAddTipNotification() {
+        return notificationHandler.isTimeToSendTip();
+    }
+
+    /**
+     * Toggle the ability to send {@code TipNotification}
+     * @param option to toggle to.
+     */
+    public void toggleTipNotification(boolean option) {
+        notificationHandler.setTipEnabled(option);
+    }
+
+    /**
+     * Toggle the ability to send {@code WarningNotification}
+     * @param option to toggle to.
+     */
+    public void toggleWarningNotification(boolean option) {
+        notificationHandler.setWarningEnabled(option);
+    }
+
+    public NotificationHandler getNotificationHandler() {
+        return notificationHandler;
+    }
     //// expense-level operations
 
     /**
@@ -166,15 +224,22 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     @Override
+    public ObservableList<Notification> getNotificationList() {
+        return notificationHandler.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))
-                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget);
+                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget)
+                && this.notificationHandler.equals(((ExpenseTracker) other).notificationHandler);
     }
 
     @Override
     public int hashCode() {
         return expenses.hashCode();
     }
+
 }

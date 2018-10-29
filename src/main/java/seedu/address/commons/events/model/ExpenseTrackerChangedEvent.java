@@ -14,6 +14,7 @@ public class ExpenseTrackerChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of expenses " + data.getExpenseList().size();
+        return "number of expenses " + data.getExpenseList().size() + "/number of notifications"
+                + data.getNotificationList().size();
     }
 }

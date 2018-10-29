@@ -187,6 +187,15 @@ public class Budget {
             //TODO: Notifies user that budget has been restarted
             logger.info("Budget has been restarted");
         }
+    }
 
+    //@@Snookerballs
+    /**
+     * Calculates and returns the percentage of budget used
+     * @return the percentage of budget that has been used
+     */
+    public double getBudgetPercentage() {
+        logger.info("current Expenses" + currentExpenses / budgetCap);
+        return currentExpenses / budgetCap;
     }
 }
