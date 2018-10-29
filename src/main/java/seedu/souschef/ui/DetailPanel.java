@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -86,18 +87,18 @@ public class DetailPanel extends UiPart<Region> {
     /**
      * Generate screen-friendly text format for ingredients.
      */
-    private String ingredientsDisplay(Map<IngredientDefinition, Double> ingredientSet) {
+    private String ingredientsDisplay(Map<IngredientDefinition, IngredientPortion> ingredientSet) {
         StringBuilder builder = new StringBuilder();
-        ingredientSet.forEach((def, amount) -> {
+        ingredientSet.forEach((def, portion) -> {
             builder.append(def.getName().toString());
             builder.append(", ");
-            if (amount % 1 > 0) {
-                builder.append(amount);
+            if (portion.getAmount().getValue() % 1 > 0) {
+                builder.append((portion.getAmount().getValue()));
             } else {
-                builder.append(amount.intValue());
+                builder.append((portion.getAmount().getValue().intValue()));
             }
             builder.append(" ");
-            builder.append(def.getUnit());
+            builder.append(portion.getUnit());
             builder.append("\n");
         });
         return builder.toString();
