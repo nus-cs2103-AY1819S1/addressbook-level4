@@ -6,7 +6,7 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author chivent
 /**
- * An event that notifies StatusBarFooter regarding a login status change.
+ * An event that notifies Film Reel ui regarding a selection change
  */
 public class FilmReelSelectionChangeEvent extends BaseEvent {
 
