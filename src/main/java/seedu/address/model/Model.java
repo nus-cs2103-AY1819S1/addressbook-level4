@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -60,7 +59,7 @@ public interface Model {
 
     void exportDeck(Deck deck);
 
-    Deck importDeck (Path filepath);
+    Deck importDeck (String filepath);
 
     boolean canUndoAnakin();
 

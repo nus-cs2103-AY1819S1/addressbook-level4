@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 
@@ -240,7 +239,7 @@ public class Anakin implements ReadOnlyAnakin {
      * If there is an existing duplicate deck, throw DuplicateDeckException.
      */
 
-    public Deck importDeck(Path filepath){
+    public Deck importDeck(String filepath){
         Deck targetDeck = portManager.importDeck(filepath);
         if (decks.contains(targetDeck)){
             throw new DuplicateDeckException();

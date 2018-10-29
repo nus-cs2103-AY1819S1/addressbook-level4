@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBException;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -33,7 +31,7 @@ public class PortManager implements Porter {
     @Override
     public void exportDeck(Deck deck){
         Name deckName = deck.getName();
-        Path filePath = makeFilePath(deckName);
+        Path filePath = makeFilePath(deckName.fullName);
 
         XmlExportableDeck adaptedDeck = new XmlExportableDeck(deck);
 
@@ -51,7 +49,8 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public Deck importDeck(Path filepath) throws DeckImportException{
+    public Deck importDeck(String stringPath) throws DeckImportException{
+        Path filepath = makeFilePath(stringPath);
         try {
             XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
             return getImportedDeck(xmlDeck);
@@ -88,8 +87,8 @@ public class PortManager implements Porter {
     }
 
 
-    private Path makeFilePath(Name name){
-        return basefilepath.resolve(name.fullName + ".xml");
+    private Path makeFilePath(String name){
+        return basefilepath.resolve(name + ".xml");
     }
 
 }
