@@ -395,9 +395,9 @@ Displays the following information about medicines:
 ****
 Format: `medstats`
 
-==== Exporting patient records : `export`
+==== Exporting patient personal information : `exportpatient`
 
-Exports patient data. +
+Exports patients' personal information. +
 Format: `exportpatient`
 // end::datacommands[]
 

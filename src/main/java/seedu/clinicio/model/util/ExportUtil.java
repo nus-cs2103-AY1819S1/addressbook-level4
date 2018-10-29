@@ -46,7 +46,6 @@ public class ExportUtil {
         requireAllNonNull(writer, lines);
 
         int numLines = lines.size();
-
         for (int i = 0; i < numLines; i++) {
             String line = lines.get(i);
             if (!isValidLine(line)) {
@@ -64,7 +63,7 @@ public class ExportUtil {
     /**
      * Checks if a string is a valid line.
      * @param line A String.
-     * @return true if {@code line} is valid. false otherwise.
+     * @return {@code true} if {@code line} is valid. {@code false} otherwise.
      */
     public static boolean isValidLine(String line) {
         Objects.requireNonNull(line);
