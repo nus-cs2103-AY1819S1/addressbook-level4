@@ -38,7 +38,6 @@ public class OpenCommand extends Command {
 
     private final Index index;
     private final UpdateRideDescriptor openRideDescriptor;
-
     /**
      * @param index of the ride in the filtered ride list to open
      */
@@ -61,7 +60,7 @@ public class OpenCommand extends Command {
         Ride rideToOpen = lastShownList.get(index.getZeroBased());
         Ride editedRide = createUpdatedRide(rideToOpen, openRideDescriptor);
 
-        if (!rideToOpen.isSameRide(editedRide) && model.hasPerson(editedRide)) {
+        if (rideToOpen.isSameRide(editedRide) && rideToOpen.equals(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
