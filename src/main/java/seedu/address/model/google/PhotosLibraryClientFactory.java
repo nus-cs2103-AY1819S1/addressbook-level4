@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
@@ -47,14 +48,9 @@ public class PhotosLibraryClientFactory {
                     "https://www.googleapis.com/auth/photoslibrary.sharing",
                     "email");
 
-    //for storing serializable data in key-value form
-    //private static final InputStream DATA_STORE = PhotosLibraryClientFactory
-    //        .class.getClassLoader().getResourceAsStream("/user_credentials");
+    private static final String CREDENTIAL_FILE = "client_credentials.json";
 
-    private static final InputStream credentialFile = PhotosLibraryClientFactory
-            .class.getClassLoader().getResourceAsStream("client_credentials.json");
-
-    private static File dataStore = new File("/user_credentials");
+    private static File dataStore = Paths.get("./src/main/resources/user_credentials").toFile();
 
     private PhotosLibraryClientFactory() {
     }
@@ -70,7 +66,11 @@ public class PhotosLibraryClientFactory {
         if (!dataStore.exists()) {
             dataStore.mkdirs();
         }
+
         DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
+
+        InputStream credentialFile = PhotosLibraryClientFactory
+                .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
 
         // load designated client secret/id
         GoogleClientSecrets clientSecrets =
@@ -97,6 +97,7 @@ public class PhotosLibraryClientFactory {
                 .setRefreshToken(credential.getRefreshToken())
                 .build();
 
+        credentialFile.close();
         return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
     }
 
@@ -151,7 +152,6 @@ public class PhotosLibraryClientFactory {
             for (File file : listFiles) {
                 file.delete();
             }
-            userLoggedOut = dataStore.delete();
         }
         return userLoggedOut;
     }
