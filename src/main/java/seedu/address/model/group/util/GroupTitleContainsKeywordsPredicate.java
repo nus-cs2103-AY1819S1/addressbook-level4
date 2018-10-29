@@ -3,10 +3,7 @@ package seedu.address.model.group.util;
 import java.util.List;
 import java.util.function.Function;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.Group;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.EntityContainsKeywordsPredicate;
 
 /**

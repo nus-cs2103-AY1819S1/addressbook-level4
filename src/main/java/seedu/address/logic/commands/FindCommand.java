@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
-import java.util.function.Predicate;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOME;
 
+import java.util.function.Predicate;
+
+/**
+ * Finds and lists all entities in address book whose property contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ * @param <E> The type of the entity.
+ */
 public abstract class FindCommand<E> extends Command {
 
     public static final String COMMAND_WORD = "find";

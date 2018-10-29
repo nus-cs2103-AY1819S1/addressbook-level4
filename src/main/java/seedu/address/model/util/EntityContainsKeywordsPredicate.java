@@ -1,10 +1,10 @@
 package seedu.address.model.util;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * A predicate that matches the keyword an entity to some given lists of keywords.

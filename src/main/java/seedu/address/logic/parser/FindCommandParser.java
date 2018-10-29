@@ -25,6 +25,9 @@ import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindPersonCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+    /**
+     * The type of FindCommand to create for execution.
+     */
     private enum FindCommandType { PERSON, GROUP }
 
     private FindCommandType findCommandType;
@@ -53,16 +56,16 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private void determineType(String findTypeFromUserInput) throws ParseException {
         switch (findTypeFromUserInput) {
-            case FIND_PERSON_PARAM:
-            case FIND_PERSON_PARAM_SHORT:
-                findCommandType = FindCommandType.PERSON;
-                break;
-            case FIND_GROUP_PARAM:
-            case FIND_GROUP_PARAM_SHORT:
-                findCommandType = FindCommandType.GROUP;
-                break;
-            default:
-                throwParseException();
+        case FIND_PERSON_PARAM:
+        case FIND_PERSON_PARAM_SHORT:
+            findCommandType = FindCommandType.PERSON;
+            break;
+        case FIND_GROUP_PARAM:
+        case FIND_GROUP_PARAM_SHORT:
+            findCommandType = FindCommandType.GROUP;
+            break;
+        default:
+            throwParseException();
         }
     }
 
@@ -115,14 +118,14 @@ public class FindCommandParser implements Parser<FindCommand> {
     private FindCommand createFindCommand(List<String> allKeywords, List<String> someKeywords,
                                           List<String> noneKeywords) throws ParseException {
         switch (findCommandType) {
-            case PERSON:
-                return new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
+        case PERSON:
+            return new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
-            case GROUP:
-                return new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
+        case GROUP:
+            return new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
                         allKeywords, someKeywords, noneKeywords));
-            default:
-                throwParseException();
+        default:
+            throwParseException();
         }
         return null;
     }
