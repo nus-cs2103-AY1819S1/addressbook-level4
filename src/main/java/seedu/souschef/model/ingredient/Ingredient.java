@@ -3,6 +3,7 @@ package seedu.souschef.model.ingredient;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -17,9 +18,28 @@ public class Ingredient extends IngredientPortion {
         this.date = date;
     }
 
-    public Ingredient(String name, Double amount, Date date) {
-        super(name, amount);
+    public Ingredient(String name, String unit, Double amount, Date date) throws ParseException {
+        super(name, unit, amount);
         this.date = new IngredientDate(date);
+    }
+
+    @Override
+    public Ingredient addAmount(Object other) {
+        Ingredient otherIngredient = (Ingredient) other;
+        Double total = this.getAmount().getValue() + otherIngredient.getAmount().getValue();
+        return new Ingredient(getName(), new IngredientAmount(total), getUnit(), getDate());
+    }
+
+    @Override
+    public Ingredient convertToCommonUnit() {
+        IngredientServingUnitDefinition definition = IngredientServingUnit.DICTIONARY.get(this.getUnit().toString());
+        IngredientName ingredientName = getName();
+        IngredientServingUnit ingredientUnit = new IngredientServingUnit(definition.getCommonUnit());
+        IngredientAmount ingredientAmount =
+                new IngredientAmount(getAmount().getValue() * definition.getConversionValue());
+        IngredientDate ingredientDate = date;
+
+        return new Ingredient(ingredientName, ingredientAmount, ingredientUnit, ingredientDate);
     }
 
     public IngredientDate getDate() {
