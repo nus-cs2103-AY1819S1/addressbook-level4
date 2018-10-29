@@ -47,6 +47,7 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    // @@author benedictcss
     public Path getCurrDirectory() {
         return currDirectory;
     }
@@ -105,6 +106,7 @@ public class UserPrefs {
     public ArrayList<Path> getAllImages() {
         return imageList;
     }
+    // @@author
 
     @Override
     public boolean equals(Object other) {
