@@ -40,7 +40,7 @@ public class EventPanel extends UiPart<Region> {
     @FXML
     private Label eventDescriptionLabel;
     @FXML
-    private FlowPane tagsLabel;
+    private FlowPane tags;
 
     private ObservableList<Record> recordList;
 
@@ -75,8 +75,17 @@ public class EventPanel extends UiPart<Region> {
                 + String.valueOf(recordList.filtered(new RecordContainsEventIdPredicate(event.getEventId())).size()));
         eventDescriptionLabel.setText(event.getDescription().description);
 
-        tagsLabel.getChildren().clear();
-        event.getTags().forEach(tag -> tagsLabel.getChildren().add(new Label(tag.tagName)));
+        tags.getChildren().clear();
+
+        int status = DateTimeUtil.getEventStatus(event.getStartDate(), event.getStartTime(),
+                event.getEndDate(), event.getEndTime());
+        if (status != DateTimeUtil.INVALID_STATUS) {
+            Label statusLabel = new Label(DateTimeUtil.STATUS[status]);
+            statusLabel.getStyleClass().add(DateTimeUtil.STATUS[status]);
+            tags.getChildren().add(statusLabel);
+        }
+
+        event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Subscribe
@@ -98,7 +107,7 @@ public class EventPanel extends UiPart<Region> {
         eventEndTimeLabel.setText("");
         eventDescriptionLabel.setText("");
 
-        tagsLabel.getChildren().clear();
+        tags.getChildren().clear();
     }
 
 }
