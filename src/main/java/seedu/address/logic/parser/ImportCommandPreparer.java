@@ -18,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,7 +35,8 @@ public class ImportCommandPreparer {
     private static final int PHONE_FIELD = 1;
     private static final int EMAIL_FIELD = 2;
     private static final int ADDRESS_FIELD = 3;
-    private static final int TAG_FIELD_START = 4;
+    private static final int MEETING_FIELD = 4;
+    private static final int TAG_FIELD_START = 5;
 
     private ArrayList<Person> persons;
 
@@ -42,7 +44,7 @@ public class ImportCommandPreparer {
      * Creates a new ImportCommandPreparer with an empty ArrayList of Persons to be added.
      */
     public ImportCommandPreparer() {
-        persons = new ArrayList<Person>();
+        persons = new ArrayList<>();
     }
 
     /**
@@ -82,7 +84,7 @@ public class ImportCommandPreparer {
      */
     public ImportCommand parseFile(File file) throws ParseException {
 
-        FileReader fr = null;
+        FileReader fr;
 
         try {
             fr = new FileReader(file);
@@ -122,6 +124,7 @@ public class ImportCommandPreparer {
                 Optional<Phone> phone = Optional.empty();
                 Optional<Email> email = Optional.empty();
                 Optional<Address> address = Optional.empty();
+                Meeting meeting = null;
 
                 try {
                     name = ParserUtil.parseName(attributes[NAME_FIELD]);
@@ -133,6 +136,9 @@ public class ImportCommandPreparer {
                     }
                     if (!attributes[ADDRESS_FIELD].matches("")) {
                         address = Optional.of(ParserUtil.parseAddress(attributes[ADDRESS_FIELD]));
+                    }
+                    if (!attributes[MEETING_FIELD].matches("")) {
+                        meeting = ParserUtil.parseMeeting(attributes[MEETING_FIELD]);
                     }
                 } catch (ParseException pe) {
                     hasContactWithInvalidField = true;
@@ -157,7 +163,11 @@ public class ImportCommandPreparer {
                     line = br.readLine();
                     continue;
                 }
-                persons.add(new Person(name, phone, email, address, tagList));
+                if (meeting == null) {
+                    persons.add(new Person(name, phone, email, address, tagList));
+                } else {
+                    persons.add(new Person(name, phone, email, address, tagList, meeting));
+                }
                 line = br.readLine();
             }
             br.close();
