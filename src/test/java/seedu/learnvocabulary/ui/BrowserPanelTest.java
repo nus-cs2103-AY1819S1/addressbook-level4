@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.learnvocabulary.testutil.EventsUtil.postNow;
 import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 import static seedu.learnvocabulary.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.learnvocabulary.ui.BrowserPanel.SEARCH_PAGE_URL;
 import static seedu.learnvocabulary.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
@@ -40,9 +41,16 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a word
         postNow(selectionChangedEventStub);
-        URL expectedWordUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + SUMO.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
+        String str = browserPanelHandle.getLoadedUrl().toString();
+
+        System.out.println(str);
+
+        URL expectedWordUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL + "?name="
+                + SUMO.getName().fullName.replaceAll(" ", "%20")
+                + "&meaning=" + SUMO.getMeaning().fullMeaning.replaceAll(" ", "%20"));
+
         assertEquals(expectedWordUrl, browserPanelHandle.getLoadedUrl());
     }
 }
