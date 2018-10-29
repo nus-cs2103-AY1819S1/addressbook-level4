@@ -39,7 +39,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.picture = new Picture(Picture.DEFAULT_PICTURE);
+        this.picture = new Picture(Picture.DEFAULT_PICTURE_URL.getPath());
         this.tags.addAll(tags);
         this.meeting = new Meeting(Meeting.NO_MEETING);
     }
@@ -56,7 +56,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.picture = new Picture(Picture.DEFAULT_PICTURE);
+        this.picture = new Picture(Picture.DEFAULT_PICTURE_URL.getPath());
         this.tags.addAll(tags);
         this.meeting = meeting;
     }
@@ -144,8 +144,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getMeeting().equals(getMeeting())
-                && otherPerson.getPicture().equals(getPicture());
+                && otherPerson.getMeeting().equals(getMeeting());
     }
 
     @Override

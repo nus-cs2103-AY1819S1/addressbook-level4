@@ -33,6 +33,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.PersonContainsTagPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -223,14 +224,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_pictureCommandWord_returnsPictureCommand() throws Exception {
         PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "/image/alice.jpg");
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + Picture.DEFAULT_PICTURE_URL.getPath());
         assertTrue(command instanceof PictureCommand);
     }
 
     @Test
     public void parseCommand_pictureCommandAlias_returnsPictureCommand() throws Exception {
         PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_ALIAS + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "/image/alice.jpg");
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + Picture.DEFAULT_PICTURE_URL.getPath());
         assertTrue(command instanceof PictureCommand);
     }
 

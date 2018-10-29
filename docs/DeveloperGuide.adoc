@@ -310,7 +310,7 @@ change many parts to add this additional feature. It also makes sense, because a
 // tag::schedule[]
 === Schedule feature
 ==== Current Implementation
-The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
+The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to InsuRen entries, since each `Person` can have up to one `Meeting`.
 Additionally, it implements the following operations:
 
 * `ScheduleCommand#createScheduledPerson(Person personToSchedule, Meeting meeting)` - Returns a `Person` object that has a meeting scheduled according to `meeting`.
@@ -496,6 +496,35 @@ entries with invalid formats
 ** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
 not cause import to crash.
 ** Cons: Higher coupling.
+
+=== Export feature
+==== Current Implementation
+The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen
+and exports it as a csv file, whose file name is given by the user and MUST end with .csv. The exported contact list will be
+saved in the root directory of the project. `export` implements the following operations:
+
+* `parse(String)` - parses the user's given file name String and checks if it is valid.
+* `populateFile(PrintWriter, Model)` - populates the (already initialized) file with data from the current Model.
+* `insertPersonIntoCsv(Person, PrintWriter) and cleanEntry(String)` - these two methods add contacts to the csv in the same
+order as they are displayed in InsuRen. Fields are cleaned by removing commas and brackets before being inserted in to the csv.
+
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+Step 1. The user launches an application and there is either a list of existing contacts or the list is empty.
+
+Step 2. The user executes export command (x for shorthand), followed by FILE_NAME. If no file name is given or the file name
+does not end with .csv, InsuRen throws an error message.
+
+Step 3. InsuRen fetches the current contact list, creates a new .csv file and copies all contacts into it.
+
+==== Design Considerations
+
+===== Aspect: How export executes
+
+* **Alternative 1 (current choice):** Read contacts from a ReadOnlyAddressBook:
+Export makes use of model.getAddressBook() and the getPersonList method within.
+** Pros: Easy to implement. Since we are only dealing with a ReadOnlyAddressBook, the state of InsuRen will not be altered.
+** Cons: Only able to capture snapshots of the contact list. Not dynamically updated.
 
 // tag::addpicture[]
 === Add Picture feature
@@ -740,7 +769,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, InsuRen depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -805,7 +834,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your InsuRen application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
