@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -56,6 +57,10 @@ public interface Model {
     void updateFilteredCardList(Predicate<Card> predicate);
 
     boolean isInsideDeck();
+
+    void exportDeck(Deck deck);
+
+    Deck importDeck (Path filepath) throws Exception;
 
     boolean canUndoAnakin();
 

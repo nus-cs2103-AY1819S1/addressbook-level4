@@ -14,6 +14,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.storage.XmlExportableDeck;
 
 public class PortManager implements Porter {
@@ -33,7 +34,7 @@ public class PortManager implements Porter {
     public void exportDeck(Deck deck) throws Exception{
         Name deckName = deck.getName();
         Path filePath = makeFilePath(deckName);
-        
+
         XmlExportableDeck adaptedDeck = new XmlExportableDeck(deck);
 
         //If file doesn't exist, create it
@@ -50,9 +51,17 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public Deck importDeck(Path filepath) throws FileNotFoundException, DataConversionException{
-        XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
-        return getImportedDeck(xmlDeck);
+    public Deck importDeck(Path filepath) throws DeckImportException{
+        try {
+            XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
+            return getImportedDeck(xmlDeck);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new DeckImportException("Target file not found");
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+            throw new DeckImportException("Target deck contains invalid data");
+        }
     }
 
     private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException{
