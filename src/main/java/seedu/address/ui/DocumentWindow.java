@@ -10,8 +10,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.document.Document;
-import seedu.address.model.document.Receipt;
 
+/**
+ * UI window representing a webview displaying the document generated for Patients.
+ */
 public class DocumentWindow extends UiPart<Stage> {
 
     public static final String DOCUMENT_TEMPLATE_FILE_PATH = "/view/Documents/DocumentTemplate.html";
@@ -33,7 +35,6 @@ public class DocumentWindow extends UiPart<Stage> {
      */
     public DocumentWindow(Stage root) {
         super(FXML, root);
-
         this.documentTemplateUrl = getClass().getResource(DOCUMENT_TEMPLATE_FILE_PATH).toExternalForm();
     }
 
@@ -93,15 +94,10 @@ public class DocumentWindow extends UiPart<Stage> {
     private void runScript(String script, int scriptCounter) {
         browser.getEngine().getLoadWorker().stateProperty().addListener((
                 ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-            if (newValue != Worker.State.SUCCEEDED) {
-                // Browser not loaded, return.
-                return;
+            if (newValue == Worker.State.SUCCEEDED && counter == scriptCounter) {
+                Platform.runLater(() -> browser.getEngine().executeScript(script));
+                counter++;
             }
-            if (counter != scriptCounter) {
-                return;
-            }
-            Platform.runLater(() -> browser.getEngine().executeScript(script));
-            counter++;
         });
     }
 

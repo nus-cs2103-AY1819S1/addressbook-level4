@@ -263,11 +263,12 @@ public class Document {
     }
 
     public String getContent() {
-        if (this instanceof Receipt)
+        if (this instanceof Receipt) {
             return this.formatReceiptInformation();
-        // TODO: update this with the other documents i.e. Referral, MC
-        else
+        } else {
+            // TODO: update this with the other documents i.e. Referral, MC
             return "Lorem ipsum fake news";
+        }
     }
 
 }
