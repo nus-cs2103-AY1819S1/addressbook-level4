@@ -36,7 +36,6 @@ image::Ui.png[width:800]
 * Items in square brackets are compulsory parameters to be added e.g `add [TRANSFORMATION]` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >`  e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>`+
 * Flags such as `/a` are compulsory flags that need to be included when using that command e.g `g ul ls /a`
-====
 
 === Viewing help : `help`
 
