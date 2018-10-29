@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -125,7 +126,7 @@ public interface Model {
      * Returns true if successful, false if the input password is incorrect.
      */
     boolean loadUserData(Username username, Password password, String encryptionKey)
-            throws NonExistentUserException;
+            throws NonExistentUserException, InvalidDataException;
 
     /**
      * Logs out the user in the model.

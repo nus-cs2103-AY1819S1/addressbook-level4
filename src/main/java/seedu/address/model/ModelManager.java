@@ -28,6 +28,7 @@ import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.encryption.EncryptionUtil;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -69,6 +70,12 @@ public class ModelManager extends ComponentManager implements Model {
         this.periodAmount = defaultPeriodAmount();
     }
 
+    /**
+     * Initializes a ModelManager with an input ExpenseTracker and UserPrefs. The ModelManager will be logged into
+     * the input ExpenseTracker.
+     * @param expenseTracker the ExpenseTracker to be used
+     * @param userPrefs the UserPrefs to be used
+     */
     public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
         super();
         requireAllNonNull(expenseTracker, userPrefs);
@@ -85,7 +92,8 @@ public class ModelManager extends ComponentManager implements Model {
             this.expenseStatPredicate = defaultExpensePredicate();
             loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword().orElse(null),
                     expenseTracker.getEncryptionKey());
-        } catch (NonExistentUserException | IllegalValueException e) {
+        } catch (NonExistentUserException | IllegalValueException | InvalidDataException e) {
+            // The ExpenseTracker data is guaranteed to be valid and added to the ModelManager.
             throw new IllegalStateException();
         }
     }
@@ -317,7 +325,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Login =================================================================================
     @Override
     public boolean loadUserData(Username username, Password password, String plainPassword)
-            throws NonExistentUserException {
+            throws NonExistentUserException, InvalidDataException {
         requireAllNonNull(username);
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
@@ -345,8 +353,9 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             this.versionedExpenseTracker = new VersionedExpenseTracker(encryptedTracker.decryptTracker(encryptionKey));
         } catch (IllegalValueException e) {
-            // Either wrong password or invalid expense tracker data associated with the user.
-            return false;
+            // Invalid expense tracker data associated with the user. Cannot be a key issue as the password has been
+            // previously verified.
+            throw new InvalidDataException();
         }
 
         this.filteredExpenses = new FilteredList<>(versionedExpenseTracker.getExpenseList());
