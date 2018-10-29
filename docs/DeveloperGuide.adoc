@@ -569,6 +569,15 @@ image::PictureCommandActivityDiagram.png[width="500"]
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
 
+===== Aspect: Type of picture
+
+* **Alternative 1 (current choice):** Picture can be a `.jpg` or `.png` file.
+** Pros: `.jpg` and `.png` are common file formats that the user is used to.
+** Cons: Not flexible in what image files are accepted.
+* **Alternative 2:** In addition to alternative 1, the picture can also be a valid `URL` containing an image.
+** Pros: More flexible. User does not have to download the image file onto his local disk in order to use it. Can retrieve pictures of his contacts online and use it directly.
+** Cons: Additional checks have to be done (i.e. check if the `URL` is valid, check if the `URL` is an image file, what happens if the `URL` or server is broken?)
+
 ===== Aspect: Path validation
 
 * **Alternative 1 (current choice):** File location input from user is checked against a regular expression and `Files#exists()`.
@@ -584,6 +593,9 @@ image::PictureCommandActivityDiagram.png[width="500"]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
+Due to the Singapore Personal Data Protection Act (PDPA), any disclosure of the user's personal information is considered to have severe implications.
+Thus, all data that are being stored in `Storage` should be encrypted using a secure encryption scheme with a secret key.
+When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
 
 // end::dataencryption[]
 
@@ -1339,8 +1351,8 @@ Use case ends.
 *MSS*
 
 1. User requests upload picture of client.
-2. InsuRen requests for the client’s name.
-3. User specifies the client’s name.
+2. InsuRen requests for the client’s ID.
+3. User specifies the client’s ID.
 4. InsuRen requests for the file location.
 5. User specifies the file location.
 6. InsuRen uploads the file and tags it to the client’s profile.
