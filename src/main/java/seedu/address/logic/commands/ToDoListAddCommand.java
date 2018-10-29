@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.ToDoList;
 
 /**
  * Adds a String user input to the list. Contains actions that the user may want to take related to their
@@ -16,10 +17,11 @@ public class ToDoListAddCommand extends Command {
             + "Example: "
             + COMMAND_WORD + " Buy some eggs.";
 
-    private final String action;
+    //private final String action;
+    private ToDoList tdl;
 
     public ToDoListAddCommand(String action) {
-        this.action = action;
+
     }
 
     @Override
