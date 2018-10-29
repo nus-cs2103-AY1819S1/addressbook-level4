@@ -183,7 +183,7 @@ Format: `g ul all`: uploads all images in current directory to Google Photos, ta
 
 Examples:
 
-* `g ul <Cat.png>` -> Uploads Cat.png+
+* `g ul <Cat.png>` -> Uploads Cat.png +
 
 === Logging out of Google Photos: `logout`
 
@@ -215,5 +215,5 @@ e.g. `save exampleImage.jpg` +
 * *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
 * *Download* : `g dl <IMAGE_NAME> OR g dl all <ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
 * *Upload* : `g ul <IMAGE_NAME> OR g ul all` +
-* *Logout* : `logout`+
+* *Logout* : `logout` +
 * *Exit* : `exit`
