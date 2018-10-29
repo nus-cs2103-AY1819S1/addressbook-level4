@@ -564,16 +564,6 @@ The following operations are implemented: +
 * `exportpatientsappointments` Command - exports all patients' appointment records.
 * `exportpatientsconsultations` Command - exports all patients' consultations records.
 
-==== `exportpatients` Command
-
-{add implementation details}
-
-==== `exportpatientsappointments` Command
-
-{add implementation details}
-
-==== `exportpatientsconsultations` Command
-
 ==== Design Considerations
 ===== Aspect: File format
 
