@@ -50,10 +50,15 @@ public class FilmReel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         items.removeAll();
         items.setAll(event.paths);
+
+        if (event.refresh) {
+            imageListView.scrollTo(0);
+            imageListView.getSelectionModel().clearSelection();
+        }
     }
 
     /**
-     * Event that triggers when new images are previewed with next
+     * Event that triggers an image is selected with select
      *
      * @param event
      */
