@@ -8,7 +8,6 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_K
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;

@@ -12,7 +12,6 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -140,8 +140,8 @@ public class CommandTestUtil {
                 assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
                 assertEquals(expectedCommandHistory, actualCommandHistory);
             }
-        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException |
-                InvalidDataException e) {
+        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException
+                | InvalidDataException e) {
             Assert.fail("Command threw error : " + e.getMessage());
         }
     }

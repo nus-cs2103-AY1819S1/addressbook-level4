@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import java.nio.file.Paths;
 
-import java.util.Optional;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

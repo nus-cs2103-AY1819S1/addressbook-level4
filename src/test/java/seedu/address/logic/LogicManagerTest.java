@@ -213,8 +213,8 @@ public class LogicManagerTest {
             CommandResult result = logic.execute(inputCommand);
             assertNull(expectedException);
             assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException |
-                UserAlreadyExistsException | InvalidDataException e) {
+        } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException
+                | UserAlreadyExistsException | InvalidDataException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
@@ -232,8 +232,8 @@ public class LogicManagerTest {
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (ParseException | CommandException | NoUserSelectedException | NonExistentUserException |
-                UserAlreadyExistsException | InvalidDataException e) {
+        } catch (ParseException | CommandException | NoUserSelectedException | NonExistentUserException
+                | UserAlreadyExistsException | InvalidDataException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }

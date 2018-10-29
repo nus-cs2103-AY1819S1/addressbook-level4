@@ -4,8 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
-import java.util.Optional;
-
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
