@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -40,6 +41,7 @@ public class FinishCommand extends QueueCommand {
         if (currentPatient.getNoteContent() == "") {
             throw new CommandException(MESSAGE_EMPTY_NOTE);
         }
+
         String currentPatientNameIc = currentPatient.toNameAndIc();
         ServedPatient finishedPatient = currentPatient.finishServing();
 
@@ -53,6 +55,7 @@ public class FinishCommand extends QueueCommand {
         model.updatePerson(finishedPatient.getPatient(), editedPatient);
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
+        EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
 
         return new CommandResult(MESSAGE_SUCCESS + currentPatientNameIc);
     }
