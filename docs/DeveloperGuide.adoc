@@ -311,7 +311,8 @@ change many parts to add this additional feature. It also makes sense, because a
 === Schedule feature
 ==== Current Implementation
 The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to InsuRen entries, since each `Person` can have up to one `Meeting`.
-Additionally, it implements the following operations:
+The complete list of meetings, as well as the meetings scheduled on a single day, can subsequently be accessed using the `Meetings` command.
+Additionally, the `Schedule` Command implements the following operations:
 
 * `ScheduleCommand#createScheduledPerson(Person personToSchedule, Meeting meeting)` - Returns a `Person` object that has a meeting scheduled according to `meeting`.
 * `ScheduleCommand#execute()` - Executes the command encapsulated by `ScheduleCommand`.
