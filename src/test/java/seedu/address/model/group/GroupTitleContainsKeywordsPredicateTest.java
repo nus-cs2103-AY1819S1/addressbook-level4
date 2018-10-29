@@ -159,4 +159,3 @@ public class GroupTitleContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new GroupBuilder().withTitle("Alpha").build()));
     }
 }
-
