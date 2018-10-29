@@ -45,6 +45,9 @@ public class EditRecipeDescriptor {
         return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags, instruction);
     }
 
+    /**
+     * Edit command should either change general attribute(s) of a recipe or one of its instruction.
+     */
     public boolean isFieldEditedSpecific() {
         if (instruction == null) {
             return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags);
