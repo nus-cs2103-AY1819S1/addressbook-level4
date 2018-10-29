@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_FILEREADER_INVALID_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_FILE_READER_INVALID_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
@@ -33,8 +33,7 @@ public class ImportContactsCommandParser {
         FileReader fileReader = new FileReader(filePath);
 
         if (!fileReader.isValidFile()) {
-            System.out.println("hi");
-            throw new ParseException(String.format(MESSAGE_FILEREADER_INVALID_FORMAT,
+            throw new ParseException(String.format(MESSAGE_FILE_READER_INVALID_FORMAT,
                     ImportContactsCommand.MESSAGE_WRONG_FILE_FORMAT));
         }
 

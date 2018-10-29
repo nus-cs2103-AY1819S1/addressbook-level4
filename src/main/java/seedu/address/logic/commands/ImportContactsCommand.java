@@ -7,7 +7,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.filereader.FileReader;
-import seedu.address.model.filereader.exceptions.EmptyFileException;
 
 /**
  * Import contacts to the address book.
@@ -15,14 +14,12 @@ import seedu.address.model.filereader.exceptions.EmptyFileException;
 public class ImportContactsCommand extends Command {
 
     public static final String COMMAND_WORD = "importContacts";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports all contacts from a contact list to "
             + "the address book. "
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "~/Downloads/contacts1.csv ";
-
     public static final String MESSAGE_WRONG_FILE_FORMAT = "File must be csv format and contain "
             + FileReader.CSV_HEADER_NAME
             + ", "
@@ -34,8 +31,6 @@ public class ImportContactsCommand extends Command {
             + " as header for contact name and contact number field";
 
     public static final String MESSAGE_SUCCESS = "Contacts imported";
-    public static final String MESSAGE_EMPTY_FILE_EXCEPTION = "File is empty";
-
     private final FileReader toImport;
 
     /**
@@ -49,11 +44,7 @@ public class ImportContactsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        try {
-            model.importContacts(toImport);
-        } catch (EmptyFileException e) {
-            throw new CommandException(MESSAGE_EMPTY_FILE_EXCEPTION);
-        }
+        model.importContacts(toImport);
         model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));

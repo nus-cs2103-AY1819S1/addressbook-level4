@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-import seedu.address.model.filereader.exceptions.EmptyFileException;
-
 /**
  * Represents a FileReader.
  * Guarantees: file path is present and not null, validated, immutable.
@@ -91,7 +89,8 @@ public class FileReader {
         try {
             Scanner sc = new Scanner(csvFile);
             if (!sc.hasNextLine()) {
-                throw new EmptyFileException();
+                sc.close();
+                return;
             }
             String header = sc.nextLine();
             String[] parts = header.split(",");
@@ -151,13 +150,16 @@ public class FileReader {
         FileReader otherFileReader = (FileReader) other;
         return otherFileReader.getCsvFilePath().equals(getCsvFilePath())
                 && otherFileReader.getNameIndex() == getNameIndex()
-                && otherFileReader.getPhoneIndex() == getPhoneIndex();
+                && otherFileReader.getPhoneIndex() == getPhoneIndex()
+                && otherFileReader.getEmailIndex() == getEmailIndex()
+                && otherFileReader.getAddressIndex() == getAddressIndex()
+                && otherFileReader.getFacultyIndex() == getFacultyIndex();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(csvFilePath, nameIndex, phoneIndex);
+        return Objects.hash(csvFilePath, nameIndex, phoneIndex, emailIndex, addressIndex, facultyIndex);
     }
 
     @Override
