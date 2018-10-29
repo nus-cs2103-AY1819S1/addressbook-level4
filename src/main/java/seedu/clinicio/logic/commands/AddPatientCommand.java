@@ -1,10 +1,14 @@
 package seedu.clinicio.logic.commands;
 
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGIES;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICAL_PROBLEMS;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATIONS_LIST;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.clinicio.logic.CommandHistory;
@@ -28,15 +32,17 @@ public class AddPatientCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_MEDICAL_PROBLEMS + "MEDICAL_PROBLEMS]..."
+            + "[" + PREFIX_MEDICATIONS_LIST + "MEDICATIONS]...\n"
+            + "[" + PREFIX_ALLERGIES + "ALLERGIES]...\n"
+            + "[" + PREFIX_PREFERRED_DOCTOR + "PREFERRED_DOC]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_IC + " S1234567A "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_MEDICAL_PROBLEMS + "High Blood Pressure, Asthma ";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
 
