@@ -64,7 +64,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
     /**
      * Verifies that creating and deleting large number of tasks in {@code TaskListPanel} requires lesser than
-     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
+     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to executePrimitive.
      */
     @Test
     public void performanceTest() throws Exception {

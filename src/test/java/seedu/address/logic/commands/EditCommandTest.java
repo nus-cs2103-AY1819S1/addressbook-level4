@@ -163,7 +163,7 @@ public class EditCommandTest {
         expectedModel.commitTaskManager();
 
         // edit -> first task edited
-        editCommand.execute(model, commandHistory);
+        editCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
@@ -211,7 +211,7 @@ public class EditCommandTest {
 
         // edit -> edits second task in unfiltered task list / first task in filtered task
         // list
-        editCommand.execute(model, commandHistory);
+        editCommand.executePrimitive(model, commandHistory);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();

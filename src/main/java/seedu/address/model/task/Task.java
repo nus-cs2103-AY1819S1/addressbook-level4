@@ -86,15 +86,15 @@ public class Task {
         return dependency;
     }
 
-    public boolean isCompleted() {
+    public boolean isStatusCompleted() {
         return status == Status.COMPLETED;
     }
 
-    public boolean isOverdue() {
+    public boolean isStatusOverdue() {
         return status == Status.OVERDUE;
     }
 
-    public boolean isInProgress() {
+    public boolean isStatusInProgress() {
         return status == Status.IN_PROGRESS;
     }
 

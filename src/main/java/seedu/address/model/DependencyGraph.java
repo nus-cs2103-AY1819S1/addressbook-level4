@@ -83,7 +83,7 @@ public class DependencyGraph {
      */
     public void pruneCompletedTasks() {
         for (Task task: this.taskList) {
-            if (task.isCompleted()) {
+            if (task.isStatusCompleted()) {
                 String hash = Integer.toString(task.hashCode());
                 //Prune away task dependencies of tasks where the dependee is completed
                 for (Set<String> set: adjacencyList.values()) {

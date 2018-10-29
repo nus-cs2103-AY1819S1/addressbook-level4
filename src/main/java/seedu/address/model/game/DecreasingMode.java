@@ -32,7 +32,7 @@ public class DecreasingMode extends GameMode {
         checkValidTasks(taskFrom, taskTo);
 
         // if a task is moving between inProgress to Overdue, award no XP
-        if (!taskFrom.isCompleted() && !taskTo.isCompleted()) {
+        if (!taskFrom.isStatusCompleted() && !taskTo.isStatusCompleted()) {
             return 0;
         }
 
@@ -41,7 +41,7 @@ public class DecreasingMode extends GameMode {
         // Get current time
         Date now = getCurrentDate();
 
-        if (taskFrom.isOverdue() && taskTo.isCompleted()) {
+        if (taskFrom.isStatusOverdue() && taskTo.isStatusCompleted()) {
             return overdueXp;
         }
 

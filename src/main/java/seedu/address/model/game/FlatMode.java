@@ -28,16 +28,16 @@ public class FlatMode extends GameMode {
         checkValidTasks(taskFrom, taskTo);
 
         // if a task is moving between inProgress to Overdue, award no XP
-        if (taskFrom.isInProgress() && taskTo.isOverdue()) {
+        if (taskFrom.isStatusInProgress() && taskTo.isStatusOverdue()) {
             return 0;
         }
 
         // Else award points
-        if (taskFrom.isInProgress() && taskTo.isCompleted()) {
+        if (taskFrom.isStatusInProgress() && taskTo.isStatusCompleted()) {
             return completedXp;
         }
 
-        // At this point, taskFrom.isOverdue() && taskTo.isCompleted()
+        // At this point, taskFrom.isStatusOverdue() && taskTo.isCompleted()
         return overdueXp;
 
     }
