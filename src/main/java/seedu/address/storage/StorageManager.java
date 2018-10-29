@@ -28,12 +28,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ExpensesStorage expensesStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TipsStorage tipsStorage;
 
 
-    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage, TipsStorage tipsStorage) {
         super();
         this.expensesStorage = expensesStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.tipsStorage = tipsStorage;
     }
 
     // ================ UserPrefs methods ==============================
