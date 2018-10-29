@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
+import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 import seedu.address.storage.portmanager.PortManager;
 
 /**
@@ -222,6 +224,28 @@ public class Anakin implements ReadOnlyAnakin {
         }
         cards.remove(key);
         updateDisplayedCards();
+    }
+
+    public void exportDeck(Deck deck){
+        try {
+            portManager.exportDeck(deck);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Attempts to import a deck at the specified file location.
+     * If there is an existing duplicate deck, throw DuplicateDeckException.
+     */
+
+    public Deck importDeck(Path filepath){
+        Deck targetDeck = portManager.importDeck(filepath);
+        if (decks.contains(targetDeck)){
+            throw new DuplicateDeckException();
+        }
+        return targetDeck;
     }
 
     //// util methods

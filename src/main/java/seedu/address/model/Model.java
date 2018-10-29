@@ -60,7 +60,7 @@ public interface Model {
 
     void exportDeck(Deck deck);
 
-    Deck importDeck (Path filepath) throws Exception;
+    Deck importDeck (Path filepath);
 
     boolean canUndoAnakin();
 

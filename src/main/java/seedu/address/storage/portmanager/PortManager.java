@@ -31,19 +31,19 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public void exportDeck(Deck deck) throws Exception{
+    public void exportDeck(Deck deck){
         Name deckName = deck.getName();
         Path filePath = makeFilePath(deckName);
 
         XmlExportableDeck adaptedDeck = new XmlExportableDeck(deck);
 
-        //If file doesn't exist, create it
-        FileUtil.createIfMissing(filePath);
-
-        //Write to file.
         try {
+            //If file doesn't exist, create it
+            FileUtil.createIfMissing(filePath);
+
+            //Write to file.
             XmlUtil.saveDataToFile(filePath, adaptedDeck);
-        } catch (JAXBException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

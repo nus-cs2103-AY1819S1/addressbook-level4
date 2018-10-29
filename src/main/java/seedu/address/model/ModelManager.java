@@ -154,17 +154,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void exportDeck(Deck deck) {
-        try {
-            portManager.exportDeck(deck);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        versionedAnakin.exportDeck(deck);
     }
 
     @Override
-    public Deck importDeck (Path filepath) throws DeckImportException {
-        return portManager.importDeck(filepath);
+    public Deck importDeck (Path filepath) {
+        return versionedAnakin.importDeck(filepath);
     }
     //=========== Filtered Deck List Accessors =============================================================
 
