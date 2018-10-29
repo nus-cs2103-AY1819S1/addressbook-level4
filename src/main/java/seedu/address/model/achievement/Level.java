@@ -1,5 +1,6 @@
 package seedu.address.model.achievement;
 
+
 /**
  * Enums are virtually singletons in Java applications, as such
  * should remain immutable (No mutable fields) to prevent
