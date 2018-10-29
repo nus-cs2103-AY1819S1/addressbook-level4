@@ -21,7 +21,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditDeckCommand.EditDeckDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -130,7 +129,8 @@ public class EditDeckCommandTest {
     @Test
     public void execute_invalidAnakinDeckIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDeckList().size() + 1);
-        EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN).build();
+        EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN)
+            .build();
         EditDeckCommand editCommand = new EditDeckCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -181,7 +181,8 @@ public class EditDeckCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDeckList().size() + 1);
-        EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN).build();
+        EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN)
+            .build();
         EditDeckCommand editCommand = new EditDeckCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
