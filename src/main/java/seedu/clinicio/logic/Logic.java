@@ -6,8 +6,8 @@ import seedu.clinicio.logic.commands.CommandResult;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * API of the Logic component

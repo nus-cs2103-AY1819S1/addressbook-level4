@@ -4,11 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
@@ -42,15 +41,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+    public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasStaff(null);
-    }
-
-    @Test
-    public void hasReceptionist_nullReceptionist_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasReceptionist(null);
     }
 
     //@@author gingivitiss
@@ -67,13 +60,8 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
+    public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasStaff(ADAM));
-    }
-
-    @Test
-    public void hasReceptionist_receptionistNotInClinicIo_returnsFalse() {
-        assertFalse(modelManager.hasReceptionist(ALAN));
     }
 
     //@@author gingivitiss
@@ -93,15 +81,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorInClinicIo_returnsTrue() {
-        modelManager.addDoctor(ADAM);
+    public void hasStaff_staffInClinicIo_returnsTrue() {
+        modelManager.addStaff(ADAM);
         assertTrue(modelManager.hasStaff(ADAM));
-    }
-
-    @Test
-    public void hasReceptionist_receptionistInAddressBook_returnsTrue() {
-        modelManager.addReceptionist(ALAN);
-        assertTrue(modelManager.hasReceptionist(ALAN));
     }
 
     //@@author gingivitiss
@@ -115,27 +97,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getDoctor_doctorInClinicIO_returnsDoctor() {
-        modelManager.addDoctor(ADAM);
-        assertEquals(ADAM, modelManager.getDoctor(ADAM));
+    public void getStaff_staffInClinicIO_returnsDoctor() {
+        modelManager.addStaff(ADAM);
+        assertEquals(ADAM, modelManager.getStaff(ADAM));
     }
 
     @Test
-    public void getDoctor_nullDoctor_throwsNullPointerException() {
+    public void getStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.getDoctor(null);
-    }
-
-    @Test
-    public void getReceptionist_receptionistInClinicIO_returnsReceptionist() {
-        modelManager.addReceptionist(ALAN);
-        assertEquals(ALAN, modelManager.getReceptionist(ALAN));
-    }
-
-    @Test
-    public void getReceptionist_nullReceptionist_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.getReceptionist(null);
+        modelManager.getStaff(null);
     }
 
     @Test
@@ -146,9 +116,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredDoctorList().remove(0);
+        modelManager.getFilteredStaffList().remove(0);
     }
 
     //@@author gingivitiss
@@ -190,7 +160,7 @@ public class ModelManagerTest {
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         //@@author jjlee050
-        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_STAFFS);
+        modelManager.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

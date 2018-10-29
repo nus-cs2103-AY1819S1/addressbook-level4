@@ -13,12 +13,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * Represents the in-memory model of the ClinicIO data.
@@ -205,7 +206,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public void updateDoctor(Staff target, Staff editedStaff) {
+    public void updateStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
         versionedClinicIo.updateStaff(target, editedStaff);
         indicateClinicIoChanged();

@@ -20,10 +20,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.commons.util.HashUtil;
-import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
 import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
+import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
 
-import seedu.clinicio.testutil.DoctorBuilder;
+import seedu.clinicio.testutil.StaffBuilder;
 
 //@@author jjlee050
 public class UniqueStaffListTest {
@@ -52,7 +52,7 @@ public class UniqueStaffListTest {
     @Test
     public void contains_doctorWithSameIdentityFieldsInList_returnsTrue() {
         uniqueStaffList.add(ADAM);
-        Staff editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM)
+        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM)
                 .build();
         assertTrue(uniqueStaffList.contains(editedAdam));
     }
@@ -100,7 +100,7 @@ public class UniqueStaffListTest {
     @Test
     public void setDoctor_editedDoctorHasSameIdentity_success() {
         uniqueStaffList.add(ADAM);
-        Staff editedAdam = new DoctorBuilder(ADAM).withPassword(HashUtil.hashToString(VALID_PASSWORD_ADAM), true)
+        Staff editedAdam = new StaffBuilder(ADAM).withPassword(HashUtil.hashToString(VALID_PASSWORD_ADAM), true)
                 .build();
         uniqueStaffList.setStaff(ADAM, editedAdam);
         UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();

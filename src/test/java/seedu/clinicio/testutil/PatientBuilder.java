@@ -3,9 +3,9 @@ package seedu.clinicio.testutil;
 import java.util.Optional;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A utility class to build {@link Patient} objects.

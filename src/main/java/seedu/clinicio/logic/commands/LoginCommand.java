@@ -11,9 +11,9 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
 
@@ -53,7 +53,7 @@ public class LoginCommand extends Command {
         requireNonNull(model);
 
         // TODO:Attempt to modularise method below
-        if (toAuthenticate instanceof Staff) { 
+        if (toAuthenticate instanceof Staff) {
             Staff authenticatedStaff = (Staff) toAuthenticate;
             if (!model.hasStaff(authenticatedStaff)) {
                 throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
@@ -68,7 +68,7 @@ public class LoginCommand extends Command {
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
-        } 
+        }
         return new CommandResult(MESSAGE_FAILURE);
     }
 

@@ -11,8 +11,8 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * An Immutable ClinicIo that is serializable to XML format

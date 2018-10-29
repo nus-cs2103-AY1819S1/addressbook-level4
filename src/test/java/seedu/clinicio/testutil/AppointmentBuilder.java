@@ -6,8 +6,8 @@ import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author gingivitiss
 /**

@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 
+import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
-import seedu.clinicio.model.person.Name;
 
 //@@author jjlee050
-
 /**
  * JAXB-friendly version of the Staff.
  */
@@ -62,16 +61,16 @@ public class XmlAdaptedStaff {
      * @throws IllegalValueException if there were any data constraints violated in the adapted staff
      */
     public Staff toModelType() throws IllegalValueException {
-        Role modelRole; 
+        Role modelRole;
         if (role == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
-        } else if (role.equals(DOCTOR)) {
+        } else if (role.equals(DOCTOR.name())) {
             modelRole = DOCTOR;
         } else {
             modelRole = RECEPTIONIST;
         }
-        
+
         if (name == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -18,13 +20,13 @@ import org.junit.rules.ExpectedException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 import seedu.clinicio.testutil.Assert;
 
@@ -56,7 +58,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
-    private static final String VALID_ROLE_DOCTOR = "staff";
+    private static final String VALID_ROLE_DOCTOR = "doctor";
     private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";
 
@@ -249,7 +251,7 @@ public class ParserUtilTest {
         ParserUtil.parseRole(VALID_ROLE_DOCTOR, new Name(VALID_NAME), null);
 
         // null name
-        ParserUtil.parseRole(VALID_ROLE_DOCTOR, null, new Password(VALID_PASSWORD, false));
+        ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST, null, new Password(VALID_PASSWORD, false));
     }
 
     @Test
@@ -283,7 +285,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseRole_validFieldsWithoutWhitespace_returnsPerson() throws Exception {
-        Person expectedDoctor = new Staff(new Name(VALID_NAME),
+        Person expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
         assertEquals(expectedDoctor,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR,
@@ -291,19 +293,30 @@ public class ParserUtilTest {
                         new Password(VALID_PASSWORD, false)));
 
         //TODO: Receptionist
+        Person expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
+                new Password(VALID_PASSWORD, false));
+        assertEquals(expectedReceptionist,
+                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST,
+                        new Name(VALID_NAME),
+                        new Password(VALID_PASSWORD, false)));
     }
 
     @Test
     public void parseRole_validFieldsWithWhitespace_returnsPerson() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Person expectedDoctor = new Staff(new Name(VALID_NAME),
+        Person expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
         assertEquals(expectedDoctor,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR,
                         ParserUtil.parseName(nameWithWhitespace),
                         new Password(VALID_PASSWORD, false)));
 
-        //TODO: Receptionist
+        Person expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
+                new Password(VALID_PASSWORD, false));
+        assertEquals(expectedReceptionist,
+                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST,
+                        ParserUtil.parseName(nameWithWhitespace),
+                        new Password(VALID_PASSWORD, false)));
     }
 
     @Test

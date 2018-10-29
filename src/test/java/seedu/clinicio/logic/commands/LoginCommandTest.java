@@ -9,6 +9,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.CAT;
@@ -25,8 +26,8 @@ import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
 import seedu.clinicio.model.UserPrefs;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
 public class LoginCommandTest {
@@ -42,7 +43,7 @@ public class LoginCommandTest {
     @Test
     public void execute_validCredentials_returnTrue() {
         LoginCommand command = new LoginCommand(
-                new Staff(ADAM.getName(), new Password("doctor1", false)));
+                new Staff(DOCTOR, ADAM.getName(), new Password("doctor1", false)));
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
@@ -56,12 +57,12 @@ public class LoginCommandTest {
 
         // different name
         LoginCommand command = new LoginCommand(
-                new Staff(BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
+                new Staff(DOCTOR, BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         // different password
         command = new LoginCommand(
-                new Staff(ADAM.getName(), new Password(VALID_PASSWORD_BEN, false)));
+                new Staff(DOCTOR, ADAM.getName(), new Password(VALID_PASSWORD_BEN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         // TODO: Receptionist
@@ -73,7 +74,7 @@ public class LoginCommandTest {
 
         // Staff not inside ClinicIO
         LoginCommand command = new LoginCommand(
-                new Staff(CAT.getName(), new Password(VALID_PASSWORD_CAT, false)));
+                new Staff(DOCTOR, CAT.getName(), new Password(VALID_PASSWORD_CAT, false)));
         assertCommandFailure(command, model, commandHistory, analytics, expectedMessage);
 
         // TODO: Receptionist
@@ -82,16 +83,16 @@ public class LoginCommandTest {
     @Test
     public void equals() {
         LoginCommand loginFirstCommand = new LoginCommand(
-                new Staff(ADAM.getName(), ADAM.getPassword()));
+                new Staff(DOCTOR, ADAM.getName(), ADAM.getPassword()));
         LoginCommand loginSecondCommand = new LoginCommand(
-                new Staff(BEN.getName(), BEN.getPassword()));
+                new Staff(DOCTOR, BEN.getName(), BEN.getPassword()));
 
         // same object -> returns true
         assertTrue(loginFirstCommand.equals(loginFirstCommand));
 
         // same values -> returns true
         LoginCommand loginFirstCommandCopy = new LoginCommand(
-                new Staff(ADAM.getName(), ADAM.getPassword()));
+                new Staff(DOCTOR, ADAM.getName(), ADAM.getPassword()));
         assertTrue(loginFirstCommand.equals(loginFirstCommandCopy));
 
         // different types -> returns false

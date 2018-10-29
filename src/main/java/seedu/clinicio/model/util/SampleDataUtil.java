@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 import seedu.clinicio.commons.util.HashUtil;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**

@@ -10,8 +10,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
 import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
+import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
 
 //@@author jjlee050
 /**

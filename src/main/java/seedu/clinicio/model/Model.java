@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * The API of the Model component.
@@ -18,7 +18,7 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
-    
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
@@ -77,7 +77,7 @@ public interface Model {
      * {@code target} must exist in the ClinicIO.
      * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
      */
-    void updateDoctor(Staff target, Staff editedStaff);
+    void updateStaff(Staff target, Staff editedStaff);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

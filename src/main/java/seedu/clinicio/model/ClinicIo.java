@@ -12,10 +12,10 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.consultation.UniqueConsultationList;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.UniqueStaffList;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.UniquePersonList;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.UniqueStaffList;
 
 /**
  * Wraps all data at the ClinicIO level
@@ -78,7 +78,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public void setStaffs(List<Staff> staff) {
         this.staffs.setStaffs(staff);
     }
-    
+
     /**
      * Resets the existing data of this {@code ClinicIo} with {@code newData}.
      */

@@ -5,8 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +35,10 @@ import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.PersonUtil;
@@ -118,11 +122,19 @@ public class ClinicIoParserTest {
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
-                LoginCommand.COMMAND_WORD + " r/staff n/" + ADAM.getName().fullName + " pass/doctor1");
-        assertEquals(new LoginCommand(new Staff(ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false))),
+                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
+        assertEquals(new LoginCommand(new Staff(DOCTOR,
+                        ADAM.getName(),
+                        new Password(VALID_PASSWORD_ADAM, false))),
                 command);
 
-        // TODO: Add receptionist
+        command = (LoginCommand) parser.parseCommand(
+                LoginCommand.COMMAND_WORD + " r/receptionist n/" + ALAN.getName().fullName + " pass/reception1");
+        assertEquals(new LoginCommand(new Staff(RECEPTIONIST,
+                        ALAN.getName(),
+                        new Password(VALID_PASSWORD_ALAN, false))),
+                command);
+
     }
 
     @Test

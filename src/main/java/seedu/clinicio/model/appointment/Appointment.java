@@ -4,8 +4,8 @@ import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * Contains details regarding appointment.

@@ -7,10 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
@@ -30,17 +28,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
-import seedu.clinicio.model.receptionist.Receptionist;
-import seedu.clinicio.model.receptionist.exceptions.DuplicateReceptionistException;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
 
 import seedu.clinicio.testutil.AppointmentBuilder;
-import seedu.clinicio.testutil.DoctorBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
-import seedu.clinicio.testutil.ReceptionistBuilder;
+import seedu.clinicio.testutil.StaffBuilder;
 
 public class ClinicIoTest {
 
@@ -54,8 +49,6 @@ public class ClinicIoTest {
         assertEquals(Collections.emptyList(), clinicIo.getPersonList());
         //@@author jjlee050
         assertEquals(Collections.emptyList(), clinicIo.getStaffList());
-        assertEquals(Collections.emptyList(), clinicIo.getReceptionistList());
-
     }
 
     @Test
@@ -78,9 +71,8 @@ public class ClinicIoTest {
                 .build();
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        //@@author jjlee050
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
-                new ArrayList<>(), new ArrayList<>());
+                new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         clinicIo.resetData(newData);
@@ -88,28 +80,15 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
+    public void resetData_withDuplicateStaffs_throwsDuplicateDoctorException() {
         // Two staff with the same identity fields
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
-        Staff editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
-                newStaffs, new ArrayList<>());
+                newStaffs);
 
         thrown.expect(DuplicateStaffException.class);
-        clinicIo.resetData(newData);
-    }
-
-    @Test
-    public void resetData_withDuplicateReceptionists_throwsDuplicateReceptionistException() {
-        // Two receptionists with the same identity fields
-        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
-        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
-        List<Receptionist> newReceptionists = Arrays.asList(ALAN, editedAlan);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
-                new ArrayList<>(), newReceptionists);
-
-        thrown.expect(DuplicateReceptionistException.class);
         clinicIo.resetData(newData);
     }
 
@@ -121,15 +100,9 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+    public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         clinicIo.hasStaff(null);
-    }
-
-    @Test
-    public void hasReceptionist_nullReceptionist_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        clinicIo.hasReceptionist(null);
     }
 
     //@@author gingivitiss
@@ -146,13 +119,8 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
+    public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasStaff(ADAM));
-    }
-
-    @Test
-    public void hasReceptionist_receptionistNotInClinicIo_returnsFalse() {
-        assertFalse(clinicIo.hasReceptionist(ALAN));
     }
 
     @Test
@@ -168,15 +136,9 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorInClinicIo_returnsTrue() {
+    public void hasStaff_staffInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
         assertTrue(clinicIo.hasStaff(ADAM));
-    }
-
-    @Test
-    public void hasReceptionist_receptionistInClinicIo_returnsTrue() {
-        clinicIo.addReceptionist(ALAN);
-        assertTrue(clinicIo.hasReceptionist(ALAN));
     }
 
     @Test
@@ -195,17 +157,10 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorWithSameIdentityFieldsInClinicIo_returnsTrue() {
+    public void hasStaff_staffWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
-        Staff editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         assertTrue(clinicIo.hasStaff(editedAdam));
-    }
-
-    @Test
-    public void hasReceptionist_receptionistWithSameIdentityFieldsInClinicIo_returnsTrue() {
-        clinicIo.addReceptionist(ALAN);
-        Receptionist editedAlan = new ReceptionistBuilder(ALAN).withName(VALID_NAME_ALAN).build();
-        assertTrue(clinicIo.hasReceptionist(editedAlan));
     }
 
     @Test
@@ -237,21 +192,9 @@ public class ClinicIoTest {
     }
 
     @Test
-    public void getDoctor_validDoctor_returnDoctor() {
+    public void getStaff_validStaff_returnDoctor() {
         clinicIo.addStaff(ADAM);
         assertNotNull(clinicIo.getStaff(ADAM));
-    }
-
-    @Test
-    public void getReceptionist_nullReceptionist_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        clinicIo.getReceptionist(null);
-    }
-
-    @Test
-    public void getReceptionist_validReceptionist_returnReceptionist() {
-        clinicIo.addReceptionist(ALAN);
-        assertNotNull(clinicIo.getReceptionist(ALAN));
     }
 
     @Test
@@ -262,15 +205,9 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
+    public void getStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         clinicIo.getStaffList().remove(0);
-    }
-
-    @Test
-    public void getReceptionistList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        clinicIo.getReceptionistList().remove(0);
     }
 
     //@@author gingivitiss
@@ -286,16 +223,14 @@ public class ClinicIoTest {
     private static class ClinicIoStub implements ReadOnlyClinicIo {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Staff> staff = FXCollections.observableArrayList();
-        private final ObservableList<Receptionist> receptionists = FXCollections.observableArrayList();
+        private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
-                Collection<Staff> staff, Collection<Receptionist> receptionists) {
+                Collection<Staff> staffs) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             //@@author jjlee050
-            this.staff.setAll(staff);
-            this.receptionists.setAll(receptionists);
+            this.staffs.setAll(staffs);
         }
 
         @Override
@@ -306,7 +241,7 @@ public class ClinicIoTest {
         //@@author jjlee050
         @Override
         public ObservableList<Staff> getStaffList() {
-            return staff;
+            return staffs;
         }
 
         @Override
@@ -314,10 +249,6 @@ public class ClinicIoTest {
             return appointments;
         }
 
-        @Override
-        public ObservableList<Receptionist> getReceptionistList() {
-            return receptionists;
-        }
     }
 
 }

@@ -69,6 +69,12 @@ public class PasswordPrefixFormatter {
         return commandText;
     }
 
+    /**
+     * Append password to masked password string.
+     * @param isHistory Whether command text is from previous/next commands
+     * @param password The valid password
+     * @return A masked password string
+     */
     public StringBuilder appendMaskedPassword(boolean isHistory, String password) {
         StringBuilder maskedPassword;
         if (isHistory) {
@@ -81,6 +87,13 @@ public class PasswordPrefixFormatter {
         return maskedPassword;
     }
 
+    /**
+     * Compare password with temp password to detect for
+     * the difference in the password.
+     * @param password The valid password
+     * @param commandText Valid command text to display
+     * @return A updated command text with the stored temp password
+     */
     public String comparePasswordWithTempPassword(String password, String commandText) {
         if (tempPassword.length() == password.length()) {
             commandText += tempPassword.toString();
@@ -92,6 +105,13 @@ public class PasswordPrefixFormatter {
         return commandText;
     }
 
+    /**
+     * Find password from the command text field
+     * as password can be entered in any order.
+     * @param passwordPrefixIndex The index of the pass/ prefix
+     * @param spaceAfterPasswordIndex The index after password is entered.
+     * @return The password entered by user.
+     */
     public String findPassword(int passwordPrefixIndex, int spaceAfterPasswordIndex) {
         if (spaceAfterPasswordIndex > 0) {
             return commandTextField.getText()
@@ -100,6 +120,12 @@ public class PasswordPrefixFormatter {
         return commandTextField.getText().substring(passwordPrefixIndex + 5);
     }
 
+    /**
+     * Store each password character to a temporary password.
+     * @param password Valid password
+     * @param passwordLength The length of password to mask
+     * @return Masked password string
+     */
     public StringBuilder storePasswordCharacters(String password, int passwordLength) {
         StringBuilder maskedPassword = new StringBuilder();
 
@@ -112,6 +138,12 @@ public class PasswordPrefixFormatter {
         return maskedPassword;
     }
 
+    /**
+     * Unmask the last character of the masked password
+     * @param maskedPassword The masked password string.
+     * @return A updated masked password string with
+     * the last character unmask
+     */
     public StringBuilder unmaskLastCharacter(StringBuilder maskedPassword) {
         if (tempPassword.length() <= 0) {
             return maskedPassword;
@@ -123,6 +155,11 @@ public class PasswordPrefixFormatter {
         return maskedPassword;
     }
 
+    /**
+     * Find any prefixes after password prefix (pass/)
+     * @param spaceAfterPasswordIndex The index after password is entered.
+     * @return Any text entered after password prefix
+     */
     public String getPrefixesAfterPasswordPrefix(int spaceAfterPasswordIndex) {
         if (spaceAfterPasswordIndex <= 0) {
             return "";

@@ -35,11 +35,10 @@ public class Staff extends Person {
     public Role getRole() {
         return role;
     }
-    
+
     public Password getPassword() {
         return password;
     }
-
 
     /**
      * Returns true if both staffs of the same name have at least one other identity field that is the same.

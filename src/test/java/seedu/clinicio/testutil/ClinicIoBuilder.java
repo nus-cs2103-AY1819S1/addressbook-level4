@@ -1,8 +1,8 @@
 package seedu.clinicio.testutil;
 
 import seedu.clinicio.model.ClinicIo;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A utility class to help with building ClinicIO objects.

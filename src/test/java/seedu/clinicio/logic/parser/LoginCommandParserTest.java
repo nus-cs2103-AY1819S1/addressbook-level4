@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.testutil.DoctorBuilder;
+import seedu.clinicio.testutil.StaffBuilder;
 
 //@@author jjlee050
 public class LoginCommandParserTest {
@@ -29,12 +29,12 @@ public class LoginCommandParserTest {
     @Test
     public void parse_validArgs_returnsLoginCommand() {
         // no leading and trailing whitespaces
-        Person expectedDoctor = new DoctorBuilder(ADAM).withPassword("doctor1", false).build();
+        Person expectedDoctor = new StaffBuilder(ADAM).withPassword("doctor1", false).build();
         LoginCommand expectedLoginCommand = new LoginCommand(expectedDoctor);
-        assertParseSuccess(parser, " r/staff n/" + ADAM.getName() + " pass/doctor1", expectedLoginCommand);
+        assertParseSuccess(parser, " r/doctor n/" + ADAM.getName() + " pass/doctor1", expectedLoginCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n r/staff \n \t n/" + ADAM.getName() + " \t pass/doctor1", expectedLoginCommand);
+        assertParseSuccess(parser, " \n r/doctor \n \t n/" + ADAM.getName() + " \t pass/doctor1", expectedLoginCommand);
 
         // TODO: Add receptionist
     }

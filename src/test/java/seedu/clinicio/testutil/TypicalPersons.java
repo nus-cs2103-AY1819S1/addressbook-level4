@@ -22,6 +22,8 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +31,9 @@ import java.util.List;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.receptionist.Receptionist;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -91,20 +92,22 @@ public class TypicalPersons {
             .build();
 
     // Manually added (Staff)
-    public static final Staff ADAM = new DoctorBuilder().withName(VALID_NAME_ADAM)
+    public static final Staff ADAM = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
-    public static final Staff BEN = new DoctorBuilder().withName(VALID_NAME_BEN)
+    public static final Staff BEN = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
     //Not inside ClinicIO
-    public static final Staff CAT = new DoctorBuilder().withName(VALID_NAME_CAT)
+    public static final Staff CAT = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_CAT)
             .withPassword(VALID_HASH_PASSWORD_CAT, true).build();
 
-    public static final Receptionist ALAN = new ReceptionistBuilder().withName(VALID_NAME_ALAN)
+    public static final Staff ALAN = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_ALAN)
             .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
-    public static final Receptionist FRANK = new ReceptionistBuilder().withName(VALID_NAME_FRANK)
+    public static final Staff FRANK = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_FRANK)
             .withPassword(VALID_HASH_PASSWORD_FRANK, true).build();
-    public static final Receptionist DAISY = new ReceptionistBuilder().withName(VALID_NAME_DAISY)
+
+    //Not inside ClinicIO
+    public static final Staff DAISY = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_DAISY)
             .withPassword(VALID_HASH_PASSWORD_DAISY, true).build();
 
 
@@ -129,11 +132,8 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        for (Staff staff : getTypicalDoctors()) {
+        for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
-        }
-        for (Receptionist receptionist : getTypicalReceptionists()) {
-            clinicIo.addReceptionist(receptionist);
         }
         /*
         for (Appointment appointment : getTypicalAppointments()) {
@@ -147,13 +147,10 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static List<Staff> getTypicalDoctors() {
-        return new ArrayList<>(Arrays.asList(ADAM, BEN));
+    public static List<Staff> getTypicalStaffs() {
+        return new ArrayList<>(Arrays.asList(ADAM, BEN, ALAN, FRANK));
     }
 
-    public static List<Receptionist> getTypicalReceptionists() {
-        return new ArrayList<>(Arrays.asList(ALAN, FRANK));
-    }
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));

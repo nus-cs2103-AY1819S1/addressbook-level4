@@ -7,8 +7,8 @@ import java.util.Optional;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
 

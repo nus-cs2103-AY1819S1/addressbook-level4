@@ -13,16 +13,16 @@ import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.commons.util.StringUtil;
 
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.staff.Role;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**
