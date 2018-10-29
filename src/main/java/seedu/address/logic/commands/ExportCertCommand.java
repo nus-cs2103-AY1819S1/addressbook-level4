@@ -14,6 +14,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Date;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventId;
+import seedu.address.model.record.Hour;
+import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
@@ -60,7 +65,7 @@ public class ExportCertCommand extends Command {
 
         // Try creating and exporting the PDF for the selected volunteer
         try {
-            createPDF(selectedVolunteer);
+            createPDF(model, selectedVolunteer);
         } catch (IOException ioe) {
             throw new CommandException(MESSAGE_EXPORT_FAILED);
         }
@@ -72,11 +77,15 @@ public class ExportCertCommand extends Command {
     /**
      * Creates and exports a PDF document containing a Volunteer's data
      * @param volunteer who's data is to be input into the PDF document
+     * @param model from which the volunteer's event records will be accessed
      */
-    private void createPDF(Volunteer volunteer) throws IOException {
+    private void createPDF(Model model, Volunteer volunteer) throws IOException {
         // Retrieve the selected volunteer's attributes
         VolunteerId volunteerId = volunteer.getVolunteerId();
         Name volunteerName = volunteer.getName();
+
+        // Retrieve the volunteer's events
+        List<Record> eventRecords = model.getFilteredRecordList().filtered((x) -> x.getVolunteerId().equals(volunteerId));
 
         // Create the new document
         PDDocument doc = new PDDocument();
@@ -94,19 +103,51 @@ public class ExportCertCommand extends Command {
         contStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 12);
         contStream.setLeading(14.5f);
 
-        contStream.newLineAtOffset(250, 700);
+        // Title
+        contStream.newLineAtOffset(10, 770);
         String line1 = "Certificate of Recognition";
         contStream.showText(line1);
-
         contStream.newLine();
 
+        // Date of export
+        contStream.showText(String.valueOf(java.time.LocalDate.now()));
+        contStream.newLine();
+
+        // Name
         String line2 = "Name: " + volunteerName;
         contStream.showText(line2);
-
         contStream.newLine();
 
+        // ID
         String line3 = "Volunteer ID: " + volunteerId;
         contStream.showText(line3);
+        contStream.newLine();
+
+        // Events
+        if (eventRecords.isEmpty()) {
+            String noEventsLine = volunteerName + " has not participated in any events thus far.";
+            contStream.showText(noEventsLine);
+            contStream.newLine();
+        } else {
+            contStream.showText("Events:");
+            contStream.newLine();
+            for (Record r: eventRecords) {
+                // Information from event record
+                Hour eventHours = r.getHour();
+                EventId eventId = r.getEventId();
+
+                // Get the exact corresponding event object and extract information from it
+                Event event = model.getFilteredEventList().filtered((x) -> x.getEventId().equals(eventId)).get(0); // Assuming there are no duplicate events
+                seedu.address.model.event.Name eventName = event.getName();
+                Date startDate = event.getStartDate();
+                Date endDate = event.getEndDate();
+
+                String eventEntryLine = eventName + " - " + eventHours + " hours from " + startDate + " to " + endDate;
+
+                contStream.showText(eventEntryLine);
+                contStream.newLine();
+            }
+        }
 
         // Close the content stream
         contStream.endText();
