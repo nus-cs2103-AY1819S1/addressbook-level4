@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -18,7 +19,7 @@ public class CrossFilterPredicate implements Predicate<Recipe> {
 
     @Override
     public boolean test(Recipe recipe) {
-        Map<IngredientDefinition, Double> ingredients = recipe.getIngredients();
+        Map<IngredientDefinition, IngredientPortion> ingredients = recipe.getIngredients();
 
         for (IngredientDefinition key : include.keySet()) {
             if (!ingredients.keySet().contains(key)) {

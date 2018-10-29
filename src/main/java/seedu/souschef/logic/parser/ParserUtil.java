@@ -143,7 +143,7 @@ public class ParserUtil {
         trimmedInstruction = trimmedInstruction.replaceAll(PREFIX_INGREDIENT.getPrefix(), "");
 
         if (!Instruction.isValidInstruction(trimmedInstruction)) {
-            throw new ParseException(CookTime.MESSAGE_COOKTIME_CONSTRAINTS);
+            throw new ParseException(Instruction.MESSAGE_INSTRUCTION_CONSTRAINTS);
         }
         return trimmedInstruction;
     }
