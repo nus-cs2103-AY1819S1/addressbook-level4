@@ -5,14 +5,17 @@ import static seedu.address.testutil.TypicalDecks.DECK_WITH_CARDS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.storage.portmanager.PortManager;
+import seedu.address.testutil.DeckBuilder;
 
 public class PortManagerTest {
     @Rule
@@ -25,20 +28,20 @@ public class PortManagerTest {
 
     public static final PortManager portManager = new PortManager(TEST_DATA_FOLDER);
 
-
-    private Deck testDeck = DECK_WITH_CARDS;
+    private List<Card> cardList = DECK_WITH_CARDS.getCards().asUnmodifiableObservableList();
+    private Deck testDeck = new DeckBuilder().withName("Valid Exported Deck").withCards(cardList).build();
 
     @Test
     public void exportDeck_success() throws Exception {
         portManager.exportDeck(testDeck);
     }
 
-        @Test
-    public void exportImportDeck_success() throws Exception{
+    @Test
+    public void exportImportDeck_success() throws Exception {
         String deckName = testDeck.getName().toString();
         portManager.exportDeck(testDeck);
         Path testFilePath = TEST_DATA_FOLDER.resolve(deckName + ".xml");
         Deck importedDeck = portManager.importDeck(testFilePath);
-        assertEquals(importedDeck,testDeck);
+        assertEquals(testDeck,importedDeck);
     }
 }

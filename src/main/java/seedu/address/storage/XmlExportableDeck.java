@@ -18,7 +18,7 @@ import seedu.address.model.deck.Name;
  */
 
 @XmlRootElement(name = "deck")
-public class XmlExportableDeck extends XmlAdaptedDeck{
+public class XmlExportableDeck{
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deck's %s field is missing!";
 
@@ -59,6 +59,12 @@ public class XmlExportableDeck extends XmlAdaptedDeck{
             .map(XmlAdaptedCard::new)
             .collect(Collectors.toList());
     }
+
+    /**
+     * Converts this XmlExportableDeck into the model's {@code Deck} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated or missing values.
+     */
 
     public Deck toModelType() throws IllegalValueException {
         final List<Card> deckCards = new ArrayList<>();

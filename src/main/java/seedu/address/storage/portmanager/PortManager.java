@@ -33,8 +33,7 @@ public class PortManager implements Porter {
     public void exportDeck(Deck deck) throws Exception{
         Name deckName = deck.getName();
         Path filePath = makeFilePath(deckName);
-        System.out.println("DEBUG filepath " + filePath.toAbsolutePath().toString());
-
+        
         XmlExportableDeck adaptedDeck = new XmlExportableDeck(deck);
 
         //If file doesn't exist, create it
@@ -52,15 +51,20 @@ public class PortManager implements Porter {
 
     @Override
     public Deck importDeck(Path filepath) throws FileNotFoundException, DataConversionException{
+        XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
+        return getImportedDeck(xmlDeck);
+    }
+
+    private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException{
         XmlExportableDeck xmlDeck;
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
-            System.out.println("Converted. Deckname: " + xmlDeck.getName());
-            return getImportedDeck(xmlDeck);
+            return xmlDeck;
         } catch (Exception e){
             e.printStackTrace();
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
+
     }
 
     private Deck getImportedDeck(XmlExportableDeck targetDeck) throws DataConversionException{
