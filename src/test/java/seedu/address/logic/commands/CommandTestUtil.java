@@ -191,7 +191,8 @@ public class CommandTestUtil {
 
         Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
         final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(splitName[0]), Collections.emptyList()));
 
         /**
          * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
