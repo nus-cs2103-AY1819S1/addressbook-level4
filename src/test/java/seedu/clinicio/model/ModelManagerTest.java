@@ -97,7 +97,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getStaff_staffInClinicIO_returnsDoctor() {
+    public void getStaff_staffInClinicIO_returnsStaff() {
         modelManager.addStaff(ADAM);
         assertEquals(ADAM, modelManager.getStaff(ADAM));
     }
@@ -131,7 +131,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)
-                .withDoctor(ADAM).withDoctor(BEN).build();
+                .withStaff(ADAM).withStaff(BEN).build();
         ClinicIo differentClinicIo = new ClinicIo();
         UserPrefs userPrefs = new UserPrefs();
 

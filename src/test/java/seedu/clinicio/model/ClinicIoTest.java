@@ -80,7 +80,7 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void resetData_withDuplicateStaffs_throwsDuplicateDoctorException() {
+    public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
@@ -186,7 +186,7 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void getDoctor_nullDoctor_throwsNullPointerException() {
+    public void getStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         clinicIo.getStaff(null);
     }

@@ -69,8 +69,8 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void execute_doctorNotInClinicIO_throwsCommandException() {
-        String expectedMessage = LoginCommand.MESSAGE_NO_DOCTOR_FOUND;
+    public void execute_staffNotInClinicIO_throwsCommandException() {
+        String expectedMessage = LoginCommand.MESSAGE_NO_RECORD_FOUND;
 
         // Staff not inside ClinicIO
         LoginCommand command = new LoginCommand(

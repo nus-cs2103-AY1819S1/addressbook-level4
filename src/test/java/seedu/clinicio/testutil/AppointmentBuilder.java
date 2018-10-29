@@ -75,9 +75,9 @@ public class AppointmentBuilder {
     }
 
     /**
-     * Sets the {@code Staff} of the {@code Appointment} that we are building.
+     * Sets the {@code Doctor} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withDoctor(Staff staff) {
+    public AppointmentBuilder withStaff(Staff staff) {
         this.staff = staff;
         return this;
     }

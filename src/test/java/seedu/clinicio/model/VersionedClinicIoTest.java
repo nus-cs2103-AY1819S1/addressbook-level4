@@ -21,9 +21,9 @@ import seedu.clinicio.testutil.ClinicIoBuilder;
 public class VersionedClinicIoTest {
 
     private final ReadOnlyClinicIo clinicIoWithAmy = new ClinicIoBuilder().withPerson(AMY)
-            .withDoctor(ADAM).build();
+            .withStaff(ADAM).build();
     private final ReadOnlyClinicIo clinicIoWithBob = new ClinicIoBuilder().withPerson(BOB)
-            .withDoctor(BEN).build();
+            .withStaff(BEN).build();
     private final ReadOnlyClinicIo clinicIoWithCarl = new ClinicIoBuilder().withPerson(CARL).build();
     private final ReadOnlyClinicIo emptyClinicIo = new ClinicIoBuilder().build();
 

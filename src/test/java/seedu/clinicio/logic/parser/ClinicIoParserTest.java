@@ -122,14 +122,14 @@ public class ClinicIoParserTest {
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
-                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
+                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/" + ADAM.getPassword().password);
         assertEquals(new LoginCommand(new Staff(DOCTOR,
                         ADAM.getName(),
                         new Password(VALID_PASSWORD_ADAM, false))),
                 command);
 
         command = (LoginCommand) parser.parseCommand(
-                LoginCommand.COMMAND_WORD + " r/receptionist n/" + ALAN.getName().fullName + " pass/reception1");
+                LoginCommand.COMMAND_WORD + " r/receptionist n/" + ALAN.getName().fullName + " pass/" + ALAN.getPassword().password);
         assertEquals(new LoginCommand(new Staff(RECEPTIONIST,
                         ALAN.getName(),
                         new Password(VALID_PASSWORD_ALAN, false))),

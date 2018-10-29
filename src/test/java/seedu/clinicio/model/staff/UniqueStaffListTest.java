@@ -109,7 +109,7 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void setDoctor_editedDoctorHasDifferentIdentity_success() {
+    public void setStaff_editedStaffHasDifferentIdentity_success() {
         uniqueStaffList.add(ADAM);
         uniqueStaffList.setStaff(ADAM, BEN);
         UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();
@@ -118,7 +118,7 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void setDoctor_editedDoctorHasNonUniqueIdentity_throwsDuplicateDoctorException() {
+    public void setStaff_editedStaffHasNonUniqueIdentity_throwsDuplicateDoctorException() {
         uniqueStaffList.add(ADAM);
         uniqueStaffList.add(BEN);
         thrown.expect(DuplicateStaffException.class);
@@ -126,19 +126,19 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void remove_nullDoctor_throwsNullPointerException() {
+    public void remove_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueStaffList.remove(null);
     }
 
     @Test
-    public void remove_doctorDoesNotExist_throwsDoctorNotFoundException() {
+    public void remove_staffDoesNotExist_throwsDoctorNotFoundException() {
         thrown.expect(StaffNotFoundException.class);
         uniqueStaffList.remove(ADAM);
     }
 
     @Test
-    public void remove_existingDoctor_removesDoctor() {
+    public void remove_existingStaff_removesStaff() {
         uniqueStaffList.add(ADAM);
         uniqueStaffList.remove(ADAM);
         UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();
@@ -146,13 +146,13 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void setDoctors_nullUniqueDoctorList_throwsNullPointerException() {
+    public void setStaffs_nullUniqueStaffList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueStaffList.setStaffs((UniqueStaffList) null);
     }
 
     @Test
-    public void setDoctors_uniqueDictorList_replacesOwnListWithProvidedUniqueDoctorList() {
+    public void setStaffs_uniqueStaffList_replacesOwnListWithProvidedUniqueDoctorList() {
         uniqueStaffList.add(ADAM);
         UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();
         expectedUniqueStaffList.add(BEN);
@@ -161,13 +161,13 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void setDoctors_nullList_throwsNullPointerException() {
+    public void setStaffs_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueStaffList.setStaffs((List<Staff>) null);
     }
 
     @Test
-    public void setDoctors_list_replacesOwnListWithProvidedList() {
+    public void setStaffs_list_replacesOwnListWithProvidedList() {
         uniqueStaffList.add(ADAM);
         List<Staff> staffList = Collections.singletonList(BEN);
         uniqueStaffList.setStaffs(staffList);
@@ -177,26 +177,26 @@ public class UniqueStaffListTest {
     }
 
     @Test
-    public void setDoctors_listWithDuplicateDoctors_throwsDuplicateDoctorException() {
+    public void setStaffs_listWithDuplicateStaffs_throwsDuplicateDoctorException() {
         List<Staff> listWithDuplicateStaffs = Arrays.asList(ADAM, ADAM);
         thrown.expect(DuplicateStaffException.class);
         uniqueStaffList.setStaffs(listWithDuplicateStaffs);
     }
 
     @Test
-    public void getDoctor_nullDoctor_throwsNullPointerException() {
+    public void getStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueStaffList.getStaff(null);
     }
 
     @Test
-    public void getDoctor_cannotFindDoctor_throwsDoctorNotFoundException() {
+    public void getStaff_cannotFindStaff_throwsStaffNotFoundException() {
         thrown.expect(StaffNotFoundException.class);
         uniqueStaffList.getStaff(CAT);
     }
 
     @Test
-    public void getDoctor_validDoctor_returnDoctor() {
+    public void getStaff_validStaff_returnStaff() {
         uniqueStaffList.add(BEN);
         assertNotNull(uniqueStaffList.getStaff(BEN));
     }

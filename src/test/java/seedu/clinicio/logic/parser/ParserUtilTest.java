@@ -237,88 +237,28 @@ public class ParserUtilTest {
     @Test
     public void parseRole_allNullFields_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseRole(null, null, null);
+        ParserUtil.parseRole(null);
     }
 
     @Test
-    public void parseRole_someNullFields_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-
-        // null role
-        ParserUtil.parseRole(null, new Name(VALID_NAME), new Password(VALID_PASSWORD, false));
-
-        // null password
-        ParserUtil.parseRole(VALID_ROLE_DOCTOR, new Name(VALID_NAME), null);
-
-        // null name
-        ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST, null, new Password(VALID_PASSWORD, false));
+    public void parseRole_invalidRole_throwsParseException() {
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                ParserUtil.parseRole(INVALID_ROLE));
     }
-
+    
     @Test
-    public void parseRole_allInvalidFields_throwsParseException() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(INVALID_ROLE,
-                        new Name(INVALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-    }
-
-    @Test
-    public void parseRole_someInvalidFields_throwsParseException() {
-        // Invalid password
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(VALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-
-        // Invalid role
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(INVALID_ROLE,
-                        new Name(INVALID_NAME),
-                        new Password(INVALID_PASSWORD, false)));
-
-        // Invalid name
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(INVALID_NAME),
-                        new Password(VALID_PASSWORD, false)));
-    }
-
-    @Test
-    public void parseRole_validFieldsWithoutWhitespace_returnsPerson() throws Exception {
-        Person expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
+    public void parseRole_validRole_returnsPerson() throws Exception {
+        Staff expectedStaff = new Staff(DOCTOR, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
-        assertEquals(expectedDoctor,
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        new Name(VALID_NAME),
-                        new Password(VALID_PASSWORD, false)));
+        assertEquals(expectedStaff,
+                ParserUtil.parseRole(VALID_ROLE_DOCTOR));
 
-        //TODO: Receptionist
-        Person expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
+        Staff expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
                 new Password(VALID_PASSWORD, false));
         assertEquals(expectedReceptionist,
-                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST,
-                        new Name(VALID_NAME),
-                        new Password(VALID_PASSWORD, false)));
+                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST));
     }
-
-    @Test
-    public void parseRole_validFieldsWithWhitespace_returnsPerson() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Person expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
-                new Password(VALID_PASSWORD, false));
-        assertEquals(expectedDoctor,
-                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
-                        ParserUtil.parseName(nameWithWhitespace),
-                        new Password(VALID_PASSWORD, false)));
-
-        Person expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
-                new Password(VALID_PASSWORD, false));
-        assertEquals(expectedReceptionist,
-                ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST,
-                        ParserUtil.parseName(nameWithWhitespace),
-                        new Password(VALID_PASSWORD, false)));
-    }
-
+    
     @Test
     public void parsePassword_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);

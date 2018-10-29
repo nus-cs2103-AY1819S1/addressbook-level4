@@ -32,7 +32,7 @@ public class ClinicIoBuilder {
     /**
      * Adds a new {@code Staff} to the {@code ClinicIo} that we are building.
      */
-    public ClinicIoBuilder withDoctor(Staff staff) {
+    public ClinicIoBuilder withStaff(Staff staff) {
         clinicIo.addStaff(staff);
         return this;
     }
