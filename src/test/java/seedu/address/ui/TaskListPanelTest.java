@@ -95,8 +95,16 @@ public class TaskListPanelTest extends GuiUnitTest {
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<taskmanager>\n");
         builder.append("<achievements>\n");
+        builder.append("<displayOption>1</displayOption>\n");
         builder.append("<xp>0</xp>\n");
         builder.append("<level>lvl.1</level>\n");
+        builder.append("<numTaskCompleted>0</numTaskCompleted>\n");
+        builder.append("<nextDayBreakPoint>13-10-19 0000</nextDayBreakPoint>\n");
+        builder.append("<xpValueByDay>0</xpValueByDay>\n");
+        builder.append("<numTaskCompletedByDay>0</numTaskCompletedByDay>\n");
+        builder.append("<nextWeekBreakPoint>19-10-19 0000</nextWeekBreakPoint>\n");
+        builder.append("<xpValueByWeek>0</xpValueByWeek>\n");
+        builder.append("<numTaskCompletedByWeek>0</numTaskCompletedByWeek>\n");
         builder.append("</achievements>\n");
         for (int i = 0; i < taskCount; i++) {
             builder.append("<tasks>\n");

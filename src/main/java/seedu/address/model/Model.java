@@ -62,11 +62,19 @@ public interface Model {
 
     /**
      * Replaces the given task {@code target} with {@code updatedTask}.
-     * Update the xp field in achievement record of the task manager according to task status change.
+     * Update the achievement record of the task manager according to task status change.
      * {@code target} must exist in the task manager.
      * {@code target} and {@code updatedTask} have the same identity but different status.
      */
     void updateTaskStatus(Task target, Task updatedTask);
+
+    /**
+     * Updates the displayOption of the achievement record of the task manager.
+     *
+     * @param displayOption may take the value of 1, 2 or 3,
+     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     */
+    void updateAchievementDisplayOption(int displayOption);
 
     /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.

@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.TaskManager;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -25,6 +26,8 @@ import seedu.address.model.task.Task;
  */
 public class TypicalTasks {
 
+    public static final AchievementRecord ACHIEVEMENT = new AchievementRecordBuilder()
+            .withNextDayBreakPoint("13-10-19").withNextWeekBreakPoint("19-10-19").build();
     public static final Task A_TASK = new TaskBuilder().withName("Address CS2103 email")
             .withDescription("Reply to Damith").withPriorityValue("1")
             .withDueDate("01-12-18")
@@ -80,6 +83,7 @@ public class TypicalTasks {
      */
     public static TaskManager getTypicalTaskManager() {
         TaskManager tm = new TaskManager();
+        tm.setAchievements(ACHIEVEMENT);
         for (Task task : getTypicalTasks()) {
             tm.addTask(task);
         }

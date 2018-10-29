@@ -46,7 +46,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(toBeCopied);
     }
 
-    //// list and achievement overwrite operations
+    //// task list and achievement overwrite operations
 
     /**
      * Replaces the contents of the task list with {@code tasks}.
@@ -130,6 +130,18 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
+     * Updates the displayOption of the achievement record of the task manager.
+     *
+     * @param displayOption may take the value of 1, 2 or 3,
+     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     */
+    public void updateAchievementDisplayOption(int displayOption) {
+        assert AchievementRecord.isValidDisplayOption(displayOption);
+
+        achievements.setDisplayOption(displayOption);
+    }
+
+    /**
      * @return the {@code int} value representing the Xp.
      */
     public int getXpValue() {
@@ -137,12 +149,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Updates the Xp in the {@code AchievementRecord} of the {@code TaskManager} with the new xp value.
+     * Add the Xp for completing a new task to the {@code AchievementRecord} of the {@code TaskManager}.
+     * Relevant fields in {@code AchievementRecord}, such as xp, level, number of tasks completed and the time-based
+     * achievement fields are updated accordingly.
      */
     public void addXp(Integer xp) {
         requireNonNull(xp);
 
-        achievements.updateXp(xp);
+        achievements.incrementAchievementsWithNewXp(xp);
     }
 
     public int appraiseTaskXp(Task task) {
