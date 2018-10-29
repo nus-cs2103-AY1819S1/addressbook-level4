@@ -19,9 +19,11 @@ import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
 
 /**
@@ -53,6 +55,8 @@ public class ModifyPermissionCommand extends Command {
 
     public ModifyPermissionCommand(Index index, Set<Permission> toAdd, Set<Permission> toRemove) {
         requireAllNonNull(index, toAdd, toRemove);
+
+        this.requiredPermission.addPermissions(Permission.ASSIGN_PERMISSION);
         this.index = index;
         this.toAdd = toAdd;
         this.toRemove = toRemove;
@@ -93,9 +97,11 @@ public class ModifyPermissionCommand extends Command {
         Email email = p.getEmail();
         Address address = p.getAddress();
         Salary salary = p.getSalary();
+        Username username = p.getUsername();
+        Password password = p.getPassword();
         Set<Project> projects = p.getProjects();
         PermissionSet pSet = p.getPermissionSet();
-        return new Person(name, phone, email, address, salary, projects, pSet);
+        return new Person(name, phone, email, address, salary, username, password, projects, pSet);
     }
 
     @Override

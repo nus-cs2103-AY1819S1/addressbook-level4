@@ -21,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -66,6 +67,7 @@ public class EditCommand extends Command {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
+        requiredPermission.addPermissions(Permission.EDIT_EMPLOYEE);
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }

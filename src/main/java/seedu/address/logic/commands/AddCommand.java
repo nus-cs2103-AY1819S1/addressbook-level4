@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Person;
 
 /**
@@ -46,6 +47,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(Person person) {
         requireNonNull(person);
+        requiredPermission.addPermissions(Permission.ADD_EMPLOYEE);
         toAdd = person;
     }
 

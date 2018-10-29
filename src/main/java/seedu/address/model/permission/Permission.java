@@ -12,11 +12,9 @@ public enum Permission {
     APPROVE_LEAVE,
 
     CREATE_PROJECT,
-    VIEW_PROJECT,
     ASSIGN_PROJECT,
+    VIEW_PROJECT,
 
-    CREATE_DEPARTMENT,
-    ASSIGN_DEPARTMENT,
 
     ASSIGN_PERMISSION; //Might need a superadmin permission to control this permission.
 
