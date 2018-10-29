@@ -37,5 +37,5 @@ public class CheckStockCommand extends Command {
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
         return new CommandResult(medicineListStringBuilder.toString());
-    };
+    }
 }
