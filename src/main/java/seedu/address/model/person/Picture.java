@@ -60,6 +60,7 @@ public class Picture {
         if (test.matches(DEFAULT_PATH_WIN_VALIDATION_REGEX)) {
             test = test.substring(1, test.length());
         }
+        test = test.replaceAll("%20", " ");
         return ((test.matches(PICTURE_PATH_WIN_VALIDATION_REGEX) || test.matches(PICTURE_PATH_MAC_VALIDATION_REGEX))
             && Files.exists(Paths.get(test)));
     }
