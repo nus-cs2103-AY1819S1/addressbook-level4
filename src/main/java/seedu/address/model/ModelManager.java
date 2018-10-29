@@ -59,7 +59,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
 
         this.userPrefs = userPrefs;
-        dirImageList = new ArrayList<>();
+        this.userPrefs.updateImageList();
+        dirImageList = this.userPrefs.getAllImages();
 
         try {
             photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
