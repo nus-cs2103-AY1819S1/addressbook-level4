@@ -13,6 +13,9 @@ import java.util.Objects;
  */
 public class ExportUtil {
 
+    private static final String LINE_INVALID = "Line is not valid.";
+    private static final String LINES_INVALID = "List of lines is not valid.";
+
     /**
      * Writes a single line to a file.
      * @param writer The FileWriter object used to write to a file.
@@ -25,7 +28,7 @@ public class ExportUtil {
         requireAllNonNull(writer, line);
 
         if (!isValidLine(line)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(LINE_INVALID);
         }
 
         writer.append(line + "\n");
@@ -45,11 +48,15 @@ public class ExportUtil {
         NullPointerException, IllegalArgumentException {
         requireAllNonNull(writer, lines);
 
+        if (lines.size() < 1) {
+            throw new IllegalArgumentException(LINES_INVALID);
+        }
+
         int numLines = lines.size();
         for (int i = 0; i < numLines; i++) {
             String line = lines.get(i);
             if (!isValidLine(line)) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(LINE_INVALID);
             }
 
             line += "\n";
