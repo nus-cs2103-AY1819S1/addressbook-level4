@@ -24,12 +24,6 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
-    private static final String API_KEY = "AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
-
-    private static String temp = "<iframe width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" src=\"" +
-            "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJW-fkx_ga2jERSjkkKeJjaUM&key=AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU\"" +
-            "allowfullscreen></iframe>";
-
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -59,9 +53,8 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file.
      */
     private void loadDefaultPage() {
-        browser.getEngine().loadContent(temp);
-        // URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        // loadPage(defaultPage.toExternalForm());
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        loadPage(defaultPage.toExternalForm());
     }
 
     /**
