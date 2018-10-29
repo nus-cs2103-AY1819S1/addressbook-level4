@@ -23,6 +23,7 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -161,34 +162,42 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         Ingredient toEdit = lastShownList.get(index);
 
-        IngredientName name = toEdit.getName();
-        IngredientAmount amount = toEdit.getAmount();
-        IngredientServingUnit unit = toEdit.getUnit();
-        IngredientDate date = toEdit.getDate();
+        String name;
+        Double amount;
+        String servingUnit;
+        Date date;
+
+        IngredientName ingredientName = toEdit.getName();
+        IngredientAmount ingredientAmount = toEdit.getAmount();
+        IngredientServingUnit ingredientServingUnit = toEdit.getUnit();
+        IngredientDate ingredientDate = toEdit.getDate();
 
         for (int i = 1; i < tokens.length; i += 2) {
             if (tokens[i].equals("name")) {
-                name = new IngredientName(tokens[i + 1]);
-                if (!name.isValid()) {
+                name = tokens[i + 1];
+                if (!IngredientName.isValid(name)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientName = new IngredientName(name);
             } else if (tokens[i].equals("amount")) {
                 try {
-                    amount = new IngredientAmount(tokens[i + 1]);
+                    amount = Double.parseDouble(tokens[i + 1]);
                 } catch (NumberFormatException e) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientAmount = new IngredientAmount(amount);
             } else if (tokens[i].equals("unit")) {
-                unit = new IngredientServingUnit(tokens[i + 1]);
-                if (!unit.isValid()) {
+                servingUnit = tokens[i + 1];
+                if (!IngredientServingUnit.isValid(servingUnit)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientServingUnit = new IngredientServingUnit(servingUnit);
             } else if (tokens[i].equals("date")) {
                 try {
-                    date = new IngredientDate(tokens[i + 1]);
+                    ingredientDate = new IngredientDate(tokens[i + 1]);
                 } catch (java.text.ParseException pe) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
@@ -198,7 +207,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             }
         }
 
-        Ingredient edited = new Ingredient(name, amount, unit, date);
+        Ingredient edited = new Ingredient(ingredientName, ingredientAmount, ingredientServingUnit, ingredientDate);
 
         return new EditCommand<>(model, toEdit, edited);
     }
