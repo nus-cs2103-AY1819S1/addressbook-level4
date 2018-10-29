@@ -117,7 +117,6 @@ public class ExportPatientsData {
 
                 String row = getCsvRow(name, address, phone, email, date, arrivalTime, consultationTime, endTime,
                     doctor, prescription, description, isAppt, apptDate, apptTime);
-
                 rows.add(row);
             }
         }
@@ -143,10 +142,26 @@ public class ExportPatientsData {
     }
 
     /**
+     * Concatenates String values with a comma to form a csv row.
      * @param values A variable length array of Strings, each denoting a csv column value for a row.
      * @return A single csv row.
      */
     private static String getCsvRow(String... values) {
-        return String.join(", ", values);
+        List<String> commaFreeValues = replaceCommas(values);
+        return String.join(", ", commaFreeValues);
+    }
+
+    /**
+     * Replaces commas in Strings to prevent breaking the csv format.
+     * Uses | as an alternative.
+     * @param values A variable number of Strings.
+     */
+    public static List<String> replaceCommas(String... values) {
+        List<String> commaFreeValues = new ArrayList<>();
+        for (String value : values) {
+            commaFreeValues.add(value.replaceAll(",", "|"));
+        }
+
+        return commaFreeValues;
     }
 }

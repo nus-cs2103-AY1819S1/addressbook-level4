@@ -59,8 +59,7 @@ public class ExportUtil {
                 throw new IllegalArgumentException(LINE_INVALID);
             }
 
-            line += "\n";
-            writer.append(line);
+            writer.append(line + "\n");
         }
 
         writer.flush();
