@@ -1,5 +1,8 @@
 package seedu.address.storage.portmanager;
 
+import static seedu.address.commons.core.Messages.MESSAGE_FILEPATH_INVALID;
+import static seedu.address.commons.core.Messages.MESSAGE_IMPORTED_DECK_INVALID;
+
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,10 +68,10 @@ public class PortManager implements Porter {
             return getImportedDeck(xmlDeck);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            throw new DeckImportException("Target file not found");
+            throw new DeckImportException(String.format(MESSAGE_FILEPATH_INVALID, filepath));
         } catch (DataConversionException e) {
             e.printStackTrace();
-            throw new DeckImportException("Target deck contains invalid data");
+            throw new DeckImportException(MESSAGE_IMPORTED_DECK_INVALID);
         }
     }
 
@@ -77,12 +80,16 @@ public class PortManager implements Porter {
      * Returns a XmlExportableDeck object.
      */
 
-    private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException, DataConversionException {
+    private XmlExportableDeck loadDeckFromFile(Path filepath) throws FileNotFoundException {
         XmlExportableDeck xmlDeck;
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
-        } catch (JAXBException e) {
-            throw new DataConversionException(e);
+            return xmlDeck;
+        } catch (FileNotFoundException e){
+            throw new FileNotFoundException();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
         return xmlDeck;
     }
