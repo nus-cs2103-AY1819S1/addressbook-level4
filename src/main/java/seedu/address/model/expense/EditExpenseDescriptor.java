@@ -1,10 +1,6 @@
-package seedu.address.model;
+package seedu.address.model.expense;
 
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
@@ -91,6 +87,22 @@ public class EditExpenseDescriptor {
      */
     public Optional<Set<Tag>> getTags() {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+    }
+
+    /**
+     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * edited with {@code editExpenseDescriptor}.
+     */
+    public static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
+        assert expenseToEdit != null;
+
+        Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
+        Category updatedCategory = editExpenseDescriptor.getCategory().orElse(expenseToEdit.getCategory());
+        Cost updatedCost = editExpenseDescriptor.getCost().orElse(expenseToEdit.getCost());
+        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
+
+        return new Expense(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
     }
 
     @Override
