@@ -1,15 +1,15 @@
 package seedu.address.ui;
 
-//import java.util.logging.Logger;
+import java.util.logging.Logger;
 
-//import javafx.application.Platform;
-//import javafx.collections.ObservableList;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-//import javafx.scene.control.ListCell;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-//import seedu.address.commons.core.LogsCenter;
-//import seedu.address.model.expense.Expense;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.notification.Notification;
 
 //@@author snookerballs
 /**
@@ -17,41 +17,37 @@ import javafx.scene.layout.Region;
  */
 public class NotificationPanel extends UiPart<Region> {
     private static final String FXML = "NotificationPanel.fxml";
-    //private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
+    private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
 
     @FXML
-    private ListView<Object> notificationListView;
+    private ListView<Notification> notificationListView;
 
-    public NotificationPanel() {
+    public NotificationPanel(ObservableList<Notification> notificationList) {
         super(FXML);
+        setConnections(notificationList);
+        registerAsAnEventHandler(this);
     }
 
-    /*public NotificationPanel(ObservableList<Object> notificationList) {
-        super(FXML);
-        //setConnections(notificationList);
-        registerAsAnEventHandler(this);
-    }*/
-
-    /*private void setConnections(ObservableList<Object> notificationList) {
+    private void setConnections(ObservableList<Notification> notificationList) {
         notificationListView.setItems(notificationList);
-        //notificationListView.setCellFactory(listView -> new ExpenseListPanel.ExpenseListViewCell());
+        notificationListView.setCellFactory(listView -> new NotificationPanel.NotificationListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
         notificationListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in expense list panel changed to : '" + newValue + "'");
-                        //raise(new ExpensePanelSelectionChangedEvent(newValue));
-                    }
-                });
+            .addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    logger.fine("Selection in expense list panel changed to : '" + newValue + "'");
+                    //raise(new ExpensePanelSelectionChangedEvent(newValue));
+                }
+            });
     }
 
     /**
-     * Scrolls to the {@code ExpenseCard} at the {@code index} and selects it.
-     */
-    /* private void scrollTo(int index) {
+    * Scrolls to the {@code ExpenseCard} at the {@code index} and selects it.
+    */
+    private void scrollTo(int index) {
         Platform.runLater(() -> {
             notificationListView.scrollTo(index);
             notificationListView.getSelectionModel().clearAndSelect(index);
@@ -61,18 +57,17 @@ public class NotificationPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
      */
-    /*class ExpenseListViewCell extends ListCell<Expense> {
+    class NotificationListViewCell extends ListCell<Notification> {
         @Override
-        protected void updateItem(Expense expense, boolean empty) {
-            super.updateItem(expense, empty);
+        protected void updateItem(Notification notification, boolean empty) {
+            super.updateItem(notification, empty);
 
-            if (empty || expense == null) {
+            if (empty || notification == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
+                Platform.runLater(() -> setGraphic(new NotificationCard(notification).getRoot()));
             }
         }
     }
-    */
 }
