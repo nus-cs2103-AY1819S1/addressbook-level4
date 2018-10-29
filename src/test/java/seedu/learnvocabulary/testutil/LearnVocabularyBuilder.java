@@ -28,6 +28,15 @@ public class LearnVocabularyBuilder {
         return this;
     }
 
+    /**
+     * Toggles trivia mode for LearnVocabulary
+     */
+    public LearnVocabularyBuilder withTriviaMode() {
+        learnVocabulary.toggleTriviaMode();
+        return this;
+    }
+
+
     public LearnVocabulary build() {
         return learnVocabulary;
     }
