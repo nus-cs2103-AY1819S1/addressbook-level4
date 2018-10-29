@@ -94,15 +94,4 @@ public class FindCommandParserTest {
         // short form
         assertParseSuccess(parser, "g a/Alpha Beta s/Caviar Delta n/Echo Greek", expectedFindPersonCommand);
     }
-
-    /**
-     * Parses {@code userInput} into a {@code PersonNameContainsKeywordsPredicate}.
-     */
-    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix,
-                                                                 String userInputForSomePrefix,
-                                                                 String userInputForNonePrefix) {
-        return new PersonNameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
-            Arrays.asList(userInputForSomePrefix.split("\\s+")),
-            Arrays.asList(userInputForNonePrefix.split("\\s+")));
-    }
 }
