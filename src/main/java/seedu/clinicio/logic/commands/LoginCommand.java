@@ -11,7 +11,6 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 
@@ -33,19 +32,18 @@ public class LoginCommand extends Command {
             + "Example: login r/staff n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
-    public static final String MESSAGE_NO_DOCTOR_FOUND = "No staff found.";
-    public static final String MESSAGE_NO_RECEPTIONIST_FOUND = "No receptionist found.";
+    public static final String MESSAGE_NO_RECORD_FOUND = "No staff records found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
 
-    private final Person toAuthenticate;
+    private final Staff toAuthenticate;
 
     /**
-     * Creates an LoginCommand to add the specified {@code Person}.
-     * This {@code Person} could possibly be a staff or receptionist.
+     * Creates an LoginCommand to add the specified {@code Staff}.
+     * This {@code Staff} could possibly be a staff or receptionist.
      */
-    public LoginCommand(Person person) {
-        requireNonNull(person);
-        toAuthenticate = person;
+    public LoginCommand(Staff staff) {
+        requireNonNull(staff);
+        toAuthenticate = staff;
     }
 
     @Override
@@ -56,7 +54,7 @@ public class LoginCommand extends Command {
         if (toAuthenticate instanceof Staff) {
             Staff authenticatedStaff = (Staff) toAuthenticate;
             if (!model.hasStaff(authenticatedStaff)) {
-                throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
+                throw new CommandException(MESSAGE_NO_RECORD_FOUND);
             }
 
             Staff retrievedStaff = model.getStaff(authenticatedStaff);
