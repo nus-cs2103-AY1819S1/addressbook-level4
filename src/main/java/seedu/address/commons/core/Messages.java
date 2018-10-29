@@ -15,6 +15,7 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_PERSONS_FOUND_OVERVIEW = "%1$d persons found!";
     public static final String MESSAGE_GROUPS_FOUND_OVERVIEW = "%1$d groups found!";
+    public static final String MESSAGE_MEETINGS_FOUND_OVERVIEW = "%1$d meetings found!";
     public static final String MESSAGE_PERSONS_SORTED_OVERVIEW = "List sorted by %s!";
 
 }
