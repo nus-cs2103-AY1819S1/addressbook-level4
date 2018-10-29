@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 
@@ -14,11 +14,11 @@ import org.junit.Test;
 import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ViewCommand;
-import seedu.address.ui.HelpWindow;
-import seedu.address.ui.StatusBarFooter;
+import seedu.thanepark.logic.commands.DeleteCommand;
+import seedu.thanepark.logic.commands.HelpCommand;
+import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.ui.HelpWindow;
+import seedu.thanepark.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
