@@ -24,6 +24,10 @@ public class Maintenance implements NumericAttribute {
         value = Integer.parseInt(daysSinceMaintenanceString);
     }
 
+    /**
+     * Constructs a {@code Maintenance}.
+     * @param daysSinceMaintenance Days since last maintenance.
+     */
     public Maintenance(int daysSinceMaintenance) {
         value = daysSinceMaintenance;
     }
