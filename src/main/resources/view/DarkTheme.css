@@ -3,6 +3,18 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.scroll-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.anchor-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -12,6 +24,20 @@
 
 .label-bright {
     -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-bright-header {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-bright-sub-header {
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
@@ -76,7 +102,7 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.split-pane:horizontal .split-pane-divider {
+.split-pane:horizontal .split-pane-divider, .split-pane:vertical .split-pane-divider {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
@@ -85,6 +111,19 @@
     -fx-border-radius: 1;
     -fx-border-width: 1;
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#cardInfoAnswer .content {
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
+}
+
+#cardInfoAnswer {
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-text-inner-color: white;
+    -fx-font-family: Segoe UI Semibold;
+    -fx-opacity: 1;
+    -fx-font-size: 11pt;
 }
 
 .list-view {
@@ -111,7 +150,7 @@
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #cardPane #cardViewPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
@@ -136,6 +175,14 @@
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.hbox {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.hbox-light {
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
@@ -155,6 +202,17 @@
 }
 
 .result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.import-help-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+.import-help-display .label {
     -fx-text-fill: black !important;
 }
 
@@ -306,10 +364,11 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#cardPane #cardViewPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
+
 
 #commandTypeLabel {
     -fx-font-size: 11px;
@@ -336,12 +395,17 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#ImportHelpDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+#tags, #topics, #cardInfoTopics {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#tags .label, #topics .label, #cardInfoTopics .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
@@ -349,3 +413,19 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#cardProgress {
+    -fx-accent: green;
+}
+
+#cardProgress .bar {
+    -fx-background-insets: 0;
+}
+
+#cardProgress > .track {
+    -fx-control-inner-background: red;
+    -fx-background-insets: 0;
+}
+
+
+

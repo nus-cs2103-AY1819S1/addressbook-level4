@@ -44,13 +44,13 @@ module Slim::Helpers
 
 
   ##
-  # Creates an HTML tag with the given name and optionally attributes. Can take
+  # Creates an HTML topic with the given name and optionally attributes. Can take
   # a block that will run between the opening and closing tags.
   #
-  # @param name [#to_s] the name of the tag.
+  # @param name [#to_s] the name of the topic.
   # @param attributes [Hash]
   # @param content [#to_s] the content; +nil+ to call the block.
-  # @yield The block of Slim/HTML code within the tag (optional).
+  # @yield The block of Slim/HTML code within the topic (optional).
   # @return [String] a rendered HTML element.
   #
   def html_tag(name, attributes = {}, content = nil)
@@ -173,7 +173,7 @@ module Slim::Helpers
   end
 
   ##
-  # Constructs a HTML <a> tag representing a link in the navigation bar.
+  # Constructs a HTML <a> topic representing a link in the navigation bar.
   #
   # @param section [String] Name of the site section represented by the link.
   #   This is used to highlight the navigation item if the current document
@@ -182,7 +182,7 @@ module Slim::Helpers
   # @param href [String] Path to the target page, relative to the site root.
   # @param content [String] Link content. This is usually the human-readable name
   #   of the link target.
-  # @return [String] The rendered <a> tag.
+  # @return [String] The rendered <a> topic.
   def nav_link(section, href, content)
     attributes = {
       :class => ['nav-link'],
@@ -197,11 +197,11 @@ module Slim::Helpers
   #
 
   ##
-  # Returns HTML meta tag if the given +content+ is not +nil+.
+  # Returns HTML meta topic if the given +content+ is not +nil+.
   #
   # @param name [#to_s] the name for the metadata.
   # @param content [#to_s, nil] the value of the metadata, or +nil+.
-  # @return [String, nil] the meta tag, or +nil+ if the +content+ is +nil+.
+  # @return [String, nil] the meta topic, or +nil+ if the +content+ is +nil+.
   #
   def html_meta_if(name, content)
     %(<meta name="#{name}" content="#{content}">) if content

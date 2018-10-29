@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= 3VIA - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -11,152 +11,153 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T W12-3 Team`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+3VIA is a great way for _learners_ to *reinforce and test out their knowledge*. Tired of using a mouse or trackpad to navigate? Don't worry, 3VIA is *optimised for a veteran Command Line Interface (CLI) user*, while still having the benefits of a beautiful Graphical User Interface (GUI).
+
+3VIA will spur and energise your desire to be that A* student, without ever leaving the keyboard. We believe that it should only take 3 steps to get that Very Important A (3VIA, get it?).
+
+You can read the user guide from start to finish by jumping right in to <<Quick Start>> to get started or just use it as a reference. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure you have Java version _9_ or later installed in your computer.
+.  Download the latest `3VIA.jar` link:{repoURL}/releases[here] and copy the file into the folder you want to use as the home folder for your 3VIA app.
+.  Double-click the icon to start the app. The GUI should appear in a few seconds and you're ready to go!
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+
+====
+*Some things to try:* +
+Type commands in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+Here are some example commands you can try:
+
+* *`learn`* : Will direct you to the homepage with all the avaiable cards displayed.
+* **`add`**`add q/What is the formula for force? a/force = mass * acceleration a/Physics` : adds a card with question
+`What is the formula for force?` to the the trivia application.
+* **`delete`**`3` : deletes the 3rd card in the current list
 * *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+====
+Refer to <<Features>> for more details of each command.
 
 [[Features]]
 == Features
 
 ====
 *Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+[qanda]
+UPPER_CASE _are parameters you should include in use the command_:: `add q/QUESTION` means `add q/Why is the earth round`.
+Items in square brackets are optional:: `q/QUESTION [t/TOPIC]` means `q/Why is the earth round t/Physics`
+Items with `...` after them can be used optionally or multiple times:: `[t/TOPIC] ...` can be `t/Physics t/Math t/Literature`
+Parameters written can be in any order:: `q/QUESTION a/ANSWER` can be `a/ANSWER q/QUESTION`
+`INDEX` refers to the index number of the card in the most recently displayed card list:: `INDEX` must be a *positive integer*, i.e. 1, 2, 3 ...
 ====
 
 === Viewing help : `help`
 
+Opens a window to our 3VIA User Guide.
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a card: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a card to *3VIA* +
+Format: `add q/QUESTION a/ANSWER [t/TOPIC]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A card can have any number of topics. If there are no topics specified, `NoTopic` will be assigned to the card.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add q/What is the formula for force? a/force = mass * acceleration t/Physics`
+* `add q/What is the capital of Singapore? a/Singapore t/GeneralKnowledge t/Geography`
 
-=== Listing all persons : `list`
+=== Start learning: `learn`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Will direct you to the homepage with the cards you want to learn. If you want to learn from everything that is
+available in the deck, simply execute `learn`. If you want to learn from the cards that are related to a certain topic,
+simply enter `learn TOPIC`.  +
+Format: `learn [TOPIC]`
 
-=== Editing a person : `edit`
+=== Editing a card : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing card at specified `INDEX` with updated input values. +
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [t/TOPIC]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing topics, the existing topics of the card will be removed i.e adding of topics is not cumulative.
+* You can set a topic of `NoTopic` to the card just by typing `t/` without specifying any topics after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add q/Why will the apple fall from the tree? a/Because it was ripe!` +
+`edit 1 q/Why will the apple fall from the tree? a/Because of gravity!` +
+_Edits the answer of the 1st card to be `Because of gravity!`._
+* `add q/Why can't a bicycle stand on its own? a/Two tired. t/Funny`
+`edit 2 q/Why did the young mother fall asleep when put her child in bed t/` +
+_Edits the question of the 2nd card to be `Why did the young mother fall asleep when put her child in bed?` and the card will have a topic of `NoTopic`._
 
-=== Locating persons by name: `find`
+=== Search for cards by question: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds a list of card(s) whose question contain at least one of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is *not case sensitive*. e.g `why` will match `Why`
+* The order of the keywords does not matter. e.g. `Why drop` will match `drop why`
+* Only the question is searched.
+* Only full words will be matched e.g. `drop` will not match `droppings`
+* Cards matching at least one keyword will be returned. e.g. `Why drop` will return `Why will apple drop?`, `Why will rain drop?`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Why` +
+_Returns `Why will the apple fall from the tree?` and `Why can't a bicycle stand on its own?`_
+* `find why what where` +
+_Returns all cards having question `why`, `what`, or `where`_
 
-=== Deleting a person : `delete`
+=== Deleting a card : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the card from the specified `INDEX`. +
 Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
 Examples:
 
-* `list` +
+* `learn` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+_Deletes the 2nd displayed card._
+* `find Why` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+_Deletes the 1st card in the results of the `find` command._xs
 
-=== Selecting a person : `select`
+=== Selecting a card : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the card identified by the index number used in the displayed card list. Loads the Google search page for the card question. +
 Format: `select INDEX`
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
 Examples:
 
-* `list` +
+* `learn` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+_Selects and opens a Google search page for the 2nd displayed card._
+* `find Why` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+_Selects and opens a Google search page for the 1st card in the results of the `find` command._
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+Lists all the commands that you have entered from your most recent command. +
 Format: `history`
 
 [NOTE]
@@ -167,29 +168,37 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the app to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the app's content (`add`, `delete`, `edit`, `clear` and `import`).
 ====
 
 Examples:
 
 * `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+`learn` +
+`undo` +
+_`delete 1` command is reversed_
 
 * `select 1` +
-`list` +
+`learn` +
 `undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+_The `undo` command not executed as there are no undoable commands previously executed._
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` +
+_`clear` command is reversed +
+`undo` +
+_`delete 1` command is reversed_
+
+* `import C:\Users\username\Desktop\text.txt` +
+`learn` +
+`undo` +
+_`import` command is reversed_
 
 === Redoing the previously undone command : `redo`
 
@@ -199,62 +208,169 @@ Format: `redo`
 Examples:
 
 * `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` +
+_`delete 1` command is reversed_ +
+`redo` +
+_`delete 1` command is reapplied_
 
 * `delete 1` +
 `redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+The `redo` command was not executed as there are no `undo` commands previously executed.
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+`undo` +
+_`clear` command is reversed_ +
+`undo` +
+_`delete 1` command is reversed_ +
+`redo` +
+_`delete 1` command is reapplied_ +
+`redo` +
+_`clear` command is reapplied_ +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Starting an Open Ended Test: `testO` `[coming in v2.0]`
 
-Clears all entries from the address book. +
-Format: `clear`
+Start an open-ended test of a specified topic. In an open-ended test, the user will get the choose whether he/she has answered correctly by comparing their answers with the expected answer. +
+Format: `test t/TOPIC [TIMELIMIT_IN_SECONDS]`
+
+****
+* The test aims to test the knowledge of the user with the existing questions of a specified topic that are in the trivia application.
+* The user can also set the time limit (in seconds) for each question using the optional field `TIMELIMIT_IN_SECONDS`
+****
+
+The following commands can only be used during an `Open Ended Test`.
+
+==== Answering a question:
+
+Type your answer in the command field and press `enter` to submit your answer. If you don't have an answer in mind, you can just press `enter` with nothing in the command field. We accept your silence as an answer. +
+Format: `ANSWER_FROM_USER`
+
+==== Determining the correctness of your answer:
+
+After answering the question, you would be given a comparison between the expected and actual answer you entered. You would be required to determine the correctness of your answer since the questions are open ended. The app will keep track of your score. +
+Format: `c` (correct) OR `x` (wrong)
+
+==== Quit the test:
+
+Test is exited. +
+Format: `exit`
+
+:imagesDir: images/user_guide/match_test
+=== Starting a MatchTest: `testM`
+
+Start a test of matching cards for a specified topic. In a MatchTest, all the questions and answers in that topic
+will be displayed. You will then have to match all the correct question and answer together. +
+Format: `testM TOPIC`
+
+The following commands can only be used during a `Matching Test`.
+
+==== Enter the matching cards: match
+
+Will match and pair the cards during a MatchTest. +
+Format: `INDEX_OF_QUESTION INDEX_OF_ANSWER`
+
+An example is given in the below screenshot, where the command of `1 2` will select the question and answer that is boxed
+in green.
+
+image::match_command.png[match command format]
+
+==== Quit MatchTest:
+
+If you want to stop an ongoing MatchTest, you can enter the `exit` command at any time during the test. The command
+will bring you to the home page.
+
+After the MatchTest has ended, a result page will be shown. After reviewing your results, you can exit from the MatchTest by
+entering the `exit` command. The command will bring you to the home page. +
+Format: `exit`
+
+[NOTE]
+Your attempts from an incomplete MatchTest will be discarded. Only those attempts from a completed MatchTest will
+be saved into your hard disk.
+
+=== View statistics for a certain test: `stats` `[coming in v2.0]`
+
+Results of previous tests, questions, expected answers and the user’s answers for that particular topic will be displayed. +
+Format: `stats [TOPIC]`
+
+:imagesDir: images/user_guide/import
+=== Mass Import: `import`
+
+Quickly imports multiple cards from a text file into 3VIA. +
+Format: `import FILEPATH`
+****
+* The file must be a *plain text file* (file.txt).
+* The files must be in *UTF-8 format*.
+* The file path refers to the *absolute file path* of the import file.
+****
+
+Example:
+****
+* `import C:\Users\username\Desktop\file.txt` +
+_Imports the contents from the file.txt text file from the specified file location on Windows._
+* `import home/username/file.txt` +
+_Imports the contents from the file.txt text file from the specified file location on Linux._
+****
+
+Import file format:
+
+image::import-file-format.png[import file format]
+
+[options = "header", cols = "1,2", caption=""]
+.Format legend
+|===
+|Keys| Purpose
+|kbd:[SPACE] + kbd:[t] + kbd:[/]| To indicate presence of a topic
+|kbd:[TAB]| To separate a question and an answer
+|kbd:[&#9166;]| To separate each card
+|===
+
+[WARNING]
+Duplicate questions in the import text fie will result in import failure.
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+[IMPORTANT]
+command `exit` used in any of the test page will bring you to the home page, whereas using the command `exit` in the homepage will exit the programme.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+=== Saving data
+3VIA saves data in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::multiplayer[]
+=== Multi-Player `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+_{explain how the user can enable/disable Multi-Player}_
+// end::multiplayer[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous 3VIA application folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add q/QUESTION a/ANSWER [t/TOPIC]...` +
+e.g. `add q/What is the formula for force? a/force = mass * acceleration t/Physics`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [q/QUESTION] [a/ANSWER] [t/TOPIC]...` +
+e.g. `edit 1 q/Why will the apple fall from the tree? a/Because of gravity!`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+e.g. `find Why`
+* *Learn* : `learn [TOPIC]`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Test* : `test TOPIC TIMELIMIT_IN_SECONDS`
+* *Matching Test* : `testM TOPIC`
+* *Correctness of answer* : `c` (correct) OR `x` (wrong)
+* *View statistics of test* : `stats [TOPIC]`
+* *Mass Import* : `import FILEPATH`

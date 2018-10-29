@@ -13,19 +13,23 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GoogleCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.LearnCommand;
+import seedu.address.logic.commands.MatchTestCommand;
+import seedu.address.logic.commands.OpenEndedTestCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.state.State;
 
 /**
  * Parses user input.
  */
 public class AddressBookParser {
-
     /**
      * Used for initial separation of command word and args.
      */
@@ -38,7 +42,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, State appState) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -46,43 +50,83 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        switch (appState) {
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case NORMAL:
+            switch (commandWord) {
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            case GoogleCommand.COMMAND_WORD:
+                return new GoogleCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case LearnCommand.COMMAND_WORD:
+                return new LearnCommandParser().parse(arguments);
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
+
+            case OpenEndedTestCommand.COMMAND_WORD:
+                return new OpenEndedTestCommandParser().parse(arguments);
+
+            case MatchTestCommand.COMMAND_WORD:
+                return new MatchTestCommandParser().parse(arguments);
+
+            case ImportCommand.COMMAND_WORD:
+                return new ImportCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+
+        case MATCH_TEST:
+            switch (commandWord) {
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
+            default:
+                return new MatchCommandParser().parse(userInput);
+            }
+
+        case MATCH_TEST_RESULT:
+            switch(commandWord) {
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

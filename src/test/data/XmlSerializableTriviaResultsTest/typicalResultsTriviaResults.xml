@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Person values as in TypicalTriviaResults#getTypicalTriviaResults() -->
+<testresult>
+    <results>
+        <testType>MATCH_TEST</testType>
+        <topic>Physics</topic>
+        <date>18 Oct 2018, 11:30 PM</date>
+        <duration>20.0</duration>
+        <attempt>
+            <attemptedCard>
+                <question>Is earth flat?</question>
+                <answer>No.</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>No.</answer>
+            <isCorrect>true</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+        <attempt>
+            <attemptedCard>
+                <question>What is the formula for force?</question>
+                <answer>force = mass * acceleration</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>mass * acceleration</answer>
+            <isCorrect>true</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+    </results>
+
+    <results>
+        <testType>MATCH_TEST</testType>
+        <topic>Physics</topic>
+        <date>18 Oct 2018, 11:30 PM</date>
+        <duration>20.0</duration>
+        <attempt>
+            <attemptedCard>
+                <question>Is earth flat?</question>
+                <answer>No.</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>git commit -m 'whatever you wanna say'</answer>
+            <isCorrect>false</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+        <attempt>
+            <attemptedCard>
+                <question>What is the formula for force?</question>
+                <answer>force = mass * acceleration</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>LHL</answer>
+            <isCorrect>false</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+    </results>
+
+    <results>
+        <testType>MATCH_TEST</testType>
+        <topic>Physics</topic>
+        <date>18 Oct 2018, 11:30 PM</date>
+        <duration>20.0</duration>
+        <attempt>
+            <attemptedCard>
+                <question>Is earth flat?</question>
+                <answer>No.</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>git commit -m 'whatever you wanna say'</answer>
+            <isCorrect>false</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+        <attempt>
+            <attemptedCard>
+                <question>What is the formula for force?</question>
+                <answer>force = mass * acceleration</answer>
+                <topic>Physics</topic>
+            </attemptedCard>
+            <answer>mass * acceleration</answer>
+            <isCorrect>true</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+    </results>
+
+</testresult>

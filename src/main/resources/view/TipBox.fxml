@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+      <HBox alignment="CENTER_LEFT">
+         <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+            <image>
+               <Image url="@../images/lamp.png" />
+            </image>
+         </ImageView>
+      <Label minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="  TIP   " HBox.hgrow="NEVER" />
+      <Separator opacity="0.2" orientation="VERTICAL" prefHeight="200.0" />
+          <Label fx:id="tip" styleClass="label-bright" text="\$tip" wrapText="true" HBox.hgrow="ALWAYS" />
+      </HBox>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

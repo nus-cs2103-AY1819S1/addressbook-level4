@@ -9,16 +9,25 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.TriviaBundle;
+import seedu.address.model.card.Card;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends AppSystemTest {
     /**
-     * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
+     * Returns null to force test app to load data of the file in {@code getAddressBookFile()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected AddressBook getAddressBookData() {
+        return null;
+    }
+
+    /**
+     * Returns null to force test app to load data of the file in {@code getTriviaBundleFile()}.
+     */
+    @Override
+    protected TriviaBundle getTriviaBundleData() {
         return null;
     }
 
@@ -26,7 +35,17 @@ public class SampleDataTest extends AddressBookSystemTest {
      * Returns a non-existent file location to force test app to load sample data.
      */
     @Override
-    protected Path getDataFileLocation() {
+    protected Path getAddressBookFile() {
+        Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        deleteFileIfExists(filePath);
+        return filePath;
+    }
+
+    /**
+     * Returns a non-existent file location to force test app to load sample data.
+     */
+    @Override
+    protected Path getTriviaBundleFile() {
         Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);
         return filePath;
@@ -44,8 +63,8 @@ public class SampleDataTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+    public void triviaBundle_dataFileDoesNotExist_loadSampleData() {
+        Card[] expectedList = SampleDataUtil.getSampleCards();
+        assertListMatching(getCardListPanel(), expectedList);
     }
 }

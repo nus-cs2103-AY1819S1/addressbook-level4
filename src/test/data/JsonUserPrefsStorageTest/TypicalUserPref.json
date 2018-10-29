@@ -7,5 +7,7 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.xml"
+  "addressBookFilePath" : "addressbook.xml",
+  "triviaBundleFilePath"  : "triviabundle.xml",
+  "triviaResultsFilePath" : "testresult.xml"
 }
