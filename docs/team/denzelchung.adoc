@@ -64,3 +64,5 @@ include::../UserGuide.adoc[tag=picture]
 include::../DeveloperGuide.adoc[tag=addpicture]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
+
+include::../DeveloperGuide.adoc[tag=nfr]
