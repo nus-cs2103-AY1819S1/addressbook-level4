@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -49,7 +50,8 @@ public class ImportCommandPreparerTest {
                 Optional.of(new Phone("97412033")),
                 Optional.of(new Email("chantca95@gmail.com")),
                 Optional.of(new Address("Bedok North Street 2 Block 120")),
-                Collections.singleton(new Tag("Loanshark")))
+                Collections.singleton(new Tag("Loanshark")),
+                new Meeting("2401181230"))
         );
 
         expectedPersons.add(new Person(

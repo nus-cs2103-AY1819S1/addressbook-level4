@@ -7,16 +7,25 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ImportCommandPreparer;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class ImportCommandTest {
@@ -37,17 +46,20 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_import_success() throws ParseException {
+    public void execute_import_success() throws ParseException, CommandException {
         setUp();
         File file = CORRECT_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Expected persons being added to expectedModel
-        Person alex = new PersonBuilder().withName("Alex Chan")
-                .withAddress("Bedok North Street 2 Block 120").withEmail("chantca95@gmail.com")
-                .withPhone("97412033")
-                .withTags("Loanshark").build();
+        Person alex = new Person(
+                new Name("Alex Chan"),
+                Optional.of(new Phone("97412033")),
+                Optional.of(new Email("chantca95@gmail.com")),
+                Optional.of(new Address("Bedok North Street 2 Block 120")),
+                Collections.singleton(new Tag("Loanshark")),
+                new Meeting("2401181230"));
         Person louiz = new PersonBuilder().withName("Louiz")
                 .withAddress("Cinammon College Level 19").withEmail("louizkc@gmail.com")
                 .withPhone("98573747").build();
