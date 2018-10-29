@@ -341,7 +341,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (!encryptedTracker.getPassword().isPresent()) {
             encryptionKey = DEFAULT_ENCRYPTION_KEY;
         } else {
-            encryptionKey = EncryptionUtil.createEncryptionKey(plainPassword);
+            encryptionKey = createEncryptionKey(plainPassword);
         }
         try {
             this.versionedExpenseTracker = new VersionedExpenseTracker(encryptedTracker.decryptTracker(encryptionKey));
