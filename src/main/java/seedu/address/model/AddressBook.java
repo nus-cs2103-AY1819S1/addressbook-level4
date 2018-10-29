@@ -238,6 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sets meeting field of {@code group} in the group list to {@code meeting}.
      */
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        meetings.setMeeting(group.getMeeting(), meeting);
         groups.setMeeting(group, meeting);
     }
 
@@ -245,6 +246,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets meeting field of {@code group} in the group list to an empty optional.
      */
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        Meeting meeting = groups.asUnmodifiableObservableList().stream().filter(g -> g.isSameGroup(group))
+            .map(Group::getMeeting).collect(Collectors.toList()).get(0);
+        if (meeting != null) {
+            meetings.remove(meeting);
+        }
         groups.cancelMeeting(group);
     }
     // @@author
