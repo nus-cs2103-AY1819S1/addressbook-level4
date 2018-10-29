@@ -227,7 +227,7 @@ Format: `clear`
 ==== Editing a user : `edit`
 
 Edits an existing user in the event organiser. +
-Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
+Format: `editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
 
 ****
 * Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
@@ -254,6 +254,36 @@ Example:
 
 * `addInterest Tennis` +
 Adds the interest "Tennis" to the pre-selected user.
+
+==== Add a friend : `addFriend`
+
+For two persons, adds friend with each other. +
+Format: `addFriend INDEX,INDEX`
+
+****
+* For two users at the 2 specified `INDEX`, adds each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
+* The two users cannot be already friends.
+****
+
+Examples:
+
+* `addFriend 1,2` +
+1st and 2nd user becomes friends with each other and appear on each other's friend list.
+
+==== Delete a friend : `deleteFriend`
+
+For two persons, deletes each other as friend. +
+Format: `deleteFriend INDEX,INDEX`
+
+****
+* For two users at the 2 specified `INDEX`, deletes each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
+* The two users must be already friends.
+****
+
+Examples:
+
+* `deleteFriend 1,2` +
+1st and 2nd user are no longer friends with each other and their names are removed from each other's friend list.
 
 ==== Add a group : `addGroup`
 
