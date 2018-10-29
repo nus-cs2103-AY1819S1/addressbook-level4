@@ -23,12 +23,8 @@ public class TagCommandParserTest {
                 TagCommand.MESSAGE_USAGE));
     }
 
-    // @Test
-    /**
-     * Test to be implemented
-     * @throws Exception
-     */
-    private void parse_validArgs_returnsTagCommand() {
+    @Test
+    public void parse_validArgs_returnsTagCommand() {
         List<String> tags = Arrays.asList("owesMoney", "friends");
         // Find tags command, no leading and trailing whitespaces
         TagCommand expectedFindTagCommand =
@@ -39,19 +35,14 @@ public class TagCommandParserTest {
         assertParseSuccess(parser, " \n owesMoney \n \t friends \t", expectedFindTagCommand);
 
         // Delete tags command, no leading and trailing whitespaces
-        List<String> tagsToBeDeleted = Arrays.asList("Chinese", "client");
-        TagCommand firstExpectedDeleteTagCommand =
-                new TagCommand(new PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE,
-                        tagsToBeDeleted);
-        assertParseSuccess(parser, "Chinese client delete", firstExpectedDeleteTagCommand);
+        List<String> tagsToBeDeleted = Arrays.asList("owesMoney", "friends", "delete");
+        assertParseSuccess(parser, "owesMoney friends delete", new TagCommand(new
+                PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE, tagsToBeDeleted));
 
         // Delete tags command, multiple whitespaces between keywords
-        List<String> moreTagsToBeDeleted = Arrays.asList("Client", "foo", "Colleague");
-        TagCommand secondExpectedDeleteTagCommand =
-                new TagCommand(new PersonContainsTagPredicate(moreTagsToBeDeleted), TagCommand.Action.DELETE,
-                        moreTagsToBeDeleted);
-        assertParseSuccess(parser, "Client \t\t\n\n foo   \n \t   Colleagues \t\nDELETE",
-                secondExpectedDeleteTagCommand);
+        List<String> moreTagsToBeDeleted = Arrays.asList("owesMoney", "friends", "delete");
+        assertParseSuccess(parser, "owesMoney   \t\n  friends \t\t delete\n\n", new TagCommand(new
+                PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE, tagsToBeDeleted));
     }
 
 }
