@@ -55,6 +55,13 @@ public class PhotosLibraryClientFactory {
             .class.getClassLoader().getResource("client_credentials.json").getPath());
 
     private PhotosLibraryClientFactory() {
+        try {
+            if (!DATA_STORE.exists()) {
+                DATA_STORE.mkdir();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
