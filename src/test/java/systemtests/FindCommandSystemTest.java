@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_FOUND_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -71,7 +70,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 persons found
          */
-        command = FindCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM + " s/Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM
+            + " s/Daniel Benson NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedPersonCardUnchanged();
 
@@ -122,7 +122,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedPersonCardUnchanged();
 
         /* Case: find address of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM + " " + DANIEL.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM + " "
+            + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedPersonCardUnchanged();
 
