@@ -590,7 +590,12 @@ To illustrate how the three commands work, examples are given below.
 ** In `VisitoroutCommand`, new `Visitor` object is created and removed from the copy of the required `Person` object's `VisitorList`
 *** The new `Person` object is updated to the model by `Model#updatePerson` method.
 *** A new CommandResult object is returned and the execution ends.
-// tag: needs to add diagram
+
+Here are the three sequence diagrams below:
+
+image::VisitorinSequenceDiagram.png[width="800"]
+image::ViewvisitorsSequenceDiagram.png[width="800"]
+image::VisitoroutSequenceDiagram.png[width="800"]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
