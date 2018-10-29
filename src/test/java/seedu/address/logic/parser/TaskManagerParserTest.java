@@ -35,7 +35,7 @@ import seedu.address.testutil.EditTaskDescriptorBuilder;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskUtil;
 
-public class AddressBookParserTest {
+public class TaskManagerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
