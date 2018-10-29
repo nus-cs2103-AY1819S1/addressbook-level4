@@ -51,17 +51,8 @@ public class AddPrescriptionCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        HashMap<Integer, Appointment> allAppointmentsOfPatient = new HashMap<Integer, Appointment>();
-
-        if (!allAppointmentsOfPatient.containsKey(toAdd.getId())) {
-            allAppointmentsOfPatient.get(toAdd.getId()).addPrescription(toAdd);
-        }
-
-        //Todo Include Model Manager for update appointment and remove stub hashmap
-
-        model.commitAddressBook();
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getMedicineName()));
     }
 
     @Override

@@ -116,6 +116,7 @@ public class AddressBookParser {
 
         case FilterDoctorCommand.COMMAND_WORD:
             return new FilterDoctorCommand();
+
         case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentCommandParser().parse(arguments);
 

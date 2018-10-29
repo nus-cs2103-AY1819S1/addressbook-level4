@@ -11,7 +11,7 @@ public class Dosage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Dosage should only contain numbers, and it must be greater than 0";
-    public static final String DOSAGE_VALIDATION_REGEX = "//d";
+    public static final String DOSAGE_VALIDATION_REGEX = "^[1-9][0-9]*$";
     public final String value;
 
     /**
