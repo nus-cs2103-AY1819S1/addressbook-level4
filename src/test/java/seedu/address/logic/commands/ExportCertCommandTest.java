@@ -46,6 +46,6 @@ public class ExportCertCommandTest {
         assertFalse(standardCommand.equals(new ListCommand()));
 
         // different index value -> return false
-        assertFalse(standardCommand.equals(new ExportCertCommand(INDEX_SECOND_PERSON)));
+        assertFalse(standardCommand.equals(new ExportCertCommand(INDEX_SECOND_VOLUNTEER)));
     }
 }

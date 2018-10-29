@@ -177,7 +177,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exportcert() throws Exception {
         ExportCertCommand command = (ExportCertCommand) parser.parseCommand(ExportCertCommand.COMMAND_WORD
-                + " " + INDEX_FIRST_PERSON.getOneBased(), Context.VOLUNTEER_CONTEXT_ID);
-        assertEquals(new ExportCertCommand(INDEX_FIRST_PERSON), command);
+                + " " + INDEX_FIRST_VOLUNTEER.getOneBased(), Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new ExportCertCommand(INDEX_FIRST_VOLUNTEER), command);
     }
 }
