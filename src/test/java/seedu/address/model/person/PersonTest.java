@@ -37,15 +37,22 @@ public class PersonTest {
     @Test(expected = NullPointerException.class)
     public void constructor_nullPrescriptionList_throwsNullPointerException() {
         Person person = new Person(new Nric(VALID_NRIC_BOB), new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB),
-                new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), new MedicalHistory(),
-                null, new AppointmentsList());
+                new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), null,
+                new AppointmentsList(), new MedicalHistory());
     }
 
     @Test(expected = NullPointerException.class)
     public void constructor_nullAppointmentsList_throwsNullPointerException() {
         Person person = new Person(new Nric(VALID_NRIC_BOB), new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB),
-                new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), new MedicalHistory(),
-                new PrescriptionList(), null);
+                new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), new PrescriptionList(),
+                null, new MedicalHistory());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void constructor_nullMedicalHistory_throwsNullPointerException() {
+        Person person = new Person(new Nric(VALID_NRIC_BOB), new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB),
+                new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), new PrescriptionList(),
+                new AppointmentsList(), null);
     }
 
     @Test
