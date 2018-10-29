@@ -19,7 +19,7 @@ public class SetPasswordCommandParserTest {
     public void parse_validPassword() {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_OLD_PASSWORD + PasswordTest.VALID_PASSWORD_STRING
                 + " " + CliSyntax.PREFIX_NEW_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
-                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD,
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD_STRING));
     }
 

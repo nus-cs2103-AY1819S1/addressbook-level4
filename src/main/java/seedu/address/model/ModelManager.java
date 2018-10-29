@@ -373,7 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+    public boolean isMatchPassword(Password toCheck) throws NoUserSelectedException {
         if (!hasSelectedUser()) {
             throw new NoUserSelectedException();
         }

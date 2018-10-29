@@ -264,7 +264,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+        public boolean isMatchPassword(Password toCheck) throws NoUserSelectedException {
             throw new AssertionError("isMatchPassword method should not be called.");
         }
 

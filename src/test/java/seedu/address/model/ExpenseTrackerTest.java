@@ -132,7 +132,7 @@ public class ExpenseTrackerTest {
         }
 
         @Override
-        public boolean isMatchPassword(Optional<Password> password) {
+        public boolean isMatchPassword(Password password) {
             return true;
         }
 

@@ -49,7 +49,7 @@ public class SetPasswordCommandTest {
                 commandResult.feedbackToUser);
         assertTrue(model.hasSelectedUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-        commandResult = new SetPasswordCommand(Optional.empty(), PasswordTest.VALID_PASSWORD,
+        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD,
                 PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
@@ -61,12 +61,12 @@ public class SetPasswordCommandTest {
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
-        commandResult = new SetPasswordCommand(Optional.empty(), PasswordTest.VALID_PASSWORD,
+        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD,
                 PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
         commandResult = new SetPasswordCommand(
-                Optional.of(new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false)),
+                new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false),
                 PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
@@ -74,16 +74,16 @@ public class SetPasswordCommandTest {
 
     @Test
     public void testEquals() {
-        assertEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
+        assertEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD_STRING),
-                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD_STRING));
-        assertNotEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
+        assertNotEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD,
                         PasswordTest.VALID_PASSWORD_STRING),
-                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
                         new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(), true),
                         PasswordTest.VALID_PASSWORD_STRING));
     }

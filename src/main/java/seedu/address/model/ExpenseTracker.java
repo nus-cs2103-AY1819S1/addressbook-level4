@@ -156,9 +156,9 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     @Override
-    public boolean isMatchPassword(Optional<Password> toCheck) {
+    public boolean isMatchPassword(Password toCheck) {
         return this.password
-                .map(userPassword -> userPassword.equals(toCheck.orElse(null)))
+                .map(userPassword -> userPassword.equals(toCheck))
                 // if userPassword will never be equals to null if map is called
                 .orElse(true); // If the current user has no password, then anyone is allowed
     }

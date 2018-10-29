@@ -29,12 +29,12 @@ public class SetPasswordCommand extends Command {
     public static final String MESSAGE_SET_PASSWORD_SUCCESS = "Your password has been changed.";
     public static final String MESSAGE_INCORRECT_PASSWORD = "The old password is incorrect.";
 
-    private final Optional<Password> oldPassword;
+    private final Password oldPassword;
     private final Password newPassword;
     private String newPasswordPlain;
 
-    public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword, String newPasswordPlain) {
-        requireAllNonNull(oldPassword, newPassword, newPasswordPlain);
+    public SetPasswordCommand(Password oldPassword, Password newPassword, String newPasswordPlain) {
+        requireAllNonNull(newPassword, newPasswordPlain);
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
         this.newPasswordPlain = newPasswordPlain;

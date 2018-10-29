@@ -191,5 +191,5 @@ public interface Model {
      * @param toCheck the password to check as an optional
      * @return true if the password to check matches that of the currently logged in user, false if it doesn't
      */
-    boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException;
+    boolean isMatchPassword(Password toCheck) throws NoUserSelectedException;
 }
