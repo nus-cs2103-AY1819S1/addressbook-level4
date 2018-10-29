@@ -43,7 +43,7 @@ To begin, follow the steps below:
 .  Check that you have Java version `9` or later installed in your Computer.
 .  Download the latest `socialcare.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for SocialCare.
-.  Double-click the file to start the app. The Graphic User Interface (GUI) should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 
 .A labelled screenshot of the parts of the application
 image::UiLabelled.png[width="790"]
@@ -645,7 +645,7 @@ This section contains a summary of the commands available.
 [width="100%",cols="30%,70%",options="header",]
 |=======================================================================
 | Term| Explanation
-| *GUI*| Graphic User Interface
+| *GUI*| Graphical User Interface.
 |=======================================================================
 
 == FAQ
