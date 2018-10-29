@@ -88,8 +88,8 @@ public class TagCommand extends Command {
             List<Person> updatedList = new ArrayList<>();
             currentList.forEach(person -> {
                 Set<Tag> personTags = new HashSet<>(person.getTags());
-                Tag tagToBeDeleted = new Tag(tags.get(1));
-                Tag tagToBeAdded = new Tag(tags.get(2));
+                Tag tagToBeDeleted = new Tag(tags.get(0));
+                Tag tagToBeAdded = new Tag(tags.get(1));
                 if (personTags.contains(tagToBeDeleted)) {
                     personTags.remove(tagToBeDeleted);
                     personTags.add(tagToBeAdded);
@@ -108,8 +108,8 @@ public class TagCommand extends Command {
         if (this.action == Action.DELETE || this.action == Action.FIND) {
             return new CommandResult(String.format(message, model.getFilteredPersonList().size()));
         } else {
-            return new CommandResult(String.format(message, model.getFilteredPersonList().size(), tags.get(1),
-                    tags.get(2)));
+            return new CommandResult(String.format(message, model.getFilteredPersonList().size(), tags.get(0),
+                    tags.get(1)));
         }
     }
 
