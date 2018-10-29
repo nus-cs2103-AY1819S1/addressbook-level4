@@ -106,10 +106,11 @@ public class FindPersonCommandTest {
     /**
      * Parses {@code userInput} into a {@code PersonNameContainsKeywordsPredicate}.
      */
-    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix, String userInputForSomePrefix,
+    private PersonNameContainsKeywordsPredicate preparePredicate(String userInputForAllPrefix,
+                                                                 String userInputForSomePrefix,
                                                                  String userInputForNonePrefix) {
         return new PersonNameContainsKeywordsPredicate(Arrays.asList(userInputForAllPrefix.split("\\s+")),
-                Arrays.asList(userInputForSomePrefix.split("\\s+")),
-                Arrays.asList(userInputForNonePrefix.split("\\s+")));
+            Arrays.asList(userInputForSomePrefix.split("\\s+")),
+            Arrays.asList(userInputForNonePrefix.split("\\s+")));
     }
 }
