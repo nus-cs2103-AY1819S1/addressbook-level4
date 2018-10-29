@@ -33,7 +33,7 @@ public class Person {
     private final PrescriptionList prescriptionList;
     private final AppointmentsList appointmentsList;
     private final MedicalHistory medicalHistory = new MedicalHistory();
-    private final VisitorList visitorList = new VisitorList();
+    private final VisitorList visitorList;
 
     /**
      * Every field must be present and not null.
@@ -49,6 +49,7 @@ public class Person {
         this.prescriptionList = new PrescriptionList();
         this.appointmentsList = new AppointmentsList();
         this.dietCollection = new DietCollection();
+        this.visitorList = new VisitorList();
     }
 
     /**
@@ -66,6 +67,7 @@ public class Person {
         this.prescriptionList = prescriptionList;
         this.appointmentsList = appointmentsList;
         this.dietCollection = new DietCollection();
+        this.visitorList = new VisitorList();
     }
 
     /**
@@ -83,6 +85,7 @@ public class Person {
         this.prescriptionList = new PrescriptionList();
         this.appointmentsList = new AppointmentsList();
         this.dietCollection = dietCollection;
+        this.visitorList = new VisitorList();
     }
 
     /**
@@ -101,6 +104,7 @@ public class Person {
         this.prescriptionList = new PrescriptionList();
         this.appointmentsList = new AppointmentsList();
         this.dietCollection = new DietCollection();
+        this.visitorList = new VisitorList();
     }
 
     /**
@@ -119,6 +123,7 @@ public class Person {
         this.prescriptionList = prescriptionList;
         this.appointmentsList = appointmentsList;
         this.dietCollection = new DietCollection();
+        this.visitorList = new VisitorList();
     }
 
     /**
@@ -134,7 +139,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.visitorList.addAll(visitorList);
+        this.visitorList = visitorList;
         this.prescriptionList = new PrescriptionList();
         this.appointmentsList = new AppointmentsList();
         this.dietCollection = new DietCollection();
@@ -154,7 +159,7 @@ public class Person {
         this.prescriptionList = prescriptionList;
         this.appointmentsList = appointmentsList;
         this.dietCollection = new DietCollection();
-        this.visitorList.addAll(visitorList);
+        this.visitorList = visitorList;
     }
 
 
