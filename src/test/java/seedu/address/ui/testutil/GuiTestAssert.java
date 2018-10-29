@@ -36,7 +36,8 @@ public class GuiTestAssert {
     public static void assertCardDisplaysTransaction(Transaction expectedTransaction,
                                                      TransactionCardHandle actualCard) {
         Person person = expectedTransaction.getPerson();
-        assertEquals(expectedTransaction.getAmount().value, actualCard.getAmount());
+        assertEquals(expectedTransaction.getType().value, actualCard.getType());
+        assertEquals(expectedTransaction.getAmount().toString(), actualCard.getAmount());
         assertEquals(expectedTransaction.getDeadline().value, actualCard.getDeadline());
         assertEquals(person.getName().fullName, actualCard.getName());
         assertEquals(person.getPhone().value, actualCard.getPhone());
