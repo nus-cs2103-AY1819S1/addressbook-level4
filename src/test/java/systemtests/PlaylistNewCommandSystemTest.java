@@ -161,15 +161,18 @@
 //        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 //
 //        /* Case: invalid phone -> rejected */
-//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + INVALID_PHONE_DESC + EMAIL_DESC_AMY +
+// ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 //
 //        /* Case: invalid email -> rejected */
-//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + PHONE_DESC_AMY + INVALID_EMAIL_DESC +
+// ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 //
 //        /* Case: invalid jxmusic -> rejected */
-//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+//        command = AddCommand.COMMAND_PHRASE + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY +
+// INVALID_ADDRESS_DESC;
 //        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 //
 //        /* Case: invalid tag -> rejected */

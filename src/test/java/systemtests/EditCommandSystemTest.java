@@ -73,7 +73,8 @@
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
 //        /* Case: edit a playlist with new values same as existing values -> edited */
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_BOB + EMAIL_DESC
 // _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandSuccess(command, index, BOB);
@@ -83,7 +84,8 @@
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_SECOND_PERSON;
 //        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME +
+// PHONE_DESC_BOB + EMAIL_DESC
 // _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -93,7 +95,8 @@
 //         * -> edited
 //         */
 //        index = INDEX_SECOND_PERSON;
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_AMY + EMAIL_DESC
 // _AMY
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
@@ -136,7 +139,8 @@
 //        showAllPersons();
 //        index = INDEX_FIRST_PERSON;
 //        selectPerson(index);
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME +
+// PHONE_DESC_AMY + EMAIL_DESC
 // _AMY
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ;
 //        // this can be misleading: card selection actually remains unchanged but the
@@ -180,7 +184,8 @@
 //                Email.MESSAGE_EMAIL_CONSTRAINTS);
 //
 //        /* Case: invalid jxmusic -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() +
+// INVALID_ADDRESS_DESC,
 //                Address.MESSAGE_ADDRESS_CONSTRAINTS);
 //
 //        /* Case: invalid tag -> rejected */
@@ -192,29 +197,30 @@
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_FIRST_PERSON;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_BOB + EMAIL_DESC_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different tags -> rejecte
 // d */
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB +
+// EMAIL_DES
 // C_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different jxmusic -> reje
 // cted */
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB +
+// EMAIL_DESC_BOB
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different phone -> reject
 // ed */
-//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY +
+// EMAIL_DESC_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //

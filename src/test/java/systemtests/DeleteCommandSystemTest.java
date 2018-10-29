@@ -29,7 +29,8 @@
 //
 //        /* Case: delete the first playlist in the list, command with leading spaces and trailing spaces -> deleted */
 //        Model expectedModel = getModel();
-//        String command = "     " + PlaylistDelCommand.COMMAND_PHRASE + "      " + INDEX_FIRST_PERSON.getOneBased() + "     ";
+//        String command = "     " + PlaylistDelCommand.COMMAND_PHRASE + "      " +
+// INDEX_FIRST_PERSON.getOneBased() + "     ";
 //        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -124,7 +125,8 @@
 //    }
 //
 //    /**
-//     * Deletes the playlist at {@code toDelete} by creating a default {@code PlaylistDelCommand} using {@code toDelete} and
+//     * Deletes the playlist at {@code toDelete} by creating a default {@code PlaylistDelCommand}
+// using {@code toDelete} and
 //     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
 //     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
 //     */
@@ -134,7 +136,8 @@
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //
 //        assertCommandSuccess(
-//                PlaylistDelCommand.COMMAND_PHRASE + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+//                PlaylistDelCommand.COMMAND_PHRASE + " " + toDelete.getOneBased(), expectedModel,
+// expectedResultMessage);
 //    }
 //
 //    /**
