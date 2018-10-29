@@ -355,6 +355,27 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
+=== Adding a Category Budget: `addCategoryBudget`
+Adds a Budget to limit spending on a certain category.
+
+Sum of all category budgets cannot exceed total budget of
+Expense Tracker.
+
+Format: `addCategoryBudget c/CATEGORY b/BUDGET`
+
+****
+*Example:*
+
+* `addCategoryBudget c/School b/10.00` +
+    Adds a budget of $10 to the `School` category.
+
+****
+
+[NOTE]
+====
+Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
+====
+
 
 === Listing entered commands : `history`
 
