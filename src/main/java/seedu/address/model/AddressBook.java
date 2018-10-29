@@ -74,7 +74,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
-        meetings.setMeetings(groups.stream().map(Group::getMeeting).collect(Collectors.toList()));
+        meetings.setMeetings(groups.stream().filter(group -> group.getMeeting() != null).map(Group::getMeeting)
+            .collect(Collectors.toList()));
     }
     // @@author
 
