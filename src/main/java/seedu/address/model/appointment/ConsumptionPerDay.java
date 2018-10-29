@@ -23,6 +23,10 @@ public class ConsumptionPerDay {
         value = consumptionPerDay;
     }
 
+    public ConsumptionPerDay() {
+        value = "";
+    }
+
     /**
      * Returns true if a given string is a valid number of consumption per day
      */

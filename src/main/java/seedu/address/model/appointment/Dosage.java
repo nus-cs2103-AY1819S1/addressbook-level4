@@ -25,6 +25,10 @@ public class Dosage {
         value = dosage;
     }
 
+    public Dosage() {
+        value = "";
+    }
+
     /**
      * Returns true if a given string is a valid dosage
      */
