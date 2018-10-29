@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -35,14 +36,25 @@ public class TagCommandParserTest {
         assertParseSuccess(parser, " \n owesMoney \n \t friends \t", expectedFindTagCommand);
 
         // Delete tags command, no leading and trailing whitespaces
-        List<String> tagsToBeDeleted = Arrays.asList("owesMoney", "friends", "delete");
+        List<String> tagsToBeDeleted = Arrays.asList("owesMoney", "friends");
         assertParseSuccess(parser, "owesMoney friends delete", new TagCommand(new
                 PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE, tagsToBeDeleted));
 
         // Delete tags command, multiple whitespaces between keywords
-        List<String> moreTagsToBeDeleted = Arrays.asList("owesMoney", "friends", "delete");
-        assertParseSuccess(parser, "owesMoney   \t\n  friends \t\t delete\n\n", new TagCommand(new
+        assertParseSuccess(parser, "\t\nowesMoney   \t\n  friends \t\t delete\n\n", new TagCommand(new
                 PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE, tagsToBeDeleted));
+
+        // Edit tags command, no leading and trailing whitespaces
+        assertParseSuccess(parser, "edit owesMoney unreliable", new TagCommand(
+                new PersonContainsTagPredicate(Collections.singletonList("owesMoney")),
+                TagCommand.Action.EDIT,
+                Arrays.asList("owesMoney", "unreliable")));
+
+        // Edit tags command, multiple whitespaces between keywords
+        assertParseSuccess(parser, "\n\tedit     \t\t\n\nowesMoney \n\n\tunreliable\n\t", new TagCommand(
+                new PersonContainsTagPredicate(Collections.singletonList("owesMoney")),
+                TagCommand.Action.EDIT,
+                Arrays.asList("owesMoney", "unreliable")));
     }
 
 }
