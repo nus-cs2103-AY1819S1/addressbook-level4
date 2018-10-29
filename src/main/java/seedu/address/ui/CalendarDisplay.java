@@ -33,6 +33,7 @@ public class CalendarDisplay extends UiPart<Region> {
     private ObservableList<CalendarEvent> calendarEventList;
 
     private Agenda agenda;
+    private Agenda.AppointmentGroupImpl appointmentGroup;
 
     // keeps track of which week calendar is showing
     private LocalDateTime currentDateTime = LocalDateTime.now()
@@ -58,6 +59,8 @@ public class CalendarDisplay extends UiPart<Region> {
     private void initAgenda() {
         agenda = new Agenda();
 
+        appointmentGroup = new Agenda.AppointmentGroupImpl().withStyleClass("group18");
+
         // register actionCallBack, to be executed when user double click on appointment
         agenda.actionCallbackProperty().set(new Callback<Appointment, Void>() {
             @Override
@@ -74,6 +77,8 @@ public class CalendarDisplay extends UiPart<Region> {
         // disable dragging appointments around
         agenda.setAllowDragging(false);
 
+        agenda.setEditAppointmentCallback(null);
+
         // set the week for calendar to display
         agenda.setDisplayedLocalDateTime(currentDateTime);
 
@@ -89,7 +94,8 @@ public class CalendarDisplay extends UiPart<Region> {
      * @param calendarEventList
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {
-        // populate the calendar by adding all the events to the calendar
+        // populate calendar
+        calendarEventList.forEach((calendarEvent -> calendarEvent.setAppointmentGroup(appointmentGroup)));
         agenda.appointments().addAll(calendarEventList);
 
         // TODO: fix weird add/remove all items bug for first command
@@ -100,13 +106,12 @@ public class CalendarDisplay extends UiPart<Region> {
                     if (c.wasRemoved()) {
                         for (CalendarEvent removedEvent : c.getRemoved()) {
                             agenda.appointments().remove(removedEvent);
-                            System.out.println("REMOVED: " + removedEvent.getTitle());
                         }
                     }
                     if (c.wasAdded()) {
                         for (CalendarEvent addedEvent : c.getAddedSubList()) {
+                            addedEvent.setAppointmentGroup(appointmentGroup);
                             agenda.appointments().add(addedEvent);
-                            System.out.println("ADDED: " + addedEvent.getTitle());
                         }
                     }
                 }
@@ -115,39 +120,78 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Temporary convienience method to test navigation
-     * The calendarDisplay must be in focus for this to work, i.e. must click on the calendar
-     * TODO: get help with the down key problem
+     * Set up the controls for interacting with the calendar display
+     * The calendarDisplay must be in focus for this to work
+     * TODO: find way to set focus properly
      */
     public void setControls() {
-        agenda.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
+        calendarDisplayBox.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.T) { // toggle between day and week view
+                switch (event.getCode()) {
+                case T: // toggle between day and week view
                     logger.info("Toggle Pressed");
-                    if (agenda.getSkin() instanceof AgendaDaySkin) {
-                        setViewToWeeklyView();
-                    } else if (agenda.getSkin() instanceof AgendaWeekSkin) {
-                        setViewToDailyView();
-                    }
-                    agenda.requestFocus();
-                } else if (event.getCode() == KeyCode.LEFT) {
+                    toggleSkin();
+                    break;
+                case LEFT:
                     logger.info("LEFT arrow Pressed");
-                    if (agenda.getSkin() instanceof AgendaDaySkin) {
-                        displayPreviousDay();
-                    } else if (agenda.getSkin() instanceof AgendaWeekSkin) {
-                        displayPreviousWeek();
-                    }
-                } else if (event.getCode() == KeyCode.RIGHT) {
+                    viewPrevious();
+                    break;
+                case RIGHT:
                     logger.info("RIGHT arrow Pressed");
-                    if (agenda.getSkin() instanceof AgendaDaySkin) {
-                        displayNextDay();
-                    } else if (agenda.getSkin() instanceof AgendaWeekSkin) {
-                        displayNextWeek();
-                    }
+                    viewNext();
+                    break;
                 }
             }
         });
+    }
+
+    @FXML
+    /**
+     * Bug fix: Consumes the DOWN event, preventing strange behaviour
+     */
+    private void handleKeyPress(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.DOWN) {
+            keyEvent.consume();
+        }
+    }
+
+    /**
+     * Displays the agenda for previous week or day, depending on current skin
+     */
+    public void viewPrevious() {
+        if (isDaySkin()) {
+            displayPreviousDay();
+        } else if (isWeekSkin()) {
+            displayPreviousWeek();
+        }
+    }
+
+    /**
+     * Displays the agenda for next week or day, depending on current skin
+     */
+    public void viewNext() {
+        if (isDaySkin()) {
+            displayNextDay();
+        } else if (isWeekSkin()) {
+            displayNextWeek();
+        }
+    }
+
+    public void toggleSkin() {
+        if (isDaySkin()) {
+            setViewToWeeklyView();
+        } else if (isWeekSkin()) {
+            setViewToDailyView();
+        }
+    }
+
+    public boolean isDaySkin() {
+        return agenda.getSkin() instanceof AgendaDaySkin;
+    }
+
+    public boolean isWeekSkin() {
+        return agenda.getSkin() instanceof AgendaWeekSkin;
     }
 
     /**

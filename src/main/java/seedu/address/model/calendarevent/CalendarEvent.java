@@ -29,6 +29,7 @@ public class CalendarEvent extends Agenda.AppointmentImplLocal {
     private final Set<Tag> tags = new HashSet<>();
 
     private boolean isWholeDay;
+    private Agenda.AppointmentGroupImpl appointmentGroup;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +44,7 @@ public class CalendarEvent extends Agenda.AppointmentImplLocal {
 
         // Appointment variables
         this.isWholeDay = false;
+        this.appointmentGroup = null;
     }
 
     public Title getTitle() {
@@ -61,22 +63,12 @@ public class CalendarEvent extends Agenda.AppointmentImplLocal {
 
     @Override
     public String getSummary() {
-        return null;
-    }
-
-    @Override
-    public void setSummary(String s) {
-
+        return title.value;
     }
 
     @Override
     public String getDescription() {
-        return description.toString();
-    }
-
-    @Override
-    public void setDescription(String s) {
-
+        return description.value;
     }
 
     @Override
@@ -85,21 +77,16 @@ public class CalendarEvent extends Agenda.AppointmentImplLocal {
     }
 
     @Override
-    public void setLocation(String s) {
-
-    }
-
-    // TODO: set up appointment groups
-    @Override
     public Agenda.AppointmentGroup getAppointmentGroup() {
-        return null;
+        return this.appointmentGroup;
     }
 
     @Override
     public void setAppointmentGroup(Agenda.AppointmentGroup s) {
-
+        this.appointmentGroup = (Agenda.AppointmentGroupImpl) s;
     }
 
+    @Override
     public LocalDateTime getStartLocalDateTime() {
         return this.dateTimeInfo.start.localDateTime;
     }
