@@ -68,6 +68,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         default:
             throwParseException();
+            break;
         }
     }
 
@@ -133,6 +134,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         default:
             throwParseException();
+            break;
         }
         return findCommand;
     }
