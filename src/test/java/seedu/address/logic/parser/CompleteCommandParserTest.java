@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import org.junit.Test;
 
 import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.CompleteIndexCommand;
+import seedu.address.logic.commands.CompleteLabelCommand;
 import seedu.address.model.task.LabelMatchesKeywordPredicate;
 
 /**
@@ -22,15 +24,15 @@ public class CompleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsCompleteCommand() {
         // Arguments with no whitespaces
-        assertParseSuccess(parser, "1", new CompleteCommand(INDEX_FIRST_TASK));
+        assertParseSuccess(parser, "1", new CompleteIndexCommand(INDEX_FIRST_TASK));
 
         // Arguments with leading whitepaces
-        assertParseSuccess(parser, " 1", new CompleteCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, " l/friends", new CompleteCommand(LABEL_FRIENDS));
+        assertParseSuccess(parser, " 1", new CompleteIndexCommand(INDEX_FIRST_TASK));
+        assertParseSuccess(parser, " l/friends", new CompleteLabelCommand(LABEL_FRIENDS));
 
         // Arguments with leading and trailing whitespaces
-        assertParseSuccess(parser, "  1  ", new CompleteCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, "  l/ friends  ", new CompleteCommand(LABEL_FRIENDS));
+        assertParseSuccess(parser, "  1  ", new CompleteIndexCommand(INDEX_FIRST_TASK));
+        assertParseSuccess(parser, "  l/ friends  ", new CompleteLabelCommand(LABEL_FRIENDS));
 
     }
 

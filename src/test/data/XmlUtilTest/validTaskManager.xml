@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <achievements>
+        <displayOption>1</displayOption>
         <xp>0</xp>
         <level>lvl.1</level>
+        <numTaskCompleted>0</numTaskCompleted>
+        <nextDayBreakPoint>13-10-19 0000</nextDayBreakPoint>
+        <xpValueByDay>0</xpValueByDay>
+        <numTaskCompletedByDay>0</numTaskCompletedByDay>
+        <nextWeekBreakPoint>19-10-19 0000</nextWeekBreakPoint>
+        <xpValueByWeek>0</xpValueByWeek>
+        <numTaskCompletedByWeek>0</numTaskCompletedByWeek>
     </achievements>
     <tasks>
         <name>Hans Muster</name>

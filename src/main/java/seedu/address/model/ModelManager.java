@@ -122,6 +122,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAchievementsUpdated();
     }
 
+    @Override
+    public void updateAchievementDisplayOption(int displayOption) {
+        versionedTaskManager.updateAchievementDisplayOption(displayOption);
+        indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
+    }
+
     /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
