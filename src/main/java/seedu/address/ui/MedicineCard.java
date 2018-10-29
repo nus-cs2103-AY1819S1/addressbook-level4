@@ -56,6 +56,9 @@ public class MedicineCard extends UiPart<Region> {
         if (medicine.getStock().value < medicine.getMinimumStockQuantity().value) {
             // Need to restock! Let's colour it red!
             stock.setStyle("-fx-text-fill: rgba(255,56,34,0.87)");
+        } else if (medicine.getStock().value <= medicine.getMinimumStockQuantity().value * 1.1) {
+            // Going below minimum stock soon! Let's colour it yellow!
+            stock.setStyle("-fx-text-fill: rgba(255,201,15,0.87)");
         }
     }
 
