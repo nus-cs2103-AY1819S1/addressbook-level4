@@ -56,4 +56,19 @@ public class Name {
         return fullName.hashCode();
     }
 
+    /**
+     * @param a
+     * @param b
+     * @return
+     */
+    public static int compare(Name a, Name b) {
+        if (((a.toString()).compareTo(b.toString())) < 0) {
+            return -1;
+        } else if (((a.toString()).compareTo(b.toString())) > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

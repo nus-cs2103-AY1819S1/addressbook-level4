@@ -5,6 +5,8 @@ import static ssp.scheduleplanner.ui.testutil.GuiTestAssert.assertListMatching;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -45,7 +47,9 @@ public class SampleDataTest extends SchedulePlannerSystemTest {
 
     @Test
     public void schedulePlanner_dataFileDoesNotExist_loadSampleData() {
-        Task[] expectedList = SampleDataUtil.getSampleTasks();
+        Task[] expectedArray = SampleDataUtil.getSampleTasks();
+        List<Task> expectedList = Arrays.asList(expectedArray);
+        expectedList.sort((a, b) -> Task.compare(a, b));
         assertListMatching(getTaskListPanel(), expectedList);
     }
 }

@@ -89,10 +89,6 @@ public class TaskTest {
         editedAlice = new TaskBuilder(ALICE).withDate(VALID_DATE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new TaskBuilder(ALICE).withPriority(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
         // different address -> returns false
         editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));

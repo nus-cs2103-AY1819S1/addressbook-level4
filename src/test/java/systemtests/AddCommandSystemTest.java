@@ -17,8 +17,6 @@ import static ssp.scheduleplanner.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 //import static CommandTestUtil.VALID_ADDRESS_BOB;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static CliSyntax.PREFIX_TAG;
 import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;
@@ -78,13 +76,6 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         toAdd = new TaskBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a task with all fields same as another task in the address book except date and email
-         * -> added
-         */
-        toAdd = new TaskBuilder(AMY).withDate(VALID_DATE_BOB).withPriority(VALID_EMAIL_BOB).build();
-        command = TaskUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */

@@ -150,8 +150,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SchedulePlanner // instanceof handles nulls
-                && tasks.equals(((SchedulePlanner) other).tasks)
-                && archivedTasks.equals(((SchedulePlanner) other).archivedTasks));
+                && tasks.equals(((SchedulePlanner) other).tasks));
     }
 
     @Override
