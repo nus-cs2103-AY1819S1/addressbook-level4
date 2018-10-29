@@ -1,0 +1,5 @@
+{
+  "appTitle" : "WatchOver",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json"
+}
