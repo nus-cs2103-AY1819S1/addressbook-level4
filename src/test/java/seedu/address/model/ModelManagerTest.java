@@ -19,6 +19,7 @@ import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -33,7 +34,8 @@ public class ModelManagerTest {
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
-    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException {
     }
 
     @Test

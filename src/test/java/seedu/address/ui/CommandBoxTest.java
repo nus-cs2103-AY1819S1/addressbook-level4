@@ -13,6 +13,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -29,7 +30,8 @@ public class CommandBoxTest extends GuiUnitTest {
     private CommandBoxHandle commandBoxHandle;
 
     @Before
-    public void setUp() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public void setUp() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException {
         Model model = ModelUtil.modelWithTestUser();
         Logic logic = new LogicManager(model);
 

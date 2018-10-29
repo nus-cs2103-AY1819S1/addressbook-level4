@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -31,7 +32,7 @@ public class ModelUtil {
      * @return a model logged in with a test user
      */
     public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
-        NoUserSelectedException {
+            NoUserSelectedException, InvalidDataException {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
         model.loadUserData(TEST_USERNAME, null, null);

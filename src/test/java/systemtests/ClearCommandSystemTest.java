@@ -11,6 +11,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -21,7 +22,7 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
     public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException,
-            IllegalValueException {
+            IllegalValueException, InvalidDataException {
         final Model defaultModel = getModel();
         showAllExpenses();
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
@@ -71,7 +72,7 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) throws UserAlreadyExistsException, NonExistentUserException,
-            NoUserSelectedException, IllegalValueException {
+            NoUserSelectedException, IllegalValueException, InvalidDataException {
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, ModelUtil.modelWithTestUser());
     }
 

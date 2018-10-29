@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -26,7 +27,7 @@ public class ClearCommandTest {
 
     @Test
     public void execute_emptyExpenseTracker_success() throws NoUserSelectedException, UserAlreadyExistsException,
-            NonExistentUserException {
+            NonExistentUserException, InvalidDataException {
         Model model = ModelUtil.modelWithTestUser();
         Model expectedModel = ModelUtil.modelWithTestUser();
         expectedModel.commitExpenseTracker();

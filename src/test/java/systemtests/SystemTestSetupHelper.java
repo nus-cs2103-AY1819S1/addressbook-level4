@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.testutil.TypicalExpenses;
 
@@ -62,7 +63,7 @@ public class SystemTestSetupHelper {
             FxToolkit.setupFixture(() -> {
                 try {
                     testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME, null, null);
-                } catch (NonExistentUserException e) {
+                } catch (NonExistentUserException | InvalidDataException e) {
                     Assert.fail(e.getMessage());
                 }
             });

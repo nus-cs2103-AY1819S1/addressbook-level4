@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
@@ -37,7 +38,8 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws NonExistentUserException {
+    public CommandResult execute(Model model, CommandHistory history) throws
+            NonExistentUserException, InvalidDataException {
         requireNonNull(model);
         if (model.loadUserData(this.username, this.password, this.plainPassword)) {
             return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, this.username.toString()));
