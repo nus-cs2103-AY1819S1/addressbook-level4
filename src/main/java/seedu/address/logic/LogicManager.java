@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 
 /**
  * The main LogicManager of the app.
@@ -100,5 +102,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     public StatsMode getStatsMode() {
         return model.getStatsMode();
+    }
+
+    public Iterator getCategoryList() {
+        return model.getCategoryList();
+    }
+
+    public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
+        return model.getNotificationList();
     }
 }

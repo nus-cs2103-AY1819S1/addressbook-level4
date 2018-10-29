@@ -23,6 +23,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -104,6 +106,7 @@ public class ExpenseTrackerTest {
      */
     private static class ExpenseTrackerStub implements ReadOnlyExpenseTracker {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        private final ObservableList<Notification> notifications = FXCollections.observableArrayList();
 
         ExpenseTrackerStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
@@ -125,6 +128,16 @@ public class ExpenseTrackerTest {
         }
 
         @Override
+        public ObservableList<Notification> getNotificationList() {
+            return notifications;
+        }
+
+        @Override
+        public NotificationHandler getNotificationHandler() {
+            return new NotificationHandler();
+        }
+
+        @Override
         public Optional<Password> getPassword() {
             return Optional.empty();
         }
@@ -133,6 +146,7 @@ public class ExpenseTrackerTest {
         public boolean isMatchPassword(Optional<Password> password) {
             return true;
         }
+
     }
 
 

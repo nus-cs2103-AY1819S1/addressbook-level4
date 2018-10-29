@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 
 /**
  * API of the Logic component
@@ -52,5 +54,10 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /** Returns an iterator of the list of categories and their total expenses */
+    Iterator getCategoryList();
+
+    ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
 
 }
