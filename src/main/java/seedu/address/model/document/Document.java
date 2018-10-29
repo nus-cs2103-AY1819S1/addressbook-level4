@@ -342,8 +342,11 @@ public class Document {
     public String getContent() {
         if (this instanceof Receipt) {
             return this.formatReceiptInformation();
+        } else if (this instanceof MedicalCertificate) {
+            return this.formatMcInformation();
+        } else if (this instanceof ReferralLetter) {
+            return this.formatRlInformation();
         } else {
-            // TODO: update this with the other documents i.e. Referral, MC
             return "Lorem ipsum fake news";
         }
     }
