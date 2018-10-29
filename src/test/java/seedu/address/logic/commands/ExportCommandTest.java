@@ -1,0 +1,73 @@
+//@@author chantca95
+package seedu.address.logic.commands;
+
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+
+public class ExportCommandTest {
+    private Model model;
+    private CommandHistory commandHistory;
+    private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
+
+    private static final String EXPECTED_FILE_NAME = "expectedExport.csv";
+    private static final String EXPORTED_FILE_NAME = "exportCommandTest.csv";
+
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        commandHistory = new CommandHistory();
+    }
+
+    @Test
+    public void execute_export_success() throws CommandException, IOException {
+        setUp();
+        CommandResult result = exportCommand.execute(model, commandHistory);
+        File produced = new File(EXPORTED_FILE_NAME);
+        File expected = new File(EXPECTED_FILE_NAME);
+        boolean isTwoEqual = CompareFilesbyByte(produced, expected);
+        assert(isTwoEqual);
+    }
+
+    public static boolean CompareFilesbyByte(File produced, File expected) throws IOException {
+        boolean isIdentical = true;
+        FileInputStream fis1 = new FileInputStream (produced);
+        FileInputStream fis2 = new FileInputStream (expected);
+        if (produced.length() == expected.length()) {
+            int n=0;
+            byte[] b1;
+            byte[] b2;
+            while ((n = fis1.available()) > 0) {
+                if (n>80) {
+                    n=80;
+                }
+                b1 = new byte[n];
+                b2 = new byte[n];
+                fis1.read(b1);
+                fis2.read(b2);
+                if (Arrays.equals(b1,b2)==false) {
+                    System.out.println(produced + " :\n\n " + new String(b1));
+                    System.out.println();
+                    System.out.println(expected + " : \n\n" + new String(b2));
+                    isIdentical = false;
+                }
+            }
+        } else {
+            isIdentical = false;// length is not matched. 
+        }
+        fis1.close();
+        fis2.close();
+        produced.delete(); // delete the generated file so that the test can be rerun
+        return isIdentical;
+    }
+}
