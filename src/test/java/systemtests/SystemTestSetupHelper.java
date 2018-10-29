@@ -6,12 +6,13 @@ import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.LoginWindowHandle;
 import guitests.guihandles.MainWindowHandle;
 
 import javafx.stage.Stage;
 
-import seedu.clinicio.TestApp;
-import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.address.TestApp;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains helper methods that system tests require.
@@ -19,14 +20,15 @@ import seedu.clinicio.model.ReadOnlyClinicIo;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
+    private LoginWindowHandle loginWindowHandle;
 
     /**
      * Sets up a new {@code TestApp} and returns it.
      */
-    public TestApp setupApplication(Supplier<ReadOnlyClinicIo> clinicIo, Path saveFileLocation) {
+    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(clinicIo, saveFileLocation));
+            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -61,6 +63,23 @@ public class SystemTestSetupHelper {
         }
 
         return mainWindowHandle;
+    }
+
+    /**
+     * Encapsulates the primary stage of {@code TestApp} in a {@code LoginWindowHandle} and returns it.
+     */
+    public LoginWindowHandle setupLoginWindowHandle() {
+        try {
+            FxToolkit.setupStage((stage) -> {
+                loginWindowHandle = new LoginWindowHandle(stage);
+                loginWindowHandle.focus();
+            });
+            FxToolkit.showStage();
+        } catch (TimeoutException te) {
+            throw new AssertionError("Stage takes too long to set up.", te);
+        }
+
+        return loginWindowHandle;
     }
 
     /**

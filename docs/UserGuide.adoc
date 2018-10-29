@@ -208,58 +208,6 @@ Selects the 2nd patient in the clinic record.
 `selectpatient 1` +
 Selects the 1st patient in the results of the `find` command.
 
-=== Assign a patient into the queue : `enqueuepatient`
-
-Assigns the patient based on the index number used in the displayed patient list. +
-Format: `enqueuepatient INDEX`
-
-****
-* Assigns the patient into the queue (first in first out manner)
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-The command is typically used in combination with other commands. +
-Examples:
-
-* `list` +
-`enqueuepatient 7` +
-Selects the 7th patient in the displayed list of patients resulting from the `list` command and assigns the patient into the queue.
-
-* `find Logan` +
-`enqueuepatient 1` +
-Assigns the 1st patient in the displayed list of patients whose names contain *Logan* (case insensitive) resulting from the `find Logan` command and assigns the patient into the queue.
-
-=== Show all patients in the queue : `showqueue`
-
-Lists all patients in the queue.
-Format: `showqueue` +
-
-Example:
-
-* `showqueue`
-
-=== Removing a patient from the queue: `dequeuepatient INDEX`
-
-Pulls out the patient based on the index number used in the displayed patient list.
-
-Examples:
-
-* `dequeuepatient 9` +
-Removes the 9th patient in the ClinicIO record from the queue.
-
-The command can also be used in combination with other commands such as `list` and `find`.
-
-Examples:
-
-* `list` +
-`dequeuepatient 3` +
-Removes the 3rd patient in the displayed list of patients from the queue.
-
-* `find Cassandra` +
-`dequeue 1` +
-Selects the 1st Cassandra as displayed in the list resulting from the `find Cassandra` command and removes her from the queue.
-
 === Adding a medicine: `add medicine`
 
 Adds a medicine to the medicine inventory +
@@ -531,12 +479,15 @@ e.g.`selectpatient 2`
 
 === Queue Commands
 
-* *Show patients in the queue* : `queue` +
-e.g. `queue`
-* *Enqueue a patient* : `enqueuepatient INDEX` +
-e.g. `enqueuepatient 3`
-* *Remove a patient from the queue* : `dequeuepatient INDEX` +
-e.g. `dequeuepatient 4`
+* *Queue* : `queue QINDEX` +
+e.g. `queue 2`
+* *Queues* : `queues`
+* *Enqueue* : `enqueue INDEX QINDEX` +
+e.g. `enqueue 3 1`
+* *Dequeue* : `dequeue QINDEX` +
+e.g. `dequeue 4`
+* *Select* : `select INDEX` +
+e.g. `select 2`
 
 === Data Commands
 
