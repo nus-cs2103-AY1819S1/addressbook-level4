@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_PARAM;
 import static seedu.address.logic.commands.FindGroupCommand.FIND_GROUP_PARAM_SHORT;
+import static seedu.address.logic.commands.FindMeetingCommand.FIND_MEETING_PARAM;
+import static seedu.address.logic.commands.FindMeetingCommand.FIND_MEETING_PARAM_SHORT;
 import static seedu.address.logic.commands.FindPersonCommand.FIND_PERSON_PARAM;
 import static seedu.address.logic.commands.FindPersonCommand.FIND_PERSON_PARAM_SHORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
@@ -16,9 +18,11 @@ import java.util.Optional;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindGroupCommand;
+import seedu.address.logic.commands.FindMeetingCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 
 /**
@@ -28,7 +32,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * The type of FindCommand to create for execution.
      */
-    private enum FindCommandType { PERSON, GROUP }
+    private enum FindCommandType { PERSON, GROUP, MEETING }
 
     private FindCommandType findCommandType;
 
@@ -64,6 +68,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         case FIND_GROUP_PARAM:
         case FIND_GROUP_PARAM_SHORT:
             findCommandType = FindCommandType.GROUP;
+            break;
+
+        case FIND_MEETING_PARAM:
+        case FIND_MEETING_PARAM_SHORT:
+            findCommandType = FindCommandType.MEETING;
             break;
 
         default:
@@ -124,12 +133,17 @@ public class FindCommandParser implements Parser<FindCommand> {
         switch (findCommandType) {
         case PERSON:
             findCommand = new FindPersonCommand(new PersonNameContainsKeywordsPredicate(
-                        allKeywords, someKeywords, noneKeywords));
+                allKeywords, someKeywords, noneKeywords));
             break;
 
         case GROUP:
             findCommand = new FindGroupCommand(new GroupTitleContainsKeywordsPredicate(
-                        allKeywords, someKeywords, noneKeywords));
+                allKeywords, someKeywords, noneKeywords));
+            break;
+
+        case MEETING:
+            findCommand = new FindMeetingCommand(new MeetingTitleContainsKeywordsPredicate(
+                allKeywords, someKeywords, noneKeywords));
             break;
 
         default:
