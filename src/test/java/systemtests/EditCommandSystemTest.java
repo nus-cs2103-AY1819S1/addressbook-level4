@@ -200,7 +200,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
-                        + INVALID_TAG_DESC, Tag.MESSAGE_GENERAL_TAG_CONSTRAINTS);
+                        + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a transaction with new values same as another transaction's values -> rejected */
         executeCommand(TransactionUtil.getAddCommand(BOB_TRANSACTION));
