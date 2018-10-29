@@ -1,6 +1,6 @@
 package seedu.clinicio.testutil;
 
-import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.receptionist.Receptionist;
 

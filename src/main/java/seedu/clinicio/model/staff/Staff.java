@@ -1,11 +1,10 @@
-package seedu.clinicio.model.doctor;
+package seedu.clinicio.model.staff;
 
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Objects;
 
-import seedu.clinicio.model.password.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -14,52 +13,52 @@ import seedu.clinicio.model.person.Phone;
 
 //@@author jjlee050
 /**
- * Represents a Doctor in the ClinicIO.
+ * Represents a Staff in the ClinicIO.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor extends Person {
+public class Staff extends Person {
 
     // Identity fields
+    private Role role;
     private final Password password;
-
-    //Data fields
-    //private final Shift shift;
 
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Password password) {
+    public Staff(Role role, Name name, Password password) {
         super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
-        requireAllNonNull(name, password);
+        requireAllNonNull(role, name, password);
+        this.role = role;
         this.password = password;
-        //this.shift = shift;
     }
 
+    public Role getRole() {
+        return role;
+    }
+    
     public Password getPassword() {
         return password;
     }
 
-    /*public Shift getShift() {
-        return shift;
-    }*/
 
     /**
-     * Returns true if both doctors of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two doctor.
+     * Returns true if both staffs of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two staffs.
      */
-    public boolean isSameDoctor(Doctor otherDoctor) {
-        if (otherDoctor == this) {
+    public boolean isSameStaff(Staff otherStaff) {
+        if (otherStaff == this) {
             return true;
         }
 
-        return otherDoctor != null
-                && (otherDoctor.getName().equals(getName())
-                || otherDoctor.getPassword().equals(getPassword()));
+        return otherStaff != null
+                && otherStaff.getName().equals(getName())
+                && (otherStaff.getRole().equals(getRole())
+                || otherStaff.getPassword().equals(getPassword()));
     }
 
     /**
-     * Returns true if both doctors have the same identity and data fields.
-     * This defines a stronger notion of equality between two doctors.
+     * Returns true if both staffs have the same identity and data fields.
+     * This defines a stronger notion of equality between two staffs.
      */
     @Override
     public boolean equals(Object other) {
@@ -67,25 +66,27 @@ public class Doctor extends Person {
             return true;
         }
 
-        if (!(other instanceof Doctor)) {
+        if (!(other instanceof Staff)) {
             return false;
         }
 
-        Doctor otherDoctor = (Doctor) other;
-        return otherDoctor.getName().equals(getName())
-                && otherDoctor.getPassword().equals(getPassword());
+        Staff otherStaff = (Staff) other;
+        return otherStaff.getName().equals(getName())
+                && otherStaff.role.equals(getRole())
+                && otherStaff.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(password);
+        return Objects.hash(role, password);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Doctor-Name: ")
+        builder.append(role.toString())
+                .append(" Name: ")
                 .append(getName())
                 .append(" Password: ")
                 .append(getPassword());

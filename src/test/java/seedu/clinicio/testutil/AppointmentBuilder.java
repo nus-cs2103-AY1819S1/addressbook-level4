@@ -6,7 +6,7 @@ import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
 
 //@@author gingivitiss
@@ -20,14 +20,14 @@ public class AppointmentBuilder {
     public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
     public static final int DEFAULT_STATUS = 1;
-    public static final Doctor DEFAULT_DOCTOR = ADAM;
+    public static final Staff DEFAULT_STAFF = ADAM;
 
     private Date date;
     private Time time;
     private Patient patient;
     private int type;
     private int status;
-    private Doctor doctor;
+    private Staff staff;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -35,7 +35,7 @@ public class AppointmentBuilder {
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
         status = DEFAULT_STATUS;
-        doctor = DEFAULT_DOCTOR;
+        staff = DEFAULT_STAFF;
     }
 
     /**
@@ -47,7 +47,7 @@ public class AppointmentBuilder {
         patient = appointmentToCopy.getPatient();
         type = appointmentToCopy.getAppointmentType();
         status = appointmentToCopy.getAppointmentStatus();
-        doctor = appointmentToCopy.getAssignedDoctor();
+        staff = appointmentToCopy.getAssignedStaff();
     }
 
     /**
@@ -75,14 +75,14 @@ public class AppointmentBuilder {
     }
 
     /**
-     * Sets the {@code Doctor} of the {@code Appointment} that we are building.
+     * Sets the {@code Staff} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public AppointmentBuilder withDoctor(Staff staff) {
+        this.staff = staff;
         return this;
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient, type, doctor);
+        return new Appointment(date, time, patient, type, staff);
     }
 }

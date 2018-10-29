@@ -1,12 +1,12 @@
 package seedu.clinicio.testutil;
 
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Name;
 
 //@@author jjlee050
 /**
- * A utility class to help with building Doctor objects.
+ * A utility class to help with building Staff objects.
  */
 public class DoctorBuilder {
 
@@ -24,13 +24,13 @@ public class DoctorBuilder {
     /**
      * Initializes the DoctorBuilder with the data of {@code personToCopy}.
      */
-    public DoctorBuilder(Doctor doctorToCopy) {
-        name = doctorToCopy.getName();
-        password = doctorToCopy.getPassword();
+    public DoctorBuilder(Staff staffToCopy) {
+        name = staffToCopy.getName();
+        password = staffToCopy.getPassword();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Doctor} that we are building.
+     * Sets the {@code Name} of the {@code Staff} that we are building.
      */
     public DoctorBuilder withName(String name) {
         this.name = new Name(name);
@@ -38,7 +38,7 @@ public class DoctorBuilder {
     }
 
     /**
-     * Sets the {@code Password} of the {@code Doctor} that we are building.
+     * Sets the {@code Password} of the {@code Staff} that we are building.
      *
      * @param isHashed Check if the password is hashed password.
      *
@@ -48,8 +48,8 @@ public class DoctorBuilder {
         return this;
     }
 
-    public Doctor build() {
-        return new Doctor(name, password);
+    public Staff build() {
+        return new Staff(name, password);
     }
 
 }

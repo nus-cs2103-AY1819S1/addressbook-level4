@@ -31,8 +31,8 @@ import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
@@ -118,8 +118,8 @@ public class ClinicIoParserTest {
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
-                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
-        assertEquals(new LoginCommand(new Doctor(ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false))),
+                LoginCommand.COMMAND_WORD + " r/staff n/" + ADAM.getName().fullName + " pass/doctor1");
+        assertEquals(new LoginCommand(new Staff(ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false))),
                 command);
 
         // TODO: Add receptionist

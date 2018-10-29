@@ -3,9 +3,8 @@ package seedu.clinicio.model;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.receptionist.Receptionist;
 
 /**
  * Unmodifiable view of a ClinicIO
@@ -22,7 +21,7 @@ public interface ReadOnlyClinicIo {
      * Returns an unmodifiable view of the doctors list.
      * This list will not contain any duplicate doctors.
      */
-    ObservableList<Doctor> getDoctorList();
+    ObservableList<Staff> getStaffList();
 
     /**
      * Returns an unmodifiable view of the appointment list.
@@ -30,9 +29,4 @@ public interface ReadOnlyClinicIo {
      */
     ObservableList<Appointment> getAppointmentList();
 
-    /**
-     * Returns an unmodifiable view of the receptionist list.
-     * This list will not contain any duplicate receptionists.
-     */
-    ObservableList<Receptionist> getReceptionistList();
 }

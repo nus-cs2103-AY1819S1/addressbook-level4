@@ -15,7 +15,7 @@ import seedu.clinicio.logic.parser.exceptions.ParseException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
 
 /**
@@ -53,8 +53,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Doctor> getFilteredDoctorList() {
-        return model.getFilteredDoctorList();
+    public ObservableList<Staff> getFilteredStaffList() {
+        return model.getFilteredStaffList();
     }
 
     @Override

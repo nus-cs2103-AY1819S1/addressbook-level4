@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -22,7 +22,7 @@ import seedu.clinicio.model.tag.Tag;
  * A patient may or may not have a preferredDoctor, consultation, medical history and appointment.
  */
 public class Patient extends Person {
-    private Optional<Doctor> preferredDoctor = Optional.empty();
+    private Optional<Staff> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
 
     /**
@@ -46,10 +46,10 @@ public class Patient extends Person {
     }
 
     /**
-     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
-     * @return an Optional {@link Doctor}.
+     * Returns the patient's preferred staff wrapped in {@link Optional}. The patient may not have one.
+     * @return an Optional {@link Staff}.
      */
-    public Optional<Doctor> getPreferredDoctor() {
+    public Optional<Staff> getPreferredDoctor() {
         return preferredDoctor;
     }
 
@@ -62,13 +62,13 @@ public class Patient extends Person {
     }
 
     /**
-     * Assigns a specific doctor for the patient.
-     * @param doctor
+     * Assigns a specific staff for the patient.
+     * @param staff
      */
-    public void setPreferredDoctor(Doctor doctor) {
-        requireNonNull(doctor);
+    public void setPreferredDoctor(Staff staff) {
+        requireNonNull(staff);
 
-        preferredDoctor = Optional.of(doctor);
+        preferredDoctor = Optional.of(staff);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Patient extends Person {
     }
 
     /**
-     * Checks if the patient has preferred doctor.
+     * Checks if the patient has preferred staff.
      */
     public boolean hasPreferredDoctor() {
         return preferredDoctor.isPresent();
@@ -144,7 +144,7 @@ public class Patient extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        Optional<Doctor> preferredDoctor = getPreferredDoctor();
+        Optional<Staff> preferredDoctor = getPreferredDoctor();
         Optional<Appointment> appointment = getAppointment();
         Name name = getName();
         Phone phone = getPhone();

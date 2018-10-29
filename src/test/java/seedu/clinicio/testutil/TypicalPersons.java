@@ -29,7 +29,7 @@ import java.util.List;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.receptionist.Receptionist;
@@ -90,14 +90,14 @@ public class TypicalPersons {
     public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
             .build();
 
-    // Manually added (Doctor)
-    public static final Doctor ADAM = new DoctorBuilder().withName(VALID_NAME_ADAM)
+    // Manually added (Staff)
+    public static final Staff ADAM = new DoctorBuilder().withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
-    public static final Doctor BEN = new DoctorBuilder().withName(VALID_NAME_BEN)
+    public static final Staff BEN = new DoctorBuilder().withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
     //Not inside ClinicIO
-    public static final Doctor CAT = new DoctorBuilder().withName(VALID_NAME_CAT)
+    public static final Staff CAT = new DoctorBuilder().withName(VALID_NAME_CAT)
             .withPassword(VALID_HASH_PASSWORD_CAT, true).build();
 
     public static final Receptionist ALAN = new ReceptionistBuilder().withName(VALID_NAME_ALAN)
@@ -129,8 +129,8 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        for (Doctor doctor : getTypicalDoctors()) {
-            clinicIo.addDoctor(doctor);
+        for (Staff staff : getTypicalDoctors()) {
+            clinicIo.addStaff(staff);
         }
         for (Receptionist receptionist : getTypicalReceptionists()) {
             clinicIo.addReceptionist(receptionist);
@@ -147,7 +147,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static List<Doctor> getTypicalDoctors() {
+    public static List<Staff> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN));
     }
 

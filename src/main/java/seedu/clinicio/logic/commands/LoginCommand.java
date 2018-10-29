@@ -11,10 +11,9 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.password.Password;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.receptionist.Receptionist;
 
 //@@author jjlee050
 
@@ -31,10 +30,10 @@ public class LoginCommand extends Command {
             + "[" + PREFIX_ROLE + "ROLE]"
             + "[" + PREFIX_NAME + "NAME]"
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
-            + "Example: login r/doctor n/Adam Bell pass/doctor1";
+            + "Example: login r/staff n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
-    public static final String MESSAGE_NO_DOCTOR_FOUND = "No doctor found.";
+    public static final String MESSAGE_NO_DOCTOR_FOUND = "No staff found.";
     public static final String MESSAGE_NO_RECEPTIONIST_FOUND = "No receptionist found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
 
@@ -42,7 +41,7 @@ public class LoginCommand extends Command {
 
     /**
      * Creates an LoginCommand to add the specified {@code Person}.
-     * This {@code Person} could possibly be a doctor or receptionist.
+     * This {@code Person} could possibly be a staff or receptionist.
      */
     public LoginCommand(Person person) {
         requireNonNull(person);
@@ -54,37 +53,22 @@ public class LoginCommand extends Command {
         requireNonNull(model);
 
         // TODO:Attempt to modularise method below
-        if (toAuthenticate instanceof Doctor) {
-            Doctor authenticatedDoctor = (Doctor) toAuthenticate;
-            if (!model.hasDoctor(authenticatedDoctor)) {
+        if (toAuthenticate instanceof Staff) { 
+            Staff authenticatedStaff = (Staff) toAuthenticate;
+            if (!model.hasStaff(authenticatedStaff)) {
                 throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
             }
 
-            Doctor retrievedDoctor = model.getDoctor(authenticatedDoctor);
+            Staff retrievedStaff = model.getStaff(authenticatedStaff);
 
             boolean isCorrectPassword = Password.verifyPassword(
-                    authenticatedDoctor.getPassword().toString(),
-                    retrievedDoctor.getPassword().toString());
+                    authenticatedStaff.getPassword().toString(),
+                    retrievedStaff.getPassword().toString());
 
             if (isCorrectPassword) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
-        } else if (toAuthenticate instanceof Receptionist) {
-            Receptionist authenticatedReceptionist = (Receptionist) toAuthenticate;
-            if (!model.hasReceptionist(authenticatedReceptionist)) {
-                throw new CommandException(MESSAGE_NO_RECEPTIONIST_FOUND);
-            }
-
-            Receptionist retrievedReceptionist = model.getReceptionist(authenticatedReceptionist);
-
-            boolean isCorrectPassword = Password.verifyPassword(
-                    authenticatedReceptionist.getPassword().toString(),
-                    retrievedReceptionist.getPassword().toString());
-
-            if (isCorrectPassword) {
-                return new CommandResult(MESSAGE_SUCCESS);
-            }
-        }
+        } 
         return new CommandResult(MESSAGE_FAILURE);
     }
 

@@ -15,11 +15,10 @@ import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.receptionist.Receptionist;
 
 /**
  * Represents the in-memory model of the ClinicIO data.
@@ -29,9 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedClinicIo versionedClinicIo;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Doctor> filteredDoctors;
+    private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Appointment> filteredAppointments;
-    private final FilteredList<Receptionist> filteredReceptionists;
     private final FilteredList<Consultation> filteredConsultations;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
@@ -48,9 +46,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedClinicIo = new VersionedClinicIo(clinicIo);
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
-        filteredDoctors = new FilteredList<>(versionedClinicIo.getDoctorList());
+        filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
-        filteredReceptionists = new FilteredList<>(versionedClinicIo.getReceptionistList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
         //@@author iamjackslayer
         mainQueue = new MainQueue();
@@ -87,15 +84,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public boolean hasDoctor(Doctor doctor) {
-        requireNonNull(doctor);
-        return versionedClinicIo.hasDoctor(doctor);
-    }
-
-    @Override
-    public boolean hasReceptionist(Receptionist receptionist) {
-        requireNonNull(receptionist);
-        return versionedClinicIo.hasReceptionist(receptionist);
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return versionedClinicIo.hasStaff(staff);
     }
 
     @Override
@@ -141,13 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
-    //@@author jjlee050
-    @Override
-    public void deleteDoctor(Doctor target) {
-        versionedClinicIo.removeDoctor(target);
-        indicateClinicIoChanged();
-    }
-
     //@@author gingivitiss
     @Override
     public void deleteAppointment(Appointment target) {
@@ -177,16 +161,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public void addDoctor(Doctor doctor) {
-        versionedClinicIo.addDoctor(doctor);
-        updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
-        indicateClinicIoChanged();
-    }
-
-    @Override
-    public void addReceptionist(Receptionist receptionist) {
-        versionedClinicIo.addReceptionist(receptionist);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addStaff(Staff staff) {
+        versionedClinicIo.addStaff(staff);
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         indicateClinicIoChanged();
     }
 
@@ -211,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Enqueues patient who is consulting a particular doctor into the 'special' queue.
+     * Enqueues patient who is consulting a particular staff into the 'special' queue.
      * @param patient
      */
     @Override
@@ -228,9 +205,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public void updateDoctor(Doctor target, Doctor editedDoctor) {
-        requireAllNonNull(target, editedDoctor);
-        versionedClinicIo.updateDoctor(target, editedDoctor);
+    public void updateDoctor(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
+        versionedClinicIo.updateStaff(target, editedStaff);
         indicateClinicIoChanged();
     }
 
@@ -264,54 +241,31 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    //=========== Filtered Doctor List Accessors =============================================================
+    //=========== Filtered Staff List Accessors =============================================================
 
     //@@author jjlee050
     /**
-     * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Staff} backed by the internal list of
      * {@code versionedClinicIo}
      */
     @Override
-    public ObservableList<Doctor> getFilteredDoctorList() {
-        return FXCollections.unmodifiableObservableList(filteredDoctors);
+    public ObservableList<Staff> getFilteredStaffList() {
+        return FXCollections.unmodifiableObservableList(filteredStaffs);
     }
 
     //@@author jjlee050
     @Override
-    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
         requireNonNull(predicate);
-        filteredDoctors.setPredicate(predicate);
+        filteredStaffs.setPredicate(predicate);
     }
 
     //@@author jjlee050
     @Override
-    public Doctor getDoctor(Doctor doctor) {
-        return versionedClinicIo.getDoctor(doctor);
+    public Staff getStaff(Staff staff) {
+        return versionedClinicIo.getStaff(staff);
     }
 
-    //=========== Filtered Receptionist List Accessors =============================================================
-
-    //@@author jjlee050
-    /**
-     * Returns an unmodifiable view of the list of {@code Receptionist} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Receptionist> getFilteredReceptionistList() {
-        return FXCollections.unmodifiableObservableList(filteredReceptionists);
-    }
-
-    //@@author jjlee050
-    @Override
-    public void updateFilteredReceptionistList(Predicate<Receptionist> predicate) {
-        requireNonNull(predicate);
-        filteredReceptionists.setPredicate(predicate);
-    }
-
-    @Override
-    public Receptionist getReceptionist(Receptionist receptionist) {
-        return versionedClinicIo.getReceptionist(receptionist);
-    }
     //=========== Undo/Redo =================================================================================
     //=========== Filtered Appointment List Accessors ========================================================
 
@@ -395,8 +349,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author jjlee050
         return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredDoctors.equals(other.filteredDoctors)
-                && filteredAppointments.equals(other.filteredAppointments)
-                && filteredReceptionists.equals(other.filteredReceptionists);
+                && filteredStaffs.equals(other.filteredStaffs)
+                && filteredAppointments.equals(other.filteredAppointments);
     }
 }

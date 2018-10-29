@@ -1,4 +1,4 @@
-package seedu.clinicio.model.password;
+package seedu.clinicio.model.staff;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,7 +8,7 @@ import seedu.clinicio.commons.util.HashUtil;
 
 //@@author jjlee050
 /**
- * Represents a Doctor's password in the ClinicIO.
+ * Represents a Staff's password in the ClinicIO.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password {

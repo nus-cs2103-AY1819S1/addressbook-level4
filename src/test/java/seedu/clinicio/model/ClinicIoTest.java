@@ -30,8 +30,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.exceptions.DuplicateDoctorException;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
 import seedu.clinicio.model.receptionist.Receptionist;
@@ -53,7 +53,7 @@ public class ClinicIoTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), clinicIo.getPersonList());
         //@@author jjlee050
-        assertEquals(Collections.emptyList(), clinicIo.getDoctorList());
+        assertEquals(Collections.emptyList(), clinicIo.getStaffList());
         assertEquals(Collections.emptyList(), clinicIo.getReceptionistList());
 
     }
@@ -89,14 +89,14 @@ public class ClinicIoTest {
     //@@author jjlee050
     @Test
     public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
-        // Two doctors with the same identity fields
+        // Two staff with the same identity fields
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
-        List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
+        Staff editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
-                newDoctors, new ArrayList<>());
+                newStaffs, new ArrayList<>());
 
-        thrown.expect(DuplicateDoctorException.class);
+        thrown.expect(DuplicateStaffException.class);
         clinicIo.resetData(newData);
     }
 
@@ -123,7 +123,7 @@ public class ClinicIoTest {
     @Test
     public void hasDoctor_nullDoctor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        clinicIo.hasDoctor(null);
+        clinicIo.hasStaff(null);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ClinicIoTest {
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
-        assertFalse(clinicIo.hasDoctor(ADAM));
+        assertFalse(clinicIo.hasStaff(ADAM));
     }
 
     @Test
@@ -169,8 +169,8 @@ public class ClinicIoTest {
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorInClinicIo_returnsTrue() {
-        clinicIo.addDoctor(ADAM);
-        assertTrue(clinicIo.hasDoctor(ADAM));
+        clinicIo.addStaff(ADAM);
+        assertTrue(clinicIo.hasStaff(ADAM));
     }
 
     @Test
@@ -196,9 +196,9 @@ public class ClinicIoTest {
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorWithSameIdentityFieldsInClinicIo_returnsTrue() {
-        clinicIo.addDoctor(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
-        assertTrue(clinicIo.hasDoctor(editedAdam));
+        clinicIo.addStaff(ADAM);
+        Staff editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        assertTrue(clinicIo.hasStaff(editedAdam));
     }
 
     @Test
@@ -233,13 +233,13 @@ public class ClinicIoTest {
     @Test
     public void getDoctor_nullDoctor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        clinicIo.getDoctor(null);
+        clinicIo.getStaff(null);
     }
 
     @Test
     public void getDoctor_validDoctor_returnDoctor() {
-        clinicIo.addDoctor(ADAM);
-        assertNotNull(clinicIo.getDoctor(ADAM));
+        clinicIo.addStaff(ADAM);
+        assertNotNull(clinicIo.getStaff(ADAM));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class ClinicIoTest {
     @Test
     public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        clinicIo.getDoctorList().remove(0);
+        clinicIo.getStaffList().remove(0);
     }
 
     @Test
@@ -281,20 +281,20 @@ public class ClinicIoTest {
     }
 
     /**
-     * A stub ReadOnlyClinicIo whose persons list and doctors list can violate interface constraints.
+     * A stub ReadOnlyClinicIo whose persons list and staff list can violate interface constraints.
      */
     private static class ClinicIoStub implements ReadOnlyClinicIo {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+        private final ObservableList<Staff> staff = FXCollections.observableArrayList();
         private final ObservableList<Receptionist> receptionists = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
-                Collection<Doctor> doctors, Collection<Receptionist> receptionists) {
+                Collection<Staff> staff, Collection<Receptionist> receptionists) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             //@@author jjlee050
-            this.doctors.setAll(doctors);
+            this.staff.setAll(staff);
             this.receptionists.setAll(receptionists);
         }
 
@@ -305,8 +305,8 @@ public class ClinicIoTest {
 
         //@@author jjlee050
         @Override
-        public ObservableList<Doctor> getDoctorList() {
-            return doctors;
+        public ObservableList<Staff> getStaffList() {
+            return staff;
         }
 
         @Override

@@ -69,7 +69,7 @@ public class XmlAdaptedAppointment {
         ic = "TODO: Get ic string of patient";
         status = source.getAppointmentStatus();
         type = source.getAppointmentType();
-        doctor = source.getAssignedDoctor().toString();
+        doctor = source.getAssignedStaff().toString();
     }
 
     /**

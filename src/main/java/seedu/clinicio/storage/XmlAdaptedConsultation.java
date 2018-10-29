@@ -11,7 +11,7 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.patient.Patient;
 
 /**
@@ -29,7 +29,7 @@ public class XmlAdaptedConsultation {
     private String arrivalTime;
 
     @XmlElement
-    private XmlAdaptedDoctor doctor;
+    private XmlAdaptedStaff doctor;
     @XmlElement
     private XmlAdaptedAppointment appointment;
     @XmlElement
@@ -50,10 +50,10 @@ public class XmlAdaptedConsultation {
     /**
      * Constructs an {@code XmlAdaptedConsultation} with the given consultation details.
      */
-    public XmlAdaptedConsultation(Patient patient, Doctor doctor, Appointment appointment, String description,
+    public XmlAdaptedConsultation(Patient patient, Staff staff, Appointment appointment, String description,
         Date date, Time arrivalTime, Time consultationTime, Time endTime, String prescription) {
         this.patient = patient.toString();
-        this.doctor = new XmlAdaptedDoctor(doctor);
+        this.doctor = new XmlAdaptedStaff(staff);
         this.appointment = new XmlAdaptedAppointment(appointment);
         this.description = description;
         this.prescription = prescription;
@@ -83,7 +83,7 @@ public class XmlAdaptedConsultation {
      */
     public XmlAdaptedConsultation(Consultation source) {
         patient = source.getPatient().toString();
-        doctor = new XmlAdaptedDoctor(source.getDoctor());
+        doctor = new XmlAdaptedStaff(source.getStaff());
         appointment = new XmlAdaptedAppointment(source.getAppointment().get());
         description = source.getDescription();
 
@@ -132,7 +132,7 @@ public class XmlAdaptedConsultation {
                 .getSimpleName()));
         }
 
-        /**return new Consultation(patient, doctor, appointment, description, Date.newDate(date), Time.newTime
+        /**return new Consultation(patient, staff, appointment, description, Date.newDate(date), Time.newTime
           (arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime), prescription);
          */
         return null;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
@@ -44,7 +44,7 @@ public class ModelManagerTest {
     @Test
     public void hasDoctor_nullDoctor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasDoctor(null);
+        modelManager.hasStaff(null);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ModelManagerTest {
     //@@author jjlee050
     @Test
     public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
-        assertFalse(modelManager.hasDoctor(ADAM));
+        assertFalse(modelManager.hasStaff(ADAM));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
     @Test
     public void hasDoctor_doctorInClinicIo_returnsTrue() {
         modelManager.addDoctor(ADAM);
-        assertTrue(modelManager.hasDoctor(ADAM));
+        assertTrue(modelManager.hasStaff(ADAM));
     }
 
     @Test
@@ -190,7 +190,7 @@ public class ModelManagerTest {
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         //@@author jjlee050
-        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_STAFFS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

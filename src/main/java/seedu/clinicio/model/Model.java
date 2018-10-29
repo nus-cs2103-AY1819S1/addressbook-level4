@@ -6,9 +6,8 @@ import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.receptionist.Receptionist;
 
 /**
  * The API of the Model component.
@@ -18,11 +17,8 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Receptionist> PREDICATE_SHOW_ALL_RECEPTIONISTS = unused -> true;
-
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+    
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
@@ -41,14 +37,9 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the ClinicIO.
+     * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
-    boolean hasDoctor(Doctor doctor);
-
-    /**
-     * Returns true if a receptionist with the same identity as {@code receptionist} exists in ClinicIO.
-     */
-    boolean hasReceptionist(Receptionist receptionist);
+    boolean hasStaff(Staff staff);
 
     /**
      * Deletes the given person.
@@ -57,40 +48,22 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Deletes the given doctor.
-     * The doctor must exist in the ClinicIO.
-     */
-    void deleteDoctor(Doctor doctor);
-
-    /**
      * Adds the given person.
      * {@code person} must not already exist in the ClinicIO.
      */
     void addPerson(Person person);
 
     /**
-     * Adds the given doctor.
-     * {@code doctor} must not already exist in the ClinicIO.
+     * Adds the given staff.
+     * {@code staff} must not already exist in the ClinicIO.
      */
-    void addDoctor(Doctor doctor);
+    void addStaff(Staff staff);
 
     /**
-     * Adds the given receptionist.
-     * {@code receptionist} must not already exist in the address book.
+     * Retrieve the given staff
+     * {@code staff} must exist in ClinicIO.
      */
-    void addReceptionist(Receptionist receptionist);
-
-    /**
-     * Retrieve the given doctor
-     * {@code doctor} must exist in ClinicIO.
-     */
-    Doctor getDoctor(Doctor doctor);
-
-    /**
-     * Retrieve the given receptionist
-     * {@code receptionist} must exist in ClinicIO.
-     */
-    Receptionist getReceptionist(Receptionist receptionist);
+    Staff getStaff(Staff staff);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -100,20 +73,17 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     /**
-     * Replaces the given doctor {@code target} with {@code editedDoctor}.
+     * Replaces the given staff {@code target} with {@code editedStaff}.
      * {@code target} must exist in the ClinicIO.
-     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the ClinicIO.
+     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
      */
-    void updateDoctor(Doctor target, Doctor editedDoctor);
+    void updateDoctor(Staff target, Staff editedStaff);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered doctor list */
-    ObservableList<Doctor> getFilteredDoctorList();
-
-    /** Returns an unmodifiable view of the filtered receptionist list */
-    ObservableList<Receptionist> getFilteredReceptionistList();
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Staff> getFilteredStaffList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -122,23 +92,13 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDoctorList(Predicate<Doctor> predicate);
+    void updateFilteredStaffList(Predicate<Staff> predicate);
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/address/model/Model.java
-     * Updates the filter of the filtered receptionist list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredReceptionistList(Predicate<Receptionist> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-=======
      * Returns true if the model has previous ClinicIO states to restore.
->>>>>>> c74e2f3c11aa4c44f85f91717dbf4b8bea4546f0:src/main/java/seedu/clinicio/model/Model.java
      */
     boolean canUndoClinicIo();
 
