@@ -21,22 +21,28 @@ public class TagCommandParser implements Parser<TagCommand> {
      */
     public TagCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String[] tagKeywords = trimmedArgs.split("\\s+");
+        if (trimmedArgs.isEmpty() || (tagKeywords[0].equalsIgnoreCase("edit") && tagKeywords.length != 3)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
-        String[] tagKeywords = trimmedArgs.split("\\s+");
-
         TagCommand.Action action;
         if (tagKeywords[tagKeywords.length - 1].equalsIgnoreCase("delete")) {
             action = TagCommand.Action.DELETE;
+        } else if (tagKeywords[0].equalsIgnoreCase("edit")) {
+            action = TagCommand.Action.EDIT;
         } else {
             action = TagCommand.Action.FIND;
         }
 
-        return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)), action,
-                Arrays.asList(tagKeywords));
+        if (action == TagCommand.Action.DELETE || action == TagCommand.Action.FIND) {
+            return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)), action,
+                    Arrays.asList(tagKeywords));
+        } else {
+            return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords[1])), action,
+                    Arrays.asList(tagKeywords));
+        }
     }
 
 }

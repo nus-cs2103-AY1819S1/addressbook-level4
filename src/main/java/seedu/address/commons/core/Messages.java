@@ -16,6 +16,7 @@ public class Messages {
             + " the person list! Please re-use the command with either a specified index or a more specific name!";
     public static final String MESSAGE_TAGGED_PERSONS_LISTED_OVERVIEW = "%1$d tagged persons listed!";
     public static final String MESSAGE_TAG_DELETED_OVERVIEW = "%1$d persons untagged!";
+    public static final String MESSAGE_TAG_EDITED_OVERVIEW = "%1$d persons changed tag from \"%2$s\" to \"%3$s\"!";
     public static final String MESSAGE_CLASHING_MEETINGS = "There is already a meeting scheduled at the given time";
 
 }
