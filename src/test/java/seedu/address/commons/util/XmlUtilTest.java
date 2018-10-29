@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.user.Username;
 import seedu.address.storage.XmlAdaptedExpense;
 import seedu.address.storage.XmlAdaptedTag;
@@ -139,7 +140,7 @@ public class XmlUtilTest {
 
         ExpenseTrackerBuilder builder =
                 new ExpenseTrackerBuilder(new ExpenseTracker(new Username("AAA"), Optional.empty(), DEFAULT_KEY));
-        dataToWrite = new XmlSerializableExpenseTracker(EncryptedExpenseTracker.encryptTracker(
+        dataToWrite = new XmlSerializableExpenseTracker(EncryptionUtil.encryptTracker(
                 builder.withExpense(new ExpenseBuilder().build()).build()));
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);

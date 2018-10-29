@@ -18,7 +18,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.storage.UserPrefsStorage;
@@ -44,14 +44,15 @@ public class TestApp extends MainApp {
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyExpenseTracker> initialDataSupplier, Path saveFileLocation) throws IllegalValueException {
+    public TestApp(Supplier<ReadOnlyExpenseTracker> initialDataSupplier, Path saveFileLocation) throws
+            IllegalValueException {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableExpenseTracker(EncryptedExpenseTracker.encryptTracker(
+            createDataFileWithData(new XmlSerializableExpenseTracker(EncryptionUtil.encryptTracker(
                     this.initialDataSupplier.get())), this.saveFileLocation);
         }
     }

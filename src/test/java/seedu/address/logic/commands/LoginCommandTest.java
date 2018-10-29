@@ -57,7 +57,8 @@ public class LoginCommandTest {
     public void execute_nonExistantUser_loginFailed() throws Exception {
         assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
         thrown.expect(NonExistentUserException.class);
-        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), Optional.empty(), null).execute(model, commandHistory);
+        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), Optional.empty(), null)
+                .execute(model, commandHistory);
     }
 
     @Test

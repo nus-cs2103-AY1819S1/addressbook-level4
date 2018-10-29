@@ -20,7 +20,8 @@ import seedu.address.testutil.ModelUtil;
 public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException, IllegalValueException {
+    public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException,
+            IllegalValueException {
         final Model defaultModel = getModel();
         showAllExpenses();
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and

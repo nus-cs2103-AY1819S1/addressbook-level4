@@ -23,6 +23,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.testutil.ModelUtil;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -69,7 +70,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlExpensesStorageTest} class.
          */
         ExpenseTracker original = getTypicalExpenseTracker();
-        storageManager.saveExpenses(EncryptedExpenseTracker.encryptTracker(original));
+        storageManager.saveExpenses(EncryptionUtil.encryptTracker(original));
         ReadOnlyExpenseTracker retrieved = storageManager.readAllExpenses(storageManager.getExpensesDirPath())
                 .get(original.getUsername()).decryptTracker(DEFAULT_KEY);
         assertEquals(original, new ExpenseTracker(retrieved));
@@ -86,7 +87,7 @@ public class StorageManagerTest {
         Storage storage = new StorageManager(new XmlExpensesStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleExpenseTrackerChangedEvent(
-                new ExpenseTrackerChangedEvent(EncryptedExpenseTracker.encryptTracker(
+                new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(
                         new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(),
                         DEFAULT_KEY))));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);

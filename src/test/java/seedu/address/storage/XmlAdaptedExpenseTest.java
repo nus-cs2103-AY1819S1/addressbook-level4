@@ -5,15 +5,14 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_KEY;
 import static seedu.address.storage.XmlAdaptedExpense.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalExpenses.ICECREAM;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.encryption.EncryptedExpense;
 import seedu.address.model.encryption.EncryptedTag;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
@@ -44,7 +43,7 @@ public class XmlAdaptedExpenseTest {
 
     @Test
     public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(EncryptedExpense.encryptExpense(ICECREAM, DEFAULT_KEY));
+        XmlAdaptedExpense expense = new XmlAdaptedExpense(EncryptionUtil.encryptExpense(ICECREAM, DEFAULT_KEY));
         assertEquals(ICECREAM, expense.toModelType().getDecryptedExpense(DEFAULT_KEY));
     }
 

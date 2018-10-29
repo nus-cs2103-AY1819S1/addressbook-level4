@@ -148,7 +148,8 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
      * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException, IllegalValueException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

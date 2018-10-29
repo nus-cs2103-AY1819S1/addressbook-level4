@@ -269,7 +269,8 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      *
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException, IllegalValueException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

@@ -24,7 +24,6 @@ import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
@@ -230,7 +229,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Optional<Password> password, String encryptionKey) throws NonExistentUserException {
+        public boolean loadUserData(Username username, Optional<Password> password, String encryptionKey) {
             throw new AssertionError("loadUserData method should not be called.");
         }
 

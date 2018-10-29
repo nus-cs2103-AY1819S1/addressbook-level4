@@ -23,7 +23,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.testutil.ModelUtil;
 
 public class StatusBarFooterTest extends GuiUnitTest {
@@ -35,7 +35,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     static {
         try {
-            EVENT_STUB = new ExpenseTrackerChangedEvent(EncryptedExpenseTracker
+            EVENT_STUB = new ExpenseTrackerChangedEvent(EncryptionUtil
                         .encryptTracker(new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty(), DEFAULT_KEY)));
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Default key is illegal");
