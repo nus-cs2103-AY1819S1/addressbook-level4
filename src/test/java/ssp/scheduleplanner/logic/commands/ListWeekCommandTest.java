@@ -3,6 +3,7 @@ package ssp.scheduleplanner.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import java.text.SimpleDateFormat;
@@ -13,9 +14,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
+import ssp.scheduleplanner.model.task.DateSamePredicate;
 import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
@@ -24,6 +27,32 @@ import ssp.scheduleplanner.testutil.TaskBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for ListWeekCommand.
  */
 public class ListWeekCommandTest {
+
+    @Test
+    public void execute_success() {
+        CommandHistory commandHistory = new CommandHistory();
+        Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Calendar c = Calendar.getInstance();
+        List<String> dateList = new ArrayList<String>();
+
+        Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").format(c.getTime())).build();
+        dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
+        c.add(Calendar.DATE, 1);
+        Task validTomorrow = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").
+                format(c.getTime())).build();
+        dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
+
+        model.addTask(validToday);
+        model.addTask(validTomorrow);
+        expectedModel.addTask(validToday);
+        expectedModel.addTask(validTomorrow);
+
+        expectedModel.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
+
+        assertCommandSuccess(new ListWeekCommand(), model, commandHistory, ListWeekCommand.MESSAGE_SUCCESS,
+                expectedModel);
+    }
 
     @Test
     public void appendDateList_test() {
@@ -124,8 +153,7 @@ public class ListWeekCommandTest {
         dateList.add("131018");
         dateList.add("141018");
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
-
-        System.out.println(model.getFilteredTaskList());
+        
         assertFalse(model.getFilteredTaskList().contains(validTaskMon));
         assertFalse(model.getFilteredTaskList().contains(validTaskTue));
         assertFalse(model.getFilteredTaskList().contains(validTaskWed));

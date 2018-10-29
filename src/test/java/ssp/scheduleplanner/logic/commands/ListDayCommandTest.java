@@ -3,7 +3,11 @@ package ssp.scheduleplanner.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.Test;
 
@@ -20,10 +24,22 @@ import ssp.scheduleplanner.testutil.TaskBuilder;
  */
 public class ListDayCommandTest {
 
-    private Model model;
-    private Model expectedModel;
-    private CommandHistory commandHistory = new CommandHistory();
+    @Test
+    public void execute_success() {
+        CommandHistory commandHistory = new CommandHistory();
+        Calendar c = Calendar.getInstance();
+        Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").format(c.getTime())).build();
+        Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
 
+        model.addTask(validToday);
+        expectedModel.addTask(validToday);
+        expectedModel.updateFilteredTaskList(new DateSamePredicate(validToday.getDate().value));
+        System.out.println(expectedModel.getFilteredTaskList());
+        System.out.println(model.getFilteredTaskList());
+        assertCommandSuccess(new ListDayCommand(), model, commandHistory, ListDayCommand.MESSAGE_SUCCESS,
+                expectedModel);
+    }
 
     @Test
     public void task_remain_afterFilter() {
