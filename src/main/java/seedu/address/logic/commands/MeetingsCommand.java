@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.SameMeetingDayPredicate;
 
 //@@author AyushChatto
@@ -33,5 +32,12 @@ public class MeetingsCommand extends Command {
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MeetingsCommand // instanceof handles nulls
+                && predicate.equals(((MeetingsCommand) other).predicate)); // state check
     }
 }

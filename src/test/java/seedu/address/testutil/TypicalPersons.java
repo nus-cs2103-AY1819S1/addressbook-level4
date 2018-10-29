@@ -125,6 +125,15 @@ public class TypicalPersons {
             .withTags("POSB")
             .withPicture("/images/place_holder_image.jpg").build();
 
+    // People with meetings
+    public static final Person STEVE_MEETING = new PersonBuilder().withName("Steve Carell").withPhone("83365620")
+            .withEmail("steve@example.com").withAddress("9th Avenue")
+            .withPicture("/images/place_holder_image.jpg").withMeeting("1202181600").build();
+    public static final Person TYLER_MEETING = new PersonBuilder().withName("Tyler Durden").withPhone("83365621")
+            .withEmail("tyler@example.com").withAddress("10th Avenue")
+            .withPicture("/images/place_holder_image.jpg").withMeeting("1203181600").build();
+
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -143,5 +152,14 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, IANNA, JENNY,
                 OPENHEIMER, PERCY, QUINE, RICHARD));
+    }
+
+    public static AddressBook getScheduledAddressBook() {
+        AddressBook ab = new AddressBook();
+        List<Person> scheduledPeople = new ArrayList<>(Arrays.asList(ALICE, BENSON, STEVE_MEETING, TYLER_MEETING));
+        for (Person person : scheduledPeople) {
+            ab.addPerson(person);
+        }
+        return ab;
     }
 }

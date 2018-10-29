@@ -72,7 +72,7 @@ public class Meeting {
      * Returns true if {@code meeting} is on the same day.
      */
     public boolean isSameDay(Meeting meeting) {
-        return value.substring(0,6).equals(meeting.value.substring(0,6));
+        return value.substring(0, 6).equals(meeting.value.substring(0, 6));
     }
 
     @Override

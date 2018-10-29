@@ -12,7 +12,11 @@ import seedu.address.model.meeting.SameMeetingDayPredicate;
  * Parses input arguments and creates a new MeetingsCommand object.
  */
 public class MeetingsCommandParser implements Parser<MeetingsCommand> {
-
+    /**
+     * Parses the given {@code String} of arguments in the context of the MeetingsCommand
+     * and returns an MeetingsCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public MeetingsCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         Meeting meeting;
