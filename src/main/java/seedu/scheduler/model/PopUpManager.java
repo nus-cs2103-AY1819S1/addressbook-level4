@@ -79,27 +79,15 @@ public class PopUpManager {
     }
 
     /**
-     * Only add EventPopUpInfo that will pop up in the future, ignore ones with PopUpTimes already passed
-     * @param event
-     */
-    public void addActivePopUpInfo(Event event) {
-        ArrayList<EventPopUpInfo> PopUpList = generatePopUpInfoListFromEvent(event);
-        for (EventPopUpInfo popUpInfo : PopUpList) {
-            DateTime currentDateTime = new DateTime(LocalDateTime.now());
-            if (!popUpInfo.getPopUpDateTime().isPast(currentDateTime)) {
-                popUpQueue.add(popUpInfo);
-            }
-        }
-    }
-
-    /**
      * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed
      * @param event
      * @param editedEvent
      */
     public void edit(Event event, Event editedEvent) {
-        delete(event);
-        addActivePopUpInfo(editedEvent);
+        if (!event.getReminderDurationList().equals(editedEvent.getReminderDurationList())) {
+            delete(event);
+            add(editedEvent);
+        }
     }
 
     /**
@@ -107,11 +95,13 @@ public class PopUpManager {
      * @param event
      */
     public void delete(Event event) {
+        PriorityQueue<EventPopUpInfo> newQueue = new PriorityQueue<>();
         for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
-            if (eventPopUpInfo.getUid().equals(event.getUid())) {
-                popUpQueue.remove(eventPopUpInfo);
+            if (!eventPopUpInfo.getUid().equals(event.getUid())) {
+                newQueue.add(eventPopUpInfo);
             }
         }
+        popUpQueue = newQueue;
     }
 
 
@@ -130,11 +120,8 @@ public class PopUpManager {
         Venue venue = event.getVenue();
         ReminderDurationList reminderDurationList = event.getReminderDurationList();
 
-        for (Duration duration : reminderDurationList.getDurationSet()) {
-            if (reminderDurationList.isActive(duration)) {
-                result.add(new EventPopUpInfo(uid, eventName, startDateTime, endDateTime,
-                        description, venue, duration));
-            }
+        for (Duration duration : reminderDurationList.get()) {
+            result.add(new EventPopUpInfo(uid, eventName, startDateTime, endDateTime, description, venue, duration));
         }
         return result;
     }
@@ -146,7 +133,6 @@ public class PopUpManager {
      */
     private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvents(Collection<Event> events) {
         ArrayList<EventPopUpInfo> result = new ArrayList<>();
-
         for (Event event : events) {
             result.addAll(generatePopUpInfoListFromEvent(event));
         }
@@ -171,7 +157,7 @@ public class PopUpManager {
                         logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isPast(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
-                            displayPopUp("Passed Reminder!", currentPopUp.getDescription().toString());
+                            displayPopUp("Past Reminder!", currentPopUp.getDescription().toString());
                             // pastPopUps.add(currentPopUp);
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {

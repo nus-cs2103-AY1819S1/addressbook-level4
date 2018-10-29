@@ -21,17 +21,7 @@ public class ReminderDurationListAdapter extends XmlAdapter<String, ReminderDura
 
     @Override
     public ReminderDurationList unmarshal(String v) {
-        ReminderDurationList reminderDurationList = new ReminderDurationList();
-        if (v.equals(ReminderDurationList.EMPTY_VALUE)) {
-            return reminderDurationList;
-        } else {
-            List<String> keyValuePairs = Arrays.asList(v.split(","));
-            for (String keyValueString: keyValuePairs) {
-                ArrayList<String> durationValue = new ArrayList<>(Arrays.asList(keyValueString.split(":")));
-                reminderDurationList.add(Duration.parse(durationValue.get(0).trim()),
-                        Boolean.parseBoolean(durationValue.get(1).trim()));
-            }
-        }
+        ReminderDurationList reminderDurationList = new ReminderDurationList(v);
         return reminderDurationList;
     }
 }

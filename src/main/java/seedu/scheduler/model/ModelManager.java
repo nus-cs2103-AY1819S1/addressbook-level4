@@ -6,7 +6,9 @@ import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventPopUpInfo;
 import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.storage.Storage;
 
 /**
  * Represents the in-memory model of the scheduler data.
@@ -118,36 +121,41 @@ public class ModelManager extends ComponentManager implements Model {
 
 
     @Override
-    public void syncWithPopUpManager(PopUpManager popUpManager) {
-        HashMap durationsLeft = new HashMap<UUID, ArrayList<Duration>>();
-        for (EventPopUpInfo eventPopUpInfo : popUpManager.getArray()) {
+    public void syncWithPopUpManager(PopUpManager popUpManager, Storage storage) {
+        HashMap durationsLeft = new HashMap<UUID, HashSet<Duration>>();
+        ArrayList<EventPopUpInfo> popUpArray = popUpManager.getArray();
+        for (EventPopUpInfo eventPopUpInfo : popUpArray) {
             UUID key = eventPopUpInfo.getUid();
-            ArrayList<Duration> list = (ArrayList<Duration>) durationsLeft.get(key);
-            if (list.equals(null)) {
-                ArrayList<Duration> newList = new ArrayList<>();
-                newList.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, newList);
+            Set<Duration> set = (Set<Duration>) durationsLeft.get(key);
+            if (set == null) {
+                Set<Duration> newSet = new HashSet<>();
+                newSet.add(eventPopUpInfo.getDuration());
+                durationsLeft.put(key, newSet);
             } else {
-                list.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, list);
+                set.add(eventPopUpInfo.getDuration());
+                durationsLeft.put(key, set);
             }
         }
 
-        for (Event event : versionedScheduler.getEventList()) {
+        ObservableList<Event> eventList = versionedScheduler.getEventList();
+        for (Event event : eventList) {
             UUID eventUid = event.getUid();
-            ArrayList<Duration> durationList = (ArrayList<Duration>) durationsLeft.get(eventUid);
-            if (!durationList.equals(null)) {
-                ReminderDurationList reminderDurationList = event.getReminderDurationList();
-                for (Duration duration : durationList) {
-                    reminderDurationList.add(duration, true);
-                }
-
-                Event editedEvent = new Event(event.getUid(), event.getUuid(), event.getEventName(),
-                        event.getStartDateTime(), event.getEndDateTime(),
-                        event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
-                        event.getTags(), reminderDurationList);
-                updateEvent(event, editedEvent);
+            HashSet<Duration> durationSet = (HashSet<Duration>) durationsLeft.get(eventUid);
+            ReminderDurationList reminderDurationList;
+            if (durationSet == null && !event.getReminderDurationList().isEmpty()) {
+                reminderDurationList = new ReminderDurationList();
+            } else if (durationSet != null && !durationSet.equals(event.getReminderDurationList())) {
+                reminderDurationList = new ReminderDurationList(durationSet);
+            } else {
+                continue;
             }
+            Event editedEvent = new Event(event.getUid(), event.getUuid(), event.getEventName(),
+                    event.getStartDateTime(), event.getEndDateTime(),
+                    event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
+                    event.getTags(), reminderDurationList);
+            versionedScheduler.updateEvent(event, editedEvent);
+//            indicateSchedulerChanged();
+            storage.handleSchedulerChangedEvent(new SchedulerChangedEvent(versionedScheduler));
         }
     }
 
