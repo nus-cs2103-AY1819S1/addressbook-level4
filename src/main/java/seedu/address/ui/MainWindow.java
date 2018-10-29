@@ -71,6 +71,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane historyListPlaceholder;
 
+    @FXML
+    private StackPane filmReelPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
@@ -153,6 +156,9 @@ public class MainWindow extends UiPart<Stage> {
 
         HistoryListPanel historyList = new HistoryListPanel();
         historyListPlaceholder.getChildren().add(historyList.getRoot());
+
+        FilmReel filmList = new FilmReel();
+        filmReelPlaceholder.getChildren().add(filmList.getRoot());
     }
 
     void hide() {

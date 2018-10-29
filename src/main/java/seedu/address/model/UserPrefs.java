@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -46,6 +47,7 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    // @@author benedictcss
     public Path getCurrDirectory() {
         return currDirectory;
     }
@@ -89,9 +91,22 @@ public class UserPrefs {
         imageList = dirImageList;
     }
 
+    /**
+     * Get preview image list (first 10 images in imageList)
+     */
+    public List<Path> returnPreviewImageList() {
+
+        if (imageList.size() > 10) {
+            return imageList.subList(0, 10);
+        } else {
+            return imageList;
+        }
+    }
+
     public ArrayList<Path> getAllImages() {
         return imageList;
     }
+    // @@author
 
     @Override
     public boolean equals(Object other) {
