@@ -51,10 +51,18 @@ public class UniqueEncryptedExpenseList implements Iterable<EncryptedExpense> {
         return internalList.iterator();
     }
 
+    /**
+     * Returns a stream of EncryptedExpenses contained within this UniqueEncryptedExpenseList.
+     * @return a stream of EncryptedExpenses contained within this UniqueEncryptedExpenseList.
+     */
     public Stream<EncryptedExpense> stream() {
         return internalList.stream();
     }
 
+    /**
+     * Gets the size of the list as an int.
+     * @return the size of this list as an int
+     */
     public int size() {
         return internalList.size();
     }

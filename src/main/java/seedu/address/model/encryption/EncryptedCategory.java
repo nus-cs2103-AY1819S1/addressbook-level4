@@ -9,10 +9,20 @@ import seedu.address.model.expense.Category;
  */
 public class EncryptedCategory extends EncryptedExpenseField<Category> {
 
+    /**
+     * A constructor for an EncryptedCategory that takes in an encrypted String representation of the category.
+     * @param encryptedString the encrypted String representation of the category
+     */
     public EncryptedCategory(String encryptedString) {
         super(encryptedString);
     }
 
+    /**
+     * A constructor for an EncryptedCategory that takes in an unencrypted Category instance of the category.
+     * @param src the unencrypted Category instance
+     * @param key the encryption key to use, must be 128-bit
+     * @throws IllegalValueException when the input encryption key is invalid
+     */
     public EncryptedCategory(Category src, String key) throws IllegalValueException {
         super(src, key);
     }

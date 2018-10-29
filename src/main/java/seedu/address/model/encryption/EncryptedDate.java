@@ -8,10 +8,21 @@ import seedu.address.model.expense.Date;
  * Guarantees: immutable;
  */
 public class EncryptedDate extends EncryptedExpenseField<Date> {
+
+    /**
+     * A constructor for an EncryptedDate that takes in an encrypted Date representation of the date.
+     * @param encryptedString the encrypted String representation of the date
+     */
     public EncryptedDate(String encryptedString) {
         super(encryptedString);
     }
 
+    /**
+     * A constructor for an EncryptedDate that takes in an unencrypted Date instance of the date.
+     * @param src the unencrypted Date instance
+     * @param key the encryption key to use, must be 128-bit
+     * @throws IllegalValueException when the input encryption key is invalid
+     */
     public EncryptedDate(Date src, String key) throws IllegalValueException {
         super(src, key);
     }
