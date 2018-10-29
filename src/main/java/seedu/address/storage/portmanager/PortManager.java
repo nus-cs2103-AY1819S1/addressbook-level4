@@ -104,6 +104,11 @@ public class PortManager implements Porter {
 
     }
 
+    /**
+     * Convert the string into a file path.
+     * @param name The name of the file, can be the absolute or relative file path
+     * @return a Path that represents the file path
+     */
 
     private Path makeFilePath(String name) {
         if (name.substring(name.length() - 4).equals(".xml")) {
