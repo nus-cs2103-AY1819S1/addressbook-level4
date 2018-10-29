@@ -37,9 +37,19 @@ public class XmlExportableDeck extends XmlAdaptedDeck{
         name = "Generic Deck Name";
         cards = new ArrayList<>();
     }
+
+    /**
+     * Creates an XmlExportableDeck with the specified name and Card list
+     * This empty constructor is required for marshalling.
+     */
+    public XmlExportableDeck(String strName, List<XmlAdaptedCard> cardsList) {
+        this();
+        name = strName;
+        cards = cardsList;
+    }
+
     /**
      * Converts a given Deck into this class for JAXB use.
-     *
      * @param source future changes to this will not affect the created XmlExportableDeck
      */
     public XmlExportableDeck(Deck source) {
@@ -63,8 +73,11 @@ public class XmlExportableDeck extends XmlAdaptedDeck{
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         final Name deckName = new Name(name);
-
         return new Deck(deckName, deckCards);
+    }
+
+    public String getName(){
+        return name;
     }
 
     @Override

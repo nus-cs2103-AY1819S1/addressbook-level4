@@ -51,10 +51,11 @@ public class PortManager implements Porter {
     }
 
     @Override
-    public Deck importDeck(Path filepath) throws FileNotFoundException{
+    public Deck importDeck(Path filepath) throws FileNotFoundException, DataConversionException{
         XmlExportableDeck xmlDeck;
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
+            System.out.println("Converted. Deckname: " + xmlDeck.getName());
             return getImportedDeck(xmlDeck);
         } catch (Exception e){
             e.printStackTrace();
