@@ -22,6 +22,7 @@ import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EraseCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -34,6 +35,7 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.ViewCalendarCommand;
 import seedu.address.logic.commands.ViewEmailCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -139,6 +141,9 @@ public class AddressBookParser {
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
 
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+
         case AddAllDayEventCommand.COMMAND_WORD:
             return new AddAllDayEventCommandParser().parse(arguments);
 
@@ -147,6 +152,9 @@ public class AddressBookParser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case ViewCalendarCommand.COMMAND_WORD:
+            return new ViewCalendarCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -163,13 +163,14 @@ Example:
 * `clear all` +
 Clears `all` entries in Hallper.
 
-==== Uploading contact information : `import`
+==== Importing contact information : `import`
 
 Imports file containing contact information and updates Hallper accordingly. +
 Format: `import f/FILEPATH`
 
 ****
-* Allow for the mass upload of contact information.
+* Allows for the mass upload of contact information.
+* Allows for the mass upload of CCA lists.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
@@ -177,6 +178,21 @@ Example:
 
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
+
+==== Exporting contact information: `export`
+
+Exports file containing existing contact information in Hallper. +
+Formate: `export dst/PATH fn/FILENAME`
+
+****
+* The file exported will be a *`.xml`* file.
+****
+
+Example:
+
+* `export dst/C://Users/Files fn/data.xml` +
+Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
+
 
 ==== Adds a picture to resident detail : `image`
 

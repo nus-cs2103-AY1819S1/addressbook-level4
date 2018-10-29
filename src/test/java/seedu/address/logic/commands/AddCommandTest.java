@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -189,6 +191,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void exportAddressBook(Path filePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addMultiplePersons(List<Person> personList) {
             throw new AssertionError("This method should not be called.");
         }
@@ -252,9 +259,19 @@ public class AddCommandTest {
         public void deleteEmail(String fileName) {
             throw new AssertionError("This method should not be called.");
         }
+      
+        @Override
+        public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean isExistingCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isLoadedCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
         }
 

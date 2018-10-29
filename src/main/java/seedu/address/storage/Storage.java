@@ -10,8 +10,14 @@ import org.simplejavamail.email.Email;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.BudgetBookChangedEvent;
+import seedu.address.commons.events.model.CalendarCreatedEvent;
+import seedu.address.commons.events.model.CalendarEventAddedEvent;
+import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
+import seedu.address.commons.events.model.ExportAddressBookEvent;
+import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
@@ -46,6 +52,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
+    void exportAddressBook(ReadOnlyAddressBook addressBook, Path path) throws IOException;
+
+    @Override
     Path getEmailPath();
 
     @Override
@@ -76,6 +85,15 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      */
     void handleBudgetBookChangedEvent(BudgetBookChangedEvent bbce);
 
+    //@@author kengwoon
+
+    /**
+     * Saves the current version of Hallper to the specified path on hard disk.
+     * Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleExportAddressBookEvent(ExportAddressBookEvent eabe);
+
     //@@author EatOrBeEaten
     /**
      * Saves the current Email in EmailModel to the hard disk.
@@ -103,5 +121,15 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     @Override
     Calendar loadCalendar(String calendarName) throws IOException, ParserException;
+
+    void handleCalendarCreatedEvent(CalendarCreatedEvent event);
+
+    void handleLoadCalendarEvent(LoadCalendarEvent event);
+
+    void handleAllDayEventAddedEvent(AllDayEventAddedEvent event);
+
+    void handleCalendarEventAddedEvent(CalendarEventAddedEvent event);
+
+    void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event);
 
 }

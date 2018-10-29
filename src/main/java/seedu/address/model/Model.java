@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -7,6 +8,7 @@ import java.util.function.Predicate;
 import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -132,6 +134,11 @@ public interface Model {
     void updateMultiplePersons(List<Person> target, List<Person> editedPerson);
 
     /**
+     * Exports current data in Hallper to given {@code filePath}.
+     */
+    void exportAddressBook(Path filePath);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
@@ -205,10 +212,17 @@ public interface Model {
      */
     boolean hasEmail(String fileName);
 
+     * Passes the calendar loaded from memory into model
+     */
+    void handleCalendarLoadedEvent(CalendarLoadedEvent event);
+
     /**
      * Returns true if the model already has a calendar with the same month and year
      */
     boolean isExistingCalendar(Year year, Month month);
+
+    /** Checks if calendar to be edited is already loaded. */
+    boolean isLoadedCalendar(Year year, Month month);
 
     /**
      * Returns true if the date is valid in that particular month, year.

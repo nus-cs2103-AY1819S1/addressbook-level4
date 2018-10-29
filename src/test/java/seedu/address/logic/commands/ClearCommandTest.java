@@ -37,7 +37,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_clearAll_success() {
         List<String> target = new ArrayList<>();
         target.add("all");
         ClearCommand clearCommand = new ClearCommand(target);
