@@ -119,9 +119,11 @@ public class AddressBookParser {
         case ScheduleCommand.COMMAND_ALIAS:
             return new ScheduleCommandParser().parse(arguments);
 
+        //@@author A19Sean
         case TagCommand.COMMAND_WORD:
         case TagCommand.COMMAND_ALIAS:
             return new TagCommandParser().parse(arguments);
+        //@@author
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
