@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -28,6 +30,7 @@ public class MedicalCertificateCommand extends QueueCommand {
             + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
     public static final String MESSAGE_GENERATE_MC_SUCCESS = "MC generated for patient!";
+    public static final String MESSAGE_EMPTY_MC = "MC days not specified. MC cannot be generated.";
 
     private MedicalCertificate mc;
     private final Index index;
@@ -50,8 +53,15 @@ public class MedicalCertificateCommand extends QueueCommand {
         }
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
+
+        if (servedPatient.getMcContent().equals("")) {
+            throw new CommandException(MESSAGE_EMPTY_MC);
+        }
+
         mc = new MedicalCertificate(servedPatient);
         mc.generateDocument();
+
+        EventsCenter.getInstance().post(new ShowDocumentWindowRequestEvent(mc));
 
         return new CommandResult(String.format(MESSAGE_GENERATE_MC_SUCCESS));
     }

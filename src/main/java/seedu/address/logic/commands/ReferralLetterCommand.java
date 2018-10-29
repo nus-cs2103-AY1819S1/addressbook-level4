@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -28,6 +30,8 @@ public class ReferralLetterCommand extends QueueCommand {
             + "Example: " + COMMAND_WORD + "<person's index>";
 
     public static final String MESSAGE_GENERATE_REFERRAL_SUCCESS = "Referral letter generated for patient!";
+    public static final String MESSAGE_EMPTY_REFERRAL =
+            "Referral letter content is empty. Referral letter cannot be generated.";
 
     private ReferralLetter rl;
     private final Index index;
@@ -50,8 +54,15 @@ public class ReferralLetterCommand extends QueueCommand {
         }
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
+
+        if (servedPatient.getReferralContent().equals("")) {
+            throw new CommandException(MESSAGE_EMPTY_REFERRAL);
+        }
+
         rl = new ReferralLetter(servedPatient);
         rl.generateDocument();
+
+        EventsCenter.getInstance().post(new ShowDocumentWindowRequestEvent(rl));
 
         return new CommandResult(String.format(MESSAGE_GENERATE_REFERRAL_SUCCESS));
     }
