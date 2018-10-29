@@ -1,20 +1,19 @@
 package seedu.clinicio.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_BEN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_CAT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE;
-import static seedu.clinicio.testutil.TypicalPersons.BEN;
-import static seedu.clinicio.testutil.TypicalPersons.CARL;
-import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.BEN;
+import static seedu.clinicio.testutil.TypicalPersons.CAT;
+import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,12 +21,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.logic.CommandHistory;
+
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
 import seedu.clinicio.model.UserPrefs;
 import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Password;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
 public class LoginCommandTest {
@@ -43,10 +43,12 @@ public class LoginCommandTest {
     @Test
     public void execute_validCredentials_returnTrue() {
         LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+                new Staff(DOCTOR, ADAM.getName(), new Password("doctor1", false)));
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
+
+        // TODO: Receptionist
     }
 
     @Test
@@ -55,122 +57,42 @@ public class LoginCommandTest {
 
         // different name
         LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
+                new Staff(DOCTOR, BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         // different password
         command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor2", false)));
+                new Staff(DOCTOR, ADAM.getName(), new Password(VALID_PASSWORD_BEN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
+
+        // TODO: Receptionist
     }
 
     @Test
-    public void checkDoctorCred_nullDoctorsList_throwsNullPointerException() {
+    public void execute_staffNotInClinicIO_throwsCommandException() {
+        String expectedMessage = LoginCommand.MESSAGE_NO_RECORD_FOUND;
+
+        // Staff not inside ClinicIO
         LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+                new Staff(DOCTOR, CAT.getName(), new Password(VALID_PASSWORD_CAT, false)));
+        assertCommandFailure(command, model, commandHistory, analytics, expectedMessage);
 
-        thrown.expect(NullPointerException.class);
-        command.checkDoctorCred(null);
-    }
-
-    @Test
-    public void checkDoctorCred_emptyDoctorsList_returnFalse() {
-        List<Doctor> emptyDoctorsList = new ArrayList<>();
-        LoginCommand validCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-
-        assertFalse(validCommand.checkDoctorCred(emptyDoctorsList));
-    }
-
-    @Test
-    public void checkDoctorCred_validCommand_returnTrue() {
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-        LoginCommand validCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-
-        assertTrue(validCommand.checkDoctorCred(doctorsList));
-    }
-
-    @Test
-    public void checkDoctorCred_invalidCommand_returnFalse() {
-        LoginCommand invalidCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        assertFalse(invalidCommand.checkDoctorCred(doctorsList));
-    }
-
-    @Test
-    public void searchDoctor_nullDoctorListAndNullDoctorToSearch_throwsNullPointerException() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> emptyList = new ArrayList<>();
-
-        thrown.expect(NullPointerException.class);
-        // All fields are null.
-        command.searchDoctor(null, null);
-
-        // Some fields are null.
-        command.searchDoctor(null, ADAM);
-        command.searchDoctor(emptyList, null);
-    }
-
-    @Test
-    public void searchDoctor_emptyDoctorList_returnNull() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> emptyList = new ArrayList<>();
-
-        assertNull(command.searchDoctor(emptyList, ADAM));
-        assertNull(command.searchDoctor(emptyList, BEN));
-    }
-
-    @Test
-    public void searchDoctor_invalidDoctorList_throwsClassCastException() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        thrown.expect(ClassCastException.class);
-
-        // The doctor to found is not a doctor.
-        command.searchDoctor(doctorsList, (Doctor) ALICE);
-        command.searchDoctor(doctorsList, (Doctor) CARL);
-    }
-
-    @Test
-    public void searchDoctor_noDoctorsFound_returnNull() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = Arrays.asList(BEN);
-
-        // Cannot find ADAM in the doctorsList
-        assertNull(command.searchDoctor(doctorsList, ADAM));
-    }
-
-    @Test
-    public void searchDoctor_doctorFound_returnDoctor() {
-        LoginCommand command = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> doctorsList = model.getFilteredDoctorList();
-
-        assertNotNull(command.searchDoctor(doctorsList, BEN));
-
+        // TODO: Receptionist
     }
 
     @Test
     public void equals() {
         LoginCommand loginFirstCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+                new Staff(DOCTOR, ADAM.getName(), ADAM.getPassword()));
         LoginCommand loginSecondCommand = new LoginCommand(
-                new Doctor(BEN.getId(), BEN.getName(), BEN.getPassword()));
+                new Staff(DOCTOR, BEN.getName(), BEN.getPassword()));
 
         // same object -> returns true
         assertTrue(loginFirstCommand.equals(loginFirstCommand));
 
         // same values -> returns true
         LoginCommand loginFirstCommandCopy = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+                new Staff(DOCTOR, ADAM.getName(), ADAM.getPassword()));
         assertTrue(loginFirstCommand.equals(loginFirstCommandCopy));
 
         // different types -> returns false
