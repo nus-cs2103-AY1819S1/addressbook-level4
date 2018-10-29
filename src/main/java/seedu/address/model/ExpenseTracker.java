@@ -129,7 +129,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public boolean addExpense(Expense p) {
         this.expenses.add(p);
-        return this.maximumTotalBudget.addExpense(p.getCost().getCostValue());
+        return this.maximumTotalBudget.addExpense(p);
     }
 
     /**

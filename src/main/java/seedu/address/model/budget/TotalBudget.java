@@ -3,9 +3,11 @@ package seedu.address.model.budget;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.address.model.expense.Expense;
 
 
 /**
@@ -134,6 +136,22 @@ public class TotalBudget extends Budget {
 
     public HashSet<CategoryBudget> getCategoryBudgets() {
         return new HashSet<>(this.categoryBudgets);
+    }
+
+    @Override
+    public boolean addExpense(Expense expense) {
+        this.currentExpenses += expense.getCost().getCostValue();
+
+        AtomicInteger categoryBudgetNotExceeded = new AtomicInteger(0);
+
+        this.categoryBudgets.forEach(cBudget -> {
+            if (cBudget.getCategory().equals(expense.getCategory())) {
+                if (!cBudget.addExpense(expense)) {
+                    categoryBudgetNotExceeded.getAndIncrement();
+                };
+            }
+        });
+        return this.currentExpenses <= this.budgetCap && categoryBudgetNotExceeded.get() < 1;
     }
 
     @Override

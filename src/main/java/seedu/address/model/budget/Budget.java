@@ -69,8 +69,8 @@ public class Budget {
      * @return true if expense is successfully added, false if adding expense will result in totalBudget exceeding.
      */
 
-    public boolean addExpense(double expense) {
-        this.currentExpenses += expense;
+    public boolean addExpense(Expense expense) {
+        this.currentExpenses += expense.getCost().getCostValue();
         return this.currentExpenses <= this.budgetCap;
     }
 
