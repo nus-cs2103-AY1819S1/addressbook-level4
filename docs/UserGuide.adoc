@@ -211,7 +211,7 @@ Switches the panel to display to volunteers or events +
 Format: `switch -CONTEXT_ID`
 
 ****
-* The application will always display the 'volunteer' panel upon startup .
+* The application will always display the 'volunteer' panel upon startup.
 * This command allows you to switch the panel between two distinct entities: 'volunteers' and 'events'.
 * CONTEXT_ID for events is 'e'.
 * CONTEXT_ID for volunteers is 'v'.
