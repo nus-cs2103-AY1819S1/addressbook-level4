@@ -50,7 +50,7 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
 
-        Staff authenticatedStaff = (Staff) toAuthenticate;
+        Staff authenticatedStaff = toAuthenticate;
         if (!model.hasStaff(authenticatedStaff)) {
             throw new CommandException(MESSAGE_NO_RECORD_FOUND);
         }
