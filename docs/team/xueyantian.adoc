@@ -3,33 +3,50 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: TheTracker v1.3
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TheTracker is a desktop address book application that helps NUS students to monitor contacts, modules and events.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: extended AddCommand to *AddPersonCommand, AddModuleCommand, AddOccasionCommand*
+** What it does: allows the user to adds Person, Module, and Occasion to their own TheTracker. Any Persons, Modules and
+Occasions added by users in the command line will show in separate windows.
+** Justification: These features is the basics of the product such that a user can track not onlt his or her contacts
+but also modules and occasions happening in the school.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: extended FindCommand to *FindPersonCommand, FindModuleCommand, FindOccasionCommand*
+** What it does: allows the user to finds Person by name, phone, or email, or address; similarly, it allows finding
+Modules by module code, module name, academic year or semester; finding occasions by occasion name, occasion date,
+or occasion location.
+** Justification: These features largely improve the convenience for finding a specific Person, Module or Occasion. For
+instance, a Person now can be found by his or her name, phone, email or address, and multiple step of findperson command
+can be used to find a person by more than one kind of conditions.
+** Highlights: The finding is based on the compulsory prefixes entered by the user when he or she adds a Person, Module
+or Occasion. This may be improved in TheTracker v1.4 by employing a new tagging system, which allows more dynamic
+finding.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: built tests for Occasion related classes, and unit and system tests for the above-mentioned
+commands.
 
-* *Other contributions*:
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+_{give links to collated code files}_
+
+* *Other contributions*: wrote skeleton for Occasion related UI.
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set milestones for `v1.2` - `v1.4` on GitHub
+*** Opened issues for `v1.2` - `v1.4` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated Add and Find related Commands (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/94[#94],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/111[#111])
+*** Wrote additional tests for existing features to increase coverage(Pull requests
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/98[#98],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/115[#115])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -50,9 +67,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=add]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=find]
 
 == Contributions to the Developer Guide
 
@@ -60,9 +77,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=delete]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs
