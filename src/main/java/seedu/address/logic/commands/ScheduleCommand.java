@@ -95,6 +95,4 @@ public class ScheduleCommand extends Command {
 
         return new Person(name, phone, email, address, tags, meeting);
     }
-
-
 }
