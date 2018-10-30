@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.LEAVEDATES_DESC_BENSON_LEAVE;
+import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_BENSON_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -24,16 +26,19 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.LeaveApplyCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.LeaveApplicationBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -134,7 +139,14 @@ public class AddressBookParserTest {
     public void parseCommand_modifyPermissionCommandWord_returnsModifyPermissionCommand() throws Exception {
         assertTrue(parser.parseCommand(ModifyPermissionCommand.COMMAND_WORD + " 1 " + PREFIX_ADD_PERMISSION
                 + Permission.ADD_EMPLOYEE.name()) instanceof ModifyPermissionCommand);
+    }
 
+    @Test
+    public void parseCommand_leaveapply() throws Exception {
+        LeaveApplication leaveApplication = new LeaveApplicationBuilder().build();
+        LeaveApplyCommand command = (LeaveApplyCommand) parser.parseCommand(LeaveApplyCommand.COMMAND_WORD
+                + LEAVEDESCIPTION_DESC_BENSON_LEAVE + LEAVEDATES_DESC_BENSON_LEAVE);
+        assertEquals(new LeaveApplyCommand(leaveApplication), command);
     }
 
     @Test

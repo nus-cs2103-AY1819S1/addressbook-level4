@@ -2,13 +2,19 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leaveapplication.Description;
+import seedu.address.model.leaveapplication.LeaveStatus;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -138,6 +144,63 @@ public class ParserUtil {
             projectSet.add(parseProject(tagName));
         }
         return projectSet;
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String leaveStatus} into an {@code LeaveStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code leaveStatus} is invalid.
+     */
+    public static LeaveStatus parseLeaveStatus(String leaveStatus) throws ParseException {
+        requireNonNull(leaveStatus);
+        String trimmedLeaveStatus = leaveStatus.trim();
+        if (!LeaveStatus.isValidStatus(trimmedLeaveStatus)) {
+            throw new ParseException(LeaveStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+        return new LeaveStatus(trimmedLeaveStatus);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateUtil.isValidDateFormat(trimmedDate)) {
+            throw new ParseException(DateUtil.MESSAGE_DATE_CONSTRANTS);
+        }
+        return DateUtil.convertToDate(trimmedDate);
+    }
+
+    /**
+     * Parses {@code Collection<String> dates} into a {@code List<LocalDate>}.
+     */
+    public static List<LocalDate> parseDates(Collection<String> dates) throws ParseException {
+        requireNonNull(dates);
+        final List<LocalDate> datelist = new ArrayList<>();
+        for (String date : dates) {
+            datelist.add(parseDate(date));
+        }
+        return datelist;
     }
 
     /**

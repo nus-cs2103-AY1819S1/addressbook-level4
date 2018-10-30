@@ -1,7 +1,7 @@
 package seedu.address.commons.util;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -9,7 +9,8 @@ import java.time.format.DateTimeParseException;
  * Utility methods related to Dates
  */
 public class DateUtil {
-    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final String MESSAGE_DATE_CONSTRANTS = "Date should be of the format YYYY-MM-DD";
 
     /**
      * Checks if a date string is of the valid {@code DATE_FORMAT}
@@ -27,15 +28,16 @@ public class DateUtil {
      * Converts a date {@code String} into a {@code Date}
      * @param dateString A valid string representing a date according to {@code DATE_FORMAT}
      */
-    public static LocalDateTime convertToDate(String dateString) throws DateTimeException {
+    public static LocalDate convertToDate(String dateString) throws DateTimeException {
         assert isValidDateFormat(dateString);
-        return LocalDateTime.from(DATE_FORMAT.parse(dateString));
+        return LocalDate.from(DATE_FORMAT.parse(dateString));
     }
 
     /**
-     * Converts a date {@code Date} into a {@code String}
+     * Converts a date {@code LocalDate} into a {@code String}
      */
-    public static String convertToString(LocalDateTime date) {
+    public static String convertToString(LocalDate date) {
         return DATE_FORMAT.format(date);
     }
+
 }
