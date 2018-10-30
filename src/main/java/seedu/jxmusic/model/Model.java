@@ -52,4 +52,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlaylistList(Predicate<Playlist> predicate);
+
+    /**
+     * Updates the filter of the filtered track list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTrackList(Predicate<Track> predicate);
 }
