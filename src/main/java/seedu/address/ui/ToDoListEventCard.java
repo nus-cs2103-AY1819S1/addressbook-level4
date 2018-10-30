@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -22,14 +24,18 @@ public class ToDoListEventCard extends UiPart<Region> {
 
     public final ToDoListEvent toDoListEvent;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
+    @FXML
+    private CheckBox checkBox;
     @FXML
     private Label title;
     @FXML
     private Label id;
     @FXML
     private Label priority;
+    @FXML
+    private Button description;
 
     public ToDoListEventCard(ToDoListEvent toDoListEvent, int displayedIndex) {
         super(FXML);
