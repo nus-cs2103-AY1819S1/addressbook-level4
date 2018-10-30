@@ -295,6 +295,7 @@ Alias: `cs` +
 Format: `checkstock`
 // tag::medicine[]
 
+[[pqms]]
 // tag::pqms[]
 === Queue Management
 
@@ -512,8 +513,8 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit` and `deleteAll`).
-This includes all commands that change the `Patient` or `Medicine` class, and PQMS-related commands.
+Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit` and `clear`).
+This includes all commands that change the `Patient` or `Medicine` class but *not* <<pqms, PQMS-related>> commands.
 ====
 
 Examples:
@@ -528,12 +529,12 @@ Examples:
 The `undo` command fails as there are no undoable commands executed previously.
 
 * `delete 1` +
-`deleteAll` +
-`undo` (reverses the `deleteAll` command) +
+`clear` +
+`undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-* `addMedicine mn/panadol msq/100 ppu/5 sn/00000001 s/2500` +
-`undo` (reverses the `addMedicine` command)
+* `addmedicine mn/panadol msq/100 ppu/5 sn/00000001 s/2500` +
+`undo` (reverses the `addmedicine` command)
 
 ==== Redoing the previously undone command: `redo`
 
@@ -552,11 +553,11 @@ Examples:
 The `redo` command fails as there are no `undo` commands executed previously.
 
 * `delete 1` +
-`deleteAll` +
-`undo` (reverses the `deleteAll` command) +
+`clear` +
+`undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `deleteAll` command) +
+`redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
 ==== Exiting the program: `exit`
