@@ -549,7 +549,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Command Words |Command Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |Add |`a`  |`add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` |`add n/John Doe p/98765432 e/johnd@example.com a/John Street, block 123, #01-01`
 |List |`l`  | `list` |`list`
 |Edit |`e`  |`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |`edit 1 p/91234567 e/johndoe@example.com`
@@ -578,7 +578,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Word |Command Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |register |`reg`  |`register INDEX​` |`register 1`
 |queue |`q`  | `queue` |`queue`
 |remove |`rem`  |`remove INDEX` |`remove 2`
@@ -594,7 +594,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Command Words |Command Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |mc |-  |`mc INDEX​` |`mc 1`
 |receipt |`rec`  | `receipt INDEX` |`receipt 2`
 |refer |`ref`  |`refer INDEX` |`refer 3`
@@ -604,7 +604,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Command Words |Command Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |help |-  |`help​` |`help`
 |history |`h`  | `history` |`history`
 |undo |`u`  |`undo` |`undo`
