@@ -403,20 +403,39 @@ image::General new command.png[width="650"]
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire car park finder.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+
+[cols="1,10"]
+|===
+|Pros| Easy to implement.
+|Cons| May have performance issues in terms of memory usage.
+|===
+
+
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `select`, just save the car park being selected).
-** Cons: We must ensure that the implementation of each individual command are correct.
+
+[cols="1,10"]
+|===
+|Pros| Will use less memory (e.g. for `select`, just save the car park being selected).
+|Cons| We must ensure that the implementation of each individual command are correct.
+|===
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of car park finder states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCarparkFinder`.
+
+[cols="1,10"]
+|===
+|Pros| Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|Cons| Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCarparkFinder`.
+|===
+
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+[cols="1,10"]
+|===
+|Pros| We do not need to maintain a separate list, and just reuse what is already in the codebase.
+|Cons| Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|===
 
 === Query feature
 
