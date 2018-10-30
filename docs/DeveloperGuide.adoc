@@ -477,14 +477,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 This section describes the details on how the volunteer management features are implemented.
 
 // tag::exportcert[]
-==== Export Volunteer Certificate [Coming in V1.3]
-The `exportcert` command enables the volunteer manager to export a PDF document detailing a volunteer's involvement with the organisation, to his/her Desktop. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
+==== Export Volunteer Certificate
 
-* Organisation's logo
-* Volunteer Name and NRIC
-* Date of PDF certificate creation
-* List of events involved in
-* Hours of service contributed
+The `exportcert` command enables the volunteer manager to export a PDF document detailing a volunteer's involvement with the organisation.
+This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
+
+* Title: 'Certificate of Recognition'
+* Date of export
+* Volunteer name
+* Volunteer ID
+* List of events involved in - Event name, hours contributed, event start and event end dates
+
+Currently, the certificate will be exported to either of these two locations:
+
+* Folder named 'Volunteer Certs' in the user's current working directory (next to jar file)
+* Direct to Desktop (if permission not allowed for the above)
 
 This is what the exported PDF certificate currently looks like:
 
@@ -492,15 +499,32 @@ This is what the exported PDF certificate currently looks like:
 [.thumb]
 image::CurrentVolunteerCert.png[width="600"]
 
+===== Implementation
 
-===== Intended Implementation
+The following steps were involved in this feature's implementation:
 
-The following is a high level overview of this feature's implementation:
+1. Support for accepting `exportcert` command.
+* Added an ExportCertCommand class that extends Command.
+* Modified AddressBookParser class to accept an ExportCertCommand.
 
-* Creation of supported `exportcert` command.
-* Retrieval of the specified volunteer's details.
-* Creation of a new PDF document using Apache PDFBox.
-* Export of the PDF document to the user's Desktop.
+2. Support for accepting arguments as part of the command.
+* Modified ExportCertCommand class to take in an Index.
+* Added an ExportCertCommandParser class that parses the Index argument.
+* Modified the AddressBookParser to use the ExportCertCommandParser.
+
+3. Retrieve the right volunteer based on the given Index.
+* Interact with the model to retrieve the filtered volunteer list.
+* Get the Volunteer at the specified Index.
+
+4. Retrieve information on the events that this volunteer has been involved in, if any.
+* Interact with the model to get the filtered record list, and filter the record list further to find the records with the volunteer's ID.
+* Retrieve the event IDs from the relevant filtered records, along with the hours contributed.
+* Get the Event that corresponds to the event ID, and retrieve its name, startDate and endDate for input into the certificate.
+
+5. Use Apache PDFBox to create and export a volunteer certificate with the information retrieved.
+* Involves the creation of a new https://pdfbox.apache.org/docs/2.0.2/javadocs/index.html?org/apache/pdfbox/pdmodel/PDDocument.html[PDDocument],
+with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPage.html[PDPage] to write the content to.
+* A https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPageContentStream.html[PDPageContentStream] is then used to write the information to a page content stream.
 
 ===== Design Considerations
 
@@ -572,6 +596,27 @@ The following is a high level overview of this feature's implementation:
 |===
 |*Pros*| Shorter than NRIC and still serves the purpose, and can be auto-incremented.
 |*Cons*| Hard to recover, even if additional information about the volunteer is provided. Would also be meaningless to a third person to whom the certificate is presented for verification purposes.
+|===
++
+
+
+====== Aspect: Choice of export location
+
+* **Alternative 1 (current choice):** Create a folder in the user's current working directory
++
+[cols="1,10"]
+|===
+|*Pros*| Putting the files relative to where the app is allows the user to locate, manage and access the exports easily as this is a portable app. The app jar and the exported files can be shifted to different locations together easily as well.
+|*Cons*| The user would have to navigate to this directory if he/she wishes to access the files independent of using the application.
+|===
++
+
+* **Alternative 2 (also part of current choice, if no permission for 1):** Export to the user's Desktop
++
+[cols="1,10"]
+|===
+|*Pros*| Easy to access files when not using the application.
+|*Cons*| As it is a portable app, it may be cumbersome to keep navigating to the Desktop to access the exports when using the application. It also becomes harder to move the app jar and exports together from place to place.
 |===
 +
 
