@@ -41,6 +41,8 @@ public class NotificationCommand extends Command {
             messageNotificationSuccess = "Notification:" + " disabled";
         }
 
+        model.commitAddressBook();
+
         return new CommandResult(String.format(messageNotificationSuccess));
     }
 }
