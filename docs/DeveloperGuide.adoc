@@ -1107,9 +1107,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 #### Keng Ji : Add event feature with polls and time, location features
 
 - [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
-- [x] V1.2: Organisers able to "invite" participants to get recommendations for and set location;
-Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.
-- [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
+- [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
+- [x] V1.3: Application able to generate poll options based on participants' schedules.
 
 #### Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
