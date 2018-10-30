@@ -1,7 +1,7 @@
 package seedu.clinicio.testutil;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_AS_PATIENT;
 
 import java.util.Optional;
 
@@ -19,10 +19,10 @@ public class AppointmentBuilder {
 
     public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
     public static final Time DEFAULT_TIME = new Time(16, 30);
-    public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
+    public static final Patient DEFAULT_PATIENT = BENSON_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
     public static final int DEFAULT_STATUS = 1;
-    public static final Staff DEFAULT_STAFF = ADAM;
+    public static final Optional<Staff> DEFAULT_STAFF = Optional.of(ADAM);
 
     private Date date;
     private Time time;
@@ -37,7 +37,7 @@ public class AppointmentBuilder {
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
         status = DEFAULT_STATUS;
-        staff = Optional.of(DEFAULT_STAFF);
+        staff = DEFAULT_STAFF;
     }
 
     /**
@@ -81,6 +81,15 @@ public class AppointmentBuilder {
      */
     public AppointmentBuilder withStaff(Staff staff) {
         this.staff = Optional.of(staff);
+        return this;
+    }
+
+    /**
+     * Setst the type of the {@code Appointment} we are building.
+     * @return
+     */
+    public AppointmentBuilder withType(int type) {
+        this.type = type;
         return this;
     }
 
