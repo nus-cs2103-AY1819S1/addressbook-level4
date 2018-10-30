@@ -240,6 +240,9 @@ Format: `passwd`
 * You will be prompted for your current password, and then your new one.
 ****
 
+[WARNING]
+Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+
 === View deleted employee archive : `archive`
 
 Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
