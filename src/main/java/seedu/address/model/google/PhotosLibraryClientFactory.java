@@ -32,8 +32,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LoginStatusEvent;
 
 //@@author chivent
-//TODO: credit --> https://github.com/google/java-photoslibrary/tree/master/sample
-//TODO: Store files elsewhere [TBD]
 
 /**
  * Factory to create instance of PhotosLibraryClient
@@ -67,6 +65,9 @@ public class PhotosLibraryClientFactory {
             dataStore.mkdirs();
         }
 
+        //@@author chivent-reused
+        //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
+        //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
         DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
 
         InputStream credentialFile = PhotosLibraryClientFactory
@@ -90,6 +91,7 @@ public class PhotosLibraryClientFactory {
         // Credential is a google construct that wraps the access token and helps you to refresh periodically
         // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
         Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+
         //UserCredentials is a specific credential type that stores user specific credentials
         UserCredentials userCredentials = UserCredentials.newBuilder()
                 .setClientId(clientId)
@@ -101,6 +103,7 @@ public class PhotosLibraryClientFactory {
         return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
     }
 
+    //@@author chivent
     /**
      * Creates a PhotosLibraryClient instance from credentials
      *
