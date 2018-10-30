@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class XmlAdaptedMedicalHistory implements Iterable<XmlAdaptedDiagnosis> {
-    @XmlElement(required = true, name = "diagnosis")
+    @XmlElement(required = true)
     private List<XmlAdaptedDiagnosis> medicalHistory;
 
     public XmlAdaptedMedicalHistory() {
@@ -51,6 +51,6 @@ public class XmlAdaptedMedicalHistory implements Iterable<XmlAdaptedDiagnosis> {
         }
 
         XmlAdaptedMedicalHistory xamh = (XmlAdaptedMedicalHistory) o;
-        return medicalHistory.equals(((XmlAdaptedMedicalHistory) o).medicalHistory); //todo is this correct?
+        return medicalHistory.equals(xamh.medicalHistory);
     }
 }

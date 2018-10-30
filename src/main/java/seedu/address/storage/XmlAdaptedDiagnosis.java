@@ -24,12 +24,12 @@ public class XmlAdaptedDiagnosis {
     /**
      * Constructs an XmlAdaptedDiagnosis.
      * This is the no-arg constructor that is required by JAXB.
-     *///todo change
+     */
     public XmlAdaptedDiagnosis() {}
 
     /**
      * Constructs a {@code XmlAdaptedDiagnosis} with the given details.
-     *///todo change
+     */
     public XmlAdaptedDiagnosis(String description, String doctorName, Timestamp timestamp) {
         this.description = description;
         this.doctorInCharge = doctorName;
