@@ -14,6 +14,7 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.Description;
+import seedu.address.model.leaveapplication.LeaveStatus;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -158,6 +159,21 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String leaveStatus} into an {@code LeaveStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code leaveStatus} is invalid.
+     */
+    public static LeaveStatus parseLeaveStatus(String leaveStatus) throws ParseException {
+        requireNonNull(leaveStatus);
+        String trimmedLeaveStatus = leaveStatus.trim();
+        if (!LeaveStatus.isValidStatus(trimmedLeaveStatus)) {
+            throw new ParseException(LeaveStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+        return new LeaveStatus(trimmedLeaveStatus);
     }
 
     /**

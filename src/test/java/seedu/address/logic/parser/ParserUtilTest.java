@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.Description;
+import seedu.address.model.leaveapplication.LeaveStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,6 +35,7 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DESCRIPTION = " ";
+    private static final String INVALID_LEAVE_STATUS = " ";
     private static final String INVALID_DATE = "201-10-23";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -43,6 +45,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DESCRIPTION = "Rachel's family holiday";
+    private static final String VALID_LEAVE_STATUS = "APPROVED";
     private static final String VALID_DATE = "2018-10-23";
     private static final String VALID_DATE_2 = "2018-10-24";
 
@@ -234,9 +237,32 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
-        assertEquals(expectedDescription, ParserUtil.parseDescription(addressWithWhitespace));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseLeaveStatus_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseLeaveStatus((String) null));
+    }
+
+    @Test
+    public void parseLeaveStatus_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseLeaveStatus(INVALID_LEAVE_STATUS));
+    }
+
+    @Test
+    public void parseLeaveStatus_validValueWithoutWhitespace_returnsLeaveStatus() throws Exception {
+        LeaveStatus expectedLeaveStatus = new LeaveStatus(VALID_DESCRIPTION);
+        assertEquals(expectedLeaveStatus, ParserUtil.parseLeaveStatus(VALID_LEAVE_STATUS));
+    }
+
+    @Test
+    public void parseLeaveStatus_validValueWithWhitespace_returnsTrimmedLeaveStatus() throws Exception {
+        String leaveStatusWithWhitespace = WHITESPACE + VALID_LEAVE_STATUS + WHITESPACE;
+        LeaveStatus expectedLeaveStatus = new LeaveStatus(VALID_LEAVE_STATUS);
+        assertEquals(expectedLeaveStatus, ParserUtil.parseLeaveStatus(leaveStatusWithWhitespace));
     }
 
     @Test
