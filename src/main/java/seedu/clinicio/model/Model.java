@@ -7,9 +7,9 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * The API of the Model component.
@@ -19,7 +19,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
@@ -47,9 +47,9 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the ClinicIO.
+     * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
-    boolean hasDoctor(Doctor doctor);
+    boolean hasStaff(Staff staff);
 
     /**
      * Deletes the given person.
@@ -58,22 +58,22 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Deletes the given doctor.
-     * The doctor must exist in the ClinicIO.
-     */
-    void deleteDoctor(Doctor doctor);
-
-    /**
      * Adds the given person.
      * {@code person} must not already exist in the ClinicIO.
      */
     void addPerson(Person person);
 
     /**
-     * Adds the given doctor.
-     * {@code doctor} must not already exist in the ClinicIO.
+     * Adds the given staff.
+     * {@code staff} must not already exist in the ClinicIO.
      */
-    void addDoctor(Doctor doctor);
+    void addStaff(Staff staff);
+
+    /**
+     * Retrieve the given staff
+     * {@code staff} must exist in ClinicIO.
+     */
+    Staff getStaff(Staff staff);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -83,17 +83,17 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     /**
-     * Replaces the given doctor {@code target} with {@code editedDoctor}.
+     * Replaces the given staff {@code target} with {@code editedStaff}.
      * {@code target} must exist in the ClinicIO.
-     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the ClinicIO.
+     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
      */
-    void updateDoctor(Doctor target, Doctor editedDoctor);
+    void updateStaff(Staff target, Staff editedStaff);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered doctor list */
-    ObservableList<Doctor> getFilteredDoctorList();
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Staff> getFilteredStaffList();
 
     ObservableList<Person> getAllPatientsInQueue();
 
@@ -104,10 +104,10 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDoctorList(Predicate<Doctor> predicate);
+    void updateFilteredStaffList(Predicate<Staff> predicate);
 
     /**
      * Returns true if the model has previous ClinicIO states to restore.

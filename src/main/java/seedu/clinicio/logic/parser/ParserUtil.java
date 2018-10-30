@@ -1,6 +1,8 @@
 package seedu.clinicio.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,16 +13,15 @@ import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.commons.util.StringUtil;
 
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Id;
-import seedu.clinicio.model.doctor.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.tag.Tag;
 
 /**
@@ -132,22 +133,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parse {@code role, @code name, @code password} into either a {@code Doctor} or {@code Receptionist}
-     * @param role The type of user (Doctor, Receptionist)
-     * @param name The user valid name.
-     * @param password The user valid password.
+     * Parse {@code role} into either doctor or receptionist
+     * @param role The type of user (doctor, receptionist)
      * @return A valid person with its role object.
      */
-    public static Person parseRole(String role, Name name, Password password) throws ParseException {
+    public static Role parseRole(String role) throws ParseException {
         requireNonNull(role);
-        requireNonNull(name);
-        requireNonNull(password);
         if (role.equals("doctor")) {
-            return new Doctor(new Id(1), name, password);
+            return DOCTOR;
         } else if (role.equals("receptionist")) {
-            return null;
+            return RECEPTIONIST;
         } else {
-            throw new ParseException("No role existed.");
+            throw new ParseException("You have entered invalid role. Please try with either staff or receptionist.");
         }
     }
 

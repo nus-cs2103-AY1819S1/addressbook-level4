@@ -4,8 +4,8 @@ import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * Contains details regarding appointment.
@@ -26,16 +26,16 @@ public class Appointment {
     private int appointmentStatus;
     private int appointmentType;
     private final Patient patient;
-    private final Doctor assignedDoctor;
+    private final Staff assignedStaff;
 
-    public Appointment(Date date, Time time, Patient patient, int appointmentType, Doctor doctor) {
-        requireAllNonNull(date, time, patient); //TODO: Include appointmentType and doctor
+    public Appointment(Date date, Time time, Patient patient, int appointmentType, Staff staff) {
+        requireAllNonNull(date, time, patient); //TODO: Include appointmentType and staff
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
         this.appointmentStatus = APPROVED;
         this.appointmentType = appointmentType;
-        this.assignedDoctor = doctor;
+        this.assignedStaff = staff;
     }
 
     public Date getAppointmentDate() {
@@ -59,8 +59,8 @@ public class Appointment {
         return appointmentType;
     }
 
-    public Doctor getAssignedDoctor() {
-        return assignedDoctor;
+    public Staff getAssignedStaff() {
+        return assignedStaff;
     }
 
     /**
@@ -88,11 +88,11 @@ public class Appointment {
     }
 
     /**
-     * Returns true if the appointment has the same assigned doctor.
+     * Returns true if the appointment has the same assigned staff.
      * @param other Appointment to compare with.
      */
     public boolean isSameDoctor(Appointment other) {
-        return other.getAssignedDoctor().equals(getAssignedDoctor());
+        return other.getAssignedStaff().equals(getAssignedStaff());
     }
     /**
      * Returns true if the appointments are the same.
@@ -173,13 +173,13 @@ public class Appointment {
                 && otherAppointment.getPatient().equals(getPatient())
                 && (otherAppointment.getAppointmentStatus() == getAppointmentStatus())
                 && (otherAppointment.getAppointmentType() == getAppointmentType())
-                && otherAppointment.getAssignedDoctor().equals(getAssignedDoctor());
+                && otherAppointment.getAssignedStaff().equals(getAssignedStaff());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(appointmentDate, appointmentTime, patient,
-                appointmentStatus, appointmentType, assignedDoctor);
+                appointmentStatus, appointmentType, assignedStaff);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class Appointment {
                 .append("\n")
                 .append(patient.toString())
                 .append("\n")
-                .append(assignedDoctor.toString())
+                .append(assignedStaff.toString())
                 .append("\n")
                 .append(statusToString())
                 .append("\n")

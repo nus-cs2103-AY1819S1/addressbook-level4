@@ -30,7 +30,7 @@ public class PatientTest {
     @Test
     public void isSamePerson() {
 
-        // same name, different preferred doctor -> returns false
+        // same name, different preferred staff -> returns false
         Patient editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         Patient editedAliceAsPatientWithAnotherPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
@@ -38,13 +38,13 @@ public class PatientTest {
         assertFalse(editedAliceAsPatientWithPreferredDoctor
                 .isSamePerson(editedAliceAsPatientWithAnotherPreferredDoctor));
 
-        // same name, one with preferred doctor, one without -> returns false
+        // same name, one with preferred staff, one without -> returns false
         editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         Patient editedAliceWithoutPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT).build();
         assertFalse(editedAliceAsPatientWithPreferredDoctor.isSamePerson(editedAliceWithoutPreferredDoctor));
 
-        // same name, same preferred doctor, different attributes -> returns true
+        // same name, same preferred staff, different attributes -> returns true
         Patient editedAliceAsPatientWithPreferredDoctorAndBobAddress = (Patient) new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM)
                 .withAddress(VALID_ADDRESS_BOB)
@@ -119,7 +119,7 @@ public class PatientTest {
         editedAliceAsPatient = (Patient) new PatientBuilder(ALICE_AS_PATIENT).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE_AS_PATIENT.equals(editedAliceAsPatient));
 
-        // different preffered doctor -> returns false
+        // different preffered staff -> returns false
         Patient editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         Patient editedAliceAsPatientWithAnotherPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
@@ -136,10 +136,10 @@ public class PatientTest {
 
     @Test
     public void hasPreferredDoctor() {
-        // patient without preferred doctor -> returns false
+        // patient without preferred staff -> returns false
         assertFalse(ALICE_AS_PATIENT.hasPreferredDoctor());
 
-        // patient with a preferred doctor -> returns true
+        // patient with a preferred staff -> returns true
         Patient aliceAsPatientWithPreferredDoctor = ALICE_AS_PATIENT;
         aliceAsPatientWithPreferredDoctor.setPreferredDoctor(BEN);
         assertTrue(aliceAsPatientWithPreferredDoctor.hasPreferredDoctor());

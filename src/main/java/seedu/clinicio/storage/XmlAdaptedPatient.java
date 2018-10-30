@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 
 /**
@@ -19,12 +19,12 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing = false;
     @XmlElement
-    private Optional<Doctor> preferredDoctor = Optional.empty();
+    private Optional<Staff> preferredDoctor = Optional.empty();
     @XmlElement
     private Optional<Appointment> appointment = Optional.empty();
 
     public XmlAdaptedPatient(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                             boolean isQueuing, Optional<Doctor> preferredDoctor, Optional<Appointment> appointment) {
+                             boolean isQueuing, Optional<Staff> preferredDoctor, Optional<Appointment> appointment) {
         super(name, phone, email, address, tagged);
         this.isQueuing = isQueuing;
         this.preferredDoctor = preferredDoctor;

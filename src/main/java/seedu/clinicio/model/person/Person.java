@@ -5,8 +5,11 @@ import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**
@@ -23,6 +26,8 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Optional<Staff> preferredDoctor = Optional.empty();
+    private Optional<Appointment> appointment = Optional.empty();
 
     /**
      * Every field must be present and not null.
