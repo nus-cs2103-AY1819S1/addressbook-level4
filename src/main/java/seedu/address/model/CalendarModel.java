@@ -316,9 +316,8 @@ public class CalendarModel {
         loadCalendar(year, month);
 
         // Store the event into private field eventToBeRemoved
-        VEvent eventToRemove = retrieveEvent(startDate, endDate, title);
-        this.eventToBeRemoved = eventToRemove;
-        return isExistingEvent(eventToRemove);
+        this.eventToBeRemoved = retrieveEvent(startDate, endDate, title);
+        return isExistingEvent(this.eventToBeRemoved);
 
     }
 
