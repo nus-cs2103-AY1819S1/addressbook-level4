@@ -136,6 +136,10 @@
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.scroll-pane .viewport {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
