@@ -99,9 +99,10 @@ public class Appointment {
     public boolean isSameDoctor(Appointment other) {
         return other.getAssignedStaff().equals(getAssignedStaff());
     }
+
     /**
      * Returns true if the appointments are the same.
-     * Status is not considered.
+     * Status is not considered. Appointments with no assigned doctor may not be the same (TODO).
      * @param  other Appointment to compare with.
      */
     public boolean isSameAppointment(Appointment other) {
@@ -113,7 +114,7 @@ public class Appointment {
 
     /**
      * Returns true if the {@code toCheck} appointment's time slot encroaches {@code this} appointment's duration.
-     * Maximum appointment duration is 1 hour.
+     * Maximum appointment duration is 1 hour. Appointments with no assigned doctor may not be the same (TODO).
      * @param toCheck Appointment to compare with.
      */
     public boolean isOverlapAppointment(Appointment toCheck) {
