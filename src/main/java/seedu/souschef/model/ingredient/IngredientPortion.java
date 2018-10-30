@@ -1,6 +1,5 @@
 package seedu.souschef.model.ingredient;
 
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**

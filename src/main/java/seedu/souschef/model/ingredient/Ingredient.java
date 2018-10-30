@@ -3,7 +3,6 @@ package seedu.souschef.model.ingredient;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**

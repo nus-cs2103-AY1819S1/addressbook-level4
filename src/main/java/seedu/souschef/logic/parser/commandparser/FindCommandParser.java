@@ -2,7 +2,6 @@ package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_FAVOURITES_USAGE;
-import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -11,7 +10,6 @@ import java.util.Arrays;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
