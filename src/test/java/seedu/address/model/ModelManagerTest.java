@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
+import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.WishBookBuilder;
 
 public class ModelManagerTest {
@@ -71,8 +71,9 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentWishBook, differentWishTransaction, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredWishList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] nameKeywords = ALICE.getName().fullName.split("\\s+");
+        modelManager.updateFilteredWishList(new WishContainsKeywordsPredicate(Arrays.asList(nameKeywords),
+                Arrays.asList(), Arrays.asList(), true));
         assertFalse(modelManager.equals(new ModelManager(wishBook, wishTransaction, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
