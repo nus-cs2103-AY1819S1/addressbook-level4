@@ -11,9 +11,11 @@ import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.testutil.TypicalExpenses;
 
 /**
@@ -62,8 +64,8 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME, null, null);
-                } catch (NonExistentUserException | InvalidDataException e) {
+                    testApp.getActualModel().loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+                } catch (NonExistentUserException | InvalidDataException | ParseException e) {
                     Assert.fail(e.getMessage());
                 }
             });

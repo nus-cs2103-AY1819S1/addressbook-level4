@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Encapsulates the information passed when the user attempts to log in.
  * Guarantees: immutable, password is null if and only if plainPassword is null.
@@ -18,12 +21,12 @@ public class LoginInformation {
      * @param username the username
      * @param plainPassword the password as a plain text String
      */
-    public LoginInformation(Username username, String plainPassword) {
+    public LoginInformation(Username username, String plainPassword) throws ParseException {
         requireNonNull(username);
         this.username = username;
         this.plainPassword = plainPassword;
         if (plainPassword != null) {
-            this.password = new Password(plainPassword, true);
+            this.password = ParserUtil.parsePassword(plainPassword);
         } else {
             this.password = null;
         }

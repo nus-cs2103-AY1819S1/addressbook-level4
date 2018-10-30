@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -27,7 +28,7 @@ public class HelpCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     public HelpCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
-            InvalidDataException {
+            InvalidDataException, ParseException {
     }
 
     @Test

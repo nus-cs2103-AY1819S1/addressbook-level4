@@ -17,6 +17,7 @@ import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -33,7 +34,7 @@ public class ModelManagerTest {
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
     public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
-            InvalidDataException {
+            InvalidDataException, ParseException {
     }
 
     @Test
@@ -180,8 +181,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(expenseTracker, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expenseTracker, userPrefs);
+        modelManager = new ModelManager(expenseTracker, userPrefs, null);
+        ModelManager modelManagerCopy = new ModelManager(expenseTracker, userPrefs, null);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -194,20 +195,21 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different expenseTracker -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExpenseTracker, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseTracker, userPrefs, null)));
 
         // different filteredList -> returns false
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
                 + SCHOOLFEE.getName().expenseName, PREFIX_NAME);
         modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
-        assertFalse(modelManager.equals(new ModelManager(expenseTracker, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseTracker, userPrefs, null)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
 
+
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExpenseTrackerDirPath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(expenseTracker, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(expenseTracker, differentUserPrefs, null)));
     }
 }

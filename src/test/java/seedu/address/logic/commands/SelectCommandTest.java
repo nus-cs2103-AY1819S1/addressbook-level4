@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
@@ -31,8 +31,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
+    private Model expectedModel = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

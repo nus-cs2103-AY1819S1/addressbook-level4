@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Rule;
@@ -13,6 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.testutil.TypicalExpenses;
@@ -24,7 +26,7 @@ public class SetPasswordCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -41,7 +43,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_noOldPassword_assertSetPasswordSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null, null)
+        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
@@ -55,7 +57,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_oldPasswordInvalid_assertSetPasswordFailure() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null, null)
+        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);

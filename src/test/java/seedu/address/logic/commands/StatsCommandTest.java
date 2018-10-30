@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -29,7 +30,7 @@ public class StatsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     public StatsCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
-            InvalidDataException {
+            InvalidDataException, ParseException {
     }
 
     @Test

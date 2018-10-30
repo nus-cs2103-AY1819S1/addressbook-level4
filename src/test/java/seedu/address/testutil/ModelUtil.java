@@ -1,14 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+
 import java.time.LocalDateTime;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Username;
 
 
@@ -32,14 +37,21 @@ public class ModelUtil {
      * @return a model logged in with a test user
      */
     public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
-            NoUserSelectedException, InvalidDataException {
+            NoUserSelectedException, InvalidDataException, ParseException {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
-        model.loadUserData(TEST_USERNAME, null, null);
+        model.loadUserData(new LoginInformation(TEST_USERNAME, null));
         model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }
 
+    /**
+     * Creates a model with a Typical expense tracker that is logged in.
+     * @return a ModelManager with the typical expense tracker loaded
+     */
+    public static ModelManager getTypicalModel() {
+        return new ModelManager(getTypicalExpenseTracker(), new UserPrefs(), null);
+    }
 }
 
 

@@ -43,12 +43,12 @@ public class LogicManagerTest {
     private Logic logic = new LogicManager(model);
 
     public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
-            InvalidDataException {
+            InvalidDataException, ParseException {
     }
 
     @BeforeEach
     public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
-            InvalidDataException {
+            InvalidDataException, ParseException {
         model = ModelUtil.modelWithTestUser();
     }
 
@@ -196,7 +196,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage)
             throws NoUserSelectedException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
