@@ -49,24 +49,47 @@ public class AddApptCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddApptCommand.MESSAGE_USAGE);
 
         //missing date
-        assertParseFailure(parser, TIME_DESC_AMY + " tp/followup" + NAME_DESC_AMY +
-                PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, TIME_DESC_AMY
+                + " tp/followup"
+                + NAME_DESC_AMY
+                + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY, expectedMessage);
 
         //missing date prefix
-        assertParseFailure(parser, VALID_DATE_AMY + TIME_DESC_AMY + " tp/followup" + NAME_DESC_AMY +
-                PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, VALID_DATE_AMY
+                + TIME_DESC_AMY
+                + " tp/followup"
+                + NAME_DESC_AMY
+                + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY, expectedMessage);
 
         //missing time
-        assertParseFailure(parser, DATE_DESC_AMY + " tp/followup" + NAME_DESC_AMY +
-                PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, DATE_DESC_AMY
+                + " tp/followup"
+                + NAME_DESC_AMY
+                + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY, expectedMessage);
 
         //missing time prefix
-        assertParseFailure(parser, DATE_DESC_AMY + VALID_TIME_AMY + " tp/followup" + NAME_DESC_AMY +
-                PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, DATE_DESC_AMY
+                + VALID_TIME_AMY
+                + " tp/followup"
+                + NAME_DESC_AMY
+                + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY, expectedMessage);
 
         //missing type prefix
-        assertParseFailure(parser, DATE_DESC_AMY + VALID_TIME_AMY + " followup" + NAME_DESC_AMY +
-                PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, DATE_DESC_AMY
+                + VALID_TIME_AMY
+                + " followup"
+                + NAME_DESC_AMY
+                + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY, expectedMessage);
 
         //TODO: missing patient
     }
@@ -74,14 +97,22 @@ public class AddApptCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         //invalid date
-        assertParseFailure(parser, INVALID_DATE_DESC + TIME_DESC_AMY + " tp/followup" + NAME_DESC_AMY +
-                        PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                Date.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_DATE_DESC
+                        + TIME_DESC_AMY
+                        + " tp/followup"
+                        + NAME_DESC_AMY
+                        + PHONE_DESC_AMY
+                        + EMAIL_DESC_AMY
+                        + ADDRESS_DESC_AMY, Date.MESSAGE_DATE_CONSTRAINTS);
 
         //invalid time
-        assertParseFailure(parser, DATE_DESC_AMY + INVALID_TIME_DESC + " tp/followup" + NAME_DESC_AMY +
-                        PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                Time.MESSAGE_TIME_CONSTRAINTS);
+        assertParseFailure(parser, DATE_DESC_AMY
+                        + INVALID_TIME_DESC
+                        + " tp/followup"
+                        + NAME_DESC_AMY
+                        + PHONE_DESC_AMY
+                        + EMAIL_DESC_AMY
+                        + ADDRESS_DESC_AMY, Time.MESSAGE_TIME_CONSTRAINTS);
 
         //TODO: invalid patient
     }
