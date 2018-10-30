@@ -29,7 +29,7 @@ import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.AMY;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
 
@@ -117,7 +117,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered ride list, edit index within bounds of thanepark book and ride list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
@@ -129,7 +129,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         /* Case: filtered ride list, edit index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);

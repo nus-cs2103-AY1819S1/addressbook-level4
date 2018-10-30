@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: filters the ride list before clearing -> entire thanepark book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original thanepark book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

@@ -27,7 +27,7 @@ import static seedu.thanepark.testutil.TypicalRides.BOB;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;
 import static seedu.thanepark.testutil.TypicalRides.HAUNTED;
 import static seedu.thanepark.testutil.TypicalRides.IDA;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
 
@@ -103,7 +103,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the ride list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a ride card is selected --------------------------- */

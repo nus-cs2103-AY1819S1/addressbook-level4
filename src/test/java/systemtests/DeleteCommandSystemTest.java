@@ -8,7 +8,7 @@ import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
 import static seedu.thanepark.testutil.TestUtil.getPerson;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
 
@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered ride list, delete index within bounds of thanepark book and ride list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);
@@ -69,7 +69,7 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
         /* Case: filtered ride list, delete index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         int invalidIndex = getModel().getThanePark().getRideList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
