@@ -15,7 +15,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class LeaveApplicationBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Family holiday to Thailand";
+    public static final String DEFAULT_DESCRIPTION = "Benson's brother's wedding";
     public static final StatusEnum.Status DEFAULT_STATUS = StatusEnum.Status.PENDING;
     public static final List<LocalDate> DEFAULT_DATES = List.of(
             LocalDate.of(2018, 10, 25),
