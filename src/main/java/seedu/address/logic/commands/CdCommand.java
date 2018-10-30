@@ -51,7 +51,6 @@ public class CdCommand extends Command {
         try {
             newCurrDirectory = dir.toPath().toRealPath();
             model.updateCurrDirectory(newCurrDirectory);
-            model.updateImageList();
 
             EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
         } catch (IOException e) {
