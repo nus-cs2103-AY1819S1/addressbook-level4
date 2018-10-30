@@ -109,7 +109,7 @@ public class Expense {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, category, cost, tags);
+        return Objects.hash(name, category, date, cost, tags);
     }
 
     @Override
