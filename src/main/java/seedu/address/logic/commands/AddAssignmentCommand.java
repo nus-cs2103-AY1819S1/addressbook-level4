@@ -41,7 +41,7 @@ public class AddAssignmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (model.hasAssignment(toAdd)) {
