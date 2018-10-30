@@ -69,15 +69,14 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Adding an employee to a department: `add`
+=== Adding an employee: `add`
 
 Adds an employee into the system.
 
 Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-t PROJECT]`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
-* New employee will automatically be assigned to the department of the employee adding him/her.
+* To use this command, you must be logged in with "Add employee" permissions.
 ****
 Examples:
 
@@ -96,7 +95,7 @@ Displays all the permissions that an employee has been assigned.
 Format: viewpermission INDEX
 
 ****
-* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
+* To use this command, you must be logged in with "Assign permission" permission.
 ****
 
 Examples:
@@ -110,7 +109,7 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in with "Remove employee" permissions.
+* To use this command, you must be logged in with "Remove Employee" permissions.
 * All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
@@ -204,6 +203,7 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t
 * Existing values will be updated to the input values.
 
 ****
+* To use this command, you must be logged in with "Edit Employee" permissions.
 * At least one of the parameters must be provided
 * Existing values will be updated to the input values
 ****
@@ -221,7 +221,7 @@ Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REM
 * Modifies the permission of the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 
 ****
-* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
+* To use this command, you must be logged in with "Assign Permission" permission.
 * At least one of the parameters must be provided
 ****
 
@@ -357,8 +357,6 @@ Format: `summary`
 === Employee Commands
 
 * *Help* : `help`
-* *Login* : `login -u USERNAME` +
-e.g. login -u Kok
 * *History* : `history` +
 * *Sort employee display list* : `sort -CRITERIA` +
 e.g. sort -d
@@ -373,6 +371,15 @@ e.g. edit 1 -p 91234567 -e johndoe@example.com
 * *Change password* : `password`
 * *View income summary* : `summary`
 * *Exit* : `exit [-f]`
+
+=== Commands that require permission
+
+* *Add employee* : `add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT]` +
+* *Delete employee*: `delete INDEX`
+* *Editing an employee*: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
+* *Assign permission*:
+** `viewpermission INDEX`
+** `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...`
 
 === Employee with "Department Manager" permissions
 * *Adding an employee to a department* : `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]` +
