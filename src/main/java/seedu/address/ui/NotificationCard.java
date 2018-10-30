@@ -36,4 +36,22 @@ public class NotificationCard extends UiPart<Region> {
         body.setText(notification.getBody());
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof NotificationCard)) {
+            return false;
+        }
+
+        // state check
+        NotificationCard card = (NotificationCard) other;
+        return header.getText().equals(card.header.getText())
+                && body.getText().equals(card.body.getText());
+    }
+
 }

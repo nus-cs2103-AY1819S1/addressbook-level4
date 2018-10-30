@@ -2,8 +2,9 @@ package seedu.address.model.notification;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,17 +45,21 @@ public class NotificationHandler implements Iterable<Notification> {
        this.internalList = FXCollections.observableArrayList(internalList);
     }
 
+    public void setNotifications(ObservableList<Notification> notifications) {
+        ArrayList<Notification> list = new ArrayList<>();
+        notifications.forEach(n -> list.add(n));
+        this.internalList.setAll(list);
+    }
+
+
     /**
      * Checks if a tip notification should be sent for that day
      * @return true if a tip should be sent,false if otherwise.
      */
     public boolean isTimeToSendTip() {
         boolean isTimeToSend = false;
-        System.out.println("BEFORE: " + lastTipSentOn.toString());
         if (LocalDateTime.now().isAfter(lastTipSentOn)) {
-            System.out.println("TIP SENT");
-            lastTipSentOn = LocalDateTime.now().plusDays(1);
-            System.out.println(lastTipSentOn);
+            lastTipSentOn = LocalDateTime.now().plusDays(DAYS_BEFORE_SENDING_TIP);
             isTimeToSend = true;
         }
         return isTimeToSend && isTipEnabled;
@@ -128,19 +133,15 @@ public class NotificationHandler implements Iterable<Notification> {
 
     @Override
     public boolean equals(Object obj){
+        if(obj == null) {
+            return false;
+        }
+
         if(!(obj instanceof NotificationHandler)) {
             return false;
         }
 
         NotificationHandler handler = (NotificationHandler) obj;
-
-            for(Notification n: internalList) {
-                System.out.println("H: " + n.getHeader() + " " + n.getBody());
-            }
-
-        for(Notification n: handler.internalList) {
-            System.out.println("H: " + n.getHeader() + " " + n.getBody());
-        }
 
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled

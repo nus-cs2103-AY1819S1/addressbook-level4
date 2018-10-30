@@ -242,7 +242,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddWarningNotification(getMaximumBudget());
         if (isNotificationAdded) {
             this.versionedExpenseTracker.addNotification(new WarningNotification(getMaximumBudget()));
@@ -438,7 +437,7 @@ public class ModelManager extends ComponentManager implements Model {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
-            //addTipNotification();
+            addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
@@ -510,7 +509,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedExpenseTracker.password = Optional.ofNullable(password);
         expenseTrackers.replace(this.username, this.versionedExpenseTracker);
     }
-    //@@author
 
     @Override
     public boolean equals(Object obj) {

@@ -24,7 +24,7 @@ public class TypicalNotifications {
 
     public static final String DATE_FORMAT = "2018-10-31T01:42:04.021756";
 
-    public static ArrayList<Notification> asArrayList() {
+    public static ArrayList<Notification> getTypicalNotifications() {
         return new ArrayList<>(Arrays.asList(OVERBUDGET_WARNING, ALMOST_OVERBUDGET_WARNING, TIP));
     }
 

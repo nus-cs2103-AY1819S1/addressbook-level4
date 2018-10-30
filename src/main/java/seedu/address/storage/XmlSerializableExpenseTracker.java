@@ -54,9 +54,9 @@ public class XmlSerializableExpenseTracker {
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
         expenses.addAll(src.getExpenseList().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
         this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
-        notifications.addAll(src.getNotificationList().stream()
+        this.notifications.addAll(src.getNotificationList().stream()
                 .map(XmlAdaptedNotification::new).collect(Collectors.toList()));
-        notificationHandler = new XmlAdaptedNotificationHandler(src.getNotificationHandler());
+        this.notificationHandler = new XmlAdaptedNotificationHandler(src.getNotificationHandler());
     }
 
     /**
@@ -82,6 +82,7 @@ public class XmlSerializableExpenseTracker {
         if (this.notificationHandler != null) {
             expenseTracker.setNotificationHandler(notificationHandler.toModelType());
         }
+
         for (XmlAdaptedNotification n : notifications) {
             Notification notification = n.toModelType();
             expenseTracker.addNotification(notification);

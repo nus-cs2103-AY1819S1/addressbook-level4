@@ -7,7 +7,7 @@ import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenses;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,7 +59,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         ExpenseCardHandle expectedExpense = expenseListPanelHandle.getExpenseCardHandle(
                 INDEX_SECOND_EXPENSE.getZeroBased());
         ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedExpense, selectedExpense);
+        assertExpenseCardEquals(expectedExpense, selectedExpense);
     }
 
     /**

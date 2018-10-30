@@ -88,20 +88,20 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         requireNonNull(newData);
         this.setExpenses(newData.getExpenseList());
         this.maximumBudget = newData.getMaximumBudget();
-        this.setNotifications(newData.getNotificationList());
     }
 
     /// notification-level operations
     public void addNotification(Notification notification) {
         this.notificationHandler.add(notification);
+
     }
 
     /**
      * Replaces the contents of the notification list with {@code expenses}.
      * {@code expenses} must not contain duplicate notification lists.
      */
-    public void setNotifications(List<Notification> notifications) {
-        notifications.forEach(notification -> this.notificationHandler.add(notification));
+    public void setNotifications(ObservableList<Notification> notifications) {
+        this.notificationHandler.setNotifications(notifications);
     }
 
     public void setNotificationHandler(NotificationHandler notificationHandler) {

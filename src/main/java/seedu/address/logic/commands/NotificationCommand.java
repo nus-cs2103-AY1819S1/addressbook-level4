@@ -46,7 +46,6 @@ public class NotificationCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
-
         boolean toggleOption = false;
         if (descriptor.getToggle().get().equals(OPTION_ON)) {
             toggleOption = true;
