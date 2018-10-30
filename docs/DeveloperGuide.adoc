@@ -922,17 +922,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who wants to track their spending |add a new expense |have the app keep track of my expenses
 
-|`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and `totalBudget
+|`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
 
-|`* * *` |clumsy user |edit inaccurately added expenditure |have an accurate recording of my expenditures and `totalBudget
+|`* * *` |clumsy user |edit inaccurately added expenditure |have an accurate recording of my expenditures and budget
 
 |`* * *` |user |have my expenditures saved after closing the app |keep track of my expenditures without having to key in my information again
 
-|`* * *` |forgetful user |receive a notification about my budgetwhen the application boots up |be reminded of how much I have spent and can spend.
+|`* * *` |forgetful user |receive a notification about my budge twhen the application boots up |be reminded of how
+much I have spent and can spend.
 
 |`* * *` |user |exit the application with a keyboard command | exit the application conveniently without reaching for my mouse/touchpad
 
-|`* * *` |impulsive spender |set my maximum budgetover a certain period of time |know when I am or about to spend over my `totalBudget
+|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
+over my `totalBudget
 
 |`* * *` |user who has a limited budget|view my expenses over a certain period of time |learn from my past endeavours and better manage my `totalBudget
 
@@ -940,7 +942,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *`| user who shares a computer |add new account/log in to own account |use the application on the same computer as someone else
 
-|`* *` |user who has a monthly allowance |set my budgetbased on my monthly allowance |
+|`* *` |user who has a monthly allowance |set my budget based on my monthly allowance |
 
 |`* *` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
 |=======================================================================
