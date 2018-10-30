@@ -96,13 +96,20 @@ Edits an existing patient record in the CLInic database. +
 Alias: `e` +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-****
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-* At least one of the optional parameters must be provided.
-* Existing values will be updated with the newly input values of the corresponding field.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient's tags by typing `t/` without specifying any tags after the prefix.
-****
+[TIP]
+Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+
+[TIP]
+At least one of the optional parameters must be provided.
+
+[TIP]
+Existing values will be updated with the newly input values of the corresponding field.
+
+[TIP]
+When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
+
+[TIP]
+You can remove all the patient's tags by typing `t/` without specifying any tags after the prefix.
 
 Examples:
 
@@ -117,17 +124,24 @@ Finds a patient whose name contains any of the given keywords. +
 Alias: `f` +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
+[TIP]
 * The search is case insensitive +
 e.g. `hans` will match `Hans`.
-* The order of the keywords does not matter +
+
+[TIP]
+The order of the keywords does not matter +
 e.g. `Hans Bo` will match `Bo Hans`.
-* Only the patient's name is searched
-* Only full words will be matched +
+
+[TIP]
+Only the patient's name is searched
+
+[TIP]
+Only full words will be matched +
 e.g. `Han` will not match `Hans`.
-* Patients matching at least one keyword will be returned +
+
+[TIP]
+Patients matching at least one keyword will be returned +
 e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-****
 
 Examples:
 
@@ -142,9 +156,8 @@ Deletes the specified patient from the CLInic database. +
 Alias: `d` +
 Format: `delete INDEX`
 
-****
-* Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -161,9 +174,8 @@ Selects a patient to view his profile. +
 Alias: `s` +
 Format: `select INDEX`
 
-****
-* Selects the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Selects the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -181,12 +193,17 @@ Updates the medical records of a patient. +
 Alias: `amr` +
 Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
-****
-* Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the filtered patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-* At least one of the optional parameters must be provided.
-* Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
-* A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Prescription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
-****
+[TIP]
+Updates the medical records of a patient based on his `IC_NUMBER` or the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+
+[TIP]
+At least one of the optional parameters must be provided.
+
+[TIP]
+Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
+
+[TIP]
+A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Prescription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
 
 Examples:
 
@@ -217,12 +234,17 @@ Edits the details of an existing medicine. +
 Alias: `em` +
 Format: `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]`
 
-****
-* Edits the medicine details at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-* At least one of the optional parameters must be provided.
-* Existing values will be updated with the newly input values of the corresponding field.
-* You can remove any of the medicine details by typing the prefixes `msq/` `ppu/` `sn/` `s/` without specifying any contents after the prefix.
-****
+[TIP]
+Edits the medicine details at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+
+[TIP]
+At least one of the optional parameters must be provided.
+
+[TIP]
+Existing values will be updated with the newly input values of the corresponding field.
+
+[TIP]
+You can remove any of the medicine details by typing the prefixes `msq/` `ppu/` `sn/` `s/` without specifying any contents after the prefix.
 
 Example:
 
@@ -235,9 +257,8 @@ Restocks an existing medicine with *additional* quantity. +
 Alias: `rs` +
 Format: `restock INDEX amt/AMOUNT`
 
-****
-* Restocks the medicine at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Restocks the medicine at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Example:
 
@@ -278,9 +299,8 @@ Registers a patient to the back of the Waiting queue. +
 Alias: `reg` +
 Format: `register INDEX` or `register IC_NUMBER [coming soon]`
 
-****
-* Registers the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Registers the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Example:
 
@@ -303,9 +323,8 @@ Removes a patient from the Waiting queue if he leaves before being served. +
 Alias: `rem` +
 Format: `remove INDEX` or `remove IC_NUMBER [coming soon]`
 
-****
-* Removes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The `INDEX` *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Removes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The `INDEX` *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -320,9 +339,8 @@ Inserts a patient into the specified position in the Waiting queue. +
 Alias: `ins` +
 Format: `insert INDEX p/POSITION` or `insert IC_NUMBER p/POSITION [coming soon]`
 
-****
-* Inserts the patient at the specified `INDEX` in the displayed patient list into the specified `POSITION` in the Waiting queue. Both the index and position *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Inserts the patient at the specified `INDEX` in the displayed patient list into the specified `POSITION` in the Waiting queue. Both the index and position *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -345,13 +363,16 @@ Adds document contents to the Current Patient. +
 Alias: `da` +
 Format: `docAdd [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 
-****
-* At least one of the optional parameters must be provided.
-* Existing values will be updated with the newly input values of the corresponding field.
-* You can remove any of the patient's document contents by typing the prefixes `mc/` `n/` `r/` without specifying any contents after the prefix.
-****
+[TIP]
+At least one of the optional parameters must be provided.
 
-Examples
+[TIP]
+Existing values will be updated with the newly input values of the corresponding field.
+
+[TIP]
+You can remove any of the patient's document contents by typing the prefixes `mc/` `n/` `r/` without specifying any contents after the prefix.
+
+Examples:
 
 * `docAdd mc/3 n/This patient complains of headache for the past 3 days` +
 Adds MC duration and notes to the Current Patient.
@@ -364,9 +385,8 @@ Dispenses the specified quantity of medicine to the Current Patient. +
 Alias: `dm` +
 Format `dispenseMedicine MEDICINE_INDEX amt/AMOUNT`
 
-****
-* Dispenses medicine at the specified `MEDICINE_INDEX` to the Current Patient. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Dispenses medicine at the specified `MEDICINE_INDEX` to the Current Patient. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -380,10 +400,8 @@ Examples:
 Transfers the Current Patient to the Served Patient queue. +
 Format: `finish`
 
-[NOTE]
-====
+[TIP]
 This command cannot be called if no notes have been added to the patient. Use `docAdd` command with prefix `n/` to add `NOTES`.
-====
 
 ==== Removing patient from Served Patient queue: `payment`
 
@@ -391,9 +409,8 @@ Removes a patient from the Served Patient queue when the patient completes payme
 Alias: `pay` +
 Format: `payment INDEX`
 
-****
-* Removes the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Removes the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -412,9 +429,8 @@ Removes the 1st patient from the queue.
 Generates medical certificate for a Served Patient. +
 Format: `mc INDEX`
 
-****
-* Generates a medical certificate for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Generates a medical certificate for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -427,9 +443,8 @@ Generates receipt for a Served Patient. +
 Alias: `rct` +
 Format: `receipt INDEX`
 
-****
-* Generates a receipt for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Generates a receipt for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -442,9 +457,8 @@ Generates referral letter for a Served Patient. +
 Alias: `rl` +
 Format: `refer INDEX`
 
-****
-* Generates a referral letter for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-****
+[TIP]
+Generates a referral letter for the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -465,10 +479,8 @@ Lists all the commands entered in reverse chronological order. +
 Alias: `h` +
 Format: `history`
 
-[NOTE]
-====
+[TIP]
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
 
 // tag::undoredo[]
 ==== Undoing previous command: `undo`
