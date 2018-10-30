@@ -132,10 +132,10 @@ public class MainWindow extends UiPart<Stage> {
         TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredToDoListEventList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        calendarDisplay = new CalendarDisplay(logic.getFilteredCalendarEventList());
+        calendarDisplay = new CalendarDisplay(logic.getFullCalendarEventList());
         calendarDisplayPlaceholder.getChildren().add(calendarDisplay.getRoot());
 
-        DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFilteredCalendarEventList());
+        DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFullCalendarEventList());
         dayMonthYearPanelPlaceholder.getChildren().add(dayMonthYearPanel.getRoot());
 
         CalendarPanel calendarPanel = new CalendarPanel(logic.getFilteredCalendarEventList());
