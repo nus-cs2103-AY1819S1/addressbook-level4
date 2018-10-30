@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.calendarevent.FuzzySearchComparator;
@@ -38,11 +40,14 @@ public class FindEventCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.resetFilteredCalendarEventList();
         model.updateFilteredCalendarEventList(titlePredicate);
         if (tagsPredicate.hasTags()) {
             model.addPredicate(tagsPredicate);
         }
         model.sortFilteredCalendarEventList(fuzzySearchComparator);
+
+        EventsCenter.getInstance().post(new SwitchToSearchTabEvent());
 
         return new CommandResult(
             String.format(Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW,
@@ -57,6 +62,4 @@ public class FindEventCommand extends Command {
             && fuzzySearchComparator.equals(((FindEventCommand) other).fuzzySearchComparator)
             && tagsPredicate.equals(((FindEventCommand) other).tagsPredicate));
     }
-
-    // TODO this will have to switch tabs
 }

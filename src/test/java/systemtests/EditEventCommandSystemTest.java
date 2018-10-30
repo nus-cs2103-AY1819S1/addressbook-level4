@@ -24,7 +24,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_TUTORIAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CALENDAR_EVENTS;
 import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalEvents.LECTURE;
 import static seedu.address.testutil.TypicalEvents.TUTORIAL;
@@ -245,7 +244,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         Model expectedModel = getModel();
         expectedModel.updateCalendarEvent(expectedModel.getFilteredCalendarEventList().get(toEdit.getZeroBased()),
             editedCalendarEvent);
-        expectedModel.updateFilteredCalendarEventList(PREDICATE_SHOW_ALL_CALENDAR_EVENTS);
+        expectedModel.resetFilteredCalendarEventList();
 
         assertCommandSuccess(command, expectedModel,
             String.format(EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent),
@@ -279,7 +278,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredCalendarEventList(PREDICATE_SHOW_ALL_CALENDAR_EVENTS);
+        expectedModel.resetFilteredCalendarEventList();
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

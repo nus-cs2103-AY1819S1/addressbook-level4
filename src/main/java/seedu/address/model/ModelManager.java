@@ -75,7 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addCalendarEvent(CalendarEvent calendarEvent) {
         versionedScheduler.addCalendarEvent(calendarEvent);
-        updateFilteredCalendarEventList(PREDICATE_SHOW_ALL_CALENDAR_EVENTS);
+        resetFilteredCalendarEventList();
         indicateSchedulerChanged();
     }
 
