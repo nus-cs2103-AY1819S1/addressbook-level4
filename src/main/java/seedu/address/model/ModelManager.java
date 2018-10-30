@@ -13,7 +13,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.anakinexceptions.CardNotFoundException;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 import seedu.address.storage.portmanager.PortManager;
 
