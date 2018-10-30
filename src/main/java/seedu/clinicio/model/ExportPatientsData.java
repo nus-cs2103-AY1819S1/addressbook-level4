@@ -105,7 +105,8 @@ public class ExportPatientsData {
             for (Consultation consultation : patient.getAllConsultations()) {
                 String date = consultation.getConsultationDate().toString();
                 String arrivalTime = consultation.getArrivalTime().toString();
-                String consultationTime = consultation.getConsultationTime().map(time -> time.toString()).orElse("");
+                String consultationTime = consultation.getConsultationTime().map(time -> time.toString())
+                    .orElse("");
                 String endTime = consultation.getEndTime().map(time -> time.toString()).orElse("");
                 String doctorName = consultation.getDoctor().map(doc -> doc.getName().toString()).orElse("");
                 String prescription = consultation.getPrescription().map(prescript -> prescript.toString())
@@ -113,8 +114,10 @@ public class ExportPatientsData {
                 String description = consultation.getDescription().map(descript -> descript.toString()).orElse
                     ("");
                 String isAppt = consultation.getAppointment().map(appt -> "YES").orElse("NO");
-                String apptDate = consultation.getAppointment().map(appt -> appt.getAppointmentDate().toString()).orElse("");
-                String apptTime = consultation.getAppointment().map(appt -> appt.getAppointmentTime().toString()).orElse("");
+                String apptDate = consultation.getAppointment().map(appt -> appt.getAppointmentDate().toString())
+                    .orElse("");
+                String apptTime = consultation.getAppointment().map(appt -> appt.getAppointmentTime().toString())
+                    .orElse("");
 
                 String row = getCsvRow(name, address, phone, email, date, arrivalTime, consultationTime, endTime,
                     doctorName, prescription, description, isAppt, apptDate, apptTime);
