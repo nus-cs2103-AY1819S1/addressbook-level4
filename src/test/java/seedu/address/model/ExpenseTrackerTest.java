@@ -100,6 +100,11 @@ public class ExpenseTrackerTest {
         expenseTracker.getExpenseList().remove(0);
     }
 
+    @Test
+    public void setNotifications_nullList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        expenseTracker.setNotifications(null);
+    }
 
     /**
      * A stub ReadOnlyExpenseTracker whose expenses list can violate interface constraints.

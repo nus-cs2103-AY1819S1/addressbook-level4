@@ -40,11 +40,12 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     public NotificationHandler(List<Notification> internalList) {
-        super();
+        this();
         this.internalList = FXCollections.observableArrayList(internalList);
     }
 
     public void setNotifications(ObservableList<Notification> notifications) {
+        requireNonNull(notifications);
         ArrayList<Notification> list = new ArrayList<>();
         notifications.forEach(n -> list.add(n));
         this.internalList.setAll(list);
