@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.thanepark.model.ride.Ride;
+import seedu.address.model.ride.Ride;
 
 /**
  * Provides a handle for {@code RideListPanel} containing the list of {@code RideCard}.

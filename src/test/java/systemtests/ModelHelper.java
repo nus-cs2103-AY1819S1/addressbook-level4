@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Ride;
+import seedu.address.model.Model;
+import seedu.address.model.ride.Ride;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

@@ -1,16 +1,16 @@
 package systemtests;
 
-import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.thanepark.commons.core.index.Index;
-import seedu.thanepark.logic.commands.ClearCommand;
-import seedu.thanepark.logic.commands.RedoCommand;
-import seedu.thanepark.logic.commands.UndoCommand;
-import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ModelManager;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
@@ -18,37 +18,37 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     public void clear() {
         final Model defaultModel = getModel();
 
-        /* Case: clear non-empty thanepark book, command with leading spaces and trailing alphanumeric characters and
+        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
-        /* Case: undo clearing thanepark book -> original thanepark book restored */
+        /* Case: undo clearing address book -> original address book restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
-        /* Case: redo clearing thanepark book -> cleared */
+        /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in ride list and clears thanepark book -> cleared and no card selected */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original thanepark book
+        /* Case: selects first card in ride list and clears address book -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the ride list before clearing -> entire thanepark book cleared */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original thanepark book
+        /* Case: filters the ride list before clearing -> entire address book cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: clear empty thanepark book -> cleared */
+        /* Case: clear empty address book -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

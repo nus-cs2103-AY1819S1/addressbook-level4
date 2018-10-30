@@ -1,28 +1,28 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
-import static seedu.thanepark.testutil.TypicalRides.BIG;
-import static seedu.thanepark.testutil.TypicalRides.CASTLE;
-import static seedu.thanepark.testutil.TypicalRides.DUMBO;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.BIG;
+import static seedu.address.testutil.TypicalRides.CASTLE;
+import static seedu.address.testutil.TypicalRides.DUMBO;
+import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.thanepark.commons.core.index.Index;
-import seedu.thanepark.logic.commands.DeleteCommand;
-import seedu.thanepark.logic.commands.FindCommand;
-import seedu.thanepark.logic.commands.RedoCommand;
-import seedu.thanepark.logic.commands.UndoCommand;
-import seedu.thanepark.model.Model;
-import seedu.thanepark.model.tag.Tag;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
@@ -119,13 +119,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find thanepark of ride in thane park -> 0 rides found */
+        /* Case: find address of ride in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find thanepark of ride in thane park -> 1 rides found */
+        /* Case: find address of ride in thane park -> 1 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);

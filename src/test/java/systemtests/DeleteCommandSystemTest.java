@@ -1,26 +1,26 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.logic.commands.DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS;
-import static seedu.thanepark.testutil.TestUtil.getLastIndex;
-import static seedu.thanepark.testutil.TestUtil.getMidIndex;
-import static seedu.thanepark.testutil.TestUtil.getPerson;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS;
+import static seedu.address.testutil.TestUtil.getLastIndex;
+import static seedu.address.testutil.TestUtil.getMidIndex;
+import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import seedu.thanepark.commons.core.Messages;
-import seedu.thanepark.commons.core.index.Index;
-import seedu.thanepark.logic.commands.DeleteCommand;
-import seedu.thanepark.logic.commands.RedoCommand;
-import seedu.thanepark.logic.commands.UndoCommand;
-import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Ride;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ride.Ride;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -60,13 +60,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered ride list, delete index within bounds of thanepark book and ride list -> deleted */
+        /* Case: filtered ride list, delete index within bounds of address book and ride list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered ride list, delete index within bounds of thanepark book but out of bounds of ride list
+        /* Case: filtered ride list, delete index within bounds of address book but out of bounds of ride list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -114,7 +114,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Ride} at the specified {@code index} in {@code model}'s thanepark book.
+     * Removes the {@code Ride} at the specified {@code index} in {@code model}'s address book.
      * @return the removed ride
      */
     private Ride removePerson(Model model, Index index) {

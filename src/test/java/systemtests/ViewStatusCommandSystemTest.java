@@ -1,13 +1,13 @@
 package systemtests;
 
-import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Test;
 
-import seedu.thanepark.logic.commands.ViewStatusCommand;
-import seedu.thanepark.model.Model;
+import seedu.address.logic.commands.ViewStatusCommand;
+import seedu.address.model.Model;
 
 public class ViewStatusCommandSystemTest extends AddressBookSystemTest {
 

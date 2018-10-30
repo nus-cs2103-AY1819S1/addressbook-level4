@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,10 +8,10 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.thanepark.model.ThanePark;
-import seedu.thanepark.model.ride.Ride;
-import seedu.thanepark.model.util.SampleDataUtil;
-import seedu.thanepark.testutil.TestUtil;
+import seedu.address.model.ThanePark;
+import seedu.address.model.ride.Ride;
+import seedu.address.model.util.SampleDataUtil;
+import seedu.address.testutil.TestUtil;
 
 public class SampleDataTest extends AddressBookSystemTest {
     /**
