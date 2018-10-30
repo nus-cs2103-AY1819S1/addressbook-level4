@@ -193,8 +193,7 @@ Selects the 1st patient in the resulting list of the `find` command.
 
 Updates the medical records of a patient. +
 Alias: `amr` +
-Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...` or +
-`addMedicalRecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
+Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 [TIP]
 Updates the medical records of a patient based on his `IC_NUMBER` or the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
@@ -203,17 +202,17 @@ Updates the medical records of a patient based on his `IC_NUMBER` or the specifi
 At least one of the optional parameters must be provided.
 
 [TIP]
-Existing values will be updated with the newly input values of the corresponding field.
+Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
 
 [TIP]
-You can remove any of the patient's records by typing the prefixes `b/` `d/` `da/` `m/` without specifying any contents after the prefix.
+A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Prescription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
 
 Examples:
 
-* `addMedicalRecord 5 b/A+ da/Paracetamol d/Diabetes` +
-Adds 'Paracetamol' (under _Drug Allergy_) and 'Diabetes' (under _Past Disease_) to the 5th patient's medical record.
-* `addMedicalRecord S94738123X b/B+` +
-Adds 'B+' (under _Blood Type_) to the medical record of the patient with that IC number.
+* `addMedicalRecord 5 da/Paracetamol d/Diabetes` +
+Adds 'Paracetamol' (under _Drug Allergy_) and 'Diabetes' (under _Past Disease_) to the `MedicalRecord` of the 5th `Patient`.
+* `addMedicalRecord 3 b/B+` +
+Adds 'B+' (under _Blood Type_) to the `MedicalRecord` of the 3rd `Patient`.
 // end::addmedicalrecordcommand[]
 
 // tag::patient[]
@@ -584,7 +583,7 @@ There is no need to save manually.
 |editMedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
 |listStock |`ls`  |`listStock` |`listStock`
-|findMedicine |`fs`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
+|findMedicine |`fm`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
 |checkStock |`cs`  |`checkStock` |`checkStock`
 |=======================================================================
 
