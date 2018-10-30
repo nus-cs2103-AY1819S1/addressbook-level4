@@ -86,6 +86,7 @@ public class Person {
         this.tags.addAll(tags);
         this.prescriptionList = prescriptionList;
         this.appointmentsList = appointmentsList;
+        this.medicalHistory = new MedicalHistory();
         this.dietCollection = dietCollection;
         this.visitorList = new VisitorList();
     }
@@ -160,14 +161,15 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.visitorList = visitorList;
         this.prescriptionList = new PrescriptionList();
         this.appointmentsList = new AppointmentsList();
+        this.medicalHistory = new MedicalHistory();
         this.dietCollection = new DietCollection();
+        this.visitorList = visitorList;
     }
 
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, AppointmentsList appointmentsList,
+                  PrescriptionList prescriptionList, AppointmentsList appointmentsList,MedicalHistory medicalHistory,
                   VisitorList visitorList) {
         requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, visitorList);
         this.nric = nric;
@@ -181,6 +183,22 @@ public class Person {
         this.medicalHistory = medicalHistory;
         this.dietCollection = new DietCollection();
         this.visitorList = visitorList;
+    }
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  PrescriptionList prescriptionList, AppointmentsList appointmentsList,MedicalHistory medicalHistory,
+                  DietCollection dietCollection) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, dietCollection);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.prescriptionList = prescriptionList;
+        this.appointmentsList = appointmentsList;
+        this.medicalHistory = medicalHistory;
+        this.dietCollection = dietCollection;
+        this.visitorList = new VisitorList();
     }
 
 

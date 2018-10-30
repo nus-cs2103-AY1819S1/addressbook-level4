@@ -36,10 +36,6 @@ public class Timestamp {
         return this.timestamp;
     }
 
-    public DateTimeFormatter getFormatter() {
-        return this.DATE_TIME_FORMATTER;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -21,6 +21,7 @@ import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.VisitorList;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -52,7 +53,7 @@ public class PersonTest {
     public void constructor_nullMedicalHistory_throwsNullPointerException() {
         Person person = new Person(new Nric(VALID_NRIC_BOB), new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB),
                 new Email(VALID_EMAIL_BOB), new Address(VALID_ADDRESS_BOB), new HashSet<Tag>(), new PrescriptionList(),
-                new AppointmentsList(), null);
+                new AppointmentsList(), null, new VisitorList());
     }
 
     @Test

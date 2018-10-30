@@ -155,8 +155,8 @@ public class PersonBuilder {
      * construct person class
      */
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList,
-                visitorList);
+        return new Person(nric, name, phone, email, address, tags, prescriptionList, appointmentsList,
+                medicalHistory, visitorList);
     }
 
 }
