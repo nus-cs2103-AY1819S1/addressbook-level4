@@ -1,15 +1,11 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -23,26 +19,6 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic = new LogicManager(model);
-
-    @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(invalidCommand);
-    }
-
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
-    }
 
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
@@ -74,7 +50,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -99,18 +75,4 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
-    /**
-     * Asserts that the result display shows all the {@code expectedCommands} upon the execution of
-     * {@code HistoryCommand}.
-     */
-    private void assertHistoryCorrect(String... expectedCommands) {
-        try {
-            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
-            String expectedMessage = String.format(
-                    HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
-            assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
-        }
-    }
 }

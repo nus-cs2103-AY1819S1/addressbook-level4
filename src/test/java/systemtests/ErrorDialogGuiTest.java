@@ -1,3 +1,4 @@
+/* TODO: Left as an example, to be deleted/replaced.
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
@@ -32,3 +33,4 @@ public class ErrorDialogGuiTest extends AddressBookSystemTest {
     }
 
 }
+*/
