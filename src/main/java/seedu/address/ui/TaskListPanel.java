@@ -8,8 +8,11 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Region;
 
+import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -29,6 +32,8 @@ public class TaskListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(toDoListEventList);
         registerAsAnEventHandler(this);
+        toDoListView.setBackground(new Background(new BackgroundFill
+                (Color.rgb(56,56,56),null,null)));
     }
 
     private void setConnections(ObservableList<ToDoListEvent> toDoListEventList) {
