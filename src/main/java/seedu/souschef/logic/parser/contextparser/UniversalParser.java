@@ -45,9 +45,11 @@ public class UniversalParser {
         case IngredientParser.COMMAND_WORD:
             ui.switchToIngredientListPanel();
             return new ContextCommand(Context.INGREDIENT);
+
         case CrossParser.COMMAND_WORD:
             ui.switchToCrossRecipeListPanel();
             return new ContextCommand(Context.CROSS);
+
         case HealthPlanParser.COMMAND_WORD:
             ui.switchToHealthPlanListPanel();
             return new ContextCommand(Context.HEALTH_PLAN);
