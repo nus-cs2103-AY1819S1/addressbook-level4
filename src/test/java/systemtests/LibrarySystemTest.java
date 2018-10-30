@@ -1,36 +1,34 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.jxmusic.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.jxmusic.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.jxmusic.ui.UiPart.FXML_FILE_FOLDER;
+//import static seedu.jxmusic.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+//import java.net.MalformedURLException;
+//import java.net.URL;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PlaylistListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.jxmusic.MainApp;
+import guitests.guihandles.TrackListPanelHandle;
+//import seedu.jxmusic.MainApp;
 import seedu.jxmusic.TestApp;
 import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
@@ -42,7 +40,6 @@ import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.testutil.TypicalPlaylistList;
-import seedu.jxmusic.ui.BrowserPanel;
 import seedu.jxmusic.ui.CommandBox;
 
 /**
@@ -72,7 +69,7 @@ public abstract class LibrarySystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -108,13 +105,17 @@ public abstract class LibrarySystemTest {
         return mainWindowHandle.getPlaylistListPanel();
     }
 
+    public TrackListPanelHandle getTrackListPanel() {
+        return mainWindowHandle.getTrackListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
+    //public BrowserPanelHandle getBrowserPanel() {
+    // return mainWindowHandle.getBrowserPanel();
+    // }
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
@@ -136,7 +137,7 @@ public abstract class LibrarySystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -190,7 +191,7 @@ public abstract class LibrarySystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPlaylistListPanel().rememberSelectedPlaylistCard();
@@ -202,10 +203,10 @@ public abstract class LibrarySystemTest {
      *
      * @see BrowserPanelHandle#isUrlChanged()
      */
-    protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPlaylistListPanel().isAnyCardSelected());
-    }
+    //protected void assertSelectedCardDeselected() {
+    //assertFalse(getBrowserPanel().isUrlChanged());
+    //assertFalse(getPlaylistListPanel().isAnyCardSelected());
+    //}
 
     /**
      * Asserts that the browser's url is changed to display the details of the playlist in the playlist list panel at
@@ -214,19 +215,18 @@ public abstract class LibrarySystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPlaylistListPanel().navigateToCard(getPlaylistListPanel().getSelectedCardIndex());
-        String selectedCardName = getPlaylistListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
-    }
+    //protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    //getPlaylistListPanel().navigateToCard(getPlaylistListPanel().getSelectedCardIndex());
+    //String selectedCardName = getPlaylistListPanel().getHandleToSelectedCard().getName();
+    //URL expectedUrl;
+    //try {
+    //expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+    //} catch (MalformedURLException mue) {
+    //throw new AssertionError("URL expected to be valid.", mue);
+    //}
+    //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+    //assertEquals(expectedSelectedCardIndex.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
+    //}
 
     /**
      * Asserts that the browser's url and the selected card in the playlist list panel remain unchanged.
@@ -234,10 +234,10 @@ public abstract class LibrarySystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
-    protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPlaylistListPanel().isSelectedPlaylistCardChanged());
-    }
+    //protected void assertSelectedCardUnchanged() {
+    //assertFalse(getBrowserPanel().isUrlChanged());
+    //assertFalse(getPlaylistListPanel().isSelectedPlaylistCardChanged());
+    //}
 
     /**
      * Asserts that the command box's shows the default style.
@@ -281,7 +281,7 @@ public abstract class LibrarySystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPlaylistListPanel(), getModel().getFilteredPlaylistList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -97,6 +97,7 @@ public class LibraryTest {
     private static class LibraryStub implements ReadOnlyLibrary {
         private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
         private final ObservableSet<Track> tracks = FXCollections.observableSet(new HashSet<>());
+        private final ObservableList<Track> trackList = FXCollections.observableArrayList();
 
         LibraryStub(Collection<Playlist> playlists) {
             this.playlists.setAll(playlists);
@@ -109,6 +110,10 @@ public class LibraryTest {
         @Override
         public ObservableSet<Track> getTracks() {
             return tracks;
+        }
+        @Override
+        public ObservableList<Track> getObservableTrackList() {
+            return trackList;
         }
     }
 

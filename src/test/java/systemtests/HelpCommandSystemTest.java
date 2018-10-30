@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
-import seedu.jxmusic.ui.BrowserPanel;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -42,9 +41,13 @@ public class HelpCommandSystemTest extends LibrarySystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
+        getTrackListPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
+
+        //getBrowserPanel().click();
+        //getMainMenu().openHelpWindowUsingAccelerator();
+        //assertHelpWindowNotOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -63,7 +66,7 @@ public class HelpCommandSystemTest extends LibrarySystemTest {
         // assertEquals("", getCommandBox().getInput()); // todo failing test
         // assertCommandBoxShowsDefaultStyle(); // todo failing test
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getPlaylistListPanel(), getModel().getFilteredPlaylistList());
 
         // assert that the status bar too is updated correctly while the help window is open

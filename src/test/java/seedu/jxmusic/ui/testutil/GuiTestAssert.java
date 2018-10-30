@@ -46,7 +46,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedTrack}.
      */
     public static void assertCardDisplaysTrack(Track expectedTrack, TrackCardHandle actualCard) {
-        assertEquals(expectedTrack.getFileName(), actualCard.getName());
+        assertEquals(expectedTrack.getFileName(), actualCard.getName() + ".mp3");
     }
 
     /**

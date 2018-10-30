@@ -8,7 +8,7 @@ import seedu.jxmusic.model.Track;
  */
 public class TrackBuilder {
 
-    public static final String DEFAULT_NAME = "Trackname.mp3";
+    public static final String DEFAULT_NAME = "SOS Morse Code";
 
     private Name trackFileName;
 
