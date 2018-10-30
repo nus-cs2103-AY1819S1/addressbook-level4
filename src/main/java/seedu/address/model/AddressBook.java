@@ -188,8 +188,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
                 Person person = new Person(name, phone, email, address, tagList, faculty);
 
-                if (!this.hasPerson(person)) {
-                    this.addPerson(person);
+                if (!persons.contains(person)) {
+                    persons.add(person);
                 } else {
                     fileReader.incrementFailCounter();
                 }
