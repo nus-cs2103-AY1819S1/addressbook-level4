@@ -15,6 +15,7 @@ public class MainWindowHandle extends StageHandle {
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
     private final StackPane browserPlaceholder;
+    private LoginHandle loginHandle;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -56,5 +57,15 @@ public class MainWindowHandle extends StageHandle {
 
     public StackPane getBrowserPlaceholder() {
         return browserPlaceholder;
+    }
+
+    /**
+     * Attempts to get the login handle in the UI.
+     * Call only when the login window is showing (i.e. user is logged out)
+     * @return the login handle
+     */
+    public LoginHandle getLoginHandle() {
+        loginHandle = new LoginHandle(getChildNode(LoginHandle.GRIDPANE_ID));
+        return loginHandle;
     }
 }

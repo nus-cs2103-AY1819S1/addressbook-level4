@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.person.User;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -43,7 +44,7 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).runBody(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -58,7 +59,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.runBody(modelStub, commandHistory);
     }
 
     @Test
@@ -116,6 +117,16 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public User getLoggedInUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLoggedInUser(User u) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -181,6 +192,7 @@ public class AddCommandTest {
 
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
+        public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
     }
