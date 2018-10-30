@@ -104,7 +104,6 @@ public class CommandBox extends UiPart<Region> {
             String command = commandTextField.getText();
             CommandResult commandResult;
             String[] commandWord = command.trim().split(" ");
-            System.out.printf(commandWord[1]);
             if (commandWord[1].contains("todo")) {
                 commandResult = logic.executeToDo(command);
             }
