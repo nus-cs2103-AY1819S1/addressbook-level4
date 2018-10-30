@@ -69,6 +69,7 @@ public class InformationPanel extends UiPart<Region> {
     @Subscribe
     private void handleInformationPanelChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        // TODO - handle doctor case
         if (event.getNewSelection() instanceof Patient) {
             loadPatientInformation((Patient) (event.getNewSelection()));
         }
