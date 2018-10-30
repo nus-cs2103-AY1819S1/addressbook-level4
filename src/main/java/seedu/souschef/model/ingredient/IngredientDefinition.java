@@ -1,6 +1,5 @@
 package seedu.souschef.model.ingredient;
 
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -13,7 +12,7 @@ public class IngredientDefinition extends UniqueType {
         this.name = name;
     }
 
-    public IngredientDefinition(String name) throws ParseException {
+    public IngredientDefinition(String name) {
         this.name = new IngredientName(name);
     }
 

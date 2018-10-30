@@ -192,6 +192,10 @@ public class ParserUtil {
         if (!matcher.find()) {
             throw new ParseException(IngredientPortion.MESSAGE_INGREDIENTPORTION_CONSTRAINTS);
         }
+        if (!IngredientServingUnit.isValid(matcher.group("unit"))) {
+            throw new ParseException(IngredientServingUnit.MESSAGE_UNIT_CONSTRAINTS
+                    + " Use following values: " + IngredientServingUnit.allUnits());
+        }
         IngredientName name = new IngredientName(matcher.group("name").trim());
         double amount;
         try {
