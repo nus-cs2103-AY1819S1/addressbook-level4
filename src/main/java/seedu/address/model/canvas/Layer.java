@@ -3,8 +3,13 @@ package seedu.address.model.canvas;
 //@@author j-lum
 import static java.util.Objects.requireNonNull;
 
+import javafx.scene.image.Image;
+import seedu.address.commons.util.ImageMagickUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.PreviewImage;
 import seedu.address.model.transformation.Transformation;
+
+import java.io.IOException;
 
 /**
  * Represents a layer in a canvas.
@@ -28,6 +33,7 @@ public class Layer {
         this.height = image.getHeight();
         this.width = image.getWidth();
         this.name = name;
+
         isLocked = false;
     }
 
@@ -35,9 +41,8 @@ public class Layer {
      * .
      * @param t
      */
-    public void addTransformation(Transformation t) {
+    public void addTransformation(Transformation t) throws ParseException, InterruptedException, IOException {
         image.addTransformation(t);
-        //render();
     }
 
     public int getX() {
@@ -87,6 +92,15 @@ public class Layer {
     public PreviewImage getImage() {
         return image;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     @Override
     public String toString() {

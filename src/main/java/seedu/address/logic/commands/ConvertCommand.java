@@ -2,14 +2,18 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javafx.embed.swing.SwingFXUtils;
 import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -61,8 +65,13 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            //ask the model to update the transformation
             model.addTransformation(transformation);
+            BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
+                    transformation);
+            model.updateCurrentPreviewImage(modifiedImage, transformation);
+            EventsCenter.getInstance().post(
+                    new ChangeImageEvent(
+                            SwingFXUtils.toFXImage(model.getCurrentPreviewImage().getImage(), null), "preview"));
             EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
             throw new CommandException(e.toString());
