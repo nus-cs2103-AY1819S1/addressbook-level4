@@ -276,9 +276,9 @@ public class Document {
                     .append(HTML_TABLE_DATA_DIVIDER)
                     .append(quantity)
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(String.format("%.02f",pricePerUnit))
+                    .append(String.format("%.02f", pricePerUnit))
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(String.format("%.02f",totalPriceForSpecificMedicine))
+                    .append(String.format("%.02f", totalPriceForSpecificMedicine))
                     .append("</td></tr>");
         }
         return stringBuilder.toString();
