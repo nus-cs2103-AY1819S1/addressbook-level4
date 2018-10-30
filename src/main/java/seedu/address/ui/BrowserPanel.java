@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
 import org.apache.commons.io.FileUtils;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -105,7 +106,7 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void loadProfile(Person person) {
         String profileView = loadProfileHtml(person);
-        Platform.runLater(() -> browser.getEngine().load(profileView));
+        Platform.runLater(() -> browser.getEngine().loadContent(profileView));
     }
 
     /**
@@ -113,7 +114,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        File htmlTemplateFile = new File("C:\\Users\\javen\\Desktop\\My Workspace\\Y2S1\\CS2103T\\Addbos AB4\\src\\main\\java\\seedu\\address\\ui\\ProfileWindow.html");
+        File htmlTemplateFile = new File("./src/main/resources/ProfileWindow.html");
         String htmlString = null;
         try {
             htmlString = FileUtils.readFileToString(htmlTemplateFile);
@@ -122,11 +123,12 @@ public class BrowserPanel extends UiPart<Region> {
         }
         htmlString = htmlString.replace("$name", person.getName().fullName);
         htmlString = htmlString.replace("$cca", person.getTags().toString());
-        htmlString = htmlString.replace("$room", person.getRoom().value.toLowerCase());
+        htmlString = htmlString.replace("$room", person.getRoom().value);
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        System.out.println(htmlString);
+        htmlString = htmlString.replace("$profileRoom", person.getRoom().value.toLowerCase());
+
         return htmlString;
     }
 }
