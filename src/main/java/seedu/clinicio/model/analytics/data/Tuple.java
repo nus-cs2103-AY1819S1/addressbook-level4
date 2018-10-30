@@ -1,7 +1,9 @@
 package seedu.clinicio.model.analytics.data;
 
+//@@author arsalanc-v2
+
 /**
- *
+ * Represents a pair.
  * @param <K>
  * @param <V>
  */

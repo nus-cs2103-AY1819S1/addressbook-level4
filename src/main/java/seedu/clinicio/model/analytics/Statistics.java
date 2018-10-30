@@ -15,7 +15,7 @@ import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
 import seedu.clinicio.model.appointment.Date;
 
-// @@author arsalanc-v2
+//@@author arsalanc-v2
 
 /**
  * Represents statistics of a general type.
