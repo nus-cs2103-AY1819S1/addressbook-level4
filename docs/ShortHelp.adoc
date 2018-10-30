@@ -1,7 +1,9 @@
 :stylesDir: stylesheets
 :experimental:
 * `add <attraction>`
+
 * `clear`
+
 * `delete <index>`
 * `exit`
 * `filter <tag> <condition>`
@@ -10,10 +12,18 @@
 * `history`
 * `open <index>`
 * `redo`
+
+* `update <index> <tag> <value>`
+* `open <index>`
 * `shutdown <index>`
+
+* `filter <tag> <condition>`
+
+
 * `undo`
-* `update <attraction> <tag> <value>`
+
 * `view <index>`
 * `viewall`
 * `viewstatus <status>`
+
 * `{tab}`
