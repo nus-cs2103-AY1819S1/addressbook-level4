@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
@@ -24,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedArchiveList versionedArchiveList;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> archivedPersons;
     private User loggedInUser;
 
     /**
@@ -38,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedArchiveList = new VersionedArchiveList(archiveList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
     }
 
     public ModelManager() {
@@ -48,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
+        indicateArchivedListChanged();
     }
 
     @Override
@@ -55,9 +59,19 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
+    @Override
+    public ReadOnlyArchiveList getArchiveList() {
+        return versionedArchiveList;
+    }
+
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateArchivedListChanged() {
+        raise(new ArchivedListChangedEvent(versionedArchiveList));
     }
 
     @Override
@@ -71,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removePerson(target);
         versionedArchiveList.addPerson(target);
         indicateAddressBookChanged();
+        indicateArchivedListChanged();
     }
 
     @Override
@@ -105,6 +120,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    @Override
+    public ObservableList<Person> getArchivedPersonList() {
+        return FXCollections.unmodifiableObservableList(archivedPersons);
     }
 
     @Override

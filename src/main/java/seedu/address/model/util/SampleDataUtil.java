@@ -49,11 +49,12 @@ public class SampleDataUtil {
 
     public static Person[] getSampleArchive() {
         return new Person[] {
-                new Person(new Name("Brenda Tan"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                        new Address("Blk 30 Geylang Street 29, #06-40"), new Salary("10000"), getProjectSet("friends")),
-                new Person(new Name("Jordan Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        new Salary("10000"), getProjectSet("friends")),
+                new Person(new Name("Bernard Chong"), new Phone("85738293"), new Email("BernardC@example.com"),
+                        new Address("Blk 50 Punggol Street, #06-40"), new Salary("1000"), new Username("Bernard Chong"),
+                        new Password("Pa55w0rd"), getProjectSet("friends")),
+                new Person(new Name("Terrence Tan"), new Phone("88272758"), new Email("TerrenceT@example.com"),
+                        new Address("Blk 30 Lorong 3 Lorong Asrama, #07-18"), new Salary("6000"),
+                        new Username("Terrence Tan"), new Password("Pa55w0rd"), getProjectSet("friends")),
         };
     }
 
@@ -67,7 +68,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyArchiveList getSampleArchiveList() {
         ArchiveList sampleAl = new ArchiveList();
-        for (Person samplePerson : getSamplePersons()) {
+        for (Person samplePerson : getSampleArchive()) {
             sampleAl.addPerson(samplePerson);
         }
         return sampleAl;

@@ -16,6 +16,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
@@ -38,12 +39,14 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private PersonListPanel archivedListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private ListPicker listPicker;
 
     // Independent UI parts for login.
     private LoginIntroduction loginIntroduction;
@@ -66,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane listPickerPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -142,6 +148,11 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        listPicker = new ListPicker();
+        listPickerPlaceholder.getChildren().add(listPicker.getRoot());
+
+        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList());
     }
 
     /**
@@ -191,6 +202,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
+        listPickerPlaceholder.getChildren().remove(listPicker.getRoot());
     }
 
     void hide() {
@@ -259,5 +271,18 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if(event.getNewSelection() == 2) {
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
+        }
+        if(event.getNewSelection() == 1) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
     }
 }
