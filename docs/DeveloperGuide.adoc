@@ -19,7 +19,7 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-CLInic is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Welcome to *CLInic*! *CLInic* is a desktop application that is created for usage within a clinic, and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If this is your first time on this application, proceed to <<Setting up>> to get started with setting up your development environment. Following which, you can proceed to *Appendix A* to get started on your first task!
 
@@ -468,11 +468,19 @@ which lists the medicine that are below their Minimum Stock Quantity.
 
 // tag::pqms[]
 === Patient Queue Management System
-The Patient Queue Management System consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
+The Patient Queue Management System (PQMS) consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
 he is done with seeing the doctor, he will be put into the `ServedPatientQueue` to await payment and document processing.
+Given below is an example usage scenario and how the PQMS is used in each step.
 
-Given below is an example usage scenario and how the Patient Queue Management System is used in each step.
+The PQMS consists of the `register`, `insert`, `remove`, `serve`, `docAdd`, `docDisplay`, `dispenseMedicine`, `finish`, `payment` and `Document` commands.
+
+The following sequence diagram shows how the `register` command works:
+
+.Register Sequence Diagram
+image::RegisterSequenceDiagram.png[width="1000"]
+
+The other commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
