@@ -7,6 +7,8 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Collections;
+
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
@@ -64,7 +66,7 @@ public class AddCommand extends Command {
 
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
-        connectToGoogleCalendar.pushToGoogleCal(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
+        connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
