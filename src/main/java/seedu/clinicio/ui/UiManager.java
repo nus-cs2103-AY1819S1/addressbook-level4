@@ -16,7 +16,6 @@ import seedu.clinicio.MainApp;
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.storage.DataSavingExceptionEvent;
 import seedu.clinicio.commons.util.StringUtil;
 

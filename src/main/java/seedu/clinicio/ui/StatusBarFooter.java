@@ -1,7 +1,5 @@
 package seedu.clinicio.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -29,7 +27,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String USER_SESSION_STATUS_INITIAL = "You are not logged in";
     public static final String USER_SESSION_STATUS_UPDATED = "Logged in: %s (Role: %s)";
-    
+
     /**
      * Used to generate time stamps.
      *
@@ -86,11 +84,13 @@ public class StatusBarFooter extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
-    
+
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
         Staff currentUser = UserSession.getCurrentSession();
-        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent, "You are now logged in as " + currentUser));
-        setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED, currentUser.getName(), currentUser.getRole()));
+        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent,
+                "You are now logged in as " + currentUser));
+        setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED,
+                currentUser.getName(), currentUser.getRole()));
     }
 }

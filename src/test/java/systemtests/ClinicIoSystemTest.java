@@ -7,13 +7,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.clinicio.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.clinicio.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.clinicio.ui.StatusBarFooter.USER_SESSION_STATUS_INITIAL;
 import static seedu.clinicio.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.clinicio.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -190,7 +190,7 @@ public abstract class ClinicIoSystemTest {
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
-        statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberUserSession();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
@@ -254,7 +254,7 @@ public abstract class ClinicIoSystemTest {
      */
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isUserSessionChanged());
         assertFalse(handle.isSyncStatusChanged());
     }
 
@@ -267,7 +267,7 @@ public abstract class ClinicIoSystemTest {
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
-        assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isUserSessionChanged());
     }
 
     /**
@@ -278,8 +278,8 @@ public abstract class ClinicIoSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+        assertEquals(USER_SESSION_STATUS_INITIAL,
+                getStatusBarFooter().getUserSession());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
