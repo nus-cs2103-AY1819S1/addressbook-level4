@@ -11,7 +11,6 @@ import static seedu.learnvocabulary.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.learnvocabulary.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.learnvocabulary.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
