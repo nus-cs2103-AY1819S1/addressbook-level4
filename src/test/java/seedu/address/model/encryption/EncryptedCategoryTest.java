@@ -28,7 +28,7 @@ public class EncryptedCategoryTest {
     }
 
     @Test
-    public void constructor_nllKey_throwsNullPointerException() {
+    public void constructor_nullKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCategory(KFC.getCategory(),
                 null));
     }
