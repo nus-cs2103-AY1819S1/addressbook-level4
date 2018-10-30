@@ -140,15 +140,21 @@ public class CommandBox extends UiPart<Region> {
      * @param command input by the user
      */
     private void displayFormat(String command) {
-        if (command.equals(FindCommand.COMMAND_WORD)
-            || command.equals(FindCommand.COMMAND_ABBREVIATION)) {
+        switch (command) {
+        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_ABBREVIATION:
             replaceText(FindCommand.FORMAT);
-        } else if (command.equals(SelectCommand.COMMAND_WORD)
-            || command.equals(SelectCommand.COMMAND_ABBREVIATION)) {
+            break;
+        case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ABBREVIATION:
             replaceText(SelectCommand.FORMAT);
-        } else if (command.equals(FilterCommand.COMMAND_WORD)
-            || command.equals(FilterCommand.COMMAND_ABBREVIATION)) {
+            break;
+        case FilterCommand.COMMAND_WORD:
+        case FilterCommand.COMMAND_ABBREVIATION:
             replaceText(FilterCommand.FORMAT);
+            break;
+        default:
+            break;
         }
     }
 
