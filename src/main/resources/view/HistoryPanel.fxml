@@ -9,9 +9,9 @@
 <children>
     <TableView fx:id="diagnosisTableView" prefHeight="386.0" prefWidth="600.0">
         <columns>
-            <TableColumn fx:id="diagnosisCol" prefWidth="361.0" resizable="false" text="Diagnosis" />
-            <TableColumn fx:id="doctorNameCol" minWidth="0.0" prefWidth="120.0" resizable="false" text="Doctor" />
-            <TableColumn fx:id="timestampCol" prefWidth="118.0" resizable="false" text="Timestamp" />
+            <TableColumn fx:id="diagnosisCol" prefWidth="361.0" text="Diagnosis" />
+            <TableColumn fx:id="doctorNameCol" prefWidth="150.0" text="Doctor" />
+            <TableColumn fx:id="timestampCol" prefWidth="150.0" text="Timestamp" />
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
