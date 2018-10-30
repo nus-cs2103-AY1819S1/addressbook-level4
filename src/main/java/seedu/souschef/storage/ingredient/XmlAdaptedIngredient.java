@@ -62,11 +62,11 @@ public class XmlAdaptedIngredient {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
 
-        final IngredientName modelName = new IngredientName(name);
-
-        if (!modelName.isValid()) {
+        if (!IngredientName.isValid(name)) {
             throw new IllegalValueException(IngredientName.MESSAGE_NAME_CONSTRAINTS);
         }
+
+        final IngredientName modelName = new IngredientName(name);
 
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "amount"));
@@ -83,11 +83,11 @@ public class XmlAdaptedIngredient {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unit"));
         }
 
-        final IngredientServingUnit modelUnit = new IngredientServingUnit(unit);
-
-        if (!modelUnit.isValid()) {
+        if (!IngredientServingUnit.isValid(unit)) {
             throw new IllegalValueException(IngredientServingUnit.MESSAGE_UNIT_CONSTRAINTS);
         }
+
+        final IngredientServingUnit modelUnit = new IngredientServingUnit(unit);
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));

@@ -12,7 +12,9 @@ import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -26,21 +28,22 @@ public class CrossFindCommand extends Command {
     public static final String MESSAGE_USAGE = "Usage to be added later."; //
 
     private final Model<CrossRecipe> crossRecipeModel;
+    private final Model<Ingredient> ingredientModel;
     private final CrossSortComparator comparator;
     private final CrossFilterPredicate predicate;
-    private final Map<Recipe, Map<IngredientDefinition, Double>> pairs;
-    private final Map<IngredientDefinition, Double> include;
+    private final Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap;
     private final double numberOfServings;
 
-    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel, CrossSortComparator comparator,
-                            CrossFilterPredicate predicate, Map<Recipe, Map<IngredientDefinition, Double>> pairs,
-                            Map<IngredientDefinition, Double> include, double numberOfServings) {
+    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
+                            CrossSortComparator comparator,
+                            CrossFilterPredicate predicate,
+                            Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap, double numberOfServings) {
         requireNonNull(crossRecipeModel);
         this.crossRecipeModel = crossRecipeModel;
+        this.ingredientModel = ingredientModel;
         this.predicate = predicate;
         this.comparator = comparator;
-        this.pairs = pairs;
-        this.include = include;
+        this.matchedCrossRecipeMap = matchedCrossRecipeMap;
         this.numberOfServings = numberOfServings;
     }
 
@@ -51,31 +54,24 @@ public class CrossFindCommand extends Command {
         crossRecipeModel.updateFilteredList(predicate);
 
         List<CrossRecipe> resultList = crossRecipeModel.getFilteredList();
-        for (CrossRecipe pair : resultList) {
-            Recipe recipe = pair.getRecipe();
-            Map<IngredientDefinition, Double> matchedIngredients = pairs.get(recipe);
-            for (IngredientDefinition key : include.keySet()) {
-                matchedIngredients.put(key, include.get(key));
-            }
-
-            Map<IngredientDefinition, Double> ingredients = pair.getIngredients();
-            Map<IngredientDefinition, Double> neededIngredients = new HashMap<>();
+        for (CrossRecipe crossRecipe : resultList) {
+            Recipe recipe = crossRecipe.getRecipe();
+            Map<IngredientDefinition, IngredientPortion> ingredients = recipe.getIngredients();
+            Map<IngredientDefinition, IngredientPortion> resultIngredients = new HashMap<>();
+            List<Ingredient> inventory = ingredientModel.getFilteredList();
 
             for (IngredientDefinition key : ingredients.keySet()) {
-                double totalAmount = numberOfServings * ingredients.get(key);
-                double neededAmount;
-                if (!matchedIngredients.containsKey(key)) {
-                    neededAmount = totalAmount;
-                } else if (totalAmount > matchedIngredients.get(key)) {
-                    neededAmount = totalAmount - matchedIngredients.get(key);
-                } else {
-                    neededAmount = 0;
-                }
-
-                neededIngredients.put(key, neededAmount);
+                resultIngredients.put(key, ingredients.get(key).multiplyAmount(numberOfServings));
             }
 
-            crossRecipeModel.update(pair, new CrossRecipe(recipe, neededIngredients));
+            for (Ingredient inventoryIngredient : inventory) {
+                IngredientDefinition key = new IngredientDefinition(inventoryIngredient.getName());
+                if (ingredients.containsKey(key)) {
+                    resultIngredients.replace(key, resultIngredients.get(key).subtractAmount(inventoryIngredient));
+                }
+            }
+
+            crossRecipeModel.update(crossRecipe, new CrossRecipe(recipe, resultIngredients));
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_LISTED_OVERVIEW,

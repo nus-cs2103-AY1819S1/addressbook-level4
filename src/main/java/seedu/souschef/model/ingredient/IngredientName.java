@@ -12,8 +12,8 @@ public class IngredientName {
         this.fullName = fullName.toLowerCase();
     }
 
-    public boolean isValid() {
-        return fullName.matches("^[a-zA-Z\\s][a-zA-Z\\s]+$");
+    public static boolean isValid(String name) {
+        return name.matches("^[a-zA-Z\\s][a-zA-Z\\s]+$");
     }
 
     /**
