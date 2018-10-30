@@ -14,13 +14,13 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * SocialCare is a social welfare event and volunteer management system. It is a desktop application and  has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
-* This application is intended for social welfare organisations that want to better manage their volunteers & events, and gain further statistical insights from the data.
-* SocialCare allow users to:
+* It is *written in OOP fashion*, and is morphed from the https://se-edu.github.io/docs/Team.html[se-edu] team's https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book - Level 4], which provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
+* This application is intended for social welfare organisations that want to better manage their volunteers & events, and export volunteer certificates.
+* SocialCare allows users to:
 ** Manage contacts and events faster than a typical mouse/GUI driven app.
 ** Use tags to categorize events and volunteers.
 ** Manage additional volunteer data, such as number of service hours per volunteer.
-** View volunteer and event statistics and derive insights from them.
+** Export volunteer certificates detailing each volunteer's involvement in the organisation's events.
 
 
 == Site Map
