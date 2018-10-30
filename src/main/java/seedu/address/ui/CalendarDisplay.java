@@ -20,6 +20,8 @@ import jfxtras.scene.control.agenda.Agenda;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.SchedulerChangedEvent;
+import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 
@@ -134,14 +136,17 @@ public class CalendarDisplay extends UiPart<Region> {
                 case T: // toggle between day and week view
                     logger.info("Toggle Pressed");
                     toggleSkin();
+                    agenda.requestFocus();
                     break;
                 case LEFT:
                     logger.info("LEFT arrow Pressed");
                     viewPrevious();
+                    indicateCalendarDisplayTimeChanged();
                     break;
                 case RIGHT:
                     logger.info("RIGHT arrow Pressed");
                     viewNext();
+                    indicateCalendarDisplayTimeChanged();
                     break;
                 default:
                 }
@@ -157,6 +162,14 @@ public class CalendarDisplay extends UiPart<Region> {
         if (keyEvent.getCode() == KeyCode.DOWN) {
             keyEvent.consume();
         }
+    }
+
+    /**
+     * Raises event to event center of change in display time
+     * Depends on the current date, not on the first date displayed in the calendar
+     */
+    private void indicateCalendarDisplayTimeChanged() {
+        raise(new CalendarDisplayTimeChangedEvent(currentDateTime));
     }
 
     /**
