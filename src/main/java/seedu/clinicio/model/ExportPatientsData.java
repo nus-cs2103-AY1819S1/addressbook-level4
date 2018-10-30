@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.util.ExportUtil;
 
 //@@author arsalanc-v2
