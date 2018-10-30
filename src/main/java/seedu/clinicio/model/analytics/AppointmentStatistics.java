@@ -140,7 +140,7 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     * Updates {@code summaryStatistics} with the latest values.
+     * Updates {@code statData} with the latest summary values.
      */
     @Override
     public void computeSummaryData() {
