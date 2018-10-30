@@ -25,7 +25,8 @@ import seedu.address.model.tag.PersonContainsTagPredicate;
 
 //@@author A19Sean
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code TagCommand}'s edit functionality.
  */
 public class TagEditCommandTest {
     private Model model = new ModelManager(getTaggedAddressBook(), new UserPrefs());
