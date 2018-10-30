@@ -22,9 +22,6 @@ public class IngredientPortion extends IngredientDefinition {
 
     public IngredientPortion(String name, String unit, Double amount) throws ParseException {
         super(name);
-        if (!IngredientServingUnit.isValid(unit)) {
-            throw new ParseException("Invalid Ingredient Name!");
-        }
         this.unit = new IngredientServingUnit(unit);
         this.amount = new IngredientAmount(amount);
     }
