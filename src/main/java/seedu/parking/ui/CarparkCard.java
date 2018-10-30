@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.PostalCode;
 
 /**
  * An UI component that displays information of a {@code Carpark}.
@@ -49,6 +50,8 @@ public class CarparkCard extends UiPart<Region> {
     @FXML
     private Label parkingSystem;
     @FXML
+    private Label postalCode;
+    @FXML
     private FlowPane tags;
 
     public CarparkCard(Carpark carpark, int displayedIndex) {
@@ -57,6 +60,13 @@ public class CarparkCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         carparkNumber.setText(carpark.getCarparkNumber().value);
         address.setText(carpark.getAddress().value);
+
+        if (carpark.getPostalCode().value.equals(PostalCode.DEFAULT_VALUE)) {
+            postalCode.setText("Postal Code: Not Available");
+        } else {
+            postalCode.setText("Postal Code: " + carpark.getPostalCode().value);
+        }
+
         carparkType.setText(carpark.getCarparkType().value);
         coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
 

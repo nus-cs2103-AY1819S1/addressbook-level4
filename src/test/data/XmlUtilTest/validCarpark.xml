@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <carparks>
     <address>BLK 508-517,520-533 HOUGANG AVENUE 10</address>
+    <postalCode>123456</postalCode>
     <carparkNumber>HG38</carparkNumber>
     <carparkType>SURFACE CAR PARK</carparkType>
     <coordinate>34274.4064, 39391.9731</coordinate>

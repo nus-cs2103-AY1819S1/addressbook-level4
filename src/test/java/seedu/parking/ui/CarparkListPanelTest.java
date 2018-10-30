@@ -98,6 +98,7 @@ public class CarparkListPanelTest extends GuiUnitTest {
             builder.append("<carparks>\n");
             builder.append("<carparkNumber>").append(i).append("a</carparkNumber>\n");
             builder.append("<address>a</address>\n");
+            builder.append("<postalCode>123456</postalCode>\n");
             builder.append("<carparkType>b</carparkType>\n");
             builder.append("<coordinate>456.456, 123.123</coordinate>\n");
             builder.append("<totalLots>2</totalLots>\n");

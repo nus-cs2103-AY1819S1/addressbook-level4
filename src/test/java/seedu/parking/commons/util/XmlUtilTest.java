@@ -46,6 +46,7 @@ public class XmlUtilTest {
     private static final String VALID_SHORT_TERM = "WHOLE DAY";
     private static final String VALID_TOTAL_LOTS = "1279";
     private static final String VALID_TYPE_OF_PARKING = "ELECTRONIC PARKING";
+    private static final String VALID_POSTAL_CODE = "550401";
 
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("Home"));
 
@@ -89,7 +90,7 @@ public class XmlUtilTest {
                 MISSING_CARPARK_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
         XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, null,
                 VALID_CARPARK_TYPE, VALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
-                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING, VALID_POSTAL_CODE,
                 VALID_TAGS);
         assertEquals(expectedCarpark, actualCarpark);
     }
@@ -100,7 +101,7 @@ public class XmlUtilTest {
                 INVALID_CARPARK_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
         XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, VALID_CARPARK_NUMBER,
                 VALID_CARPARK_TYPE, INVALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
-                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING, VALID_POSTAL_CODE,
                 VALID_TAGS);
         assertEquals(expectedCarpark, actualCarpark);
     }
@@ -111,7 +112,7 @@ public class XmlUtilTest {
                 VALID_CARPARK_FILE, XmlAdaptedCarparkWithRootElement.class);
         XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS, VALID_CARPARK_NUMBER,
                 VALID_CARPARK_TYPE, VALID_COORDINATE, VALID_FREE_PARKING, VALID_LOTS_AVAILABLE,
-                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING,
+                VALID_NIGHT_PARKING, VALID_SHORT_TERM, VALID_TOTAL_LOTS, VALID_TYPE_OF_PARKING, VALID_POSTAL_CODE,
                 VALID_TAGS);
         assertEquals(expectedCarpark, actualCarpark);
     }
