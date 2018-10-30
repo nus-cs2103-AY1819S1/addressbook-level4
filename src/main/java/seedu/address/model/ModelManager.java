@@ -115,7 +115,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedMedicine);
         versionedAddressBook.updateMedicine(target, editedMedicine);
         indicateAddressBookChanged();
-
     }
 
     @Override

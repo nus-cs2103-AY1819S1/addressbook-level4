@@ -24,9 +24,8 @@ import seedu.address.model.medicine.Stock;
 public class RestockCommand extends Command {
 
     public static final String COMMAND_WORD = "restock";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the patient identified "
-            + "by the index number used in the displayed patient list. "
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Restocks the medicine of the indicated index"
+            + "by the amount given.\n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "amt/Amount";
     public static final String MESSAGE_RESTOCK_SUCCESS = "Restock success! %1$s x %2$s added.";

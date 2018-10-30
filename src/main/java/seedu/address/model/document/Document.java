@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-//import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,14 +15,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.fxml.FXML;
 import seedu.address.MainApp;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.services.Service;
-import seedu.address.ui.DocumentWindow;
 
 /**
  * The document class takes in all the information from the classes that extends it to generate a HTML file
@@ -63,19 +60,13 @@ public class Document {
     private Name name;
     private String fileType;
     private IcNumber icNumber;
+    private String mcDuration;
+    private String referralContent;
 
-    /**
-     * Opens a preview of the document in a document window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void showDocument() {
-        DocumentWindow documentWindow = new DocumentWindow(documentWindowPath);
-        if (!documentWindow.isShowing()) {
-            documentWindow.show();
-        } else {
-            documentWindow.focus();
-        }
-    }
+    //variables specific to receipt but here because of checkstyle issues
+    private float totalPrice = 0;
+    private Map<Medicine, QuantityToDispense> allocatedMedicine;
+    private ArrayList<Service> servicesRendered;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -87,7 +78,6 @@ public class Document {
     public void generateDocument() {
         String fileName = makeFileName();
         makeFile(fileName, writeContentsIntoDocument());
-        //showDocument();
     }
 
     /**
@@ -225,9 +215,10 @@ public class Document {
      */
     String formatRlInformation() {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br><br>")
+        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
+                .append(referralContent + "<br><br>")
                 .append("Kindly do accept him under your care. Thank you very much.<br><br>")
-                .append("<b>Issuing Doctor:<b> " + "<br><br>");
+                .append("<b>Issuing Doctor:<b> DR CHESTER SNG" + "<br><br>");
         return stringbuilder.toString();
     }
 
@@ -305,6 +296,22 @@ public class Document {
         this.fileType = fileType;
     }
 
+    public void setMcContent(String mcDuration) {
+        this.mcDuration = mcDuration;
+    }
+
+    public void setReferralContent(String referralContent) {
+        this.referralContent = referralContent;
+    }
+
+    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
+        this.allocatedMedicine = allocatedMedicine;
+    }
+
+    public void setServicesRendered (ArrayList<Service> services) {
+        this.servicesRendered = services;
+    }
+
     public File getFile() {
         return file;
     }
@@ -312,4 +319,36 @@ public class Document {
     public void setFile(File file) {
         this.file = file;
     }
+
+    // BELOW ARE EXTRA GETTERS FOR JAVASCRIPT PURPOSES
+    // added by @blewjy
+
+    public String getFileName() {
+        return this.makeFileName();
+    }
+
+    public String getHeaders() {
+        return this.generateHeaders();
+    }
+
+    public String getPatientName() {
+        return name.toString();
+    }
+
+    public String getPatientIc() {
+        return icNumber.toString();
+    }
+
+    public String getContent() {
+        if (this instanceof Receipt) {
+            return this.formatReceiptInformation();
+        } else if (this instanceof MedicalCertificate) {
+            return this.formatMcInformation();
+        } else if (this instanceof ReferralLetter) {
+            return this.formatRlInformation();
+        } else {
+            return "Lorem ipsum fake news";
+        }
+    }
+
 }
