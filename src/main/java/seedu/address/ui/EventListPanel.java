@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of events.
@@ -26,15 +27,15 @@ public class EventListPanel extends UiPart<Region> {
     @FXML
     private ListView<List<Event>> eventListView;
 
-    public EventListPanel(ObservableList<List<Event>> eventList) {
+    public EventListPanel(ObservableList<List<Event>> eventList, ObservableList<Person> personList) {
         super(FXML);
-        setConnections(eventList);
+        setConnections(eventList, personList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<List<Event>> eventList) {
+    private void setConnections(ObservableList<List<Event>> eventList, ObservableList<Person> personList) {
         eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new EventListViewCell());
+        eventListView.setCellFactory(listView -> new EventListViewCell(personList));
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -68,6 +69,14 @@ public class EventListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code List<Event>} using a {@code EventListCard}.
      */
     class EventListViewCell extends ListCell<List<Event>> {
+
+        private List<Person> personList;
+
+        public EventListViewCell(List<Person> personList) {
+            super();
+            this.personList = personList;
+        }
+
         @Override
         protected void updateItem(List<Event> eventListByDate, boolean empty) {
             super.updateItem(eventListByDate, empty);
@@ -76,7 +85,7 @@ public class EventListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventListCard(eventListByDate).getRoot());
+                setGraphic(new EventListCard(eventListByDate, personList).getRoot());
             }
         }
     }

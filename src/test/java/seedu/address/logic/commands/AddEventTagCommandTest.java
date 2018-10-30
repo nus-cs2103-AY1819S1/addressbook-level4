@@ -4,11 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -19,17 +24,19 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
-import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+/**
+ * Contains unit tests for {@code AddEventTagCommand}.
+ */
+public class AddEventTagCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -40,56 +47,61 @@ public class AddCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullEventTag_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddEventTagCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_eventTagAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEventTagAdded modelStub = new ModelStubAcceptingEventTagAdded();
+        Set<Tag> validEventTags = new HashSet<>(Arrays.asList(APPOINTMENT_TAG));
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEventTagCommand(validEventTags).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddEventTagCommand.MESSAGE_SUCCESS, validEventTags), commandResult.feedbackToUser);
+        assertEquals(new ArrayList<>(validEventTags), modelStub.eventTagsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateEventTags_throwsCommandException() throws Exception {
+        Set<Tag> validTags = new HashSet<>(Arrays.asList(APPOINTMENT_TAG));
+        AddEventTagCommand addEventTagCommand = new AddEventTagCommand(validTags);
+        ModelStub modelStub = new ModelStubWithEventTag(APPOINTMENT_TAG);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(String.format(AddEventTagCommand.MESSAGE_DUPLICATE_TAG,
+                new HashSet<>(Arrays.asList(APPOINTMENT_TAG))));
+        addEventTagCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Tag appointmentTag = new Tag(VALID_TAG_APPOINTMENT);
+        Tag meetingTag = new Tag(VALID_TAG_MEETING);
+        AddEventTagCommand addAppointmentTagCommand =
+                new AddEventTagCommand(new HashSet<>(Arrays.asList(appointmentTag)));
+        AddEventTagCommand addMeetingTagCommand =
+                new AddEventTagCommand(new HashSet<>(Arrays.asList(meetingTag)));
+
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAppointmentTagCommand.equals(addAppointmentTagCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddEventTagCommand addAppointmentagCommandCopy =
+                new AddEventTagCommand(new HashSet<>(Arrays.asList(appointmentTag)));
+        assertTrue(addAppointmentTagCommand.equals(addAppointmentagCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAppointmentagCommandCopy.equals(new ClearCommand()));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAppointmentagCommandCopy.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different event -> returns false
+        assertFalse(addAppointmentagCommandCopy.equals(addMeetingTagCommand));
     }
 
     /**
@@ -125,6 +137,7 @@ public class AddCommandTest {
         public boolean hasEvent(Event event) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void importContacts(FileReader fileReader) {
@@ -196,7 +209,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
@@ -224,44 +236,44 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single event tag.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithEventTag extends AddEventTagCommandTest.ModelStub {
+        private final Tag tag;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithEventTag(Tag tag) {
+            requireNonNull(tag);
+            this.tag = tag;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasEventTag(Tag tag) {
+            requireNonNull(tag);
+            return this.tag.isSameTag(tag);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the event tag being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingEventTagAdded extends AddEventTagCommandTest.ModelStub {
+        final ArrayList<Tag> eventTagsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEventTag(Tag tag) {
+            requireNonNull(tag);
+            return eventTagsAdded.stream().anyMatch(tag::isSameTag);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEventTag(Tag tag) {
+            requireNonNull(tag);
+            eventTagsAdded.add(tag);
         }
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddEventTagCommand#execute()}
         }
 
         @Override
@@ -269,5 +281,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }

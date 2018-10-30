@@ -20,6 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -29,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniqueTagList eventTags;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -40,6 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        eventTags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -71,6 +74,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the event tag list with {@code eventTags}.
+     * {@code eventTags} must not contain duplicate event tags.
+     */
+    public void setEventTags(List<Tag> eventTags) {
+        this.eventTags.setTags(eventTags);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -78,6 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
+        setEventTags(newData.getEventTagList());
     }
 
     //// person-level operations
@@ -146,7 +158,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds an event to the address book.
      * The event must not already exist in the address book, and must not clash any of the existing events in the
-     * address book.
+     * address book. All event tags must be existing in the address book.
      */
     //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
     // ask the
@@ -155,6 +167,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
+        /*for (Tag eventTag : event.getEventTags()) {
+            assert hasEventTag(eventTag);
+        }*/
 
         events.add(event);
     }
@@ -199,6 +214,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //// tag-level operations
+    /**
+     * Returns true if an event tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasEventTag(Tag tag) {
+        requireNonNull(tag);
+        return eventTags.contains(tag);
+    }
+
+    /**
+     * Adds an event tag to the address book.
+     * The event tag must not be already existing in the address book.
+     */
+    public void addEventTag(Tag tag) {
+        assert !hasEventTag(tag);
+
+        eventTags.add(tag);
+    }
+
     //// util methods
 
     @Override
@@ -219,15 +253,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Tag> getEventTagList() {
+        return eventTags.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && events.equals(((AddressBook) other).events));
+                && events.equals(((AddressBook) other).events))
+                && eventTags.equals(((AddressBook) other).eventTags);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode() + events.hashCode();
+        return persons.hashCode() + events.hashCode() + eventTags.hashCode();
     }
 }
