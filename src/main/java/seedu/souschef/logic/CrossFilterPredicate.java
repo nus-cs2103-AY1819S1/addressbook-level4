@@ -1,5 +1,6 @@
 package seedu.souschef.logic;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -11,9 +12,9 @@ import seedu.souschef.model.recipe.Recipe;
  * Tests that a {@code Recipe} includes include-be included ingredients in inventory command.
  */
 public class CrossFilterPredicate implements Predicate<Recipe> {
-    private final Map<IngredientDefinition, Double> include;
+    private final List<IngredientDefinition> include;
 
-    public CrossFilterPredicate(Map<IngredientDefinition, Double> include) {
+    public CrossFilterPredicate(List<IngredientDefinition> include) {
         this.include = include;
     }
 
@@ -21,7 +22,7 @@ public class CrossFilterPredicate implements Predicate<Recipe> {
     public boolean test(Recipe recipe) {
         Map<IngredientDefinition, IngredientPortion> ingredients = recipe.getIngredients();
 
-        for (IngredientDefinition key : include.keySet()) {
+        for (IngredientDefinition key : include) {
             if (!ingredients.keySet().contains(key)) {
                 return false;
             }

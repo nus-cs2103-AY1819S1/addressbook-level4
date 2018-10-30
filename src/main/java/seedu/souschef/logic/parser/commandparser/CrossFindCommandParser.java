@@ -2,6 +2,7 @@ package seedu.souschef.logic.parser.commandparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.CrossRecipe;
 
@@ -30,18 +32,20 @@ public class CrossFindCommandParser {
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
         String[] tokens = argument.trim().split("\\s+");
-        double numberOfServings;
+
         if (tokens.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
+
+        double numberOfServings;
         try {
             numberOfServings = Double.parseDouble(tokens[0]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
 
-        Map<IngredientDefinition, Double> include = new HashMap<>();
-        Map<IngredientDefinition, Double> prioritize = new HashMap<>();
+        List<IngredientDefinition> include = new ArrayList<>();
+        List<IngredientDefinition> prioritize = new ArrayList<>();
 
         ingredientModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_INGREDIENTS);
         List<Ingredient> ingredientList = ingredientModel.getFilteredList();
@@ -53,9 +57,7 @@ public class CrossFindCommandParser {
             if (tokens[index].equals("inventory")) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
-                    IngredientDefinition key = new IngredientDefinition(ingredient.getName().toString());
-                    Double amount = ingredient.getAmount().getValue();
-                    include.put(key, amount);
+                    include.add(new IngredientDefinition(ingredient.getName()));
                 }
                 index++;
             }
@@ -63,8 +65,7 @@ public class CrossFindCommandParser {
                 if (tokens[index].equals("prioritize")) {
                     break;
                 }
-                IngredientDefinition key = new IngredientDefinition(tokens[index]);
-                include.put(key, Double.valueOf(0));
+                include.add(new IngredientDefinition(tokens[index]));
                 index++;
             }
         }
@@ -74,55 +75,46 @@ public class CrossFindCommandParser {
             if (hasInventory == false && tokens[index].equals("inventory")) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
-                    IngredientDefinition key = new IngredientDefinition(ingredient.getName().toString());
-                    Double amount = ingredient.getAmount().getValue();
-                    prioritize.put(key, amount);
+                    prioritize.add(new IngredientDefinition(ingredient.getName()));
                 }
                 index++;
             }
             while (index < tokens.length) {
                 IngredientDefinition key = new IngredientDefinition(tokens[index]);
-                if (include.containsKey(key)) {
+                if (include.contains(key)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             CrossFindCommand.MESSAGE_USAGE));
                 }
-                prioritize.put(key, Double.valueOf(0));
+                prioritize.add(key);
                 index++;
-            }
-        }
-
-        if (!hasInventory) {
-            for (Ingredient ingredient : ingredientList) {
-                IngredientDefinition key = new IngredientDefinition(ingredient.getName().toString());
-                Double amount = ingredient.getAmount().getValue();
-                if (include.containsKey(key)) {
-                    include.replace(key, amount);
-                }
-                if (prioritize.containsKey(key)) {
-                    prioritize.replace(key, amount);
-                }
             }
         }
 
         crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
         List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
 
-        Map<Recipe, Map<IngredientDefinition, Double>> pairs = new HashMap<>();
-
-        for (CrossRecipe pair : crossRecipeList) {
-            Recipe recipe = pair.getRecipe();
-            Map<IngredientDefinition, Double> ingredients = pair.getIngredients();
-            Map<IngredientDefinition, Double> matchedIngredients = new HashMap<>();
-
-            for (IngredientDefinition key : prioritize.keySet()) {
-                if (ingredients.containsKey(key)) {
-                    matchedIngredients.put(key, prioritize.get(key));
-                }
-            }
-            pairs.put(recipe, matchedIngredients);
+        for (CrossRecipe crossRecipe : crossRecipeList) {
+            Recipe recipe = crossRecipe.getRecipe();
+            crossRecipeModel.update(crossRecipe, new CrossRecipe(recipe, recipe.getIngredients()));
         }
 
-        return new CrossFindCommand(crossRecipeModel, new CrossSortComparator(pairs),
-                new CrossFilterPredicate(include), pairs, include, numberOfServings);
+        Map<Recipe, List<IngredientDefinition>> crossRecipeMap = new HashMap<>();
+
+        for (CrossRecipe crossRecipe : crossRecipeList) {
+            Recipe recipe = crossRecipe.getRecipe();
+            Map<IngredientDefinition, IngredientPortion> ingredients = crossRecipe.getIngredients();
+            List<IngredientDefinition> matchedIngredients = new ArrayList<>();
+
+            for (IngredientDefinition key : prioritize) {
+                if (ingredients.containsKey(key)) {
+                    matchedIngredients.add(key);
+                }
+            }
+            crossRecipeMap.put(recipe, matchedIngredients);
+        }
+
+        return new CrossFindCommand(crossRecipeModel, ingredientModel,
+                new CrossSortComparator(crossRecipeMap),
+                new CrossFilterPredicate(include), crossRecipeMap, numberOfServings);
     }
 }
