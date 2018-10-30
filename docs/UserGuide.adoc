@@ -75,12 +75,15 @@ Examples:
 ==== Adding a picture to resident detail : `image`
 
 Uploads the image of resident staying in the specified room to Hallper. +
-Format: `image ROOM`
+Format: `image r/ROOM f/FILEPATH`
 
 ****
-* Allow for the upload of the profile picture of resident.
 * The image must be in *`.jpg`* or *`.png`*.
 ****
+
+Example:
+
+* `image r/a123 f/C://Users/Files/a123.jpg`
 
 ==== Clearing all entries : `clear all`
 
@@ -242,7 +245,7 @@ This section lists features related to viewing all or specific contacts in Hallp
 Shows a list of all persons in the Hallper that are associated with the specified keyword. +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 ****
-* KEYWORD can be ROOM or CCA.
+* KEYWORD can be ROOM, CCA or SCHOOL.
 * KEYWORD is not case-sensitive.
 ****
 
@@ -698,7 +701,7 @@ e.g. `clear basketball A123`
 * *Clear all* : `clear all`
 * *Import* : `import f/FILEPATH`
 * *Export* : `export dst/PATH fn/FILENAME`
-* *Image* : `image`
+* *Image* : `image r/ROOM f/FILEPATH`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search basketball A123`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
