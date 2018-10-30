@@ -16,13 +16,14 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop TutorPal application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is an application intended to help private tutors to manage their tutees.
+* It is an application intended to help private tutors to manage their students.
+* TutorPal is best suited for tutors to manage students of a specific subject, for example Additional Mathematics or Chemistry.
 * It has features specifically catered to tutors' needs:
 ** Users can store name, address, contact number, education level, tuition timing and fees of a tutee.
 ** Users can create a schedule of their tuition timings.
-** Users are able to assign grades to tutees according to their academic capabilities.
+** Users are able to assign grades to students based on their examination result.
 ** Users are able to calculate their tuition earnings.
-** Users can review the effectiveness of their teaching methods through a graphical analysis of their tutees' grades over time.
+** Users can review the effectiveness of their teaching methods through a graphical analysis of their students' grades over time.
 
 == Site Map
 
