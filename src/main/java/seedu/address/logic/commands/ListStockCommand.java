@@ -13,7 +13,7 @@ import seedu.address.model.Model;
  */
 public class ListStockCommand extends Command {
 
-    public static final String COMMAND_WORD = "listStock";
+    public static final String COMMAND_WORD = "liststock";
     public static final String COMMAND_ALIAS = "ls";
     public static final String MESSAGE_EMPTY = "No medicine to list!";
     public static final String MESSAGE_SUCCESS = "Listed all stock.";

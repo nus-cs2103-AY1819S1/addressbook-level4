@@ -15,7 +15,7 @@ import seedu.address.model.medicine.MedicineNameContainsKeywordsPredicate;
  * Keyword matching is case insensitive.
  */
 public class FindMedicineCommand extends Command {
-    public static final String COMMAND_WORD = "findMedicine";
+    public static final String COMMAND_WORD = "findmedicine";
     public static final String COMMAND_ALIAS = "fm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all medicines whose names contain any of "

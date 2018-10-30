@@ -26,7 +26,7 @@ import seedu.address.model.person.CurrentPatient;
  */
 public class DispenseMedicineCommand extends QueueCommand {
 
-    public static final String COMMAND_WORD = "dispenseMedicine";
+    public static final String COMMAND_WORD = "dispensemedicine";
     public static final String COMMAND_ALIAS = "dm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dispenses the medicine to the current patient. "

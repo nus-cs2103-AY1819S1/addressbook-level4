@@ -18,7 +18,7 @@ import seedu.address.model.medicine.Medicine;
  */
 public class CheckStockCommand extends Command {
 
-    public static final String COMMAND_WORD = "checkStock";
+    public static final String COMMAND_WORD = "checkstock";
     public static final String COMMAND_ALIAS = "cs";
     public static final String MESSAGE_SUCCESS = "The following stocks are low in supply";
 

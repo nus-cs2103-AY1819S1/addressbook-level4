@@ -152,11 +152,9 @@ public class AddressBookParser {
             return new ReceiptCommandParser().parse(arguments);
 
         case MedicalCertificateCommand.COMMAND_WORD:
-        case MedicalCertificateCommand.COMMAND_ALIAS:
             return new MedicalCertificateCommandParser().parse(arguments);
 
         case ReferralLetterCommand.COMMAND_WORD:
-        case ReferralLetterCommand.COMMAND_ALIAS:
             return new ReferralLetterCommandParser().parse(arguments);
 
         case DisplayQueueCommand.COMMAND_WORD:
