@@ -41,6 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_PROJECT_FALCON = "FALCON";
     public static final String VALID_SALARY_AMY = "10000";
     public static final String VALID_SALARY_BOB = "12000";
+    public static final String VALID_USERNAME_AMY = "Amy Bee";
+    public static final String VALID_USERNAME_BOB = "Bob Choo";
+    public static final String VALID_PASSWORD_AMY = "Pa55w0rd";
+    public static final String VALID_PASSWORD_BOB = "Pa55w0rd";
 
     public static final Integer VALID_LEAVEID_BOB_LEAVE = 2;
     public static final String VALID_DESCRIPTION_BOB_LEAVE = "Bob's wedding anniversary";

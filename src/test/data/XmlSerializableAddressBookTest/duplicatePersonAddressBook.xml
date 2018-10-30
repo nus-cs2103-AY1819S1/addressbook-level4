@@ -8,6 +8,8 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <project>friends</project>
+        <username>Alice Pauline</username>
+        <password>Pa55w0rd</password>
     </persons>
 
 
@@ -20,6 +22,8 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <project>friends</project>
+        <username>Alice Pauline</username>
+        <password>Pa55w0rd</password>
     </persons>
 
 </addressbook>
